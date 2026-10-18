@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "sceneNodes": 61,
+  "bounds": {
+    "widthM": 21,
+    "depthM": 10.75,
+    "heightM": 10.8
+  },
+  "selected": "muro-1-1",
+  "captures": [
+    "E5_CAPTURAS/01-visor-3d-general-edificio.svg",
+    "E5_CAPTURAS/02-seleccion-infobox.svg",
+    "E5_CAPTURAS/03-comparacion-controles-independientes.svg",
+    "E5_CAPTURAS/04-sincronizacion-2d-3d.svg",
+    "E5_CAPTURAS/05-filtro-por-altura.svg",
+    "E5_CAPTURAS/06-camara-ortografica-axonometria.svg",
+    "E5_CAPTURAS/07-medicion-entre-centroides.svg",
+    "E5_CAPTURAS/08-arbol-disciplina-nivel-categoria.svg"
+  ],
+  "sha256Source": "c483f4619a94afba8bb92b1082038ca3a5f4df6500071d41c105a94c5c8d09ad"
+}

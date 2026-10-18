@@ -1,0 +1,105 @@
+
+## pnpm check
+COMMAND: pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+
+## pnpm build
+COMMAND: pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-CRV5mGzQ.js        2,009.82 kB │ gzip: 549.84 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.00s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+
+## BKH-1
+COMMAND: pnpm tsx scripts/test-bkh1-relationship-fabric.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH-1 relationship fabric PASS: 130 migrated relationships, registry=14
+EXIT_CODE=0
+
+## BKH-2
+COMMAND: pnpm tsx scripts/test-bkh2-constraint-engine.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","requiredCases":28,"registryTypes":13,"statuses":["SATISFIED","VIOLATED","UNKNOWN","NOT_APPLICABLE","CONFLICTING","ERROR"],"reasons":["NOT_DEMONSTRATED","EXTERNAL_ORACLE_REQUIRED","INSUFFICIENT_EVIDENCE","INSUFFICIENT_EPISTEMIC_STATE","MISSING_DEPENDENCY","INVALID_INPUT"],"currencySafety":"PEN_USD_INCOMPATIBLE","arbitraryExecution":"PROHIBITED","mutation":"UNCHANGED"}
+EXIT_CODE=0
+
+## BKH-3
+COMMAND: pnpm tsx scripts/test-bkh3-regeneration-engine.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","planStatus":"BLOCKED","executionStatus":"BLOCKED","regenerated":2,"blocked":1,"traceEvents":5,"noCanonicalMutation":true}
+EXIT_CODE=0
+
+## BKH-3 corrective
+COMMAND: pnpm tsx scripts/test-bkh3-corrective.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","freshnessE2E":true,"conditionalPropagation":["TRUE","FALSE","UNKNOWN"],"minimalDirtySet":["cost","geometry","quantity"],"aggregation":["COMPLETED","PARTIAL","BLOCKED","FAILED","UNKNOWN"],"bkh2Statuses":["SATISFIED","VIOLATED","UNKNOWN"],"selfCertification":"REJECTED","torture":"PARAMETER→GEOMETRY→RELATIONSHIP→QUANTITY→COST","noCanonicalMutation":true}
+EXIT_CODE=0
+
+## BKH4 foundation
+COMMAND: pnpm tsx scripts/test-bkh4-foundation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","revisionStatusRestricted":true,"stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"operationInvariants":7,"arbitraryCodeRejectedStructurally":true,"malformedMutationRejected":true,"deterministicSerialization":true,"duplicateRevisionRejected":true,"provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+
+## BKH4-3 simulation
+COMMAND: pnpm tsx scripts/test-bkh4-3-simulation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH4-3 SIMULATION TESTS: PASS
+CANONICAL_STATE_UNCHANGED: PASS
+CANONICAL_SNAPSHOT_FINGERPRINT: PASS
+CANONICAL_ALIASING_DEFENSE: PASS
+SIMULATION_DETERMINISM: PASS
+STALE_BASE_VERSION: PASS
+CONSTRAINT_VIOLATION: PASS
+CONSTRAINT_UNKNOWN: PASS
+MISSING_DEPENDENCY: PASS
+REGENERATION_BLOCKED: PASS
+REGENERATION_FAILED: PASS
+STATUS_PRECEDENCE_FAILED_OVER_UNKNOWN: PASS
+STATUS_PRECEDENCE_BLOCKED_OVER_UNKNOWN: PASS
+MALFORMED_TRANSACTION: PASS
+NO_COMMIT_PATH_CREATED: PASS
+EXIT_CODE=0
+
+## persistence formal
+COMMAND: pnpm tsx scripts/test-persistence-formal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+EXIT_CODE=0
+
+## persistence contract
+COMMAND: pnpm tsx scripts/test-persistence-idb.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+EXIT_CODE=0
+
+## TX-003A adversarial
+COMMAND: pnpm tsx scripts/test-bkh4-tx-003a-repository.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"VERIFIED","adversarialCases":25,"identityInvariants":true,"projectIsolation":true,"immutablePayloadIsolation":true,"deepFreeze":true,"lineageIntegrity":true,"currentRevisionUnambiguous":true,"deterministicFingerprint":true,"corruptionDetected":true,"provenancePreserved":true,"unknownNotPromoted":true,"selfCertificationRejected":true,"tortureRevisions":1001,"fuzzCases":200,"fuzzRejected":200,"atomicCommit":"NOT_IMPLEMENTED","atomicCommitPersistence":"NOT_VERIFIED","casIdempotency":"NOT_IMPLEMENTED","crashRecovery":"NOT_IMPLEMENTED","writerMigration":"NOT_IMPLEMENTED"}
+EXIT_CODE=0

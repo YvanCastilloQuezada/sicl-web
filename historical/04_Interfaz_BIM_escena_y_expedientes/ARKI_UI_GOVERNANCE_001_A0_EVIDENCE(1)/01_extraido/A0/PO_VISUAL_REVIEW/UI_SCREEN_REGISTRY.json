@@ -1,0 +1,979 @@
+{
+  "contract": "ARKI-UI-GOVERNANCE-001.A0-V",
+  "mode": "AUDIT_ONLY_READ_ONLY_NO_PRODUCT_FIXES",
+  "generatedAt": "2026-09-24T21:56:03.634987+00:00",
+  "routeCount": 38,
+  "reachableScreensCaptured": 4,
+  "rawScreenshotsPreserved": 3,
+  "globalBlocker": "Bootstrap remained at Cargando Architectural Intelligence Workspace…",
+  "screens": [
+    {
+      "screenId": "SCREEN-SHELL-001",
+      "area": "Global bootstrap",
+      "route": "/",
+      "component": "HashWorkspaceRoute",
+      "state": "LOADING_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": "screens/SCREEN-SHELL-001__root-loading.webp",
+      "runtimeVerified": true,
+      "observations": [
+        "ARKI wordmark and Cargando Architectural Intelligence Workspace… are visible.",
+        "No route controls are exposed.",
+        "The page remains in the bootstrap shell."
+      ],
+      "visualIssues": [
+        "LOADING_STATE_WEAK",
+        "PRIMARY_OBJECT_UNCLEAR",
+        "ARCHITECTURAL_CONTENT_TOO_SMALL"
+      ],
+      "unknowns": [
+        "Bootstrap prevented route content from mounting."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/404",
+      "component": "NotFound",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/ar-lu-orchestrator",
+      "component": "ArLuOrchestratorPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki",
+      "component": "HashWorkspaceRoute",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-bim-visor",
+      "component": "ArkiBimViewerPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-book",
+      "component": "ArkiBookPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": "SCREEN-DF-001",
+      "area": "Design Funnel",
+      "route": "/arki-design-funnel",
+      "component": "ArkiDesignFunnelPage",
+      "state": "LOADING_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": "screens/SCREEN-DF-001__design-funnel-loading.webp",
+      "runtimeVerified": true,
+      "observations": [
+        "The route does not reach the Design Funnel surface.",
+        "No proposals, cost panel, architecture panel, or inspector are visible."
+      ],
+      "visualIssues": [
+        "LOADING_STATE_WEAK",
+        "ARCHITECTURAL_CONTENT_TOO_SMALL"
+      ],
+      "unknowns": [
+        "Bootstrap prevented route content from mounting."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-device-bridge",
+      "component": "ArkiDeviceInteroperabilityPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-family-studio",
+      "component": "ArkiFamilyStudioPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": "SCREEN-GEN-001",
+      "area": "Parametric Generator",
+      "route": "/arki-generator",
+      "component": "ArkiGeneratorPage",
+      "state": "LOADING_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": "screens/SCREEN-GEN-001__generator-loading.webp",
+      "runtimeVerified": true,
+      "observations": [
+        "The route does not reach the generator controls.",
+        "No family, variant, parameter, or export controls are visible."
+      ],
+      "visualIssues": [
+        "LOADING_STATE_WEAK",
+        "PRIMARY_ACTION_UNCLEAR"
+      ],
+      "unknowns": [
+        "Bootstrap prevented route content from mounting."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-host-connections",
+      "component": "ArkiHostConnectionsPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-marketplace",
+      "component": "ArkiMarketplacePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-operations",
+      "component": "ArkiOperationsPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-parametric-runtime",
+      "component": "ArkiParametricRuntimePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-research-review",
+      "component": "ArkiResearchReviewPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-self-care",
+      "component": "ArkiSelfCarePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-super-architect",
+      "component": "ArkiSuperArchitectViewerPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/arki-tv",
+      "component": "ArkiTvPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/audit",
+      "component": "AuditRoute",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/comparisons",
+      "component": "ComparisonsPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": "SCREEN-CC-001",
+      "area": "Control Center",
+      "route": "/control-center",
+      "component": "ArkiControlCenterPage",
+      "state": "LOADING_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": true,
+      "observations": [
+        "Navigation returned the same global loading shell.",
+        "No raw screenshot path was exposed by the browser capture result for this navigation."
+      ],
+      "visualIssues": [
+        "LOADING_STATE_WEAK",
+        "PRIMARY_ACTION_UNCLEAR"
+      ],
+      "unknowns": [
+        "Bootstrap prevented route content from mounting."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/evaluations",
+      "component": "EvaluationsPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/evidence",
+      "component": "EvidencePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/federated-handoffs",
+      "component": "FederatedHandoffInboxPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/field",
+      "component": "FieldModePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/help",
+      "component": "HelpPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/help/commands",
+      "component": "HelpArticlePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/help/operations",
+      "component": "HelpArticlePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/help/user",
+      "component": "HelpArticlePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/luka-control-center",
+      "component": "LucaControlCenterPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/multiobjective",
+      "component": "MultiobjectivePage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/parametric-files",
+      "component": "ParametricFilesPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/security-events",
+      "component": "SecurityEventsPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/sources",
+      "component": "SourceLibraryPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/spatial",
+      "component": "SpatialViewerPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "/spatial-comparison",
+      "component": "SpatialComparisonPage",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "UNKNOWN_FALLBACK",
+      "component": "NotFound",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    },
+    {
+      "screenId": null,
+      "area": null,
+      "route": "UNKNOWN_FALLBACK",
+      "component": "UNKNOWN_COMPONENT",
+      "state": "NOT_CAPTURED_BOOTSTRAP_BLOCKED",
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "browser": "Manus Browser",
+        "devicePixelRatio": null
+      },
+      "activeEntity": null,
+      "visiblePanels": [],
+      "relatedControls": [],
+      "screenshot": null,
+      "runtimeVerified": false,
+      "observations": [
+        "Not captured because the global bootstrap shell remained active during the A0-V run."
+      ],
+      "visualIssues": [],
+      "unknowns": [
+        "Route-specific UI could not be inspected without a product repair, which is outside A0-V."
+      ]
+    }
+  ]
+}

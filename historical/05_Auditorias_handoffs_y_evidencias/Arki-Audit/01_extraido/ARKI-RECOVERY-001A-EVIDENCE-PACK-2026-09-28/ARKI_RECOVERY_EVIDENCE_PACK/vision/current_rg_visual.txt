@@ -1,0 +1,58 @@
+src/sicl/representation.py:50:    VISUALIZATION = "VISUALIZATION"
+src/sicl/representation.py:110:    ViewType.CONCEPTUAL_RENDER: ViewFamily.VISUALIZATION,
+src/sicl/representation.py:111:    ViewType.MATERIAL_RENDER: ViewFamily.VISUALIZATION,
+src/sicl/representation.py:112:    ViewType.INTERIOR_RENDER: ViewFamily.VISUALIZATION,
+src/sicl/representation.py:113:    ViewType.EXTERIOR_RENDER: ViewFamily.VISUALIZATION,
+src/sicl/representation.py:114:    ViewType.AERIAL_RENDER: ViewFamily.VISUALIZATION,
+src/sicl/representation.py:115:    ViewType.NIGHT_RENDER: ViewFamily.VISUALIZATION,
+src/sicl/representation.py:116:    ViewType.PHOTOREALISTIC_RENDER: ViewFamily.VISUALIZATION,
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:50:No se debe declarar una fase completada por presencia de archivos o por tests superficiales. Cada fase requiere evidencia visual y pruebas de comportamiento.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:132:- Capturas o referencias visuales.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:252:- Las salidas se comparan visualmente con las del maestro.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:376:10. Toda graduación requiere comparación visual y revisión humana.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:436:- Comparación visual.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:464:12. Declarar graduación solo con evidencia visual y aprobación humana.
+tests/test_representation.py:220:    visualization = (ViewType.CONCEPTUAL_RENDER, ViewType.MATERIAL_RENDER, ViewType.INTERIOR_RENDER, ViewType.EXTERIOR_RENDER, ViewType.AERIAL_RENDER, ViewType.NIGHT_RENDER, ViewType.PHOTOREALISTIC_RENDER)
+tests/test_representation.py:226:    for item in visualization:
+tests/test_representation.py:227:        assert ViewDefinition(item.value, item, ViewFamily.VISUALIZATION, "PROJECT-1")
+src/sicl/design_principles.py:61:    DesignPrinciple("P-04", "Jerarquía", PrincipleCategory.JERARQUIA, "Orden relativo de importancia visual, espacial y funcional entre partes.", _ALL_SCOPES, "Ching, Francis D. K. (2014), Architecture: Form, Space, and Order, 4th ed., Wiley."),
+src/sicl/design_principles.py:62:    DesignPrinciple("P-05", "Equilibrio", PrincipleCategory.EQUILIBRIO, "Distribución compensada de pesos visuales, espaciales o compositivos.", _ALL_SCOPES, "Ching, Francis D. K. (2014), Architecture: Form, Space, and Order, 4th ed., Wiley."),
+src/sicl/design_principles.py:68:    DesignPrinciple("P-11", "Textura", PrincipleCategory.TEXTURA, "Cualidad superficial táctil y visual que contribuye a la experiencia del elemento o espacio.", ["edificacion", "espacio", "objeto"], "Zumthor, Peter (2006), Atmospheres: Architectural Environments, Surrounding Objects, Birkhäuser."),
+docs/learning/engines/master-observations.md:11:El fixture utiliza una jerarquía visual clara. Los muros cortados dominan la lectura, las líneas vistas son más finas, las líneas ocultas se diferencian y las anotaciones se mantienen fuera de la geometría principal. Las esquinas están cerradas y los espesores de muro son legibles.
+docs/learning/engines/master-observations.md:49:No se debe avanzar a replicación autónoma hasta que ARKI tenga reglas versionadas, un proyector propio separado de los maestros y una comparación visual repetible contra el fixture.
+docs/reference/README_REFERENCE_RFC-034.md:11:Este documento establece el estándar de calidad visual para las láminas de presentación generadas por ARKI en RFC-034. No sustituye el `README_REFERENCE.md` de RFC-030. Ambos coexisten y deben consultarse según el modo de salida.
+docs/reference/README_REFERENCE_RFC-034.md:15:`CASA_NIDO_DE_CAMPO_PRESENTATION.pdf` representa una Casa Nido de Campo con paleta sobria crema/tierra, tipografía jerarquizada, narrativa visual, datos de proyecto, norte, escala gráfica o `ESCALA CONCEPTUAL` y disclaimer honesto. Es complemento del plano técnico: RFC-030 se entrega para municipalidad; RFC-034 se muestra al cliente.
+docs/BIM_CHANGESET_HUMAN_REVIEW_TEMPLATE.md:21:## Resumen visual
+docs/SIMS_DEI_EXECUTIVE_BOARD_PRESENTATION.md:7:**Apoyo visual:** demo breve del Guided Mode y una diapositiva de arquitectura
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:20:| FFO-03 | Adaptive Multiscale Workspace | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Eleven SpatialScopes, capability states, shared workspace direction, and initial capability resolver | Dynamic scale-aware composition, adaptive agents, visualization, and jurisdiction-aware UI | DL-MULTISCALE-ADAPTIVE-01..15 | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:22:| FFO-05 | Advanced Missing Data Intelligence | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Present/missing/unknown/not-available distinctions, acquisition categories, Missing Data endpoint and capability linkage | Prioritization, guided acquisition, source discovery, extraction, uncertainty visualization, and impact explanation | DL-MULTISCALE-ADAPTIVE-04..10 | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:147:Dynamic workspace composition, scale-aware modules, context-aware capabilities, typology-aware capabilities, stage-aware tools, data-aware UI, jurisdiction-aware intelligence, adaptive visualization, adaptive agents, and dynamic capability presentation remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:171:The future capability matrix must define data requirements, domain applicability, agent applicability, and visualization priorities for all eleven scales.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:231:Missing-data prioritization, acquisition recommendations, guided acquisition, source discovery, evidence requests, project-document extraction, GIS acquisition, external API acquisition, derived-data generation, assumption proposals, uncertainty visualization, capability-impact explanation, and alternative-analysis impact remain frozen.
+docs/rfc/RFC-037.1-WEEKLY-MASTER-SURVEILLANCE.md:55:Cada cambio se evalúa contra las reglas y ground truths de la rama correspondiente. La evaluación debe usar evidencia reproducible: changelog, documentación oficial, benchmark, fixture, test o comparación visual.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:20:Un arquitecto necesita dos lenguajes visuales: uno técnico para municipalidad, expediente y obra, y uno narrativo para cliente, pitch y concurso. RFC-034 separa ambos lenguajes y evita híbridos fallidos.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:48:| `PresentationPalette` | Paleta visual controlada |
+docs/rfc/RFC-035-PHOTOREALISTIC-RENDERS.md:11:RFC-035 definirá el modo de generación de renders fotorrealistas para comunicación visual de alta calidad: marketing, portafolio y presentaciones premium.
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:154:Los tres módulos pueden coexistir, pero no comparten fixture, estado ni contrato visual.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:56:| Conceptual render | `DECLARED_NOT_IMPLEMENTED` | no ARE render engine | scene, materials/context | renderer not authorized | render contract and backend decision | Visualization |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:57:| Photorealistic render | `FUTURE` | RFC-035 is a separate future namespace | 3D scene, materials, renderer | no ARE/render authorization | separate RFC/runtime gate | Visualization / RFC-035 |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:88:      ARKI-DRAW          3D backend       Visualization backend
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:128:10. Visualization and render backends
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:35:       2D VECTOR | 3D | VISUALIZATION
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:78:9. `VISUALIZATION` / `RENDER`
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:137:└── VISUALIZATION
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:234:PROPOSAL     → PROFESSIONAL DOCUMENTATION + HIGH-FIDELITY VISUALIZATION
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:324:VISUALIZATION / RENDER
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:342:GEOMETRIC_PROJECTIONS          ≠ VISUALIZATION
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:57:- visual output being treated as approval, validation, or architectural truth.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:131:Source: a source snapshot with declared authority, an eligible `SpatialRepresentation`, or an explicitly declared exchange snapshot. Insufficient geometry yields `UNKNOWN`/`BLOCKED`, never a visually similar fallback.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:133:### 5.3 Visualization views
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:145:A visualization is not validation. Photorealism is not architectural correctness.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:157:view_family           KNOWLEDGE | GEOMETRIC | VISUALIZATION
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:241:It prevents a rigid direct conversion from `Wall` to `SVG Line` and allows the same semantic source to feed vector, 3D, analytical, and visualization backends.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:345:### 8.3 Visualization pipeline
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:355:             3D/VISUALIZATION SCENE
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:394:PROPOSAL    → professional documentation + high-fidelity visualization
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:422:- whether a view is functional, geometric, analytical, or visual;
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:454:- functional views are separated from geometric projections and visualizations;
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:486:VISUALIZATION / RENDER

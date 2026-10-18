@@ -1,0 +1,37 @@
+{
+  "exampleId": "EJEMPLO-057",
+  "title": "Ejemplo 057 · /REGULATION STATUS",
+  "commandName": "/REGULATION STATUS",
+  "category": "regulation",
+  "syntax": "/REGULATION STATUS <regulation_id> <status>",
+  "command": "/REGULATION STATUS RNE-PERU DRAFT",
+  "arguments": [
+    {
+      "name": "regulation_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "RNE-PERU"
+    },
+    {
+      "name": "status",
+      "required": true,
+      "type": "string",
+      "exampleValue": "DRAFT"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /REGULATION STATUS.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

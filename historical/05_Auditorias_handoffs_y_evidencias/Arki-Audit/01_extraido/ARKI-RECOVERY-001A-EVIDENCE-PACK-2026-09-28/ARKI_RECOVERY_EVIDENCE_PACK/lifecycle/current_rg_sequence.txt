@@ -1,0 +1,29 @@
+src/sicl/projection.py:13:from typing import Sequence
+src/sicl/projection.py:40:def canonical_d2_fingerprint(elements: Sequence[ArchiElement]) -> str:
+src/sicl/projection.py:145:    elements: Sequence[ArchiElement],
+src/sicl/representation.py:16:from typing import Any, Mapping, Sequence
+src/sicl/representation.py:491:    entities: Sequence[GraphicEntity] = (),
+src/sicl/representation.py:492:    diagnostics: Sequence[DiagnosticCode] = (),
+src/sicl/design_knowledge.py:142:    consequences: dict[str, Any]
+src/sicl/design_knowledge.py:206:    DesignKnowledgeItem("ITEM-CHING-SPATIAL-SEQUENCE-001", "BOOK-CHING-FORM-SPACE-ORDER", KnowledgeItemType.SPATIAL_RELATION, "Secuencia espacial", "La sucesión de espacios y umbrales puede organizar percepción, orientación y movimiento.", "THEORY", AuthorityLevel.THEORETICAL, _scopes("zona_barrio_sector", "edificacion", "espacio"), criteria=["sequence_legibility", "orientation"], outputs=["movement_sequence"], limitations=["Debe adaptarse a accesibilidad y programa."]),
+src/sicl/design_knowledge.py:207:    DesignKnowledgeItem("ITEM-ALEXANDER-PUBLIC-PRIVATE-001", "BOOK-ALEXANDER-PATTERN-LANGUAGE", KnowledgeItemType.PATTERN_REFERENCE, "Gradiente público-privado", "Una transición gradual puede mediar entre espacios públicos y privados cuando existen necesidades diferenciadas de acceso, privacidad y seguridad.", "HEURISTIC", AuthorityLevel.THEORETICAL, _scopes("distrito_ciudad", "zona_barrio_sector", "edificacion", "espacio"), inputs=["access_points", "user_groups", "public_private_program"], outputs=["access_hierarchy", "transition_sequence"], criteria=["privacy", "legibility", "social_activation"], limitations=["No es universal ni sustituye normativa de seguridad o accesibilidad."]),
+src/sicl/design_knowledge.py:211:    DesignPattern("PATTERN-PUBLIC-PRIVATE-GRADIENT-001", ["BOOK-ALEXANDER-PATTERN-LANGUAGE"], "Gradiente público-privado", {"title": "Transición abrupta entre ámbitos", "question": "¿Cómo se gradúa el acceso?"}, ["usos públicos y privados", "necesidad de control gradual"], ["seguridad", "orientación", "privacidad", "interacción social"], {"steps": ["introducir espacios intermedios", "graduar visibilidad", "organizar secuencias de acceso"]}, {"positive": ["mejor legibilidad", "privacidad graduada"], "negative": ["mayor complejidad de circulación"]}, _scopes("distrito_ciudad", "zona_barrio_sector", "edificacion", "espacio"), inputs=["access_points", "user_groups", "public_private_program"], outputs=["access_hierarchy", "transition_sequence"], positive_indicators=["privacy", "legibility"], negative_indicators=["barriers", "inaccessibility"], regulatory_dependencies=["accessibility", "fire_safety"]),
+tests/test_multiscale_wall_move_e2e.py:289:    """RT-45/RT-52: unregistered consequences remain unknown, never silently absent."""
+src/sicl/impact.py:3:The analyzer reports only consequences represented by registered derivation
+src/sicl/impact.py:5:consequence.
+src/sicl/impact.py:13:from typing import Any, Protocol, Sequence
+src/sicl/impact.py:138:def _canonical_cycle(steps:Sequence[ImpactStep])->tuple[tuple[Any,...],...]:
+src/sicl/spatial_generator.py:14:from typing import Any, Mapping, Sequence
+src/sicl/spatial_generator.py:93:def _ring_area(ring: Sequence[Sequence[float]]) -> float:
+src/sicl/spatial_generator.py:132:def _point_in_ring(point: Sequence[float], ring: Sequence[Sequence[float]]) -> bool:
+src/sicl/spatial_generator.py:144:def _point_in_geometry(point: Sequence[float], geometry: Mapping[str, Any]) -> bool:
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:277:| `consequences` | object | Sí | Efectos positivos y negativos |
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:341:  - transition_sequence
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:22:| Existing frozen dataclasses | Add recursive freezing for mappings/sequences because ARE contracts must be immutable in practice. |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:115:11. D2 mutation is not a consequence of graphic selection; explicit authority and D2 transaction are required.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:116:## Current implementation sequence
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:299:## 14. Future activation sequence
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:301:The intended future sequence is:
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:329:The existence of this ADR does not advance that sequence.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:463:## 16. Proposed implementation sequence after future authorization
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:465:The sequence is intentionally future-facing:

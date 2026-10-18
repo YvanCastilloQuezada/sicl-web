@@ -1,0 +1,39 @@
+===== src/sicl/generation.py =====
+[33m5edd01f[m feat: extend design generation methods
+[33m19c2fac[m feat: add explicit design generation contract
+
+===== src/sicl/spatial_generator.py =====
+[33m032a867[m feat: add deterministic UPAO spatial generator
+
+===== src/sicl/optimization.py =====
+[33m12ed526[m feat: add deterministic alternative generation and tradeoff matrix
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis
+
+===== src/sicl/temporal.py =====
+[33m7fdc9f0[m feat: add temporal scenario evolution
+[33m6dda71f[m feat: add temporal cycles and scenario branches
+
+===== src/sicl/planning_catalog.py =====
+[33mab14f56[m feat: add planning instruments model
+
+===== src/sicl/design_knowledge.py =====
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+
+===== src/sicl/multiscale.py =====
+[33m93fdc2a[m feat: align SpatialScope to eleven RFC-019 scales
+[33m099f525[m feat: add multiscale relations and objective propagation
+
+===== src/sicl/bim_connectors.py =====
+[33mfc44b1a[m feat: complete GIS persistence and BIM review contracts
+
+===== src/sicl/memory.py =====
+[33m2458070[m feat: add institutional memory projection
+
+===== src/sicl/capabilities.py =====
+[33mf0bc17e[m feat: complete MV-P1 location environmental integration
+[33m4c20179[m feat: add multiscale capability applicability foundation
+
+===== src/sicl/agents.py =====
+[33mb648c95[m feat: add structural economic agents and multi-agent debate
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis
+

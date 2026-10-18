@@ -1,0 +1,969 @@
+ORDEN PARA MANUS — FIELD OPERATIONS MVP
+PANEL DE CONTROL EN TIEMPO REAL + FORMULARIO DE EVIDENCIA + QR MÓVIL
+ORDEN [SIGUIENTE]
+ESTADO OBJETIVO: FIELD GATE READY
+
+============================================================
+0. PROPÓSITO
+============================================================
+
+Implementar las herramientas operativas necesarias para ejecutar
+el Gate de Campo de Mapper + The Eye en condiciones reales.
+
+Esta orden NO pretende ampliar el producto con nuevas funciones
+no relacionadas.
+
+El objetivo concreto es disponer de:
+
+1. Panel de control operativo en tiempo real.
+2. Formulario de evidencia vinculado a WorldObject/CaptureSession.
+3. Acceso móvil mediante QR.
+4. Flujo completo y auditable Mapper → The Eye → Human Authority.
+5. Preparación técnica para la primera prueba real de campo.
+
+IMPORTANTE:
+
+Si el sistema permite capturar y persistir datos reales, esta fase
+debe considerarse un FIELD OPERATIONS MVP y no una simple maqueta.
+
+============================================================
+1. BOUNDARIES — PROTECCIÓN ABSOLUTA
+============================================================
+
+MJP CORE permanece completamente aislado.
+
+NO modificar:
+
+- juegos
+- RNG
+- RTP
+- reglas
+- wallet
+- liquidaciones
+- pagos
+- sorteos
+- MjpTvManifest
+- autoridad de resultados
+- lógica financiera
+- cualquier componente del MJP CORE
+
+NO introducir:
+
+- dinero real
+- depósitos
+- retiros
+- conversión de créditos
+- integración de Yape
+- mecanismos de apuestas
+- modificación de reglas de juegos
+
+Mapper / The Eye / Controller Lab deben permanecer fuera de
+MJP CORE.
+
+Al finalizar, realizar diff/integrity check y reportar explícitamente
+cualquier archivo modificado relacionado con MJP CORE.
+
+Objetivo:
+
+MJP CORE = INTACTO.
+
+============================================================
+2. PANEL DE CONTROL EN TIEMPO REAL
+============================================================
+
+Crear dentro de Controller Lab un:
+
+/controller/dashboard
+
+Debe permitir al Admin/autoridad operativa observar el Gate
+de Campo en tiempo casi real.
+
+------------------------------------------------------------
+2.1 KPIs
+------------------------------------------------------------
+
+Mostrar como mínimo:
+
+- Capture Sessions activas
+- WorldObjects capturados
+- Objects enviados a The Eye
+- Objects verificados
+- Objects rechazados
+- Conflictos
+- Sincronizaciones exitosas
+- Sincronizaciones pendientes
+- Errores de sincronización
+- Evidencias cargadas
+- Objects publicados
+- Objects aún no publicados
+
+No inventar métricas.
+
+Cada KPI debe provenir del estado real persistido.
+
+------------------------------------------------------------
+2.2 ESTADOS DE SINCRONIZACIÓN
+------------------------------------------------------------
+
+Mostrar:
+
+LOCAL_PENDING
+SYNCING
+SYNCED
+CONFLICT
+SYNC_ERROR
+
+Diferenciar claramente:
+
+- cantidad
+- último evento
+- hora
+- sesión
+- objeto
+- responsable
+
+------------------------------------------------------------
+2.3 ACTIVIDAD EN TIEMPO REAL
+------------------------------------------------------------
+
+Crear una actividad/event stream operativo.
+
+Ejemplos:
+
+[10:31] Mapper — captura creada
+[10:32] GPS obtenido
+[10:32] fotografía registrada
+[10:33] objeto sincronizado
+[10:34] dossier enviado a The Eye
+[10:36] evidencia adicional cargada
+[10:38] conflicto detectado
+[10:40] decisión registrada
+
+La actividad debe proceder de eventos reales del sistema.
+
+NO simular actividad.
+
+------------------------------------------------------------
+2.4 ACTUALIZACIÓN
+------------------------------------------------------------
+
+Usar mecanismo apropiado para actualización:
+
+- WebSocket
+- Server-Sent Events
+- polling inteligente
+
+Elegir la solución compatible con la arquitectura existente.
+
+No introducir infraestructura innecesariamente compleja.
+
+Debe existir fallback razonable si la conexión realtime falla.
+
+Mostrar:
+
+LIVE
+RECONNECTING
+OFFLINE
+
+------------------------------------------------------------
+2.5 FILTROS
+------------------------------------------------------------
+
+Permitir filtrar por:
+
+- CaptureSession
+- WorldObject
+- Mapper
+- estado de sincronización
+- estado de verificación
+- rango temporal
+
+============================================================
+3. FORMULARIO DE EVIDENCIA
+============================================================
+
+Crear módulo:
+
+/mapper/evidence
+
+o la ruta equivalente que mejor encaje con la arquitectura actual.
+
+La evidencia NO debe existir como archivo aislado.
+
+Debe estar vinculada obligatoriamente a:
+
+WorldObject
+
+y/o
+
+CaptureSession
+
+según corresponda.
+
+------------------------------------------------------------
+3.1 TIPOS DE EVIDENCIA
+------------------------------------------------------------
+
+Soportar:
+
+- fotografía
+- video
+- documento, si la arquitectura actual lo permite
+- coordenadas
+- métricas GPS
+- observaciones
+
+No ampliar indiscriminadamente el catálogo.
+
+------------------------------------------------------------
+3.2 METADATOS MÍNIMOS
+------------------------------------------------------------
+
+Cada evidencia debe conservar:
+
+- evidenceId
+- WorldObject/CaptureSession asociado
+- tipo
+- fecha/hora de captura
+- fecha/hora de subida
+- responsable
+- coordenadas cuando existan
+- precisión GPS cuando exista
+- nombre/tipo del archivo
+- tamaño
+- hash/checksum cuando la arquitectura lo permita
+- observación
+- estado
+
+No exponer públicamente metadatos sensibles.
+
+------------------------------------------------------------
+3.3 GPS
+------------------------------------------------------------
+
+Cuando exista GPS mostrar:
+
+Latitud
+Longitud
+Precisión
+Timestamp
+Fuente
+
+Ejemplo:
+
+GPS: -8.xxxxx
+Precisión: ±4 m
+Captura: 2026-xx-xx xx:xx
+
+NO presentar una coordenada GPS como verdad absoluta.
+
+Si la precisión es insuficiente, mostrar advertencia.
+
+------------------------------------------------------------
+3.4 EVIDENCE MATRIX
+------------------------------------------------------------
+
+La evidencia cargada desde Mapper debe aparecer
+automáticamente en The Eye dentro de la Evidence Matrix.
+
+La relación debe ser:
+
+WorldObject
+    ↓
+Claim
+    ↓
+Evidence
+    ↓
+Source
+    ↓
+Verification
+    ↓
+Decision
+
+No crear una segunda estructura de evidencia paralela.
+
+============================================================
+4. INTEGRACIÓN CON THE EYE
+============================================================
+
+Cuando Mapper agregue evidencia:
+
+1. guardar evidencia
+2. registrar evento
+3. asociarla al dossier
+4. hacerla visible en The Eye
+5. actualizar estado de revisión
+
+The Eye debe poder observar:
+
+- evidencia existente
+- nueva evidencia
+- evidencia faltante
+- evidencia conflictiva
+- procedencia
+- timestamp
+- responsable
+
+The Eye NO debe considerar automáticamente que una evidencia
+es verdadera simplemente porque fue cargada.
+
+============================================================
+5. QR — ACCESO MÓVIL
+============================================================
+
+Crear sección:
+
+/controller/qr
+
+Debe generar visualmente:
+
+A. QR Mapper
+B. QR The Eye
+
+Pero NO colocar credenciales dentro del QR.
+
+El QR debe contener solamente:
+
+- URL segura
+- ruta
+- identificador/token temporal cuando corresponda
+
+Nunca:
+
+- contraseña
+- JWT permanente
+- credenciales administrativas
+- información sensible
+
+------------------------------------------------------------
+5.1 QR MAPPER
+------------------------------------------------------------
+
+QR → entrada segura a Mapper.
+
+Ejemplo conceptual:
+
+/mapper
+
+El sistema debe verificar autenticación y rol.
+
+------------------------------------------------------------
+5.2 QR THE EYE
+------------------------------------------------------------
+
+QR → entrada segura a The Eye.
+
+Debe verificar:
+
+- autenticación
+- rol
+- autorización server-side
+
+Un usuario Mapper NO debe poder acceder a funciones de The Eye
+simplemente manipulando la URL.
+
+============================================================
+6. QR DE SESIÓN DE CAMPO
+============================================================
+
+Además de los dos QR generales, implementar si la arquitectura
+actual lo permite:
+
+QR SESSION
+
+Este QR debe abrir directamente una CaptureSession determinada.
+
+Ejemplo conceptual:
+
+/mapper/session/<opaque-session-token>
+
+El token debe:
+
+- ser opaco
+- no revelar información sensible
+- tener expiración
+- poder revocarse
+- no otorgar privilegios administrativos
+- respetar RBAC
+
+Esto será especialmente útil para el trabajo real de campo.
+
+============================================================
+7. CONTROL DE ACCESO
+============================================================
+
+Implementar/verificar RBAC server-side.
+
+Roles mínimos:
+
+MAPPER
+THE_EYE
+HUMAN_AUTHORITY
+ADMIN
+READ_ONLY
+
+Permisos conceptuales:
+
+MAPPER:
+- crear sesión
+- capturar
+- editar sus drafts
+- subir evidencia
+- sincronizar
+- enviar a The Eye
+
+THE_EYE:
+- revisar
+- comparar versiones
+- evaluar evidencia
+- resolver conflictos
+- registrar decisión
+
+HUMAN_AUTHORITY:
+- autorizar publicación
+
+ADMIN:
+- configuración
+- supervisión
+- usuarios
+- dashboard
+
+READ_ONLY:
+- consulta autorizada
+
+REGLA CRÍTICA:
+
+The Eye verifica.
+
+Human Authority autoriza publicación.
+
+No colapsar ambas funciones.
+
+============================================================
+8. PUBLICATION GATE
+============================================================
+
+Mantener:
+
+publicationStatus
+
+y versionado.
+
+Un objeto modificado después de publicación NO debe reemplazar
+silenciosamente la versión publicada.
+
+El Runtime solamente puede consumir:
+
+publicationStatus = PUBLISHED
+
+y la versión publicada exacta.
+
+Nunca:
+
+CAPTURED
+DRAFT
+UNDER_REVIEW
+REJECTED
+DISPUTED
+LOCAL_PENDING
+SYNC_ERROR
+
+============================================================
+9. OFFLINE FIELD MODE
+============================================================
+
+Mapper debe conservar el comportamiento offline-first existente.
+
+Si el dispositivo pierde conexión:
+
+- permitir captura
+- permitir fotografía
+- permitir nota
+- conservar GPS disponible
+- almacenar localmente
+- mostrar LOCAL_PENDING
+- sincronizar posteriormente
+
+Al recuperar conexión:
+
+LOCAL_PENDING
+→ SYNCING
+→ SYNCED
+
+o
+
+LOCAL_PENDING
+→ SYNCING
+→ CONFLICT
+
+o
+
+LOCAL_PENDING
+→ SYNCING
+→ SYNC_ERROR
+
+No utilizar last-write-wins.
+
+No perder evidencia.
+
+============================================================
+10. SEGURIDAD DEL UPLOAD
+============================================================
+
+Para fotografías/videos:
+
+validar:
+
+- tipo MIME
+- extensión
+- tamaño
+- autorización
+- asociación con objeto/sesión
+
+No permitir uploads arbitrarios desde rutas no autorizadas.
+
+Evitar exposición pública directa de archivos sensibles.
+
+Si se utilizan URLs firmadas:
+
+- expiración
+- autorización
+- no reutilización indefinida
+
+Registrar auditoría de:
+
+UPLOAD
+DELETE
+REPLACE
+DOWNLOAD/VIEW cuando corresponda
+
+============================================================
+11. PANEL DE QR
+============================================================
+
+La pantalla debe mostrar:
+
+--------------------------------
+MOBILE ACCESS
+--------------------------------
+
+MAPPER
+[ QR ]
+
+URL / estado
+
+THE EYE
+[ QR ]
+
+URL / estado
+
+FIELD SESSION
+[ QR ]
+
+Session ID
+Expiración
+Estado
+
+--------------------------------
+
+Permitir:
+
+- regenerar
+- copiar enlace
+- visualizar QR
+- descargar/imprimir QR
+
+No mostrar secretos.
+
+============================================================
+12. RESPONSIVE / MOBILE-FIRST
+============================================================
+
+Mapper será diseñado prioritariamente para:
+
+Android
+iPhone/iOS
+
+The Eye debe funcionar en:
+
+desktop
+tablet
+mobile
+
+No asumir que una maqueta desktop de tres columnas
+es la interfaz adecuada para campo.
+
+En móvil:
+
+- botones táctiles
+- captura rápida
+- cámara
+- GPS
+- estado offline
+- cola de sincronización
+- lectura clara bajo condiciones reales de campo
+
+Mantener la identidad visual LUKA existente:
+
+- negro mate
+- turquesa/neón
+- dorado L★
+- glassmorphism
+- tipografía legible
+- iconografía mínima
+
+NO rediseñar innecesariamente la identidad existente.
+
+============================================================
+13. ACCESIBILIDAD
+============================================================
+
+Mantener:
+
+- contraste suficiente
+- touch targets adecuados
+- navegación por teclado en desktop
+- estados visibles
+- aria-live para sincronización
+- mensajes de error comprensibles
+- soporte para reduced motion
+
+============================================================
+14. OBSERVABILIDAD
+============================================================
+
+Registrar eventos fundamentales:
+
+SESSION_CREATED
+OBJECT_CAPTURED
+GPS_CAPTURED
+PHOTO_CAPTURED
+EVIDENCE_UPLOADED
+OBJECT_SYNC_STARTED
+OBJECT_SYNCED
+CONFLICT_DETECTED
+CONFLICT_RESOLVED
+DOSSIER_SUBMITTED
+EYE_REVIEW_STARTED
+EYE_DECISION_RECORDED
+PUBLICATION_AUTHORIZED
+OBJECT_PUBLISHED
+
+No crear logging excesivo.
+
+El objetivo es poder reconstruir qué ocurrió durante
+el Gate de Campo.
+
+============================================================
+15. PRUEBA E2E OBLIGATORIA
+============================================================
+
+Crear prueba automatizada del flujo:
+
+CREATE SESSION
+↓
+CAPTURE OBJECT
+↓
+ADD GPS
+↓
+ADD PHOTO
+↓
+ADD NOTE
+↓
+SAVE OFFLINE
+↓
+RECONNECT
+↓
+SYNC
+↓
+SEND TO THE EYE
+↓
+REVIEW DOSSIER
+↓
+VERIFY EVIDENCE
+↓
+DECISION
+↓
+HUMAN AUTHORITY
+↓
+PUBLISH
+↓
+RUNTIME READS PUBLISHED VERSION
+
+También probar:
+
+CONFLICT
+
+y:
+
+SYNC_ERROR
+
+y:
+
+EVIDENCE_UPLOAD_ERROR
+
+============================================================
+16. PRUEBA DE SEGURIDAD
+============================================================
+
+Verificar como mínimo:
+
+- Mapper no puede publicar
+- Mapper no puede ejecutar funciones de The Eye
+- The Eye no puede publicar sin Human Authority
+- usuario no autenticado no puede entrar a rutas protegidas
+- modificación manual de URL no eleva privilegios
+- QR no contiene credenciales
+- token temporal expira
+- token revocado deja de funcionar
+- archivos no autorizados no son accesibles
+- evidencia pertenece al objeto/sesión correcto
+
+============================================================
+17. PRUEBA DE INTEGRIDAD MJP CORE
+============================================================
+
+Antes y después:
+
+- diff de archivos
+- diff de rutas
+- diff de dependencias críticas
+- diff de configuración
+- tests de integridad existentes
+
+Resultado obligatorio:
+
+MJP CORE INTACT
+
+o
+
+MJP CORE MODIFIED
+
+Si existe cualquier modificación, reportarla explícitamente.
+
+No ocultar modificaciones indirectas.
+
+============================================================
+18. QR REAL
+============================================================
+
+Generar los archivos QR reales:
+
+- QR_MAPPER
+- QR_THE_EYE
+- QR_FIELD_SESSION, si corresponde
+
+Formato preferido:
+
+SVG
+PNG
+
+Además entregar:
+
+URL exacta codificada.
+
+IMPORTANTE:
+
+No declarar que el QR funciona desde un teléfono real si no se
+ha probado físicamente.
+
+Si no existe una URL pública HTTPS accesible desde Internet,
+reportar:
+
+BLOCKED / ENVIRONMENT_REQUIRED
+
+y explicar qué falta.
+
+============================================================
+19. GATE DE CAMPO
+============================================================
+
+El sistema debe quedar preparado para:
+
+GATE 1
+Acceso móvil
+
+GATE 2
+Crear sesión
+
+GATE 3
+Capturar objeto real
+
+GATE 4
+GPS real
+
+GATE 5
+Fotografía real
+
+GATE 6
+Offline
+
+GATE 7
+Sincronización
+
+GATE 8
+The Eye
+
+GATE 9
+Conflicto
+
+GATE 10
+Human Authority
+
+GATE 11
+Publicación
+
+GATE 12
+Runtime
+
+La ejecución física de estos gates en Android/iPhone,
+GPS y cámara reales debe marcarse:
+
+EXTERNAL_REQUIRED
+
+si Manus no dispone de esos dispositivos.
+
+============================================================
+20. NO FABRICAR DATOS DE TRUJILLO
+============================================================
+
+Manus NO debe inventar:
+
+- coordenadas
+- fotografías
+- negocios
+- patrimonio
+- horarios
+- propietarios
+- fuentes
+- claims
+- métricas de campo
+
+Puede crear:
+
+- una CaptureSession vacía
+- registros de prueba claramente marcados
+- datos sintéticos para QA
+
+Los datos reales de Trujillo serán capturados durante
+el Field Gate.
+
+============================================================
+21. ENTREGABLES
+============================================================
+
+Entregar:
+
+1. Panel Controller Lab operativo.
+2. Formulario de evidencia operativo.
+3. Integración Evidence Matrix.
+4. QR Mapper.
+5. QR The Eye.
+6. QR Field Session si fue implementado.
+7. URLs/rutas exactas.
+8. Sistema de autenticación/RBAC verificado.
+9. Estado offline/sync verificado.
+10. E2E tests.
+11. Security tests.
+12. MJP CORE integrity report.
+13. Lista de archivos modificados.
+14. Dependencias nuevas, si existen.
+15. Instrucciones mínimas para ejecutar el Field Gate.
+16. Estado de disponibilidad pública del enlace.
+
+============================================================
+22. REPORTE OBLIGATORIO DE MANUS
+============================================================
+
+Responder exactamente separando:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+
+Para cada elemento indicar:
+
+- qué se hizo
+- archivo/ruta principal
+- cómo se verificó
+- tests ejecutados
+- resultado
+- limitaciones
+
+Especialmente reportar:
+
+A. URL pública
+B. QR generado
+C. QR probado físicamente
+D. Android probado
+E. iPhone probado
+F. GPS real probado
+G. cámara real probada
+H. offline real probado
+I. MJP CORE integrity
+J. E2E Mapper → The Eye → Human Authority → Runtime
+
+NO declarar "READY FOR FIELD" solamente porque los tests
+automatizados pasan.
+
+El estado FIELD READY requiere distinguir:
+
+TECHNICALLY_READY
+y
+PHYSICALLY_VALIDATED
+
+============================================================
+23. CRITERIO FINAL DE ACEPTACIÓN
+============================================================
+
+La orden se considera técnicamente cumplida cuando:
+
+[ ] Dashboard operativo
+[ ] KPIs basados en datos reales
+[ ] Actividad realtime o fallback funcional
+[ ] Evidence Form operativo
+[ ] Evidence Matrix integrada
+[ ] QR Mapper generado
+[ ] QR The Eye generado
+[ ] QR Session generado, si corresponde
+[ ] RBAC server-side verificado
+[ ] Offline/sync conservado
+[ ] Conflict workflow conservado
+[ ] Publication Gate conservado
+[ ] Runtime consume únicamente PUBLISHED
+[ ] E2E completo probado
+[ ] Security tests ejecutados
+[ ] MJP CORE intacto
+[ ] URL pública documentada o bloqueo explicado
+[ ] Limitaciones físicas declaradas
+
+NO considerar físicamente validado hasta realizar prueba real
+con Android/iPhone, cámara, GPS y conexión móvil/WiFi.
+
+============================================================
+FIN DE LA ORDEN
+============================================================
+Mi cambio principal
+
+Hay una cosa que sí cambiaría respecto de tu planteamiento original: no haría que el QR sea simplemente un acceso permanente a /mapper y /the-eye.
+
+Para el trabajo de campo, el flujo correcto sería:
+
+Administrador → crea CaptureSession → genera QR de sesión → operador escanea → Mapper abre esa sesión → captura → sincroniza → The Eye verifica → Human Authority publica → Runtime consume la versión publicada.
+
+Eso convierte el QR en una herramienta operacional de campo, no solamente en un atajo hacia una URL.
+
+Y mantendría una separación muy clara entre:
+
+TECHNICALLY READY = Manus terminó la implementación y las pruebas automatizadas.
+
+y
+
+PHYSICALLY VALIDATED = alguien realmente salió con un Android/iPhone, escaneó el QR, obtuvo GPS, tomó fotografías, perdió conexión, recuperó conexión y completó el flujo.
+
+El segundo estado no puede declararse por software solamente. Es el siguiente Gate real.

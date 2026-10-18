@@ -1,0 +1,37 @@
+{
+  "schema": "ARKI-MASTER-CODEBOOK-1.0-CANONICAL",
+  "status": "APPROVED / CANONICAL",
+  "order": "CODEBOOK-001B — FINAL CONSISTENCY CLOSURE",
+  "approval": {
+    "date": "2026-09-23",
+    "authority": "Product Owner / Human Authority",
+    "decision": "APPROVED / CANONICAL"
+  },
+  "documentationOnly": true,
+  "productCodeChanges": false,
+  "kernelChanges": false,
+  "reconciled": {
+    "BKH2": "VERIFIED",
+    "BKH3": "VERIFIED",
+    "BKH4_0_1_2": "VERIFIED FOR APPROVED SCOPE",
+    "ORDER_95A": "CLOSED / VERIFIED FOR APPROVED SCOPE",
+    "F1": "CLOSED",
+    "F2": "CLOSED",
+    "F3": "CLOSED"
+  },
+  "historicalStatesPreserved": true,
+  "canonicalApproval": true,
+  "consistencyClosure": "CB-FINAL-01/02/03 CLOSED",
+  "deliverables": [
+    "ARKI_MASTER_CODEBOOK.md",
+    "ARKI_MASTER_PROJECT_MAP.md",
+    "ARKI_CODEBOOK_FOR_ARCHITECT.md",
+    "ARKI_CODE_CROSSWALK.md",
+    "ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md",
+    "ARKI_CODEBOOK_OPEN_ITEMS.md",
+    "ARKI_CODEBOOK_EVIDENCE_INDEX.md",
+  "ARKI_CODEBOOK_RECONCILIATION_DELTA.md",
+    "ARKI_CODEBOOK_CANONICAL_APPROVAL.md",
+    "ARKI_CODEBOOK_MANIFEST.json"
+  ]
+}

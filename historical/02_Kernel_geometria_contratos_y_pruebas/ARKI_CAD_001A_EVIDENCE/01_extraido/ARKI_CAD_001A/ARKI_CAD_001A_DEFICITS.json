@@ -1,0 +1,14 @@
+{
+  "schema":"ARKI-CAD-001A-DEFICITS-1.0",
+  "deficits":[
+    {"id":"CAD-D01","status":"OPEN","item":"No ABB001 candidate extraction executed","impact":"no empirical selection"},
+    {"id":"CAD-D02","status":"OPEN","item":"No authorized ODA/RealDWG runtime or license","impact":"candidate claims only"},
+    {"id":"CAD-D03","status":"OPEN","item":"No LibreDWG pinned release benchmark","impact":"coverage/security unverified on source files"},
+    {"id":"CAD-D04","status":"OPEN","item":"No DWG→DXF→ACIR loss experiment","impact":"DXF intermediate suitability unknown"},
+    {"id":"CAD-D05","status":"OPEN","item":"No ACIR implementation","impact":"contract remains draft"},
+    {"id":"CAD-D06","status":"OPEN","item":"No commercial/legal approval","impact":"no production or SaaS integration"},
+    {"id":"CAD-D07","status":"OPEN","item":"No parser sandbox/fuzz evidence","impact":"security gate not demonstrated"},
+    {"id":"CAD-D08","status":"OPEN","item":"No governing deployment choice","impact":"Linux-only versus Windows worker unresolved"}
+  ],
+  "nextGate":"Human Authority decision plus ARKI-CAD-001B authorization"
+}

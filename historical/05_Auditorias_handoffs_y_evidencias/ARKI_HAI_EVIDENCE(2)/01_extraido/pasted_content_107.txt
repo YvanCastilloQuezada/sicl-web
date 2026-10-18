@@ -1,0 +1,1020 @@
+ADENDA 97A-03 — ARKI HISTORICAL ARCHITECTURAL INTELLIGENCE
+Deep-Time Competition Recovery + Global Modern Architecture + Socialist/Eastern European Research
+
+Orden matriz: ORDEN 97A — ARKI Living Knowledge Integration v1.1
+Programa: ARKI-LKS-001 — ARKI Living Knowledge System
+Antecedentes: 97A-01 KCF + 97A-02 ARKI Architectural Competition Intelligence
+Código provisional: ARKI-HAI-001
+Tipo: Mandatory Historical Knowledge + Archival Research Addendum
+Prioridad: HIGH / STRATEGIC
+Autoridad: Product Owner / Human Authority
+
+Esta Adenda NO reemplaza ni reinicia 97A, 97A-01 o 97A-02.
+
+Amplía obligatoriamente el horizonte histórico de ARKI-ACI-001.
+
+HAI-01. CORRECCIÓN DEL HORIZONTE HISTÓRICO
+
+Sustituir conceptualmente:
+
+1975 → PRESENT
+
+como límite del corpus por:
+
+DEEPEST RELIABLE ARCHIVAL EVIDENCE
+↓
+PRESENT
+
+1975 → PRESENT podrá mantenerse únicamente como una primera ventana operativa de adquisición, nunca como frontera del conocimiento arquitectónico.
+
+HAI-02. PRINCIPIO DE PROFUNDIDAD HISTÓRICA
+
+Formalizar:
+
+ARCHITECTURAL IMPORTANCE IS NOT DETERMINED BY DIGITAL AVAILABILITY.
+
+ABSENCE FROM INTERNET ≠ ABSENCE FROM ARCHITECTURAL HISTORY.
+
+ARCHIVAL SCARCITY ≠ LOW ARCHITECTURAL VALUE.
+
+RECENT DIGITAL AVAILABILITY ≠ GREATER KNOWLEDGE PRIORITY.
+
+HAI-03. HORIZONTE TEMPORAL
+
+Investigar progresivamente:
+
+PRE-1900        where strategically relevant
+1900–1919
+1920–1929
+1930–1939
+1940–1949
+1950–1959
+1960–1969
+1970–1979
+1980–1989
+1990–1999
+2000–2009
+2010–2019
+2020–PRESENT
+
+No imponer una fecha inicial artificial.
+
+Priorizar inicialmente siglo XX → presente, extendiendo retrospectivamente cuando la evidencia y relevancia lo justifiquen.
+
+HAI-04. DOS CORPUS RELACIONADOS PERO DISTINTOS
+
+ARKI deberá distinguir:
+
+A. COMPETITION ARCHITECTURE CORPUS
+
+Proyectos procedentes de concursos.
+
+B. REFERENCE ARCHITECTURAL WORK CORPUS
+
+Obras/proyectos arquitectónicos, urbanos, territoriales o infraestructurales relevantes que no necesariamente procedieron de concursos.
+
+Formalizar:
+
+HISTORY OF COMPETITIONS ≠ HISTORY OF ARCHITECTURE.
+
+Ambos podrán alimentar conocimiento, pero conservarán procedencia y naturaleza diferentes.
+
+HAI-05. HISTORICAL COMPETITION RECOVERY
+
+Crear dentro de ACI la línea:
+
+ACI-HISTORICAL-COMPETITION-RECOVERY
+
+Objetivo:
+
+localizar y reconstruir documentalmente concursos históricos mediante:
+
+official archives
+architectural institutes
+professional associations
+museums
+universities
+municipal archives
+national archives
+architectural foundations
+historical journals
+monographs
+exhibition catalogues
+architect archives
+family archives
+digitized collections
+libraries
+
+No asumir que los motores de búsqueda contemporáneos contienen el corpus completo.
+
+HAI-06. RECOVERY TARGET
+
+Para cada concurso histórico intentar recuperar:
+
+COMPETITION
+↓
+ORIGINAL BRIEF
+↓
+SITE
+↓
+PROGRAM
+↓
+RULES
+↓
+JURY
+↓
+PARTICIPANTS
+↓
+SUBMISSIONS
+↓
+WINNER
+↓
+OTHER PRIZE WINNERS
+↓
+NON-WINNERS
+↓
+DRAWINGS / MODELS / TEXTS
+↓
+JURY REPORT
+↓
+CRITICISM
+↓
+BUILT / UNBUILT OUTCOME
+HAI-07. ARCHIVAL COMPLETENESS
+
+Crear estados:
+
+COMPLETE_ARCHIVAL_RECORD
+SUBSTANTIAL_ARCHIVAL_RECORD
+PARTIAL_ARCHIVAL_RECORD
+FRAGMENTARY_ARCHIVAL_RECORD
+LOST_COMPETITION_RECORD
+UNKNOWN
+
+Nunca completar documentalmente un vacío mediante invención.
+
+HAI-08. ARCHIVAL GAP
+
+Representar:
+
+ARCHIVAL_GAP
+
+incluyendo:
+
+missing brief
+missing jury report
+missing proposals
+missing authorship
+missing drawings
+missing result
+missing built outcome
+inaccessible archive
+rights restriction
+undigitized source
+language barrier
+unknown
+HAI-09. UNDIGITIZED KNOWLEDGE
+
+ARKI deberá poder distinguir:
+
+DOES_NOT_EXIST
+
+de:
+
+EXISTS_BUT_NOT_DIGITIZED
+EXISTS_BUT_NOT_ACCESSIBLE
+EXISTS_BUT_NOT_DISCOVERED
+EXISTENCE_UNKNOWN
+
+Esta distinción es obligatoria.
+
+HAI-10. GEOPOLITICAL HISTORICAL COVERAGE
+
+El corpus histórico deberá buscar progresivamente arquitectura de:
+
+USSR / SOVIET UNION
+YUGOSLAVIA
+CENTRAL EUROPE
+EASTERN EUROPE
+WESTERN EUROPE
+NORDIC COUNTRIES
+LATIN AMERICA
+NORTH AMERICA
+AFRICA
+MIDDLE EAST
+SOUTH ASIA
+EAST ASIA
+SOUTHEAST ASIA
+OCEANIA
+
+La lista es extensible.
+
+HAI-11. SOVIET ARCHITECTURAL RESEARCH
+
+Crear línea específica:
+
+HAI-SOVIET
+
+Investigar, según fuentes disponibles:
+
+competitions
+avant-garde
+constructivism
+urban planning
+civic architecture
+housing
+mass housing
+prefabrication
+industrial architecture
+cultural architecture
+monumental architecture
+infrastructure
+experimental structures
+unbuilt proposals
+
+Preservar periodo histórico y contexto.
+
+HAI-12. YUGOSLAV ARCHITECTURAL RESEARCH
+
+Crear línea específica:
+
+HAI-YUGOSLAVIA
+
+Investigar:
+
+architecture
+competitions
+urbanization
+housing
+New Belgrade
+reconstruction
+civic architecture
+memorial architecture
+structural experimentation
+prefabrication
+public buildings
+landscape
+infrastructure
+international projects
+unbuilt proposals
+
+No tratar Yugoslavia como simple subconjunto de arquitectura soviética.
+
+HAI-13. HISTORICAL CLASSIFICATION SAFETY
+
+Formalizar:
+
+SOVIET ≠ YUGOSLAV.
+
+SOCIALIST ≠ SOVIET.
+
+EASTERN EUROPEAN ≠ SOVIET.
+
+BRUTALISM ≠ ALL POSTWAR SOCIALIST ARCHITECTURE.
+
+MODERNISM ≠ BRUTALISM.
+
+CONSTRUCTIVISM ≠ SOCIALIST MODERNISM.
+
+No reducir una región, Estado o período a una etiqueta estilística.
+
+HAI-14. MOVEMENT / TENDENCY MODEL
+
+Cuando sea pertinente, registrar:
+
+movement
+tendency
+school
+historical classification
+self-identification
+later critical classification
+disputed classification
+
+Distinguir:
+
+CONTEMPORARY_LABEL
+RETROSPECTIVE_LABEL
+ARKI_CLASSIFICATION
+UNKNOWN
+HAI-15. BRUTALISM RESEARCH
+
+Incorporar Brutalism como una línea de conocimiento arquitectónico, no como contenedor geográfico.
+
+Investigar:
+
+spatial organization
+structural expression
+material expression
+concrete technologies
+monumentality
+circulation
+civic scale
+housing
+megastructures
+public realm
+climatic response
+construction logic
+social program
+representation
+
+Comparar expresiones en distintas regiones.
+
+HAI-16. UNBUILT ARCHITECTURE
+
+Dar valor explícito a:
+
+UNBUILT
+COMPETITION
+EXPERIMENTAL
+UTOPIAN
+SPECULATIVE
+
+Formalizar:
+
+UNBUILT ≠ ARCHITECTURALLY IRRELEVANT.
+
+Algunos proyectos no construidos pueden contener conocimiento espacial, urbano, estructural o conceptual significativo.
+
+HAI-17. BUILT / UNBUILT DISTINCTION
+
+No confundir:
+
+DESIGN INTELLIGENCE
+
+con:
+
+BUILT PERFORMANCE
+
+Un proyecto no construido permite estudiar diseño.
+
+No permite afirmar comportamiento operativo real.
+
+HAI-18. HISTORICAL CONTEXT MODEL
+
+Para proyectos históricos relevantes registrar cuando sea posible:
+
+politicalContext
+economicContext
+socialContext
+technologicalContext
+constructionContext
+materialContext
+professionalContext
+culturalContext
+climaticContext
+regulatoryContext
+
+No utilizar contexto para justificar automáticamente calidad arquitectónica.
+
+HAI-19. PERIOD-CORRECT ANALYSIS
+
+Toda obra histórica podrá tener dos lecturas:
+
+CONTEMPORARY_TO_PROJECT_READING
+
+y:
+
+CURRENT_REASSESSMENT
+
+No mezclarlas.
+
+HAI-20. TECHNOLOGY THROUGH TIME
+
+ARKI deberá estudiar cómo cambiaron:
+
+structural systems
+concrete
+steel
+prefabrication
+curtain walls
+building services
+industrialized construction
+computation
+environmental systems
+transportation
+construction equipment
+digital fabrication
+
+y cómo esas capacidades condicionaron arquitectura.
+
+HAI-21. ARCHITECTURAL PROBLEM CONTINUITY
+
+Permitir preguntas longitudinales:
+
+¿Cómo resolvieron distintas generaciones el mismo problema?
+
+Ejemplos:
+
+collective housing
+civic center
+museum
+school
+hospital
+station
+memorial
+public space
+urban expansion
+reconstruction
+megastructure
+mixed-use
+infrastructure
+HAI-22. LONGITUDINAL COMPARISON
+
+Ejemplo:
+
+HOUSING
+
+1930
+↕
+1950
+↕
+1970
+↕
+1990
+↕
+2010
+↕
+2026
+
+Comparar:
+
+spatial model
+density
+circulation
+dwelling unit
+shared space
+structure
+construction
+urban relation
+environmental response
+social assumptions
+HAI-23. ARCHITECTURAL LINEAGE
+
+Permitir relaciones:
+
+influencedBy
+respondsTo
+develops
+rejects
+reinterprets
+contemporaneousWith
+sharesStrategyWith
+
+Estas relaciones deberán llevar evidencia.
+
+No inferir influencia por semejanza formal.
+
+HAI-24. CROSS-BLOC / CROSS-REGION ANALYSIS
+
+Investigar intercambios arquitectónicos:
+
+EAST ↔ WEST
+NORTH ↔ SOUTH
+SOCIALIST ↔ CAPITALIST
+EUROPE ↔ LATIN AMERICA
+EUROPE ↔ AFRICA
+EUROPE ↔ ASIA
+
+cuando existan fuentes.
+
+No asumir aislamiento arquitectónico por fronteras políticas.
+
+HAI-25. GLOBAL MODERNISM WITHOUT SINGLE CENTER
+
+Evitar narrar la arquitectura moderna como:
+
+ONE CENTER
+↓
+REST OF WORLD COPIES
+
+Permitir:
+
+multiple centers
+parallel experimentation
+local adaptation
+reciprocal influence
+independent invention
+contested interpretation
+HAI-26. LATIN AMERICA
+
+La expansión histórica deberá incluir expresamente Latinoamérica.
+
+Investigar progresivamente:
+
+Peru
+Brazil
+Mexico
+Argentina
+Chile
+Colombia
+Uruguay
+Venezuela
+Cuba
+other relevant contexts
+
+incluyendo concursos, modernismo, vivienda, universidades, infraestructura, urbanismo y arquitectura pública según evidencia.
+
+HAI-27. PERUVIAN HISTORICAL KNOWLEDGE
+
+Preparar una futura línea:
+
+HAI-PERU
+
+para estudiar sistemáticamente arquitectura y concursos peruanos.
+
+Esta Adenda la REGISTRA, pero no autoriza todavía ingestión masiva.
+
+HAI-28. REFERENCE WORK RECORD
+
+Crear o derivar:
+
+ReferenceArchitecturalWorkRecord
+
+con campos mínimos:
+
+workId
+name
+location
+country
+date
+architects
+status
+built/unbuilt
+competitionOrigin
+typology
+scales
+disciplines
+sourceEvidence
+drawings
+models
+photographs
+texts
+historicalContext
+architecturalObservations
+classifications
+disputedClassifications
+provenance
+rights
+unknowns
+HAI-29. ARCHIVAL SOURCE RECORD
+
+Crear o derivar:
+
+ArchitecturalArchiveSource
+
+con:
+
+archiveId
+institution
+country
+collection
+sourceType
+temporalCoverage
+geographicCoverage
+accessMode
+digitizationStatus
+rightsStatus
+language
+authority
+reliability
+relevantProjects
+relevantCompetitions
+lastChecked
+curatorStatus
+HAI-30. LANGUAGE BARRIER
+
+Registrar idiomas originales.
+
+La investigación histórica no debe limitarse a fuentes inglesas.
+
+Preparar capacidad para fuentes:
+
+Russian
+Serbo-Croatian / Bosnian / Croatian / Serbian
+Slovenian
+Macedonian
+Polish
+Czech
+Slovak
+German
+French
+Italian
+Spanish
+Portuguese
+Japanese
+others as required
+
+Traducción automática ≠ fuente original.
+
+Conservar original + traducción + procedencia.
+
+HAI-31. NAME / PLACE NORMALIZATION
+
+Los cambios históricos de nombres requieren identidad persistente.
+
+Ejemplo conceptual:
+
+HISTORICAL_NAME
+CURRENT_NAME
+ALTERNATE_TRANSLITERATION
+ORIGINAL_SCRIPT
+
+No crear entidades duplicadas por traducciones o cambios geopolíticos.
+
+HAI-32. STATE / TERRITORY TEMPORALITY
+
+Un proyecto debe conservar:
+
+jurisdictionAtProjectDate
+currentJurisdiction
+historicalCountry
+currentCountry
+
+cuando corresponda.
+
+No reescribir retrospectivamente el contexto político original.
+
+HAI-33. SOURCE CONFLICT
+
+Fuentes históricas pueden discrepar.
+
+Estados:
+
+NO_CONFLICT
+MINOR_CONFLICT
+MATERIAL_CONFLICT
+UNRESOLVED
+RESOLVED_WITH_EVIDENCE
+UNKNOWN
+
+Curator conserva ambas versiones hasta resolver.
+
+HAI-34. ARCHIVAL UNCERTAINTY
+
+No usar falsa precisión.
+
+Si fecha/autores/resultado son inciertos:
+
+APPROXIMATE
+DISPUTED
+UNKNOWN
+
+según corresponda.
+
+HAI-35. COPYRIGHT AND ARCHIVES
+
+Heredar íntegramente la política de derechos de ACI.
+
+Archivo accesible ≠ derecho de redistribución.
+
+Digitalización ≠ dominio público.
+
+Metadata, contenido, reproducción y entrenamiento deberán conservar sus condiciones jurídicas correspondientes.
+
+HAI-36. CURATOR
+
+Todo conocimiento histórico que aspire a promoción deberá pasar por:
+
+SOURCE
+↓
+EXTRACTION
+↓
+HISTORICAL CONTEXT
+↓
+CURATOR
+↓
+VERIFIED / PARTIAL / CONFLICT / UNKNOWN / REJECTED
+HAI-37. CORPUS ≠ CANON
+
+Formalizar:
+
+HISTORICAL IMPORTANCE ≠ CANONICAL ARCHITECTURAL PRINCIPLE.
+
+FAMOUS PROJECT ≠ UNIVERSAL SOLUTION.
+
+MUSEUM COLLECTION ≠ COMPLETE HISTORY.
+
+ARCHITECTURAL CANON ≠ GLOBAL ARCHITECTURE.
+
+HAI-38. CANON BIAS DETECTION
+
+Registrar:
+
+overrepresented architects
+overrepresented countries
+overrepresented institutions
+missing regions
+missing women architects
+missing local practices
+missing non-winning projects
+missing unbuilt work
+archival survival bias
+publication bias
+digitization bias
+
+No corregir sesgo inventando contenido.
+
+Detectarlo y buscar evidencia.
+
+HAI-39. HISTORICAL LEARNING
+
+El objetivo no es que ARKI memorice:
+
+architect → building → year
+
+sino comprender:
+
+PROBLEM
+CONTEXT
+INTENT
+STRATEGY
+RELATIONSHIPS
+SPACE
+FORM
+STRUCTURE
+MATERIAL
+TECHNOLOGY
+CONSTRUCTION
+CONSEQUENCES
+CRITICISM
+BUILT OUTCOME
+HAI-40. HISTORICAL TRANSFER SAFETY
+
+Una estrategia histórica podrá convertirse en:
+
+PRECEDENT
+PATTERN CANDIDATE
+DESIGN PRINCIPLE CANDIDATE
+
+nunca automáticamente en:
+
+CURRENT BEST PRACTICE
+HAI-41. CURRENT REGULATIONS
+
+Una solución históricamente relevante puede incumplir normas contemporáneas.
+
+Formalizar:
+
+HISTORICAL EXCELLENCE ≠ CURRENT REGULATORY COMPLIANCE.
+
+HAI-42. PERFORMANCE CLAIMS
+
+No atribuir:
+
+energy performance
+structural safety
+accessibility
+fire safety
+operational success
+sustainability
+
+a una obra histórica sin evidencia correspondiente.
+
+HAI-43. ACADEMY INTEGRATION
+
+Academy podrá utilizar HAI para:
+
+architectural history
+precedent analysis
+comparative analysis
+reconstruction
+critique
+design lineage
+typological evolution
+technology evolution
+held-out examinations
+HAI-44. KCF INTEGRATION
+
+KCF podrá utilizar historia para distinguir:
+
+genuinely new capability
+recurring architectural problem
+rediscovered idea
+cyclical trend
+persistent need
+historically failed approach
+historically successful strategy
+
+sin convertir recurrencia histórica en verdad universal.
+
+HAI-45. ACI INTEGRATION
+
+ARKI-HAI-001 no crea un sistema paralelo.
+
+Relación:
+
+LKS
+ └── ACI
+      ├── Contemporary Competition Corpus
+      └── Historical Architectural Intelligence
+           ├── Historical Competitions
+           └── Reference Architectural Works
+
+Esto es una relación conceptual.
+
+No autoriza bases duplicadas.
+
+HAI-46. INITIAL HISTORICAL PILOT
+
+Diseñar un piloto pequeño que pruebe al menos:
+
+one pre-1950 case
+one 1950s case
+one 1960s case
+one 1970s case
+one Soviet/Eastern European case
+one Yugoslav case
+one Latin American case
+
+Los casos pueden solaparse cuando esté justificado.
+
+No escalar todavía.
+
+HAI-47. PILOT PURPOSE
+
+El piloto debe demostrar:
+
+archival discovery
+historical identity
+source provenance
+multilingual handling
+incomplete evidence
+classification safety
+architectural analysis
+LKS integration
+ACI integration
+rights tracking
+
+No demostrar “dominio de historia de arquitectura”.
+
+HAI-48. ADVERSARIAL TESTS
+
+Como mínimo:
+
+proyecto soviético etiquetado automáticamente como brutalista → reject classification shortcut;
+proyecto yugoslavo tratado como soviético → reject;
+fuente inglesa contradice archivo original → preserve conflict;
+obra importante sin página web → not treated as nonexistent;
+archivo no digitalizado → EXISTS_BUT_NOT_DIGITIZED;
+autor desconocido → UNKNOWN;
+fecha aproximada → APPROXIMATE;
+nombre histórico/current name → same identity;
+transliteration variant → no duplicate entity;
+museum classification → not universal truth;
+retrospective brutalism label → marked retrospective;
+unbuilt proposal → no operational performance claim;
+historic winner → no current compliance assumption;
+missing jury report → ARCHIVAL_GAP;
+modern reassessment contradicts original jury → both preserved;
+famous architect → no automatic quality claim;
+visually similar works → no inferred influence without evidence;
+European overrepresentation → bias detected;
+historical strategy → no automatic current curriculum truth;
+historical corpus item → cannot directly become canonical LKS fact/principle.
+HAI-49. DELIVERABLES
+
+Incorporar:
+
+ARKI_HISTORICAL_ARCHITECTURAL_INTELLIGENCE.md
+ARKI_HISTORICAL_CORPUS_SCHEMA.md
+ARKI_HISTORICAL_COMPETITION_RECOVERY_PROTOCOL.md
+ARKI_ARCHIVAL_SOURCE_MODEL.md
+ARKI_HISTORICAL_ARCHITECTURAL_WORK_MODEL.md
+ARKI_HISTORICAL_CLASSIFICATION_POLICY.md
+ARKI_HISTORICAL_IDENTITY_TEMPORALITY_SPEC.md
+ARKI_ARCHIVAL_GAP_MODEL.md
+ARKI_HISTORICAL_BIAS_REGISTER.md
+ARKI_SOVIET_RESEARCH_BACKLOG.md
+ARKI_YUGOSLAV_RESEARCH_BACKLOG.md
+ARKI_BRUTALISM_RESEARCH_BACKLOG.md
+ARKI_LATIN_AMERICA_HISTORICAL_BACKLOG.md
+ARKI_HISTORICAL_PILOT_SPEC.md
+ARKI_HAI_TEST_MATRIX.md
+ARKI_HAI_SCOPE_LIMIT_REPORT.md
+
+Reutilizar artefactos ACI/LKS cuando corresponda.
+
+DO NOT DUPLICATE.
+
+HAI-50. MACHINE-READABLE FOUNDATION
+
+No dejar HAI únicamente en Markdown.
+
+Debe existir representación computable para, como mínimo:
+
+ReferenceArchitecturalWorkRecord
+ArchitecturalArchiveSource
+HistoricalIdentity
+ArchivalGap
+HistoricalClassification
+
+o equivalentes justificados.
+
+HAI-51. NO MASS INGESTION
+
+Esta Adenda NO autoriza:
+
+mass scraping
+mass downloading
+indiscriminate image ingestion
+copyrighted archive replication
+autonomous archive crawling
+
+Primero:
+
+ARCHITECTURE
+→ SCHEMA
+→ PILOT
+→ EVIDENCE
+→ REVIEW
+HAI-52. NO NEW AUTONOMOUS AGENT
+
+No crear:
+
+HistoricalAgent
+SovietAgent
+BrutalismAgent
+YugoslaviaAgent
+
+Son dominios/competencias/vistas de ONE ARKI.
+
+HAI-53. STATUS LIMIT
+
+Estado máximo inicial:
+
+ARKI-HAI-001 — FOUNDATION IMPLEMENTED / HISTORICAL PILOT / PENDING INDEPENDENT VERIFICATION
+
+Prohibido declarar:
+
+GLOBAL ARCHITECTURAL HISTORY COMPLETE
+SOVIET ARCHITECTURE MASTERED
+YUGOSLAV ARCHITECTURE MASTERED
+BRUTALISM MASTERED
+HISTORICAL CORPUS COMPLETE
+HAI-54. KNOWLEDGE EXPANSION AFTER PILOT
+
+Después del piloto y revisión independiente, una futura autorización podrá ampliar progresivamente:
+
+decades
+countries
+archives
+architects
+typologies
+competitions
+built works
+unbuilt works
+movements
+technologies
+
+sin rediseñar la arquitectura base.
+
+HAI-55. FINAL PRINCIPLES
+
+Registrar:
+
+ARKI SHALL NOT CONFUSE WHAT IS EASY TO FIND WITH WHAT IS IMPORTANT TO KNOW.
+
+ABSENCE FROM THE INTERNET IS NOT ABSENCE FROM ARCHITECTURAL HISTORY.
+
+HISTORY OF COMPETITIONS IS NOT THE WHOLE HISTORY OF ARCHITECTURE.
+
+SOVIET ≠ YUGOSLAV ≠ EASTERN EUROPEAN ≠ BRUTALIST.
+
+UNBUILT ≠ IRRELEVANT.
+
+FAMOUS ≠ UNIVERSAL.
+
+HISTORICAL EXCELLENCE ≠ CURRENT COMPLIANCE.
+
+ARCHIVAL EVIDENCE MUST PRESERVE UNCERTAINTY.
+
+ARKI LEARNS FROM HISTORY TO EXPAND ITS DESIGN INTELLIGENCE, NOT TO COPY HISTORY.
+
+ONE ARKI · ONE GOVERNED KNOWLEDGE SYSTEM · MULTIPLE HISTORICAL VIEWS · HUMAN AUTHORITY.
+
+HAI-56. STOP
+
+Ejecutar únicamente:
+
+historical architecture
+schemas
+archival model
+classification policy
+pilot specification / bounded pilot
+adversarial tests
+integration evidence
+manifest
+
+Después:
+
+STOP → INDEPENDENT REVIEW → PRODUCT OWNER DECISION.
+
+No iniciar ingestión histórica masiva.
+
+No crear nuevos agentes.
+
+No modificar Kernel.
+
+No avanzar BKH.
+
+FIN ADENDA 97A-03 — ARKI HISTORICAL ARCHITECTURAL INTELLIGENCE.

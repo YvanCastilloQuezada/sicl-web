@@ -1,0 +1,797 @@
+CONTRATO / MANDATO DE ARQUITECTURA EMPRESARIAL
+AR-LU — CORPORATE-001
+Versión 1.0
+Product Owner / Human Authority: Yvan Castillo
+
+ESTADO:
+INSTRUCCIÓN DE ANÁLISIS Y DISEÑO
+NO IMPLEMENTAR
+NO MODIFICAR CÓDIGO
+NO PUBLICAR
+NO RENOMBRAR REPOSITORIOS
+NO MODIFICAR ARKI
+NO MODIFICAR LUCA/MILUKITA
+NO CREAR INFRAESTRUCTURA PRODUCTIVA
+NO CONSTITUIR SOCIEDAD
+NO PRESENTAR POSTULACIONES
+NO REALIZAR GASTOS
+
+==================================================
+1. OBJETO DEL MANDATO
+==================================================
+
+Diseñar una propuesta integral para la estructura empresarial,
+financiera, contable, tecnológica, comercial y de propiedad
+intelectual de AR-LU.
+
+AR-LU se estudia provisionalmente como paraguas empresarial y
+tecnológico para dos sistemas independientes pero potencialmente
+interoperables:
+
+1. ARKI
+2. LUCA / MiLukita
+
+NO asumir que AR-LU ya es una sociedad constituida.
+
+NO asumir que AR-LU es el nombre comercial definitivo.
+
+NO fusionar técnicamente ARKI y LUCA.
+
+==================================================
+2. PRINCIPIO DE ORIGEN
+==================================================
+
+ARKI nació originalmente como un asistente.
+
+Su evolución funcional exigió progresivamente capacidades de:
+
+- interacción;
+- lenguaje;
+- SICL;
+- conocimiento arquitectónico;
+- percepción;
+- razonamiento;
+- generación;
+- evaluación;
+- memoria;
+- representación;
+- BIM;
+- análisis;
+- cálculo;
+- conocimiento multiescala;
+- evidencia y trazabilidad.
+
+LUCA/MiLukita también nace conceptualmente como un asistente,
+pero orientado progresivamente hacia:
+
+- interacción con el usuario;
+- visión;
+- percepción;
+- localización;
+- GPS;
+- cámara;
+- OCR;
+- objetos del mundo;
+- POI;
+- Claims;
+- Sources;
+- Evidence;
+- Mapper;
+- The Eye;
+- realidad aumentada;
+- navegación espacial;
+- interacción con dispositivos;
+- turismo;
+- discovery;
+- participación comunitaria.
+
+No interpretar esta descripción del Product Owner como evidencia
+automática de implementación.
+
+Distinguir siempre:
+
+VISION
+DOCUMENTATION
+CODE
+RUNTIME
+VERIFIED CAPABILITY
+UNKNOWN
+
+==================================================
+3. IDENTIDAD COMERCIAL DE ARKI
+==================================================
+
+Para efectos comerciales, corporativos y de presentación de producto,
+ARKI deberá estudiarse y describirse principalmente como:
+
+"SISTEMA COMPUTACIONAL / PLATAFORMA DE SOFTWARE"
+
+y NO depender comercialmente de la etiqueta
+"aplicación de inteligencia artificial".
+
+La arquitectura interna, métodos de razonamiento, modelos,
+orquestación, técnicas computacionales, know-how, componentes
+propietarios y mecanismos que produzcan sus capacidades deberán
+tratarse como:
+
+CONFIDENTIAL TECHNOLOGY
+PROPRIETARY KNOW-HOW
+TRADE SECRET CANDIDATE
+
+cuando legal y contractualmente corresponda.
+
+NO divulgar innecesariamente arquitectura interna.
+
+NO documentar públicamente secretos técnicos.
+
+NO revelar mecanismos internos únicamente para fines de marketing.
+
+NO obstante:
+
+No realizar declaraciones falsas.
+
+No ocultar información cuya declaración sea obligatoria por ley,
+contrato, bases concursales, auditoría, seguridad, regulación,
+propiedad intelectual o requerimiento legítimo de una autoridad.
+
+Principio:
+
+MINIMUM NECESSARY DISCLOSURE
++
+MAXIMUM LEGITIMATE PROTECTION OF KNOW-HOW
+
+==================================================
+4. POSICIONAMIENTO DEL PRODUCTO
+==================================================
+
+Evaluar una descripción externa semejante a:
+
+"Plataforma computacional para diseño, evaluación,
+reconstrucción BIM y aseguramiento de proyectos
+del entorno construido."
+
+Esta redacción es PROVISIONAL.
+
+Manus deberá proponer variantes que describan correctamente
+las capacidades demostrables sin revelar innecesariamente
+la arquitectura interna.
+
+Separar:
+
+A. PRODUCT DESCRIPTION
+B. TECHNICAL DESCRIPTION
+C. CONFIDENTIAL INTERNAL ARCHITECTURE
+D. REGULATORY / FUNDING DISCLOSURE
+E. CLIENT DISCLOSURE
+F. INVESTOR DUE DILIGENCE DISCLOSURE
+
+No utilizar la misma profundidad de información para todos
+los públicos.
+
+==================================================
+5. ARKI Y LUCA COMO SISTEMAS INDEPENDIENTES
+==================================================
+
+Mantener:
+
+                 AR-LU
+                   |
+        +----------+----------+
+        |                     |
+       ARKI                  LUCA
+        |                     |
+Built Environment       Spatial / Physical World
+Architecture            Location
+BIM                     AR
+Engineering             POI
+Design                  Observation
+Evaluation              Interaction
+Professional Systems    Human/Place Interaction
+
+Principio:
+
+ARKI MUST BE ABLE TO OPERATE WITHOUT LUCA.
+
+LUCA MUST BE ABLE TO OPERATE WITHOUT ARKI.
+
+La interoperabilidad futura debe realizarse mediante contratos,
+interfaces y adapters gobernados.
+
+NO crear una base de datos monolítica compartida.
+
+NO compartir autoridad de dominio.
+
+==================================================
+6. INFRAESTRUCTURA POTENCIALMENTE COMPARTIDA
+==================================================
+
+Estudiar, sin implementar, infraestructura AR-LU compartible:
+
+- compute;
+- GPU;
+- CPU;
+- storage;
+- backup;
+- networking;
+- AI/model infrastructure;
+- vision/OCR infrastructure;
+- identity federation;
+- security;
+- observability;
+- evidence/provenance transport;
+- GIS/spatial services;
+- asset storage;
+- knowledge infrastructure cuando corresponda.
+
+Compartir infraestructura NO significa compartir autoridad semántica.
+
+==================================================
+7. PROPIEDAD INTELECTUAL
+==================================================
+
+Diseñar una arquitectura de propiedad intelectual para:
+
+- código fuente;
+- arquitectura;
+- SICL;
+- conocimiento estructurado;
+- datasets;
+- modelos;
+- prompts/protocols cuando sean protegibles;
+- documentación;
+- diseños;
+- marcas;
+- dominios;
+- algoritmos;
+- workflows;
+- bibliotecas;
+- benchmarks;
+- know-how;
+- secretos empresariales;
+- ARKI;
+- LUCA/MiLukita;
+- futuros productos AR-LU.
+
+Determinar conceptualmente:
+
+FOUNDER IP
+COMPANY IP
+LICENSED IP
+THIRD-PARTY IP
+OPEN-SOURCE COMPONENT
+CONFIDENTIAL KNOW-HOW
+TRADE SECRET
+PUBLIC INFORMATION
+
+No transferir automáticamente propiedad intelectual existente
+a una sociedad futura.
+
+Proponer alternativas:
+
+A. cesión;
+B. licencia exclusiva;
+C. licencia no exclusiva;
+D. propiedad del fundador + licencia empresarial;
+E. estructura híbrida.
+
+No ejecutar ninguna transferencia.
+
+==================================================
+8. ESTRUCTURA SOCIETARIA PERÚ
+==================================================
+
+El Product Owner dispone actualmente de varias razones sociales,
+incluyendo E.I.R.L. y al menos una S.A.C.
+
+Por tanto:
+
+NO asumir que debe constituirse una nueva empresa.
+
+Comparar:
+
+- E.I.R.L. existente;
+- S.A.C. existente;
+- otra empresa existente;
+- nueva E.I.R.L.;
+- nueva S.A.C.;
+- otra estructura legal peruana aplicable.
+
+Evaluar:
+
+- control del fundador;
+- responsabilidad;
+- gobierno;
+- entrada futura de inversión;
+- propiedad intelectual;
+- tributación;
+- contratación;
+- facturación;
+- exportación de servicios;
+- fondos concursables;
+- I+D+i;
+- continuidad;
+- riesgo societario;
+- contingencias;
+- escalabilidad.
+
+El Product Owner prioriza mantener control.
+
+No incorporar socios innecesariamente.
+
+No recomendar una estructura definitiva sin verificar legislación
+peruana vigente y situación concreta de las empresas existentes.
+
+==================================================
+9. PRINCIPIO FINANCIERO AR-LU
+==================================================
+
+Diseñar formalmente:
+
+AR-LU TECHNOLOGY & INNOVATION FUND
+
+Objetivo inicial del Product Owner:
+
+20%
+
+Estudiar cuál debe ser técnicamente la base adecuada:
+
+- ingreso neto de IGV cobrado;
+- margen;
+- EBITDA;
+- utilidad antes de impuestos;
+- utilidad después de impuestos;
+- utilidad distribuible.
+
+NO asumir que reservar dinero constituye gasto deducible.
+
+Separar:
+
+ACCOUNTING RESERVE
+CASH RESERVE
+ACTUAL EXPENDITURE
+CAPEX
+OPEX
+R&D
+TAX-DEDUCTIBLE EXPENDITURE
+NON-DEDUCTIBLE EXPENDITURE
+
+La política perseguida es:
+
+Una porción relevante del valor económico generado por AR-LU
+debe permanecer dentro del ecosistema para aumentar su capacidad
+tecnológica.
+
+==================================================
+10. USOS DEL TECHNOLOGY FUND
+==================================================
+
+Evaluar como usos potenciales:
+
+- investigación;
+- desarrollo;
+- I+D+i;
+- software;
+- infraestructura;
+- servidores;
+- GPU;
+- RAM;
+- almacenamiento;
+- networking;
+- cloud;
+- datasets;
+- licencias;
+- seguridad;
+- testing;
+- benchmarks;
+- validación;
+- personal técnico;
+- propiedad intelectual;
+- interoperabilidad;
+- investigación aplicada.
+
+Prohibir conceptualmente su utilización para:
+
+- dividendos;
+- retiros personales;
+- gastos personales;
+- gastos sin relación tecnológica;
+- operaciones no autorizadas.
+
+==================================================
+11. CONTABILIDAD GERENCIAL
+==================================================
+
+Diseñar centros de costo preliminares:
+
+CC-100 CORPORATE
+CC-200 ARKI
+CC-300 LUCA
+CC-400 SHARED R&D
+CC-500 COMPUTE INFRASTRUCTURE
+
+Permitir agregar otros únicamente cuando exista necesidad real.
+
+Cada gasto deberá poder atribuirse a:
+
+COMPANY
+PRODUCT
+PROJECT
+CUSTOMER
+COST CENTER
+CAPEX/OPEX
+R&D/NON-R&D
+DATE
+AMOUNT
+CURRENCY
+DOCUMENT
+PAYMENT METHOD
+FUNDING SOURCE
+
+Cada ingreso:
+
+CUSTOMER
+PRODUCT
+SERVICE
+PROJECT
+CONTRACT
+INVOICE
+COLLECTION
+DIRECT COST
+COMPUTE COST
+HUMAN COST
+MARGIN
+
+==================================================
+12. MODELO ECONÓMICO
+==================================================
+
+Estudiar dos motores diferentes:
+
+ARKI:
+- servicios profesionales;
+- BIM X-Ray;
+- auditoría;
+- Drawing/PDF/DWG-to-BIM;
+- BIM Rescue;
+- coordinación;
+- Project Assurance;
+- diseño/evaluación;
+- futuros productos de software.
+
+LUCA:
+- turismo;
+- spatial discovery;
+- AR;
+- POI;
+- comercios;
+- experiencias;
+- creator economy;
+- servicios espaciales;
+- futuros modelos por validar.
+
+No inventar ingresos.
+
+Clasificar:
+
+CURRENTLY SELLABLE
+NEAR-TERM
+REQUIRES DEVELOPMENT
+EXPERIMENTAL
+VISION ONLY
+
+==================================================
+13. FINANCIAMIENTO NO DILUTIVO
+==================================================
+
+Investigar y construir un:
+
+AR-LU FUNDING RADAR
+
+Incluyendo, cuando sean aplicables:
+
+- ProInnóvate;
+- ProCiencia;
+- CONCYTEC;
+- instrumentos de I+D+i;
+- desarrollo tecnológico;
+- validación de innovación;
+- escalamiento tecnológico;
+- Startup Perú;
+- cooperación internacional;
+- otros fondos legítimos.
+
+Para cada convocatoria:
+
+PROGRAM
+ENTITY
+AMOUNT
+COFINANCING
+ELIGIBILITY
+COMPANY AGE
+REVENUE REQUIREMENTS
+TRL
+ELIGIBLE EXPENSES
+INELIGIBLE EXPENSES
+APPLICATION DATES
+EVALUATION CRITERIA
+ARKI FIT
+LUCA FIT
+REQUIRED EVIDENCE
+RISK
+SOURCE
+SOURCE DATE
+
+No inventar convocatorias.
+
+Usar fuentes oficiales.
+
+==================================================
+14. ARKI FUNDING PROJECT
+==================================================
+
+Evaluar como hipótesis de presentación:
+
+"Plataforma computacional para diseño, evaluación,
+reconstrucción BIM y aseguramiento de proyectos
+del entorno construido."
+
+ARKI deberá presentarse por sus:
+
+CAPABILITIES
+PROBLEM SOLVED
+TECHNOLOGICAL INNOVATION
+MEASURABLE RESULTS
+MARKET VALUE
+VALIDATION
+SCALABILITY
+
+No revelar innecesariamente secretos empresariales.
+
+Pero cumplir íntegramente cualquier obligación de divulgación
+establecida en las bases del fondo correspondiente.
+
+Los servidores, GPU y demás infraestructura son MEDIOS.
+
+No presentar el proyecto simplemente como:
+
+"comprar servidores".
+
+La financiación debe estar vinculada a resultados tecnológicos,
+validación y capacidades verificables.
+
+==================================================
+15. INFRAESTRUCTURA FÍSICA
+==================================================
+
+El Product Owner considera a futuro infraestructura propia,
+incluyendo servidores y eventualmente un centro privado de cómputo.
+
+NO aprobar todavía la compra de una vivienda ni la construcción
+de un data center.
+
+Comparar primero:
+
+A. infraestructura existente;
+B. workstation/cluster incremental;
+C. colocación;
+D. cloud;
+E. hybrid cloud;
+F. oficina técnica;
+G. private server room;
+H. futuro data center propio.
+
+Evaluar:
+
+CAPEX
+OPEX
+POWER
+COOLING
+UPS
+FIRE PROTECTION
+NETWORK REDUNDANCY
+SECURITY
+MAINTENANCE
+UTILIZATION
+SCALABILITY
+FAILURE RISK
+COST PER COMPUTE UNIT
+
+Toda adquisición deberá responder a un cuello de botella demostrado
+o a capacidad comercial/tecnológica requerida.
+
+==================================================
+16. CONFIDENCIALIDAD
+==================================================
+
+Proponer una clasificación corporativa:
+
+PUBLIC
+CLIENT-CONFIDENTIAL
+INTERNAL
+CONFIDENTIAL
+STRICTLY CONFIDENTIAL
+TRADE SECRET
+
+Identificar qué partes de ARKI/LUCA deberían potencialmente
+permanecer como secreto empresarial.
+
+Proponer controles de:
+
+- acceso;
+- repositorios;
+- credenciales;
+- documentación;
+- backups;
+- colaboradores;
+- proveedores;
+- contratistas;
+- NDAs;
+- logging;
+- exportación de información;
+- disclosure a clientes;
+- disclosure a fondos;
+- disclosure a inversionistas.
+
+==================================================
+17. PRINCIPIO DE VERACIDAD
+==================================================
+
+La protección de secretos empresariales NO autoriza:
+
+- declaraciones falsas;
+- falsificación;
+- omisiones obligatorias;
+- manipulación de bases concursales;
+- ocultamiento ante autoridad competente;
+- representación incorrecta de capacidades.
+
+Principio obligatorio:
+
+DISCLOSE ONLY WHAT IS REQUIRED,
+BUT EVERYTHING REQUIRED MUST BE TRUE.
+
+==================================================
+18. ENTREGABLES
+==================================================
+
+Entregar:
+
+01_AR_LU_CORPORATE_ARCHITECTURE.md
+
+02_AR_LU_BUSINESS_MODEL.md
+
+03_AR_LU_FINANCIAL_ARCHITECTURE.md
+
+04_AR_LU_TECHNOLOGY_FUND_POLICY.md
+
+05_AR_LU_MANAGEMENT_ACCOUNTING_MODEL.md
+
+06_AR_LU_IP_AND_TRADE_SECRET_ARCHITECTURE.md
+
+07_AR_LU_PERU_ENTITY_OPTIONS.md
+
+08_AR_LU_FUNDING_RADAR_2026_2027.md
+
+09_ARKI_FUNDING_PROJECT_HYPOTHESIS.md
+
+10_LUCA_FUNDING_PROJECT_HYPOTHESIS.md
+
+11_AR_LU_INFRASTRUCTURE_FINANCING_MODEL.md
+
+12_AR_LU_RISK_REGISTER.md
+
+13_AR_LU_DECISION_REGISTER.md
+
+14_AR_LU_OPEN_QUESTIONS.md
+
+15_AR_LU_EXECUTIVE_REPORT.md
+
+MANIFEST.json
+
+==================================================
+19. EVIDENCE DISCIPLINE
+==================================================
+
+Toda afirmación deberá clasificarse cuando corresponda:
+
+FACT
+CODE_EVIDENCE
+DOCUMENT_EVIDENCE
+RUNTIME_EVIDENCE
+OFFICIAL_SOURCE
+PRODUCT_OWNER_INPUT
+INFERENCE
+PROPOSAL
+UNKNOWN
+REQUIRES_PROFESSIONAL_VALIDATION
+
+Aspectos tributarios, societarios, concursales y legales:
+
+REQUIRES CURRENT PERUVIAN LEGAL/TAX VERIFICATION
+
+cuando no hayan sido verificados contra fuente vigente.
+
+==================================================
+20. PROHIBICIONES
+==================================================
+
+NO implementar.
+
+NO modificar código.
+
+NO crear empresa.
+
+NO registrar marca.
+
+NO presentar concurso.
+
+NO comprar hardware.
+
+NO transferir IP.
+
+NO modificar ARKI.
+
+NO modificar LUCA.
+
+NO fusionarlos.
+
+NO crear nuevos agentes.
+
+NO cambiar SICL.
+
+NO activar nuevos engines.
+
+NO publicar arquitectura confidencial.
+
+NO afirmar capacidades no demostradas.
+
+==================================================
+21. HUMAN AUTHORITY
+==================================================
+
+Manus puede:
+
+ANALYZE
+COMPARE
+MODEL
+PROPOSE
+CHALLENGE
+IDENTIFY RISKS
+
+Manus NO puede:
+
+DECIDE
+COMMIT CORPORATE STRUCTURE
+TRANSFER IP
+SPEND
+SUBMIT
+PUBLISH
+SIGN
+IMPLEMENT
+
+Toda decisión estratégica permanece bajo:
+
+HUMAN AUTHORITY / PRODUCT OWNER.
+
+==================================================
+22. STOP CONDITION
+==================================================
+
+Al completar todos los entregables:
+
+STOP.
+
+No ejecutar la siguiente fase.
+
+No implementar recomendaciones.
+
+No preparar constitución definitiva.
+
+No presentar fondos.
+
+No iniciar compras.
+
+Entregar el paquete completo al Product Owner y a ChatGPT
+para revisión conjunta y decisión humana.
+
+END OF AR-LU CORPORATE-001

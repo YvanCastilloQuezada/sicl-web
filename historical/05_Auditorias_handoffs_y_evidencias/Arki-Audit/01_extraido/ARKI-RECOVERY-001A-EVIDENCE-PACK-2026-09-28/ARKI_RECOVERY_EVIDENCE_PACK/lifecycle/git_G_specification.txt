@@ -1,0 +1,4 @@
+[33mea43eca[m docs: define territorial variable matrices
+[33mc20433e[m docs: define system building and site variable matrices
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema

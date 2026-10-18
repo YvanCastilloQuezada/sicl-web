@@ -1,0 +1,17 @@
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m49edb90[m test: close Red Team evidence and E2E determinism gaps
+[33md3b4462[m feat(H-002): implement read-only Impact Analysis with RT-01 to RT-14
+[33mad935ad[m feat: derive hierarchical spatial design state
+[33m63213ab[m feat: add bounded diverse design exploration
+[33m73eff82[m feat: add formal spatial design operations
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m1551851[m feat: add multisource design knowledge pilot
+[33mc671337[m feat: complete controlled design knowledge pilot
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m998d037[m feat: add evidence-based design memory projection
+[33mda3583b[m feat: complete div-p0 design intelligence loop
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33md53912b[m feat: implement RFC-026 design knowledge agent

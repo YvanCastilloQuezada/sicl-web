@@ -1,0 +1,262 @@
+ORDEN 57 — LUKA FIELD VOICE COPILOT
+MOTOR DE INTENTS / CAPABILITIES / DOMAIN LOGIC
+
+OBJETIVO
+
+Implementar exclusivamente el motor backend/domain que permita a
+LUKA Field Voice Copilot interpretar intenciones controladas y
+convertirlas en acciones autorizadas.
+
+NO implementar interfaz visual.
+
+NO implementar frontend.
+
+============================================================
+1. PROHIBICIÓN ABSOLUTA
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX
+- CSS
+- layouts
+- páginas
+- componentes
+- UX.
+
+NO crear pantalla de voz.
+
+============================================================
+2. PRINCIPIO
+============================================================
+
+Copilot:
+
+GUIDE
+LISTEN
+CONFIRM
+RECORD
+PROPOSE
+ALERT
+
+Copilot NO:
+
+VERIFY
+PUBLISH
+RESOLVE
+AUTHORIZE.
+
+============================================================
+3. CONTEXT ENGINE
+============================================================
+
+Implementar/completar contexto:
+
+- current session
+- current WorldObject
+- GPS
+- camera state
+- connectivity
+- sync state
+- current task
+- user role.
+
+============================================================
+4. INTENTS
+============================================================
+
+Implementar un conjunto controlado de intents.
+
+Como mínimo:
+
+START_SESSION
+GET_GPS
+CAPTURE_PHOTO
+RECORD_OBSERVATION
+SAVE_CAPTURE
+DISCARD_CAPTURE
+DELETE_CAPTURE
+SEND_TO_EYE
+SYNC
+SHOW_STATUS
+FINISH_SESSION
+CANCEL_ACTION
+HELP.
+
+No implementar comandos arbitrarios.
+
+============================================================
+5. INTENT VS ACTION
+============================================================
+
+Separar:
+
+INTENT_DETECTED
+
+de
+
+ACTION_EXECUTED.
+
+Un intent nunca implica automáticamente autorización.
+
+============================================================
+6. CAPABILITY GATE
+============================================================
+
+Implementar una capa:
+
+CAPABILITY GATE
+
+que valide:
+
+- usuario
+- rol
+- contexto
+- capability
+- recurso
+- estado
+- confirmación requerida.
+
+============================================================
+7. MAPPER CAPABILITIES
+============================================================
+
+Mapper puede:
+
+READ:
+- session
+- GPS
+- camera
+- sync.
+
+WRITE:
+- capture
+- observation
+- save
+- request photo
+- request sync.
+
+DENY:
+- verify
+- publish
+- resolve critical conflict.
+
+============================================================
+8. CONFIRMATION
+============================================================
+
+Definir acciones que requieren confirmación.
+
+Por ejemplo:
+
+SAVE
+DELETE
+SEND_TO_EYE
+FINISH_SESSION
+
+Nunca ejecutar acciones sensibles únicamente porque fueron
+interpretadas por lenguaje natural ambiguo.
+
+============================================================
+9. AMBIGUITY
+============================================================
+
+Si el intent tiene baja confianza o múltiples interpretaciones:
+
+RETURN:
+
+NEEDS_CLARIFICATION
+
+No ejecutar acción.
+
+============================================================
+10. STATE MACHINE
+============================================================
+
+Implementar/completar estados:
+
+IDLE
+SESSION_STARTING
+GPS_WAITING
+GPS_READY
+READY_TO_CAPTURE
+CAPTURING
+PHOTO_CAPTURED
+OBSERVATION_LISTENING
+OBSERVATION_RECORDED
+REVIEWING
+SAVING
+SAVED
+SYNCING
+OFFLINE
+SYNC_ERROR
+CONFLICT
+SESSION_FINISHED.
+
+Usar estados existentes si ya están implementados.
+
+============================================================
+11. VOICE FAILURE
+============================================================
+
+Soportar:
+
+VOICE_UNAVAILABLE
+
+sin bloquear el flujo manual.
+
+============================================================
+12. AUDITORÍA
+============================================================
+
+Registrar:
+
+- intent detectado
+- acción ejecutada
+- usuario
+- resultado
+- errores.
+
+No almacenar audio innecesariamente.
+
+============================================================
+13. TESTS
+============================================================
+
+Tests para:
+
+- intents
+- ambiguity
+- confirmation
+- capabilities
+- RBAC
+- denied actions
+- state machine
+- intent/action separation
+- voice unavailable
+- audit.
+
+============================================================
+14. MJP CORE
+============================================================
+
+Copilot NO puede acceder ni modificar:
+
+- RNG
+- RTP
+- RULES
+- RESULT
+- WALLET
+- LEDGER
+- SETTLEMENT.
+
+============================================================
+15. ENTREGA
+============================================================
+
+Solo código.
+
+NO frontend.
+
+FIN.

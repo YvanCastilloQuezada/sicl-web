@@ -1,0 +1,30 @@
+{
+  "schema": "ARKI-BKH1-EVIDENCE-VERIFIED-1.2",
+  "status": "VERIFIED — BKH-1 SCOPE",
+  "verdict": "APPROVE WITH FIXES → VERIFIED",
+  "baseline": "main@c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "fixes": ["FIX-BKH1-01 CLOSED", "FIX-BKH1-02 CLOSED", "FIX-BKH1-03 CLOSED"],
+  "scope_guard": ["BKH-2 blocked", "E5/E6/E7 frozen", "E8 not started"],
+  "files": [
+    {"path":"BKH1_REPORT.md","bytes":4229,"sha256":"5d5b8da975405a6bda324a0971e6fb8ab9e694d925f17e4a4618eff6bb7ce62f"},
+    {"path":"BKH1_VERDICT_VERIFIED.md","bytes":1362,"sha256":"aee53ad09afecaee46f1f4c17b31581e255de639bd5ff26f5572fcbda916937b"},
+    {"path":"BKH1_CHANGE_LIST.md","bytes":7226,"sha256":"ec6b00edb23cd51aea74fd367def5c69f1bc6f1a693218225a9ea95eef2102ba"},
+    {"path":"BKH1_DIFF.patch","bytes":26878,"sha256":"e573d928713116195f9a3913659073a528d6cf79fee225d85e8576a6d4b7eb11"},
+    {"path":"BKH1_GATE1_BASELINE.txt","bytes":54007,"sha256":"c6f0b2c1f8be359b6e2b1b2ae29549341bf9088cca94dfc541ecd65f0279302f"},
+    {"path":"BKH1_GATE1_BASELINE_RAW.txt","bytes":54007,"sha256":"c6f0b2c1f8be359b6e2b1b2ae29549341bf9088cca94dfc541ecd65f0279302f"},
+    {"path":"BKH1_IMPLEMENTATION_OUTPUTS.txt","bytes":7169,"sha256":"f23c17063f8a29aa49bdbb2de8931766950eb539f054baf678a361f4fc934e6a"},
+    {"path":"BKH1_WORKTREE_AFTER.txt","bytes":6784,"sha256":"f425738c320534214e21321300f9a8d7acc7ba2631132bdd29b83878953454d8"},
+    {"path":"BKH1_TRACKED_DIFF_AFTER.txt","bytes":696,"sha256":"b3b56046a09bb8d719be57d43adea11d524d08c3392a32005eee2f1f24d14e11"},
+    {"path":"BKH1_RELATIONSHIP_FABRIC_CONTRACT.md","bytes":5604,"sha256":"5e5552885d27caceb52ecbd3c86fbea0b74d4a7a0a8befdd357c1299001fdfe1"},
+    {"path":"BKH1_RELATIONSHIP_SCHEMA.md","bytes":3664,"sha256":"aba4be8632de39eceb585054021e1be6cfbecfdea76e52ae5eb5a0e04779ac89"},
+    {"path":"BKH1_RELATION_MIGRATION_MATRIX.md","bytes":4175,"sha256":"64e1d524c7dfd1aa36263e724a37447aa7d1359fa272bccd12676be3b8503747"},
+    {"path":"BKH1_TEST_PLAN.md","bytes":3841,"sha256":"4b9b4fbcbc05b719ecdc342cb54bdaece603f5923dde07ac672d03d5e0b70209"},
+    {"path":"BKH1_SCOPE_LIMITS.md","bytes":1689,"sha256":"020690853a18e5201b4137e30990d95f3198a6242f3e57b2339f0dc4785de25e"},
+    {"path":"BKH1_IMPLEMENTATION_SEQUENCE.md","bytes":3205,"sha256":"b12d96e381b7e23aaf7fce60dd9ad59375b55b2b2d67c4c646a6d34668db586d"},
+    {"path":"shared/arkiRelationshipFabric.ts","bytes":13884,"sha256":"03ce98f57db7ce329bd844e1db87a16672772a6c92db3d017d248a6e586c9c07"},
+    {"path":"shared/arkiRelationshipAdapters.ts","bytes":6222,"sha256":"9f8ffbc7dd5f2ae9d4a896451727652f5d6698352a8ac7932426b3591f5bae41"},
+    {"path":"scripts/test-bkh1-relationship-fabric.ts","bytes":5393,"sha256":"6b28a426fd297b263ea943d114f567f5154174addf75327c6cbe234a6962ffb8"},
+    {"path":"AKI001_CURRICULUM_DELTA_BKH1.md","bytes":1691,"sha256":"cf61bb6d59f7bfb6a4174062bf299971e7bd70e65b735005ffe75bcd9d9032e0"},
+    {"path":"ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md","bytes":1258,"sha256":"c77069f60aaae166f6967b0d97dad23ddf94faf0d374916435801881c56fb2e1"}
+  ]
+}

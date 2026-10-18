@@ -1,0 +1,32 @@
+{
+  "baseline": "c62183a",
+  "contract": "UI-3A v2.0",
+  "status": "IMPLEMENTED_AND_VERIFIED",
+  "deleted": ["client/src/components/ArkiNavigator.tsx"],
+  "files": [
+    {"path":"shared/arkiBimSelection.ts","sha256":"fc000fb210163cfd0878b80d6c316bc0873b0d307e7b46528afaff9a857f3eb4"},
+    {"path":"shared/arkiContextPanel.ts","sha256":"f8645024a04c6da10e04f4b6673afe022e68dc2017ddf43be5c2b0ecf15478ec"},
+    {"path":"client/src/canvas/types.ts","sha256":"744fa831269b09b4dbc1dc1302a1b23a271d026199c6bdcc4ba5215b7af961f5"},
+    {"path":"client/src/canvas/CanvasPlanView.tsx","sha256":"8748747cbbb0e1bd8e9eb1b53f04b38752b2f9ff7e9b4c927d430f3d8a49f962"},
+    {"path":"client/src/canvas/ContextPanel.tsx","sha256":"54a94b7dc4f16134274f1e534d51ab0284fb7c5c7ba361d9dcc15d83d3d31a2a"},
+    {"path":"client/src/canvas/InfoBoxPanel.tsx","sha256":"2a9f0c2d92f3f2886a9ae01812bdc5975f4574bd47a2d9c7147cc351203dbc19"},
+    {"path":"client/src/canvas/SelectionProvider.tsx","sha256":"09d5a1acb0190a8c7d48bcb64a8a5a95d45344b78b6fc884daf938d3f680bf14"},
+    {"path":"scripts/test-bim-selection.ts","sha256":"031fd06bdc7dcdcf7c6e9e98616abdf5e124f2edc192c37da12a6d8dca4bfdb7"},
+    {"path":"scripts/test-canvas-mount.ts","sha256":"45d65e1e77f86acda04ba55a2d91d1c59b7df6bc38df48d6bdba35d459260023"},
+    {"path":"scripts/test-selection-info.ts","sha256":"5f04ed06c3771a614d6617bc86659a29f6775ef222c2e596106671124e17e4a9"},
+    {"path":"scripts/test-context-panel.ts","sha256":"63227c92303b0ad0119819637bc088a988c571dd61f66588d3ea6d365a2946ed"},
+    {"path":"client/src/components/ArkiWorkspaceShell.tsx","sha256":"4992f2f065b6af5c2156082b7ddf54e779ad0968eaf83790458f7e24f17a8bf2"},
+    {"path":"client/src/contexts/ProjectContext.tsx","sha256":"29d52cfebbfdd1be560b2ec7c53d3c9a3e4df355435dc44da38ae8279a262704"},
+    {"path":"client/src/modules/GeneratorModule.tsx","sha256":"6544f2be4c98f02572d46ca12e8bdb268c54ac1f4065be5aeb0e73666c6ec9e8"},
+    {"path":"client/src/index.css","sha256":"21c46f1a86672849d12e7ff5b387090f60a6c94446cd89eb05487d7f60bb83f4"},
+    {"path":"scripts/test-no-inherited-cleanup.ts","sha256":"f410ce8f12c738d23b6ee1a76c0f1e9008e0e83ae8d2689f57594655a1bfed64"},
+    {"path":"scripts/test-navigator-layout.ts","sha256":"f3e93d8ba5007c55b5d113853acbabc35ff2a1cba52fa862e82f222228e10c5b"}
+  ],
+  "verification": {
+    "pnpm check": "PASS",
+    "pnpm build": "PASS",
+    "ui3a tests": "PASS",
+    "domain regression": "PASS",
+    "visual captures": 5
+  }
+}

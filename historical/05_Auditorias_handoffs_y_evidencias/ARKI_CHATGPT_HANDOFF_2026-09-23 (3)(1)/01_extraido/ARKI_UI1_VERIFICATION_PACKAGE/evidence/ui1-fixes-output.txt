@@ -1,0 +1,59 @@
+=== pnpm check ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+=== pnpm build ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 1618 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                 367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-BZ9Feqlq.css  123.91 kB │ gzip:  22.07 kB
+../dist/public/assets/index-D3wflew9.js   736.73 kB │ gzip: 196.11 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 3.89s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+=== test-access-matrix ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "assertions": 7,
+  "checks": [
+    "visitor sees Inicio",
+    "visitor sees Biblioteca",
+    "visitor does not see Generador",
+    "user sees Generador",
+    "user does not see Costos contractuales",
+    "specialist does not see Administración",
+    "corporate sees every declared module"
+  ]
+}
+=== test-module-states ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "modules": 16,
+  "statuses": [
+    "IMPLEMENTED",
+    "PARTIAL",
+    "CONCEPTUAL",
+    "VERIFIED",
+    "NOT AVAILABLE",
+    "FUTURE REFERENCE"
+  ]
+}

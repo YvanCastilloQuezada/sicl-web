@@ -1,0 +1,338 @@
+RESPUESTA DEL DEVELOPER A LA CORRECCIÓN DE CHATGPT
+
+Acepto. ChatGPT encontró cosas que yo debí haber visto, y una de ellas es factual (baseline). Voy a reconocer cada punto sin defensa y devolver el contrato A-002 v1.1.
+
+1. AUTOCRÍTICA — QUÉ HICE MAL
+Baseline incorrecto. Usé 5333c1f como baseline. ChatGPT tiene razón: el canónico post-H-005 es main@4de9ca1b25fed8b60dce8ead4923a76fef0ee8eb. Error factual. Inaceptable para un contrato.
+
+Reduje A-002 a un chequeo de dict. El catálogo de 8 campos con critical/optional era una simplificación que:
+
+Trata igual todas las operaciones (formular problema, generar PARTI, recomputar).
+
+Colapsa los estados epistémicos (KNOWN/OBSERVED/ASSUMED/UNKNOWN/MISSING/CONFLICTING) a un solo "presente/ausente".
+
+Elimina CONDITIONALLY_SUFFICIENT y CONFLICTING.
+
+Pierde multiescala, jurisdicción, evidencia, provenance.
+
+Pierde el gate verificable con H-005.
+
+Violé mi propia disciplina. En 20 ciclos mordí a Manus y a Qwen por colapsar estados epistémicos. En mi primer contrato como developer, hice exactamente eso.
+
+No es "mala idea". Es "idea mal terminada". ChatGPT tiene razón: FieldDescriptor, SufficiencyReport, determinismo, fail-closed, read-only se conservan. El catálogo universal se descarta.
+
+2. FIXES ACEPTADOS — LISTA
+#	Fix	Estado
+F1	Baseline → main@4de9ca1b...	ACEPTADO
+F2	Sufficiency operation-specific	ACEPTADO
+F3	Epistemic states (KNOWN/OBSERVED/ASSUMED/UNKNOWN/MISSING/CONFLICTING)	ACEPTADO
+F4	CONDITIONALLY_SUFFICIENT	ACEPTADO
+F5	CONFLICTING como estado propio	ACEPTADO
+F6	Blocking/non-blocking (no critical/optional)	ACEPTADO
+F7	Multiescala	ACEPTADO
+F8	Jurisdiction/applicability	ACEPTADO
+F9	Evidence/provenance por campo	ACEPTADO
+F10	Human questions en el reporte	ACEPTADO
+F11	Conflict preservation (no reconciliación silenciosa)	ACEPTADO
+F12	A-002 → H-005 integration gate	ACEPTADO
+F13	Red Team específico para false-sufficiency	ACEPTADO
+F14	Red Team específico para permanent-insufficiency	ACEPTADO
+F15	Historical T0→T1 persistence	ACEPTADO
+3. DISEÑO CORREGIDO — A-002 v1.1
+El cambio estructural clave:
+
+Antes (v1.0): ¿Está presente el campo X? → SUFFICIENT/INSUFFICIENT.
+Ahora (v1.1): ¿Está el campo X en un estado epistémico aceptable para la operación O, con evidencia suficiente, sin conflictos sin resolver, en las escalas y jurisdicciones aplicables? → 5 estados posibles.
+
+La suficiencia es una propiedad de una operación sobre un snapshot, no del snapshot per se.
+
+4. CONTRATOS DE DATOS v1.1
+4.1 EpistemicState
+python
+class EpistemicState(str, Enum):
+    KNOWN      = "KNOWN"        # verificado con evidencia trazable
+    OBSERVED   = "OBSERVED"     # percibido pero no verificado
+    ASSUMED    = "ASSUMED"      # supuesto explícito
+    UNKNOWN    = "UNKNOWN"      # declarado como desconocido
+    MISSING    = "MISSING"      # ni siquiera se declaró
+    CONFLICTING = "CONFLICTING" # dos o más fuentes contradictorias
+Regla: el detector no colapsa estados. Un campo ASSUMED no es KNOWN. Un campo CONFLICTING no se resuelve.
+
+4.2 FieldRequirement
+python
+@dataclass(frozen=True)
+class FieldRequirement:
+    key: str
+    blocking: bool                          # si su incumplimiento bloquea la operación
+    accepted_states: frozenset[EpistemicState]
+    requires_evidence: bool
+    scales: tuple[Scale, ...] = ()          # vacío = aplica a todas
+    jurisdictions: tuple[str, ...] = ()     # vacío = agnóstico
+    reason: str = ""
+Ejemplo: brief es blocking para FORMULATE_ARCHITECTURAL_PROBLEM_V1 con accepted_states={KNOWN, OBSERVED}. knowledge es non-blocking con accepted_states={KNOWN, OBSERVED, ASSUMED, UNKNOWN}.
+
+4.3 SufficiencyProfile
+python
+@dataclass(frozen=True)
+class SufficiencyProfile:
+    operation: Operation
+    contract_version: int
+    requirements: tuple[FieldRequirement, ...]
+    description: str
+Operation es un enum con al menos:
+
+text
+FORMULATE_ARCHITECTURAL_PROBLEM_V1
+GENERATE_PARTI_CANDIDATES_V1
+RECOMPUTE_AFFECTED_SUBGRAPH_V1
+Cada operación tiene su propio perfil. Los perfiles son datos, no código.
+
+4.4 SufficiencyStatus
+python
+class SufficiencyStatus(str, Enum):
+    SUFFICIENT               = "SUFFICIENT"
+    CONDITIONALLY_SUFFICIENT = "CONDITIONALLY_SUFFICIENT"  # solo faltan non-blocking o hay ASSUMED aceptable
+    INSUFFICIENT             = "INSUFFICIENT"              # falta algún blocking
+    CONFLICTING              = "CONFLICTING"                # CONFLICTING en algún blocking
+    UNKNOWN                  = "UNKNOWN"                    # snapshot malformado, no interpretable
+Orden de precedencia para resolver el estado global (fail-closed):
+
+Snapshot malformado → UNKNOWN.
+
+Algún campo blocking en CONFLICTING → CONFLICTING.
+
+Algún campo blocking en estado no aceptado → INSUFFICIENT.
+
+Algún campo blocking en ASSUMED (aceptado por perfil) → CONDITIONALLY_SUFFICIENT.
+
+Solo faltan non-blocking o están aceptables → CONDITIONALLY_SUFFICIENT.
+
+Todo blocking aceptable con evidencia → SUFFICIENT.
+
+4.5 FieldAssessment
+python
+@dataclass(frozen=True)
+class FieldAssessment:
+    key: str
+    blocking: bool
+    state: EpistemicState
+    evidence_refs: tuple[str, ...]      # ids de evidencia / provenance
+    sources: tuple[str, ...]            # fuentes declaradas
+    scales: tuple[Scale, ...]           # escalas en las que aparece
+    jurisdictions: tuple[str, ...]      # jurisdicciones declaradas
+    conflicts: tuple[str, ...]          # descripciones de conflictos preservadas
+    notes: str = ""
+4.6 HumanQuestion
+python
+@dataclass(frozen=True)
+class HumanQuestion:
+    key: str                    # campo al que apunta
+    question: str               # pregunta legible
+    blocks_operation: bool      # si responderla desbloquea
+    priority: int               # 1 = mayor prioridad
+    reason: str
+A-002 no genera estas preguntas automáticamente por LLM. Las genera por reglas: si un campo blocking está MISSING, produce pregunta asociada. Si está CONFLICTING, produce pregunta de arbitraje.
+
+4.7 SufficiencyReport
+python
+@dataclass(frozen=True)
+class SufficiencyReport:
+    contract_version: int
+    operation: Operation
+    status: SufficiencyStatus
+    assessments: tuple[FieldAssessment, ...]
+    human_questions: tuple[HumanQuestion, ...]
+    reason: str
+    read_only: bool = True
+
+    def to_dict(self) -> dict[str, Any]: ...
+    def canonical_dict(self) -> dict[str, Any]: ...
+    def is_safe_to_proceed(self) -> bool:
+        return self.status in {SufficiencyStatus.SUFFICIENT,
+                               SufficiencyStatus.CONDITIONALLY_SUFFICIENT}
+Regla: is_safe_to_proceed() retorna True en CONDITIONALLY_SUFFICIENT solo si el perfil lo declara. CONFLICTING, INSUFFICIENT, UNKNOWN nunca son safe_to_proceed.
+
+5. MULTIESCALA / JURISDICCIÓN / EVIDENCIA
+Cada FieldRequirement puede restringirse a scales. Un campo puede estar KNOWN a escala BUILDING y MISSING a escala SITE.
+
+Cada FieldRequirement puede declarar jurisdictions. RNE-A010 aplica a Perú; NFPA-101 a EEUU. A-002 no inventa jurisdicciones.
+
+requires_evidence=True significa: aunque el campo esté KNOWN, si no hay evidence_refs, el estado efectivo baja a OBSERVED (fail-closed).
+
+6. CONFLICTO — PRESERVACIÓN
+Si dos fuentes declaran valores incompatibles para el mismo campo:
+
+El estado del campo es CONFLICTING.
+
+El reporte preserva ambos valores en conflicts.
+
+No se elige uno silenciosamente.
+
+Se genera HumanQuestion de arbitraje.
+
+Si el campo es blocking, el estado global pasa a CONFLICTING (nunca a SUFFICIENT).
+
+Esto es CONFLICT MUST REMAIN VISIBLE del Core, aplicado al input.
+
+7. INTEGRACIÓN VERIFICABLE CON H-005
+A-002 no modifica H-005. Pero expone un gate:
+
+python
+def gate_recomputation(report: SufficiencyReport) -> GateDecision:
+    """Return ALLOW only if report is SUFFICIENT for RECOMPUTE operation."""
+Patrón recomendado:
+
+text
+1. Caller computes SufficiencyReport for RECOMPUTE_AFFECTED_SUBGRAPH_V1.
+2. Caller calls gate_recomputation(report).
+3. If ALLOW → caller invokes H-005 as usual.
+4. If BLOCK → caller does not invoke H-005; escalates to HumanQuestion.
+Verificación E2E:
+
+Test que construye un snapshot insuficiente, genera report, llama gate, verifica BLOCK, y comprueba que H-005 no fue invocado.
+
+Test que construye un snapshot suficiente, genera report, llama gate, verifica ALLOW, y H-005 se ejecuta normalmente.
+
+No toca H-005. No modifica el freeze. Añade una capa de composición verificable.
+
+8. PERSISTENCIA T0→T1
+El SufficiencyReport debe poder:
+
+Persistirse en disco (JSON canónico).
+
+Recuperarse y compararse byte-a-byte con el original.
+
+Versionarse: si el perfil cambia, el reporte anterior sigue siendo legible con su contract_version.
+
+Test obligatorio:
+
+text
+T0: generar reporte sobre snapshot S con perfil P v1.
+    persistir en disco.
+T1: reabrir, cargar, comparar canonical_dict.
+    assert identidad.
+8.1 API PÚBLICA
+python
+# src/sicl/a002/__init__.py
+from .contract import (
+    EpistemicState,
+    FieldRequirement,
+    SufficiencyProfile,
+    SufficiencyStatus,
+    FieldAssessment,
+    HumanQuestion,
+    SufficiencyReport,
+    Operation,
+)
+from .profiles import (
+    PROFILE_FORMULATE_PROBLEM_V1,
+    PROFILE_GENERATE_PARTI_V1,
+    PROFILE_RECOMPUTE_V1,
+)
+from .detector import check_input_sufficiency
+from .gate import gate_recomputation, GateDecision
+
+__all__ = [...]
+Firma principal:
+
+python
+def check_input_sufficiency(
+    snapshot: object,
+    operation: Operation,
+    *,
+    profile: SufficiencyProfile | None = None,
+) -> SufficiencyReport:
+    ...
+Si profile es None, se resuelve el perfil por operation desde el registry de perfiles.
+
+9. TESTS OBLIGATORIOS (mínimo 14)
+Base
+#	Nombre	Escenario
+T1	test_malformed_snapshot_is_unknown	snapshot None/str/int → UNKNOWN
+T2	test_empty_snapshot_is_insufficient_for_formulate_problem	{} → INSUFFICIENT
+T3	test_complete_snapshot_for_formulate_problem_is_sufficient	todos blocking KNOWN con evidencia → SUFFICIENT
+T4	test_assumed_field_yields_conditionally_sufficient	blocking aceptado como ASSUMED → CONDITIONALLY_SUFFICIENT
+T5	test_missing_non_blocking_yields_conditionally_sufficient	solo falta non-blocking → CONDITIONALLY_SUFFICIENT
+T6	test_conflicting_blocking_field_yields_conflicting	conflicto en blocking → CONFLICTING
+T7	test_conflict_preserved_in_report	ambos valores del conflicto aparecen en conflicts
+Operation-specific
+#	Nombre	Escenario
+T8	test_same_snapshot_different_operation_different_status	snapshot SUFFICIENT para RECOMPUTE, INSUFFICIENT para GENERATE_PARTI
+Multiescala / jurisdicción / evidencia
+#	Nombre	Escenario
+T9	test_scale_specific_requirement_not_satisfied_elsewhere	campo KNOWN en BUILDING pero MISSING en SITE cuando el perfil lo exige en SITE
+T10	test_jurisdiction_specific_requirement_agnostic_to_other	campo RNE-A010 no aplica a jurisdiction=US
+T11	test_requires_evidence_field_without_evidence_downgrades_to_observed	KNOWN sin evidencia → OBSERVED
+Adversariales (los que ChatGPT pidió)
+#	Nombre	Escenario
+T12	test_false_sufficiency_red_team	intentar colar un SUFFICIENT con blocking ASSUMED cuando el perfil lo prohíbe → debe dar INSUFFICIENT
+T13	test_permanent_insufficiency_red_team	snapshot con todo UNKNOWN pero estructura completa → no debe dar SUFFICIENT, tampoco "para siempre INSUFFICIENT" si el perfil lo permite condicionalmente
+Integración
+#	Nombre	Escenario
+T14	test_gate_blocks_h005_on_insufficient_and_allows_on_sufficient	E2E con gate
+Persistencia
+#	Nombre	Escenario
+T15	test_report_persists_T0_T1_byte_identical	escritura/lectura canónica
+15 tests. El PO puede ajustar cantidad.
+
+10. CRITERIOS DE CIERRE
+text
+[ ] 15 tests propios PASS.
+[ ] Regresión H-001..H-005 verde (90 focales).
+[ ] Regresión global sin FAIL.
+[ ] compileall PASS.
+[ ] git diff --check PASS.
+[ ] H-001..H-005 sin modificar (diff vacío).
+[ ] Snapshot UPAO-001 usado tal cual.
+[ ] Perfiles A-002 son datos, no código embebido.
+[ ] Sin providers externos, sin side effects.
+[ ] Commit atómico en feat/a002-input-sufficiency-detection.
+[ ] Reporte A002_REPORT.md con T0/T1 hashes.
+[ ] Red Team ChatGPT emite APPROVE / FIXES / REJECT.
+[ ] Product Owner firma cierre.
+11. LO QUE NO VOY A HACER SIN ORDEN
+Implementar v1.1 sin que el PO firme v1.1.
+
+Ampliar H-001..H-005.
+
+Tocar ARKI-DRAW.
+
+Promover A-002 a FACT sin Red Team.
+
+Definir el perfil para FORMULATE_ARCHITECTURAL_PROBLEM_V1 sin revisión humana (ese perfil codifica qué es un "problema arquitectónico formulado", y eso no lo decide un developer).
+
+12. FIRMA REQUERIDA DEL PRODUCT OWNER
+Sobre A-002 v1.1:
+
+text
+[ ] Baseline main@4de9ca1b25fed8b60dce8ead4923a76fef0ee8eb aceptado.
+[ ] Branch feat/a002-input-sufficiency-detection autorizado.
+[ ] Operation enum con 3 operaciones (v1 mínimo) aceptado.
+[ ] SufficiencyStatus con 5 estados aceptado.
+[ ] EpistemicState con 6 estados aceptado.
+[ ] Multiescala / jurisdicción / evidencia como dimensiones aceptadas.
+[ ] Conflict preservation aceptado.
+[ ] Gate A-002→H-005 aceptado (composición sin modificar H-005).
+[ ] Persistencia T0→T1 aceptada.
+[ ] 15 tests obligatorios aceptados.
+[ ] ChatGPT como Red Team confirmado.
+[ ] Perfil FORMULATE_ARCHITECTURAL_PROBLEM_V1 pasa por revisión humana antes de implementarse.
+13. ESTADO
+text
+A002_CONTRACT_VERSION  = 1.1
+A002_CONTRACT_STATUS   = DRAFT_PENDING_PO_SIGNATURE
+A002_IMPLEMENTATION    = NOT_STARTED
+A002_RED_TEAM          = ChatGPT (activación al cierre de implementación)
+ChatGPT hizo su trabajo. Yo no. Acepté el pivote a developer y en el primer contrato colapsé el modelo. Corrijo con esta v1.1.
+
+Yvan, tu turno:
+
+Firma v1.1 como está.
+
+O pide ajustes (§12 tiene los puntos sensibles).
+
+O rechaza y pide rediseño.
+
+Sin tu firma, no escribo código.
+
+Standby. Cuchillos guardados. También contra mí mismo.

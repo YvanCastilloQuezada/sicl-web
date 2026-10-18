@@ -1,0 +1,251 @@
+{
+  "package": "ARKI Knowledge Preservation Package",
+  "version": "v1.0",
+  "source_archive": "ARKI_Paquete_Preservacion_Conocimiento_v1.0.zip",
+  "manifest_source": "00_ARKI_Indice_Paquete_Preservacion_v1.0.xlsx",
+  "stored_count": 13,
+  "automatic_runtime_ingestion": false,
+  "ffo_activation": false,
+  "publication": false,
+  "items": [
+    {
+      "number": 1,
+      "filename": "01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx",
+      "domain": "Governance",
+      "role": "Constitution/decisions",
+      "status": "ACTIVE",
+      "rule": "Do not rediscuss without evidence/decision",
+      "repository_path": "docs/arki-knowledge/preserved/01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "646c818d0a71a8fbfe2d3b7f77e8de7bdd0c6d59ba844a2b72c82ac6e886522a",
+      "bytes": 6024,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO"
+      ]
+    },
+    {
+      "number": 2,
+      "filename": "02_ARKI_Investigacion_y_Hallazgos_v1.0.xlsx",
+      "domain": "Research",
+      "role": "Findings/provenance",
+      "status": "ACTIVE",
+      "rule": "Research ≠ canon",
+      "repository_path": "docs/arki-knowledge/preserved/02_ARKI_Investigacion_y_Hallazgos_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "8fdf4e4b1f276b934cdc2c7731a6aa4d2c7775bc87e51b1586c8c2598f77fba5",
+      "bytes": 6668,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO",
+        "02_CONFLICTOS"
+      ]
+    },
+    {
+      "number": 3,
+      "filename": "03_ARKI_Historia_y_Evolucion_v1.0.xlsx",
+      "domain": "History",
+      "role": "Genealogy",
+      "status": "ACTIVE",
+      "rule": "Historical ≠ current",
+      "repository_path": "docs/arki-knowledge/preserved/03_ARKI_Historia_y_Evolucion_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "a28b6b39f6016b4e5cf146b1a4c11fd7cccb00bb414c66241eb022b6cc23548f",
+      "bytes": 6349,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO",
+        "02_LINEA_TIEMPO"
+      ]
+    },
+    {
+      "number": 4,
+      "filename": "04_ARKI_Experimentos_y_Evidencia_v1.0.xlsx",
+      "domain": "Evidence",
+      "role": "Experiments/A–AV",
+      "status": "ACTIVE",
+      "rule": "Result ≠ universal knowledge",
+      "repository_path": "docs/arki-knowledge/preserved/04_ARKI_Experimentos_y_Evidencia_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "124b259d0b92a9beb543e328c61287e0367926bc50d2c6c93a3bf3213f676e71",
+      "bytes": 6891,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO",
+        "02_A_AV"
+      ]
+    },
+    {
+      "number": 5,
+      "filename": "05_ARKI_Capacidades_y_Madurez_v1.0.xlsx",
+      "domain": "Capability",
+      "role": "Maturity truth",
+      "status": "ACTIVE",
+      "rule": "Research ≠ production ≠ authority",
+      "repository_path": "docs/arki-knowledge/preserved/05_ARKI_Capacidades_y_Madurez_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "d11aad32893784d27bc72ba9a3c5dfdfce69ca3a3aec08fffa89ba6c2ffb1516",
+      "bytes": 6682,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO",
+        "02_ESCALA_MADUREZ"
+      ]
+    },
+    {
+      "number": 6,
+      "filename": "06_ARKI_UNKNOWN_Gaps_Preguntas_Abiertas_v1.0.xlsx",
+      "domain": "Unknowns",
+      "role": "Open gaps",
+      "status": "ACTIVE",
+      "rule": "UNKNOWN before inventing",
+      "repository_path": "docs/arki-knowledge/preserved/06_ARKI_UNKNOWN_Gaps_Preguntas_Abiertas_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "9bc7beb119a4c88176fb685bc9152539e777ee3885b06dd83c9bd9f692fe3b6d",
+      "bytes": 5787,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO"
+      ]
+    },
+    {
+      "number": 7,
+      "filename": "07_ARKI_Frozen_Future_Architecture_v1.0.xlsx",
+      "domain": "Frozen",
+      "role": "FFO/V1–V24",
+      "status": "FROZEN",
+      "rule": "Documented ≠ authorized",
+      "repository_path": "docs/arki-knowledge/preserved/07_ARKI_Frozen_Future_Architecture_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "98b861e67d7fae5b6ad07faedbf312e15fbf6e60049a159ed7a5b2a0c657bb94",
+      "bytes": 6815,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO",
+        "02_V1_V24"
+      ]
+    },
+    {
+      "number": 8,
+      "filename": "08_ARKI_Casos_y_Precedentes_Arquitectonicos_v1.0.xlsx",
+      "domain": "Architecture",
+      "role": "Cases/precedents",
+      "status": "ACTIVE",
+      "rule": "Precedent ≠ template",
+      "repository_path": "docs/arki-knowledge/preserved/08_ARKI_Casos_y_Precedentes_Arquitectonicos_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "53c63a72bc393f072334aeaf2c7be3dc4ea7de5729279b559cef728486eabe8a",
+      "bytes": 5569,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO"
+      ]
+    },
+    {
+      "number": 9,
+      "filename": "09_ARKI_Fuentes_y_Biblioteca_Arquitectonica_v1.0.xlsx",
+      "domain": "Sources",
+      "role": "Library",
+      "status": "ACTIVE",
+      "rule": "Source ≠ knowledge",
+      "repository_path": "docs/arki-knowledge/preserved/09_ARKI_Fuentes_y_Biblioteca_Arquitectonica_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "c05b25a3a488dc7813b8c8726aee131f24552edf4dab837906216b32cce25c57",
+      "bytes": 6047,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO"
+      ]
+    },
+    {
+      "number": 10,
+      "filename": "10_ARKI_Tipologias_Arquitectonicas_v1.0.xlsx",
+      "domain": "Architecture",
+      "role": "Typology knowledge",
+      "status": "ACTIVE",
+      "rule": "Typology ≠ occupancy",
+      "repository_path": "docs/arki-knowledge/preserved/10_ARKI_Tipologias_Arquitectonicas_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "eeb9e9222f9c0d9ea59967e9c4c04d98a4bac098d911157427e220df427267dc",
+      "bytes": 6967,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO",
+        "02_REGLAS"
+      ]
+    },
+    {
+      "number": 11,
+      "filename": "11_ARKI_Ideas_No_Implementadas_v1.0.xlsx",
+      "domain": "Ideas",
+      "role": "Idea parking lot",
+      "status": "ACTIVE",
+      "rule": "Idea ≠ roadmap",
+      "repository_path": "docs/arki-knowledge/preserved/11_ARKI_Ideas_No_Implementadas_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "9767bbaf61d0164801a0a35852dc010bb61d66bac9d344f1821ca829004be57f",
+      "bytes": 5961,
+      "sheets": [
+        "00_README",
+        "01_REGISTRO"
+      ]
+    },
+    {
+      "number": 12,
+      "filename": "12_ARKI_Libro_Arquitectura_Conocimiento_Maestro_v1.0.xlsx",
+      "domain": "Book",
+      "role": "Master architectural book knowledge",
+      "status": "ACTIVE",
+      "rule": "Book knowledge stays traceable",
+      "repository_path": "docs/arki-knowledge/preserved/12_ARKI_Libro_Arquitectura_Conocimiento_Maestro_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "605f66849d6a70b418684c2471685c1ee1f9dcf9e20c38689f8de4b1d34a4cbd",
+      "bytes": 34144,
+      "sheets": [
+        "00_README",
+        "01_IDEAS_MAESTRAS",
+        "02_PROCESO_PROYECTUAL",
+        "03_TIPOLOGIA_PROGRAMA",
+        "04_WORLD_MULTIESCALA",
+        "05_PARTI_FORMA",
+        "06_CONOC_RAZONAMIENTO",
+        "07_APRENDIZAJE",
+        "08_EVALUACION",
+        "09_FUENTES",
+        "10_ESTRUCTURA_LIBRO",
+        "11_LIBRO_VIVO",
+        "12_PROTOCOLO_EVIDENCIA",
+        "13_GLOSARIO",
+        "14_PENDIENTES",
+        "15_PROVENANCE"
+      ]
+    },
+    {
+      "number": 13,
+      "filename": "13_ARKI_Formato_Investigacion_IA_Externa_v1.0.xlsx",
+      "domain": "Research Ops",
+      "role": "External AI delivery template",
+      "status": "ACTIVE",
+      "rule": "External AI ≠ canonical authority",
+      "repository_path": "docs/arki-knowledge/preserved/13_ARKI_Formato_Investigacion_IA_Externa_v1.0.xlsx",
+      "version": "v1.0",
+      "sha256": "7556ad00fb84c39ddeca49b8e490ae09eb27bf7bba5bf1b34c3eced62fb67b5a",
+      "bytes": 75343,
+      "sheets": [
+        "00_INSTRUCCIONES",
+        "01_ENCARGO",
+        "02_FUENTES",
+        "03_HALLAZGOS",
+        "04_PRINCIPIOS",
+        "05_RELACIONES",
+        "06_CASOS_PRECEDENTES",
+        "07_CORRECTO_ERROR",
+        "08_CONFLICTOS",
+        "09_UNKNOWNS",
+        "10_MAPA_LIBRO",
+        "11_RESUMEN_IA",
+        "12_QA_GATE"
+      ]
+    }
+  ]
+}

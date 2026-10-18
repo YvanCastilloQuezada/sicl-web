@@ -1,0 +1,21 @@
+{
+  "executionId": "D62-GENERIC-001",
+  "projectId": "ARKICE-123-456",
+  "brief": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+  "context": {
+    "typology": "MUNICIPAL_ARCHIVE_READING_ROOM",
+    "scale": "UNIT_FUNCTIONAL",
+    "geometryRequired": false
+  },
+  "constraints": [
+    "public and staff flows must be distinguishable",
+    "service intake must not require public access",
+    "the brief does not define staffing or collection capacity"
+  ],
+  "knownFacts": [],
+  "unknowns": [
+    "staffing and collection capacity are not supplied"
+  ],
+  "requestedReasoningDepth": "STANDARD",
+  "seed": "D62-GENERIC-SEED-001"
+}

@@ -1,0 +1,753 @@
+ORDEN DEFINITIVA PARA MANUS
+IMPLEMENTACIÓN DEL SISTEMA MILUKITA MAPPER + THE EYE + WORLD KNOWLEDGE LAYER
+0. OBJETIVO
+
+Implementar la primera infraestructura operativa del World Engine de MiLukita, destinada a transformar información del mundo físico en conocimiento territorial estructurado, verificable, versionado y posteriormente publicable en el Runtime de MiLukita.
+
+La arquitectura debe implementar estrictamente:
+
+REALIDAD
+   ↓
+CAPTURA
+   ↓
+WORLD OBJECT
+   ↓
+CLAIMS
+   ↓
+SOURCES + EVIDENCE
+   ↓
+THE EYE
+   ↓
+VERIFICATION
+   ↓
+HUMAN AUTHORITY
+   ↓
+PUBLICATION
+   ↓
+RUNTIME
+
+No confundir captura con verificación ni verificación con publicación.
+
+1. MILUKITA MAPPER
+1.1 Función
+
+MiLukita Mapper será el sistema interno de adquisición y estructuración de información territorial.
+
+No debe limitarse a ser un formulario de POIs.
+
+Debe permitir capturar entidades reales del territorio y sus características.
+
+1.2 Geometrías
+
+Implementar arquitectura preparada para:
+
+POINT
+LINE
+POLYGON
+MULTIPOINT
+MULTILINE
+MULTIPOLYGON
+MVP
+
+Implementar inicialmente:
+
+POINT
+POLYGON
+
+y dejar arquitectura preparada para las demás.
+
+2. FIELD MODE
+
+Implementar un modo especial para captura desde dispositivo móvil.
+
+El Mapper debe poder utilizar:
+
+GPS;
+cámara;
+fotografía;
+ubicación;
+orientación del dispositivo cuando esté disponible;
+fecha/hora;
+notas de campo.
+
+Flujo:
+
+GPS
+ ↓
+CAPTURAR
+ ↓
+FOTOGRAFÍA
+ ↓
+WORLD OBJECT
+ ↓
+CLAIMS
+ ↓
+EVIDENCE
+ ↓
+GUARDAR
+
+Registrar automáticamente cuando esté disponible:
+
+latitude
+longitude
+accuracy
+captured_at
+device
+orientation
+mapper
+3. CAPTURE SESSION
+
+Crear el concepto:
+
+CaptureSession
+
+Una sesión agrupa múltiples capturas realizadas durante una actividad territorial.
+
+Campos mínimos:
+
+session_id
+name
+mapper
+start_time
+end_time
+area
+objects_count
+evidence_count
+status
+
+Permitir visualizar:
+
+TRUJILLO CENTRO — SESIÓN 001
+
+47 WorldObjects
+82 Evidence
+39 completados
+8 requieren información
+4. WORLD OBJECT
+
+Crear entidad central:
+
+WorldObject
+
+Campos mínimos:
+
+id
+name
+type
+category
+geometry
+coordinates
+accuracy
+address
+created_by
+created_at
+updated_at
+version
+verification_status
+publication_status
+
+Preparar relaciones con:
+
+Claims
+Sources
+Evidence
+Assets
+Experiences
+Versions
+VerificationRecords
+5. CLAIM
+
+Un WorldObject puede tener múltiples Claims.
+
+Ejemplo:
+
+WORLD OBJECT
+Huaca del Sol
+
+CLAIM
+"Pertenece a la cultura Moche."
+
+SOURCE
+Institución / publicación
+
+EVIDENCE
+Documento / fotografía
+
+Cada Claim debe contener:
+
+claim_id
+world_object_id
+statement
+claim_type
+author/origin
+source_ids
+evidence_ids
+verification_status
+confidence_score
+confidence_method
+created_at
+updated_at
+version
+6. SOURCE
+
+Implementar:
+
+Source
+
+Tipos:
+
+INSTITUTIONAL
+ACADEMIC
+SCIENTIFIC
+OFFICIAL_DOCUMENT
+ARCHIVAL
+FIELD_OBSERVATION
+WEB
+SECONDARY
+TESTIMONY
+OTHER
+
+Registrar:
+
+institution
+author
+title
+reference
+url
+publication_date
+access_date
+authority_level
+observations
+7. EVIDENCE
+
+Implementar:
+
+Evidence
+
+Tipos:
+
+PHOTO
+VIDEO
+AUDIO
+DOCUMENT
+MEASUREMENT
+GPS
+FIELD_OBSERVATION
+LINK
+OTHER
+
+Registrar:
+
+evidence_id
+type
+file/reference
+captured_at
+captured_by
+coordinates
+device
+hash
+source
+related_object
+related_claim
+
+Los archivos deberán tener validación de integridad y seguridad.
+
+8. NEARBY INTELLIGENCE
+
+Cuando el Mapper seleccione una ubicación:
+
+mostrar objetos cercanos.
+
+Ejemplo:
+
+OBJETOS CERCANOS
+
+Huaca X          35 m
+Plaza Z          82 m
+WorldObject 003  96 m
+
+Si existe una posible duplicación:
+
+⚠ POSIBLE DUPLICADO
+
+Objeto similar encontrado a 7.4 m.
+
+El sistema debe advertir, pero no eliminar automáticamente.
+
+9. VERSIONADO
+
+Cada modificación significativa debe generar una nueva versión.
+
+Nunca sobrescribir silenciosamente una versión previamente verificada.
+
+Ejemplo:
+
+WorldObject v1
+      ↓
+Verified
+      ↓
+Modificación
+      ↓
+WorldObject v2
+      ↓
+Under Review
+
+The Eye debe poder verificar una versión específica.
+
+10. THE EYE
+10.1 Función
+
+The Eye será el sistema interno de:
+
+verificación;
+contraste;
+auditoría;
+detección de inconsistencias;
+control de confiabilidad;
+gestión de evidencia.
+
+No debe ser simplemente una pantalla con tres botones:
+
+APROBAR
+RECHAZAR
+EVIDENCIA
+
+Debe mostrar por qué un dato puede considerarse confiable.
+
+11. EVIDENCE MATRIX
+
+Implementar una matriz visual:
+
+Dimensión	Estado	Evidencia
+Existencia	✓	Fotografía
+Ubicación	✓	GPS
+Identidad	✓	Fuente
+Contenido	⚠	Evidencia parcial
+Fuente	✓	Institucional
+Actualidad	?	Revisión requerida
+Consistencia	✓	Sin conflictos
+
+Dimensiones mínimas:
+
+Existence
+Location
+Identity
+Content
+Source
+Evidence
+Consistency
+Freshness
+12. DETECCIÓN DE CONFLICTOS
+
+The Eye debe detectar Claims potencialmente contradictorios.
+
+Ejemplo:
+
+CLAIM A
+1920
+
+CLAIM B
+1925
+
+Mostrar:
+
+⚠ CONFLICT DETECTED
+
+No resolver automáticamente una contradicción factual.
+
+El auditor debe poder:
+
+MARK DISPUTED
+REQUEST EVIDENCE
+ACCEPT CLAIM
+REJECT CLAIM
+13. REQUEST EVIDENCE
+
+Implementar solicitud estructurada de evidencia.
+
+Opciones:
+
+Fotografía actual
+Fuente institucional
+Documento
+Coordenadas
+Confirmación de identidad
+Medición
+Otra evidencia
+
+El Mapper recibe la solicitud y puede completar nuevamente el expediente.
+
+14. CONFIDENCE SYSTEM
+
+Implementar:
+
+confidence_score
+confidence_method
+confidence_factors
+confidence_updated_at
+
+El score debe ser explicable.
+
+Mostrar:
+
+CONFIANZA: ALTA
+
+Fuente institucional       +30
+Evidencia fotográfica     +20
+GPS confirmado            +20
+Verificación humana       +20
+Información actualizada   +10
+
+La metodología debe ser configurable y documentada.
+
+No implementar un score arbitrario sin explicación.
+
+15. TEMPORALIDAD
+
+Implementar:
+
+captured_at
+verified_at
+last_reviewed_at
+next_review_at
+
+Estados relacionados:
+
+VERIFIED
+OUTDATED
+DISPUTED
+
+El sistema debe permitir solicitar una nueva revisión cuando corresponda.
+
+16. VERIFICATION STATUS
+
+Usar:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED
+17. PUBLICATION STATUS
+
+Separar completamente:
+
+UNPUBLISHED
+PUBLISHED
+PAUSED
+RETIRED
+
+VERIFIED no significa PUBLISHED.
+
+18. HUMAN AUTHORITY
+
+The Eye puede:
+
+analizar;
+detectar;
+recomendar;
+solicitar;
+señalar.
+
+Pero la autoridad final para publicar información territorial permanecerá en un usuario autorizado.
+
+19. RUNTIME
+
+El Runtime de MiLukita no debe consultar indiscriminadamente los datos de captura.
+
+Debe consumir únicamente entidades y versiones autorizadas.
+
+Regla:
+
+DRAFT              → NO
+CAPTURED           → NO
+UNDER_REVIEW       → NO
+EVIDENCE_REQUIRED  → NO
+REJECTED           → NO
+ARCHIVED           → NO
+OUTDATED           → NO
+VERIFIED           → NO automáticamente
+PUBLISHED          → SÍ
+
+La condición efectiva de consumo público será:
+
+verification_status = VERIFIED
++
+publication_status = PUBLISHED
++
+versión autorizada
+20. AUDIT LOG
+
+Registrar:
+
+actor
+action
+entity
+entity_id
+previous_state
+new_state
+version
+timestamp
+reason
+
+Registrar como mínimo:
+
+creación;
+modificación;
+envío a revisión;
+solicitud de evidencia;
+aprobación;
+rechazo;
+disputa;
+verificación;
+publicación;
+pausa;
+retiro;
+archivado.
+21. RBAC
+MAPPER
+
+Puede:
+
+crear;
+editar;
+capturar;
+agregar Claims;
+agregar Sources;
+agregar Evidence;
+enviar a revisión.
+
+No puede aprobar su propio contenido.
+
+AUDITOR
+
+Puede:
+
+revisar;
+contrastar;
+solicitar evidencia;
+verificar;
+rechazar;
+marcar disputas;
+marcar outdated.
+ADMIN / HUMAN AUTHORITY
+
+Puede:
+
+gestionar roles;
+configurar;
+aprobar;
+publicar;
+retirar;
+administrar el sistema.
+22. UI — MILUKITA MAPPER
+
+Mantener la estética definida:
+
+NEGRO MATE
+TURQUESA NEÓN
+DORADO L★
+GLASSMORPHISM
+
+Pero priorizar funcionalidad sobre decoración.
+
+La pantalla debe tener:
+
+┌───────────────────────────────────────────────┐
+│ L★  MiLukita Mapper                 STATUS    │
+├──────────┬───────────────────────┬────────────┤
+│ OBJECTS  │                       │ DETAILS    │
+│          │        MAP            │            │
+│ Sessions │                       │ Object     │
+│ Objects  │                       │ Claims     │
+│ Filters  │                       │ Sources    │
+│          │                       │ Evidence   │
+│          │                       │            │
+├──────────┴───────────────────────┴────────────┤
+│ GPS / ACCURACY / SESSION / CAPTURE / SAVE     │
+└───────────────────────────────────────────────┘
+
+No convertir la interfaz en un "showroom futurista".
+
+Debe parecer una herramienta profesional de producción territorial.
+
+23. UI — THE EYE
+
+Estructura:
+
+┌───────────────────────────────────────────────┐
+│ L★  THE EYE                         STATUS    │
+├──────────┬───────────────────────┬────────────┤
+│ QUEUE    │ OBJECT                │ VERIFY     │
+│          │                       │            │
+│ Priority │ Photos               │ Existence  │
+│ Pending  │ Coordinates          │ Location   │
+│          │ Claims               │ Identity   │
+│          │ Sources              │ Content    │
+│          │ Evidence             │ Sources    │
+│          │ Versions             │ Freshness  │
+│          │                       │ Conflicts  │
+├──────────┴───────────────────────┴────────────┤
+│ REQUEST EVIDENCE | DISPUTE | VERIFY | REJECT │
+└───────────────────────────────────────────────┘
+24. IMPORTACIÓN MASIVA
+
+Implementar:
+
+CSV
+XLSX
+GeoJSON
+
+Pero:
+
+ninguna importación puede saltarse el proceso de verificación.
+
+Los datos importados entran como:
+
+CAPTURED
+25. EXPORTACIÓN
+
+Permitir:
+
+CSV
+GeoJSON
+
+según permisos.
+
+26. SEGURIDAD
+
+Implementar desde el inicio:
+
+RBAC;
+server-side authorization;
+autenticación robusta;
+rate limiting;
+validación de inputs;
+protección de uploads;
+límites de tamaño;
+validación MIME;
+almacenamiento seguro;
+integridad de archivos;
+audit log;
+protección de registros verificados.
+27. MJP CORE
+
+NO MODIFICAR MJP CORE.
+
+Mapper + The Eye + World Knowledge Layer deben mantenerse desacoplados de las autoridades del sistema de juegos.
+
+No introducir lógica de juego en:
+
+WorldObject
+Claim
+Source
+Evidence
+Verification
+Mapper
+The Eye
+28. CRITERIO DE ACEPTACIÓN
+
+Manus debe demostrar el siguiente escenario completo:
+
+1. Mapper crea una Capture Session.
+2. Mapper se ubica mediante GPS.
+3. Captura un objeto real.
+4. Sistema registra coordenadas + precisión + fecha.
+5. Mapper toma fotografía.
+6. Se crea WorldObject.
+7. Mapper crea uno o más Claims.
+8. Se agregan Sources.
+9. Se agregan Evidence.
+10. Se guarda versión.
+11. Sistema detecta objetos cercanos.
+12. Sistema alerta posibles duplicados.
+13. Mapper envía a The Eye.
+14. The Eye analiza el expediente.
+15. The Eye muestra Evidence Matrix.
+16. The Eye detecta posibles conflictos.
+17. Auditor puede solicitar evidencia.
+18. Mapper completa la evidencia.
+19. Auditor verifica.
+20. Se crea Verification Record.
+21. Human Authority autoriza publicación.
+22. Se publica una versión específica.
+23. Runtime consume únicamente esa versión.
+24. Una versión posterior no publicada NO aparece en Runtime.
+25. Audit Log registra todo el proceso.
+29. ENTREGABLES
+MiLukita Mapper
+Field Mode
+Capture Sessions
+WorldObject
+Claim
+Source
+Evidence
+Versioning
+Nearby Intelligence
+The Eye
+Evidence Matrix
+Conflict Detection
+Request Evidence
+Confidence System
+Temporal Review
+Verification Records
+Publication Control
+Human Authority
+RBAC
+Audit Log
+CSV/XLSX/GeoJSON Import
+CSV/GeoJSON Export
+Runtime Integration
+Tests
+Confirmación de MJP CORE intacto
+30. REGLA FINAL DE IMPLEMENTACIÓN
+
+NO desarrollar solamente las pantallas.
+
+Primero implementar el modelo de dominio y flujo de estados, después la API/servicios y finalmente las interfaces.
+
+Orden obligatorio:
+
+DATA MODEL
+     ↓
+DOMAIN LOGIC
+     ↓
+VERIFICATION WORKFLOW
+     ↓
+API
+     ↓
+RBAC
+     ↓
+AUDIT
+     ↓
+UI MAPPER
+     ↓
+UI THE EYE
+     ↓
+RUNTIME
+     ↓
+END-TO-END TEST
+
+La UI debe ser una representación del sistema, no el sistema mismo.
+
+Y una decisión más: no congelaría todavía el prompt de Gemini
+
+La maqueta que tienes es útil, pero yo no la usaría como especificación visual definitiva.
+
+Primero que Manus implemente la estructura funcional anterior. Después generamos una maqueta de alta fidelidad basada en la interfaz real.
+
+Porque si hacemos al revés, existe un riesgo bastante típico:
+
+Gemini diseña algo espectacular → Manus intenta imitarlo → terminamos optimizando una apariencia que no corresponde al flujo real.
+
+Para MiLukita el orden correcto es:
+
+arquitectura → datos → workflow → funciones → interfaz → estética.
+
+Y esta versión de Mapper + The Eye ya deja planteada una pieza mucho más importante: la infraestructura de confianza del Mundo de MiLukita.
+
+No es necesario agregar más funcionalidades al MVP ahora. Si seguimos agregando cosas, empezamos a construir una plataforma GIS/knowledge graph completa antes de comprobar el producto. Esta orden debe ser el límite funcional de esta fase.

@@ -1,0 +1,123 @@
+{
+  "artifact": "ARKI-C1C80-RECON-001",
+  "status": "RECONCILIATION_PARTIAL",
+  "generatedAt": "2026-09-24T06:56:11.631218+00:00",
+  "baseline": {
+    "repository": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+    "worktree": "DIRTY"
+  },
+  "missingInputs": [
+    "ARKI-DS-POST-TRANSFER-001 C1-C80 matrix",
+    "DeepSeek DUP-01..18 source records",
+    "DeepSeek CON-01..07 source records"
+  ],
+  "files": [
+    {
+      "path": "ACTUAL_ARCHITECTURE_MAP.md",
+      "sha256": "cbfc8dc43587b89c81f68193ca4fcaa3feda78e6aa0681deb62e1898ade16fdf",
+      "bytes": 2055
+    },
+    {
+      "path": "ARKI_C1C80_RECONCILIATION_REPORT.md",
+      "sha256": "689219bb90a4751417d4e9dcccebabd7d10e81e91a876e2d474688c50bfc94b3",
+      "bytes": 9519
+    },
+    {
+      "path": "ARKI_C1C80_RECON_BASELINE.txt",
+      "sha256": "62c1dbbe1053dc32a96ffdd74818ababffacb2f9c9eaf57f5fdf50d47f7696d9",
+      "bytes": 47158
+    },
+    {
+      "path": "BKH4_CURRENT_TRUTH_MATRIX.md",
+      "sha256": "44334bcddc8a4fd889ec2804e4ec579744c339a0074c27ccb2a83e1c8a0d946f",
+      "bytes": 919
+    },
+    {
+      "path": "C1_C80_RECONCILIATION.csv",
+      "sha256": "a92f914dc800acb2a87427c5a31f26fa095126e5858e2e9b34786eb55d020b64",
+      "bytes": 29164
+    },
+    {
+      "path": "C81_C92_ASSESSMENT.csv",
+      "sha256": "829f82694f027c3a2840018b6d2302c196e04ea043d276ec6b7b57b49ac220c3",
+      "bytes": 1085
+    },
+    {
+      "path": "CANONICAL_WRITE_PATH_INVENTORY.csv",
+      "sha256": "3afb99a4432c1ede7c5f6b9783cf8e486d9dd2a0c478d2b9f10c87f241fc8f11",
+      "bytes": 826
+    },
+    {
+      "path": "DECISIONS_REQUIRED_FROM_PO.md",
+      "sha256": "2b8fff8680c55806e9c144d61608db667b7998c2127ba63d3688a477a473976d",
+      "bytes": 579
+    },
+    {
+      "path": "DEEPSEEK_CONTRADICTION_AUDIT.csv",
+      "sha256": "be53a8a95f8db18d0b546c5f7bb1cc0a11db9e798439c06910ada49f62af119e",
+      "bytes": 1243
+    },
+    {
+      "path": "DEEPSEEK_DUPLICATION_AUDIT.csv",
+      "sha256": "d760d2169eceb8119e09e8ece3cb435a732c26c8ed21cff20e47439fc90d3433",
+      "bytes": 3114
+    },
+    {
+      "path": "ENGINEERING_CAPABILITY_TRUTH_MATRIX.csv",
+      "sha256": "1aedf6773a4c8ce8afd71b4f1b43b8e34a2a9393171cdd04a96cc580343bc6c4",
+      "bytes": 829
+    },
+    {
+      "path": "ENTERPRISE_REALITY_MAP.md",
+      "sha256": "63e8bdb4ac9e9ab5f2a126b9fe265459d8d17f1111e0105b1d4dff53714dd077",
+      "bytes": 603
+    },
+    {
+      "path": "EPISTEMIC_MODEL_REALITY_REPORT.md",
+      "sha256": "5f9f305dcf9d1f611991f60d4c9a9fd00cfef4dbb7be91e55153a025f03601d4",
+      "bytes": 576
+    },
+    {
+      "path": "FRONTEND_REALITY_MAP.md",
+      "sha256": "b6c83a608fdb7dd639dbaad9cfb632dedfbfc699c620f25cc56beb17fd674e82",
+      "bytes": 752
+    },
+    {
+      "path": "HUMAN_AUTHORITY_BOUNDARY_REPORT.md",
+      "sha256": "05e653e462a99182ae7d5be240eebd43d49d01db737493201f314940afe424e6",
+      "bytes": 459
+    },
+    {
+      "path": "INPUT_ARKI_BKH4_TX_004_IMPLEMENTATION_REPORT.md",
+      "sha256": "181f9536f1a86b59f72650196012578a03e2d4da6f65f121d143831dd4fd748d",
+      "bytes": 5632
+    },
+    {
+      "path": "INPUT_ARKI_TRANSFERENCIA_DEEPSEEK.md",
+      "sha256": "d7307d2dfb0d813df33c834da4d06f6f60f98d08c0908110de7eb30308967d6b",
+      "bytes": 22421
+    },
+    {
+      "path": "INPUT_CAD001D_REPORT.md",
+      "sha256": "fa34295ae6af99b53515b2cd8ee9d81e43a26e3d38caacf705f63ae2445cc949",
+      "bytes": 2544
+    },
+    {
+      "path": "INPUT_E8-C_REPORT.md",
+      "sha256": "1be1d77875fe253bff4ed8659d7b040e51136233e31ee7f1de525cf3a2bed2e0",
+      "bytes": 3013
+    },
+    {
+      "path": "INPUT_pasted_content_176.txt",
+      "sha256": "dcb160624df9f7a817922513ef0b2fbe9a9fea88bf2554dfc22c6a33db3d7eb5",
+      "bytes": 28903
+    },
+    {
+      "path": "ONE_ARKI_INVARIANT_REPORT.md",
+      "sha256": "6b4edeed5816eeb75cfd710556c8cd865d044f8f99a3e960ef092185bff9329e",
+      "bytes": 474
+    }
+  ]
+}

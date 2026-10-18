@@ -1,0 +1,27 @@
+{
+  "schema":"ARKI-E7-MANIFEST-1.0",
+  "status":"PARTIAL / CYCLE 2 OF 2",
+  "generatedAt":"2026-09-23",
+  "files":[
+    {"path":"E7_PO_APPROVAL.md","sha256":"411c9af7d95407b375b8299f3668704173ada82ed681f0d3af7ced5be77038b7"},
+    {"path":"E7_CONTRATO_PROPUESTO_V1.md","sha256":"7c72de46e34e6523681dd9c4de044c46781b6da0d903bc4950b894abdfd9e823"},
+    {"path":"E7_REPORT.md","sha256":"4e8e0cbe4ef51352513baa2989cc2ebd2d04c8d74749ea4afadd70280889b494"},
+    {"path":"E7_SCOPE_LIMITS.md","sha256":"bc5ed58515a2c6f5bc109b44f209ece8a68d3a86c86ebf20304f81e69e272ad2"},
+    {"path":"E7_DEBT_INHERITED.md","sha256":"5be9a49070b2d070f3e5e364e4de54739b0ca9da26024402241e53bc355a015c"},
+    {"path":"E7_OUTPUTS.txt","sha256":"79ac0fffac3bc636e0efde85c668c587356e06570d90ad47a3401dc8a68e3873"},
+    {"path":"contracts/adr/ADR-E7-001.md","sha256":"1c4c71cb824dba65da9ac747e7b28c01baceca75b0c44603c6de40ba3ffdf60c"},
+    {"path":"contracts/adr/ADR-E7-002.md","sha256":"6386ed2440e710895cf7ef6a63966f43d1b2793a77dff5a0bd2420dafd7bf5da"},
+    {"path":"contracts/adr/ADR-E7-003.md","sha256":"8ff80defd13ffa0aa3d36f8e76afd7eeafee9d7f63204b302b4266dc39f01920"},
+    {"path":"contracts/adr/ADR-E7-004.md","sha256":"4a480b04edc658ec322e404ea7709b491c2a759014a6875a112c236e2922d236"},
+    {"path":"shared/arki5d/index.ts","sha256":"e29ac982726d03ed71cfe33306d1fcd24e2cb78fc70686c944729cc4f07c5611"},
+    {"path":"shared/arki4d/index.ts","sha256":"60b5736806d868d66313870cb45317a90015df839beb266808f722995282aef1"},
+    {"path":"shared/coordination/index.ts","sha256":"c857a7f9fccc09fda4ce389ad0eb2f661234f426c0a1b5e98900cb68fcede56a"},
+    {"path":"shared/structural/index.ts","sha256":"b10110365cd5809b794c9a73bec0b46fec19a7c58eb268ee69a300e47ee2e715"},
+    {"path":"shared/mep/index.ts","sha256":"97277fd0dc6bba18fcd1a40924d2dd872e397d342f1f0cfd0cfb842fa72d4825"},
+    {"path":"shared/arkiImpacts/index.ts","sha256":"afbc49e98ca9673bc6c06a4156998b1e84ef5333972f76e7c65e2e624291bc21"},
+    {"path":"scripts/test-e7.ts","sha256":"d9db096eadf961e3dacee95614022e7ba8ce7295ac1013b7cfe5e401ab66f07b"},
+    {"path":"fixtures/e7/fixture_cost_schedule_project.json","sha256":"c0dd184e34480abef22396700c2cb770802abd7d6a3d0226b3e5650ad9d1d981"},
+    {"path":"fixtures/e7/fixture_structural_small_frame.json","sha256":"678dd142779a5ca45669d147f1b0fb044048db64e171ad698a4ac495e52ebc59"},
+    {"path":"fixtures/e7/fixture_mep_hospital_subset.json","sha256":"b0f0c5623d8558c3f7adf3b53fc7e34aa842f5d047c675d9e83d15db505aca66"}
+  ]
+}

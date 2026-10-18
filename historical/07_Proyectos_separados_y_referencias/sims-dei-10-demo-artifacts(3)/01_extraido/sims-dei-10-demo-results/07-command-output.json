@@ -1,0 +1,631 @@
+{
+  "run": 7,
+  "label": "PROVINCIA/METRÓPOLI (METRO-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "METRO-001",
+  "status": "PASS",
+  "commands_total": 23,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0389,
+  "failures": [],
+  "snapshot": {
+    "project_id": "METRO-001",
+    "name": "Área metropolitana de Trujillo",
+    "spatial_scope": "provincia_metropoli",
+    "temporal_scope": "escenario_2030",
+    "stage": "DRAFT",
+    "version": 22,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 2,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 4,
+    "comparisons": 1,
+    "simulations": 0,
+    "multiobjectives": 1,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 22
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE METRO-001 \"Área metropolitana de Trujillo\" provincia_metropoli escenario_2030",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "METRO-001",
+          "name": "Área metropolitana de Trujillo",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "provincia_metropoli",
+          "temporal_scope": "escenario_2030",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001086
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN METRO-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "METRO-001",
+          "name": "Área metropolitana de Trujillo",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "provincia_metropoli",
+          "temporal_scope": "escenario_2030",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000773
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El área metropolitana tiene 1000000 habitantes\" INEI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-165740d6ef",
+          "project_id": "METRO-001",
+          "statement": "El área metropolitana tiene 1000000 habitantes",
+          "source": "INEI",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001373
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-M001 \"Déficit de agua 15 por ciento\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-M001",
+          "project_id": "METRO-001",
+          "source_id": null,
+          "statement": "Déficit de agua 15 por ciento",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.765899+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "354995983a47d32a1f098b8cc5799c9e474aa86ac4e473f9207153f0ce76138b",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00148
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET COBERTURA_AGUA MAXIMIZE 95",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-e6997bb7c3",
+          "project_id": "METRO-001",
+          "key": "COBERTURA_AGUA",
+          "direction": "MAXIMIZE",
+          "value": "95",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001807
+    },
+    {
+      "sequence": 6,
+      "command": "/OBJECTIVE SET INVERSION MINIMIZE 500",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-736fbbc219",
+          "project_id": "METRO-001",
+          "key": "INVERSION",
+          "direction": "MINIMIZE",
+          "value": "500",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001627
+    },
+    {
+      "sequence": 7,
+      "command": "/CONSTRAINT SET INVERSION <= 500 MILLONES_USD",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-bcde67c528",
+          "project_id": "METRO-001",
+          "key": "INVERSION",
+          "operator": "<=",
+          "value": "500",
+          "unit": "MILLONES_USD",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001793
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE CREATE METRO-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a89f5708d3",
+          "project_id": "METRO-001",
+          "name": "METRO-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001661
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET METRO-A plantas 1",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a89f5708d3",
+          "project_id": "METRO-001",
+          "name": "METRO-A",
+          "description": "",
+          "parameters": {
+            "plantas": "1"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001582
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET METRO-A cobertura 80",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a89f5708d3",
+          "project_id": "METRO-001",
+          "name": "METRO-A",
+          "description": "",
+          "parameters": {
+            "plantas": "1",
+            "cobertura": "80"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001615
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE SET METRO-A inversion 450",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a89f5708d3",
+          "project_id": "METRO-001",
+          "name": "METRO-A",
+          "description": "",
+          "parameters": {
+            "cobertura": "80",
+            "plantas": "1",
+            "inversion": "450"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001678
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE CREATE METRO-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dbb36be516",
+          "project_id": "METRO-001",
+          "name": "METRO-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001716
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET METRO-B plantas 3",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dbb36be516",
+          "project_id": "METRO-001",
+          "name": "METRO-B",
+          "description": "",
+          "parameters": {
+            "plantas": "3"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001832
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET METRO-B cobertura 92",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dbb36be516",
+          "project_id": "METRO-001",
+          "name": "METRO-B",
+          "description": "",
+          "parameters": {
+            "plantas": "3",
+            "cobertura": "92"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001624
+    },
+    {
+      "sequence": 15,
+      "command": "/ALTERNATIVE SET METRO-B inversion 480",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dbb36be516",
+          "project_id": "METRO-001",
+          "name": "METRO-B",
+          "description": "",
+          "parameters": {
+            "cobertura": "92",
+            "plantas": "3",
+            "inversion": "480"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001638
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE METRO-A COBERTURA_AGUA 80 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-766a780dc3",
+          "alternative_id": "ALT-a89f5708d3",
+          "objective_id": "OBJ-e6997bb7c3",
+          "value": 80.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001711
+    },
+    {
+      "sequence": 17,
+      "command": "/EVALUATE METRO-A INVERSION 450 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-21f6f9c76b",
+          "alternative_id": "ALT-a89f5708d3",
+          "objective_id": "OBJ-736fbbc219",
+          "value": 450.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001632
+    },
+    {
+      "sequence": 18,
+      "command": "/EVALUATE METRO-B COBERTURA_AGUA 92 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-deaec6d83d",
+          "alternative_id": "ALT-dbb36be516",
+          "objective_id": "OBJ-e6997bb7c3",
+          "value": 92.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001981
+    },
+    {
+      "sequence": 19,
+      "command": "/EVALUATE METRO-B INVERSION 480 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-295dabe3a8",
+          "alternative_id": "ALT-dbb36be516",
+          "objective_id": "OBJ-736fbbc219",
+          "value": 480.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001812
+    },
+    {
+      "sequence": 20,
+      "command": "/COMPARE METRO-A METRO-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-26ad61c64d",
+          "project_id": "METRO-001",
+          "alternative_ids": [
+            "ALT-a89f5708d3",
+            "ALT-dbb36be516"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-766a780dc3",
+              "alternative_id": "ALT-a89f5708d3",
+              "objective_id": "OBJ-e6997bb7c3",
+              "value": 80.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-21f6f9c76b",
+              "alternative_id": "ALT-a89f5708d3",
+              "objective_id": "OBJ-736fbbc219",
+              "value": 450.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-deaec6d83d",
+              "alternative_id": "ALT-dbb36be516",
+              "objective_id": "OBJ-e6997bb7c3",
+              "value": 92.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-295dabe3a8",
+              "alternative_id": "ALT-dbb36be516",
+              "objective_id": "OBJ-736fbbc219",
+              "value": 480.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001844
+    },
+    {
+      "sequence": 21,
+      "command": "/MULTIOBJECTIVE PARETO COBERTURA_AGUA INVERSION",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "multiobjective": {
+            "multiobjective_id": "MOBJ-dd716408e6",
+            "project_id": "METRO-001",
+            "method": "pareto_front_v1",
+            "method_version": "1.0",
+            "objectives": [
+              "COBERTURA_AGUA",
+              "INVERSION"
+            ],
+            "alternatives": [
+              "ALT-a89f5708d3",
+              "ALT-dbb36be516"
+            ],
+            "pareto_front": [
+              "ALT-a89f5708d3",
+              "ALT-dbb36be516"
+            ],
+            "dominated": [],
+            "incomplete": [],
+            "tradeoffs": {
+              "matrix": {
+                "ALT-a89f5708d3": {
+                  "COBERTURA_AGUA": 80.0,
+                  "INVERSION": 450.0
+                },
+                "ALT-dbb36be516": {
+                  "COBERTURA_AGUA": 92.0,
+                  "INVERSION": 480.0
+                }
+              }
+            },
+            "state": "EXECUTED",
+            "inputs_hash": "fc77de46068b4dd6d591a473c248bd8cbfaa504e447affda854e6ef69624a015",
+            "created_at": "2026-09-16T18:06:10.795730+00:00",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.002566
+    },
+    {
+      "sequence": 22,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión metropolitana\" \"Área validada\" \"Regional planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-da6e5ff598",
+          "project_id": "METRO-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión metropolitana",
+          "reason": "Área validada",
+          "authority": "Regional planner",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001893
+    },
+    {
+      "sequence": 23,
+      "command": "/DECISION RECORD \"Adoptar METRO-B\" architect-yvan \"Regional planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-60e0f7a082",
+          "project_id": "METRO-001",
+          "statement": "Adoptar METRO-B",
+          "actor": "architect-yvan",
+          "authority": "Regional planner",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001445
+    }
+  ]
+}

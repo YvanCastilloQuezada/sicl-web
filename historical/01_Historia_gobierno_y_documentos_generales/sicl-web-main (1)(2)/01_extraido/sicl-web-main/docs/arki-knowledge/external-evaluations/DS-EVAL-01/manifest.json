@@ -1,0 +1,59 @@
+{
+  "evaluation_id": "DS-EVAL-01 / EXTERNAL_EVALUATION_EVIDENCE_001",
+  "artifact": "ARKI_EXTERNAL_EVALUATION_DS_EVAL_001_v1.0.xlsx",
+  "evaluator": "DeepSeek",
+  "authority": "CONSULTATIVE ONLY",
+  "status": "REVIEWED / DISPOSITIONED",
+  "canonicalization": "NO AUTOMATIC CANONIZATION",
+  "implementation": "NOT AUTHORIZED",
+  "external_report": "NOT PROVIDED / UNKNOWN",
+  "external_intelligence_is_canonical": false,
+  "runtime_activation": false,
+  "ffo_activation": false,
+  "sha256": "b46d98890ccd5b754ad5abd7b4c784ff966a839d8f746a7cb92db333ad895a35",
+  "source_upload": "/home/ubuntu/upload/ARKI_EXTERNAL_EVALUATION_DS_EVAL_001_v1.0.xlsx",
+  "baseline_reported_by_evaluator": "f5871027976c4f8fc5b6f0640eef3653ebbf282f",
+  "cutoff": "2026-09-21",
+  "worksheets": [
+    {
+      "name": "00_README",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "01_FINDING_DISPOSITION",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "02_CONSTITUTION_CAND",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "03_DEPENDENCY_REVIEW",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "04_RESEARCH_BACKLOG",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "05_EXTERNAL_AI_PROTOCOL",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "06_SOURCE_EVIDENCE",
+      "rows": null,
+      "columns": null
+    },
+    {
+      "name": "07_DECISIONS_REQUIRED",
+      "rows": null,
+      "columns": null
+    }
+  ]
+}

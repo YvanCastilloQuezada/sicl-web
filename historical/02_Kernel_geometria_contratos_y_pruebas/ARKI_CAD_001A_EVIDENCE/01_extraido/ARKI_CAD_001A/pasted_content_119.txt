@@ -1,0 +1,385 @@
+ORDEN ARKI-CAD-001A — CAD INGESTION FORENSIC & ADAPTER SELECTION
+
+Programa: ARKI Real-World Benchmark Program
+Origen del déficit: ABB-001-F1C
+Déficit: F1C-D01 — DWG_READER_MISSING
+Tipo: Architecture/technology decision evidence
+Prioridad: ALTA
+Estado autorizado: FORENSIC + SELECTION ONLY
+
+1. Misión
+
+Determinar qué tecnología debe utilizar ARKI para ingerir profesionalmente:
+
+DWG
+DXF
+
+y transformarlos en una representación CAD computable, trazable y gobernada, sin convertir el adaptador en una segunda fuente de verdad ni en un segundo motor BIM.
+
+La arquitectura objetivo será:
+
+DWG / DXF
+    │
+    ▼
+ARKI CAD GATEWAY
+    │
+    ├── geometry
+    ├── layers
+    ├── blocks
+    ├── text
+    ├── dimensions
+    ├── layouts
+    ├── coordinates
+    ├── metadata
+    └── provenance
+    │
+    ▼
+ACIR
+ARKI CAD Intermediate Representation
+    │
+    ▼
+Semantic Interpretation
+    │
+    ▼
+BIM Candidates
+
+CAD Gateway termina antes de BIM.
+
+2. Candidatos obligatorios
+
+Manus deberá evaluar como mínimo:
+
+A. Open Design Alliance — Drawings SDK
+
+ODA dispone de SDK para DWG/DXF y declara capacidades de acceso a propiedades, geometría y jerarquía, conversión, visualización y extracción. Su paquete Core cubre además IFC, DGN, STEP y otros formatos, lo que podría ser estratégicamente interesante para ARKI más allá de ABB-001.
+
+Debe analizarse particularmente porque ARKI pretende convertirse en un servicio corporativo/web. La licencia comercial básica de ODA no permite Web/SaaS; actualmente ODA publica Sustaining como nivel que sí permite Web/SaaS y uso comercial ilimitado, con precio publicado de US$7,500 el primer año y US$4,500 de renovación, sujeto naturalmente a las condiciones contractuales vigentes cuando se contrate.
+
+No comprar ninguna licencia en esta orden.
+
+B. Autodesk RealDWG
+
+RealDWG deberá analizarse como referencia de máxima fidelidad Autodesk.
+
+Autodesk lo describe como su SDK para leer y escribir DWG/DXF “from the source” y declara compatibilidad DWG completa dentro de su ámbito soportado.
+
+Hay una desventaja arquitectónica importante para nuestro servidor: RealDWG 2027 actualmente especifica Windows 11 como sistema operativo, mientras nuestra arquitectura corporativa ARKI pretende utilizar principalmente servidores Linux.
+
+Eso no lo descarta. Podría conducir a:
+
+ARKI Linux Cluster
+        │
+        ▼
+CAD WINDOWS WORKER
+        │
+    RealDWG
+        │
+        ▼
+      ACIR
+
+Pero debe justificarse el costo operativo de introducir ese worker Windows.
+
+C. GNU LibreDWG
+
+Debe evaluarse como alternativa abierta.
+
+GNU LibreDWG es una biblioteca C libre para lectura/escritura DWG, GPLv3+, y su documentación declara cobertura de lectura amplia hasta DWG R2018, aunque también documenta áreas todavía incompletas o menos probadas.
+
+Por tanto:
+
+OPEN SOURCE
+≠
+AUTOMATICALLY PRODUCTION SUITABLE
+
+Debe evaluarse técnicamente y jurídicamente la compatibilidad de GPLv3+ con la futura arquitectura comercial de ARKI.
+
+D. ODA File Converter — solo como baseline/diagnóstico
+
+ODA actualmente ofrece su File Converter para Windows, Linux y macOS y permite convertir DWG↔DXF.
+
+Pero ODA aclara que Viewer/File Converter son proyectos de ejemplo y que para no miembros su uso es no comercial.
+
+Por tanto:
+
+puede evaluarse como herramienta diagnóstica/benchmark no comercial, pero no debe introducirse silenciosamente como infraestructura comercial de ARKI.
+
+3. Matriz obligatoria de decisión
+
+Comparar:
+
+Criterio	ODA	RealDWG	LibreDWG	Converter
+DWG fidelity				
+AC1032				
+Entity handles				
+Layers				
+Blocks				
+Attributes				
+Dimensions				
+Text/MTEXT				
+Layouts				
+XREF				
+Units				
+Coordinates				
+2D geometry				
+3D geometry				
+Metadata				
+DXF				
+Linux				
+Windows				
+Server automation				
+Web/SaaS licensing				
+Commercial licensing				
+Security				
+Performance				
+Maintenance				
+Vendor dependency				
+ARKI integration complexity				
+
+No utilizar un puntaje total que esconda un criterio fatal.
+
+4. Prueba con ABB-001
+
+Cada candidato técnicamente ejecutable deberá probarse contra copias derivadas de los cinco DWG de ABB-001.
+
+No alterar SOURCE_FROZEN_V1.
+
+La prueba mínima deberá intentar recuperar:
+
+FILE
+LAYOUT
+MODEL SPACE
+PAPER SPACE
+LAYER
+HANDLE
+ENTITY TYPE
+COORDINATES
+BLOCK
+INSERT
+ATTRIBUTE
+TEXT
+MTEXT
+DIMENSION
+HATCH
+XREF
+UNITS
+EXTENTS
+5. Fidelidad
+
+Para una muestra controlada:
+
+DWG SOURCE
+   ↓
+ADAPTER
+   ↓
+ACIR CANDIDATE
+   ↓
+RENDER
+   ↓
+VISUAL + STRUCTURAL COMPARISON
+
+No basta con que el dibujo “se vea parecido”.
+
+Comparar también:
+
+entity count
+layer count
+block count
+dimensions
+text
+coordinates
+extents
+identities/handles
+layouts
+6. Prueba de conversión intermedia
+
+Evaluar específicamente:
+
+DWG
+ ↓
+DXF
+ ↓
+ACIR
+
+contra:
+
+DWG
+ ↓
+DIRECT EXTRACTION
+ ↓
+ACIR
+
+Queremos saber qué se pierde.
+
+No asumir que DXF preserva necesariamente todo lo que ARKI necesitará.
+
+7. Arquitectura dual permitida
+
+Manus no deberá asumir que tiene que existir un único adaptador.
+
+Debe evaluar explícitamente:
+
+PRIMARY ADAPTER
+      +
+VALIDATION ORACLE
+
+Por ejemplo, conceptualmente:
+
+             DWG
+              │
+       ┌──────┴──────┐
+       ▼             ▼
+ PRIMARY READER    ORACLE
+       │             │
+       ▼             ▼
+      ACIR       comparison
+       │             │
+       └──────┬──────┘
+              ▼
+          VALIDATION
+
+Esto puede ser superior a depender ciegamente de una única biblioteca.
+
+8. ACIR
+
+No implementar todavía el sistema completo.
+
+Pero especificar el contrato mínimo:
+
+ACIRDocument
+ACIRSpace
+ACIRLayout
+ACIRLayer
+ACIREntity
+ACIRGeometry
+ACIRBlockDefinition
+ACIRBlockInstance
+ACIRText
+ACIRDimension
+ACIRReference
+ACIRTransform
+ACIRProvenance
+
+Cada entidad debe conservar:
+
+sourceFile
+sourceHash
+sourceFormat
+sourceEntityId/handle when available
+sourceLayer
+sourceSpace
+sourceLayout
+adapter
+adapterVersion
+transformationHistory
+geometry
+properties
+epistemicState
+9. Regla crítica
+
+No introducir todavía:
+
+LINE → WALL
+BLOCK → DOOR
+POLYLINE → ROOM
+CIRCLE → PIPE
+
+Eso pertenece a la futura capa de interpretación semántica.
+
+ACIR MUST REPRESENT WHAT THE CAD SAYS, NOT WHAT ARKI THINKS IT MEANS.
+
+10. Server architecture
+
+La selección deberá considerar explícitamente nuestro futuro servidor ARKI.
+
+Preferencia arquitectónica:
+
+ARKI CORE / BRAIN
+Linux
+   │
+   ▼
+JOB QUEUE
+   │
+   ├──── CAD Worker Linux
+   │
+   └──── CAD Worker Windows
+             only if justified
+
+No obligar al servidor entero a Windows por una sola dependencia.
+
+Autodesk confirma actualmente que AutoCAD no es compatible nativamente con Linux y no recomienda Wine como entorno soportado.
+
+11. Decisión comercial futura
+
+Distinguir:
+
+BENCHMARK USE
+DEVELOPMENT USE
+INTERNAL CORPORATE USE
+COMMERCIAL SERVICE
+WEB / SaaS
+REDISTRIBUTION
+
+Una licencia válida para una categoría no debe extrapolarse automáticamente a las demás.
+
+Especialmente importante con ODA: su propia tabla distingue Commercial de Sustaining y reserva Web/SaaS a niveles superiores.
+
+12. Salidas
+
+Generar:
+
+ARKI_CAD_001A_FORENSIC.md
+ARKI_CAD_ADAPTER_CANDIDATES.json
+ARKI_CAD_CAPABILITY_MATRIX.json
+ARKI_CAD_LICENSING_MATRIX.md
+ARKI_CAD_SERVER_DEPLOYMENT_OPTIONS.md
+ARKI_ACIR_CONTRACT_DRAFT.json
+ARKI_ABB001_ADAPTER_EXPERIMENT.json
+ARKI_CAD_FIDELITY_RESULTS.json
+ARKI_CAD_DXF_LOSS_ANALYSIS.md
+ARKI_CAD_SECURITY_ANALYSIS.md
+ARKI_CAD_001A_RECOMMENDATION.md
+ARKI_CAD_001A_DEFICITS.json
+ARKI_CAD_001A_EVIDENCE.json
+
+más manifiesto y SHA-256.
+
+13. Veredicto permitido
+
+Solo uno:
+
+ODA_RECOMMENDED_FOR_IMPLEMENTATION
+REALDWG_RECOMMENDED_FOR_IMPLEMENTATION
+LIBREDWG_RECOMMENDED_FOR_IMPLEMENTATION
+HYBRID_RECOMMENDED_FOR_IMPLEMENTATION
+MORE_EVIDENCE_REQUIRED
+NO_ACCEPTABLE_ADAPTER_FOUND
+
+Debe separar:
+
+TECHNICAL RECOMMENDATION de LICENSING/COMMERCIAL APPROVAL.
+
+14. Prohibiciones
+
+No:
+
+purchase license
+production integration
+BIM generation
+semantic interpretation
+F2
+modify ABB-001
+new Geometry Core
+new BIM Core
+new Project State
+new autonomous agent
+public service
+
+No modificar BKH ni superar su firewall actual.
+
+15. STOP
+
+Después de entregar la selección:
+
+STOP.
+
+Esperar decisión de Human Authority antes de ARKI-CAD-001B — IMPLEMENTATION.

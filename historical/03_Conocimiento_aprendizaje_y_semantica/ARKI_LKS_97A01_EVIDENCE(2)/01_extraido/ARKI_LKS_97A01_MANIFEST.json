@@ -1,0 +1,311 @@
+{
+  "schema": "ARKI-LKS-97A01-MANIFEST-1.0",
+  "order": "97A + 97A-01",
+  "status": "INTEGRATED / IMPLEMENTED FOR DECLARED SCOPE / PENDING INDEPENDENT VERIFICATION",
+  "kcf": "IMPLEMENTED/INTEGRATED FOR DECLARED SCOPE / PENDING INDEPENDENT VERIFICATION",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED",
+  "canonicalPolicy": "ARCHITECTURAL_DECISION_REQUIRED",
+  "entries": [
+    {
+      "file": "ARKI_KNOWLEDGE_COMPETENCY_FORESIGHT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1058,
+      "sha256": "746ce16402d3cb2f64007853ac735327d31690998667aad3fa4375b2dcb9f270",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_FORESIGHT_SIGNAL_MODEL.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 766,
+      "sha256": "5dab3d393fef8c22ca2ab8d3beec09175a711a416264a7a50ab77231b7fc05ef",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_LEARNING_NEED_CANDIDATE_SPEC.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 840,
+      "sha256": "d8db4bd8e2a38170c52a1de1ed58dced59740b06d7f43bb65767b5c412e7ba75",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_CURRICULUM_GOVERNANCE_LEVELS.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 910,
+      "sha256": "91b198ea7ea2da832ff2c91a0d37781703af77e8f4fa5c5ec53c49d9d8deb7da",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_GOVERNED_INTERNET_RESEARCH_POLICY.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 801,
+      "sha256": "4b1f33eb61a4b9425494d2d69e1a76a43423b9927eee4d85e3175c852455972c",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_RESEARCH_ACTIVATION_MODES.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 585,
+      "sha256": "03edf2b826b370e4088d418e922fc36259c0be8941ed66425854f64b4d9bae76",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_RESEARCH_BUDGET_AND_STOP_POLICY.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 623,
+      "sha256": "848ab42072cf92f53b51de4a7038ee88079ae738b0c89933b4156af24e929d97",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_SOCIETAL_PROFESSIONAL_FORESIGHT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 798,
+      "sha256": "65c1dd1ee5d5ef4b085e318d0747c30cea03b0f398e599b467b7fb7b50b0c4ad",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_FORESIGHT_TEST_MATRIX.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1533,
+      "sha256": "7724c1f7b2e89a539be6c6dde80a3ed0ba2de549fd7a5a480c41b470fe7a4dcc",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_FORESIGHT_SCOPE_LIMIT_REPORT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1329,
+      "sha256": "5dafddc7515722585d0afe8c9c766233c11d8b55f8d106f65d372667f28a2dbd",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "ARKI_LKS_97A01_OUTPUTS.txt",
+      "purpose": "97A/97A-01 evidence",
+      "size": 3257,
+      "sha256": "b51b6f264a88f7caf891a319bdc95b9001e5dd61987ae4ec7bec751be967aca8",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "scripts/test-arki-kcf.ts",
+      "purpose": "97A/97A-01 evidence",
+      "size": 3521,
+      "sha256": "0bdc4170acf26088fb407c248719adb5bb4f792bf39144e8f26518a33d62208b",
+      "status": "ADDED_BY_97A01"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "purpose": "97A/97A-01 evidence",
+      "size": 28525,
+      "sha256": "8be1cb64be3461f21a699303c1ef0adbb6468e15ffa0bcb3e8c67040b9d531d7",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "pasted_content_105.txt",
+      "purpose": "97A/97A-01 evidence",
+      "size": 16743,
+      "sha256": "d1c9e37427e79d410be0097312588c70378c1c26ddebc559d9d8f464e41dd8a3",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_97A_EVIDENCE.zip",
+      "purpose": "97A/97A-01 evidence",
+      "size": 71570,
+      "sha256": "9179ff3f92d8e7afb4b97e5e11d1c30a18a2350e7bae8c872f4353ddf3a3a377",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_INTEGRATED_ARCHITECTURE.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1605,
+      "sha256": "a5b7cbae2a9c7a46c2c2b1f36e28b2aa61f68b05aca13b8a663fb98b77bf8357",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_EXISTING_KNOWLEDGE_INTEGRATION_REPORT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1781,
+      "sha256": "e6d9b3a54290321b569650e72831e235396a649ce52770ec5f4e92a68aebd9b3",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_CURRICULUM_VIEW_SPEC.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1086,
+      "sha256": "201fb6bcd5046abf67c1e5f58966a9150d93061d5c26b5211f0194f7e6d049de",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_CURRICULUM_DEPENDENCY_GRAPH.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 703,
+      "sha256": "a1f0d7417a5acbdc5dd9e9d9ce33e25f328c9d1c2f953e6f67405c6cc96900b2",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_CURRICULUM_DELTA_SPEC.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 861,
+      "sha256": "bd963bdf2e847c1bf55997f0b52c3f8c08aae3368387924f78eceb4c74e6df8d",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_COMPETENCY_REVALIDATION_SPEC.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 693,
+      "sha256": "174df2a43388c9135d93bbec9108848cd4322dffe8f79bbf435b18c96a037747",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_STANDARDS_KNOWLEDGE_MODEL.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 900,
+      "sha256": "da779bb58b1c6bd24917ed70466724689815f0fa9281f97a75539129aae987f4",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_ISO_KNOWLEDGE_FAMILY.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1619,
+      "sha256": "a623d340cd589fff77d02abf19d8ff02d980db5ee17788bcc74d79f407914414",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_STANDARDS_CURRICULUM_PROPAGATION.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 788,
+      "sha256": "1599034ed3e56d78a93102cdf1960908696f54c783914789a08e28d6c279c59b",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_KNOWLEDGE_PACKAGE_SPEC.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 647,
+      "sha256": "6d46f697d30b07c2df2354a64e3790e985f6c2702fb77eeafa611576dbd99c8f",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_DUPLICATION_INVARIANTS.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1082,
+      "sha256": "2629a2e1977c94a88bf6579e1897872b6c0bea06e8f454d1b4b8e41e1e42dec1",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_MIGRATION_DECISIONS.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1352,
+      "sha256": "e84c205b2099dd19fb851dcd035c815d0463c1b8e31269e05de27cbd7dc76d00",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ADR_LKS_001_CANONICAL_CANDIDATE_AUTHORITY.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1336,
+      "sha256": "1416843ffd8f5a990e513da023bfe08f100cf3e7558b37a39d52fb951c0cbb4d",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_97A_TEST_MATRIX.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 2070,
+      "sha256": "87ec6391e223e932f2bb3c38f6beb69e942ef9d1765d2cfdd02d3b7a65554c87",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_97A_SCOPE_LIMIT_REPORT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1419,
+      "sha256": "1009f7fdc5fe3a9c5d52051f8ba40f2e08db758ef8570c761a5e20c40294a8d4",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_97A_IMPLEMENTATION_REPORT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1266,
+      "sha256": "c2023e66abe844b74700ecdb581cb6b35e626911f12194ab9942ab22e31e3a39",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_97A_OUTPUTS.txt",
+      "purpose": "97A/97A-01 evidence",
+      "size": 2818,
+      "sha256": "3700159a7a162c62a56df1a0c3593823b038d67a02b248260412da02140cbd49",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "scripts/test-arki-lks-integration.ts",
+      "purpose": "97A/97A-01 evidence",
+      "size": 5830,
+      "sha256": "85f461a811a13dfc8872ebac98afec91dc1128b3e23ff66700e2f72e656dd1f0",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_97A_MANIFEST.json",
+      "purpose": "97A/97A-01 evidence",
+      "size": 14214,
+      "sha256": "c87ce349bfeefb55e88fc99947fb49cd0162b1e8e0a89ad4d3bf566be93fba43",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_EXISTING_KNOWLEDGE_TOPOLOGY.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 7252,
+      "sha256": "328b807d95f4b917213ff89209fe99cbb47f3ae0508ddb1b3f111e55deda401d",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_KNOWLEDGE_OWNERSHIP_MAP.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 4108,
+      "sha256": "2da4d3e80516be6b92cf91b3bebf7276cf3d598aef65200af91b477eda94c1be",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_CURRICULUM_COMPETENCY_BASELINE.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 3805,
+      "sha256": "b9c83bc9badb31e3df5c4ce10dc297890ac96bf91b0afc1d71b449a79452d5f4",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_MIGRATION_MAP.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 4181,
+      "sha256": "beac99bce4193d54008a279dc04ad0275d47d8ea8efcba8a9fc31f5535a7d488",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_DUPLICATION_RISK_REGISTER.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 3401,
+      "sha256": "523e06940caf69f8d4654ceb4f025903bf00b921570b7c3e03daeeae9a4b4411",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "AKI001_REPORT.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 2108,
+      "sha256": "c17621c46c44a511e0dc2bec8750089f97fdb65427c1a9f9198f064ac1bdae1a",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_CONTRACT_V1.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 1748,
+      "sha256": "07518e4c383e9f5c32dbf429c12696915c03b67d8c3a1dae84d54ada8b729fd6",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_SOURCE_REGISTER.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 4242,
+      "sha256": "f50869b666d15ac37120876811f7758c9f57503fe245c28549645406e6fb9d3c",
+      "status": "REUSED_OR_97A_BASELINE"
+    },
+    {
+      "file": "ARKI_LKS_CAPABILITY_ATLAS.md",
+      "purpose": "97A/97A-01 evidence",
+      "size": 2010,
+      "sha256": "6516b2e872f055c035307c5bfacb819d0d088eef6d2b8ef5a04b88879344a7b0",
+      "status": "REUSED_OR_97A_BASELINE"
+    }
+  ]
+}

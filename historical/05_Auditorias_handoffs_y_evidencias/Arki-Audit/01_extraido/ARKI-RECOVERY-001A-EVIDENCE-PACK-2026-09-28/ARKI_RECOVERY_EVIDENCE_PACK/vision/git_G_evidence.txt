@@ -1,0 +1,80 @@
+[33m34617e0[m test(case): add controlled house E2E validation
+[33mc13c0ea[m fix(arkidraw): enforce semantic role gate
+[33m8a0863a[m feat(arkidraw): adapt graphic scene to vector svg
+[33m27ff812[m feat(arkidraw): adapt graphic scene to vector svg
+[33mc914a27[m fix(are): enforce projection view semantics
+[33mfaf8d4e[m feat(are): implement 2d architectural projection
+[33m4208106[m fix(are): derive freshness from source authority
+[33me093da4[m fix(are): close source lineage and view semantics
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33me80bd3a[m docs(architecture): close ARE source and dependency semantics
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m155a330[m fix(arkidraw): close Block 1 material findings
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m79b3a80[m feat(d2): add deterministic architectural model and IFC export
+[33macc78dd[m fix(a002): enforce required states and jurisdiction applicability
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+[33m96dab57[m feat(a002): unify v1.4 policy identity and authority contracts
+[33m0e13bfc[m test(A-002): verify H-005 gate and multiscale sufficiency
+[33m8b1b6c2[m feat(A-002): implement input sufficiency engine and gate
+[33m505ccd1[m fix(compliance): close RD-02 semantic and sandbox findings
+[33m3bbc5cf[m test(H-001/H-002/H-003): add multiscale E2E test (Wall-Move Lite)
+[33m94f3fcf[m feat(H-001 Examen 11): incorporate RT-A and RT-D into core baseline
+[33m6f3231f[m Add files via upload
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mf8ec89b[m feat(vsm): add weekly master registry and detector
+[33m1c41655[m docs: add canonical master handoff
+[33mfdbc51d[m feat: preserve visual evidence review trace
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m33ce390[m feat: add bounded real spatial context
+[33m7175867[m test: close multiscale evidence safety gates
+[33m2cb33e3[m feat: add multiscale spatial evidence workflow
+[33m2bafbc5[m feat: add explainable architectural design distance
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m09449fc[m docs: close multisource knowledge macroorder
+[33m1551851[m feat: add multisource design knowledge pilot
+[33mb4eecd3[m feat: add traceable semantic design reasoning
+[33mc671337[m feat: complete controlled design knowledge pilot
+[33m7e0af62[m docs: register generative design knowledge patterns as frozen
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m5538a89[m feat: add traceable multi-agent design exploration
+[33m998d037[m feat: add evidence-based design memory projection
+[33m9ab4417[m feat: add gdi generative design ladder
+[33mda3583b[m feat: complete div-p0 design intelligence loop
+[33m5c0a5d8[m feat: operationalize human design intent
+[33m6a1b198[m feat(environment): add adaptive territorial scale profiles
+[33m5547acd[m feat(environment): add territorial environmental intelligence foundation
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33mf0bc17e[m feat: complete MV-P1 location environmental integration
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33mea43eca[m docs: define territorial variable matrices
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33ma8cb566[m docs: audit current multiscale variable architecture
+[33me9d9600[m feat: add temporal solar environmental analysis
+[33mdb7b9ec[m feat: add physical IFC adapter and GIS RFC-028
+[33md1ef50d[m feat: implement RFC-027 BIM IFC exchange contract
+[33m9483246[m docs: add RFC-026 persistence plan and demo v3
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+[33mf0aef3b[m feat: review RNE promotion and five-norm Camino A
+[33mee2ec36[m feat: expand RFC-025 RNE corpus sources
+[33m37926a2[m feat: add RFC-025 regulatory corpus foundation
+[33md4e177a[m feat: add feasibility filtering and project variables
+[33me863fd7[m docs: add canonical CLI commands reference
+[33m2cde44d[m docs: add independent operations manual
+[33mc83d6ed[m docs: add SiMS-DeI 2.2 master architecture
+[33ma47ef17[m feat: implement RFC-006.1 Monte Carlo simulation
+[33m01ce186[m feat: implement RFC-006.1 Monte Carlo simulation
+[33m35b4096[m feat: expose Source over canonical HTTP v1
+[33md93c610[m docs: add user manual and entity glossary
+[33m2458070[m feat: add institutional memory projection
+[33m14e3198[m docs: add SiMS-DeI 2.0 master architecture
+[33mea36d6a[m feat: add regulatory corpus structure
+[33m6592695[m feat: add simulation contract and HTTP v1 endpoints
+[33m0bcc9a1[m fix: align v2 core with SiMS-DeI constitutional invariants
+[33m0170e8a[m feat: add traceable site intelligence demo kit

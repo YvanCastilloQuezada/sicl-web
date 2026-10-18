@@ -1,0 +1,4 @@
+id,openId,name,email,loginMethod,role,createdAt,updatedAt,lastSignedIn,avatarKey,avatarUrl
+1,MTC6PdCeGARzmRxWNonjnB,Yvan Castillo,yvancastillo2@gmail.com,google,admin,2026-08-24 09:19:10,2026-09-06 17:18:21,2026-09-06 17:18:20,milukita-avatars/1/GxuC57f5Vcp8LRwtsP_0972aba2.png,/manus-storage/milukita-avatars/1/GxuC57f5Vcp8LRwtsP_0972aba2.png
+1620001,e2e-http-1787601829029-02ee5313ef5ba,Usuario temporal HTTP E2E,e2e-http-1787601829029-02ee5313ef5ba@example.test,test,user,2026-08-24 20:03:49,2026-08-24 20:03:49,2026-08-24 20:03:49,,
+4620001,e2e-http-1787696747968-01df318fa6b09,Usuario temporal HTTP E2E,e2e-http-1787696747968-01df318fa6b09@example.test,test,user,2026-08-25 22:25:47,2026-08-25 22:25:47,2026-08-25 22:25:47,,

@@ -1,0 +1,363 @@
+CIERRE DE FASE G Y CIERRE DEL TEMA DE AGENTES
+Documento: ORDEN MAESTRA 001 — ACTA DE CIERRE FASE G Y CIERRE DE AGENTES
+Versión: 11.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+
+PARTE I — ACTA DE CIERRE DE FASE G
+1. ESTADO FINAL DE FASE G
+🟢 FASE G — CERRADA CON OBSERVACIONES.
+
+2. VERIFICACIÓN DE PUNTOS
+Punto	Estado	Evidencia
+Review Queue	🟢 IMPLEMENTED / INTEGRATED	Review Queue con búsqueda y estados de revisión
+Integración con Mapper	🟢 IMPLEMENTED / INTEGRATED	Integración con Mapper
+Dossier	🟢 IMPLEMENTED / INTEGRATED	Reutilizado
+Matriz de Evidencia	🟢 IMPLEMENTED / INTEGRATED	Reutilizada
+Conflictos	🟢 IMPLEMENTED / INTEGRATED	Reutilizados
+Auditoría	🟢 IMPLEMENTED / INTEGRATED	Reutilizada
+Gates de Human Authority	🟢 IMPLEMENTED / INTEGRATED	Reutilizados
+No Landing Page	🟢 VERIFIED	No se creó landing adicional
+No Publicación Automática	🟢 VERIFIED	No hubo publicación automática
+WorldObjects	🟢 INTACT	No se modificaron
+MJP CORE	🟢 INTACT / TESTED	No se modificó
+Orden 60	🟢 ABIERTA	No se modificó
+Fase H	🟢 NO INICIADA	Correctamente detenida
+3. VALIDACIÓN TÉCNICA
+Aspecto	Resultado
+TypeScript	✅ PASS
+Build	✅ PASS
+Tests	✅ 27 PASS
+Verificación visual (/the-eye y /mapper)	✅ PASS
+4. COMPONENTES RESCATADOS
+Componente	Estado previo	Intervención	Estado posterior
+The Eye	Existente	Consolidado como herramienta profesional	🟢 IMPLEMENTED / INTEGRATED
+Review Queue	Parcial	Implementado con búsqueda y estados	🟢 IMPLEMENTED / INTEGRATED
+Dossier	Existente	Reutilizado	🟢 IMPLEMENTED / INTEGRATED
+Matriz de Evidencia	Existente	Reutilizada	🟢 IMPLEMENTED / INTEGRATED
+Conflictos	Existente	Reutilizados	🟢 IMPLEMENTED / INTEGRATED
+Auditoría	Existente	Reutilizada	🟢 IMPLEMENTED / INTEGRATED
+Gates de Human Authority	Existente	Reutilizados	🟢 IMPLEMENTED / INTEGRATED
+Integración con Mapper	Parcial	Integrada	🟢 IMPLEMENTED / INTEGRATED
+5. COMPONENTES NUEVOS
+Ninguno.
+
+Manus no creó componentes nuevos. Rescató, consolidó y conectó lo existente. ✅
+
+6. OBSERVACIONES REGISTRADAS
+Observación	Estado	Acción
+Probar con expedientes reales persistidos	🟡 PENDIENTE	Fase H
+Validar roles en dispositivos móviles	🟡 PENDIENTE	Fase H
+Ejecutar flujo completo hasta autorización humana	🟡 PENDIENTE	Fase H
+Orden 60	🟢 ABIERTA	Mantener ABIERTA — PENDIENTES
+7. DECLARACIÓN DE CIERRE
+FASE G: 🟢 CERRADA CON OBSERVACIONES.
+
+Razón: Los criterios de Fase G están implementados, integrados y verificados. Las observaciones restantes (validación con expedientes reales, roles móviles, flujo completo) no bloquean la continuación.
+
+Con esto, Fase G queda cerrada. El proyecto está al 92%.
+
+PARTE II — CIERRE DEL TEMA DE AGENTES
+8. OBJETIVO
+Cerrar el tema de agentes con lo que YA EXISTE.
+
+NO crear agentes nuevos.
+
+NO crear código muerto.
+
+SÍ activar lo que está registrado.
+
+SÍ verificar lo que existe.
+
+SÍ documentar todo.
+
+9. CONTEXTO
+Según la Micro-Orden de Identificación de Agentes, Manus reportó:
+
+Aspecto	Cantidad
+Agentes registrados	16
+Agentes con intents conectados	6
+Elementos clasificados como servicios/contratos	13
+Agentes con autoridad de ejecución	0
+Agentes que pueden modificar MJP CORE	0
+Pero falta:
+
+Tabla completa de los 16 agentes
+
+Tabla de los 6 conectados
+
+Tabla de los 10 no conectados
+
+Tabla de los 13 servicios/contratos
+
+Evidencia verificable
+
+10. ALCANCE DEL CIERRE DE AGENTES
+Acción	Descripción
+Documentar los 16 agentes	Con la micro-orden complementaria
+Activar Legal & Compliance	Ya está registrado, solo está disabled
+Verificar Security Agent	Si existe, activar; si no, documentar
+Verificar Governance Agent	Si existe, activar; si no, documentar
+Verificar los 10 no conectados	Documentar por qué no están conectados
+Documentar los 13 servicios/contratos	Con evidencia
+NO crear agentes nuevos	A menos que haya un caso de uso real
+11. LO QUE NO INCLUYE ESTE CIERRE
+NO autoriza:
+
+❌ Crear agentes nuevos sin caso de uso real
+
+❌ Crear código muerto
+
+❌ Activar agentes sin verificación
+
+❌ Modificar MJP CORE
+
+❌ Modificar Orden 60
+
+❌ Iniciar Fase H
+
+❌ Crear pantallas nuevas
+
+❌ Rediseñar visualmente
+
+12. PRINCIPIOS DEL CIERRE DE AGENTES
+Principio	Descripción
+No crear por crear.	Solo crear si hay caso de uso real.
+Rescatar lo existente.	Activar lo que ya está registrado.
+Documentar todo.	Con evidencia verificable.
+No duplicar.	Si ya existe como servicio, no crear agente.
+No expandir alcance.	Solo cerrar lo que existe.
+Estado real.	No declarar lo que no se ha verificado.
+13. FORMATO DE REPORTE DEL CIERRE DE AGENTES
+Manus deberá entregar:
+
+text
+### 1. Estado final del Cierre de Agentes
+🟢 COMPLETADO / 🟡 PARCIAL / 🔴 BLOQUEADO
+
+### 2. Documento de Evidencia
+Archivo: AGENT_INVENTORY_EVIDENCE_001.md
+Enlace: [URL al archivo]
+
+### 3. Tabla Completa de los 16 Agentes Registrados
+
+| # | Nombre | Ubicación | Enlace | Estado | Modo | Función | Conectado | Autoridad | Dependencias |
+|---|--------|-----------|--------|--------|------|---------|-----------|-----------|--------------|
+| 1 | | | | | | | | | |
+| ... | | | | | | | | | |
+| 16 | | | | | | | | | |
+
+### 4. Tabla de los 6 Agentes Conectados
+
+| # | Nombre | Intents Conectados | Función | Modo | Ubicación | Enlace | Evidencia |
+|---|--------|-------------------|---------|------|-----------|--------|-----------|
+| 1 | | | | | | | |
+| ... | | | | | | | |
+| 6 | | | | | | | |
+
+### 5. Tabla de los 10 Agentes No Conectados
+
+| # | Nombre | Ubicación | Enlace | Estado | Función | Modo | Razón de no conexión | Pendientes |
+|---|--------|-----------|--------|--------|---------|------|----------------------|------------|
+| 1 | | | | | | | | |
+| ... | | | | | | | | |
+| 10 | | | | | | | | |
+
+### 6. Tabla de los 13 Elementos Clasificados como Servicios/Contratos
+
+| # | Nombre | Clasificación | Ubicación | Enlace | Función | ¿Por qué NO es agente? |
+|---|--------|---------------|-----------|--------|---------|------------------------|
+| 1 | World | | | | | |
+| ... | | | | | | |
+| 13 | Security | | | | | |
+
+### 7. Legal & Compliance
+- Estado: 🟡 PLANNED / DISABLED
+- Acción: Activar
+- Resultado: [estado después de activar]
+
+### 8. Security Agent
+- ¿Existe?: SÍ / NO
+- Estado: [estado]
+- Acción: [activar / documentar]
+
+### 9. Governance Agent
+- ¿Existe?: SÍ / NO
+- Estado: [estado]
+- Acción: [activar / documentar]
+
+### 10. Resumen
+
+- Total de agentes registrados:
+- Total de agentes conectados:
+- Total de agentes no conectados:
+- Total de servicios/contratos:
+- Total de agentes con autoridad de ejecución: (debe ser 0)
+- Total de agentes que pueden modificar MJP CORE: (debe ser 0)
+
+### 11. Límites de Autoridad
+- ¿Algún agente tiene autoridad de ejecución? (debe ser NO)
+- ¿Algún agente puede modificar MJP CORE? (debe ser NO)
+- ¿Algún agente puede publicar sin autorización? (debe ser NO)
+
+### 12. Pendientes
+Separar claramente:
+- Pendientes de este cierre;
+- Pendientes de Fase G;
+- Pendientes de Fase F;
+- Pendientes de Fase E;
+- Pendientes de Fase D;
+- Pendientes de Fase C;
+- Pendientes de Fase B;
+- Pendientes de Fase A;
+- Pendientes de Orden 60;
+- Pendientes futuras.
+
+### 13. MJP CORE
+Confirmar: SIN MODIFICACIÓN
+
+### 14. Estado de Fase H
+Declarar expresamente:
+FASE H — NO INICIADA
+14. CRITERIOS DE ACEPTACIÓN DEL CIERRE DE AGENTES
+Criterio	Descripción
+Tabla completa	Se entregaron los 16 agentes con todos los campos
+Tabla de conectados	Se entregaron los 6 agentes conectados
+Tabla de no conectados	Se entregaron los 10 agentes no conectados
+Tabla de servicios/contratos	Se entregaron los 13 elementos
+Legal & Compliance	Activado
+Security Agent	Verificado
+Governance Agent	Verificado
+Documento de evidencia	Se entregó AGENT_INVENTORY_EVIDENCE_001.md
+Enlaces verificables	Se entregaron enlaces a archivos/commits
+Límites verificados	Se confirmó que ningún agente tiene autoridad
+MJP CORE intacto	Se confirmó protección
+No expansión	No se creó ningún agente nuevo
+15. DETENCIÓN OBLIGATORIA
+Al completar el cierre de agentes:
+
+text
+DETENER LA EJECUCIÓN.
+NO CREAR AGENTES NUEVOS.
+NO INICIAR FASE H.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+16. PRINCIPIO DE ESTE CIERRE
+text
+CERRAR, NO CREAR.
+ACTIVAR LO REGISTRADO.
+VERIFICAR LO EXISTENTE.
+DOCUMENTAR TODO.
+NO CREAR CÓDIGO MUERTO.
+NO EXPANDIR EL ALCANCE.
+NO INICIAR LA SIGUIENTE FASE SIN AUTORIZACIÓN.
+
+MANUS CIERRA.
+MANUS DEMUESTRA.
+HUMAN AUTHORITY DECIDE.
+17. ESTADO DE LAS FASES
+text
+🟢 FASE A — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE B — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE C — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE D — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE E — COMPLETA (E.1–E.5 CERRADAS CON OBSERVACIONES)
+        ↓
+🟢 FASE F — MAPPER (CERRADA CON OBSERVACIONES)
+        ↓
+🟢 FASE G — THE EYE (CERRADA CON OBSERVACIONES)
+        ↓
+🟡 CIERRE DE AGENTES (AUTORIZADO)
+        ↓
+🔵 FASE H — VALIDACIÓN FÍSICA (NO INICIADA)
+18. ORDEN DE EJECUCIÓN INMEDIATA
+MANUS AI:
+
+Ejecutar únicamente:
+
+text
+CIERRE DEL TEMA DE AGENTES
+Antes de modificar:
+
+Localizar los 16 agentes registrados
+
+Identificar los 6 conectados
+
+Identificar los 10 no conectados
+
+Identificar los 13 servicios/contratos
+
+Durante el Cierre:
+
+Documentar los 16 agentes con la tabla completa
+
+Activar Legal & Compliance
+
+Verificar Security Agent
+
+Verificar Governance Agent
+
+Documentar los 10 no conectados
+
+Documentar los 13 servicios/contratos
+
+Entregar AGENT_INVENTORY_EVIDENCE_001.md
+
+Confirmar límites de autoridad
+
+Confirmar protección MJP CORE
+
+Al finalizar el Cierre:
+
+Ejecutar pruebas focalizadas
+
+Documentar evidencia
+
+Actualizar RESCUE_AUDIT_001.md
+
+Reportar estado final
+
+DETENERSE.
+
+NO iniciar Fase H sin autorización.
+
+19. CIERRE
+FASE G: 🟢 CERRADA CON OBSERVACIONES.
+
+CIERRE DE AGENTES: 🟡 AUTORIZADO.
+
+Acciones autorizadas:
+
+Documentar los 16 agentes
+
+Activar Legal & Compliance
+
+Verificar Security Agent
+
+Verificar Governance Agent
+
+Documentar los 10 no conectados
+
+Documentar los 13 servicios/contratos
+
+Entregar AGENT_INVENTORY_EVIDENCE_001.md
+
+NO autorizado:
+
+❌ Crear agentes nuevos sin caso de uso real
+
+❌ Crear código muerto
+
+❌ Iniciar Fase H
+
+Próximo paso: Ejecutar el Cierre de Agentes. Detenerse. Reportar. Esperar autorización.
+
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Orden Maestra 001 — Acta de Cierre Fase G y Cierre de Agentes
+Estado: Listo para envío a Manus

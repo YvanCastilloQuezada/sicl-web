@@ -1,0 +1,1588 @@
+ADENDA 97A-07-S2 — ARKI PROFESSIONAL SERVICE WORKSPACES & HUMAN REVIEW
+
+Subtítulo: Service-Specific Pages + Professional Review Desk + Evidence Ledger + Improvement Engine + Human Acceptance Gates
+
+Parent: ORDEN 97A-07 — ARKI BIM SERVICES & PROJECT ASSURANCE
+
+Antecedente obligatorio: 97A-07-S1 — ARKI BIM SERVICE PORTAL
+
+Programa: ARKI-BSPA-001
+
+Código: ARKI-BSPA-S2
+
+Tipo: Product Architecture + Professional Workflow + Human Review + Traceability + Evidence
+
+Prioridad: HIGH / COMMERCIAL / OPERATIONAL
+
+Autoridad: Product Owner / Human Authority
+
+Estado inicial: AUTHORIZED FOR BOUNDED FOUNDATION + WORKFLOW PROOF
+
+S2.01 — MISIÓN
+
+Transformar las capacidades de 97A-07 y el portal de 97A-07-S1 en servicios profesionales diferenciados, cada uno con:
+
+OWN SERVICE PAGE
+OWN INPUT CONTRACT
+OWN PREFLIGHT
+OWN PROCESS
+OWN REVIEW PROTOCOL
+OWN OUTPUT CONTRACT
+OWN ACCEPTANCE GATE
+
+compartiendo:
+
+ONE ARKI
+ONE PROJECT/JOB STATE
+ONE EVIDENCE SYSTEM
+ONE TRACEABILITY MODEL
+ONE HUMAN AUTHORITY MODEL
+S2.02 — PRINCIPIO DE PRODUCTO
+
+Formalizar:
+
+DIFFERENT SERVICE ≠ DIFFERENT ARKI.
+
+DIFFERENT PAGE ≠ DIFFERENT SOURCE OF TRUTH.
+
+SAME CORE ≠ SAME WORKFLOW.
+
+S2.03 — SERVICE PAGES
+
+Preparar páginas independientes:
+
+/services/bim-xray
+/services/bim-audit
+/services/drawing-to-bim
+/services/bim-rescue
+/services/bim-coordination
+/services/construction-bim
+/services/project-assurance
+
+Preparar as-built-bim solamente como NOT_YET_APPROVED_FOR_SERVICE mientras no exista evidencia suficiente.
+
+S2.04 — SERVICE PAGE CONTRACT
+
+Toda página deberá declarar:
+
+WHAT THIS SERVICE IS
+PROBLEM IT SOLVES
+WHO IT IS FOR
+WHAT CUSTOMER MUST PROVIDE
+ACCEPTED INPUTS
+REQUIRED INPUTS
+OPTIONAL INPUTS
+WHAT ARKI DOES
+WHAT HUMAN REVIEW DOES
+WHAT CUSTOMER RECEIVES
+WHAT IS NOT INCLUDED
+PROFESSIONAL BOUNDARIES
+EXPECTED TURNAROUND
+PRICING MODEL
+DATA HANDLING
+ACCEPTANCE CONDITIONS
+S2.05 — NO GENERIC UPLOAD PAGE
+
+El cliente no deberá enfrentar el mismo formulario para todos los servicios.
+
+Cada servicio deberá solicitar solamente información pertinente.
+
+S2.06 — UNIVERSAL PROFESSIONAL WORKFLOW
+
+Todo servicio profesional deberá derivarse de:
+
+CUSTOMER INPUT
+↓
+INPUT FREEZE
+↓
+PREFLIGHT
+↓
+PROCESSING
+↓
+ARKI SELF-QA
+↓
+ARKI RED TEAM
+↓
+PROVISIONAL RESULT
+↓
+HUMAN PROFESSIONAL REVIEW
+↓
+OBSERVATIONS
+↓
+CORRECTION / INFORMATION REQUEST / ESCALATION
+↓
+REVALIDATION
+↓
+HUMAN FINAL REVIEW
+↓
+FINAL DELIVERY
+S2.07 — RESULT ≠ DELIVERABLE
+
+Formalizar:
+
+ARKI RESULT ≠ PROFESSIONAL DELIVERY.
+
+cuando el servicio requiera revisión humana.
+
+Estados separados:
+
+GENERATED
+QA_CHECKED
+RED_TEAMED
+PROFESSIONAL_REVIEW_PENDING
+CORRECTION_REQUIRED
+REVALIDATION_PENDING
+FINAL_REVIEW_PENDING
+APPROVED_FOR_DELIVERY
+DELIVERED
+S2.08 — HUMAN REVIEW IS A FIRST-CLASS OBJECT
+
+Crear/reutilizar:
+
+ProfessionalReview.
+
+Campos mínimos:
+
+reviewId
+jobId
+serviceType
+reviewer
+reviewerRole
+reviewerCompetencyEvidence
+reviewScope
+assignedItems
+sourceVersion
+resultVersion
+findingsReviewed
+unknownsReviewed
+observations
+decisions
+escalations
+startedAt
+completedAt
+status
+provenance
+S2.09 — REVIEWER ≠ AUTOMATIC AUTHORITY
+
+Formalizar:
+
+USER ACCOUNT ≠ PROFESSIONAL COMPETENCE.
+
+PROFESSIONAL TITLE ≠ AUTHORITY FOR EVERY DISCIPLINE.
+
+REVIEW ASSIGNMENT SHALL MATCH REVIEW SCOPE.
+
+S2.10 — REVIEW REQUIREMENT
+
+Crear:
+
+ReviewRequirement.
+
+Posibles estados:
+
+NOT_REQUIRED
+BIM_REVIEW_REQUIRED
+ARCHITECT_REVIEW_REQUIRED
+STRUCTURAL_REVIEW_REQUIRED
+MEP_REVIEW_REQUIRED
+SPECIALIST_REVIEW_REQUIRED
+LEGAL_REVIEW_REQUIRED
+MULTIDISCIPLINARY_REVIEW_REQUIRED
+UNKNOWN
+S2.11 — REVIEW ASSIGNMENT
+
+ARKI podrá recomendar:
+
+REQUIRED REVIEW DISCIPLINES
+
+pero no deberá afirmar que una persona está profesionalmente habilitada sin evidencia.
+
+S2.12 — REVIEW DESK
+
+Diseñar:
+
+ARKI PROFESSIONAL REVIEW DESK.
+
+Debe mostrar:
+
+JOB
+CLIENT
+SERVICE
+INPUT MANIFEST
+INPUT VERSION
+RESULT VERSION
+DISCIPLINES
+ARKI FINDINGS
+PASSED ITEMS
+CONFLICTS
+UNKNOWN
+RED TEAM FINDINGS
+ARKI PROPOSALS
+PROFESSIONAL OBSERVATIONS
+REVIEW PROGRESS
+ACCEPTANCE STATUS
+S2.13 — REVIEW IS NOT A CHECKBOX
+
+Prohibido reducir revisión profesional a:
+
+[ APPROVE ]
+
+sin evidencia de qué fue revisado.
+
+S2.14 — REVIEW COVERAGE
+
+Registrar:
+
+elements reviewed
+requirements reviewed
+findings reviewed
+documents reviewed
+disciplines reviewed
+UNKNOWN reviewed
+excluded scope
+S2.15 — UNIVERSAL JOB EVIDENCE LEDGER
+
+Crear/reutilizar:
+
+JobEvidenceLedger.
+
+Debe reconstruir cronológicamente:
+
+WHAT ENTERED
+WHO PROVIDED IT
+WHICH VERSION
+WHAT ARKI INTERPRETED
+WHAT ARKI GENERATED
+WHAT ARKI CHANGED
+WHY
+WHAT EVIDENCE SUPPORTED IT
+WHAT RED TEAM CHALLENGED
+WHAT HUMAN REVIEWED
+WHAT HUMAN REJECTED
+WHAT HUMAN APPROVED
+WHAT ARKI CORRECTED
+WHAT WAS DELIVERED
+S2.16 — IMMUTABLE HISTORY PRINCIPLE
+
+Una corrección no deberá borrar:
+
+original input
+original ARKI result
+original finding
+professional observation
+rejected correction
+previous version
+S2.17 — SOURCE ↔ RESULT TRACEABILITY
+
+Todo resultado material deberá poder responder:
+
+WHERE DID THIS COME FROM?
+
+Cuando exista fuente documental:
+
+RESULT ENTITY
+↔ SOURCE DOCUMENT
+↔ SHEET/PAGE
+↔ REGION/REFERENCE
+↔ INTERPRETATION
+↔ TRANSFORMATION
+↔ VALIDATION
+S2.18 — TRACEABILITY VIEWER
+
+Diseñar:
+
+SourceResultTraceabilityViewer.
+
+Ejemplo:
+
+BIM WALL W-00483
+
+SOURCE
+A-103.pdf
+Sheet A-03
+Grid C/5
+
+PLAN GEOMETRY
+A-03
+
+HEIGHT
+Section A-12
+
+MATERIAL
+Specification E-04 §7.3
+
+INFERENCES
+1
+
+CONFLICTS
+0
+
+UNKNOWN
+internal finish
+S2.19 — EPISTEMIC VISIBILITY
+
+El revisor deberá poder distinguir visualmente:
+
+SOURCE_FACT
+DERIVED
+INFERRED
+PROPOSED
+UNKNOWN
+CONFLICT
+HUMAN_APPROVED
+S2.20 — WHAT PASSED
+
+Toda revisión deberá incluir:
+
+PASSED
+
+además de findings.
+
+Formalizar:
+
+PROFESSIONAL REVIEW SHALL NOT BE DEFECT-ONLY REVIEW.
+
+S2.21 — IMPROVEMENT MODEL
+
+Crear:
+
+ImprovementCandidate.
+
+Distinguir:
+
+REQUIRED_CORRECTION
+RECOMMENDED_IMPROVEMENT
+OPTIONAL_OPTIMIZATION
+
+Nunca convertir optimización opcional en incumplimiento.
+
+S2.22 — IMPROVEMENT CONTENT
+
+Cuando ARKI tenga competencia/evidencia suficiente:
+
+CURRENT STATE
+ISSUE/OPPORTUNITY
+WHY IT MATTERS
+CAUSE/HYPOTHESIS
+OPTION A
+OPTION B
+OPTION C
+CONSEQUENCES
+COST IMPACT
+TIME IMPACT
+SPACE IMPACT
+SYSTEM IMPACT
+RISK
+UNKNOWN
+ARKI RECOMMENDATION
+HUMAN DECISION
+S2.23 — ARKI RECOMMENDATION ≠ DECISION
+
+Formalizar:
+
+ARKI MAY RECOMMEND. HUMAN AUTHORITY DECIDES MATERIAL CHANGE.
+
+S2.24 — OBSERVATION MODEL
+
+Crear/reutilizar:
+
+ProfessionalObservation.
+
+Tipos:
+
+ACCEPT
+REJECT
+CORRECT
+MODIFY
+REQUEST_INFORMATION
+REQUEST_SPECIALIST
+DEFER
+UNKNOWN
+S2.25 — CORRECTION LOOP
+OBSERVATION
+↓
+CORRECTION CANDIDATE
+↓
+IMPACT CHECK
+↓
+AUTHORIZATION
+↓
+CORRECTION
+↓
+REVALIDATION
+↓
+PROFESSIONAL RE-REVIEW
+S2.26 — NO SILENT CORRECTION
+
+Una observación profesional no deberá producir una modificación material invisible.
+
+Registrar:
+
+BEFORE
+REQUESTED CHANGE
+IMPLEMENTED CHANGE
+AFTER
+CONSEQUENCES
+VALIDATION
+S2.27 — BEFORE / AFTER VIEWER
+
+Diseñar una vista:
+
+BEFORE
+↔
+PROPOSED
+↔
+AFTER
+
+para servicios donde existan modificaciones.
+
+S2.28 — SERVICE 01: BIM X-RAY
+
+Página propia:
+
+/services/bim-xray
+
+Entrada:
+
+BIM/IFC
+optional supporting documents
+
+Proceso:
+
+ingest
+→ health scan
+→ semantic scan
+→ coordination scan
+→ critical finding scan
+→ self-QA
+→ Red Team
+→ reviewer validation
+
+Salida:
+
+MODEL HEALTH
+WHAT PASSED
+CRITICAL FINDINGS
+INFORMATION GAPS
+UNKNOWN
+RECOMMENDED NEXT SERVICE
+S2.29 — BIM X-RAY REVIEW
+
+Revisor verifica:
+
+finding validity
+false positives
+severity
+evidence
+recommendations
+
+X-Ray continúa siendo screening, no auditoría completa.
+
+S2.30 — SERVICE 02: BIM AUDIT
+
+Página:
+
+/services/bim-audit
+
+Entrada:
+
+model
+audit basis
+requirements
+supporting documentation
+
+Proceso:
+
+establish audit basis
+→ requirement matrix
+→ model audit
+→ evidence
+→ findings
+→ passed items
+→ Red Team
+→ professional review
+S2.31 — BIM AUDIT REVIEW
+
+Revisión obligatoria:
+
+AUDIT BASIS
+REQUIREMENT
+EXPECTED STATE
+OBSERVED STATE
+EVIDENCE
+FINDING
+SEVERITY
+CONSEQUENCE
+UNKNOWN
+S2.32 — AUDIT ACCEPTANCE
+
+No entregar como auditoría profesional mientras existan:
+
+UNREVIEWED_CRITICAL_FINDING
+UNSUPPORTED_FINDING
+UNRESOLVED_AUDIT_BASIS_CONFLICT
+REQUIRED_SPECIALIST_REVIEW_PENDING
+S2.33 — SERVICE 03: DRAWING-TO-BIM
+
+Página:
+
+/services/drawing-to-bim
+
+Entrada:
+
+PDF
+DWG/DXF when supported
+scans
+plans
+sections
+elevations
+details
+schedules
+specifications
+specialty drawings
+S2.34 — DRAWING-TO-BIM PROCESS
+INVENTORY
+→ CLASSIFY
+→ RELATE
+→ SCALE/DIMENSION CHECK
+→ EXTRACT
+→ CONFLICT DETECTION
+→ GEOMETRIC RECONSTRUCTION
+→ SEMANTIC RECONSTRUCTION
+→ DISCIPLINE RECONSTRUCTION
+→ FEDERATION
+→ SOURCE COMPARISON
+→ QA
+→ RED TEAM
+→ PROFESSIONAL REVIEW
+S2.35 — DRAWING-TO-BIM REVIEW WORKSPACE
+
+Priorizar pantalla dividida:
+
+SOURCE DRAWING
+↔
+BIM MODEL
+
+Seleccionar un objeto BIM deberá mostrar su fuente.
+
+Seleccionar una fuente deberá mostrar entidades derivadas cuando sea técnicamente posible.
+
+S2.36 — DRAWING-TO-BIM REVIEW
+
+Revisar por disciplina:
+
+geometry
+levels
+grids
+spaces
+walls
+openings
+vertical circulation
+structure
+systems
+properties
+relationships
+conflicts
+UNKNOWN
+S2.37 — RECONSTRUCTION FIDELITY
+
+Crear:
+
+ReconstructionFidelityAssessment.
+
+No utilizar un único porcentaje engañoso.
+
+Dimensiones:
+
+source coverage
+geometry fidelity
+semantic fidelity
+relationship fidelity
+discipline coverage
+property coverage
+unresolved conflict
+UNKNOWN
+S2.38 — SERVICE 04: BIM RESCUE
+
+Página:
+
+/services/bim-rescue
+
+Entrada:
+
+defective/partial BIM
+supporting documents
+approved design where applicable
+requirements
+S2.39 — BIM RESCUE WORKFLOW
+AUDIT
+→ FINDINGS
+→ CAUSAL ANALYSIS
+→ CORRECTION OPTIONS
+→ IMPACT
+→ PROFESSIONAL REVIEW
+→ HUMAN AUTHORIZATION
+→ REPAIR
+→ REVALIDATION
+→ BEFORE/AFTER
+→ FINAL REVIEW
+S2.40 — BIM RESCUE REVIEW
+
+Cada reparación:
+
+ORIGINAL
+ISSUE
+OPTION A/B/C
+CHOSEN OPTION
+AUTHORITY
+CHANGE
+NEW CONSEQUENCES
+REVALIDATION
+S2.41 — REPAIR LEVEL GATE
+
+Preservar:
+
+LEVEL 1 MODEL REPAIR
+LEVEL 2 DESIGN COORDINATION
+LEVEL 3 REDESIGN
+
+El revisor deberá autorizar escalamiento.
+
+S2.42 — SERVICE 05: BIM COORDINATION
+
+Página:
+
+/services/bim-coordination
+
+Entrada:
+
+discipline models
+drawings
+requirements
+coordination rules
+S2.43 — BIM COORDINATION WORKFLOW
+FEDERATE
+→ RELATE DISCIPLINES
+→ DETECT ISSUES
+→ CLASSIFY
+→ CAUSAL/DEPENDENCY ANALYSIS
+→ OPTIONS
+→ REVIEW
+→ RESOLUTION
+→ REVALIDATE
+S2.44 — COORDINATION ISSUE REVIEW
+
+Mostrar:
+
+ISSUE
+LOCATION
+DISCIPLINES
+ELEMENTS
+SOURCE
+IS IT REAL?
+RESPONSIBILITY
+OPTION A/B/C
+CONSEQUENCES
+SPECIALIST REQUIRED?
+DECISION
+S2.45 — CLASH ≠ ERROR
+
+Preservar:
+
+CLASH ≠ AUTOMATIC DEFECT.
+
+El revisor puede clasificar:
+
+TRUE_CONFLICT
+ACCEPTABLE_CONDITION
+FALSE_POSITIVE
+REQUIRES_REVIEW
+UNKNOWN
+S2.46 — SERVICE 06: CONSTRUCTION BIM
+
+Página:
+
+/services/construction-bim
+
+Entrada:
+
+contractual design
+approved revisions
+RFIs
+field information
+construction changes
+progress evidence
+S2.47 — CONSTRUCTION BIM STATE SAFETY
+
+Mantener separados:
+
+CONTRACT_DESIGN
+APPROVED_DESIGN
+PROPOSED_CHANGE
+APPROVED_CHANGE
+OBSERVED_CONSTRUCTION
+VERIFIED_AS_BUILT
+S2.48 — CONSTRUCTION BIM REVIEW
+
+El revisor deberá poder comparar:
+
+DESIGN
+↔ APPROVED CHANGE
+↔ FIELD EVIDENCE
+↔ CURRENT MODEL
+S2.49 — FIELD EVIDENCE
+
+Fotografías/videos/notas:
+
+FIELD_EVIDENCE
+
+no:
+
+AUTOMATIC_AS_BUILT_FACT
+S2.50 — SERVICE 07: PROJECT ASSURANCE
+
+Página:
+
+/services/project-assurance
+
+Entrada:
+
+CONTRACT
+TDR
+EIR
+BEP where applicable
+information requirements
+expected deliverables
+actual BIM delivery
+supporting documentation
+S2.51 — PROJECT ASSURANCE WORKFLOW
+CONTRACT/TDR/EIR
+↓
+REQUIREMENT MATRIX
+↓
+EXPECTED DELIVERY
+↓
+ACTUAL DELIVERY
+↓
+EVIDENCE
+↓
+COMPLIANCE ASSESSMENT
+↓
+RED TEAM
+↓
+PROFESSIONAL REVIEW
+↓
+PASS / FINDING / UNKNOWN
+S2.52 — PROJECT ASSURANCE REVIEW
+
+Revisor deberá inspeccionar:
+
+requirement applicability
+evidence
+observed delivery
+compliance interpretation
+finding
+consequence
+professional boundary
+UNKNOWN
+S2.53 — CONTRACTUAL AUTHORITY
+
+ARKI/reviewer no deberá automáticamente:
+
+accept contractual deliverable
+reject contractual deliverable
+impose penalty
+certify breach
+issue binding instruction
+
+salvo autoridad contractual explícita fuera del sistema.
+
+S2.54 — FUTURE SERVICE: AS-BUILT BIM
+
+Preparar contrato conceptual.
+
+Estado inicial:
+
+NOT_APPROVED_FOR_SERVICE
+
+hasta demostrar:
+
+field evidence
+change provenance
+verification process
+as-built fidelity
+professional review
+S2.55 — CLIENT WORKSPACE
+
+El cliente verá principalmente:
+
+SERVICE
+INPUTS
+STATUS
+MISSING INFORMATION
+PAYMENT
+QUESTIONS
+REVIEW STATUS
+DELIVERY
+DOWNLOAD
+S2.56 — PROFESSIONAL WORKSPACE
+
+El profesional verá:
+
+SOURCES
+MODEL
+REQUIREMENTS
+EVIDENCE
+FINDINGS
+PASSED
+CONFLICTS
+UNKNOWN
+ARKI PROPOSALS
+BEFORE/AFTER
+RED TEAM
+OBSERVATIONS
+TRACEABILITY
+REVIEW
+S2.57 — ADMIN WORKSPACE
+
+Administración:
+
+JOBS
+QUEUE
+SLA
+PAYMENTS
+REVIEWERS
+REVIEW LOAD
+SECURITY HOLDS
+FAILURES
+REWORK
+DELIVERY
+CLIENTS
+SERVICE METRICS
+S2.58 — SAME JOB / MULTIPLE VIEWS
+
+Formalizar:
+
+CLIENT VIEW + PROFESSIONAL VIEW + ADMIN VIEW = THREE VIEWS OF ONE JOB, NOT THREE JOB SYSTEMS.
+
+S2.59 — REVIEWER LOAD
+
+Medir:
+
+jobs waiting
+discipline
+complexity
+critical findings
+review time
+re-review
+SLA
+
+para identificar cuello de botella humano.
+
+S2.60 — AUTOMATION OBJECTIVE
+
+La meta NO será eliminar al profesional.
+
+La meta será:
+
+AUTOMATE REPETITIVE PROCESSING
++
+CONCENTRATE HUMAN TIME ON
+EXCEPTIONS
+JUDGMENT
+PROFESSIONAL RESPONSIBILITY
+MATERIAL DECISIONS
+S2.61 — HUMAN EFFORT METRIC
+
+Para cada job:
+
+ARKI processing time
+ARKI QA time
+human review time
+specialist review time
+correction time
+re-review time
+total turnaround
+S2.62 — HUMAN INTERVENTION RATIO
+
+Medir:
+
+total human interventions
+material human decisions
+corrections requested
+specialist escalations
+
+No fijar inicialmente objetivo artificial de 90/95/99% automatización.
+
+Primero medir.
+
+S2.63 — SERVICE ECONOMICS
+
+Cada benchmark deberá permitir estimar:
+
+COMPUTE COST
+STORAGE COST
+HUMAN REVIEW COST
+SPECIALIST COST
+REWORK COST
+PAYMENT COST
+INFRASTRUCTURE COST
+RISK ALLOWANCE
+S2.64 — PRICE EVIDENCE
+
+Después de benchmarks:
+
+ARKI podrá proponer estructuras comerciales basadas en evidencia operacional.
+
+No inventar precio únicamente a partir del tamaño del archivo.
+
+S2.65 — URGENCY
+
+Preparar:
+
+STANDARD
+PRIORITY
+EXPRESS
+
+pero no publicar SLA ni precio Express hasta demostrar tiempos.
+
+S2.66 — REVIEW SLA
+
+Separar:
+
+ARKI_PROCESSING_SLA
+HUMAN_REVIEW_SLA
+TOTAL_DELIVERY_SLA
+S2.67 — ABB BENCHMARK PROGRAM
+
+Integrar:
+
+ABB-001
+ABB-002
+ABB-003
+ABB-004
+ABB-005
+ABB-006
+ABB-007
+
+Cada dataset deberá estar autorizado para el uso definido.
+
+S2.68 — INITIAL BENCHMARK MAPPING
+
+Inicialmente:
+
+ABB-001 → BIM X-Ray
+ABB-002 → BIM Audit
+ABB-003 → Drawing-to-BIM
+ABB-004 → BIM Rescue
+ABB-005 → BIM Coordination
+ABB-006 → Construction BIM
+ABB-007 → Project Assurance + Portal E2E
+
+El Product Owner podrá reasignar datasets según material conseguido.
+
+S2.69 — BENCHMARK CONSENT
+
+Preservar:
+
+SERVICE CONSENT
+≠ BENCHMARK CONSENT
+≠ PUBLIC DEMONSTRATION CONSENT
+S2.70 — BLIND TEST WHEN POSSIBLE
+
+Cuando exista BIM/modelo original:
+
+no mostrarlo inicialmente a la reconstrucción.
+
+SOURCE DRAWINGS
+→ ARKI RECONSTRUCTION
+→ FREEZE
+→ REVEAL REFERENCE MODEL
+→ COMPARE
+S2.71 — GROUND TRUTH SAFETY
+
+El modelo original tampoco deberá asumirse automáticamente perfecto.
+
+Clasificar:
+
+REFERENCE_MODEL
+
+no:
+
+ABSOLUTE_TRUTH
+S2.72 — SERVICE ACCEPTANCE GATE
+
+Crear:
+
+ServiceAcceptanceGate.
+
+Cada servicio define condiciones independientes.
+
+S2.73 — UNIVERSAL DELIVERY BLOCKERS
+
+Bloquear entrega profesional cuando corresponda:
+
+CRITICAL_UNREVIEWED_FINDING
+REQUIRED_REVIEW_PENDING
+REQUIRED_SPECIALIST_PENDING
+TRACEABILITY_FAILURE
+UNSUPPORTED_MATERIAL_CLAIM
+UNRESOLVED_SECURITY_HOLD
+CORRUPT_OUTPUT
+WRONG_INPUT_VERSION
+S2.74 — UNKNOWN POLICY
+
+UNKNOWN no bloquea automáticamente todos los servicios.
+
+Debe clasificarse:
+
+NON_MATERIAL_UNKNOWN
+MATERIAL_UNKNOWN
+DELIVERY_BLOCKING_UNKNOWN
+
+con razón.
+
+S2.75 — CUSTOMER CLARIFICATION
+
+Si un UNKNOWN puede resolverse por el cliente:
+
+REQUEST INFORMATION
+→ CUSTOMER RESPONSE
+→ SOURCE FREEZE UPDATE
+→ REPROCESS AFFECTED SCOPE
+→ REVALIDATE
+S2.76 — VERSIONING
+
+Toda nueva información deberá crear nueva versión.
+
+Nunca sustituir silenciosamente:
+
+V1 → V2
+
+preservando delta.
+
+S2.77 — REVIEW DECISION PROVENANCE
+
+Registrar:
+
+WHO
+WHAT
+WHEN
+WHICH VERSION
+WHY
+EVIDENCE
+DECISION
+S2.78 — NO FAKE PROFESSIONAL SIGNATURE
+
+ARKI no podrá:
+
+forge signature
+invent registration
+invent professional authorization
+simulate legal approval as real
+S2.79 — PROFESSIONAL OUTPUT LABEL
+
+Distinguir:
+
+ARKI_GENERATED
+ARKI_QA_CHECKED
+PROFESSIONALLY_REVIEWED
+PROFESSIONALLY_VALIDATED
+
+según evidencia real.
+
+S2.80 — REVIEWER DISAGREEMENT
+
+Si dos revisores discrepan:
+
+REVIEW_CONFLICT
+
+preservar ambas posiciones.
+
+No resolver por mayoría automática.
+
+S2.81 — SPECIALIST ESCALATION
+
+Flujo:
+
+ARKI
+↓
+GENERAL REVIEW
+↓
+SPECIALIST_REQUIRED
+↓
+SPECIALIST REVIEW
+↓
+RESULT
+S2.82 — IMPROVEMENT VALUE
+
+Medir separadamente:
+
+defects corrected
+conflicts resolved
+information completed
+rework avoided candidate
+coordination improvement
+optional optimization
+
+No convertir estimaciones de ahorro en hechos sin evidencia.
+
+S2.83 — CLIENT CHANGE REQUEST
+
+Después de resultado provisional:
+
+cliente puede solicitar:
+
+clarification
+correction of source interpretation
+additional scope
+optional improvement
+
+No confundir:
+
+ERROR CORRECTION
+vs
+NEW SCOPE
+S2.84 — COMMERCIAL SCOPE CONTROL
+
+Si se solicita trabajo adicional:
+
+CHANGE_REQUEST
+→ SCOPE IMPACT
+→ PRICE/TIME IMPACT
+→ CUSTOMER ACCEPTANCE
+→ AUTHORIZED WORK
+S2.85 — AUDIT/REPAIR CONFLICT
+
+Mantener separación visible:
+
+AUDIT FINDING
+≠
+COMMERCIAL REPAIR OFFER
+
+Un hallazgo debe seguir siendo válido aunque el cliente nunca compre la reparación.
+
+S2.86 — REVIEW RED TEAM
+
+Después de revisión profesional, cuando corresponda, Red Team podrá verificar:
+
+Was critical evidence overlooked?
+Did reviewer approve unsupported result?
+Was UNKNOWN silently converted to fact?
+Was material correction unreviewed?
+Was wrong version approved?
+
+No sustituye al revisor.
+
+S2.87 — UI DESIGN RULE
+
+No implementar UI ornamental antes de validar workflow.
+
+Orden:
+
+CONTRACT
+→ STATE MACHINE
+→ TRACEABILITY
+→ REVIEW WORKFLOW
+→ TEST
+→ UI
+S2.88 — MOBILE REVIEW
+
+Preparar experiencia móvil para:
+
+status
+findings
+evidence
+comments
+approve/reject bounded decisions
+field evidence
+
+No intentar inicialmente edición BIM profesional completa en móvil.
+
+S2.89 — NOTIFICATIONS
+
+Diseñar eventos:
+
+JOB_READY_FOR_REVIEW
+CRITICAL_FINDING
+CUSTOMER_INFORMATION_REQUIRED
+SPECIALIST_REQUIRED
+CORRECTION_READY
+RE_REVIEW_REQUIRED
+DELIVERY_APPROVED
+SLA_RISK
+
+No asumir infraestructura de notificación productiva ya existente.
+
+S2.90 — MACHINE-READABLE CONTRACTS
+
+Implementar/reutilizar:
+
+ServicePageDefinition
+ServiceWorkflowDefinition
+ProfessionalReview
+ReviewRequirement
+ReviewAssignment
+ReviewCoverage
+ProfessionalObservation
+ImprovementCandidate
+JobEvidenceLedger
+TraceabilityLink
+ReconstructionFidelityAssessment
+ServiceAcceptanceGate
+CustomerClarification
+ServiceChangeRequest
+ReviewConflict
+SpecialistEscalation
+ServicePerformanceRecord
+
+Antes de crear cada schema:
+
+verificar que no exista equivalente.
+
+S2.91 — NO SECOND ISSUE SYSTEM
+
+Findings, observations, clashes, requirements y evidence deberán reutilizar las estructuras existentes siempre que semánticamente correspondan.
+
+Si no alcanzan:
+
+REPRESENTATIONAL_GAP
+
+antes de crear duplicado.
+
+S2.92 — ADVERSARIAL TESTS
+
+Implementar mínimo 40 pruebas independientes, incluyendo:
+
+service has unique input contract
+wrong service input rejected
+missing mandatory input
+correct result can PASS
+defect-only bias prevented
+false finding rejected
+reviewer sees source
+source points to result
+result points to source
+inference visible
+UNKNOWN visible
+conflict visible
+material UNKNOWN blocks when required
+nonmaterial UNKNOWN does not falsely block
+reviewer rejects ARKI proposal
+rejected proposal remains in history
+reviewer modifies proposal
+correction creates new version
+correction preserves before
+repair requires authority
+redesign escalation blocked
+wrong discipline reviewer rejected
+missing reviewer competence evidence
+specialist escalation
+reviewer disagreement preserved
+customer clarification versioned
+new scope not treated as error correction
+audit finding not coupled to repair sale
+wrong model version cannot be approved
+professional output label truthful
+no fake signature
+no fake registration
+Red Team challenges reviewer approval
+traceability failure blocks delivery
+client/professional/admin same job
+project isolation
+benchmark consent separation
+reference model not absolute truth
+human effort measured
+Human Authority preserved
+S2.93 — WORKSPACE E2E-001
+
+DRAWING-TO-BIM HUMAN REVIEW EXAM
+
+Utilizar ABB dataset cuando esté disponible.
+
+Exigir:
+
+upload
+→ processing
+→ reconstruction
+→ traceability
+→ provisional BIM
+→ reviewer
+→ observations
+→ correction
+→ revalidation
+→ final review
+→ delivery package
+S2.94 — WORKSPACE E2E-002
+
+BIM AUDIT HUMAN REVIEW EXAM
+
+Debe demostrar:
+
+audit basis
+→ automated findings
+→ false-positive challenge
+→ professional review
+→ corrected findings
+→ final report
+S2.95 — WORKSPACE E2E-003
+
+BIM RESCUE HUMAN DECISION EXAM
+
+Debe demostrar:
+
+finding
+→ multiple correction options
+→ consequences
+→ human selection
+→ repair
+→ revalidation
+→ before/after
+S2.96 — WORKSPACE E2E-004
+
+PROJECT ASSURANCE REVIEW EXAM
+
+Debe demostrar:
+
+requirement
+→ expected
+→ delivered
+→ evidence
+→ ARKI assessment
+→ reviewer assessment
+→ final status
+S2.97 — REQUIRED DELIVERABLES
+
+Entregar:
+
+ARKI_SERVICE_PAGE_ARCHITECTURE.md
+ARKI_UNIVERSAL_PROFESSIONAL_WORKFLOW.md
+ARKI_REVIEW_DESK_SPEC.md
+ARKI_JOB_EVIDENCE_LEDGER_SPEC.md
+ARKI_SOURCE_RESULT_TRACEABILITY_SPEC.md
+ARKI_IMPROVEMENT_MODEL.md
+ARKI_REVIEW_ASSIGNMENT_MODEL.md
+ARKI_SERVICE_ACCEPTANCE_GATES.md
+
+ARKI_BIM_XRAY_WORKSPACE.md
+ARKI_BIM_AUDIT_WORKSPACE.md
+ARKI_DRAWING_TO_BIM_WORKSPACE.md
+ARKI_BIM_RESCUE_WORKSPACE.md
+ARKI_BIM_COORDINATION_WORKSPACE.md
+ARKI_CONSTRUCTION_BIM_WORKSPACE.md
+ARKI_PROJECT_ASSURANCE_WORKSPACE.md
+
+ARKI_CLIENT_WORKSPACE.md
+ARKI_PROFESSIONAL_WORKSPACE.md
+ARKI_ADMIN_WORKSPACE.md
+
+ARKI_S2_TEST_MATRIX.md
+ARKI_S2_E2E_RESULTS.json
+ARKI_S2_DEFICIT_REGISTER.json
+ARKI_S2_SCOPE_REPORT.md
+
+más schemas/código/tests estrictamente necesarios.
+
+S2.98 — REGRESSION
+
+Ejecutar:
+
+pnpm check
+pnpm build
+existing BIM regression
+97A-07 regression
+97A-07-S1 portal regression
+S2 adversarial tests
+S2 workspace tests
+existing LKS regression
+BKH regression if interfaces touched
+
+Preservar raw outputs.
+
+S2.99 — BKH FIREWALL
+
+Esta adenda NO autoriza:
+
+BKH4-4+
+canonical mutation
+atomic commit
+rollback
+undo/redo
+crash recovery
+BKH5
+BKH6
+BKH7
+E8
+
+Dependencias encontradas:
+
+KERNEL_DEPENDENCY_IDENTIFIED
+S2.100 — IMPLEMENTATION BOUNDARY
+
+Autorizado inicialmente:
+
+forensic reuse
+contracts
+schemas
+workflow/state models
+service-specific page definitions
+review desk foundation
+traceability foundation
+observation/correction loop
+improvement model
+acceptance gates
+bounded UI/workspace foundation
+adversarial tests
+E2E harnesses
+evidence
+S2.101 — NOT AUTHORIZED
+
+No autorizado todavía:
+
+PUBLIC COMMERCIAL LAUNCH
+REAL PAYMENTS
+UNCONTROLLED CUSTOMER UPLOADS
+AUTONOMOUS PROFESSIONAL DELIVERY
+FAKE PROFESSIONAL SIGNATURE
+AUTONOMOUS CONTRACTUAL ACCEPTANCE
+AUTONOMOUS STRUCTURAL/MEP APPROVAL
+MASS CLIENT INGESTION
+NEW INDEPENDENT AGENTS
+S2.102 — MAXIMUM STATUS
+
+Máximo después de esta orden:
+
+PROFESSIONAL SERVICE WORKSPACE FOUNDATION IMPLEMENTED
++
+BOUNDED REVIEW WORKFLOWS DEMONSTRATED
++
+PENDING REAL ABB BENCHMARKS
++
+PENDING INDEPENDENT VERIFICATION
+
+No:
+
+PRODUCTION READY
+COMMERCIAL READY
+PROFESSIONALLY CERTIFIED
+S2.103 — EVIDENCE PACKAGE
+
+Generar:
+
+ARKI_BIM_SERVICE_WORKSPACES_S2_EVIDENCE.zip
+
+con:
+
+architecture
+schemas
+tests
+raw outputs
+E2E harness results
+regression
+scope report
+deficit register
+manifest
+SHA-256
+S2.104 — STOP
+
+Ejecutar:
+
+FORENSIC REUSE
+↓
+SERVICE CONTRACTS
+↓
+REVIEW CONTRACT
+↓
+EVIDENCE LEDGER
+↓
+TRACEABILITY
+↓
+SERVICE-SPECIFIC WORKFLOWS
+↓
+REVIEW DESK
+↓
+ACCEPTANCE GATES
+↓
+BOUNDED WORKSPACES
+↓
+ADVERSARIAL TESTS
+↓
+E2E HARNESSES
+↓
+REGRESSION
+↓
+EVIDENCE PACKAGE
+↓
+MANIFEST + SHA-256
+↓
+STOP
+
+No iniciar S3.
+
+No publicar servicios.
+
+No cobrar.
+
+No procesar clientes reales.
+
+Esperar:
+
+INDEPENDENT REVIEW
++
+ABB-001...ABB-007 REAL DATASETS
++
+PRODUCT OWNER / HUMAN AUTHORITY
+S2.105 — PRINCIPIOS CANÓNICOS
+
+Registrar:
+
+DIFFERENT SERVICE ≠ DIFFERENT ARKI.
+
+SAME CORE ≠ SAME WORKFLOW.
+
+ARKI RESULT ≠ PROFESSIONAL DELIVERY.
+
+REVIEW ≠ CHECKBOX.
+
+REVIEWER ≠ AUTOMATIC PROFESSIONAL AUTHORITY.
+
+FINDING ≠ ERROR UNTIL SUPPORTED.
+
+CLASH ≠ AUTOMATIC DEFECT.
+
+REQUIRED CORRECTION ≠ OPTIONAL OPTIMIZATION.
+
+ARKI RECOMMENDATION ≠ HUMAN DECISION.
+
+CORRECTION ≠ SILENT REPLACEMENT.
+
+SOURCE ≠ INTERPRETATION.
+
+INTERPRETATION ≠ FACT.
+
+INFERENCE ≠ FACT.
+
+UNKNOWN SHALL REMAIN VISIBLE.
+
+BEFORE SHALL NOT DISAPPEAR AFTER CORRECTION.
+
+CLIENT VIEW + PROFESSIONAL VIEW + ADMIN VIEW
+= THREE VIEWS OF ONE JOB.
+
+AUTOMATION SHALL REDUCE REPETITIVE WORK,
+NOT ERASE PROFESSIONAL RESPONSIBILITY.
+
+NO SERVICE PAGE WITHOUT:
+INPUT CONTRACT
++ PROCESS CONTRACT
++ REVIEW CONTRACT
++ OUTPUT CONTRACT
++ ACCEPTANCE GATE.
+
+ONE ARKI
+· MANY PROFESSIONAL SERVICES
+· ONE JOB STATE
+· ONE EVIDENCE SYSTEM
+· HUMAN AUTHORITY.
+
+FIN ADENDA 97A-07-S2.

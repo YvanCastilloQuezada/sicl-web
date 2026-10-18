@@ -1,0 +1,174 @@
+{
+  "schema": "ARLU-CORP-001-MANIFEST-1.0",
+  "order": "AR-LU-CORP-001",
+  "status": "DESIGN_COMPLETE_FOR_DECLARED_SCOPE",
+  "implementationAuthorized": false,
+  "externalActions": {
+    "payments": false,
+    "submissions": false,
+    "signatures": false,
+    "contacts": false,
+    "bankConnections": false,
+    "companyFormation": false
+  },
+  "dateAccessed": "2026-09-23",
+  "documents": [
+    {
+      "path": "ARLU_CORPORATE_BRAIN_ARCHITECTURE.md",
+      "bytes": 4052,
+      "sha256": "e8c586ce0ca5c51cd44fe5c9bac4f0cbb3d09f9efc998377767d5e9b0636a89f"
+    },
+    {
+      "path": "ARLU_CORPORATE_COMPETENCY_AUDIT.md",
+      "bytes": 4395,
+      "sha256": "a633c04ecf8fbb1a1c795a78c838025d99de7ed1873248fdbb4b895acbcb2dcd"
+    },
+    {
+      "path": "ARLU_CORPORATE_DASHBOARD_SPEC.md",
+      "bytes": 4103,
+      "sha256": "5e74bc07c5afeb239e2d24b73780f9fb0cbea3696684dda6a0e9fa87f5931c5c"
+    },
+    {
+      "path": "ARLU_CORP_001_GAPS_RISKS_DECISIONS.md",
+      "bytes": 4586,
+      "sha256": "ecafb7e2cdca02f6cc04dcda78033e908da4003c1b3d2753c694f12a20e7a12f"
+    },
+    {
+      "path": "ARLU_FINANCIAL_OPERATING_SYSTEM.md",
+      "bytes": 4236,
+      "sha256": "8bada0f717b29084ab1cc6ffce398a924f265db0eca1e8620f3c3ac91e789868"
+    },
+    {
+      "path": "ARLU_FUNDING_CENTER_SPEC.md",
+      "bytes": 4699,
+      "sha256": "969c9ececf7c8b91b7b6dc31aca7b383cc6d7d199cec1a2a6497583d9388a8a5"
+    },
+    {
+      "path": "ARLU_IP_TRADE_SECRET_POLICY.md",
+      "bytes": 4321,
+      "sha256": "5222b23e6bc9fff4a68eb147c2bdd8816eee55a2f10cc4077d4d80e9823c6c60"
+    },
+    {
+      "path": "ARLU_PROFESSIONAL_BIM_VALIDATION_CONVENTION_DRAFT.md",
+      "bytes": 4804,
+      "sha256": "4dc1007ace4ec6f5b1ebc98592b61f674602578fd9ab94c72358732963ac9cd3"
+    },
+    {
+      "path": "ARLU_PROFESSIONAL_VALIDATION_MODEL.md",
+      "bytes": 4365,
+      "sha256": "1844ad5adbef14c4882203efd400fa5d152b3bcb06a19b1e9cf901c4137dc227"
+    },
+    {
+      "path": "ARLU_PROINNOVATE_APPLICATION_WORKSPACE.md",
+      "bytes": 4670,
+      "sha256": "821a6a1804ac20db379d5d4f42fc985b4ed964769578f1db5cbe406e6bb13cb2"
+    },
+    {
+      "path": "ARLU_TECHNOLOGY_FUND_POLICY.md",
+      "bytes": 3906,
+      "sha256": "e2c4ad54d46fb701d538ddbc53ad1ee59f85161cc637f4030d0873d8c4500558"
+    }
+  ],
+  "sourceRegister": [
+    {
+      "id": 1,
+      "url": "https://www.gob.pe/4359-programa-nacional-de-innovacion-y-desarrollo-productivo-proinnovate-que-hacemos",
+      "title": "ProInnóvate — Qué hacemos"
+    },
+    {
+      "id": 2,
+      "url": "https://www.gob.pe/54499-programa-nacional-de-innovacion-y-desarrollo-productivo-proinnovate-nuestros-fondos",
+      "title": "ProInnóvate — Nuestros fondos"
+    },
+    {
+      "id": 3,
+      "url": "https://prociencia.gob.pe/calendario-de-concursos/",
+      "title": "PROCIENCIA — Calendario de concursos"
+    },
+    {
+      "id": 4,
+      "url": "https://www.gob.pe/institucion/concytec/noticias/1333254-concytec-abrira-mas-de-s-70-millones-en-fondos-concursables-para-ciencia-e-innovacion-en-2026",
+      "title": "CONCYTEC — Fondos 2026"
+    },
+    {
+      "id": 5,
+      "url": "https://repositorio.cap.org.pe/documento/305/",
+      "title": "CAP — Ley 14085"
+    },
+    {
+      "id": 6,
+      "url": "https://repositorio.cap.org.pe/documento/307/",
+      "title": "CAP — Ley 16053"
+    },
+    {
+      "id": 7,
+      "url": "https://repositorio.cap.org.pe/documento/309/",
+      "title": "CAP — Ley 28966"
+    },
+    {
+      "id": 8,
+      "url": "https://www.cip.org.pe/leyes/",
+      "title": "CIP — Leyes"
+    },
+    {
+      "id": 9,
+      "url": "https://www.cip.org.pe/formato-certificado-de-habilidad/",
+      "title": "CIP — Certificado de habilidad"
+    },
+    {
+      "id": 10,
+      "url": "https://www3.congreso.gob.pe/Docs/DGP/DIDP/files/ley_29090.pdf",
+      "title": "Ley 29090"
+    },
+    {
+      "id": 11,
+      "url": "https://www.gob.pe/firmadigital",
+      "title": "Firma digital"
+    },
+    {
+      "id": 12,
+      "url": "https://emprender.sunat.gob.pe/ruc/regimenes-tributarios-mype/regimenes-tributarios",
+      "title": "SUNAT — Regímenes"
+    },
+    {
+      "id": 13,
+      "url": "https://emprender.sunat.gob.pe/ruc/regimenes-tributarios-mype/regimen-mype-tributario",
+      "title": "SUNAT — RMT"
+    },
+    {
+      "id": 14,
+      "url": "https://orientacion.sunat.gob.pe/3053-concepto-tasa-y-operaciones-gravadas-igv-empresas",
+      "title": "SUNAT — IGV"
+    },
+    {
+      "id": 15,
+      "url": "https://www.sunat.gob.pe/legislacion/igv/ley/capitul6.htm",
+      "title": "SUNAT — Crédito fiscal"
+    },
+    {
+      "id": 16,
+      "url": "https://www.sunat.gob.pe/orientacion/cronogramas/2026/cObligacionMensual2026.html",
+      "title": "SUNAT — Cronograma 2026"
+    },
+    {
+      "id": 17,
+      "url": "https://www.comunidadandina.org/StaticFiles/DocOf/DEC486.pdf",
+      "title": "Decisión 486"
+    },
+    {
+      "id": 18,
+      "url": "https://busquedas.elperuano.pe/dispositivo/NL/218542-6",
+      "title": "Decreto Legislativo 1044"
+    },
+    {
+      "id": 19,
+      "url": "https://www.gob.pe/institucion/indecopi/noticias/906591-el-indecopi-habilita-servicio-para-que-creadores-de-software-registren-sus-programas-a-traves-de-la-plataforma-de-registro-virtual-de-obras",
+      "title": "INDECOPI — Registro de software"
+    },
+    {
+      "id": 20,
+      "url": "https://www.gob.pe/83358-registrar-una-obra-en-el-indecopi",
+      "title": "INDECOPI — Registrar una obra"
+    }
+  ]
+}

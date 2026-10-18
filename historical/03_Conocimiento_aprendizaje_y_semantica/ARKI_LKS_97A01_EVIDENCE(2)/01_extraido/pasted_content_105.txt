@@ -1,0 +1,875 @@
+ADENDA 97A-01 — ARKI KNOWLEDGE & COMPETENCY FORESIGHT
+Strategic Learning Needs + Societal/Professional Demand + Governed Internet Research
+
+Orden matriz: ORDEN 97A — ARKI Living Knowledge Integration v1.1
+Programa: ARKI-LKS-001 — ARKI Living Knowledge System
+Tipo: Mandatory Architectural Addendum
+Prioridad: HIGH / STRATEGIC
+Autoridad: Product Owner / Human Authority
+Estado de la Orden 97A: EN EJECUCIÓN
+
+Esta Adenda NO reemplaza ni reinicia la Orden 97A.
+
+Se incorpora como requisito obligatorio adicional para su cierre.
+
+A1. PROBLEMA
+
+La Orden 97A establece cómo integrar:
+
+KNOWLEDGE + CURRICULUM + COMPETENCIES + STANDARDS + EVIDENCE + CAPABILITIES + GAPS.
+
+Sin embargo, debe formalizarse además una función que responda:
+
+¿QUÉ NECESITA APRENDER ARKI, POR QUÉ, CUÁNDO Y CON QUÉ PRIORIDAD?
+
+El currículo no puede evolucionar únicamente por:
+
+conocimiento histórico;
+decisiones pasadas;
+nuevas ISO;
+nuevos IFC;
+tendencias de Internet;
+preferencias de Researcher;
+preferencias de Tutor;
+preferencias del propio modelo.
+
+Debe existir una función gobernada de prospectiva de conocimiento y competencias.
+
+A2. ARKI KNOWLEDGE & COMPETENCY FORESIGHT
+
+Incorporar dentro de ARKI una función transversal denominada provisionalmente:
+
+ARKI Knowledge & Competency Foresight — KCF
+
+No crear un nuevo arquitecto ni inteligencia independiente.
+
+KCF es una competencia interna de ONE ARKI.
+
+Su función:
+
+OBSERVE
+↓
+DETECT SIGNALS
+↓
+VERIFY
+↓
+COMPARE WITH ARKI
+↓
+DETECT FUTURE NEED
+↓
+PRIORITIZE
+↓
+PROPOSE LEARNING NEED
+
+KCF NO enseña.
+
+KCF NO certifica.
+
+KCF NO canonicaliza.
+
+KCF NO modifica código.
+
+KCF NO cambia autónomamente el currículo estratégico.
+
+A3. SOURCES OF LEARNING NEED
+
+KCF deberá poder analizar como mínimo:
+
+1. KNOWLEDGE GAPS
+2. COMPETENCY GAPS
+3. CAPABILITY GAPS
+4. PROJECT DEMAND
+5. PROFESSIONAL PRACTICE
+6. MARKET / INDUSTRY DEMAND
+7. SOCIETAL NEEDS
+8. STANDARDS EVOLUTION
+9. REGULATORY EVOLUTION
+10. SCIENTIFIC RESEARCH
+11. TECHNOLOGY EVOLUTION
+12. BUILT-ENVIRONMENT TRANSFORMATION
+13. CLIMATE / RESILIENCE NEEDS
+14. INFRASTRUCTURE / CITY NEEDS
+15. USER / HUMAN NEEDS
+
+La lista deberá ser extensible.
+
+A4. MARKET IS A SIGNAL — NOT THE AUTHORITY
+
+Formalizar:
+
+MARKET DEMAND ≠ CURRICULUM TRUTH
+
+El mercado es una señal relevante, pero no la única.
+
+Una capacidad podrá ser socialmente importante aunque todavía tenga baja demanda comercial.
+
+Una tecnología podrá ser comercialmente popular y carecer de importancia estratégica para ARKI.
+
+Por tanto, KCF deberá equilibrar:
+
+professional relevance
+societal relevance
+project relevance
+scientific relevance
+standards relevance
+regulatory relevance
+technology relevance
+strategic relevance
+
+No maximizar exclusivamente empleabilidad, popularidad o tendencia.
+
+A5. SOCIETAL FORESIGHT
+
+ARKI deberá poder detectar necesidades relevantes de la sociedad y del entorno construido, según evidencia.
+
+Ejemplos de familias:
+
+housing
+health
+education
+accessibility
+aging
+climate adaptation
+resilience
+energy
+water
+mobility
+public space
+infrastructure
+disaster risk
+environmental quality
+urbanization
+territorial development
+digital transformation
+
+Esta lista NO constituye automáticamente currículo.
+
+Son dominios observables para detectar señales.
+
+A6. MULTISCALE FORESIGHT
+
+Las necesidades deberán analizarse según escala:
+
+COUNTRY
+REGION
+PROVINCE / METROPOLITAN SYSTEM
+CITY
+DISTRICT
+NEIGHBORHOOD
+BLOCK / PUBLIC REALM
+SITE
+BUILDING
+SYSTEM / ZONE
+SPACE
+ACTIVITY
+OBJECT
+COMPONENT
+HUMAN
+
+Una necesidad detectada en CITY no se convierte automáticamente en necesidad curricular de BUILDING.
+
+A7. SIGNAL MODEL
+
+Implementar o especificar ForesightSignal.
+
+Debe poder representar:
+
+signalId
+source
+sourceType
+detectedAt
+domain
+discipline
+applicableScales
+jurisdiction
+description
+evidence
+curatorStatus
+novelty
+relevance
+persistence
+uncertainty
+relatedKnowledge
+relatedCompetencies
+relatedCapabilities
+relatedStandards
+relatedProjects
+
+Una señal NO equivale a necesidad confirmada.
+
+A8. SIGNAL VALIDATION
+
+Toda señal externa deberá pasar por:
+
+RESEARCHER
+↓
+CURATOR
+↓
+VERIFIED / PARTIAL / UNKNOWN / REJECTED
+
+KCF no deberá basar una recomendación estratégica en una señal no verificada sin declarar explícitamente su incertidumbre.
+
+A9. TREND SAFETY
+
+Formalizar:
+
+POPULARITY ≠ IMPORTANCE
+
+TREND ≠ VERIFIED NEED
+
+FREQUENCY OF MENTION ≠ EVIDENCE OF VALUE
+
+VENDOR CLAIM ≠ PROFESSIONAL REQUIREMENT
+
+SOCIAL MEDIA ATTENTION ≠ SOCIETAL NEED
+
+KCF deberá distinguir señales persistentes de ruido.
+
+A10. LEARNING NEED CANDIDATE
+
+El resultado principal de KCF será:
+
+LearningNeedCandidate
+
+Como mínimo:
+
+needId
+canonicalName
+sourceSignals
+evidence
+curatorStatus
+
+domain
+discipline
+applicableScales
+jurisdiction
+
+currentARKIKnowledge
+currentARKICompetency
+currentARKICapability
+
+requiredKnowledge
+requiredCompetency
+requiredCapability
+
+knowledgeGap
+competencyGap
+capabilityGap
+
+societalRelevance
+professionalRelevance
+projectRelevance
+standardsRelevance
+regulatoryRelevance
+scientificRelevance
+technologyRelevance
+
+urgency
+persistence
+dependencies
+
+proposedCurriculumImpact
+proposedRevalidationImpact
+
+unknowns
+conflicts
+humanDecisionRequired
+A11. LEARNING NEED ≠ LEARNING AUTHORIZATION
+
+Formalizar:
+
+LEARNING NEED ≠ AUTHORIZATION TO LEARN
+
+KCF puede:
+
+observe
+analyze
+compare
+identify
+recommend
+prioritize candidates
+
+No puede por sí mismo iniciar un cambio estratégico del currículo.
+
+A12. THREE GOVERNANCE LEVELS
+
+Clasificar propuestas de evolución curricular en:
+
+LEVEL A — ROUTINE KNOWLEDGE MAINTENANCE
+
+Ejemplos:
+
+metadata;
+corrigenda;
+cambio de enlace oficial;
+actualización menor;
+actualización no material.
+
+Puede procesarse automáticamente conforme a política previamente aprobada.
+
+LEVEL B — APPROVED CURRICULUM EVOLUTION
+
+Evolución dentro de una línea curricular ya autorizada.
+
+Ejemplos:
+
+nueva versión de IFC dentro de IFC;
+profundización de una competencia ya aprobada;
+actualización de material curricular;
+revalidación derivada de un cambio conocido.
+
+Puede operar dentro de límites previamente aprobados.
+
+LEVEL C — STRATEGIC CURRICULUM CHANGE
+
+Ejemplos:
+
+nueva disciplina;
+cambio sustancial de prioridad;
+nuevo dominio profesional;
+cambio importante de alcance;
+incorporación de nueva autoridad normativa;
+nueva línea tecnológica estratégica;
+modificación de principios ARKI.
+
+Resultado obligatorio:
+
+HUMAN_DECISION_REQUIRED
+A13. HUMAN AUTHORITY WITHOUT MICROMANAGEMENT
+
+El Product Owner NO deberá aprobar cada documento, lección o actualización menor.
+
+Human Authority deberá gobernar principalmente:
+
+strategic direction
+curriculum boundaries
+new disciplines
+major reprioritization
+architectural consequences
+professional/regulatory consequences
+canonical policy
+
+Las operaciones rutinarias podrán ejecutarse dentro de políticas previamente autorizadas.
+
+A14. PERIODIC LEARNING PLAN
+
+Preparar capacidad para generar:
+
+ARKI Learning Plan
+
+para un período gobernado.
+
+Ejemplo:
+
+CURRENT CAPABILITIES
+↓
+VERIFIED DEFICITS
+↓
+EXTERNAL NEEDS
+↓
+FORESIGHT SIGNALS
+↓
+LEARNING NEED CANDIDATES
+↓
+DEPENDENCIES
+↓
+PROPOSED PRIORITIES
+↓
+HUMAN STRATEGIC APPROVAL
+↓
+APPROVED LEARNING PLAN
+
+No imponer frecuencia fija todavía.
+
+Permitir configuración futura mensual, trimestral u otra.
+
+A15. INTERNET ACCESS PRINCIPLE
+
+Formalizar:
+
+INTERNET AVAILABLE ON DEMAND · RESEARCH ACTIVATED BY POLICY
+
+ARKI podrá disponer técnicamente de acceso a Internet cuando la infraestructura y permisos lo permitan.
+
+Esto NO significa navegación permanente.
+
+A16. NO 24/7 UNBOUNDED BROWSING
+
+No diseñar:
+
+ARKI browses Internet continuously 24/7
+
+como comportamiento por defecto.
+
+No existe justificación para medir inteligencia por horas conectado.
+
+Evitar:
+
+consumo innecesario;
+ruido;
+duplicación;
+ataques externos;
+degradación de señal;
+costos innecesarios;
+acumulación indiscriminada de información.
+A17. INTERNET ACTIVATION MODES
+
+Preparar modos explícitos:
+
+PERIODIC_CHECK
+PROJECT_NEED
+UNKNOWN_RESOLUTION
+STANDARD_CHANGE_CHECK
+CURATOR_VERIFICATION
+FORESIGHT_REVIEW
+HUMAN_REQUEST
+
+Cada activación deberá tener:
+
+purpose
+scope
+source policy
+budget
+stopping condition
+evidence requirements
+A18. THREE RESEARCH RHYTHMS
+
+Diseñar conceptualmente:
+
+1. ON-DEMAND
+
+Investigación activada por proyecto, pregunta, UNKNOWN o necesidad concreta.
+
+2. PERIODIC KNOWLEDGE MAINTENANCE
+
+Ciclo estándar de Living Codebooks:
+
+15 días, salvo política específica por fuente.
+
+3. STRATEGIC FORESIGHT
+
+Investigación más amplia sobre evolución profesional, social, científica y tecnológica.
+
+Frecuencia:
+
+CONFIGURABLE
+
+No fijar todavía obligatoriamente mensual o trimestral.
+
+A19. RESEARCH BUDGET
+
+Preparar gobernanza por presupuesto de investigación.
+
+Medir:
+
+sourcesChecked
+authoritativeSourcesChecked
+newSignals
+verifiedSignals
+rejectedSignals
+materialChanges
+learningNeedsGenerated
+cost
+duration
+evidenceYield
+usefulNovelty
+
+No utilizar:
+
+HOURS_ON_INTERNET
+
+como métrica primaria de calidad.
+
+A20. STOP CONDITIONS
+
+Cada investigación deberá tener condiciones de parada.
+
+Ejemplos:
+
+authoritative answer found
+sufficient evidence reached
+no relevant change
+diminishing evidence yield
+budget reached
+unresolved conflict
+source access limitation
+human decision required
+
+Evitar investigación infinita.
+
+A21. INTERNET → KNOWLEDGE FIREWALL
+
+Flujo obligatorio:
+
+INTERNET
+↓
+RESEARCHER
+↓
+CLAIM
+↓
+CURATOR
+↓
+VERIFIED / PARTIAL / UNKNOWN / REJECTED
+↓
+LKS
+
+Nunca:
+
+INTERNET → FACT
+A22. INTERNET → CURRICULUM FIREWALL
+
+Flujo:
+
+EXTERNAL SIGNAL
+↓
+CURATION
+↓
+FORESIGHT
+↓
+LEARNING NEED CANDIDATE
+↓
+CURRICULUM IMPACT
+↓
+GOVERNANCE
+
+Nunca:
+
+INTERNET TREND → CURRICULUM
+A23. INTERNET → CODE FIREWALL
+
+Prohibir:
+
+INTERNET
+↓
+DISCOVERED GAP
+↓
+AUTO CODE CHANGE
+
+Internet no puede autorizar:
+
+modificación de Kernel;
+instalación de software;
+modificación de arquitectura;
+ejecución arbitraria;
+cierre automático de gaps;
+cambio de Human Authority.
+A24. KNOWLEDGE FORESIGHT VS TECHNOLOGY FORESIGHT
+
+Distinguir:
+
+Knowledge Foresight
+
+¿Qué conocimiento está evolucionando?
+
+Competency Foresight
+
+¿Qué deberá saber hacer ARKI?
+
+Technology Foresight
+
+¿Qué nuevas tecnologías podrían ser relevantes?
+
+Societal Foresight
+
+¿Qué problemas emergentes del entorno construido requieren atención?
+
+Pueden compartir infraestructura, pero no son equivalentes.
+
+A25. PROJECT FEEDBACK
+
+Los proyectos reales de ARKI podrán generar señales:
+
+repeated unknown
+repeated failure
+recurring external oracle
+missing capability
+recurring manual intervention
+repeated professional limitation
+
+Estas señales pueden producir LearningNeedCandidate.
+
+No generalizarlas automáticamente.
+
+A26. FAILURE-DRIVEN LEARNING NEED
+
+Si Examiner o proyecto demuestra un déficit:
+
+FAILURE
+↓
+EVIDENCE
+↓
+DEFICIT
+↓
+ROOT CAUSE
+↓
+LEARNING NEED CANDIDATE
+
+No:
+
+FAILURE → RETRAIN EVERYTHING
+A27. OBSOLESCENCE DETECTION
+
+KCF deberá poder detectar:
+
+knowledge becoming stale
+competence based on obsolete knowledge
+technology becoming obsolete
+superseded standard
+declining professional relevance
+
+Obsolescencia no implica eliminación.
+
+Preservar historia.
+
+A28. PRIORITIZATION WITHOUT FALSE PRECISION
+
+No producir puntuaciones artificiales tipo:
+
+NEED = 93.72%
+
+salvo metodología futura demostrada.
+
+Preferir dimensiones explícitas:
+
+SOCIETAL_RELEVANCE
+PROFESSIONAL_RELEVANCE
+PROJECT_RELEVANCE
+STANDARD_RELEVANCE
+REGULATORY_RELEVANCE
+TECHNOLOGY_RELEVANCE
+URGENCY
+EVIDENCE_STRENGTH
+DEPENDENCY
+UNCERTAINTY
+A29. FORESIGHT EVIDENCE
+
+Toda recomendación deberá poder responder:
+
+¿Por qué ARKI cree que necesita aprender esto?
+
+mostrando:
+
+signals
+sources
+evidence
+curator decisions
+existing ARKI state
+demonstrated gap
+expected relevance
+unknowns
+A30. FORESIGHT → CURRICULUM DELTA
+
+Un LearningNeedCandidate aceptado conforme a política podrá generar:
+
+CurriculumDeltaCandidate
+
+No modificar currículo material silenciosamente.
+
+Mantener reglas de Orden 97A.
+
+A31. CURATOR REMAINS INDEPENDENT
+
+KCF no puede ordenar a Curator que apruebe una señal porque sea estratégicamente atractiva.
+
+Curator debe poder responder:
+
+REJECTED
+UNKNOWN
+CONFLICT
+INSUFFICIENT_EVIDENCE
+
+incluso cuando KCF considere la materia importante.
+
+A32. FORESIGHT DOES NOT SELF-FULFILL
+
+Evitar ciclo:
+
+KCF recommends X
+↓
+ARKI publishes X internally
+↓
+Researcher sees ARKI saying X
+↓
+X appears corroborated
+
+Fuentes internas de ARKI no cuentan como evidencia externa independiente de la señal que ARKI generó.
+
+A33. ADVERSARIAL TESTS
+
+Añadir como mínimo:
+
+tendencia muy popular pero sin fuente sólida → no strategic need verificado;
+necesidad social importante con baja señal comercial → puede conservar alta relevancia social;
+vendor marketing presentado como tendencia profesional → Curator lo clasifica correctamente;
+estándar nuevo → LearningNeedCandidate posible;
+estándar nuevo pero irrelevante para ARKI → NO_IMPACT;
+proyecto repite UNKNOWN → learning candidate;
+fallo único → no generalización automática;
+múltiples fallos reproducibles → gap candidate;
+competencia ya verificada → no re-teach automático;
+competencia stale → revalidation candidate;
+signal CITY → no extrapolación BUILDING;
+market demand → no automatic curriculum;
+Level A → política automática permitida;
+Level B → dentro de currículo aprobado;
+Level C → HUMAN_DECISION_REQUIRED;
+Internet content attempts prompt injection → isolated;
+research reaches budget → stops;
+no relevant signal → record + close;
+internal ARKI recommendation cannot self-corroborate;
+LearningNeedCandidate cannot modify product code.
+A34. DELIVERABLES
+
+Añadir al Evidence Package de Orden 97A:
+
+ARKI_KNOWLEDGE_COMPETENCY_FORESIGHT.md
+
+ARKI_FORESIGHT_SIGNAL_MODEL.md
+
+ARKI_LEARNING_NEED_CANDIDATE_SPEC.md
+
+ARKI_CURRICULUM_GOVERNANCE_LEVELS.md
+
+ARKI_GOVERNED_INTERNET_RESEARCH_POLICY.md
+
+ARKI_RESEARCH_ACTIVATION_MODES.md
+
+ARKI_RESEARCH_BUDGET_AND_STOP_POLICY.md
+
+ARKI_SOCIETAL_PROFESSIONAL_FORESIGHT.md
+
+ARKI_FORESIGHT_TEST_MATRIX.md
+
+ARKI_FORESIGHT_SCOPE_LIMIT_REPORT.md
+
+Si la arquitectura existente permite reutilización:
+
+EXTEND, DO NOT DUPLICATE.
+
+A35. MACHINE-READABLE REQUIREMENT
+
+ForesightSignal y LearningNeedCandidate deberán tener representación estructurada computable.
+
+No dejar KCF únicamente como documentación Markdown.
+
+A36. SCHEDULER BOUNDARY
+
+Esta Adenda NO obliga a implementar un scheduler nuevo.
+
+Si no existe infraestructura segura:
+
+FORESIGHT_SCHEDULER =
+NOT_DEMONSTRATED /
+EXTERNAL_ORCHESTRATION_REQUIRED
+
+No crear daemon, cron paralelo o servicio no gobernado solo para satisfacer esta Adenda.
+
+A37. INTERNET ACCESS STATUS
+
+El reporte deberá distinguir:
+
+INTERNET_ACCESS_CAPABILITY
+INTERNET_RESEARCH_POLICY
+PERIODIC_RESEARCH
+ON_DEMAND_RESEARCH
+FORESIGHT_RESEARCH
+AUTOMATED_SCHEDULING
+
+No declarar “ARKI tiene Internet 24/7” si solo existe capacidad parcial o acceso bajo demanda.
+
+A38. NO TIME-BASED INTELLIGENCE CLAIM
+
+Prohibir conclusiones como:
+
+ARKI studied for 8 hours,
+therefore ARKI learned more.
+
+Evaluar por:
+
+evidence
+verified novelty
+retained knowledge
+demonstrated competence
+useful gap closure
+A39. INTEGRATION WITH 97A
+
+KCF deberá utilizar:
+
+LKS
+Curator
+Capability Atlas
+Gap Register
+Curriculum View
+Competency Evidence
+Standards Knowledge
+Temporal History
+
+No crear:
+
+ForesightKnowledgeDB
+ForesightCurriculumDB
+ForesightEvidenceDB
+A40. MAXIMUM STATUS
+
+Manus no podrá declarar KCF VERIFIED.
+
+Estado máximo:
+
+ARKI KCF — IMPLEMENTED/INTEGRATED FOR DECLARED SCOPE / PENDING INDEPENDENT VERIFICATION
+
+Si solamente existe arquitectura y contratos:
+
+DESIGNED / NOT IMPLEMENTED
+
+Si Internet/scheduler no están disponibles:
+
+declararlo explícitamente.
+
+A41. SCOPE FIREWALL
+
+Esta Adenda NO autoriza:
+
+autonomous unrestricted learning
+model weight training
+autonomous professional certification
+unrestricted web crawling
+BKH changes
+BKH4-4+
+autonomous code modification
+automatic strategic curriculum changes
+automatic regulatory adoption
+A42. FINAL PRINCIPLES
+
+Incorporar:
+
+ARKI DOES NOT STUDY WHAT IS POPULAR; ARKI STUDIES WHAT IS JUSTIFIED.
+
+MARKET IS A SIGNAL, NOT THE MASTER.
+
+SOCIETAL NEED CAN MATTER BEFORE MARKET DEMAND EXISTS.
+
+INTERNET ACCESS ≠ INTERNET AUTHORITY.
+
+RESEARCH ≠ LEARNING.
+
+LEARNING NEED ≠ LEARNING AUTHORIZATION.
+
+FORESIGHT PROPOSES · CURATOR VERIFIES · CURRICULUM ORGANIZES · TUTOR TEACHES · EXAMINER TESTS · HUMAN GOVERNS STRATEGIC DIRECTION.
+
+A43. STOP
+
+Integrar esta Adenda dentro del trabajo en curso de ORDEN 97A.
+
+Entregarla dentro del mismo Evidence Package final de 97A, identificando claramente qué fue añadido por 97A-01.
+
+No reiniciar 97A.
+
+No duplicar implementación ya realizada.
+
+No avanzar fuera del scope.
+
+Al finalizar:
+
+STOP → INDEPENDENT REVIEW → PRODUCT OWNER DECISION.
+
+FIN ADENDA 97A-01.

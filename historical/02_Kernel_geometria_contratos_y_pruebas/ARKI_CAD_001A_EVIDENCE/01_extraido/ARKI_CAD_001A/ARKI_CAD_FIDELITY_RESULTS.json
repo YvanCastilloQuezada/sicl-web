@@ -1,0 +1,9 @@
+{
+  "schema":"ARKI-CAD-FIDELITY-RESULTS-1.0",
+  "status":"NOT_EXECUTED",
+  "source":"ARKI_ABB001_SOURCE_FREEZE_V1",
+  "candidates":{"ODA_DRAWINGS_SDK":"NOT_EXECUTED","AUTODESK_REALDWG":"NOT_EXECUTED","GNU_LIBREDWG":"NOT_EXECUTED","ODA_FILE_CONVERTER":"NOT_EXECUTED"},
+  "requiredComparisons":["entityCount","layerCount","blockCount","dimensions","text","coordinates","extents","handles","layouts","visualRender","structuralEquivalence"],
+  "fidelityRule":"Vendor claims are not ABB001 evidence.",
+  "result":"MORE_EVIDENCE_REQUIRED"
+}

@@ -1,0 +1,85 @@
+{
+  "schema": "ARKI-CAD-001A-MANIFEST-1.0",
+  "order": "ARKI-CAD-001A",
+  "status": "SELECTION_COMPLETE_MORE_EVIDENCE_REQUIRED",
+  "verdict": "MORE_EVIDENCE_REQUIRED",
+  "implementationAuthorized": false,
+  "purchaseAuthorized": false,
+  "files": [
+    {
+      "path": "ARKI_CAD_001A_FORENSIC.md",
+      "size": 2457,
+      "sha256": "a6cf6cbeb1e3f00ef640df2b8368384ab9acda26fe5122db4e1cec69cb1758bf"
+    },
+    {
+      "path": "ARKI_CAD_ADAPTER_CANDIDATES.json",
+      "size": 2026,
+      "sha256": "4cdc4603f17c65d327f23bbb59989d2e1e2b60c2ee7fd30de1d6daedcad71e75"
+    },
+    {
+      "path": "ARKI_CAD_CAPABILITY_MATRIX.json",
+      "size": 2892,
+      "sha256": "3f1ac8b15dbb02a7f9038262a1007326d24f834db245b61603656b86ec6d427f"
+    },
+    {
+      "path": "ARKI_CAD_LICENSING_MATRIX.md",
+      "size": 1911,
+      "sha256": "6dafaf75448bcd1081b7ccecf6c9ac8c83c8846ba3f63a4b40990624d8aa6558"
+    },
+    {
+      "path": "ARKI_CAD_SERVER_DEPLOYMENT_OPTIONS.md",
+      "size": 2048,
+      "sha256": "fd0196cd92afc848093ff4fbd6e804fc93360ba04cfab46221781d7feaee06ff"
+    },
+    {
+      "path": "ARKI_ACIR_CONTRACT_DRAFT.json",
+      "size": 1245,
+      "sha256": "8bce6b54e2c19272232daaee5e3db969fabdea6f2bf3647242e00ebf23ea1a6c"
+    },
+    {
+      "path": "ARKI_ABB001_ADAPTER_EXPERIMENT.json",
+      "size": 870,
+      "sha256": "2953ac0cb18bf8de1dcf1a6fba1dd06fb2ca5c7d409bb8975a965ff4b70eeaf3"
+    },
+    {
+      "path": "ARKI_CAD_FIDELITY_RESULTS.json",
+      "size": 535,
+      "sha256": "7a1c34e016b87f3023abaef6c590b71138c2012b39f5b865a7e7e2545b708bea"
+    },
+    {
+      "path": "ARKI_CAD_DXF_LOSS_ANALYSIS.md",
+      "size": 880,
+      "sha256": "a1e788d6c5ba6da9963a0904a2054592771cb2585b5136a402682a2cc2680744"
+    },
+    {
+      "path": "ARKI_CAD_SECURITY_ANALYSIS.md",
+      "size": 1531,
+      "sha256": "d17ef1cf05bca7afca3c97703279f01dddc13fba5d427e51df411bde62a1caf4"
+    },
+    {
+      "path": "ARKI_CAD_001A_RECOMMENDATION.md",
+      "size": 1671,
+      "sha256": "4abcba40a3b7622a30a017f496508025ac4060c13644e69d43661cb68c9a4a7a"
+    },
+    {
+      "path": "ARKI_CAD_001A_DEFICITS.json",
+      "size": 1133,
+      "sha256": "48c628773f031ba86f20bf8e32a0a4f48714065139de9793737df40c6cbdea55"
+    },
+    {
+      "path": "ARKI_CAD_001A_EVIDENCE.json",
+      "size": 998,
+      "sha256": "f725b80105fd649765132a176ea7ae7abdacb930a60a2881c4e5e412a37298c3"
+    },
+    {
+      "path": "ARKI_CAD_001A_SCOPE_REPORT.md",
+      "size": 659,
+      "sha256": "e817dc2437880df1ba83e6a69c36bee7cca97358cd3e1864e6de9ef5fb8732aa"
+    },
+    {
+      "path": "pasted_content_119.txt",
+      "size": 8337,
+      "sha256": "fd1973b95951abca345ac390f355078562295c22a2422b92456f899f777defd5"
+    }
+  ]
+}

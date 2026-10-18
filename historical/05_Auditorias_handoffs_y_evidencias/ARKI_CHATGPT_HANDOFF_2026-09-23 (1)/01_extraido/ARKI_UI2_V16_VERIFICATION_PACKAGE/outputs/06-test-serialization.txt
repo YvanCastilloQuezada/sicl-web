@@ -1,0 +1,38 @@
+=== 06-test-serialization ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}

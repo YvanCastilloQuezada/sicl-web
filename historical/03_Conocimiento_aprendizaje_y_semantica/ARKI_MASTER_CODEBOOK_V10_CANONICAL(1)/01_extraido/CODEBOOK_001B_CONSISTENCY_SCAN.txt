@@ -1,0 +1,22 @@
+CODEBOOK-001B CONSISTENCY SCAN
+
+Scope:
+ARKI_MASTER_CODEBOOK.md
+ARKI_MASTER_PROJECT_MAP.md
+ARKI_CODEBOOK_FOR_ARCHITECT.md
+ARKI_CODE_CROSSWALK.md
+ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md
+ARKI_CODEBOOK_OPEN_ITEMS.md
+ARKI_CODEBOOK_EVIDENCE_INDEX.md
+
+Result: PASS
+
+CB-FINAL-01: PASS — BKH4-0/1/2 is VERIFIED FOR APPROVED SCOPE; BKH4-3+ remains BLOCKED / NOT IMPLEMENTED.
+CB-FINAL-02: PASS — BKH-5, BKH-6 and BKH-7 remain BLOCKED and are marked WATCH, not HISTORICAL.
+CB-FINAL-03: PASS — Technical Glossary is v1.0 Candidate with FINAL CANONICAL CANDIDATE / PENDING PRODUCT OWNER APPROVAL status.
+BKH-2 current status: VERIFIED.
+BKH-3 current status: VERIFIED.
+Historical states in source reports: preserved.
+UNKNOWN historical meanings: preserved.
+Ownership decisions: not resolved.
+Product/kernel/code/test changes by this order: none.

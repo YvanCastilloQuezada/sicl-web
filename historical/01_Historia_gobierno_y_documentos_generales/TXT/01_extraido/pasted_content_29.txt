@@ -1,0 +1,245 @@
+"""ARKI H-004: Reaction Planning — Read-only planning of responses.
+
+H-004 consume ValidityReport de H-003 y produce un ReactionPlan.
+NO ejecuta. NO recomputa. NO notifica. NO muta. Solo planifica.
+
+Regla fundamental:
+  REACTION PLANNING ≠ REACTION EXECUTION
+
+Arquitectura de tres fases:
+  Fase 1: Identificación de acciones necesarias
+  Fase 2: Ordenamiento topológico
+  Fase 3: Generación del plan
+
+Dependencias:
+  - H-003 ValidityReport (input)
+"""
+from __future__ import annotations
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any
+from .derivation import VersionedRef
+from .validity import ValidityReport, ArtifactValidity
+
+
+class ActionType(str, Enum):
+    RECOMPUTE = "RECOMPUTE"
+    REVIEW = "REVIEW"
+    REJECT = "REJECT"
+    ESCALATE = "ESCALATE"
+
+
+class ActionStatus(str, Enum):
+    PLANNED = "PLANNED"
+    BLOCKED = "BLOCKED"
+    REQUIRES_AUTHORITY = "REQUIRES_AUTHORITY"
+
+
+@dataclass(frozen=True)
+class PlannedAction:
+    """Una acción planificada para un artifact específico."""
+    artifact_ref: VersionedRef
+    action_type: ActionType
+    status: ActionStatus
+    priority: int  # Orden topológico (menor = primero)
+    reason: str
+    requires_human_authority: bool
+    blocked_by: tuple[VersionedRef, ...] = field(default_factory=tuple)
+    
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "artifactRef": self.artifact_ref.to_dict(),
+            "actionType": self.action_type.value,
+            "status": self.status.value,
+            "priority": self.priority,
+            "reason": self.reason,
+            "requiresHumanAuthority": self.requires_human_authority,
+            "blockedBy": [ref.to_dict() for ref in self.blocked_by],
+        }
+
+
+@dataclass(frozen=True)
+class ReactionPlan:
+    """Plan de reacción completo."""
+    contract_version: int = 1
+    validity_report: ValidityReport
+    planned_actions: tuple[PlannedAction, ...] = field(default_factory=tuple)
+    analysis_metadata: dict[str, int] = field(default_factory=dict)
+    read_only: bool = True
+    
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "contractVersion": self.contract_version,
+            "validityReport": self.validity_report.to_dict(),
+            "plannedActions": [a.to_dict() for a in self.planned_actions],
+            "analysisMetadata": self.analysis_metadata,
+            "readOnly": self.read_only,
+        }
+
+
+class ReactionPlanner:
+    """
+    H-004: Planifica reacciones basándose en ValidityReport.
+    
+    Reglas contractuales:
+      R-01: REACTION PLANNING ≠ REACTION EXECUTION
+      R-02: FULLY_STALE → RECOMPUTE (no requiere autoridad)
+      R-03: PARTIALLY_STALE → REVIEW (requiere autoridad)
+      R-04: REQUIRES_HUMAN_REVIEW → ESCALATE (requiere autoridad)
+      R-05: PARTIALLY_VALID → NO_ACTION (no se planifica)
+      R-06: FULLY_VALID → NO_ACTION (no se planifica)
+      R-07: Topological ordering (dependencias primero)
+      R-08: Cycle detection → ESCALATE
+      R-09: READ-ONLY
+    """
+    
+    def __init__(self):
+        pass
+    
+    def plan_reaction(self, validity_report: ValidityReport) -> ReactionPlan:
+        """Genera un ReactionPlan basándose en un ValidityReport."""
+        actions: list[PlannedAction] = []
+        
+        # Fase 1: Identificar acciones
+        for artifact_validity in validity_report.artifact_validities:
+            action = self._determine_action(artifact_validity)
+            if action is not None:
+                actions.append(action)
+        
+        # Fase 2: Ordenar topológicamente
+        ordered_actions = self._topological_sort(actions, validity_report)
+        
+        # Fase 3: Generar plan
+        analysis_metadata = {
+            "totalActionsPlanned": len(ordered_actions),
+            "recomputeCount": sum(1 for a in ordered_actions if a.action_type == ActionType.RECOMPUTE),
+            "reviewCount": sum(1 for a in ordered_actions if a.action_type == ActionType.REVIEW),
+            "rejectCount": sum(1 for a in ordered_actions if a.action_type == ActionType.REJECT),
+            "escalateCount": sum(1 for a in ordered_actions if a.action_type == ActionType.ESCALATE),
+            "requiresAuthorityCount": sum(1 for a in ordered_actions if a.requires_human_authority),
+        }
+        
+        return ReactionPlan(
+            contract_version=1,
+            validity_report=validity_report,
+            planned_actions=tuple(ordered_actions),
+            analysis_metadata=analysis_metadata,
+            read_only=True,
+        )
+    
+    def _determine_action(self, artifact_validity: ArtifactValidity) -> PlannedAction | None:
+        state = artifact_validity.state
+        
+        if state in ("FULLY_VALID", "PARTIALLY_VALID"):
+            return None
+        
+        if state == "FULLY_STALE":
+            return PlannedAction(
+                artifact_ref=artifact_validity.artifact_ref,
+                action_type=ActionType.RECOMPUTE,
+                status=ActionStatus.PLANNED,
+                priority=0,
+                reason="All derivations are stale",
+                requires_human_authority=False,
+            )
+        
+        if state == "PARTIALLY_STALE":
+            return PlannedAction(
+                artifact_ref=artifact_validity.artifact_ref,
+                action_type=ActionType.REVIEW,
+                status=ActionStatus.REQUIRES_AUTHORITY,
+                priority=0,
+                reason="Some derivations are stale",
+                requires_human_authority=True,
+            )
+        
+        if state == "REQUIRES_HUMAN_REVIEW":
+            return PlannedAction(
+                artifact_ref=artifact_validity.artifact_ref,
+                action_type=ActionType.ESCALATE,
+                status=ActionStatus.REQUIRES_AUTHORITY,
+                priority=0,
+                reason="Identity uncertainty or invalid dependencies detected",
+                requires_human_authority=True,
+            )
+        
+        return None
+    
+    def _topological_sort(self, actions: list[PlannedAction], validity_report: ValidityReport) -> list[PlannedAction]:
+        if not actions:
+            return []
+        
+        action_by_ref = {a.artifact_ref: a for a in actions}
+        dependencies: dict[VersionedRef, set[VersionedRef]] = {a.artifact_ref: set() for a in actions}
+        
+        for artifact_validity in validity_report.artifact_validities:
+            if artifact_validity.artifact_ref not in action_by_ref:
+                continue
+            for dv in artifact_validity.derivation_validities:
+                for discrepancy in dv.discrepancies:
+                    ref_dict = discrepancy.get("reference", {})
+                    dep_ref = VersionedRef(
+                        ref_dict.get("entityType", ""),
+                        ref_dict.get("entityId", ""),
+                        ref_dict.get("version", 0),
+                    )
+                    if dep_ref in action_by_ref:
+                        dependencies[artifact_validity.artifact_ref].add(dep_ref)
+        
+        in_degree = {ref: 0 for ref in dependencies}
+        for ref, deps in dependencies.items():
+            for dep in deps:
+                if dep in in_degree:
+                    in_degree[dep] += 1
+        
+        queue = [ref for ref, degree in in_degree.items() if degree == 0]
+        sorted_refs = []
+        
+        while queue:
+            queue.sort(key=lambda r: (r.entity_type, r.entity_id, r.version))
+            ref = queue.pop(0)
+            sorted_refs.append(ref)
+            
+            for dep in dependencies[ref]:
+                if dep in in_degree:
+                    in_degree[dep] -= 1
+                    if in_degree[dep] == 0:
+                        queue.append(dep)
+        
+        if len(sorted_refs) != len(actions):
+            for action in actions:
+                if action.artifact_ref not in sorted_refs:
+                    action = PlannedAction(
+                        artifact_ref=action.artifact_ref,
+                        action_type=ActionType.ESCALATE,
+                        status=ActionStatus.BLOCKED,
+                        priority=999,
+                        reason="Dependency cycle detected",
+                        requires_human_authority=True,
+                    )
+                    sorted_refs.append(action.artifact_ref)
+        
+        sorted_actions = []
+        for priority, ref in enumerate(sorted_refs):
+            if ref in action_by_ref:
+                action = action_by_ref[ref]
+                sorted_actions.append(PlannedAction(
+                    artifact_ref=action.artifact_ref,
+                    action_type=action.action_type,
+                    status=action.status,
+                    priority=priority,
+                    reason=action.reason,
+                    requires_human_authority=action.requires_human_authority,
+                    blocked_by=action.blocked_by,
+                ))
+        
+        return sorted_actions
+
+
+__all__ = [
+    "ActionType",
+    "ActionStatus",
+    "PlannedAction",
+    "ReactionPlan",
+    "ReactionPlanner",
+]

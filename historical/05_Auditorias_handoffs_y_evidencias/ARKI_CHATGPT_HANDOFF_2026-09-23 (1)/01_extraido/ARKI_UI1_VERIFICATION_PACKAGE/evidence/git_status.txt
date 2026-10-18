@@ -1,0 +1,12 @@
+ [31mM[m client/src/components/ArkiGateway.tsx
+ [31mM[m client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m client/src/index.css
+[31m??[m ARKI_ADR_TRANSICION_HOME_SHELL.md
+[31m??[m ARKI_MAPA_ACCESOS_PERFILES.md
+[31m??[m ARKI_MATRIZ_MODULOS_ROLES_ESTADO.md
+[31m??[m ARKI_RESPUESTA_DEEPSEEK_UI1.md
+[31m??[m ARKI_UI1_PAQUETE_VERIFICABLE.md
+[31m??[m ARKI_UI1_VERIFICATION_PACKAGE.zip
+[31m??[m ARKI_UI1_VERIFICATION_PACKAGE/
+[31m??[m scripts/test-access-matrix.ts
+[31m??[m scripts/test-module-states.ts

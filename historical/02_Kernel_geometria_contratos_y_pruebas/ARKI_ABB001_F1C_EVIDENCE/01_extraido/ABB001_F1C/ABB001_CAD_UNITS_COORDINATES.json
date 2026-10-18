@@ -1,0 +1,12 @@
+{
+  "schema":"ARKI-ABB001-CAD-UNITS-COORDINATES-1.0",
+  "status":"UNIT_UNKNOWN / COORDINATES_NOT_EXECUTED",
+  "files":[
+    {"file":"ARQUITECTURA  MODIFICADA.dwg","declaredUnits":"UNIT_UNKNOWN","effectiveUnits":"UNKNOWN","extents":null,"ucs":null,"origin":null,"transformations":[],"scaleRelationships":[]},
+    {"file":"PROY. FERNANDEZ ROJAS - ARQUITECTURA.dwg","declaredUnits":"UNIT_UNKNOWN","effectiveUnits":"UNKNOWN","extents":null,"ucs":null,"origin":null,"transformations":[],"scaleRelationships":[]},
+    {"file":"PROY. FERNANDEZ ROJAS - ESTRUCTURAS.dwg","declaredUnits":"UNIT_UNKNOWN","effectiveUnits":"UNKNOWN","extents":null,"ucs":null,"origin":null,"transformations":[],"scaleRelationships":[]},
+    {"file":"PROY. FERNANDEZ ROJAS - SANITARIAS ELECTRICAS.dwg","declaredUnits":"UNIT_UNKNOWN","effectiveUnits":"UNKNOWN","extents":null,"ucs":null,"origin":null,"transformations":[],"scaleRelationships":[]},
+    {"file":"PROY. FERNANDEZ ROJAS - UBICACION.dwg","declaredUnits":"UNIT_UNKNOWN","effectiveUnits":"UNKNOWN","extents":null,"ucs":null,"origin":null,"transformations":[],"scaleRelationships":[]}
+  ],
+  "rule":"Do not assume meters because the project is architectural."
+}

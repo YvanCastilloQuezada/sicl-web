@@ -1,0 +1,377 @@
+{
+  "contract": "ARKI-FRONTEND-F0-GATE-A",
+  "mode": "INVENTORY_AND_SNAPSHOT_ONLY_NO_PRODUCT_CHANGES",
+  "capturedAt": "2026-09-25T01:30:25.378685+00:00",
+  "branch": "refactor/arki-frontend-clean-v1",
+  "runtime": "https://4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer",
+  "routeCount": 36,
+  "summary": {
+    "CORE_BLOCKED": 6,
+    "RENDERED_404": 1,
+    "RENDERED": 19,
+    "BLOCKED_LAZY": 8,
+    "UNKNOWN": 2
+  },
+  "records": [
+    {
+      "path": "/",
+      "component": "HashWorkspaceRoute",
+      "declaredInApp": true,
+      "runtimeStatus": "CORE_BLOCKED",
+      "reason": "Route rendered a meaningful shell but its canonical Core-dependent data path returned 503.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/404",
+      "component": "NotFound",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED_404",
+      "reason": "Not-found screen rendered.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_404.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/ar-lu-orchestrator",
+      "component": "ArLuOrchestratorPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_ar-lu-orchestrator.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki",
+      "component": "HashWorkspaceRoute",
+      "declaredInApp": true,
+      "runtimeStatus": "CORE_BLOCKED",
+      "reason": "Route rendered a meaningful shell but its canonical Core-dependent data path returned 503.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-bim-visor",
+      "component": "ArkiBimViewerPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-bim-visor.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-book",
+      "component": "ArkiBookPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-book.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-design-funnel",
+      "component": "ArkiDesignFunnelPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-design-funnel.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-device-bridge",
+      "component": "ArkiDeviceInteroperabilityPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-device-bridge.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-family-studio",
+      "component": "ArkiFamilyStudioPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-family-studio.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-generator",
+      "component": "ArkiGeneratorPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-generator.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-host-connections",
+      "component": "ArkiHostConnectionsPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-host-connections.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-marketplace",
+      "component": "ArkiMarketplacePage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-marketplace.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-operations",
+      "component": "ArkiOperationsPage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-operations.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-parametric-runtime",
+      "component": "ArkiParametricRuntimePage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-parametric-runtime.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-research-review",
+      "component": "ArkiResearchReviewPage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-research-review.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-self-care",
+      "component": "ArkiSelfCarePage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-self-care.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-super-architect",
+      "component": "ArkiSuperArchitectViewerPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-super-architect.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/arki-tv",
+      "component": "ArkiTvPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-tv.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/audit",
+      "component": "AuditRoute",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_audit_audit.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/comparisons",
+      "component": "ComparisonsPage",
+      "declaredInApp": true,
+      "runtimeStatus": "CORE_BLOCKED",
+      "reason": "Route rendered a meaningful shell but its canonical Core-dependent data path returned 503.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_comparisons.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/control-center",
+      "component": "ArkiControlCenterPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_control-center.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/evaluations",
+      "component": "EvaluationsPage",
+      "declaredInApp": true,
+      "runtimeStatus": "CORE_BLOCKED",
+      "reason": "Route rendered a meaningful shell but its canonical Core-dependent data path returned 503.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_evaluations.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/evidence",
+      "component": "EvidencePage",
+      "declaredInApp": true,
+      "runtimeStatus": "CORE_BLOCKED",
+      "reason": "Route rendered a meaningful shell but its canonical Core-dependent data path returned 503.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_evidence.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/federated-handoffs",
+      "component": "FederatedHandoffInboxPage",
+      "declaredInApp": true,
+      "runtimeStatus": "UNKNOWN",
+      "reason": "No deterministic classification from preserved page text.",
+      "pageText": null,
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/field",
+      "component": "FieldModePage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_field.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/help",
+      "component": "HelpPage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/help/commands",
+      "component": "HelpArticlePage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_commands.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/help/operations",
+      "component": "HelpArticlePage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_operations.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/help/user",
+      "component": "HelpArticlePage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_user.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 1
+    },
+    {
+      "path": "/luka-control-center",
+      "component": "LucaControlCenterPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_luka-control-center.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/multiobjective",
+      "component": "MultiobjectivePage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_multiobjective.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/parametric-files",
+      "component": "ParametricFilesPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_parametric-files.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/security-events",
+      "component": "SecurityEventsPage",
+      "declaredInApp": true,
+      "runtimeStatus": "RENDERED",
+      "reason": "Meaningful route content and controls were observed.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_security-events.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/sources",
+      "component": "SourceLibraryPage",
+      "declaredInApp": true,
+      "runtimeStatus": "UNKNOWN",
+      "reason": "No deterministic classification from preserved page text.",
+      "pageText": null,
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/spatial",
+      "component": "SpatialViewerPage",
+      "declaredInApp": true,
+      "runtimeStatus": "BLOCKED_LAZY",
+      "reason": "Snapshot captured the shared lazy-loading fallback; meaningful render not observed in the capture window.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_spatial.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    },
+    {
+      "path": "/spatial-comparison",
+      "component": "SpatialComparisonPage",
+      "declaredInApp": true,
+      "runtimeStatus": "CORE_BLOCKED",
+      "reason": "Route rendered a meaningful shell but its canonical Core-dependent data path returned 503.",
+      "pageText": "/home/ubuntu/page_texts/4003-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_spatial-comparison.md",
+      "screenshots": [],
+      "controlMentionsInSnapshot": 0
+    }
+  ]
+}

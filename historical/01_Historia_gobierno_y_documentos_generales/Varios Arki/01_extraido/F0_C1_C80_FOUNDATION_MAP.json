@@ -1,0 +1,1085 @@
+{
+  "artifact": "F0_C1_C80_FOUNDATION_MAP",
+  "status": "DOCUMENTED / NO_CAPABILITY_PROMOTION",
+  "foundations": {
+    "identity": "shared/arkiSharedFoundation.ts::StableIdentity + IdentityMapping",
+    "epistemic": "shared/arkiSharedFoundation.ts::EpistemicStatus",
+    "evidence": "shared/arkiSharedFoundation.ts::EvidenceRecord",
+    "provenance": "shared/arkiSharedFoundation.ts::ProvenanceRecord",
+    "units": "shared/arkiSharedFoundation.ts::UnitValue + normalizeUnit",
+    "relationships": "shared/arkiRelationshipFabric.ts::RelationshipRecord",
+    "geometry": "shared/arkiConstructionOntology.ts::ConstructionModel",
+    "semantic-registry": "shared/arkiSharedFoundation.ts::SemanticConcept + curator review",
+    "architectural-core": "shared/arkiArchitecturalProgram.ts",
+    "engineering-model": "shared/arkiStructuralModel.ts / shared/arkiMepModel.ts",
+    "solver-interface": "contract only; no solver installed",
+    "interoperability": "shared/arkiCadGateway.ts + shared/ifc4",
+    "simulation": "shared/arkiSimulationSandbox.ts",
+    "lifecycle": "E8-B contracts and assets",
+    "evaluation-framework": "COCO / examination evidence",
+    "explanation": "contract only; no separate engine promoted",
+    "learning-framework": "shared/arkiLivingKnowledge.ts",
+    "human-authority": "PF-H01 + HumanDecision boundaries"
+  },
+  "capabilities": [
+    {
+      "capabilityId": "C01",
+      "capabilityName": "Spatial Syntax",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C02",
+      "capabilityName": "Programa Arquitect\u00f3nico + Circulaci\u00f3n",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C03",
+      "capabilityName": "F\u00edsica T\u00e9rmica",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C04",
+      "capabilityName": "Daylight + Ac\u00fastica",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C05",
+      "capabilityName": "Normativa como C\u00f3digo",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C06",
+      "capabilityName": "Estructuras Profesionales",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C07",
+      "capabilityName": "MEP Profesional",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C08",
+      "capabilityName": "Construcci\u00f3n + Lean + LOB + Takt",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C09",
+      "capabilityName": "LCA / LCC",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C10",
+      "capabilityName": "Expediente T\u00e9cnico Real",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "evidence",
+        "units",
+        "geometry",
+        "relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C11",
+      "capabilityName": "Shape Grammars",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C12",
+      "capabilityName": "Optimizaci\u00f3n Topol\u00f3gica",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C13",
+      "capabilityName": "NSGA-II Multiobjetivo",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C14",
+      "capabilityName": "Monte Carlo",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C15",
+      "capabilityName": "Algoritmos Gen\u00e9ticos de Layout",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C16",
+      "capabilityName": "Simulated Annealing",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C17",
+      "capabilityName": "CFD",
+      "consumes": [
+        "units",
+        "evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C18",
+      "capabilityName": "FDS",
+      "consumes": [
+        "units",
+        "evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C19",
+      "capabilityName": "EnergyPlus",
+      "consumes": [
+        "units",
+        "evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C20",
+      "capabilityName": "Radiance",
+      "consumes": [
+        "units",
+        "evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C21",
+      "capabilityName": "WUFI",
+      "consumes": [
+        "units",
+        "evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C22",
+      "capabilityName": "OpenFOAM Avanzado",
+      "consumes": [
+        "units",
+        "evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C23",
+      "capabilityName": "As-Built + Comisionamiento",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C24",
+      "capabilityName": "O&M Predictivo",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C25",
+      "capabilityName": "Descarbonizaci\u00f3n / Net Zero",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C26",
+      "capabilityName": "Econom\u00eda Circular / Renovaci\u00f3n",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C27",
+      "capabilityName": "Pattern Language",
+      "consumes": [
+        "semantic-registry",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C28",
+      "capabilityName": "Reconocimiento de Tipolog\u00eda",
+      "consumes": [
+        "semantic-registry",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C29",
+      "capabilityName": "Razonamiento Formal Arquitect\u00f3nico",
+      "consumes": [
+        "semantic-registry",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C30",
+      "capabilityName": "Avatar ARKI",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C31",
+      "capabilityName": "Luka",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C32",
+      "capabilityName": "Gu\u00eda Contextual",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C33",
+      "capabilityName": "AR / WebXR",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C34",
+      "capabilityName": "Revit RVT/RFA",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C35",
+      "capabilityName": "DWG/DXF Gobernado",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C36",
+      "capabilityName": "Point Cloud",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C37",
+      "capabilityName": "IFC4x3",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C38",
+      "capabilityName": "gbXML",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C39",
+      "capabilityName": "Multiusuario + Concurrencia",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C40",
+      "capabilityName": "BCF",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C41",
+      "capabilityName": "CDE / ISO 19650",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C42",
+      "capabilityName": "PKI",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C43",
+      "capabilityName": "Auditor\u00eda Inmutable",
+      "consumes": [
+        "identity",
+        "provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C44",
+      "capabilityName": "Dashboards",
+      "consumes": [
+        "evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C45",
+      "capabilityName": "Predicci\u00f3n de Desviaciones",
+      "consumes": [
+        "evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C46",
+      "capabilityName": "Benchmark de Proyectos",
+      "consumes": [
+        "evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C47",
+      "capabilityName": "Machine Learning",
+      "consumes": [
+        "evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C48",
+      "capabilityName": "LEED",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C49",
+      "capabilityName": "EDGE",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C50",
+      "capabilityName": "BREEAM",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C51",
+      "capabilityName": "WELL",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C52",
+      "capabilityName": "Passive House",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C53",
+      "capabilityName": "Net Zero Carbon Certifications",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C54",
+      "capabilityName": "Benchmark vs Arquitectos",
+      "consumes": [
+        "epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C55",
+      "capabilityName": "Generaci\u00f3n Adversarial",
+      "consumes": [
+        "epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C56",
+      "capabilityName": "Meta-Learning",
+      "consumes": [
+        "epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C57",
+      "capabilityName": "Transfer Learning",
+      "consumes": [
+        "epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C58",
+      "capabilityName": "Explicabilidad Avanzada",
+      "consumes": [
+        "epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C59",
+      "capabilityName": "Auto-Evaluaci\u00f3n",
+      "consumes": [
+        "epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C60",
+      "capabilityName": "Isovist y Visibilidad",
+      "consumes": [
+        "geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C61",
+      "capabilityName": "Ac\u00fastica Ray-Tracing",
+      "consumes": [
+        "geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C62",
+      "capabilityName": "Estructuras No Lineales + Performance-Based",
+      "consumes": [
+        "geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C63",
+      "capabilityName": "Real Estate / Factibilidad",
+      "consumes": [
+        "geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C64",
+      "capabilityName": "Digital Twin + IoT",
+      "consumes": [
+        "geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C65",
+      "capabilityName": "Post-Occupancy Evaluation",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C66",
+      "capabilityName": "Dise\u00f1o Biof\u00edlico / Neuroarquitectura",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C67",
+      "capabilityName": "Fabricaci\u00f3n Digital",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C68",
+      "capabilityName": "Construcci\u00f3n Industrializada",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C69",
+      "capabilityName": "Value Engineering",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C70",
+      "capabilityName": "MCDA",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C71",
+      "capabilityName": "Real Options Analysis",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C72",
+      "capabilityName": "Risk Management Cuantitativo",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C73",
+      "capabilityName": "Contratos y Procurement",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C74",
+      "capabilityName": "Edificios Especializados",
+      "consumes": [
+        "provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C75",
+      "capabilityName": "ARKI Self-Hosting",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "reuseStrategy": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C76",
+      "capabilityName": "Debugging Asistido",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C77",
+      "capabilityName": "Auto-Explicaci\u00f3n de Decisiones",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C78",
+      "capabilityName": "Simulaci\u00f3n de Roles Especialistas",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "reuseStrategy": "ADAPT_SHARED_ENGINE",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C79",
+      "capabilityName": "Dise\u00f1o Universal",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    },
+    {
+      "capabilityId": "C80",
+      "capabilityName": "Wayfinding y Se\u00f1al\u00e9tica",
+      "consumes": [
+        "identity",
+        "epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "reuseStrategy": "REUSE_OR_EXTEND",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "stateRule": "DEPENDENCY_DOES_NOT_ELEVATE_CAPABILITY_STATUS"
+    }
+  ]
+}

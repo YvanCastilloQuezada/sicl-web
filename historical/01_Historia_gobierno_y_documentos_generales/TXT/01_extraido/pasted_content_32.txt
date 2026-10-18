@@ -1,0 +1,109 @@
+DOCUMENTO 1: src/sicl/reaction.py
+(Implementación completa de H-004: Reaction Planning)
+python
+DOCUMENTO 2: tests/test_reaction.py
+(Tests TDD completos para H-004)
+DOCUMENTO 3: ARKI_REDTEAM_PACKAGE_v2.0.md
+(El paquete completo para enviar a DeepSeek. Cópialo y pégalo en su chat).
+ORDEN MANUS — PREPARACIÓN DE PAQUETE RED TEAM v2.0
+Estado: AUTHORIZED FOR EXECUTION
+Autoridad: Wilfredo Yvan Castillo Quezada (Product Owner)
+Fecha: 2026-09-27
+Destino: Manus
+Propósito: Preparar paquete canónico para DeepSeek Red Team
+⚠️ ADVERTENCIA CRÍTICA — INCONSISTENCIAS EN EL KNOWLEDGE BASE
+Yvan, antes de proceder, debo señalar que en los archivos que subiste hay versiones duplicadas con contenido contradictorio. Como segunda opinión (INV-003), no puedo enviar a DeepSeek un paquete ambiguo.
+Archivos con duplicación:
+Archivo
+Versión canónica
+Versión obsoleta
+derivation.py
+✅ derivation.py (con RT-A + RT-D)
+❌ derivation (1).py (sin RT-A)
+impact.py
+✅ Versión A completa (con ImpactChange, ChangeKind)
+❌ Versión corta (solo analyze())
+test_derivation.py
+✅ Con tests RT-A y RT-D (20 tests)
+❌ test_derivation (1).py (sin RT-A)
+test_impact.py
+✅ Adversarial (20 tests)
+❌ Versión corta (5 tests)
+test_validity.py
+⚠️ INCONSISTENCIA: el archivo subido tiene expose_legacy_derivations, pero el commit 3f4ce33 afirma que se eliminó
+—
+Evidencia de commits canónicos:
+Módulo
+Commit
+Tests
+H-001
+94f3fcf42fa5a1a3dd26acf1154180ba33c4002f
+20 PASS
+H-002
+d3b446216ce8d026046ebff7e9ef838634c40544
+20 PASS
+H-003
+3f4ce335418762df407e78e508ed2421259acb83
+8 PASS
+E2E Multiescala
+3bbc5cf549f42e1c1ffce2f395266ed1bbdb75fe
+1 PASS
+Regresión focal
+—
+49 PASS
+Regresión global
+—
+405 PASS
+📦 ORDEN PARA MANUS
+Paso 1: Verificar baseline canónico
+cd /home/ubuntu/sicl-core
+git log --oneline -5
+# Debe mostrar:
+# 3bbc5cf test(H-001/H-002/H-003): add multiscale E2E test (Wall-Move Lite)
+# 3f4ce33 feat(H-003): implement two-phase Validity / Invalidation
+# d3b4462 feat(H-002): implement read-only Impact Analysis with RT-01 to RT-14
+# 94f3fcf feat(H-001 Examen 11): incorporate RT-A and RT-D into core baselinePaso 2: Verificar integridad de archivos canónicos
+# Verificar que derivation.py tiene RT-A
+grep -c "outputs: dict\[VersionedRef" src/sicl/derivation.py
+# Debe devolver: 0
+
+# Verificar que derivation.py tiene RT-D
+grep -c "IDENTITY_UNCERTAIN" src/sicl/derivation.py
+# Debe devolver: >= 1
+
+# Verificar que impact.py tiene ImpactChange
+grep -c "class ImpactChange" src/sicl/impact.py
+# Debe devolver: 1
+
+# Verificar que test_validity.py NO tiene monkey-patch
+grep -c "expose_legacy_derivations" tests/test_validity.py
+# Debe devolver: 0
+
+# Verificar que test_multiscale usa DERIVED_FROM/ARCHITECTURAL
+grep -c "DERIVED_FROM.*ARCHITECTURAL" tests/test_multiscale_wall_move_e2e.py
+# Debe devolver: >= 1aso 3: Ejecutar regresión completa
+PYTHONPATH=src python -m pytest tests/test_derivation.py tests/test_impact.py tests/test_validity.py tests/test_multiscale_wall_move_e2e.py -v > pytest_canonical_output.txt
+python -m compileall -q src tests > compileall_canonical.txt 2>&1
+Resultado esperado: 49 passed
+Paso 4: Generar paquete canónico
+mkdir -p /tmp/arki-redteam-v2
+cp src/sicl/derivation.py /tmp/arki-redteam-v2/
+cp src/sicl/impact.py /tmp/arki-redteam-v2/
+cp src/sicl/validity.py /tmp/arki-redteam-v2/
+cp tests/test_derivation.py /tmp/arki-redteam-v2/
+cp tests/test_impact.py /tmp/arki-redteam-v2/
+cp tests/test_impact_adversarial.py /tmp/arki-redteam-v2/
+cp tests/test_validity.py /tmp/arki-redteam-v2/
+cp tests/test_multiscale_wall_move_e2e.py /tmp/arki-redteam-v2/
+cp pytest_canonical_output.txt /tmp/arki-redteam-v2/
+cp compileall_canonical.txt /tmp/arki-redteam-v2/
+
+# Generar SHA de cada archivo
+cd /tmp/arki-redteam-v2
+sha256sum *.py > file_checksums.txt
+Paso 5: Reporte a Yvan
+Devolver:
+pytest_canonical_output.txt
+compileall_canonical.txt
+file_checksums.txt
+Los 8 archivos .py canónicos

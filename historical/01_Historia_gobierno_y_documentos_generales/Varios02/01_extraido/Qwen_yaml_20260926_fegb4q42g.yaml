@@ -1,0 +1,26 @@
+LEVEL_ID: L11
+NAME: "Acompañante Pedagógico"
+DEFINITION: "ARKI enseña a pensar arquitectura haciendo preguntas, no dando respuestas."
+INPUTS:
+  - student_query: "string"
+  - context: "ProjectContext"
+OUTPUTS:
+  - guiding_questions: "list<Question>"
+  - hints: "list<Hint>"
+  - resources: "list<Resource>"
+CONTRACTS:
+  - "No dar respuesta directa"
+  - "Guiar hacia descubrimiento"
+  - "PRINCIPLE → EXPLANATION → PRACTICE → EVALUATION → TRANSFER"
+  - "Respetar nivel de comprensión del estudiante"
+RULES:
+  - "L-01: Prueba de comprensión (4 niveles)"
+  - "L-02: Learning class (L1-L4)"
+  - "INV6-020: EXECUTION ≠ RETRIEVAL ≠ ADAPTATION ≠ KNOWLEDGE ACQUISITION ≠ TRANSFER ≠ GENERALIZATION ≠ LEARNING"
+GATES:
+  - "GATE_L11_PASS: Preguntas guía generadas sin respuesta directa"
+EVIDENCE_REQUIRED:
+  - "Question generation log"
+  - "Student response tracking"
+  - "Learning progression evidence"
+CURRENT_STATUS: "RESEARCHED"

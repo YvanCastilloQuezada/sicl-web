@@ -1,0 +1,79 @@
+[1mdiff --git a/client/src/components/ArkiGateway.tsx b/client/src/components/ArkiGateway.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..56ec48e[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/components/ArkiGateway.tsx[m
+[36m@@ -0,0 +1,34 @@[m
+[32m+[m[32mimport { ArrowRight, Building2, Calculator, Eye, ShieldCheck, UsersRound, Workflow } from "lucide-react";[m
+[32m+[m
+[32m+[m[32mexport type ArkiAccess = "visitor" | "user" | "specialist" | "corporate";[m
+[32m+[m
+[32m+[m[32mtype AccessCard = {[m
+[32m+[m[32m  id: ArkiAccess;[m
+[32m+[m[32m  title: string;[m
+[32m+[m[32m  subtitle: string;[m
+[32m+[m[32m  description: string;[m
+[32m+[m[32m  icon: typeof Eye;[m
+[32m+[m[32m  accent: "yellow" | "orange" | "cyan" | "green";[m
+[32m+[m[32m  modules: string[];[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mexport const ACCESS_CARDS: AccessCard[] = [[m
+[32m+[m[32m  { id: "visitor", title: "Visitante", subtitle: "Explora ARKI", description: "Conoce el motor BIM, las familias y el flujo completo sin acceder a información privada.", icon: Eye, accent: "yellow", modules: ["Demostraciones", "Biblioteca pública", "Documentación"] },[m
+[32m+[m[32m  { id: "user", title: "Usuario / Proyecto", subtitle: "Diseña tu proyecto", description: "Crea propuestas, revisa espacios, compara versiones y prepara tu expediente.", icon: Building2, accent: "orange", modules: ["Proyectos", "Generador", "Modelo BIM"] },[m
+[32m+[m[32m  { id: "specialist", title: "Especialista / Coordinación", subtitle: "Revisa por disciplina", description: "Trabaja con arquitectura, estructuras, MEP, costos, coordinación y construcción.", icon: UsersRound, accent: "cyan", modules: ["Disciplinas", "Revisión", "Interferencias"] },[m
+[32m+[m[32m  { id: "corporate", title: "Corporativo", subtitle: "Costos e interferencias", description: "Administra estándares, PriceBook, APU, clashes, CDE e integraciones.", icon: Calculator, accent: "green", modules: ["Costos", "Clashes", "Gobierno"] },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32mexport default function ArkiGateway({ onEnter }: { onEnter: (access: ArkiAccess) => void }) {[m
+[32m+[m[32m  return <main className="arki-gateway"><div className="gateway-orbit gateway-orbit-a" /><div className="gateway-orbit gateway-orbit-b" /><section className="gateway-inner"><header className="gateway-brand"><div className="gateway-mark"><Workflow size={23} /></div><div><strong>ARKI</strong><span>PARAMETRIC BIM RUNTIME</span></div><div className="gateway-status"><span /> MOTOR LOCAL OPERATIVO</div></header><div className="gateway-copy"><span className="gateway-kicker"><ShieldCheck size={14} /> ESTACIÓN CORPORATIVA DE DISEÑO Y COORDINACIÓN</span><h1>Elige tu espacio<br /><em>de trabajo.</em></h1><p>Una plataforma para pasar de la intención arquitectónica al modelo, el costo, la coordinación y el ciclo de vida del proyecto.</p></div><div className="access-grid">{ACCESS_CARDS.map((item) => { const Icon = item.icon; return <button key={item.id} className={`access-card access-${item.accent}`} onClick={() => onEnter(item.id)}><div className="access-card-top"><span className="access-icon"><Icon size={19} /></span><ArrowRight size={16} className="access-arrow" /></div><span className="access-subtitle">{item.subtitle}</span><strong>{item.title}</strong><p>{item.description}</p><div className="access-modules">{item.modules.map((module) => <span key={module}>{module}</span>)}</div></button>; })}</div><footer className="gateway-footer"><span>PROTOTIPO LOCAL · UI-1 · NO ES AUTENTICACIÓN DE PRODUCCIÓN</span><span>PE · RNE-PE · IFC4X3</span></footer></section></main>;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function accessLabel(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.title ?? "Workspace"; }[m
+[32m+[m[32mexport function accessSubtitle(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.subtitle ?? "Workspace BIM"; }[m
+[32m+[m[32mexport function accessColor(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.accent ?? "orange"; }[m
+[32m+[m[32mexport function isAccessAllowed(access: ArkiAccess, module: string) {[m
+[32m+[m[32m  if (access === "visitor") return ["Inicio", "Biblioteca"].includes(module);[m
+[32m+[m[32m  if (access === "corporate") return true;[m
+[32m+[m[32m  if (access === "specialist") return module !== "Administración";[m
+[32m+[m[32m  return !["Costos contractuales", "Administración"].includes(module);[m
+[32m+[m[32m}[m
+[1mdiff --git a/client/src/components/ArkiWorkspaceShell.tsx b/client/src/components/ArkiWorkspaceShell.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..966e56f[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/components/ArkiWorkspaceShell.tsx[m
+[36m@@ -0,0 +1,33 @@[m
+[32m+[m[32mimport { useEffect, useMemo, useState } from "react";[m
+[32m+[m[32mimport { BarChart3, Box, Building2, ChevronLeft, CircleHelp, ClipboardCheck, DoorOpen, FileText, Layers3, LayoutDashboard, LogOut, Network, PanelLeft, Settings2, ShieldAlert, SlidersHorizontal, WalletCards, Workflow } from "lucide-react";[m
+[32m+[m[32mimport { toast } from "sonner";[m
+[32m+[m[32mimport type { ArkiAccess } from "./ArkiGateway";[m
+[32m+[m[32mimport { accessColor, accessLabel, accessSubtitle, isAccessAllowed } from "./ArkiGateway";[m
+[32m+[m
+[32m+[m[32mconst modules = [[m
+[32m+[m[32m  ["Inicio", LayoutDashboard], ["Proyectos", Building2], ["Generador", Workflow], ["Modelo BIM", Layers3], ["Planta", PanelLeft], ["Corte", SlidersHorizontal], ["3D", Box], ["Metrados", BarChart3], ["Presupuesto", WalletCards], ["4D", ClipboardCheck], ["Clashes", ShieldAlert], ["Expediente", FileText], ["O&M", Settings2], ["Configuración", Settings2],[m
+[32m+[m[32m] as const;[m
+[32m+[m
+[32m+[m[32mexport default function ArkiWorkspaceShell({ access, onExit, children }: { access: ArkiAccess; onExit: () => void; children: React.ReactNode }) {[m
+[32m+[m[32m  const [activeModule, setActiveModule] = useState("Generador");[m
+[32m+[m[32m  const [navOpen, setNavOpen] = useState(true);[m
+[32m+[m[32m  const roleColor = accessColor(access);[m
+[32m+[m[32m  const availableModules = useMemo(() => modules.filter(([name]) => isAccessAllowed(access, name)), [access]);[m
+[32m+[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    const onKeyDown = (event: KeyboardEvent) => {[m
+[32m+[m[32m      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); toast.info("Búsqueda de comandos", { description: "UI-1: usa las pestañas del workspace para navegar." }); }[m
+[32m+[m[32m      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") { event.preventDefault(); toast.success("Borrador local listo", { description: "La persistencia corporativa se implementará en la fase de backend." }); }[m
+[32m+[m[32m      if (event.key === "Escape") toast.dismiss();[m
+[32m+[m[32m    };[m
+[32m+[m[32m    window.addEventListener("keydown", onKeyDown);[m
+[32m+[m[32m    return () => window.removeEventListener("keydown", onKeyDown);[m
+[32m+[m[32m  }, []);[m
+[32m+[m
+[32m+[m[32m  const selectModule = (name: string) => {[m
+[32m+[m[32m    setActiveModule(name);[m
+[32m+[m[32m    if (name !== "Generador") toast.info(`${name} seleccionado`, { description: "El módulo está registrado en el shell; su integración de dominio se habilita por fase." });[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  return <div className="arki-workspace"><header className="arki-workspace-top"><div className="arki-workspace-brand"><div className="arki-mini-mark"><Workflow size={16} /></div><div><strong>ARKI</strong><span>BIM WORKSPACE</span></div></div><div className="arki-project-context"><span>PROYECTO ACTIVO</span><b>Generador de familias</b><i>v1.0 · LOCAL</i></div><div className="arki-top-actions"><span className={`arki-role-badge role-${roleColor}`}>{accessLabel(access)} · PERFIL LOCAL</span><button className="arki-icon-button" title="Ayuda" onClick={() => toast.info("Ayuda ARKI", { description: "Ctrl/Cmd+K abre la búsqueda de comandos." })}><CircleHelp size={16} /></button><button className="arki-icon-button" title="Salir" onClick={onExit}><LogOut size={16} /></button></div></header><div className="arki-workspace-tabs">{["Inicio", "Generador", "Planta", "Corte", "3D", "BIM", "Presupuesto", "4D", "Clashes", "Expediente"].map((tab) => <button key={tab} className={activeModule === tab || (tab === "BIM" && activeModule === "Modelo BIM") ? "active" : ""} onClick={() => selectModule(tab === "BIM" ? "Modelo BIM" : tab)}>{tab}</button>)}</div><div className="arki-workspace-body"><aside className={`arki-module-nav ${navOpen ? "open" : "closed"}`}><button className="arki-collapse" onClick={() => setNavOpen((value) => !value)}><PanelLeft size={14} />{navOpen && "NAVEGADOR"}</button>{navOpen && <><div className="arki-nav-context"><span>PERFIL ACTIVO</span><strong>{accessSubtitle(access)}</strong><small>PROTOTIPO LOCAL</small></div><nav>{availableModules.map(([name, Icon]) => <button key={name} className={activeModule === name ? "active" : ""} onClick={() => selectModule(name)}><Icon size={14} /><span>{name}</span>{["Costos contractuales", "Administración"].includes(name) && <small>PRO</small>}</button>)}</nav><div className="arki-nav-foot"><span className="arki-engine-dot" /> MOTOR LOCAL OPERATIVO</div></>}</aside><main className="arki-workspace-canvas"><div className="arki-context-toolbar"><div><span className="arki-context-kicker"><Workflow size={12} /> {activeModule.toUpperCase()}</span><strong>{activeModule === "Generador" ? "Generador dinámico de familias" : activeModule}</strong></div><div className="arki-context-actions"><span>PE · RNE-PE</span><span>ESCALA 1:100</span><span>UI-1</span></div></div><div className="arki-legacy-content">{children}</div></main><aside className="arki-info-box"><div className="arki-info-head"><span>INFO BOX</span><button onClick={() => toast.info("Selecciona un elemento del canvas")}>?</button></div><div className="arki-info-empty"><DoorOpen size={22} /><strong>Sin selección</strong><p>Selecciona una familia, espacio o elemento para consultar sus propiedades, materiales, metrados, costo y trazabilidad.</p></div><div className="arki-info-status"><span className="arki-engine-dot" />{accessLabel(access)}<b>LOCAL</b></div></aside></div><footer className="arki-workspace-status"><span><i className="arki-engine-dot" /> MOTOR OPERATIVO</span><span>UNIDADES: MÉTRICO</span><span>DISCIPLINA: ARQUITECTURA</span><span>FASE: PROPUESTA</span><span className="arki-status-warning">REVISIÓN ESPECIALISTA REQUERIDA</span><span className="arki-status-spacer" /><span>Ctrl/Cmd+K COMANDOS</span></footer></div>;[m
+[32m+[m[32m}[m

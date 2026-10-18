@@ -1,0 +1,51 @@
+{
+  "artifact": "ARKI-COCO-EXAM-001.R1",
+  "status": "EXAM_VERIFIED_FOR_BOUNDED_FOUNDATION_TRANSFER",
+  "maximumStatus": "EXAM_VERIFIED_FOR_BOUNDED_FOUNDATION_TRANSFER",
+  "professionalCompetency": "NOT_CERTIFIED",
+  "productMutation": false,
+  "pfH01Modified": false,
+  "seed": "ARKI-TRANSFER-002-SEED-20260923",
+  "entries": [
+    {
+      "path": "scripts/test-coco-exam-001-r1.ts",
+      "sha256": "a5bd9a718b4c8bed4395bd1c54ca77d5642352aefd4f4017abbdbd9c0afc6946",
+      "bytes": 10054
+    },
+    {
+      "path": "scripts/run-coco-exam-001-r1-evidence.sh",
+      "sha256": "206d0db0d2fabe07e38695030f22b827d9dc1b0c943fbdb507101c3bb0947900",
+      "bytes": 1292
+    },
+    {
+      "path": "scripts/create-coco-exam-001-r1-package.py",
+      "sha256": "a5c742f3fa250fe91c278bc39b64ca69559f3fb12898bb5eb481b69192247371",
+      "bytes": 1780
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_RAW.json",
+      "sha256": "85cdd2551d2a82030537c5937ce9b7fb761677d0ff83705363ce8d158191303c",
+      "bytes": 4902
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_OUTPUTS.txt",
+      "sha256": "560919ac20f2cbe64d5296f23fa0cef78d4ea9f9225f3f0aff7d020d2a8e510b",
+      "bytes": 22956
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_REPORT.md",
+      "sha256": "cea968c90c98d0fec6ec78423ce49021563a546008c99bd680b767cfa790e561",
+      "bytes": 2518
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_LEARNING_LEDGER.md",
+      "sha256": "1aef2c8b28b808d2c47e648632fe147e199f3d1388b4f55a58bd32110a6af314",
+      "bytes": 816
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_SCOPE_LIMITS.md",
+      "sha256": "198e384cccaba39dda1892ec010a13a2f6f88951b0d400a2b938050c038e037a",
+      "bytes": 697
+    }
+  ]
+}

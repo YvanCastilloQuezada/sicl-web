@@ -1,0 +1,2 @@
+{"status":"PASS","normal":"PASS","boundary":"PASS","property":"PASS","mutants":"PASS","adversarial":"PASS","transfer":"PASS","regression":"PASS","canonicalMutation":false}
+{"status":"PASS","h01StatusCorrections":16,"identity":"PASS","executablePayload":"PASS","curator":"PASS","applicability":"PASS","epistemic":"PASS"}

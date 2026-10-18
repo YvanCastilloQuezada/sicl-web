@@ -1,0 +1,353 @@
+
+> arki-living-assembly@0.1.0 demo
+> npm run build && node dist/src/cli.js demo
+
+
+> arki-living-assembly@0.1.0 build
+> tsc -p tsconfig.json
+
+DEPENDENCIES {"order":["CORE_STATE","AGK_WALL","IFC_WALL"],"missing":[],"cycles":[]}
+{
+  "proposal": {
+    "schema": "ARKI-ASSEMBLY-PROPOSAL-1",
+    "id": "AP-77b4275fa9b04691",
+    "capabilityId": "CORE_STATE",
+    "proposedPhase": 1,
+    "blockers": [
+      {
+        "code": "NOT_VERIFIED",
+        "detail": "UNKNOWN"
+      },
+      {
+        "code": "EVIDENCE_MISSING",
+        "detail": "No evidence supplied"
+      }
+    ],
+    "options": [
+      {
+        "id": "CORE_STATE:DIRECT",
+        "kind": "DIRECT",
+        "title": "Conexión directa",
+        "rationale": "Reutilizar contrato existente; solo viable después de cerrar bloqueos",
+        "risk": "MEDIUM",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "DIRECT_INTERFACE_TEST"
+        ],
+        "permitted": false
+      },
+      {
+        "id": "CORE_STATE:ADAPTER",
+        "kind": "ADAPTER",
+        "title": "Adaptador subordinado",
+        "rationale": "Compatibilizar interfaces sin autoridad adicional",
+        "risk": "MEDIUM",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "ADAPTER_CONTRACT_TEST",
+          "NO_SECOND_AUTHORITY"
+        ],
+        "permitted": false
+      },
+      {
+        "id": "CORE_STATE:LAB",
+        "kind": "LAB",
+        "title": "Conservar en gemelo experimental",
+        "rationale": "Obtener evidencia aislada antes de integración",
+        "risk": "LOW",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "ISOLATION_TEST"
+        ],
+        "permitted": false
+      }
+    ],
+    "status": "PENDING_HUMAN_REVIEW",
+    "selected": null,
+    "evidenceHash": "7daefa4fc9e65409e7b53cd92539b5b8ff580bb596f2e3be92c21888b1f13236"
+  },
+  "experiments": [
+    {
+      "proposalId": "AP-77b4275fa9b04691",
+      "optionId": "CORE_STATE:DIRECT",
+      "passed": false,
+      "findings": [
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "CANONICAL_INTEGRATION_BLOCKED",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    },
+    {
+      "proposalId": "AP-77b4275fa9b04691",
+      "optionId": "CORE_STATE:ADAPTER",
+      "passed": false,
+      "findings": [
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "CANONICAL_INTEGRATION_BLOCKED",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    },
+    {
+      "proposalId": "AP-77b4275fa9b04691",
+      "optionId": "CORE_STATE:LAB",
+      "passed": true,
+      "findings": [
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "ISOLATED_PROPOSAL_ONLY",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    }
+  ]
+}
+{
+  "proposal": {
+    "schema": "ARKI-ASSEMBLY-PROPOSAL-1",
+    "id": "AP-e09192ff4957c02a",
+    "capabilityId": "AGK_WALL",
+    "proposedPhase": 6,
+    "blockers": [
+      {
+        "code": "DEPENDENCY_NOT_VERIFIED",
+        "detail": "CORE_STATE"
+      },
+      {
+        "code": "NOT_VERIFIED",
+        "detail": "UNKNOWN"
+      },
+      {
+        "code": "EVIDENCE_MISSING",
+        "detail": "No evidence supplied"
+      }
+    ],
+    "options": [
+      {
+        "id": "AGK_WALL:DIRECT",
+        "kind": "DIRECT",
+        "title": "Conexión directa",
+        "rationale": "Reutilizar contrato existente; solo viable después de cerrar bloqueos",
+        "risk": "MEDIUM",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "DIRECT_INTERFACE_TEST"
+        ],
+        "permitted": false
+      },
+      {
+        "id": "AGK_WALL:ADAPTER",
+        "kind": "ADAPTER",
+        "title": "Adaptador subordinado",
+        "rationale": "Compatibilizar interfaces sin autoridad adicional",
+        "risk": "MEDIUM",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "ADAPTER_CONTRACT_TEST",
+          "NO_SECOND_AUTHORITY"
+        ],
+        "permitted": false
+      },
+      {
+        "id": "AGK_WALL:LAB",
+        "kind": "LAB",
+        "title": "Conservar en gemelo experimental",
+        "rationale": "Obtener evidencia aislada antes de integración",
+        "risk": "LOW",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "ISOLATION_TEST"
+        ],
+        "permitted": false
+      }
+    ],
+    "status": "PENDING_HUMAN_REVIEW",
+    "selected": null,
+    "evidenceHash": "7fcc205e32135a275ae435c7174699b040b78609f2b98c7a62cb83295cf37c6a"
+  },
+  "experiments": [
+    {
+      "proposalId": "AP-e09192ff4957c02a",
+      "optionId": "AGK_WALL:DIRECT",
+      "passed": false,
+      "findings": [
+        "DEPENDENCY_NOT_VERIFIED:CORE_STATE",
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "CANONICAL_INTEGRATION_BLOCKED",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    },
+    {
+      "proposalId": "AP-e09192ff4957c02a",
+      "optionId": "AGK_WALL:ADAPTER",
+      "passed": false,
+      "findings": [
+        "DEPENDENCY_NOT_VERIFIED:CORE_STATE",
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "CANONICAL_INTEGRATION_BLOCKED",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    },
+    {
+      "proposalId": "AP-e09192ff4957c02a",
+      "optionId": "AGK_WALL:LAB",
+      "passed": true,
+      "findings": [
+        "DEPENDENCY_NOT_VERIFIED:CORE_STATE",
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "ISOLATED_PROPOSAL_ONLY",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    }
+  ]
+}
+{
+  "proposal": {
+    "schema": "ARKI-ASSEMBLY-PROPOSAL-1",
+    "id": "AP-25ba59ea08f9c2ab",
+    "capabilityId": "IFC_WALL",
+    "proposedPhase": 7,
+    "blockers": [
+      {
+        "code": "DEPENDENCY_NOT_VERIFIED",
+        "detail": "AGK_WALL"
+      },
+      {
+        "code": "NOT_VERIFIED",
+        "detail": "UNKNOWN"
+      },
+      {
+        "code": "EVIDENCE_MISSING",
+        "detail": "No evidence supplied"
+      }
+    ],
+    "options": [
+      {
+        "id": "IFC_WALL:DIRECT",
+        "kind": "DIRECT",
+        "title": "Conexión directa",
+        "rationale": "Reutilizar contrato existente; solo viable después de cerrar bloqueos",
+        "risk": "MEDIUM",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "DIRECT_INTERFACE_TEST"
+        ],
+        "permitted": false
+      },
+      {
+        "id": "IFC_WALL:ADAPTER",
+        "kind": "ADAPTER",
+        "title": "Adaptador subordinado",
+        "rationale": "Compatibilizar interfaces sin autoridad adicional",
+        "risk": "MEDIUM",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "ADAPTER_CONTRACT_TEST",
+          "NO_SECOND_AUTHORITY"
+        ],
+        "permitted": false
+      },
+      {
+        "id": "IFC_WALL:LAB",
+        "kind": "LAB",
+        "title": "Conservar en gemelo experimental",
+        "rationale": "Obtener evidencia aislada antes de integración",
+        "risk": "LOW",
+        "checks": [
+          "HUMAN_APPROVAL",
+          "AUTHORITY_BOUNDARY",
+          "DETERMINISTIC_REPLAY",
+          "REGRESSION_PHASES_1_TO_10",
+          "ISOLATION_TEST"
+        ],
+        "permitted": false
+      }
+    ],
+    "status": "PENDING_HUMAN_REVIEW",
+    "selected": null,
+    "evidenceHash": "f9512496d25e5c04f6cf3bb32cab1ef2c130e1b29efd25b5b607e07f4d1e59b5"
+  },
+  "experiments": [
+    {
+      "proposalId": "AP-25ba59ea08f9c2ab",
+      "optionId": "IFC_WALL:DIRECT",
+      "passed": false,
+      "findings": [
+        "DEPENDENCY_NOT_VERIFIED:AGK_WALL",
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "CANONICAL_INTEGRATION_BLOCKED",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    },
+    {
+      "proposalId": "AP-25ba59ea08f9c2ab",
+      "optionId": "IFC_WALL:ADAPTER",
+      "passed": false,
+      "findings": [
+        "DEPENDENCY_NOT_VERIFIED:AGK_WALL",
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "CANONICAL_INTEGRATION_BLOCKED",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    },
+    {
+      "proposalId": "AP-25ba59ea08f9c2ab",
+      "optionId": "IFC_WALL:LAB",
+      "passed": true,
+      "findings": [
+        "DEPENDENCY_NOT_VERIFIED:AGK_WALL",
+        "NOT_VERIFIED:UNKNOWN",
+        "EVIDENCE_MISSING:No evidence supplied",
+        "ISOLATED_PROPOSAL_ONLY",
+        "NO_REAL_CODE_EXECUTED",
+        "NO_CANONICAL_MUTATION"
+      ],
+      "mode": "DRY_RUN_ONLY"
+    }
+  ]
+}

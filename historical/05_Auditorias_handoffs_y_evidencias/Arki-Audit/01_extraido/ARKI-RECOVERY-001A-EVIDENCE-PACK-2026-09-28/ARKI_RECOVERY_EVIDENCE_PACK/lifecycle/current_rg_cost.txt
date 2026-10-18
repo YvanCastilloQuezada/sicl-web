@@ -1,0 +1,113 @@
+src/sicl/representation.py:342:    cost_class: str = "DEFAULT"
+src/sicl/representation.py:346:        for name in ("semantic_detail", "geometric_fidelity", "annotation_intent", "output_intent", "cost_class"):
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:70:SUNK COMPUTATIONAL COST ≠ RIGHT TO SURVIVE
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:149:Si una posibilidad puede descartarse mediante una comprobación simple, no debe recibir innecesariamente geometría compleja, simulación pesada, BIM detallado, razonamiento multiagente, optimización profunda, análisis de alta fidelidad ni recursos computacionales costosos.
+tests/test_h005_propagation.py:22:    a1, q1, c1 = VersionedRef("Area", "A", 1), VersionedRef("Quantity", "Q", 1), VersionedRef("Cost", "C", 1)
+tests/test_h005_propagation.py:25:    ledger.record("P", rec("D-C1", c1, q1, "cost"))
+tests/test_h005_propagation.py:38:    registry.register("cost", "1.0", handler("cost", c1))
+tests/test_h005_propagation.py:46:    assert [method for method, _ in calls] == ["area", "quantity", "cost"]
+tests/test_reaction.py:277:            "R_B", VersionedRef("Cost", "B", 1), "STALE",
+tests/test_reaction.py:286:            VersionedRef("Cost", "B", 1), "FULLY_STALE", (dv_b,),
+tests/test_reaction.py:303:        blocked = VersionedRef("Cost", "B", 1)
+tests/test_multiscale_wall_move_e2e.py:10:  4. Costo: Δ materiales + Δ mano de obra = +$342 USD
+tests/test_multiscale_wall_move_e2e.py:18:- H-003 evalúa correctamente (Costo=STALE, Normativa=REQUIRES_HUMAN_REVIEW)
+tests/test_multiscale_wall_move_e2e.py:108:    # ESCALA 4: Costo
+tests/test_multiscale_wall_move_e2e.py:110:    costo_v1 = ref("Cost", "COSTO", 1, "4" * 64)
+tests/test_multiscale_wall_move_e2e.py:112:    # Derivación: costo deriva de cantidades
+tests/test_multiscale_wall_move_e2e.py:113:    ledger.record(project_id, record("D-COSTO", costo_v1, [piso_h07_v1, piso_p03_v1, pintura_v1]))
+tests/test_multiscale_wall_move_e2e.py:183:    # Debe descubrir: H-07, P-03, PISO-H07, PISO-P03, PINTURA, COSTO, R-2, V-22, PARTI
+tests/test_multiscale_wall_move_e2e.py:184:    expected_impacts = {"H-07", "P-03", "PISO-H07", "PISO-P03", "PINTURA", "COSTO", "R-2", "V-22", "PARTI-PASILLO-LUMINOSO"}
+tests/test_multiscale_wall_move_e2e.py:209:            ("Cost", "COSTO"): ref("Cost", "COSTO", 2, "c" * 64),
+tests/test_multiscale_wall_move_e2e.py:224:    # COSTO debe ser STALE (todas sus derivaciones son STALE)
+tests/test_multiscale_wall_move_e2e.py:225:    costo_validity = next(av for av in validity_report.artifact_validities if av.artifact_ref.entity_id == "COSTO")
+tests/test_multiscale_wall_move_e2e.py:226:    assert costo_validity.state == "FULLY_STALE"
+tests/test_multiscale_wall_move_e2e.py:227:    assert costo_validity.recommendation["action"] == "RECOMPUTE"
+tests/test_multiscale_wall_move_e2e.py:228:    assert costo_validity.recommendation["requiresHumanAuthority"] is False
+tests/test_multiscale_wall_move_e2e.py:229:    assert costo_validity.derivation_validities[0].source_checks == ("integrity_checks_D-COSTO",)
+tests/test_multiscale_wall_move_e2e.py:266:    print(f"   - COSTO: FULLY_STALE → RECOMPUTE")
+tests/test_multiscale_wall_move_e2e.py:324:    cost = ref("Cost", "C-1", 1, "f" * 64)
+tests/test_multiscale_wall_move_e2e.py:327:    ledger.record(project_id, record("D-COST", cost, mids))
+tests/test_impact_adversarial.py:20:    a=ref("Area","A",1,"c"*64); c=ref("Cost","C",1,"d"*64)
+tests/test_impact_adversarial.py:124:    out=ref("Cost","C",1,"c"*64)
+tests/test_impact.py:21:    a=ref("Area","A1",1,H("b")); q=ref("Quantity","Q1",2,H("c")); c=ref("Cost","C1",4,H("d"))
+tests/test_impact.py:66:    g=ref("Geometry","G",1,H("a")); a=ref("Area","A",1,H("b")); p=ref("Perimeter","P",1,H("c")); c=ref("Cost","C",1,H("d"))
+tests/test_impact.py:77:    out=ref("Cost","C",1,H("c"))
+src/sicl/cli.py:1149:        proposals = [item for item in proposals if not target_objectives or any(item_key in target_objectives for item_key in ("ENERGY_SAVINGS", "CONSTRUCTION_COST", "ESTIMATED_COST"))]
+src/sicl/agents.py:70:        objective = next((item for item in project.objectives.values() if item.key == "ESTIMATED_COST"), None)
+src/sicl/agents.py:72:            raise ValueError("ESTIMATED_COST objective is required")
+src/sicl/agents.py:75:        cost_per_m2 = next((_number(item.statement, "COST_PER_M2") for item in project.assumptions.values() if _number(item.statement, "COST_PER_M2") is not None), None) or 0.0
+src/sicl/agents.py:79:        estimated = floors * area * cost_per_m2
+tests/test_derivation.py:36:    s=MemoryStore(); l=DerivationLedger(s); g=ref("Geometry","G1",3); a=ref("RoomArea","A1",1); q=ref("Quantity","Q1",2); c=ref("Cost","C1",4)
+tests/test_v2.py:73:    objectives = [Objective("comfort", "P", "COMFORT", "MAXIMIZE", "0"), Objective("cost", "P", "COST", "MINIMIZE", "0")]
+tests/test_v2.py:75:    evaluations = [Evaluation("a1", "A", "comfort", 90), Evaluation("a2", "A", "cost", 100), Evaluation("b1", "B", "comfort", 80), Evaluation("b2", "B", "cost", 80), Evaluation("c1", "C", "comfort", 70), Evaluation("c2", "C", "cost", 120)]
+tests/test_v2.py:106:    cli.execute("/OBJECTIVE SET COST MINIMIZE 100")
+tests/test_v2.py:110:    cli.execute("/EVALUATE A COST 100")
+tests/test_v2.py:112:    cli.execute("/EVALUATE B COST 80")
+tests/test_v2.py:114:    result = cli.execute("/PARETO COMFORT COST")
+tests/test_optimization_phase5.py:11:    proposals = GenerativeOptimizer().generate(alternative, [Evaluation("E", "A", "COST", -1, source="EXPERT_SYSTEM")])
+tests/test_optimization_phase5.py:34:    result = cli.execute("/GENERATE CONVENCIONAL_A ENERGY_SAVINGS,CONSTRUCTION_COST")
+tests/test_optimization_phase5.py:61:    cli.execute("/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 100")
+tests/test_optimization_phase5.py:65:    cli.execute("/EVALUATE A CONSTRUCTION_COST 100")
+tests/test_optimization_phase5.py:67:    cli.execute("/EVALUATE B CONSTRUCTION_COST 115")
+tests/test_optimization_phase5.py:68:    text = cli.execute("/TRADEOFF_MATRIX ENERGY_SAVINGS CONSTRUCTION_COST")["data"]["text"]
+tests/test_agents_debate.py:37:    project.objectives["C"] = Objective("C", "P", "ESTIMATED_COST", "MINIMIZE", "0")
+tests/test_agents_debate.py:38:    project.assumptions["A"] = Assumption("A", "P", "AREA=2000 COST_PER_M2=1200", "ESTIMATION")
+tests/test_agents_debate.py:46:def test_economic_agent_calculates_cost_under_budget():
+tests/test_agents_debate.py:48:    project.objectives["C"] = Objective("C", "P", "ESTIMATED_COST", "MINIMIZE", "0")
+tests/test_agents_debate.py:49:    project.assumptions["A"] = Assumption("A", "P", "AREA=1000 COST_PER_M2=100", "ESTIMATION")
+tests/test_agents_debate.py:61:    cli.execute("/OBJECTIVE SET ESTIMATED_COST MINIMIZE 0")
+tests/test_agents_debate.py:64:    cli.execute("/ASSUMPTION SET AREA=1000 COST_PER_M2=100 ESTIMATION")
+tests/test_agents_debate.py:95:    project.objectives["C"] = Objective("C", "P", "ESTIMATED_COST", "MINIMIZE", "0")
+tests/test_agents_debate.py:96:    project.assumptions["A"] = Assumption("A", "P", "AREA=100 COST_PER_M2=10", "ESTIMATION")
+tests/test_multi_actor.py:40:    second = cli.execute('/POSITION ADD A-2 ALTERNATIVE ALT-1 OPPOSE "Rejects cost"')
+tests/test_multi_actor.py:93:        actor = client.post('/v1/projects/HTTP-ACT/actors', json={"actor_id": "A-1", "role": "CLIENT", "name": "Client", "authority_level": "ADVISORY", "interests": ["cost"]})
+tests/test_multi_actor.py:95:        assert actor.json()["data"]["actor"]["interests"] == ["cost"]
+tests/test_multiobjective.py:17:    objective_b = cli.execute('/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 80')["data"]["objective_id"]
+tests/test_multiobjective.py:21:    cli.execute('/EVALUATE ALPHA CONSTRUCTION_COST 80 USD 1 USER_INPUT')
+tests/test_multiobjective.py:23:    cli.execute('/EVALUATE BETA CONSTRUCTION_COST 100 USD 1 USER_INPUT')
+tests/test_multiobjective.py:31:        result = cli.execute(f'/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:40:        assert record["objectives"] == ["ENERGY_SAVINGS", "CONSTRUCTION_COST"]
+tests/test_multiobjective.py:49:        result = cli.execute('/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:66:        cli.execute('/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 80')
+tests/test_multiobjective.py:68:        result = cli.execute('/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:73:        assert cli.execute('/MULTIOBJECTIVE PARETO UNKNOWN CONSTRUCTION_COST')["code"] == "OBJECTIVE_NOT_FOUND"
+tests/test_multiobjective.py:84:        cli.execute('/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 80')
+tests/test_multiobjective.py:87:        result = cli.execute('/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:97:    result = cli.execute('/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:125:        created = TestClient(app).post('/v1/projects/P-MOBJ/multiobjective/pareto', json={"objectives": ["ENERGY_SAVINGS", "CONSTRUCTION_COST"]})
+tests/test_multiobjective.py:130:        tradeoffs = TestClient(app).post('/v1/projects/P-MOBJ/multiobjective/tradeoffs', json={"objectives": ["ENERGY_SAVINGS", "CONSTRUCTION_COST"]})
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:157:  → evaluaciones de energía y costo
+docs/RFC-014_USER_COPILOT.md:80:El Nivel 1 utiliza reglas deterministas escritas y verificables. No utiliza LLM. Su objetivo es ofrecer ayuda predecible con coste operativo bajo.
+tests/test_core.py:76:    assert cli.execute('/OBJECTIVE SET cost DEFAULT 10')["code"] == "INVALID_ARGUMENT"
+tests/test_core.py:166:    assert cli.execute('/OBJECTIVE SET cost MINIMIZE 10')["code"] == "INVALID_STATE"
+docs/OPERATIONS_MANUAL.md:449:/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:465:/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:739:/MULTIOBJECTIVE PARETO CLIMATE CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:740:/MULTIOBJECTIVE TRADEOFFS CLIMATE CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:516:/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:530:/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:630:/GENERATE evolutionary_v1 ENERGY_SAVINGS,CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:644:/PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:658:/TRADEOFF_MATRIX ENERGY_SAVINGS CONSTRUCTION_COST
+docs/GLOSSARY.md:36:**Ejemplo:** Comparar `CONVENCIONAL_A` y `BIOCLIMATICA_B` en energía y coste.  
+docs/GLOSSARY.md:106:**Ejemplo:** Frente no dominado entre ahorro energético y coste de construcción.  
+docs/GLOSSARY.md:141:**Ejemplo:** Preferir menor coste inicial frente a una mejora marginal de rendimiento.  
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:62:| Fidelity/compute policy | `PARTIAL` | law and cheapest-sufficient direction documented | stage, evidence, cost | no runtime funnel | separate funnel authorization | Policy |
+docs/USER_MANUAL.md:91:/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 60 USD_M2
+docs/USER_MANUAL.md:208:/PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/USER_MANUAL.md:209:/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/USER_MANUAL.md:210:/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+docs/USER_MANUAL.md:606:/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 60
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:184:cost_class
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:389:IDEA        → low-cost diagram or knowledge view
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:397:> ARKI uses the least costly representation that provides the evidence necessary for the current decision.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:217:## 10. Cost, funnel, and progressive fidelity
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:219:The canonical law **La Vida de las Ideas es Cruel** and its funnel mechanism inform future representation cost, without imposing a rigid mapping from survival stage to mandatory view type.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:229:IDEA         → LOW-COST REPRESENTATION
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:241:> **ARKI should use the least costly representation that provides sufficient evidence for the current decision.**
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:249:High-fidelity output should not be generated automatically for possibilities that can still be eliminated by lower-cost evidence.
+docs/rfc/RFC-037-RAMAS-Y-MOTORES.md:23:| Costos / presupuestos | Sin maestro dominante; oportunidad de motor propio | No iniciado | Modelo nativo de costos |
+docs/rfc/RFC-037-RAMAS-Y-MOTORES.md:47:11. Costos.
+docs/rfc/RFC-037-RAMAS-Y-MOTORES.md:69:/COSTS
+docs/rfc/RFC-037-MULTI-ENGINE-ABSORPTION-DOCTRINE.md:64:- Costos y presupuestos.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:445:Feasible Pareto for UPAO-001, energy savings, construction cost, automatic recommendation, and automatic Decision remain outside the approved pilot scope.

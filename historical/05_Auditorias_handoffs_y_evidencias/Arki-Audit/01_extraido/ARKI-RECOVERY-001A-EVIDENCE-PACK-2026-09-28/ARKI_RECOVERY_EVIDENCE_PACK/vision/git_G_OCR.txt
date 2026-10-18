@@ -1,0 +1,3 @@
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33m6fb8be8[m feat(rfc-030): add ISO128 RNE drawing standard
+[33m98fa06d[m docs: prepare controlled architect mvp validation

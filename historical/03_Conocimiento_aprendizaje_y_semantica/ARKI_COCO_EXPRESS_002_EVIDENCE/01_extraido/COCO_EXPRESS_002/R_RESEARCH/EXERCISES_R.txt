@@ -1,0 +1,103 @@
+R — EJERCICIOS MICRO / COCO-EXPRESS-002
+=========================================
+
+Alcance: R1 benchmark, R2 generación adversarial, R3 transfer/meta-learning.
+Fixtures: sintéticos, propios y distintos del escenario transversal existente.
+Contaminación de exámenes DeepSeek/Lipsic: NO usada.
+Código correcto: sólo test aislado en /home/ubuntu/jobs/cbef0db18f21_a13/test_r.py; no se dejó mutante en el repositorio.
+
+CONTRATO COMÚN
+--------------
+Cada registro conserva:
+  id, value, epistemic, evidence_kind, units,
+  applicability={project,time,scenario,scale},
+  scale, project, time, scenario,
+  provenance={source,authority,version}.
+
+Regla oracle: UNKNOWN no puede contener value; units no puede faltar; applicability
+requiere project/time/scenario/scale; provenance requiere source/authority/version.
+OBSERVATION, SIMULATION, FORECAST, HASH e IMPORT_SUCCESS no se elevan a FACT,
+medición, verdad, firma o fidelidad. Un PASS sólo significa pasar este oracle.
+
+[1] NORMAL — R1 BENCHMARK
+--------------------------
+Tarea propia: clasificar el nivel térmico de un conjunto sintético de ventanas.
+No es diseño energético ni verificación física.
+
+Casos:
+  N-01 value=low,  epistemic=OBJECTIVE, evidence_kind=FACT,
+       units=category, scale=room, project=P-ALBA, time=2026-Q1,
+       scenario=window-set-A, source=fixture:thermal-01,
+       expected=low, predicted=low
+  N-02 value=high, epistemic=OBJECTIVE, evidence_kind=FACT,
+       units=category, scale=room, project=P-ALBA, time=2026-Q1,
+       scenario=window-set-A, source=fixture:thermal-02,
+       expected=high, predicted=low
+  N-03 value=null, epistemic=UNKNOWN, evidence_kind=OBSERVATION,
+       units=kPa, scale=room, project=P-ALBA, time=2026-Q1,
+       scenario=window-set-A, source=fixture:thermal-03
+
+Resultado ejecutado:
+  matched=1, known=2, score=0.5, unknown_preserved=1.
+Interpretación: la métrica es ilustrativa; no equivale a competencia.
+
+[2] ADVERSARIAL — R2 MUTACIONES CONTROLADAS
+--------------------------------------------
+Caso base propio:
+  A-01 value=12.0, epistemic=OBSERVATION, evidence_kind=OBSERVATION,
+       units=kPa, scale=component, project=P-BRUMA,
+       time=2026-04-17T09:00Z, scenario=valve-v2,
+       source=sensor-log:S17, authority=synthetic-lab, version=r1-r3-v1.
+
+Mutante M1: eliminar applicability.scale.
+Oracle esperado: RECHAZAR (falta escala contextual).
+Resultado: DETECTADO = true.
+
+Mutante M2: cambiar epistemic OBSERVATION a FACT sin nueva evidencia.
+Oracle esperado: RECHAZAR (promoción epistemológica no permitida).
+Resultado: DETECTADO = true.
+
+Resultado adversarial:
+  correct_valid=true,
+  mutant_missing_scale_detected=true,
+  mutant_truth_promotion_detected=true,
+  mutantsKilled=2.
+El caso base quedó intacto; los mutantes sólo existieron en memoria del test.
+
+[3] TRANSFER — R3 TRANSFERENCIA ENTRE TAREAS
+--------------------------------------------
+Tarea nueva: registros de demanda hídrica de un distrito ficticio. Cambian dominio,
+identificadores, escala, scenario y tipos de evidencia respecto de [1] y [2].
+
+T-01 value=0.73, epistemic=FORECAST, evidence_kind=FORECAST,
+     units=probability, scale=district, project=P-CEDRO, time=2027-08,
+     scenario=water-demand-v3, source=model:hydro-forecast.
+T-02 value=success, epistemic=OBSERVATION, evidence_kind=IMPORT_SUCCESS,
+     units=status, scale=dataset, project=P-CEDRO, time=2027-08,
+     scenario=water-demand-v3, source=import:csv-19.
+T-03 value=sha256:abc, epistemic=EVIDENCE, evidence_kind=HASH,
+     units=digest, scale=artifact, project=P-CEDRO, time=2027-08,
+     scenario=water-demand-v3, source=hash:artifact-19.
+
+Resultado ejecutado:
+  cases=3,
+  forecast_not_truth=true,
+  import_not_fidelity=true,
+  hash_not_signature=true,
+  metadata_preserved=true.
+
+EJECUCIÓN Y EVIDENCIA
+---------------------
+Comando:
+  python3 /home/ubuntu/jobs/cbef0db18f21_a13/test_r.py
+
+Salida JSON:
+  {"adversarial":{"correct_valid":true,"mutant_missing_scale_detected":true,
+  "mutant_truth_promotion_detected":true},"mutantsKilled":2,
+  "normal":{"known":2,"matched":1,"score":0.5,"unknown_preserved":1},
+  "transfer":{"cases":3,"forecast_not_truth":true,"hash_not_signature":true,
+  "import_not_fidelity":true,"metadata_preserved":true}}
+
+Assertions ejecutadas: sí. El código correcto no se modificó después de la prueba.
+No se modificaron Product State, BKH, TX, E5-E8 ni PF-H01.
+No se implementó solver profesional ni se emitió certificación.

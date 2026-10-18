@@ -1,0 +1,1034 @@
+ARCHIVO: Ruleta Perú 28-7-2024.xlsm
+Tamaño: 25,710,638 bytes
+Hojas: Inicio, Jugadas, Ganadores1y2, BaseDeDatos, RuleBingo 10x10, Tipos, Registro
+
+[Inicio] estado=visible rango=A1:X51 filas=51 columnas=24
+  Celdas no vacías: 0; tipos={}; fórmulas=0; fechas=0; texto=0
+  Fórmulas por columna: {}
+  Funciones detectadas: {}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+  Últimas fórmulas:
+  Texto visible relevante:
+  Valores de muestra por fila (primeras 35 filas no vacías):
+
+[Jugadas] estado=visible rango=A1:I89 filas=89 columnas=9
+  Celdas no vacías: 393; tipos={'s': 6, 'd': 177, 'f': 194, 'n': 16}; fórmulas=194; fechas=177; texto=6
+  Fórmulas por columna: {'B': 88, 'C': 87, 'H': 17, 'I': 2}
+  Funciones detectadas: {}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+    B2: =C2+D2 => 2024-05-24 09:00:00
+    B3: =C3+D3 => 2024-05-24 10:00:00
+    C3: =C2 => 2024-05-24 00:00:00
+    B4: =C4+D4 => 2024-05-24 11:00:00
+    C4: =C3 => 2024-05-24 00:00:00
+    B5: =C5+D5 => 2024-05-24 12:00:00
+    C5: =C4 => 2024-05-24 00:00:00
+    B6: =C6+D6 => 2024-05-24 13:00:00
+    C6: =C5 => 2024-05-24 00:00:00
+    B7: =C7+D7 => 2024-05-24 16:00:00
+    C7: =C6 => 2024-05-24 00:00:00
+    B8: =C8+D8 => 2024-05-24 17:00:00
+    C8: =C7 => 2024-05-24 00:00:00
+    B9: =C9+D9 => 2024-05-24 18:00:00
+    C9: =C8 => 2024-05-24 00:00:00
+    B10: =C10+D10 => 2024-05-24 19:00:00
+    C10: =C9 => 2024-05-24 00:00:00
+    B11: =C11+D11 => 2024-05-24 20:00:00
+    C11: =C10 => 2024-05-24 00:00:00
+    H11: =I11/$H$10 => 1
+    B12: =C12+D12 => 2024-05-24 21:00:00
+    C12: =C11 => 2024-05-24 00:00:00
+    H12: =I12/$H$10 => 0.5
+    I12: =I11*0.5 => 10000
+    B13: =C13+D13 => 2024-05-25 09:00:00
+    C13: =C12+1 => 2024-05-25 00:00:00
+    H13: =I13/$H$10 => 0.25
+    I13: =I12*0.5 => 5000
+    B14: =C14+D14 => 2024-05-25 10:00:00
+    C14: =C13 => 2024-05-25 00:00:00
+    H14: =I14/$H$10 => 0.2375
+    B15: =C15+D15 => 2024-05-25 11:00:00
+    C15: =C14 => 2024-05-25 00:00:00
+    H15: =I15/$H$10 => 0.225
+    B16: =C16+D16 => 2024-05-25 12:00:00
+    C16: =C15 => 2024-05-25 00:00:00
+    H16: =I16/$H$10 => 0.2125
+    B17: =C17+D17 => 2024-05-25 13:00:00
+    C17: =C16 => 2024-05-25 00:00:00
+    H17: =I17/$H$10 => 0.2
+    B18: =C18+D18 => 2024-05-25 16:00:00
+    C18: =C17 => 2024-05-25 00:00:00
+    H18: =I18/$H$10 => 0.1875
+    B19: =C19+D19 => 2024-05-25 17:00:00
+    C19: =C18 => 2024-05-25 00:00:00
+  Últimas fórmulas:
+    C82: =C81 => 2024-05-31 00:00:00
+    B83: =C83+D83 => 2024-05-31 13:00:00
+    C83: =C82 => 2024-05-31 00:00:00
+    B84: =C84+D84 => 2024-05-31 16:00:00
+    C84: =C83 => 2024-05-31 00:00:00
+    B85: =C85+D85 => 2024-05-31 17:00:00
+    C85: =C84 => 2024-05-31 00:00:00
+    B86: =C86+D86 => 2024-05-31 18:00:00
+    C86: =C85 => 2024-05-31 00:00:00
+    B87: =C87+D87 => 2024-05-31 19:00:00
+    C87: =C86 => 2024-05-31 00:00:00
+    B88: =C88+D88 => 2024-05-31 20:00:00
+    C88: =C87 => 2024-05-31 00:00:00
+    B89: =C89+D89 => 2024-05-31 21:00:00
+    C89: =C88 => 2024-05-31 00:00:00
+  Texto visible relevante:
+    A1: Nro de Juego
+    B1: Horario
+    C1: Día
+    D1: Hora
+    E1: Monto Jugado
+    F1: Ganadores
+  Valores de muestra por fila (primeras 35 filas no vacías):
+    fila 1: ['Nro de Juego', 'Horario', 'Día', 'Hora', 'Monto Jugado', 'Ganadores', None, None, None]
+    fila 2: [datetime.datetime(2024, 5, 24, 9, 0), datetime.datetime(2024, 5, 24, 9, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(9, 0), None, None, None, None, None]
+    fila 3: [datetime.datetime(2024, 5, 25, 9, 0), datetime.datetime(2024, 5, 24, 10, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(10, 0), None, None, None, None, None]
+    fila 4: [datetime.datetime(2024, 5, 26, 9, 0), datetime.datetime(2024, 5, 24, 11, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(11, 0), None, None, None, None, None]
+    fila 5: [datetime.datetime(2024, 5, 27, 9, 0), datetime.datetime(2024, 5, 24, 12, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(12, 0), None, None, None, None, None]
+    fila 6: [datetime.datetime(2024, 5, 28, 9, 0), datetime.datetime(2024, 5, 24, 13, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(13, 0), None, None, None, None, None]
+    fila 7: [datetime.datetime(2024, 5, 29, 9, 0), datetime.datetime(2024, 5, 24, 16, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(16, 0), None, None, None, None, None]
+    fila 8: [datetime.datetime(2024, 5, 30, 9, 0), datetime.datetime(2024, 5, 24, 17, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(17, 0), None, None, None, None, None]
+    fila 9: [datetime.datetime(2024, 5, 31, 9, 0), datetime.datetime(2024, 5, 24, 18, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(18, 0), None, None, None, None, None]
+    fila 10: [datetime.datetime(2024, 6, 1, 9, 0), datetime.datetime(2024, 5, 24, 19, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(19, 0), None, None, None, 20000, None]
+    fila 11: [datetime.datetime(2024, 6, 2, 9, 0), datetime.datetime(2024, 5, 24, 20, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(20, 0), None, None, None, 1, 20000]
+    fila 12: [datetime.datetime(2024, 6, 3, 9, 0), datetime.datetime(2024, 5, 24, 21, 0), datetime.datetime(2024, 5, 24, 0, 0), datetime.time(21, 0), None, None, None, 0.5, 10000]
+    fila 13: [datetime.datetime(2024, 6, 4, 9, 0), datetime.datetime(2024, 5, 25, 9, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(9, 0), None, None, None, 0.25, 5000]
+    fila 14: [datetime.datetime(2024, 6, 5, 9, 0), datetime.datetime(2024, 5, 25, 10, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(10, 0), None, None, None, 0.2375, 4750]
+    fila 15: [datetime.datetime(2024, 6, 6, 9, 0), datetime.datetime(2024, 5, 25, 11, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(11, 0), None, None, None, 0.225, 4500]
+    fila 16: [datetime.datetime(2024, 6, 7, 9, 0), datetime.datetime(2024, 5, 25, 12, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(12, 0), None, None, None, 0.2125, 4250]
+    fila 17: [datetime.datetime(2024, 6, 8, 9, 0), datetime.datetime(2024, 5, 25, 13, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(13, 0), None, None, None, 0.2, 4000]
+    fila 18: [datetime.datetime(2024, 6, 9, 9, 0), datetime.datetime(2024, 5, 25, 16, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(16, 0), None, None, None, 0.1875, 3750]
+    fila 19: [datetime.datetime(2024, 6, 10, 9, 0), datetime.datetime(2024, 5, 25, 17, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(17, 0), None, None, None, 0.175, 3500]
+    fila 20: [datetime.datetime(2024, 6, 11, 9, 0), datetime.datetime(2024, 5, 25, 18, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(18, 0), None, None, None, 0.1625, 3250]
+    fila 21: [datetime.datetime(2024, 6, 12, 9, 0), datetime.datetime(2024, 5, 25, 19, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(19, 0), None, None, None, 0.15, 3000]
+    fila 22: [datetime.datetime(2024, 6, 13, 9, 0), datetime.datetime(2024, 5, 25, 20, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(20, 0), None, None, None, 0.1375, 2750]
+    fila 23: [datetime.datetime(2024, 6, 14, 9, 0), datetime.datetime(2024, 5, 25, 21, 0), datetime.datetime(2024, 5, 25, 0, 0), datetime.time(21, 0), None, None, None, 0.125, 2500]
+    fila 24: [datetime.datetime(2024, 6, 15, 9, 0), datetime.datetime(2024, 5, 26, 9, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(9, 0), None, None, None, 0.1, 2000]
+    fila 25: [datetime.datetime(2024, 6, 16, 9, 0), datetime.datetime(2024, 5, 26, 10, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(10, 0), None, None, None, 0.075, 1500]
+    fila 26: [datetime.datetime(2024, 6, 17, 9, 0), datetime.datetime(2024, 5, 26, 11, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(11, 0), None, None, None, 0.05, 1000]
+    fila 27: [datetime.datetime(2024, 6, 18, 9, 0), datetime.datetime(2024, 5, 26, 12, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(12, 0), None, None, None, 0.025, 500]
+    fila 28: [datetime.datetime(2024, 6, 19, 9, 0), datetime.datetime(2024, 5, 26, 13, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(13, 0), None, None, None, None, None]
+    fila 29: [datetime.datetime(2024, 6, 20, 9, 0), datetime.datetime(2024, 5, 26, 16, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(16, 0), None, None, None, None, None]
+    fila 30: [datetime.datetime(2024, 6, 21, 9, 0), datetime.datetime(2024, 5, 26, 17, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(17, 0), None, None, None, None, None]
+    fila 31: [datetime.datetime(2024, 6, 22, 9, 0), datetime.datetime(2024, 5, 26, 18, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(18, 0), None, None, None, None, None]
+    fila 32: [datetime.datetime(2024, 6, 23, 9, 0), datetime.datetime(2024, 5, 26, 19, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(19, 0), None, None, None, None, None]
+    fila 33: [datetime.datetime(2024, 6, 24, 9, 0), datetime.datetime(2024, 5, 26, 20, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(20, 0), None, None, None, None, None]
+    fila 34: [datetime.datetime(2024, 6, 25, 9, 0), datetime.datetime(2024, 5, 26, 21, 0), datetime.datetime(2024, 5, 26, 0, 0), datetime.time(21, 0), None, None, None, None, None]
+    fila 35: [datetime.datetime(2024, 6, 26, 9, 0), datetime.datetime(2024, 5, 27, 9, 0), datetime.datetime(2024, 5, 27, 0, 0), datetime.time(9, 0), None, None, None, None, None]
+
+[Ganadores1y2] estado=visible rango=A1:F1 filas=1 columnas=6
+  Celdas no vacías: 6; tipos={'s': 6}; fórmulas=0; fechas=0; texto=6
+  Fórmulas por columna: {}
+  Funciones detectadas: {}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+  Últimas fórmulas:
+  Texto visible relevante:
+    A1: Boleto
+    B1: Nombre y Apellido
+    C1: Celular
+    D1: Apuesta
+    E1: Aciertos
+    F1: Premios
+  Valores de muestra por fila (primeras 35 filas no vacías):
+    fila 1: ['Boleto', 'Nombre y Apellido', 'Celular', 'Apuesta', 'Aciertos', 'Premios']
+
+[BaseDeDatos] estado=visible rango=A1:AN5001 filas=5001 columnas=40
+  Celdas no vacías: 89848; tipos={'s': 99, 'n': 44710, 'f': 45039}; fórmulas=45039; fechas=0; texto=99
+  Fórmulas por columna: {'K': 5000, 'L': 5000, 'M': 5000, 'N': 5000, 'O': 5000, 'P': 5000, 'Q': 5000, 'R': 5000, 'U': 14, 'AD': 5000, 'X': 1, 'AJ': 9, 'AL': 11, 'W': 1, 'AK': 3}
+  Funciones detectadas: {'IF': 225015, 'ISBLANK': 20000, 'SUMPRODUCT': 60000, 'COUNTIF': 60038, 'OR': 15000, 'CONCATENATE': 90000, 'AND': 35000, 'SUM': 2}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+    K2: <openpyxl.worksheet.formula.ArrayFormula object at 0x7f581bb32cc0> => None
+    L2: =IF(ISBLANK(D2), "",
+IF(D2=1,
+    IF(SUMPRODUCT(COUNTIF(E2:G2, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E2:G2, $Z$1))),
+IF(D2=2,
+    IF(SUMPRODUCT(COUNTIF(E2:I2, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E2:I2, $Z$1))),
+IF(D2=3,
+    IF(SUMPRODUCT(COUNTIF(E2:J2, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E2:J2, $Z$1))),
+"")))) => None
+    M2: =IF(ISBLANK(D2), "",
+IF(OR(K2="", K2<1), "",
+IF(K2=5,
+    IF(SUMPRODUCT(COUNTIF(E2:J2, $AA$1))=0, "", SUMPRODUCT(COUNTIF(E2:J2, $AA$1))),
+""))) => None
+    N2: =IF(ISBLANK(D2), "",
+IF(OR(K2="", K2<1), "",
+IF(K2=5,
+    IF(SUMPRODUCT(COUNTIF(E2:J2, $AB$1))=0, "", SUMPRODUCT(COUNTIF(E2:J2, $AB$1))),
+""))) => None
+    O2: =IF(ISBLANK(D2), "",
+IF(OR(K2="", K2<1), "",
+IF(K2=5,
+    IF(SUMPRODUCT(COUNTIF(E2:J2, $AC$1))=0, "", SUMPRODUCT(COUNTIF(E2:J2, $AC$1))),
+""))) => None
+    P2: =IF(AD2="", "",
+IF(AD2=1, "",
+IF(AD2=2, CONCATENATE($S$2," x ",C2),
+IF(AD2=3, CONCATENATE($S$3," x ",C2),
+IF(AD2=4, CONCATENATE($S$4," x ",C2),
+IF(AD2=5, CONCATENATE($S$5," x ",C2),
+IF(AD2=6, CONCATENATE($S$6," x ",C2), ""))))))) => None
+    Q2: =IF(AD2="","",
+IF(AD2="A",CONCATENATE($S$7," x ",C2),
+IF(AD2="1 + A",CONCATENATE($S$8," x ",C2),
+IF(AD2="2 + A",CONCATENATE($S$9," x ",C2),
+IF(AD2="3 + A",CONCATENATE($S$10," x ",C2),
+IF(AD2="4 + A",CONCATENATE($S$11," x ",C2),
+IF(AD2="5 + A",CONCATENATE($S$12," x ",C2),""))))))) => None
+    R2: =IF(AD2="","",
+IF(AD2="5 + F1",CONCATENATE($S$13," x ",C2),
+IF(AD2="5 + F2",CONCATENATE($S$13," x ",C2),
+IF(AD2="5 + F3",CONCATENATE($S$13," x ",C2),"")))) => None
+    U2: =IF(COUNTIF($AD$2:$AD$5001,T2)=0,"",COUNTIF($AD$2:$AD$5001,T2)) => 317
+    AD2: =IF(K2=1,"",IF(AND(K2="", L2=""), "",
+IF(AND(K2=5, M2=1), CONCATENATE(K2," + F1"),
+IF(AND(K2=5, N2=1), CONCATENATE(K2," + F2"),
+IF(AND(K2=5, O2=1), CONCATENATE(K2," + F3"),
+IF(AND(K2>0, L2=""), K2,
+IF(AND(K2="", L2=1), "A",
+IF(AND(K2>0, L2>0), CONCATENATE(K2," + A"),
+"")))))))) => None
+    K3: <openpyxl.worksheet.formula.ArrayFormula object at 0x7f581bb33ec0> => None
+    L3: =IF(ISBLANK(D3), "",
+IF(D3=1,
+IF(SUMPRODUCT(COUNTIF(E3:G3, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E3:G3, $Z$1))),
+IF(D3=2,
+IF(SUMPRODUCT(COUNTIF(E3:I3, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E3:I3, $Z$1))),
+IF(D3=3,
+IF(SUMPRODUCT(COUNTIF(E3:J3, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E3:J3, $Z$1))),
+"")))) => 1
+    M3: =IF(ISBLANK(D3), "",
+IF(OR(K3="", K3<1), "",
+IF(K3=5,
+IF(SUMPRODUCT(COUNTIF(E3:J3, $AA$1))=0, "", SUMPRODUCT(COUNTIF(E3:J3, $AA$1))),
+""))) => None
+    N3: =IF(ISBLANK(D3), "",
+IF(OR(K3="", K3<1), "",
+IF(K3=5,
+IF(SUMPRODUCT(COUNTIF(E3:J3, $AB$1))=0, "", SUMPRODUCT(COUNTIF(E3:J3, $AB$1))),
+""))) => None
+    O3: =IF(ISBLANK(D3), "",
+IF(OR(K3="", K3<1), "",
+IF(K3=5,
+IF(SUMPRODUCT(COUNTIF(E3:J3, $AC$1))=0, "", SUMPRODUCT(COUNTIF(E3:J3, $AC$1))),
+""))) => None
+    P3: =IF(AD3="", "",
+IF(AD3=1, "",
+IF(AD3=2, CONCATENATE($S$2," x ",C3),
+IF(AD3=3, CONCATENATE($S$3," x ",C3),
+IF(AD3=4, CONCATENATE($S$4," x ",C3),
+IF(AD3=5, CONCATENATE($S$5," x ",C3),
+IF(AD3=6, CONCATENATE($S$6," x ",C3), ""))))))) => None
+    Q3: =IF(AD3="","",
+IF(AD3="A",CONCATENATE($S$7," x ",C3),
+IF(AD3="1 + A",CONCATENATE($S$8," x ",C3),
+IF(AD3="2 + A",CONCATENATE($S$9," x ",C3),
+IF(AD3="3 + A",CONCATENATE($S$10," x ",C3),
+IF(AD3="4 + A",CONCATENATE($S$11," x ",C3),
+IF(AD3="5 + A",CONCATENATE($S$12," x ",C3),""))))))) => Jugada Completa x 3
+    R3: =IF(AD3="","",
+IF(AD3="5 + F1",CONCATENATE($S$13," x ",C3),
+IF(AD3="5 + F2",CONCATENATE($S$13," x ",C3),
+IF(AD3="5 + F3",CONCATENATE($S$13," x ",C3),"")))) => None
+    U3: =IF(COUNTIF($AD$2:$AD$5001,T3)=0,"",COUNTIF($AD$2:$AD$5001,T3)) => 36
+    AD3: =IF(K3=1,"",IF(AND(K3="", L3=""), "",
+IF(AND(K3=5, M3=1), CONCATENATE(K3," + F1"),
+IF(AND(K3=5, N3=1), CONCATENATE(K3," + F2"),
+IF(AND(K3=5, O3=1), CONCATENATE(K3," + F3"),
+IF(AND(K3>0, L3=""), K3,
+IF(AND(K3="", L3=1), "A",
+IF(AND(K3>0, L3>0), CONCATENATE(K3," + A"),
+"")))))))) => A
+    K4: <openpyxl.worksheet.formula.ArrayFormula object at 0x7f581bb48e30> => 1
+    L4: =IF(ISBLANK(D4), "",
+IF(D4=1,
+IF(SUMPRODUCT(COUNTIF(E4:G4, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E4:G4, $Z$1))),
+IF(D4=2,
+IF(SUMPRODUCT(COUNTIF(E4:I4, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E4:I4, $Z$1))),
+IF(D4=3,
+IF(SUMPRODUCT(COUNTIF(E4:J4, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E4:J4, $Z$1))),
+"")))) => None
+    M4: =IF(ISBLANK(D4), "",
+IF(OR(K4="", K4<1), "",
+IF(K4=5,
+IF(SUMPRODUCT(COUNTIF(E4:J4, $AA$1))=0, "", SUMPRODUCT(COUNTIF(E4:J4, $AA$1))),
+""))) => None
+    N4: =IF(ISBLANK(D4), "",
+IF(OR(K4="", K4<1), "",
+IF(K4=5,
+IF(SUMPRODUCT(COUNTIF(E4:J4, $AB$1))=0, "", SUMPRODUCT(COUNTIF(E4:J4, $AB$1))),
+""))) => None
+    O4: =IF(ISBLANK(D4), "",
+IF(OR(K4="", K4<1), "",
+IF(K4=5,
+IF(SUMPRODUCT(COUNTIF(E4:J4, $AC$1))=0, "", SUMPRODUCT(COUNTIF(E4:J4, $AC$1))),
+""))) => None
+    P4: =IF(AD4="", "",
+IF(AD4=1, "",
+IF(AD4=2, CONCATENATE($S$2," x ",C4),
+IF(AD4=3, CONCATENATE($S$3," x ",C4),
+IF(AD4=4, CONCATENATE($S$4," x ",C4),
+IF(AD4=5, CONCATENATE($S$5," x ",C4),
+IF(AD4=6, CONCATENATE($S$6," x ",C4), ""))))))) => None
+    Q4: =IF(AD4="","",
+IF(AD4="A",CONCATENATE($S$7," x ",C4),
+IF(AD4="1 + A",CONCATENATE($S$8," x ",C4),
+IF(AD4="2 + A",CONCATENATE($S$9," x ",C4),
+IF(AD4="3 + A",CONCATENATE($S$10," x ",C4),
+IF(AD4="4 + A",CONCATENATE($S$11," x ",C4),
+IF(AD4="5 + A",CONCATENATE($S$12," x ",C4),""))))))) => None
+    R4: =IF(AD4="","",
+IF(AD4="5 + F1",CONCATENATE($S$13," x ",C4),
+IF(AD4="5 + F2",CONCATENATE($S$13," x ",C4),
+IF(AD4="5 + F3",CONCATENATE($S$13," x ",C4),"")))) => None
+    U4: =IF(COUNTIF($AD$2:$AD$5001,T4)=0,"",COUNTIF($AD$2:$AD$5001,T4)) => 2
+    X4: =IF(L4="","",1) => None
+    AD4: =IF(K4=1,"",IF(AND(K4="", L4=""), "",
+IF(AND(K4=5, M4=1), CONCATENATE(K4," + F1"),
+IF(AND(K4=5, N4=1), CONCATENATE(K4," + F2"),
+IF(AND(K4=5, O4=1), CONCATENATE(K4," + F3"),
+IF(AND(K4>0, L4=""), K4,
+IF(AND(K4="", L4=1), "A",
+IF(AND(K4>0, L4>0), CONCATENATE(K4," + A"),
+"")))))))) => None
+    K5: <openpyxl.worksheet.formula.ArrayFormula object at 0x7f581bb49f10> => 1
+    L5: =IF(ISBLANK(D5), "",
+IF(D5=1,
+IF(SUMPRODUCT(COUNTIF(E5:G5, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E5:G5, $Z$1))),
+IF(D5=2,
+IF(SUMPRODUCT(COUNTIF(E5:I5, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E5:I5, $Z$1))),
+IF(D5=3,
+IF(SUMPRODUCT(COUNTIF(E5:J5, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E5:J5, $Z$1))),
+"")))) => None
+    M5: =IF(ISBLANK(D5), "",
+IF(OR(K5="", K5<1), "",
+IF(K5=5,
+IF(SUMPRODUCT(COUNTIF(E5:J5, $AA$1))=0, "", SUMPRODUCT(COUNTIF(E5:J5, $AA$1))),
+""))) => None
+    N5: =IF(ISBLANK(D5), "",
+IF(OR(K5="", K5<1), "",
+IF(K5=5,
+IF(SUMPRODUCT(COUNTIF(E5:J5, $AB$1))=0, "", SUMPRODUCT(COUNTIF(E5:J5, $AB$1))),
+""))) => None
+    O5: =IF(ISBLANK(D5), "",
+IF(OR(K5="", K5<1), "",
+IF(K5=5,
+IF(SUMPRODUCT(COUNTIF(E5:J5, $AC$1))=0, "", SUMPRODUCT(COUNTIF(E5:J5, $AC$1))),
+""))) => None
+    P5: =IF(AD5="", "",
+IF(AD5=1, "",
+IF(AD5=2, CONCATENATE($S$2," x ",C5),
+IF(AD5=3, CONCATENATE($S$3," x ",C5),
+IF(AD5=4, CONCATENATE($S$4," x ",C5),
+IF(AD5=5, CONCATENATE($S$5," x ",C5),
+IF(AD5=6, CONCATENATE($S$6," x ",C5), ""))))))) => None
+    Q5: =IF(AD5="","",
+IF(AD5="A",CONCATENATE($S$7," x ",C5),
+IF(AD5="1 + A",CONCATENATE($S$8," x ",C5),
+IF(AD5="2 + A",CONCATENATE($S$9," x ",C5),
+IF(AD5="3 + A",CONCATENATE($S$10," x ",C5),
+IF(AD5="4 + A",CONCATENATE($S$11," x ",C5),
+IF(AD5="5 + A",CONCATENATE($S$12," x ",C5),""))))))) => None
+    R5: =IF(AD5="","",
+IF(AD5="5 + F1",CONCATENATE($S$13," x ",C5),
+IF(AD5="5 + F2",CONCATENATE($S$13," x ",C5),
+IF(AD5="5 + F3",CONCATENATE($S$13," x ",C5),"")))) => None
+    U5: =IF(COUNTIF($AD$2:$AD$5001,T5)=0,"",COUNTIF($AD$2:$AD$5001,T5)) => None
+    AD5: =IF(K5=1,"",IF(AND(K5="", L5=""), "",
+IF(AND(K5=5, M5=1), CONCATENATE(K5," + F1"),
+IF(AND(K5=5, N5=1), CONCATENATE(K5," + F2"),
+IF(AND(K5=5, O5=1), CONCATENATE(K5," + F3"),
+IF(AND(K5>0, L5=""), K5,
+IF(AND(K5="", L5=1), "A",
+IF(AND(K5>0, L5>0), CONCATENATE(K5," + A"),
+"")))))))) => None
+    AJ5: =COUNTIF(XFB2:XFB1001,1) => 0
+    AL5: =AJ5*AK5 => 0
+    K6: <openpyxl.worksheet.formula.ArrayFormula object at 0x7f581bb4b140> => 1
+    L6: =IF(ISBLANK(D6), "",
+IF(D6=1,
+IF(SUMPRODUCT(COUNTIF(E6:G6, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E6:G6, $Z$1))),
+IF(D6=2,
+IF(SUMPRODUCT(COUNTIF(E6:I6, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E6:I6, $Z$1))),
+IF(D6=3,
+IF(SUMPRODUCT(COUNTIF(E6:J6, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E6:J6, $Z$1))),
+"")))) => None
+  Últimas fórmulas:
+    N5000: =IF(ISBLANK(D5000), "",
+IF(OR(K5000="", K5000<1), "",
+IF(K5000=5,
+IF(SUMPRODUCT(COUNTIF(E5000:J5000, $AB$1))=0, "", SUMPRODUCT(COUNTIF(E5000:J5000, $AB$1))),
+""))) => None
+    O5000: =IF(ISBLANK(D5000), "",
+IF(OR(K5000="", K5000<1), "",
+IF(K5000=5,
+IF(SUMPRODUCT(COUNTIF(E5000:J5000, $AC$1))=0, "", SUMPRODUCT(COUNTIF(E5000:J5000, $AC$1))),
+""))) => None
+    P5000: =IF(AD5000="", "",
+IF(AD5000=1, "",
+IF(AD5000=2, CONCATENATE($S$2," x ",C5000),
+IF(AD5000=3, CONCATENATE($S$3," x ",C5000),
+IF(AD5000=4, CONCATENATE($S$4," x ",C5000),
+IF(AD5000=5, CONCATENATE($S$5," x ",C5000),
+IF(AD5000=6, CONCATENATE($S$6," x ",C5000), ""))))))) => None
+    Q5000: =IF(AD5000="","",
+IF(AD5000="A",CONCATENATE($S$7," x ",C5000),
+IF(AD5000="1 + A",CONCATENATE($S$8," x ",C5000),
+IF(AD5000="2 + A",CONCATENATE($S$9," x ",C5000),
+IF(AD5000="3 + A",CONCATENATE($S$10," x ",C5000),
+IF(AD5000="4 + A",CONCATENATE($S$11," x ",C5000),
+IF(AD5000="5 + A",CONCATENATE($S$12," x ",C5000),""))))))) => None
+    R5000: =IF(AD5000="","",
+IF(AD5000="5 + F1",CONCATENATE($S$13," x ",C5000),
+IF(AD5000="5 + F2",CONCATENATE($S$13," x ",C5000),
+IF(AD5000="5 + F3",CONCATENATE($S$13," x ",C5000),"")))) => None
+    AD5000: =IF(K5000=1,"",IF(AND(K5000="", L5000=""), "",
+IF(AND(K5000=5, M5000=1), CONCATENATE(K5000," + F1"),
+IF(AND(K5000=5, N5000=1), CONCATENATE(K5000," + F2"),
+IF(AND(K5000=5, O5000=1), CONCATENATE(K5000," + F3"),
+IF(AND(K5000>0, L5000=""), K5000,
+IF(AND(K5000="", L5000=1), "A",
+IF(AND(K5000>0, L5000>0), CONCATENATE(K5000," + A"),
+"")))))))) => None
+    K5001: <openpyxl.worksheet.formula.ArrayFormula object at 0x7f5818722e70> => None
+    L5001: =IF(ISBLANK(D5001), "",
+IF(D5001=1,
+IF(SUMPRODUCT(COUNTIF(E5001:G5001, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E5001:G5001, $Z$1))),
+IF(D5001=2,
+IF(SUMPRODUCT(COUNTIF(E5001:I5001, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E5001:I5001, $Z$1))),
+IF(D5001=3,
+IF(SUMPRODUCT(COUNTIF(E5001:J5001, $Z$1))=0, "", SUMPRODUCT(COUNTIF(E5001:J5001, $Z$1))),
+"")))) => None
+    M5001: =IF(ISBLANK(D5001), "",
+IF(OR(K5001="", K5001<1), "",
+IF(K5001=5,
+IF(SUMPRODUCT(COUNTIF(E5001:J5001, $AA$1))=0, "", SUMPRODUCT(COUNTIF(E5001:J5001, $AA$1))),
+""))) => None
+    N5001: =IF(ISBLANK(D5001), "",
+IF(OR(K5001="", K5001<1), "",
+IF(K5001=5,
+IF(SUMPRODUCT(COUNTIF(E5001:J5001, $AB$1))=0, "", SUMPRODUCT(COUNTIF(E5001:J5001, $AB$1))),
+""))) => None
+    O5001: =IF(ISBLANK(D5001), "",
+IF(OR(K5001="", K5001<1), "",
+IF(K5001=5,
+IF(SUMPRODUCT(COUNTIF(E5001:J5001, $AC$1))=0, "", SUMPRODUCT(COUNTIF(E5001:J5001, $AC$1))),
+""))) => None
+    P5001: =IF(AD5001="", "",
+IF(AD5001=1, "",
+IF(AD5001=2, CONCATENATE($S$2," x ",C5001),
+IF(AD5001=3, CONCATENATE($S$3," x ",C5001),
+IF(AD5001=4, CONCATENATE($S$4," x ",C5001),
+IF(AD5001=5, CONCATENATE($S$5," x ",C5001),
+IF(AD5001=6, CONCATENATE($S$6," x ",C5001), ""))))))) => None
+    Q5001: =IF(AD5001="","",
+IF(AD5001="A",CONCATENATE($S$7," x ",C5001),
+IF(AD5001="1 + A",CONCATENATE($S$8," x ",C5001),
+IF(AD5001="2 + A",CONCATENATE($S$9," x ",C5001),
+IF(AD5001="3 + A",CONCATENATE($S$10," x ",C5001),
+IF(AD5001="4 + A",CONCATENATE($S$11," x ",C5001),
+IF(AD5001="5 + A",CONCATENATE($S$12," x ",C5001),""))))))) => None
+    R5001: =IF(AD5001="","",
+IF(AD5001="5 + F1",CONCATENATE($S$13," x ",C5001),
+IF(AD5001="5 + F2",CONCATENATE($S$13," x ",C5001),
+IF(AD5001="5 + F3",CONCATENATE($S$13," x ",C5001),"")))) => None
+    AD5001: =IF(K5001=1,"",IF(AND(K5001="", L5001=""), "",
+IF(AND(K5001=5, M5001=1), CONCATENATE(K5001," + F1"),
+IF(AND(K5001=5, N5001=1), CONCATENATE(K5001," + F2"),
+IF(AND(K5001=5, O5001=1), CONCATENATE(K5001," + F3"),
+IF(AND(K5001>0, L5001=""), K5001,
+IF(AND(K5001="", L5001=1), "A",
+IF(AND(K5001>0, L5001>0), CONCATENATE(K5001," + A"),
+"")))))))) => None
+  Texto visible relevante:
+    A1: Boleto
+    B1: Celular
+    C1: Multi
+    D1: Apuesta
+    E1: 1er
+    F1: 2do
+    G1: 3er
+    H1: 4to
+    I1: 5to
+    J1: 6to
+    K1: Aciertos
+    L1: Bolilla Adicional
+    M1: Bolilla Fija 1
+    N1: Bolilla Fija 2
+    O1: Bolilla Fija 3
+    P1: Premio
+    Q1: Premio Adicional
+    R1: Premio Fijo
+    S1: Premios
+    AD1: Resumen Ganadores
+    AE1: Iguales
+    AF1: Numero
+    AG1: Frecuencia
+    S2: Jugada Power
+    S3: S/. 50
+    AI3: Ingresos por Tipo de Apuestas
+    S4: S/. 200
+    AI4: Tipo de Jugada
+    AJ4: Cantidad
+    AK4: Valor
+    AL4: Parcial
+    S5: S/. 5,000
+    AI5: Jugada Multiple
+    AN5: Logica de Aciertos
+    S6: S/. 1,000,000
+    AI6: Jugada Completa
+    AN6: Caso 1
+    S7: Jugada Completa
+    T7: A
+    AI7: Jugada Power
+    AN7: Al salir sorteado el sexto numero o Bolilla Power:
+    S8: Jugada Completa x 2
+    T8: 1 + A
+    AI8: Total de Ingresos
+    AN8: 1) e, f, g, h, i, j se deben contrastar con t1, u1, v1, w1, x1, y1, para ver si hay 6 aciertos
+    S9: Jugada Power x 2
+    T9: 2 + A
+    AN9: En la Columna K deben aparecer solo los resultados con 5 y 6 aciertos
+    S10: S/. 100
+    T10: 3 + A
+    AN10: Presentar un mensaje con la cantidad total de ganadores con 6 aciertos
+    S11: S/. 1,000
+    T11: 4 + A
+    AI11: Egresos por Premios
+    AN11: Caso 2
+    S12: S/. 50,000
+    T12: 5 + A
+    AI12: Aciertos
+    AJ12: Cantidad
+    AK12: Valor
+    AL12: Parcial
+    AN12: Al salir sorteado el septimo numero o Bolilla Adicional:
+    S13: S/. 50,000
+    T13: 5 + F1
+    AI13: 1 Acierto
+    AN13: 1) e, f, g se deben contrastar con t1, u1, v1, z1, para ver cuantos aciertos
+    S14: S/. 50,000
+    T14: 5 + F2
+    AI14: 2 Aciertos
+    AN14: 2) e, f, g, h, i se deben contrastar con t1, u1, v1, w1, x1, z1, para ver cuantos aciertos
+    S15: S/. 50,000
+    T15: 5 + F3
+    AI15: 3 Aciertos
+    AN15: 3) e, f, g, h, i, j se deben contrastar con t1, u1, v1, w1, x1, y1, z1, para ver cuantos aciertos
+    AI16: 4 Aciertos
+    AN16: En la Columna L deben apareer los resultados de 1, 2, 3, 4, 5, 6 aciertos
+    AI17: 5 Aciertos
+    AN17: Presentar un mensaje con las cantidades totales de cuantos ganadores hay con 1, 2, 3, 4, 5, 6 aciertos
+    AI18: 6 Aciertos
+    AN18: Caso 3
+  Valores de muestra por fila (primeras 35 filas no vacías):
+    fila 1: ['Boleto', 'Celular', 'Multi', 'Apuesta', '1er', '2do', '3er', '4to', '5to', '6to', 'Aciertos', 'Bolilla Adicional', 'Bolilla Fija 1', 'Bolilla Fija 2', 'Bolilla Fija 3', 'Premio', 'Premio Adicional', 'Premio Fijo', 'Premios', 18]
+    fila 2: [1, 934439587, 10, 2, 37, 12, 3, 24, 8, None, None, None, None, None, None, None, None, None, 'Jugada Power', 2]
+    fila 3: [2, 915300643, 3, 2, 25, 27, 20, 13, 44, None, None, 1, None, None, None, None, 'Jugada Completa x 3', None, 'S/. 50', 3]
+    fila 4: [3, 912801122, 5, 2, 29, 44, 5, 1, 26, None, 1, None, None, None, None, None, None, None, 'S/. 200', 4]
+    fila 5: [4, 968064224, 5, 2, 50, 49, 39, 29, 19, None, 1, None, None, None, None, None, None, None, 'S/. 5,000', 5]
+    fila 6: [5, 915261244, 5, 2, 36, 42, 34, 14, 10, None, 1, None, None, None, None, None, None, None, 'S/. 1,000,000', 6]
+    fila 7: [6, 938496339, 5, 3, 18, 4, 36, 29, 31, 20, 5, 1, None, None, None, None, 'S/. 50,000 x 5', None, 'Jugada Completa', 'A']
+    fila 8: [7, 983769416, 3, 3, 18, 4, 36, 29, 31, 20, 5, 1, None, None, None, None, 'S/. 50,000 x 3', None, 'Jugada Completa x 2', '1 + A']
+    fila 9: [8, 966642153, 5, 3, 18, 4, 36, 29, 31, 38, 6, None, None, None, None, 'S/. 1,000,000 x 5', None, None, 'Jugada Power x 2', '2 + A']
+    fila 10: [9, 941232132, 10, 3, 18, 4, 36, 29, 31, 41, 5, None, 1, None, None, None, None, 'S/. 50,000 x 10', 'S/. 100', '3 + A']
+    fila 11: [10, 921160113, 1, 3, 18, 4, 36, 29, 31, 8, 5, None, None, 1, None, None, None, 'S/. 50,000 x 1', 'S/. 1,000', '4 + A']
+    fila 12: [11, 968075418, 3, 3, 18, 4, 36, 29, 31, 50, 5, None, None, None, 1, None, None, 'S/. 50,000 x 3', 'S/. 50,000', '5 + A']
+    fila 13: [12, 988384449, 5, 3, 18, 4, 36, 29, 31, 41, 5, None, 1, None, None, None, None, 'S/. 50,000 x 5', 'S/. 50,000', '5 + F1']
+    fila 14: [13, 903807330, 10, 3, 18, 4, 36, 29, 31, 8, 5, None, None, 1, None, None, None, 'S/. 50,000 x 10', 'S/. 50,000', '5 + F2']
+    fila 15: [14, 986387670, 5, 3, 18, 4, 36, 29, 31, 50, 5, None, None, None, 1, None, None, 'S/. 50,000 x 5', 'S/. 50,000', '5 + F3']
+    fila 16: [15, 973580455, 2, 2, 8, 40, 1, 39, 7, None, None, None, None, None, None, None, None, None, None, None]
+    fila 17: [16, 904043066, 3, 2, 8, 40, 1, 39, 47, None, None, None, None, None, None, None, None, None, None, None]
+    fila 18: [17, 939754414, 5, 1, 8, 40, 1, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 19: [18, 965087211, 3, 3, 18, 4, 36, 29, 31, 38, 6, None, None, None, None, 'S/. 1,000,000 x 3', None, None, None, None]
+    fila 20: [19, 978458356, 1, 1, 8, 40, 1, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 21: [20, 917182457, 2, 2, 48, 44, 38, 41, 32, None, None, None, None, None, None, None, None, None, None, None]
+    fila 22: [21, 981153464, 2, 3, 2, 30, 27, 7, 9, 4, 1, None, None, None, None, None, None, None, None, None]
+    fila 23: [22, 945979440, 2, 3, 2, 30, 27, 7, 9, 6, None, None, None, None, None, None, None, None, None, None]
+    fila 24: [23, 981195449, 1, 3, 2, 30, 27, 7, 9, 12, None, None, None, None, None, None, None, None, None, None]
+    fila 25: [24, 914179575, 3, 2, 8, 24, 7, 19, 45, None, None, None, None, None, None, None, None, None, None, None]
+    fila 26: [25, 905397057, 1, 3, 35, 20, 6, 22, 15, 1, None, 1, None, None, None, None, 'Jugada Completa x 1', None, None, None]
+    fila 27: [26, 925597560, 1, 3, 25, 49, 43, 1, 22, 44, None, None, None, None, None, None, None, None, None, None]
+    fila 28: [27, 950590562, 10, 2, 40, 32, 15, 1, 14, None, None, None, None, None, None, None, None, None, None, None]
+    fila 29: [28, 914223873, 1, 1, 43, 14, 11, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 30: [29, 985190272, 2, 2, 49, 5, 42, 29, 31, None, 2, None, None, None, None, 'Jugada Power x 2', None, None, None, None]
+    fila 31: [30, 958287274, 2, 2, 28, 4, 20, 50, 31, None, 2, 1, None, None, None, None, 'Jugada Power x 2 x 2', None, None, None]
+    fila 32: [31, 975755023, 3, 3, 35, 38, 6, 17, 10, 25, 1, None, None, None, None, None, None, None, None, None]
+    fila 33: [32, 919317305, 3, 3, 38, 39, 45, 36, 32, 7, 2, None, None, None, None, 'Jugada Power x 3', None, None, None, None]
+    fila 34: [33, 938550686, 5, 3, 22, 28, 3, 6, 37, 8, None, None, None, None, None, None, None, None, None, None]
+    fila 35: [34, 906206786, 1, 2, 16, 10, 42, 36, 1, None, 1, None, None, None, None, None, None, None, None, None]
+
+[RuleBingo 10x10] estado=visible rango=A1:Q60 filas=60 columnas=17
+  Celdas no vacías: 157; tipos={'s': 58, 'n': 45, 'f': 54}; fórmulas=54; fechas=0; texto=58
+  Fórmulas por columna: {'K': 15, 'L': 4, 'M': 18, 'H': 1, 'N': 16}
+  Funciones detectadas: {'SUM': 3}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+    K8: =1-(I8/$H$11) => 0.7241379310344828
+    L8: =H8*N8 => 600
+    M8: =I8*N8 => 480
+    K9: =1-(I9/$H$11) => 0.5344827586206897
+    L9: =H9*N9 => 270
+    M9: =I9*N9 => 405
+    K10: =1-(I10/$H$11) => 0.13793103448275867
+    L10: =H10*N10 => 200
+    M10: =I10*N10 => 500
+    H11: =SUM(H8:H10) => 290
+    K11: =SUM(K8:K10) => 1.3965517241379313
+    L11: =SUM(L8:L10) => 1070
+    N14: =M14/L14 => 0.75
+    M17: =L17/K17 => 0.6666666666666666
+    N17: =K17-L17 => 10
+    M18: =L18/K18 => 0.6666666666666666
+    N18: =K18-L18 => 20
+    M19: =L19/K19 => 0.6666666666666666
+    N19: =K19-L19 => 30
+    M20: =L20/K20 => 0.6666666666666666
+    N20: =K20-L20 => 50
+    K22: =75*J22 => 75
+    M22: =L22/K22 => 0.8
+    N22: =1-M22 => 0.19999999999999996
+    K23: =75*J23 => 150
+    M23: =L23/K23 => 0.8
+    N23: =1-M23 => 0.19999999999999996
+    K24: =75*J24 => 225
+    M24: =L24/K24 => 0.8
+    N24: =1-M24 => 0.19999999999999996
+    K25: =75*J25 => 375
+    M25: =L25/K25 => 0.8
+    N25: =1-M25 => 0.19999999999999996
+    K26: =75*J26 => 750
+    M26: =L26/K26 => 0.8
+    N26: =1-M26 => 0.19999999999999996
+    K27: =75*J27 => 1500
+    M27: =L27/K27 => 0.8
+    N27: =1-M27 => 0.19999999999999996
+    K28: =75*J28 => 3750
+    M28: =L28/K28 => 0.8
+    N28: =1-M28 => 0.19999999999999996
+    K29: =75*J29 => 7500
+    M29: =L29/K29 => 0.8266666666666667
+    N29: =1-M29 => 0.17333333333333334
+  Últimas fórmulas:
+    K28: =75*J28 => 3750
+    M28: =L28/K28 => 0.8
+    N28: =1-M28 => 0.19999999999999996
+    K29: =75*J29 => 7500
+    M29: =L29/K29 => 0.8266666666666667
+    N29: =1-M29 => 0.17333333333333334
+    K30: =75*J30 => 15000
+    M30: =L30/K30 => 0.8666666666666667
+    N30: =1-M30 => 0.1333333333333333
+    K31: =75*J31 => 37500
+    M31: =L31/K31 => 0.8533333333333334
+    N31: =1-M31 => 0.1466666666666666
+    K32: =75*J32 => 75000
+    M32: =L32/K32 => 0.8666666666666667
+    N32: =1-M32 => 0.1333333333333333
+  Texto visible relevante:
+    B1: ¡Lotería Relámpago!
+    B4: Los jugadores compran el boletao y seleccionan 1 números del 1 al 99 (cada numero tiene un color). 
+    B5: Se saca una primera bolilla del 0 al 9
+    B6: Se saca una segunda bolilla del 0 al 9
+    H6: Del 0 al 99
+    B7: ambas bolillas retiradas forman el numero ganador
+    H7: Ingresos
+    I7: Egresos
+    J7: Multiplicador
+    L7: Ingresos
+    M7: Egresos
+    B8: El costo de la jugada desde el numero 0 al 49 será de 2 Sol
+    J8: x30
+    B9: El costo de la jugada desde el numero 50 al 79 será de 3 Soles
+    J9: x40
+    B10: El costo de la jugada desde el numero 80 al 99 será de 5 Soles
+    J10: x50
+    B14: Premios adicionales y sorteos especiales:
+    B16: Sorteo instantáneo:
+    K16: Ingresos
+    L16: Egresos
+    N16: Utilidad
+    B17: Se seleccionan al azar algunos jugadores que participaron en la ronda de apuestas.
+    B18: Cada jugador seleccionado recibe un código único para participar en el sorteo instantáneo.
+    B19: Se revelan los ganadores del sorteo instantáneo y se entregan los premios correspondientes.
+    B20: Recompensas por acumulación:
+    B21: Se muestran los puntos acumulados por los jugadores y los premios disponibles para canjear.
+    J21: Costo
+    B22: Se presenta un caso de éxito de un jugador que ha canjeado sus puntos por un premio.
+    B23: Apuestas especiales:
+    B24: Se presenta la apuesta especial del día, explicando su temática, combinación de números única, multiplicador especial y sorteo adicional.
+    B25: Se anuncian los ganadores de la apuesta especial y se entregan los premios correspondientes, incluyendo el sorteo adicional.
+    B26: Jackpot progresivo:
+    B27: Se muestra el valor actual del jackpot progresivo.
+    B28: Se explica cómo un jugador puede ganar el jackpot.
+    B29: En caso de que haya un ganador del jackpot, se celebra su victoria en vivo.
+    B30: Rueda de la fortuna:
+    B31: Se gira la rueda de la fortuna y se revela el premio que ha ganado un jugador afortunado.
+    B33: Ejemplo detallado:
+    B35: Premio adicional: Sorteo instantáneo
+    B37: Mecánica:
+    B38: Al realizar una apuesta de S/5 o más, los jugadores reciben un código único para participar en el sorteo instantáneo.
+    B39: Durante el programa, se realizan 3 sorteos instantáneos al azar.
+    B40: Cada sorteo instantáneo tiene 5 ganadores que reciben un premio en efectivo de S/100.
+    B41: Impacto:
+    B42: Aumenta la emoción y participación de los jugadores, ya que todos tienen la posibilidad de ganar un premio adicional al realizar sus apuestas.
+    B43: Mantiene el margen de ganancia para la casa, ya que la probabilidad de ganar el premio instantáneo es baja y el costo de la apuesta es superior al valor del premio.
+    B45: Premio adicional: Recompensas por acumulación
+    B47: Mecánica:
+    B48: Por cada S/1 apostado, los jugadores acumulan 1 punto.
+    B49: Los puntos pueden canjearse por una variedad de premios, como:
+    B50: Premios físicos: Electrodomésticos, viajes, entradas a eventos, etc.
+    B51: Experiencias: Cenas en restaurantes exclusivos, clases de cocina, etc.
+    B52: Beneficios exclusivos: Apuestas con mayor descuento, acceso a eventos especiales, etc.
+    B53: Impacto:
+    B54: Fomenta la fidelización de los jugadores, ya que aquellos que participan con frecuencia tienen más oportunidades de canjear sus puntos por premios valiosos.
+    B55: Mantiene el margen de ganancia
+    B60: Bono Extra: Un sorteo adicional otorga boletos gratuitos para la siguiente ronda.
+  Valores de muestra por fila (primeras 35 filas no vacías):
+    fila 1: [None, '¡Lotería Relámpago!', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 4: [None, 'Los jugadores compran el boletao y seleccionan 1 números del 1 al 99 (cada numero tiene un color). ', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 5: [None, 'Se saca una primera bolilla del 0 al 9', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 6: [None, 'Se saca una segunda bolilla del 0 al 9', None, None, None, None, None, 'Del 0 al 99', None, None, None, None, None, None, None, None, None]
+    fila 7: [None, 'ambas bolillas retiradas forman el numero ganador', None, None, None, None, None, 'Ingresos', 'Egresos', 'Multiplicador', None, 'Ingresos', 'Egresos', None, None, None, None]
+    fila 8: [None, 'El costo de la jugada desde el numero 0 al 49 será de 2 Sol', None, None, None, None, None, 100, 80, 'x30', 0.7241379310344828, 600, 480, 6, None, None, None]
+    fila 9: [None, 'El costo de la jugada desde el numero 50 al 79 será de 3 Soles', None, None, None, None, None, 90, 135, 'x40', 0.5344827586206897, 270, 405, 3, None, None, None]
+    fila 10: [None, 'El costo de la jugada desde el numero 80 al 99 será de 5 Soles', None, None, None, None, None, 100, 250, 'x50', 0.13793103448275867, 200, 500, 2, None, None, None]
+    fila 11: [None, None, None, None, None, None, None, 290, None, None, 1.3965517241379313, 1070, None, None, None, None, None]
+    fila 14: [None, 'Premios adicionales y sorteos especiales:', None, None, None, None, None, None, None, None, None, 60, 45, 0.75, None, None, None]
+    fila 16: [None, 'Sorteo instantáneo:', None, None, None, None, None, None, None, None, 'Ingresos', 'Egresos', None, 'Utilidad', None, None, None]
+    fila 17: [None, 'Se seleccionan al azar algunos jugadores que participaron en la ronda de apuestas.', None, None, None, None, None, None, None, 1, 30, 20, 0.6666666666666666, 10, None, None, None]
+    fila 18: [None, 'Cada jugador seleccionado recibe un código único para participar en el sorteo instantáneo.', None, None, None, None, None, None, None, 2, 60, 40, 0.6666666666666666, 20, None, None, None]
+    fila 19: [None, 'Se revelan los ganadores del sorteo instantáneo y se entregan los premios correspondientes.', None, None, None, None, None, None, None, 3, 90, 60, 0.6666666666666666, 30, None, None, None]
+    fila 20: [None, 'Recompensas por acumulación:', None, None, None, None, None, None, None, 5, 150, 100, 0.6666666666666666, 50, None, None, None]
+    fila 21: [None, 'Se muestran los puntos acumulados por los jugadores y los premios disponibles para canjear.', None, None, None, None, None, None, None, 'Costo', None, None, None, None, None, None, None]
+    fila 22: [None, 'Se presenta un caso de éxito de un jugador que ha canjeado sus puntos por un premio.', None, None, None, None, None, None, None, 1, 75, 60, 0.8, 0.19999999999999996, None, None, None]
+    fila 23: [None, 'Apuestas especiales:', None, None, None, None, None, None, None, 2, 150, 120, 0.8, 0.19999999999999996, None, None, None]
+    fila 24: [None, 'Se presenta la apuesta especial del día, explicando su temática, combinación de números única, multiplicador especial y sorteo adicional.', None, None, None, None, None, None, None, 3, 225, 180, 0.8, 0.19999999999999996, None, None, None]
+    fila 25: [None, 'Se anuncian los ganadores de la apuesta especial y se entregan los premios correspondientes, incluyendo el sorteo adicional.', None, None, None, None, None, None, None, 5, 375, 300, 0.8, 0.19999999999999996, None, None, None]
+    fila 26: [None, 'Jackpot progresivo:', None, None, None, None, None, None, None, 10, 750, 600, 0.8, 0.19999999999999996, None, None, None]
+    fila 27: [None, 'Se muestra el valor actual del jackpot progresivo.', None, None, None, None, None, None, None, 20, 1500, 1200, 0.8, 0.19999999999999996, None, None, None]
+    fila 28: [None, 'Se explica cómo un jugador puede ganar el jackpot.', None, None, None, None, None, None, None, 50, 3750, 3000, 0.8, 0.19999999999999996, None, None, None]
+    fila 29: [None, 'En caso de que haya un ganador del jackpot, se celebra su victoria en vivo.', None, None, None, None, None, None, None, 100, 7500, 6200, 0.8266666666666667, 0.17333333333333334, None, None, None]
+    fila 30: [None, 'Rueda de la fortuna:', None, None, None, None, None, None, None, 200, 15000, 13000, 0.8666666666666667, 0.1333333333333333, None, None, None]
+    fila 31: [None, 'Se gira la rueda de la fortuna y se revela el premio que ha ganado un jugador afortunado.', None, None, None, None, None, None, None, 500, 37500, 32000, 0.8533333333333334, 0.1466666666666666, None, None, None]
+    fila 32: [None, None, None, None, None, None, None, None, None, 1000, 75000, 65000, 0.8666666666666667, 0.1333333333333333, None, None, None]
+    fila 33: [None, 'Ejemplo detallado:', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 35: [None, 'Premio adicional: Sorteo instantáneo', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 37: [None, 'Mecánica:', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 38: [None, 'Al realizar una apuesta de S/5 o más, los jugadores reciben un código único para participar en el sorteo instantáneo.', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 39: [None, 'Durante el programa, se realizan 3 sorteos instantáneos al azar.', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 40: [None, 'Cada sorteo instantáneo tiene 5 ganadores que reciben un premio en efectivo de S/100.', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 41: [None, 'Impacto:', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 42: [None, 'Aumenta la emoción y participación de los jugadores, ya que todos tienen la posibilidad de ganar un premio adicional al realizar sus apuestas.', None, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+
+[Tipos] estado=visible rango=A1:O23 filas=23 columnas=15
+  Celdas no vacías: 134; tipos={'s': 23, 'n': 62, 'f': 49}; fórmulas=49; fechas=0; texto=23
+  Fórmulas por columna: {'I': 15, 'N': 13, 'O': 14, 'E': 4, 'G': 1, 'K': 1, 'M': 1}
+  Funciones detectadas: {'SUM': 3}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+    I6: =G6/$G$22 => 0.016666666666666666
+    N6: =M6/$M$19 => 0.16666666666666666
+    O6: =$N$20*N6/2 => 833.3333333333333
+    I7: =G7/$G$22 => 0.016666666666666666
+    N7: =M7/$M$19 => 0.16666666666666666
+    O7: =$N$20*N7/2 => 833.3333333333333
+    I8: =G8/$G$22 => 0.025
+    N8: =M8/$M$19 => 0.20833333333333334
+    O8: =$N$20*N8/2 => 1041.6666666666667
+    I9: =G9/$G$22 => 0.025
+    N9: =M9/$M$19 => 0.20833333333333334
+    O9: =$N$20*N9/2 => 1041.6666666666667
+    E10: =F10+2 => 10
+    I10: =G10/$G$22 => 0.03333333333333333
+    N10: =M10/$M$19 => 0.3333333333333333
+    O10: =$N$20*N10/2 => 1666.6666666666665
+    E11: =F11+2 => 10
+    I11: =G11/$G$22 => 0.03333333333333333
+    N11: =M11/$M$19 => 0.3333333333333333
+    O11: =$N$20*N11/2 => 1666.6666666666665
+    E12: =F12+2 => 10
+    I12: =G12/$G$22 => 0.03333333333333333
+    N12: =M12/$M$19 => 0.3333333333333333
+    O12: =$N$20*N12/2 => 1666.6666666666665
+    E13: =F13+2 => 10
+    I13: =G13/$G$22 => 0.03333333333333333
+    N13: =M13/$M$19 => 0.3333333333333333
+    O13: =$N$20*N13/2 => 1666.6666666666665
+    I14: =G14/$G$22 => 0.041666666666666664
+    N14: =M14/$M$19 => 0.375
+    O14: =$N$20*N14/2 => 1875
+    I15: =G15/$G$22 => 0.058333333333333334
+    N15: =M15/$M$19 => 0.5
+    O15: =$N$20*N15/2 => 2500
+    I16: =G16/$G$22 => 0.058333333333333334
+    N16: =M16/$M$19 => 0.5
+    O16: =$N$20*N16/2 => 2500
+    I17: =G17/$G$22 => 0.06666666666666667
+    N17: =M17/$M$19 => 0.5416666666666666
+    O17: =$N$20*N17/2 => 2708.333333333333
+    I18: =G18/$G$22 => 0.1
+    N18: =M18/$M$19 => 0.6666666666666666
+    O18: =$N$20*N18/2 => 3333.333333333333
+    I19: =G19/$G$22 => 0.16666666666666666
+    O19: =$N$20*N19/2 => 5000
+  Últimas fórmulas:
+    I16: =G16/$G$22 => 0.058333333333333334
+    N16: =M16/$M$19 => 0.5
+    O16: =$N$20*N16/2 => 2500
+    I17: =G17/$G$22 => 0.06666666666666667
+    N17: =M17/$M$19 => 0.5416666666666666
+    O17: =$N$20*N17/2 => 2708.333333333333
+    I18: =G18/$G$22 => 0.1
+    N18: =M18/$M$19 => 0.6666666666666666
+    O18: =$N$20*N18/2 => 3333.333333333333
+    I19: =G19/$G$22 => 0.16666666666666666
+    O19: =$N$20*N19/2 => 5000
+    G20: =SUM(G6:G19) => 8500
+    I20: =SUM(I6:I19) => 0.7083333333333333
+    K20: =12000*0.8 => 9600
+    M20: =SUM(M6:M19) => 136
+  Texto visible relevante:
+    D5: Tipo
+    E5: Cantidad Maxima de Bolillas
+    F5: Cantidad de Aciertos
+    G5: Premio
+    I5: Porcentaje
+    M5: Cantidad de Aciertos
+    D6: 4 Esquinas 
+    D7: Diagonal 
+    D8: Horizontal 
+    D9: Vertical 
+    D10: Figura Rombo 
+    D11: Figura Cruz 
+    D12: Letra “X” 
+    D13: Letra “T” 
+    D14: Letra “L” 
+    D15: Número “O” 
+    D16: Letra “H” 
+    D17: Letra “U” 
+    D18: Letra “O” 
+    D19: Full House 
+    F20: Premios
+    F21: Casa
+    F22: Total Recaudado
+  Valores de muestra por fila (primeras 35 filas no vacías):
+    fila 5: [None, None, None, 'Tipo', 'Cantidad Maxima de Bolillas', 'Cantidad de Aciertos', 'Premio', None, 'Porcentaje', None, None, None, 'Cantidad de Aciertos', None, None]
+    fila 6: [None, None, None, '4 Esquinas ', 5, 4, 200, None, 0.016666666666666666, 400, None, None, 4, 0.16666666666666666, 833.3333333333333]
+    fila 7: [None, None, None, 'Diagonal ', 5, 4, 200, None, 0.016666666666666666, 400, None, None, 4, 0.16666666666666666, 833.3333333333333]
+    fila 8: [None, None, None, 'Horizontal ', 10, 5, 300, None, 0.025, 500, None, None, 5, 0.20833333333333334, 1041.6666666666667]
+    fila 9: [None, None, None, 'Vertical ', 10, 5, 300, None, 0.025, 500, None, None, 5, 0.20833333333333334, 1041.6666666666667]
+    fila 10: [None, None, None, 'Figura Rombo ', 10, 8, 400, None, 0.03333333333333333, 400, None, None, 8, 0.3333333333333333, 1666.6666666666665]
+    fila 11: [None, None, None, 'Figura Cruz ', 10, 8, 400, None, 0.03333333333333333, 400, None, None, 8, 0.3333333333333333, 1666.6666666666665]
+    fila 12: [None, None, None, 'Letra “X” ', 10, 8, 400, None, 0.03333333333333333, None, None, None, 8, 0.3333333333333333, 1666.6666666666665]
+    fila 13: [None, None, None, 'Letra “T” ', 10, 8, 400, None, 0.03333333333333333, None, None, None, 8, 0.3333333333333333, 1666.6666666666665]
+    fila 14: [None, None, None, 'Letra “L” ', 15, 9, 500, None, 0.041666666666666664, None, None, None, 9, 0.375, 1875]
+    fila 15: [None, None, None, 'Número “O” ', 15, 12, 700, None, 0.058333333333333334, None, None, None, 12, 0.5, 2500]
+    fila 16: [None, None, None, 'Letra “H” ', 15, 12, 700, None, 0.058333333333333334, None, None, None, 12, 0.5, 2500]
+    fila 17: [None, None, None, 'Letra “U” ', 15, 13, 800, None, 0.06666666666666667, None, None, None, 13, 0.5416666666666666, 2708.333333333333]
+    fila 18: [None, None, None, 'Letra “O” ', 30, 16, 1200, None, 0.1, None, None, None, 16, 0.6666666666666666, 3333.333333333333]
+    fila 19: [None, None, None, 'Full House ', 75, 24, 2000, None, 0.16666666666666666, None, None, None, 24, 1, 5000]
+    fila 20: [None, None, None, None, None, 'Premios', 8500, None, 0.7083333333333333, None, 9600, None, 136, 10000, None]
+    fila 21: [None, None, None, None, None, 'Casa', 2800, None, None, None, None, None, None, None, None]
+    fila 22: [None, None, None, None, None, 'Total Recaudado', 12000, None, None, None, None, None, None, None, None]
+
+[Registro] estado=visible rango=A1:AD123 filas=123 columnas=30
+  Celdas no vacías: 830; tipos={'s': 161, 'n': 475, 'f': 194}; fórmulas=194; fechas=0; texto=161
+  Fórmulas por columna: {'E': 96, 'A': 98}
+  Funciones detectadas: {}
+  Errores de cálculo cacheados: 0
+  Fórmulas con indicadores de referencia/error: 0
+  Primeras fórmulas:
+    E3: =E2+1 => 2
+    A4: =A3+1 => 3
+    E4: =E3+1 => 3
+    A5: =A4+1 => 4
+    E5: =E4+1 => 4
+    A6: =A5+1 => 5
+    E6: =E5+1 => 5
+    A7: =A6+1 => 6
+    E7: =E6+1 => 6
+    A8: =A7+1 => 7
+    E8: =E7+1 => 7
+    A9: =A8+1 => 8
+    E9: =E8+1 => 8
+    A10: =A9+1 => 9
+    E10: =E9+1 => 9
+    A11: =A10+1 => 10
+    E11: =E10+1 => 10
+    A12: =A11+1 => 11
+    E12: =E11+1 => 11
+    A13: =A12+1 => 12
+    E13: =E12+1 => 12
+    A14: =A13+1 => 13
+    E14: =E13+1 => 13
+    A15: =A14+1 => 14
+    E15: =E14+1 => 14
+    A16: =A15+1 => 15
+    E16: =E15+1 => 15
+    A17: =A16+1 => 16
+    E17: =E16+1 => 16
+    A18: =A17+1 => 17
+    E18: =E17+1 => 17
+    A19: =A18+1 => 18
+    E19: =E18+1 => 18
+    A20: =A19+1 => 19
+    E20: =E19+1 => 19
+    A21: =A20+1 => 20
+    E21: =E20+1 => 20
+    A22: =A21+1 => 21
+    E22: =E21+1 => 21
+    A23: =A22+1 => 22
+    E23: =E22+1 => 22
+    A24: =A23+1 => 23
+    E24: =E23+1 => 23
+    A25: =A24+1 => 24
+    E25: =E24+1 => 24
+  Últimas fórmulas:
+    E94: =E93+1 => 3
+    A95: =A94+1 => 94
+    E95: =E94+1 => 4
+    A96: =A95+1 => 95
+    E96: =E95+1 => 5
+    A97: =A96+1 => 96
+    E97: =E96+1 => 6
+    A98: =A97+1 => 97
+    E98: =E97+1 => 7
+    A99: =A98+1 => 98
+    E99: =E98+1 => 8
+    A100: =A99+1 => 99
+    E100: =E99+1 => 9
+    A101: =A100+1 => 100
+    E101: =E100+1 => 10
+  Texto visible relevante:
+    A1: ID del Jugador
+    B1: Nombre del Jugador
+    C1: Celular
+    D1: Apuesta
+    E1: Número Apostado
+    F1: Premio Ganado
+    B2: Yvan1
+    H2: 4 Esquinas
+    N2: Rombo
+    T2: Letra T
+    Z2: Letra O
+    B3: Yvan2
+    B4: Yvan3
+    B5: Yvan4
+    B6: Yvan5
+    B7: Yvan6
+    B8: Yvan7
+    B9: Yvan8
+    H9: Diagonal 1
+    T9: Letra L
+    Z9: Bingo
+    B10: Yvan9
+    B11: Yvan10
+    B12: Yvan11
+    B13: Yvan12
+    B14: Yvan13
+    B15: Yvan14
+    B16: Yvan15
+    H16: Horizontal
+    N16: +
+    T16: Letra H
+    B17: Yvan16
+    B18: Yvan17
+    B19: Yvan18
+    B20: Yvan19
+    B21: Yvan20
+    B22: Yvan21
+    B23: Yvan22
+    H23: Vertical
+    N23: Letra X
+    T23: Letra U
+    Z23: Centro
+    B24: Yvan23
+    B25: Yvan24
+    B26: Yvan25
+    B27: Yvan26
+    B28: Yvan27
+    B29: Yvan28
+    B30: Yvan29
+    B31: Yvan30
+    H31: Si la cartilla del bingo tiene 25 numeros en una matriz de 5 Columnas y 5 filas y a cada interseccion le dieramos un numero (columna 1 y fila 1 con el numero 1, columna 1 y fila 2 con el numero 2, columna 1 y fila 3 con el numero 3, columna 1 y fila 4 con el numero 4, columna 1 y fila 5 con el numero 5, y asi sucesivamente hasta la columna 5 y fila 5 con el numero 25, sabiendo que la posicion 13 siempre quedra libre o en blanco )
+    B32: Yvan31
+    B33: Yvan32
+    H33: Cartilla de Bingo Vertical
+    B34: Yvan33
+    B35: Yvan34
+    B36: Yvan35
+    B37: Yvan36
+    B38: Yvan37
+    B39: Yvan38
+    B40: Yvan39
+    B41: Yvan40
+    B42: Yvan41
+    H42: Posición libre en la intersección (3, 3).
+    B43: Yvan42
+    B44: Yvan43
+    H44: Tipos de Jugada
+    B45: Yvan44
+    B46: Yvan45
+    H46: 1. Jugada Esquinas
+    B47: Yvan46
+    H47: Números: 1, 5, 21, 25
+    B48: Yvan47
+    H48: 2. Jugada Diagonal
+    B49: Yvan48
+    H49: Diagonal 1: 1, 7, 19, 25
+    B50: Yvan49
+    H50: Diagonal 2: 5, 9, 17, 21
+    B51: Yvan50
+    H51: 3. Jugada Horizontal
+  Valores de muestra por fila (primeras 35 filas no vacías):
+    fila 1: ['ID del Jugador', 'Nombre del Jugador', 'Celular', 'Apuesta', 'Número Apostado', 'Premio Ganado', None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 2: [1, 'Yvan1', 932446957, 2, 1, 0, None, '4 Esquinas', None, None, None, None, None, 'Rombo', None, None, None, None, None, 'Letra T']
+    fila 3: [2, 'Yvan2', 932446957, 3, 2, 0, None, 1, None, None, None, 21, None, None, None, 11, None, None, None, 1]
+    fila 4: [3, 'Yvan3', 932446957, 5, 3, 0, None, None, None, None, None, None, None, None, 7, None, 17, None, None, None]
+    fila 5: [4, 'Yvan4', 932446957, 10, 4, 0, None, None, None, None, None, None, None, 3, None, None, None, 23, None, None]
+    fila 6: [5, 'Yvan5', 932446957, 2, 5, 0, None, None, None, None, None, None, None, None, 9, None, 19, None, None, None]
+    fila 7: [6, 'Yvan6', 932446957, 3, 6, 0, None, 5, None, None, None, 25, None, None, None, 15, None, None, None, None]
+    fila 8: [7, 'Yvan7', 932446957, 5, 7, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 9: [8, 'Yvan8', 932446957, 10, 8, 0, None, 'Diagonal 1', None, None, None, None, None, 0, None, None, None, None, None, 'Letra L']
+    fila 10: [9, 'Yvan9', 932446957, 2, 9, 0, None, None, None, None, None, 21, None, None, 6, 11, 16, None, None, 1]
+    fila 11: [10, 'Yvan10', 932446957, 3, 10, 0, None, None, None, None, 17, None, None, None, 7, None, 17, None, None, 2]
+    fila 12: [11, 'Yvan11', 932446957, 5, 11, 0, None, None, None, None, None, None, None, None, 8, None, 18, None, None, 3]
+    fila 13: [12, 'Yvan12', 932446957, 10, 12, 0, None, None, 9, None, None, None, None, None, 9, None, 19, None, None, 4]
+    fila 14: [13, 'Yvan13', 932446957, 2, 13, 0, None, 5, None, None, None, None, None, None, 10, 15, 20, None, None, 5]
+    fila 15: [14, 'Yvan14', 932446957, 3, 14, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 16: [15, 'Yvan15', 932446957, 5, 15, 0, None, 'Horizontal', None, None, None, None, None, '+', None, None, None, None, None, 'Letra H']
+    fila 17: [16, 'Yvan16', 932446957, 10, 16, 0, None, 1, 6, 11, 16, 21, None, None, None, 11, None, None, None, 1]
+    fila 18: [17, 'Yvan17', 932446957, 2, 17, 0, None, None, None, None, None, None, None, None, None, 12, None, None, None, 2]
+    fila 19: [18, 'Yvan18', 932446957, 3, 18, 0, None, None, None, None, None, None, None, 3, 8, None, 18, 23, None, 3]
+    fila 20: [19, 'Yvan19', 932446957, 5, 19, 0, None, None, None, None, None, None, None, None, None, 14, None, None, None, 4]
+    fila 21: [20, 'Yvan20', 932446957, 10, 20, 0, None, None, None, None, None, None, None, None, None, 15, None, None, None, 5]
+    fila 22: [21, 'Yvan21', 932446957, 2, 21, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 23: [22, 'Yvan22', 932446957, 3, 22, 0, None, 'Vertical', None, None, None, None, None, 'Letra X', None, None, None, None, None, 'Letra U']
+    fila 24: [23, 'Yvan23', 932446957, 5, 23, 0, None, 1, None, None, None, None, None, 1, None, None, None, 21, None, 1]
+    fila 25: [24, 'Yvan24', 932446957, 10, 24, 0, None, 2, None, None, None, None, None, None, 7, None, 17, None, None, 2]
+    fila 26: [25, 'Yvan25', 932446957, 2, 25, 0, None, 3, None, None, None, None, None, None, None, None, None, None, None, 3]
+    fila 27: [26, 'Yvan26', 932446957, 3, 26, 0, None, 4, None, None, None, None, None, None, 9, None, 19, None, None, 4]
+    fila 28: [27, 'Yvan27', 932446957, 5, 27, 0, None, 5, None, None, None, None, None, 5, None, None, None, 25, None, 5]
+    fila 29: [28, 'Yvan28', 932446957, 10, 28, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 30: [29, 'Yvan29', 932446957, 2, 29, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 31: [30, 'Yvan30', 932446957, 3, 30, 0, None, 'Si la cartilla del bingo tiene 25 numeros en una matriz de 5 Columnas y 5 filas y a cada interseccion le dieramos un numero (columna 1 y fila 1 con el numero 1, columna 1 y fila 2 con el numero 2, columna 1 y fila 3 con el numero 3, columna 1 y fila 4 con el numero 4, columna 1 y fila 5 con el numero 5, y asi sucesivamente hasta la columna 5 y fila 5 con el numero 25, sabiendo que la posicion 13 siempre quedra libre o en blanco )', None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 32: [31, 'Yvan31', 932446957, 5, 1, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 33: [32, 'Yvan32', 932446957, 10, 2, 0, None, 'Cartilla de Bingo Vertical', None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 34: [33, 'Yvan33', 932446957, 2, 3, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]
+    fila 35: [34, 'Yvan34', 932446957, 3, 4, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None]

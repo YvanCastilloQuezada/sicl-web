@@ -1,0 +1,1013 @@
+ARKI / ARQUI — CONSOLIDADO DE PROPUESTAS
+ESQUELETO + SISTEMA NERVIOSO
+ChatGPT + DeepSeek + Auditoría Forense
+Fecha: 2026-09-29
+Estado: PROPUESTA CONSOLIDADA PARA DISCUSIÓN
+Modo: NO IMPLEMENTAR TODAVÍA
+
+======================================================================
+0. PROPÓSITO
+======================================================================
+
+Este documento consolida:
+A) la auditoría forense de sicl-core y sicl-web;
+B) la propuesta de ChatGPT sobre ARKI como organismo arquitectónico;
+C) la propuesta de DeepSeek sobre 4 capas, 9 conexiones y flujo E2E;
+D) las correcciones surgidas del Corte 2.
+
+No se busca sumar módulos por sumar.
+La pregunta central es:
+
+¿CÓMO HACEMOS QUE TODO LO QUE ARKI YA TIENE SE COMPORTE COMO UN SOLO ARQUITECTO?
+
+Principio rector:
+REUSE → COMPOSE → EXTEND → NEW.
+
+======================================================================
+1. ACUERDO FUNDAMENTAL
+======================================================================
+
+Hay convergencia fuerte entre ChatGPT y DeepSeek en estos principios:
+
+1. Un solo canonical project state.
+2. Un solo canonical architectural state: D-2.
+3. Un solo event log.
+4. UI no decide ni canoniza.
+5. Exploración no muta D-2.
+6. Developer no es un segundo D-2.
+7. Developer no es un segundo cerebro.
+8. UNKNOWN permanece UNKNOWN.
+9. No fabricar geometría, dimensiones, relaciones o sistemas faltantes.
+10. Human Authority final.
+11. La mutación D-2 pertenece al Core.
+12. Representación se deriva del mismo estado arquitectónico.
+13. Contrato antes de código.
+14. Reutilizar Derivation / Impact / Validity / Reaction / H005 / A002 /
+    ArchiTransaction en vez de duplicarlos.
+15. Los tests prueban comportamiento técnico, no por sí solos calidad arquitectónica.
+
+Esto constituye el CANON DE INTEGRACIÓN propuesto.
+
+======================================================================
+2. AJUSTE PRINCIPAL A LA PROPUESTA DE 4 CAPAS
+======================================================================
+
+La propuesta de DeepSeek divide ARKI en:
+- UI / Workflow
+- Orquestación arquitectónica
+- Kernel arquitectónico
+- Exploración masiva
+
+La división es útil, pero "Exploración masiva" NO debe entenderse como una capa
+inferior al Kernel en una jerarquía lineal.
+
+Exploración es un SERVICIO COGNITIVO/LATERAL utilizado por el ciclo de diseño.
+
+Arquitectura consolidada:
+
+                         YVAN
+                   HUMAN AUTHORITY
+                          │
+                          ▼
+                 UI / WORKFLOW
+                          │
+                          ▼
+             ORQUESTACIÓN COGNITIVA
+                          │
+          ┌───────────────┼────────────────┐
+          │               │                │
+          ▼               ▼                ▼
+     KNOWLEDGE       EXPLORATION      EVALUATION
+          │               │                │
+          └───────────────┼────────────────┘
+                          ▼
+                     DEVELOPER
+                          │
+                    Proposal DTO
+                          │
+                          ▼
+                 KERNEL / D-2 CORE
+                          │
+                          ▼
+                REPRESENTATION
+                 ARE / DRAW / IFC
+
+Y atravesando TODO:
+
+                ARKI NERVOUS SYSTEM
+ Events ↔ Derivation ↔ Dependency ↔ Impact ↔ Reaction ↔ Recomputation
+
+Razón:
+La exploración no es "debajo" del Kernel.
+Puede ser invocada durante síntesis, desarrollo, evaluación y revisión.
+Tampoco debe imponerse la regla absoluta "cada capa sólo habla con la adyacente"
+si eso obliga a crear wrappers artificiales o duplica contratos.
+La regla correcta es:
+
+NINGÚN SALTO PUEDE EVITAR AUTORIDAD, OWNERSHIP, PROVENANCE O VALIDACIÓN.
+
+======================================================================
+3. EL ESQUELETO
+======================================================================
+
+D-2 es el ESQUELETO arquitectónico.
+
+Definición consolidada:
+
+D-2 = única representación semántica canónica del edificio/proyecto que ARKI
+considera vigente en un instante.
+
+D-2 NO es:
+- dibujo;
+- imagen;
+- razonamiento;
+- parti;
+- candidato;
+- DeveloperProposal;
+- SpatialHypothesis;
+- UI ProjectState.
+
+D-2 debe evolucionar gradualmente hacia un modelo corporal suficiente para
+representar arquitectura, pero NO se deben agregar tipos porque un diagrama los
+sugiera.
+
+Antes de ampliar D-2:
+1. verificar tipos existentes;
+2. verificar relaciones existentes;
+3. demostrar gap real;
+4. extender sólo si es necesario.
+
+Modelo conceptual objetivo:
+
+PROJECT
+├── SITE
+├── BUILDING / ORGANIZATION
+│   ├── LEVEL
+│   ├── ZONE
+│   ├── SPACE
+│   ├── CIRCULATION
+│   ├── BOUNDARY / WALL
+│   ├── OPENING / DOOR / WINDOW
+│   └── STRUCTURAL / OTHER SYSTEM ELEMENTS
+└── SYSTEMS / RELATIONSHIPS
+
+IMPORTANTE:
+Este árbol es MODELO CONCEPTUAL DE DISCUSIÓN.
+NO autoriza crear inmediatamente BUILDING, LEVEL, ZONE, CIRCULATION u otros
+ElementKind nuevos. El D-2 real observado actualmente debe seguir siendo el
+contrato de implementación hasta demostrar el gap.
+
+======================================================================
+4. EL SISTEMA NERVIOSO
+======================================================================
+
+La propuesta consolidada amplía "sistema nervioso" más allá de conexiones HTTP.
+
+El sistema nervioso de ARKI es:
+
+EVENT
+  ↓
+DERIVATION
+  ↓
+DEPENDENCY
+  ↓
+IMPACT
+  ↓
+VALIDITY
+  ↓
+REACTION
+  ↓
+SELECTIVE RECOMPUTATION
+  ↓
+NEW STATE / NEW PROPOSAL / HUMAN REVIEW
+
+Cada entidad relevante debe poder responder, según aplique:
+- quién/qué la originó;
+- de qué depende;
+- qué evidencia la soporta;
+- qué estado epistémico tiene;
+- qué versión tiene;
+- qué se afecta si cambia;
+- qué debe recomputarse;
+- qué requiere decisión humana.
+
+Ejemplo causal:
+
+CLIENT REQUIREMENT
+"3 dormitorios"
+      ↓
+PROGRAM REQUIREMENT
+      ↓
+FUNCTIONAL RELATIONSHIPS
+      ↓
+SPACES
+      ↓
+GEOMETRY
+      ↓
+BOUNDARIES / OPENINGS
+      ↓
+STRUCTURAL / ENVIRONMENTAL CONSEQUENCES
+      ↓
+REPRESENTATION
+
+Si 3 cambia a 4:
+ARKI no debe sólo reemplazar un número.
+Debe recorrer el grafo de impacto y recomputar únicamente lo afectado.
+
+Este comportamiento es la esencia del "sistema nervioso".
+
+======================================================================
+5. LOS CUATRO UNIVERSOS QUE NO DEBEN CONFUNDIRSE
+======================================================================
+
+1. KNOWLEDGE
+   Lo que ARKI sabe.
+   Normas, precedentes, tipologías, materiales, sistemas, sitio, memoria.
+
+2. REASONING
+   Lo que ARKI piensa.
+   Problema, hipótesis, análisis, crítica, transferencia, explicación.
+
+3. PROPOSALS
+   Lo que ARKI imagina/desarrolla.
+   Parti candidates, SpatialHypothesis, Candidate, DeveloperProposal.
+
+4. ARCHITECTURAL STATE
+   Lo que actualmente constituye el proyecto.
+   D-2.
+
+Flujo de autoridad:
+
+KNOWLEDGE
+    ↓
+BRAIN / REASONING
+    ↓
+PROPOSALS
+    ↓
+HUMAN + VALIDATION
+    ↓
+D-2
+
+Nada debe saltar directamente de "idea" a "arquitectura canónica".
+
+======================================================================
+6. CEREBRO Y CICLO COGNITIVO
+======================================================================
+
+El Brain NO debe producir un edificio directamente.
+
+Cadena consolidada:
+
+ENCARGO
+  ↓
+PROJECT BRAIN
+  ↓
+KNOWLEDGE / CONTEXT / PRECEDENTS / NORMS
+  ↓
+D6.2 REASONING
+  ↓
+SYNTHESIS / PARTI
+  ↓
+SPATIAL HYPOTHESES
+  ↓
+EXPLORATION / CRITIQUE / EVALUATION
+  ↕
+DEVELOPER
+  ↓
+DEVELOPER PROPOSAL
+  ↓
+HUMAN REVIEW
+  ↓
+CORE VALIDATION / SUFFICIENCY / TRANSACTION
+  ↓
+D-2
+
+No debe implementarse como tubería rígida irreversible.
+
+Debe permitir:
+- feedback;
+- backtracking;
+- mutación;
+- rechazo;
+- recomputación;
+- reinicio parcial;
+- exploración alternativa.
+
+======================================================================
+7. DEVELOPER: DEFINICIÓN CONSOLIDADA
+======================================================================
+
+Developer NO es sólo un convertidor D6.3→D-2.
+
+Developer es el motor de DESARROLLO ARQUITECTÓNICO de propuestas.
+
+Trabaja con sistemas interrelacionados:
+- FUNCTION
+- SPACE
+- GEOMETRY
+- CONTEXT
+- LIMITATIONS
+
+y progresivamente:
+- functional relationships;
+- topology;
+- spatial organization;
+- circulation;
+- geometry;
+- boundaries/openings;
+- structural logic;
+- environmental response;
+- critique;
+- mutations.
+
+No necesariamente en orden lineal.
+
+Contrato duro:
+
+INPUT:
+- selected/active hypothesis;
+- FunctionalTopology;
+- Parti/intention;
+- explicit evidence;
+- explicit geometry where available;
+- constraints;
+- unknowns;
+- provenance.
+
+OUTPUT:
+DeveloperProposal
+
+DeveloperProposal contiene DTOs DE PROPUESTA:
+- ProposedArchiElementDTO
+- ProposedArchiRelationDTO
+- ProposedDerivationDTO
+- unresolvedUnknowns
+- requiredHumanActions
+- provenance
+- fingerprints
+- promotionGate
+
+DeveloperProposal NO contiene autoridad para mutar D-2.
+
+======================================================================
+8. CINCO REDES SUPERPUESTAS
+======================================================================
+
+Un proyecto no debe entenderse como una sola topología.
+
+A. FUNCTIONAL NETWORK
+   activities / requirements / adjacency / separation / dependency.
+
+B. CIRCULATION NETWORK
+   access / paths / public / service / vertical / accessibility.
+
+C. SPATIAL NETWORK
+   contains / adjacent / overlaps / separates / connects.
+
+D. PHYSICAL NETWORK
+   boundaries / hosts / openings / support / enclosure.
+
+E. CAUSAL NETWORK
+   requirement → reasoning → decision → space → geometry → element.
+
+Futuro:
+- structural network;
+- environmental network;
+- services network;
+- cost/construction network.
+
+Estas redes deben poder cruzarse mediante identidad/provenance sin convertirse
+en estados canónicos paralelos.
+
+======================================================================
+9. EXPLORACIÓN MASIVA
+======================================================================
+
+No generar 100 000 edificios completos.
+
+Explorar progresivamente:
+
+100 000 microvariaciones
+       ↓
+10 000 topologías
+       ↓
+1 000 configuraciones espaciales
+       ↓
+100 desarrollos
+       ↓
+16 candidatos significativos
+       ↓
+4 elegidos por Human Authority
+       ↓
+1 proyecto para desarrollo
+
+Los números son estrategia conceptual, NO cuotas rígidas.
+
+La exploración debe:
+- mantener diversidad;
+- evitar duplicados;
+- filtrar inviables;
+- conservar genealogía;
+- permitir Pareto/trade-offs;
+- no canonizar.
+
+======================================================================
+10. MUERTE Y GENEALOGÍA DE IDEAS
+======================================================================
+
+CandidateState propuesto conceptualmente:
+
+ACTIVE
+MUTATED
+DOMINATED
+REJECTED
+INVALID
+BLOCKED_UNKNOWN
+HUMAN_REJECTED
+SELECTED_FOR_DEVELOPMENT
+
+Nunca borrar silenciosamente una idea.
+
+Registrar:
+- parent;
+- mutation;
+- reason for rejection;
+- evidence;
+- evaluator;
+- human decision if applicable.
+
+Esto permite que ARKI aprenda de alternativas descartadas sin convertirlas en
+arquitectura vigente.
+
+======================================================================
+11. UNKNOWN COMO PROPIEDAD TRANSVERSAL
+======================================================================
+
+UNKNOWN debe atravesar:
+Brain
+D6.2
+PARTI
+D6.3
+Developer
+D-2 proposal
+Evaluation
+Representation
+
+Regla:
+
+NO EVIDENCE → UNKNOWN
+UNKNOWN ≠ DEFAULT
+UNKNOWN ≠ FAILURE
+
+Ejemplo:
+opening.location = UNKNOWN
+opening.width = UNKNOWN
+
+Resultado:
+No generar DOOR geométrica sólo para cerrar un plano.
+
+======================================================================
+12. EVENT LOG: SISTEMA CIRCULATORIO
+======================================================================
+
+El event log append-only existente debe reutilizarse.
+
+Eventos candidatos:
+- REASONING_EXECUTION_RECORDED
+- HYPOTHESIS_CREATED
+- CANDIDATE_GENERATED
+- CANDIDATE_MUTATED
+- CANDIDATE_REJECTED
+- UNKNOWN_DETECTED
+- HUMAN_REVIEW_RECORDED
+- HUMAN_DECISION_RECORDED
+- ARCHI_TRANSACTION_COMMITTED
+- DERIVATION_RECORDED
+- IMPACT_DETECTED
+- RECOMPUTATION_COMPLETED
+
+No todos los eventos mutan Project Snapshot.
+No todos incrementan project.version.
+
+REGLA CONSOLIDADA:
+reasoning-executions debe ser append-only evidence/history y NO incrementar
+project.version salvo que en el futuro se diseñe explícitamente una proyección
+canónica de reasoning dentro del snapshot.
+
+======================================================================
+13. OWNERSHIP MAP
+======================================================================
+
+CANONICAL PROJECT STATE
+Owner: sicl-core Project Snapshot.
+
+CANONICAL ARCHITECTURAL STATE
+Owner: sicl-core D-2.
+
+REASONING / PROPOSALS
+Owner lógico: orchestration/reasoning layer.
+Persistencia auditable: core event log.
+
+D6.3
+Spatial hypothesis, no canonical architectural state.
+
+WEB PROJECT STATE
+Workflow/UI projection, no architectural source of truth.
+
+REPRESENTATION
+Derived from D-2.
+No muta D-2.
+
+EXPLORATION
+Candidates only.
+No muta D-2.
+
+======================================================================
+14. FLUJO E2E CONSOLIDADO
+======================================================================
+
+1. ENCARGO
+2. PROJECT BRAIN
+3. KNOWLEDGE / CONTEXT RETRIEVAL
+4. D6.2 REASONING
+5. SYNTHESIS / PARTI CANDIDATES
+6. HUMAN SELECTION cuando corresponde
+7. D6.3 SPATIAL HYPOTHESIS
+8. EXPLORATION / MUTATION / EVALUATION
+9. ARCHITECTURAL DEVELOPER
+10. DeveloperProposal
+11. HUMAN REVIEW
+12. CORE PROMOTION GATE
+13. A-002 + ArchiTransaction + H-chain según contrato real
+14. D-2 COMMIT
+15. IMPACT / REACTION / RECOMPUTATION
+16. ARE
+17. ARKI-DRAW / SVG / PDF / IFC
+18. UI
+19. FEEDBACK → vuelve al punto necesario, no necesariamente al inicio.
+
+No se considera una secuencia rígida.
+Es un ciclo con gates y retornos.
+
+======================================================================
+15. CONEXIONES PRIORITARIAS REALES
+======================================================================
+
+P0 — RECUPERAR BASELINE
+- corregir dependencia reportlab;
+- CI core verde.
+
+P1 — VERDAD SEMÁNTICA
+- D6.3 G12 no puede declarar NO_TEMPLATE_HARDCODING PASS mientras haya
+  geometría hardcoded;
+- eliminar canonical:true como autoridad arquitectónica en D6.3.
+
+P2 — PERSISTENCIA DE REASONING
+- implementar contrato reasoning-executions sobre event log existente;
+- sin tabla nueva inicialmente;
+- sin N+1 inventado.
+
+P3 — CONTRACT DTO
+- DeveloperProposal DTOs TypeScript/Python compatibles y validados.
+
+P4 — DEVELOPER
+- proposal only;
+- no D-2 mutation.
+
+P5 — PROMOTION OWNED BY CORE
+- human approval;
+- schema validation;
+- A002;
+- ArchiTransaction;
+- H-chain;
+- commit D-2.
+
+P6 — REPRESENTATION
+- D-2 → ARE → DRAW;
+- reutilizar infraestructura existente y CASE-001.
+
+P7 — E2E MICROCASE
+- comprobar todo el circuito.
+
+======================================================================
+16. CORRECCIONES A LA PROPUESTA DE DEEPSEEK
+======================================================================
+
+16.1 "Cada capa sólo habla con la adyacente"
+NO adoptarlo como ley absoluta.
+Adoptar:
+ninguna comunicación puede saltarse ownership, contracts, provenance,
+validation o Human Authority.
+
+16.2 "Exploración = Capa 1 debajo del Kernel"
+Reformular.
+Exploración es servicio lateral/cognitivo invocable por el ciclo de diseño.
+
+16.3 "Nada de lo existente se toca"
+Demasiado absoluto.
+Correcto:
+no reemplazar ni duplicar sin gap demostrado.
+Sí se puede corregir, extender, integrar o endurecer código existente.
+
+16.4 Human Review
+La autoridad de decisión es humana.
+La UI puede recoger la decisión.
+El Core debe validar/persistir el evento y controlar canonización.
+Por tanto "Human Review sólo en Core" no describe toda la interacción.
+
+16.5 ArchiTransaction
+Sí: sólo Core para mutación canónica.
+No excepción en web.
+
+16.6 Developer Promotion
+No debe confiar en proposedElements enviados por web sin recuperar/verificar
+la propuesta persistida y su fingerprint.
+El Core debe impedir sustitución de payload entre review y promotion.
+
+16.7 Reasoning execution
+Append-only.
+No N+1 automático.
+
+16.8 Microcase
+La geometría explícita corregida es aceptable para probar transformación.
+Pero no debe convertirse en template productivo.
+
+======================================================================
+17. ENDPOINT reasoning-executions — CONTRATO CONSOLIDADO
+======================================================================
+
+POST /v1/projects/{project_id}/reasoning-executions
+
+Request conceptual:
+- executionId
+- kind
+- fingerprint
+- inputFingerprint?
+- payload
+- epistemicStatus
+- humanAuthorityRef?
+- sourceRefs
+- actor
+- createdAt
+
+Kinds iniciales:
+PROJECT_BRAIN
+D6_2
+D6_3
+DEVELOPER_PROPOSAL
+
+Persistencia:
+Event(type="REASONING_EXECUTION_RECORDED", ...)
+
+Invariantes:
+- project existe;
+- allowlist de kind;
+- fingerprint verificable;
+- actor explícito;
+- payload no puede afirmar D-2 commit;
+- D6.3 = HYPOTHESIS;
+- DeveloperProposal = PROPOSAL/HYPOTHESIS;
+- append-only;
+- no promoción;
+- no decisión humana implícita;
+- no incremento de project.version por defecto.
+
+Response:
+- status
+- executionId
+- eventId
+- observedVersion REAL.
+
+======================================================================
+18. DEVELOPER PROMOTION — CONTRATO CONSOLIDADO
+======================================================================
+
+No aceptar como verdad simplemente:
+proposalId + proposedElements + humanReviewId.
+
+Flujo más seguro:
+
+1. Core recibe proposal y lo persiste como reasoning event.
+2. Core devuelve proposal/execution ID + fingerprint.
+3. Human Review referencia exactamente ese proposal ID/fingerprint.
+4. Promotion recibe:
+   - proposalId
+   - proposalFingerprint
+   - humanReviewId
+   - humanAuthorityRef
+5. Core recupera propuesta persistida.
+6. Core verifica fingerprint.
+7. Core verifica HumanReview APPROVED para ESA propuesta.
+8. Core valida DTO/schema.
+9. Core convierte DTO → tipos internos.
+10. Core ejecuta A002/ArchiTransaction/H-chain aplicable.
+11. Si todo pasa: commit D-2.
+12. Si falla: cero mutación.
+13. Event log registra resultado.
+
+Esto cierra riesgo de TOCTOU/payload substitution entre aprobación y promoción.
+
+======================================================================
+19. MICROCASE-DEV-001
+======================================================================
+
+Se acepta el principio del microcaso corregido de DeepSeek:
+- site 10×10 explícito;
+- venta 5×10 explícita = 50 m²;
+- baño 1.5×2 explícito = 3 m²;
+- wall geometry explícita;
+- opening location/width UNKNOWN;
+- entryLocation UNKNOWN.
+
+Objetivo:
+probar transformación y fail-closed, NO creatividad arquitectónica.
+
+Pruebas mínimas:
+1. geometría explícita preservada;
+2. UNKNOWN no rellenado;
+3. no DOOR sin evidencia;
+4. Developer no muta D-2;
+5. proposal fingerprint estable;
+6. review referencia proposal exacta;
+7. payload alterado después de review es rechazado;
+8. A002/transaction bloquean insuficiencia;
+9. commit D-2 sólo tras approval;
+10. representación proviene del D-2 committed;
+11. WHY/provenance remonta hacia input;
+12. modificación D-2 activa impacto/reacción correspondiente.
+
+CASE-001 existente:
+se conserva como regression fixture downstream D-2→ARE→DRAW.
+No duplicarlo.
+
+======================================================================
+20. QUÉ NO CREAR TODAVÍA
+======================================================================
+
+No crear:
+- segundo D-2;
+- segundo Project State;
+- segundo Event Log;
+- segundo Derivation Ledger;
+- segundo Impact engine;
+- segundo Reaction engine;
+- A002 TypeScript;
+- ArchiTransaction TypeScript;
+- nueva representación paralela;
+- generador de puertas/muros/dimensiones por default;
+- nuevos ElementKind sin gap demostrado;
+- una megaclase "SuperArchitect";
+- un workflow rígido que impida backtracking.
+
+======================================================================
+21. QUÉ SÍ HAY QUE CREAR / MODIFICAR
+======================================================================
+
+La lista de DeepSeek de "5 archivos nuevos + 3 modificados" NO debe congelarse
+todavía como arquitectura final.
+
+Primero se debe confirmar contrato y ubicación exacta.
+
+Mínimo lógico:
+
+SICL-CORE
+MODIFICAR:
+- dependency declaration para recuperar CI;
+- API schemas/routes para reasoning execution;
+- API/service para developer promotion si el contrato no cabe limpiamente en
+  servicios existentes.
+
+CREAR SÓLO SI NO EXISTE ABSTRACCIÓN ADECUADA:
+- developer promotion service.
+
+SICL-WEB
+MODIFICAR:
+- D6.3 semantics/gates;
+- coreHttpClient;
+- canonical orchestration.
+
+CREAR:
+- DeveloperProposal contract/type en ubicación compartida adecuada;
+- Architectural Developer implementation;
+- tests.
+
+NO decidir todavía que shared/types.ts genérico es la ubicación correcta:
+evitar convertir un archivo común en cajón de sastre.
+
+======================================================================
+22. ORDEN DE IMPLEMENTACIÓN CONSOLIDADO
+======================================================================
+
+FASE 0 — BASELINE
+Commit 1:
+Fix reportlab/dependency contract.
+CI core verde.
+
+FASE 1 — SEMANTIC TRUTH
+Commit 2:
+D6.3 G12 + canonical semantics.
+Tests.
+
+FASE 2 — REASONING TRANSPORT
+Commit 3:
+Core schema + reasoning-executions append-only.
+Tests.
+
+Commit 4:
+Web client contract.
+Cross-repo contract test.
+
+FASE 3 — DEVELOPER CONTRACT
+Commit 5:
+DeveloperProposal DTO/schema.
+Tests.
+
+Commit 6:
+Architectural Developer proposal-only.
+Tests fail-closed.
+
+FASE 4 — PROMOTION
+Commit 7:
+Core promotion service reusing HumanReview/A002/ArchiTransaction/H-chain.
+Tests.
+
+Commit 8:
+Promotion endpoint + fingerprint binding.
+Contract tests.
+
+FASE 5 — ORCHESTRATION
+Commit 9:
+Web orchestration connects proposal/review/promotion.
+Tests.
+
+FASE 6 — E2E
+Commit 10:
+MICROCASE-DEV-001.
+D-2→ARE→DRAW.
+Traceability + mutation + UNKNOWN.
+
+La numeración puede cambiar por hallazgos de implementación.
+El principio es commits pequeños, reversibles y probados.
+
+======================================================================
+23. QUÉ DECIDE EL EQUIPO Y QUÉ DECIDE YVAN
+======================================================================
+
+NO cargar a Yvan con decisiones rutinarias como:
+- arreglar reportlab;
+- corregir un gate falso;
+- quitar canonical:true incorrecto;
+- elegir ubicación de un schema;
+- escribir contract tests;
+- usar ArchiTransaction en Core.
+
+El equipo técnico resuelve eso dentro del canon.
+
+YVAN INTERVIENE cuando:
+- cambia el modelo cognitivo de ARKI;
+- cambia qué significa Human Authority;
+- cambia qué se considera arquitectura canónica;
+- hay una decisión de diseño arquitectónico;
+- hay un trade-off de producto;
+- se propone una regla irreversible o de alcance estratégico.
+
+Por tanto no existen "10 decisiones obligatorias de Yvan" en esta etapa.
+
+======================================================================
+24. TRES COLUMNAS VERTEBRALES
+======================================================================
+
+Antes de ampliar ARKI, consolidar:
+
+COLUMNA 1 — CUERPO
+D-2 como único estado arquitectónico canónico.
+
+COLUMNA 2 — SISTEMA NERVIOSO
+Events + Derivation + Dependency + Impact + Validity + Reaction +
+Selective Recomputation.
+
+COLUMNA 3 — CICLO COGNITIVO
+Brain → Knowledge/Reasoning → Synthesis/Parti → Spatial Hypothesis →
+Exploration/Developer → Human → Core Promotion → D-2 → Evaluation →
+Representation → Feedback.
+
+Si estas tres columnas funcionan, los órganos existentes pueden enchufarse
+sin crear otra colección desconectada.
+
+======================================================================
+25. DEFINICIÓN OPERATIVA DEL "SUPER ARQUITECTO"
+======================================================================
+
+ARKI no será Super Arquitecto porque tenga muchos agentes o módulos.
+
+Lo será cuando pueda:
+
+1. entender un encargo;
+2. distinguir hechos, supuestos, unknowns y decisiones;
+3. recuperar conocimiento pertinente;
+4. formular el problema arquitectónico;
+5. generar múltiples hipótesis con genealogía;
+6. desarrollar función, espacio, geometría, contexto y restricciones
+   de manera interrelacionada;
+7. criticar y descartar sus propias propuestas;
+8. explicar WHY;
+9. saber qué cambia cuando una decisión cambia;
+10. recomputar selectivamente;
+11. preservar Human Authority;
+12. mantener un único edificio canónico;
+13. producir representaciones desde ese mismo edificio;
+14. no inventar información para completar un resultado;
+15. aprender de resultados y alternativas sin confundir memoria con canon.
+
+======================================================================
+26. VEREDICTO CONSOLIDADO
+======================================================================
+
+La propuesta de DeepSeek es una base técnicamente útil y converge en gran parte
+con la propuesta de ChatGPT.
+
+SE ADOPTA:
+- separación UI / orchestration / kernel;
+- D-2 único;
+- event log único;
+- DeveloperProposal;
+- mutation D-2 sólo en Core;
+- reasoning-executions append-only;
+- Human Authority;
+- microcaso explícito;
+- commits pequeños;
+- reuse-first.
+
+SE MODIFICA:
+- Exploration deja de tratarse como capa inferior lineal;
+- "sólo capas adyacentes" deja de ser ley absoluta;
+- sistema nervioso no es sólo HTTP: es causalidad + impacto + reacción +
+  recomputación;
+- Developer no es mero conversor, sino motor iterativo de desarrollo;
+- promotion debe ligar criptográficamente review con proposal persistida;
+- "nada existente se toca" se sustituye por "no duplicar; corregir/extender
+  cuando haya gap";
+- la lista exacta de archivos no se congela antes de inspeccionar contratos.
+
+SE RECHAZA:
+- segundo estado arquitectónico;
+- mutación D-2 desde web;
+- defaults inventados;
+- pipeline lineal irreversible;
+- convertir fixtures en arquitectura general;
+- trasladar decisiones técnicas rutinarias a Yvan.
+
+======================================================================
+27. PROPUESTA PARA DISCUSIÓN FINAL
+======================================================================
+
+Nombre conceptual del conjunto:
+
+ARKI ORGANISM ARCHITECTURE
+
+A. BODY / SKELETON
+   D-2
+
+B. NERVOUS SYSTEM
+   Events / Derivation / Dependency / Impact / Validity / Reaction /
+   Recomputation
+
+C. BRAIN
+   Problem / Knowledge / Reasoning / Synthesis / Parti / Critique
+
+D. EXPLORATION
+   Candidate populations / mutation / diversity / Pareto / genealogy
+
+E. DEVELOPER
+   Function / Space / Geometry / Context / Limitations / systems feedback
+
+F. HUMAN AUTHORITY
+   Review / Selection / Decision / Canonization authorization
+
+G. SENSES
+   Site / Regulations / Evidence / Precedents / environmental inputs
+
+H. EXPRESSION
+   ARE / ARKI-DRAW / SVG / PDF / IFC / future BIM
+
+No son ocho programas.
+Son ocho RESPONSABILIDADES de un solo ARKI.
+
+======================================================================
+28. SIGUIENTE PASO PROPUESTO
+======================================================================
+
+Antes de programar:
+
+1. DeepSeek revisa este consolidado.
+2. Devuelve sólo:
+   - ACCEPTED;
+   - DISAGREEMENTS;
+   - TECHNICAL RISKS;
+   - CONTRACT CHANGES;
+   - MINIMUM IMPLEMENTATION DELTA.
+3. ChatGPT hace Red Team final.
+4. Sólo contradicciones de modelo cognitivo o Human Authority escalan a Yvan.
+5. Cerrado el contrato: implementación.
+
+FIN DEL CONSOLIDADO

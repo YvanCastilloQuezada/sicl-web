@@ -1,0 +1,437 @@
+# duplicated type/class/function declarations
+const ACCESS_CARDS client/src/components/ArkiGateway.tsx
+const APU_DATABASE shared/arkiConstructionOntology.ts
+const ARKI_AUDIT_STORE shared/persistence/arkiPersistence.ts
+const ARKI_PERSISTENCE_DB shared/persistence/arkiPersistence.ts
+const ARKI_PERSISTENCE_VERSION shared/persistence/arkiPersistence.ts
+const ARKI_PROJECT_STORE shared/persistence/arkiPersistence.ts
+const ARKI_SESSION_STORE shared/persistence/arkiPersistence.ts
+const ARKI_SNAPSHOT_STORE shared/persistence/arkiPersistence.ts
+type Abertura shared/arkiConstructionOntology.ts
+type Acabado shared/arkiConstructionOntology.ts
+type AcabadoMuro shared/arkiConstructionOntology.ts
+type Activity4D shared/arki4d/index.ts
+type ApprovalWorkflow shared/arkiProfessionalModules.ts
+type ApuInsumo shared/arkiConstructionOntology.ts
+type ApuPartida shared/arkiConstructionOntology.ts
+type ArkiAccess client/src/components/ArkiGateway.tsx
+type ArkiModuleDefinition client/src/components/ArkiGateway.tsx
+type ArkiModuleStatus client/src/components/ArkiGateway.tsx
+type ArkiParametricFamily shared/arkiParametricFamilies.ts
+type ArkiProject shared/persistence/arkiPersistence.ts
+type ArkiSession shared/persistence/arkiPersistence.ts
+type ArkiSnapshot shared/persistence/arkiPersistence.ts
+type ArkiVersion shared/persistence/arkiPersistence.ts
+type AuditAction shared/persistence/arkiPersistence.ts
+type AuditEntry shared/persistence/arkiPersistence.ts
+type BimElementKind shared/arkiBimSelection.ts
+type BimSelection shared/arkiBimSelection.ts
+type BimSelectionItem shared/arkiBimSelection.ts
+type Budget5D shared/arki5d/index.ts
+type BuildingContext shared/arkiDynamicFamilies.ts
+type BuildingScale shared/arkiDynamicFamilies.ts
+type BuildingVersion shared/arkiFamilyComparison.ts
+const CANONICAL_PROMOTION shared/arkiDynamicFamilies.ts
+const COOKIE_NAME shared/const.ts
+type CanvasHit client/src/canvas/types.ts
+type CanvasView client/src/canvas/types.ts
+type CanvasViewport client/src/canvas/types.ts
+type CapaMuro shared/arkiConstructionOntology.ts
+type CdeManifest shared/arkiProfessionalModules.ts
+type ChartConfig client/src/components/ui/chart.tsx
+type Clash shared/arkiProfessionalModules.ts
+type Clash shared/coordination/index.ts
+type ComparisonMode shared/arkiFamilyComparison.ts
+type Constraint shared/arkiParametricFamilies.ts
+type ConstraintViolation shared/arkiMamparaFamily.ts
+type Construction5D shared/arkiProfessionalModules.ts
+type ConstructionModel shared/arkiConstructionOntology.ts
+type ConstructionModelDTO shared/arkiConstructionDTOs.ts
+type ConstructionSimulation shared/arkiProfessionalModules.ts
+type ConstructionSpace shared/arkiConstructionOntology.ts
+type ContextDiscipline shared/arkiContextPanel.ts
+type ContextLevel shared/arkiContextPanel.ts
+type ContextPanelState shared/arkiContextPanel.ts
+type ContextTool shared/arkiContextPanel.ts
+type ContextTreeNode shared/arkiContextPanel.ts
+type ContextViewport shared/arkiContextPanel.ts
+type CoordinationNode shared/coordination/index.ts
+type CostLine shared/arki5d/index.ts
+type CostResult shared/arkiParametricFamilies.ts
+type CostRule shared/arkiParametricFamilies.ts
+const DEFAULT_TECHNICAL_SPECIFICATIONS shared/arkiTechnicalDossier.ts
+const DYNAMIC_BUILDING_FAMILIES shared/arkiDynamicFamilies.ts
+type DynamicBuildingFamily shared/arkiDynamicFamilies.ts
+type ElementCost shared/arkiConstructionElements.ts
+type ElementFunction shared/arkiConstructionElements.ts
+type ElementRelation shared/arkiConstructionElements.ts
+type ElementStatus shared/arkiConstructionElements.ts
+type Especialidad shared/arkiConstructionOntology.ts
+type EstadoMuro shared/arkiConstructionOntology.ts
+type FamilyCategory shared/arkiDynamicFamilies.ts
+type FamilyInstance shared/arkiParametricFamilies.ts
+type FamilyParameter shared/arkiDynamicFamilies.ts
+type FamilyProgram shared/arkiDynamicFamilies.ts
+type FamilyRule shared/arkiDynamicFamilies.ts
+type FamilyType shared/arkiParametricFamilies.ts
+type FamilyVariant shared/arkiDynamicFamilies.ts
+type FinancialPeriod shared/arkiProfessionalModules.ts
+type FormalGateStatus shared/persistence/arkiPersistence.ts
+type FormalSnapshot shared/persistence/arkiPersistence.ts
+type FormworkRequirement shared/arkiTechnicalDossier.ts
+type FuncionMuro shared/arkiConstructionOntology.ts
+type GeneratedBuilding shared/arkiDynamicFamilies.ts
+type GeneratedElementSet shared/arkiConstructionElements.ts
+type GlobalIdMapping shared/identity/arkiGlobalId.ts
+type IfcEntity shared/ifc4/arkiIfc4.ts
+type IfcExportResult shared/ifc4/arkiIfc4.ts
+type IfcLossReport shared/ifc4/arkiIfc4.ts
+type IfcParseResult shared/ifc4/arkiIfc4.ts
+type Impact shared/arkiImpacts/index.ts
+type ImportSource shared/arkiParametricFamilies.ts
+type Interferencia shared/arkiConstructionOntology.ts
+const MAMPARA_CONSTRAINTS shared/arkiMamparaFamily.ts
+const MAMPARA_COST_RULES shared/arkiMamparaFamily.ts
+const MAMPARA_FAMILY shared/arkiMamparaFamily.ts
+const MAMPARA_FAMILY_ID shared/arkiMamparaFamily.ts
+const MAMPARA_MATERIALS shared/arkiMamparaFamily.ts
+const MAMPARA_PARAMETERS shared/arkiMamparaFamily.ts
+const MAMPARA_QUANTITY_RULES shared/arkiMamparaFamily.ts
+const MAMPARA_REFERENCE_PLANES shared/arkiMamparaFamily.ts
+const MAMPARA_SCHEDULE_RULES shared/arkiMamparaFamily.ts
+const MAMPARA_TYPES shared/arkiMamparaFamily.ts
+const MODULE_DEFINITIONS client/src/components/ArkiWorkspaceShell.tsx
+const MODULE_LABEL_KEYS client/src/components/ArkiWorkspaceShell.tsx
+type MamparaCosts shared/arkiMamparaFamily.ts
+type MamparaGeometry shared/arkiMamparaFamily.ts
+type MamparaParameters shared/arkiMamparaFamily.ts
+type MamparaQuantities shared/arkiMamparaFamily.ts
+type MamparaSchedule shared/arkiMamparaFamily.ts
+function ManusDialog client/src/components/ManusDialog.tsx
+function MapView client/src/components/Map.tsx
+type Material shared/arkiParametricFamilies.ts
+type MaterialCapa shared/arkiConstructionOntology.ts
+type MepConnector shared/mep/index.ts
+type MepDiscipline shared/mep/index.ts
+type MepModel shared/mep/index.ts
+type MepNode shared/mep/index.ts
+type MepValidation shared/mep/index.ts
+type Metrado shared/arkiConstructionOntology.ts
+type PartidaPresupuestal shared/arkiConstructionOntology.ts
+type PriceBook shared/arkiPriceBook.ts
+type PriceBookCurrency shared/arkiPriceBook.ts
+type PriceBookItem shared/arki5d/index.ts
+type PriceBookItem shared/arkiPriceBook.ts
+type PriceBookSource shared/arkiPriceBook.ts
+type PriceBookUnit shared/arkiPriceBook.ts
+type ProfessionalSummary shared/arkiProfessionalModules.ts
+type ProjectChange shared/arkiRecalculation.ts
+type ProjectSnapshot shared/arkiRecalculation.ts
+type ProvenanceRecord shared/arkiRecalculation.ts
+type QuantityItem shared/arki5d/index.ts
+type QuantityResult shared/arkiParametricFamilies.ts
+type QuantityRule shared/arkiParametricFamilies.ts
+const RESOLUTIONS client/src/components/ProfessionalFamilyViewer.tsx
+const ROOT_FAMILY_POLICY shared/arkiDynamicFamilies.ts
+type ReferencePlane shared/arkiParametricFamilies.ts
+type RegionalPrice shared/arkiTechnicalDossier.ts
+type RelationType shared/arkiConstructionElements.ts
+type RuleOperator shared/arkiDynamicFamilies.ts
+type RuleSet shared/arkiRecalculation.ts
+type S10Row shared/arkiProfessionalModules.ts
+type SceneComparison shared/arkiSceneComparison.ts
+type SceneModel shared/arkiSceneModel.ts
+type SceneNode shared/arkiSceneModel.ts
+type Schedule4D shared/arki4d/index.ts
+type ScheduleLink shared/arkiParametricFamilies.ts
+type ScheduleRule shared/arkiParametricFamilies.ts
+type ScheduleTask shared/arkiConstructionOntology.ts
+type SnapshotGateInput shared/persistence/arkiPersistence.ts
+type SnapshotGateStatus shared/persistence/arkiPersistence.ts
+type StructuralElement shared/arkiConstructionElements.ts
+type StructuralMember shared/structural/index.ts
+type StructuralModel shared/structural/index.ts
+type StructuralNode shared/structural/index.ts
+type StructuralResult shared/structural/index.ts
+type SupportedLanguage client/src/i18n/languages.ts
+type TechnicalDossier shared/arkiTechnicalDossier.ts
+type TechnicalSpecification shared/arkiTechnicalDossier.ts
+type TipoMuro shared/arkiConstructionOntology.ts
+type TranslationKey client/src/i18n/catalog.ts
+interface UseCompositionOptions client/src/hooks/useComposition.ts
+interface UseCompositionReturn client/src/hooks/useComposition.ts
+type VersionStatus shared/persistence/arkiPersistence.ts
+type WallDTO shared/arkiConstructionDTOs.ts
+type WebIfcParseOptions shared/ifc4/webIfcAdapter.ts
+function accessColor client/src/components/ArkiGateway.tsx
+function accessLabel client/src/components/ArkiGateway.tsx
+function accessSubtitle client/src/components/ArkiGateway.tsx
+function auditPayload shared/persistence/arkiPersistence.ts
+function buildFinancial5D shared/arkiProfessionalModules.ts
+function buildImpacts shared/arkiImpacts/index.ts
+function buildRegionalPrices shared/arkiTechnicalDossier.ts
+function calculateBudget5D shared/arki5d/index.ts
+function calculateSchedule4D shared/arki4d/index.ts
+function cn client/src/lib/utils.ts
+function compareDynamicBuildings shared/arkiFamilyComparison.ts
+function compareSceneModels shared/arkiSceneComparison.ts
+function computeMamparaCosts shared/arkiMamparaFamily.ts
+function computeMamparaGeometry shared/arkiMamparaFamily.ts
+function computeMamparaQuantities shared/arkiMamparaFamily.ts
+function computeMamparaSchedule shared/arkiMamparaFamily.ts
+function constructionModelFromDTO shared/arkiConstructionDTOs.ts
+function constructionModelToDTO shared/arkiConstructionDTOs.ts
+function constructionSummary shared/arkiConstructionOntology.ts
+function createApprovalWorkflow shared/arkiProfessionalModules.ts
+function createCdeManifest shared/arkiProfessionalModules.ts
+function createEmptyFamilyInstance shared/arkiParametricFamilies.ts
+function createEmptyParametricFamily shared/arkiParametricFamilies.ts
+function createInitialSnapshot shared/arkiRecalculation.ts
+function createMamparaInstance shared/arkiMamparaFamily.ts
+function detectClashes shared/coordination/index.ts
+function detectModelClashes shared/arkiProfessionalModules.ts
+function dynamicFamilySummary shared/arkiDynamicFamilies.ts
+function elementPartidas shared/arkiConstructionElements.ts
+function elementSetSummary shared/arkiConstructionElements.ts
+function emptySelection shared/arkiBimSelection.ts
+function exportConstructionIfc shared/arkiConstructionOntology.ts
+function exportDynamicBuilding shared/arkiFamilyComparison.ts
+function exportSnapshotToIfc shared/arkiSnapshotExports.ts
+function exportSnapshotToMarkdown shared/arkiSnapshotExports.ts
+function familyOptions shared/arkiDynamicFamilies.ts
+function findPriceBookItem shared/arkiPriceBook.ts
+function fromApuDatabase shared/arkiPriceBook.ts
+function generateConstructionModel shared/arkiConstructionOntology.ts
+function generateDynamicBuilding shared/arkiDynamicFamilies.ts
+function generateElementSet shared/arkiConstructionElements.ts
+function generateFormworkRequirements shared/arkiTechnicalDossier.ts
+function generateTechnicalDossier shared/arkiTechnicalDossier.ts
+function generatedBuildingMetadata shared/arkiDynamicFamilies.ts
+function getMamparaFamily shared/arkiRecalculation.ts
+function importS10Csv shared/arkiProfessionalModules.ts
+function instanceToMamparaParameters shared/arkiMamparaFamily.ts
+function isAccessAllowed client/src/components/ArkiGateway.tsx
+function isPriceBookValid shared/arkiPriceBook.ts
+function isProposalOnly shared/arkiDynamicFamilies.ts
+function listDynamicFamilies shared/arkiDynamicFamilies.ts
+function moduleAccess client/src/components/ArkiGateway.tsx
+function moduleDefinition client/src/components/ArkiWorkspaceShell.tsx
+function moduleLabelKey client/src/components/ArkiWorkspaceShell.tsx
+function moduleNames client/src/components/ArkiGateway.tsx
+function multipleSelection shared/arkiBimSelection.ts
+function nextAuditEntry shared/persistence/arkiPersistence.ts
+function parseIFC4TextFallback shared/ifc4/webIfcAdapter.ts
+function parseIfcText shared/ifc4/arkiIfc4.ts
+function persistLanguage client/src/i18n/useTranslation.ts
+function professionalSummary shared/arkiProfessionalModules.ts
+function readPersistedLanguage client/src/i18n/useTranslation.ts
+function recalculateProject shared/arkiRecalculation.ts
+function reviewNormativeReadiness shared/arkiTechnicalDossier.ts
+function sceneIdentityRoundTrip shared/ifc4/arkiIfc4.ts
+function sceneModelFromConstruction shared/arkiSceneModel.ts
+function searchDynamicFamilies shared/arkiDynamicFamilies.ts
+function selectionFromElement shared/arkiBimSelection.ts
+function simulateConstruction shared/arkiProfessionalModules.ts
+function singleSelection shared/arkiBimSelection.ts
+function snapshotKey shared/persistence/arkiPersistence.ts
+function snapshotRecord shared/persistence/arkiPersistence.ts
+function snapshotToConstructionModel shared/arkiRecalculation.ts
+function stableHash shared/arkiRecalculation.ts
+function stableSnapshotPayload shared/persistence/arkiPersistence.ts
+function supportedIfcGeometry shared/ifc4/arkiIfc4.ts
+function t client/src/i18n/catalog.ts
+function technicalDossierMarkdown shared/arkiTechnicalDossier.ts
+function useBimSelection client/src/canvas/SelectionProvider.tsx
+function useComposition client/src/hooks/useComposition.ts
+function useIsMobile client/src/hooks/useMobile.tsx
+function usePersistFn client/src/hooks/usePersistFn.ts
+function useProjectContext client/src/contexts/ProjectContext.tsx
+function useTheme client/src/contexts/ThemeContext.tsx
+function useTranslation client/src/i18n/useTranslation.ts
+function validateMamparaConstraints shared/arkiMamparaFamily.ts
+function validateMepModel shared/mep/index.ts
+function validateSnapshotGate shared/persistence/arkiPersistence.ts
+function validateStructuralModel shared/structural/index.ts
+function verifyAuditChain shared/persistence/arkiPersistence.ts
+function wallFromDTO shared/arkiConstructionDTOs.ts
+function wallToDTO shared/arkiConstructionDTOs.ts
+# exact candidate names
+## Wall
+## ConstructionModel
+shared/arkiSceneModel.ts:2:import type { ConstructionModel, ConstructionSpace, Muro } from "./arkiConstructionOntology";
+shared/arkiSceneModel.ts:105:export function sceneModelFromConstruction(model: ConstructionModel): SceneModel {
+client/src/canvas/SceneModel3D.tsx:4:import type { ConstructionModel } from "@shared/arkiConstructionOntology";
+client/src/canvas/SceneModel3D.tsx:44:export default function SceneModel3D({ model }: { model: ConstructionModel | null }) {
+scripts/test-canvas-mount.ts:4:for (const required of ["ConstructionModel", "useBimSelection", "showGrid", "showAxes", "onWheel", "onPointerMove", "Escape"]) if (!source.includes(required)) throw new Error(`CanvasPlanView missing ${required}`);
+client/src/canvas/CanvasPlanView.tsx:2:import type { ConstructionModel, Muro } from "@shared/arkiConstructionOntology";
+client/src/canvas/CanvasPlanView.tsx:7:const kinds: Array<[keyof ConstructionModel, BimElementKind]> = [["walls", "wall"], ["columns", "column"], ["beams", "beam"], ["slabs", "slab"], ["doors", "door"], ["windows", "window"]];
+client/src/canvas/CanvasPlanView.tsx:12:export default function CanvasPlanView({ model, view, onViewChange }: { model: ConstructionModel | null; view: CanvasView; onViewChange: (view: CanvasView) => void }) {
+client/src/canvas/CanvasPlanView.tsx:36:  return <section className="arki-plan-canvas" aria-label="Canvas de planta BIM"><div className="arki-canvas-head"><div><span>CANVAS · PLANTA</span><b>Nivel {view.level + 1}</b></div><div><span>{elements.length} elementos</span><span>{model ? `${model.walls.length} muros · ${model.summary.doorCount} puertas` : "sin modelo"}</span><span>{selection.items.length} seleccionados</span></div></div><div className="arki-canvas-stage"><svg viewBox="0 0 1000 680" role="img" aria-label="Planta BIM con muros y puertas" onWheel={handleWheel} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={finishDrag} onPointerCancel={finishDrag} onClick={() => clear()}><defs><pattern id="arki-grid" width="25" height="25" patternUnits="userSpaceOnUse"><path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(148,163,184,.12)" strokeWidth="1" /></pattern></defs><rect width="1000" height="680" fill="url(#arki-grid)" /><g transform={`translate(${view.viewport.translateX} ${view.viewport.translateY}) scale(${view.viewport.scale})`}>{view.showAxes && <><line x1="60" y1="50" x2="950" y2="50" stroke="#60a5fa" strokeDasharray="4 4" /><line x1="60" y1="50" x2="60" y2="620" stroke="#60a5fa" strokeDasharray="4 4" /></>}{view.showGrid && <rect x="80" y="70" width="840" height="520" fill="none" stroke="rgba(103,232,249,.25)" />}{elements.map((item) => <PlanShape key={item.id} item={item} walls={walls} x={sx} y={sy} selected={isSelected(item.id)} onSelect={(event) => { event.stopPropagation(); select(selectionFromElement(item.element, item.kind), event.shiftKey); }} />)}</g></svg>{!model && <div className="arki-canvas-empty"><strong>Planta sin modelo</strong><span>Genera una propuesta para cargar el ConstructionModel.</span></div>}</div><div className="arki-canvas-foot"><span>Muros perimetrales · puerta P-1 · abertura 0.90 × 2.10 m</span><span>Click: seleccionar · Shift + click: añadir · Escape: limpiar</span><span>Zoom {Math.round(view.viewport.scale * 100)}%</span></div></section>;
+client/src/canvas/ContextPanel.tsx:3:import type { ConstructionModel } from "@shared/arkiConstructionOntology";
+client/src/canvas/ContextPanel.tsx:9:const kinds: Array<[keyof ConstructionModel, BimElementKind, string]> = [["walls", "wall", "Muros"], ["doors", "door", "Puertas"], ["windows", "window", "Ventanas"], ["columns", "column", "Columnas"], ["beams", "beam", "Vigas"], ["slabs", "slab", "Losas"]];
+client/src/canvas/ContextPanel.tsx:11:function treeForModel(model: ConstructionModel | null, level: number): ContextTreeNode[] {
+client/src/canvas/ContextPanel.tsx:13:  const groups: Array<[string, string, Array<[keyof ConstructionModel, BimElementKind, string]>]> = [["architecture", "Arquitectura", kinds.slice(0, 3)], ["structures", "Estructuras", kinds.slice(3)]];
+client/src/canvas/ContextPanel.tsx:34:export default function ContextPanel({ model, view, onViewChange, state }: { model: ConstructionModel | null; view: CanvasView; onViewChange: (view: CanvasView) => void; state: ContextPanelState }) {
+scripts/test-budget-reconciliation.ts:68:// --- Reconciliación con ConstructionModel ---
+shared/arkiRecalculation.ts:7:import type { ConstructionModel, ScheduleTask } from "./arkiConstructionOntology";
+shared/arkiRecalculation.ts:249:  model: ConstructionModel;
+shared/arkiRecalculation.ts:313:export function snapshotToConstructionModel(snapshot: ProjectSnapshot): ConstructionModel {
+scripts/test-serialization.ts:2:// Entrega 1A — ida y vuelta Muro ↔ WallDTO ↔ JSON y ConstructionModel ↔ DTO ↔ JSON.
+scripts/test-serialization.ts:84:// --- Round-trip de ConstructionModel ---
+scripts/test-serialization.ts:127:        "ConstructionModel round-trip completo",
+client/src/modules/E7DomainModule.tsx:5:import type { ConstructionModel } from "@shared/arkiConstructionOntology";
+client/src/modules/E7DomainModule.tsx:7:export default function E7DomainModule({ kind, model }: { kind: "5d" | "4d" | "clashes"; model: ConstructionModel | null }) {
+client/src/modules/SceneModelModule.tsx:1:import type { ConstructionModel } from "@shared/arkiConstructionOntology";
+client/src/modules/SceneModelModule.tsx:4:export default function SceneModelModule({ model }: { model: ConstructionModel | null }) {
+shared/arkiConstructionDTOs.ts:18:  type ConstructionModel,
+shared/arkiConstructionDTOs.ts:57:// Paralelo a ConstructionModel con WallDTO[] en lugar de Muro[].
+shared/arkiConstructionDTOs.ts:78:  summary: ConstructionModel["summary"];
+shared/arkiConstructionDTOs.ts:79:  gates: ConstructionModel["gates"];
+shared/arkiConstructionDTOs.ts:118:export function constructionModelToDTO(model: ConstructionModel): ConstructionModelDTO {
+shared/arkiConstructionDTOs.ts:144:export function constructionModelFromDTO(dto: ConstructionModelDTO): ConstructionModel {
+shared/arkiConstructionOntology.ts:95:export type ConstructionModel = { schema: "ARKI-CONSTRUCTION-MODEL-1.0"; projectId: string; generatedAt: string; ontologyLevel: "CONSTRUCTIVE_ELEMENTS"; spaces: ConstructionSpace[]; walls: Muro[]; foundations: StructuralElement[]; columns: StructuralElement[]; beams: StructuralElement[]; slabs: StructuralElement[]; doors: StructuralElement[]; windows: StructuralElement[]; stairs: StructuralElement[]; floors: StructuralElement[]; roofs: StructuralElement[]; partitions: StructuralElement[]; relations: ElementRelation[]; schedule: ScheduleTask[]; apuDatabase: ApuPartida[]; summary: { wallCount: number; spaceCount: number; foundationCount: number; columnCount: number; beamCount: number; slabCount: number; doorCount: number; windowCount: number; stairCount: number; floorElementCount: number; roofCount: number; partitionCount: number; relationCount: number; floorCount: number; totalNetWallAreaM2: number; totalVolumeM3: number; totalWeightKg: number; totalBudgetPen: number; totalDurationDays: number; doors: number; windows: number; interferences: number }; gates: { semanticElements: boolean; quantitiesCalculated: boolean; apuLinked: boolean; scheduleLinked: boolean; specialistReviewRequired: true; notes: string[] } };
+shared/arkiConstructionOntology.ts:97:export function generateConstructionModel(input: { projectId: string; name: string; widthM: number; depthM: number; floors: number; familyCategory?: string }): ConstructionModel {
+shared/arkiConstructionOntology.ts:133:export function exportConstructionIfc(model: ConstructionModel, metadata: { name: string; familyId: string; city?: string; country?: string }) {
+shared/arkiConstructionOntology.ts:157:export function constructionSummary(model: ConstructionModel) { return { ...model.summary, budgetFormatted: `S/ ${model.summary.totalBudgetPen.toLocaleString("es-PE", { minimumFractionDigits: 2 })}`, ontology: model.ontologyLevel }; }
+shared/arkiTechnicalDossier.ts:1:import type { ConstructionModel } from "./arkiConstructionOntology";
+shared/arkiTechnicalDossier.ts:22:export function generateFormworkRequirements(model: ConstructionModel): FormworkRequirement[] {
+shared/arkiTechnicalDossier.ts:36:export function reviewNormativeReadiness(model: ConstructionModel): NormativeFinding[] { const findings: NormativeFinding[] = []; const doorIssue = model.doors.filter((item) => item.quantity.areaM2 < .81); if (doorIssue.length) findings.push({ id: "rne-a120-door", specialty: "arquitectura", code: "RNE A.120", article: "Art. 8", status: "no_conforme", severity: "critica", parameter: "ancho de puerta accesible", current: "Menor a 0.90 m", expected: "≥ 0.90 m", recommendation: "Revisar puertas accesibles y rutas de evacuación." }); else findings.push({ id: "rne-a120-door", specialty: "arquitectura", code: "RNE A.120", article: "Art. 8", status: "conforme", severity: "baja", parameter: "ancho de puerta accesible", current: "0.90 m o superior", expected: "≥ 0.90 m", recommendation: "Mantener control dimensional en planos y obra." }); if (model.slabs.some((item) => item.quantity.volumeM3 / Math.max(item.quantity.areaM2, 1) < .15)) findings.push({ id: "rne-e060-slab", specialty: "estructuras", code: "RNE E.060", article: "Art. 8.2", status: "observado", severity: "alta", parameter: "espesor de losa", current: "Revisión pendiente", expected: "≥ 15 cm o cálculo aprobado", recommendation: "Verificar diseño estructural antes de emitir planos definitivos." }); findings.push({ id: "rne-a130-egress", specialty: "arquitectura", code: "RNE A.130", article: "Seguridad", status: "pendiente", severity: "alta", parameter: "evacuación", current: "No validado automáticamente", expected: "Rutas y aforo aprobados", recommendation: "Realizar revisión de evacuación y seguridad por especialista." }); findings.push({ id: "rne-e050-soil", specialty: "estructuras", code: "RNE E.050", article: "Suelos y cimentaciones", status: "pendiente", severity: "alta", parameter: "capacidad portante", current: "Dato conceptual", expected: "Estudio de suelos vigente", recommendation: "Adjuntar estudio geotécnico antes de definir cimentación." }); return findings; }
+shared/arkiTechnicalDossier.ts:38:export function generateTechnicalDossier(model: ConstructionModel, region = "La Libertad", factor = 1.04): TechnicalDossier { const formwork = generateFormworkRequirements(model); const findings = reviewNormativeReadiness(model); const blockers = findings.filter((item) => item.status !== "conforme").map((item) => `${item.code}: ${item.recommendation}`); const sections = [{ order: 1, title: "Memoria descriptiva", status: "ready" as const, outputs: ["memoria-descriptiva.md"] }, { order: 2, title: "Especificaciones técnicas", status: "ready" as const, outputs: ["especificaciones-tecnicas.md"] }, { order: 3, title: "Planos y modelo IFC", status: "review_required" as const, outputs: ["planta.svg", "corte.svg", "modelo.ifc"] }, { order: 4, title: "Metrados, APU y encofrados", status: "ready" as const, outputs: ["presupuesto-5d.json", "encofrados.csv"] }, { order: 5, title: "Revisión RNE", status: blockers.length ? "review_required" as const : "ready" as const, outputs: ["reporte-rne.json"] }, { order: 6, title: "Firmas y emisión", status: "pending" as const, outputs: ["flujo-aprobacion.json", "expediente-manifiesto.json"] }]; const readiness = Math.round(sections.filter((item) => item.status === "ready").length / sections.length * 100); return { title: "Expediente técnico BIM ARKI", version: "3.1-local", modelId: model.projectId, specifications: DEFAULT_TECHNICAL_SPECIFICATIONS, formwork, regionalPrices: buildRegionalPrices(region, factor), normativeFindings: findings, sections, readiness: { percentage: readiness, blockers, specialistReviewRequired: true } }; }
+client/src/modules/GeneratorModule.tsx:78:            <div className="results-toolbar"><div><h2>{building ? building.name : "Esperando una generación"}</h2><small className="generator-model-state">{constructionModel ? `${constructionModel.summary.wallCount} muros · ${constructionModel.summary.spaceCount} espacios disponibles en Planta` : "ConstructionModel pendiente"}</small></div><div className="toolbar-actions"><button className="secondary-button" onClick={saveVersion} disabled={!building}><Save size={15} /> Guardar</button><button className="secondary-button" onClick={() => setShowSpecs(!showSpecs)}><MoreHorizontal size={16} /></button></div></div>
+shared/arkiDynamicFamilies.ts:1:import { generateConstructionModel, type ConstructionModel } from "./arkiConstructionOntology";
+shared/arkiDynamicFamilies.ts:85:  constructionModel?: ConstructionModel;
+shared/arkiProfessionalModules.ts:1:import type { ConstructionModel, ScheduleTask } from "./arkiConstructionOntology";
+shared/arkiProfessionalModules.ts:15:export function buildFinancial5D(model: ConstructionModel): Construction5D {
+shared/arkiProfessionalModules.ts:24:export function detectModelClashes(model: ConstructionModel): Clash[] {
+shared/arkiProfessionalModules.ts:30:export function simulateConstruction(model: ConstructionModel): ConstructionSimulation {
+shared/arkiProfessionalModules.ts:38:export function createApprovalWorkflow(model: ConstructionModel): ApprovalWorkflow { const requiredRoles = ["arquitecto", "ingeniero_estructural", "coordinador_bim", "jefe_proyecto"]; return { id: hash(`${model.projectId}:approval`), documentId: hash(`${model.projectId}:technical-file`), version: 1, requiredRoles, obtainedRoles: [], missingRoles: requiredRoles, progressPct: 0, status: "pending", legalStatus: "local_demo_only" }; }
+shared/arkiProfessionalModules.ts:39:export function createCdeManifest(model: ConstructionModel, clashes: Clash[]): CdeManifest { const documents = [{ id: hash(`${model.projectId}:ifc`), name: "modelo-federado.ifc", type: "IFC", discipline: "BIM", version: 1, state: "wip" as const, sha256: hash(JSON.stringify(model.relations)) }, { id: hash(`${model.projectId}:schedule`), name: "cronograma-5d.json", type: "JSON", discipline: "planificacion", version: 1, state: "wip" as const, sha256: hash(JSON.stringify(model.schedule)) }]; return { projectId: model.projectId, state: "wip", documents, federatedModel: { name: "Modelo federado ARKI", version: 1, disciplines: ["arquitectura", "estructuras", "sanitarias", "electricas", "BIM"], totalElements: model.summary.wallCount + model.summary.columnCount + model.summary.beamCount + model.summary.slabCount + model.summary.doorCount + model.summary.windowCount, clashCount: clashes.length, budgetPen: model.summary.totalBudgetPen, durationDays: model.summary.totalDurationDays } }; }
+shared/arkiProfessionalModules.ts:43:export function professionalSummary(model: ConstructionModel) { const clashes = detectModelClashes(model); const financial = buildFinancial5D(model); const simulation = simulateConstruction(model); return { financial, simulation, clashes, approval: createApprovalWorkflow(model), cde: createCdeManifest(model, clashes) }; }
+client/src/contexts/ProjectContext.tsx:3:import type { ConstructionModel } from "@shared/arkiConstructionOntology";
+client/src/contexts/ProjectContext.tsx:4:const ProjectContext = createContext<{ building: GeneratedBuilding | null; constructionModel: ConstructionModel | null; setBuilding: (building: GeneratedBuilding | null) => void } | null>(null);
+## GeneratedBuilding
+shared/arkiFamilyComparison.ts:1:import type { GeneratedBuilding } from "./arkiDynamicFamilies";
+shared/arkiFamilyComparison.ts:4:export type BuildingVersion = { id: string; label: string; version: string; createdAt?: string; building: GeneratedBuilding };
+shared/arkiFamilyComparison.ts:12:  const metrics = metricKeys.map((key) => ({ key, values: versions.map((item) => Number(item.building.metrics[key as keyof GeneratedBuilding["metrics"]] ?? 0)), deltaFromBaseline: versions.slice(1).map((item) => Number(item.building.metrics[key as keyof GeneratedBuilding["metrics"]] ?? 0) - Number(baseline.building.metrics[key as keyof GeneratedBuilding["metrics"]] ?? 0)) }));
+shared/arkiFamilyComparison.ts:21:export function exportDynamicBuilding(building: GeneratedBuilding, format: "JSON" | "IFC4" | "GEOJSON" | "SVG" | "CSV" | "HTML") {
+client/src/modules/DossierModule.tsx:5:import type { GeneratedBuilding } from "@shared/arkiDynamicFamilies";
+client/src/modules/DossierModule.tsx:25:export default function DossierModule({ building }: { building: GeneratedBuilding | null }) { const dossier = useMemo(() => building?.constructionModel ? generateTechnicalDossier(building.constructionModel, building.context.city || "La Libertad", 1.04) : null, [building]); const [tab, setTab] = useState<"summary" | "specs" | "formwork" | "costs" | "normative" | "file">("summary"); if (!dossier) return <div className="arki-module-body"><div className="arki-empty-module"><strong>Expediente</strong><p>Genera una propuesta para mostrar el expediente.</p></div></div>; return <div className="arki-module-body"><DossierWorkspace dossier={dossier} tab={tab} onTab={setTab} /></div>; }
+shared/arkiDynamicFamilies.ts:71:export type GeneratedBuilding = {
+shared/arkiDynamicFamilies.ts:83:  unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0"; plan: GeneratedBuilding["geometry2d"]; section: GeneratedBuilding["section"]; model3d: GeneratedBuilding["geometry3d"] };
+shared/arkiDynamicFamilies.ts:140:export function generateDynamicBuilding(input: { familyId: string; variantId: string; context?: Partial<BuildingContext>; parameters?: Record<string, string | number | boolean> }): GeneratedBuilding {
+shared/arkiDynamicFamilies.ts:179:export function generatedBuildingMetadata(building: GeneratedBuilding) { return { schema: "ARKI-GENERATED-BUILDING-1.0", artifactId: building.id, familyId: building.familyId, variantId: building.variantId, status: building.status, humanReviewRequired: building.humanReviewRequired, projectStateMutation: building.projectStateMutation }; }
+shared/arkiDynamicFamilies.ts:180:export function isProposalOnly(building: GeneratedBuilding) { return building.status === "GENERATED_CANDIDATE" && building.humanReviewRequired && building.projectStateMutation === "NOT_REQUESTED"; }
+client/src/modules/BimModule.tsx:5:import type { GeneratedBuilding } from "@shared/arkiDynamicFamilies";
+client/src/modules/BimModule.tsx:7:export default function BimModule({ building }: { building: GeneratedBuilding | null }) {
+client/src/contexts/ProjectContext.tsx:2:import type { GeneratedBuilding } from "@shared/arkiDynamicFamilies";
+client/src/contexts/ProjectContext.tsx:4:const ProjectContext = createContext<{ building: GeneratedBuilding | null; constructionModel: ConstructionModel | null; setBuilding: (building: GeneratedBuilding | null) => void } | null>(null);
+client/src/contexts/ProjectContext.tsx:5:export function ProjectContextProvider({ children }: { children: ReactNode }) { const [building, setBuilding] = useState<GeneratedBuilding | null>(null); const constructionModel = building?.constructionModel ?? null; const value = useMemo(() => ({ building, constructionModel, setBuilding }), [building, constructionModel]); return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>; }
+client/src/modules/GeneratorModule.tsx:5:import { DYNAMIC_BUILDING_FAMILIES, generateDynamicBuilding, type DynamicBuildingFamily, type FamilyCategory, type GeneratedBuilding } from "@shared/arkiDynamicFamilies";
+client/src/modules/GeneratorModule.tsx:15:type SavedVersion = { id: string; label: string; version: string; createdAt: string; building: GeneratedBuilding };
+client/src/modules/GeneratorModule.tsx:19:function downloadArtifact(building: GeneratedBuilding, format: "IFC4" | "JSON" | "GEOJSON" | "SVG" | "CSV" | "HTML") { const artifact = exportDynamicBuilding(building, format); const blob = new Blob([artifact.content], { type: artifact.mimeType }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.href = url; link.download = artifact.fileName; link.click(); URL.revokeObjectURL(url); toast.success(`${format} descargado`, { description: artifact.fileName }); }
+client/src/modules/GeneratorModule.tsx:20:function downloadConstructionIfc(building: GeneratedBuilding) { if (!building.constructionModel) return; const artifact = exportConstructionIfc(building.constructionModel, { name: building.name, familyId: building.familyId, city: building.context.city, country: building.context.country }); const blob = new Blob([artifact.content], { type: artifact.mimeType }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.href = url; link.download = artifact.fileName; link.click(); URL.revokeObjectURL(url); toast.success("IFC semántico descargado", { description: `${artifact.metadata.wallCount} muros · ${artifact.metadata.schema}` }); }
+client/src/modules/GeneratorModule.tsx:33:  const [building, setBuilding] = useState<GeneratedBuilding | null>(null);
+client/src/modules/GeneratorModule.tsx:97:function ConstructionPanel({ model, professional, s10Status, onS10, onIfc }: { model: NonNullable<GeneratedBuilding["constructionModel"]>; professional: ProfessionalSummary; s10Status: { imported: number; totalUnitValue: number } | null; onS10: (file: File) => void; onIfc: () => void }) {
+client/src/components/ProfessionalFamilyViewer.tsx:1:import type { GeneratedBuilding } from "@shared/arkiDynamicFamilies";
+client/src/components/ProfessionalFamilyViewer.tsx:11:export default function ProfessionalFamilyViewer({ building, mode = "MODEL_3D", quality = "alta", resolution = "2k" }: { building?: GeneratedBuilding | null; mode?: ViewMode; quality?: Quality; resolution?: Resolution }) {
+## SceneModel
+scripts/test-scene-model.ts:6:if (scene.schema !== "ARKI-SCENE-MODEL-1.0") throw new Error("SceneModel schema inválido");
+scripts/test-scene-model.ts:8:if (scene.nodes.length <= construction.walls.length) throw new Error("SceneModel no contiene elementos constructivos");
+shared/ifc4/arkiIfc4.ts:1:import type { SceneModel, SceneNode } from "../arkiSceneModel";
+shared/ifc4/arkiIfc4.ts:17:export async function exportIFC4(scene: SceneModel, versionNumber = 1): Promise<IfcExportResult> {
+shared/ifc4/arkiIfc4.ts:45:export function sceneIdentityRoundTrip(scene: SceneModel, parsed: IfcParseResult): { preserved: number; missing: string[] } {
+shared/persistence/arkiPersistence.ts:1:import type { SceneModel } from "../arkiSceneModel";
+shared/persistence/arkiPersistence.ts:19:  scene: SceneModel;
+shared/arkiSceneComparison.ts:1:import type { SceneModel, SceneNode } from "./arkiSceneModel";
+shared/arkiSceneComparison.ts:14:export function compareSceneModels(reference: SceneModel, current: SceneModel): SceneComparison {
+shared/arkiSceneModel.ts:19:export type SceneModel = {
+shared/arkiSceneModel.ts:105:export function sceneModelFromConstruction(model: ConstructionModel): SceneModel {
+client/src/ifc4/Ifc4Panel.tsx:2:import type { SceneModel } from "@shared/arkiSceneModel";
+client/src/ifc4/Ifc4Panel.tsx:6:export default function Ifc4Panel({ scene }: { scene: SceneModel }) {
+client/src/canvas/SceneModel3D.tsx:73:  if (!model || !scene) return <div className="scene-empty">Genera una propuesta para abrir el SceneModel 3D.</div>;
+## ArkiSnapshot
+client/src/comparison/SceneComparisonSideBySide.tsx:3:import type { ArkiSnapshot } from "@shared/persistence/arkiPersistence";
+client/src/comparison/SceneComparisonSideBySide.tsx:11:export default function SceneComparisonSideBySide({ left, right }: { left: ArkiSnapshot; right: ArkiSnapshot }) {
+client/src/persistence/arkiIndexedDb.ts:1:import type { ArkiProject, ArkiSession, ArkiSnapshot, ArkiVersion, AuditEntry } from "@shared/persistence/arkiPersistence";
+client/src/persistence/arkiIndexedDb.ts:50:export async function saveArkiSnapshot(snapshot: ArkiSnapshot): Promise<void> { await putRecord(ARKI_SNAPSHOT_STORE, snapshot); }
+client/src/persistence/arkiIndexedDb.ts:51:export async function restoreArkiSnapshot(projectId: string, version: string): Promise<ArkiSnapshot | null> { return getRecord<ArkiSnapshot>(ARKI_SNAPSHOT_STORE, `${projectId}:${version}`); }
+client/src/persistence/arkiIndexedDb.ts:52:export async function listArkiSnapshots(projectId: string): Promise<ArkiSnapshot[]> { return (await getAllRecords<ArkiSnapshot>(ARKI_SNAPSHOT_STORE)).filter((item) => item.projectId === projectId).sort((left, right) => left.version.localeCompare(right.version)); }
+client/src/persistence/arkiIndexedDb.ts:54:export async function approveArkiSnapshot(projectId: string, version: string): Promise<ArkiSnapshot | null> {
+shared/persistence/arkiPersistence.ts:15:export type ArkiSnapshot = {
+shared/persistence/arkiPersistence.ts:94:export function snapshotRecord(input: Omit<ArkiSnapshot, "id">): ArkiSnapshot {
+shared/persistence/arkiPersistence.ts:98:export function stableSnapshotPayload(snapshot: Omit<ArkiSnapshot, "contentHash">): string {
+client/src/canvas/SceneModel3D.tsx:8:import { snapshotRecord, stableSnapshotPayload, type ArkiSnapshot } from "@shared/persistence/arkiPersistence";
+client/src/canvas/SceneModel3D.tsx:52:  const [snapshots, setSnapshots] = useState<ArkiSnapshot[]>([]);
+## ProjectVersion
+## Quantity
+## Cost
+## Schedule
+shared/arkiSnapshotExports.ts:243:  lines.push(`- Schedule tasks: ${snapshot.schedule.length}`);
+shared/arki4d/index.ts:10:    if (visiting.has(id)) throw new Error(`Schedule cycle detected at ${id}`);
+## Relationship
+## Constraint
+shared/arkiParametricFamilies.ts:20:export type Constraint = {
+shared/arkiParametricFamilies.ts:116:    constraints: Constraint[];
+shared/arkiMamparaFamily.ts:15:  Constraint,
+shared/arkiMamparaFamily.ts:30:export const MAMPARA_CONSTRAINTS: Constraint[] = [
+shared/arkiMamparaFamily.ts:139:  constraintKind: Constraint["kind"];
+shared/arkiMamparaFamily.ts:149:  const byParam = new Map<string, Constraint[]>();
+## HumanDecision
+# contract-only markers
+scripts/test-e7.ts:21:  ["fixture cost loaded", cost.priceBook.length === 2], ["price book currency", cost.priceBook.every((item: { currency: string }) => item.currency === "PEN")], ["quantity positive", cost.quantities.every((item: { quantity: number }) => item.quantity > 0)], ["cost line count", budget.lines.length === 2], ["cost reconciliation", budget.directCost === 4650], ["cost total deterministic", budget.lines[0].total === 3700], ["activity count", schedule.activities.length === 2], ["schedule duration", schedule.durationDays === 7], ["critical path", schedule.criticalPath.join(",") === "A1,A2"], ["fixture structural loaded", structural.nodes.length === 2], ["structural member reference", structural.members[0].startNodeId === "N1"], ["structural stub honest", structuralResult.status === "NOT_DEMONSTRATED"], ["structural warning", structuralResult.warnings.length > 0], ["fixture MEP loaded", mep.nodes.length === 4], ["MEP disciplines", new Set(mep.nodes.map((node: { discipline: string }) => node.discipline)).size === 3], ["MEP connector validation", mepResult.missingConnections.length === 0], ["MEP limitation warning", mepResult.warnings.length > 0], ["clash detected", clashes.length === 1], ["clash discipline", clashes[0].disciplines.includes("sanitary")], ["clash open", clashes[0].status === "open"], ["impact count", impacts.length === 2], ["impact review gate", impacts.every((impact) => impact.requiresHumanReview)], ["all domains represented", new Set(impacts.map((impact) => impact.domain)).size === 2],
+shared/mep/index.ts:5:export type MepValidation = { status: "NOT_DEMONSTRATED" | "VERIFIED"; missingConnections: string[]; warnings: string[] };
+shared/mep/index.ts:6:export function validateMepModel(model: MepModel): MepValidation { const nodeIds = new Set(model.nodes.map((node) => node.id)); const connectorIds = new Set(model.connectors.map((connector) => connector.id)); const missingConnections: string[] = []; for (const connector of model.connectors) if (!nodeIds.has(connector.nodeId)) missingConnections.push(`connector ${connector.id} missing node`); for (const node of model.nodes) for (const connectorId of node.connectorIds) if (!connectorIds.has(connectorId)) missingConnections.push(`node ${node.id} missing connector ${connectorId}`); return { status: missingConnections.length ? "NOT_DEMONSTRATED" : "VERIFIED", missingConnections, warnings: ["Professional MEP sizing solver not executed"] }; }
+scripts/test-ifc4-web-ifc.ts:11:  console.log(JSON.stringify({ status: "PARTIAL", parser: "web-ifc", reason: error instanceof Error ? error.message : String(error) }));
+shared/structural/index.ts:4:export type StructuralResult = { status: "NOT_DEMONSTRATED" | "VERIFIED"; warnings: string[]; modelSummary: { nodes: number; members: number } };
+shared/structural/index.ts:5:export function validateStructuralModel(model: StructuralModel): StructuralResult { const ids = new Set(model.nodes.map((node) => node.id)); const warnings: string[] = []; for (const member of model.members) { if (!ids.has(member.startNodeId) || !ids.has(member.endNodeId)) warnings.push(`member ${member.id} references missing node`); } if (model.solver === "opensees-stub") warnings.push("No professional structural solver executed"); return { status: warnings.length ? "NOT_DEMONSTRATED" : "VERIFIED", warnings, modelSummary: { nodes: model.nodes.length, members: model.members.length } }; }
+shared/ifc4/arkiIfc4.ts:51:export function supportedIfcGeometry(): Record<string, "supported" | "partial" | "unsupported"> {
+shared/ifc4/arkiIfc4.ts:52:  return { IFCEXTRUDEDAREASOLID: "supported", IFCBOUNDINGBOX: "supported", IFCFACETEDBREP: "partial", IFCADVANCEDBREP: "unsupported", IFCBOOLEANCLIPPINGRESULT: "unsupported", IFCSWEPTSOLID: "partial", IFCTRIANGULATEDFACESET: "supported" };
+scripts/test-module-states.ts:3:const allowed = new Set(["IMPLEMENTED", "VERIFIED", "PARTIAL", "CONCEPTUAL", "NOT AVAILABLE", "FUTURE REFERENCE"]);
+shared/arkiTechnicalDossier.ts:36:export function reviewNormativeReadiness(model: ConstructionModel): NormativeFinding[] { const findings: NormativeFinding[] = []; const doorIssue = model.doors.filter((item) => item.quantity.areaM2 < .81); if (doorIssue.length) findings.push({ id: "rne-a120-door", specialty: "arquitectura", code: "RNE A.120", article: "Art. 8", status: "no_conforme", severity: "critica", parameter: "ancho de puerta accesible", current: "Menor a 0.90 m", expected: "≥ 0.90 m", recommendation: "Revisar puertas accesibles y rutas de evacuación." }); else findings.push({ id: "rne-a120-door", specialty: "arquitectura", code: "RNE A.120", article: "Art. 8", status: "conforme", severity: "baja", parameter: "ancho de puerta accesible", current: "0.90 m o superior", expected: "≥ 0.90 m", recommendation: "Mantener control dimensional en planos y obra." }); if (model.slabs.some((item) => item.quantity.volumeM3 / Math.max(item.quantity.areaM2, 1) < .15)) findings.push({ id: "rne-e060-slab", specialty: "estructuras", code: "RNE E.060", article: "Art. 8.2", status: "observado", severity: "alta", parameter: "espesor de losa", current: "Revisión pendiente", expected: "≥ 15 cm o cálculo aprobado", recommendation: "Verificar diseño estructural antes de emitir planos definitivos." }); findings.push({ id: "rne-a130-egress", specialty: "arquitectura", code: "RNE A.130", article: "Seguridad", status: "pendiente", severity: "alta", parameter: "evacuación", current: "No validado automáticamente", expected: "Rutas y aforo aprobados", recommendation: "Realizar revisión de evacuación y seguridad por especialista." }); findings.push({ id: "rne-e050-soil", specialty: "estructuras", code: "RNE E.050", article: "Suelos y cimentaciones", status: "pendiente", severity: "alta", parameter: "capacidad portante", current: "Dato conceptual", expected: "Estudio de suelos vigente", recommendation: "Adjuntar estudio geotécnico antes de definir cimentación." }); return findings; }
+shared/arkiSnapshotExports.ts:35:    conceptualGeometryOnly: boolean;
+shared/arkiSnapshotExports.ts:36:    nativeRvt: boolean;
+shared/arkiSnapshotExports.ts:142:      conceptualGeometryOnly: true,
+shared/arkiSnapshotExports.ts:143:      nativeRvt: false,
+shared/arkiProfessionalModules.ts:7:export type ApprovalWorkflow = { id: string; documentId: string; version: number; requiredRoles: string[]; obtainedRoles: string[]; missingRoles: string[]; progressPct: number; status: "pending" | "in_review" | "approved"; legalStatus: "local_demo_only" };
+shared/arkiProfessionalModules.ts:38:export function createApprovalWorkflow(model: ConstructionModel): ApprovalWorkflow { const requiredRoles = ["arquitecto", "ingeniero_estructural", "coordinador_bim", "jefe_proyecto"]; return { id: hash(`${model.projectId}:approval`), documentId: hash(`${model.projectId}:technical-file`), version: 1, requiredRoles, obtainedRoles: [], missingRoles: requiredRoles, progressPct: 0, status: "pending", legalStatus: "local_demo_only" }; }
+client/src/modules/GeneratorModule.tsx:81:              {([ ["PLAN", "Planta 2D", "Planta arquitectónica"], ["SECTION", "Corte", "Lectura vertical"], ["MODEL_3D", "Modelo 3D", "Masa conceptual"]] as const).map(([mode, title, subtitle]) => <article className={cn("viewer-card", activeView !== "ALL" && activeView !== mode && "hidden-view")} key={mode}><div className="viewer-card-head"><div><span>{title}</span><small>{subtitle}</small></div><button onClick={() => setActiveView(activeView === mode ? "ALL" : mode)}>{activeView === mode ? "Ver todos" : "Expandir"}</button></div><ProfessionalFamilyViewer building={building} mode={mode} quality={quality} resolution={resolution} /></article>)}
+client/src/modules/GeneratorModule.tsx:86:            {building && <div className="metric-row"><MetricsModule label="Superficie construida" value={`${building.metrics.builtAreaM2.toLocaleString("es-PE")} m²`} icon={<SquareStack size={15} />} /><MetricsModule label="Aforo conceptual" value={building.metrics.capacity.toLocaleString("es-PE")} icon={<Building2 size={15} />} /><MetricsModule label="Altura total" value={`${building.section.totalHeightM} m`} icon={<Layers3 size={15} />} /><MetricsModule label="Costo referencial" value={formatCost(building.metrics.estimatedCostUsdConceptual)} icon={<Workflow size={15} />} /></div>}
+client/src/modules/GeneratorModule.tsx:90:        <section className="bottom-grid" id="versions"><div className="panel versions-panel"><div className="panel-heading"><div><span className="section-index">04</span><h2>Versiones guardadas</h2></div><span className="version-limit">{versions.length} / 4</span></div>{versions.length === 0 ? <div className="empty-versions"><Save size={18} /><span>Guarda una propuesta para comenzar tu historial.</span></div> : <div className="version-list">{versions.map((item, index) => <div className="version-item" key={item.id}><span className="version-number">0{index + 1}</span><div className="version-info"><strong>{item.label}</strong><span>{new Date(item.createdAt).toLocaleDateString("es-PE")} · {item.building.metrics.builtAreaM2.toLocaleString("es-PE")} m²</span></div><button title="Restaurar" onClick={() => restoreVersion(item)}><RotateCcw size={14} /></button><button title="Eliminar" onClick={() => deleteVersion(item.id)}><Trash2 size={14} /></button></div>)}</div>}<button className="compare-button" onClick={runComparison} disabled={versions.length < 2}><GitCompareArrows size={15} /> Comparar versiones <span>{versions.length < 2 ? "Guarda 2+" : `${versions.length} listas`}</span></button>{comparison && <div className="comparison-result"><div><strong>Comparación DIFF</strong><span>{comparison.parameterDiff.filter((item) => item.changed).length} parámetros modificados</span></div>{comparison.metrics.slice(0, 3).map((metric) => <div className="comparison-line" key={metric.key}><span>{metric.key}</span><b>{metric.values.map((value) => value.toLocaleString("es-PE")).join(" · ")}</b></div>)}</div>}</div><div id="exports" className="panel export-panel"><div className="panel-heading"><div><span className="section-index">05</span><h2>Exportar propuesta</h2></div><Download size={16} className="muted-icon" /></div><p>Descarga la geometría conceptual para continuar tu flujo de trabajo.</p><div className="export-grid">{(["IFC4", "JSON", "GEOJSON", "SVG", "CSV", "HTML"] as const).map((format) => <button key={format} onClick={() => building && downloadArtifact(building, format)} disabled={!building}><span>{format === "JSON" ? <FileJson size={14} /> : <Download size={14} />}</span>{format}</button>)}</div><div className="export-footnote"><TriangleAlert size={13} /> No es familia nativa de Revit ni expediente técnico definitivo.</div></div></section>
+shared/arkiDynamicFamilies.ts:84:  metrics: { footprintM2: number; builtAreaM2: number; capacity: number; estimatedCostUsdConceptual: number };
+shared/arkiDynamicFamilies.ts:86:  validation: { status: "PASS" | "UNKNOWN" | "BLOCKED"; checked: string[]; unknowns: string[] };
+shared/arkiDynamicFamilies.ts:89:  humanReviewRequired: true;
+shared/arkiDynamicFamilies.ts:90:  projectStateMutation: "NOT_REQUESTED";
+shared/arkiDynamicFamilies.ts:93:const p = (id: string, label: string, defaultValue: string | number | boolean, extra: Partial<FamilyParameter> = {}): FamilyParameter => ({ id, label, type: typeof defaultValue as FamilyParameter["type"], defaultValue, ...extra });
+shared/arkiDynamicFamilies.ts:140:export function generateDynamicBuilding(input: { familyId: string; variantId: string; context?: Partial<BuildingContext>; parameters?: Record<string, string | number | boolean> }): GeneratedBuilding {
+shared/arkiDynamicFamilies.ts:160:    { code: "PROPOSAL_ONLY", message: "Candidato conceptual: requiere revisión humana antes de incorporarse al estado del proyecto.", severity: "INFO" as const },
+shared/arkiDynamicFamilies.ts:170:    geometry3d: { type: "CONCEPTUAL_MASSING", floors, heightM, massing: selectedFamily.geometryStrategy },
+shared/arkiDynamicFamilies.ts:171:    unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0", plan: { type: selectedFamily.geometryStrategy, footprintM2, widthM: round(widthM), depthM: round(depthM), courtyardM2, rings: selectedFamily.geometryStrategy === "ARENA_BOWL" ? 3 : undefined }, section: { type: selectedFamily.geometryStrategy, floors, floorHeightM: selectedFamily.category === "LANDSCAPE" ? 0.15 : 3.6, totalHeightM: heightM, usesByFloor: Array.from({ length: floors }, (_, index) => index === 0 ? "Acceso / área pública" : "Programa principal") }, model3d: { type: "CONCEPTUAL_MASSING", floors, heightM, massing: selectedFamily.geometryStrategy } },
+shared/arkiDynamicFamilies.ts:172:    metrics: { footprintM2, builtAreaM2: round(footprintM2 * floors), capacity, estimatedCostUsdConceptual: Math.round(footprintM2 * floors * costRate[selectedFamily.category]) },
+shared/arkiDynamicFamilies.ts:174:    validation: { status: "UNKNOWN", checked: ["Estructura declarativa", "Programa base", "Geometría unificada", "Métricas conceptuales"], unknowns },
+shared/arkiDynamicFamilies.ts:175:    alerts, status: "GENERATED_CANDIDATE", humanReviewRequired: true, projectStateMutation: "NOT_REQUESTED",
+shared/arkiDynamicFamilies.ts:179:export function generatedBuildingMetadata(building: GeneratedBuilding) { return { schema: "ARKI-GENERATED-BUILDING-1.0", artifactId: building.id, familyId: building.familyId, variantId: building.variantId, status: building.status, humanReviewRequired: building.humanReviewRequired, projectStateMutation: building.projectStateMutation }; }
+shared/arkiDynamicFamilies.ts:180:export function isProposalOnly(building: GeneratedBuilding) { return building.status === "GENERATED_CANDIDATE" && building.humanReviewRequired && building.projectStateMutation === "NOT_REQUESTED"; }
+shared/arkiFamilyComparison.ts:15:  return { schema: "ARKI-FAMILY-COMPARISON-1.0", mode, versionCount: versions.length, versionIds: versions.map((item) => item.id), metrics, parameterDiff, timeline: versions.map((item) => ({ id: item.id, label: item.label, version: item.version, createdAt: item.createdAt ?? null })), humanReviewRequired: true as const, persistence: "PROPOSAL_ONLY" as const };
+shared/arkiFamilyComparison.ts:22:  const common = { schema: "ARKI-GENERATED-BUILDING-1.0", familyId: building.familyId, variantId: building.variantId, generatedBuilding: building, status: building.status, humanReviewRequired: building.humanReviewRequired };
+shared/arkiFamilyComparison.ts:30:  return { fileName: `${building.familyId}-${building.variantId}.ifc`, mimeType: "application/x-step", content: entityLines.join("\n"), metadata: { schema: "ARKI-IFC4-ENRICHED-1.0", propertySets: ["ARKI_FamilyId", "ARKI_VariantId", "ARKI_Status", "ARKI_HumanReviewRequired"], nativeRvt: false, conceptualGeometryOnly: true } };
+shared/arkiFamilyComparison.ts:33:export const dynamicComparisonContract = { schema: "ARKI-FAMILY-COMPARISON-1.0", maxVersions: 4, modes: ["GRID", "TIMELINE", "DIFF"] as const, exportFormats: ["JSON", "IFC4", "GEOJSON", "SVG", "CSV", "HTML"] as const, humanReviewRequired: true, persistence: "PROPOSAL_ONLY" } as const;
+shared/arkiConstructionOntology.ts:93:export type ConstructionSpace = { id: string; nombre: string; funcion: string; nivel_piso: number; area_m2: number; altura_libre_m: number; wallIds: string[]; requisitos: string[]; estado: "conceptual" | "coordinado" | "validado" };
+shared/arkiConstructionOntology.ts:122:    spaceNames.forEach((spaceName, index) => spaces.push({ id: `space-${level + 1}-${index + 1}`, nombre: `${spaceName} · Nivel ${level + 1}`, funcion: index === 0 ? "principal" : index === 1 ? "pública" : index === 2 ? "servicio" : "circulación", nivel_piso: level, area_m2: r((input.widthM * input.depthM * .46) / spaceNames.length), altura_libre_m: 3.1, wallIds: walls.slice(-4).map((wall) => wall.id), requisitos: index === 0 ? ["Área mínima según programa", "Ventilación e iluminación", "Accesibilidad"] : ["Coordinación arquitectónica"], estado: "conceptual" }));
+shared/arkiConstructionOntology.ts:130:  return { schema: "ARKI-CONSTRUCTION-MODEL-1.0", projectId: input.projectId, generatedAt: new Date().toISOString(), ontologyLevel: "CONSTRUCTIVE_ELEMENTS", spaces, walls, foundations: elementSet.foundations, columns: elementSet.columns, beams: elementSet.beams, slabs: elementSet.slabs, doors: elementSet.doors, windows: elementSet.windows, stairs: elementSet.stairs, floors: elementSet.floors, roofs: elementSet.roofs, partitions: elementSet.partitions, relations: elementSet.relations, schedule, apuDatabase: APU_DATABASE, summary: { wallCount: walls.length, spaceCount: spaces.length, foundationCount: elementSet.foundations.length, columnCount: elementSet.columns.length, beamCount: elementSet.beams.length, slabCount: elementSet.slabs.length, doorCount: elementSet.doors.length, windowCount: elementSet.windows.length, stairCount: elementSet.stairs.length, floorElementCount: elementSet.floors.length, roofCount: elementSet.roofs.length, partitionCount: elementSet.partitions.length, relationCount: elementSet.relations.length, floorCount: levels, totalNetWallAreaM2: r(walls.reduce((sum, wall) => sum + wall.metrado.m2_muro, 0)), totalVolumeM3: r(walls.reduce((sum, wall) => sum + wall.metrado.m3_muro, 0), 3), totalWeightKg: r(walls.reduce((sum, wall) => sum + wall.metrado.peso_total_kg, 0) + elementSet.totalWeightKg, 0), totalBudgetPen: r(total + elementSet.budgetPen), totalDurationDays, doors: elementSet.doors.length, windows: elementSet.windows.length, interferences: walls.reduce((sum, wall) => sum + wall.interferencias.length, 0) + elementSet.columns.length + elementSet.beams.length + elementSet.slabs.length }, gates: { semanticElements: true, quantitiesCalculated: true, apuLinked: true, scheduleLinked: true, specialistReviewRequired: true, notes: ["Modelo constructivo conceptual generado desde la familia.", "Los precios APU son referenciales en soles y deben actualizarse con la base contractual.", "La coordinación estructural, sanitaria, eléctrica y mecánica requiere revisión especializada."] } };
+shared/arkiConstructionOntology.ts:152:  return { fileName: `${metadata.familyId}-construction-semantic.ifc`, mimeType: "application/x-step", content: lines.join("\n"), metadata: { schema: "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0", entities: ["IFCWALL", "IFCWALLSTANDARDCASE", "IFCCOLUMN", "IFCBEAM", "IFCSLAB", "IFCFOOTING", "IFCDOOR", "IFCWINDOW", "IFCSTAIR", "IFCROOF", "IFCSPACE", "IFCMATERIALLAYER", "IFCPROPERTYSET", "IFCRELAGGREGATES", "IFCRELCONTAINEDINSPATIALSTRUCTURE"], wallCount: model.walls.length, elementCount: elementRefs.length, conceptualGeometryOnly: true, nativeRvt: false } };
+client/src/components/ArkiWorkspaceShell.tsx:24:  { name: "Biblioteca", icon: Layers3, status: "PARTIAL", allowed: ["visitor", "user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:25:  { name: "Proyectos", icon: Building2, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:28:  { name: "Planta", icon: PanelLeft, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:29:  { name: "Corte", icon: SlidersHorizontal, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:30:  { name: "3D", icon: Box, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:33:  { name: "GASTOS", icon: WalletCards, status: "NOT AVAILABLE", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:34:  { name: "4D", icon: ClipboardCheck, status: "PARTIAL", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:35:  { name: "Clashes", icon: ShieldAlert, status: "PARTIAL", allowed: ["specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:36:  { name: "EXP-TEC", icon: FileText, status: "PARTIAL", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:37:  { name: "O-M", icon: Settings2, status: "FUTURE REFERENCE", allowed: ["user", "specialist", "corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:38:  { name: "ADM", icon: Settings2, status: "FUTURE REFERENCE", allowed: ["corporate"] },
+client/src/components/ArkiWorkspaceShell.tsx:45:function EmptyModuleState({ name }: { name: string }) { const { t } = useTranslation(); const definition = moduleDefinition(name); return <div className="arki-empty-module"><div className="arki-empty-module-icon"><Workflow size={24} /></div><span className="arki-context-kicker">MÓDULO REGISTRADO · {definition?.status ?? "PENDING"}</span><h2>{t(moduleLabelKey(name))}</h2><p>Este módulo está integrado al workspace, pero su integración de dominio aún está pendiente. El generador funcional permanece disponible desde la pestaña Generador.</p><small>{t("status")}: {definition?.status ?? "NOT AVAILABLE"} · {t("ui1")}</small></div>; }
+client/src/components/ArkiWorkspaceShell.tsx:64:  return <SelectionProvider><div className="arki-workspace"><header className="arki-workspace-top"><div className="arki-workspace-brand"><div className="arki-mini-mark"><Workflow size={16} /></div><div><strong>ARKI</strong><span>{t("workspace")}</span></div></div><div className="arki-project-context"><span>{t("activeProject")}</span><b>{t("projectName")}</b><i>v1.0 · {t("local")}</i></div><div className="arki-top-actions"><span className={`arki-role-badge role-${roleColor}`}>{accessLabel(access)}</span><button className="arki-language-button" title={t("changeLanguage")} onClick={changeLanguage}>🌐 {language.toUpperCase()}</button><button className="arki-icon-button" title={t("help")} onClick={() => toast.info(t("help"), { description: t("commandHint") })}><CircleHelp size={16} /></button><button className="arki-icon-button" title={t("exit")} onClick={onExit}><LogOut size={16} /></button></div></header><div className="arki-workspace-tabs"><span className="arki-project-chip">PROYECTO ACTIVO · {t("projectName")}</span>{availableModules.map(({ name, status }) => { const disabled = status === "NOT AVAILABLE" || status === "FUTURE REFERENCE"; return <button key={name} className={activeModule === name ? "active" : ""} disabled={disabled} title={disabled ? t("unavailableModuleTooltip") : undefined} onClick={() => selectModule(name)}><i className={`arki-tab-status-dot status-${status.toLowerCase().replaceAll(" ", "-")}`} />{t(moduleLabelKey(name))}</button>; })}</div><div className="arki-workspace-body"><ContextPanel model={constructionModel} view={view} onViewChange={setView} state={contextState(modelLevel, constructionModel?.summary.floorCount ?? 1)} /><main className="arki-workspace-canvas"><div className="arki-context-toolbar"><div><strong>{activeModule === "Generador" ? t("generator") : t(moduleLabelKey(activeModule))}</strong></div><div className="arki-context-actions"><span>{activeDefinition?.status ?? "PENDING"}</span></div></div><ModuleToolbar module={activeModule} /><div className="arki-legacy-content">{moduleContent}</div></main><InfoBoxPanel modelCount={constructionModel ? constructionModel.summary.wallCount + constructionModel.summary.columnCount + constructionModel.summary.beamCount + constructionModel.summary.slabCount + constructionModel.summary.doorCount + constructionModel.summary.windowCount : 0} /></div><footer className="arki-workspace-status"><span><i className="arki-engine-dot" /> MOTOR OPERATIVO</span><span>v1.0 · {t("local")}</span><span className="arki-status-warning">{t("unavailableModuleTooltip")}</span></footer></div></SelectionProvider>;
+client/src/components/ArkiGateway.tsx:6:export type ArkiModuleStatus = "IMPLEMENTED" | "VERIFIED" | "PARTIAL" | "CONCEPTUAL" | "NOT AVAILABLE" | "FUTURE REFERENCE";
+client/src/components/ui/textarea.tsx:23:      // Check if this is an Enter key that should be blocked
+client/src/components/ui/input.tsx:24:      // Check if this is an Enter key that should be blocked

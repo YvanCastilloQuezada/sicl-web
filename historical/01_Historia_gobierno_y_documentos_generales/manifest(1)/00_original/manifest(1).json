@@ -1,0 +1,48 @@
+{
+  "fecha_utc": "2026-10-18T06:21:43.506972+00:00",
+  "metodo": "copia local sin git ni dependencias",
+  "repos": [
+    {
+      "nombre": "sicl-web",
+      "origen": "/home/arki/ARKI/repositorios/sicl-web",
+      "copia": "/home/arki/Descargas/ARKI_MO40_RECONCILIADO/sicl-web",
+      "rama": "ace87/remove-qr",
+      "head": "6fa1fb16a5c952f50776d546e9caf8c36a68ec44",
+      "status_git_sha256": "69fda8aecc0aba21a8049a445c70670008267ae1c4389e46e9913bfb86655b0a",
+      "entradas": [
+        {
+          "ruta": "package.json",
+          "sha256": "f12b194076dddac1bf7577e8e8810985b2fd15b6f2f0434f5fb5da24162ab991"
+        }
+      ]
+    },
+    {
+      "nombre": "sicl-core",
+      "origen": "/home/arki/ARKI/repositorios/sicl-core",
+      "copia": "/home/arki/Descargas/ARKI_MO40_RECONCILIADO/sicl-core",
+      "rama": "feat/ace88-core-service-auth",
+      "head": "c68b44514dc4a4574be0ed73df041f51ed5075a9",
+      "status_git_sha256": "58b7b3d6d0db0f8731bd8c9c5c229a5ba7fdc49a79c03ac7e4bb444be927fc45",
+      "entradas": [
+        {
+          "ruta": "pyproject.toml",
+          "sha256": "f5a72f427c9bb13ae01790906828fc0758aace67713305127b3bf56b0d302490"
+        },
+        {
+          "ruta": "requirements.txt",
+          "sha256": "07f22d18dbc50b210c2d6540c7d90af2c5790b1bf2deb50dee7714c5d5c7e689"
+        }
+      ]
+    },
+    {
+      "nombre": "arki-acs",
+      "origen": "/home/arki/ARKI/repositorios/arki-acs",
+      "copia": "/home/arki/Descargas/ARKI_MO40_RECONCILIADO/arki-acs",
+      "rama": "main",
+      "head": "6a0612184ff1e8207e86117f6353d1976abec1d8",
+      "status_git_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "entradas": []
+    }
+  ],
+  "preflight": "PASS"
+}

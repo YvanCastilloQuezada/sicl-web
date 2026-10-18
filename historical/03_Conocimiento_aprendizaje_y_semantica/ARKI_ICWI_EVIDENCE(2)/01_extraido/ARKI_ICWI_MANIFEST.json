@@ -1,0 +1,187 @@
+{
+  "schema": "ARKI-ICWI-001-MANIFEST-1.0",
+  "status": "FOUNDATION IMPLEMENTED / BOUNDED PILOT / PENDING INDEPENDENT VERIFICATION",
+  "order": "97A-05",
+  "program": "ARKI-LKS-001",
+  "parent": "CFMI-001 + HAI-001 + ACI-001",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED",
+  "ingestionPolicy": "NO MASS INGESTION / SELECTIVE / GOVERNED / TRACEABLE",
+  "ownership": "ONE ARKI / ONE GOVERNED KNOWLEDGE SYSTEM",
+  "baselinePackage": "ARKI_CFMI_EVIDENCE.zip",
+  "entries": [
+    {
+      "file": "ARKI_ICWI_ARCHITECTURE.md",
+      "size": 420,
+      "sha256": "cad7f68cf74c2fc718b66a412e263beb891b13108f27cee4f60093a064a139ad",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_TAXONOMY.md",
+      "size": 206,
+      "sha256": "73263308dbb5bf053b83c218194265484272dede8cef7afb1a08217ac0996954",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_SYSTEM_MODEL.md",
+      "size": 251,
+      "sha256": "749d5d4d7b1bc77415d81aa7b7a805cfc3c2fc4f018d50cb6857320d2b5bde83",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_LINEAR_INFRASTRUCTURE_MODEL.md",
+      "size": 233,
+      "sha256": "94887b06ff3db91d9ef6485082bfd6672c033be70c9a46895958d0b97802daf3",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_NETWORK_TOPOLOGY.md",
+      "size": 262,
+      "sha256": "9c9302b2978d23a4924480f073560d52c330cb6a62eecf864465831a3b751fc3",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_FLOW_MODEL.md",
+      "size": 197,
+      "sha256": "6f8ec180e31956f5386fe2306cf20879dc68971b44ef50369f64e81922df91fb",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BRIDGE_INTELLIGENCE_SPEC.md",
+      "size": 251,
+      "sha256": "191750d4d37fac9f2c32eb5e0e8aef0adba53fed6254bf831fb448caa0706c84",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_DAM_INTELLIGENCE_SPEC.md",
+      "size": 232,
+      "sha256": "4eec178e96d4f35677cbf0d51f921998dc92d26678358c4531c5f8e457c4338a",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_WATER_IRRIGATION_INTELLIGENCE_SPEC.md",
+      "size": 263,
+      "sha256": "e29ff1899c2b48cd5794927b550b9316cfbbe831f3aff9a2b65d8a9108a94dbc",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_TRANSPORT_INFRASTRUCTURE_SPEC.md",
+      "size": 256,
+      "sha256": "e464d74d50ea7757483b1389ac1b633bede6f1b2a20029c151ce006cc9cfa3a7",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_UNDERGROUND_INFRASTRUCTURE_SPEC.md",
+      "size": 298,
+      "sha256": "43d27899cd340d8e5083b543cf7ccf0af0080da66698905655587e8d7d1b5958",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_MARITIME_INFRASTRUCTURE_SPEC.md",
+      "size": 238,
+      "sha256": "80c7bc83c7cdf00ab2a4e4fab71ca0e2bdb26a271c0885b726b55108692f14cc",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_READINESS_GATE.md",
+      "size": 470,
+      "sha256": "38b4b987d25c26c7391f652712da4b5873e0d49a2a9d5a68c5c3d9135ed5d61c",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_CAUSAL_MODEL.md",
+      "size": 306,
+      "sha256": "b548498e50dc49e8fcc1ad02ed162f7a1d36d9a65a4c56d39afe468f2ee32a10",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_LIFECYCLE_MODEL.md",
+      "size": 284,
+      "sha256": "6921c91d9f9bec787104579508b37412942255160c15e79c1591e9d25af5a2ef",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_REFERENCE_CORPUS_SPEC.md",
+      "size": 230,
+      "sha256": "4948ce64faf235ec8587bcbcef4a0dcb11e8db6dcda350cb36dd88730f6e74cd",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_INFRASTRUCTURE_FAILURE_LEARNING.md",
+      "size": 286,
+      "sha256": "a01c24566b387158f0ecbf69511ec34a2439eb507107c16dcd006706d6c0c5de",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_CFMI_INTERFACE.md",
+      "size": 286,
+      "sha256": "f8c71de4cbf662ab2298c4be2f6df303d2e680ee0b500e41d95461a6fbfac7a7",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_HAI_INTEGRATION.md",
+      "size": 194,
+      "sha256": "c7357993802d0300244b7d56dc32b67d804c6761be0ea3e162419800068cadf5",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_KCF_INTEGRATION.md",
+      "size": 234,
+      "sha256": "0387d4d5f634febc97b4018e4c53e2622e1051bfcaaf260fe63e5cf418b79833",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_ACADEMY_INTEGRATION.md",
+      "size": 223,
+      "sha256": "b8c295717e4e8a800e319ac80c53cdbc2f133efc1d4fa522dca4ea1b89a7c4b3",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_PILOT_SPEC.md",
+      "size": 271,
+      "sha256": "828ed376d9e981e57d350cb7f1ae7fc328e1ce078091a81cbf427d9ced1cae98",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_TEST_MATRIX.md",
+      "size": 688,
+      "sha256": "59881329cdd381e9e4cb0b75720fbee562480bc31876145fc39f92536eaff6ba",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_SCOPE_LIMIT_REPORT.md",
+      "size": 573,
+      "sha256": "6cbf11e276cec47d12669ee27017c0ca30fce7d3f3dc1017bec6ebb3840871f7",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_OUTPUTS.txt",
+      "size": 5354,
+      "sha256": "2236682cfe24758ed91b53662991a7a5312b592a5f8624634f6d35eed0362d1d",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "pasted_content_109.txt",
+      "size": 27149,
+      "sha256": "f34619e671f982f8eb4e3a4f58cb22cb3c72f1fdc22c1d55ca2a3353dac6eb24",
+      "status": "BASELINE_OR_SOURCE"
+    },
+    {
+      "file": "scripts/test-arki-icwi.ts",
+      "size": 2252,
+      "sha256": "ffc5bea7c999aa09e6849cd5bda5118b4115e5e870ede6194a7b47bc941fbd03",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "size": 49808,
+      "sha256": "a33852e742148f1b688abc14dc020e02bc4495b467fdb51f9ed4136a706cbe69",
+      "status": "ICWI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_EVIDENCE.zip",
+      "size": 227124,
+      "sha256": "dc9def1c36f7e4471482f5dbbe0ae7f8d465037de1e357d43d34b53ce85069ba",
+      "status": "BASELINE_OR_SOURCE"
+    }
+  ]
+}

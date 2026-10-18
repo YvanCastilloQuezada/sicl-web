@@ -1,0 +1,1358 @@
+ADENDA 97A-04 — ARKI COMPLEX FACILITIES & MEGAPROJECT INTELLIGENCE
+Exceptional Facilities + Critical Infrastructure + Process Architecture + Multiscale Megaproject Knowledge
+
+Orden matriz: ORDEN 97A — ARKI Living Knowledge Integration v1.1
+Programa: ARKI-LKS-001 — ARKI Living Knowledge System
+Antecedentes: 97A-01 KCF + 97A-02 ACI + 97A-03 HAI
+Código provisional: ARKI-CFMI-001
+Tipo: Mandatory Knowledge Architecture + Facility Intelligence + Research + Evidence Addendum
+Prioridad: HIGH / STRATEGIC
+Autoridad: Product Owner / Human Authority
+
+Esta Adenda NO reemplaza ni reinicia 97A ni sus adendas anteriores.
+
+Amplía el conocimiento gobernado de ARKI hacia instalaciones, infraestructuras y megaproyectos cuya complejidad excede normalmente el ámbito de los concursos arquitectónicos convencionales.
+
+CFMI-01. MISIÓN
+
+Crear dentro del Living Knowledge System una capacidad gobernada para que ARKI pueda:
+
+COMPRENDER, ESTRUCTURAR, COMPARAR Y PROGRESIVAMENTE RAZONAR SOBRE INSTALACIONES COMPLEJAS, INFRAESTRUCTURAS CRÍTICAS Y MEGAPROYECTOS, INTEGRANDO ARQUITECTURA, TERRITORIO, PROCESOS, INGENIERÍA, EQUIPAMIENTO, LOGÍSTICA, SEGURIDAD, CONSTRUCCIÓN, OPERACIÓN Y CICLO DE VIDA.
+
+El objetivo futuro es permitir que ARKI pueda participar responsablemente en proyectos de complejidad internacional creciente.
+
+Esta Adenda NO declara competencia profesional actual en dichas instalaciones.
+
+CFMI-02. PRINCIPIO FUNDAMENTAL
+
+Formalizar:
+
+A COMPLEX FACILITY IS NOT SIMPLY A LARGE BUILDING.
+
+MEGAPROJECT ≠ BIG BUILDING.
+
+FACILITY IMAGE ≠ FACILITY UNDERSTANDING.
+
+EQUIPMENT GEOMETRY ≠ SYSTEM KNOWLEDGE.
+
+KNOWING A FACILITY EXISTS ≠ KNOWING HOW TO DESIGN IT.
+
+CFMI-03. PROCESS BEFORE FORM
+
+Para instalaciones complejas, ARKI deberá poder razonar:
+
+MISSION
+↓
+PROCESS
+↓
+ACTIVITIES
+↓
+EQUIPMENT
+↓
+PERFORMANCE CONDITIONS
+↓
+SAFETY CONDITIONS
+↓
+UTILITIES
+↓
+LOGISTICS
+↓
+MAINTENANCE
+↓
+SPATIAL RELATIONSHIPS
+↓
+SPACE
+↓
+SYSTEMS
+↓
+STRUCTURE / ENVELOPE
+↓
+FACILITY
+
+y no asumir:
+
+FORM
+↓
+ROOMS
+↓
+FIT PROCESS INSIDE
+CFMI-04. NO GENERATION BEFORE UNDERSTANDING
+
+Registrar como principio:
+
+NO FACILITY GENERATION BEFORE FACILITY UNDERSTANDING.
+
+Para tipologías extraordinarias, ARKI no deberá presentar una propuesta como solución informada sin superar previamente un Facility Readiness Gate.
+
+CFMI-05. FACILITY KNOWLEDGE MATRIX
+
+Reutilizar y formalizar la Facility & Infrastructure Knowledge Matrix — FIKM.
+
+NO crear una segunda matriz paralela si FIKM ya existe conceptualmente o estructuralmente.
+
+Para cada clase de instalación deberá poder representar:
+
+PURPOSE
+MISSION
+USERS
+ACTIVITIES
+PROCESSES
+SPACES
+ZONES
+CIRCULATION
+LOGISTICS
+STRUCTURE
+ENVELOPE
+HVAC
+ELECTRICAL
+PLUMBING
+FIRE
+CONTROLS
+COMMUNICATIONS
+SPECIAL SYSTEMS
+EQUIPMENT
+COMPONENTS
+CONNECTIONS
+NETWORKS
+SAFETY
+REDUNDANCY
+RESILIENCE
+MAINTENANCE
+OPERATIONS
+MATERIALS
+PROPERTIES
+QUANTITIES
+CONSTRUCTION
+COST
+SCHEDULE
+COMMISSIONING
+DIGITAL TWIN
+STANDARDS
+REGULATION
+PROFESSIONAL DISCIPLINES
+EXTERNAL ORACLES
+UNKNOWN
+CFMI-06. FACILITY TAXONOMY
+
+Preparar taxonomía extensible que incluya inicialmente:
+
+SCIENTIFIC
+RESEARCH
+NUCLEAR / ENERGY
+SPACE
+AEROSPACE
+HEALTHCARE
+BIOLOGICAL / LABORATORY
+INDUSTRIAL
+SEMICONDUCTOR
+PHARMACEUTICAL
+DATA / AI
+TRANSPORT
+AIRPORT
+RAIL
+METRO
+PORT
+LOGISTICS
+WATER
+HYDRAULIC
+ENERGY
+UNDERGROUND
+CRYOGENIC
+OBSERVATORY
+HIGH-CONTAINMENT
+CRITICAL INFRASTRUCTURE
+OTHER / FUTURE
+
+La categoría no demuestra competencia.
+
+CFMI-07. EXCEPTIONAL FACILITY CLASSES
+
+Registrar como familias prioritarias de investigación futura, sin declarar dominio:
+
+nuclear power facilities
+research reactors
+particle accelerators
+synchrotrons
+fusion research facilities
+high-containment laboratories
+cleanrooms
+semiconductor fabs
+pharmaceutical facilities
+launch complexes
+vehicle assembly/integration facilities
+mission/launch control facilities
+observatories
+supercomputing facilities
+hyperscale data centers
+AI infrastructure
+major hospitals
+airports
+metro systems
+high-speed rail
+ports
+dams
+hydroelectric complexes
+desalination facilities
+large water infrastructure
+underground infrastructure
+industrial megafacilities
+
+Extensible mediante evidencia y gobernanza.
+
+CFMI-08. PUBLIC / LEGITIMATE KNOWLEDGE BOUNDARY
+
+Para instalaciones sensibles:
+
+ARKI deberá trabajar exclusivamente con información legítimamente accesible y apropiada para investigación arquitectónica/profesional.
+
+No buscar, inferir ni reconstruir deliberadamente información restringida cuya divulgación pueda comprometer seguridad física, nuclear, operacional o nacional.
+
+Clasificar:
+
+PUBLIC
+PROFESSIONAL_PUBLIC
+LICENSED
+ACCESS_RESTRICTED
+SECURITY_SENSITIVE
+UNKNOWN_ACCESS
+CFMI-09. SAFETY ≠ SECURITY SECRETS
+
+ARKI podrá aprender principios públicos de:
+
+life safety
+resilience
+redundancy
+containment
+emergency planning
+occupational safety
+regulatory safety
+operational reliability
+
+sin intentar reconstruir vulnerabilidades explotables, detalles de protección física sensibles o información restringida.
+
+CFMI-10. REFERENCE FACILITY CORPUS
+
+Crear una vista/corpus especializado gobernado por LKS:
+
+ComplexFacilityReferenceCorpus.
+
+No será una segunda base de conocimiento canónica.
+
+Para cada instalación:
+
+facilityId
+canonicalName
+facilityClass
+mission
+location
+jurisdiction
+date
+status
+operators
+designers
+engineers
+scales
+disciplines
+processes
+systems
+referenceSources
+standards
+lifecycleState
+evidence
+provenance
+accessClassification
+unknowns
+CFMI-11. LEARN SYSTEMS, NOT ICONS
+
+Formalizar:
+
+REFERENCE FACILITY ≠ TEMPLATE.
+
+PRECEDENT ≠ COPY SOURCE.
+
+El corpus deberá permitir preguntar:
+
+¿Cómo se resuelve esta clase de problema?
+
+y no únicamente:
+
+¿Cómo se ve este tipo de edificio?
+
+CFMI-12. SYSTEM DECOMPOSITION
+
+Toda instalación deberá poder descomponerse:
+
+FACILITY
+↓
+FUNCTIONAL SYSTEMS
+↓
+TECHNICAL SYSTEMS
+↓
+NETWORKS
+↓
+EQUIPMENT
+↓
+COMPONENTS
+↓
+INTERFACES
+
+manteniendo relaciones entre niveles.
+
+CFMI-13. PROCESS GRAPH
+
+Preparar FacilityProcessGraph o equivalente.
+
+Debe poder representar:
+
+process
+predecessor
+successor
+inputs
+outputs
+users
+equipment
+environment
+space
+utilities
+safety conditions
+maintenance
+logistics
+dependencies
+failure consequences
+CFMI-14. PROCESS ↔ SPACE
+
+Crear relación explícita:
+
+PROCESS
+↕
+ACTIVITY
+↕
+EQUIPMENT
+↕
+SPACE
+↕
+SYSTEM
+↕
+FACILITY
+
+El espacio no deberá quedar separado del proceso que lo justifica.
+
+CFMI-15. EQUIPMENT-CENTERED ARCHITECTURE
+
+Algunas instalaciones estarán determinadas parcialmente por equipamiento.
+
+ARKI deberá representar:
+
+equipment envelope
+operating envelope
+maintenance envelope
+replacement path
+access
+lifting/handling
+utilities
+environmental requirements
+structural requirements
+safety requirements
+interfaces
+
+cuando exista evidencia.
+
+CFMI-16. LOGISTICS INTELLIGENCE
+
+Para megaproyectos e instalaciones complejas estudiar:
+
+people flow
+material flow
+equipment flow
+waste flow
+clean/dirty flow
+sterile/non-sterile flow
+secure/public flow
+maintenance flow
+emergency flow
+construction logistics
+replacement logistics
+
+según tipología.
+
+CFMI-17. ZONING BY PERFORMANCE
+
+El zoning podrá responder no solo a función, sino a:
+
+cleanliness
+vibration
+radiation
+pressure
+temperature
+humidity
+electromagnetic environment
+acoustic performance
+contamination
+fire risk
+security
+access
+redundancy
+operational continuity
+
+según instalación y fuentes autorizadas.
+
+CFMI-18. REQUIREMENT TYPES
+
+Distinguir:
+
+ARCHITECTURAL
+PROCESS
+STRUCTURAL
+ENVIRONMENTAL
+SAFETY
+REGULATORY
+OPERATIONAL
+MAINTENANCE
+LOGISTICS
+EQUIPMENT
+HUMAN
+SECURITY
+ECONOMIC
+TEMPORAL
+
+No colapsarlos en una única lista de “requirements”.
+
+CFMI-19. REQUIREMENT AUTHORITY
+
+Cada requisito deberá registrar:
+
+source
+authority
+jurisdiction
+version
+applicability
+evidence
+epistemicState
+
+REFERENCE PROJECT DID X no equivale a requisito.
+
+CFMI-20. STANDARDS INTEGRATION
+
+Integrar con Standards Knowledge de 97A.
+
+Una instalación podrá mapear múltiples familias:
+
+ISO
+IEC
+IAEA
+OGC
+buildingSMART
+national standards
+sector standards
+professional standards
+operator requirements
+local regulation
+
+No crear FacilityStandardsDB.
+
+CFMI-21. REGULATORY SAFETY
+
+Formalizar:
+
+INTERNATIONAL GUIDANCE ≠ LOCAL LEGAL REQUIREMENT.
+
+REFERENCE DESIGN ≠ REGULATORY COMPLIANCE.
+
+STANDARD KNOWLEDGE ≠ COMPLIANCE ENGINE.
+
+CFMI-22. MULTIDISCIPLINARY MODEL
+
+Una instalación compleja deberá permitir conocimiento coordinado de:
+
+ARCHITECTURE
+URBANISM
+PROCESS ENGINEERING
+STRUCTURES
+SEISMIC
+GEOTECHNICS
+MECHANICAL
+HVAC
+ELECTRICAL
+PLUMBING
+FIRE
+CONTROLS
+TELECOMMUNICATIONS
+LOGISTICS
+SAFETY
+ENVIRONMENT
+OPERATIONS
+MAINTENANCE
+COST
+SCHEDULE
+CONSTRUCTION
+COMMISSIONING
+
+sin declarar competencia profesional automática en cada disciplina.
+
+CFMI-23. ONE ARKI — MANY COMPETENCIES
+
+No crear:
+
+NuclearAgent
+SpaceAgent
+AirportAgent
+HospitalAgent
+SemiconductorAgent
+
+salvo futura necesidad arquitectónica explícitamente demostrada y autorizada.
+
+Aplicar:
+
+ONE ARCHITECT · MANY COMPETENCIES · MANY TOOLS · ONE PROJECT STATE · ONE CANONICAL TRUTH · HUMAN AUTHORITY.
+
+CFMI-24. KNOWLEDGE / REASONING / COMPUTATION
+
+Preservar:
+
+KNOWLEDGE FABRIC = SABER
+REASONING FABRIC = PENSAR
+COMPUTATION FABRIC = CALCULAR
+
+Leer un manual de cálculo no demuestra un solver.
+
+Comprender una disciplina no equivale a estar autorizado profesionalmente para ejercerla.
+
+CFMI-25. COMPETENCY LADDER
+
+Para cada Facility Class:
+
+DISCOVERED
+↓
+STRUCTURED
+↓
+UNDERSTOOD_WITHIN_SCOPE
+↓
+MODELED
+↓
+APPLIED_IN_EXERCISE
+↓
+TESTED
+↓
+VALIDATED_AGAINST_REFERENCE
+↓
+DOMAIN_COMPETENCE_DEMONSTRATED_WITHIN_SCOPE
+↓
+PROFESSIONAL_VALIDATION_REQUIRED
+
+No saltar niveles.
+
+CFMI-26. SPECIALIST BOUNDARY
+
+Crear SpecialistRequirement.
+
+ARKI deberá poder decir:
+
+I KNOW
+I CAN REASON
+I CAN COMPUTE
+I NEED DATA
+I NEED EXTERNAL ORACLE
+I NEED SPECIALIST
+I CANNOT VERIFY
+UNKNOWN
+CFMI-27. EXTERNAL ORACLE
+
+Una herramienta externa, especialista o software especializado podrá actuar como:
+
+REFERENCE
+ORACLE
+VALIDATOR
+SPECIALIST INPUT
+
+pero no convertirse automáticamente en autoridad canónica de ARKI.
+
+CFMI-28. FACILITY READINESS GATE
+
+Implementar/especificar FacilityReadinessGate.
+
+Antes de diseño informado:
+
+MISSION
+PROCESS
+USERS
+ACTIVITIES
+EQUIPMENT
+SPACES
+RELATIONSHIPS
+LOGISTICS
+SPECIAL SYSTEMS
+SAFETY
+STANDARDS
+REGULATION
+OPERATIONS
+MAINTENANCE
+SITE
+MULTISCALE CONTEXT
+UNKNOWN
+SPECIALISTS REQUIRED
+
+deberán ser evaluados.
+
+CFMI-29. READINESS RESULTS
+
+Estados:
+
+READY_FOR_CONCEPTUAL_DESIGN
+CONDITIONALLY_READY
+RESEARCH_REQUIRED
+SPECIALIST_REQUIRED
+NOT_READY
+UNKNOWN
+
+No generar falsamente READY ocultando UNKNOWN.
+
+CFMI-30. READINESS IS SCOPE-SPECIFIC
+
+READY_FOR_CONCEPTUAL_DESIGN
+
+no equivale a:
+
+READY_FOR_DETAILED_ENGINEERING
+READY_FOR_CONSTRUCTION
+REGULATORY_APPROVED
+PROFESSIONALLY_VALIDATED
+CFMI-31. MULTISCALE MEGAPROJECT MODEL
+
+Los megaproyectos deberán poder atravesar:
+
+COUNTRY
+↓
+REGION
+↓
+METROPOLITAN / INFRASTRUCTURE SYSTEM
+↓
+CITY / TERRITORY
+↓
+SITE
+↓
+FACILITY
+↓
+BUILDING
+↓
+SYSTEM
+↓
+SPACE
+↓
+ACTIVITY
+↓
+EQUIPMENT / OBJECT
+↓
+COMPONENT
+↓
+HUMAN
+CFMI-32. MULTISCALE CAUSALITY
+
+ARKI deberá estudiar propagación:
+
+TERRITORIAL DECISION
+↓
+SITE CONSEQUENCE
+↓
+FACILITY CONSEQUENCE
+↓
+SYSTEM CONSEQUENCE
+↓
+OPERATIONAL CONSEQUENCE
+
+y también en sentido inverso cuando corresponda.
+
+CFMI-33. NETWORKED FACILITIES
+
+Algunas instalaciones no son un único edificio.
+
+Representar:
+
+campus
+complex
+network
+distributed infrastructure
+corridors
+utility systems
+control systems
+external dependencies
+CFMI-34. SITE INTELLIGENCE
+
+Integrar cuando sea aplicable:
+
+geology
+geotechnics
+seismicity
+climate
+hydrology
+flooding
+wind
+terrain
+access
+utilities
+environmental constraints
+surrounding population
+transportation
+emergency access
+expansion
+
+con evidencia y autoridad correspondientes.
+
+CFMI-35. LIFECYCLE
+
+Estudiar:
+
+CONCEPT
+DESIGN
+ENGINEERING
+PROCUREMENT
+CONSTRUCTION
+COMMISSIONING
+OPERATION
+MAINTENANCE
+UPGRADE
+EXPANSION
+DECOMMISSIONING
+ADAPTIVE REUSE
+
+según tipología.
+
+CFMI-36. COMMISSIONING KNOWLEDGE
+
+Instalaciones complejas no terminan con construcción.
+
+Representar:
+
+system verification
+integrated testing
+commissioning dependencies
+acceptance
+handover
+operational readiness
+
+sin inventar protocolos específicos no sustentados.
+
+CFMI-37. OPERATIONS AS DESIGN INPUT
+
+Formalizar:
+
+OPERATION IS NOT AN AFTERTHOUGHT.
+
+Operación, mantenimiento, inspección, sustitución y actualización deberán poder influir desde etapas tempranas.
+
+CFMI-38. DIGITAL TWIN INTEGRATION
+
+Conectar con UDT/Digital Twin Knowledge cuando corresponda:
+
+physical facility
+↕
+observed state
+↕
+canonical digital state
+↕
+operational data
+↕
+simulated state
+
+Mantener:
+
+3D MODEL ≠ DIGITAL TWIN.
+
+CFMI-39. REFERENCE PROJECT COMPARISON
+
+Para cada Facility Class comparar múltiples proyectos:
+
+WHAT IS INVARIANT?
+WHAT IS COMMON?
+WHAT IS PROJECT-SPECIFIC?
+WHAT IS TECHNOLOGY-SPECIFIC?
+WHAT IS JURISDICTION-SPECIFIC?
+WHAT IS OPTIONAL?
+WHAT IS UNKNOWN?
+CFMI-40. NO SINGLE-PROJECT GENERALIZATION
+
+Formalizar:
+
+ONE REACTOR ≠ NUCLEAR FACILITY KNOWLEDGE.
+
+ONE SPACEPORT ≠ SPACEPORT TYPOLOGY.
+
+ONE HOSPITAL ≠ HEALTHCARE COMPETENCE.
+
+Se requiere comparación, fuentes y validación.
+
+CFMI-41. FAILURE & LESSONS-LEARNED CORPUS
+
+Incorporar conocimiento público y legítimo sobre:
+
+cost overruns
+delays
+redesign
+operational deficiencies
+maintenance problems
+capacity problems
+commissioning problems
+coordination failures
+lifecycle problems
+abandoned megaprojects
+successful recoveries
+
+sin sensacionalismo.
+
+CFMI-42. FAILURE EPISTEMIC SAFETY
+
+No inferir causa desde resultado.
+
+Distinguir:
+
+DOCUMENTED_CAUSE
+CONTRIBUTING_FACTOR
+CORRELATION
+EXPERT_INTERPRETATION
+ARKI_HYPOTHESIS
+UNKNOWN
+CFMI-43. SUCCESS CORPUS
+
+Estudiar también:
+
+successful commissioning
+long operational life
+adaptability
+expansion
+maintainability
+resilience
+successful modernization
+
+cuando exista evidencia.
+
+CFMI-44. PROJECT SCALE ≠ KNOWLEDGE QUALITY
+
+Un megaproyecto no es automáticamente buen precedente.
+
+Formalizar:
+
+LARGE ≠ GOOD.
+
+EXPENSIVE ≠ ADVANCED.
+
+FAMOUS ≠ EXEMPLARY.
+
+CFMI-45. SOURCES
+
+Priorizar:
+
+official operators
+regulators
+international organizations
+standards organizations
+project owners
+engineering institutions
+professional bodies
+universities
+scientific institutions
+official technical publications
+peer-reviewed research
+project designers/engineers
+documented post-occupancy/operations evidence
+
+sobre fuentes promocionales.
+
+CFMI-46. SOURCE RIGHTS & ACCESS
+
+Heredar políticas LKS/ACI/HAI.
+
+PUBLICLY VIEWABLE ≠ FREE TO REPRODUCE.
+
+Preservar:
+
+source
+rights
+access
+version
+date
+provenance
+curatorStatus
+CFMI-47. CURATOR
+
+Toda afirmación técnica relevante deberá pasar por la gobernanza LKS correspondiente.
+
+Curator deberá poder responder:
+
+VERIFIED
+PARTIAL
+CONFLICT
+UNKNOWN
+REJECTED
+SOURCE_ACCESS_LIMITED
+PROFESSIONAL_VALIDATION_REQUIRED
+CFMI-48. KCF INTEGRATION
+
+KCF podrá detectar:
+
+missing facility knowledge
+missing discipline
+recurring specialist dependency
+missing standard
+missing computational capability
+emerging facility class
+new technology
+new societal infrastructure demand
+
+y producir LearningNeedCandidate.
+
+No implementar automáticamente.
+
+CFMI-49. ACADEMY INTEGRATION
+
+Academy podrá convertir déficits gobernados en:
+
+curriculum modules
+case studies
+facility decomposition exercises
+process-space exercises
+coordination exercises
+reference reconstruction
+held-out examinations
+multidisciplinary tests
+CFMI-50. EXAMINATION PRINCIPLE
+
+Para demostrar comprensión de una Facility Class:
+
+ARKI deberá poder hacer más que describirla.
+
+Ejemplo:
+
+UNDERSTAND MISSION
+↓
+RECONSTRUCT PROCESS
+↓
+IDENTIFY SYSTEMS
+↓
+MAP RELATIONSHIPS
+↓
+IDENTIFY CONSTRAINTS
+↓
+IDENTIFY UNKNOWN
+↓
+PROPOSE CONCEPTUAL ORGANIZATION
+↓
+EXPLAIN CONSEQUENCES
+CFMI-51. HELD-OUT FACILITY TEST
+
+Cuando exista documentación adecuada:
+
+entrenar/estudiar con algunos casos y evaluar con un caso no utilizado previamente.
+
+Esto permite distinguir:
+
+MEMORIZATION
+
+de:
+
+TRANSFERABLE UNDERSTANDING
+CFMI-52. COMPUTATIONAL READINESS
+
+Para cada Facility Class distinguir:
+
+KNOWLEDGE_READY
+REASONING_READY
+MODELING_READY
+COMPUTATION_READY
+PROFESSIONAL_VALIDATION_REQUIRED
+
+No colapsarlos.
+
+CFMI-53. PROFESSIONAL CALCULATION
+
+Si un proyecto requiere cálculo especializado que ARKI no ha demostrado:
+
+NOT_DEMONSTRATED
+
+o:
+
+EXTERNAL_ORACLE_REQUIRED
+
+o:
+
+SPECIALIST_REQUIRED
+
+según corresponda.
+
+CFMI-54. MEGAPROJECT ORGANIZATION
+
+Preparar conocimiento de:
+
+packages
+interfaces
+disciplines
+phases
+work breakdown
+systems breakdown
+responsibility boundaries
+design coordination
+information requirements
+commissioning interfaces
+
+sin imponer una única metodología universal.
+
+CFMI-55. INTERFACE INTELLIGENCE
+
+En instalaciones complejas, los fallos suelen aparecer en interfaces.
+
+ARKI deberá representar:
+
+SYSTEM A
+↕ INTERFACE
+SYSTEM B
+
+incluyendo:
+
+dependency
+information
+geometry
+utility
+sequence
+responsibility
+performance
+safety
+
+cuando sea aplicable.
+
+CFMI-56. UNKNOWN AS FIRST-CLASS
+
+Una Facility Class nueva deberá poder comenzar:
+
+KNOWLEDGE STATE = INSUFFICIENT
+
+sin forzar generación.
+
+ARKI deberá ser capaz de decir:
+
+“NO CONOZCO SUFICIENTEMENTE ESTA TIPOLOGÍA; PRIMERO DEBO CONSTRUIR SU MAPA DE CONOCIMIENTO.”
+
+CFMI-57. KNOWLEDGE ACQUISITION MODE
+
+Ante una Facility Class desconocida:
+
+IDENTIFY MISSION
+↓
+IDENTIFY AUTHORITATIVE SOURCES
+↓
+BUILD SOURCE MAP
+↓
+CURATE
+↓
+BUILD FIKM
+↓
+IDENTIFY DISCIPLINES
+↓
+IDENTIFY STANDARDS
+↓
+IDENTIFY REFERENCE FACILITIES
+↓
+IDENTIFY UNKNOWN
+↓
+FACILITY READINESS GATE
+CFMI-58. STRATEGIC PROJECT READINESS
+
+Para un futuro proyecto real:
+
+producir:
+
+PROJECT KNOWLEDGE READINESS
+PROJECT COMPETENCY READINESS
+COMPUTATIONAL READINESS
+SPECIALIST REQUIREMENTS
+REGULATORY READINESS
+INFORMATION GAPS
+RISK / UNKNOWN REGISTER
+
+antes de afirmar capacidad de ejecución.
+
+CFMI-59. FUTURE INTERNATIONAL PARTICIPATION
+
+CFMI debe preparar a ARKI para trabajar progresivamente en:
+
+international design competitions
+invited competitions
+research facilities
+international infrastructure
+multidisciplinary consortia
+complex public projects
+technically specialized projects
+megaprojects
+
+sin afirmar elegibilidad o competencia antes de verificarla.
+
+CFMI-60. HUMAN AUTHORITY
+
+Human Authority conserva decisiones sobre:
+
+project participation
+strategic learning
+specialist engagement
+professional claims
+architectural decisions
+submission
+contractual responsibility
+CFMI-61. PILOT
+
+Antes de expansión masiva, ejecutar/diseñar un piloto acotado con tres clases deliberadamente diferentes:
+
+PILOT A
+SCIENTIFIC FACILITY
+
+PILOT B
+MAJOR TRANSPORT / INFRASTRUCTURE FACILITY
+
+PILOT C
+SPACE / ADVANCED INDUSTRIAL FACILITY
+
+La selección concreta deberá justificarse por calidad de fuentes, seguridad, derechos y capacidad de prueba.
+
+CFMI-62. PILOT OBJECTIVE
+
+El piloto deberá probar si la arquitectura CFMI generaliza entre instalaciones muy diferentes.
+
+No demostrar “dominio” de las tres.
+
+CFMI-63. PILOT EVIDENCE
+
+Para cada piloto:
+
+mission model
+process model
+system decomposition
+FIKM
+process-space relations
+standards/source map
+specialist boundaries
+unknown register
+readiness gate
+reference comparison
+CFMI-64. ADVERSARIAL TESTS
+
+Como mínimo:
+
+tres fotografías de una instalación → insufficient for understanding;
+one reference facility → no typological generalization;
+missing process → RESEARCH_REQUIRED;
+missing safety knowledge → not READY;
+missing specialist calculation → SPECIALIST_REQUIRED;
+equipment known but maintenance envelope unknown → explicit UNKNOWN;
+reference facility uses feature X → not automatically requirement;
+international standard → not automatically local law;
+facility is famous → no automatic exemplar status;
+large project → no automatic quality;
+documented failure → preserve actual cause;
+suspected failure cause → hypothesis only;
+process change → propagate spatial consequences;
+equipment change → maintenance/logistics consequences;
+CITY/REGION requirement → no automatic COMPONENT rule;
+operational requirement → influences design when evidence supports;
+security-sensitive source → do not ingest/reconstruct restricted detail;
+knowledge present but solver absent → computation NOT_DEMONSTRATED;
+FacilityReadinessGate with critical UNKNOWN → cannot return unconditional READY;
+ARKI cannot self-certify professional specialist competence;
+new Facility Class → knowledge acquisition before generation;
+Reference Corpus item → cannot directly become canonical principle;
+failure corpus → no causal overclaim;
+specialist/oracle output → does not silently become canonical fact.
+CFMI-65. DELIVERABLES
+
+Incorporar:
+
+ARKI_CFMI_ARCHITECTURE.md
+ARKI_COMPLEX_FACILITY_TAXONOMY.md
+ARKI_FIKM_SPEC.md
+ARKI_FACILITY_PROCESS_GRAPH_SPEC.md
+ARKI_PROCESS_SPACE_MODEL.md
+ARKI_COMPLEX_FACILITY_REFERENCE_CORPUS_SPEC.md
+ARKI_FACILITY_READINESS_GATE.md
+ARKI_SPECIALIST_ORACLE_BOUNDARY.md
+ARKI_MEGAPROJECT_MULTISCALE_MODEL.md
+ARKI_FACILITY_INTERFACE_INTELLIGENCE.md
+ARKI_FACILITY_LIFECYCLE_MODEL.md
+ARKI_COMPLEX_FACILITY_FAILURE_LEARNING.md
+ARKI_CFMI_ACADEMY_INTEGRATION.md
+ARKI_CFMI_KCF_INTEGRATION.md
+ARKI_CFMI_PILOT_SPEC.md
+ARKI_CFMI_TEST_MATRIX.md
+ARKI_CFMI_SCOPE_LIMIT_REPORT.md
+
+Si existe artefacto equivalente:
+
+REUSE
+EXTEND
+DERIVE
+
+DO NOT DUPLICATE.
+
+CFMI-66. MACHINE-READABLE FOUNDATION
+
+No dejar CFMI únicamente como Markdown.
+
+Debe existir representación computable para al menos:
+
+FacilityClass
+ComplexFacilityRecord
+FacilityProcess
+FacilitySystem
+FacilityInterface
+FacilityRequirement
+SpecialistRequirement
+FacilityReadinessAssessment
+
+o equivalentes arquitectónicamente justificados.
+
+CFMI-67. INTERNET / RESEARCH POLICY
+
+Heredar 97A-01:
+
+INTERNET AVAILABLE ON DEMAND
+RESEARCH ACTIVATED BY POLICY
+
+No navegación continua indiscriminada.
+
+CFMI-68. NO MASS INGESTION
+
+Esta Adenda NO autoriza todavía:
+
+mass facility ingestion
+mass web crawling
+unrestricted technical document downloading
+security-sensitive reconstruction
+autonomous professional design
+
+Primero:
+
+ARCHITECTURE
+→ SCHEMA
+→ PILOT
+→ TEST
+→ EVIDENCE
+→ INDEPENDENT REVIEW
+CFMI-69. BKH FIREWALL
+
+Esta Adenda NO autoriza:
+
+BKH4-4+
+canonical transaction changes
+Kernel ownership changes
+new professional solvers
+E8
+automatic code modification
+
+Si CFMI detecta una necesidad Kernel:
+
+ARCHITECTURAL_IMPACT_CANDIDATE
+
+y STOP.
+
+CFMI-70. SCOPE LIMIT
+
+CFMI inicial NO demuestra:
+
+nuclear design competence
+aerospace engineering competence
+reactor engineering competence
+accelerator engineering competence
+semiconductor fab engineering competence
+professional MEP competence
+professional structural competence
+regulatory approval capability
+safety certification capability
+megaproject professional authority
+CFMI-71. MAXIMUM STATUS
+
+Estado máximo:
+
+ARKI-CFMI-001 — FOUNDATION IMPLEMENTED / BOUNDED PILOT / PENDING INDEPENDENT VERIFICATION
+
+No declarar:
+
+MEGAPROJECT MASTERY
+NUCLEAR MASTERY
+SPACE FACILITY MASTERY
+COMPLEX FACILITY MASTERY
+PROFESSIONAL VALIDATION
+CFMI-72. ACCEPTANCE GATE
+
+CFMI Foundation podrá considerarse candidata a cierre solamente si demuestra:
+
+FIKM integration
+process-first model
+process-space relationship
+facility taxonomy
+reference corpus model
+specialist boundary
+readiness gate
+multiscale model
+lifecycle model
+UNKNOWN preservation
+source/provenance
+safety/access classification
+three bounded pilots
+adversarial tests
+no duplicate knowledge owner
+no BKH violation
+Human Authority preserved
+CFMI-73. FINAL PRINCIPLES
+
+Registrar:
+
+NO FACILITY GENERATION BEFORE FACILITY UNDERSTANDING.
+
+PROCESS BEFORE FORM WHEN PROCESS GOVERNS THE FACILITY.
+
+A MEGAPROJECT IS A SYSTEM OF SYSTEMS, NOT A LARGE OBJECT.
+
+REFERENCE FACILITY ≠ TEMPLATE.
+
+EQUIPMENT GEOMETRY ≠ EQUIPMENT KNOWLEDGE.
+
+KNOWLEDGE ≠ COMPUTATION.
+
+COMPUTATION ≠ PROFESSIONAL AUTHORITY.
+
+ONE PROJECT ≠ TYPOLOGICAL KNOWLEDGE.
+
+UNKNOWN MUST SURVIVE THE DESIGN PROCESS UNTIL RESOLVED OR ACCEPTED.
+
+ARKI MUST KNOW WHEN IT NEEDS A SPECIALIST.
+
+ARKI SHALL LEARN THE SYSTEM BEFORE ATTEMPTING TO DESIGN THE SYSTEM.
+
+ONE ARKI · MANY COMPETENCIES · MANY TOOLS · ONE GOVERNED KNOWLEDGE SYSTEM · HUMAN AUTHORITY.
+
+CFMI-74. STOP
+
+Ejecutar únicamente el alcance autorizado:
+
+architecture
+schemas
+FIKM integration
+process-space model
+readiness gate
+specialist boundary
+reference corpus architecture
+multiscale/lifecycle model
+bounded three-class pilot
+adversarial tests
+evidence
+manifest
+
+Después:
+
+STOP → INDEPENDENT REVIEW → PRODUCT OWNER DECISION.
+
+No iniciar investigación masiva de instalaciones.
+
+No afirmar competencia profesional.
+
+No crear agentes especializados independientes.
+
+No modificar Kernel.
+
+No avanzar BKH.
+
+FIN ADENDA 97A-04 — ARKI COMPLEX FACILITIES & MEGAPROJECT INTELLIGENCE.

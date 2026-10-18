@@ -1,0 +1,632 @@
+{
+  "run": 6,
+  "label": "CIUDAD/DISTRITO (CIUDAD-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "CIUDAD-001",
+  "status": "PASS",
+  "commands_total": 23,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0323,
+  "failures": [],
+  "snapshot": {
+    "project_id": "CIUDAD-001",
+    "name": "Distrito de Trujillo",
+    "spatial_scope": "ciudad_distrito",
+    "temporal_scope": "largo_plazo",
+    "stage": "DRAFT",
+    "version": 22,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 2,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 4,
+    "comparisons": 1,
+    "simulations": 0,
+    "multiobjectives": 1,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 22
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE CIUDAD-001 \"Distrito de Trujillo\" ciudad_distrito largo_plazo",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "CIUDAD-001",
+          "name": "Distrito de Trujillo",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "ciudad_distrito",
+          "temporal_scope": "largo_plazo",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001242
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN CIUDAD-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "CIUDAD-001",
+          "name": "Distrito de Trujillo",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "ciudad_distrito",
+          "temporal_scope": "largo_plazo",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000835
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El distrito tiene 50000 habitantes\" INEI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-3e0a6b33c9",
+          "project_id": "CIUDAD-001",
+          "statement": "El distrito tiene 50000 habitantes",
+          "source": "INEI",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001536
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-C001 \"Tasa de motorización 250 vehículos por 1000 habitantes\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-C001",
+          "project_id": "CIUDAD-001",
+          "source_id": null,
+          "statement": "Tasa de motorización 250 vehículos por 1000 habitantes",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.732952+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "b8b1f5bff01fc2bbe9806f189f7f1415d89c6f4f7b4fc8f08fc02759f40149f4",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001458
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET MOVILIDAD_SOSTENIBLE MAXIMIZE 85",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-b24db3c7de",
+          "project_id": "CIUDAD-001",
+          "key": "MOVILIDAD_SOSTENIBLE",
+          "direction": "MAXIMIZE",
+          "value": "85",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001324
+    },
+    {
+      "sequence": 6,
+      "command": "/OBJECTIVE SET EMISIONES MINIMIZE 5000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-7c836e0b4a",
+          "project_id": "CIUDAD-001",
+          "key": "EMISIONES",
+          "direction": "MINIMIZE",
+          "value": "5000",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.00141
+    },
+    {
+      "sequence": 7,
+      "command": "/CONSTRAINT SET EMISIONES <= 5000 TON_ANO",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-05f90f914d",
+          "project_id": "CIUDAD-001",
+          "key": "EMISIONES",
+          "operator": "<=",
+          "value": "5000",
+          "unit": "TON_ANO",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001285
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE CREATE CIUDAD-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7be62a8c66",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001303
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET CIUDAD-A vias 8",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7be62a8c66",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-A",
+          "description": "",
+          "parameters": {
+            "vias": "8"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001217
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET CIUDAD-A ciclovias 10",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7be62a8c66",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-A",
+          "description": "",
+          "parameters": {
+            "vias": "8",
+            "ciclovias": "10"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001216
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE SET CIUDAD-A transporte_publico 2",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7be62a8c66",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-A",
+          "description": "",
+          "parameters": {
+            "ciclovias": "10",
+            "vias": "8",
+            "transporte_publico": "2"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001222
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE CREATE CIUDAD-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-33b6375f4b",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001277
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET CIUDAD-B vias 5",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-33b6375f4b",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-B",
+          "description": "",
+          "parameters": {
+            "vias": "5"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001206
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET CIUDAD-B ciclovias 40",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-33b6375f4b",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-B",
+          "description": "",
+          "parameters": {
+            "vias": "5",
+            "ciclovias": "40"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001321
+    },
+    {
+      "sequence": 15,
+      "command": "/ALTERNATIVE SET CIUDAD-B transporte_publico 6",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-33b6375f4b",
+          "project_id": "CIUDAD-001",
+          "name": "CIUDAD-B",
+          "description": "",
+          "parameters": {
+            "ciclovias": "40",
+            "vias": "5",
+            "transporte_publico": "6"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00123
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE CIUDAD-A MOVILIDAD_SOSTENIBLE 55 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-ad7f95bd0f",
+          "alternative_id": "ALT-7be62a8c66",
+          "objective_id": "OBJ-b24db3c7de",
+          "value": 55.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00165
+    },
+    {
+      "sequence": 17,
+      "command": "/EVALUATE CIUDAD-A EMISIONES 4800 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-32f2431ed1",
+          "alternative_id": "ALT-7be62a8c66",
+          "objective_id": "OBJ-7c836e0b4a",
+          "value": 4800.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001672
+    },
+    {
+      "sequence": 18,
+      "command": "/EVALUATE CIUDAD-B MOVILIDAD_SOSTENIBLE 82 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-3bc3cb924d",
+          "alternative_id": "ALT-33b6375f4b",
+          "objective_id": "OBJ-b24db3c7de",
+          "value": 82.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001341
+    },
+    {
+      "sequence": 19,
+      "command": "/EVALUATE CIUDAD-B EMISIONES 3500 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-91cfa08338",
+          "alternative_id": "ALT-33b6375f4b",
+          "objective_id": "OBJ-7c836e0b4a",
+          "value": 3500.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00129
+    },
+    {
+      "sequence": 20,
+      "command": "/COMPARE CIUDAD-A CIUDAD-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-b9a1c9b39d",
+          "project_id": "CIUDAD-001",
+          "alternative_ids": [
+            "ALT-7be62a8c66",
+            "ALT-33b6375f4b"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-ad7f95bd0f",
+              "alternative_id": "ALT-7be62a8c66",
+              "objective_id": "OBJ-b24db3c7de",
+              "value": 55.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-32f2431ed1",
+              "alternative_id": "ALT-7be62a8c66",
+              "objective_id": "OBJ-7c836e0b4a",
+              "value": 4800.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-3bc3cb924d",
+              "alternative_id": "ALT-33b6375f4b",
+              "objective_id": "OBJ-b24db3c7de",
+              "value": 82.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-91cfa08338",
+              "alternative_id": "ALT-33b6375f4b",
+              "objective_id": "OBJ-7c836e0b4a",
+              "value": 3500.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001366
+    },
+    {
+      "sequence": 21,
+      "command": "/MULTIOBJECTIVE PARETO MOVILIDAD_SOSTENIBLE EMISIONES",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "multiobjective": {
+            "multiobjective_id": "MOBJ-e5c2a67909",
+            "project_id": "CIUDAD-001",
+            "method": "pareto_front_v1",
+            "method_version": "1.0",
+            "objectives": [
+              "MOVILIDAD_SOSTENIBLE",
+              "EMISIONES"
+            ],
+            "alternatives": [
+              "ALT-7be62a8c66",
+              "ALT-33b6375f4b"
+            ],
+            "pareto_front": [
+              "ALT-33b6375f4b"
+            ],
+            "dominated": [
+              "ALT-7be62a8c66"
+            ],
+            "incomplete": [],
+            "tradeoffs": {
+              "matrix": {
+                "ALT-7be62a8c66": {
+                  "MOVILIDAD_SOSTENIBLE": 55.0,
+                  "EMISIONES": 4800.0
+                },
+                "ALT-33b6375f4b": {
+                  "MOVILIDAD_SOSTENIBLE": 82.0,
+                  "EMISIONES": 3500.0
+                }
+              }
+            },
+            "state": "EXECUTED",
+            "inputs_hash": "5ddca1e97ed6ea6a5fb4af205fd6ca9b56c7c76b803987ad1e5f1f7cfca33d22",
+            "created_at": "2026-09-16T18:06:10.756082+00:00",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001843
+    },
+    {
+      "sequence": 22,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión distrital\" \"Distrito validado\" \"Urban planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-dd831f8d87",
+          "project_id": "CIUDAD-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión distrital",
+          "reason": "Distrito validado",
+          "authority": "Urban planner",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001868
+    },
+    {
+      "sequence": 23,
+      "command": "/DECISION RECORD \"Adoptar CIUDAD-B\" architect-yvan \"Urban planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-ad34504f2f",
+          "project_id": "CIUDAD-001",
+          "statement": "Adoptar CIUDAD-B",
+          "actor": "architect-yvan",
+          "authority": "Urban planner",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001459
+    }
+  ]
+}

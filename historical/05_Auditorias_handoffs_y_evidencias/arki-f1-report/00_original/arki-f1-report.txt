@@ -1,0 +1,81 @@
+ARKI F1 — 8-PHASE AUTOMATED EXECUTION REPORT
+
+BASELINE=5333c1f45c980c62e3f8540ff73544014ed002b6
+WORK_BRANCH=feat/h005-selective-recomputation
+FINAL_HEAD=a9d1ae21bc82bdbaff34f8bcc1e1d1e383543ec9
+
+PHASE_1_CONTRACT=PASS
+PHASE_2_REGISTRY=PASS
+PHASE_3_ENGINE=PASS
+PHASE_4_PROVENANCE=PASS
+PHASE_5_PROPAGATION=PASS
+PHASE_6_HUMAN_AUTHORITY=PASS
+PHASE_7_E2E=PASS
+PHASE_8_ADVERSARIAL_SEMANTIC=PASS
+
+H005_IMPLEMENTED=YES
+SELECTIVE_RECOMPUTATION_VERIFIED=YES
+H001_H005_CAUSAL_CHAIN=VERIFIED
+HUMAN_AUTHORITY_PRESERVED=YES
+FAIL_CLOSED=YES
+
+FOCAL_TESTS=90 passed
+H001_H004_REGRESSION=PASS
+GLOBAL_REGRESSION=532 passed, 2 warnings
+
+SIDE_EFFECTS=[]
+WARNINGS=["Starlette/httpx deprecation warning", "IFCOpenShell unraisable cleanup warning in existing RFC-030 test"]
+DEFECTS_FOUND=["H-005 relation-key validation bug found during Phase 3", "Partial-valid fixture initially represented identity uncertainty"]
+DEFECTS_CORRECTED=["Fixed H-005 relation-key tuple comparison", "Corrected adversarial fixture to use matching content hash"]
+UNRESOLVED_DEFECTS=[]
+
+FILES_CREATED=[
+"src/sicl/h005/__init__.py",
+"src/sicl/h005/contract.py",
+"src/sicl/h005/registry.py",
+"src/sicl/h005/engine.py",
+"tests/test_h005_contract_registry.py",
+"tests/test_h005_engine.py",
+"tests/test_h005_propagation.py",
+"tests/test_h005_fail_closed.py",
+"tests/test_h005_e2e_persistence.py",
+"tests/test_h005_adversarial.py"
+]
+FILES_MODIFIED=[]
+
+COMMITS_CREATED=[
+"f61c87066747bdc74d2c481533526d084f57a319 feat(H-005): add selective recomputation contract and registry",
+"19232fb36293fd7f15fc786a3d3e8fa6a8d44a83 feat(H-005): implement selective recomputation engine",
+"1bf02bcca975b5cbe63a35c6a13aec5341617c42 test(H-005): harden causal propagation and fail-closed behavior",
+"b55e2bf78d6278ecddd753132863da05a1eae6b0 test(H-005): verify persistent H001-H005 causal integration",
+"a9d1ae21bc82bdbaff34f8bcc1e1d1e383543ec9 test(H-005): add adversarial and semantic audit coverage"
+]
+PUSHED_BRANCH=origin/feat/h005-selective-recomputation
+
+EXTERNAL_PROVIDER_CALLS=0
+
+CLAIM_CLASSIFICATION:
+IMPLEMENTED=["Independent H-005 contract", "Explicit method/method_version registry", "Selective execution engine", "Versioned derivation persistence via DerivationLedger.record", "Human-authority and fail-closed gates"]
+VERIFIED=["25 H-005 tests", "90 focal tests", "532 global tests", "SQLite close/reopen evidence", "H-001–H-004 frozen modules unchanged", "Worktree clean", "Remote branch matches final head"]
+PARTIAL=["Branch is published but not merged to main; no production deployment was performed"]
+UNKNOWN=[]
+
+FINAL_STATUS=PASS
+
+Architectural findings:
+1. H-005 is downstream of H-004 and does not execute from reaction.py.
+2. Only RECOMPUTE + PLANNED + requires_human_authority=False is eligible.
+3. REVIEW, REJECT, ESCALATE, BLOCKED and authority-required actions never execute.
+4. Missing or ambiguous handlers, malformed outputs, stale plans, cycles and dependency races stop closed.
+5. The E2E demonstrates causal A→B→C execution with topological ordering and SQLite persistence after reopen.
+
+Technical debt:
+- Existing non-blocking Starlette/httpx and IFCOpenShell cleanup warnings remain outside H-005 scope.
+- H-005 remains a branch-level implementation; integration into main requires a separate human-authorized review.
+
+Human Authority decisions required:
+- Review and merge/publish the H-005 branch in a separate order if desired.
+- No decision was required to preserve H-001–H-004 because they were not modified.
+
+SHA_FINAL=a9d1ae21bc82bdbaff34f8bcc1e1d1e383543ec9
+STOP=NO_H006_NO_H007

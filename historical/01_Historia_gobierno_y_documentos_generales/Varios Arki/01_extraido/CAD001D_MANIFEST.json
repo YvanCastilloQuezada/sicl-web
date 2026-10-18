@@ -1,0 +1,49 @@
+{
+  "package": "ARKI-CAD-001D-EVIDENCE",
+  "status": "VERIFIED_FOR_BOUNDED_REAL_DWG_INGESTION",
+  "source": "ABB-001 architectural DWG",
+  "reader": "/tmp/libredwg-cad001d/programs/.libs/dwg2SVG",
+  "scopeGuard": [
+    "No BIM semantic promotion",
+    "No BIM kernel changes",
+    "No native DWG write or round-trip claim",
+    "No ODA SDK claim"
+  ],
+  "files": [
+    {
+      "path": "CAD001D_REPORT.md",
+      "sha256": "fa34295ae6af99b53515b2cd8ee9d81e43a26e3d38caacf705f63ae2445cc949",
+      "bytes": 2544
+    },
+    {
+      "path": "CAD001D_SCOPE_LIMITS.md",
+      "sha256": "6980c5f8ffdd6ae49adc169794d9e578967ee3be48404445cf417214ed289a3f",
+      "bytes": 1127
+    },
+    {
+      "path": "shared/arkiCadGateway.ts",
+      "sha256": "699667c754f5e7886f258d0c826ec856a3142d19cd97c2d2d5c401d42e959aff",
+      "bytes": 8637
+    },
+    {
+      "path": "scripts/test-arki-cad-real-reader.ts",
+      "sha256": "0e7da08472e64ca5a417ab7eb630984af20710dd4897aba71bc382debb7852ba",
+      "bytes": 5573
+    },
+    {
+      "path": "ARKI_CAD_001D_ACIR.json",
+      "sha256": "5c0a2e4667ae1e5ad3bb62999c25ffa9749991c399e2e9c309788851b823d454",
+      "bytes": 7605379
+    },
+    {
+      "path": "CAD001D_EVIDENCE/CAD001D_TEST_OUTPUT.jsonl",
+      "sha256": "22be3a542d9b0a727e013514977fe2a1fe9827d68a81edde62f2388cbe459378",
+      "bytes": 550
+    },
+    {
+      "path": "CAD001D_EVIDENCE/CAD001D_TEST_STDERR.txt",
+      "sha256": "28de9e64fc4a42588138ec79fc1052598dfed4214f7e88185e23e20ec46ead7d",
+      "bytes": 41935
+    }
+  ]
+}

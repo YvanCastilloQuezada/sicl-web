@@ -1,0 +1,24 @@
+{
+  "exampleId": "EJEMPLO-034",
+  "title": "Ejemplo 034 · /GENERATE METHODS",
+  "commandName": "/GENERATE METHODS",
+  "category": "generate",
+  "syntax": "/GENERATE METHODS",
+  "command": "/GENERATE METHODS",
+  "arguments": [],
+  "mode": "EXPLORE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE METHODS.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

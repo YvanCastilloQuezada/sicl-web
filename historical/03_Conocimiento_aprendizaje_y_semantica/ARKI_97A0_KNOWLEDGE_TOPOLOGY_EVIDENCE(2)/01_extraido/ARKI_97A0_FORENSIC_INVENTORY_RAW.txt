@@ -1,0 +1,646 @@
+## candidate files
+./AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md
+./AKI001_COMPETENCY_MATRIX.md
+./AKI001_CURRICULUM_DELTA_BKH1.md
+./AKI001_CURRICULUM_DELTA_BKH4_3.md
+./AKI001_CURRICULUM_DELTA_BKH4_95A.md
+./AKI001_EVIDENCE_INDEX.md
+./AKI001_EXECUTIVE_SUMMARY.md
+./AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+./AKI001_HISTORICAL_CURRICULUM.md
+./AKI001_KNOWLEDGE_GAPS.md
+./AKI001_KNOWLEDGE_INVENTORY.md
+./AKI001_LOCAL_INVENTORY_RAW.txt
+./AKI001_MANIFEST.json
+./AKI001_MULTISCALE_KNOWLEDGE_MAP.md
+./AKI001_REPORT.md
+./ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md
+./ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_3.md
+./ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_95A.md
+./ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md
+./ARKI_LIVING_KNOWLEDGE_SYSTEM_ORDER_97.zip
+./ARKI_LIVING_KNOWLEDGE_SYSTEM_ORDER_97.zip.sha256
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md
+./ARKI_LKS_EVIDENCE_PACKAGE/scripts/test-arki-living-knowledge.ts
+./ARKI_LKS_EVIDENCE_PACKAGE/shared/arkiLivingKnowledge.ts
+./BKH4_3_EVIDENCE_PACKAGE/AKI001_CURRICULUM_DELTA_BKH4_3.md
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_3.md
+./BKH4_95A_PACKAGE/AKI001_CURRICULUM_DELTA_BKH4_95A.md
+./BKH4_95A_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_95A.md
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+./client/src/ifc4/Ifc4Panel.tsx
+./dist/public/assets/web-ifc-api-C7v6kqvu.js
+./fixtures/ifc4/fixture_01_simple_wall.ifc
+./fixtures/ifc4/fixture_02_room_with_door.ifc
+./fixtures/ifc4/fixture_03_multi_storey.ifc
+./scripts/generate-ifc-fixtures.ts
+./scripts/test-arki-living-knowledge.ts
+./scripts/test-ifc4-exporter.ts
+./scripts/test-ifc4-fixtures.ts
+./scripts/test-ifc4-globalid.ts
+./scripts/test-ifc4-web-ifc.ts
+./shared/arkiLivingKnowledge.ts
+./shared/ifc4/arkiIfc4.ts
+./shared/ifc4/webIfcAdapter.ts
+## references
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:17:Archicad y Revit son referencias de organización e interoperabilidad, no patrones de copia visual ni límites de capacidad. ARKI puede contener más información que una exportación concreta hacia Revit.
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:403:Debe mostrar parámetros, restricciones, planos de referencia, materiales, tipos, reglas de cantidades, costo, duración, mantenimiento y clasificación IFC/Revit.
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:548:## 13. Interoperabilidad ARKI → IFC/Revit
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:550:Revit es un destino de interoperabilidad, no el patrón de completitud de ARKI.
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:560:→ clasificación IFC
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:570:3. Las diez restantes se guardan en parámetros, propiedades IFC, JSON, CSV o anexos.
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:574:No se debe declarar compatibilidad con Revit sin archivo, conector o prueba reproducible. IFC conceptual, RVT/RFA, BCF, PDF, CSV y JSON deben indicar su estado individual.
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:593:2. Contrato ARKI → IFC/Revit.
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:728:El núcleo paramétrico 1A–1C está verificado con correcciones no bloqueantes. Actualmente existen familias declarativas, DTO, PriceBook, trazabilidad de encofrados, recálculo, mampara paramétrica, snapshots, presupuesto base más mamparas, 4D, IFC extendido y Markdown.
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:21:### Bloque B — Inventario técnico e interoperabilidad
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:26:2. Contrato de exportación ARKI → IFC/Revit.
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:96:3. Mapeo definitivo de cada categoría ARKI a familia nativa, parámetro compartido o propiedad IFC.
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:143:- Exportación IFC.
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:152:Revit se considera un **destino de interoperabilidad**, no el patrón de completitud de ARKI.
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:157:- Propiedades IFC.
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:188:IFC
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:17:> ARKI podrá tener más capacidades internas que Revit. La interoperabilidad no exige reducir el modelo ARKI; exige definir una exportación controlada, trazable y degradable hacia las categorías y parámetros que el formato destino soporte.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:431:Cada familia debe registrar parámetros, restricciones, planos de referencia, materiales, tipos, reglas de cantidad, costos, duración, mantenimiento, clasificación IFC y origen.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:486:## 9. Exportación e interoperabilidad con Revit
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:498:→ clasificación IFC
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:507:3. Guardar la información adicional como parámetros compartidos, propiedades IFC, tablas o anexos.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:515:IFC4X3 conceptual y posteriormente validado
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:523:La exportación a Revit no debe declararse implementada solo porque existe un objeto JSON o IFC. Debe existir un archivo, un conector o una prueba de interoperabilidad verificable.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:572:### Fase G — Interoperabilidad
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:574:IFC validado, mapeo a Revit, familias exportables, parámetros compartidos, BCF, PDF, DWG/DXF y reportes de cobertura.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:592:9. Contrato de exportación ARKI → Revit/IFC con reporte de pérdida.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:607:- Qué categorías ARKI se exportarán como familias nativas, parámetros compartidos o propiedades IFC.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:616:El núcleo paramétrico 1A–1C está verificado con correcciones no bloqueantes. Ya existen familias declarativas, DTO, PriceBook, trazabilidad de encofrados, recálculo, mampara paramétrica, snapshots, presupuesto base más mamparas, 4D, IFC extendido y Markdown.
+./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:663:5. Contrato de exportación ARKI a Revit/IFC.
+./ARKI_VEREDICTO_ENTREGA_1C.md:17:No se modificó `exportConstructionIfc()` ni `arkiConstructionOntology.ts`. La integración IFC se realiza mediante postprocesado controlado del string IFC base, según la opción A aprobada.
+./ARKI_VEREDICTO_ENTREGA_1C.md:39:IFC changed=true
+./ARKI_VEREDICTO_ENTREGA_1C.md:68:IFC
+./ARKI_VEREDICTO_ENTREGA_1C.md:72:El cambio de alto también modificó área, costo, geometría, IFC y Markdown.
+./ARKI_VEREDICTO_ENTREGA_1C.md:84:## 4. IFC
+./ARKI_VEREDICTO_ENTREGA_1C.md:86:`exportSnapshotToIfc()` reutiliza el exportador IFC existente y añade entidades de las `FamilyInstance` antes del marcador final.
+./ARKI_VEREDICTO_ENTREGA_1C.md:91:IFCBUILDINGELEMENTPROXY
+./ARKI_VEREDICTO_ENTREGA_1C.md:92:IFCPROPERTYSET
+./ARKI_VEREDICTO_ENTREGA_1C.md:93:IFCMATERIAL
+./ARKI_VEREDICTO_ENTREGA_1C.md:94:IFCRELDEFINESBYPROPERTIES
+./ARKI_VEREDICTO_ENTREGA_1C.md:95:IFCRELCONTAINEDINSPATIALSTRUCTURE
+./ARKI_VEREDICTO_ENTREGA_1C.md:98:El test demostró que los contenidos IFC inicial y recalculado son diferentes:
+./ARKI_VEREDICTO_ENTREGA_1C.md:128:### Validación IFC
+./ARKI_VEREDICTO_ENTREGA_1C.md:130:La exportación de mamparas se realiza mediante postprocesado de texto. El test comprueba entidades, contenido y diferencia entre snapshots, pero todavía no ejecuta un parser IFC externo para validar toda la sintaxis STEP/IFC.
+./ARKI_VEREDICTO_ENTREGA_1C.md:132:Debe incorporarse un validador IFC o una prueba sintáctica más estricta antes de declarar el intercambio IFC como producción.
+./ARKI_VEREDICTO_ENTREGA_1C.md:134:### Relación espacial IFC
+./ARKI_VEREDICTO_ENTREGA_1C.md:136:La relación `IFCRELCONTAINEDINSPATIALSTRUCTURE` de la extensión debe revisarse contra el esquema IFC4X3 formal. En esta fase se utiliza una representación conceptual compatible con el exportador existente.
+./ARKI_VEREDICTO_ENTREGA_1C.md:144:La geometría está disponible en el snapshot, IFC y Markdown. Todavía no se dibuja dentro de `ProfessionalFamilyViewer.tsx`; eso pertenece a la orden UI BIM.
+./ARKI_VEREDICTO_ENTREGA_1C.md:165:→ IFC extendido
+./ARKI_VEREDICTO_ENTREGA_1B.md:145:cadena ancho/alto → geometría → materiales → metrado → partida → presupuesto → 4D → IFC → Markdown
+./ARKI_VEREDICTO_ENTREGA_1B.md:157:6. No declarar terminado el flujo IFC o Markdown sin output verificable.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:27:### 1.3 IFC semántico conceptual
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:29:Existe una exportación IFC4X3 con GUIDs deterministas, unidades, espacios, muros, columnas, vigas, losas, cimentaciones, escaleras, techos, materiales, propiedades y relaciones espaciales. Las pruebas verifican la presencia de entidades IFC principales y relaciones de agregación y contención.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:31:Esta exportación todavía debe considerarse **IFC conceptual**. No se ha validado con una batería de modelos de coordinación en Revit, Solibri, Navisworks, BIMcollab u otro visor profesional.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:47:Existe un dossier técnico local con siete especificaciones base para estructuras, arquitectura, instalaciones, seguridad y accesibilidad. También incluye seis secciones de expediente: memoria descriptiva, especificaciones, planos y modelo IFC, metrados/APU/encofrados, revisión RNE y firmas/emisión.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:63:Los cambios no se propagan al modelo constructivo original, al presupuesto, al cronograma, al IFC ni a las versiones guardadas. El botón de guardar borrador conserva datos en el navegador, pero no existe una entidad de proyecto persistente ni un historial de cambios.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:111:También faltan exportaciones DWG, DXF, PDF vectorial, RVT, RFA, IFC validado, BCF y formatos interoperables por especialidad.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:173:Faltan procesamiento asíncrono para modelos grandes, almacenamiento de versiones pesadas, generación de PDF o IFC en segundo plano, caché, colas, observabilidad, métricas de rendimiento y límites de memoria. El build actual emite una advertencia por tamaño de bundle superior a 500 kB, aunque compila correctamente.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:177:Las pruebas existentes son scripts de humo que comprueban que se generan objetos y que existen ciertas entidades IFC. No cubren todavía pruebas unitarias exhaustivas, pruebas de propiedades geométricas, regresión visual, accesibilidad, seguridad, rendimiento, concurrencia, importación de archivos inválidos, compatibilidad entre versiones ni validación contra modelos externos.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:185:- Exportación IFC después de cambios.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:210:| IFC | Exportación semántica | Validación externa y cobertura de propiedades por disciplina |
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:221:Primero debe completarse el editor. Esto incluye cargar borradores al abrir un proyecto, editar todos los campos técnicos, agregar y eliminar especificaciones, administrar todos los encofrados, recalcular metrados y propagar cambios a APU, 4D, IFC y Markdown.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:233:A continuación se deben completar cálculo estructural, MEP, revisión RNE, clash detection geométrica, BCF y validación IFC con software externo.
+./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:241:La siguiente orden más útil sería: **“Implementa la Fase 1 completa: editor técnico persistente, edición de todos los encofrados, recálculo enlazado de metrado/APU/4D/IFC y guardado de versiones”**.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:3:./AKI001_COMPETENCY_MATRIX.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:4:./AKI001_CURRICULUM_DELTA_BKH1.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:5:./AKI001_CURRICULUM_DELTA_BKH4_3.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:6:./AKI001_CURRICULUM_DELTA_BKH4_95A.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:9:./AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:10:./AKI001_HISTORICAL_CURRICULUM.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:26:./BKH4_3_EVIDENCE_PACKAGE/AKI001_CURRICULUM_DELTA_BKH4_3.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:28:./BKH4_95A_PACKAGE/AKI001_CURRICULUM_DELTA_BKH4_95A.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:30:./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:31:./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:32:./client/src/ifc4/Ifc4Panel.tsx
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:33:./dist/public/assets/web-ifc-api-C7v6kqvu.js
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:34:./fixtures/ifc4/fixture_01_simple_wall.ifc
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:35:./fixtures/ifc4/fixture_02_room_with_door.ifc
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:36:./fixtures/ifc4/fixture_03_multi_storey.ifc
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:37:./scripts/generate-ifc-fixtures.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:39:./scripts/test-ifc4-exporter.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:40:./scripts/test-ifc4-fixtures.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:41:./scripts/test-ifc4-globalid.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:42:./scripts/test-ifc4-web-ifc.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:44:./shared/ifc4/arkiIfc4.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:45:./shared/ifc4/webIfcAdapter.ts
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:47:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:17:Archicad y Revit son referencias de organización e interoperabilidad, no patrones de copia visual ni límites de capacidad. ARKI puede contener más información que una exportación concreta hacia Revit.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:48:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:403:Debe mostrar parámetros, restricciones, planos de referencia, materiales, tipos, reglas de cantidades, costo, duración, mantenimiento y clasificación IFC/Revit.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:49:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:548:## 13. Interoperabilidad ARKI → IFC/Revit
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:50:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:550:Revit es un destino de interoperabilidad, no el patrón de completitud de ARKI.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:51:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:560:→ clasificación IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:52:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:570:3. Las diez restantes se guardan en parámetros, propiedades IFC, JSON, CSV o anexos.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:53:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:574:No se debe declarar compatibilidad con Revit sin archivo, conector o prueba reproducible. IFC conceptual, RVT/RFA, BCF, PDF, CSV y JSON deben indicar su estado individual.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:54:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:593:2. Contrato ARKI → IFC/Revit.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:55:./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:728:El núcleo paramétrico 1A–1C está verificado con correcciones no bloqueantes. Actualmente existen familias declarativas, DTO, PriceBook, trazabilidad de encofrados, recálculo, mampara paramétrica, snapshots, presupuesto base más mamparas, 4D, IFC extendido y Markdown.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:56:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:21:### Bloque B — Inventario técnico e interoperabilidad
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:57:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:26:2. Contrato de exportación ARKI → IFC/Revit.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:58:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:96:3. Mapeo definitivo de cada categoría ARKI a familia nativa, parámetro compartido o propiedad IFC.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:59:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:143:- Exportación IFC.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:60:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:152:Revit se considera un **destino de interoperabilidad**, no el patrón de completitud de ARKI.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:61:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:157:- Propiedades IFC.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:62:./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:188:IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:63:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:17:> ARKI podrá tener más capacidades internas que Revit. La interoperabilidad no exige reducir el modelo ARKI; exige definir una exportación controlada, trazable y degradable hacia las categorías y parámetros que el formato destino soporte.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:64:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:431:Cada familia debe registrar parámetros, restricciones, planos de referencia, materiales, tipos, reglas de cantidad, costos, duración, mantenimiento, clasificación IFC y origen.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:65:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:486:## 9. Exportación e interoperabilidad con Revit
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:66:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:498:→ clasificación IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:67:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:507:3. Guardar la información adicional como parámetros compartidos, propiedades IFC, tablas o anexos.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:68:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:515:IFC4X3 conceptual y posteriormente validado
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:69:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:523:La exportación a Revit no debe declararse implementada solo porque existe un objeto JSON o IFC. Debe existir un archivo, un conector o una prueba de interoperabilidad verificable.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:70:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:572:### Fase G — Interoperabilidad
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:71:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:574:IFC validado, mapeo a Revit, familias exportables, parámetros compartidos, BCF, PDF, DWG/DXF y reportes de cobertura.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:72:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:592:9. Contrato de exportación ARKI → Revit/IFC con reporte de pérdida.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:73:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:607:- Qué categorías ARKI se exportarán como familias nativas, parámetros compartidos o propiedades IFC.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:74:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:616:El núcleo paramétrico 1A–1C está verificado con correcciones no bloqueantes. Ya existen familias declarativas, DTO, PriceBook, trazabilidad de encofrados, recálculo, mampara paramétrica, snapshots, presupuesto base más mamparas, 4D, IFC extendido y Markdown.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:75:./ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md:663:5. Contrato de exportación ARKI a Revit/IFC.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:76:./ARKI_VEREDICTO_ENTREGA_1C.md:17:No se modificó `exportConstructionIfc()` ni `arkiConstructionOntology.ts`. La integración IFC se realiza mediante postprocesado controlado del string IFC base, según la opción A aprobada.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:77:./ARKI_VEREDICTO_ENTREGA_1C.md:39:IFC changed=true
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:78:./ARKI_VEREDICTO_ENTREGA_1C.md:68:IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:79:./ARKI_VEREDICTO_ENTREGA_1C.md:72:El cambio de alto también modificó área, costo, geometría, IFC y Markdown.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:80:./ARKI_VEREDICTO_ENTREGA_1C.md:84:## 4. IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:81:./ARKI_VEREDICTO_ENTREGA_1C.md:86:`exportSnapshotToIfc()` reutiliza el exportador IFC existente y añade entidades de las `FamilyInstance` antes del marcador final.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:82:./ARKI_VEREDICTO_ENTREGA_1C.md:91:IFCBUILDINGELEMENTPROXY
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:83:./ARKI_VEREDICTO_ENTREGA_1C.md:92:IFCPROPERTYSET
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:84:./ARKI_VEREDICTO_ENTREGA_1C.md:93:IFCMATERIAL
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:85:./ARKI_VEREDICTO_ENTREGA_1C.md:94:IFCRELDEFINESBYPROPERTIES
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:86:./ARKI_VEREDICTO_ENTREGA_1C.md:95:IFCRELCONTAINEDINSPATIALSTRUCTURE
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:87:./ARKI_VEREDICTO_ENTREGA_1C.md:98:El test demostró que los contenidos IFC inicial y recalculado son diferentes:
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:88:./ARKI_VEREDICTO_ENTREGA_1C.md:128:### Validación IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:89:./ARKI_VEREDICTO_ENTREGA_1C.md:130:La exportación de mamparas se realiza mediante postprocesado de texto. El test comprueba entidades, contenido y diferencia entre snapshots, pero todavía no ejecuta un parser IFC externo para validar toda la sintaxis STEP/IFC.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:90:./ARKI_VEREDICTO_ENTREGA_1C.md:132:Debe incorporarse un validador IFC o una prueba sintáctica más estricta antes de declarar el intercambio IFC como producción.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:91:./ARKI_VEREDICTO_ENTREGA_1C.md:134:### Relación espacial IFC
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:92:./ARKI_VEREDICTO_ENTREGA_1C.md:136:La relación `IFCRELCONTAINEDINSPATIALSTRUCTURE` de la extensión debe revisarse contra el esquema IFC4X3 formal. En esta fase se utiliza una representación conceptual compatible con el exportador existente.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:93:./ARKI_VEREDICTO_ENTREGA_1C.md:144:La geometría está disponible en el snapshot, IFC y Markdown. Todavía no se dibuja dentro de `ProfessionalFamilyViewer.tsx`; eso pertenece a la orden UI BIM.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:94:./ARKI_VEREDICTO_ENTREGA_1C.md:165:→ IFC extendido
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:95:./ARKI_VEREDICTO_ENTREGA_1B.md:145:cadena ancho/alto → geometría → materiales → metrado → partida → presupuesto → 4D → IFC → Markdown
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:96:./ARKI_VEREDICTO_ENTREGA_1B.md:157:6. No declarar terminado el flujo IFC o Markdown sin output verificable.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:97:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:27:### 1.3 IFC semántico conceptual
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:98:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:29:Existe una exportación IFC4X3 con GUIDs deterministas, unidades, espacios, muros, columnas, vigas, losas, cimentaciones, escaleras, techos, materiales, propiedades y relaciones espaciales. Las pruebas verifican la presencia de entidades IFC principales y relaciones de agregación y contención.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:99:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:31:Esta exportación todavía debe considerarse **IFC conceptual**. No se ha validado con una batería de modelos de coordinación en Revit, Solibri, Navisworks, BIMcollab u otro visor profesional.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:100:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:47:Existe un dossier técnico local con siete especificaciones base para estructuras, arquitectura, instalaciones, seguridad y accesibilidad. También incluye seis secciones de expediente: memoria descriptiva, especificaciones, planos y modelo IFC, metrados/APU/encofrados, revisión RNE y firmas/emisión.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:101:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:63:Los cambios no se propagan al modelo constructivo original, al presupuesto, al cronograma, al IFC ni a las versiones guardadas. El botón de guardar borrador conserva datos en el navegador, pero no existe una entidad de proyecto persistente ni un historial de cambios.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:102:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:111:También faltan exportaciones DWG, DXF, PDF vectorial, RVT, RFA, IFC validado, BCF y formatos interoperables por especialidad.
+./ARKI_97A0_FORENSIC_INVENTORY_RAW.txt:103:./ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:173:Faltan procesamiento asíncrono para modelos grandes, almacenamiento de versiones pesadas, generación de PDF o IFC en segundo plano, caché, colas, observabilidad, mét
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:8:| AKI-001 | Programa de conocimiento del arquitecto | Libro y currículo para que ARKI conserve conocimiento útil | IMPLEMENTED / historical baseline | WATCH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:19:| E6 | Entrega histórica IFC/persistencia | Iteración congelada de interoperabilidad/persistencia | PARTIAL / FROZEN | WATCH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:26:| IFC | Estándar externo de intercambio BIM | Formato común para intercambiar modelos | PARTIAL bounded support | WATCH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:27:| ISO 16739 | Norma externa relacionada con IFC | Norma que define IFC | REFERENCE | NO |
+./ARKI_CONTRATO_UI_BIM_DEEPSEEK.md:494:Exportar IFC
+./ARKI_CONTRATO_UI_BIM_DEEPSEEK.md:855:exportación JSON o IFC
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:45:| AKI-001 | Architect Knowledge / curriculum program | Programa de conocimiento del arquitecto | RESEARCH_PROGRAM | ARKI_INTERNAL | Knowledge / Intelligence | IMPLEMENTED / historical baseline | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:72:| ORDEN 97 | ARKI Living Knowledge System | Conocimiento externo vivo, versionado y gobernado | WORK_ORDER | ARKI_INTERNAL | AKI-001 / Knowledge Architecture | IMPLEMENTED / PENDING EVIDENCE REVIEW | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:74:| LKC-001-IFC | Living Codebook IFC/openBIM | Corpus externo versionado para IFC y openBIM | LIVING_CODEBOOK | EXTERNAL / ARKI | Knowledge Architecture | STAGED / NOT CANONICAL | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:75:| LKC-002-SMART-CITIES | Living Codebook Smart Cities | Corpus externo versionado para ciudades inteligentes | LIVING_CODEBOOK | EXTERNAL / ARKI | Knowledge Architecture | STAGED / NOT CANONICAL | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:76:| LKC-003-URBAN-DIGITAL-TWIN | Living Codebook Urban Digital Twin | Corpus externo versionado para UDT | LIVING_CODEBOOK | EXTERNAL / ARKI | Knowledge Architecture | STAGED / NOT CANONICAL | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:77:| IFC | Industry Foundation Classes | Clases Fundamentales de la Industria | EXTERNAL_STANDARD | INDUSTRY / STANDARD | Interoperability | PARTIAL bounded implementation | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:78:| ISO 16739 | IFC standard reference | Norma ISO de IFC | EXTERNAL_STANDARD | STANDARD | IFC | REFERENCE | HIGH |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:80:| Smart Cities | Domain/program concept | Ciudades inteligentes | RESEARCH_PROGRAM | INDUSTRY | Future / open | FUTURE REFERENCE | MEDIUM |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:81:| Digital Twin | Domain concept | Gemelo digital | RESEARCH_PROGRAM | INDUSTRY / SCIENTIFIC | Future / open | FUTURE REFERENCE | MEDIUM |
+./ARKI_ADDENDUM_DEEPSEEK_HALLAZGOS.md:39:### P2 — Dos rutas IFC
+./ARKI_ADDENDUM_DEEPSEEK_HALLAZGOS.md:41:`arkiFamilyComparison.ts` usa `exportConstructionIfc()` cuando hay modelo constructivo y conserva una ruta manual para propuestas sin modelo. Ambas deben converger en un único adaptador de exportación.
+./ARKI_ADDENDUM_DEEPSEEK_HALLAZGOS.md:43:Decisión: conservar compatibilidad con propuestas antiguas, pero agregar una función de normalización previa y una prueba de equivalencia para que no existan dos semánticas IFC divergentes.
+./ARKI_ADDENDUM_DEEPSEEK_HALLAZGOS.md:117:La importación RFA/RVT/IFC/CAD debe comenzar después de que esta base esté estable.
+./ARKI_ADDENDUM_DEEPSEEK_HALLAZGOS.md:123:Los únicos insumos que serán necesarios más adelante son archivos reales de prueba: una familia `.rfa`, un `.ifc`, un `.dwg` o `.dxf`, un sólido `.obj`/`.glb`/`.step` y un catálogo de fabricante.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md:1:# ARKI Knowledge Book Delta — ARKI-LKS-001
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md:5:ARKI external knowledge is living, versioned and evidence-traceable. Researcher discovery and Curator verification are separate competencies; neither replaces Human Authority.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md:13:The first three living codebooks are IFC/openBIM, Smart Cities and Urban Digital Twins. Their source register records official/primary sources, version facts, mapping cautions and unknowns. No equivalence to ARKI is inferred from names.
+./ARKI_ACLARACION_HOME_DEEPSEEK.md:16:import { exportConstructionIfc } from "@shared/arkiConstructionOntology";
+./ARKI_ACLARACION_HOME_DEEPSEEK.md:27:- Exportación IFC, JSON, GEOJSON, SVG, CSV y HTML.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_OUTPUTS.txt:11:  "codebooks": ["LKC-001-IFC", "LKC-002-SMART-CITIES", "LKC-003-URBAN-DIGITAL-TWIN"],
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_OUTPUTS.txt:23:Three independent research units completed successfully for IFC/openBIM, Smart Cities and Urban Digital Twins. Their results are represented in ARKI_LKS_SOURCE_REGISTER.md as staged research evidence.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_IMPLEMENTATION_REPORT.md:20:Three independent official-source research tracks were completed for IFC/openBIM, Smart Cities and Urban Digital Twins. Their conclusions are explicitly stored as staged evidence. No claim is promoted automatically to the ARKI Master Codebook.
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:34:No se debe afirmar que ARKI está en producción, que el expediente es definitivo, que IFC está validado externamente o que las reglas RNE reemplazan a especialistas.
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:50:- `exportConstructionIfc()`.
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:154:    ifcClass?: string;
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:304:→ actualizar IFC
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:398:## 11. Interoperabilidad futura
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:402:- IFC import/export.
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:460:- La exportación IFC actual no queda rota.
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:469:> Implementa `recalculateProject()` con snapshots inmutables, DTOs, invalidaciones y provenance. Prueba una mampara o ventana paramétrica con la cadena ancho/alto → geometría 2D/3D → vidrio/perfiles/herrajes → metrado → partida → presupuesto → duración → 4D → IFC → Markdown. La misma entrada y las mismas versiones deben producir el mismo resultado. No uses IDs aleatorios para resultados deterministas. No guardes clases directamente en JSON. Mantén compatibilidad con las pruebas actuales mediante adaptadores.
+./ARKI_ORDEN_MAESTRA_DEEPSEEK_NIVEL_PROFESIONAL.md:471:> No implementes todavía backend, usuarios, RFA/RVT, CAD, BCF, COBie, O&M ni una refactorización grande de la UI. Antes de cada cambio peligroso entrega un ADR. En cada entrega informa archivos, contratos, migraciones, tests, comandos, resultados, riesgos y limitaciones. Si algo es conceptual, dilo. Si no puedes verificar algo con código o test, márcalo como UNKNOWN. El criterio de aceptación es `pnpm check`, `pnpm build`, los tres tests actuales y los cuatro nuevos pasando, sin romper la UI, IFC ni el expediente.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CAPABILITY_ATLAS.md:9:| LKC-001-IFC | IFC wall / IFC schema | READ | PARTIAL | Existing bounded IFC evidence; full semantics not demonstrated |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CAPABILITY_ATLAS.md:10:| LKC-001-IFC | IFC exchange | ROUND_TRIP | NOT_DEMONSTRATED | Productive round-trip remains outside verified scope |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CAPABILITY_ATLAS.md:11:| LKC-001-IFC | IDS requirements | VALIDATE | NOT_DEMONSTRATED | No governed IDS validator evidence |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CAPABILITY_ATLAS.md:12:| LKC-001-IFC | BCF issue exchange | REPRESENT | UNKNOWN | No canonical ARKI mapping |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CAPABILITY_ATLAS.md:24:| GAP-IFC-ROUNDTRIP | LKC-001-IFC | UNVERIFIED | HIGH | OPEN | No |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CAPABILITY_ATLAS.md:25:| GAP-IFC-IDS | LKC-001-IFC | UNVERIFIED | HIGH | OPEN | No |
+./E6_REPORT.md:1:# ARKI — E6: Persistencia real e interoperabilidad IFC4
+./E6_REPORT.md:8:E6 no se declara `VERIFIED`. El Bloque A tiene contratos formales de persistencia, stores IndexedDB versionados, gate de snapshot, auditoría encadenada y funciones de restauración. El Bloque B tiene exporter IFC4 semántico, parser textual gobernado, adaptador real `web-ifc`/WASM, GlobalId determinista, lossReport y tres fixtures IFC4 menores de 5 MB.
+./E6_REPORT.md:10:La validación automatizada ejecutada en esta entrega terminó con `exit code 0`: `pnpm check`, `pnpm build`, pruebas formales de persistencia, identidad, exportación IFC4, fixtures, parser web-ifc y regresión del motor constructivo y SceneModel.
+./E6_REPORT.md:19:- Exportación IFC4 y parseo textual: 28 entidades preservadas en fixture de prueba.
+./E6_REPORT.md:20:- Parser `web-ifc` real: `schema=IFC4`, fixture abierto correctamente, 29 entidades leídas.
+./E6_REPORT.md:21:- Tres fixtures IFC4 generados y registrados con SHA-256.
+./E6_REPORT.md:22:- Panel de carga IFC4 y exportación desde el visor integrado.
+./E6_REPORT.md:29:4. El exporter IFC4 actual es semántico mínimo y no representa todavía geometría IFC completa, relaciones espaciales ni materiales ricos.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:5:## LKC-001-IFC
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:9:| [ISO 16739-1:2024](https://www.iso.org/standard/84123.html) | Normative primary source | IFC 4.3 / ISO publication metadata and scope |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:10:| [buildingSMART IFC](https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/) | Official industry source | IFC/openBIM scope, versions and related standards |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:11:| [IFC technical specifications](https://technical.buildingsmart.org/standards/ifc/ifc-schema-specifications/) | Official technical source | Schema, encodings and version semantics |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:12:| [IFC 4.3 release](https://standards.buildingsmart.org/IFC/RELEASE/IFC4_3/) | Release source | Static release baseline |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:14:| [BCF](https://www.buildingsmart.org/standards/bsi-standards/bim-collaboration-format/) | Official related standard | Issue communication, not IFC ontology |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:16:**Cautions:** IFC version does not define an ARKI mapping; MVD/IDS, identifiers, units, properties, relationships, round-trip and loss rules remain unproven for ARKI.
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:35:| [OGC UDT position paper](https://docs.ogc.org/dp/24-025.html) | Official position paper | UDT concepts and interoperability cautions |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:37:| [OGC UDT interoperability pilot](https://docs.ogc.org/per/24-067r1.html) | Pilot report | Prototype interoperability, not universal product conformance |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:40:| [EU Local Digital Twin Toolbox](https://interoperable-europe.ec.europa.eu/collection/ldttoolbox) | Official EU collection | Modular toolbox; simulation focus is not real-time operation |
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_SOURCE_REGISTER.md:41:| [UK NDTP principles](https://www.gov.uk/government/publications/what-a-digital-twin-is-and-how-you-can-contribute/national-digital-twin-programme-ndtp-principles) | Official government principles | Security, ethics, sustainability and interoperability principles |
+./E6_BASELINE_OUTPUTS.txt:40:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./E6_BASELINE_OUTPUTS.txt:41:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_LKS_EVIDENCE_PACKAGE/ARKI_LKS_CONTRACT_V1.md:13:- Living Codebook común para IFC/openBIM, Smart Cities y Urban Digital Twins.
+./E6_PO_APPROVAL.md:14:| E6-D1 | web-ifc / WASM | Autorizado |
+./E6_PO_APPROVAL.md:20:| E6-D7 | Fixtures IFC | Menores de 5 MB |
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:1:# Revisión del Documento 71 — ARKI Academy & Advisory Charter
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:4:**Documento revisado:** propuesta de incorporación de Asesor junto a Tutor, Examiner y Oracle.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:12:- **Tutor:** desarrolla la competencia de ARKI.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:15:La separación es compatible con la regla **One ARKI**. Tutor, Examiner, Oracle y Asesor deben tratarse como funciones gobernadas del sistema y del proceso de trabajo, no como nuevos agentes arquitectos que compitan con ARKI.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:25:### 2. Función Tutor
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:27:El Tutor puede:
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:56:### 4. Examiner y Oracle
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:58:La separación Tutor → Examiner → Oracle es correcta. El Tutor no puede ser el único juez del conocimiento que él mismo enseñó.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:66:La frase “YO = Tutor + Asesor” funciona en la conversación, pero el Charter formal debe decir:
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:68:> **La función DeepSeek, cuando sea designada por el Product Owner, puede desempeñar los roles de Tutor y Asesor bajo las reglas de independencia, trazabilidad y no autoaprobación de este Charter.**
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:72:### B. Tutor y Asesor deben tener registros separados
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:77:role: TUTOR | ADVISOR
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:87:Una recomendación del Asesor no debe convertirse automáticamente en conocimiento didáctico del Tutor, y una lección del Tutor no debe convertirse automáticamente en decisión de arquitectura.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:105:### D. PCB-001 debe ser realmente diagnóstico
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:107:La propuesta de examen diagnóstico es correcta, pero el PCB-001 debe definir:
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:109:- materias y competencias examinadas;
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:121:El resultado no debe ser “ARKI está en maestría/doctorado” por una impresión general. Debe producir una matriz de competencias con evidencia y estado.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:130:competencia computacional demostrada ≠ habilitación profesional para firmar
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:136:PCB-001 diagnóstico
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:138:Mapa de competencias y déficits
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:140:Tutor estructura currículo adaptativo
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:144:Examiner genera caso oculto
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:150:Promoción de competencia propuesta
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:166:Academy/Advisory: línea estratégica independiente
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:169:No se debe ampliar E5 para incorporar Tutor, Academy, PCB-001, Knowledge Graph u Oracle. Primero debe cerrarse E5 con su evidencia formal pendiente.
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:175:> **ARKI ACADEMY & ADVISORY CHARTER v1.0**
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:183:| Tutor | Enseñanza y currículo | No |
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:184:| Examiner | Examen independiente y oculto | No |
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:198:2. separación de salidas Tutor/Asesor;
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:200:4. especificación independiente de PCB-001;
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:209:ARKI Academy & Advisory Charter: APPROVE WITH FIXES
+./REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md:212:Implementación del Tutor/Asesor: NO INICIADA
+./package.json:67:    "web-ifc": "^0.0.74",
+./ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md:1:# ARKI Knowledge Book Delta — ARKI-LKS-001
+./ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md:5:ARKI external knowledge is living, versioned and evidence-traceable. Researcher discovery and Curator verification are separate competencies; neither replaces Human Authority.
+./ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md:13:The first three living codebooks are IFC/openBIM, Smart Cities and Urban Digital Twins. Their source register records official/primary sources, version facts, mapping cautions and unknowns. No equivalence to ARKI is inferred from names.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:1:# Revisión cuidadosa — Tutor de ARKI y veredicto E5
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:8:### Documento 69 — Tutor de ARKI
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:12:La propuesta es conceptualmente fuerte y debe conservarse como una adenda propia de **ARKI Academy / Tutor / Examiner / Oracle**. No debe mezclarse con E5, porque E5 trata del visor 3D, SceneModel, persistencia, comparación y vistas técnicas.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:14:La separación propuesta es correcta: **ARKI sigue siendo un único sistema de proyecto**, mientras que Tutor, Examiner y Oracle son funciones independientes de formación y evaluación. La idea central —convertir documentos en conocimiento estructurado, pruebas ocultas y competencia demostrada— es superior a un RAG documental simple.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:27:## 2. Revisión del Tutor de ARKI
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:31:La propuesta identifica correctamente que una biblioteca de PDFs no equivale a conocimiento computable. El Tutor debe conservar provenance, institución, jurisdicción, disciplina, edición, vigencia, hipótesis, unidades, confianza, contradicciones y pruebas asociadas.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:35:> fuente → extracción → conocimiento candidato → provenance → contradicciones → validación → Knowledge Graph → Competency Tests → conocimiento de ARKI
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:37:La distinción entre **enseñar**, **examinar** y **certificar** es especialmente importante. ARKI no debe autoasignarse una competencia porque haya leído una fuente o generado una explicación convincente.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:41:El mecanismo de aprendizaje dirigido por déficits de proyecto también es valioso. Un proyecto puede activar necesidades de aprendizaje, pero esas necesidades deben convertirse en competencias verificables, no en cambios automáticos del motor.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:45:El Tutor no debe modificar automáticamente kernels críticos sólo porque una fuente haya sido ingerida. El flujo correcto debe ser:
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:62:La competencia L9 debe distinguir entre competencia computacional demostrada y habilitación profesional. ARKI puede demostrar que un cálculo pasa un conjunto de casos; eso no sustituye la firma de un profesional autorizado.
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:68:**ARKI ACADEMY / TUTOR v1.0**
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:77:| Competency | Competencia y subcompetencias |
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:82:| CompetencyState | UNKNOWN, NOT_DEMONSTRATED, IMPLEMENTED, VERIFIED, E2E_VERIFIED |
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:106:| P12 IFC productivo | Correctamente fuera de E5 | Correcto; debe documentarse en `E5_SCOPE_LIMITS.md` |
+./REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md:172:El Tutor de ARKI es una **idea estratégica aprobable y de alto valor**, pero debe abrirse como contrato independiente. Su piloto recomendado es Structures Foundations con Tutor, Examiner y Oracle separados.
+./ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md:396:Importación RFA/RVT/IFC/DWG/DXF.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:85:- Exportación IFC semántica conceptual.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:134:| `scripts/test-constructive.ts` | Prueba de elementos, relaciones, presupuesto e IFC |
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:256:    format: "RFA" | "RVT" | "IFC" | "DWG" | "DXF" | "OBJ" | "STEP" | "GLB";
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:302:El expediente actual es local. Sus secciones son memoria descriptiva, especificaciones técnicas, planos/modelo IFC, metrados/APU/encofrados, revisión RNE y firmas/emisión.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:365:- `.ifc` para intercambio BIM.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:384:Un `.rfa` importado debe conservar todo lo posible. Un `.ifc`, `.obj` o `.dwg` puede llegar solo como geometría y luego ser enriquecido. La generación de un `.rfa` nativo requiere un conector con Revit API, Dynamo o un complemento de escritorio; no debe prometerse como una simple función del navegador.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:390:Catálogo central, importación de RFA/RVT/IFC/CAD/sólidos, validación, parámetros, tipos, familias anidadas, duplicados, versiones y conversión a objeto BIM ARKI.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:398:Espacios, arquitectura, estructura, vidrios, mamparas, estructura metálica, MEP, mobiliario, equipamiento, materiales, relaciones, IFC y coordinación.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:410:Memorias, especificaciones, planos, metrados, presupuesto, cronograma, IFC, BCF, firmas, revisiones, emisión, auditoría y PDF final.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:427:- Recalcular metrados, APU, 4D e IFC después de una edición.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:434:- Importador de IFC con reconstrucción de elementos.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:478:No se debe duplicar el modelo creando una estructura diferente para cada módulo. No se debe tratar un objeto importado como un simple sólido si puede convertirse en una familia paramétrica. No se deben presentar precios referenciales como presupuesto contractual. No se debe presentar una validación heurística como aprobación normativa. No se debe presentar IFC conceptual como modelo listo para construcción. No se debe declarar firmado o emitido un expediente sin identidad, permisos y firma real.
+./ARKI_TRANSFERENCIA_DEEPSEEK.md:515:> DeepSeek, continuamos el desarrollo de ARKI. Tú eres el desarrollador de código y debes construir la ontología y los módulos. Manus integra, compila, prueba y corrige la aplicación. El usuario es el asesor de arquitectura, construcción y producto que valida la lógica real. ARKI debe evolucionar desde el generador conceptual actual hacia un sistema BIM paramétrico completo. Ya existe un modelo constructivo semántico con 2D/3D conceptual, elementos de obra, metrados, APU inicial, 4D/5D, IFC, encofrados, especificaciones y editor local. No dupliques entidades ni rompas `GeneratedBuilding`, `ConstructionModel` o `TechnicalDossier`. La siguiente etapa es crear el catálogo de familias paramétricas importables y enlazar cada familia con geometría, materiales, metrados, costos, 4D, avance y mantenimiento. La meta final es cubrir arquitectura, estructuras, vidrios, mamparas, estructuras metálicas, MEP, mobiliario, equipamiento, computadoras, televisores, activos, expediente, construcción y operación. Entrega contratos tipados, código probado y lista explícita de limitaciones.
+./ARKI_FLUJO_TRABAJO_Y_PANELES.md:143:- Cobertura IFC y Revit.
+./E6_OUTPUTS.txt:21:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./E6_OUTPUTS.txt:27:-- test-ifc4-globalid --
+./E6_OUTPUTS.txt:29:-- test-ifc4-exporter --
+./E6_OUTPUTS.txt:31:-- test-ifc4-fixtures --
+./E6_OUTPUTS.txt:32:{"status":"PASS","fixtures":[{"filename":"fixture_01_simple_wall.ifc","sha256":"4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e","entities":28},{"filename":"fixture_02_room_with_door.ifc","sha256":"124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8","entities":28},{"filename":"fixture_03_multi_storey.ifc","sha256":"5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b","entities":53}]}
+./E6_OUTPUTS.txt:33:-- test-ifc4-web-ifc --
+./E6_OUTPUTS.txt:34:{"status":"PASS","parser":"web-ifc","schema":"IFC4","entities":29}
+./E6_OUTPUTS.txt:53:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./E6_OUTPUTS.txt:54:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md:32:5. **Actualización controlada** desde el elemento seleccionado hasta metrados, costos, cronograma, IFC y expediente.
+./ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md:186:`parámetro → geometría → materiales → metrado → partida → presupuesto → 4D → IFC → expediente`.
+./ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md:218:- IFC.
+./ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md:240:- Anclas de tutorial.
+./ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md:279:Debe incluir invalidaciones, incidencias, reglas de coherencia, vínculos BIM–costo–4D–IFC–expediente y exportaciones con cobertura.
+./ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md:338:ARKI podrá afirmar que comenzó su transición real a BIM cuando un usuario pueda seleccionar un muro en planta o 3D, ver sus capas y propiedades, modificar un parámetro permitido, observar el cambio en las vistas relacionadas y recibir el impacto trazable en metrado, costo, cronograma, IFC y expediente, o una declaración explícita de qué etapa aún no está disponible.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:21:### Bloque B — Inventario técnico e interoperabilidad
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:26:2. Contrato de exportación ARKI → IFC/Revit.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:96:3. Mapeo definitivo de cada categoría ARKI a familia nativa, parámetro compartido o propiedad IFC.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:143:- Exportación IFC.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:152:Revit se considera un **destino de interoperabilidad**, no el patrón de completitud de ARKI.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:157:- Propiedades IFC.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:188:IFC
+./ARKI_ADDENDUM_E_COD_LUKA.md:28:Se documentarán los requisitos normativos y técnicos vigentes, se contactará al OECE para conocer los canales oficiales de interoperabilidad y se identificarán constructoras o entidades para un piloto. No se realizará scraping ni automatización no autorizada del sistema estatal.
+./ARKI_ADDENDUM_E_COD_LUKA.md:68:La apertura del Addendum E requiere: contrato propio por fase, ADR de integración, backend persistente, modelo semántico interactivo, almacenamiento de evidencias, política de seguridad, pruebas de trazabilidad y definición del canal oficial de interoperabilidad.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:17:Archicad y Revit son referencias de organización e interoperabilidad, no patrones de copia visual ni límites de capacidad. ARKI puede contener más información que una exportación concreta hacia Revit.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:403:Debe mostrar parámetros, restricciones, planos de referencia, materiales, tipos, reglas de cantidades, costo, duración, mantenimiento y clasificación IFC/Revit.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:548:## 13. Interoperabilidad ARKI → IFC/Revit
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:550:Revit es un destino de interoperabilidad, no el patrón de completitud de ARKI.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:560:→ clasificación IFC
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:570:3. Las diez restantes se guardan en parámetros, propiedades IFC, JSON, CSV o anexos.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:574:No se debe declarar compatibilidad con Revit sin archivo, conector o prueba reproducible. IFC conceptual, RVT/RFA, BCF, PDF, CSV y JSON deben indicar su estado individual.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:593:2. Contrato ARKI → IFC/Revit.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:728:El núcleo paramétrico 1A–1C está verificado con correcciones no bloqueantes. Actualmente existen familias declarativas, DTO, PriceBook, trazabilidad de encofrados, recálculo, mampara paramétrica, snapshots, presupuesto base más mamparas, 4D, IFC extendido y Markdown.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_C_WIREFLOWS_PRUEBAS.md:80:| Exportar IFC | Descarga archivo semántico | Navegador |
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:4:**Alcance:** Inventario corporativo y contrato ARKI → IFC/Revit
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:61:→ clasificación IFC
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:66:Si ARKI tiene más propiedades que el destino, no se eliminan. Se conservan en parámetros compartidos, propiedades IFC, tablas JSON/CSV o anexos.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:72:| IFC4X3 semántico | Parcial; requiere parser formal externo |
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:80:Revit es un destino de interoperabilidad. No define la completitud de ARKI.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:84:El Bloque B se considera preparado cuando cada familia nueva tenga responsable, prioridad, nivel geométrico, nivel de información, reglas de costo, reglas 4D, mantenimiento, clasificación IFC, mapeo Revit y prueba requerida. La implementación de nuevas disciplinas queda separada del shell UI-1.
+./ARKI_LKS_IMPLEMENTATION_REPORT.md:20:Three independent official-source research tracks were completed for IFC/openBIM, Smart Cities and Urban Digital Twins. Their conclusions are explicitly stored as staged evidence. No claim is promoted automatically to the ARKI Master Codebook.
+./ARKI_LKS_CAPABILITY_ATLAS.md:9:| LKC-001-IFC | IFC wall / IFC schema | READ | PARTIAL | Existing bounded IFC evidence; full semantics not demonstrated |
+./ARKI_LKS_CAPABILITY_ATLAS.md:10:| LKC-001-IFC | IFC exchange | ROUND_TRIP | NOT_DEMONSTRATED | Productive round-trip remains outside verified scope |
+./ARKI_LKS_CAPABILITY_ATLAS.md:11:| LKC-001-IFC | IDS requirements | VALIDATE | NOT_DEMONSTRATED | No governed IDS validator evidence |
+./ARKI_LKS_CAPABILITY_ATLAS.md:12:| LKC-001-IFC | BCF issue exchange | REPRESENT | UNKNOWN | No canonical ARKI mapping |
+./ARKI_LKS_CAPABILITY_ATLAS.md:24:| GAP-IFC-ROUNDTRIP | LKC-001-IFC | UNVERIFIED | HIGH | OPEN | No |
+./ARKI_LKS_CAPABILITY_ATLAS.md:25:| GAP-IFC-IDS | LKC-001-IFC | UNVERIFIED | HIGH | OPEN | No |
+./ARKI_LKS_OUTPUTS.txt:11:  "codebooks": ["LKC-001-IFC", "LKC-002-SMART-CITIES", "LKC-003-URBAN-DIGITAL-TWIN"],
+./ARKI_LKS_OUTPUTS.txt:23:Three independent research units completed successfully for IFC/openBIM, Smart Cities and Urban Digital Twins. Their results are represented in ARKI_LKS_SOURCE_REGISTER.md as staged research evidence.
+./ARKI_LKS_SOURCE_REGISTER.md:5:## LKC-001-IFC
+./ARKI_LKS_SOURCE_REGISTER.md:9:| [ISO 16739-1:2024](https://www.iso.org/standard/84123.html) | Normative primary source | IFC 4.3 / ISO publication metadata and scope |
+./ARKI_LKS_SOURCE_REGISTER.md:10:| [buildingSMART IFC](https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/) | Official industry source | IFC/openBIM scope, versions and related standards |
+./ARKI_LKS_SOURCE_REGISTER.md:11:| [IFC technical specifications](https://technical.buildingsmart.org/standards/ifc/ifc-schema-specifications/) | Official technical source | Schema, encodings and version semantics |
+./ARKI_LKS_SOURCE_REGISTER.md:12:| [IFC 4.3 release](https://standards.buildingsmart.org/IFC/RELEASE/IFC4_3/) | Release source | Static release baseline |
+./ARKI_LKS_SOURCE_REGISTER.md:14:| [BCF](https://www.buildingsmart.org/standards/bsi-standards/bim-collaboration-format/) | Official related standard | Issue communication, not IFC ontology |
+./ARKI_LKS_SOURCE_REGISTER.md:16:**Cautions:** IFC version does not define an ARKI mapping; MVD/IDS, identifiers, units, properties, relationships, round-trip and loss rules remain unproven for ARKI.
+./ARKI_LKS_SOURCE_REGISTER.md:35:| [OGC UDT position paper](https://docs.ogc.org/dp/24-025.html) | Official position paper | UDT concepts and interoperability cautions |
+./ARKI_LKS_SOURCE_REGISTER.md:37:| [OGC UDT interoperability pilot](https://docs.ogc.org/per/24-067r1.html) | Pilot report | Prototype interoperability, not universal product conformance |
+./ARKI_LKS_SOURCE_REGISTER.md:40:| [EU Local Digital Twin Toolbox](https://interoperable-europe.ec.europa.eu/collection/ldttoolbox) | Official EU collection | Modular toolbox; simulation focus is not real-time operation |
+./ARKI_LKS_SOURCE_REGISTER.md:41:| [UK NDTP principles](https://www.gov.uk/government/publications/what-a-digital-twin-is-and-how-you-can-contribute/national-digital-twin-programme-ndtp-principles) | Official government principles | Security, ethics, sustainability and interoperability principles |
+./ARKI_LKS_CONTRACT_V1.md:13:- Living Codebook común para IFC/openBIM, Smart Cities y Urban Digital Twins.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:12:La evidencia actual muestra un frontend React funcional, un motor TypeScript local y tres pruebas ejecutables que pasan. El motor genera familias de edificios, un modelo constructivo conceptual, elementos BIM, metrados, presupuesto referencial, cronograma conceptual, IFC semántico, módulos locales de coordinación y un dossier técnico editable.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:14:No existe todavía una plataforma persistente multiusuario. No existe un importador real de RFA, RVT, IFC, DWG, DXF, OBJ, STEP, GLB, BCF o COBie. No existe una cadena automática de propagación desde una edición del expediente hasta metrado, APU, presupuesto, 4D, IFC y Markdown. No existe PDF técnico definitivo, firma legal, cálculo estructural completo, redes MEP completas, validación normativa exhaustiva ni mantenimiento operativo.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:71:| IFC export | IMPLEMENTED / VERIFIED local | `exportConstructionIfc`; test constructivo | Validación externa y cobertura completa de propiedades |
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:76:| Importación IFC/RFA/RVT/CAD | FUTURE / BLOCKED BY INFRASTRUCTURE | No hay parser ni endpoint | Importadores y librerías/conectores |
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:312:- `IFCImport`, `DWGImport`, `RFAImport` u otros tipos de importación.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:371:| `scripts/test-constructive.ts` | PASA | Generación de elementos, cantidades, presupuesto, duración y tokens IFC | Happy path; no prueba edición, errores ni apertura externa del IFC |
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:404:| Importación | CSV S10 | RFA, RVT, IFC, CAD, sólidos, BCF, COBie y catálogos |
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:417:| IFC | Solo exportación | Generador semántico conceptual; no importador | Alta |
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:441:edición → metrado → APU → presupuesto → 4D → IFC → Markdown
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:453:- No se regenera automáticamente el IFC después de editar el expediente.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:472:    ifc?: ExportArtifact;
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:482:La primera versión puede ser local y síncrona. Debe tener pruebas de que cambiar una dimensión de familia cambia el metrado y el costo, que cambiar duración cambia el cronograma y que el snapshot exporta el IFC y Markdown correspondientes.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:517:→ cambiar IFC
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:552:6. Crear el importador de IFC y el catálogo de sólidos/familias.
+./ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:559:> Este es el estado técnico verificable de ARKI. El checkpoint canónico es `6e4624b6` del 22-09-2026. ARKI es un prototipo funcional local, no un MVP productivo. El código fuente de dominio está en `shared/` y los tests ejecutables en `scripts/`. Los tres tests pasan. No existe backend persistente ni importador real de RFA/RVT/IFC/CAD/BCF/COBie. El modelo de edificio actual usa `DynamicBuildingFamily` y `GeneratedBuilding`; el modelo constructivo usa `ConstructionModel`, `Muro`, `StructuralElement`, `ApuPartida` y `ScheduleTask`; el dossier usa `TechnicalDossier` y `FormworkRequirement`. No dupliques esas entidades. La primera tarea es diseñar `ArkiParametricFamily` y `FamilyInstance`, implementar `recalculateProject` y demostrar con una mampara o ventana la cadena dimensión → geometría → metrado → costo → 4D → IFC → Markdown. DELTA-6.2 no está integrado y debe mantenerse separado. DeepSeek escribe código; Manus compila y verifica; el usuario asesora el dominio y acepta el comportamiento.
+./contracts/adr/ADR-022.md:8:El `GlobalId` IFC se deriva determinísticamente de `ArchiElementId + projectId + versionNumber`, usando SHA-256 y una codificación gobernada compatible con la longitud IFC.
+./contracts/adr/ADR-022.md:19:La identidad gobernada no implica round-trip IFC completo; eso requiere parser, exporter, fixtures y lossReport.
+./BKH4_3_96A_REGRESSION_OUTPUTS.txt:24:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./contracts/adr/ADR-007.md:1:# ADR-007 — Parser IFC4 con web-ifc
+./contracts/adr/ADR-007.md:8:E6 autoriza `web-ifc` como parser IFC4/WASM detrás de un adaptador gobernado. La integración se valida primero con una prueba mínima de Vite/React 19.
+./contracts/adr/ADR-007.md:19:Este ADR no autoriza RVT/RFA, DXF, firma profesional ni round-trip sin fixtures IFC reales.
+./ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/01-17-full-tests.txt:50:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/01-17-full-tests.txt:51:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/01-17-full-tests.txt:200:  "ifc": {
+./ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/01-17-full-tests.txt:225:    "ancho cambia IFC",
+./ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/01-17-full-tests.txt:229:    "alto cambia IFC",
+./contracts/adr/ADR-003.md:8:Los elementos deben conservar un `ArchiElementId` estable y determinista entre ConstructionModel, SceneModel, CanvasPlanView, SceneModel3D y futuras exportaciones IFC.
+./contracts/adr/ADR-003.md:10:El `globalId` IFC queda definido como campo de interoperabilidad futura. No se declara round-trip IFC productivo en E5.
+./contracts/adr/ADR-003.md:18:- La asignación de `globalId` deberá tener su propio contrato y pruebas antes del adaptador IFC.
+./contracts/adr/ADR-002.md:22:La misma entidad puede alimentar planta 2D, visor 3D, Info Box y futuros adaptadores IFC mediante contratos de identidad comunes.
+./contracts/adr/ADR-001.md:26:Este ADR no afirma compatibilidad universal de WebGL ni exportación IFC/RVT. Cada capacidad nueva debe tener una prueba de compatibilidad con React 19, evidencia reproducible y fallback explícito cuando corresponda.
+./E5_CONTRATO_REVISADO_V1_APROBADO.md:85:globalId: GlobalId IFC gobernado (para round-trip futuro).
+./E5_CONTRATO_REVISADO_V1_APROBADO.md:87:Regla: misma identidad entre 2D (CanvasPlanView), 3D (SceneModel3D), IFC y futuras familias Revit.
+./E5_CONTRATO_REVISADO_V1_APROBADO.md:235:P12 — Round-trip IFC productivo
+./FASE_0_ADRS_RECLASIFICADOS.md:13:| ADR-003 | Identidad de elemento | `arkiBimSelection.ts`, ids de elementos constructivos, IFC conceptual | ADR-EXTENSIÓN | Definir ArchiElementId y GlobalId gobernados |
+./FASE_0_ADRS_RECLASIFICADOS.md:17:| ADR-007 | IFC4 parser/exporter | `arkiConstructionOntology.ts::exportConstructionIfc` | ADR-EXTENSIÓN | Separar IFC conceptual de IFC4 productivo |
+./E5_CONTRATO_REVISADO_V1_APROBADO.txt:85:globalId: GlobalId IFC gobernado (para round-trip futuro).
+./E5_CONTRATO_REVISADO_V1_APROBADO.txt:87:Regla: misma identidad entre 2D (CanvasPlanView), 3D (SceneModel3D), IFC y futuras familias Revit.
+./E5_CONTRATO_REVISADO_V1_APROBADO.txt:235:P12 — Round-trip IFC productivo
+./ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md:40:| Round-trip IFC productivo | Pendiente |
+./ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md:101:- Identidad común 2D/3D/IFC.
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_3_EVIDENCE_MANIFEST.json:105:      "path": "AKI001_CURRICULUM_DELTA_BKH4_3.md",
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:52:- Pruebas de competencia asociadas.
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:71:                    COMPETENCY TESTS
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:187:- Interoperabilidad.
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:256:5. Pruebas de competencia.
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:278:## Estados de competencia
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:328:Crear ADR, vocabulario, estados de competencia, contrato de resultados, provenance, unidades y autoridad humana.
+./ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md:344:Implementar extracción, provenance, contradicciones, validación, grafo de conocimiento y competency tests.
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_3.md:1:# ARKI Knowledge Book Delta — BKH4-3
+./BKH4_3_EVIDENCE_PACKAGE/AKI001_CURRICULUM_DELTA_BKH4_3.md:1:# AKI-001 Curriculum Delta — BKH4-3 Simulation Sandbox
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:13:ARKI no debe copiar la estructura de una aplicación BIM existente. Debe utilizar IFC como **lenguaje de interoperabilidad y contrato de intercambio**, mientras conserva una ontología y un motor propios.
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:15:El estándar IFC 4.3 organiza los datos específicos por dominios y disciplinas. Esta separación es compatible con la visión de ARKI porque permite conectar una base común de proyecto con especializaciones de arquitectura, estructuras, instalaciones, transporte, infraestructura y otros dominios [1].
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:112:- Exportaciones IFC y otros formatos gobernados.
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:131:| Interoperabilidad | ¿El intercambio IFC conserva identidad y relaciones? |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:149:## 7. Relación con IFC 4.3
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:151:IFC debe ocupar el lugar de **intercambio, coordinación y preservación de identidad**, no el de núcleo completo de razonamiento de ARKI.
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:153:| ARKI Computational Fabric | IFC 4.3 |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:155:| Entidades y relaciones propias | Entidades IFC interoperables |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:156:| Familias y reglas paramétricas | Tipos, propiedades, materiales y relaciones IFC |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:157:| Geometría computacional | Representaciones geométricas IFC |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:158:| Espacios y zonas | `IfcSpace`, zonas y relaciones espaciales |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:159:| Sistemas MEP | Sistemas, distribución y puertos IFC |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:160:| Costos y planificación | Recursos, costos, tareas y relaciones IFC |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:162:| Solvers y simulaciones | Resultados vinculados, no necesariamente definidos por IFC |
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:166:La implementación debe priorizar un adaptador IFC gobernado, con mapeos explícitos y pruebas de round-trip. No se debe afirmar interoperabilidad completa por producir un archivo con extensión `.ifc`.
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:234:### CF-5 — IFC 4.3 gobernado
+./ARKI_COMPUTATIONAL_FABRIC_V1.md:248:[1] buildingSMART International, *Industry Foundation Classes (IFC) 4.3 — Domain specific data schemas*, capítulo 7: <https://standards.buildingsmart.org/IFC/RELEASE/IFC4_3/HTML/chapter-7/index.html>
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:8:| AKI-001 | Programa de conocimiento del arquitecto | Libro y currículo para que ARKI conserve conocimiento útil | IMPLEMENTED / historical baseline | WATCH |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:18:| E6 | Entrega histórica IFC/persistencia | Iteración congelada de interoperabilidad/persistencia | PARTIAL / FROZEN | WATCH |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:25:| IFC | Estándar externo de intercambio BIM | Formato común para intercambiar modelos | PARTIAL bounded support | WATCH |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_CODEBOOK_FOR_ARCHITECT.md:26:| ISO 16739 | Norma externa relacionada con IFC | Norma que define IFC | REFERENCE | NO |
+./ARKI_UI2_V16_VERIFICATION_PACKAGE/outputs/09-test-recalculation.txt:47:  "ifc": {
+./ARKI_UI2_V16_VERIFICATION_PACKAGE/outputs/09-test-recalculation.txt:72:    "ancho cambia IFC",
+./ARKI_UI2_V16_VERIFICATION_PACKAGE/outputs/09-test-recalculation.txt:76:    "alto cambia IFC",
+./E5_SCENE_MODEL_3D_REPORT.md:28:La persistencia actual es local-first y no sustituye una sesión multiusuario o backend remoto. La comparación opera sobre `SceneModel`, no es aún round-trip IFC productivo. La medición usa distancia entre centroides; todavía falta snapping profesional de vértices, caras y ejes. El clipping filtra nodos por altura y debe evolucionar a planos de recorte WebGL para cortar sólidos. Aislamiento y congelación son presentación local y deben evolucionar a visibilidad por disciplina/fase con permisos. Las cajas 3D siguen siendo una representación paramétrica, no B-rep ni RVT nativo.
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:157:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:158:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:277:shared/arkiSnapshotExports.ts:26:export function exportSnapshotToIfc(snapshot: ProjectSnapshot): {
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:423:client/src/modules/GeneratorModule.tsx:105:    <div className="construction-footer"><div><span className="construction-note"><span className="alert-dot info" />Metrados calculados</span><span className="construction-note"><span className="alert-dot info" />APU enlazado</span><span className="construction-note"><span className="alert-dot info" />Cronograma 4D enlazado</span><span className="construction-note"><span className="alert-dot warning" />Revisión especialista requerida</span></div><button className="semantic-ifc-button" onClick={onIfc}><Download size={14} /> Exportar IFC semántico</button></div>
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:433:shared/arkiTechnicalDossier.ts:38:export function generateTechnicalDossier(model: ConstructionModel, region = "La Libertad", factor = 1.04): TechnicalDossier { const formwork = generateFormworkRequirements(model); const findings = reviewNormativeReadiness(model); const blockers = findings.filter((item) => item.status !== "conforme").map((item) => `${item.code}: ${item.recommendation}`); const sections = [{ order: 1, title: "Memoria descriptiva", status: "ready" as const, outputs: ["memoria-descriptiva.md"] }, { order: 2, title: "Especificaciones técnicas", status: "ready" as const, outputs: ["especificaciones-tecnicas.md"] }, { order: 3, title: "Planos y modelo IFC", status: "review_required" as const, outputs: ["planta.svg", "corte.svg", "modelo.ifc"] }, { order: 4, title: "Metrados, APU y encofrados", status: "ready" as const, outputs: ["presupuesto-5d.json", "encofrados.csv"] }, { order: 5, title: "Revisión RNE", status: blockers.length ? "review_required" as const : "ready" as const, outputs: ["reporte-rne.json"] }, { order: 6, title: "Firmas y emisión", status: "pending" as const, outputs: ["flujo-aprobacion.json", "expediente-manifiesto.json"] }]; const readiness = Math.round(sections.filter((item) => item.status === "ready").length / sections.length * 100); return { title: "Expediente técnico BIM ARKI", version: "3.1-local", modelId: model.projectId, specifications: DEFAULT_TECHNICAL_SPECIFICATIONS, formwork, regionalPrices: buildRegionalPrices(region, factor), normativeFindings: findings, sections, readiness: { percentage: readiness, blockers, specialistReviewRequired: true } }; }
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:438:scripts/test-recalculation.ts:23:  exportSnapshotToIfc,
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:444:scripts/test-recalculation.ts:111:const ifc0 = exportSnapshotToIfc(snapshot0);
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:446:scripts/test-recalculation.ts:172:const ifc1 = exportSnapshotToIfc(snapshot1);
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:448:scripts/test-recalculation.ts:206:const ifc2 = exportSnapshotToIfc(snapshot2);
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:457:shared/arkiProfessionalModules.ts:39:export function createCdeManifest(model: ConstructionModel, clashes: Clash[]): CdeManifest { const documents = [{ id: hash(`${model.projectId}:ifc`), name: "modelo-federado.ifc", type: "IFC", discipline: "BIM", version: 1, state: "wip" as const, sha256: hash(JSON.stringify(model.relations)) }, { id: hash(`${model.projectId}:schedule`), name: "cronograma-5d.json", type: "JSON", discipline: "planificacion", version: 1, state: "wip" as const, sha256: hash(JSON.stringify(model.schedule)) }]; return { projectId: model.projectId, state: "wip", documents, federatedModel: { name: "Modelo federado ARKI", version: 1, disciplines: ["arquitectura", "estructuras", "sanitarias", "electricas", "BIM"], totalElements: model.summary.wallCount + model.summary.columnCount + model.summary.beamCount + model.summary.slabCount + model.summary.doorCount + model.summary.windowCount, clashCount: clashes.length, budgetPen: model.summary.totalBudgetPen, durationDays: model.summary.totalDurationDays } }; }
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:499:client/src/i18n/catalog.ts:3:const es = { brand: "ARKI", workspace: "BIM WORKSPACE", activeProject: "PROYECTO ACTIVO", local: "LOCAL", help: "Ayuda", exit: "Salir", changeLanguage: "Cambiar idioma", prototype: "PROTOTIPO LOCAL", navigator: "NAVEGADOR", activeProfile: "PERFIL ACTIVO", engine: "MOTOR LOCAL OPERATIVO", infoBox: "INFO BOX", pendingSelection: "SELECCIÓN PENDIENTE", noSelection: "Sin selección", selectionPending: "El canvas aún no emite un contrato de selección.", moduleRegistered: "MÓDULO REGISTRADO", generator: "Generador dinámico de familias", pendingModule: "Este módulo está integrado al workspace, pero su integración de dominio aún está pendiente.", availableFromGenerator: "El generador funcional permanece disponible desde la pestaña Generador.", status: "Estado", units: "UNIDADES: MÉTRICO", discipline: "DISCIPLINA: ARQUITECTURA", phase: "FASE: PROPUESTA", ui1: "UI-1", visitor: "Visitante", user: "Usuario / Proyecto", specialist: "Especialista / Coordinación", corporate: "Corporativo", selected: "seleccionado", languagePrepared: "Selector preparado; traducción completa se implementará con el sistema i18n.", searchCommands: "Búsqueda de comandos", commandHint: "Usa las pestañas del workspace para navegar.", localDraft: "Borrador local listo", backendLater: "La persistencia corporativa se implementará en la fase de backend.", languageSelected: "Idioma seleccionado", projectName: "Generador de familias", localProfile: "PERFIL LOCAL", moduleStateShown: "El estado del módulo ahora se muestra en el canvas.", selectionUi2: "La selección de elementos se integrará con el canvas BIM en UI-2.", visibleStates: "ESTADOS UI-1 VISIBLES", commands: "Ctrl/Cmd+K COMANDOS", runtime: "PARAMETRIC BIM RUNTIME", gatewayKicker: "ESTACIÓN CORPORATIVA DE DISEÑO Y COORDINACIÓN", gatewayTitle: "Elige tu espacio", gatewayTitleAccent: "de trabajo.", gatewayDescription: "Una plataforma para pasar de la intención arquitectónica al modelo, el costo, la coordinación y el ciclo de vida del proyecto.", prototypeFooter: "PROTOTIPO LOCAL · UI-1 · NO ES AUTENTICACIÓN DE PRODUCCIÓN", standardsFooter: "PE · RNE-PE · IFC4X3", visitorSubtitle: "Explora ARKI", visitorDescription: "Conoce el motor BIM, las familias y el flujo completo sin acceder a información privada.", userSubtitle: "Diseña tu proyecto", userDescription: "Crea propuestas, revisa espacios, compara versiones y prepara tu expediente.", specialistSubtitle: "Revisa por disciplina", specialistDescription: "Trabaja con arquitectura, estructuras, MEP, costos, coordinación y construcción.", corporateSubtitle: "Costos e interferencias", corporateDescription: "Administra estándares, PriceBook, APU, clashes, CDE e integraciones.", demo: "Demostraciones", publicLibrary: "Biblioteca pública", documentation: "Documentación", projects: "Proyectos", generatorShort: "Generador", bimShort: "Modelo BIM", disciplines: "Disciplinas", review: "Revisión", interferences: "Interferencias", costs: "Costos", clashesShort: "Clashes", governance: "Gobierno", home: "Inicio", dataModule: "Data", library: "Biblioteca", projectsModule: "Proyectos", generatorModule: "Generador", bimModule: "Modelo BIM", plan: "Planta", section: "Corte", model3d: "3D", quantities: "Metrados", budget: "Presupuesto", budget5d: "PRESUP-5D", expensesModule: "GASTOS", contractCosts: "Costos contractuales", schedule4d: "4D", clashesModule: "Clashes", dossier: "Expediente", technicalDossier: "EXP-TEC", operationsManagement: "O-M", operations: "O&M", administration: "Administración", administrationModule: "ADM", unavailableModuleTooltip: "Módulo visible para este perfil; integración de dominio pendiente." } as const;
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:514:shared/arkiConstructionOntology.ts:133:export function exportConstructionIfc(model: ConstructionModel, metadata: { name: string; familyId: string; city?: string; country?: string }) {
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:515:shared/arkiConstructionOntology.ts:147:  const emit = (element: StructuralElement) => { const ref = next++; elementRefs.push(ref); const entity = element.kind === "column" ? "IFCCOLUMN" : element.kind === "beam" ? "IFCBEAM" : element.kind === "slab" ? "IFCSLAB" : element.kind === "foundation" ? "IFCFOOTING" : element.kind === "door" ? "IFCDOOR" : element.kind === "window" ? "IFCWINDOW" : element.kind === "stair" ? "IFCSTAIR" : element.kind === "roof" ? "IFCROOF" : element.kind === "partition" ? "IFCWALLSTANDARDCASE" : "IFCSLAB"; lines.push(`#${ref}=${entity}(${step(ifcGuid(element.id))},${step(element.name)},'${element.kind}',${element.level});`); const prop = next++; lines.push(`#${prop}=IFCPROPERTYSET(${step(ifcGuid(`${element.id}:pset`))},${step(element.name)},'ARKI_ElementData',('area_m2',${element.quantity.areaM2},'volume_m3',${element.quantity.volumeM3},'weight_kg',${element.quantity.weightKg},'partidas',${element.costs.map((item) => item.code).join("|")},'specialty','${element.specialty}'));`, `#${next++}=IFCRELDEFINESBYPROPERTIES(${step(ifcGuid(`${element.id}:props`))},${step(element.name)},(#${ref}),#${prop});`); };
+./FASE_0_AUDITORIA_REAL_2026-09-23.md:549:4. Resolver D1-D5 del Product Owner antes de E5: visor 3D, persistencia, parser IFC4, solver estructural y alcance normativo MEP.
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/12-command-outputs.txt:50:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/12-command-outputs.txt:51:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/12-command-outputs.txt:200:  "ifc": {
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/12-command-outputs.txt:225:    "ancho cambia IFC",
+./ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/12-command-outputs.txt:229:    "alto cambia IFC",
+./E5_SCENE_MODEL_3D_OUTPUTS.txt:43:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./E5_SCENE_MODEL_3D_OUTPUTS.txt:44:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_UI2_V16_VERIFICATION_PACKAGE/outputs/03-test-constructive.txt:20:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./ARKI_UI2_V16_VERIFICATION_PACKAGE/outputs/03-test-constructive.txt:21:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md:35:| IFC round-trip | Crear parser/adapter contract, fixtures y loss report. | Productivo solo después de archivos reales, validación y round-trip sin pérdida no declarada. |
+./ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md:74:No inventar URL, token, host, proveedor, firma, archivo RVT, modelo IFC productivo, dispositivo físico o resultado profesional.
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:45:| AKI-001 | Architect Knowledge / curriculum program | Programa de conocimiento del arquitecto | RESEARCH_PROGRAM | ARKI_INTERNAL | Knowledge / Intelligence | IMPLEMENTED / historical baseline | HIGH |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:72:| IFC | Industry Foundation Classes | Clases Fundamentales de la Industria | EXTERNAL_STANDARD | INDUSTRY / STANDARD | Interoperability | PARTIAL bounded implementation | HIGH |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:73:| ISO 16739 | IFC standard reference | Norma ISO de IFC | EXTERNAL_STANDARD | STANDARD | IFC | REFERENCE | HIGH |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:75:| Smart Cities | Domain/program concept | Ciudades inteligentes | RESEARCH_PROGRAM | INDUSTRY | Future / open | FUTURE REFERENCE | MEDIUM |
+./BKH4_3_EVIDENCE_PACKAGE/ARKI_MASTER_CODEBOOK.md:76:| Digital Twin | Domain concept | Gemelo digital | RESEARCH_PROGRAM | INDUSTRY / SCIENTIFIC | Future / open | FUTURE REFERENCE | MEDIUM |
+./ARKI_VEREDICTO_IMPLEMENTACION_UI2_V11.md:11:El módulo Generador conserva generación, guardado, restauración, comparación, vistas Planta/Corte/3D y exportaciones. El módulo Modelo BIM muestra el modelo constructivo, inventario de elementos, métrados resumidos, 5D, simulación 4D, clashes tipificados, importación S10 y exportación IFC semántica. El módulo Expediente muestra especificaciones, encofrados, APU/5D, RNE y descarga Markdown.
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_95A_OUTPUTS.txt:23:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_TEST_PLAN.md:31:| T23 | I23 | IFC export during commit | External side effect separate | Effect journal | BKH4-7 |
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/01-19-full-validation.txt:50:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/01-19-full-validation.txt:51:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/01-19-full-validation.txt:200:  "ifc": {
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/01-19-full-validation.txt:225:    "ancho cambia IFC",
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/01-19-full-validation.txt:229:    "alto cambia IFC",
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:88:La serialización de `Muro` y `ConstructionModel` tiene pruebas de ida y vuelta. Las familias paramétricas de mamparas tienen pruebas de recalculación que demuestran cambios de ancho y alto en geometría, materiales, metrados, partidas, presupuesto, 4D, IFC conceptual y Markdown.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:96:Existe un exportador IFC constructivo básico. Emite entidades como `IFCWALL`, `IFCDOOR`, `IFCWINDOW`, `IFCCOLUMN`, `IFCBEAM`, `IFCSLAB`, `IFCFOOTING`, `IFCSTAIR`, `IFCROOF`, `IFCSPACE` y propiedades ARKI. El propio contrato del exportador declara `conceptualGeometryOnly: true` y `nativeRvt: false`.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:102:El visor `ProfessionalFamilyViewer.tsx` actual es SVG conceptual. No es Three.js, WebGL ni un visor IFC federado.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:110:El IFC existente es un exportador semántico/conceptual básico. No existe parser IFC4 productivo, lectura completa de IFC, round-trip ARKI ↔ IFC, pérdida de información, GlobalId gobernado, relación ARKI/Revit ni adaptación de BRep, CSG, swept solids y mallas trianguladas.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:157:Debe decidir si el visor se alimenta directamente de `ConstructionModel`, de un modelo intermedio de escena o de IFC. Debe especificar cómo se conserva la identidad del elemento entre 2D, 3D, IFC y futuras familias Revit.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:185:### 6.6 IFC4 real y DXF gobernado
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:226:16. Regla explícita para no declarar visor BIM profesional, IFC profesional, persistencia real, DXF o cálculo profesional antes de contar con evidencia.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:234:- Entrega E: IFC4 parser/exporter/round-trip.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:255:No mezcles UI, motor BIM, persistencia, IFC y Avatar en una sola entrega sin contratos separados.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:257:No presentes un IFC conceptual como IFC profesional.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:288:- **Parte III:** visor BIM, comparación, persistencia e interoperabilidad.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:302:La respuesta debe contener también un **cuadro de mejoras propuestas por DeepSeek**. No basta con explicar qué le falta a Archi. Debes proponer qué debería hacer Archi mejor que una réplica de Revit, especialmente en generación de espacios, trazabilidad, decisiones paramétricas, coordinación, comparación, costos, 4D, expediente, operación, mantenimiento, interoperabilidad, accesibilidad, guía contextual y gobierno profesional.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:306:La respuesta única debe reunir: auditoría, cobertura Archi/Arqui/Revit, inventario de 18 disciplinas, catálogo de 8 escaleras, 7 ascensores, 5 gases medicinales y 8 sistemas de seguridad, contratos de interoperabilidad, controles de los 16 módulos, cuatro partes, ocho entregas, decisiones pendientes, riesgos y cuadro de mejoras.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md:332:Incluye expresamente visión profesional, OCR profesional en ocho idiomas, lectura de planos y PDFs, reconocimiento de muros, puertas, ventanas, cotas, textos, niveles, ejes, espacios, mobiliario, equipos y redes; extracción de tablas y cantidades; conversión a entidades BIM con confianza y revisión; comparación de documentos; detección de inconsistencias; modelos IFC/RVT/DWG/DXF/GLB; agentes de asistencia; Avatar; guía contextual; trazabilidad; coordinación; documentación; costos; 4D; expediente; operación y mantenimiento.
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/full-validation.txt:50:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/full-validation.txt:51:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/full-validation.txt:200:  "ifc": {
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/full-validation.txt:225:    "ancho cambia IFC",
+./ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/full-validation.txt:229:    "alto cambia IFC",
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_TRANSACTION_ENGINE_CONTRACT_V1_1.md:540:IFC import/export writers
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_TRANSACTION_ENGINE_CONTRACT_V1_1.md:721:- IFC profesional completo.
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_TRANSACTION_ENGINE_CONTRACT_V1_1.md:723:- Avatar, Academy, Luka o WebXR.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/31_E1_REGISTRO_DECISIONES_PRODUCTO.md:9:| P0-3 | IFC4 | RESOLVED | web-ifc gobernado con reporte de pérdida |
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/62_E4_VERIFICATION_OUTPUTS.txt:47:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/62_E4_VERIFICATION_OUTPUTS.txt:48:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_3_96A_REGRESSION_OUTPUTS.txt:24:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./E4_CONTRATOS_ESPECIALIZADOS/E4_VERIFICATION_OUTPUTS.txt:47:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./E4_CONTRATOS_ESPECIALIZADOS/E4_VERIFICATION_OUTPUTS.txt:48:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_ADDENDUM_AVATAR_INTELIGENTE_FUTURO.md:113:La guía deberá ser contextual y progresiva: bienvenida al gateway, explicación del perfil, recorrido del workspace, ayuda del módulo activo, explicación de campos, advertencia de errores, sugerencia de buenas prácticas, resumen de decisiones y orientación hacia la siguiente fase. No debe repetir tutoriales ya completados ni interrumpir tareas avanzadas salvo que exista un riesgo relevante.
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_3_REGRESSION_OUTPUTS.txt:24:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/57_E4_ESQUEMA_COMUN_FAMILIAS_ESPECIALIZADAS.md:17:| Exportación | IFC, DXF, Revit u otro destino y pérdida declarada |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:22:| Recalculo de familias | VERIFIED para alcance existente | Pruebas de mamparas y recalculación | Cambios paramétricos impactan geometría, materiales, cantidades, costos, 4D, IFC conceptual y Markdown. |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:23:| IFC semántico conceptual | VERIFIED como conceptual | `exportConstructionIfc()` y pruebas | Emite entidades constructivas y propiedades ARKI. No equivale a IFC4 productivo completo. |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:41:| IFC | Exportación conceptual | Parser IFC4, exportación productiva, GlobalId gobernado, relaciones, materiales, round-trip y reporte de pérdida. |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:55:| IFC4 parser | NOT IMPLEMENTED | Lectura de archivos IFC reales, entidades, propiedades, relaciones y materiales. |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:56:| IFC round-trip | NOT IMPLEMENTED | ARKI → IFC → ARKI e IFC → ARKI → IFC con reporte de pérdida. |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:58:| Revit/RVT/RFA | NOT IMPLEMENTED como adaptador completo | Definir alcance de interoperabilidad y probar importación/exportación de familias, parámetros, geometría y pérdida. |
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:103:14. Importación/exportación IFC, DXF, DWG, RVT, RFA, glTF, GLB y formatos tabulares mediante adaptadores gobernados.
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:140:La lista de cierre no se limita a las funciones que ya aparecen en el repositorio. DeepSeek debe incorporar toda capacidad que exista en Arqui, toda capacidad relevante de Revit/IFC/BIM profesional y toda capacidad que el Product Owner haya solicitado para el ciclo de vida de Archi. Si Arqui puede hacer algo que no está documentado aquí, debe añadirse durante la auditoría comparativa.
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:150:Debe pedirse análisis de modelos IFC, RVT/RFA mediante adaptadores autorizados, DWG/DXF, PDF, imágenes, GLB/glTF, nubes de puntos y documentos de expediente. El sistema debe identificar qué pudo leer, qué no pudo leer, qué transformó, qué perdió y qué requiere intervención humana.
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md:158:La edición debe permitir modificar parámetros, restricciones, materiales, capas, acabados, aberturas, familias, niveles, fases, sistemas, zonas, espacios, cantidades y relaciones, con actualización controlada de geometría, metrados, costos, calendario, documentación, IFC y activos.
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_3_SCOPE_LIMIT_REPORT.md:20:Commit, authorization authority, rollback, undo/redo, atomic persistence, crash recovery, legacy writer migration, ownership consolidation, worksharing, CRDT, distributed transactions, BKH-5/6/7, E8, IFC, Smart Cities and Urban Digital Twin.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/55_E3_VERIFICATION_REPORT.md:32:`CATALOGED` no significa `IMPLEMENTED` ni `VERIFIED`. El cálculo estructural, MEP, seguridad, gases, interoperabilidad, firma profesional y mantenimiento requieren contratos y pruebas posteriores. E4 ampliará los catálogos especializados y sus reglas de datos.
+./DEEPSEEK_HANDOFF_2026_09_22/02_RESUMEN_CONVERSACIONES_Y_DECISIONES.md:37:- IFC4 con entidades semánticas, propiedades, materiales, relaciones, identidad persistente y round-trip.
+./DEEPSEEK_HANDOFF_2026_09_22/02_RESUMEN_CONVERSACIONES_Y_DECISIONES.md:55:Existe IFC semántico básico con geometría conceptual. No existe parser IFC4 productivo ni round-trip completo.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/54_E3_VERIFICATION_OUTPUTS.txt:47:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/54_E3_VERIFICATION_OUTPUTS.txt:48:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./E4_CONTRATOS_ESPECIALIZADOS/01_ESQUEMA_COMUN_FAMILIAS_ESPECIALIZADAS.md:17:| Exportación | IFC, DXF, Revit u otro destino y pérdida declarada |
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/51_E3_INVENTARIO_FAMILIAS_Y_EQUIPAMIENTO.md:23:Las familias Archi, familias externas, sólidos y archivos de interoperabilidad requieren adaptadores gobernados. Importar geometría no implica importar reglas paramétricas, identidad, materiales, metrado o trazabilidad.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:88:La serialización de `Muro` y `ConstructionModel` tiene pruebas de ida y vuelta. Las familias paramétricas de mamparas tienen pruebas de recalculación que demuestran cambios de ancho y alto en geometría, materiales, metrados, partidas, presupuesto, 4D, IFC conceptual y Markdown.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:96:Existe un exportador IFC constructivo básico. Emite entidades como `IFCWALL`, `IFCDOOR`, `IFCWINDOW`, `IFCCOLUMN`, `IFCBEAM`, `IFCSLAB`, `IFCFOOTING`, `IFCSTAIR`, `IFCROOF`, `IFCSPACE` y propiedades ARKI. El propio contrato del exportador declara `conceptualGeometryOnly: true` y `nativeRvt: false`.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:102:El visor `ProfessionalFamilyViewer.tsx` actual es SVG conceptual. No es Three.js, WebGL ni un visor IFC federado.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:110:El IFC existente es un exportador semántico/conceptual básico. No existe parser IFC4 productivo, lectura completa de IFC, round-trip ARKI ↔ IFC, pérdida de información, GlobalId gobernado, relación ARKI/Revit ni adaptación de BRep, CSG, swept solids y mallas trianguladas.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:157:Debe decidir si el visor se alimenta directamente de `ConstructionModel`, de un modelo intermedio de escena o de IFC. Debe especificar cómo se conserva la identidad del elemento entre 2D, 3D, IFC y futuras familias Revit.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:185:### 6.6 IFC4 real y DXF gobernado
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:226:16. Regla explícita para no declarar visor BIM profesional, IFC profesional, persistencia real, DXF o cálculo profesional antes de contar con evidencia.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:234:- Entrega E: IFC4 parser/exporter/round-trip.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:255:No mezcles UI, motor BIM, persistencia, IFC y Avatar en una sola entrega sin contratos separados.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:257:No presentes un IFC conceptual como IFC profesional.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:288:- **Parte III:** visor BIM, comparación, persistencia e interoperabilidad.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:302:La respuesta debe contener también un **cuadro de mejoras propuestas por DeepSeek**. No basta con explicar qué le falta a Archi. Debes proponer qué debería hacer Archi mejor que una réplica de Revit, especialmente en generación de espacios, trazabilidad, decisiones paramétricas, coordinación, comparación, costos, 4D, expediente, operación, mantenimiento, interoperabilidad, accesibilidad, guía contextual y gobierno profesional.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:306:La respuesta única debe reunir: auditoría, cobertura Archi/Arqui/Revit, inventario de 18 disciplinas, catálogo de 8 escaleras, 7 ascensores, 5 gases medicinales y 8 sistemas de seguridad, contratos de interoperabilidad, controles de los 16 módulos, cuatro partes, ocho entregas, decisiones pendientes, riesgos y cuadro de mejoras.
+./DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md:332:Incluye expresamente visión profesional, OCR profesional en ocho idiomas, lectura de planos y PDFs, reconocimiento de muros, puertas, ventanas, cotas, textos, niveles, ejes, espacios, mobiliario, equipos y redes; extracción de tablas y cantidades; conversión a entidades BIM con confianza y revisión; comparación de documentos; detección de inconsistencias; modelos IFC/RVT/DWG/DXF/GLB; agentes de asistencia; Avatar; guía contextual; trazabilidad; coordinación; documentación; costos; 4D; expediente; operación y mantenimiento.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md:21:P0-3	Parser IFC4	web-ifc gobernado con reporte de pérdida	ADR-007 cerrado
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md:59:ADR-007	CERRADO — web-ifc gobernado
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md:200:6.3. Parser IFC4 — web-ifc gobernado
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md:201:web-ifc como parser autorizado.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md:203:Exportador propio para IFCWALL, IFCDOOR, etc.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md:209:Identidad ARKI ↔ IFC ↔ Revit trazable.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/27_DECISIONES_P0_RESUELTAS.md:11:| P0-3 | Parser IFC4 | **RESOLVED — web-ifc gobernado con reporte de pérdida** |
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/27_DECISIONES_P0_RESUELTAS.md:17:Estas decisiones autorizan la arquitectura contractual de E5-E7. No significan que Three.js/R3F, IndexedDB, web-ifc, OpenSees o la normativa MEP ya estén implementados o verificados. Cada tecnología debe tener su ADR, contrato, prueba, output y limitaciones.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/27_DECISIONES_P0_RESUELTAS.md:19:La validación profesional de estructuras, MEP y firma continúa siendo obligatoria. La persistencia IndexedDB no sustituye una persistencia multiusuario de servidor. web-ifc debe reportar pérdidas y no puede presentarse como round-trip productivo hasta verificarse con fixtures reales.
+./BKH4_3_EVIDENCE_PACKAGE/BKH4_3_IMPLEMENTATION_REPORT.md:36:No se implementaron commit, rollback, undo, redo, atomic persistence, crash recovery, legacy migration, ownership consolidation, HumanDecision authority, BKH-5/6/7, E8, IFC, Smart Cities ni Urban Digital Twin.
+./DEEPSEEK_HANDOFF_2026_09_22/ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md:145:- Cobertura IFC.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/49_E3_README.md:17:No se implementan en E3 motores de cálculo estructural, redes MEP, visor 3D, importadores Revit, IFC4 productivo, OCR, Avatar, Luka ni conectores externos.
+./E3_CATALOGO_CORPORATIVO_P2/E3_VERIFICATION_REPORT.md:32:`CATALOGED` no significa `IMPLEMENTED` ni `VERIFIED`. El cálculo estructural, MEP, seguridad, gases, interoperabilidad, firma profesional y mantenimiento requieren contratos y pruebas posteriores. E4 ampliará los catálogos especializados y sus reglas de datos.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/48_E2_VERIFICATION_REPORT.md:30:E2 no implementa visor 3D real, persistencia IndexedDB, parser IFC4, solver OpenSees, MEP productivo, Avatar, Luka ni conectores externos. E3 permanece bloqueado hasta la aprobación de E2.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/47_E2_VERIFICATION_OUTPUTS.txt:47:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/47_E2_VERIFICATION_OUTPUTS.txt:48:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/26_DECISIONES_P0_PRODUCT_OWNER.md:9:| P0-3 | Parser IFC4 | web-ifc gobernado, con reporte de pérdida | PENDIENTE |
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/26_DECISIONES_P0_PRODUCT_OWNER.md:28:El Product Owner respondió: **“Acepto las 5 recomendaciones: Three.js/R3F, IndexedDB local-first, web-ifc, OpenSees y Perú + hospitalario.”**
+./DEEPSEEK_HANDOFF_2026_09_22/ARKI_FLUJO_TRABAJO_Y_PANELES.md:143:- Cobertura IFC y Revit.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/23_FASE_0_ADRS_RECLASIFICADOS.md:13:| ADR-003 | Identidad de elemento | `arkiBimSelection.ts`, ids de elementos constructivos, IFC conceptual | ADR-EXTENSIÓN | Definir ArchiElementId y GlobalId gobernados |
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/23_FASE_0_ADRS_RECLASIFICADOS.md:17:| ADR-007 | IFC4 parser/exporter | `arkiConstructionOntology.ts::exportConstructionIfc` | ADR-EXTENSIÓN | Separar IFC conceptual de IFC4 productivo |
+./E3_CATALOGO_CORPORATIVO_P2/E3_VERIFICATION_OUTPUTS.txt:47:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./E3_CATALOGO_CORPORATIVO_P2/E3_VERIFICATION_OUTPUTS.txt:48:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_3.md:1:# ARKI Knowledge Book Delta — BKH4-3
+./E3_CATALOGO_CORPORATIVO_P2/README.md:17:No se implementan en E3 motores de cálculo estructural, redes MEP, visor 3D, importadores Revit, IFC4 productivo, OCR, Avatar, Luka ni conectores externos.
+./AKI001_CURRICULUM_DELTA_BKH4_3.md:1:# AKI-001 Curriculum Delta — BKH4-3 Simulation Sandbox
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md:202:P0-3	Parser IFC4	Propio / web-ifc / IfcOpenShell	web-ifc (gobernado, con reporte de pérdida)	E6 bloqueado
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md:212:5. DECISIONES P1 — INTEROPERABILIDAD
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md:216:P1-1	Adaptador Revit	Autorizar RVT/RFA / FUTURE	FUTURE hasta IFC4 productivo
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md:217:P1-2	DXF gobernado	Autorizar / FUTURE	FUTURE hasta IFC4 productivo
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md:256:E6  Persistencia + IFC4 + DXF     → DEFER (requiere P0-2, P0-3)
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md:282:CONTRATO_INTEROPERABILIDAD_ARCHI_IFC_REVIT_DXF.md — E6.
+./BKH4_3_SCOPE_LIMIT_REPORT.md:20:Commit, authorization authority, rollback, undo/redo, atomic persistence, crash recovery, legacy writer migration, ownership consolidation, worksharing, CRDT, distributed transactions, BKH-5/6/7, E8, IFC, Smart Cities and Urban Digital Twin.
+./E3_CATALOGO_CORPORATIVO_P2/02_INVENTARIO_FAMILIAS_Y_EQUIPAMIENTO.md:23:Las familias Archi, familias externas, sólidos y archivos de interoperabilidad requieren adaptadores gobernados. Importar geometría no implica importar reglas paramétricas, identidad, materiales, metrado o trazabilidad.
+./DEEPSEEK_HANDOFF_2026_09_22/evidence/UI3A_VERIFICATION_REPORT.md:53:Esta entrega implementa la **capa de presentación y selección UI-3A**, no el ciclo completo de edición BIM. No incluye todavía edición paramétrica directa desde el inspector, restricciones geométricas interactivas, undo/redo transaccional, persistencia de selección, snapping, selección por ventana, cortes, 3D GLB, interferencias automáticas ni exportación IFC desde el canvas. Esas capacidades pertenecen a fases posteriores y no se deben declarar como implementadas por UI-3A.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/44_E2_MATRIZ_CONTROLES_16_MODULOS.md:6:| Biblioteca | categoría, disciplina, tipología, origen, detalle, buscar | tarjetas, previews 2D/3D, parámetros, tipos | rangos, restricciones, materiales, reglas, IFC/Revit | cambiar ancho/alto/espesor y reconciliar resultados |
+./BKH4_3_IMPLEMENTATION_REPORT.md:36:No se implementaron commit, rollback, undo, redo, atomic persistence, crash recovery, legacy migration, ownership consolidation, HumanDecision authority, BKH-5/6/7, E8, IFC, Smart Cities ni Urban Digital Twin.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/43_E2_CONTRATO_CONTROLES_GLOBAL.md:32:E2 no implementa Three.js, R3F, IndexedDB, web-ifc, OpenSees, MEP productivo, Avatar, Luka ni conectores externos. Solo define sus puntos de integración.
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/42_E2_README.md:22:El visor 3D real, la persistencia IndexedDB, IFC4, OpenSees, MEP productivo, Avatar, Luka y conectores externos permanecen fuera de la implementación de E2.
+./BKH4_3_REGRESSION_OUTPUTS.txt:24:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./DEEPSEEK_MD_SEPARADOS_2026_09_22/41_E1_VERIFICATION_REPORT.md:32:E1 requiere revisión del Product Owner. Después de su aprobación explícita, E2 puede abrirse para diseñar controles, wireflows y pruebas de los 16 módulos. E2 no debe implementar todavía el visor 3D, persistencia, IFC4, solver estructural ni MEP productivo.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:21:### Bloque B — Inventario técnico e interoperabilidad
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:26:2. Contrato de exportación ARKI → IFC/Revit.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:96:3. Mapeo definitivo de cada categoría ARKI a familia nativa, parámetro compartido o propiedad IFC.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:143:- Exportación IFC.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:152:Revit se considera un **destino de interoperabilidad**, no el patrón de completitud de ARKI.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:157:- Propiedades IFC.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_DECISION_BLOQUE_A_DEEPSEEK.md:188:IFC
+./E2_WIREFLOWS_CONTROLES_PRUEBAS/E2_VERIFICATION_REPORT.md:30:E2 no implementa visor 3D real, persistencia IndexedDB, parser IFC4, solver OpenSees, MEP productivo, Avatar, Luka ni conectores externos. E3 permanece bloqueado hasta la aprobación de E2.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:27:### 1.3 IFC semántico conceptual
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:29:Existe una exportación IFC4X3 con GUIDs deterministas, unidades, espacios, muros, columnas, vigas, losas, cimentaciones, escaleras, techos, materiales, propiedades y relaciones espaciales. Las pruebas verifican la presencia de entidades IFC principales y relaciones de agregación y contención.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:31:Esta exportación todavía debe considerarse **IFC conceptual**. No se ha validado con una batería de modelos de coordinación en Revit, Solibri, Navisworks, BIMcollab u otro visor profesional.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:47:Existe un dossier técnico local con siete especificaciones base para estructuras, arquitectura, instalaciones, seguridad y accesibilidad. También incluye seis secciones de expediente: memoria descriptiva, especificaciones, planos y modelo IFC, metrados/APU/encofrados, revisión RNE y firmas/emisión.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:63:Los cambios no se propagan al modelo constructivo original, al presupuesto, al cronograma, al IFC ni a las versiones guardadas. El botón de guardar borrador conserva datos en el navegador, pero no existe una entidad de proyecto persistente ni un historial de cambios.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:111:También faltan exportaciones DWG, DXF, PDF vectorial, RVT, RFA, IFC validado, BCF y formatos interoperables por especialidad.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:173:Faltan procesamiento asíncrono para modelos grandes, almacenamiento de versiones pesadas, generación de PDF o IFC en segundo plano, caché, colas, observabilidad, métricas de rendimiento y límites de memoria. El build actual emite una advertencia por tamaño de bundle superior a 500 kB, aunque compila correctamente.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:177:Las pruebas existentes son scripts de humo que comprueban que se generan objetos y que existen ciertas entidades IFC. No cubren todavía pruebas unitarias exhaustivas, pruebas de propiedades geométricas, regresión visual, accesibilidad, seguridad, rendimiento, concurrencia, importación de archivos inválidos, compatibilidad entre versiones ni validación contra modelos externos.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:185:- Exportación IFC después de cambios.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:210:| IFC | Exportación semántica | Validación externa y cobertura de propiedades por disciplina |
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:221:Primero debe completarse el editor. Esto incluye cargar borradores al abrir un proyecto, editar todos los campos técnicos, agregar y eliminar especificaciones, administrar todos los encofrados, recalcular metrados y propagar cambios a APU, 4D, IFC y Markdown.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:233:A continuación se deben completar cálculo estructural, MEP, revisión RNE, clash detection geométrica, BCF y validación IFC con software externo.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md:241:La siguiente orden más útil sería: **“Implementa la Fase 1 completa: editor técnico persistente, edición de todos los encofrados, recálculo enlazado de metrado/APU/4D/IFC y guardado de versiones”**.
+./E2_WIREFLOWS_CONTROLES_PRUEBAS/E2_VERIFICATION_OUTPUTS.txt:47:  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+./E2_WIREFLOWS_CONTROLES_PRUEBAS/E2_VERIFICATION_OUTPUTS.txt:48:  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:17:Archicad y Revit son referencias de organización e interoperabilidad, no patrones de copia visual ni límites de capacidad. ARKI puede contener más información que una exportación concreta hacia Revit.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:403:Debe mostrar parámetros, restricciones, planos de referencia, materiales, tipos, reglas de cantidades, costo, duración, mantenimiento y clasificación IFC/Revit.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:548:## 13. Interoperabilidad ARKI → IFC/Revit
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:550:Revit es un destino de interoperabilidad, no el patrón de completitud de ARKI.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:560:→ clasificación IFC
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:570:3. Las diez restantes se guardan en parámetros, propiedades IFC, JSON, CSV o anexos.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:574:No se debe declarar compatibilidad con Revit sin archivo, conector o prueba reproducible. IFC conceptual, RVT/RFA, BCF, PDF, CSV y JSON deben indicar su estado individual.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:593:2. Contrato ARKI → IFC/Revit.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md:728:El núcleo paramétrico 1A–1C está verificado con correcciones no bloqueantes. Actualmente existen familias declarativas, DTO, PriceBook, trazabilidad de encofrados, recálculo, mampara paramétrica, snapshots, presupuesto base más mamparas, 4D, IFC extendido y Markdown.
+./E2_WIREFLOWS_CONTROLES_PRUEBAS/README.md:22:El visor 3D real, la persistencia IndexedDB, IFC4, OpenSees, MEP productivo, Avatar, Luka y conectores externos permanecen fuera de la implementación de E2.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_C_WIREFLOWS_PRUEBAS.md:80:| Exportar IFC | Descarga archivo semántico | Navegador |
+./ARKI_CODEBOOK_V10_CANONICAL_PACKAGE/BKH4_95A_OUTPUTS.txt:23:../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:4:**Alcance:** Inventario corporativo y contrato ARKI → IFC/Revit
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:61:→ clasificación IFC
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:66:Si ARKI tiene más propiedades que el destino, no se eliminan. Se conservan en parámetros compartidos, propiedades IFC, tablas JSON/CSV o anexos.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:72:| IFC4X3 semántico | Parcial; requiere parser formal externo |
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:80:Revit es un destino de interoperabilidad. No define la completitud de ARKI.
+./ARKI_UI1_VERIFICATION_PACKAGE/ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md:84:El Bloque B se considera preparado cuando cada familia nueva tenga responsable, prioridad, nivel geométrico, nivel de información, reglas de costo, reglas 4D, mantenimiento, clasificación IFC, mapeo Revit y prueba requerida. La implementación de nuevas disciplinas queda separada del shell UI-1.
+./E2_WIREFLOWS_CONTROLES_PRUEBAS/02_MATRIZ_CONTROLES_16_MODULOS.md:6:| Biblioteca | categoría, disciplina, tipología, origen, detalle, buscar | tarjetas, previews 2D/3D, parámetros, tipos | rangos, restricciones, materiales, reglas, IFC/Revit | cambiar ancho/alto/espesor y reconciliar resultados |
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:12:La evidencia actual muestra un frontend React funcional, un motor TypeScript local y tres pruebas ejecutables que pasan. El motor genera familias de edificios, un modelo constructivo conceptual, elementos BIM, metrados, presupuesto referencial, cronograma conceptual, IFC semántico, módulos locales de coordinación y un dossier técnico editable.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:14:No existe todavía una plataforma persistente multiusuario. No existe un importador real de RFA, RVT, IFC, DWG, DXF, OBJ, STEP, GLB, BCF o COBie. No existe una cadena automática de propagación desde una edición del expediente hasta metrado, APU, presupuesto, 4D, IFC y Markdown. No existe PDF técnico definitivo, firma legal, cálculo estructural completo, redes MEP completas, validación normativa exhaustiva ni mantenimiento operativo.
+./DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_AUDITORIA_TECNICA_DEEPSEEK.md:71:| IFC export | IMPLEMENTED / VERIFIED local | `exportConstructionIfc`; test constructivo | Validación externa y cobertura completa de propiedades |

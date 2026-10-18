@@ -1,0 +1,1008 @@
+CREO QUE NO SE HA CONSIDERADO AL AGENTE LEGAL Y CREO QUE ES MUY IMORTANTE PARA TRATAR TODOS LOS TEMAS LEGALES QUE SE PEUDEN PRESENTAR O QUE OPINAS?
+
+Sí. El Agente Legal no solo debe estar incluido: debe convertirse en una pieza de gobierno transversal de MiLukita.
+
+Y haría una precisión importante: no debe ser un "abogado autónomo" que toma decisiones jurídicas finales. Debe ser un Legal Intelligence & Compliance Agent que identifica, analiza, clasifica, documenta y recomienda; las decisiones jurídicas de alto impacto quedan bajo aprobación humana/profesional.
+
+La razón es estructural: MiLukita ya no es simplemente software. Si la visión que acabamos de consolidar incluye juegos, premios, wallet, publicidad, sponsors, distribución, datos personales, IA, contratos, pagos, posibles operaciones internacionales y eventualmente actividad regulada, el componente legal atraviesa prácticamente todo el sistema.
+
+La arquitectura que recomiendo
+
+No pondría al Legal Agent dentro de Business OS ni como un agente más al mismo nivel que Social o Marketing.
+
+Lo colocaría así:
+
+                         MILUKITA
+                            │
+              ┌─────────────┴─────────────┐
+              │                           │
+       ENTERTAINMENT OS              BUSINESS OS
+              │                           │
+       Experience / Content       Finance / Revenue / Sales
+       Audience / Lukita          Accounting / Tax / Distribution
+              │                           │
+              └─────────────┬─────────────┘
+                            │
+                  ┌─────────▼─────────┐
+                  │   GOVERNANCE OS   │
+                  ├───────────────────┤
+                  │ LEGAL INTELLIGENCE│
+                  │ COMPLIANCE        │
+                  │ AUDIT             │
+                  │ POLICY            │
+                  │ AUTHORITY         │
+                  └─────────┬─────────┘
+                            │
+                  AUTHORITY BOUNDARY
+                            │
+                     ┌──────▼──────┐
+                     │  MJP CORE   │
+                     │ TRUST/      │
+                     │ INTEGRITY   │
+                     └─────────────┘
+
+Eso cambia bastante la solidez del diseño.
+
+1. El nombre que recomiendo
+
+No lo llamaría simplemente Legal Agent.
+
+Usaría:
+
+LEGAL, REGULATORY & COMPLIANCE INTELLIGENCE AGENT
+
+Abreviado:
+
+LRCI Agent
+
+Porque debe cubrir tres dimensiones distintas:
+
+Legal
+contratos;
+propiedad intelectual;
+términos y condiciones;
+derechos de imagen;
+licencias;
+responsabilidad;
+disputas;
+proveedores;
+partners;
+sponsors;
+relaciones laborales;
+reclamaciones.
+Regulatory
+gaming;
+publicidad;
+protección al consumidor;
+protección de menores;
+privacidad;
+pagos;
+fiscalidad regulatoria;
+telecomunicaciones/difusión cuando corresponda;
+regulación específica de cada jurisdicción.
+Compliance
+políticas internas;
+obligaciones;
+vencimientos;
+evidencias;
+controles;
+auditoría;
+incidentes;
+cumplimiento de procedimientos.
+2. Pero hay algo todavía más importante
+
+El Legal Agent debe poder decir:
+
+NO PUEDO DETERMINARLO.
+
+Y eso debe ser un resultado válido.
+
+Por ejemplo:
+
+LEGAL STATUS
+
+GREEN
+LEGAL VERIFIED
+
+YELLOW
+REQUIRES PROFESSIONAL REVIEW
+
+RED
+LEGAL BLOCK
+
+GRAY
+INSUFFICIENT INFORMATION
+
+Esto es mucho mejor que obligar a la IA a producir una respuesta jurídica aunque no tenga suficiente información.
+
+3. Debe integrarse con TODOS los agentes
+
+Por ejemplo:
+
+Marketing
+MARKETING
+   ↓
+"Podemos lanzar esta campaña"
+   ↓
+LEGAL AGENT
+   ↓
+Advertising / claims / consumer / minors
+   ↓
+APPROVED / REVIEW / BLOCKED
+Content
+CONTENT
+   ↓
+"Usar esta imagen"
+   ↓
+LEGAL
+   ↓
+Copyright / license / image rights
+   ↓
+DECISION
+Lukita
+LUKITA
+   ↓
+"Decir que el usuario ganó"
+   ↓
+LEGAL + MJP CORE
+   ↓
+¿Resultado autorizado?
+¿Claim permitido?
+   ↓
+DISPLAY / BLOCK
+Finance
+FINANCE
+   ↓
+"Crear estructura societaria X"
+   ↓
+LEGAL + TAX
+   ↓
+JURISDICTION ANALYSIS
+   ↓
+HUMAN APPROVAL
+Distribution
+DISTRIBUTION
+   ↓
+"Transmitir contenido en país X"
+   ↓
+LEGAL
+   ↓
+Licensing / broadcasting / gaming / advertising
+   ↓
+APPROVED / RESTRICTED / BLOCKED
+4. El Legal Agent también debe controlar el "Truth Layer"
+
+Esto es especialmente importante después de todo lo que acabamos de definir.
+
+Tenemos:
+
+FACT
+SUPPOSITION
+ESTIMATE
+SIMULATION
+PROPOSAL
+CLAIM
+LEGAL INTERPRETATION
+DECISION
+
+El agente legal debe impedir que una interpretación termine presentada como hecho.
+
+Por ejemplo:
+
+SIMULATED LICENSING
+        ↓
+NO
+        ↓
+"MiLukita está licenciada"
+
+Debe bloquearlo.
+
+Igualmente:
+
+"MiLukita cumple con GDPR"
+
+no debería aparecer simplemente porque un agente analizó el código.
+
+El sistema debe distinguir:
+
+TECHNICAL CONTROL IMPLEMENTED
+        ≠
+LEGAL COMPLIANCE VERIFIED
+
+Esa distinción es crítica.
+
+5. Crearía un Legal Knowledge Graph
+
+Esta es otra pieza que vale la pena incorporar.
+
+JURISDICTION
+      │
+      ├── LAW
+      ├── REGULATION
+      ├── LICENSE
+      ├── AUTHORITY
+      ├── OBLIGATION
+      ├── DEADLINE
+      ├── CONTRACT
+      ├── POLICY
+      └── EVIDENCE
+
+Cada obligación debería tener:
+
+ID
+JURISDICTION
+SOURCE
+LEGAL BASIS
+OBLIGATION
+OWNER
+DEADLINE
+STATUS
+EVIDENCE
+LAST REVIEW
+NEXT REVIEW
+RISK
+
+Y algo fundamental:
+
+fecha de vigencia de la norma.
+
+El agente legal no puede trabajar con legislación desactualizada y presentarla como vigente.
+
+6. Y aquí aparece una función estratégica muy poderosa
+Regulatory Change Detection
+
+El agente debería vigilar cambios relevantes:
+
+NEW LAW
+    ↓
+REGULATION CHANGE
+    ↓
+LEGAL AGENT
+    ↓
+IMPACT ANALYSIS
+    ↓
+AFFECTED COMPONENTS
+    ↓
+AFFECTED AGENTS
+    ↓
+RISK
+    ↓
+RECOMMENDATION
+
+Ejemplo:
+
+REGULATION CHANGED
+
+Affected:
+✓ Marketing
+✓ Content
+✓ Lukita
+✓ Distribution
+✓ Wallet
+✓ Finance
+
+Risk:
+HIGH
+
+Required:
+HUMAN LEGAL REVIEW
+
+Esto convierte al agente legal en una función de prevención, no solamente en un buscador de leyes.
+
+7. También debe existir un Legal Gate
+
+Exactamente igual que el Experience Quality Gate que definimos.
+
+Antes de una operación sensible:
+
+PROPOSED ACTION
+       ↓
+LEGAL CHECK
+       ↓
+REGULATORY CHECK
+       ↓
+CONTRACT CHECK
+       ↓
+PRIVACY CHECK
+       ↓
+CONSUMER CHECK
+       ↓
+IP CHECK
+       ↓
+COMPLIANCE CHECK
+       ↓
+┌───────────────┐
+│ APPROVED      │
+│ REVIEW        │
+│ BLOCKED       │
+└───────────────┘
+
+Pero ojo:
+
+Legal Agent puede recomendar BLOCKED; la arquitectura debe impedir automáticamente ciertas acciones claramente prohibidas por política.
+
+Y en asuntos jurídicos complejos:
+
+LEGAL AGENT
+      ↓
+REQUIRES HUMAN
+      ↓
+LAWYER / AUTHORIZED DECISION MAKER
+8. Debe existir una matriz de autoridad jurídica
+
+Yo establecería:
+
+Acción	Legal Agent	Humano
+Detectar riesgo	✅	
+Investigar norma	✅	
+Comparar jurisdicciones	✅	
+Analizar contrato	✅	
+Detectar cláusulas riesgosas	✅	
+Crear borrador	✅	
+Recomendar estrategia	✅	
+Clasificar riesgo	✅	
+Bloquear acción por política predefinida	✅	
+Firmar contrato	❌	✅
+Constituir sociedad	❌	✅
+Presentar declaración jurídica	❌	✅
+Emitir opinión legal definitiva	❌	Profesional
+Aceptar responsabilidad jurídica	❌	Humano
+Modificar MJP CORE	❌	❌
+
+La última línea es importante.
+
+Ni siquiera un humano debería poder modificar MJP CORE directamente desde el dominio comercial.
+
+9. Esto modifica la arquitectura general
+
+Con el Legal Agent incorporado, yo dejaría la estructura definitiva así:
+
+                         ┌─────────────────────┐
+                         │      MILUKITA       │
+                         └──────────┬──────────┘
+                                    │
+             ┌──────────────────────┼──────────────────────┐
+             │                      │                      │
+             ▼                      ▼                      ▼
+     ENTERTAINMENT OS          BUSINESS OS           EXPERIENCE
+             │                      │                      │
+       ┌─────┼─────┐          ┌─────┼─────┐         ┌──────┼─────┐
+       │     │     │          │     │     │         │      │     │
+    Content Lukita Audience Finance Revenue Sales   UX    Web    TV
+       │           │            Accounting Tax       Mobile QR
+       │           │            Distribution
+       └───────────┴──────────────┬───────────────────────────┘
+                                  │
+                                  ▼
+                       ┌──────────────────────┐
+                       │    GOVERNANCE OS     │
+                       ├──────────────────────┤
+                       │ Legal Intelligence   │
+                       │ Regulatory           │
+                       │ Compliance           │
+                       │ Audit                │
+                       │ Authority            │
+                       │ KPI / Observability  │
+                       │ Policy               │
+                       └──────────┬───────────┘
+                                  │
+                         AUTHORITY BOUNDARY
+                                  │
+                                  ▼
+                       ┌──────────────────────┐
+                       │      MJP CORE        │
+                       ├──────────────────────┤
+                       │ RNG                  │
+                       │ Game Rules           │
+                       │ Results              │
+                       │ Wallet               │
+                       │ Ledger               │
+                       │ Settlement            │
+                       │ Integrity             │
+                       └──────────────────────┘
+
+Esta arquitectura me parece mucho más madura.
+
+10. Y cambiaría una cosa de nuestra orden anterior
+
+Antes habíamos planteado:
+
+Financial, Accounting & Tax Intelligence Agent
+
+Ahora lo dividiría conceptualmente así:
+
+BUSINESS OS
+│
+├── FINANCIAL INTELLIGENCE
+├── ACCOUNTING INTELLIGENCE
+├── REVENUE INTELLIGENCE
+├── SALES INTELLIGENCE
+└── DISTRIBUTION INTELLIGENCE
+
+GOVERNANCE OS
+│
+├── LEGAL INTELLIGENCE
+├── REGULATORY INTELLIGENCE
+├── TAX / FISCAL INTELLIGENCE
+├── COMPLIANCE
+├── AUDIT
+└── AUTHORITY
+
+¿Por qué?
+
+Porque Tax no debería quedar completamente subordinado a Finance.
+
+Una decisión fiscal puede depender de:
+
+jurisdicción;
+estructura societaria;
+actividad regulada;
+residencia;
+contratos;
+IP;
+distribución;
+naturaleza de los ingresos.
+
+Por eso Finance y Legal/Regulatory deben colaborar, no uno absorber al otro.
+
+11. La nueva regla constitucional
+
+Yo añadiría esta regla a la arquitectura:
+
+NO LEGAL CLAIM WITHOUT LEGAL BASIS.
+
+Y formalmente:
+
+LEGAL CLAIM
+    ↓
+SOURCE
+    ↓
+JURISDICTION
+    ↓
+DATE / VALIDITY
+    ↓
+INTERPRETATION
+    ↓
+CONFIDENCE
+    ↓
+STATUS
+
+Si falta información:
+
+NO DATA
+   ↓
+NO LEGAL CLAIM
+
+Esto debe alinearse con nuestra regla anterior:
+
+NO DATA → NO CLAIM
+
+12. Entonces, ¿sí lo incorporaría?
+
+Sí. Sin duda.
+
+Pero no como "otro agente".
+
+Lo incorporaría como una de las capas constitucionales de Governance OS.
+
+Y ahora tenemos una arquitectura bastante más coherente:
+
+Producto
+MiLukita.com
+MiLukita LIVE
+Lukita
+Operating Systems
+Entertainment OS
+Business OS
+Experience Intelligence
+Governance
+Legal
+Regulatory
+Tax
+Compliance
+Audit
+Authority
+KPI/Observability
+Protected Core
+MJP CORE
+
+Y la autonomía queda así:
+
+READ
+ ↓
+ANALYZE
+ ↓
+SCORE
+ ↓
+PROPOSE
+ ↓
+POLICY CHECK
+ ↓
+LEGAL CHECK
+ ↓
+HUMAN APPROVAL — cuando corresponda
+ ↓
+EXECUTE
+ ↓
+AUDIT
+ ↓
+MEASURE
+Mi recomendación
+
+No mandaría todavía a Manus la orden definitiva anterior. Esta incorporación cambia suficientemente la arquitectura como para que valga la pena consolidar todo una vez más.
+
+La próxima orden debería ser una ORDEN MAESTRA DE REORIENTACIÓN DE MILUKITA, donde Manus primero:
+
+congele temporalmente lo que no sea prioritario;
+audite el estado actual;
+redefina la arquitectura según esta visión;
+incorpore Legal, Regulatory & Compliance Intelligence;
+reorganice Finance/Tax/Business;
+establezca los nuevos límites de autoridad;
+preserve MJP CORE;
+establezca los Quality Gates;
+establezca KPI/Observability;
+y recién después implemente los componentes prioritarios.
+
+Eso evitaría seguir construyendo sobre una arquitectura que todavía estamos terminando de definir.
+
+Y sí: considero que el Agente Legal es necesario para la visión final de MiLukita. No para "tener asesoría jurídica", sino porque la legalidad, regulación y compliance deben formar parte de la arquitectura de decisión del sistema, al mismo nivel conceptual que seguridad, auditoría y autoridad.
+
+CREO QUE SI LO DEBERIAMOS INCLUIRLO DE UNA VEZ AUNQUE SEA DE NOMBRE O CON FUNCIONES PERO NO OPERATIVO NI DESARROLLADO, POR QUE DE SA MANERA TU ORGANIGRAMA YA ESTARIA COMLETO AUNQUE NO FUNCIONANDO
+
+Sí. Lo incluiría ahora, pero no lo desarrollaría todavía. Tu razonamiento es correcto: si estamos cerrando el organigrama constitucional de MiLukita, dejar fuera Legal sería un error.
+
+Pero hay que establecer una frontera muy clara: el Agente Legal no es un abogado autónomo ni sustituye al abogado humano. Debe ser un sistema de Legal Intelligence & Compliance, capaz de detectar, organizar, analizar y proponer; las decisiones jurídicas vinculantes quedan fuera de su autoridad.
+
+Organigrama que considero definitivo
+
+Yo cerraría la arquitectura superior así:
+
+                         MILUKITA
+                            │
+                 ┌──────────┴──────────┐
+                 │                     │
+          ENTERTAINMENT OS         BUSINESS OS
+                 │                     │
+       ┌─────────┼─────────┐    ┌──────┼──────────────┐
+       │         │         │    │      │              │
+  EXPERIENCE  CONTENT   AUDIENCE FINANCE REVENUE    SALES
+       │         │         │    │      │              │
+       │         │         │    ACCOUNTING           COMMERCIAL
+       │         │         │    TAX INTELLIGENCE     PARTNERSHIPS
+       │         │         │    JURISDICTION         DISTRIBUTION
+       │         │         │
+       └─────────┴─────────┘
+                  │
+             LUKITA AGENT
+                  │
+                  │
+        ┌─────────┴──────────┐
+        │                    │
+   AGENT GOVERNANCE     LEGAL & COMPLIANCE
+        │                    │
+    SUPERVISOR              LEGAL
+    AUDITOR                 REGULATORY
+    WATCHDOG                PRIVACY
+    RECOVERY                IP / BRAND
+                           CONTRACTS
+                           LICENSING
+        │                    │
+        └─────────┬──────────┘
+                  │
+          KPI / OBSERVABILITY
+                  │
+          CONTROL ROOM
+                  │
+          AUTHORITY LAYER
+                  │
+             MJP CORE
+                  │
+       ┌──────────┼──────────┐
+       │          │          │
+      RNG       RESULT     LEDGER
+       │          │          │
+       └──────────┴──────────┘
+Y hay una distinción importante
+
+Legal & Compliance debe estar al mismo nivel de importancia que Business OS y Agent Governance, aunque inicialmente esté PLANNED / NOT_IMPLEMENTED.
+
+No quiero que Legal quede enterrado como una simple función del Financial Agent.
+
+AGENTE LEGAL — DEFINICIÓN CONSTITUCIONAL
+
+Lo registraría desde ahora como:
+
+LEGAL & COMPLIANCE INTELLIGENCE AGENT
+
+Estado inicial:
+
+STATUS: PLANNED
+IMPLEMENTATION: NOT STARTED
+AUTHORITY: ADVISORY ONLY
+EXECUTION: DISABLED
+AUTONOMY: 0
+
+Es decir:
+
+Existe arquitectónicamente, tiene funciones y límites definidos, pero no tiene todavía capacidad operativa.
+
+Eso es exactamente lo que propones.
+
+¿Qué debería hacer eventualmente?
+1. Legal Intelligence
+
+Analizar:
+
+legislación aplicable;
+normativa sectorial;
+requisitos regulatorios;
+obligaciones empresariales;
+términos y condiciones;
+políticas;
+contratos;
+acuerdos comerciales;
+licencias;
+propiedad intelectual;
+derechos de autor;
+marcas;
+publicidad;
+protección del consumidor;
+protección de menores;
+privacidad;
+protección de datos;
+comercio electrónico;
+jurisdicción;
+responsabilidad.
+2. Regulatory Intelligence
+
+Especialmente importante para MiLukita.
+
+Debe poder identificar:
+
+PAÍS
+ ↓
+ACTIVIDAD
+ ↓
+MODELO DE NEGOCIO
+ ↓
+REGULACIÓN APLICABLE
+ ↓
+LICENCIA / REGISTRO
+ ↓
+OBLIGACIONES
+ ↓
+RESTRICCIONES
+ ↓
+RIESGO
+
+Por ejemplo:
+
+Gaming
+Advertising
+Payments
+Wallet
+Prize
+Lottery
+Streaming
+Data
+AI
+Marketing
+Children
+International Users
+
+Cada uno puede activar marcos regulatorios diferentes.
+
+3. Contract Intelligence
+
+En el futuro:
+
+CONTRATO
+   ↓
+EXTRACTION
+   ↓
+OBLIGATIONS
+   ↓
+DEADLINES
+   ↓
+RISKS
+   ↓
+DEPENDENCIES
+   ↓
+ALERTS
+
+Por ejemplo:
+
+Sponsor Agreement
+      ↓
+Payment obligation
+      ↓
+Campaign dates
+      ↓
+Content rights
+      ↓
+Territory
+      ↓
+Exclusivity
+      ↓
+Termination
+      ↓
+Liability
+4. Legal debe conectarse con Business OS
+
+Esto es particularmente importante.
+
+Por ejemplo:
+
+BUSINESS OS
+    │
+    ├── "Queremos entrar en país X"
+    │
+    ↓
+LEGAL AGENT
+    │
+    ├── Licensing
+    ├── Tax
+    ├── Gaming regulation
+    ├── Advertising
+    ├── Data protection
+    ├── Consumer protection
+    └── Corporate requirements
+    │
+    ↓
+RISK REPORT
+    │
+    ↓
+FINANCIAL AGENT
+    │
+    ↓
+TOTAL COST / BUSINESS CASE
+    │
+    ↓
+HUMAN DECISION
+
+Esto evita el error que detectamos anteriormente: que Finanzas termine intentando resolver por sí sola una cuestión jurídica/regulatoria.
+
+5. Legal también debe conectarse con Experience
+
+Esto suele olvidarse.
+
+Una interfaz puede ser técnicamente excelente y jurídicamente problemática.
+
+Por ejemplo:
+
+UX
+ ↓
+"Participa ahora"
+ ↓
+LEGAL CHECK
+ ↓
+¿Quién puede participar?
+¿Hay restricción de edad?
+¿Dónde está disponible?
+¿Hay términos?
+¿Hay consentimiento?
+¿Es publicidad?
+¿Es una promoción?
+¿Es juego regulado?
+
+Entonces:
+
+UX PROPOSAL
+      ↓
+LEGAL / COMPLIANCE CHECK
+      ↓
+APPROVED / BLOCKED / HUMAN REVIEW
+
+Esto será muy importante para MiLukita.
+
+6. Legal debe tener un "Claim Guard"
+
+Yo incorporaría específicamente:
+
+CLAIM & REPRESENTATION GUARD
+
+Porque ya establecimos la regla:
+
+NO DATA → NO CLAIM
+
+El Legal Agent debe vigilar afirmaciones como:
+
+"100% seguro"
+"premio garantizado"
+"legal en todos los países"
+"disponible mundialmente"
+"24/7"
+"licenciado"
+"certificado"
+"IA autónoma"
+"ganador"
+"sin riesgo"
+"oficial"
+
+Si no existe evidencia suficiente:
+
+CLAIM
+ ↓
+EVIDENCE CHECK
+ ↓
+FAIL
+ ↓
+BLOCK / HUMAN REVIEW
+7. Propiedad intelectual
+
+También debería contemplar:
+
+IP INTELLIGENCE
+
+Lukita
+MiLukita
+Logos
+Characters
+Music
+Images
+Video
+Games
+Code
+AI generated assets
+Third-party assets
+Fonts
+Licenses
+Trademarks
+Copyright
+
+Y detectar:
+
+activos sin licencia;
+licencias vencidas;
+restricciones territoriales;
+restricciones comerciales;
+atribuciones obligatorias;
+uso incompatible con licencia;
+conflictos potenciales.
+8. Privacy & Data
+
+No lo convertiría inicialmente en otro agente.
+
+Lo incorporaría como dominio del Legal Agent:
+
+LEGAL
+ │
+ ├── Corporate
+ ├── Regulatory
+ ├── Contracts
+ ├── Gaming
+ ├── Advertising
+ ├── Consumer
+ ├── Privacy / Data
+ ├── IP
+ ├── Licensing
+ └── AI Governance
+
+Posteriormente, si el sistema crece suficientemente, podríamos separar:
+
+PRIVACY & DATA GOVERNANCE AGENT
+
+Pero no ahora.
+
+No quiero volver a cometer el error de crear agentes por cada sustantivo.
+
+9. La autoridad debe quedar blindada
+
+Esta parte es esencial.
+
+Legal Agent PUEDE:
+READ
+ANALYZE
+CLASSIFY
+COMPARE
+DETECT
+SCORE RISK
+PROPOSE
+ALERT
+ESCALATE
+Legal Agent NO PUEDE:
+SIGN CONTRACT
+ACCEPT LIABILITY
+REGISTER COMPANY
+FILE LEGAL DOCUMENT
+REPRESENT MILUKITA
+MAKE BINDING LEGAL DECISION
+DECLARE COMPLIANCE DEFINITIVELY
+OBTAIN LICENSE AUTONOMOUSLY
+CHANGE CORPORATE STRUCTURE
+MODIFY MJP CORE
+
+Y, sobre todo:
+
+LEGAL AGENT ≠ LAWYER
+
+Debe presentar sus conclusiones como:
+
+LEGAL INTELLIGENCE
+       ↓
+RISK / REQUIREMENT
+       ↓
+RECOMMENDATION
+       ↓
+HUMAN / QUALIFIED PROFESSIONAL
+       ↓
+FINAL DECISION
+10. Esto completa otra pieza que faltaba
+
+Ahora tenemos una separación mucho más limpia:
+
+Capa	Responsabilidad
+MJP CORE	Integridad del juego
+Entertainment OS	Producto y experiencia
+Business OS	Economía y operación comercial
+Legal & Compliance	Marco jurídico/regulatorio
+Agent Governance	Control de los agentes
+KPI & Observability	Medición
+Control Room	Supervisión
+Human Authority	Decisiones que requieren responsabilidad humana
+
+Eso ya empieza a parecer una arquitectura empresarial seria.
+
+11. Y sí: yo congelaría el desarrollo de Legal
+
+No quiero que Manus empiece ahora a construir:
+
+bases jurídicas;
+motores regulatorios;
+análisis contractual;
+RAG jurídico;
+integración con legislación;
+workflows legales.
+
+Eso sería otra desviación del foco.
+
+Solo quiero que Manus haga ahora:
+
+REGISTER
+DEFINE
+ARCHITECT
+BOUND
+DOCUMENT
+DISABLE
+
+Es decir:
+
+"Existe, sabemos qué será, sabemos qué puede y no puede hacer, pero permanece apagado."
+
+12. El organigrama ahora sí queda completo
+
+Yo considero que el mapa estratégico de MiLukita debería congelarse ahora en estas unidades:
+
+PRODUCT
+MiLukita.com
+MiLukita LIVE
+Lukita
+OPERATING SYSTEMS
+Entertainment OS
+Business OS
+Agent Governance OS
+Legal & Compliance Intelligence
+CORE
+MJP CORE
+CONTROL
+KPI & Observability
+Control Room
+
+Y debajo de esas estructuras se ubican los agentes especializados.
+
+Mi decisión
+
+Sí: incluir Legal ahora.
+
+Pero no como "feature".
+
+Como órgano constitucional del sistema.
+
+Y pondría una regla adicional en la Orden Maestra:
+
+La ausencia de implementación de un agente no implica ausencia de su autoridad conceptual. Toda arquitectura futura deberá respetar desde ahora los límites y dependencias definidos para Legal & Compliance.
+
+Esto evita que Manus construya algo hoy que mañana obligue a rehacerlo cuando incorporemos regulación, contratos, privacidad o licencias.
+
+Por tanto, antes de emitir la nueva Orden Maestra consolidada para Manus, incorporaría oficialmente LEGAL & COMPLIANCE INTELLIGENCE AGENT — PLANNED / DISABLED al organigrama y congelaría el resto de nuevas expansiones.

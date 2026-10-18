@@ -1,0 +1,74 @@
+{
+  "goal": {
+    "id": "ARKI_ASSEMBLY",
+    "statement": "Ensamblar capacidades existentes en el árbol de 10 fases, verificando dependencias y aprobación humana",
+    "acceptance": [
+      "Contratos respetados",
+      "Regresión fases 1-10",
+      "Aprobación humana"
+    ],
+    "targetActivities": [
+      "HUMAN_GATE"
+    ]
+  },
+  "activities": [
+    {
+      "id": "CONSTITUTION",
+      "name": "Recuperar leyes y contratos de Core",
+      "phase": 1,
+      "duration": 2,
+      "predecessors": [],
+      "state": "VERIFIED"
+    },
+    {
+      "id": "INVENTORY",
+      "name": "Inventariar órganos y evidencia",
+      "phase": 2,
+      "duration": 3,
+      "predecessors": [
+        "CONSTITUTION"
+      ],
+      "state": "PENDING"
+    },
+    {
+      "id": "DEPENDENCIES",
+      "name": "Resolver precedencias y conexiones",
+      "phase": 3,
+      "duration": 2,
+      "predecessors": [
+        "INVENTORY"
+      ],
+      "state": "PENDING"
+    },
+    {
+      "id": "EXPERIMENT",
+      "name": "Ensayar en gemelo experimental",
+      "phase": 4,
+      "duration": 4,
+      "predecessors": [
+        "DEPENDENCIES"
+      ],
+      "state": "PENDING"
+    },
+    {
+      "id": "OPTIONS",
+      "name": "Presentar tres opciones verificables",
+      "phase": 5,
+      "duration": 2,
+      "predecessors": [
+        "EXPERIMENT"
+      ],
+      "state": "PENDING"
+    },
+    {
+      "id": "HUMAN_GATE",
+      "name": "Decisión humana sobre una opción",
+      "phase": 6,
+      "duration": 1,
+      "predecessors": [
+        "OPTIONS"
+      ],
+      "state": "PENDING"
+    }
+  ]
+}

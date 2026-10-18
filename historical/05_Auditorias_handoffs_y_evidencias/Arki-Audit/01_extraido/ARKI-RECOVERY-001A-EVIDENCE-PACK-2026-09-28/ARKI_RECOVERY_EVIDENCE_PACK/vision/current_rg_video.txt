@@ -1,0 +1,2 @@
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:35:Fuera de alcance: planos técnicos normalizados (RFC-030), renders fotorrealistas (RFC-035), video/animación y escalas distintas de `edificacion`.
+docs/rfc/RFC-035-PHOTOREALISTIC-RENDERS.md:35:- No es video ni animación.

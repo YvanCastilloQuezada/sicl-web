@@ -1,0 +1,16 @@
+{
+  "schema": "ARKI-D6.1-SCHEMA-MAP-0.1",
+  "source": "M0-K corpus-ingestion.json",
+  "mapping": {
+    "sources": "REUSE→SiclSnapshot.sources",
+    "knowledge": "MAP→SiclSnapshot.knowledge",
+    "humanValidation": "MAP→SiclSnapshot.knowledgeValidations",
+    "typologies": "MAP→knowledge(kind=TYPOLOGY)",
+    "strategies": "MAP→knowledge(kind=STRATEGY)",
+    "unknownAndPartial": "PRESERVE→epistemicStatus/scope/unknown"
+  },
+  "doNotImport": [
+    "copyrighted source text",
+    "unverified scope expansion"
+  ]
+}

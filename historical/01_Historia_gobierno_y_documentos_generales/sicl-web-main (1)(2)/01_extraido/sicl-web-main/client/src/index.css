@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --background: #f4f1ea;
+  --foreground: #1d2925;
+  --card: #fbfaf6;
+  --card-foreground: #1d2925;
+  --popover: #fbfaf6;
+  --popover-foreground: #1d2925;
+  --primary: #385348;
+  --primary-foreground: #ffffff;
+  --secondary: #e9ede5;
+  --secondary-foreground: #385348;
+  --muted: #e9ede5;
+  --muted-foreground: #718078;
+  --accent: #d07b4a;
+  --accent-foreground: #ffffff;
+  --border: #d4d8d0;
+  --input: #d4d8d0;
+  --ring: #385348;
+  --radius: 0.15rem;
+}
+
+.dark {
+  --background: #0b1b33;
+  --foreground: #eef5ff;
+  --card: #11284a;
+  --card-foreground: #eef5ff;
+  --popover: #11284a;
+  --popover-foreground: #eef5ff;
+  --primary: #6ea8fe;
+  --primary-foreground: #06101f;
+  --secondary: #17345c;
+  --secondary-foreground: #eef5ff;
+  --muted: #17345c;
+  --muted-foreground: #b3c6e2;
+  --accent: #f0a35b;
+  --accent-foreground: #06101f;
+  --border: #2c4b73;
+  --input: #2c4b73;
+  --ring: #8fc1ff;
+}
+
+* { border-color: var(--border); }
+html { background: var(--background); }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; transition: background-color 180ms ease, color 180ms ease; }
+.arki-book-page { transition: background-color 300ms ease, color 300ms ease; }
+.arki-book-paper { background: #f5f0e7 !important; color: #26352f !important; }
+.arki-book-paper [class*="bg-[#071426]"], .arki-book-paper [class*="bg-[#0b1d35]"], .arki-book-paper [class*="bg-[#0d223d]"] { background-color: #fffdf8 !important; }
+.arki-book-paper [class*="text-[#f7fbff]"], .arki-book-paper [class*="text-[#edf4ff]"], .arki-book-paper [class*="text-[#b8cbe0]"], .arki-book-paper [class*="text-[#c0d1e3]"], .arki-book-paper [class*="text-[#9db3cc]"], .arki-book-paper [class*="text-[#7893af]"], .arki-book-paper [class*="text-[#8fa9c3]"], .arki-book-paper [class*="text-[#91a9c3]"] { color: #52645a !important; }
+.arki-book-paper [class*="border-[#294765]"], .arki-book-paper [class*="border-[#2d4d6c]"], .arki-book-paper [class*="border-[#315270]"], .arki-book-paper [class*="border-[#42627e]"], .arki-book-paper [class*="border-[#3c5f7d]"] { border-color: #cbd2c9 !important; }
+.arki-book-paper input { background-color: #fffdf8 !important; color: #26352f !important; }
+.arki-book-paper button:hover { color: #26352f; }
+.arki-book-page article, .arki-book-page section { scroll-margin-top: 1rem; }
+.dark [class*="bg-[#f4f1ea]"], .dark [class*="bg-[#fbfaf6]"], .dark [class*="bg-[#e9ede5]"], .dark [class*="bg-[#eef1eb]"] { background-color: var(--card) !important; }
+.dark [class*="text-[#1d2925]"], .dark [class*="text-[#52645a]"], .dark [class*="text-[#385348]"], .dark [class*="text-[#718078]"], .dark [class*="text-[#66776d]"] { color: var(--foreground) !important; }
+.dark [class*="border-[#d7d8cf]"], .dark [class*="border-[#d4d8d0]"], .dark [class*="border-[#cbd2c9]"], .dark [class*="border-[#b9c4bd]"] { border-color: var(--border) !important; }
+.dark .bg-white, .dark [class*="bg-[#fbfaf6]"], .dark [class*="bg-[#fffaf5]"], .dark [class*="bg-[#f3f5ef]"] { background-color: var(--card) !important; color: var(--card-foreground) !important; }
+.dark .bg-white .text-white, .dark [class*="bg-[#fbfaf6]"] .text-white, .dark [class*="bg-[#fffaf5]"] .text-white { color: var(--card-foreground) !important; }
+.dark input, .dark textarea, .dark select { background-color: #11284a !important; color: var(--foreground); }
+.font-serif { font-family: 'Fraunces', Georgia, serif; }
+button, input, textarea, select { font: inherit; }
+
+/* Legacy Home modules use historical literal classes. Map them to the same night-blue design tokens. */
+.dark [class*="bg-[#385348]"] { background-color: var(--primary) !important; }
+.dark [class*="border-[#385348]"] { border-color: var(--primary) !important; }
+.dark [class*="text-[#385348]"], .dark [class*="text-[#52645a]"], .dark [class*="text-[#718078]"] { color: var(--foreground) !important; }
+.dark [class*="bg-[#dce6dc]"], .dark [class*="bg-[#eef1eb]"], .dark [class*="bg-[#f1f3ee]"] { background-color: var(--secondary) !important; color: var(--foreground) !important; }
+.dark [class*="text-white"] { color: var(--foreground) !important; }

@@ -1,0 +1,290 @@
+{
+  "schemaVersion": "PREDICTIVE-001",
+  "artifact": "ARKI_PREDICTIVE_ARCHITECTURE_001_EVIDENCE",
+  "status": "PREDICTIVE_ARCHITECTURE_PARTIAL / PENDING MAJOR OBJECTIVE REVIEW",
+  "sourceOrder": "pasted_content_192.txt",
+  "baseline": {
+    "repo": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+    "worktreeStatus": "historically dirty; not claimed clean"
+  },
+  "fixture": {
+    "projectId": "synthetic-project-001",
+    "generationId": "generation-synthetic-001",
+    "seed": 192001,
+    "generated": 40,
+    "rejected": 23,
+    "survivors": 16,
+    "selected": 3,
+    "pareto": 5,
+    "auroraUsed": false
+  },
+  "fileCount": 51,
+  "files": [
+    {
+      "path": "00_EXECUTIVE_REPORT.md",
+      "sha256": "9869e42fd20fd9b883993115eb6caf56eb8fd1c9c2d27530237d4ac13d850e59",
+      "bytes": 894
+    },
+    {
+      "path": "01_REPOSITORY_PREFLIGHT.md",
+      "sha256": "0231c6b5ad5a66d26ead33cbb2df78c576a698b020887835aeab570cd43e81a0",
+      "bytes": 733
+    },
+    {
+      "path": "02_PREDICTIVE_ARCHITECTURE_CONTRACT.md",
+      "sha256": "33e4d5f8da2a3f90d60e62b7c6d364b9686a754c8643b865bd2c179d4dc93eec",
+      "bytes": 669
+    },
+    {
+      "path": "03_ARKI_SEE_ARCHITECTURE.md",
+      "sha256": "538052072207ee213ace167931b9ff9182a5e86e75b3fea02823cbc9f643253d",
+      "bytes": 707
+    },
+    {
+      "path": "04_CANDIDATE_MODEL.md",
+      "sha256": "88340709f420909fcc0abc5d960958ecdce150f4de877edb54c8b96b5c3707b2",
+      "bytes": 625
+    },
+    {
+      "path": "05_GENERATION_MODEL.md",
+      "sha256": "27758d16c37596ca14e149fd2af494eb079c5ed567496efb18ab9d44fe6d845f",
+      "bytes": 556
+    },
+    {
+      "path": "06_SCENARIO_MODEL.md",
+      "sha256": "0acec1e60f9ea8aae5df285511f69920d62188a8d4c943036a74d8c8a5acd1b2",
+      "bytes": 533
+    },
+    {
+      "path": "07_PREDICTION_MODEL.md",
+      "sha256": "82c96e05f6c6aff6afd89bdb954c0fe6ca2bf7786e16b08c86d0b1c14e568f41",
+      "bytes": 569
+    },
+    {
+      "path": "08_VALIDATION_ENVELOPE.md",
+      "sha256": "9cbd529effb1b3e3e3497dad6ee56874801b728f58855791a72d29691e5d4d17",
+      "bytes": 606
+    },
+    {
+      "path": "09_FIDELITY_MODEL.md",
+      "sha256": "c7b776daec0cb61d86bc1fe33cfb29cf91b8803dd42d0cfe011f85e4ad8f9856",
+      "bytes": 546
+    },
+    {
+      "path": "10_FAILURE_LEARNING_MODEL.md",
+      "sha256": "9891a9f63a9e48dd9e300ca2231202d696dc85b9acadb7266989bee237b190ca",
+      "bytes": 637
+    },
+    {
+      "path": "11_DIVERSITY_MODEL.md",
+      "sha256": "db67d4705f11cb75035bca8a55438baf273ce1859f0e77a528b7c8ee7cf5ada2",
+      "bytes": 520
+    },
+    {
+      "path": "12_PARETO_MODEL.md",
+      "sha256": "8dc6bd947bdb5ea78fadd9db1b5ecee23c1333a9f04fd15876b79892cce84c84",
+      "bytes": 536
+    },
+    {
+      "path": "13_OPPORTUNITY_GATE_MODEL.md",
+      "sha256": "e8cac5d6fa64fe5bb3d07aa19e136ce778bdb73a242ce8c84c43441f50fa783e",
+      "bytes": 632
+    },
+    {
+      "path": "14_DESIGN_EXPLORER.md",
+      "sha256": "943427b2165dd9d14c71c72d30e8f7e257165b9491e512fb4537c36159c948a4",
+      "bytes": 564
+    },
+    {
+      "path": "15_CCF_INTEGRATION.md",
+      "sha256": "f7424f1c1fb429b2586507e022aa34a34f30737aff6a502f447dfd2718e2c875",
+      "bytes": 590
+    },
+    {
+      "path": "16_AUTOPILOT_INTEGRATION.md",
+      "sha256": "178ce4afbd15c5dfbd29004e879bdd67f8d0edf1fa87cd52943dd93d81bbf443",
+      "bytes": 521
+    },
+    {
+      "path": "17_SOLVER_INTEGRATION.md",
+      "sha256": "5aea35f5402ab59b05b98905d79ec17548ac1929787c56128e405e9d35d0d89f",
+      "bytes": 568
+    },
+    {
+      "path": "18_REALITY_FEEDBACK_CONTRACT.md",
+      "sha256": "3e942ced2d59eaf994e53cd192d5466f0eef24e1133113bcc134358c36306f4e",
+      "bytes": 556
+    },
+    {
+      "path": "19_DIGITAL_TWIN_FUTURE_CONTRACT.md",
+      "sha256": "58db99df52be911580490dddf271c1d3ae996db31b451cdb8198739a2c3546fd",
+      "bytes": 459
+    },
+    {
+      "path": "20_RESOURCE_GOVERNANCE.md",
+      "sha256": "d823840e39a5ff828b811c809e8727a0ac8c25dfe46d7ca540d4cc31a5b1e0a9",
+      "bytes": 544
+    },
+    {
+      "path": "21_SECURITY_AND_AUTHORITY.md",
+      "sha256": "20b790bcf67f4de868729546c4f2c29267de97668789b242d29596c1bc631f64",
+      "bytes": 583
+    },
+    {
+      "path": "22_TEST_MATRIX.md",
+      "sha256": "2a44bf9af61124deee512b9cefb7fa5de1089e76fbfa23d8f76fb8914305d83b",
+      "bytes": 806
+    },
+    {
+      "path": "23_MUTANT_RESULTS.md",
+      "sha256": "51921dde1166e1c6baa6b5bb0be26622f7840ff2b6160192ab047075efb68795",
+      "bytes": 557
+    },
+    {
+      "path": "24_ADVERSARIAL_RESULTS.md",
+      "sha256": "b9024ddac4fb2ce1d53e877978a6b3529f984c65470a89357d2414fc33c3569f",
+      "bytes": 679
+    },
+    {
+      "path": "25_REGRESSION_RESULTS.md",
+      "sha256": "868562e56666e7a411f8744053c9539f08cdeccb269523caa5ba25f4d4d780d1",
+      "bytes": 490
+    },
+    {
+      "path": "26_UNKNOWN_REGISTER.md",
+      "sha256": "f0ccaa7c86c78e535652780a25bf4ab672dc4476204579983bb0bf3da7ecf618",
+      "bytes": 575
+    },
+    {
+      "path": "27_RISK_REGISTER.md",
+      "sha256": "49c172a1ca4e3ed3aac87f7a75a266d73106fdb5ebc76ec77be5aa7135e7d2e1",
+      "bytes": 636
+    },
+    {
+      "path": "28_DECISION_REGISTER.md",
+      "sha256": "c9929fe34740f92022314a5f22e4f3aa6d77408185f72a0542a6cdb4cee10b4f",
+      "bytes": 600
+    },
+    {
+      "path": "29_EVIDENCE_MATRIX.md",
+      "sha256": "78ffb80c146b4a3b06a32e96139dcd6a813b3342edc6b99f9d52905bcf22e232",
+      "bytes": 515
+    },
+    {
+      "path": "30_IMPLEMENTATION_STATUS.md",
+      "sha256": "979fe75948a68453899a959afa983402307f24fa837c599e4da7bcc9e5301d96",
+      "bytes": 872
+    },
+    {
+      "path": "32_RAW_OUTPUTS.txt",
+      "sha256": "a0396c10a38cd8f39bf4fe761084016f97b8be99d89856c17112ec125bb5f8d3",
+      "bytes": 457
+    },
+    {
+      "path": "ARKI_PREDICTIVE_ARCHITECTURE_SCREENSHOTS/01_desktop.png",
+      "sha256": "0f841b076d0e7349f4b674ea659bfbbc34aaf11788b2a62c994f7b4976b47686",
+      "bytes": 452245
+    },
+    {
+      "path": "ARKI_PREDICTIVE_ARCHITECTURE_SCREENSHOTS/02_mobile.png",
+      "sha256": "443da9a44ce440e5fed345790b1ff99496ee0df96eaa8272c8bd4abb92f426d1",
+      "bytes": 576781
+    },
+    {
+      "path": "raw/PREDICTIVE_PREFLIGHT_RAW.txt",
+      "sha256": "c2cf7e2ab94e8d4363ce4dbd0b33de5d3368a302435f6a8c56dfb5ba6b608e29",
+      "bytes": 6548
+    },
+    {
+      "path": "raw/fixture-run.txt",
+      "sha256": "07bff43438807d9bc5db11b82c01018d7cfddb140e02532c6e8a4b867b6f58f7",
+      "bytes": 140
+    },
+    {
+      "path": "raw/predictive-mutants.txt",
+      "sha256": "70506298b251b5dd14374309a2453b8a32596626cbbe0e4694f7d95431779a7c",
+      "bytes": 367
+    },
+    {
+      "path": "raw/predictive-tests-final.txt",
+      "sha256": "175f7fcda73d6ad9cb7b4adc459c04419b29857c9f610d09fe2a94dd436d81f8",
+      "bytes": 419
+    },
+    {
+      "path": "source/client/public/__autopilot__/areas.json",
+      "sha256": "4c5674cd82c7ba4439cfb525846f6252accba0403197a1a414e07fcb24b3d5bf",
+      "bytes": 21572
+    },
+    {
+      "path": "source/client/public/__autopilot__/dependencies.json",
+      "sha256": "9de2ff540774e79f3fef6ba0d0289f7746da696acedf38dc4cecb7631a6c2db7",
+      "bytes": 3366
+    },
+    {
+      "path": "source/client/public/__predictive__/fixture-result.json",
+      "sha256": "2ab7f742d4f9a77a255b1c7c1fe2c3a7f16cdf1405d9da7e99a66b0b0c988412",
+      "bytes": 116840
+    },
+    {
+      "path": "source/client/src/App.tsx",
+      "sha256": "cdceb28c81ff620bc577abe31c5dfdeba1571574c07f6c1f09e59bc822595268",
+      "bytes": 1919
+    },
+    {
+      "path": "source/client/src/pages/AutopilotCommandCenter.tsx",
+      "sha256": "2c1c3c74773b02d1bd41d38210ab4faedb8a268995e4a7416f7ca54906717ea1",
+      "bytes": 19362
+    },
+    {
+      "path": "source/client/src/pages/DesignExplorer.tsx",
+      "sha256": "d1fb6535f852bec3018155f94300f58147af6fdf20590d28da02ed3b17cf6629",
+      "bytes": 6226
+    },
+    {
+      "path": "source/pasted_content_192.txt",
+      "sha256": "3fe04deadf2866cf7f51eab0b842a1e1d4d02ca299db3ccdfa3aa78e65369973",
+      "bytes": 50453
+    },
+    {
+      "path": "source/scripts/patch-predictive-link.py",
+      "sha256": "595be47297cb911d758a49dd8c9fb0285df3d0f9f9009402a01d00228006380c",
+      "bytes": 391
+    },
+    {
+      "path": "source/scripts/register-predictive-areas.py",
+      "sha256": "cda75aeb1d384017d542b11a70d4b25634c7eee4e2541d60c333ae62d4ae8be7",
+      "bytes": 3622
+    },
+    {
+      "path": "source/scripts/run-predictive-fixture.ts",
+      "sha256": "6e01adf9227dcfd02904eb2ec8e4be5470ebb68e7b6b36ac84c2383f83d40424",
+      "bytes": 7786
+    },
+    {
+      "path": "source/scripts/test-predictive-engine.ts",
+      "sha256": "21f3cae6832dfec7bdc1337de9ba99ce954c3debb76b8d3659bbfe91cd86e569",
+      "bytes": 2241
+    },
+    {
+      "path": "source/scripts/test-predictive-mutants.ts",
+      "sha256": "add0257857f5ce86142a87756b583f6519660fc1f8f910fbd39dd030f19c3fe4",
+      "bytes": 1919
+    },
+    {
+      "path": "source/shared/arkiPredictiveArchitecture.ts",
+      "sha256": "570ad00160a57705f886be3987331c4fb75368d8c15777a6ad1b07ea16988e7d",
+      "bytes": 6368
+    }
+  ],
+  "scopeGuard": [
+    "no Aurora",
+    "no DeepSeek exam fixtures",
+    "no C1-C80 mass implementation",
+    "no TX-005",
+    "no canonical mutation",
+    "no professional certification",
+    "no deployment/publish/push/merge/release"
+  ]
+}

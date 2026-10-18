@@ -1,0 +1,659 @@
+ORDEN 37 — MVP OPERATIVO MÓVIL DE MILUKITA MAPPER + THE EYE
+CONTROLLER LAB + ACCESO MÓVIL + QR + PRIMER PILOTO DE CAMPO
+0. OBJETIVO
+
+Construir dentro de MiLukita Controller Lab la primera versión operativa y móvil de:
+
+MiLukita Mapper
+The Eye
+
+utilizando la infraestructura territorial ya implementada y validada en las órdenes anteriores.
+
+Esto NO debe tratarse como una maqueta estática.
+
+La aplicación debe ser suficientemente funcional para permitir una primera prueba real de captura, sincronización, verificación y publicación de WorldObjects.
+
+Las referencias visuales proporcionadas definen la estructura visual, jerarquía, navegación, componentes y estética.
+
+La arquitectura funcional, estados, seguridad, versionado, auditoría, sincronización y reglas de publicación deben conservar las especificaciones ya implementadas.
+
+1. REGLA ABSOLUTA: MJP CORE
+
+NO MODIFICAR MJP CORE.
+
+Mapper, The Eye y World Engine deben utilizar las capacidades territoriales existentes sin alterar:
+
+juegos;
+sorteos;
+créditos;
+pagos;
+resultados;
+reglas;
+lógica interna de MJP CORE.
+
+Si alguna modificación de MJP CORE fuese necesaria, DETENER LA IMPLEMENTACIÓN Y REPORTARLO.
+
+No crear un segundo sistema territorial paralelo.
+
+2. PRINCIPIO ARQUITECTÓNICO
+
+La implementación debe utilizar los modelos y servicios territoriales existentes:
+
+MAPPER
+    ↓
+CaptureSession
+    ↓
+WorldObject
+    ↓
+Claims
+Sources
+Evidence
+    ↓
+UNDER_REVIEW
+    ↓
+THE EYE
+    ↓
+VERIFIED / DISPUTED / REJECTED
+    ↓
+HUMAN AUTHORITY
+    ↓
+PUBLISHED
+    ↓
+RUNTIME
+
+No duplicar modelos ni crear tablas alternativas para resolver temporalmente la UI.
+
+3. MILUKITA MAPPER
+
+Implementar las tres vistas definidas en las referencias visuales:
+
+3.1 Vista de Sesión
+
+Debe permitir:
+
+crear sesión;
+seleccionar territorio;
+visualizar mapa real;
+visualizar posición GPS;
+visualizar precisión;
+visualizar WorldObjects;
+iniciar captura;
+tomar fotografía;
+agregar nota;
+crear WorldObject;
+consultar estado de sincronización;
+visualizar contador de objetos;
+visualizar contador de evidencias.
+
+Estados visibles:
+
+ONLINE
+OFFLINE
+LOCAL_PENDING
+SYNCING
+SYNCED
+CONFLICT
+SYNC_ERROR
+3.2 Vista de Objeto
+
+Implementar el expediente territorial:
+
+nombre;
+tipo;
+categoría;
+descripción;
+latitud;
+longitud;
+precisión;
+fuente de coordenada;
+fotografías;
+notas;
+Claims;
+Sources;
+Evidence;
+versión;
+estado;
+fecha/hora;
+operador;
+estado de sincronización.
+
+Permitir:
+
+GUARDAR
+
+ENVIAR A THE EYE
+
+No permitir enviar un expediente incompleto cuando los campos obligatorios no estén satisfechos.
+
+3.3 Cuadro de Mando Mapper
+
+Implementar los KPIs definidos en las referencias.
+
+Como mínimo:
+
+sesiones activas;
+WorldObjects capturados;
+objetos sincronizados;
+objetos pendientes;
+evidencias capturadas;
+objetos enviados a The Eye;
+conflictos;
+errores de sincronización.
+
+Los indicadores deben proceder de datos reales del sistema.
+
+No utilizar números ficticios salvo que se identifiquen explícitamente como datos demo.
+
+4. THE EYE
+
+Implementar las tres vistas definidas en las referencias.
+
+4.1 Vista de Cola
+
+Mostrar:
+
+objetos UNDER_REVIEW;
+prioridad;
+territorio;
+fecha;
+Mapper responsable;
+confidence score;
+estado de evidencia;
+posibles conflictos.
+
+Permitir abrir el expediente.
+
+4.2 Expediente de Verificación
+
+Mostrar:
+
+fotografías;
+mapa;
+coordenadas;
+precisión;
+Claims;
+Sources;
+Evidence;
+historial;
+snapshots;
+confidence score;
+Evidence Matrix;
+cambios respecto a versiones anteriores.
+
+El auditor debe poder entender:
+
+QUÉ se afirma.
+
+QUIÉN lo afirmó.
+
+QUÉ fuente lo respalda.
+
+QUÉ evidencia existe.
+
+QUÉ cambió.
+
+POR QUÉ el sistema asigna determinado confidence score.
+
+5. VISTA DE CONFLICTO
+
+Implementar comparación visual:
+
+VERSIÓN LOCAL       VERSIÓN REMOTA
+─────────────       ──────────────
+Coordenadas         Coordenadas
+Fotografías         Fotografías
+Claims              Claims
+Evidence            Evidence
+Metadata            Metadata
+
+Resaltar:
+
+AÑADIDO;
+ELIMINADO;
+MODIFICADO;
+SIN CAMBIOS.
+
+Acciones:
+
+mantener local;
+mantener remota;
+combinar;
+marcar como DISPUTED.
+
+Toda decisión debe quedar registrada.
+
+6. CUADRO DE MANDO THE EYE
+
+Implementar los KPIs definidos visualmente.
+
+Como mínimo:
+
+pendientes;
+aprobados;
+rechazados;
+disputados;
+evidencia solicitada;
+tiempo medio de revisión;
+confidence promedio;
+objetos verificados por territorio.
+
+El mapa de confianza debe representar datos reales cuando existan.
+
+7. REGLA DE PUBLICACIÓN
+
+Mantener estrictamente:
+
+CAPTURED
+    ≠
+UNDER_REVIEW
+    ≠
+VERIFIED
+    ≠
+PUBLISHED
+
+Una edición de un WorldObject publicado NO modifica automáticamente lo publicado.
+
+La publicación debe estar vinculada a una versión específica.
+
+Runtime únicamente puede consumir la versión autorizada como:
+
+PUBLISHED
+8. HUMAN AUTHORITY
+
+Implementar la separación de responsabilidades:
+
+Mapper
+   ↓
+captura
+
+The Eye
+   ↓
+verifica
+
+Human Authority
+   ↓
+autoriza
+
+Runtime
+   ↓
+publica
+
+El Mapper no puede aprobar su propio objeto.
+
+El Auditor no puede convertir unilateralmente un objeto en publicado si el workflow requiere autorización de Human Authority.
+
+Validar permisos server-side.
+
+9. ACCESO MÓVIL
+
+La aplicación debe ser usable desde:
+
+Android;
+iOS;
+navegador móvil compatible.
+
+Priorizar:
+
+botones grandes;
+interacción táctil;
+lectura bajo condiciones exteriores;
+navegación rápida;
+mínimo número de pasos para capturar;
+feedback inmediato;
+tolerancia a conexión intermitente.
+
+Mapper debe priorizar velocidad de captura.
+
+The Eye debe priorizar densidad de información y capacidad de análisis.
+
+No hacer ambas interfaces idénticas si eso perjudica su función.
+
+Deben compartir el mismo lenguaje visual, pero no necesariamente la misma distribución espacial.
+
+10. MAPA
+
+Utilizar el Map Provider Adapter ya definido.
+
+El mapa debe ser real y permitir:
+
+GPS;
+ubicación actual;
+selección;
+marcadores;
+WorldObjects;
+precisión;
+radio de activación;
+navegación.
+
+No reemplazar el mapa real por una simulación para la prueba móvil.
+
+11. GPS Y CÁMARA
+
+Validar en navegador móvil:
+
+GPS
+permiso concedido;
+permiso denegado;
+precisión baja;
+pérdida de señal;
+recuperación.
+Cámara
+permiso concedido;
+permiso denegado;
+captura;
+cancelación;
+error;
+archivo grande.
+
+Mostrar siempre el estado real.
+
+No falsificar precisión ni estado de permisos.
+
+12. OFFLINE
+
+Mapper debe poder:
+
+iniciar sesión;
+perder conexión;
+capturar WorldObject;
+tomar fotografías;
+registrar GPS;
+agregar notas;
+guardar localmente;
+recuperar conexión;
+sincronizar;
+informar el resultado.
+
+Mantener:
+
+LOCAL_PENDING
+SYNCING
+SYNCED
+CONFLICT
+SYNC_ERROR
+
+No utilizar last-write-wins.
+
+13. LINK DE ACCESO
+
+Generar una URL accesible desde dispositivos móviles.
+
+Debe existir una ruta clara para:
+
+/mapper
+/the-eye
+
+o equivalente según el router existente.
+
+El enlace debe apuntar a una instancia realmente accesible desde Internet para el equipo autorizado.
+
+No entregar como "link funcional" una URL localhost, una URL exclusiva del sandbox o una dirección inaccesible desde un teléfono externo.
+
+Si el entorno actual no permite generar una URL pública permanente, reportarlo explícitamente y entregar:
+
+URL de preview disponible;
+requisito pendiente para publicación;
+procedimiento necesario para desplegarla.
+
+No inventar una URL.
+
+14. QR
+
+Generar un QR asociado a la URL real de acceso.
+
+El QR debe:
+
+apuntar exactamente a la URL entregada;
+ser legible desde teléfono;
+permitir acceder al Controller Lab;
+permitir seleccionar Mapper o The Eye.
+
+Si existe autenticación, el QR no debe contener credenciales ni tokens permanentes.
+
+15. SEGURIDAD DEL ACCESO
+
+El acceso móvil no implica acceso público irrestricto.
+
+Mantener:
+
+autenticación;
+RBAC;
+autorización server-side;
+Audit Log;
+protección de endpoints;
+rate limiting;
+protección de credenciales.
+
+Mapper, The Eye y Human Authority deben conservar permisos diferenciados.
+
+16. DATOS REALES
+
+La aplicación debe persistir datos reales utilizando los modelos existentes.
+
+El primer piloto deberá poder registrar:
+
+CaptureSession;
+WorldObject;
+coordenadas;
+precisión;
+fotografías;
+notas;
+Claims;
+Sources;
+Evidence;
+versiones;
+sincronización;
+auditoría;
+decisiones de The Eye;
+publicación.
+
+No crear una base de datos demo separada para simular este flujo.
+
+17. DATOS DEMO
+
+Mantener datos de demostración únicamente cuando sean necesarios para visualizar las interfaces.
+
+Identificarlos inequívocamente como:
+
+DEMO
+
+Nunca mezclarlos silenciosamente con datos reales.
+
+18. PRUEBA E2E DEL MVP
+
+Ejecutar:
+
+Mapper
+  ↓
+CaptureSession
+  ↓
+WorldObject
+  ↓
+Evidence
+  ↓
+UNDER_REVIEW
+  ↓
+The Eye
+  ↓
+VERIFIED
+  ↓
+Human Authority
+  ↓
+PUBLISHED
+  ↓
+Runtime
+
+Verificar además:
+
+OFFLINE
+  ↓
+LOCAL_PENDING
+  ↓
+ONLINE
+  ↓
+SYNCING
+  ↓
+SYNCED
+
+y:
+
+DEVICE A
+     +
+DEVICE B
+     ↓
+CONFLICT
+     ↓
+THE EYE
+     ↓
+RESOLUTION
+19. CRITERIOS DE ACEPTACIÓN
+
+La Orden 37 se considera terminada cuando:
+
+MAPPER
+ Se puede acceder desde móvil.
+ Se puede crear CaptureSession.
+ Se puede obtener GPS.
+ Se puede tomar fotografía.
+ Se puede crear WorldObject.
+ Se puede trabajar offline.
+ Se puede sincronizar.
+ Se puede completar expediente.
+ Se puede enviar a The Eye.
+THE EYE
+ Se reciben objetos.
+ Se puede revisar expediente.
+ Se visualiza Evidence Matrix.
+ Se visualiza confidence score.
+ Se pueden revisar versiones.
+ Se pueden resolver conflictos.
+ Se puede aprobar.
+ Se puede rechazar.
+ Se puede solicitar evidencia.
+ Las decisiones quedan auditadas.
+PUBLICACIÓN
+ Human Authority puede autorizar.
+ Se publica una versión específica.
+ Runtime consume únicamente PUBLISHED.
+ Las ediciones posteriores no reemplazan automáticamente la versión publicada.
+ACCESO
+ URL funcional.
+ QR funcional.
+ Acceso desde teléfono.
+ Autenticación funcionando.
+INTEGRIDAD
+ TypeScript PASS.
+ Tests PASS.
+ Build PASS.
+ E2E PASS.
+ MJP CORE intacto.
+20. ENTREGABLES
+
+Entregar:
+
+1. MiLukita Mapper funcional.
+
+2. The Eye funcional.
+
+3. Integración dentro de Controller Lab.
+
+4. URL de acceso móvil real, si el entorno lo permite.
+
+5. QR correspondiente.
+
+6. Evidencia de prueba en móvil/simulador disponible.
+
+7. Informe E2E.
+
+8. Informe de seguridad.
+
+9. Estado de GPS/cámara/offline/sync.
+
+10. Confirmación de persistencia de datos.
+
+11. Confirmación de que MJP CORE permanece intacto.
+
+21. INFORME FINAL OBLIGATORIO
+
+No responder únicamente "Orden 37 completada".
+
+Entregar:
+
+ORDEN 37 — RESULTADO
+
+IMPLEMENTADO
+MODIFICADO
+NO IMPLEMENTADO
+BLOCKERS
+MAPPER
+THE EYE
+MOBILE
+GPS
+CAMERA
+OFFLINE
+SYNC
+CONFLICTS
+MAP
+URL
+QR
+AUTHENTICATION
+RBAC
+E2E
+TESTS
+BUILD
+MJP CORE
+FIELD GATE
+
+Separar claramente:
+
+PROBADO EN SANDBOX
+
+PROBADO EN PREVIEW
+
+PROBADO EN DISPOSITIVO REAL
+
+PENDIENTE DE PRUEBA FÍSICA
+
+No presentar simulaciones como pruebas reales.
+
+22. REGLA DE CIERRE
+
+Si los criterios técnicos pasan, declarar:
+
+READY FOR FIELD GATE
+
+No iniciar otra ronda de funcionalidades opcionales.
+
+Las nuevas sugerencias deberán clasificarse:
+
+🔴 BLOCKER
+🟠 IMPORTANT
+🟢 OPTIONAL
+
+y no implementarse automáticamente.
+
+El objetivo inmediato después de esta orden es salir del sandbox y ejecutar el primer levantamiento territorial real de Trujillo.
+
+Una última decisión que considero importante
+
+En tu orden original dices:
+
+“Las 8 imágenes adjuntas son la referencia visual definitiva... No deben modificarse en su estructura funcional.”
+
+Yo cambiaría eso. No congelaría la estructura funcional de las imágenes. Congelaría la identidad visual y los elementos esenciales, pero permitiría a Manus adaptar la distribución para móvil.
+
+¿Por qué? Porque Mapper y The Eye tienen trabajos diferentes.
+
+Mapper está en la calle: necesita capturar en 5–10 segundos.
+
+The Eye está analizando evidencia: necesita densidad de información, comparación y trazabilidad.
+
+Si obligamos a ambos a reproducir exactamente una maqueta de escritorio, podemos terminar con una interfaz bonita pero mala para operar.
+
+La regla correcta es:
+
+Gemini define el lenguaje visual. La arquitectura define el comportamiento. El contexto de uso define la distribución.
+
+Con esta Orden 37 ya estaríamos en el punto correcto para dejar de construir infraestructura por construir y pasar a la prueba que realmente importa: ¿puede una persona caminar por Trujillo, capturar un objeto real, volver a conectarse, sincronizarlo, someterlo a The Eye y terminar con una versión publicada que el Runtime consuma correctamente?
+
+Ese es el test que ahora vale más que otras 500 pruebas unitarias.

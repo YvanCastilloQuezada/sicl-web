@@ -1,0 +1,128 @@
+[1mdiff --git a/client/src/components/ArkiNavigator.tsx b/client/src/components/ArkiNavigator.tsx[m
+[1mindex b21f49a..139c3e9 100644[m
+[1m--- a/client/src/components/ArkiNavigator.tsx[m
+[1m+++ b/client/src/components/ArkiNavigator.tsx[m
+[36m@@ -1,11 +1,18 @@[m
+ import { PanelLeft, Workflow } from "lucide-react";[m
+ import { useTranslation } from "../i18n/useTranslation";[m
+[31m-import { accessColor, accessSubtitle, isAccessAllowed, type ArkiAccess, type ArkiModuleDefinition } from "./ArkiGateway";[m
+[32m+[m[32mimport { isAccessAllowed, type ArkiAccess, type ArkiModuleDefinition } from "./ArkiGateway";[m
+ import type { TranslationKey } from "../i18n/catalog";[m
+ [m
+ const LABEL_KEYS: Record<string, TranslationKey> = { Data: "dataModule", Biblioteca: "library", Proyectos: "projectsModule", Generador: "generatorModule", "Modelo BIM": "bimModule", Planta: "plan", Corte: "section", "3D": "model3d", Metrados: "quantities", "PRESUP-5D": "budget5d", GASTOS: "expensesModule", "4D": "schedule4d", Clashes: "clashesModule", "EXP-TEC": "technicalDossier", "O-M": "operationsManagement", ADM: "administrationModule" };[m
+ export function moduleLabelKey(name: string) { return LABEL_KEYS[name] ?? name; }[m
+[32m+[m
+ export default function ArkiNavigator({ access, activeModule, modules, open, onToggle, onSelect }: { access: ArkiAccess; activeModule: string; modules: readonly ArkiModuleDefinition[]; open: boolean; onToggle: () => void; onSelect: (name: string) => void }) {[m
+   const { t } = useTranslation();[m
+[31m-  return <><button className="arki-navigator-toggle" aria-label={open ? "Cerrar navegador" : "Abrir navegador"} onClick={onToggle}><PanelLeft size={15} />{open && <span>{t("navigator")}</span>}</button>{open && <><button className="arki-navigator-backdrop" aria-label="Cerrar navegador" onClick={onToggle} /><aside className="arki-navigator"><div className="arki-nav-context"><span>{t("activeProfile")}</span><strong>{t(accessSubtitle(access))}</strong><small>{t("prototype")}</small></div><nav>{modules.filter(({ name }) => isAccessAllowed(access, name)).map(({ name, icon: Icon, status }) => { const disabled = status === "NOT AVAILABLE" || status === "FUTURE REFERENCE"; return <button key={name} className={activeModule === name ? "active" : ""} disabled={disabled} title={disabled ? t("unavailableModuleTooltip") : undefined} onClick={() => onSelect(name)}><Icon size={14} /><span>{t(moduleLabelKey(name))}</span><small className={`arki-module-status status-${status.toLowerCase().replaceAll(" ", "-")}`}>{status}</small></button>; })}</nav><div className="arki-nav-foot"><span className={`arki-engine-dot role-${accessColor(access)}`} /> {t("engine")}</div></aside></>}</>;[m
+[32m+[m[32m  const visibleModules = modules.filter(({ name }) => isAccessAllowed(access, name));[m
+[32m+[m[32m  const warnings = visibleModules.filter(({ status }) => status === "NOT AVAILABLE" || status === "FUTURE REFERENCE").length;[m
+[32m+[m[32m  return <aside className={`arki-navigator ${open ? "is-open" : ""}`}>[m
+[32m+[m[32m    <button className="arki-navigator-toggle" aria-label={open ? "Colapsar navegador" : "Expandir navegador"} onClick={onToggle}><PanelLeft size={15} /><span>{t("navigator")}</span></button>[m
+[32m+[m[32m    <nav aria-label={t("navigator")}>{visibleModules.map(({ name, icon: Icon, status }) => { const disabled = status === "NOT AVAILABLE" || status === "FUTURE REFERENCE"; return <button key={name} className={activeModule === name ? "active" : ""} disabled={disabled} title={disabled ? t("unavailableModuleTooltip") : undefined} onClick={() => onSelect(name)}><Icon size={14} /><span>{t(moduleLabelKey(name))}</span></button>; })}</nav>[m
+[32m+[m[32m    <div className="arki-nav-foot"><div><strong>{t("projectName")}</strong><small>v1.0 · {t("local")}</small></div><div className="arki-nav-summary"><span>{visibleModules.length} módulos</span><span className={warnings ? "has-warning" : ""}>{warnings} advertencias</span></div><Workflow size={14} /></div>[m
+[32m+[m[32m  </aside>;[m
+ }[m
+[1mdiff --git a/client/src/components/ArkiWorkspaceShell.tsx b/client/src/components/ArkiWorkspaceShell.tsx[m
+[1mindex 2804ef2..a94b8d2 100644[m
+[1m--- a/client/src/components/ArkiWorkspaceShell.tsx[m
+[1m+++ b/client/src/components/ArkiWorkspaceShell.tsx[m
+[36m@@ -2,7 +2,7 @@[m [mimport { useEffect, useMemo, useState } from "react";[m
+ import { BarChart3, Box, Building2, CircleHelp, ClipboardCheck, DoorOpen, FileText, Layers3, LayoutDashboard, LogOut, PanelLeft, Settings2, ShieldAlert, SlidersHorizontal, WalletCards, Workflow } from "lucide-react";[m
+ import { toast } from "sonner";[m
+ import type { ArkiAccess } from "./ArkiGateway";[m
+[31m-import { accessColor, accessLabel, accessSubtitle, isAccessAllowed, type ArkiModuleDefinition } from "./ArkiGateway";[m
+[32m+[m[32mimport { accessColor, accessLabel, isAccessAllowed, type ArkiModuleDefinition } from "./ArkiGateway";[m
+ import { useTranslation } from "../i18n/useTranslation";[m
+ import { supportedLanguages } from "../i18n/languages";[m
+ import ArkiNavigator, { moduleLabelKey } from "./ArkiNavigator";[m
+[36m@@ -65,5 +65,5 @@[m [mexport default function ArkiWorkspaceShell({ access, onExit, children }: { acces[m
+   const activeDefinition = moduleDefinition(activeModule);[m
+   const { building } = useProjectContext();[m
+ [m
+[31m-  return <div className="arki-workspace"><header className="arki-workspace-top"><div className="arki-workspace-brand"><div className="arki-mini-mark"><Workflow size={16} /></div><div><strong>ARKI</strong><span>{t("workspace")}</span></div></div><div className="arki-project-context"><span>{t("activeProject")}</span><b>{t("projectName")}</b><i>v1.0 · {t("local")}</i></div><div className="arki-top-actions"><span className={`arki-role-badge role-${roleColor}`}>{accessLabel(access)} · PERFIL LOCAL</span><button className="arki-language-button" title={t("changeLanguage")} onClick={changeLanguage}>🌐 {language.toUpperCase()}</button><button className="arki-icon-button" title={t("help")} onClick={() => toast.info(t("help"), { description: t("commandHint") })}><CircleHelp size={16} /></button><button className="arki-icon-button" title={t("exit")} onClick={onExit}><LogOut size={16} /></button></div></header><div className="arki-workspace-tabs"><span className="arki-project-chip">PROYECTO ACTIVO · {t("projectName")}</span>{availableModules.map(({ name, status }) => { const disabled = status === "NOT AVAILABLE" || status === "FUTURE REFERENCE"; return <button key={name} className={activeModule === name ? "active" : ""} disabled={disabled} title={disabled ? t("unavailableModuleTooltip") : undefined} onClick={() => selectModule(name)}><i className={`arki-tab-status-dot status-${status.toLowerCase().replaceAll(" ", "-")}`} />{t(moduleLabelKey(name))}</button>; })}</div><div className="arki-workspace-body"><ArkiNavigator access={access} activeModule={activeModule} modules={MODULE_DEFINITIONS} open={navOpen} onToggle={() => setNavOpen((value) => !value)} onSelect={selectModule} /><main className="arki-workspace-canvas"><div className="arki-context-toolbar"><div><span className="arki-context-kicker"><Workflow size={12} /> {activeModule.toUpperCase()} · {activeDefinition?.status ?? "PENDING"}</span><strong>{activeModule === "Generador" ? t("generator") : t(moduleLabelKey(activeModule))}</strong></div><div className="arki-context-actions"><span>PE · RNE-PE</span><span>ESCALA 1:100</span><span>UI-1</span></div></div><ModuleToolbar module={activeModule} /><div className="arki-legacy-content">{activeModule === "Generador" ? children : activeModule === "Modelo BIM" ? <BimModule building={building} /> : activeModule === "Expediente" ? <DossierModule building={building} /> : <EmptyModuleState name={activeModule} />}</div></main><aside className="arki-info-box"><div className="arki-info-head"><span>{t("infoBox")} · {t("pendingSelection")}</span><button onClick={() => toast.info(t("selectionUi2"))}>?</button></div><div className="arki-info-empty"><DoorOpen size={22} /><strong>{t("noSelection")}</strong><p>El canvas aún no emite un contrato de selección. Cuando se integre, aquí aparecerán propiedades, materiales, metrados, costo y trazabilidad.</p></div><div className="arki-info-status"><span className="arki-engine-dot" />{t(accessLabel(access))}<b>{t("local")}</b></div></aside></div><footer className="arki-workspace-status"><span><i className="arki-engine-dot" /> MOTOR OPERATIVO</span><span>{t("units")}</span><span>{t("discipline")}</span><span>{t("phase")}</span><span className="arki-status-warning">{t("visibleStates")}</span><span className="arki-status-spacer" /><span>{t("commands")}</span></footer></div>;[m
+[32m+[m[32m  return <div className="arki-workspace"><header className="arki-workspace-top"><div className="arki-workspace-brand"><div className="arki-mini-mark"><Workflow size={16} /></div><div><strong>ARKI</strong><span>{t("workspace")}</span></div></div><div className="arki-project-context"><span>{t("activeProject")}</span><b>{t("projectName")}</b><i>v1.0 · {t("local")}</i></div><div className="arki-top-actions"><span className={`arki-role-badge role-${roleColor}`}>{accessLabel(access)}</span><button className="arki-language-button" title={t("changeLanguage")} onClick={changeLanguage}>🌐 {language.toUpperCase()}</button><button className="arki-icon-button" title={t("help")} onClick={() => toast.info(t("help"), { description: t("commandHint") })}><CircleHelp size={16} /></button><button className="arki-icon-button" title={t("exit")} onClick={onExit}><LogOut size={16} /></button></div></header><div className="arki-workspace-tabs"><span className="arki-project-chip">PROYECTO ACTIVO · {t("projectName")}</span>{availableModules.map(({ name, status }) => { const disabled = status === "NOT AVAILABLE" || status === "FUTURE REFERENCE"; return <button key={name} className={activeModule === name ? "active" : ""} disabled={disabled} title={disabled ? t("unavailableModuleTooltip") : undefined} onClick={() => selectModule(name)}><i className={`arki-tab-status-dot status-${status.toLowerCase().replaceAll(" ", "-")}`} />{t(moduleLabelKey(name))}</button>; })}</div><div className="arki-workspace-body"><ArkiNavigator access={access} activeModule={activeModule} modules={MODULE_DEFINITIONS} open={navOpen} onToggle={() => setNavOpen((value) => !value)} onSelect={selectModule} /><main className="arki-workspace-canvas"><div className="arki-context-toolbar"><div><strong>{activeModule === "Generador" ? t("generator") : t(moduleLabelKey(activeModule))}</strong></div><div className="arki-context-actions"><span>{activeDefinition?.status ?? "PENDING"}</span></div></div><ModuleToolbar module={activeModule} /><div className="arki-legacy-content">{activeModule === "Generador" ? children : activeModule === "Modelo BIM" ? <BimModule building={building} /> : activeModule === "EXP-TEC" ? <DossierModule building={building} /> : <EmptyModuleState name={activeModule} />}</div></main><aside className="arki-info-box"><div className="arki-info-head"><span>{t("infoBox")} · {t("pendingSelection")}</span><button onClick={() => toast.info(t("selectionUi2"))}>?</button></div><div className="arki-info-empty"><DoorOpen size={22} /><strong>{t("noSelection")}</strong><p>El canvas aún no emite un contrato de selección. Cuando se integre, aquí aparecerán propiedades, materiales, metrados, costo y trazabilidad.</p></div><div className="arki-info-status"><span className="arki-engine-dot" />{t(accessLabel(access))}<b>{t("local")}</b></div></aside></div><footer className="arki-workspace-status"><span><i className="arki-engine-dot" /> MOTOR OPERATIVO</span><span>v1.0 · {t("local")}</span><span className="arki-status-warning">{t("unavailableModuleTooltip")}</span></footer></div>;[m
+ }[m
+[1mdiff --git a/client/src/index.css b/client/src/index.css[m
+[1mindex bd7a4e5..8e25308 100644[m
+[1m--- a/client/src/index.css[m
+[1m+++ b/client/src/index.css[m
+[36m@@ -90,3 +90,33 @@[m [mbutton:focus-visible, input:focus-visible, select:focus-visible { box-shadow: 0[m
+ [m
+ /* PATCH NOW 8.1 follow-up: the Navigator is fixed overlay, so it must not reserve a grid column */[m
+ .arki-workspace-body { grid-template-columns: minmax(0, 1fr) 220px; }[m
+[32m+[m
+[32m+[m[32m/* UI-2 v1.7 — PATCH NOW 10: fixed three-column BIM workspace */[m
+[32m+[m[32m.arki-workspace-body { display: grid; grid-template-columns: 240px minmax(0, 1fr) 260px; min-height: calc(100vh - 105px); }[m
+[32m+[m[32m.arki-navigator { position: relative; display: flex; flex-direction: column; width: 240px; min-width: 240px; min-height: 100%; padding: 10px 10px 14px; border-right: 1px solid rgba(105,132,133,.16); background: #0c131a; overflow: hidden; }[m
+[32m+[m[32m.arki-navigator-toggle { display: flex; align-items: center; gap: 7px; width: 100%; padding: 8px 9px; border: 1px solid rgba(114,212,205,.16); border-radius: 5px; color: var(--muted-2); background: rgba(114,212,205,.035); font-size: 10px; }[m
+[32m+[m[32m.arki-navigator nav { display: grid; gap: 2px; margin-top: 12px; overflow-y: auto; }[m
+[32m+[m[32m.arki-navigator nav button { display: flex; align-items: center; gap: 8px; min-height: 31px; padding: 6px 8px; border: 0; border-radius: 4px; color: var(--muted-2); background: transparent; text-align: left; font-size: 10px; }[m
+[32m+[m[32m.arki-navigator nav button:hover, .arki-navigator nav button.active { color: var(--cream); background: rgba(255,137,88,.1); }[m
+[32m+[m[32m.arki-navigator nav button.active { box-shadow: inset 2px 0 var(--orange); }[m
+[32m+[m[32m.arki-navigator nav button svg { color: var(--muted); }[m
+[32m+[m[32m.arki-navigator nav button.active svg { color: var(--orange); }[m
+[32m+[m[32m.arki-nav-foot { display: grid; grid-template-columns: 1fr auto; gap: 5px 8px; align-items: end; margin-top: auto; padding: 12px 8px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; }[m
+[32m+[m[32m.arki-nav-foot strong, .arki-nav-foot small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }[m
+[32m+[m[32m.arki-nav-foot strong { color: var(--cream); font-size: 10px; }[m
+[32m+[m[32m.arki-nav-foot small { margin-top: 3px; color: var(--muted); }[m
+[32m+[m[32m.arki-nav-summary { grid-column: 1 / -1; display: flex; justify-content: space-between; color: #60747a; font-size: 8px; }[m
+[32m+[m[32m.arki-nav-summary .has-warning { color: #e7ab49; }[m
+[32m+[m[32m.arki-navigator-backdrop { display: none; }[m
+[32m+[m[32m.arki-workspace-canvas { min-width: 0; overflow: auto; }[m
+[32m+[m[32m.arki-info-box { min-width: 0; }[m
+[32m+[m[32m.arki-context-toolbar { min-height: 43px; }[m
+[32m+[m[32m.arki-context-toolbar .arki-context-kicker { display: none; }[m
+[32m+[m[32m.arki-context-actions span { color: var(--muted); font-size: 9px; }[m
+[32m+[m[32m.arki-workspace-status { display: flex; align-items: center; gap: 15px; min-height: 30px; padding: 0 12px; border-top: 1px solid rgba(105,132,133,.16); color: var(--muted); font-size: 9px; }[m
+[32m+[m[32m.arki-workspace-status .arki-status-warning { color: #e7ab49; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }[m
+[32m+[m[32m.page-intro { margin-bottom: 24px; }[m
+[32m+[m[32m.page-intro h1 { margin: 0 0 8px; font-size: clamp(28px, 3vw, 42px); }[m
+[32m+[m[32m.page-intro p { max-width: 520px; font-size: 11px; }[m
+[32m+[m[32m@media (max-width: 1050px) { .arki-workspace-body { grid-template-columns: 240px minmax(0, 1fr) 0; } .arki-info-box { display: none; } }[m
+[32m+[m[32m@media (max-width: 720px) { .arki-workspace-body { grid-template-columns: 0 minmax(0, 1fr) 0; } .arki-navigator { width: 0; min-width: 0; padding: 0; border: 0; } .arki-navigator.is-open { position: fixed; z-index: 30; inset: 0 auto 0 0; width: 240px; min-width: 240px; padding: 10px; box-shadow: 20px 0 40px #0008; } .arki-navigator-toggle { position: fixed; z-index: 31; top: 47px; left: 8px; width: auto; } .arki-navigator.is-open .arki-navigator-toggle { position: static; } .arki-workspace-tabs { overflow-x: auto; } .arki-workspace-status { gap: 8px; font-size: 8px; } }[m
+[1mdiff --git a/client/src/modules/GeneratorModule.tsx b/client/src/modules/GeneratorModule.tsx[m
+[1mindex 630c8eb..210f529 100644[m
+[1m--- a/client/src/modules/GeneratorModule.tsx[m
+[1m+++ b/client/src/modules/GeneratorModule.tsx[m
+[36m@@ -60,7 +60,7 @@[m [mexport default function GeneratorModule() {[m
+     <div className="arki-generator-grid">[m
+       <header className="topbar"><div className="breadcrumb"><span>PROYECTOS</span><ChevronDown size={13} /><b>Generador de familias</b></div><div className="top-actions"><span className="proposal-badge"><span className="live-dot" /> PROPOSAL ONLY</span><button className="icon-btn" title="Ayuda"><CircleHelp size={18} /></button><div className="avatar">YC</div></div></header>[m
+       <div className="content-wrap">[m
+[31m-        <section className="page-intro"><div><div className="eyebrow"><Sparkles size={14} /> ARKI / PARAMETRIC RUNTIME</div><h1>Generador dinámico<br /><em>de familias.</em></h1><p>Diseña, explora y compara propuestas conceptuales desde una única definición declarativa.</p></div><div className="intro-meta"><div><span className="meta-kicker">REGISTRO</span><strong>12 familias</strong></div><div><span className="meta-kicker">VARIANTES</span><strong>36 activas</strong></div><div><span className="meta-kicker">ESTADO</span><strong className="text-green">Operativo</strong></div></div></section>[m
+[32m+[m[32m        <section className="page-intro"><div><h1>Generador de familias.</h1><p>Diseña y compara propuestas paramétricas desde una definición BIM.</p></div></section>[m
+         <div className="studio-grid">[m
+           <aside className="control-column">[m
+             <section className="panel control-panel"><div className="panel-heading"><div><span className="section-index">01</span><h2>Definición base</h2></div><span className="panel-kebab"><MoreHorizontal size={18} /></span></div>[m
+[36m@@ -75,7 +75,7 @@[m [mexport default function GeneratorModule() {[m
+             <section className="panel control-panel render-panel"><div className="panel-heading"><div><span className="section-index">03</span><h2>Render</h2></div><Box size={16} className="muted-icon" /></div><div className="small-select-row"><label className="field-label">Calidad<select value={quality} onChange={(event) => setQuality(event.target.value as Quality)}><option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option><option value="ultra">Ultra</option></select></label><label className="field-label">Salida<select value={resolution} onChange={(event) => setResolution(event.target.value as Resolution)}>{Object.entries(RESOLUTIONS).map(([key, item]) => <option key={key} value={key}>{item.label}</option>)}</select></label></div><p className="render-note">PBR · ACES tone mapping · sombras suaves<br />{RESOLUTIONS[resolution].width} × {RESOLUTIONS[resolution].height}px</p></section>[m
+           </aside>[m
+           <section className="results-column">[m
+[31m-            <div className="results-toolbar"><div><span className="eyebrow compact"><Layers3 size={13} /> RESULTADO UNIFICADO</span><h2>{building ? building.name : "Esperando una generación"}</h2></div><div className="toolbar-actions"><button className="secondary-button" onClick={saveVersion} disabled={!building}><Save size={15} /> Guardar</button><button className="secondary-button" onClick={() => setShowSpecs(!showSpecs)}><MoreHorizontal size={16} /></button></div></div>[m
+[32m+[m[32m            <div className="results-toolbar"><div><h2>{building ? building.name : "Esperando una generación"}</h2></div><div className="toolbar-actions"><button className="secondary-button" onClick={saveVersion} disabled={!building}><Save size={15} /> Guardar</button><button className="secondary-button" onClick={() => setShowSpecs(!showSpecs)}><MoreHorizontal size={16} /></button></div></div>[m
+             {showSpecs && <div className="specs-strip"><span>GEOMETRY <b>{building?.geometry3d.massing ?? "—"}</b></span><span>STATUS <b className="text-orange">{building?.status ?? "DRAFT"}</b></span><span>REVIEW <b>{building ? "REQUIRED" : "—"}</b></span><button onClick={() => setShowSpecs(false)}><X size={14} /></button></div>}[m
+             <div className={cn("viewers-grid", activeView !== "ALL" && "single-view")}>[m
+               {([ ["PLAN", "Planta 2D", "Planta arquitectónica"], ["SECTION", "Corte", "Lectura vertical"], ["MODEL_3D", "Modelo 3D", "Masa conceptual"]] as const).map(([mode, title, subtitle]) => <article className={cn("viewer-card", activeView !== "ALL" && activeView !== mode && "hidden-view")} key={mode}><div className="viewer-card-head"><div><span>{title}</span><small>{subtitle}</small></div><button onClick={() => setActiveView(activeView === mode ? "ALL" : mode)}>{activeView === mode ? "Ver todos" : "Expandir"}</button></div><ProfessionalFamilyViewer building={building} mode={mode} quality={quality} resolution={resolution} /></article>)}[m
+[1mdiff --git a/scripts/test-navigator-layout.ts b/scripts/test-navigator-layout.ts[m
+[1mindex 79ea1e5..20d376d 100644[m
+[1m--- a/scripts/test-navigator-layout.ts[m
+[1m+++ b/scripts/test-navigator-layout.ts[m
+[36m@@ -6,13 +6,12 @@[m [mconst toolbar = await read("../client/src/modules/ModuleToolbar.tsx");[m
+ const css = await read("../client/src/index.css");[m
+ const generator = await read("../client/src/modules/GeneratorModule.tsx");[m
+ const checks: Array<[string, string, string[]]> = [[m
+[31m-  ["shell", shell, ["<ArkiNavigator", "<ModuleToolbar", "arki-project-chip", "arki-tab-status-dot", "availableModules.map"]],[m
+[31m-  ["navigator", navigator, ["arki-navigator-toggle", "arki-navigator-backdrop"]],[m
+[32m+[m[32m  ["shell", shell, ["<ArkiNavigator", "<ModuleToolbar", "arki-project-chip", "arki-tab-status-dot", "availableModules.map", "activeModule === \"EXP-TEC\" ? <DossierModule"]],[m
+[32m+[m[32m  ["navigator", navigator, ["arki-navigator", "arki-nav-summary", "projectName", "módulos"]],[m
+   ["toolbar", toolbar, ["Comparador", "Exportaciones", "Buscar familia"]],[m
+[31m-  ["css", css, [".arki-navigator", ".arki-module-toolbar", "--arki-bg: #0B1220"]],[m
+[31m-  ["generator", generator, ["className=\"arki-module-body\"", "className=\"arki-generator-grid\""]],[m
+[32m+[m[32m  ["css", css, ["grid-template-columns: 240px minmax(0, 1fr) 260px", "@media (max-width: 1050px)", "@media (max-width: 720px)", ".arki-navigator {", ".arki-info-box"]],[m
+[32m+[m[32m  ["generator", generator, ["className=\"arki-module-body\"", "className=\"arki-generator-grid\"", "Generador de familias."]],[m
+ ];[m
+ for (const [label, source, needles] of checks) for (const needle of needles) if (!source.includes(needle)) throw new Error(`${label} missing ${needle}`);[m
+ if (generator.includes('className="sidebar"') || generator.includes('className="app-shell"') || generator.includes('className="main-content"')) throw new Error("inherited generator layout remains");[m
+[31m-for (const size of [".arki-workspace-tabs button { font-size: 12px", ".arki-module-status { font-size: 10px", ".arki-info-head { font-size: 11px", ".arki-workspace-body { grid-template-columns: minmax(0, 1fr) 220px"]) if (!css.includes(size)) throw new Error(`layout/typography missing ${size}`);[m
+[31m-console.log(JSON.stringify({ status: "PASS", navigator: "collapsed overlay", tabs: "role-filtered", inheritedSidebar: false, toolbar: true, minUiFontPx: 10 }));[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", navigator: "fixed left column", infoBox: "fixed right column", columns: "240px / fluid / 260px", responsive: true, dossierMount: true }));[m

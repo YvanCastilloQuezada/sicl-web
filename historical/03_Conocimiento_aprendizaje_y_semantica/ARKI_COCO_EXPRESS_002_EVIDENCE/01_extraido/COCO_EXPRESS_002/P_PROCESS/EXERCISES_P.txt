@@ -1,0 +1,47 @@
+# COCO-EXPRESS-002 — Microejercicios P1–P8
+
+Estos ejercicios son sintéticos, propios y no reproducen respuestas de exámenes DeepSeek/Lipsic. Son pruebas de prerrequisitos, no solvers profesionales, decisiones de obra ni certificaciones. Cada registro conserva `provenance`, `units`, `applicability`, `scale`, `project`, `time` y `scenario`.
+
+## Oracle común
+
+`require_context(record)` rechaza cualquier registro sin contexto mínimo. `validate_epistemic(record)` rechaza `CERTIFIED` y cualquier promoción de `simulation`, `observation`, `forecast`, `hash` o `import_success` a `FACT`. También exige que forecast permanezca como `FORECAST`, `UNKNOWN` o `INFERENCE`, que observation permanezca como `OBSERVATION`, `UNKNOWN` o `INFERENCE`, y que simulation no se convierta en hecho. El código ejecutable de estas assertions está en `/home/ubuntu/jobs/cbef0db18f21_a3/test_p_exercises.py`; no forma parte del repositorio entregable y no modifica el código ARKI.
+
+## NORMAL — P3 Takt con dimensionalidad explícita
+
+**Escenario:** proyecto `PX-ALFA`, escala conceptual, periodo `2026-W40`, cuatro zonas repetitivas y 20 workdays disponibles. La pregunta es calcular un takt preliminar, no prometer productividad.
+
+**Registro mínimo:** `capability=P3`; `available_time=20 workdays`; `demand=4 zones`; `takt=5 workdays/zone`; `units=workdays/zone`; `scenario=four_repeating_zones`; `applicability=same scope and zone definition only`; provenance de ejercicio sintético, versión 1 y autoridad del oracle.
+
+**Oracle:** `takt = available_time / demand`; exige `takt == 5`, unidades `workdays/zone` y contexto completo. No convierte el resultado calculado en garantía de producción.
+
+**Resultado ejecutado:** `NORMAL PASS: takt=5 workdays/zone; context preserved`.
+
+## ADVERSARIAL — P6/P7 con forecast, import success y hash
+
+**Escenario:** alternativa material B en `PX-BETA`, escala conceptual, horizonte de 20 years y fecha de corte `2026-09-24`. El factor sintético es no verificado; el forecast energético y el hash se incluyen deliberadamente para intentar elevarlos indebidamente a verdad.
+
+**Registro mínimo:** `capability=P6/P7`; `units=kgCO2e/m2-functional-unit; currency_2026`; `functional_unit=1 m2 usable area`; frontera `product + use stage`; `end-of-life=UNKNOWN`; `origin=forecast`; `epistemic_state=FORECAST`; `import_success=True`; hash sintético; aplicabilidad limitada a la unidad funcional y frontera declaradas; provenance no verificada.
+
+**Oracle:** conserva `FORECAST`, exige que la frontera incompleta retenga `UNKNOWN`, y no interpreta `import_success=True` ni hash como fidelidad, verdad, firma, certificación o aceptación.
+
+**Resultado ejecutado:** `ADVERSARIAL PASS: forecast/import/hash kept non-certifying; end-of-life UNKNOWN`.
+
+## TRANSFER — P8 commissioning y condición de activo
+
+**Escenario:** activo `air_handler_post_installation` en `PX-GAMMA`, escala asset-level, observación `2026-09-24T10:00Z`, ventana baseline de 7 days. Una señal de 4.2 mm/s RMS activa una alerta, pero la calibración del sensor es `UNKNOWN`.
+
+**Registro mínimo:** `capability=P8`; `units=mm/s RMS`; `origin=observation`; `epistemic_state=OBSERVATION`; `alert=True`; `diagnosis=UNKNOWN`; `commissioning_status=TEST_PENDING_HUMAN_REVIEW`; applicability restringida al mismo activo, sensor, calibración y modo operativo; provenance con sensor y calibración.
+
+**Oracle:** no permite diagnóstico confirmado; mantiene `UNKNOWN`; no permite `ACCEPTED` mientras la prueba y revisión humana estén pendientes. La alerta es una observación/hipótesis de condición, no un fallo certificado ni mantenimiento predictivo operativo.
+
+**Resultado ejecutado:** `TRANSFER PASS: observation kept as observation; diagnosis UNKNOWN; acceptance pending`.
+
+## Mutante controlado y regresión
+
+Mutante introducido sólo en memoria: se cambió `epistemic_state` del registro ADVERSARIAL de `FORECAST` a `FACT`. El oracle lo detectó con `MUTANT KILLED: forbidden promotion: forecast->FACT`. Después se verificaron de nuevo los tres registros correctos y pasaron: `REGRESSION PASS: correct records remain intact after mutant test`.
+
+**Resumen real de ejecución:** `ASSERTIONS: 4 green (3 exercises + mutant detection), 0 professional claims`. Mutantes detectados: **1**. El mutante no se dejó en el código correcto ni se escribió en el repositorio.
+
+## Límites
+
+Un resultado verde sólo demuestra preservación de metadatos y estados epistémicos en datos sintéticos. No demuestra competencia profesional en Lean, Last Planner, Takt, programación, constructibilidad, LCA, LCC, commissioning, mantenimiento predictivo, seguridad, normativa, aceptación, firma o certificación.

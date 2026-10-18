@@ -1,0 +1,14 @@
+export type AssetCondition = "UNKNOWN" | "NEW" | "GOOD" | "FAIR" | "POOR" | "FAILED";
+export type MaintenanceType = "PREVENTIVE" | "CORRECTIVE" | "PREDICTIVE" | "CONDITION_BASED" | "INSPECTION" | "REPLACEMENT";
+export type WorkOrderStatus = "DRAFT" | "OPEN" | "IN_PROGRESS" | "BLOCKED" | "COMPLETED" | "VERIFICATION_REQUIRED" | "CLOSED";
+export type Asset = Readonly<{ id: string; projectId: string; typeId: string; systemId?: string; locationSpaceId?: string; manufacturer?: string; model?: string; serialNumber?: string; installationDate?: string; warrantyUntil?: string; expectedLifeYears?: number; condition: AssetCondition; criticality: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"; provenance: Readonly<{ source: string; evidenceRefs: readonly string[] }> }>;
+export type OmEvent = Readonly<{ id: string; assetId: string; occurredAt: string; kind: "INSTALLED" | "COMMISSIONED" | "INSPECTED" | "FAILED" | "REPAIRED" | "REPLACED" | "CONDITION_CHANGED"; before: AssetCondition; after: AssetCondition; evidenceRefs: readonly string[]; provenance: Readonly<{ source: string }> }>;
+export type WorkOrder = Readonly<{ id: string; projectId: string; assetId: string; problem: string; priority: "LOW" | "MEDIUM" | "HIGH" | "EMERGENCY"; reportedAt: string; type: MaintenanceType; status: WorkOrderStatus; evidenceRefs: readonly string[] }>;
+export type SensorObservation = Readonly<{ sensorId: string; assetId?: string; value: number; unit: string; timestamp: string; quality: "UNKNOWN" | "GOOD" | "SUSPECT" | "BAD"; source: string; evidenceRef?: string }>;
+export type AsBuiltRelation = Readonly<{ designElementId: string; fieldObservationId: string; status: "MATCH" | "DIFFERENT" | "UNKNOWN"; evidenceRefs: readonly string[] }>;
+
+export const appendEvent = (history: readonly OmEvent[], event: OmEvent): OmEvent[] => history.some((item) => item.id === event.id) ? [...history] : [...history, event].sort((a, b) => a.occurredAt.localeCompare(b.occurredAt) || a.id.localeCompare(b.id));
+export const latestCondition = (asset: Asset, history: readonly OmEvent[]): AssetCondition => history.filter((event) => event.assetId === asset.id).sort((a, b) => a.occurredAt.localeCompare(b.occurredAt) || a.id.localeCompare(b.id)).at(-1)?.after ?? asset.condition;
+export const closeWorkOrder = (workOrder: WorkOrder, verificationEvidence: readonly string[]): WorkOrder => verificationEvidence.length ? { ...workOrder, status: "CLOSED", evidenceRefs: [...workOrder.evidenceRefs, ...verificationEvidence] } : { ...workOrder, status: "VERIFICATION_REQUIRED" };
+export const sensorIsCanonical = (_observation: SensorObservation) => false;
+export const separateAsBuilt = (designElementId: string, fieldObservationId: string, status: AsBuiltRelation["status"], evidenceRefs: readonly string[]): AsBuiltRelation => ({ designElementId, fieldObservationId, status, evidenceRefs });

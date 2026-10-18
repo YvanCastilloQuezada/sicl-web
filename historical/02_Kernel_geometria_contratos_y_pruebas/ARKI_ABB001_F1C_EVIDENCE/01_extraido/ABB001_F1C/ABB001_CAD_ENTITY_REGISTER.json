@@ -1,0 +1,9 @@
+{
+  "schema":"ARKI-ABB001-CAD-ENTITY-REGISTER-1.0",
+  "status":"NO_ENTITIES_PARSED",
+  "interpretation":"NOT_EXECUTED, not ZERO_ENTITIES",
+  "entities":[],
+  "requiredIdentityFields":["sourceFile","sourceHash","sourceSpace","sourceLayout","sourceEntityIdOrHandle","entityType","layer","geometry","coordinates","properties","blockContext","extractionMethod","epistemicStatus"],
+  "candidateSamples":[],
+  "reason":"No governed DWG reader/converter was available"
+}

@@ -1,0 +1,220 @@
+{
+  "schema": "ARKI-BKH-KERNEL-93A-1.0",
+  "status": "COMPLETED / PENDING INDEPENDENT REVIEW",
+  "physicalFilesBeforeManifest": 43,
+  "manifestEntries": 42,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "contracts/BKH3_BKH1_BKH2_INTEGRATION.md",
+      "sha256": "f557ca95957ce20f304622a05ad445357d41c8360ee2ed2b72c5374b574ae5ca",
+      "bytes": 1187
+    },
+    {
+      "path": "contracts/BKH3_DEPENDENCY_INVALIDATION_CONTRACT.md",
+      "sha256": "1480f9616d3d4fd91867577bfdab6ae4d422c57a28bb06f2a53b15fd7c7011f8",
+      "bytes": 2060
+    },
+    {
+      "path": "contracts/BKH3_DOCUMENT_91A_FIXES.md",
+      "sha256": "c526a6c5b17d29afa6318250d8042d5a4cfd75465ef16f1532face4ea7b9ad4d",
+      "bytes": 670
+    },
+    {
+      "path": "contracts/BKH3_FAILURE_SEMANTICS.md",
+      "sha256": "602910793d49d1e8ddd0c6b1bac4ed6bf47678dc3bd7bf3197f91fbfeb737bb6",
+      "bytes": 1586
+    },
+    {
+      "path": "contracts/BKH3_FORENSIC_FINDINGS.md",
+      "sha256": "2c796f1b544ccb16189e90babae3278a721184b723ba04a6fd85f8afb04985ec",
+      "bytes": 2387
+    },
+    {
+      "path": "contracts/BKH3_IMPLEMENTATION_SEQUENCE.md",
+      "sha256": "f7fd2d2322b00ce603c91b29460176f762cedd900abca422845ac010cfb6e9e0",
+      "bytes": 1374
+    },
+    {
+      "path": "contracts/BKH3_INVARIANT_REGISTRY.md",
+      "sha256": "c45be044e1761adb160c003a2d1262bc50ace9e66b1ad784d9f67250cc1b7320",
+      "bytes": 1288
+    },
+    {
+      "path": "contracts/BKH3_REGENERATION_ENGINE_CONTRACT.md",
+      "sha256": "3186f4b5d6d52de71842134fdacc0185cfdafbe29055878d75672d43b1c98e27",
+      "bytes": 4017
+    },
+    {
+      "path": "contracts/BKH3_REGENERATION_OWNERSHIP_MAP.md",
+      "sha256": "f1fa40e59e9096cc85eb0f21ce2d2d86897f7f6d1881113883485319c5f880b6",
+      "bytes": 2356
+    },
+    {
+      "path": "contracts/BKH3_REGENERATION_SCHEMA.md",
+      "sha256": "1f7407da1196cc42b20808ecec1dc145632ab19325c33a302e27da9f1b8752e0",
+      "bytes": 2986
+    },
+    {
+      "path": "contracts/BKH3_REGENERATOR_REGISTRY_CONTRACT.md",
+      "sha256": "8c2493a8efc7305ffe48ba15a28e304dacde17aa8922fcf29a684a26e2c8366e",
+      "bytes": 1304
+    },
+    {
+      "path": "contracts/BKH3_SCOPE_LIMITS.md",
+      "sha256": "5af4d8a93cf821188f27c5b33dee1e0375feca8f16cefa49d8e4efa8348332b4",
+      "bytes": 1152
+    },
+    {
+      "path": "contracts/BKH3_SOURCE_DERIVED_STATE_MAP.md",
+      "sha256": "536015195f7e68664ca922e146fc34c8d3d0405a78225d800e6ca771968c33e3",
+      "bytes": 1756
+    },
+    {
+      "path": "contracts/BKH3_TEST_PLAN.md",
+      "sha256": "935cde683e442657e2c20306a0b2ff9f4e84b077fe493eba040e5f9895f7481b",
+      "bytes": 2207
+    },
+    {
+      "path": "contracts/BKH3_TORTURE_SCENARIO.md",
+      "sha256": "131892fbbacb65ad2845c76408ba3b9ee0d6eab82dad80b53e0cc22f0c020daf",
+      "bytes": 1401
+    },
+    {
+      "path": "contracts/README_BKH3_REVIEW.md",
+      "sha256": "2b34f99106bac47634caeaaee318f925149d25e5990f2bd626b4eb1d2864a037",
+      "bytes": 1754
+    },
+    {
+      "path": "evidence/BKH1_REPORT.md",
+      "sha256": "5d5b8da975405a6bda324a0971e6fb8ab9e694d925f17e4a4618eff6bb7ce62f",
+      "bytes": 4229
+    },
+    {
+      "path": "evidence/BKH1_VERDICT_VERIFIED.md",
+      "sha256": "aee53ad09afecaee46f1f4c17b31581e255de639bd5ff26f5572fcbda916937b",
+      "bytes": 1362
+    },
+    {
+      "path": "evidence/BKH2_REPORT.md",
+      "sha256": "4dbc987825b9d14748fd1618086fcaba425e151d653a5ee39a6b5a6951dd4c7e",
+      "bytes": 3204
+    },
+    {
+      "path": "evidence/BKH3_GATE1_BASELINE.txt",
+      "sha256": "27a79c2a91f2b934f82370a9dee5e2f92f23b2f4a4c435428476b813a625e324",
+      "bytes": 13392
+    },
+    {
+      "path": "evidence/BKH3_REPORT.md",
+      "sha256": "177f19b89d9e085bc6a18d96dffcc700c7a0e8f5c161c966cd7ddbe416292cec",
+      "bytes": 3205
+    },
+    {
+      "path": "evidence/BKH_KERNEL_BASELINE_TESTS.txt",
+      "sha256": "3751d2f2be0c7774ddf76dd9cc359da79002c7854b88daaaa9dce143f5615c6e",
+      "bytes": 4710
+    },
+    {
+      "path": "evidence/BKH_KERNEL_BYPASS_AUDIT.md",
+      "sha256": "f72329c774c465cb42cf2f0f36e6909e07339e2b77cdca85b4d45aa26202350d",
+      "bytes": 1841
+    },
+    {
+      "path": "evidence/BKH_KERNEL_CONSOLIDATION_REPORT.md",
+      "sha256": "ad60546e8d0955b093d93ba45910f808dd73b33c342ae020186c3b75d053432e",
+      "bytes": 3769
+    },
+    {
+      "path": "evidence/BKH_KERNEL_CONTRACT_INVENTORY.txt",
+      "sha256": "b7add782685270b3c6a3ae258eec52af198918a454ba0042b5d62f816c59a858",
+      "bytes": 23432
+    },
+    {
+      "path": "evidence/BKH_KERNEL_DEFECT_LEDGER.md",
+      "sha256": "c69d9f76cf34a3a52a18537007dc05e244c2cac6e37cb0a51e091c90b8dcc536",
+      "bytes": 2364
+    },
+    {
+      "path": "evidence/BKH_KERNEL_INVARIANT_MASTER_MATRIX.md",
+      "sha256": "3a3327bc64d796f3279dff9f6c253964268f8edc9538e0410e485ee6392b2468",
+      "bytes": 2410
+    },
+    {
+      "path": "evidence/BKH_KERNEL_OPEN_ITEMS_REGISTER.md",
+      "sha256": "3adbab685a018a9da65f501e00055d6aee894e6e60f08a89064df8fa3fcd610a",
+      "bytes": 2238
+    },
+    {
+      "path": "evidence/BKH_KERNEL_POST92A_BASELINE.txt",
+      "sha256": "7ff33c4b1cbe80de475522a9b42a558db73ce3c3bce6d0170d2b7ed47f029094",
+      "bytes": 13107
+    },
+    {
+      "path": "evidence/BKH_KERNEL_STATIC_SAFETY_SCAN.txt",
+      "sha256": "e4930f31846af498a61ae2e165b37617a97e78ec513d17b69f10d05fb6dbbf14",
+      "bytes": 9702
+    },
+    {
+      "path": "evidence/E7_MEP_VERIFIED_AUDIT.md",
+      "sha256": "48f3616dd12a9873d49398f319f14fa091c6c4fd5ec28538eec7dd02cc49bcff",
+      "bytes": 1386
+    },
+    {
+      "path": "evidence/E7_MEP_VERIFIED_AUDIT.txt",
+      "sha256": "6089433c718d8898961955aa5d12753011058328e34686801dacc7fa738e44fe",
+      "bytes": 1764
+    },
+    {
+      "path": "evidence/KITM-001_SPEC.md",
+      "sha256": "b0cd676df0b9cc72897d041027d5fe53acb927d46bf27e1c65697d447f9aae77",
+      "bytes": 1883
+    },
+    {
+      "path": "source/arkiConstraintEngine.ts",
+      "sha256": "95216897df1d5dcacb4e6beb9420558e4b45f995508a3eb6ee7ef6fb7ea3f4c0",
+      "bytes": 31320
+    },
+    {
+      "path": "source/arkiRegenerationEngine.ts",
+      "sha256": "14daa4f1b6808ccf9b0669dcafa9d996f94e9c4631ec814ed1dc8e1e7c8c4020",
+      "bytes": 23165
+    },
+    {
+      "path": "source/arkiRelationshipAdapters.ts",
+      "sha256": "9f8ffbc7dd5f2ae9d4a896451727652f5d6698352a8ac7932426b3591f5bae41",
+      "bytes": 6222
+    },
+    {
+      "path": "source/arkiRelationshipFabric.ts",
+      "sha256": "03ce98f57db7ce329bd844e1db87a16672772a6c92db3d017d248a6e586c9c07",
+      "bytes": 13884
+    },
+    {
+      "path": "tests/test-bkh-kernel-93a.ts",
+      "sha256": "aceca81221ead77c8e4a98f04ae5b205ea1e60fd3739436617ab55a95924effa",
+      "bytes": 5559
+    },
+    {
+      "path": "tests/test-bkh1-relationship-fabric.ts",
+      "sha256": "6b28a426fd297b263ea943d114f567f5154174addf75327c6cbe234a6962ffb8",
+      "bytes": 5393
+    },
+    {
+      "path": "tests/test-bkh2-constraint-engine.ts",
+      "sha256": "956b9bb25d68b7c3412e1946d1dd9e9a568e69d9e104ebfadc5d0b0c785abf75",
+      "bytes": 9360
+    },
+    {
+      "path": "tests/test-bkh3-corrective.ts",
+      "sha256": "f497a5db0db614f8da1b3a5968fc0f9bb4ea927dc9734413f99a0b3e3dc44fa2",
+      "bytes": 11673
+    },
+    {
+      "path": "tests/test-bkh3-regeneration-engine.ts",
+      "sha256": "c5a94f24fc6856f8fe912eafd9748e9d0103892c727ac02d65d37c42ed8c59fd",
+      "bytes": 4635
+    }
+  ]
+}

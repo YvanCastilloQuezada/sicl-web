@@ -1,0 +1,12 @@
+[33m34617e0[m test(case): add controlled house E2E validation
+[33m8a0863a[m feat(arkidraw): adapt graphic scene to vector svg
+[33m27ff812[m feat(arkidraw): adapt graphic scene to vector svg
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m09449fc[m docs: close multisource knowledge macroorder
+[33mc671337[m feat: complete controlled design knowledge pilot
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33mad36e26[m feat: add deterministic multimodal design adapters
+[33m499a397[m docs: lock project intelligence distinctions
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+[33m2cde44d[m docs: add independent operations manual

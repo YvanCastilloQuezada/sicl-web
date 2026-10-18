@@ -1,0 +1,4 @@
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m82500b3[m feat: add scale-aware generative capabilities

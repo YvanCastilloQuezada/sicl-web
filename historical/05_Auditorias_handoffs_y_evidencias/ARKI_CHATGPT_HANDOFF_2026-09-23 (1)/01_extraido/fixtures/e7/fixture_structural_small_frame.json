@@ -1,0 +1,1 @@
+{"nodes":[{"id":"N1","position":[0,0,0],"restraint":[true,true,true]},{"id":"N2","position":[4,0,0]}],"members":[{"id":"B1","startNodeId":"N1","endNodeId":"N2","material":"steel","section":"IPE200"}],"loads":{"N2":10},"solver":"opensees-stub"}

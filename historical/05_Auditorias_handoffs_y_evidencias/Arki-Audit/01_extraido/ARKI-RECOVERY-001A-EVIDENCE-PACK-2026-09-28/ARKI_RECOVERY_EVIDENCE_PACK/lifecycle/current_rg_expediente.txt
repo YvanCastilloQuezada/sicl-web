@@ -1,0 +1,14 @@
+docs/RFC-025_E030_VIGENCY_REVIEW.md:3:**Expediente:** RFC-025 / E.030  
+docs/RFC-025_E030_VIGENCY_REVIEW.md:14:La página oficial de RM 183 también indica una modificación posterior mediante la Resolución Ministerial N.° 217-2026-VIVIENDA, publicada el 2 de junio de 2026. RM 217 modifica la disposición transitoria de RM 183. Por tanto, el estado correcto del expediente no es `VIGENTE` simple, sino **modificada con revisión de vigencia y régimen transitorio pendiente de firma humana**.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:80:- Estado del expediente técnico.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:90:El texto extraído amplía los supuestos de proyectos que pueden regirse por la norma anterior hasta su culminación. Incluye proyectos que, al entrar en vigencia la resolución, tengan expediente técnico en elaboración o aprobado, licencia en trámite o aprobada, anteproyecto en consulta presentado ante la autoridad competente y, para Asociaciones Público-Privadas, proyectos desde la etapa de estructuración. También incluye saldos de obra derivados de expedientes aprobados antes de la vigencia de la modificatoria.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:114:- Aplicar E.030 2019 a todos los proyectos antiguos sin revisar el expediente.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:128:- Estado del expediente y licencia.
+docs/OPERATIONS_MANUAL.md:112:**Cuándo usarla.** Al iniciar un expediente espacial nuevo.
+docs/SIMS_DEI_EXECUTIVE_BOARD_PRESENTATION.md:107:El sistema no afirma que un archivo IFC sea correcto por el solo hecho de poder leerlo. Tampoco afirma que una fuente catastral sea vigente sin expediente. Revit y Archicad nativos requieren sus hosts y SDKs. La exportación BIM requiere una revisión humana aprobada.
+docs/BIM_CHANGESET_REVIEW_EXAMPLE.md:5:> **PREVIEW ONLY.** Este expediente no modificó el archivo IFC, Revit ni Archicad. La exportación está bloqueada hasta que exista una revisión humana aprobada y una orden de exportación separada.
+docs/reference/README_REFERENCE.md:24:| RFC-030 técnico | `/DRAWING` | `/drawings` | Expediente, obra, municipalidad |
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:20:Un arquitecto necesita dos lenguajes visuales: uno técnico para municipalidad, expediente y obra, y uno narrativo para cliente, pitch y concurso. RFC-034 separa ambos lenguajes y evita híbridos fallidos.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:160:| Uso | Municipalidad, expediente, obra | Cliente, pitch, portafolio |
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:11:RFC-030 define la generación de planos arquitectónicos técnicos a partir de una fuente geométrica verificable. Su objetivo es producir documentación técnica monocroma, medible y auditable para revisión arquitectónica, expediente y coordinación de obra.
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:148:| Uso | Técnico, expediente, obra | Cliente, pitch, portafolio | Render fotorrealista |

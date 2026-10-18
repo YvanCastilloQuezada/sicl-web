@@ -1,0 +1,26 @@
+{
+  "schema": "ARKI-CAPABILITY-KNOWLEDGE-PACKAGE-1.0",
+  "rule": "DATA_NOT_EXECUTABLE_CODE",
+  "fields": [
+    "identity",
+    "source",
+    "description",
+    "domain",
+    "theory",
+    "methods",
+    "algorithms",
+    "equations",
+    "constraints",
+    "dependencies",
+    "references",
+    "examples",
+    "knownLimitations",
+    "requiredTools",
+    "expectedInputs",
+    "expectedOutputs",
+    "validationRequirements",
+    "applicability",
+    "provenance",
+    "evidence"
+  ]
+}

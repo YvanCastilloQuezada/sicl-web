@@ -1,0 +1,393 @@
+RESPUESTA DEL DEVELOPER — A-002 v1.2
+
+ChatGPT tiene razón en los diez. No voy a defender v1.1: encontró exactamente los agujeros que un contrato como A-002 no puede tener. Acepto todo y devuelvo v1.2.
+
+Dos cosas antes del contrato, para que no se pierdan:
+
+RT-06 (bypass del gate H-005) es el más delicado. No puedo prometer enforcement contra H-005 crudo sin modificar H-005 congelado. Diseño la frontera oficial como contrato y añado test adversarial de bypass — pero soy explícito sobre el límite.
+
+RT-02 (jurisdicción/aplicabilidad): A-002 no puede ser motor jurídico. Solo puede reportar si la aplicabilidad fue declarada explícitamente. Si no, APPLICABILITY_UNKNOWN.
+
+ARKI — CONTRATO A-002 v1.2
+Input Sufficiency Detection (defensa epistémica)
+Versión: 1.2 (borrador para firma del PO)
+Autor: DeepSeek (rol developer)
+Revisor crítico: ChatGPT (Red Team)
+Predecesor: v1.1 (MAJOR_IMPROVEMENT, FIXES_REQUIRED)
+Fecha: 2026-09-27
+
+0. Baseline corregido
+text
+Baseline:   main @ 4de9ca1b25fed8b60dce8ead4923a76fef0ee8eb
+Branch:     feat/a002-input-sufficiency-detection
+Merge:      NO hasta cierre verificado
+Tag:        NO hasta firma del PO
+1. Reconocimiento de los 10 findings
+#	Finding	Veredicto	Cambio en v1.2
+RT-01	is_safe_to_proceed contradictorio	ACEPTADO	Política materializada en reporte
+RT-02	Jurisdicción demasiado débil	ACEPTADO	NormativeApplicability estructurada
+RT-03	KNOWN circular	ACEPTADO	declared_state vs effective_state
+RT-04	evidence_refs: tuple[str] trivial	ACEPTADO	EvidenceRef estructurado
+RT-05	Non-blocking conflicts indefinidos	ACEPTADO	Preservación + pregunta humana
+RT-06	Gate H-005 bypasseable	ACEPTADO CON LÍMITE	Frontera documentada + test adversarial
+RT-07	Persistencia no demuestra historia	ACEPTADO	SufficiencyHistory real T0→T1
+RT-08	Reporte sin identidad del input	ACEPTADO	evaluation_id + fingerprints
+RT-09	Sin defensa cross-project	ACEPTADO	Gate valida identidad
+RT-10	15 tests insuficientes	ACEPTADO	Matriz adversarial obligatoria
+2. Cambios estructurales v1.1 → v1.2
+Área	v1.1	v1.2
+Estado epistémico	1 campo (state)	2 campos (declared_state, effective_state)
+Evidencia	tuple[str]	tuple[EvidenceRef] estructurada
+Jurisdicción	tuple[str]	NormativeApplicability con 6 dimensiones + estado
+Safe-to-proceed	propiedad	política materializada en reporte
+Identidad	ausente	evaluation_id + 4 fingerprints
+Historia	save/reopen	T0→T1 append-only
+Gate	helper	frontera contractual verificable
+Tests	15 puntuales	8 familias adversariales
+3. Contratos
+3.1 EpistemicState
+python
+class EpistemicState(str, Enum):
+    KNOWN       = "KNOWN"        # evidencia verificable y presente
+    OBSERVED    = "OBSERVED"     # percibido, no verificado
+    ASSUMED     = "ASSUMED"      # supuesto explícito
+    UNKNOWN     = "UNKNOWN"      # declarado como desconocido
+    MISSING     = "MISSING"      # ni declarado
+    CONFLICTING = "CONFLICTING"  # contradicción preservada
+3.2 ApplicabilityStatus
+python
+class ApplicabilityStatus(str, Enum):
+    ESTABLISHED     = "ESTABLISHED"      # el input declara y sustenta aplicabilidad
+    NOT_APPLICABLE  = "NOT_APPLICABLE"   # el input declara no aplica
+    UNKNOWN         = "UNKNOWN"          # no declarado
+Regla: REGULATION EXISTS ≠ REGULATION APPLIES. A-002 no decide aplicabilidad — solo reporta si fue declarada y, si lo fue, con qué sustento.
+
+3.3 NormativeApplicability
+python
+@dataclass(frozen=True)
+class NormativeApplicability:
+    jurisdiction_known: bool
+    jurisdiction_id: str | None          # "PE" si conocido
+    source_identified: bool
+    source_id: str | None
+    regulation_identified: bool
+    regulation_id: str | None            # "RNE-A010"
+    regulation_version: str | None
+    effective_date_iso: str | None       # YYYY-MM-DD
+    applicability: ApplicabilityStatus
+3.4 EvidenceRef
+python
+@dataclass(frozen=True)
+class EvidenceRef:
+    id: str                              # identificador único del corpus
+    kind: str                            # "document" | "measurement" | "test" | "declaration"
+    content_hash: str                    # sha256 hex, min 64 chars
+    source_id: str
+    declared_supports_field: str         # campo que dice soportar
+Límite explícito: A-002 verifica integridad estructural de la evidencia (id, hash, source), no veracidad semántica. EVIDENCE_REF PRESENT ≠ EVIDENCE SUPPORTS CLAIM. Si la operación exige soporte real, es A-003 / humana.
+
+3.5 FieldRequirement
+python
+@dataclass(frozen=True)
+class FieldRequirement:
+    key: str
+    blocking: bool
+    accepted_declared_states: frozenset[EpistemicState]
+    accepted_effective_states: frozenset[EpistemicState]
+    requires_evidence: bool
+    requires_applicability: bool = False
+    scales: tuple[Scale, ...] = ()       # vacío = todas
+    reason: str = ""
+3.6 FieldAssessment
+python
+@dataclass(frozen=True)
+class FieldAssessment:
+    key: str
+    blocking: bool
+    declared_state: EpistemicState
+    effective_state: EpistemicState
+    downgrade_reason: str = ""
+    evidence_refs: tuple[EvidenceRef, ...] = ()
+    applicability: NormativeApplicability | None = None
+    scales_present: tuple[Scale, ...] = ()
+    conflicts: tuple[str, ...] = ()      # preservados
+    notes: str = ""
+Regla de downgrade (RT-03):
+
+declared_state = KNOWN + sin evidencia + requires_evidence = True → effective_state = OBSERVED, downgrade_reason = "KNOWN_WITHOUT_EVIDENCE".
+
+declared_state = KNOWN + con evidencia + requires_evidence = True → effective_state = KNOWN.
+
+declared_state = KNOWN + requires_evidence = False → effective_state = OBSERVED, downgrade_reason = "KNOWN_DECLARED_NOT_VERIFIED".
+
+3.7 HumanQuestion
+python
+@dataclass(frozen=True)
+class HumanQuestion:
+    key: str
+    question: str
+    blocks_operation: bool
+    priority: int                        # 1 = mayor
+    reason: str
+    kind: QuestionKind                   # MISSING_FIELD | CONFLICT_ARBITRATION | APPLICABILITY | EVIDENCE
+3.8 SufficiencyReport
+python
+@dataclass(frozen=True)
+class SufficiencyReport:
+    # Identidad (RT-08, RT-09)
+    contract_version: int
+    evaluation_id: str                   # hash determinista
+    project_id: str
+    snapshot_fingerprint: str            # sha256 del snapshot canónico
+    snapshot_version: int
+    profile_id: str
+    profile_version: int
+    operation: Operation
+
+    # Resultado
+    status: SufficiencyStatus
+    assessments: tuple[FieldAssessment, ...]
+    human_questions: tuple[HumanQuestion, ...]
+    reason: str
+
+    # Política materializada (RT-01)
+    proceed_allowed: bool
+    assumptions_allowed: bool
+    policy_snapshot: str                 # describe la política aplicada
+
+    # Read-only
+    read_only: bool = True
+
+    def to_dict(self) -> dict[str, Any]: ...
+    def canonical_dict(self) -> dict[str, Any]: ...
+    def fingerprint(self) -> str: ...    # sha256 del canonical_dict
+Regla RT-01: proceed_allowed es calculado por el detector y escrito en el reporte. No hay propiedad is_safe_to_proceed que asuma nada. Cualquiera que lea el reporte puede verificar la política que se aplicó.
+
+Cálculo de proceed_allowed:
+
+text
+proceed_allowed = (status == SUFFICIENT)
+               OR (status == CONDITIONALLY_SUFFICIENT AND profile.allow_conditional)
+3.9 SufficiencyStatus
+python
+class SufficiencyStatus(str, Enum):
+    SUFFICIENT               = "SUFFICIENT"
+    CONDITIONALLY_SUFFICIENT = "CONDITIONALLY_SUFFICIENT"
+    INSUFFICIENT             = "INSUFFICIENT"
+    CONFLICTING              = "CONFLICTING"
+    UNKNOWN                  = "UNKNOWN"
+Precedencia (fail-closed):
+
+Snapshot malformado → UNKNOWN
+
+Campo blocking CONFLICTING → CONFLICTING
+
+Campo blocking en estado efectivo no aceptado → INSUFFICIENT
+
+Campo blocking en ASSUMED aceptado por perfil → CONDITIONALLY_SUFFICIENT
+
+Solo falta non-blocking o hay conflictos non-blocking → CONDITIONALLY_SUFFICIENT
+
+Todo blocking aceptable → SUFFICIENT
+
+RT-05: conflicto en non-blocking no degrada automáticamente el estado global. Se preserva en assessments[i].conflicts y genera HumanQuestion. Si el perfil lo permite, la operación puede continuar en CONDITIONALLY_SUFFICIENT.
+
+3.10 SufficiencyProfile
+python
+@dataclass(frozen=True)
+class SufficiencyProfile:
+    profile_id: str
+    profile_version: int
+    operation: Operation
+    requirements: tuple[FieldRequirement, ...]
+    allow_conditional: bool
+    allow_assumptions: bool
+    contract_version: int = 1
+    description: str = ""
+Perfiles v1 iniciales:
+
+PROFILE_FORMULATE_PROBLEM_V1 (allow_conditional=False)
+
+PROFILE_GENERATE_PARTI_V1 (allow_conditional=False)
+
+PROFILE_RECOMPUTE_V1 (allow_conditional=True)
+
+Cada perfil requiere revisión humana antes de implementarse. El contenido de requirements codifica qué es un input suficiente para una operación — eso no lo decide un developer.
+
+3.11 SufficiencyHistory
+python
+@dataclass(frozen=True)
+class HistoryEntry:
+    evaluation_id: str
+    report_fingerprint: str
+    status: SufficiencyStatus
+    recorded_at_iso: str                 # ISO 8601, no auto-generado
+    notes: str = ""
+
+@dataclass(frozen=True)
+class SufficiencyHistory:
+    project_id: str
+    entries: tuple[HistoryEntry, ...]    # append-only
+
+    def append(self, entry: HistoryEntry) -> "SufficiencyHistory": ...
+    def latest(self) -> HistoryEntry | None: ...
+Regla RT-07: las entradas son inmutables. append devuelve una nueva instancia, nunca muta la existente. T0 permanece recuperable después de agregar T1.
+
+4. Reglas de comportamiento
+4.1 Determinismo
+Mismo input + misma operación + mismo perfil → mismo canonical_dict() byte-a-byte.
+
+evaluation_id calculado determinísticamente:
+
+text
+sha256(project_id + "|" + snapshot_fingerprint + "|" +
+       profile_id + "@" + profile_version + "|" +
+       operation.value)
+Sin Math.random, sin Date.now, sin red, sin providers.
+
+Orden de assessments = orden del perfil. human_questions ordenadas por prioridad.
+
+4.2 Fail-closed
+Snapshot None / no-dict / malformado → UNKNOWN.
+
+Si proceed_allowed = False, el gate rechaza incluso si alguien quiere continuar.
+
+Si evaluation_id no coincide con el contexto del gate → rechazar.
+
+4.3 No invención
+No sugiere valores.
+
+No infiere campos.
+
+No propone aplicabilidad.
+
+No valida que la evidencia sea semánticamente suficiente.
+
+4.4 Read-only
+No modifica el snapshot.
+
+No escribe al DerivationLedger.
+
+No genera eventos en el Core.
+
+No invoca H-001..H-005.
+
+4.5 Identidad y anti-replay (RT-08, RT-09)
+Todo reporte tiene evaluation_id, project_id, snapshot_fingerprint, profile_id@version, operation.
+
+El gate revalida cada dimensión contra el contexto actual. Si alguna no coincide → rechazo.
+
+Es imposible reutilizar un reporte de otro proyecto, otro snapshot, otro perfil u otra operación.
+
+5. Composición con H-005 (RT-06)
+H-005 permanece congelado. No se modifica.
+
+Frontera oficial propuesta (contrato, no enforcement absoluto):
+
+text
+src/sicl/a002/composition.py
+
+class RecomputationEntryPoint:
+    """Única entrada oficial para recomputación integrada A-002 → GATE → H-005."""
+    @classmethod
+    def run(cls, *, project_id, snapshot, operation, profile,
+            current_refs, ledger, registry) -> IntegrationResult:
+        report = check_input_sufficiency(snapshot, operation, profile=profile)
+        decision = gate_recomputation(report, project_id=..., snapshot=..., ...)
+        if decision != GateDecision.ALLOW:
+            return IntegrationResult(status="BLOCKED", report=report)
+        # invocar H-005 como siempre
+        return IntegrationResult(status="EXECUTED", report=report, h005_report=...)
+Límite explícito del contrato:
+
+H-005 puede seguir siendo llamado directamente por cualquier caller que ignore el RecomputationEntryPoint.
+
+A-002 no puede impedirlo sin modificar H-005.
+
+El contrato declara que llamar a H-005 sin pasar por RecomputationEntryPoint es una violación de política, no una violación técnica detectable en runtime.
+
+Test adversarial obligatorio: test_h005_bypass_boundary_documented_but_enforceable_via_entrypoint — verifica que:
+
+RecomputationEntryPoint.run rechaza cuando A-002 dice BLOCK.
+
+RecomputationEntryPoint.run ejecuta cuando A-002 dice ALLOW.
+
+La documentación del módulo declara la política de frontera.
+
+Enforcement duro (bloquear H-005 crudo) requiere modificar H-005 → fuera de scope de A-002. Se documenta como deuda futura.
+
+6. Matriz adversarial (RT-10)
+Sustituye "15 tests" por 8 familias. Mínimo 1 test por familia; recomendado 2.
+
+Familia	Casos obligatorios
+F1 — Estructura malformada	None, str, int, list, dict con tipos inválidos, NaN, inf, whitespace-only
+F2 — Epistémica forjada	declared_state=KNOWN sin evidencia; KNOWN con evidence_refs=(); KNOWN con hash inválido
+F3 — Evidencia forjada	evidence_refs con id vacío, hash corto, source vacío, duplicados, declared_supports_field inconsistente
+F4 — Identidad	Reporte de otro proyecto; otro snapshot; otro perfil; otra versión de perfil; otra operación; reporte stale
+F5 — Escala y jurisdicción	Campo presente en escala A pero requerido en B; jurisdiction_id desconocida; aplicabilidad UNKNOWN cuando se exige; aplicabilidad CONFLICTING
+F6 — Política	Intento de modificar allow_conditional; intento de promover CONDITIONALLY_SUFFICIENT a SUFFICIENT; intento de saltar bloqueo
+F7 — Orden y determinismo	Mismo input en distinto orden → canonical_dict() idéntico; evaluation_id estable
+F8 — Human Authority	Intento de bypass del gate; intento de usar reporte sin firma para desbloquear operación crítica
+Total mínimo: 8 tests. Recomendado: 16 (2 por familia).
+
+7. Criterios de cierre
+text
+[ ] 8 familias adversariales cubiertas (mínimo 8 tests, recomendado 16).
+[ ] Regresión H-001..H-005 verde (90 focales).
+[ ] Regresión global sin FAIL.
+[ ] compileall PASS.
+[ ] git diff --check PASS.
+[ ] H-001..H-005 sin modificar.
+[ ] UPAO-001 usado tal cual.
+[ ] Perfiles como datos, no código embebido.
+[ ] Perfil FORMULATE_PROBLEM_V1 aprobado por humano antes de tests.
+[ ] Sin providers externos, sin side effects.
+[ ] Commit atómico en feat/a002-input-sufficiency-detection.
+[ ] Reporte A002_REPORT.md con hashes T0/T1.
+[ ] Red Team ChatGPT emite APPROVE / FIXES / REJECT.
+[ ] Product Owner firma cierre.
+8. Fuera de este contrato
+A-003 (Problem Framing): no definido aquí.
+
+Enforcement duro de la frontera H-005: requiere modificar H-005 → fuera.
+
+Motor jurídico / aplicabilidad automática: fuera. A-002 reporta lo declarado.
+
+Detección semántica de si la evidencia "soporta" el claim: fuera.
+
+Integración con ARKI-DRAW: fuera.
+
+9. Firma requerida del Product Owner
+text
+[ ] Baseline main@4de9ca1b25fed8b60dce8ead4923a76fef0ee8eb aceptado.
+[ ] Branch feat/a002-input-sufficiency-detection autorizado.
+[ ] 5 SufficiencyStatus aceptados.
+[ ] 6 EpistemicState aceptados.
+[ ] declared_state vs effective_state aceptado.
+[ ] EvidenceRef estructurada aceptada.
+[ ] NormativeApplicability con 6 dimensiones + APPLICABILITY_UNKNOWN aceptada.
+[ ] proceed_allowed / assumptions_allowed materializados en reporte aceptados.
+[ ] evaluation_id + 4 fingerprints aceptados.
+[ ] SufficiencyHistory append-only aceptado.
+[ ] RecomputationEntryPoint como frontera oficial aceptado (con límite documentado).
+[ ] 8 familias adversariales aceptadas.
+[ ] Perfiles v1 pasan por revisión humana antes de implementación.
+[ ] ChatGPT como Red Team confirmado.
+[ ] Frontera H-005 sin modificar aceptada con deuda futura declarada.
+10. Estado
+text
+A002_CONTRACT_VERSION  = 1.2
+A002_CONTRACT_STATUS   = DRAFT_PENDING_PO_SIGNATURE
+A002_IMPLEMENTATION    = NOT_STARTED
+A002_RED_TEAM          = ChatGPT (activación al cierre de implementación)
+Yvan, tu turno:
+
+Firma v1.2.
+
+Pide ajustes puntuales.
+
+O rechaza y pide rediseño.
+
+Sin tu firma, no escribo código.
+
+Standby. ChatGPT cumplió su rol con precisión. Yo corrijo y espero. Cuchillos guardados — también contra mí mismo.

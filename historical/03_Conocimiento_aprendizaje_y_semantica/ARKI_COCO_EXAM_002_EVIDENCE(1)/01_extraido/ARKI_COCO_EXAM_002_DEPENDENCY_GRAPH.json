@@ -1,0 +1,64 @@
+{
+  "change": "change principal envelope to reduce initial cost",
+  "nodes": [
+    "architecture",
+    "program",
+    "circulation",
+    "thermal",
+    "daylight",
+    "acoustics",
+    "structure",
+    "MEP",
+    "energy",
+    "moisture",
+    "carbon",
+    "LCC",
+    "construction",
+    "certifications",
+    "maintenance",
+    "future reuse"
+  ],
+  "edges": [
+    {
+      "from": "architecture",
+      "to": "program",
+      "class": "DIRECT"
+    },
+    {
+      "from": "architecture",
+      "to": "circulation",
+      "class": "DIRECT"
+    },
+    {
+      "from": "architecture",
+      "to": "thermal",
+      "class": "POSSIBLE"
+    },
+    {
+      "from": "architecture",
+      "to": "daylight",
+      "class": "POSSIBLE"
+    },
+    {
+      "from": "architecture",
+      "to": "cost",
+      "class": "DIRECT"
+    },
+    {
+      "from": "cost",
+      "to": "LCC",
+      "class": "UNKNOWN"
+    },
+    {
+      "from": "architecture",
+      "to": "certifications",
+      "class": "UNKNOWN"
+    },
+    {
+      "from": "architecture",
+      "to": "future reuse",
+      "class": "POSSIBLE"
+    }
+  ],
+  "causalDeficit": "Complete interdisciplinary propagation is not productized; uncertain edges remain UNKNOWN/POSSIBLE."
+}

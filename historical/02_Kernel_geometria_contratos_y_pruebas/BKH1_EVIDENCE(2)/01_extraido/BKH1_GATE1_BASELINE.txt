@@ -1,0 +1,1104 @@
+# BKH-1 Gate 1 — Baseline Freeze
+2026-09-23T08:54:27Z
+repo=/home/ubuntu/generador-familias
+branch=main
+head=c62183a5904f02aa0a935572454a5a35f9d167aa
+head_short=c62183a
+-- worktree status --
+ [31mD[m client/src/components/ArkiNavigator.tsx
+ [31mM[m client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m client/src/contexts/ProjectContext.tsx
+ [31mM[m client/src/index.css
+ [31mM[m client/src/modules/GeneratorModule.tsx
+ [31mM[m package.json
+ [31mM[m pnpm-lock.yaml
+ [31mM[m scripts/test-navigator-layout.ts
+ [31mM[m scripts/test-no-inherited-cleanup.ts
+[31m??[m AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md
+[31m??[m AKI001_COMPETENCY_MATRIX.md
+[31m??[m AKI001_EVIDENCE_INDEX.md
+[31m??[m AKI001_EXECUTIVE_SUMMARY.md
+[31m??[m AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+[31m??[m AKI001_HISTORICAL_CURRICULUM.md
+[31m??[m AKI001_KNOWLEDGE_GAPS.md
+[31m??[m AKI001_KNOWLEDGE_INVENTORY.md
+[31m??[m AKI001_LOCAL_INVENTORY_RAW.txt
+[31m??[m AKI001_MANIFEST.json
+[31m??[m AKI001_MULTISCALE_KNOWLEDGE_MAP.md
+[31m??[m AKI001_REPORT.md
+[31m??[m ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md
+[31m??[m ARKI_ADDENDA_SEPARACION_INTELIGENCIA_Y_BIM_KERNEL_V1.md
+[31m??[m ARKI_ADDENDUM_E_COD_LUKA.md
+[31m??[m ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip.sha256
+[31m??[m ARKI_COMPUTATIONAL_FABRIC_V1.md
+[31m??[m ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_SELECCION.md
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT.zip
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT/
+[31m??[m ARKI_FLUJO_TRABAJO_Y_PANELES.md
+[31m??[m ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md
+[31m??[m ARKI_ROADMAP_CORPORATIVO_V1.md
+[31m??[m ARKI_VEREDICTO_CONTRATO_UI3A_V2.md
+[31m??[m ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md
+[31m??[m ARKI_VEREDICTO_REVISION_UI3A.md
+[31m??[m BKH0_BASELINE.txt
+[31m??[m BKH0_CANONICAL_OWNERSHIP_MAP.md
+[31m??[m BKH0_CURRENT_PRODUCT_DIFF.txt
+[31m??[m BKH0_DEPENDENCY_MAP.md
+[31m??[m BKH0_DUPLICATION_RAW.txt
+[31m??[m BKH0_DUPLICATION_REPORT.md
+[31m??[m BKH0_ENTITY_REGISTRY.md
+[31m??[m BKH0_FORENSIC_MAP.md
+[31m??[m BKH0_IMPLEMENTATION_GAPS.md
+[31m??[m BKH0_INSPECTION_RAW.txt
+[31m??[m BKH0_INVARIANT_REGISTRY.md
+[31m??[m BKH0_MANIFEST.json
+[31m??[m BKH0_MUTATION_PATH_MAP.md
+[31m??[m BKH0_OUTPUTS.txt
+[31m??[m BKH0_RELATIONSHIP_INVENTORY.md
+[31m??[m BKH0_REPORT.md
+[31m??[m BKH0_TEST_RUN_RAW.txt
+[31m??[m BKH1_GATE1_BASELINE.txt
+[31m??[m BKH1_IMPLEMENTATION_SEQUENCE.md
+[31m??[m BKH1_PACKAGE_MANIFEST.json
+[31m??[m BKH1_PACKAGE_README.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip.sha256
+[31m??[m BKH1_RELATIONSHIP_SCHEMA.md
+[31m??[m BKH1_RELATION_MIGRATION_MATRIX.md
+[31m??[m BKH1_SCOPE_LIMITS.md
+[31m??[m BKH1_TEST_PLAN.md
+[31m??[m BKH_CONTRATO_CHATGPT_V1.md
+[31m??[m CHATGPT_HANDOFF_FILELIST.txt
+[31m??[m CHATGPT_HANDOFF_README.md
+[31m??[m CHATGPT_HANDOFF_SHA256SUMS.txt
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip.sha256
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22/
+[31m??[m DEEPSEEK_MD_SEPARADOS_2026_09_22/
+[31m??[m E1_CONTRATO_PRODUCTO_ADRS/
+[31m??[m E2_WIREFLOWS_CONTROLES_PRUEBAS/
+[31m??[m E3_CATALOGO_CORPORATIVO_P2/
+[31m??[m E4_CONTRATOS_ESPECIALIZADOS/
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.md
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.txt
+[31m??[m E5_SCENE_MODEL_3D_OUTPUTS.txt
+[31m??[m E5_SCENE_MODEL_3D_REPORT.md
+[31m??[m E6_BASELINE_OUTPUTS.txt
+[31m??[m E6_DEBT_INHERITED.md
+[31m??[m E6_MANIFEST.json
+[31m??[m E6_OUTPUTS.txt
+[31m??[m E6_PO_APPROVAL.md
+[31m??[m E6_REPORT.md
+[31m??[m E6_SCOPE_LIMITS.md
+[31m??[m E7_CONTRATO_PROPUESTO_V1.md
+[31m??[m E7_DEBT_INHERITED.md
+[31m??[m E7_MANIFEST.json
+[31m??[m E7_OPENING.md
+[31m??[m E7_OUTPUTS.txt
+[31m??[m E7_PO_APPROVAL.md
+[31m??[m E7_REPORT.md
+[31m??[m E7_SCOPE_LIMITS.md
+[31m??[m E7_VERDICT_CYCLE1.md
+[31m??[m E8_CONTRATO_PROPUESTO_V1.md
+[31m??[m FASE_0_ADRS_RECLASIFICADOS.md
+[31m??[m FASE_0_AUDITORIA_REAL_2026-09-23.md
+[31m??[m FASE_0_BASELINE_HASHES.txt
+[31m??[m FASE_0_BLOQUEO_CONFIRMADO.md
+[31m??[m FASE_0_CAPTURAS_MANIFEST.md
+[31m??[m FASE_0_CLASIFICACION_ARCHIVOS.md
+[31m??[m FASE_0_FIRMA_PO_CONFIRMADA.md
+[31m??[m RESUMEN_IMPLEMENTACION_ARKI_2026-09-23.md
+[31m??[m REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+[31m??[m REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+[31m??[m UI3A_DIFF.patch
+[31m??[m UI3A_EVIDENCE.zip
+[31m??[m UI3A_EVIDENCE.zip.sha256
+[31m??[m UI3A_MANIFEST.json
+[31m??[m UI3A_VERIFICATION_REPORT.md
+[31m??[m client/src/canvas/
+[31m??[m client/src/comparison/
+[31m??[m client/src/ifc4/
+[31m??[m client/src/modules/E7DomainModule.tsx
+[31m??[m client/src/modules/SceneModelModule.tsx
+[31m??[m client/src/persistence/
+[31m??[m contracts/
+[31m??[m evidence/
+[31m??[m fixtures/
+[31m??[m scripts/create-e6-manifest.sh
+[31m??[m scripts/create-e7-manifest.sh
+[31m??[m scripts/create-ui3a-manifest.sh
+[31m??[m scripts/generate-ifc-fixtures.ts
+[31m??[m scripts/run-fase0-audit.sh
+[31m??[m scripts/test-bim-selection.ts
+[31m??[m scripts/test-camera-modes.ts
+[31m??[m scripts/test-canvas-mount.ts
+[31m??[m scripts/test-clipping-section.ts
+[31m??[m scripts/test-comparison-side-by-side.ts
+[31m??[m scripts/test-context-panel.ts
+[31m??[m scripts/test-e7.ts
+[31m??[m scripts/test-ifc4-exporter.ts
+[31m??[m scripts/test-ifc4-fixtures.ts
+[31m??[m scripts/test-ifc4-globalid.ts
+[31m??[m scripts/test-ifc4-web-ifc.ts
+[31m??[m scripts/test-isolate-freeze.ts
+[31m??[m scripts/test-measure-snap.ts
+[31m??[m scripts/test-persistence-formal.ts
+[31m??[m scripts/test-persistence-idb.ts
+[31m??[m scripts/test-plan-3d-sync.ts
+[31m??[m scripts/test-scene-comparison.ts
+[31m??[m scripts/test-scene-model-mount.ts
+[31m??[m scripts/test-scene-model.ts
+[31m??[m scripts/test-selection-info.ts
+[31m??[m scripts/test-viewpoints.ts
+[31m??[m scripts/test-wall-door-canvas.ts
+[31m??[m shared/arki4d/
+[31m??[m shared/arki5d/
+[31m??[m shared/arkiBimSelection.ts
+[31m??[m shared/arkiContextPanel.ts
+[31m??[m shared/arkiImpacts/
+[31m??[m shared/arkiSceneComparison.ts
+[31m??[m shared/arkiSceneModel.ts
+[31m??[m shared/coordination/
+[31m??[m shared/identity/
+[31m??[m shared/ifc4/
+[31m??[m shared/mep/
+[31m??[m shared/persistence/
+[31m??[m shared/structural/
+-- tracked diff names --
+client/src/components/ArkiNavigator.tsx
+client/src/components/ArkiWorkspaceShell.tsx
+client/src/contexts/ProjectContext.tsx
+client/src/index.css
+client/src/modules/GeneratorModule.tsx
+package.json
+pnpm-lock.yaml
+scripts/test-navigator-layout.ts
+scripts/test-no-inherited-cleanup.ts
+-- untracked names --
+AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md
+AKI001_COMPETENCY_MATRIX.md
+AKI001_EVIDENCE_INDEX.md
+AKI001_EXECUTIVE_SUMMARY.md
+AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+AKI001_HISTORICAL_CURRICULUM.md
+AKI001_KNOWLEDGE_GAPS.md
+AKI001_KNOWLEDGE_INVENTORY.md
+AKI001_LOCAL_INVENTORY_RAW.txt
+AKI001_MANIFEST.json
+AKI001_MULTISCALE_KNOWLEDGE_MAP.md
+AKI001_REPORT.md
+ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md
+ARKI_ADDENDA_SEPARACION_INTELIGENCIA_Y_BIM_KERNEL_V1.md
+ARKI_ADDENDUM_E_COD_LUKA.md
+ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+ARKI_CHATGPT_HANDOFF_2026-09-23.zip
+ARKI_CHATGPT_HANDOFF_2026-09-23.zip.sha256
+ARKI_COMPUTATIONAL_FABRIC_V1.md
+ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md
+ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md
+ARKI_CONTRATO_UI3A_CANVAS_SELECCION.md
+ARKI_DEEPSEEK_CURRENT_AUDIT.zip
+ARKI_DEEPSEEK_CURRENT_AUDIT/ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+ARKI_DEEPSEEK_CURRENT_AUDIT/MANIFEST.txt
+ARKI_DEEPSEEK_CURRENT_AUDIT/README.md
+ARKI_DEEPSEEK_CURRENT_AUDIT/SHA256SUMS.txt
+ARKI_DEEPSEEK_CURRENT_AUDIT/captures/01-shell-current.webp
+ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/00-repository-state.txt
+ARKI_DEEPSEEK_CURRENT_AUDIT/outputs/01-17-full-tests.txt
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/App.tsx
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/components/ArkiGateway.tsx
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/components/ArkiNavigator.tsx
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/components/ArkiWorkspaceShell.tsx
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/i18n/catalog.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/i18n/languages.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/index.css
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/client/src/modules/GeneratorModule.tsx
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiConstructionDTOs.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiConstructionElements.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiConstructionOntology.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiDynamicFamilies.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiMamparaFamily.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiParametricFamilies.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiPriceBook.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiProfessionalModules.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiRecalculation.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiSnapshotExports.ts
+ARKI_DEEPSEEK_CURRENT_AUDIT/source/shared/arkiTechnicalDossier.ts
+ARKI_FLUJO_TRABAJO_Y_PANELES.md
+ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md
+ARKI_ROADMAP_CORPORATIVO_V1.md
+ARKI_VEREDICTO_CONTRATO_UI3A_V2.md
+ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md
+ARKI_VEREDICTO_REVISION_UI3A.md
+BKH0_BASELINE.txt
+BKH0_CANONICAL_OWNERSHIP_MAP.md
+BKH0_CURRENT_PRODUCT_DIFF.txt
+BKH0_DEPENDENCY_MAP.md
+BKH0_DUPLICATION_RAW.txt
+BKH0_DUPLICATION_REPORT.md
+BKH0_ENTITY_REGISTRY.md
+BKH0_FORENSIC_MAP.md
+BKH0_IMPLEMENTATION_GAPS.md
+BKH0_INSPECTION_RAW.txt
+BKH0_INVARIANT_REGISTRY.md
+BKH0_MANIFEST.json
+BKH0_MUTATION_PATH_MAP.md
+BKH0_OUTPUTS.txt
+BKH0_RELATIONSHIP_INVENTORY.md
+BKH0_REPORT.md
+BKH0_TEST_RUN_RAW.txt
+BKH1_GATE1_BASELINE.txt
+BKH1_IMPLEMENTATION_SEQUENCE.md
+BKH1_PACKAGE_MANIFEST.json
+BKH1_PACKAGE_README.md
+BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip
+BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip.sha256
+BKH1_RELATIONSHIP_SCHEMA.md
+BKH1_RELATION_MIGRATION_MATRIX.md
+BKH1_SCOPE_LIMITS.md
+BKH1_TEST_PLAN.md
+BKH_CONTRATO_CHATGPT_V1.md
+CHATGPT_HANDOFF_FILELIST.txt
+CHATGPT_HANDOFF_README.md
+CHATGPT_HANDOFF_SHA256SUMS.txt
+DEEPSEEK_HANDOFF_2026_09_22.zip
+DEEPSEEK_HANDOFF_2026_09_22.zip.sha256
+DEEPSEEK_HANDOFF_2026_09_22/01_MENSAJE_MAESTRO_PARA_DEEPSEEK.md
+DEEPSEEK_HANDOFF_2026_09_22/02_RESUMEN_CONVERSACIONES_Y_DECISIONES.md
+DEEPSEEK_HANDOFF_2026_09_22/ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md
+DEEPSEEK_HANDOFF_2026_09_22/ARCHI_ESTADO_IMPLEMENTADO_Y_PENDIENTE_2026_09.md
+DEEPSEEK_HANDOFF_2026_09_22/ARKI_FLUJO_TRABAJO_Y_PANELES.md
+DEEPSEEK_HANDOFF_2026_09_22/ARKI_ROADMAP_CORPORATIVO_V1.md
+DEEPSEEK_HANDOFF_2026_09_22/README.md
+DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_AUDITORIA_TECNICA_DEEPSEEK.md
+DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_ESTADO_COMPLETO_Y_PENDIENTES.md
+DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_VEREDICTO_CONTRATO_UI3A_V2.md
+DEEPSEEK_HANDOFF_2026_09_22/audits/ARKI_VEREDICTO_REVISION_UI3A.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_ADDENDA_E_ORDEN_MAESTRA_4_PARTES_8_ENTREGAS.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_ADENDA_CONTRATO_CORPORATIVO_BIM.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_CONTRATO_UI3A_CANVAS_SELECCION.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_CONTRATO_UI_BIM_DEEPSEEK.md
+DEEPSEEK_HANDOFF_2026_09_22/contracts/ARKI_ORDEN_MAESTRA_POST_UI2_UI3_BIM_SUPERPODERES.md
+DEEPSEEK_HANDOFF_2026_09_22/evidence/UI3A_EVIDENCE.zip
+DEEPSEEK_HANDOFF_2026_09_22/evidence/UI3A_EVIDENCE.zip.sha256
+DEEPSEEK_HANDOFF_2026_09_22/evidence/UI3A_MANIFEST.json
+DEEPSEEK_HANDOFF_2026_09_22/evidence/UI3A_VERIFICATION_REPORT.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/00_INDICE_Y_INSTRUCCIONES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/01_MENSAJE_MAESTRO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/02_RESUMEN_HISTORICO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/03_ESTADO_IMPLEMENTADO_PENDIENTE.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/04_ADDENDA_E_V2_4_PARTES_8_ENTREGAS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/05_CONTROLES_16_MODULOS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/06_FLUJO_TRABAJO_PANELES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/07_ROADMAP_CORPORATIVO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/08_CONTRATO_UI3A.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/09_PROPUESTA_PLANTA_SVG_ARQUI.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/10_RESUMEN_PLANTA_SVG_Y_ESTADO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/11_ADDENDA_CORPORATIVA_ORIGINAL.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/12_CONTRATO_UI_BIM_CORPORATIVO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/13_CONTRATO_UI_BIM_DEEPSEEK.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/14_VEREDICTO_UI3A.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/15_PROTOCOLO_DESBLOQUEO_TEMPORAL_REBLOQUEO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/16_ORDEN_MAESTRA_CONSOLIDADA_V3.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/17_VEREDICTO_PROPUESTA_V3.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/18_RESPUESTA_VEREDICTO_FASE_0_AUTORIZADA.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/19_FASE_0_AUDITORIA_REAL_2026-09-23.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/20_ORDEN_MAESTRA_CONSOLIDADA_V3_1.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/21_FASE_0_CLASIFICACION_ARCHIVOS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/22_FASE_0_BASELINE_HASHES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/23_FASE_0_ADRS_RECLASIFICADOS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/24_FASE_0_BLOQUEO_CONFIRMADO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/25_FASE_0_CAPTURAS_MANIFEST.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/26_DECISIONES_P0_PRODUCT_OWNER.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/27_DECISIONES_P0_RESUELTAS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/28_ORDEN_MAESTRA_CONSOLIDADA_V3_2.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/29_E1_MAPA_4_ACCESOS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/30_E1_MATRIZ_MODULOS_ROL_ESTADO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/31_E1_REGISTRO_DECISIONES_PRODUCTO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/32_E1_CLASIFICACION_GLOBAL_CAPACIDADES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/33_E1_INVENTARIO_ARCHIVOS_ENTIDADES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/34_E1_ADRS_NUEVOS_Y_EXTENSIONES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/35_E1_PLAN_8_ENTREGAS_DEPENDENCIAS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/36_E1_MATRIZ_COBERTURA_ARCHI_ARQUI_REVIT.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/37_E1_MATRIZ_MEJORAS_DIFERENCIALES_ARCHI.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/38_E1_MAPA_BRECHAS_IMPLEMENTADO_FALTANTE.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/39_E1_README.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/40_E1_VERIFICATION_OUTPUTS.txt
+DEEPSEEK_MD_SEPARADOS_2026_09_22/41_E1_VERIFICATION_REPORT.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/42_E2_README.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/43_E2_CONTRATO_CONTROLES_GLOBAL.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/44_E2_MATRIZ_CONTROLES_16_MODULOS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/45_E2_WIREFLOWS_CICLO_VIDA.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/46_E2_CATALOGO_PRUEBAS_E2.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/47_E2_VERIFICATION_OUTPUTS.txt
+DEEPSEEK_MD_SEPARADOS_2026_09_22/48_E2_VERIFICATION_REPORT.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/49_E3_README.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/50_E3_CATALOGO_18_DISCIPLINAS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/51_E3_INVENTARIO_FAMILIAS_Y_EQUIPAMIENTO.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/52_E3_CATALOGOS_ESPECIALIZADOS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/53_E3_MATRIZ_ESPECIALISTAS_BRECHAS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/54_E3_VERIFICATION_OUTPUTS.txt
+DEEPSEEK_MD_SEPARADOS_2026_09_22/55_E3_VERIFICATION_REPORT.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/56_E4_README.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/57_E4_ESQUEMA_COMUN_FAMILIAS_ESPECIALIZADAS.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/58_E4_REGLAS_ESCALERAS_ASCENSORES.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/59_E4_REGLAS_GASES_SEGURIDAD_MEP.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/60_E4_GOBIERNO_ESPECIALISTAS_REVISION.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/61_E4_CATALOGO_PRUEBAS_E4.md
+DEEPSEEK_MD_SEPARADOS_2026_09_22/62_E4_VERIFICATION_OUTPUTS.txt
+DEEPSEEK_MD_SEPARADOS_2026_09_22/63_E4_VERIFICATION_REPORT.md
+E1_CONTRATO_PRODUCTO_ADRS/01_MAPA_4_ACCESOS.md
+E1_CONTRATO_PRODUCTO_ADRS/02_MATRIZ_MODULOS_ROL_ESTADO.md
+E1_CONTRATO_PRODUCTO_ADRS/03_REGISTRO_DECISIONES_PRODUCTO.md
+E1_CONTRATO_PRODUCTO_ADRS/04_CLASIFICACION_GLOBAL_CAPACIDADES.md
+E1_CONTRATO_PRODUCTO_ADRS/05_INVENTARIO_ARCHIVOS_ENTIDADES.md
+E1_CONTRATO_PRODUCTO_ADRS/06_ADRS_NUEVOS_Y_EXTENSIONES.md
+E1_CONTRATO_PRODUCTO_ADRS/07_PLAN_8_ENTREGAS_DEPENDENCIAS.md
+E1_CONTRATO_PRODUCTO_ADRS/08_MATRIZ_COBERTURA_ARCHI_ARQUI_REVIT.md
+E1_CONTRATO_PRODUCTO_ADRS/09_MATRIZ_MEJORAS_DIFERENCIALES_ARCHI.md
+E1_CONTRATO_PRODUCTO_ADRS/10_MAPA_BRECHAS_IMPLEMENTADO_FALTANTE.md
+E1_CONTRATO_PRODUCTO_ADRS/E1_VERIFICATION_OUTPUTS.txt
+E1_CONTRATO_PRODUCTO_ADRS/E1_VERIFICATION_REPORT.md
+E1_CONTRATO_PRODUCTO_ADRS/README.md
+E2_WIREFLOWS_CONTROLES_PRUEBAS/01_CONTRATO_CONTROLES_GLOBAL.md
+E2_WIREFLOWS_CONTROLES_PRUEBAS/02_MATRIZ_CONTROLES_16_MODULOS.md
+E2_WIREFLOWS_CONTROLES_PRUEBAS/03_WIREFLOWS_CICLO_VIDA.md
+E2_WIREFLOWS_CONTROLES_PRUEBAS/04_CATALOGO_PRUEBAS_E2.md
+E2_WIREFLOWS_CONTROLES_PRUEBAS/E2_VERIFICATION_OUTPUTS.txt
+E2_WIREFLOWS_CONTROLES_PRUEBAS/E2_VERIFICATION_REPORT.md
+E2_WIREFLOWS_CONTROLES_PRUEBAS/README.md
+E3_CATALOGO_CORPORATIVO_P2/01_CATALOGO_18_DISCIPLINAS.md
+E3_CATALOGO_CORPORATIVO_P2/02_INVENTARIO_FAMILIAS_Y_EQUIPAMIENTO.md
+E3_CATALOGO_CORPORATIVO_P2/03_CATALOGOS_ESPECIALIZADOS.md
+E3_CATALOGO_CORPORATIVO_P2/04_MATRIZ_ESPECIALISTAS_BRECHAS.md
+E3_CATALOGO_CORPORATIVO_P2/E3_VERIFICATION_OUTPUTS.txt
+E3_CATALOGO_CORPORATIVO_P2/E3_VERIFICATION_REPORT.md
+E3_CATALOGO_CORPORATIVO_P2/README.md
+E4_CONTRATOS_ESPECIALIZADOS/01_ESQUEMA_COMUN_FAMILIAS_ESPECIALIZADAS.md
+E4_CONTRATOS_ESPECIALIZADOS/02_REGLAS_ESCALERAS_ASCENSORES.md
+E4_CONTRATOS_ESPECIALIZADOS/03_REGLAS_GASES_SEGURIDAD_MEP.md
+E4_CONTRATOS_ESPECIALIZADOS/04_GOBIERNO_ESPECIALISTAS_REVISION.md
+E4_CONTRATOS_ESPECIALIZADOS/05_CATALOGO_PRUEBAS_E4.md
+E4_CONTRATOS_ESPECIALIZADOS/E4_VERIFICATION_OUTPUTS.txt
+E4_CONTRATOS_ESPECIALIZADOS/E4_VERIFICATION_REPORT.md
+E4_CONTRATOS_ESPECIALIZADOS/README.md
+E5_CONTRATO_REVISADO_V1_APROBADO.md
+E5_CONTRATO_REVISADO_V1_APROBADO.txt
+E5_SCENE_MODEL_3D_OUTPUTS.txt
+E5_SCENE_MODEL_3D_REPORT.md
+E6_BASELINE_OUTPUTS.txt
+E6_DEBT_INHERITED.md
+E6_MANIFEST.json
+E6_OUTPUTS.txt
+E6_PO_APPROVAL.md
+E6_REPORT.md
+E6_SCOPE_LIMITS.md
+E7_CONTRATO_PROPUESTO_V1.md
+E7_DEBT_INHERITED.md
+E7_MANIFEST.json
+E7_OPENING.md
+E7_OUTPUTS.txt
+E7_PO_APPROVAL.md
+E7_REPORT.md
+E7_SCOPE_LIMITS.md
+E7_VERDICT_CYCLE1.md
+E8_CONTRATO_PROPUESTO_V1.md
+FASE_0_ADRS_RECLASIFICADOS.md
+FASE_0_AUDITORIA_REAL_2026-09-23.md
+FASE_0_BASELINE_HASHES.txt
+FASE_0_BLOQUEO_CONFIRMADO.md
+FASE_0_CAPTURAS_MANIFEST.md
+FASE_0_CLASIFICACION_ARCHIVOS.md
+FASE_0_FIRMA_PO_CONFIRMADA.md
+RESUMEN_IMPLEMENTACION_ARKI_2026-09-23.md
+REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+UI3A_DIFF.patch
+UI3A_EVIDENCE.zip
+UI3A_EVIDENCE.zip.sha256
+UI3A_MANIFEST.json
+UI3A_VERIFICATION_REPORT.md
+client/src/canvas/CanvasPlanView.tsx
+client/src/canvas/ContextPanel.tsx
+client/src/canvas/InfoBoxPanel.tsx
+client/src/canvas/SceneModel3D.tsx
+client/src/canvas/SelectionProvider.tsx
+client/src/canvas/types.ts
+client/src/comparison/SceneComparisonSideBySide.tsx
+client/src/ifc4/Ifc4Panel.tsx
+client/src/modules/E7DomainModule.tsx
+client/src/modules/SceneModelModule.tsx
+client/src/persistence/arkiIndexedDb.ts
+contracts/adr/ADR-001.md
+contracts/adr/ADR-002.md
+contracts/adr/ADR-003.md
+contracts/adr/ADR-004.md
+contracts/adr/ADR-005.md
+contracts/adr/ADR-007.md
+contracts/adr/ADR-019.md
+contracts/adr/ADR-020.md
+contracts/adr/ADR-021.md
+contracts/adr/ADR-022.md
+contracts/adr/ADR-E7-001.md
+contracts/adr/ADR-E7-002.md
+contracts/adr/ADR-E7-003.md
+contracts/adr/ADR-E7-004.md
+evidence/E5_CAPTURAS/arki-scene-general.json
+evidence/E5_CAPTURAS/arki-scene-general.png
+evidence/F0_CAPTURAS/C1_cuadrado_4_muros.webp
+evidence/F0_CAPTURAS/C2_puerta_090x210_muro_norte.webp
+evidence/F0_CAPTURAS/C3_muro_seleccionado_info_box.webp
+evidence/F0_CAPTURAS/C4_puerta_seleccionada_info_box.webp
+evidence/F0_CAPTURAS/C5_conteo_muros_puertas.webp
+evidence/ui3a/01-generador-propuesta.webp
+evidence/ui3a/02-planta-modelo.webp
+evidence/ui3a/03-muro-inspector.webp
+evidence/ui3a/04-planta-sin-seleccion.webp
+evidence/ui3a/05-gateway-desktop.webp
+fixtures/e7/fixture_cost_schedule_project.json
+fixtures/e7/fixture_mep_hospital_subset.json
+fixtures/e7/fixture_structural_small_frame.json
+fixtures/ifc4/fixture_01_simple_wall.ifc
+fixtures/ifc4/fixture_02_room_with_door.ifc
+fixtures/ifc4/fixture_03_multi_storey.ifc
+scripts/create-e6-manifest.sh
+scripts/create-e7-manifest.sh
+scripts/create-ui3a-manifest.sh
+scripts/generate-ifc-fixtures.ts
+scripts/run-fase0-audit.sh
+scripts/test-bim-selection.ts
+scripts/test-camera-modes.ts
+scripts/test-canvas-mount.ts
+scripts/test-clipping-section.ts
+scripts/test-comparison-side-by-side.ts
+scripts/test-context-panel.ts
+scripts/test-e7.ts
+scripts/test-ifc4-exporter.ts
+scripts/test-ifc4-fixtures.ts
+scripts/test-ifc4-globalid.ts
+scripts/test-ifc4-web-ifc.ts
+scripts/test-isolate-freeze.ts
+scripts/test-measure-snap.ts
+scripts/test-persistence-formal.ts
+scripts/test-persistence-idb.ts
+scripts/test-plan-3d-sync.ts
+scripts/test-scene-comparison.ts
+scripts/test-scene-model-mount.ts
+scripts/test-scene-model.ts
+scripts/test-selection-info.ts
+scripts/test-viewpoints.ts
+scripts/test-wall-door-canvas.ts
+shared/arki4d/index.ts
+shared/arki5d/index.ts
+shared/arkiBimSelection.ts
+shared/arkiContextPanel.ts
+shared/arkiImpacts/index.ts
+shared/arkiSceneComparison.ts
+shared/arkiSceneModel.ts
+shared/coordination/index.ts
+shared/identity/arkiGlobalId.ts
+shared/ifc4/arkiIfc4.ts
+shared/ifc4/webIfcAdapter.ts
+shared/mep/index.ts
+shared/persistence/arkiPersistence.ts
+shared/structural/index.ts
+-- product tree hashes --
+0d33d6bb2ac8c71d8fea5da41d9cae37ec529fe19e3df659f43d6d2fa32f723c  client/index.html
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  client/public/.gitkeep
+e95d3246bc3757b46286221060b7346ea59fb6a9c94aa05f5eae7e7e09877d1b  client/public/__manus__/debug-collector.js
+f142487363f29bbbbe4cdd76ddc264f42d4f237fd19ce28a342c98db5a49519a  client/src/App.tsx
+aa504352a45fb412f487c3d6fc42f1268c4737180b7e41154127e8141287370d  client/src/components/ArkiGateway.tsx
+sha256sum: client/src/components/ArkiNavigator.tsx: No such file or directory
+93f19f89688d65629625bae2896479042092ecb8944037ac4c3cb33bd8c357e2  client/src/components/ArkiWorkspaceShell.tsx
+3b0bdb7a19758fcd440138ccfb5f306b96836564f15d7c8c9663d7dd7417e972  client/src/components/ErrorBoundary.tsx
+a22b0cb5c1db5cedda6b2c70b3cb4a1a443101e03e90de188ce11156c24c25db  client/src/components/ManusDialog.tsx
+931413fea95936e68f872bc34733138f9e11a656446b1a56a98fba9532954e22  client/src/components/Map.tsx
+210d85ee0cb6bf23593a6295acc0ab61c2deed64b8303a421ae4729c2be1d83b  client/src/components/ProfessionalFamilyViewer.tsx
+7b96cf50388ad3d07be64924ab33ba5f63b79a6a5749ebe4d31c789c0bc00d44  client/src/components/ui/accordion.tsx
+aeecd7967eb0be3bad2753b6633d9a43cc4c08cb35de872ffdc0b9f2b6a9b26c  client/src/components/ui/alert-dialog.tsx
+eccfc7f6ca9d51407cb413a3ca4b5ac721898ac93d38e95c02c35188ad674abe  client/src/components/ui/alert.tsx
+654f5d6e9ed17472305d7e6fc5de30453875ffae585f5d064aedc9e6945bdbb0  client/src/components/ui/aspect-ratio.tsx
+c2382ff71d7ef3492096ed6ef35bf82e1fd421a81d55ca80453f5f5138eac360  client/src/components/ui/avatar.tsx
+51fd797c59e63d164ade736769f19f26e41c157daba29aa0b327b3b226f4d4ac  client/src/components/ui/badge.tsx
+dd84657e30691ea7f14a785c13b660d6cd626c08ba1df8439c3eca858ee3cd7e  client/src/components/ui/breadcrumb.tsx
+ba1d824f0f4d8b5dd78a80fa766e3543eefb9173143652be2c7cb765af1864f5  client/src/components/ui/button-group.tsx
+b08b4785e03566c7a6063b3d57234deae41649676870cbbb9ab2448d816e1739  client/src/components/ui/button.tsx
+89308bce82e8b23b611cfbc88bc19f7b341d7109ab9a2838c04cb50922113501  client/src/components/ui/calendar.tsx
+1397e7d264d90162220ea7473b311e434651886267c71e7f58d4488be9d8ff39  client/src/components/ui/card.tsx
+42f66e6fde568c209df5d58a4ca13c3ae92d120a04fd99f7be695d6a570ef0a9  client/src/components/ui/carousel.tsx
+47c4de202fe1dc229af94d2c86197251d279bee131d2a6fb75ab9e58cec71aab  client/src/components/ui/chart.tsx
+4fc309590e66d3c41e3be5fb73f988b0e916e7bf5fff321c22c3a64cd4fe97cf  client/src/components/ui/checkbox.tsx
+95b5b9ea89a4105045c58b7eba539e57a1f4abc5a54d43ea0f7168f46b645eeb  client/src/components/ui/collapsible.tsx
+47910540789d4de9e890de63bfc0046f9cf6bfaa86d496a98c79622900f8520c  client/src/components/ui/command.tsx
+fe63c0a0dcabe749874ad19e07dee8418337c62dd64452fc08b5abf27b49b9eb  client/src/components/ui/context-menu.tsx
+3ffd83bd2940c1191fde091bc47311aebc2b79d78824965a5c446115e58190aa  client/src/components/ui/dialog.tsx
+573deecc31f90fcd96f53a37b2e5363eb326fe737cbdb28cac38a5d014734fc8  client/src/components/ui/drawer.tsx
+ede99252b737a29eb1f05370956e2b842be161b6a661f1429155ac561653d029  client/src/components/ui/dropdown-menu.tsx
+c0b612929b15fd498b984d8d98d1b082a3eb294be5aa8eb9cb53b67cf152f465  client/src/components/ui/empty.tsx
+f093424ca5eadf43d46b020ed780aee7aa5f6d90d0b48fb50c031e3d7b0528c7  client/src/components/ui/field.tsx
+0157362d572713567d989b726277879e75c60c24684ade4aef854867dc2fac48  client/src/components/ui/form.tsx
+bdfe831708e7de6b9fbb14d8fe5af5a0985f67cff3c2b5755b4b570c3b4e7ad5  client/src/components/ui/hover-card.tsx
+f62f2be2ad4c2c7711e7b25b0d6c03572f7871cb4022e9f4f6860dcd77dd9e57  client/src/components/ui/input-group.tsx
+45fc7fed882aa5024d8eea52d9b392d13b1d80f2b7f846365bc2586e3d16253d  client/src/components/ui/input-otp.tsx
+0aaad971269e84519fb14928a70777db539b4cacf9f145fecd905ba483a199c6  client/src/components/ui/input.tsx
+89f2ed48c2270064d63e0a40f755c1da14e99e7db46bceac56d6dee7b45b8798  client/src/components/ui/item.tsx
+4f8f3e521b2b007643b8a2c8f86cf547bd87e703dc2bed067083ca48f901d6ad  client/src/components/ui/kbd.tsx
+7fdad17d8e83912ad0cfc372c551a901ab98523ef17c0792a17c592a147db732  client/src/components/ui/label.tsx
+53fb1c058fabaf0cfb3fb2cfdb9b17ccc8762376d62cc011150d919209b82c1a  client/src/components/ui/menubar.tsx
+aafccbe2b05d9f80b7d007301b51aaede4692efc468304c5fb11b21cd0c0ef43  client/src/components/ui/navigation-menu.tsx
+8f0d822b4688eb131e37fbf2330e19b269ab6487583be3249b98f3b68bb07928  client/src/components/ui/pagination.tsx
+5e7bec05904d9091a7b53963f5b49660bf3564b02a057ef8640ab6855d6e32fd  client/src/components/ui/popover.tsx
+2297e3c13d5b2a04a9164c3900c8cae2e477c07ebed35c4bbda98d1232ab7b7e  client/src/components/ui/progress.tsx
+025f03d81d4e304eb27d94e6517f37072a3941df8f8603ac55cfb42b17cd99ef  client/src/components/ui/radio-group.tsx
+52e1027a4b4a5f70f0479f69fe40046dfa112952b7e568292727e1618348ee80  client/src/components/ui/resizable.tsx
+793c5d69e6e5ce8bcbe453b8834d53f3a90839fc8e8e1f9fe5f77e7626566677  client/src/components/ui/scroll-area.tsx
+40945665ec8363e55ae38f26115ee763cbc5548bed585eed569d406cbc4b7a75  client/src/components/ui/select.tsx
+23bbf3f74d01f55533f6f22ebbc2b299137421e07896cb7af21245756a10c27e  client/src/components/ui/separator.tsx
+ab22e38f2cf312a31a84fb91f7e912f0da66e809f6e1ae675ec6cf0c8ec0ba61  client/src/components/ui/sheet.tsx
+782ec3ba8a570c9a0f6ec12d7e1c1efdee5e02eb2da7aa46131c734e7f7bbea8  client/src/components/ui/sidebar.tsx
+1f75b999a5ad2f65e8fb807faa2b3fccef9eb333996fb4c9030575dac7393091  client/src/components/ui/skeleton.tsx
+9c458646597836916678a9bce2f3064d4d5cdb0c65d32d92bc71f57d7569fb6b  client/src/components/ui/slider.tsx
+a65fe9ded89363ec546f28401a26caec1a3aa38c52259eb829cfa33723dbe3a5  client/src/components/ui/sonner.tsx
+ecd836d476573adb4403747c3457339276805433c20eacf3408303b76ec283ff  client/src/components/ui/spinner.tsx
+688cccb52220e05f6770fb5e8296375f2a784bcf6585eb26a721a9f29361ab60  client/src/components/ui/switch.tsx
+085566291cf03c9fea590aa9b77339feebf04cf8ce23494a3667f84bf4811e29  client/src/components/ui/table.tsx
+394b62295cee5185e858bcabfafcd5a7287910944c962fbd9c1c06444b22cedb  client/src/components/ui/tabs.tsx
+ffbad961ec02f9ca23f4157daa1a4139960c4477a245c216a793b4692dec142c  client/src/components/ui/textarea.tsx
+92e7640e30c4ae3ffd775e9a3d845327c26d9ce0f9f39555c2e7cfc2c8671c4d  client/src/components/ui/toggle-group.tsx
+a922c5e0534b9fd556ff8a8b56e25f7d24544be6050472cdd1ea003b8a0f3e47  client/src/components/ui/toggle.tsx
+6f0c581e2018d676e43c0b4b5aeb62d3fe68e65907cf748548208d75ac212677  client/src/components/ui/tooltip.tsx
+65400a775381cec4ae19f68373550f1318fb45970313ad91e91a1adc42b0bacc  client/src/const.ts
+29d52cfebbfdd1be560b2ec7c53d3c9a3e4df355435dc44da38ae8279a262704  client/src/contexts/ProjectContext.tsx
+e025cdb51ad747757235b16dccbb39b5e949cdf93fa9a822ff81ef6e32f65924  client/src/contexts/ThemeContext.tsx
+674c515075a2f318d4ec2291313ba552488de0b2c1aac7f36f3d71c4e34d434e  client/src/hooks/useComposition.ts
+464e778a9da49481e3c6dac4f92ff589e01349b33063a74c45435cfeed81e1c0  client/src/hooks/useMobile.tsx
+60cc14f39a3f8b212d7baf4beeaf35f81e09a7c78e4154bcca3477e010879511  client/src/hooks/usePersistFn.ts
+ab5c353877b69cfa318135414fcfed292dcb9829fc12cc00ae97190918012c86  client/src/i18n/catalog.ts
+f50202343b703c2e001708828189201cdb96d557a67e55a512f9c06af7e63672  client/src/i18n/languages.ts
+c176b8c0894eb079346d36dde081ac9b22c6f1804867b8d339932cc6882d962c  client/src/i18n/useTranslation.ts
+f06afe6d6221c59b4507a51ebf977398fa3f1545034858fc8b86654d380d04ee  client/src/index.css
+d1f1e0d62cb8d8d1e04c26e14de842d8a151f75812d81b046c65b5d1fe8e4b27  client/src/lib/utils.ts
+29946f51942fba11605c7595fd82b50b0d7e50148e0194fd356dacbc958f18ec  client/src/main.tsx
+5395fe60135546b0b2f12a722cb1565d62d13375bcb6779d53b41aed18b6ceb6  client/src/modules/BimModule.tsx
+263134baad5cfadffb4d25837c4adb3f7237e628e33365f21a2bd926de14e4de  client/src/modules/DossierModule.tsx
+6544f2be4c98f02572d46ca12e8bdb268c54ac1f4065be5aeb0e73666c6ec9e8  client/src/modules/GeneratorModule.tsx
+8a416d5ffa59cea16edbd9b7c4ca77475e4a2fa6f8d8be501117fe7eb909a64e  client/src/modules/MetricsModule.tsx
+f53f120784e362532d29450d1700caf5d9da12c583dff31f12a3eeb013dbf1ea  client/src/modules/ModuleToolbar.tsx
+dbc5f088d3ba03a983af213658e0d076a3e4965c2eb630b1034f6e3dd8365ad9  client/src/pages/Home.tsx
+8d463442b5f0514d4dacc4b1f195599f7d22254f6240488cead16ec8ac80888f  client/src/pages/NotFound.tsx
+c60b7dd7b857538cf91e2e3743ff3c991083a247bcb84974caa908e3dd95cd22  package.json
+7b1b66a758442954b63c970cb5eb90e5af0b70ce1c0653bc727e5f078ef97397  pnpm-lock.yaml
+acc917460a95bf2ea82d15ad7ac8969ab4426f12fab3fe80b5f11c8ed5629767  scripts/test-access-matrix.ts
+a52424713544810e4f32a3a7841d6efca4fb18d1b90a32a2a7885a41707834c4  scripts/test-budget-reconciliation.ts
+abe63d3b8604da44a38a18944d5738bb9e4a8b9845c2587ae4d24257605fddf8  scripts/test-constructive.ts
+d73b983de6194c9fb12098317d0c37bb4e67acccf6f9a7bf4914a2ad553ca34e  scripts/test-dossier-mount.ts
+180ad17290228cbfd86e866c50e300f245da02dd567f030b8edd7c34ad7c8871  scripts/test-i18n-catalog.ts
+5fc308befcb4efc6ac0caa44ff638bb01ecc7eac3162826ce63995be2f675dcf  scripts/test-module-states.ts
+dd87102663216d1775e24e9f891d8a7336a4e45586fd96f540a7527e1a93def9  scripts/test-modules-mount.ts
+f3e93d8ba5007c55b5d113853acbabc35ff2a1cba52fa862e82f222228e10c5b  scripts/test-navigator-layout.ts
+f410ce8f12c738d23b6ee1a76c0f1e9008e0e83ae8d2689f57594655a1bfed64  scripts/test-no-inherited-cleanup.ts
+c17eee4c97a51d2cb564430a3aa586ef11862cd06bc2d172cd4023608a38ebe2  scripts/test-professional.ts
+f453dd66ab250073e4e188eefd4be0c6b73ad8d1637ce81541b0f55beddb9754  scripts/test-recalculation.ts
+058165df6c89f3bb827da4b37141def7d4cffc0d7393a0aec85755279bf1ff81  scripts/test-serialization.ts
+f6532cf5b58a20f286ffb8978cb7a1dce44c2be2082c8b91fc20269a98788a0f  scripts/test-technical-dossier.ts
+46698005d9c1b311882779cbfa7b9b93a1d40b48b8b6b9babcad6a370316a31e  scripts/test-wall-coherence.ts
+1173c62861b9c60b2a3f55fd4189917813cdaa16f1eff6fc2f860a0e020db215  server/index.ts
+4d914427a1f6971604f7391179ffc711a91b38a14981bd23da43751932209d32  shared/arkiConstructionDTOs.ts
+d8c7666b4578b8aad6615c2dcb017669dba274cc202027f2fcc4d223ade41a4e  shared/arkiConstructionElements.ts
+fb74f1fa667592c8a18ec889601faaa041e7ed889c6d9e07f0e8298c431a539c  shared/arkiConstructionOntology.ts
+9ede0e4324b55cef67d661ce1283ab11728fa6315297a3721ced8034ff1b9a33  shared/arkiDynamicFamilies.ts
+ba0686bbc8c9035c610aed1577f293a826621b297437f643120b90f7bcb12258  shared/arkiFamilyComparison.ts
+d8d9cce74c460f7b95ba2a86ca4e533c3e471c801496e0d862026b21cbe63217  shared/arkiMamparaFamily.ts
+e35be3752ce73e0a30d2f11c8d02646849f87e71c376cedf060a218b020b8ff2  shared/arkiParametricFamilies.ts
+eee41887e3dfd7c75b15d7506868a745b705b9cd0d6b06506c921706db71e554  shared/arkiPriceBook.ts
+0823a52339917ca96e6a99c6507e79785a59d93a54c63e412db368a87d057aca  shared/arkiProfessionalModules.ts
+2a1746454be28f983cea1b7892bda2d34a7ac6e6be82589aaa97d11f9112e43c  shared/arkiRecalculation.ts
+3770dffe611e5fc26718823a328e889ef7898a6b67441699f82c284aa3f53d05  shared/arkiSnapshotExports.ts
+71c76958e99f4d66051df736e89b22a25d78f529a6d08e11e4df2f5c091efd35  shared/arkiTechnicalDossier.ts
+cc8cc322a6549244df90260eb5ec4472c13fb82357b0a2b1002935ea34d2985e  shared/const.ts
+-- package --
+c60b7dd7b857538cf91e2e3743ff3c991083a247bcb84974caa908e3dd95cd22  package.json
+7b1b66a758442954b63c970cb5eb90e5af0b70ce1c0653bc727e5f078ef97397  pnpm-lock.yaml
+-- check --
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+check_exit=0
+-- build --
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.34s
+
+  dist/index.js  788b 
+
+⚡ Done in 4ms
+build_exit=0
+-- baseline tests --
+## scripts/test-access-matrix.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "roles": 4,
+  "modules": 16,
+  "cases": 64,
+  "visibleByRole": {
+    "visitor": 2,
+    "user": 14,
+    "specialist": 15,
+    "corporate": 16
+  },
+  "renamed": [
+    "Data",
+    "PRESUP-5D",
+    "GASTOS",
+    "EXP-TEC",
+    "O-M",
+    "ADM"
+  ],
+  "checks": [
+    "4 roles × 16 modules",
+    "visitor public access",
+    "2/14/15/16 visibility",
+    "canonical renames"
+  ]
+}
+(node:114743) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+exit=0
+## scripts/test-bim-selection.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-bim-selection: PASS
+exit=0
+## scripts/test-budget-reconciliation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "priceBookItems": 5,
+  "partidasVerified": 60,
+  "partidasSum": 1270854.8,
+  "elementCostsSum": 3402055.2,
+  "totalCalculated": 4672910,
+  "modelBudget": 4672910,
+  "formworkWithTraceability": 164,
+  "checks": [
+    "PriceBook schema, id, version, source, currency",
+    "items válidos",
+    "idempotencia de fromApuDatabase",
+    "coherencia item ↔ APU original",
+    "partidas del modelo referencian PriceBook",
+    "suma de partidas coincide con totalBudgetPen",
+    "encofrados con modelVersion, elementVersion, sourceSnapshotId, status"
+  ]
+}
+exit=0
+## scripts/test-camera-modes.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","modes":["perspective","orthographic","plan","elevation","section"]}
+exit=0
+## scripts/test-canvas-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-canvas-mount: PASS
+exit=0
+## scripts/test-clipping-section.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","contract":"serializable clipping state","controls":["enabled","height"]}
+exit=0
+## scripts/test-comparison-side-by-side.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","left":"v001","right":"v002","modified":1}
+exit=0
+## scripts/test-constructive.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}
+exit=0
+## scripts/test-context-panel.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-context-panel: PASS
+exit=0
+## scripts/test-dossier-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","activeModule":"EXP-TEC","dossierMounted":true}
+exit=0
+## scripts/test-e7.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checks":23,"budget":4650,"scheduleDays":7,"clashes":1,"structural":"NOT_DEMONSTRATED","mep":"VERIFIED","impacts":2}
+exit=0
+## scripts/test-i18n-catalog.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "defaultLanguage": "es",
+  "languages": [
+    {
+      "code": "es",
+      "label": "Spanish",
+      "nativeLabel": "Español"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "nativeLabel": "English"
+    },
+    {
+      "code": "pt",
+      "label": "Portuguese",
+      "nativeLabel": "Português"
+    },
+    {
+      "code": "fr",
+      "label": "French",
+      "nativeLabel": "Français"
+    },
+    {
+      "code": "de",
+      "label": "German",
+      "nativeLabel": "Deutsch"
+    },
+    {
+      "code": "it",
+      "label": "Italian",
+      "nativeLabel": "Italiano"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
+      "nativeLabel": "中文"
+    },
+    {
+      "code": "ja",
+      "label": "Japanese",
+      "nativeLabel": "日本語"
+    }
+  ],
+  "catalogLanguages": [
+    "es",
+    "en",
+    "pt",
+    "fr",
+    "de",
+    "it",
+    "zh",
+    "ja"
+  ],
+  "checks": [
+    "8 exact languages",
+    "unique codes",
+    "non-empty metadata",
+    "default es",
+    "translation",
+    "fallback",
+    "persistence",
+    "v1.6 module labels and tooltip"
+  ]
+}
+exit=0
+## scripts/test-ifc4-exporter.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","entities":28,"preserved":28,"missing":0,"lossReport":{"preserved":["muro-1-1","muro-1-2","muro-1-3","muro-1-4","space-1-1","space-1-2","space-1-3","space-1-4","foundation-1","foundation-2","foundation-3","foundation-4","column-1-1","column-1-2","column-1-3","column-1-4","beam-1-1","beam-1-2","beam-1-3","beam-1-4","slab-1","door-1","window-1","window-2","stair-1","floor-1","roof-1","partition-1"],"degraded":[],"lost":[],"propertiesLost":[],"relationsLost":[]}}
+exit=0
+## scripts/test-ifc4-fixtures.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","fixtures":[{"filename":"fixture_01_simple_wall.ifc","sha256":"4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e","entities":28},{"filename":"fixture_02_room_with_door.ifc","sha256":"124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8","entities":28},{"filename":"fixture_03_multi_storey.ifc","sha256":"5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b","entities":53}]}
+exit=0
+## scripts/test-ifc4-globalid.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checked":10,"deterministic":true,"globalIdLength":22}
+exit=0
+## scripts/test-ifc4-web-ifc.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","parser":"web-ifc","schema":"IFC4","entities":29}
+exit=0
+## scripts/test-isolate-freeze.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","operations":["isolate","freeze","show-all"]}
+exit=0
+## scripts/test-measure-snap.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","unit":"m","snap":"centroide"}
+exit=0
+## scripts/test-module-states.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "modules": 16,
+  "statuses": [
+    "IMPLEMENTED",
+    "PARTIAL",
+    "CONCEPTUAL",
+    "VERIFIED",
+    "NOT AVAILABLE",
+    "FUTURE REFERENCE"
+  ]
+}
+(node:116061) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+exit=0
+## scripts/test-modules-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","modules":["GeneratorModule","BimModule","DossierModule","MetricsModule"],"homeOrchestrator":true,"inheritedLayout":false}
+exit=0
+## scripts/test-navigator-layout.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","navigator":"deleted","contextPanel":"fixed left column","canvas":"plan","infoBox":"fixed right column","columns":"240px / fluid / 260px","responsive":true,"dossierMount":true}
+exit=0
+## scripts/test-no-inherited-cleanup.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","navigatorDeleted":true,"cleanup":true,"fixedColumns":"240px / fluid / 260px","responsive":[1050,720]}
+exit=0
+## scripts/test-persistence-formal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+exit=0
+## scripts/test-persistence-idb.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+exit=0
+## scripts/test-plan-3d-sync.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","contract":"shared SelectionProvider","views":["2D","3D"]}
+exit=0
+## scripts/test-professional.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "periods": 3,
+  "financialTotal": 1759040.94,
+  "conflicts": 0,
+  "clashes": 480,
+  "approvalStatus": "pending",
+  "cdeDocuments": 2,
+  "s10Imported": 2
+}
+exit=0
+## scripts/test-recalculation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "snapshot0": {
+    "version": 1,
+    "areaVidrio": 5.76,
+    "costo": 2080.8,
+    "duracionHoras": 8.93,
+    "widthM": 1.2,
+    "budget": {
+      "currency": "PEN",
+      "basePen": 4672910,
+      "mamparasPen": 2080.8,
+      "totalPen": 4674990.8,
+      "priceBookId": "PB-1C",
+      "priceBookVersion": 1
+    }
+  },
+  "snapshot1": {
+    "version": 2,
+    "areaVidrio": 7.2,
+    "costo": 2421,
+    "duracionHoras": 10.44,
+    "widthM": 1.5,
+    "budget": {
+      "currency": "PEN",
+      "basePen": 4672910,
+      "mamparasPen": 2421,
+      "totalPen": 4675331,
+      "priceBookId": "PB-1C",
+      "priceBookVersion": 1
+    },
+    "invalidations": [
+      "familyInstance:mampara-01.parameters.ancho_m",
+      "budget.totalPen",
+      "schedule",
+      "mamparaGeometry"
+    ]
+  },
+  "snapshot2": {
+    "version": 3,
+    "areaVidrio": 8.1,
+    "costo": 2664,
+    "heightM": 2.7
+  },
+  "ifc": {
+    "length0": 246753,
+    "length1": 246752,
+    "length2": 246752,
+    "changed": true
+  },
+  "markdown": {
+    "length0": 1128,
+    "length1": 1282,
+    "length2": 1280,
+    "changed": true
+  },
+  "determinism": "PASS",
+  "checks": [
+    "ancho cambia área de vidrio",
+    "ancho cambia perfiles",
+    "ancho cambia peso",
+    "ancho cambia partida AL-01",
+    "ancho cambia partida AL-02",
+    "ancho no cambia partida AL-03",
+    "ancho cambia costo total",
+    "ancho cambia geometría widthM",
+    "ancho cambia duración",
+    "ancho cambia presupuesto global (base + mamparas)",
+    "ancho cambia cronograma 4D",
+    "ancho cambia IFC",
+    "ancho cambia Markdown",
+    "alto cambia área y costo",
+    "alto cambia geometría heightM",
+    "alto cambia IFC",
+    "alto cambia Markdown",
+    "recalculateProject es determinista",
+    "CONSTRAINT_VIOLATION para ancho_m fuera de rango",
+    "CONSTRAINT_VIOLATION para alto_m fuera de rango",
+    "validateMamparaConstraints directo",
+    "UNSUPPORTED_CHANGE para update-formwork",
+    "UNSUPPORTED_CHANGE para update-specification",
+    "invalidaciones no vacías",
+    "provenance registra cambios"
+  ]
+}
+exit=0
+## scripts/test-scene-comparison.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","added":0,"removed":0,"modified":16,"unchanged":16}
+exit=0
+## scripts/test-scene-model-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-scene-model-mount: PASS
+exit=0
+## scripts/test-scene-model.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","schema":"ARKI-SCENE-MODEL-1.0","nodes":57,"levels":[0,1,2],"bounds":{"widthM":16.5,"depthM":9.75,"heightM":10.8},"kinds":["wall","space","foundation","column","beam","slab","door","window","stair","floor","roof","partition"]}
+exit=0
+## scripts/test-selection-info.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-selection-info: PASS
+exit=0
+## scripts/test-serialization.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}
+exit=0
+## scripts/test-technical-dossier.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "readiness": 50,
+  "specifications": 7,
+  "formwork": 164,
+  "prices": 7,
+  "findings": 4,
+  "sections": 6
+}
+exit=0
+## scripts/test-viewpoints.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","fields":["viewMode","level","clipping","clipHeight","selectedIds"]}
+exit=0
+## scripts/test-wall-coherence.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallsChecked": 16,
+  "checks": [
+    "capas con espesor > 0",
+    "capas con función válida",
+    "aberturas dentro del muro",
+    "aberturas con tipo válido",
+    "áreas no negativas",
+    "área neta == max(0, bruta - aberturas)",
+    "volumen no negativo",
+    "peso no negativo",
+    "metrado.m2_muro == area neta redondeada",
+    "metrado.m3_muro == volumen redondeado",
+    "peso_total_kg == suma de capas",
+    "metrado.peso_total_kg == peso_total_kg()",
+    "coherencia DTO ↔ dominio"
+  ]
+}
+exit=0
+## scripts/test-wall-door-canvas.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","squareWalls":4,"doorId":"door-1","hostWallId":"muro-1-1","opening":{"id":"puerta-lfxhznd","tipo":"puerta","ancho_m":0.9,"alto_m":2.1,"posicion_m":5.55,"tipo_marco":"aluminio"}}
+exit=0

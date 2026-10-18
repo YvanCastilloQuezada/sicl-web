@@ -1,0 +1,95 @@
+Para entender qué se puede hacer y qué incluye el MVP (Producto Mínimo Viable) de LUKA, debemos revisar exactamente lo que dice la ORDEN MAESTRA — MVP PRODUCTIVO V1 (la que acabas de enviar y que Manus está ejecutando).
+
+Te lo explico de forma clara y organizada en 2 bloques: LO QUE SÍ PUEDES HACER (las funciones y experiencias habilitadas) y LO QUE INCLUYE TÉCNICAMENTE (los componentes detrás de cada función).
+
+✅ LO QUE SÍ SE PUEDE HACER (Experiencias habilitadas)
+1. Entrada Mágica (Presencia, no app):
+
+Escanear un QR (o abrir la PWA) y entrar directamente al AR (sin configurar nada).
+
+LUKITA aparece en 3D en tu casa/sala y te saluda: "Hola. Soy LUKA. ¿Quieres entrar a mi mundo o ver TV?"
+
+Las dos únicas opciones son: MUNDO LUKA (AR) o VER TV.
+
+No hay menús, no hay dashboard, no hay configuración inicial.
+
+2. Exploración Territorial (LUKA WORLD):
+
+Entrar al Modo AR y caminar por un área piloto delimitada (ejemplo: 1 km alrededor de la Plaza de Armas o la Huaca del Sol).
+
+Apuntar el celular a la calle y ver hologramas/POIs (puntos de interés) como: comisarías, museos, hoteles, restaurantes, huacas.
+
+LUKITA te guía (aparece, te orienta, se mueve contigo).
+
+Puedes decir: "LUKA, ¿qué es esto?" y LUKA responde con información contextual del lugar.
+
+Navegación territorial: LUKA te muestra dónde está el POI y cómo llegar.
+
+3. Control de Televisión (LUKA TV):
+
+Decir: "LUKA, quiero ver TV" y el celular se convierte en control remoto.
+
+Cambiar canales, subir/bajar volumen, silenciar, reproducir/pausar, abrir aplicaciones de streaming (Netflix, YouTube, Prime Video, Disney+).
+
+Usar el Trackpad para navegar los menús del TV.
+
+Usar el Teclado para buscar contenido.
+
+Usar el Gamepad para jugar en consola o Smart TV.
+
+4. Transiciones fluidas por voz o toque:
+
+"LUKA, quiero jugar" → Gamepad.
+
+"LUKA, quiero usar el teclado" → Keyboard.
+
+"LUKA, quiero usar el trackpad" → Trackpad.
+
+"LUKA, vuelve a mi mundo" → AR.
+
+"LUKA, quiero ver TV" → TV.
+
+5. Distribución Instantánea (QR + PWA):
+
+Generar e imprimir QRs para colocar en puntos de interés (museos, restaurantes).
+
+El usuario instala la PWA en su celular (con icono y carga rápida) para volver a LUKA sin escanear de nuevo.
+
+🧠 LO QUE INCLUYE TÉCNICAMENTE (Componentes)
+Componente	Descripción	Estado
+LUKA OS	Orquestador contextual (sistema operativo)	✅ Implementado
+LUKA Universal Entry	Entrada única (QR/PWA) que activa AR	🟠 Rediseñando
+LUKA AR (WebXR)	Cámara, GPS, POIs, hologramas	🟢 Simulado, faltando prueba real
+LUKITA (Avatar 3D)	Modelo 3D con animaciones (saludo, guía)	🟠 Falta modelo definitivo
+LUKA TV	Control remoto + streaming + transiciones	🟢 Simulado, faltando real
+LUKA_CONTROLLER_STATE	Máquina de estados (TV, Trackpad, Keyboard, Gamepad, AR)	🟠 Falta implementar
+LUKA Intent Engine	Interprete de comandos por voz	🟢 Base correcta, faltando voz real
+LUKA Capability Registry	Registro de capacidades (AR y TV disponibles)	✅ Implementado
+LUKA Dev Lab	Laboratorio de simulación (GPS, POIs, registros)	✅ Implementado
+MJP CORE	Núcleo protegido de juegos (RNG, RTP, Ledger)	✅ INTACTO
+🚫 LO QUE NO INCLUYE EL MVP (Para que no te confundas)
+No incluido en el MVP	Señal
+Domótica (Luces, AC, Ventiladores)	HIDDEN - No disponible
+Audio (Soundbars, Bocinas)	HIDDEN - No disponible
+Wearables (Smartwatches, Rings)	HIDDEN - No disponible
+Vehículos (e-bikes, Motos)	HIDDEN - No disponible
+Moneda L*	HIDDEN - No disponible
+Juegos (MJP)	HIDDEN - No disponible
+Agentes especializados (Cultura, Turismo, Historia)	PLANNED - Esperando fase posterior
+Integraciones reales (Google Cast, Tizen, etc.)	Bloqueado - Solo después del QA físico
+🎯 ¿QUÉ SE PUEDE HACER CON ESTE MVP EN LA VIDA REAL?
+Imagina esta escena:
+
+Un turista está frente a la Huaca del Sol en Trujillo. Escanea un QR circular.
+
+Su celular se abre directo a AR. LUKITA aparece en 3D y le dice: "Hola. Soy LUKA."
+
+El turista dice: "¿Qué es esto?" → LUKITA le explica la historia de la Huaca.
+
+El turista dice: "LUKA, llévame al museo" → LUKA le muestra la ruta en AR.
+
+Regresa a su hotel, dice: "LUKA, quiero ver TV" → Su celular se convierte en control remoto.
+
+Cambia de canal, abre Netflix, y dice: "LUKA, quiero jugar" → Se transforma en Gamepad.
+
+Eso es el MVP: una presencia inteligente que se transforma según el contexto, sin configuración, sin menús.

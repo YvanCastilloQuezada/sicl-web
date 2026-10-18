@@ -1,0 +1,29 @@
+LEVEL_ID: L09
+NAME: "Generador de Candidatos"
+DEFINITION: "ARKI produce alternativas geométricas conceptuales con linaje."
+INPUTS:
+  - parti: "PartiHypothesis"
+  - topology: "Topology"
+  - operators: "list<ArchitecturalOperator>"
+OUTPUTS:
+  - candidates: "list<Candidate>"
+  - mutations: "list<Mutation>"
+  - lineage: "CandidateLineage"
+CONTRACTS:
+  - "TOPOLOGY ≠ GEOMETRY"
+  - "OPERATOR ≠ MUTATION"
+  - "NEW CONFIGURATION ≠ NEW KNOWLEDGE"
+  - "Linaje trazable de cada candidato"
+RULES:
+  - "INV6-005: OPERATOR ≠ MUTATION"
+  - "INV6-006: DESIGN MOVE ≠ ATOMIC OPERATOR"
+  - "INV6-019: GEOMETRIC DIVERSITY ≠ ARCHITECTURAL DIVERSITY"
+  - "D6.3: Topology → Geometric Requirements → Design Moves → Operators → Mutations → Candidates"
+GATES:
+  - "GATE_L09_PASS: Candidatos generados con linaje completo"
+EVIDENCE_REQUIRED:
+  - "Candidate geometry (canonical model)"
+  - "Mutation log"
+  - "Lineage tree"
+  - "Operator application trace"
+CURRENT_STATUS: "DEMONSTRATED (microcaso)"

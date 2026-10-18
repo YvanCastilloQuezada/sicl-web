@@ -1,0 +1,112 @@
+{
+  "schema": "AR-LU-CORPORATE-001-MANIFEST-1.0",
+  "order": "AR-LU-CORPORATE-001",
+  "version": "1.0",
+  "status": "DESIGN_COMPLETE_FOR_DECLARED_SCOPE",
+  "implementationAuthorized": false,
+  "externalActionsAuthorized": false,
+  "codeModified": false,
+  "arkiModified": false,
+  "lucaModified": false,
+  "corporateFormation": false,
+  "payments": false,
+  "submissions": false,
+  "signatures": false,
+  "hardwarePurchases": false,
+  "sourceOrder": "AR_LU_CORPORATE_001_ORDER_SOURCE.txt",
+  "dateAccessed": "2026-09-23",
+  "evidenceTaxonomy": [
+    "FACT",
+    "CODE_EVIDENCE",
+    "DOCUMENT_EVIDENCE",
+    "RUNTIME_EVIDENCE",
+    "OFFICIAL_SOURCE",
+    "PRODUCT_OWNER_INPUT",
+    "INFERENCE",
+    "PROPOSAL",
+    "UNKNOWN",
+    "REQUIRES_PROFESSIONAL_VALIDATION"
+  ],
+  "documents": [
+    {
+      "path": "01_AR_LU_CORPORATE_ARCHITECTURE.md",
+      "bytes": 5270,
+      "sha256": "66794591a47729abb36e44dab1e98f1b17ca54f850c1360f6e4fbfe87e870c10"
+    },
+    {
+      "path": "02_AR_LU_BUSINESS_MODEL.md",
+      "bytes": 5118,
+      "sha256": "2f75428698802c2f9aa496eebe23ed9ee964dc79d2c4f5dbe45d7129b4889345"
+    },
+    {
+      "path": "03_AR_LU_FINANCIAL_ARCHITECTURE.md",
+      "bytes": 4715,
+      "sha256": "9c73ea0b1c21ab836328b7b586d160d3758d4713c4742d7009a28f1b6b2c986e"
+    },
+    {
+      "path": "04_AR_LU_TECHNOLOGY_FUND_POLICY.md",
+      "bytes": 4557,
+      "sha256": "5ae7a96561a081a4fa8ce60addaee3b2c02552673158a3c320215e8b39cd9179"
+    },
+    {
+      "path": "05_AR_LU_MANAGEMENT_ACCOUNTING_MODEL.md",
+      "bytes": 4548,
+      "sha256": "90528743d15e902b53e7c241be21c745ef4de8a011b7e3fbf92c6169860b809b"
+    },
+    {
+      "path": "06_AR_LU_IP_AND_TRADE_SECRET_ARCHITECTURE.md",
+      "bytes": 4974,
+      "sha256": "721ea1b1b64df32f6ea1e52af56ee10f3dc43cf14646f84f9b64d638133d1758"
+    },
+    {
+      "path": "07_AR_LU_PERU_ENTITY_OPTIONS.md",
+      "bytes": 4960,
+      "sha256": "4b8aca4e113c5dea40a6792666859883286f6b89ef279cf656c8caa3cf76e772"
+    },
+    {
+      "path": "08_AR_LU_FUNDING_RADAR_2026_2027.md",
+      "bytes": 4885,
+      "sha256": "ab26f5f8b1cff42755fbf01f15b46877bef7ee0cc312249fc27381320a01691e"
+    },
+    {
+      "path": "09_ARKI_FUNDING_PROJECT_HYPOTHESIS.md",
+      "bytes": 4705,
+      "sha256": "9818dd21d4769221e2c7c1cab7ebad505758d742026015e93dd30ba5e32a9526"
+    },
+    {
+      "path": "10_LUCA_FUNDING_PROJECT_HYPOTHESIS.md",
+      "bytes": 4502,
+      "sha256": "ae113309e4b0ad1df675c5e7a7eafb2200cfecdcac95ddb490919fb03c69b3e4"
+    },
+    {
+      "path": "11_AR_LU_INFRASTRUCTURE_FINANCING_MODEL.md",
+      "bytes": 4326,
+      "sha256": "9f31922234fa10b2180ce6ccaa1af96208ddb41553371959bcd677a7f87d9552"
+    },
+    {
+      "path": "12_AR_LU_RISK_REGISTER.md",
+      "bytes": 4690,
+      "sha256": "0cda87bebec9247519a979b85a806f10e55393f07c9c74bff51293cdacbe1b86"
+    },
+    {
+      "path": "13_AR_LU_DECISION_REGISTER.md",
+      "bytes": 4400,
+      "sha256": "9892be2ece32e3c87e96facf641ff26f023a226f70503ca7969de9cc68194c56"
+    },
+    {
+      "path": "14_AR_LU_OPEN_QUESTIONS.md",
+      "bytes": 4529,
+      "sha256": "d01861f52ad5cfea097aacafc40c3ae16e531129a538520f6dfa1fe5e5a58467"
+    },
+    {
+      "path": "15_AR_LU_EXECUTIVE_REPORT.md",
+      "bytes": 4704,
+      "sha256": "32756aad8a280d7e83f31b1b14ea4e9cc626ad9fec873c7c161c43e7931c4822"
+    },
+    {
+      "path": "AR_LU_CORPORATE_001_ORDER_SOURCE.txt",
+      "bytes": 16125,
+      "sha256": "f802d7df3e3a8db10565a55be672cc765d0ea6e2eb3969df107da0c4b035810b"
+    }
+  ]
+}

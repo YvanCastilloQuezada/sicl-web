@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <meta name="theme-color" content="#071a30" />
+    <meta name="application-name" content="ARKI Web App" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="ARKI" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/arki-icon.svg" type="image/svg+xml" />
+    <title>ARKI · Command Center</title>
+    <!-- THIS IS THE START OF A COMMENT BLOCK, BLOCK TO BE DELETED: Google Fonts here, example:
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    THIS IS THE END OF A COMMENT BLOCK, BLOCK TO BE DELETED -->
+  </head>
+
+  <body>
+    <div id="root"><div style="min-height:100vh;background:#071a30;color:#edf4ff;display:grid;place-items:center;font-family:system-ui,sans-serif"><div style="text-align:center"><strong style="display:block;font-size:1.25rem;letter-spacing:.12em">ARKI</strong><span style="display:block;margin-top:.5rem;opacity:.7">Cargando Architectural Intelligence Workspace…</span></div></div></div>
+    <script>
+      window.addEventListener("error", function (event) {
+        var root = document.getElementById("root");
+        if (root) root.innerHTML = '<div style="min-height:100vh;background:#071a30;color:#edf4ff;display:grid;place-items:center;font-family:system-ui,sans-serif;padding:2rem"><div style="max-width:42rem;text-align:center"><strong style="display:block;font-size:1.25rem;letter-spacing:.12em">ARKI</strong><p style="margin-top:1rem">No se pudo montar la interfaz React.</p><pre style="margin-top:1rem;white-space:pre-wrap;text-align:left;color:#f6c995;font-size:.75rem">' + String(event.message || "Error de bootstrap") + '</pre><button onclick="location.reload()" style="margin-top:1rem;padding:.65rem 1rem;border:0;border-radius:.5rem;background:#f0a35b;color:#071a30;font-weight:700">Recargar ARKI</button></div></div>';
+        console.error("[ARKI_BOOT_ERROR]", event.error || event.message);
+      });
+      window.addEventListener("unhandledrejection", function (event) {
+        console.error("[ARKI_BOOT_REJECTION]", event.reason);
+      });
+    </script>
+    <script type="module" src="./src/main.tsx"></script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
+  </body>
+
+</html>

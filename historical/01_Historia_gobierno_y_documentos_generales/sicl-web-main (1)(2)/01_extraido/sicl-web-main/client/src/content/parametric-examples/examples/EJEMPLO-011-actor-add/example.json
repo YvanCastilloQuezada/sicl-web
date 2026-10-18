@@ -1,0 +1,55 @@
+{
+  "exampleId": "EJEMPLO-011",
+  "title": "Ejemplo 011 · /ACTOR ADD",
+  "commandName": "/ACTOR ADD",
+  "category": "actor",
+  "syntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]",
+  "command": "/ACTOR ADD ACTOR-001 ARCHITECT Casa Demo Paramétrica HUMAN_AUTHORITY {\"interests\":[\"functionality\"],\"constraints\":[\"human_review\"]}",
+  "arguments": [
+    {
+      "name": "id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ACTOR-001"
+    },
+    {
+      "name": "role",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ARCHITECT"
+    },
+    {
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "exampleValue": "Casa Demo Paramétrica"
+    },
+    {
+      "name": "authority",
+      "required": true,
+      "type": "string",
+      "exampleValue": "HUMAN_AUTHORITY"
+    },
+    {
+      "name": "interests_json constraints_json",
+      "required": false,
+      "type": "string",
+      "exampleValue": "{\"interests\":[\"functionality\"],\"constraints\":[\"human_review\"]}"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /ACTOR ADD.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

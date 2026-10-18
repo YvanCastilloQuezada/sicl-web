@@ -1,0 +1,3 @@
+docs/SIMS_DEI_EXECUTIVE_BOARD_PRESENTATION.md:167:- `SIMS_DEI_PROJECT_HANDOVER.md`.
+docs/SIMS_DEI_PROJECT_HANDOVER.md:1:# Handover maestro del proyecto SiMS-DeI / SICL
+docs/SIMS_DEI_PROJECT_HANDOVER.md:205:## 11. Criterio de aceptación del handover

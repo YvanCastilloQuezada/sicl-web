@@ -1,0 +1,547 @@
+{
+  "run": 4,
+  "label": "PARCELA/SITIO (SITE-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "SITE-001",
+  "status": "PASS",
+  "commands_total": 20,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.023,
+  "failures": [],
+  "snapshot": {
+    "project_id": "SITE-001",
+    "name": "Sitio UPAO-001",
+    "spatial_scope": "parcela_sitio",
+    "temporal_scope": "proyecto",
+    "stage": "DRAFT",
+    "version": 19,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 1,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 2,
+    "comparisons": 1,
+    "simulations": 1,
+    "multiobjectives": 0,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 19
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE SITE-001 \"Sitio UPAO-001\" parcela_sitio proyecto",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "SITE-001",
+          "name": "Sitio UPAO-001",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "parcela_sitio",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000917
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN SITE-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "SITE-001",
+          "name": "Sitio UPAO-001",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "parcela_sitio",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000531
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El sitio tiene 2000 m2\" CATASTRO",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-31e7edb27b",
+          "project_id": "SITE-001",
+          "statement": "El sitio tiene 2000 m2",
+          "source": "CATASTRO",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001127
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-S001 \"Frente de 40 m a la avenida principal\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-S001",
+          "project_id": "SITE-001",
+          "source_id": null,
+          "statement": "Frente de 40 m a la avenida principal",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.649826+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "b5980ddf0014d7005d2c46618342a05fcc2a7ff76da773142d86a688b109e3ca",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001266
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET CONFORT MAXIMIZE 85",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-b9891b7613",
+          "project_id": "SITE-001",
+          "key": "CONFORT",
+          "direction": "MAXIMIZE",
+          "value": "85",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001091
+    },
+    {
+      "sequence": 6,
+      "command": "/CONSTRAINT SET FAR <= 5",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-63213a2bd5",
+          "project_id": "SITE-001",
+          "key": "FAR",
+          "operator": "<=",
+          "value": "5",
+          "unit": "",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001014
+    },
+    {
+      "sequence": 7,
+      "command": "/ALTERNATIVE CREATE SITE-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-111e710e87",
+          "project_id": "SITE-001",
+          "name": "SITE-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001047
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE SET SITE-A huella 800",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-111e710e87",
+          "project_id": "SITE-001",
+          "name": "SITE-A",
+          "description": "",
+          "parameters": {
+            "huella": "800"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001021
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET SITE-A altura 6",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-111e710e87",
+          "project_id": "SITE-001",
+          "name": "SITE-A",
+          "description": "",
+          "parameters": {
+            "huella": "800",
+            "altura": "6"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001011
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET SITE-A area_libre 1200",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-111e710e87",
+          "project_id": "SITE-001",
+          "name": "SITE-A",
+          "description": "",
+          "parameters": {
+            "altura": "6",
+            "huella": "800",
+            "area_libre": "1200"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001039
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE CREATE SITE-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-2d016d293b",
+          "project_id": "SITE-001",
+          "name": "SITE-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001093
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE SET SITE-B huella 900",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-2d016d293b",
+          "project_id": "SITE-001",
+          "name": "SITE-B",
+          "description": "",
+          "parameters": {
+            "huella": "900"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001182
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET SITE-B altura 5",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-2d016d293b",
+          "project_id": "SITE-001",
+          "name": "SITE-B",
+          "description": "",
+          "parameters": {
+            "huella": "900",
+            "altura": "5"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001046
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET SITE-B area_libre 1100",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-2d016d293b",
+          "project_id": "SITE-001",
+          "name": "SITE-B",
+          "description": "",
+          "parameters": {
+            "altura": "5",
+            "huella": "900",
+            "area_libre": "1100"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001063
+    },
+    {
+      "sequence": 15,
+      "command": "/EVALUATE SITE-A CONFORT 82 SCORE 0.85 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-3865160739",
+          "alternative_id": "ALT-111e710e87",
+          "objective_id": "OBJ-b9891b7613",
+          "value": 82.0,
+          "unit": "SCORE",
+          "confidence": 0.85,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001289
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE SITE-B CONFORT 88 SCORE 0.85 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-503aa4d6cd",
+          "alternative_id": "ALT-2d016d293b",
+          "objective_id": "OBJ-b9891b7613",
+          "value": 88.0,
+          "unit": "SCORE",
+          "confidence": 0.85,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001249
+    },
+    {
+      "sequence": 17,
+      "command": "/COMPARE SITE-A SITE-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-cf4e90db65",
+          "project_id": "SITE-001",
+          "alternative_ids": [
+            "ALT-111e710e87",
+            "ALT-2d016d293b"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-3865160739",
+              "alternative_id": "ALT-111e710e87",
+              "objective_id": "OBJ-b9891b7613",
+              "value": 82.0,
+              "unit": "SCORE",
+              "confidence": 0.85,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-503aa4d6cd",
+              "alternative_id": "ALT-2d016d293b",
+              "objective_id": "OBJ-b9891b7613",
+              "value": 88.0,
+              "unit": "SCORE",
+              "confidence": 0.85,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001167
+    },
+    {
+      "sequence": 18,
+      "command": "/SIMULATE MONTE_CARLO SITE-B CONFORT huella '{\"type\":\"NORMAL\",\"parameters\":{\"mean\":900,\"std_dev\":50}}' 1000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "simulation": {
+            "simulation_id": "SIM-7d4c7743ea",
+            "project_id": "SITE-001",
+            "simulation_type": "MONTE_CARLO",
+            "method": "monte_carlo_v1",
+            "method_version": "1.0",
+            "inputs": {
+              "alternative_id": "SITE-B",
+              "iterations": 1000,
+              "objective_id": "CONFORT",
+              "parameter_distribution": {
+                "parameters": {
+                  "mean": 900,
+                  "std_dev": 50
+                },
+                "type": "NORMAL"
+              },
+              "parameter_name": "huella",
+              "seed": 20260916
+            },
+            "outputs": {
+              "missing_inputs": [
+                "alternative_id"
+              ]
+            },
+            "state": "INSUFFICIENT",
+            "started_at": "2026-09-16T18:06:10.665645+00:00",
+            "finished_at": "2026-09-16T18:06:10.665662+00:00",
+            "evidence_hash": "1cb859a9ecaa0f4761edc9252139946a7e7e5efce6dfa66b716910949a6f4649",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001592
+    },
+    {
+      "sequence": 19,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión del sitio\" \"Sitio validado\" \"Architect\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-fdeee49232",
+          "project_id": "SITE-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión del sitio",
+          "reason": "Sitio validado",
+          "authority": "Architect",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001442
+    },
+    {
+      "sequence": 20,
+      "command": "/DECISION RECORD \"Adoptar SITE-B\" architect-yvan \"Architect\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-24d39427e6",
+          "project_id": "SITE-001",
+          "statement": "Adoptar SITE-B",
+          "actor": "architect-yvan",
+          "authority": "Architect",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001195
+    }
+  ]
+}

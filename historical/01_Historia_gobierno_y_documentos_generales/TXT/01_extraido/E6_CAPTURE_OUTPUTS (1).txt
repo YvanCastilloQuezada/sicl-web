@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "parser": {
+    "adapter": "web-ifc",
+    "fixtures": [
+      {
+        "filename": "fixture_01_simple_wall.ifc",
+        "bytes": 2937,
+        "sha256": "4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e",
+        "schema": "IFC4",
+        "entities": 29
+      },
+      {
+        "filename": "fixture_02_room_with_door.ifc",
+        "bytes": 2942,
+        "sha256": "124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8",
+        "schema": "IFC4",
+        "entities": 29
+      },
+      {
+        "filename": "fixture_03_multi_storey.ifc",
+        "bytes": 5297,
+        "sha256": "5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b",
+        "schema": "IFC4",
+        "entities": 54
+      }
+    ]
+  },
+  "exporter": {
+    "entities": 28,
+    "preserved": 28,
+    "missing": 0
+  },
+  "globalId": {
+    "value": "721DFEF568890BB2750F1C",
+    "length": 22
+  },
+  "gate": {
+    "missing": []
+  },
+  "captures": [
+    "01-ifc4-parser-web-ifc",
+    "02-ifc4-exporter",
+    "03-globalid-determinista",
+    "04-persistencia-indexeddb-v2",
+    "05-gate-snapshot-aprobado",
+    "06-loss-report-identidad"
+  ]
+}

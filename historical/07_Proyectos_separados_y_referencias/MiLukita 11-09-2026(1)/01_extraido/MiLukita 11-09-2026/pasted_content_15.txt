@@ -1,0 +1,131 @@
+ORDEN PARA MANUS: AUDITORÍA TOTAL DEL SISTEMA (FASE 0 - PREPARACIÓN PARA LA ACTUALIZACIÓN)
+
+MOTIVO (POR QUÉ SE EJECUTA ESTA ORDEN):
+Antes de implementar las nuevas funcionalidades (Visor AR, TV, Domótica), es absolutamente esencial conocer el estado real del proyecto. Esta auditoría permitirá identificar qué se ha construido hasta ahora, qué falta, y cuál es la arquitectura lógica y conceptual que define a LUKA. Sin esta información, el desarrollo continuará siendo caótico y el MJP CORE seguirá "intacto" sin saber por qué. La auditoría es el primer paso hacia la actualización segura del sistema.
+
+1. AUDITORÍA DEL CÓDIGO ACTUAL (Inventario Total)
+
+OBJETIVO: Documentar todo el código existente para saber qué se conserva, qué se debe refactorizar y qué se debe eliminar.
+
+IMPLEMENTACIÓN:
+
+Inventario de archivos: Listar todos los файлы (librerías, componentes, datos, servicios), indicando su función actual.
+
+Dependencias: Identificar las dependencias internas y externas (Bibliotecas, frameworks, APIs).
+
+Funciones huérfanas: Detectar funciones que no se usan (código muerto).
+
+Código experimental: Localizar prototipos que no están terminados (Código con errores).
+
+Deuda técnica: Identificar fuentes de inestabilidad (как например, duplicado de código, отсутствие тестов).
+
+Fechas y versión: Documentar cuándo se creó cada módulo и последнее обновление.
+
+ENTREGABLE:
+
+Informe de Auditoría (documento PDF/Word) con el inventario completo de todas las archivos и зависимостей, вместе с deuda técnica.
+
+2. ARQUITECTURA ACTUAL DEL SISTEMA (Documentar el Estado Real)
+
+OBJETIVO: Crear una "fotografía" de cómo está funcionando LUKA en este momento.
+
+IMPLEMENTACIÓN:
+
+Экосистема: Схема представления всех фактически работающих модулей.
+
+Процессы: Документировать flow de trabajo de cada módulo (например, управление сессиями, разрешения).
+
+Взаимодействие между модулями: Как они взаимодействуют друг с другом (если это так).
+
+Протоколы: Какие протоколы используются (например, WebSocket, REST, BlueTooth).
+
+ENTREGABLE:
+
+Диаграмма архитектуры (диаграмма de flujo) + схема модулей в виде чертежей.
+
+3. КАПАСИТИ РЕГИСТРИ (Зарегистрированное состояние способностей)
+
+ОБЕКТИВ: Документировать, какие функции находятся в каком состоянии (доступны, скрыты, требуют разрешения).
+
+ИМПЛЕМЕНТАЦИЯ:
+
+Все функции: Перечислить все функции LUKA (AR, TV, Gamepad, Домотика, Wearables, монета L*, и т.д.).
+
+Статус: Определить, какая из них является: AVAILABLE (доступная), HIDDEN (скрытая), BETA (бета), PLANNED (планируемая).
+
+Требования: Какая функция требует аппаратных средств (Bluetooth, WiFi) или разрешений (GPS, Kamera).
+
+ENTREGABLE:
+
+КлапаСити Регистри (полная таблица всех функций и их состояние).
+
+4. ОРГАНИГРАМА ПРОЕКТА (Организационная структура)
+
+ОБЕКТИВ: Определить, кто является частью проекта, что делает каждый из них, и какие ресурсы используются.
+
+ИМПЛЕМЕНТАЦИЯ:
+
+Категории: Проект (Идея) → LUKA (Платформа) → Человек (Команда) → Manus (Инструмент разработки).
+
+Члены команды: Кто является участником (разработчик, дизайнер, бизнес-аналитик).
+
+Инструменты: Какие инструменты используются (Manus, Gemini, GitHub, и т.д.).
+
+Роли: Каковы роли каждого (разработчик, дизайнер, владелец продукта).
+
+ENTREGABLE:
+
+Органиграмма (схема проекта, члены команды, роли).
+
+5. ИДЕЯ LUKA (Концептуальная визия)
+
+ОБЕКТИВ: Документировать философию проекта, чтобы Manus понимал, КАКИМ должен быть результат.
+
+ИМПЛЕМЕНТАЦИЯ:
+
+Философия: LUKA - это не приложение, а территориальный агент с интеллектом, контекстом и интенцией.
+
+Регулярная идея: LUKA преобразует слова в действия, появляется в AR и ведет по городу.
+
+Принцип выявления: (Progressive Interface Disclosure) - раскрывает функции только в нужный момент.
+
+Цена: "LUKA - это место, где территория, культура, туризм, образование и реальность встречаются".
+
+ENTREGABLE:
+
+Концептуальная документация (манифест проекта).
+
+6. РЕЗЮМЕ: ЧТО ЕСТЬ, ЧТО НЕ ХВАТАЕТ
+
+ОБЕКТИВ: Определить, что уже существует и что необходимо для запуска LUKA.
+
+ИМПЛЕМЕНТАЦИЯ:
+
+Имеется: Список того, что реализовано (например, Модели, архитектура, дизайн).
+
+Отсутствует: Что нужно реализовать (например, WebXR, GPS, TV Runtime, Intent Engine).
+
+Заблокировано: Что требует вмешательства человека (например, законодательство, покупка оборудования).
+
+ENTREGABLE:
+
+Отчёт о состоянии проекта (включая список того, что есть, отсутствует и заблокировано).
+
+7. РЕКОМЕНДАЦИЯ ПО ОБНОВЛЕНИЮ MJP CORE
+
+ОБЕКТИВ: Дать рекомендации, как обновить ядро системы безопасно.
+
+ИМПЛЕМЕНТАЦИЯ:
+
+Этапы: 1. Аудит → 2. Рефакторинг (переработка) → 3. Реализация (AR, TV, Домотика).
+
+Принцип: Ядро остаётся неизменным, новые модули добавляются.
+
+Тест: Протестировать все новые модули (AR, TV) для проверки стабильности.
+
+ENTREGABLE:
+
+Рекомендация по обновлению (стратегический документ с этапами).
+
+ЗАКЛЮЧЕНИЕ:
+Это упражнение является самым важным шагом в проекте. Оно позволяет Manus понять, на каком этапе находится проект, что уже реализовано, что необходимо сделать, и в каком направлении двигаться. После выполнения этой команды, MJP CORE сможет быть расширен безопасно, без риска разрушить существующую архитектуру.

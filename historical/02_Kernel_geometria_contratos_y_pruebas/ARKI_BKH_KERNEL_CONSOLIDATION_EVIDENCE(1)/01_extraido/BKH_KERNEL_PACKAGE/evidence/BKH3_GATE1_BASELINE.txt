@@ -1,0 +1,332 @@
+# BKH-3 Gate 1 Baseline
+2026-09-23T13:24:32Z
+repository=
+/home/ubuntu/generador-familias
+branch=
+main
+HEAD=
+c62183a5904f02aa0a935572454a5a35f9d167aa
+remote=
+origin	https://7f0548f6b28a1758d9bf7be630d36cb4.artifacts.cloudflare.net/git/prod/cX8tnasfEB3UCVfEsJjiZg.git (fetch)
+origin	https://7f0548f6b28a1758d9bf7be630d36cb4.artifacts.cloudflare.net/git/prod/cX8tnasfEB3UCVfEsJjiZg.git (push)
+## status
+ [31mD[m client/src/components/ArkiNavigator.tsx
+ [31mM[m client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m client/src/contexts/ProjectContext.tsx
+ [31mM[m client/src/index.css
+ [31mM[m client/src/modules/GeneratorModule.tsx
+ [31mM[m package.json
+ [31mM[m pnpm-lock.yaml
+ [31mM[m scripts/test-navigator-layout.ts
+ [31mM[m scripts/test-no-inherited-cleanup.ts
+[31m??[m AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md
+[31m??[m AKI001_COMPETENCY_MATRIX.md
+[31m??[m AKI001_CURRICULUM_DELTA_BKH1.md
+[31m??[m AKI001_EVIDENCE_INDEX.md
+[31m??[m AKI001_EXECUTIVE_SUMMARY.md
+[31m??[m AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+[31m??[m AKI001_HISTORICAL_CURRICULUM.md
+[31m??[m AKI001_KNOWLEDGE_GAPS.md
+[31m??[m AKI001_KNOWLEDGE_INVENTORY.md
+[31m??[m AKI001_LOCAL_INVENTORY_RAW.txt
+[31m??[m AKI001_MANIFEST.json
+[31m??[m AKI001_MULTISCALE_KNOWLEDGE_MAP.md
+[31m??[m AKI001_REPORT.md
+[31m??[m ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md
+[31m??[m ARKI_ADDENDA_SEPARACION_INTELIGENCIA_Y_BIM_KERNEL_V1.md
+[31m??[m ARKI_ADDENDUM_E_COD_LUKA.md
+[31m??[m ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip.sha256
+[31m??[m ARKI_COMPUTATIONAL_FABRIC_V1.md
+[31m??[m ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_SELECCION.md
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT.zip
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT/
+[31m??[m ARKI_FLUJO_TRABAJO_Y_PANELES.md
+[31m??[m ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md
+[31m??[m ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md
+[31m??[m ARKI_ROADMAP_CORPORATIVO_V1.md
+[31m??[m ARKI_VEREDICTO_CONTRATO_UI3A_V2.md
+[31m??[m ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md
+[31m??[m ARKI_VEREDICTO_REVISION_UI3A.md
+[31m??[m BKH0_BASELINE.txt
+[31m??[m BKH0_CANONICAL_OWNERSHIP_MAP.md
+[31m??[m BKH0_CURRENT_PRODUCT_DIFF.txt
+[31m??[m BKH0_DEPENDENCY_MAP.md
+[31m??[m BKH0_DUPLICATION_RAW.txt
+[31m??[m BKH0_DUPLICATION_REPORT.md
+[31m??[m BKH0_ENTITY_REGISTRY.md
+[31m??[m BKH0_FORENSIC_MAP.md
+[31m??[m BKH0_IMPLEMENTATION_GAPS.md
+[31m??[m BKH0_INSPECTION_RAW.txt
+[31m??[m BKH0_INVARIANT_REGISTRY.md
+[31m??[m BKH0_MANIFEST.json
+[31m??[m BKH0_MUTATION_PATH_MAP.md
+[31m??[m BKH0_OUTPUTS.txt
+[31m??[m BKH0_RELATIONSHIP_INVENTORY.md
+[31m??[m BKH0_REPORT.md
+[31m??[m BKH0_TEST_RUN_RAW.txt
+[31m??[m BKH1_CHANGE_LIST.md
+[31m??[m BKH1_DIFF.patch
+[31m??[m BKH1_EVIDENCE.zip
+[31m??[m BKH1_EVIDENCE.zip.sha256
+[31m??[m BKH1_EVIDENCE_MANIFEST.json
+[31m??[m BKH1_GATE1_BASELINE.txt
+[31m??[m BKH1_GATE1_BASELINE_RAW.txt
+[31m??[m BKH1_IMPLEMENTATION_OUTPUTS.txt
+[31m??[m BKH1_IMPLEMENTATION_SEQUENCE.md
+[31m??[m BKH1_PACKAGE_MANIFEST.json
+[31m??[m BKH1_PACKAGE_README.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip.sha256
+[31m??[m BKH1_RELATIONSHIP_SCHEMA.md
+[31m??[m BKH1_RELATION_MIGRATION_MATRIX.md
+[31m??[m BKH1_REPORT.md
+[31m??[m BKH1_SCOPE_LIMITS.md
+[31m??[m BKH1_TEST_PLAN.md
+[31m??[m BKH1_TRACKED_DIFF_AFTER.txt
+[31m??[m BKH1_VERDICT_VERIFIED.md
+[31m??[m BKH1_WORKTREE_AFTER.txt
+[31m??[m BKH2_CONTRACT_DESIGN.zip
+[31m??[m BKH2_CONTRACT_DESIGN.zip.sha256
+[31m??[m BKH2_CONTRACT_DESIGN/
+[31m??[m BKH2_EVIDENCE.zip
+[31m??[m BKH2_EVIDENCE.zip.sha256
+[31m??[m BKH2_EVIDENCE_MANIFEST.json
+[31m??[m BKH2_GATE1_BASELINE.txt
+[31m??[m BKH2_IMPLEMENTATION_OUTPUTS.txt
+[31m??[m BKH2_REPORT.md
+[31m??[m BKH2_SCOPE_LIMITS.md
+[31m??[m BKH3_CONTRACT_DESIGN.zip
+[31m??[m BKH3_CONTRACT_DESIGN.zip.sha256
+[31m??[m BKH3_CONTRACT_DESIGN/
+[31m??[m BKH3_FORENSIC_SCAN_RAW.txt
+[31m??[m BKH3_GATE1_BASELINE.txt
+[31m??[m BKH_CONTRATO_CHATGPT_V1.md
+[31m??[m CHATGPT_HANDOFF_FILELIST.txt
+[31m??[m CHATGPT_HANDOFF_README.md
+[31m??[m CHATGPT_HANDOFF_SHA256SUMS.txt
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip.sha256
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22/
+[31m??[m DEEPSEEK_MD_SEPARADOS_2026_09_22/
+[31m??[m E1_CONTRATO_PRODUCTO_ADRS/
+[31m??[m E2_WIREFLOWS_CONTROLES_PRUEBAS/
+[31m??[m E3_CATALOGO_CORPORATIVO_P2/
+[31m??[m E4_CONTRATOS_ESPECIALIZADOS/
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.md
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.txt
+[31m??[m E5_SCENE_MODEL_3D_OUTPUTS.txt
+[31m??[m E5_SCENE_MODEL_3D_REPORT.md
+[31m??[m E6_BASELINE_OUTPUTS.txt
+[31m??[m E6_DEBT_INHERITED.md
+[31m??[m E6_MANIFEST.json
+[31m??[m E6_OUTPUTS.txt
+[31m??[m E6_PO_APPROVAL.md
+[31m??[m E6_REPORT.md
+[31m??[m E6_SCOPE_LIMITS.md
+[31m??[m E7_CONTRATO_PROPUESTO_V1.md
+[31m??[m E7_DEBT_INHERITED.md
+[31m??[m E7_MANIFEST.json
+[31m??[m E7_OPENING.md
+[31m??[m E7_OUTPUTS.txt
+[31m??[m E7_PO_APPROVAL.md
+[31m??[m E7_REPORT.md
+[31m??[m E7_SCOPE_LIMITS.md
+[31m??[m E7_VERDICT_CYCLE1.md
+[31m??[m E8_CONTRATO_PROPUESTO_V1.md
+[31m??[m FASE_0_ADRS_RECLASIFICADOS.md
+[31m??[m FASE_0_AUDITORIA_REAL_2026-09-23.md
+[31m??[m FASE_0_BASELINE_HASHES.txt
+[31m??[m FASE_0_BLOQUEO_CONFIRMADO.md
+[31m??[m FASE_0_CAPTURAS_MANIFEST.md
+[31m??[m FASE_0_CLASIFICACION_ARCHIVOS.md
+[31m??[m FASE_0_FIRMA_PO_CONFIRMADA.md
+[31m??[m RESUMEN_IMPLEMENTACION_ARKI_2026-09-23.md
+[31m??[m REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+[31m??[m REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+[31m??[m UI3A_DIFF.patch
+[31m??[m UI3A_EVIDENCE.zip
+[31m??[m UI3A_EVIDENCE.zip.sha256
+[31m??[m UI3A_MANIFEST.json
+[31m??[m UI3A_VERIFICATION_REPORT.md
+[31m??[m client/src/canvas/
+[31m??[m client/src/comparison/
+[31m??[m client/src/ifc4/
+[31m??[m client/src/modules/E7DomainModule.tsx
+[31m??[m client/src/modules/SceneModelModule.tsx
+[31m??[m client/src/persistence/
+[31m??[m contracts/
+[31m??[m evidence/
+[31m??[m fixtures/
+[31m??[m scripts/apply-bkh3-contract-fixes.py
+[31m??[m scripts/create-bkh3-contract-docs.py
+[31m??[m scripts/create-e6-manifest.sh
+[31m??[m scripts/create-e7-manifest.sh
+[31m??[m scripts/create-ui3a-manifest.sh
+[31m??[m scripts/generate-ifc-fixtures.ts
+[31m??[m scripts/run-fase0-audit.sh
+[31m??[m scripts/test-bim-selection.ts
+[31m??[m scripts/test-bkh1-relationship-fabric.ts
+[31m??[m scripts/test-bkh2-constraint-engine.ts
+[31m??[m scripts/test-camera-modes.ts
+[31m??[m scripts/test-canvas-mount.ts
+[31m??[m scripts/test-clipping-section.ts
+[31m??[m scripts/test-comparison-side-by-side.ts
+[31m??[m scripts/test-context-panel.ts
+[31m??[m scripts/test-e7.ts
+[31m??[m scripts/test-ifc4-exporter.ts
+[31m??[m scripts/test-ifc4-fixtures.ts
+[31m??[m scripts/test-ifc4-globalid.ts
+[31m??[m scripts/test-ifc4-web-ifc.ts
+[31m??[m scripts/test-isolate-freeze.ts
+[31m??[m scripts/test-measure-snap.ts
+[31m??[m scripts/test-persistence-formal.ts
+[31m??[m scripts/test-persistence-idb.ts
+[31m??[m scripts/test-plan-3d-sync.ts
+[31m??[m scripts/test-scene-comparison.ts
+[31m??[m scripts/test-scene-model-mount.ts
+[31m??[m scripts/test-scene-model.ts
+[31m??[m scripts/test-selection-info.ts
+[31m??[m scripts/test-viewpoints.ts
+[31m??[m scripts/test-wall-door-canvas.ts
+[31m??[m shared/arki4d/
+[31m??[m shared/arki5d/
+[31m??[m shared/arkiBimSelection.ts
+[31m??[m shared/arkiConstraintEngine.ts
+[31m??[m shared/arkiContextPanel.ts
+[31m??[m shared/arkiImpacts/
+[31m??[m shared/arkiRelationshipAdapters.ts
+[31m??[m shared/arkiRelationshipFabric.ts
+[31m??[m shared/arkiSceneComparison.ts
+[31m??[m shared/arkiSceneModel.ts
+[31m??[m shared/coordination/
+[31m??[m shared/identity/
+[31m??[m shared/ifc4/
+[31m??[m shared/mep/
+[31m??[m shared/persistence/
+[31m??[m shared/structural/
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+## pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.53s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+## BKH-1
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH-1 relationship fabric PASS: 130 migrated relationships, registry=14
+## BKH-2
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","requiredCases":28,"registryTypes":13,"statuses":["SATISFIED","VIOLATED","UNKNOWN","NOT_APPLICABLE","CONFLICTING","ERROR"],"reasons":["NOT_DEMONSTRATED","EXTERNAL_ORACLE_REQUIRED","INSUFFICIENT_EVIDENCE","INSUFFICIENT_EPISTEMIC_STATE","MISSING_DEPENDENCY","INVALID_INPUT"],"currencySafety":"PEN_USD_INCOMPATIBLE","arbitraryExecution":"PROHIBITED","mutation":"UNCHANGED"}
+## constructive
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}
+## professional
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "periods": 3,
+  "financialTotal": 1759040.94,
+  "conflicts": 0,
+  "clashes": 480,
+  "approvalStatus": "pending",
+  "cdeDocuments": 2,
+  "s10Imported": 2
+}
+## technical dossier
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "readiness": 50,
+  "specifications": 7,
+  "formwork": 164,
+  "prices": 7,
+  "findings": 4,
+  "sections": 6
+}
+## serialization
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}
+## E7
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checks":23,"budget":4650,"scheduleDays":7,"clashes":1,"structural":"NOT_DEMONSTRATED","mep":"VERIFIED","impacts":2}

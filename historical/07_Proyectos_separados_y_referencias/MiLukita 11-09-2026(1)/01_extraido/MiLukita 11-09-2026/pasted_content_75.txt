@@ -1,0 +1,213 @@
+MICRO-ORDEN COMPLEMENTARIA — INVENTARIO DETALLADO DE AGENTES
+Documento: ORDEN MAESTRA 001 — MICRO-ORDEN COMPLEMENTARIA DE AGENTES
+Versión: 1.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+Alcance: Exclusivamente inventario detallado. No autoriza implementación.
+
+0. PROPÓSITO
+Completar la información faltante de la Micro-Orden de Identificación de Agentes.
+
+Contexto: En la micro-orden anterior, Manus reportó:
+
+16 agentes registrados
+
+6 con intents conectados al Agent Router
+
+13 elementos clasificados como servicios/contratos
+
+Ningún agente con autoridad de ejecución
+
+Ningún agente puede modificar MJP CORE
+
+Pero no entregó:
+
+La lista completa de los 16 agentes
+
+El modo de operación de cada uno
+
+La función de cada uno
+
+La ubicación de cada uno
+
+Cuáles son los 10 no conectados
+
+Esta micro-orden busca completar esa información.
+
+1. LO QUE MANUS DEBE ENTREGAR
+1.1. Tabla Completa de los 16 Agentes Registrados
+Para cada uno de los 16 agentes, Manus debe reportar:
+
+Campo	Descripción	Ejemplo
+#	Número de orden	1
+Nombre	Nombre del agente	Auditor
+Ubicación	Archivo/ruta donde está definido	src/agents/auditor.ts
+Estado	IMPLEMENTED / CONNECTED / PLANNED / DISABLED / NOT_FOUND	CONNECTED
+Modo de operación	READ_ONLY / ALERT_ONLY / PROPOSE_ONLY / PROJECTION_ONLY / (no definido)	READ_ONLY
+Función	Qué hace	Auditoría del sistema
+Conectado al Agent Router	SÍ / NO	SÍ
+Autoridad	¿Tiene autoridad de ejecución? (debe ser none)	none
+Dependencias	De qué depende	Agent Router
+Pendientes	Qué falta	Pruebas tRPC
+1.2. Tabla de los 6 Agentes Conectados
+Para cada uno de los 6 agentes conectados, Manus debe reportar:
+
+Campo	Descripción
+Nombre	Nombre del agente
+Intents conectados	Qué intents tiene conectados al Agent Router
+Función	Qué hace
+Modo de operación	READ_ONLY / ALERT_ONLY / PROPOSE_ONLY / PROJECTION_ONLY
+Ubicación	Archivo/ruta
+Evidencia de conexión	Cómo se verifica que está conectado
+1.3. Tabla de los 10 Agentes No Conectados
+Para cada uno de los 10 agentes registrados pero no conectados, Manus debe reportar:
+
+Campo	Descripción
+Nombre	Nombre del agente
+Ubicación	Archivo/ruta
+Estado	PLANNED / DISABLED / NOT_CONNECTED
+Función	Qué hace (si se sabe)
+Modo de operación	Si está definido
+Razón de no conexión	Por qué no está conectado
+Pendientes	Qué falta para conectarlo
+1.4. Tabla de los 13 Elementos Clasificados como Servicios/Contratos
+Para cada uno de los 13 elementos (World, Territorial, Mapper, The Eye, Voice, AR, TV, Games, Intent, Gesture, UI, Discovery, Security), Manus debe reportar:
+
+Campo	Descripción
+Nombre	Nombre del elemento
+Clasificación	Servicio / Contrato
+Ubicación	Archivo/ruta
+Función	Qué hace
+¿Es agente?	Por qué NO se clasificó como agente
+Dependencias	De qué depende
+2. REGLAS DE ESTA MICRO-ORDEN
+Regla	Descripción
+No crear agentes	Solo inventariar los existentes
+No activar agentes	Solo reportar estado
+No modificar agentes	Solo documentar
+No modificar MJP CORE	Bloqueo explícito
+No iniciar Fase G	Detención obligatoria
+Reportar honestamente	Si no existe, reportar NOT_FOUND
+No inventar agentes	Si no se encuentra, no crear
+Entregar tabla completa	No resúmenes
+3. FORMATO DE REPORTE
+Manus deberá entregar un reporte con la siguiente estructura:
+
+text
+### 1. Estado final de la Micro-Orden Complementaria
+🟢 COMPLETADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla Completa de los 16 Agentes Registrados
+
+| # | Nombre | Ubicación | Estado | Modo | Función | Conectado | Autoridad | Dependencias | Pendientes |
+|---|--------|-----------|--------|------|---------|-----------|-----------|--------------|------------|
+| 1 | | | | | | | | | |
+| 2 | | | | | | | | | |
+| ... | | | | | | | | | |
+| 16 | | | | | | | | | |
+
+### 3. Tabla de los 6 Agentes Conectados
+
+| # | Nombre | Intents Conectados | Función | Modo | Ubicación | Evidencia |
+|---|--------|-------------------|---------|------|-----------|-----------|
+| 1 | | | | | | |
+| ... | | | | | | |
+| 6 | | | | | | |
+
+### 4. Tabla de los 10 Agentes No Conectados
+
+| # | Nombre | Ubicación | Estado | Función | Modo | Razón de no conexión | Pendientes |
+|---|--------|-----------|--------|---------|------|----------------------|------------|
+| 1 | | | | | | | |
+| ... | | | | | | | |
+| 10 | | | | | | | |
+
+### 5. Tabla de los 13 Elementos Clasificados como Servicios/Contratos
+
+| # | Nombre | Clasificación | Ubicación | Función | ¿Por qué NO es agente? | Dependencias |
+|---|--------|---------------|-----------|---------|------------------------|--------------|
+| 1 | World | | | | | |
+| 2 | Territorial | | | | | |
+| ... | | | | | | |
+| 13 | Security | | | | | |
+
+### 6. Resumen
+
+- Total de agentes registrados:
+- Total de agentes conectados:
+- Total de agentes no conectados:
+- Total de servicios/contratos:
+- Total de agentes con autoridad de ejecución: (debe ser 0)
+- Total de agentes que pueden modificar MJP CORE: (debe ser 0)
+
+### 7. Límites de Autoridad
+
+- ¿Algún agente tiene autoridad de ejecución? (debe ser NO)
+- ¿Algún agente puede modificar MJP CORE? (debe ser NO)
+- ¿Algún agente puede publicar sin autorización? (debe ser NO)
+
+### 8. Pendientes
+
+Separar claramente:
+- Pendientes de esta micro-orden;
+- Pendientes de la micro-orden anterior;
+- Pendientes de Fase F;
+- Pendientes de Orden 60;
+- Pendientes futuras.
+
+### 9. MJP CORE
+Confirmar: SIN MODIFICACIÓN
+
+### 10. Estado de Fase G
+Declarar expresamente:
+FASE G — NO INICIADA
+4. CRITERIOS DE ACEPTACIÓN
+La micro-orden se considerará completada cuando:
+
+Criterio	Descripción
+Tabla completa	Se entregaron los 16 agentes con todos los campos
+Tabla de conectados	Se entregaron los 6 agentes conectados con intents
+Tabla de no conectados	Se entregaron los 10 agentes no conectados
+Tabla de servicios/contratos	Se entregaron los 13 elementos clasificados
+Resumen	Se entregó el resumen con totales
+Límites verificados	Se confirmó que ningún agente tiene autoridad
+MJP CORE intacto	Se confirmó protección
+No expansión	No se creó ningún agente nuevo
+5. DETENCIÓN OBLIGATORIA
+Al completar esta micro-orden:
+
+text
+DETENER LA EJECUCIÓN.
+NO CREAR AGENTES.
+NO ACTIVAR AGENTES.
+NO INICIAR FASE G.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+6. PRINCIPIO DE ESTA MICRO-ORDEN
+text
+INVENTARIAR, NO CREAR.
+REPORTAR, NO MODIFICAR.
+DOCUMENTAR, NO ACTIVAR.
+ENTREGAR TABLA COMPLETA, NO RESÚMENES.
+NO EXPANDIR EL ALCANCE.
+NO INICIAR LA SIGUIENTE FASE SIN AUTORIZACIÓN.
+
+MANUS INVENTARÍA.
+MANUS REPORTA.
+HUMAN AUTHORITY DECIDE.
+7. CIERRE
+Objetivo: Completar la información faltante de la micro-orden anterior.
+
+Alcance: Solo inventario detallado.
+
+No autoriza: Crear, activar, modificar.
+
+Entregable: Tablas completas de los 16 agentes, 6 conectados, 10 no conectados, 13 servicios/contratos.
+
+Próximo paso: Ejecutar micro-orden. Detenerse. Reportar. Esperar autorización.
+
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Orden Maestra 001 — Micro-Orden Complementaria de Agentes
+Estado: Listo para envío a Manus

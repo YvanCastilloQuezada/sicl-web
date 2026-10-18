@@ -1,0 +1,65 @@
+[1mdiff --git a/tests/test_a002_v1_4_injections.py b/tests/test_a002_v1_4_injections.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..dfc1bcc[m
+[1m--- /dev/null[m
+[1m+++ b/tests/test_a002_v1_4_injections.py[m
+[36m@@ -0,0 +1,59 @@[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m[32mimport pytest[m
+[32m+[m[32mfrom sicl.a002 import (ApplicabilityStatus, EvidenceRef, EvidenceVerificationLevel, HumanAuthorityRef, KnowledgeItem, KnowledgeState, OperationRequirement, PolicyIdentity, SufficiencyEngine, SufficiencyRequest, SufficiencyStatus, compute_evaluation_id, EvaluationIdentityPayload)[m
+[32m+[m
+[32m+[m[32mdef ev(project="P", field="x"):[m
+[32m+[m[32m    return EvidenceRef.from_statement("E-"+field, "verified "+field, "USER", project)[m
+[32m+[m
+[32m+[m[32mdef req(field="x", **kw):[m
+[32m+[m[32m    return OperationRequirement(field, (KnowledgeState.KNOWN, KnowledgeState.OBSERVED, KnowledgeState.ASSUMED), True, reason="required", **kw)[m
+[32m+[m
+[32m+[m[32mdef request(item, evidence=(), **kw):[m
+[32m+[m[32m    return SufficiencyRequest("P", "op", (item,), (req(item.field, **kw),), tuple(evidence))[m
+[32m+[m
+[32m+[m[32mdef test_declared_known_without_valid_provenance_is_observed_and_blocked():[m
+[32m+[m[32m    result = SufficiencyEngine().evaluate(request(KnowledgeItem("x", "value", KnowledgeState.KNOWN)))[m
+[32m+[m[32m    assert result.overall_status is SufficiencyStatus.INSUFFICIENT[m
+[32m+[m[32m    assert "x" in result.observed and "EVIDENCE" in " ".join(result.reason_codes)[m
+[32m+[m
+[32m+[m[32mdef test_policy_identity_is_structured_and_serialized():[m
+[32m+[m[32m    policy = PolicyIdentity("policy", 1, "a" * 64, "test")[m
+[32m+[m[32m    result = SufficiencyEngine().evaluate(SufficiencyRequest("P", "op", (KnowledgeItem("x", "v", KnowledgeState.KNOWN),), (req(),), (), policy=policy))[m
+[32m+[m[32m    assert result.policy == policy[m
+[32m+[m[32m    assert result.to_dict()["policy"]["policyId"] == "policy"[m
+[32m+[m
+[32m+[m[32mdef test_evaluation_identity_is_reproducible_and_canonical():[m
+[32m+[m[32m    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN)[m
+[32m+[m[32m    r1 = SufficiencyEngine().evaluate(request(item))[m
+[32m+[m[32m    r2 = SufficiencyEngine().evaluate(request(item))[m
+[32m+[m[32m    assert r1.evaluation_id == r2.evaluation_id and len(r1.evaluation_id) == 64[m
+[32m+[m[32m    assert r1.evaluation_id == compute_evaluation_id(EvaluationIdentityPayload("P", r1.request_fingerprint, "op", 1, "op"))[m
+[32m+[m
+[32m+[m[32mdef test_human_authority_requirement_blocks_without_reference():[m
+[32m+[m[32m    evidence = ev()[m
+[32m+[m[32m    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN, (evidence.evidence_id,))[m
+[32m+[m[32m    r = SufficiencyEngine().evaluate(request(item, [evidence], require_human_authority=True))[m
+[32m+[m[32m    assert r.overall_status is SufficiencyStatus.INSUFFICIENT[m
+[32m+[m[32m    assert "HUMAN_AUTHORITY_REQUIRED" in r.reason_codes[m
+[32m+[m[32m    authority = HumanAuthorityRef("actor", "APPROVAL", "2026-09-27T00:00:00Z", "REF-1")[m
+[32m+[m[32m    r2 = SufficiencyEngine().evaluate(SufficiencyRequest("P", "op", (item,), (req(require_human_authority=True),), (evidence,), human_authority_ref=authority))[m
+[32m+[m[32m    assert r2.human_authority_ref == authority[m
+[32m+[m
+[32m+[m[32mdef test_conditional_reasons_distinguish_assumed_blocking():[m
+[32m+[m[32m    item = KnowledgeItem("x", "assumed", KnowledgeState.ASSUMED, reason="client assumption")[m
+[32m+[m[32m    r = SufficiencyEngine().evaluate(SufficiencyRequest("P", "op", (item,), (req(allow_assumed=True),), (), policy_allow_assumptions=False))[m
+[32m+[m[32m    assert r.overall_status is SufficiencyStatus.INSUFFICIENT[m
+[32m+[m[32m    assert "ASSUMED_BLOCKING" in r.conditional_reasons[m
+[32m+[m
+[32m+[m[32mdef test_conflicting_applicability_is_preserved():[m
+[32m+[m[32m    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN, applicability=ApplicabilityStatus.CONFLICTING)[m
+[32m+[m[32m    r = SufficiencyEngine().evaluate(request(item, [ev()], applicability_required=True))[m
+[32m+[m[32m    assert r.overall_status is SufficiencyStatus.CONFLICTING[m
+[32m+[m[32m    assert "x" in r.conflicting[m
+[32m+[m
+[32m+[m[32mdef test_evidence_verification_level_is_explicit_and_bounded():[m
+[32m+[m[32m    evidence = ev()[m
+[32m+[m[32m    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN, (evidence.evidence_id,))[m
+[32m+[m[32m    r = SufficiencyEngine().evaluate(request(item, [evidence]))[m
+[32m+[m[32m    assert r.evidence_levels == ((evidence.evidence_id, EvidenceVerificationLevel.CONTENT_HASH_MATCHES_DECLARED.value),)[m
+[32m+[m[32m    assert all(level != EvidenceVerificationLevel.SUPPORT_SEMANTICALLY_VERIFIED.value for _, level in r.evidence_levels)[m

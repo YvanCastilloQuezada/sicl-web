@@ -1,0 +1,5 @@
+REPO=/home/ubuntu/generador-familias
+BRANCH=main
+HEAD=c62183a5904f02aa0a935572454a5a35f9d167aa
+STATUS_COUNT=1183
+CHECK_BUILD=validated in current session

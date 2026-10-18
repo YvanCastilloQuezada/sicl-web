@@ -1,0 +1,10 @@
+ client/src/components/ArkiNavigator.tsx      |  19 [31m-[m
+ client/src/components/ArkiWorkspaceShell.tsx |  46 [32m+[m[31m--[m
+ client/src/contexts/ProjectContext.tsx       |   5 [32m+[m[31m-[m
+ client/src/index.css                         | 104 [32m+++[m[31m--[m
+ client/src/modules/GeneratorModule.tsx       |   4 [32m+[m[31m-[m
+ package.json                                 |   5 [32m+[m
+ pnpm-lock.yaml                               | 557 [32m+++++++++++++++++++++++++++[m
+ scripts/test-navigator-layout.ts             |  21 [32m+[m[31m-[m
+ scripts/test-no-inherited-cleanup.ts         |  16 [32m+[m[31m-[m
+ 9 files changed, 673 insertions(+), 104 deletions(-)

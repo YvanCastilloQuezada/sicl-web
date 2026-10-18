@@ -1,0 +1,114 @@
+{
+  "package": "ARKI-BKH4-TX-003B",
+  "status": "PARTIAL_EMULATED_EVIDENCE",
+  "baseline": {
+    "repository": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "recorded_in_BKH4_TX_003B_GIT_DISCIPLINE.txt",
+    "worktree": "DIRTY_PREEXISTING",
+    "database": "arki-local-first",
+    "schemaVersion": 4,
+    "testEnvironment": "fake-indexeddb",
+    "realBrowserIndexedDb": "NOT_TESTED"
+  },
+  "result": {
+    "atomicPersistenceImplementation": "PARTIAL",
+    "oneMultiStoreTransaction": "VERIFIED_EMULATED",
+    "allOrNothing": "VERIFIED_EMULATED",
+    "failureInjection": "8/8",
+    "durabilityAfterReopen": "VERIFIED_EMULATED",
+    "fingerprintAlgorithm": "sha256:v1",
+    "fingerprintAfterReopen": "VERIFIED_EMULATED",
+    "historicalOverwriteDefense": "VERIFIED_EMULATED",
+    "projectIsolation": "VERIFIED_EMULATED",
+    "schemaMigration": "VERIFIED_EMULATED",
+    "legacyDataPreserved": "VERIFIED_EMULATED",
+    "tx003aRegression": "PASS",
+    "atomicCommit": "PARTIAL_EMULATED_EVIDENCE",
+    "cas": "NOT_IMPLEMENTED",
+    "durableIdempotency": "NOT_IMPLEMENTED",
+    "crashRecovery": "NOT_IMPLEMENTED",
+    "undoRedo": "NOT_IMPLEMENTED",
+    "globalCanonicalOwner": "NOT_VERIFIED",
+    "bkh4_4_ready": "NO"
+  },
+  "scopeGuard": [
+    "No TX-003C CAS or durable idempotency proof",
+    "No TX-003D crash recovery",
+    "No rollback, undo, redo, or writer migration",
+    "No ProjectContext migration",
+    "No CAD, ABB-001, GEO, Remote Presence, LUCA, AR-LU, cloud, hardware, or unrelated UI changes"
+  ],
+  "files": [
+    {
+      "path": "ARKI_BKH4_TX_003B_IMPLEMENTATION_REPORT.md",
+      "bytes": 1969,
+      "sha256": "dd56df4ea66da63c1485ac464ec9d4f18ef9d5482175b15c7007b2a35ee51c68"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003B_ATOMICITY_REPORT.md",
+      "bytes": 1211,
+      "sha256": "2bd1b45f59cab854bcce6f076c18dac91ab9f199ee7202390e63198c22207a77"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003B_FAILURE_INJECTION_REPORT.md",
+      "bytes": 1414,
+      "sha256": "0c519b55de49c97e29b3b9ebeb315f36b57ad29497776144cbc98b02f0df8072"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003B_INVARIANT_REPORT.md",
+      "bytes": 1628,
+      "sha256": "94a11615e5635fe5db6c4aae62730dbb5decea755ef61b3cf10231e0e23478d0"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003B_GAPS.md",
+      "bytes": 907,
+      "sha256": "09f5e5a570656f7a048c19cc1a51336b1e687a60816d7c399e3c1c25a0f4f7ac"
+    },
+    {
+      "path": "BKH4_TX_003B_OUTPUTS.txt",
+      "bytes": 7976,
+      "sha256": "5d6fe1c8a0ce98cf2982ad29d5e2af5a76a6aea125c321ac62c6f23d6a069101"
+    },
+    {
+      "path": "BKH4_TX_003B_GIT_DISCIPLINE.txt",
+      "bytes": 39195,
+      "sha256": "4b11daa095f8eff94cd4e2a855bde5e956e6d7395e627da98c13a9225e9aa38e"
+    },
+    {
+      "path": "shared/arkiCanonicalPersistence.ts",
+      "bytes": 10640,
+      "sha256": "bd877308cd55951dfebed919ffa7830626bbf4b0738c719a70c265088f6bf932"
+    },
+    {
+      "path": "shared/arkiCanonicalProjectRepository.ts",
+      "bytes": 13906,
+      "sha256": "fe2df1ff186b2dd93fb23b0c5d31873d8bb7a94cbaf562981d1ba31455dfdf8a"
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "bytes": 4474,
+      "sha256": "4019128307b9f90d479ef4884d54aa90704118be3f3d4335db0e0213aab5de4c"
+    },
+    {
+      "path": "client/src/persistence/arkiIndexedDb.ts",
+      "bytes": 4896,
+      "sha256": "f256e34771d8a765fb0c995047c2e88886759787f1e0d92c93870c218de6b6e5"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003b-persistence.ts",
+      "bytes": 8873,
+      "sha256": "d0f36ee3cd44444053884e4e9a31ca008dd0314584004df607b4f03af9a7f2d0"
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003b-evidence.sh",
+      "bytes": 1163,
+      "sha256": "408e44575f217a3244daaa444d4735588f2a88490a2b95b21a60cc5492558b87"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003a-repository.ts",
+      "bytes": 9258,
+      "sha256": "997b04fec99ed4c1870a9fe26a648fb9071540994427f30486142e6b5022f4ad"
+    }
+  ]
+}

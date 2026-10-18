@@ -1,0 +1,17 @@
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m4d932c2[m feat(arkidraw): add deterministic drawing primitives and SVG export
+[33ma9d1ae2[m test(H-005): add adversarial and semantic audit coverage
+[33m1c41655[m docs: add canonical master handoff
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m33ce390[m feat: add bounded real spatial context
+[33m7a55bd0[m feat: activate georeferenced site intelligence foundation
+[33m6a1b198[m feat(environment): add adaptive territorial scale profiles
+[33m5547acd[m feat(environment): add territorial environmental intelligence foundation
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33m5edd01f[m feat: extend design generation methods
+[33m9b3ca67[m docs: define RFC-014 user copilot
+[33m19c2fac[m feat: add explicit design generation contract

@@ -1,0 +1,27 @@
+LEVEL_ID: L08
+NAME: "Sintetizador de Parti"
+DEFINITION: "ARKI ayuda a construir hipótesis organizadoras coherentes."
+INPUTS:
+  - concept_sets: "list<ConceptSet>"
+  - strategies: "list<Strategy>"
+  - architectural_seeds: "list<ArchitecturalSeed>"
+OUTPUTS:
+  - parti_families: "list<PartiFamily>"
+  - parti_hypotheses: "list<PartiHypothesis>"
+CONTRACTS:
+  - "PARTI ≠ ONE IDEA"
+  - "PARTI ≠ DIAGRAM ≠ TEMPLATE"
+  - "SEED ≠ PARTI ≠ STRATEGY ≠ FORM ≠ CANDIDATE"
+  - "Múltiples partis posibles para mismas condiciones"
+RULES:
+  - "R-PARTI Guardrails (RP-01 a RP-05)"
+  - "INV-K-018: FORM ≠ ORGANIZATION ≠ CIRCULATION ≠ SECTION ≠ VOID ≠ SUPPORT"
+  - "INV6-019: GEOMETRIC DIVERSITY ≠ ARCHITECTURAL DIVERSITY"
+GATES:
+  - "GATE_L08_PASS: Parti sintetizado con guardrails preservados"
+EVIDENCE_REQUIRED:
+  - "Parti hypothesis with rationale"
+  - "Concept integration trace"
+  - "Architectural seed → parti mapping"
+  - "R-PARTI compliance check"
+CURRENT_STATUS: "RESEARCHED / FROZEN CORE"

@@ -1,0 +1,92 @@
+{
+  "artifact": "ARKI-COCO-EXAM-002",
+  "status": "EXAM_PARTIAL",
+  "maximumStatus": "EXAM_PARTIAL",
+  "files": [
+    {
+      "path": "ARKI_COCO_EXAM_002_REPORT.md",
+      "sha256": "b72d0f7bb2000a1b396845a96ea8682d261191f2f2558738465fa1cde0f1ecde",
+      "bytes": 2332
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_C1_C53_MATRIX.csv",
+      "sha256": "f690e942aa26822475cdd255d5cda7bbb8079a6d9f5c4b417615c17cf6a552d1",
+      "bytes": 6125
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_RAW.json",
+      "sha256": "b9757c2bbb3488cafed7bdda55d4600d8a12f916be6fb78c59ef13912e3b03b9",
+      "bytes": 11851
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_FAILURES.json",
+      "sha256": "995bee8504ffef48a0f9ac5256e5b5acf9b9a0ec87298fec8f402637274ccea4",
+      "bytes": 11851
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_MUTANTS.json",
+      "sha256": "896d436d8593c44e0e7552023b78b8638f3dadcfeb817111b6ec35e63f6b6b0d",
+      "bytes": 1077
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_TRANSFER.json",
+      "sha256": "bc39fc4d47f283034fb50615673fbc00466920f558a528cc30a0ec69662afc04",
+      "bytes": 231
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_EPISTEMIC_AUDIT.json",
+      "sha256": "44015a2d1a292dd2f0ed67823f68fd206773f611a47b183604b9cda9be1d5d52",
+      "bytes": 594
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_DEPENDENCY_GRAPH.json",
+      "sha256": "53532c0d9d05e135c5838655156a041b86ce4d4a8cdf975bbda91a6da5d2712f",
+      "bytes": 1219
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_REGRESSIONS.txt",
+      "sha256": "336792d40b2e6bbe3b524e40af7c989b1a5c78f992b806ea7a17d4d2923ccd00",
+      "bytes": 30311
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_LEARNING_LEDGER.md",
+      "sha256": "5e4c3bdae608f7677e3251a67d3ff5c51317c45b3a6e8c1d086fed4fb7fab1fc",
+      "bytes": 620
+    },
+    {
+      "path": "ARKI_COCO_EXAM_002_SCOPE_LIMITS.md",
+      "sha256": "e0ab09a56f0036ad492762c7ad3127cc45ee60a967c559eb15ef44c8411714a8",
+      "bytes": 605
+    },
+    {
+      "path": "COCO_EXAM_002_FREEZE/BASELINE.json",
+      "sha256": "97f2c48cc4d649513073b1792198133e7a4de98427b97dc00a7fd902018e2fe7",
+      "bytes": 57996
+    },
+    {
+      "path": "COCO_EXAM_002_FREEZE/ANTI_CONTAMINATION_SCAN.json",
+      "sha256": "d6342e2bc57c578fa2b4de929c603ac59927e74e3039371ee82d42192eea8caf",
+      "bytes": 5305
+    },
+    {
+      "path": "COCO_EXAM_002_FREEZE/ANTI_CONTAMINATION_SCAN.txt",
+      "sha256": "b1ad6411d8f0c91c12e3de6a309f61f33f17a3c5e3ccda8f5b49ae74f6a6d7a4",
+      "bytes": 2002
+    },
+    {
+      "path": "scripts/test-coco-exam-002.ts",
+      "sha256": "ba9b57ce99b5e9adec49e08f83b06e51e92545d24e547bd5b94959ccfab95d44",
+      "bytes": 8000
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "sha256": "2b53b0a17ef60eb8a864b213134c38fdd232d75a62a4776a9ed36eebd20a8bd4",
+      "bytes": 4427
+    },
+    {
+      "path": "scripts/run-coco-exam-002-regressions.sh",
+      "sha256": "60979f0e7ea446bb2851994020a61933606fb691ff4c47acd1e11b9d828bda9d",
+      "bytes": 2038
+    }
+  ]
+}

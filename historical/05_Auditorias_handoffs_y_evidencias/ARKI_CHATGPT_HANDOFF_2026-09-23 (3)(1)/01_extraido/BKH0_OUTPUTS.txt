@@ -1,0 +1,44 @@
+# BKH-0 — Raw Outputs Index
+
+Fecha de ejecución: 2026-09-23
+Repositorio: /home/ubuntu/generador-familias
+Branch: main
+HEAD: c62183a5904f02aa0a935572454a5a35f9d167aa
+
+## Evidencia cruda
+
+- Baseline Git: `BKH0_BASELINE.txt`
+- Inspección fuente: `BKH0_INSPECTION_RAW.txt`
+- Detección de duplicaciones: `BKH0_DUPLICATION_RAW.txt`
+- Suite completa: `BKH0_TEST_RUN_RAW.txt`
+
+## Comandos ejecutados
+
+```text
+git rev-parse --show-toplevel
+git branch --show-current
+git rev-parse HEAD
+git status --short
+git ls-files
+pnpm check
+pnpm build
+pnpm tsx scripts/test-*.ts
+```
+
+## Resultado de suite
+
+`pnpm check`: exit 0.  
+`pnpm build`: exit 0.  
+Todos los scripts `test-*.ts` encontrados por el runner terminaron con `exit=0`. La suite contiene pruebas de dominio, serialización, selección BIM, SceneModel, IFC4, persistencia, 5D, 4D, clashes, módulos y coherencia muro-puerta.
+
+La suite produce PASS para sus propios criterios. BKH-0 no interpreta ese resultado como prueba de que los diez invariantes del kernel estén satisfechos.
+
+La comprobación final `BKH0_CURRENT_PRODUCT_DIFF.txt` confirmó que la lista de diferencias de producto coincide con la lista observada en el baseline. BKH-0 no añadió cambios a `client`, `shared`, `server`, `scripts`, `package.json` ni `pnpm-lock.yaml`.
+
+## Hashes de evidencia cruda
+
+Los hashes definitivos de todos los archivos se encuentran en `BKH0_MANIFEST.json`.
+
+## Observación del entorno
+
+Durante la auditoría el servidor de desarrollo reportó en el diagnóstico del entorno un error Vite sobre `client/src/canvas/ContextPanel.tsx: Missing semicolon (31:5)`, aunque `pnpm check` y `pnpm build` terminaron con exit 0 en la ejecución forense. Se registra como observación de entorno y no se corrigió porque BKH-0 no modifica producto.

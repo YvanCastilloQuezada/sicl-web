@@ -1,0 +1,5 @@
+file,function,caller,target,transactional,validated,audited,idempotent,cas,rollback,classification
+shared/arkiCanonicalPersistence.ts,CanonicalDurablePersistence.commitWithCas,transaction callers,IndexedDB canonicalRevisions/current/transactions/audit/idempotency,yes,yes,yes,yes,yes,yes,bounded canonical
+shared/arkiCanonicalProjectRepository.ts,appendRevision/createGenesis,tests and repository callers,in-memory revision map,no,yes,provenance present,no,no,no,"canonical repository boundary, not durable"
+client/src/modules/DossierModule.tsx,saveDraft,UI click,localStorage arki-technical-dossier-draft,no,limited,no,no,no,no,legacy/UI draft
+client/src/persistence/arkiIndexedDb.ts,saveArkiSnapshot/saveArkiViewpoint,UI/tests,snapshot/viewpoint stores,yes locally,yes,audit varies,not universal,no,adapter/legacy path

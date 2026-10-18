@@ -1,0 +1,98 @@
+COCO-EXPRESS-002 / FAMILIA S — MICROEJERCICIOS
+================================================
+
+Alcance: S1-S5. Son ejercicios propios de prerrequisito y trazabilidad; no son exámenes, no memorizan respuestas, no ejecutan solvers profesionales y no certifican.
+Runner reproducido desde: /home/ubuntu/jobs/cbef0db18f21_a4/run_s_exercises.py
+Comando ejecutado:
+  python3 /home/ubuntu/jobs/cbef0db18f21_a4/run_s_exercises.py
+
+ORACLE TRANSVERSAL
+------------------
+Cada registro debe contener:
+  project, time, scenario, scale, units, applicability,
+  provenance.source, provenance.version, provenance.evidence_refs,
+  epistemic, status y value.
+
+Reglas comprobadas:
+  * SIMULATION sólo puede quedar COMPUTED, UNKNOWN o NOT_APPLICABLE.
+  * OBSERVATION queda OBSERVED; FORECAST queda FORECAST.
+  * INTEGRITY/HASH_MATCH no se transforma en verdad física.
+  * IMPORT/IMPORTED no se transforma en fidelity ni certificación.
+  * CERTIFIED, TRUTH y SIGNED son estados rechazados por este oracle.
+  * Si la escala pedida no coincide, el resultado debe ser NOT_APPLICABLE.
+  * La ausencia de metadatos o procedencia es un fallo, no UNKNOWN silencioso.
+
+NORMAL — Proxy energético determinista
+---------------------------------------
+Propósito: entrenar el registro mínimo de un resultado tipo S1 sin ejecutar EnergyPlus.
+Entrada conceptual: edificio P-SIM-01, período 2030 anual, escenario baseline,
+escala building, unidad kWh/year, fuente toy-envelope-input fixture-1.
+Valor de fixture: 1200.0 kWh/year.
+
+Assertion: el registro completo es aceptado; el epistemic permanece SIMULATION y
+el status COMPUTED. El valor no se etiqueta como observado, forecast, verdad o
+certificación.
+
+Salida:
+NORMAL PASS: deterministic toy energy proxy retained project/time/scenario/scale/units/applicability/provenance; result remains SIMULATION/COMPUTED, not truth or certification.
+
+ADVERSARIAL — Cuatro etiquetas que no deben colapsar
+-----------------------------------------------------
+Propósito: impedir que la interfaz o un importador convierta estados diferentes
+en una sola afirmación de verdad.
+
+Cuatro registros del mismo proyecto P-SIM-02, con metadata completa:
+  1) OBSERVATION / OBSERVED: 31.2 degC de sensor-A en junio 2029.
+  2) FORECAST / FORECAST: 33.0 degC de weather-model para julio 2029.
+  3) INTEGRITY / HASH_MATCH: hash abc de un artefacto de import radiance.
+  4) IMPORT / IMPORTED: archivo aceptado por idf-loader.
+
+Assertion: los cuatro registros son aceptados sólo con su semántica propia. El
+hash no prueba exactitud física; import success no prueba fidelity; forecast no
+es observación; observación no es simulación ni certificación.
+
+Salida:
+ADVERSARIAL PASS: observation, forecast, hash/integrity and import success stayed distinct; none became physical truth or certification.
+
+TRANSFER — Escala acústica no transferible por defecto
+-------------------------------------------------------
+Propósito: probar applicability y scale al transferir conocimiento S5.
+Entrada conceptual: estimación SIMULATION de 42.0 dB(A) para una room del
+proyecto P-SIM-03, escenario occupied, receptor y geometría de habitación.
+Consulta de destino: building.
+
+Assertion: el oracle exige NOT_APPLICABLE cuando scale=room no satisface
+scale=building. Se conserva project/time/scenario/units/provenance y no se
+promueve la estimación a una conclusión de edificio. NOT_APPLICABLE no es
+FALSE ni certificación; indica que la transferencia no está demostrada.
+
+Salida:
+TRANSFER PASS: room-scale acoustic simulation rejected as building-scale applicability; preserved UNKNOWN boundary through NOT_APPLICABLE and retained metadata.
+
+MUTANTE CONTROLADO
+------------------
+Se introdujeron temporalmente dos mutantes sólo en el harness, no en ARKI:
+  MUTANT_1: eliminar provenance del registro.
+  MUTANT_2: cambiar SIMULATION/COMPUTED a status CERTIFIED.
+
+El oracle detectó ambos:
+  MUTANT_1_KILLED: dropped provenance
+  MUTANT_2_KILLED: promoted simulation to certification
+
+Resultado completo de ejecución
+--------------------------------
+NORMAL PASS: deterministic toy energy proxy retained project/time/scenario/scale/units/applicability/provenance; result remains SIMULATION/COMPUTED, not truth or certification.
+ADVERSARIAL PASS: observation, forecast, hash/integrity and import success stayed distinct; none became physical truth or certification.
+TRANSFER PASS: room-scale acoustic simulation rejected as building-scale applicability; preserved UNKNOWN boundary through NOT_APPLICABLE and retained metadata.
+MUTANT_1_KILLED: dropped provenance
+MUTANT_2_KILLED: promoted simulation to certification
+ASSERTIONS PASS: all three exercises; controlled mutants killed=2; correct code unchanged
+STATUS PREREQUISITE_TESTED: metadata and epistemic-boundary oracle only; no professional solver or certification.
+
+EVIDENCIA Y CAVEATS
+-------------------
+La prueba cubre el contrato de metadatos, procedencia, unidades, escala,
+applicability y separación epistémica. No demuestra exactitud de EnergyPlus,
+OpenStudio, Radiance, DIALux, OpenFOAM, FDS ni de un solver acústico. No hay
+certificación, validación física, calibración, cumplimiento normativo ni firma.
+La ficha conserva UNKNOWN cuando faltan evidencia o aplicabilidad.

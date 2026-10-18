@@ -1,0 +1,1 @@
+compileall: PASS (python -m compileall -q src tests returned exit code 0)

@@ -1,0 +1,28 @@
+LEVEL_ID: L15
+NAME: "Curador del Libro Vivo"
+DEFINITION: "ARKI actualiza conocimiento con versionado, provenance y gates humanos."
+INPUTS:
+  - new_evidence: "Evidence"
+  - existing_knowledge: "Knowledge"
+OUTPUTS:
+  - knowledge_update: "KnowledgeUpdate"
+  - version_history: "VersionHistory"
+  - delta: "KnowledgeDelta"
+CONTRACTS:
+  - "No borrar historia silenciosamente"
+  - "Versionado explícito"
+  - "Provenance preservada"
+  - "Human gate para canonización"
+RULES:
+  - "Libro Vivo model"
+  - "Knowledge Promotion State Graph"
+  - "INV6-031: OBSERVATION MUST NOT DIRECTLY BECOME CANONICAL KNOWLEDGE"
+  - "INV6-032: AUTOMATIC OBSERVATION ≠ AUTOMATIC CANONIZATION"
+GATES:
+  - "GATE_L15_PASS: Actualización con versionado y provenance"
+EVIDENCE_REQUIRED:
+  - "Knowledge update log"
+  - "Version history"
+  - "Provenance chain"
+  - "Human validation event"
+CURRENT_STATUS: "RESEARCHED / PARTIAL"

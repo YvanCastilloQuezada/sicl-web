@@ -1,0 +1,114 @@
+{
+  "schema": "ARKI-97A0-FORENSIC-MANIFEST-1.0",
+  "order": "97A-0",
+  "status": "FORENSIC BASELINE / NO NEW KNOWLEDGE STRUCTURE IMPLEMENTED",
+  "aki001Reused": true,
+  "newKnowledgeStructures": false,
+  "entries": [
+    {
+      "path": "ARKI_97A0_FORENSIC_INVENTORY_RAW.txt",
+      "sha256": "fc46c035e35c1ba06ee5d1b6c8ebdc83fef135a655991083b32136f290e552e1",
+      "bytes": 115546
+    },
+    {
+      "path": "ARKI_97A0_LEARNING_REFERENCES.txt",
+      "sha256": "9ab00388c6cc31a504c9e1f175ed1596b4b945d104b4da68dbf392f6ec5170a6",
+      "bytes": 5859
+    },
+    {
+      "path": "ARKI_EXISTING_KNOWLEDGE_TOPOLOGY.md",
+      "sha256": "328b807d95f4b917213ff89209fe99cbb47f3ae0508ddb1b3f111e55deda401d",
+      "bytes": 7252
+    },
+    {
+      "path": "ARKI_KNOWLEDGE_OWNERSHIP_MAP.md",
+      "sha256": "2da4d3e80516be6b92cf91b3bebf7276cf3d598aef65200af91b477eda94c1be",
+      "bytes": 4108
+    },
+    {
+      "path": "ARKI_CURRICULUM_COMPETENCY_BASELINE.md",
+      "sha256": "b9c83bc9badb31e3df5c4ce10dc297890ac96bf91b0afc1d71b449a79452d5f4",
+      "bytes": 3805
+    },
+    {
+      "path": "ARKI_LKS_MIGRATION_MAP.md",
+      "sha256": "beac99bce4193d54008a279dc04ad0275d47d8ea8efcba8a9fc31f5535a7d488",
+      "bytes": 4181
+    },
+    {
+      "path": "ARKI_LKS_DUPLICATION_RISK_REGISTER.md",
+      "sha256": "523e06940caf69f8d4654ceb4f025903bf00b921570b7c3e03daeeae9a4b4411",
+      "bytes": 3401
+    },
+    {
+      "path": "AKI001_REPORT.md",
+      "sha256": "c17621c46c44a511e0dc2bec8750089f97fdb65427c1a9f9198f064ac1bdae1a",
+      "bytes": 2108
+    },
+    {
+      "path": "AKI001_KNOWLEDGE_INVENTORY.md",
+      "sha256": "a2c97c27b02b5100c22f77fcbe902ef70b11a468baf7d620d7441e083d18206c",
+      "bytes": 3358
+    },
+    {
+      "path": "AKI001_COMPETENCY_MATRIX.md",
+      "sha256": "41840a4960d954f425f9bfdf91d7869e0e9aad2051156100388ab1a7513129a1",
+      "bytes": 2470
+    },
+    {
+      "path": "AKI001_KNOWLEDGE_GAPS.md",
+      "sha256": "19945811d2c0e7215b04681a116fbe280f49fb98c887d4984c24744032e35484",
+      "bytes": 2080
+    },
+    {
+      "path": "AKI001_HISTORICAL_CURRICULUM.md",
+      "sha256": "bd34817139e87535224c2040aee9ceeb22521a0df3cea42e973093da9064aa18",
+      "bytes": 3418
+    },
+    {
+      "path": "AKI001_EVIDENCE_INDEX.md",
+      "sha256": "9db3f12814ad93590ed7b2a3a4ce108314cd7558fac3dcbadcd404fb271e11f8",
+      "bytes": 2291
+    },
+    {
+      "path": "REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md",
+      "sha256": "43367184118e6a96a90f5705921ad58b6508b6d935fc51c508de440d772cf4f1",
+      "bytes": 7588
+    },
+    {
+      "path": "REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md",
+      "sha256": "779475bff73410b120d6c7439f878bd6223b4ca6fd8de5023e289e41b05cd239",
+      "bytes": 11699
+    },
+    {
+      "path": "ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md",
+      "sha256": "c9a78f7bd4a4338a89ada19e0dcf42b0f8aa9d524317343f18be7b4d0de826d4",
+      "bytes": 10978
+    },
+    {
+      "path": "ARKI_LKS_CONTRACT_V1.md",
+      "sha256": "07518e4c383e9f5c32dbf429c12696915c03b67d8c3a1dae84d54ada8b729fd6",
+      "bytes": 1748
+    },
+    {
+      "path": "ARKI_LKS_SOURCE_REGISTER.md",
+      "sha256": "f50869b666d15ac37120876811f7758c9f57503fe245c28549645406e6fb9d3c",
+      "bytes": 4242
+    },
+    {
+      "path": "ARKI_LKS_CAPABILITY_ATLAS.md",
+      "sha256": "6516b2e872f055c035307c5bfacb819d0d088eef6d2b8ef5a04b88879344a7b0",
+      "bytes": 2010
+    },
+    {
+      "path": "ARKI_LKS_IMPLEMENTATION_REPORT.md",
+      "sha256": "086eeb4346abf7484b6a5152747c487396ab8b9bbd634a9c54b45863b5052edf",
+      "bytes": 1861
+    },
+    {
+      "path": "ARKI_MASTER_PROJECT_MAP.md",
+      "sha256": "ec2f2c04dba5bf1749ec3310ed3b08fc5d03d70f034d3a50322042fb9d0ee95d",
+      "bytes": 2960
+    }
+  ]
+}

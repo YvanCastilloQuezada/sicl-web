@@ -1,0 +1,324 @@
+SOLICITUD DE INFORMES — AR-LU / LUCA (MiLukita) / ARKI
+
+Estamos evaluando utilizar AR-LU como nombre paraguas provisional de la futura organización/empresa que contendría, al menos, a:
+
+ARKI — inteligencia arquitectónica/profesional actualmente en desarrollo.
+LUCA — nombre conceptual/provisional de la plataforma actualmente conocida en el proyecto como MiLukita.
+
+IMPORTANTE: no renombrar repositorios, archivos, namespaces, productos, marcas ni documentación. AR-LU y LUCA son por ahora conceptos de análisis. No ejecutar ningún cambio.
+
+Necesito DOS INFORMES SEPARADOS, basados en evidencia real del repositorio y documentación existente. No diseñar todavía una nueva arquitectura corporativa.
+
+INFORME 1 — LUCA / MiLukita: QUÉ ES HOY Y CÓMO FUNCIONAN SUS PARTES
+
+Audita el estado real actual de MiLukita y reconstruye su arquitectura funcional.
+
+El informe debe responder:
+
+A. Identidad actual
+
+¿Qué es MiLukita según el código y documentos actuales?
+¿Cuál es su misión observable?
+¿Qué capacidades están IMPLEMENTED, PARTIAL, DOCUMENTED_ONLY, PROPOSED o NOT_DEMONSTRATED?
+
+B. Arquitectura
+
+Identificar componentes reales relacionados con:
+
+World Engine;
+Mapper;
+The Eye;
+WorldPoint / WorldObject;
+POI;
+Claims;
+Sources;
+Evidence;
+GPS/geolocation;
+camera/vision;
+OCR;
+AR;
+2D/3D;
+user-generated content;
+Community Mapping;
+CREATE → PROPOSE → EVALUATE → PUBLISH;
+offline/cache/sync;
+identity/users;
+mobile/PWA;
+AI/agents;
+tourism/discovery;
+businesses/commercial presence;
+payments/credits/wallet/blockchain if actually present;
+remote control / keyboard / trackpad capabilities if actually present;
+backend/database;
+moderation/review/publication;
+security/privacy;
+runtime.
+
+C. Interrelación interna
+
+No quiero solo un inventario.
+
+Reconstruir:
+
+USER
+ ↓
+DEVICE
+ ↓
+PERCEPTION
+ ↓
+LOCATION
+ ↓
+WORLD MODEL
+ ↓
+CONTENT / POI
+ ↓
+AI
+ ↓
+AR REPRESENTATION
+ ↓
+INTERACTION
+ ↓
+COMMUNITY
+ ↓
+REVIEW
+ ↓
+PUBLICATION
+
+Corregir ese flujo según lo que realmente exista.
+
+Mostrar qué componente llama a cuál, qué información intercambian y dónde está el estado persistente.
+
+D. Truth / Human Authority
+
+Verificar especialmente:
+
+CREAR ≠ PUBLICAR.
+
+Determinar cómo se distingue actualmente entre contenido creado, propuesto, evaluado, aprobado y publicado.
+
+E. Visión vs realidad
+
+Crear una tabla:
+
+| Capability | Vision | Code evidence | Runtime evidence | Current status | Gap |
+
+No promocionar una visión o documento a capacidad implementada.
+
+F. Producto
+
+A partir exclusivamente de evidencia existente, explicar qué productos parecen emerger de MiLukita:
+
+turismo, spatial discovery, AR world, community mapping, businesses, creator content, etc.
+
+Distinguir claramente:
+
+EXISTS TODAY / EMERGING / PROPOSED.
+
+G. Diagrama final
+
+Entregar un mapa integral:
+
+LUCA/MILUKITA SYSTEM MAP — AS IS.
+
+INFORME 2 — LUCA/MILUKITA ↔ ARKI
+
+Este informe es distinto.
+
+Analizar qué relación técnica, conceptual y potencial existe entre MiLukita/LUCA y ARKI, sin forzar integración.
+
+A. Comparación ontológica
+
+Comparar:
+
+ARKI
+architectural / built-environment intelligence
+
+LUCA
+spatial / real-world / AR intelligence
+
+Determinar qué es realmente cierto según ambos sistemas.
+
+B. Capacidades compartibles
+
+Investigar posibles intersecciones en:
+
+spatial intelligence;
+GIS/geolocation;
+World Model;
+object identity;
+coordinates;
+geometry;
+3D;
+AR;
+computer vision;
+OCR;
+evidence/provenance;
+knowledge;
+AI;
+agents/tools;
+user identity;
+permissions;
+mobile;
+synchronization;
+offline;
+cloud;
+storage;
+compute;
+maps;
+digital twins;
+POI;
+buildings;
+cities;
+infrastructure;
+field observation.
+C. No duplicación
+
+Identificar componentes que, si ambos proyectos continúan creciendo independientemente, corren riesgo de duplicarse.
+
+Clasificarlos:
+
+SHOULD REMAIN ARKI-SPECIFIC
+SHOULD REMAIN LUCA-SPECIFIC
+POTENTIALLY SHARED
+MUST NOT BE SHARED
+UNKNOWN
+
+No refactorizar.
+
+D. Relación espacial multiescala
+
+Analizar especialmente si existe una continuidad posible:
+
+LUCA
+real world / territory / city / street / POI / human
+
+                   ↕
+
+ARKI
+territory / city / site / building / space /
+object / component / human
+
+Determinar dónde se superponen realmente y dónde no.
+
+E. Ejemplos concretos
+
+Evaluar conceptualmente casos como:
+
+LUCA detects a building
+      ↓
+ARKI understands architectural entity
+
+ARKI creates/understands building
+      ↓
+LUCA represents it spatially in AR
+
+y:
+
+LUCA FIELD OBSERVATION
+GPS + CAMERA + OCR + USER
+           ↓
+        EVIDENCE
+           ↓
+         ARKI
+           ↓
+architectural/project understanding
+
+No afirmar que estos flujos existen si no están implementados. Clasificarlos.
+
+F. Shared infrastructure hypothesis
+
+Evaluar si tendría sentido futuro compartir infraestructura como:
+
+AR-LU IDENTITY
+AR-LU COMPUTE
+AR-LU STORAGE
+AR-LU KNOWLEDGE INFRASTRUCTURE
+AR-LU SPATIAL FOUNDATION
+AR-LU EVIDENCE/PROVENANCE
+AR-LU AI MODEL GATEWAY
+
+pero no proponer todavía fusionar los dos sistemas.
+
+Determinar qué podría compartirse mediante contratos/adapters sin destruir la autonomía de cada producto.
+
+G. Independencia
+
+Responder expresamente:
+
+¿Puede ARKI funcionar sin LUCA?
+¿Puede LUCA funcionar sin ARKI?
+¿Qué ganarían interoperando?
+¿Qué riesgos aparecerían al acoplarlos demasiado?
+H. AR-LU
+
+Finalmente evaluar solo arquitectónicamente, no como estudio de marca:
+
+¿Tiene sentido una estructura:
+
+                   AR-LU
+                     │
+         ┌───────────┴───────────┐
+         │                       │
+       ARKI                    LUCA
+         │                       │
+Architecture Intelligence   Spatial Intelligence
+Built Environment           Augmented World
+Professional Systems        Human/Place Interaction
+
+o la evidencia actual recomienda otra relación.
+
+No aceptar este diagrama por instrucción del Product Owner. Contradecirlo si la evidencia indica otra cosa.
+
+REGLAS DE EVIDENCIA
+
+Cada afirmación importante deberá distinguir:
+
+CODE_EVIDENCE / DOCUMENT_EVIDENCE / RUNTIME_EVIDENCE / INFERENCE / PROPOSAL / UNKNOWN.
+
+No usar la conversación del Product Owner como prueba de implementación.
+
+No implementar.
+
+No modificar código.
+
+No renombrar MiLukita.
+
+No crear LUCA.
+
+No crear AR-LU.
+
+No crear nuevos agentes.
+
+No modificar ARKI.
+
+No modificar MJP CORE.
+
+No avanzar órdenes pendientes.
+
+ENTREGABLES
+
+Informe 1
+
+LUCA_MILUKITA_AS_IS_SYSTEM_REPORT.md
+
+LUCA_MILUKITA_CAPABILITY_MATRIX.json
+
+LUCA_MILUKITA_SYSTEM_MAP.md
+
+Informe 2
+
+ARKI_LUCA_INTERRELATION_REPORT.md
+
+ARKI_LUCA_SHARED_CAPABILITY_MATRIX.json
+
+ARKI_LUCA_BOUNDARY_MAP.md
+
+AR_LU_ARCHITECTURAL_HYPOTHESIS.md
+
+Más manifest y referencias exactas a archivos/commits utilizados.
+
+Al finalizar:
+
+STOP.
+
+Devuelve los dos informes y espera revisión de ChatGPT + Product Owner.

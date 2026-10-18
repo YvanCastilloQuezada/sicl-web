@@ -1,0 +1,13 @@
+{
+  "schema":"ARKI-ABB001-F1C-DEFICIT-REGISTER-1.0",
+  "deficits":[
+    {"id":"F1C-D01","area":"DWG reader","status":"MISSING","impact":"no entity extraction","next":"select governed reader/converter"},
+    {"id":"F1C-D02","area":"CAD intermediate representation","status":"NOT_CREATED","impact":"no derived CAD graph","next":"create only after extractor exists"},
+    {"id":"F1C-D03","area":"units/UCS/extents","status":"UNKNOWN","impact":"no reliable coordinate alignment","next":"parse DWG header/tables"},
+    {"id":"F1C-D04","area":"layers/blocks/layouts","status":"UNKNOWN","impact":"no source identity samples","next":"parse entity tables"},
+    {"id":"F1C-D05","area":"visual CAD validation","status":"BLOCKED","impact":"no extracted render or overlay","next":"render derived CAD"},
+    {"id":"F1C-D06","area":"architecture geometric diff","status":"UNRESOLVED","impact":"F1B version question remains open","next":"compare both DWG entity graphs"},
+    {"id":"F1C-D07","area":"cross-discipline CAD alignment","status":"UNKNOWN","impact":"cannot merge spatial data","next":"parse and compare transforms"}
+  ],
+  "scopeGuard":"No deficit was repaired during F1C."
+}

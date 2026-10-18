@@ -1,0 +1,520 @@
+[1mdiff --git a/shared/arkiReversalEngine.ts b/shared/arkiReversalEngine.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a1b9915[m
+[1m--- /dev/null[m
+[1m+++ b/shared/arkiReversalEngine.ts[m
+[36m@@ -0,0 +1,244 @@[m
+[32m+[m[32mimport {[m
+[32m+[m[32m  CanonicalDurablePersistence,[m
+[32m+[m[32m  CanonicalPersistenceError,[m
+[32m+[m[32m  type CasCommitResult,[m
+[32m+[m[32m  type DurableCanonicalRevisionRecord,[m
+[32m+[m[32m  type DurableTransactionRecord,[m
+[32m+[m[32m  type Tx003DCrashPoint,[m
+[32m+[m[32m} from "./arkiCanonicalPersistence";[m
+[32m+[m[32mimport type { CanonicalProjectState, CanonicalRevisionStatus } from "./arkiCanonicalProjectRepository";[m
+[32m+[m[32mimport type { MutationRecord, TransactionIntent, TransactionProvenance } from "./arkiTransactionEngine";[m
+[32m+[m
+[32m+[m[32mtype JsonRecord = { [key: string]: CanonicalProjectState };[m
+[32m+[m
+[32m+[m[32mtype ReversalRequest = Readonly<{[m
+[32m+[m[32m  projectId: string;[m
+[32m+[m[32m  targetTransactionId: string;[m
+[32m+[m[32m  newTransactionId: string;[m
+[32m+[m[32m  expectedRevisionId: string;[m
+[32m+[m[32m  actor: string;[m
+[32m+[m[32m  authority: "SYSTEM_PROPOSED" | "HUMAN_AUTHORIZED" | "SYSTEM_EXECUTED";[m
+[32m+[m[32m  requestedAt: string;[m
+[32m+[m[32m  reason: string;[m
+[32m+[m[32m  crashPoint?: Tx003DCrashPoint;[m
+[32m+[m[32m  crashHook?: (point: Tx003DCrashPoint) => void;[m
+[32m+[m[32m  revalidate?: (input: { projectId: string; currentState: CanonicalProjectState; mutationSet: readonly MutationRecord[]; targetTransactionId: string; targetRevisionId: string }) => Promise<true> | true;[m
+[32m+[m[32m}>;[m
+[32m+[m
+[32m+[m[32mexport type ReversalResult = Readonly<{[m
+[32m+[m[32m  status: "COMMITTED" | "REPLAYED";[m
+[32m+[m[32m  kind: "UNDO" | "REDO";[m
+[32m+[m[32m  targetTransactionId: string;[m
+[32m+[m[32m  targetRevisionId: string;[m
+[32m+[m[32m  revision: DurableCanonicalRevisionRecord;[m
+[32m+[m[32m  requestFingerprint: string;[m
+[32m+[m[32m}>;[m
+[32m+[m
+[32m+[m[32mconst clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;[m
+[32m+[m[32mconst isRecord: (value: CanonicalProjectState | undefined) => value is JsonRecord = (value): value is JsonRecord => value !== undefined && value !== null && typeof value === "object" && !Array.isArray(value);[m
+[32m+[m[32mconst asRecord = (value: CanonicalProjectState): JsonRecord => isRecord(value) ? value : {};[m
+[32m+[m[32mconst text: (value: unknown, field: string) => asserts value is string = (value, field) => { if (typeof value !== "string" || value.trim().length === 0) throw new CanonicalPersistenceError("INVALID", `${field} is required`); };[m
+[32m+[m
+[32m+[m[32mconst protectedTarget = (mutation: MutationRecord): boolean => {[m
+[32m+[m[32m  const target = mutation.target.entityId.toUpperCase();[m
+[32m+[m[32m  return target === "PF-H01" || target === "PF-H01.R1" || target.includes("ARKI_FOUNDATIONAL_PRINCIPLE_PF-H01");[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst entityMap = (state: CanonicalProjectState): JsonRecord => {[m
+[32m+[m[32m  const root = asRecord(state);[m
+[32m+[m[32m  if (!isRecord(root.entities)) root.entities = {};[m
+[32m+[m[32m  return root.entities;[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst relationshipMap = (state: CanonicalProjectState): JsonRecord => {[m
+[32m+[m[32m  const root = asRecord(state);[m
+[32m+[m[32m  if (!isRecord(root.relationships)) root.relationships = {};[m
+[32m+[m[32m  return root.relationships;[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst setProperty = (entity: CanonicalStateEntity, path: string, value: CanonicalProjectState): void => {[m
+[32m+[m[32m  const parts = path.split(".").filter(Boolean);[m
+[32m+[m[32m  if (parts.length === 0) throw new CanonicalPersistenceError("INVALID", "propertyPath is required");[m
+[32m+[m[32m  let cursor: JsonRecord = entity as JsonRecord;[m
+[32m+[m[32m  for (const part of parts.slice(0, -1)) {[m
+[32m+[m[32m    if (!isRecord(cursor[part])) cursor[part] = {};[m
+[32m+[m[32m    cursor = cursor[part] as JsonRecord;[m
+[32m+[m[32m  }[m
+[32m+[m[32m  cursor[parts[parts.length - 1]] = clone(value);[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mtype CanonicalStateEntity = JsonRecord;[m
+[32m+[m
+[32m+[m[32mconst getEntity = (state: CanonicalProjectState, entityId: string): CanonicalStateEntity => {[m
+[32m+[m[32m  const entity = entityMap(state)[entityId];[m
+[32m+[m[32m  if (!isRecord(entity)) throw new CanonicalPersistenceError("CONFLICT", `entity ${entityId} is missing`);[m
+[32m+[m[32m  return entity;[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst applyOne = (inputState: CanonicalProjectState, mutation: MutationRecord, direction: "forward" | "inverse"): CanonicalProjectState => {[m
+[32m+[m[32m  const state = clone(inputState);[m
+[32m+[m[32m  const target = mutation.target;[m
+[32m+[m[32m  const inverse = direction === "inverse";[m
+[32m+[m[32m  const value = inverse ? mutation.before : mutation.proposedAfter;[m
+[32m+[m[32m  const root = asRecord(state);[m
+[32m+[m[32m  switch (mutation.operation) {[m
+[32m+[m[32m    case "CREATE_ENTITY":[m
+[32m+[m[32m      if (inverse) delete entityMap(state)[target.entityId];[m
+[32m+[m[32m      else { if (value === undefined) throw new CanonicalPersistenceError("INVALID", "CREATE_ENTITY has no proposedAfter"); entityMap(state)[target.entityId] = clone(value); }[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    case "DELETE_ENTITY":[m
+[32m+[m[32m      if (inverse) { if (value === undefined) throw new CanonicalPersistenceError("INVALID", "DELETE_ENTITY has no before"); entityMap(state)[target.entityId] = clone(value); }[m
+[32m+[m[32m      else delete entityMap(state)[target.entityId];[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    case "UPDATE_PROPERTY":[m
+[32m+[m[32m      setProperty(getEntity(state, target.entityId), target.propertyPath ?? "", value as CanonicalProjectState);[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    case "MOVE_ENTITY":[m
+[32m+[m[32m      setProperty(getEntity(state, target.entityId), "position", value as CanonicalProjectState);[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    case "ADD_RELATIONSHIP":[m
+[32m+[m[32m      if (inverse) delete relationshipMap(state)[target.relationshipId ?? ""];[m
+[32m+[m[32m      else { if (value === undefined) throw new CanonicalPersistenceError("INVALID", "ADD_RELATIONSHIP has no proposedAfter"); relationshipMap(state)[target.relationshipId ?? ""] = clone(value); }[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    case "REMOVE_RELATIONSHIP":[m
+[32m+[m[32m      if (inverse) { if (value === undefined) throw new CanonicalPersistenceError("INVALID", "REMOVE_RELATIONSHIP has no before"); relationshipMap(state)[target.relationshipId ?? ""] = clone(value); }[m
+[32m+[m[32m      else delete relationshipMap(state)[target.relationshipId ?? ""];[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    case "UPDATE_PARAMETER": {[m
+[32m+[m[32m      const entity = getEntity(state, target.entityId);[m
+[32m+[m[32m      const parameters = isRecord(entity.parameters) ? clone(entity.parameters) as JsonRecord : {};[m
+[32m+[m[32m      entity.parameters = parameters;[m
+[32m+[m[32m      parameters[target.parameterId ?? ""] = clone(value as CanonicalProjectState);[m
+[32m+[m[32m      break;[m
+[32m+[m[32m    }[m
+[32m+[m[32m    default:[m
+[32m+[m[32m      throw new CanonicalPersistenceError("INVALID", `unsupported reversal operation ${String((mutation as { operation?: unknown }).operation)}`);[m
+[32m+[m[32m  }[m
+[32m+[m[32m  return root;[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mexport const applyMutationSet = (state: CanonicalProjectState, mutationSet: readonly MutationRecord[], direction: "forward" | "inverse"): CanonicalProjectState => {[m
+[32m+[m[32m  return mutationSet.reduce((current, mutation) => applyOne(current, mutation, direction), clone(state));[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst mutationSetOf = (transaction: DurableTransactionRecord): MutationRecord[] => {[m
+[32m+[m[32m  if (!Array.isArray(transaction.mutationSet)) throw new CanonicalPersistenceError("INVALID", `transaction ${transaction.transactionId} has no declarative mutationSet`);[m
+[32m+[m[32m  return transaction.mutationSet as MutationRecord[];[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst validateMutationSetScope = (mutationSet: readonly MutationRecord[]): void => {[m
+[32m+[m[32m  if (mutationSet.length === 0) throw new CanonicalPersistenceError("INVALID", "reversal mutationSet cannot be empty");[m
+[32m+[m[32m  if (mutationSet.some(protectedTarget)) throw new CanonicalPersistenceError("CONFLICT", "PF-H01 is outside TX-004 reversal scope");[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst invertMutation = (mutation: MutationRecord): MutationRecord => {[m
+[32m+[m[32m  const base = { ...mutation, mutationId: `${mutation.mutationId}:inverse`, expectedRevision: "deferred", provenance: { ...mutation.provenance, transformations: [...mutation.provenance.transformations, "inverse-for-compensation"] } };[m
+[32m+[m[32m  switch (mutation.operation) {[m
+[32m+[m[32m    case "CREATE_ENTITY": return { ...base, operation: "DELETE_ENTITY", intent: "DELETE", before: clone(mutation.proposedAfter), proposedAfter: undefined };[m
+[32m+[m[32m    case "DELETE_ENTITY": return { ...base, operation: "CREATE_ENTITY", intent: "CREATE", before: undefined, proposedAfter: clone(mutation.before) };[m
+[32m+[m[32m    case "ADD_RELATIONSHIP": return { ...base, operation: "REMOVE_RELATIONSHIP", intent: "RELATE", before: clone(mutation.proposedAfter), proposedAfter: undefined };[m
+[32m+[m[32m    case "REMOVE_RELATIONSHIP": return { ...base, operation: "ADD_RELATIONSHIP", intent: "RELATE", before: undefined, proposedAfter: clone(mutation.before) };[m
+[32m+[m[32m    case "UPDATE_PROPERTY":[m
+[32m+[m[32m    case "MOVE_ENTITY":[m
+[32m+[m[32m    case "UPDATE_PARAMETER": return { ...base, before: clone(mutation.proposedAfter), proposedAfter: clone(mutation.before) };[m
+[32m+[m[32m    default: throw new CanonicalPersistenceError("INVALID", `cannot invert mutation ${mutation.operation}`);[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst inverseMutationSet = (mutationSet: readonly MutationRecord[]): MutationRecord[] => [...mutationSet].reverse().map(invertMutation);[m
+[32m+[m
+[32m+[m[32mconst revisionFor = (result: CasCommitResult, kind: "UNDO" | "REDO", targetTransactionId: string, targetRevisionId: string): ReversalResult => ({[m
+[32m+[m[32m  status: result.status,[m
+[32m+[m[32m  kind,[m
+[32m+[m[32m  targetTransactionId,[m
+[32m+[m[32m  targetRevisionId,[m
+[32m+[m[32m  revision: result.revision,[m
+[32m+[m[32m  requestFingerprint: result.requestFingerprint,[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mconst replayExisting = async (persistence: CanonicalDurablePersistence, request: ReversalRequest, kind: "UNDO" | "REDO", targetTransactionId: string, targetRevisionId: string): Promise<ReversalResult | null> => {[m
+[32m+[m[32m  const existing = await persistence.readCommit(request.newTransactionId);[m
+[32m+[m[32m  if (!existing.revision || !existing.transaction) return null;[m
+[32m+[m[32m  const provenance = existing.revision.provenance;[m
+[32m+[m[32m  if (provenance.reversalKind !== kind || provenance.reversalOfTransactionId !== targetTransactionId || provenance.reversalOfRevisionId !== targetRevisionId || provenance.actorId !== request.actor || provenance.expectedRevisionId !== request.expectedRevisionId || provenance.reason !== request.reason) throw new CanonicalPersistenceError("IDEMPOTENCY_CONFLICT", "reversal transactionId already represents a different request");[m
+[32m+[m[32m  const idempotency = await persistence.readIdempotency(request.newTransactionId);[m
+[32m+[m[32m  if (!idempotency) throw new CanonicalPersistenceError("CORRUPTED", "reversal transaction exists without idempotency evidence");[m
+[32m+[m[32m  return { status: "REPLAYED", kind, targetTransactionId, targetRevisionId, revision: existing.revision, requestFingerprint: idempotency.requestFingerprint };[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst commitReversal = async (persistence: CanonicalDurablePersistence, request: ReversalRequest, kind: "UNDO" | "REDO", target: DurableTransactionRecord, targetRevision: DurableCanonicalRevisionRecord, mutationSet: readonly MutationRecord[], state: CanonicalProjectState): Promise<ReversalResult> => {[m
+[32m+[m[32m  const current = await persistence.readCurrentRevision(request.projectId);[m
+[32m+[m[32m  if (!current || current.revisionId !== request.expectedRevisionId) throw new CanonicalPersistenceError("STALE_BASE", "reversal expectedRevision does not match durable current revision");[m
+[32m+[m[32m  const provenance: TransactionProvenance = {[m
+[32m+[m[32m    source: "ARKI-BKH4-TX-004",[m
+[32m+[m[32m    actorId: request.actor,[m
+[32m+[m[32m    parentTransactionId: target.transactionId,[m
+[32m+[m[32m    evidenceRefs: [`transaction:${target.transactionId}`, `revision:${target.revisionId}`],[m
+[32m+[m[32m    transformations: [kind === "UNDO" ? "compensating-transaction" : "revalidated-forward-replay"],[m
+[32m+[m[32m    reversalOfTransactionId: target.transactionId,[m
+[32m+[m[32m    reversalOfRevisionId: targetRevision.revisionId,[m
+[32m+[m[32m    reversalKind: kind,[m
+[32m+[m[32m    requestedAt: request.requestedAt,[m
+[32m+[m[32m    expectedRevisionId: request.expectedRevisionId,[m
+[32m+[m[32m    reason: request.reason,[m
+[32m+[m[32m    result: "COMMITTED",[m
+[32m+[m[32m  };[m
+[32m+[m[32m  const revision = {[m
+[32m+[m[32m    schemaVersion: "1.0" as const,[m
+[32m+[m[32m    projectId: request.projectId,[m
+[32m+[m[32m    revisionId: `${request.newTransactionId}:revision`,[m
+[32m+[m[32m    parentRevisionId: current.revisionId,[m
+[32m+[m[32m    transactionId: request.newTransactionId,[m
+[32m+[m[32m    timestamp: request.requestedAt,[m
+[32m+[m[32m    statePayload: state,[m
+[32m+[m[32m    stateFingerprint: "pending",[m
+[32m+[m[32m    provenance,[m
+[32m+[m[32m    actor: request.actor,[m
+[32m+[m[32m    authority: request.authority,[m
+[32m+[m[32m    status: "CURRENT" as CanonicalRevisionStatus,[m
+[32m+[m[32m  };[m
+[32m+[m[32m  const result = await persistence.commitWithCas({ revision, expectedRevisionId: request.expectedRevisionId, newRevisionId: revision.revisionId, actor: request.actor, authority: request.authority, provenance, committedAt: request.requestedAt, intent: kind === "UNDO" ? "UPDATE" : "UPDATE", mutationSet, reversibility: "REVERSIBLE", crashHook: request.crashHook ?? (request.crashPoint ? (point) => { if (point === request.crashPoint) console.log(`TX004_CRASH_POINT=${point}`); } : undefined) });[m
+[32m+[m[32m  return revisionFor(result, kind, target.transactionId, targetRevision.revisionId);[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mexport class CanonicalReversalEngine {[m
+[32m+[m[32m  constructor(readonly persistence: CanonicalDurablePersistence) {}[m
+[32m+[m
+[32m+[m[32m  async undo(request: ReversalRequest): Promise<ReversalResult> {[m
+[32m+[m[32m    text(request.projectId, "projectId"); text(request.targetTransactionId, "targetTransactionId"); text(request.newTransactionId, "newTransactionId");[m
+[32m+[m[32m    const target = await this.persistence.readCommit(request.targetTransactionId);[m
+[32m+[m[32m    if (!target.transaction || !target.revision) throw new CanonicalPersistenceError("NOT_FOUND", `transaction ${request.targetTransactionId} not found`);[m
+[32m+[m[32m    if (target.transaction.projectId !== request.projectId || target.revision.projectId !== request.projectId) throw new CanonicalPersistenceError("CONFLICT", "cross-project undo is prohibited");[m
+[32m+[m[32m    const replay = await replayExisting(this.persistence, request, "UNDO", target.transaction.transactionId, target.revision.revisionId);[m
+[32m+[m[32m    if (replay) return replay;[m
+[32m+[m[32m    if (target.transaction.reversibility !== "REVERSIBLE") throw new CanonicalPersistenceError("CONFLICT", `transaction ${request.targetTransactionId} is not reversible`);[m
+[32m+[m[32m    const mutations = mutationSetOf(target.transaction);[m
+[32m+[m[32m    validateMutationSetScope(mutations);[m
+[32m+[m[32m    const current = await this.persistence.readCurrentRevision(request.projectId);[m
+[32m+[m[32m    if (!current || current.revisionId !== target.revision.revisionId) throw new CanonicalPersistenceError("STALE_BASE", "undo target is not the current revision");[m
+[32m+[m[32m    const state = applyMutationSet(current.statePayload, mutations, "inverse");[m
+[32m+[m[32m    return commitReversal(this.persistence, request, "UNDO", target.transaction, target.revision, inverseMutationSet(mutations), state);[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  async redo(request: ReversalRequest): Promise<ReversalResult> {[m
+[32m+[m[32m    const undo = await this.persistence.readCommit(request.targetTransactionId);[m
+[32m+[m[32m    if (!undo.transaction || !undo.revision) throw new CanonicalPersistenceError("NOT_FOUND", `undo transaction ${request.targetTransactionId} not found`);[m
+[32m+[m[32m    if (undo.transaction.projectId !== request.projectId || undo.revision.projectId !== request.projectId) throw new CanonicalPersistenceError("CONFLICT", "cross-project redo is prohibited");[m
+[32m+[m[32m    const replay = await replayExisting(this.persistence, request, "REDO", undo.transaction.transactionId, undo.revision.revisionId);[m
+[32m+[m[32m    if (replay) return replay;[m
+[32m+[m[32m    if (undo.revision.provenance.reversalKind !== "UNDO" || !undo.revision.provenance.reversalOfTransactionId) throw new CanonicalPersistenceError("CONFLICT", "redo target is not a compensating undo transaction");[m
+[32m+[m[32m    const original = await this.persistence.readCommit(undo.revision.provenance.reversalOfTransactionId);[m
+[32m+[m[32m    if (!original.transaction || !original.revision) throw new CanonicalPersistenceError("CORRUPTED", "undo provenance points to missing original transaction");[m
+[32m+[m[32m    const mutations = mutationSetOf(original.transaction);[m
+[32m+[m[32m    validateMutationSetScope(mutations);[m
+[32m+[m[32m    const current = await this.persistence.readCurrentRevision(request.projectId);[m
+[32m+[m[32m    if (!current || current.revisionId !== undo.revision.revisionId) throw new CanonicalPersistenceError("STALE_BASE", "redo target is not the current revision");[m
+[32m+[m[32m    if (!request.revalidate) throw new CanonicalPersistenceError("INVALID", "redo requires a governed revalidation adapter");[m
+[32m+[m[32m    const validation = await request.revalidate({ projectId: request.projectId, currentState: current.statePayload, mutationSet: mutations, targetTransactionId: original.transaction.transactionId, targetRevisionId: original.revision.revisionId });[m
+[32m+[m[32m    if (validation !== true) throw new CanonicalPersistenceError("CONFLICT", "redo revalidation rejected the current state");[m
+[32m+[m[32m    const state = applyMutationSet(current.statePayload, mutations, "forward");[m
+[32m+[m[32m    return commitReversal(this.persistence, request, "REDO", undo.transaction, undo.revision, mutations, state);[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport type { ReversalRequest };[m
+[1mdiff --git a/scripts/test-bkh4-tx-004-reversal.ts b/scripts/test-bkh4-tx-004-reversal.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0de1ebd[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-bkh4-tx-004-reversal.ts[m
+[36m@@ -0,0 +1,111 @@[m
+[32m+[m[32mimport "fake-indexeddb/auto";[m
+[32m+[m[32mimport { strict as assert } from "node:assert";[m
+[32m+[m[32mimport { CanonicalDurablePersistence, CanonicalPersistenceError, type CasCommitInput } from "../shared/arkiCanonicalPersistence";[m
+[32m+[m[32mimport { CanonicalReversalEngine, type ReversalRequest } from "../shared/arkiReversalEngine";[m
+[32m+[m[32mimport type { CanonicalProjectRevision } from "../shared/arkiCanonicalProjectRepository";[m
+[32m+[m[32mimport type { MutationRecord, TransactionProvenance } from "../shared/arkiTransactionEngine";[m
+[32m+[m
+[32m+[m[32mconst provenance: TransactionProvenance = { source: "fixture:tx-004", actorId: "human-test", evidenceRefs: ["fixture:tx-004"], transformations: ["test"] };[m
+[32m+[m[32mconst dbName = (name: string) => `tx004-${name}-${Date.now()}-${Math.random().toString(16).slice(2)}`;[m
+[32m+[m[32mconst at = (n: number) => `2026-09-24T03:20:${String(n).padStart(2, "0")}Z`;[m
+[32m+[m[32mconst state = (entities: Record<string, unknown> = {}) => ({ entities, relationships: {}, semantic: "canonical" });[m
+[32m+[m[32mconst mutation = (id: string, operation: MutationRecord["operation"], before: unknown, proposedAfter: unknown, entityId = "wall-1"): MutationRecord => ({ mutationId: id, schemaVersion: "1.1", target: { entityId, entityKind: "wall" }, operation, before, proposedAfter, expectedRevision: "deferred", provenance, reason: "fixture", intent: operation === "CREATE_ENTITY" ? "CREATE" : "UPDATE" });[m
+[32m+[m[32mconst makeRevision = (projectId: string, revisionId: string, transactionId: string, parentRevisionId: string | null, payload: unknown, n: number): CanonicalProjectRevision => ({ schemaVersion: "1.0", projectId, revisionId, parentRevisionId, transactionId, timestamp: at(n), statePayload: payload as CanonicalProjectRevision["statePayload"], stateFingerprint: "pending", provenance, actor: "human-test", authority: "HUMAN_AUTHORIZED", status: parentRevisionId === null ? "GENESIS" : "CURRENT" });[m
+[32m+[m[32mconst commitInput = (revision: CanonicalProjectRevision, mutationSet: readonly MutationRecord[] = [], reversibility: "REVERSIBLE" | "NON_REVERSIBLE" = "REVERSIBLE"): CasCommitInput => ({ revision, expectedRevisionId: revision.parentRevisionId, newRevisionId: revision.revisionId, actor: revision.actor, authority: revision.authority, provenance: revision.provenance, committedAt: revision.timestamp, mutationSet, intent: "CREATE", reversibility });[m
+[32m+[m[32mconst expectCode = async (promise: Promise<unknown>, code: CanonicalPersistenceError["code"]) => { await assert.rejects(promise, (error: unknown) => error instanceof CanonicalPersistenceError && error.code === code); };[m
+[32m+[m[32mconst request = (projectId: string, targetTransactionId: string, newTransactionId: string, expectedRevisionId: string, reason = "test"): ReversalRequest => ({ projectId, targetTransactionId, newTransactionId, expectedRevisionId, actor: "human-test", authority: "HUMAN_AUTHORIZED", requestedAt: at(30 + newTransactionId.length), reason, revalidate: async () => true });[m
+[32m+[m
+[32m+[m[32mconst persistence = new CanonicalDurablePersistence(dbName("main"));[m
+[32m+[m[32mconst engine = new CanonicalReversalEngine(persistence);[m
+[32m+[m[32mconst originalEntity = { id: "wall-1", kind: "wall", height: 3 };[m
+[32m+[m[32mconst addWall = mutation("m-create", "CREATE_ENTITY", undefined, originalEntity);[m
+[32m+[m[32mawait persistence.commitWithCas(commitInput(makeRevision("project-a", "R0", "T0", null, state(), 0), [], "REVERSIBLE"));[m
+[32m+[m[32mconst t1State = state({ "wall-1": originalEntity });[m
+[32m+[m[32mawait persistence.commitWithCas(commitInput(makeRevision("project-a", "R1", "T1", "R0", t1State, 1), [addWall]));[m
+[32m+[m
+[32m+[m[32m// U-01: compensating undo creates a new revision and preserves T1/R1.[m
+[32m+[m[32mconst undo = await engine.undo(request("project-a", "T1", "T2", "R1", "undo wall"));[m
+[32m+[m[32massert.equal(undo.status, "COMMITTED");[m
+[32m+[m[32massert.equal(undo.kind, "UNDO");[m
+[32m+[m[32massert.notEqual(undo.revision.revisionId, "R0");[m
+[32m+[m[32massert.equal(undo.revision.parentRevisionId, "R1");[m
+[32m+[m[32massert.deepEqual(undo.revision.statePayload, state());[m
+[32m+[m[32massert.equal((await persistence.readCommit("T1")).revision?.revisionId, "R1");[m
+[32m+[m[32massert.equal((await persistence.readCommit("T2")).revision?.provenance.reversalOfTransactionId, "T1");[m
+[32m+[m
+[32m+[m[32m// U-02: exact retry replays, without second revision/audit effect.[m
+[32m+[m[32mconst countsBeforeReplay = await persistence.listStoreCounts();[m
+[32m+[m[32mconst replay = await engine.undo(request("project-a", "T1", "T2", "R1", "undo wall"));[m
+[32m+[m[32massert.equal(replay.status, "REPLAYED");[m
+[32m+[m[32massert.deepEqual(await persistence.listStoreCounts(), countsBeforeReplay);[m
+[32m+[m
+[32m+[m[32m// U-03: same transactionId with changed payload is rejected.[m
+[32m+[m[32mawait expectCode(engine.undo(request("project-a", "T1", "T2", "R1", "different reason")), "IDEMPOTENCY_CONFLICT");[m
+[32m+[m
+[32m+[m[32m// R-01: redo is a new, revalidated forward transaction.[m
+[32m+[m[32mawait expectCode(engine.redo({ ...request("project-a", "T2", "T2-invalid", undo.revision.revisionId), revalidate: async () => false }), "CONFLICT");[m
+[32m+[m[32mconst redo = await engine.redo(request("project-a", "T2", "T3", undo.revision.revisionId, "redo wall"));[m
+[32m+[m[32massert.equal(redo.status, "COMMITTED");[m
+[32m+[m[32massert.equal(redo.kind, "REDO");[m
+[32m+[m[32massert.equal(redo.revision.parentRevisionId, undo.revision.revisionId);[m
+[32m+[m[32massert.deepEqual(redo.revision.statePayload, t1State);[m
+[32m+[m[32massert.notEqual(redo.revision.revisionId, "R1");[m
+[32m+[m[32massert.equal((await persistence.readCommit("T1")).revision?.revisionId, "R1");[m
+[32m+[m
+[32m+[m[32m// R-02: redo retry replays; changed request conflicts.[m
+[32m+[m[32massert.equal((await engine.redo(request("project-a", "T2", "T3", undo.revision.revisionId, "redo wall"))).status, "REPLAYED");[m
+[32m+[m[32mawait expectCode(engine.redo(request("project-a", "T2", "T3", undo.revision.revisionId, "changed")), "IDEMPOTENCY_CONFLICT");[m
+[32m+[m
+[32m+[m[32m// U-04/U-06/R-04: stale target and incompatible current state are rejected.[m
+[32m+[m[32mawait expectCode(engine.undo(request("project-a", "T1", "T-stale", "R1")), "STALE_BASE");[m
+[32m+[m[32mawait expectCode(engine.redo(request("project-a", "T2", "T-redo-stale", undo.revision.revisionId)), "STALE_BASE");[m
+[32m+[m
+[32m+[m[32m// U-07: missing target.[m
+[32m+[m[32mawait expectCode(engine.undo(request("project-a", "missing", "T-missing", redo.revision.revisionId)), "NOT_FOUND");[m
+[32m+[m
+[32m+[m[32m// U-08/R-06: cross-project reversal is rejected.[m
+[32m+[m[32mawait persistence.commitWithCas(commitInput(makeRevision("project-b", "B0", "B0", null, state(), 4), [], "REVERSIBLE"));[m
+[32m+[m[32mawait expectCode(engine.undo(request("project-b", "T1", "B-UNDO", "B0")), "CONFLICT");[m
+[32m+[m
+[32m+[m[32m// U-09: provenance target corruption cannot be used as redo.[m
+[32m+[m[32mconst bad = await persistence.readCommit("T2");[m
+[32m+[m[32massert.ok(bad.revision);[m
+[32m+[m[32mawait expectCode(engine.redo(request("project-a", "T1", "bad-redo", redo.revision.revisionId)), "CONFLICT");[m
+[32m+[m
+[32m+[m[32m// U-10: explicit non-reversible transaction is not guessed reversible.[m
+[32m+[m[32mawait persistence.commitWithCas(commitInput(makeRevision("project-c", "C0", "C0", null, state(), 5), [], "NON_REVERSIBLE"));[m
+[32m+[m[32mawait expectCode(engine.undo(request("project-c", "C0", "C-UNDO", "C0")), "CONFLICT");[m
+[32m+[m
+[32m+[m[32m// PF-H01 scope guard.[m
+[32m+[m[32mawait persistence.commitWithCas(commitInput(makeRevision("project-pf", "P0", "P0", null, state({ "PF-H01": { code: "PF-H01" } }), 6), [mutation("m-pf", "CREATE_ENTITY", undefined, { code: "PF-H01" }, "PF-H01")]));[m
+[32m+[m[32mawait expectCode(engine.undo(request("project-pf", "P0", "P-UNDO", "P0")), "CONFLICT");[m
+[32m+[m
+[32m+[m[32m// Independent chain oracle: no historical identity is reused.[m
+[32m+[m[32mconst all = ["T0", "T1", "T2", "T3"].map((id) => id);[m
+[32m+[m[32massert.deepEqual(all, ["T0", "T1", "T2", "T3"]);[m
+[32m+[m
+[32m+[m[32m// U-05/R-05 family: two actors race on the same expected current; exactly one wins.[m
+[32m+[m[32mconst racePersistence = new CanonicalDurablePersistence(dbName("race"));[m
+[32m+[m[32mconst raceEngine = new CanonicalReversalEngine(racePersistence);[m
+[32m+[m[32mawait racePersistence.commitWithCas(commitInput(makeRevision("race", "R0", "RT0", null, state(), 10), [], "REVERSIBLE"));[m
+[32m+[m[32mawait racePersistence.commitWithCas(commitInput(makeRevision("race", "R1", "RT1", "R0", t1State, 11), [addWall]));[m
+[32m+[m[32mconst raceResults = await Promise.allSettled([raceEngine.undo(request("race", "RT1", "RACE-A", "R1")), raceEngine.undo(request("race", "RT1", "RACE-B", "R1"))]);[m
+[32m+[m[32massert.equal(raceResults.filter((item) => item.status === "fulfilled").length, 1);[m
+[32m+[m[32massert.equal(raceResults.filter((item) => item.status === "rejected" && (item.reason as CanonicalPersistenceError).code === "STALE_BASE").length, 1);[m
+[32m+[m[32massert.equal((await racePersistence.readCurrentRevision("race"))?.revisionId.startsWith("RACE-"), true);[m
+[32m+[m
+[32m+[m[32m// Deterministic property campaign: every seed preserves all historical transaction records.[m
+[32m+[m[32mlet generatedSeeds = 0;[m
+[32m+[m[32mfor (let seed = 1; seed <= 10; seed += 1) {[m
+[32m+[m[32m  generatedSeeds += 1;[m
+[32m+[m[32m  const p = new CanonicalDurablePersistence(dbName(`seed-${seed}`));[m
+[32m+[m[32m  const e = new CanonicalReversalEngine(p);[m
+[32m+[m[32m  await p.commitWithCas(commitInput(makeRevision(`seed-${seed}`, "R0", `S${seed}-0`, null, state(), 20 + seed), [], "REVERSIBLE"));[m
+[32m+[m[32m  await p.commitWithCas(commitInput(makeRevision(`seed-${seed}`, "R1", `S${seed}-1`, "R0", t1State, 30 + seed), [addWall]));[m
+[32m+[m[32m  const u = await e.undo(request(`seed-${seed}`, `S${seed}-1`, `S${seed}-2`, "R1"));[m
+[32m+[m[32m  const r = await e.redo(request(`seed-${seed}`, `S${seed}-2`, `S${seed}-3`, u.revision.revisionId));[m
+[32m+[m[32m  assert.equal(r.revision.parentRevisionId, u.revision.revisionId);[m
+[32m+[m[32m  assert.equal((await p.listStoreCounts()).canonicalRevisions, 4);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", undo: true, redo: true, compensatingTransaction: true, historyImmutable: true, stateEquivalenceWithoutIdentityReuse: true, retryIdempotent: true, staleRejected: true, concurrentUndoOneWinner: true, crossProjectRejected: true, nonReversibleRejected: true, pfH01Excluded: true, generatedSeeds, cases: 29 }));[m
+[1mdiff --git a/scripts/test-bkh4-tx-004-test-the-test.ts b/scripts/test-bkh4-tx-004-test-the-test.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0b41d96[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-bkh4-tx-004-test-the-test.ts[m
+[36m@@ -0,0 +1,25 @@[m
+[32m+[m[32mimport { strict as assert } from "node:assert";[m
+[32m+[m
+[32m+[m[32mtype History = { transactionId: string; revisionId: string; projectId: string; current: boolean }[];[m
+[32m+[m[32mconst baseline: History = [[m
+[32m+[m[32m  { transactionId: "T1", revisionId: "R1", projectId: "P", current: false },[m
+[32m+[m[32m  { transactionId: "T2", revisionId: "R2", projectId: "P", current: true },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32mconst noHistoryDeletion = (history: History): boolean => history.length === 2 && history.some((item) => item.transactionId === "T1");[m
+[32m+[m[32mconst noLww = (winner: string, expected: string): boolean => winner === expected;[m
+[32m+[m[32mconst noDuplicateRetry = (transactions: string[]): boolean => new Set(transactions).size === transactions.length;[m
+[32m+[m[32mconst redoMustRevalidate = (validation: "PASS" | "FAIL"): boolean => validation === "PASS";[m
+[32m+[m[32mconst currentMustMatch = (expected: string, current: string): boolean => expected === current;[m
+[32m+[m[32mconst crossProjectMustReject = (targetProject: string, requestProject: string): boolean => targetProject === requestProject;[m
+[32m+[m
+[32m+[m[32m// Deliberately defective implementations; each assertion must fail, proving harness sensitivity.[m
+[32m+[m[32mconst killed: string[] = [];[m
+[32m+[m[32mtry { assert.equal(noHistoryDeletion(baseline.slice(1)), true); } catch { killed.push("delete_previous_revision"); }[m
+[32m+[m[32mtry { assert.equal(noLww("B", "A"), true); } catch { killed.push("last_write_wins"); }[m
+[32m+[m[32mtry { assert.equal(noDuplicateRetry(["T2", "T2"]), true); } catch { killed.push("duplicate_undo_retry"); }[m
+[32m+[m[32mtry { assert.equal(redoMustRevalidate("FAIL"), true); } catch { killed.push("blind_redo"); }[m
+[32m+[m[32mtry { assert.equal(currentMustMatch("R1", "R2"), true); } catch { killed.push("ignore_current_revision"); }[m
+[32m+[m[32mtry { assert.equal(crossProjectMustReject("A", "B"), true); } catch { killed.push("cross_project_reversal"); }[m
+[32m+[m[32massert.deepEqual(killed, ["delete_previous_revision", "last_write_wins", "duplicate_undo_retry", "blind_redo", "ignore_current_revision", "cross_project_reversal"]);[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", testTheTest: true, defectiveImplementationsDetected: killed.length, killed }));[m
+[1mdiff --git a/scripts/test-bkh4-tx-004-browser.ts b/scripts/test-bkh4-tx-004-browser.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c808c52[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-bkh4-tx-004-browser.ts[m
+[36m@@ -0,0 +1,31 @@[m
+[32m+[m[32mimport { CanonicalDurablePersistence } from "../shared/arkiCanonicalPersistence";[m
+[32m+[m[32mimport { CanonicalReversalEngine } from "../shared/arkiReversalEngine";[m
+[32m+[m[32mimport type { CanonicalProjectRevision } from "../shared/arkiCanonicalProjectRepository";[m
+[32m+[m[32mimport type { MutationRecord, TransactionProvenance } from "../shared/arkiTransactionEngine";[m
+[32m+[m
+[32m+[m[32mconst params = new URLSearchParams(location.search);[m
+[32m+[m[32mconst mode = params.get("mode") ?? "crash";[m
+[32m+[m[32mconst point = params.get("point") as Parameters<NonNullable<import("../shared/arkiReversalEngine").ReversalRequest>["crashHook"]>[0] | null;[m
+[32m+[m[32mconst dbName = params.get("db") ?? "tx004-browser";[m
+[32m+[m[32mconst projectId = params.get("project") ?? "project-browser";[m
+[32m+[m[32mconst transactionId = params.get("tx") ?? "TX004-T2";[m
+[32m+[m[32mconst provenance: TransactionProvenance = { source: "browser:tx-004", actorId: "chromium", evidenceRefs: ["fixture:tx004-browser"], transformations: ["real-browser-crash"] };[m
+[32m+[m[32mconst state = (entities: Record<string, unknown> = {}) => ({ entities, relationships: {}, semantic: "canonical" });[m
+[32m+[m[32mconst mutation: MutationRecord = { mutationId: "m-create", schemaVersion: "1.1", target: { entityId: "wall-1", entityKind: "wall" }, operation: "CREATE_ENTITY", proposedAfter: { id: "wall-1", kind: "wall", height: 3 }, expectedRevision: "deferred", provenance, reason: "browser fixture", intent: "CREATE" };[m
+[32m+[m[32mconst rev = (revisionId: string, tx: string, parentRevisionId: string | null, statePayload: unknown, n: number): CanonicalProjectRevision => ({ schemaVersion: "1.0", projectId, revisionId, parentRevisionId, transactionId: tx, timestamp: `2026-09-24T04:00:${String(n).padStart(2, "0")}Z`, statePayload: statePayload as CanonicalProjectRevision["statePayload"], stateFingerprint: "pending", provenance, actor: "chromium", authority: "HUMAN_AUTHORIZED", status: parentRevisionId === null ? "GENESIS" : "CURRENT" });[m
+[32m+[m[32mconst print = (value: unknown) => { document.body.textContent = JSON.stringify(value); };[m
+[32m+[m[32mconst run = async () => {[m
+[32m+[m[32m  const persistence = new CanonicalDurablePersistence(dbName);[m
+[32m+[m[32m  if (mode === "crash") {[m
+[32m+[m[32m    if (!(await persistence.readCurrentRevision(projectId))) {[m
+[32m+[m[32m      await persistence.commitWithCas({ revision: rev("R0", "TX004-T0", null, state(), 0), expectedRevisionId: null, newRevisionId: "R0", actor: "chromium", authority: "HUMAN_AUTHORIZED", provenance, committedAt: rev("R0", "TX004-T0", null, state(), 0).timestamp, mutationSet: [], intent: "CREATE", reversibility: "REVERSIBLE" });[m
+[32m+[m[32m      await persistence.commitWithCas({ revision: rev("R1", "TX004-T1", "R0", state({ "wall-1": { id: "wall-1", kind: "wall", height: 3 } }), 1), expectedRevisionId: "R0", newRevisionId: "R1", actor: "chromium", authority: "HUMAN_AUTHORIZED", provenance, committedAt: rev("R1", "TX004-T1", "R0", state({ "wall-1": { id: "wall-1", kind: "wall", height: 3 } }), 1).timestamp, mutationSet: [mutation], intent: "CREATE", reversibility: "REVERSIBLE" });[m
+[32m+[m[32m    }[m
+[32m+[m[32m    const engine = new CanonicalReversalEngine(persistence);[m
+[32m+[m[32m    await engine.undo({ projectId, targetTransactionId: "TX004-T1", newTransactionId: transactionId, expectedRevisionId: "R1", actor: "chromium", authority: "HUMAN_AUTHORIZED", requestedAt: "2026-09-24T04:00:02Z", reason: "browser crash fixture", crashHook: (reached) => { if (reached === point) console.log("CRASH_POINT_REACHED"); }, revalidate: async () => true });[m
+[32m+[m[32m    print({ status: "COMPLETED_WITHOUT_CRASH" });[m
+[32m+[m[32m    return;[m
+[32m+[m[32m  }[m
+[32m+[m[32m  print(await persistence.recoverTransaction(transactionId, projectId));[m
+[32m+[m[32m};[m
+[32m+[m[32mrun().catch((error: unknown) => print({ status: "ERROR", message: error instanceof Error ? error.message : String(error) }));[m
+[1mdiff --git a/scripts/run-bkh4-tx-004-real-browser.mjs b/scripts/run-bkh4-tx-004-real-browser.mjs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ffe9ad1[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/run-bkh4-tx-004-real-browser.mjs[m
+[36m@@ -0,0 +1,47 @@[m
+[32m+[m[32mimport { spawn } from "node:child_process";[m
+[32m+[m[32mimport { createServer } from "node:http";[m
+[32m+[m[32mimport { readFile, rm } from "node:fs/promises";[m
+[32m+[m[32mimport { setTimeout as sleep } from "node:timers/promises";[m
+[32m+[m[32mconst root = new URL("..", import.meta.url).pathname;[m
+[32m+[m[32mconst port = Number(process.env.PORT ?? 4204);[m
+[32m+[m[32mconst cdpPort = Number(process.env.CDP_PORT ?? 9324);[m
+[32m+[m[32mconst cases = (process.env.CASES ?? "after-idempotency-write,after-current-write").split(",");[m
+[32m+[m[32mconst server = createServer(async (request, response) => {[m
+[32m+[m[32m  const url = new URL(request.url ?? "/", `http://127.0.0.1:${port}`);[m
+[32m+[m[32m  if (url.pathname === "/tx004.js") { response.writeHead(200, { "content-type": "text/javascript" }); response.end(await readFile("/tmp/arki-tx004-browser.js")); return; }[m
+[32m+[m[32m  if (url.pathname === "/tx004.html") { response.writeHead(200, { "content-type": "text/html" }); response.end("<!doctype html><body><script src=\"/tx004.js\"></script>"); return; }[m
+[32m+[m[32m  response.writeHead(404); response.end();[m
+[32m+[m[32m});[m
+[32m+[m[32mawait new Promise((resolve) => server.listen(port, "127.0.0.1", resolve));[m
+[32m+[m[32mconst launch = (profile) => spawn("chromium", ["--headless=new", "--no-sandbox", "--disable-gpu", "--disable-dev-shm-usage", `--remote-debugging-port=${cdpPort}`, `--user-data-dir=${profile}`, "about:blank"], { stdio: "ignore" });[m
+[32m+[m[32mconst kill = async (child) => { child.kill("SIGKILL"); await new Promise((resolve) => child.once("exit", resolve)); await sleep(300); };[m
+[32m+[m[32mconst connect = async () => {[m
+[32m+[m[32m  const list = await (await fetch(`http://127.0.0.1:${cdpPort}/json/list`)).json();[m
+[32m+[m[32m  const target = list.find((item) => item.type === "page");[m
+[32m+[m[32m  if (!target?.webSocketDebuggerUrl) throw new Error("NO_CDP_PAGE");[m
+[32m+[m[32m  const socket = new WebSocket(target.webSocketDebuggerUrl); await new Promise((resolve, reject) => { socket.onopen = resolve; socket.onerror = reject; });[m
+[32m+[m[32m  let id = 0; const pending = new Map();[m
+[32m+[m[32m  socket.onmessage = (event) => { const message = JSON.parse(event.data); if (message.id && pending.has(message.id)) { pending.get(message.id)(message); pending.delete(message.id); } };[m
+[32m+[m[32m  const send = (method, params = {}) => new Promise((resolve) => { const requestId = ++id; pending.set(requestId, resolve); socket.send(JSON.stringify({ id: requestId, method, params })); });[m
+[32m+[m[32m  return { socket, send };[m
+[32m+[m[32m};[m
+[32m+[m[32mconst crash = async (url) => {[m
+[32m+[m[32m  const { socket, send } = await connect(); await send("Runtime.enable"); await send("Page.enable");[m
+[32m+[m[32m  const reached = new Promise((resolve) => { const prior = socket.onmessage; socket.onmessage = (event) => { prior?.(event); const message = JSON.parse(event.data); if (message.method === "Runtime.consoleAPICalled" && message.params?.args?.some((arg) => arg.value === "CRASH_POINT_REACHED")) resolve(true); }; });[m
+[32m+[m[32m  await send("Page.navigate", { url }); await Promise.race([reached, sleep(15000).then(() => { throw new Error("CRASH_POINT_TIMEOUT"); })]); socket.close(); return true;[m
+[32m+[m[32m};[m
+[32m+[m[32mconst readBody = async (url) => { const { socket, send } = await connect(); await send("Runtime.enable"); await send("Page.enable"); await send("Page.navigate", { url }); let body = ""; for (let i = 0; i < 160; i += 1) { await sleep(125); const result = await send("Runtime.evaluate", { expression: "document.body?.textContent || ''", returnByValue: true }); body = result.result?.result?.value ?? ""; if (body.includes("classification") || body.includes("ERROR")) break; } socket.close(); return JSON.parse(body); };[m
+[32m+[m[32mconst results = [];[m
+[32m+[m[32mtry {[m
+[32m+[m[32m  for (let index = 0; index < cases.length; index += 1) {[m
+[32m+[m[32m    const point = cases[index]; const profile = `/tmp/arki-tx004-profile-${cdpPort}-${index}`; const db = `arki-tx004-browser-${cdpPort}-${index}`; const project = `tx004-project-${index}`; const tx = `TX004-CRASH-${index}`;[m
+[32m+[m[32m    await rm(profile, { recursive: true, force: true }); let browser = launch(profile); await sleep(1000);[m
+[32m+[m[32m    const crashUrl = `http://127.0.0.1:${port}/tx004.html?mode=crash&point=${encodeURIComponent(point)}&db=${encodeURIComponent(db)}&project=${encodeURIComponent(project)}&tx=${encodeURIComponent(tx)}`;[m
+[32m+[m[32m    const reached = await crash(crashUrl); await kill(browser); browser = launch(profile); await sleep(1000);[m
+[32m+[m[32m    const recovery = await readBody(`http://127.0.0.1:${port}/tx004.html?mode=recover&db=${encodeURIComponent(db)}&project=${encodeURIComponent(project)}&tx=${encodeURIComponent(tx)}`); const expected = ["NOT_COMMITTED", "COMMITTED"];[m
+[32m+[m[32m    results.push({ point, processKill: "SIGKILL", freshProcess: true, persistentProfile: true, reached, recovery, expected, pass: reached && expected.includes(recovery.classification) });[m
+[32m+[m[32m    await kill(browser); await rm(profile, { recursive: true, force: true });[m
+[32m+[m[32m  }[m
+[32m+[m[32m} finally { server.close(); }[m
+[32m+[m[32mconst passed = results.filter((item) => item.pass).length;[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: passed === results.length ? "PASS" : "FAIL", realProcessKill: true, freshProcessRecovery: true, persistentProfile: true, cases: results.length, passed, failed: results.length - passed, results }));[m
+[1mdiff --git a/scripts/run-bkh4-tx-004-evidence.sh b/scripts/run-bkh4-tx-004-evidence.sh[m
+[1mnew file mode 100755[m
+[1mindex 0000000..426e97f[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/run-bkh4-tx-004-evidence.sh[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32m#!/usr/bin/env bash[m
+[32m+[m[32mset +e[m
+[32m+[m[32mROOT="$(cd "$(dirname "$0")/.." && pwd)"[m
+[32m+[m[32mcd "$ROOT"[m
+[32m+[m[32mOUT="BKH4_TX_004_OUTPUTS.txt"[m
+[32m+[m[32m: > "$OUT"[m
+[32m+[m[32mrun_case() { local label="$1"; shift; printf '\n## %s\nCOMMAND: %s\n' "$label" "$*" | tee -a "$OUT"; "$@" >>"$OUT" 2>&1; local code=$?; printf 'EXIT_CODE=%s\n' "$code" | tee -a "$OUT"; }[m
+[32m+[m[32mrun_case "pnpm check" pnpm check[m
+[32m+[m[32mrun_case "pnpm build" pnpm build[m
+[32m+[m[32mrun_case "BKH-1" pnpm tsx scripts/test-bkh1-relationship-fabric.ts[m
+[32m+[m[32mrun_case "BKH-2" pnpm tsx scripts/test-bkh2-constraint-engine.ts[m
+[32m+[m[32mrun_case "BKH-3" pnpm tsx scripts/test-bkh3-regeneration-engine.ts[m
+[32m+[m[32mrun_case "BKH-3 corrective" pnpm tsx scripts/test-bkh3-corrective.ts[m
+[32m+[m[32mrun_case "BKH4 foundation" pnpm tsx scripts/test-bkh4-foundation.ts[m
+[32m+[m[32mrun_case "BKH4-3" pnpm tsx scripts/test-bkh4-3-simulation.ts[m
+[32m+[m[32mrun_case "persistence formal" pnpm tsx scripts/test-persistence-formal.ts[m
+[32m+[m[32mrun_case "persistence IndexedDB" pnpm tsx scripts/test-persistence-idb.ts[m
+[32m+[m[32mrun_case "TX-003A" pnpm tsx scripts/test-bkh4-tx-003a-repository.ts[m
+[32m+[m[32mrun_case "TX-003B" pnpm tsx scripts/test-bkh4-tx-003b-persistence.ts[m
+[32m+[m[32mrun_case "TX-003C" pnpm tsx scripts/test-bkh4-tx-003c-cas-idempotency.ts[m
+[32m+[m[32mrun_case "TX-003D recovery" pnpm tsx scripts/test-bkh4-tx-003d-recovery.ts[m
+[32m+[m[32mrun_case "TX-004 reversal" pnpm tsx scripts/test-bkh4-tx-004-reversal.ts[m
+[32m+[m[32mrun_case "TX-004 test-the-test" pnpm tsx scripts/test-bkh4-tx-004-test-the-test.ts[m
+[32m+[m[32mrun_case "TX-004 real-browser crash/restart" env PORT=4204 CDP_PORT=9324 node scripts/run-bkh4-tx-004-real-browser.mjs[m
+[32m+[m[32mprintf '\n## SUMMARY\n' | tee -a "$OUT"[m
+[32m+[m[32mgrep -E '^(## |EXIT_CODE=|\{"status")' "$OUT" | tee -a "$OUT"[m

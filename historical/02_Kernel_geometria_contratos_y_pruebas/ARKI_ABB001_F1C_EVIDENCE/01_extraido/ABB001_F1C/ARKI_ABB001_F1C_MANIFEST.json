@@ -1,0 +1,128 @@
+{
+  "schema": "ARKI-ABB001-F1C-MANIFEST-1.0",
+  "order": "ABB-001-F1C",
+  "status": "COMPLETE_FOR_AVAILABLE_TOOLING",
+  "sourceFreeze": "ARKI_ABB001_SOURCE_FREEZE_V1",
+  "files": [
+    {
+      "path": "ABB001_F1C_TOOLING_AUDIT.md",
+      "size": 1216,
+      "sha256": "b600911b36ee01e8f8e90c4b38662b66e6d8854c6ab625fc14f6dbaa01205797"
+    },
+    {
+      "path": "ABB001_F1C_TOOLING_AUDIT_RAW.txt",
+      "size": 2006,
+      "sha256": "3cd3eb6755460d1941076f72c0e8814a5d2cf49b7c92480a96d622a3cd26e165"
+    },
+    {
+      "path": "ABB001_DWG_SOURCE_INTEGRITY.json",
+      "size": 1541,
+      "sha256": "f1ce84ee29251182005a3b48731083eb58736873f0c91bd7d64b513ff8236100"
+    },
+    {
+      "path": "ABB001_CAD_EXTRACTION_REPORT.md",
+      "size": 1077,
+      "sha256": "614d488343351ed5b97ede8242bf12cac265d5ce2b154456cfffebda62031832"
+    },
+    {
+      "path": "ABB001_CAD_ENTITY_REGISTER.json",
+      "size": 464,
+      "sha256": "89b2b207f57a0682433e23798f4e8497f36755678c57c564813f5f9d3d2828be"
+    },
+    {
+      "path": "ABB001_CAD_LAYER_REGISTER.json",
+      "size": 365,
+      "sha256": "db26dc8c7c192c40bf88724dd609c323e6ae57e1fe89543b72870d8462a8214b"
+    },
+    {
+      "path": "ABB001_CAD_BLOCK_REGISTER.json",
+      "size": 329,
+      "sha256": "32d298bb96334f207ee8f77e13f76f5a91e2471499a139e2532a4b336c311e59"
+    },
+    {
+      "path": "ABB001_CAD_LAYOUT_REGISTER.json",
+      "size": 214,
+      "sha256": "3ad91c395337056d2ccde4f00705e26c3bc310b55c37f6d04763eb27c3ab7849"
+    },
+    {
+      "path": "ABB001_CAD_UNITS_COORDINATES.json",
+      "size": 1189,
+      "sha256": "4e2db39e68d96851368b0320667917e712c08271eabf933d4eff9c74232b4d32"
+    },
+    {
+      "path": "ABB001_ACIR.json",
+      "size": 355,
+      "sha256": "5ae605682ea7eeb309f4548cba3c18bca88a2fe6e142a8779ed356fe72d2174a"
+    },
+    {
+      "path": "ABB001_CAD_TRACEABILITY_SAMPLES.json",
+      "size": 491,
+      "sha256": "7c3ce28fbe94649bf1c85f3591d0d1c6ba2d509cda9531a816887698ffbbbe4a"
+    },
+    {
+      "path": "ABB001_CAD_VISUAL_VALIDATION.md",
+      "size": 843,
+      "sha256": "c78c096233ecb1838b139ba942126e9340fd153dc521f78b8e43c1cf313c0852"
+    },
+    {
+      "path": "ABB001_ARCHITECTURE_GEOMETRIC_DIFF.json",
+      "size": 548,
+      "sha256": "be3df63b81c6afce8e0ee59f2450a0f0b7531aa63c34f454218c36b0451012e7"
+    },
+    {
+      "path": "ABB001_CROSS_DISCIPLINE_ALIGNMENT.json",
+      "size": 907,
+      "sha256": "e22b80cc0f55c3dd80014a587f7f94e44bdf8742abcf6874a9c606cb1414c500"
+    },
+    {
+      "path": "ABB001_F1C_CAPABILITY_VERDICT.md",
+      "size": 907,
+      "sha256": "4784f17d69bd8872f372a7b2b4e6d4c3e9a52c2ac1dc5a44a48d37315b9d694d"
+    },
+    {
+      "path": "ABB001_F1C_DEFICIT_REGISTER.json",
+      "size": 1172,
+      "sha256": "42f36ffc5c559d6cb15329eaabcb8bde131f14856d8acc6dd1296651cf62e5b3"
+    },
+    {
+      "path": "ABB001_F1C_SCOPE_REPORT.md",
+      "size": 826,
+      "sha256": "dd4ad3194af7a2d60d629507134b5230bc79cca67ec44474efaa7719909a05c9"
+    },
+    {
+      "path": "ABB001_F1C_DWG_BINARY_FORENSICS.json",
+      "size": 6413,
+      "sha256": "e0e13b0d53bcf850d6091d9f72e447645810c0c1f1c54421ab75e26631079cda"
+    },
+    {
+      "path": "ABB001_VERSION_FORENSICS.md",
+      "size": 3644,
+      "sha256": "367e8cb2402f6709aabd7fb501bd667c234432c7ad5b2889ec59e8664418c14e"
+    },
+    {
+      "path": "ABB001_CONFLICT_REGISTER.json",
+      "size": 1690,
+      "sha256": "7e69e8780e294479a6337d9f705e769e082b18f8fbf2277113b4d11f7e1f42f6"
+    },
+    {
+      "path": "ABB001_UNKNOWN_REGISTER.json",
+      "size": 2030,
+      "sha256": "13bafc88228f56bb410e6d65053100997a6f895b0eb7b2942c26dbff55a13b0c"
+    },
+    {
+      "path": "ABB001_MISSING_INFORMATION.json",
+      "size": 1477,
+      "sha256": "569cdfff35edbb9b1dad989566f19faf5eda53a8556e88387494c9dfa2f0284f"
+    },
+    {
+      "path": "ABB001_BIM_READINESS.md",
+      "size": 2217,
+      "sha256": "f5b0aaec88f5a5641edae30ba57c7d378f29c2d2225075802134c1315e80b759"
+    },
+    {
+      "path": "ABB001_F1C_EVIDENCE.json",
+      "size": 4238,
+      "sha256": "170b1f7330e43f23cd14ba5cf148939f22631f48a14d6fe1bc5af5d6e82f18b9"
+    }
+  ]
+}

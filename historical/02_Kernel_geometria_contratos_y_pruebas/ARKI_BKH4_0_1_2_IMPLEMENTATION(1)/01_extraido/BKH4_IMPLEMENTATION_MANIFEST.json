@@ -1,0 +1,71 @@
+{
+  "schema": "ARKI-BKH4-IMPLEMENTATION-0-1-2-1.0",
+  "status": "IMPLEMENTED / PENDING INDEPENDENT REVIEW",
+  "scope": [
+    "BKH4-0",
+    "BKH4-1",
+    "BKH4-2"
+  ],
+  "firewall": [
+    "BKH4-3",
+    "commit",
+    "rollback",
+    "undo",
+    "redo",
+    "atomic-persistence",
+    "legacy-migration",
+    "ownership-consolidation"
+  ],
+  "physicalFilesTotal": 10,
+  "manifestEntries": 9,
+  "manifestFiles": 1,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "BKH4_0_1_2_OUTPUTS.txt",
+      "sha256": "29ab778351dfd7bf19ccccb215a7d2fc939abb0bb4688e92dac4a1b6f3b8e5ed",
+      "bytes": 5148
+    },
+    {
+      "path": "BKH4_IMPLEMENTATION_BASELINE.md",
+      "sha256": "825aa881d507bee5c77dd193b384b631e3de19f4f17c5fc80dcaefac9e479843",
+      "bytes": 1710
+    },
+    {
+      "path": "BKH4_INVARIANT_REGISTRY.md",
+      "sha256": "13e183d116d3fa30e58e580b202c463a6e8e7e9a09d226cded6abebf286a495f",
+      "bytes": 2522
+    },
+    {
+      "path": "BKH4_MUTATION_WRITER_INVENTORY.md",
+      "sha256": "842cd80472e05aeb0ced7c78dd11ee58bf80ed608ff98c9ce4527353e734ab72",
+      "bytes": 2771
+    },
+    {
+      "path": "BKH4_SCOPE_LIMIT_REPORT.md",
+      "sha256": "b39cbe3ee83354706e4f3df6a0d81e210ccee0e9db9c7841a91898fafb174482",
+      "bytes": 1818
+    },
+    {
+      "path": "BKH4_TEST_PLAN.md",
+      "sha256": "ac48465e91cfb5fbd792a07050228dac89b14fbf53a8ce0ca7a532c9b722a1e5",
+      "bytes": 4581
+    },
+    {
+      "path": "BKH4_TRANSACTION_ENGINE_CONTRACT_V1_1.md",
+      "sha256": "2a58213e0c36e62fcbdec222d280e063d705546c60fa8cb2d6d3df929ce4d8a3",
+      "bytes": 28213
+    },
+    {
+      "path": "arkiTransactionEngine.ts",
+      "sha256": "69a9c2d1e2ec97357fbbae14a70a12cdf94249d9a90ee9bba8dd95285d293bb0",
+      "bytes": 10616
+    },
+    {
+      "path": "test-bkh4-foundation.ts",
+      "sha256": "25c24974256ea5c8f3c3161eb0df504ab0d631f928d07e99dc1675fd3ff1097f",
+      "bytes": 4388
+    }
+  ]
+}

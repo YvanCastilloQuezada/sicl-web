@@ -1,0 +1,38 @@
+{
+  "schema": "ARKI-ABB001-DRAWING-RELATIONSHIP-GRAPH-1.0",
+  "status": "DOCUMENTARY_GRAPH / NO_GEOMETRY_CLAIM",
+  "sourceFreeze": "ARKI_ABB001_SOURCE_FREEZE_V1",
+  "nodes": [
+    {"id":"U-01","discipline":"LOCATION","source":"PROY. FERNANDEZ ROJAS.pdf","page":1},
+    {"id":"A-01","discipline":"ARCHITECTURE","source":"PROY. FERNANDEZ ROJAS.pdf","page":2},
+    {"id":"A-02","discipline":"ARCHITECTURE","source":"PROY. FERNANDEZ ROJAS.pdf","page":3},
+    {"id":"A-01-M","discipline":"ARCHITECTURE_REVISION","source":"ARQUITECTURA MODIFICADA.pdf","page":1},
+    {"id":"A-02-M","discipline":"ARCHITECTURE_REVISION","source":"ARQUITECTURA MODIFICADA.pdf","page":2},
+    {"id":"E-01","discipline":"STRUCTURE","source":"PROY. FERNANDEZ ROJAS.pdf","page":4},
+    {"id":"E-02","discipline":"STRUCTURE","source":"PROY. FERNANDEZ ROJAS.pdf","page":5},
+    {"id":"E-03","discipline":"STRUCTURE","source":"PROY. FERNANDEZ ROJAS.pdf","page":6},
+    {"id":"IS-01","discipline":"PLUMBING","source":"PROY. FERNANDEZ ROJAS.pdf","page":7},
+    {"id":"IS-02","discipline":"PLUMBING","source":"PROY. FERNANDEZ ROJAS.pdf","page":8},
+    {"id":"IS-03","discipline":"PLUMBING","source":"PROY. FERNANDEZ ROJAS.pdf","page":9},
+    {"id":"IS-04","discipline":"PLUMBING","source":"PROY. FERNANDEZ ROJAS.pdf","page":10},
+    {"id":"IE-01","discipline":"ELECTRICAL","source":"PROY. FERNANDEZ ROJAS.pdf","page":11},
+    {"id":"IE-02","discipline":"ELECTRICAL","source":"PROY. FERNANDEZ ROJAS.pdf","page":12}
+  ],
+  "edges": [
+    {"from":"U-01","to":"A-01","relation":"LOCATION↔BUILDING","evidence":"site/lot and first-floor project references","status":"DOCUMENTED"},
+    {"from":"A-01","to":"A-02","relation":"PLAN↔SECTION/ELEVATION","evidence":"same architectural sheet set and levels","status":"DOCUMENTED"},
+    {"from":"A-01","to":"E-01","relation":"ARCHITECTURE↔STRUCTURE","evidence":"same grid/dimensions, foundation plan references architectural layout","status":"PARTIAL"},
+    {"from":"A-01","to":"E-02","relation":"ARCHITECTURE↔STRUCTURE","evidence":"floor/slab and wall references","status":"PARTIAL"},
+    {"from":"A-01","to":"E-03","relation":"PLAN↔DETAIL","evidence":"stair/cistern details and architectural levels","status":"PARTIAL"},
+    {"from":"A-01","to":"IS-01","relation":"ARCHITECTURE↔PLUMBING","evidence":"first/second-floor sanitary plans correspond to architectural levels and wet rooms","status":"DOCUMENTED"},
+    {"from":"A-01","to":"IS-02","relation":"ARCHITECTURE↔PLUMBING","evidence":"roof/terrace drainage labels and levels","status":"DOCUMENTED"},
+    {"from":"A-01","to":"IS-03","relation":"ARCHITECTURE↔PLUMBING","evidence":"cold/hot-water plan labels","status":"DOCUMENTED"},
+    {"from":"A-01","to":"IS-04","relation":"ARCHITECTURE↔PLUMBING","evidence":"roof/terrace water and drainage details","status":"DOCUMENTED"},
+    {"from":"A-01","to":"IE-01","relation":"ARCHITECTURE↔ELECTRICAL","evidence":"first/second-floor electrical plans and room layout","status":"DOCUMENTED"},
+    {"from":"A-01","to":"IE-02","relation":"ARCHITECTURE↔ELECTRICAL","evidence":"roof/terrace electrical plans","status":"DOCUMENTED"},
+    {"from":"E-01","to":"IS-01","relation":"STRUCTURE↔PLUMBING","evidence":"cistern/foundation and sanitary references exist, exact penetrations not verified","status":"PARTIAL"},
+    {"from":"A-01","to":"A-01-M","relation":"VERSION_COMPARISON","evidence":"same plan title family, separate modified source","status":"DOCUMENTED"},
+    {"from":"A-02","to":"A-02-M","relation":"VERSION_COMPARISON","evidence":"same section/elevation title family, separate modified source","status":"DOCUMENTED"}
+  ],
+  "limitations": ["No DWG entity graph was created", "No exact alignment or coordinate transform was verified", "Relationships are documentary, not canonical BIM relationships"]
+}

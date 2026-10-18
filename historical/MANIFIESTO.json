@@ -1,0 +1,1336 @@
+{
+  "generated_utc": "2026-10-18T21:07:49.230571+00:00",
+  "count": 166,
+  "extracted_files": 7848,
+  "files": [
+    {
+      "source": "0 Sims-Dei.zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 12729990,
+      "sha256": "fa11637d3934498ed0e631bdb539bc0645432e1d0e5c1e03c13f6b8a76902b95",
+      "original": "07_Proyectos_separados_y_referencias/0 Sims-Dei/00_original/0 Sims-Dei.zip",
+      "entries": 66
+    },
+    {
+      "source": "00-START.txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 209,
+      "sha256": "290977587f99e24df5e1d80501b6b37520bad6e974999b26a14744fa104ab0b9",
+      "original": "01_Historia_gobierno_y_documentos_generales/00-START/00_original/00-START.txt",
+      "entries": 0
+    },
+    {
+      "source": "20_RAW_COMMAND_OUTPUTS.txt",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 49413,
+      "sha256": "03f97c5adc1161becbdec7fd1895e13cfe9c619646bb8f64d2300a1938df45ba",
+      "original": "05_Auditorias_handoffs_y_evidencias/20_RAW_COMMAND_OUTPUTS/00_original/20_RAW_COMMAND_OUTPUTS.txt",
+      "entries": 0
+    },
+    {
+      "source": "ARCHI_—_Especificación_propia_de_controles_funcionales_para_los_16_módulos.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 145008,
+      "sha256": "8e4ae06d7d74eeb9c10a3157797077e24faab2b2d7f45725f792aa31b49406cc",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARCHI_—_Especificación_propia_de_controles_funcionales_para_los_16_módulos/00_original/ARCHI_—_Especificación_propia_de_controles_funcionales_para_los_16_módulos.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI-PROJECT-ORGANIGRAM.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 169251,
+      "sha256": "3a63c790408e97430b75d0a0a9e7ec36c7671590b1e7bca7201e0014c645a35f",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI-PROJECT-ORGANIGRAM/00_original/ARKI-PROJECT-ORGANIGRAM.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_97A0_KNOWLEDGE_TOPOLOGY_EVIDENCE(2).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 70975,
+      "sha256": "4b801570405e79deab11a0ee87d41775ef61f0b434eb7f6c35e722bf6a13c586",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_97A0_KNOWLEDGE_TOPOLOGY_EVIDENCE(2)/00_original/ARKI_97A0_KNOWLEDGE_TOPOLOGY_EVIDENCE(2).zip",
+      "entries": 23
+    },
+    {
+      "source": "ARKI_A1_0B_DIAGNOSTIC_PACKAGE(2).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 76928,
+      "sha256": "092832da05bef271e1ad883e8eb6f4a750c85f23f66646f9cedd6c445a09ffae",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_A1_0B_DIAGNOSTIC_PACKAGE(2)/00_original/ARKI_A1_0B_DIAGNOSTIC_PACKAGE(2).zip",
+      "entries": 63
+    },
+    {
+      "source": "ARKI_A1_0_DIAGNOSTIC_PACKAGE(1).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 20518,
+      "sha256": "4b184168833f4d6b558b9ddda68e5f0c512f6e189663f065abb72f9f906357b8",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_A1_0_DIAGNOSTIC_PACKAGE(1)/00_original/ARKI_A1_0_DIAGNOSTIC_PACKAGE(1).zip",
+      "entries": 18
+    },
+    {
+      "source": "ARKI_A1_1_REPAIR_PACKAGE(1).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 18440,
+      "sha256": "1b350f185fc5f03f3832aa745863314c6dbc6f71aa65d3b79e7cf0d6e3dfe43f",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_A1_1_REPAIR_PACKAGE(1)/00_original/ARKI_A1_1_REPAIR_PACKAGE(1).zip",
+      "entries": 22
+    },
+    {
+      "source": "ARKI_ABB001_F1B_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 10027809,
+      "sha256": "31c8e033afa69bc8e804e8338d7a109c1fadf24b4e70e4dccd7aa3af72bd2d55",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_ABB001_F1B_EVIDENCE/00_original/ARKI_ABB001_F1B_EVIDENCE.zip",
+      "entries": 18
+    },
+    {
+      "source": "ARKI_ABB001_F1C_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 21414,
+      "sha256": "7095ebbb47481f5f1884b499f9293fb746260c404382978763ffc9c93df13489",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_ABB001_F1C_EVIDENCE/00_original/ARKI_ABB001_F1C_EVIDENCE.zip",
+      "entries": 25
+    },
+    {
+      "source": "ARKI_ABB001_F1_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 10017370,
+      "sha256": "25e5bde4d2797fc405b8ad4373e2c1165338e998fa4474929f48cccc29359c26",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_ABB001_F1_EVIDENCE/00_original/ARKI_ABB001_F1_EVIDENCE.zip",
+      "entries": 10
+    },
+    {
+      "source": "ARKI_ADDENDA_E_ORDEN_MAESTRA_4_PARTES_8_ENTREGAS.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 258639,
+      "sha256": "e7e98f7e5b82328662595885cd21818b3ae55910ad5ff343efad1318681e5464",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_ADDENDA_E_ORDEN_MAESTRA_4_PARTES_8_ENTREGAS/00_original/ARKI_ADDENDA_E_ORDEN_MAESTRA_4_PARTES_8_ENTREGAS.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_ADDENDUM_AVATAR_INTELIGENTE_FUTURO.pdf",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 87138,
+      "sha256": "fb004685fa1137fc84b8d5ef72ec796a7214178e27e9ddb98ff2635d03f78185",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_ADDENDUM_AVATAR_INTELIGENTE_FUTURO/00_original/ARKI_ADDENDUM_AVATAR_INTELIGENTE_FUTURO.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_ARCHIVO_MAESTRO_RECUPERACION_2026-09-28(2).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 7706683,
+      "sha256": "a07584f2c75f41cd2b98f8d50030246abbab67d80ca2b881ec5179e4d768dff8",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_ARCHIVO_MAESTRO_RECUPERACION_2026-09-28(2)/00_original/ARKI_ARCHIVO_MAESTRO_RECUPERACION_2026-09-28(2).zip",
+      "entries": 74
+    },
+    {
+      "source": "ARKI_AURORA_R0_COLD_EVIDENCE(1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 67493,
+      "sha256": "724cf7f74f032e07340844689cc2a9a032d53c1b27e2ea27f5b09bab23fdb94f",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_AURORA_R0_COLD_EVIDENCE(1)/00_original/ARKI_AURORA_R0_COLD_EVIDENCE(1).zip",
+      "entries": 49
+    },
+    {
+      "source": "ARKI_Agent_Bridge_DeepSeek_RedTeam_Pack(1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 29690,
+      "sha256": "8480bee7b606bae07f4e5e7f91dde10692877bf8e004b0abd2f64f6206829b70",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_Agent_Bridge_DeepSeek_RedTeam_Pack(1)/00_original/ARKI_Agent_Bridge_DeepSeek_RedTeam_Pack(1).zip",
+      "entries": 6
+    },
+    {
+      "source": "ARKI_BIM_SERVICE_PORTAL_S1_EVIDENCE(2).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 12421,
+      "sha256": "42db71ba350b4e0299d43478716424ca9a9bd55f4e2f6817787bfc3cce6aa025",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_BIM_SERVICE_PORTAL_S1_EVIDENCE(2)/00_original/ARKI_BIM_SERVICE_PORTAL_S1_EVIDENCE(2).zip",
+      "entries": 6
+    },
+    {
+      "source": "ARKI_BIM_SERVICE_WORKSPACES_S2_EVIDENCE(1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 31353,
+      "sha256": "706fd770f6f316d5ebbce6df7ba5c62aedff0277d953eae8b25da14aaa65e3a4",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_BIM_SERVICE_WORKSPACES_S2_EVIDENCE(1)/00_original/ARKI_BIM_SERVICE_WORKSPACES_S2_EVIDENCE(1).zip",
+      "entries": 27
+    },
+    {
+      "source": "ARKI_BKH4_0_1_2_IMPLEMENTATION(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 24244,
+      "sha256": "0b2b27820757e0aebf6d3c02891effde472dff58cf8f2ce9426612c3f229bd4a",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_0_1_2_IMPLEMENTATION(1)/00_original/ARKI_BKH4_0_1_2_IMPLEMENTATION(1).zip",
+      "entries": 10
+    },
+    {
+      "source": "ARKI_BKH4_3_SIMULATION_EVIDENCE (1)(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 42902,
+      "sha256": "beb38455ad6bd0be9309f4f51fee657b19a0e7acf17a74c4296503f0cf439557",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_3_SIMULATION_EVIDENCE (1)(1)/00_original/ARKI_BKH4_3_SIMULATION_EVIDENCE (1)(1).zip",
+      "entries": 21
+    },
+    {
+      "source": "ARKI_BKH4_3_SIMULATION_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 38502,
+      "sha256": "359d79af1945335c85fd93c8046d53fb37d06481868ca31fb921573ca56d8c4f",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_3_SIMULATION_EVIDENCE/00_original/ARKI_BKH4_3_SIMULATION_EVIDENCE.zip",
+      "entries": 19
+    },
+    {
+      "source": "ARKI_BKH4_95A_HARDENING.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 13443,
+      "sha256": "10cb30bd8e3a20f71beb8a26136ac55d61a90b4b0d3fc8ecd1cadae42531b7a9",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_95A_HARDENING/00_original/ARKI_BKH4_95A_HARDENING.zip",
+      "entries": 9
+    },
+    {
+      "source": "ARKI_BKH4_CONTRACT_V11(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 18886,
+      "sha256": "f4ff04aa41cafa9ba68961ebd6ed4705b99cd1c6b422f3e184bfcf9f30bc6576",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_CONTRACT_V11(1)/00_original/ARKI_BKH4_CONTRACT_V11(1).zip",
+      "entries": 8
+    },
+    {
+      "source": "ARKI_BKH4_TX_001_PHASE_A_EVIDENCE(2).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 82329,
+      "sha256": "6bdbf982888820425fbc68e78064ac04eb24c659eb1e77eecb92113987fb307d",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_TX_001_PHASE_A_EVIDENCE(2)/00_original/ARKI_BKH4_TX_001_PHASE_A_EVIDENCE(2).zip",
+      "entries": 23
+    },
+    {
+      "source": "ARKI_BKH4_TX_003A_EVIDENCE(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 28599,
+      "sha256": "a567074b42596bdf3a8358b1c6c33373c980ce4d411e174471bc8c8dd486318a",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH4_TX_003A_EVIDENCE(1)/00_original/ARKI_BKH4_TX_003A_EVIDENCE(1).zip",
+      "entries": 14
+    },
+    {
+      "source": "ARKI_BKH93C_DELTA.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 14843,
+      "sha256": "f94e7c71c0817bc29f278fe0953f7faa6189dfe8e7c992f4b47134b2ff98e6cd",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH93C_DELTA/00_original/ARKI_BKH93C_DELTA.zip",
+      "entries": 10
+    },
+    {
+      "source": "ARKI_BKH_KERNEL_CONSOLIDATION_EVIDENCE(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 89179,
+      "sha256": "c0da648fd03ce3396744e33e3d81d343981589ad32059ef6d03cff4fc2b5c02a",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_BKH_KERNEL_CONSOLIDATION_EVIDENCE(1)/00_original/ARKI_BKH_KERNEL_CONSOLIDATION_EVIDENCE(1).zip",
+      "entries": 43
+    },
+    {
+      "source": "ARKI_BSPA_97A07_EVIDENCE(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 27048,
+      "sha256": "479b714813b77b470002ea9cbc2003f53b3b8c90c9ca8150f3ee29b349457aa4",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_BSPA_97A07_EVIDENCE(2)/00_original/ARKI_BSPA_97A07_EVIDENCE(2).zip",
+      "entries": 22
+    },
+    {
+      "source": "ARKI_C1C80_ASSIMILATION_EVIDENCE.zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 369014,
+      "sha256": "077153c7bee964ef82945e6ef74b3f7c41292412d79e71c013ed227ff99fa4c0",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_C1C80_ASSIMILATION_EVIDENCE/00_original/ARKI_C1C80_ASSIMILATION_EVIDENCE.zip",
+      "entries": 758
+    },
+    {
+      "source": "ARKI_C1C80_WAVE1_EVIDENCE.zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 38567,
+      "sha256": "85307897627754df64ba47535531ab227a4e6b45c037b2a0f8267621a8400ca1",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_C1C80_WAVE1_EVIDENCE/00_original/ARKI_C1C80_WAVE1_EVIDENCE.zip",
+      "entries": 18
+    },
+    {
+      "source": "ARKI_CAD_001A_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 18416,
+      "sha256": "a4b45c4706b93e78f159a83d2802d2bc1ac60af72e50013a7d57d721fd2aea10",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_CAD_001A_EVIDENCE/00_original/ARKI_CAD_001A_EVIDENCE.zip",
+      "entries": 16
+    },
+    {
+      "source": "ARKI_CAD_001B_DECISION_PACKAGE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 13048,
+      "sha256": "d567764fe54eaba0100c6626c103fca5077df15dcefd14253425456e7c2f3e32",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_CAD_001B_DECISION_PACKAGE/00_original/ARKI_CAD_001B_DECISION_PACKAGE.zip",
+      "entries": 9
+    },
+    {
+      "source": "ARKI_CAD_001C_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 16514,
+      "sha256": "f6a6ad0f9734602b621811399f4ca64e760de9dd6585bb5de3c383eecfa2351a",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_CAD_001C_EVIDENCE/00_original/ARKI_CAD_001C_EVIDENCE.zip",
+      "entries": 11
+    },
+    {
+      "source": "ARKI_CAPABILITY_DIGEST_001_EVIDENCE(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 185635,
+      "sha256": "c9425eec275226b5487a17f289820ce708a956d3c88d511f9c05142e3661c35d",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_CAPABILITY_DIGEST_001_EVIDENCE(1)/00_original/ARKI_CAPABILITY_DIGEST_001_EVIDENCE(1).zip",
+      "entries": 125
+    },
+    {
+      "source": "ARKI_CCF_001_EVIDENCE(1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 2386993,
+      "sha256": "6c3c634e5ce90176fd8345bd920f4642e742f37d6498f9309567dad66ed6af4a",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_CCF_001_EVIDENCE(1)/00_original/ARKI_CCF_001_EVIDENCE(1).zip",
+      "entries": 51
+    },
+    {
+      "source": "ARKI_CFMI_EVIDENCE(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 227124,
+      "sha256": "dc9def1c36f7e4471482f5dbbe0ae7f8d465037de1e357d43d34b53ce85069ba",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_CFMI_EVIDENCE(2)/00_original/ARKI_CFMI_EVIDENCE(2).zip",
+      "entries": 23
+    },
+    {
+      "source": "ARKI_CHATGPT_HANDOFF_2026-09-23 (1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 1464967,
+      "sha256": "392850b975655d073bf3fd613ceb9a8c09f079c1534ef840b7c440b39ebd8280",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_CHATGPT_HANDOFF_2026-09-23 (1)/00_original/ARKI_CHATGPT_HANDOFF_2026-09-23 (1).zip",
+      "entries": 551
+    },
+    {
+      "source": "ARKI_CHATGPT_HANDOFF_2026-09-23 (3)(1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 1478942,
+      "sha256": "8402216e1fb85bd2bb565f0cc8aec866ecb000736be6a9c39978b87d3104a63f",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_CHATGPT_HANDOFF_2026-09-23 (3)(1)/00_original/ARKI_CHATGPT_HANDOFF_2026-09-23 (3)(1).zip",
+      "entries": 560
+    },
+    {
+      "source": "ARKI_COCO_001_EVIDENCE(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 64510,
+      "sha256": "d12cf79b596f86a7383cde44960e19a94e6697bfe7e1f40c61a4ea57235496dd",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_COCO_001_EVIDENCE(1)/00_original/ARKI_COCO_001_EVIDENCE(1).zip",
+      "entries": 20
+    },
+    {
+      "source": "ARKI_COCO_EXAM_001_EVIDENCE(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 22827,
+      "sha256": "6ffa4d9a20d9f8add75c6dbf9ab1c5d17d861e4698ead5145cf877a5cea8f337",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_COCO_EXAM_001_EVIDENCE(1)/00_original/ARKI_COCO_EXAM_001_EVIDENCE(1).zip",
+      "entries": 13
+    },
+    {
+      "source": "ARKI_COCO_EXAM_001_R1_EVIDENCE(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 16276,
+      "sha256": "b633f69c8923c945303cc486c218f35c45c02b0a1e87c3a733ee76199201ae5f",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_COCO_EXAM_001_R1_EVIDENCE(1)/00_original/ARKI_COCO_EXAM_001_R1_EVIDENCE(1).zip",
+      "entries": 9
+    },
+    {
+      "source": "ARKI_COCO_EXAM_002_EVIDENCE(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 35427,
+      "sha256": "eabb610ac0b709cf3b736bbdc1a5a2b51550033af0cebf853d6b14071bfc795c",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_COCO_EXAM_002_EVIDENCE(1)/00_original/ARKI_COCO_EXAM_002_EVIDENCE(1).zip",
+      "entries": 18
+    },
+    {
+      "source": "ARKI_COCO_EXPRESS_002_EVIDENCE.zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 150920,
+      "sha256": "24bc82d3936f515234c4c1ffeeb82f6a682718aecca48b663a29c2ad5bbb2dc5",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_COCO_EXPRESS_002_EVIDENCE/00_original/ARKI_COCO_EXPRESS_002_EVIDENCE.zip",
+      "entries": 48
+    },
+    {
+      "source": "ARKI_CODEBOOK_DEEPSEEK_DELIVERY.zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 24168,
+      "sha256": "44f63e42527fbc43850673db1ae2d7a40a13f2abfa571025512a82a5e0eec2c5",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_CODEBOOK_DEEPSEEK_DELIVERY/00_original/ARKI_CODEBOOK_DEEPSEEK_DELIVERY.zip",
+      "entries": 13
+    },
+    {
+      "source": "ARKI_COMMIT7_ARCHIVOS_PLANOS_HEAD_44a19eb4(2).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 1018,
+      "sha256": "8128a37cdf02942987b3b27da329d5747cf73df04f8bbab53c4266d23d4359f6",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_COMMIT7_ARCHIVOS_PLANOS_HEAD_44a19eb4(2)/00_original/ARKI_COMMIT7_ARCHIVOS_PLANOS_HEAD_44a19eb4(2).txt",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(3).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 10157,
+      "sha256": "ef0a04145450b0409ce34525681590fb6ab68692306053ced5c947482124988e",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(3)/00_original/ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(3).zip",
+      "entries": 1
+    },
+    {
+      "source": "ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(4).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 27599,
+      "sha256": "32b426dc90e618c003e703fb314d625d1a6180aa4b40f8b93ab8b01c441109b4",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(4)/00_original/ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(4).txt",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(4).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 10157,
+      "sha256": "ef0a04145450b0409ce34525681590fb6ab68692306053ced5c947482124988e",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(4)/00_original/ARKI_CONSOLIDADO_ESQUELETO_SISTEMA_NERVIOSO_2026-09-29(4).zip",
+      "entries": 1
+    },
+    {
+      "source": "ARKI_CONTRATO_UI_BIM_DEEPSEEK.md",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 28933,
+      "sha256": "390489f7d62c5efa5bbe4ad6c22220537d9c960d34f01a7a81b1c781d2840d7c",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_CONTRATO_UI_BIM_DEEPSEEK/00_original/ARKI_CONTRATO_UI_BIM_DEEPSEEK.md",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_CONTRATO_UI_BIM_DEEPSEEK.pdf",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 271165,
+      "sha256": "5441ad61533cd7ef54fff02bf59d459d69af16e51cd0a091706869682fc705c5",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_CONTRATO_UI_BIM_DEEPSEEK/00_original/ARKI_CONTRATO_UI_BIM_DEEPSEEK.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_DECISION_UI2_PRODUCT_OWNER.pdf",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 49991,
+      "sha256": "c1228a4d02a025ac85b0bb6ba44c50d7dc946699961382d44a3a5ae0e62668fa",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_DECISION_UI2_PRODUCT_OWNER/00_original/ARKI_DECISION_UI2_PRODUCT_OWNER.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_DEEPSEEK_COMPLEMENTO_UI_SERVER (1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 34695,
+      "sha256": "dd5e96959745141a665cbe6dbc64daa7aa7506ed8b3a1c0b161dbdb546308d1e",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_DEEPSEEK_COMPLEMENTO_UI_SERVER (1)/00_original/ARKI_DEEPSEEK_COMPLEMENTO_UI_SERVER (1).zip",
+      "entries": 12
+    },
+    {
+      "source": "ARKI_DEEPSEEK_COMPLEMENTO_UI_SERVER.zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 33512,
+      "sha256": "71274b909b5639d671782e7c3922eba4cb60377cc7c45c7472dce3fb210db945",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_DEEPSEEK_COMPLEMENTO_UI_SERVER/00_original/ARKI_DEEPSEEK_COMPLEMENTO_UI_SERVER.zip",
+      "entries": 11
+    },
+    {
+      "source": "ARKI_DEEPSEEK_PACKAGE.zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 145605,
+      "sha256": "11433ad6b190bd9e70c2654816a106de80dbc971d4be0aae7f5a2242e81ab0f3",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_DEEPSEEK_PACKAGE/00_original/ARKI_DEEPSEEK_PACKAGE.zip",
+      "entries": 19
+    },
+    {
+      "source": "ARKI_DEEP_AUDIT_CUT2_FOR_DEEPSEEK_2026-09-29(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 6217,
+      "sha256": "9664c1ee1e701090a77db2131346e9636f804652ab604fb85f84571750e9140f",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_DEEP_AUDIT_CUT2_FOR_DEEPSEEK_2026-09-29(2)/00_original/ARKI_DEEP_AUDIT_CUT2_FOR_DEEPSEEK_2026-09-29(2).zip",
+      "entries": 1
+    },
+    {
+      "source": "ARKI_DEEP_AUDIT_FOR_DEEPSEEK_2026-09-29(1).txt",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 32220,
+      "sha256": "bd833c97ce71f474ef0a84398e35dc50b43ac85c4828532aae8a53fbc568d874",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_DEEP_AUDIT_FOR_DEEPSEEK_2026-09-29(1)/00_original/ARKI_DEEP_AUDIT_FOR_DEEPSEEK_2026-09-29(1).txt",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_DEEP_AUDIT_FOR_DEEPSEEK_2026-09-29(1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 12262,
+      "sha256": "3ee285bf8aad18b53dcbc5ed699241cf9d198f81636e7ed3db56f015bd66409f",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_DEEP_AUDIT_FOR_DEEPSEEK_2026-09-29(1)/00_original/ARKI_DEEP_AUDIT_FOR_DEEPSEEK_2026-09-29(1).zip",
+      "entries": 1
+    },
+    {
+      "source": "ARKI_E5_CLOSURE_HANDOFF_DEEPSEEK.zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 138175,
+      "sha256": "822828f123a9f25e85637e117e87d28b6ca3f5c353d27ec184e3f10766da2ef1",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_E5_CLOSURE_HANDOFF_DEEPSEEK/00_original/ARKI_E5_CLOSURE_HANDOFF_DEEPSEEK.zip",
+      "entries": 8
+    },
+    {
+      "source": "ARKI_E5_REOPENED_EVIDENCE(1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 258984,
+      "sha256": "a0e559e937c6f856cf4ba49c5678e27d27eb7b5c56ba1978996aa7687a1618ef",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_E5_REOPENED_EVIDENCE(1)/00_original/ARKI_E5_REOPENED_EVIDENCE(1).zip",
+      "entries": 46
+    },
+    {
+      "source": "ARKI_E8A_EVIDENCE (1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 78815,
+      "sha256": "4e02a4db33ba0f8aecdc924bab6a0b3b34c826485dbe631e4f15b5ffe821af7e",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_E8A_EVIDENCE (1)/00_original/ARKI_E8A_EVIDENCE (1).zip",
+      "entries": 22
+    },
+    {
+      "source": "ARKI_E8A_EVIDENCE (2).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 78815,
+      "sha256": "4e02a4db33ba0f8aecdc924bab6a0b3b34c826485dbe631e4f15b5ffe821af7e",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_E8A_EVIDENCE (2)/00_original/ARKI_E8A_EVIDENCE (2).zip",
+      "entries": 22
+    },
+    {
+      "source": "ARKI_E8A_EVIDENCE.zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 25028,
+      "sha256": "539bedbf8c0557bdc3d753fb87cb7feb36cdff8300996e10b058b6459e64fe8b",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_E8A_EVIDENCE/00_original/ARKI_E8A_EVIDENCE.zip",
+      "entries": 19
+    },
+    {
+      "source": "ARKI_E8B_OM_EVIDENCE.zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 191278,
+      "sha256": "d4660b326701b50030b6acd966118e1a65cc9edba6e2646d5086447e4318a1c2",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_E8B_OM_EVIDENCE/00_original/ARKI_E8B_OM_EVIDENCE.zip",
+      "entries": 20
+    },
+    {
+      "source": "ARKI_F0_REBUILD_EVIDENCE(1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 1551506,
+      "sha256": "a770798ee04237584ec432e35e329cd236244266842fcc91a6a331dfcc20c4b2",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_F0_REBUILD_EVIDENCE(1)/00_original/ARKI_F0_REBUILD_EVIDENCE(1).zip",
+      "entries": 10
+    },
+    {
+      "source": "ARKI_FRONTEND_REFOUNDATION_F0.zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 10746,
+      "sha256": "6754d93eb04a555f35010e534560937d1f935233565d66c8e28d7d9c3465c94d",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_FRONTEND_REFOUNDATION_F0/00_original/ARKI_FRONTEND_REFOUNDATION_F0.zip",
+      "entries": 13
+    },
+    {
+      "source": "ARKI_H002_CLOSED_H003_DEEPSEEK_GATE(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 21526,
+      "sha256": "cd6cecd3eee93a0fbcd65cbafbca84eaadbf5a80a3b5b97d69ee9880b13ea0b5",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_H002_CLOSED_H003_DEEPSEEK_GATE(1)/00_original/ARKI_H002_CLOSED_H003_DEEPSEEK_GATE(1).zip",
+      "entries": 11
+    },
+    {
+      "source": "ARKI_H002_IMPACT_ANALYSIS_PACKAGE(2).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 7616,
+      "sha256": "c03b42d0179b231630a1dcc3cbade43368bdb29f81f618fd5cd097ff2ae7c03d",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_H002_IMPACT_ANALYSIS_PACKAGE(2)/00_original/ARKI_H002_IMPACT_ANALYSIS_PACKAGE(2).zip",
+      "entries": 5
+    },
+    {
+      "source": "ARKI_H002_REAL_CODE_FOR_DEEPSEEK(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 22496,
+      "sha256": "67862a1f7f7955b8762321bebb64cc155cbce8447fd4f75b6e1a9f4093d120cd",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_H002_REAL_CODE_FOR_DEEPSEEK(1)/00_original/ARKI_H002_REAL_CODE_FOR_DEEPSEEK(1).zip",
+      "entries": 10
+    },
+    {
+      "source": "ARKI_HAI_EVIDENCE(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 194708,
+      "sha256": "ba238bdddfc1869d774b969645df692089a34435c667f9d100f241240fc7dad3",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_HAI_EVIDENCE(2)/00_original/ARKI_HAI_EVIDENCE(2).zip",
+      "entries": 22
+    },
+    {
+      "source": "ARKI_ICWI_EVIDENCE(2).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 261978,
+      "sha256": "fa812c78ee29927946b408d1e71fdfa9e692e58b0a482ed98faadecf887bec13",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_ICWI_EVIDENCE(2)/00_original/ARKI_ICWI_EVIDENCE(2).zip",
+      "entries": 30
+    },
+    {
+      "source": "ARKI_INSTRUCCION_DEEPSEEK_ORDEN_UI2.pdf",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 66878,
+      "sha256": "ac994ff764ad1b483303e5cca32bf8d48637312ff172769e8c966e1b7a2c24e8",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_INSTRUCCION_DEEPSEEK_ORDEN_UI2/00_original/ARKI_INSTRUCCION_DEEPSEEK_ORDEN_UI2.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_LIVING_KNOWLEDGE_SYSTEM_ORDER_97(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 19292,
+      "sha256": "09e905c85d751516282ca99a8744d2a8ed436fbc08b2426c11d8076102783dbc",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_LIVING_KNOWLEDGE_SYSTEM_ORDER_97(1)/00_original/ARKI_LIVING_KNOWLEDGE_SYSTEM_ORDER_97(1).zip",
+      "entries": 12
+    },
+    {
+      "source": "ARKI_LKS_97A01_EVIDENCE(2).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 131904,
+      "sha256": "a0786349da6e21bf87b87e5cbedc79d37483a190ee4d7e8bccaed1f55d34740d",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_LKS_97A01_EVIDENCE(2)/00_original/ARKI_LKS_97A01_EVIDENCE(2).zip",
+      "entries": 44
+    },
+    {
+      "source": "ARKI_LKS_97A_EVIDENCE(3).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 71570,
+      "sha256": "9179ff3f92d8e7afb4b97e5e11d1c30a18a2350e7bae8c872f4353ddf3a3a377",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_LKS_97A_EVIDENCE(3)/00_original/ARKI_LKS_97A_EVIDENCE(3).zip",
+      "entries": 39
+    },
+    {
+      "source": "ARKI_LKS_97A_OUTPUTS(1).txt",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 2818,
+      "sha256": "3700159a7a162c62a56df1a0c3593823b038d67a02b248260412da02140cbd49",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_LKS_97A_OUTPUTS(1)/00_original/ARKI_LKS_97A_OUTPUTS(1).txt",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_MASTER_CODEBOOK_V10_CANDIDATE(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 23926,
+      "sha256": "0558fa6b154a27a6a42e69133ae40bea1ecc0ba82556fda283fe047b709b808c",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_MASTER_CODEBOOK_V10_CANDIDATE(1)/00_original/ARKI_MASTER_CODEBOOK_V10_CANDIDATE(1).zip",
+      "entries": 15
+    },
+    {
+      "source": "ARKI_MASTER_CODEBOOK_V10_CANONICAL(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 25845,
+      "sha256": "3299793e291a964bea99267ab63edef248d9205b15d221a8807afc14b68f1964",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_MASTER_CODEBOOK_V10_CANONICAL(1)/00_original/ARKI_MASTER_CODEBOOK_V10_CANONICAL(1).zip",
+      "entries": 17
+    },
+    {
+      "source": "ARKI_MEDIA_BROADCAST_v0.1(2).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 10216,
+      "sha256": "967a6df34a4ddadf394eb7f54cd5dfc66c4081f54e2ae43d02f92a64ab3cc788",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_MEDIA_BROADCAST_v0.1(2)/00_original/ARKI_MEDIA_BROADCAST_v0.1(2).zip",
+      "entries": 13
+    },
+    {
+      "source": "ARKI_MO30_RESULTADOS_20261017_183148.json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 7263,
+      "sha256": "c2751990f22a1af3f110f9079f8c234571224c0e426143579673f5f13d12f65f",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_MO30_RESULTADOS_20261017_183148/00_original/ARKI_MO30_RESULTADOS_20261017_183148.json",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_MO30_RETEST_20261017_183844.json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 2560,
+      "sha256": "4a16d780fc2a50a98fba9f491fa0aab4d3ccc3105a6fd9cd9e25d61a418fa16f",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_MO30_RETEST_20261017_183844/00_original/ARKI_MO30_RETEST_20261017_183844.json",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_MO31_BATERIA_COMPLETA.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 497004,
+      "sha256": "6ce94f761050a4232b078b005b8fc632ad09c709dec06d2bdc837b1447a9582b",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_MO31_BATERIA_COMPLETA/00_original/ARKI_MO31_BATERIA_COMPLETA.zip",
+      "entries": 3
+    },
+    {
+      "source": "ARKI_MO40_DIAGNOSTICO.json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 4332,
+      "sha256": "447e026b6ea203b30a3e0b2fbc53e68ca3c777fa37dbd2f84d0d11e481e646e4",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_MO40_DIAGNOSTICO/00_original/ARKI_MO40_DIAGNOSTICO.json",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_OPBI_06F_S1_27_40_EVIDENCE(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 22200,
+      "sha256": "68e597be887910d89412ba256585fa2c248a6d9f2b7a2b7dc5c03acebb2a43d9",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_OPBI_06F_S1_27_40_EVIDENCE(2)/00_original/ARKI_OPBI_06F_S1_27_40_EVIDENCE(2).zip",
+      "entries": 6
+    },
+    {
+      "source": "ARKI_OPBI_06F_S1_EVIDENCE(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 22102,
+      "sha256": "2df8034fee7d73c05c913628d782c84f9a129ff096f7b518f452c965daa7c2a5",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_OPBI_06F_S1_EVIDENCE(2)/00_original/ARKI_OPBI_06F_S1_EVIDENCE(2).zip",
+      "entries": 6
+    },
+    {
+      "source": "ARKI_OPBI_97A06F_EVIDENCE(1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 25314,
+      "sha256": "3883927145e63d4b690b7c4ce54994a2fa09fed04b5b3c4069d4fa0fd371ee9b",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_OPBI_97A06F_EVIDENCE(1)/00_original/ARKI_OPBI_97A06F_EVIDENCE(1).zip",
+      "entries": 22
+    },
+    {
+      "source": "ARKI_OPBI_EVIDENCE(2).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 305923,
+      "sha256": "48e4549f9a68d23a0a006543b810e39a1f1be3575550dfe836a79abb9d783845",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_OPBI_EVIDENCE(2)/00_original/ARKI_OPBI_EVIDENCE(2).zip",
+      "entries": 41
+    },
+    {
+      "source": "ARKI_PA001_EVIDENCE.zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 19583,
+      "sha256": "f50c57e584607a4fd82663526e563d872366c2629a0e747c654e2e4b49404779",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_PA001_EVIDENCE/00_original/ARKI_PA001_EVIDENCE.zip",
+      "entries": 11
+    },
+    {
+      "source": "ARKI_PREDICTIVE_ARCHITECTURE_001_EVIDENCE(3).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 1086378,
+      "sha256": "236635154b42df85b5b94cd3a990a2edc22c110001305e0e6c866f84b0122645",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_PREDICTIVE_ARCHITECTURE_001_EVIDENCE(3)/00_original/ARKI_PREDICTIVE_ARCHITECTURE_001_EVIDENCE(3).zip",
+      "entries": 52
+    },
+    {
+      "source": "ARKI_PREDICTIVE_ARCHITECTURE_001_S2_EVIDENCE (1).zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 29541,
+      "sha256": "b73622b5d17e721d393cae466ec6413d37f4617ba495d67e0c9e54cb3f440e56",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_PREDICTIVE_ARCHITECTURE_001_S2_EVIDENCE (1)/00_original/ARKI_PREDICTIVE_ARCHITECTURE_001_S2_EVIDENCE (1).zip",
+      "entries": 9
+    },
+    {
+      "source": "ARKI_PREDICTIVE_ARCHITECTURE_001_S2_EVIDENCE.zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 29541,
+      "sha256": "b73622b5d17e721d393cae466ec6413d37f4617ba495d67e0c9e54cb3f440e56",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_PREDICTIVE_ARCHITECTURE_001_S2_EVIDENCE/00_original/ARKI_PREDICTIVE_ARCHITECTURE_001_S2_EVIDENCE.zip",
+      "entries": 9
+    },
+    {
+      "source": "ARKI_REPORTE_INTEGRAL_REFORZAMIENTO_H001_H002(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 41182,
+      "sha256": "abe3f0d807b92ccd7194b5da922f351bed4e917290c215faaca9f4fc95c00724",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_REPORTE_INTEGRAL_REFORZAMIENTO_H001_H002(1)/00_original/ARKI_REPORTE_INTEGRAL_REFORZAMIENTO_H001_H002(1).zip",
+      "entries": 1
+    },
+    {
+      "source": "ARKI_SEMANTIC_CURATOR_v0.1(1).zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 11740,
+      "sha256": "4e8b40cc5d893df1eb9300944f9dc02487da861f1ce68cfe7e4df44dbf183912",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/ARKI_SEMANTIC_CURATOR_v0.1(1)/00_original/ARKI_SEMANTIC_CURATOR_v0.1(1).zip",
+      "entries": 9
+    },
+    {
+      "source": "ARKI_SOLVER_MAP_001_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 170022,
+      "sha256": "107148182b58dd0a5fda0d93c966171720ce7cf82a67313f3fc309c2cf8c498d",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/ARKI_SOLVER_MAP_001_EVIDENCE/00_original/ARKI_SOLVER_MAP_001_EVIDENCE.zip",
+      "entries": 65
+    },
+    {
+      "source": "ARKI_STATE_AUDIT_001(1).pdf",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 413658,
+      "sha256": "d4528505c535b923060d24a6daf8fff1244ab640caaba7d60af0dbf4d625e0f7",
+      "original": "05_Auditorias_handoffs_y_evidencias/ARKI_STATE_AUDIT_001(1)/00_original/ARKI_STATE_AUDIT_001(1).pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_UI1_VERIFICATION_PACKAGE(1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 51272,
+      "sha256": "67bb93f005f0d2630c03a488997b845ccc5362cd07e233ce780be0089b4c2fee",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_UI1_VERIFICATION_PACKAGE(1)/00_original/ARKI_UI1_VERIFICATION_PACKAGE(1).zip",
+      "entries": 17
+    },
+    {
+      "source": "ARKI_UI1_VERIFICATION_PACKAGE.zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 51272,
+      "sha256": "67bb93f005f0d2630c03a488997b845ccc5362cd07e233ce780be0089b4c2fee",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_UI1_VERIFICATION_PACKAGE/00_original/ARKI_UI1_VERIFICATION_PACKAGE.zip",
+      "entries": 17
+    },
+    {
+      "source": "ARKI_UI_GOVERNANCE_001_A0_EVIDENCE (1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 188558,
+      "sha256": "fb5a506debaa7c852de77e744c624074dc98bcb8afb46980ef6acde6f4d60539",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_UI_GOVERNANCE_001_A0_EVIDENCE (1)/00_original/ARKI_UI_GOVERNANCE_001_A0_EVIDENCE (1).zip",
+      "entries": 38
+    },
+    {
+      "source": "ARKI_UI_GOVERNANCE_001_A0_EVIDENCE(1).zip",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 183045,
+      "sha256": "8aeb2eba34773e4c39065fff56767b83014cea9854f082f12ce15d770fc28448",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/ARKI_UI_GOVERNANCE_001_A0_EVIDENCE(1)/00_original/ARKI_UI_GOVERNANCE_001_A0_EVIDENCE(1).zip",
+      "entries": 37
+    },
+    {
+      "source": "ARKI_—_Estado_completo_y_pendientes.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 144076,
+      "sha256": "cf55f523861fae56f017171bab4d864ac365218dadff08dfbb6f4477319b6362",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_—_Estado_completo_y_pendientes/00_original/ARKI_—_Estado_completo_y_pendientes.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARKI_—_Flujo_de_trabajo_operativo_y_diseño_funcional_de_pantallas.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 140391,
+      "sha256": "d0ecac55b319bbe78c8ae8feb4c1255a1414a87fb1d40d1bb6e651d4dede7337",
+      "original": "01_Historia_gobierno_y_documentos_generales/ARKI_—_Flujo_de_trabajo_operativo_y_diseño_funcional_de_pantallas/00_original/ARKI_—_Flujo_de_trabajo_operativo_y_diseño_funcional_de_pantallas.pdf",
+      "entries": 0
+    },
+    {
+      "source": "ARLU_CORP_001_DESIGN_PACKAGE.zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 27191,
+      "sha256": "148179f4c084e515fce5964228d1196fafd471ee20e7d99450b1aae3a445d91d",
+      "original": "07_Proyectos_separados_y_referencias/ARLU_CORP_001_DESIGN_PACKAGE/00_original/ARLU_CORP_001_DESIGN_PACKAGE.zip",
+      "entries": 12
+    },
+    {
+      "source": "AR_LU_CORPORATE_001_DESIGN_PACKAGE(1).zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 41714,
+      "sha256": "f91f52b4fb2e92df979877b28d564f799b27f9ae19fea9cbc418f6d641937d7e",
+      "original": "07_Proyectos_separados_y_referencias/AR_LU_CORPORATE_001_DESIGN_PACKAGE(1)/00_original/AR_LU_CORPORATE_001_DESIGN_PACKAGE(1).zip",
+      "entries": 16
+    },
+    {
+      "source": "Archi_—_E5_SceneModel_3D_y_ciclo_de_verificación.pdf",
+      "category": "04_Interfaz_BIM_escena_y_expedientes",
+      "bytes": 85336,
+      "sha256": "417275989307d851601497012de1a4f0ed272d1bd4c4667f266372d77ecab46a",
+      "original": "04_Interfaz_BIM_escena_y_expedientes/Archi_—_E5_SceneModel_3D_y_ciclo_de_verificación/00_original/Archi_—_E5_SceneModel_3D_y_ciclo_de_verificación.pdf",
+      "entries": 0
+    },
+    {
+      "source": "Arki-Audit.zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 2883877,
+      "sha256": "466afeec98781dc8539c60f445a525e0af68f7f31eaa855672659bca516f2874",
+      "original": "05_Auditorias_handoffs_y_evidencias/Arki-Audit/00_original/Arki-Audit.zip",
+      "entries": 776
+    },
+    {
+      "source": "Auto Ensamblaje 001.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 89425,
+      "sha256": "57779f64cd36d5cf00d79ab4dddd70420648d902c0c5df5cec95756627e42015",
+      "original": "01_Historia_gobierno_y_documentos_generales/Auto Ensamblaje 001/00_original/Auto Ensamblaje 001.zip",
+      "entries": 69
+    },
+    {
+      "source": "BKH1_EVIDENCE(2).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 65130,
+      "sha256": "9fb1d39b1629082b840fc88bb3f355c12b541d12ba18fb7fbe1e4dfb2c11168a",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH1_EVIDENCE(2)/00_original/BKH1_EVIDENCE(2).zip",
+      "entries": 20
+    },
+    {
+      "source": "BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 11322,
+      "sha256": "d0c5f569466e71a48b9ab6dcf23ac86aad154a16824c83322209cd2ef5590c41",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE/00_original/BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip",
+      "entries": 8
+    },
+    {
+      "source": "BKH2_CONTRACT_DESIGN (1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 22578,
+      "sha256": "6d9febe6603e8538bda81d553b5dc656233c90f4330b33b77c0dbd76dee7f656",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH2_CONTRACT_DESIGN (1)/00_original/BKH2_CONTRACT_DESIGN (1).zip",
+      "entries": 13
+    },
+    {
+      "source": "BKH2_CONTRACT_DESIGN.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 19107,
+      "sha256": "f4e36229545fa74e1ada1c8d01ac2a0f1b050a09902bd9f7d2627252b09d3074",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH2_CONTRACT_DESIGN/00_original/BKH2_CONTRACT_DESIGN.zip",
+      "entries": 13
+    },
+    {
+      "source": "BKH2_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 34533,
+      "sha256": "f72b8a483eaf563e4067ce35baf5bc189b414800f8a9eba2b476731c9d58293c",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH2_EVIDENCE/00_original/BKH2_EVIDENCE.zip",
+      "entries": 12
+    },
+    {
+      "source": "BKH3_CONTRACT_DESIGN (1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 28472,
+      "sha256": "543bc729161e8c738a0d5d987cf43b436c4cdb12ba6a3d85180b069c1aae0add",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH3_CONTRACT_DESIGN (1)/00_original/BKH3_CONTRACT_DESIGN (1).zip",
+      "entries": 18
+    },
+    {
+      "source": "BKH3_CONTRACT_DESIGN.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 25587,
+      "sha256": "8a246192c989ae12299cfb7d0b3fa91decddf9fde24d208e2e79478030a83f00",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH3_CONTRACT_DESIGN/00_original/BKH3_CONTRACT_DESIGN.zip",
+      "entries": 17
+    },
+    {
+      "source": "BKH3_EVIDENCE (1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 39766,
+      "sha256": "222d15cd2e05e1ba7839a2a3be5cfa5b81fa5c822a57a0c65a110a726be6b6f7",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH3_EVIDENCE (1)/00_original/BKH3_EVIDENCE (1).zip",
+      "entries": 23
+    },
+    {
+      "source": "BKH3_EVIDENCE (2).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 39766,
+      "sha256": "222d15cd2e05e1ba7839a2a3be5cfa5b81fa5c822a57a0c65a110a726be6b6f7",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH3_EVIDENCE (2)/00_original/BKH3_EVIDENCE (2).zip",
+      "entries": 23
+    },
+    {
+      "source": "BKH3_EVIDENCE.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 15281,
+      "sha256": "65dc081310dc496988e5427511b0e3c86c2c3dc3c86bf4baac2d17a63f52ff65",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH3_EVIDENCE/00_original/BKH3_EVIDENCE.zip",
+      "entries": 6
+    },
+    {
+      "source": "BKH_KERNEL_PACKAGE(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 94862,
+      "sha256": "32dba611ead6272f231f22e8678b3f333e5cc5457470283e0f143586bce6dd99",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/BKH_KERNEL_PACKAGE(1)/00_original/BKH_KERNEL_PACKAGE(1).zip",
+      "entries": 46
+    },
+    {
+      "source": "C1_C80_WAVE0_EVIDENCE.zip",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 34888,
+      "sha256": "ae49b10178efecd25c8552156d718d40174d831ff069edb593b973d4c49e7b4d",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/C1_C80_WAVE0_EVIDENCE/00_original/C1_C80_WAVE0_EVIDENCE.zip",
+      "entries": 23
+    },
+    {
+      "source": "DEEPSEEK_HANDOFF_2026_09_22.zip",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 975776,
+      "sha256": "b52c4217ccab55375115cf5a0ac4a985e09a60e4fba759f28d2fd22c12648686",
+      "original": "05_Auditorias_handoffs_y_evidencias/DEEPSEEK_HANDOFF_2026_09_22/00_original/DEEPSEEK_HANDOFF_2026_09_22.zip",
+      "entries": 21
+    },
+    {
+      "source": "DOC-CVS.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 3669831,
+      "sha256": "19b80a151fff4011efecc0dbe4cef225db8d218e74cb3a63b2eced82f9012dc1",
+      "original": "01_Historia_gobierno_y_documentos_generales/DOC-CVS/00_original/DOC-CVS.zip",
+      "entries": 131
+    },
+    {
+      "source": "EXPEDIENTE COMPLETO (1).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 10087153,
+      "sha256": "2b9f15324d541df51d33af107a686d37ca571c374ff98e19f91ebe42be161032",
+      "original": "01_Historia_gobierno_y_documentos_generales/EXPEDIENTE COMPLETO (1)/00_original/EXPEDIENTE COMPLETO (1).zip",
+      "entries": 7
+    },
+    {
+      "source": "Fase_0_—_Firma_del_Product_Owner_confirmada.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 85195,
+      "sha256": "1b06e46da20348b574eac773a4e9e415c3ddbc72e625c89180ecf03e716cc786",
+      "original": "01_Historia_gobierno_y_documentos_generales/Fase_0_—_Firma_del_Product_Owner_confirmada/00_original/Fase_0_—_Firma_del_Product_Owner_confirmada.pdf",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(10).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 339,
+      "sha256": "91fc070a7f2904aeb29cb0022d753c3751615ef74e8767522920374ca0f8fe79",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(10)/00_original/INFORME(10).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(2).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 17957,
+      "sha256": "da91b027e08aa0520435978b341f0ba166d5d0737a43b6b17209fc2d2b030baa",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(2)/00_original/INFORME(2).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(3).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 20185,
+      "sha256": "6aab16e54a4cc76fe8a4121463289aafbc44e0220ba73772a25cefd26adcef58",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(3)/00_original/INFORME(3).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(4).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 475,
+      "sha256": "6752d07ff94411421723acd8792e9d6c34afaa9aaaf50ebb377399a015185cf3",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(4)/00_original/INFORME(4).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(5).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 10395,
+      "sha256": "829961340d182e35c9c31037d2d67bda91cad466bd57b1bb507493036105e01a",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(5)/00_original/INFORME(5).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(6).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 1963,
+      "sha256": "ee69d36a747182b124631a83a80ec0acd769a22a3e0ef8206eb17a3317697403",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(6)/00_original/INFORME(6).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(7).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 7461,
+      "sha256": "d5134f4cc7b2d144404325cbba84aadb62ad53cdd4b1c0284e9437a3eaab6430",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(7)/00_original/INFORME(7).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(8).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 21729,
+      "sha256": "e886a681b27377ea19d49ddd64563e987f050c570f9b5cbd085dea78aa9241b6",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(8)/00_original/INFORME(8).md",
+      "entries": 0
+    },
+    {
+      "source": "INFORME(9).md",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 388,
+      "sha256": "66962f116696cc0d7e2585c50a40b07d67b31c40493a65a25f0bbad2ecd8784f",
+      "original": "01_Historia_gobierno_y_documentos_generales/INFORME(9)/00_original/INFORME(9).md",
+      "entries": 0
+    },
+    {
+      "source": "LUCA_MILUKITA_ARKI_RESPONSE_PACKAGE.zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 18552,
+      "sha256": "a12041961fadbc56fae47523d824fa6adcce8843b295051d33fe956f81e728cf",
+      "original": "07_Proyectos_separados_y_referencias/LUCA_MILUKITA_ARKI_RESPONSE_PACKAGE/00_original/LUCA_MILUKITA_ARKI_RESPONSE_PACKAGE.zip",
+      "entries": 8
+    },
+    {
+      "source": "LUCA_MILUKITA_REMOTE_PAIRING_ADDENDUM(1).zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 10243,
+      "sha256": "dffc5bd329a6fb0fefe549a7c1ef6201e049be294a270d999cec086ef4c2fff8",
+      "original": "07_Proyectos_separados_y_referencias/LUCA_MILUKITA_REMOTE_PAIRING_ADDENDUM(1)/00_original/LUCA_MILUKITA_REMOTE_PAIRING_ADDENDUM(1).zip",
+      "entries": 3
+    },
+    {
+      "source": "Manual casos prácticos BIM_Archivos IFC_01.2_Residencial.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 9489288,
+      "sha256": "89ab27e40e69cfa6bb5eb95c011a687aaf49909f499930a6eb0801f536ece92e",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/Manual casos prácticos BIM_Archivos IFC_01.2_Residencial/00_original/Manual casos prácticos BIM_Archivos IFC_01.2_Residencial.zip",
+      "entries": 3
+    },
+    {
+      "source": "MiLukita 11-09-2026(1).zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 12315204,
+      "sha256": "a02340885324ea6bae8114a628074b73a77d7035189efff56b90156b2073b77c",
+      "original": "07_Proyectos_separados_y_referencias/MiLukita 11-09-2026(1)/00_original/MiLukita 11-09-2026(1).zip",
+      "entries": 923
+    },
+    {
+      "source": "Orden_55_MiLukita_Knowledge_Transfer_545a0ed0 (1).zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 37323,
+      "sha256": "d8bc653b29f3a4f8982fe7b1800ccc0dd7bcfb7c4d0a675b4d74f7674a75ea4e",
+      "original": "07_Proyectos_separados_y_referencias/Orden_55_MiLukita_Knowledge_Transfer_545a0ed0 (1)/00_original/Orden_55_MiLukita_Knowledge_Transfer_545a0ed0 (1).zip",
+      "entries": 31
+    },
+    {
+      "source": "PROY_FERNANDEZ_ROJAS.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 3750733,
+      "sha256": "3867523efba38be10c1cf3703c5cfbbda628a80e0e29c620a8e47c1a6e01815d",
+      "original": "01_Historia_gobierno_y_documentos_generales/PROY_FERNANDEZ_ROJAS/00_original/PROY_FERNANDEZ_ROJAS.pdf",
+      "entries": 0
+    },
+    {
+      "source": "REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY(1).pdf",
+      "category": "03_Conocimiento_aprendizaje_y_semantica",
+      "bytes": 143787,
+      "sha256": "36007d192a34d12660f353053ff68e20b72eff9c18192964615f995a908937fd",
+      "original": "03_Conocimiento_aprendizaje_y_semantica/REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY(1)/00_original/REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY(1).pdf",
+      "entries": 0
+    },
+    {
+      "source": "SILC.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 206438,
+      "sha256": "097f1eb1474f851a43b87a2dc47669f5cdc3c26de7562ca3f8297bb029e4d774",
+      "original": "01_Historia_gobierno_y_documentos_generales/SILC/00_original/SILC.zip",
+      "entries": 44
+    },
+    {
+      "source": "TXT.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 201837,
+      "sha256": "6d991bb7f6bd6867705bad3d343d70422de05c93c94da75f8ef703668531d9ca",
+      "original": "01_Historia_gobierno_y_documentos_generales/TXT/00_original/TXT.zip",
+      "entries": 123
+    },
+    {
+      "source": "Texto pegado(20261017-224924).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 32630,
+      "sha256": "8fdc4ecae73d7baafff659c98c018c1387582fc79e26efb50ceb421d6576f745",
+      "original": "01_Historia_gobierno_y_documentos_generales/Texto pegado(20261017-224924)/00_original/Texto pegado(20261017-224924).txt",
+      "entries": 0
+    },
+    {
+      "source": "Texto pegado(20261018-002111).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 10440,
+      "sha256": "af6ff55902c688fb5758c9939cfc44992c0d57f6df65e18c8aa2069f85c8c904",
+      "original": "01_Historia_gobierno_y_documentos_generales/Texto pegado(20261018-002111)/00_original/Texto pegado(20261018-002111).txt",
+      "entries": 0
+    },
+    {
+      "source": "Texto pegado(20261018-002317).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 10850,
+      "sha256": "71267d73cee96971abded891291eacf3d406d059730abca285c832ca7f697971",
+      "original": "01_Historia_gobierno_y_documentos_generales/Texto pegado(20261018-002317)/00_original/Texto pegado(20261018-002317).txt",
+      "entries": 0
+    },
+    {
+      "source": "Texto pegado(20261018-004146).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 14973,
+      "sha256": "a084c93fd4c11001b29f2a45fb3f547c2a980bfc4045f5be6a6c56a4496752e9",
+      "original": "01_Historia_gobierno_y_documentos_generales/Texto pegado(20261018-004146)/00_original/Texto pegado(20261018-004146).txt",
+      "entries": 0
+    },
+    {
+      "source": "Texto pegado(20261018-031727).txt",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 19922,
+      "sha256": "a61a0829268b72bfd88a809d0da9bf6325010ce5e3415b1a3ad45e27e8122edc",
+      "original": "01_Historia_gobierno_y_documentos_generales/Texto pegado(20261018-031727)/00_original/Texto pegado(20261018-031727).txt",
+      "entries": 0
+    },
+    {
+      "source": "Varios Arki.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 1730718,
+      "sha256": "308a996a5cf0fa9885708d0292e41c7e25509daeac4323ac2a317420172a3108",
+      "original": "01_Historia_gobierno_y_documentos_generales/Varios Arki/00_original/Varios Arki.zip",
+      "entries": 391
+    },
+    {
+      "source": "Varios02.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 686584,
+      "sha256": "1f02b6ad6a439ddfb9f88f16448f47d0dc3385324fb130c17c38ec295ca937a3",
+      "original": "01_Historia_gobierno_y_documentos_generales/Varios02/00_original/Varios02.zip",
+      "entries": 189
+    },
+    {
+      "source": "Varios1.zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 4056514,
+      "sha256": "cade7900ca8d529ab25caf2a57e32071a05c4e80292aff2531a3db77d7881048",
+      "original": "01_Historia_gobierno_y_documentos_generales/Varios1/00_original/Varios1.zip",
+      "entries": 76
+    },
+    {
+      "source": "a002-review-files(1).zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 13364,
+      "sha256": "15847bd8dd6c34ca912f417d1d17bfcdbe5447c9fcb75825fe51d3540150f87b",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/a002-review-files(1)/00_original/a002-review-files(1).zip",
+      "entries": 8
+    },
+    {
+      "source": "a002-v14-evidence.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 27518,
+      "sha256": "9e76f8442e80267c605a3bae5dc9e38c2faad51dbff644f1a4dbaaad7eec00fb",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/a002-v14-evidence/00_original/a002-v14-evidence.zip",
+      "entries": 24
+    },
+    {
+      "source": "a002-v142-evidence.zip",
+      "category": "02_Kernel_geometria_contratos_y_pruebas",
+      "bytes": 4253,
+      "sha256": "e5562945c01e67beeb5aab3431923ce3599e9bb83fa70c4e9ec006597a590c28",
+      "original": "02_Kernel_geometria_contratos_y_pruebas/a002-v142-evidence/00_original/a002-v142-evidence.zip",
+      "entries": 9
+    },
+    {
+      "source": "arki-autoensamblaje-20261012(1).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 16184,
+      "sha256": "6bb41ebfae19759ffa38acd008717299b9b7e4de21139011533b19a557f8a90d",
+      "original": "01_Historia_gobierno_y_documentos_generales/arki-autoensamblaje-20261012(1)/00_original/arki-autoensamblaje-20261012(1).zip",
+      "entries": 15
+    },
+    {
+      "source": "arki-autoensamblaje-v02-20261012(1).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 24694,
+      "sha256": "9aadc1b5722aae2737dd64b456212e131ae3029d8e3ed93b86fce1750c2070ac",
+      "original": "01_Historia_gobierno_y_documentos_generales/arki-autoensamblaje-v02-20261012(1)/00_original/arki-autoensamblaje-v02-20261012(1).zip",
+      "entries": 23
+    },
+    {
+      "source": "arki-autoensamblaje-v03-guardian-20261012(1).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 28058,
+      "sha256": "c996cab3f9b68b45a6776b8d4fd49b0c7d6ab1b08d01cd6c4fce3a03c6277ae6",
+      "original": "01_Historia_gobierno_y_documentos_generales/arki-autoensamblaje-v03-guardian-20261012(1)/00_original/arki-autoensamblaje-v03-guardian-20261012(1).zip",
+      "entries": 26
+    },
+    {
+      "source": "arki-f1-report.txt",
+      "category": "05_Auditorias_handoffs_y_evidencias",
+      "bytes": 3560,
+      "sha256": "3fc012741bb2aba9360aaf64ddd08836eebf9332efc1f75972014921338b9710",
+      "original": "05_Auditorias_handoffs_y_evidencias/arki-f1-report/00_original/arki-f1-report.txt",
+      "entries": 0
+    },
+    {
+      "source": "commands-reference.pdf",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 480747,
+      "sha256": "7f5a408a9151c5bf676d35980fb62ece81d851a54202322f1fa158b5892d5ffb",
+      "original": "01_Historia_gobierno_y_documentos_generales/commands-reference/00_original/commands-reference.pdf",
+      "entries": 0
+    },
+    {
+      "source": "inventario.csv",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 2088,
+      "sha256": "e0666311ef0b16fdd12351b7631dfb7421e17584ca2504ade0ca4e3076731ece",
+      "original": "01_Historia_gobierno_y_documentos_generales/inventario/00_original/inventario.csv",
+      "entries": 0
+    },
+    {
+      "source": "inventario.json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 52412,
+      "sha256": "beae8a874a0faa90ccb997e87e9450a3ed766e36434f5ac497f181bb663fa396",
+      "original": "01_Historia_gobierno_y_documentos_generales/inventario/00_original/inventario.json",
+      "entries": 0
+    },
+    {
+      "source": "manifest(1).json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 1722,
+      "sha256": "365b119ef80cea842e31516699774bfa1d22a1bbfb0c122912c5e38772f5f1cc",
+      "original": "01_Historia_gobierno_y_documentos_generales/manifest(1)/00_original/manifest(1).json",
+      "entries": 0
+    },
+    {
+      "source": "metricas(1).csv",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 7461,
+      "sha256": "9069564d7780dbc38dc58eefe6d62a877d9032898decaddec0d0b566be43f9de",
+      "original": "01_Historia_gobierno_y_documentos_generales/metricas(1)/00_original/metricas(1).csv",
+      "entries": 0
+    },
+    {
+      "source": "metricas.csv",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 1713,
+      "sha256": "dc902b89f6596d4fa4ac386fe3bd9f5f8ada33304230e3f172d93e1f90991c31",
+      "original": "01_Historia_gobierno_y_documentos_generales/metricas/00_original/metricas.csv",
+      "entries": 0
+    },
+    {
+      "source": "respuestas.json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 21003,
+      "sha256": "be34ebf7d08a6954c543c8ce04a1a30adfc38acbe89648c650cd9251479217c6",
+      "original": "01_Historia_gobierno_y_documentos_generales/respuestas/00_original/respuestas.json",
+      "entries": 0
+    },
+    {
+      "source": "resultado.json",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 1871,
+      "sha256": "48a0e619c045894d3e90021056bdd9b29da7049e62e3d24a34c8277e8635daed",
+      "original": "01_Historia_gobierno_y_documentos_generales/resultado/00_original/resultado.json",
+      "entries": 0
+    },
+    {
+      "source": "sicl-web-main (1)(2).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 3645174,
+      "sha256": "c117985c9d382cf6ef05abbe1bf0d5422a7f9c197e736988e5ebd54b415073c8",
+      "original": "01_Historia_gobierno_y_documentos_generales/sicl-web-main (1)(2)/00_original/sicl-web-main (1)(2).zip",
+      "entries": 690
+    },
+    {
+      "source": "sicl-web-main(4).zip",
+      "category": "01_Historia_gobierno_y_documentos_generales",
+      "bytes": 2749036,
+      "sha256": "344a0dfd5102fce40e98f0d642a2c2289aea6da0f8c3071bcce6a45c035b7646",
+      "original": "01_Historia_gobierno_y_documentos_generales/sicl-web-main(4)/00_original/sicl-web-main(4).zip",
+      "entries": 398
+    },
+    {
+      "source": "sims-dei-10-demo-artifacts(3).zip",
+      "category": "07_Proyectos_separados_y_referencias",
+      "bytes": 70103,
+      "sha256": "4a1db18d3a30f63139c10976ba933d62c699e76396a84629e7fe727e645b1571",
+      "original": "07_Proyectos_separados_y_referencias/sims-dei-10-demo-artifacts(3)/00_original/sims-dei-10-demo-artifacts(3).zip",
+      "entries": 14
+    }
+  ],
+  "errors": []
+}

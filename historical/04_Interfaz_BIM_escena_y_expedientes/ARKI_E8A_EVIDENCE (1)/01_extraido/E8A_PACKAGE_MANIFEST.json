@@ -1,0 +1,111 @@
+{
+  "schema": "ARKI-E8A-EVIDENCE-PACKAGE-1.0",
+  "status": "IMPLEMENTED / PENDING INDEPENDENT REVIEW",
+  "files": [
+    {
+      "path": "E8-A_OUTPUTS.txt",
+      "sha256": "0be8bb0c0d3f2c54aadc953c2cd41d2b69a3e9c7169d962741ca3a62a61a0a78",
+      "bytes": 722
+    },
+    {
+      "path": "E8-A_REPORT.md",
+      "sha256": "47e0fd792d71f81b5ce6dca8e1e8f17baec1a42d2cbe0b7ecf75b11ef4f648d1",
+      "bytes": 2551
+    },
+    {
+      "path": "E8A_GENERATION_OUTPUTS.txt",
+      "sha256": "bccb52302008797f8acb556adc1edace1f1bdfe19fa7a26fd630d5498c52b84a",
+      "bytes": 779
+    },
+    {
+      "path": "E8A_TEST_OUTPUTS.txt",
+      "sha256": "0be8bb0c0d3f2c54aadc953c2cd41d2b69a3e9c7169d962741ca3a62a61a0a78",
+      "bytes": 722
+    },
+    {
+      "path": "E8_A_OUTPUT/01-memoria-descriptiva.md",
+      "sha256": "8d0ccbdd2cedc6af1f9f42b93167e06cd301671c602ca226d8100cccf853905a",
+      "bytes": 661
+    },
+    {
+      "path": "E8_A_OUTPUT/02-especificaciones-tecnicas.md",
+      "sha256": "c9694db7ae67f27d06293c356e5c207c935b2d7fbb81fbe23b2b32cb7b838c39",
+      "bytes": 4686
+    },
+    {
+      "path": "E8_A_OUTPUT/03-metrados.md",
+      "sha256": "d16270e49f7af384b38cc1f5f42c4a38ca4005e08f3d82920145124f1aae07c7",
+      "bytes": 1115
+    },
+    {
+      "path": "E8_A_OUTPUT/04-presupuesto.md",
+      "sha256": "ff8e426646c310640e7567eb1cf4c67738440d2dd2576b584d1bfef9bedafc94",
+      "bytes": 319
+    },
+    {
+      "path": "E8_A_OUTPUT/05-planta.svg",
+      "sha256": "132cfb870a8847e475bda6973ed207878a93b4bd636634e012852235b3527fd3",
+      "bytes": 1984
+    },
+    {
+      "path": "E8_A_OUTPUT/dossier-compilation.json",
+      "sha256": "be746a8788eab193791a5688a7ea367318779d9221301c3ca6c053cfe94ea95f",
+      "bytes": 19082
+    },
+    {
+      "path": "E8_CAPTURAS/01-expediente-compilado.svg",
+      "sha256": "964b2d28684e69b9aca5112e0153698d652fbe751a9f304b7e20ada65697e93d",
+      "bytes": 1701
+    },
+    {
+      "path": "E8_CAPTURAS/01-expediente-compilado.webp",
+      "sha256": "90aa2e30e3fe6604a6b6325cf6f8514942b24cfd8928b29f8177ac15201a0521",
+      "bytes": 25376
+    },
+    {
+      "path": "E8_CAPTURAS/02-trazabilidad-snapshot.svg",
+      "sha256": "7f11648f63e3db2d21828042c6a3d3700ef37ca86879878c26a2c55b302fa0cc",
+      "bytes": 3284
+    },
+    {
+      "path": "E8_CAPTURAS/02-trazabilidad-snapshot.webp",
+      "sha256": "a626f9468846fd5a73b6eb83009e4780f6c92e48ca18a4e9ab3cdef7360d486e",
+      "bytes": 28704
+    },
+    {
+      "path": "E8_CONTRATO_PROPUESTO_V1.md",
+      "sha256": "dba7c7f71afab3e1324675d3f2e08c48a5004b956a4ad960123008e75a21520d",
+      "bytes": 4581
+    },
+    {
+      "path": "E8_MANIFEST.json",
+      "sha256": "a4cd7609f17c89bbe1d4922224e436a25ee4cb630ca96941fe645cc1c07323e7",
+      "bytes": 3894
+    },
+    {
+      "path": "E8_PREFLIGHT_OUTPUTS.txt",
+      "sha256": "1cdb08e9de9a3fda37dc389a446626789aa5b763a4c3b22726f8ea7570563c93",
+      "bytes": 3457
+    },
+    {
+      "path": "E8_SCOPE_LIMITS.md",
+      "sha256": "e319dd1d8acc0f817ea1a71a68bea98c6ee163ebb15982bd61585b12ad482efe",
+      "bytes": 2040
+    },
+    {
+      "path": "scripts/generate-e8a-evidence.ts",
+      "sha256": "6c4a32d88de43e3eb966520fb57830b4590c068d6cdffebe64497be74234ab91",
+      "bytes": 5858
+    },
+    {
+      "path": "scripts/test-e8a-dossier.ts",
+      "sha256": "b748a76cc6290d3178c7862321620521f22a8112ee5669abf74c4f7c7545d125",
+      "bytes": 3179
+    },
+    {
+      "path": "shared/arkiTechnicalDossierCompiler.ts",
+      "sha256": "3f3db625d96269f7c9badd02bff41e485020d6beb82e326023ce2e2abca0b748",
+      "bytes": 8455
+    }
+  ]
+}

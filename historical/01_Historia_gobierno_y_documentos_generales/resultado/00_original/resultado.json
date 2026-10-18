@@ -1,0 +1,55 @@
+{
+  "fecha_utc": "2026-10-18T06:23:33.976965+00:00",
+  "mo40_manifest": "/home/arki/Descargas/ARKI_MO40_RECONCILIADO/manifest.json",
+  "repos": [
+    {
+      "nombre": "sicl-web",
+      "resultado": "PASS",
+      "archivos_origen": 1256,
+      "archivos_copia": 1256,
+      "faltantes": [],
+      "sobrantes": [],
+      "divergentes": [],
+      "errores_origen": [],
+      "errores_copia": [],
+      "estado_git_igual_mo40": true,
+      "estable_durante_auditoria": true,
+      "sha256_inventario_origen": "24cb2d5d407b4d0aec3fc16d3b247aa56c49484b8685892a470b07dc584f2cef",
+      "sha256_inventario_copia": "24cb2d5d407b4d0aec3fc16d3b247aa56c49484b8685892a470b07dc584f2cef",
+      "pruebas_candidatas": 117
+    },
+    {
+      "nombre": "sicl-core",
+      "resultado": "PASS",
+      "archivos_origen": 412,
+      "archivos_copia": 412,
+      "faltantes": [],
+      "sobrantes": [],
+      "divergentes": [],
+      "errores_origen": [],
+      "errores_copia": [],
+      "estado_git_igual_mo40": true,
+      "estable_durante_auditoria": true,
+      "sha256_inventario_origen": "5eb7fdbf3792235b6d8ee6cb153e2306869b304e8864f1f9f5ec987bbfae7e1d",
+      "sha256_inventario_copia": "5eb7fdbf3792235b6d8ee6cb153e2306869b304e8864f1f9f5ec987bbfae7e1d",
+      "pruebas_candidatas": 101
+    },
+    {
+      "nombre": "arki-acs",
+      "resultado": "PASS",
+      "archivos_origen": 228,
+      "archivos_copia": 228,
+      "faltantes": [],
+      "sobrantes": [],
+      "divergentes": [],
+      "errores_origen": [],
+      "errores_copia": [],
+      "estado_git_igual_mo40": true,
+      "estable_durante_auditoria": true,
+      "sha256_inventario_origen": "2211acd8a4d509e63f7c28233fd3ec78cf592b49f11d7e46a439b478f631baf9",
+      "sha256_inventario_copia": "2211acd8a4d509e63f7c28233fd3ec78cf592b49f11d7e46a439b478f631baf9",
+      "pruebas_candidatas": 33
+    }
+  ],
+  "estado": "PASS"
+}

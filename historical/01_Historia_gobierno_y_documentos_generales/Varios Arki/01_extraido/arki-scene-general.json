@@ -1,0 +1,13 @@
+{
+  "schema": "ARKI-SCENE-CAPTURE-1.0",
+  "sha256": "4e603cc4764377bdf92b9de3375c49f3b3fcd1d299ed66f69370fed7ec9b5798",
+  "viewport": {
+    "width": 743,
+    "height": 500
+  },
+  "level": "all",
+  "visibleKinds": [],
+  "selectedIds": [],
+  "nodes": 545,
+  "generatedAt": "2026-09-23T06:14:42.117Z"
+}

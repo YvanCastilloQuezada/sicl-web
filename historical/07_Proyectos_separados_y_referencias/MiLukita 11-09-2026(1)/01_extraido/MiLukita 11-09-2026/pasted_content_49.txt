@@ -1,0 +1,142 @@
+ORDEN PARA MANUS: CREAR EL PORTAL DE MANTENIMIENTO TÉCNICO
+ORDEN PARA MANUS: IMPLEMENTACIÓN DEL PORTAL DE MANTENIMIENTO TÉCNICO (BACKOFFICE)
+
+MOTIVO (POR QUÉ SE EJECUTA):
+El sistema está TECHNICALLY_READY. Para que el Field Gate 001 sea viable, se necesita:
+
+Un portal oculto para que el equipo técnico verifique el estado del sistema.
+
+Diagnosticar dispositivos (GPS, cámara, micrófono) en tiempo real.
+
+Auditar los datos (hashes, informes, evidencias).
+
+Generar los QRs definitivos (con URLs públicas).
+
+ALCANCE:
+
+MJP CORE: No se modifica.
+
+1. RUTA DEL PORTAL
+   IMPLEMENTACIÓN:
+
+URL: /tech o /support (ruta oculta, no visible en la portada).
+
+Acceso: Requiere autenticación y rol ADMIN.
+
+2. PANEL DE ESTADO DEL SISTEMA
+   IMPLEMENTACIÓN:
+
+Uptime: Mostrar el estado de la app (Funcionando / Caído).
+
+Rutas: Verificar que /mapper, /the-eye, /qr-studio están accesibles.
+
+Endpoints: Monitorizar los servicios del backend.
+
+MJP CORE: Aislado, mostrar solo el estado.
+
+3. PANEL DE DIAGNÓSTICO
+   IMPLEMENTACIÓN:
+
+GPS: Verificar coordenadas, precisión, estado.
+
+Cámera: Verificar capture y permisos.
+
+Micrófono: Verificar audio и permissions.
+
+Offline: Verificar Service Worker и Cache.
+
+4. PANEL DE AUDITORÍA
+   IMPLEMENTACIÓN:
+
+Hashes: Метаданные SHA-256 для QR и exports.
+
+Informes: Отображение и экспорт PDF/CSV.
+
+Evidencia: Проверка содержимого галереи S3 (Original, Hash, Status).
+
+5. QR GENERATOR
+   IMPLEMENTACIÓN:
+
+QR Portal: Apunta к URL публичного Portal.
+
+QR Mapper: Apunta к URL публичного /mapper.
+
+QR The Eye: Apunta к URL публичного /the-eye.
+
+Cерviso: Печать, скачивание, экспорт.
+
+6. РАЗВЕРТЫВАНИЕ
+   IMPLEMENTАЦИЯ:
+
+Деплой: Предоставить временную публичную URL (preview).
+
+Тестирование: Сканировать QR и проверить реальное функционирование.
+
+ENTREGABLES:
+
+Портал обслуживания (ruta /tech).
+
+Панель статуса (live monitor).
+
+Панель диагностики.
+
+Панель аудита (hashes, reports, evidence).
+
+QR generator (definitivos).
+
+Публичная URL (проверенная).
+
+МJP CORE — интакт.
+
+CONCLUSIÓN:
+Con este portal, el equipo podrá verificar, diagnosticar y auditar el sistema desde cualquier lugar, y generar los QRs definitivos para el Field Gate 001. Es la "Sala de Máquinas" de MiLukita.
+
+💡 MI RECOMENDACIÓN ESTRATÉГИЧЕСКАЯ:
+Не отправляйте следующее приказа до тех пор, пока Manus не развернет URL публичной и не сканирует QR из реального телефона.
+
+Если вам нужен Portal de Mantenimiento Técnico, это отличная идея, но прежде чем создавать его, сделайте следующее:
+
+Вернуть временный публичный URL (preview).
+
+Сканировать QR и проверить, что они работают.
+
+Выйти в Trujillo с 2 телефонами и собрать первые 5 данных.      ademas: 
+ORDEN PARA MANUS: REEMPLAZO DEL LOGO L★ EN LA ESQUINA SUPERIOR IZQUIERDA POR EL NUEVO EMBLEMA CIRCULAR DORADO
+
+MOTIVO (POR QUÉ SE EJECUTA):
+El proyecto necesita actualizar la identidad visual del "Botón Portal L★" ubicado permanentemente en la esquina superior izquierda de la interfaz móvil. Se reemplazará el logo actual por un emblema circular dorado con la L★ en el centro (con textura de QR en el fondo), que es más limpio, premium y tecnológico.
+
+ALCANCE:
+
+MJP CORE: No se modifica.
+
+1. IDENTIDAD DEL NUEVO LOGO
+   IMPLEMENTACIÓN:
+
+Imagen: Utilizar el emblema circular dorado (L★ en el centro, con textura de QR sutil en el fondo).
+
+Estética: Círculo metálico dorado brillante, con la L★ en el centro. Elegante, premium, futurista.
+
+Ubicación: Esquina superior izquierda (mantener la posición).
+
+2. INTERACCIÓN (Mantener la lógica existente)
+   IMPLEMENTACIÓN:
+
+Toque simple (tap): Abre el QR en pantalla completa (mostrar el QR circular dorado con la L★).
+
+Toque largo (long press): Abre el Share Center (compartir enlace, copiar, etc.).
+
+Pulsación: Mantener el feedback visual (pulso sutil) cuando hay un QR disponible.
+
+3. ENTREGABLES
+
+Reemplazo del logo en la esquina superior izquierda (shell móvil).
+
+Integración con la interacción (tap y long press).
+
+Confirmación de que MJP CORE permanece intacto.
+
+CONCLUSIÓN:
+Con este reemplazo, la identidad visual de LUKA será más limpia, premium y tecnológica. El emblema circular dorado se convierte en el "Botón Portal L★" que invita al usuario a compartir y escanear el QR.
+
+Как только вы получите первые данные, настанет время построить «Portal de Mantenimiento», чтобы вы могли восстановить и исправить любые проблемы.   ya podemos salir al campo y de ser asi genera el protocolo de inicio y genera los acccesos y qr necevsarios

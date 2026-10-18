@@ -1,0 +1,137 @@
+{
+  "package": "ARKI-BKH4-TX-001-PHASE-A-EVIDENCE",
+  "status": "PHASE_A_COMPLETE_IMPLEMENTATION_BLOCKED_PENDING_CONTRACT_REVIEW",
+  "baseline": {
+    "repository": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "worktree": "DIRTY_PREEXISTING",
+    "canonicalMutation": "NOT_IMPLEMENTED",
+    "atomicCommit": "NOT_IMPLEMENTED",
+    "atomicCommitPersistence": "NOT_DEMONSTRATED",
+    "rollback": "NOT_IMPLEMENTED",
+    "undoRedo": "NOT_IMPLEMENTED",
+    "crashRecovery": "NOT_IMPLEMENTED"
+  },
+  "historicalFilesPreserved": [
+    "BKH4_IMPLEMENTATION_BASELINE.md",
+    "BKH4_MUTATION_WRITER_INVENTORY.md"
+  ],
+  "scopeGuard": [
+    "No canonical product mutation",
+    "No atomic commit implementation",
+    "No rollback, undo, redo, or crash recovery implementation",
+    "No CAD, ABB-001, UI, corporate, cloud, or hardware changes"
+  ],
+  "files": [
+    {
+      "path": "BKH4_IMPLEMENTATION_BASELINE.md",
+      "bytes": 1710,
+      "sha256": "825aa881d507bee5c77dd193b384b631e3de19f4f17c5fc80dcaefac9e479843"
+    },
+    {
+      "path": "BKH4_MUTATION_WRITER_INVENTORY.md",
+      "bytes": 2771,
+      "sha256": "842cd80472e05aeb0ced7c78dd11ee58bf80ed608ff98c9ce4527353e734ab72"
+    },
+    {
+      "path": "BKH4_TX_001_PHASE_A_ADDENDUM.md",
+      "bytes": 2338,
+      "sha256": "baf2c52d3b220c2383098c00abef48186efd96364a94d3d9207b7384e2f7982b"
+    },
+    {
+      "path": "BKH4_TX_001_BASELINE_RAW.txt",
+      "bytes": 36875,
+      "sha256": "e5a2efb8aef2ca1115c618c4f2623dac14c2f470c7347322df03b604083711aa"
+    },
+    {
+      "path": "BKH4_TX_001_SEARCH_RAW.txt",
+      "bytes": 120701,
+      "sha256": "d327fc371cfdb187aca90f14a3dfeaa8c91ad441b8d4df9b9758256707d3c3bf"
+    },
+    {
+      "path": "BKH4_TX_001_WRITERS_RAW.txt",
+      "bytes": 40446,
+      "sha256": "e01a27ba0f3c36b884f922cf4c245252a7b8478aba0c6256cdba3299fc1282eb"
+    },
+    {
+      "path": "BKH4_TX_001_PHASE_A_OUTPUTS.txt",
+      "bytes": 5991,
+      "sha256": "e65429f642dac49db3303b50a28343fec95cd35ac518856a116b8d9b6382263a"
+    },
+    {
+      "path": "ARKI_BKH4_TX_001_IMPLEMENTATION_REPORT.md",
+      "bytes": 2120,
+      "sha256": "21a907e7cc68f5039b52ce5902fefe872a22dbe3d187954db3dc9c01759a61e2"
+    },
+    {
+      "path": "ARKI_BKH4_TX_001_INVARIANT_TEST_REPORT.md",
+      "bytes": 1643,
+      "sha256": "8f677cd3d3cbafae95978a038e5d374c543da6fc12fa6c874a88685a3a160075"
+    },
+    {
+      "path": "ARKI_BKH4_TX_001_RECOVERY_REPORT.md",
+      "bytes": 886,
+      "sha256": "711490a5375f1a83606699ff7acd7327d03714358f3af9519052d56030c3fc4a"
+    },
+    {
+      "path": "ARKI_BKH4_TX_001_GAPS.md",
+      "bytes": 867,
+      "sha256": "056b9801b2d3fd3dc6c956f7c5850e243831e9bb831c162b9e85cc474edbaef4"
+    },
+    {
+      "path": "shared/arkiTransactionEngine.ts",
+      "bytes": 15261,
+      "sha256": "3adb1100c5a53e360f28d064a42ee390944fcc1f73577e329f18ba2326420046"
+    },
+    {
+      "path": "shared/arkiSimulationSandbox.ts",
+      "bytes": 18025,
+      "sha256": "966c033d7f4d4890ad8f9e7b9c566cfa603c698a4e4fc674e4d9bc4d648146ca"
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "bytes": 4194,
+      "sha256": "b54007e62f54c64259adff0955b78c57a82ce9ace886023b4170d66acca5a5c0"
+    },
+    {
+      "path": "client/src/persistence/arkiIndexedDb.ts",
+      "bytes": 4642,
+      "sha256": "4457522fbb0718600dd04e52e73ebcf8aa6636859f424761ac499a5d4bf13e02"
+    },
+    {
+      "path": "client/src/contexts/ProjectContext.tsx",
+      "bytes": 1032,
+      "sha256": "29d52cfebbfdd1be560b2ec7c53d3c9a3e4df355435dc44da38ae8279a262704"
+    },
+    {
+      "path": "shared/arkiRecalculation.ts",
+      "bytes": 10919,
+      "sha256": "2a1746454be28f983cea1b7892bda2d34a7ac6e6be82589aaa97d11f9112e43c"
+    },
+    {
+      "path": "scripts/test-bkh4-foundation.ts",
+      "bytes": 6704,
+      "sha256": "747c6b2953969d7fd2b09e2c6237d256d901533e5690614d687c8738197633d7"
+    },
+    {
+      "path": "scripts/test-bkh4-3-simulation.ts",
+      "bytes": 13453,
+      "sha256": "0042d2ed069f151880d62b820cb68fffc79d447bf6d8b236f1382915135a49b3"
+    },
+    {
+      "path": "scripts/test-persistence-formal.ts",
+      "bytes": 1172,
+      "sha256": "6367df3074e9b53c1dfc54731877f21850cc61d56dac9bb32e35214c7b36fe10"
+    },
+    {
+      "path": "scripts/test-persistence-idb.ts",
+      "bytes": 1087,
+      "sha256": "3873061bfe9c0d056cf7c26b4ca4cff7f2f6d48a50e321a8969c2d33f98cd814"
+    },
+    {
+      "path": "scripts/run-bkh4-tx-001-phase-a.sh",
+      "bytes": 1004,
+      "sha256": "033a3bd49c5a475f189d46ffda0b9afa18e81fa80ec277b2f1f2f00d493793bc"
+    }
+  ]
+}

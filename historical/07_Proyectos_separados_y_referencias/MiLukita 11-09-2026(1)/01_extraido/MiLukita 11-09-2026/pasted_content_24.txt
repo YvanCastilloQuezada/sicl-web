@@ -1,0 +1,1374 @@
+ORDEN MAESTRA A MANUS
+TRANSFORMACIÓN DE MULTI JUEGOS PERÚ EN UNA MÁQUINA AUTÓNOMA DE ENTRETENIMIENTO INTERACTIVO
+
+Manus:
+
+A partir de este mensaje quiero que ejecutes una transformación integral de Multi Juegos Perú (MJP).
+
+No quiero únicamente un análisis, una propuesta conceptual ni una lista de tareas.
+
+Quiero que inspecciones el proyecto actual, determines qué puede reutilizarse, implementes la nueva arquitectura y dejes el sistema funcionando en el entorno de pruebas, manteniendo el proyecto estrictamente en modalidad virtual/demostrativa y sin habilitar dinero real.
+
+La visión objetivo es:
+
+MULTI JUEGOS PERÚ = una máquina autónoma de entretenimiento digital interactivo.
+
+La TV será el escenario público.
+
+El celular será la segunda pantalla y control personal.
+
+La PWA/web será la interfaz individual.
+
+El motor de juegos será el núcleo.
+
+El avatar será el presentador digital contextual.
+
+El Event Engine coordinará cada evento.
+
+El Scheduler Engine construirá la programación.
+
+El Automation Engine ejecutará las operaciones repetitivas.
+
+El sistema de auditoría registrará todo.
+
+Debe existir supervisión humana y capacidad de interrupción de emergencia.
+
+1. REGLA FUNDAMENTAL
+
+NO elimines ni reemplaces indiscriminadamente lo que ya funciona.
+
+Primero inspecciona:
+
+arquitectura;
+base de datos;
+módulos;
+rutas;
+componentes;
+juegos;
+reglas;
+motor de sorteos;
+comprobantes;
+transparencia;
+TV;
+PWA;
+autenticación;
+roles;
+auditoría;
+simulador;
+panel operativo;
+pruebas.
+
+Después determina qué:
+
+A. SE CONSERVA
+B. SE MODIFICA
+C. SE REFACTORIZA
+D. SE CREA
+E. SE DEPRECIA
+
+No hagas una reescritura completa si no es necesaria.
+
+2. ESTADO DEL PROYECTO
+
+Toma como punto de partida el último checkpoint funcional disponible en el repositorio.
+
+Si existe más de un checkpoint, identifica cuál es el actual y cuál es el último estable.
+
+No asumas que el checkpoint mencionado en documentos anteriores sigue siendo el HEAD actual.
+
+Reporta:
+
+CURRENT_BRANCH
+CURRENT_COMMIT
+LAST_STABLE_COMMIT
+WORKTREE_STATE
+DATABASE_STATE
+BUILD_STATE
+TEST_STATE
+
+Antes de modificar:
+
+git status
+git log
+git branch
+
+y las comprobaciones equivalentes que correspondan al proyecto.
+
+3. PRIMER OBJETIVO: CREAR EL EVENT ENGINE
+
+Este es el cambio arquitectónico principal.
+
+No quiero que la TV dependa directamente de cada juego.
+
+Quiero una abstracción común:
+
+EVENT
+
+Cada evento debe representar una instancia programada de una actividad MJP.
+
+Ejemplo conceptual:
+
+MJP EVENT
+│
+├── eventId
+├── eventType
+├── gameId
+├── scheduledStart
+├── participationOpen
+├── participationClose
+├── executionStart
+├── executionEnd
+├── status
+├── rulesVersion
+├── displayConfiguration
+├── qrConfiguration
+├── avatarScript
+├── result
+├── verification
+├── auditTrail
+└── recoveryState
+
+Los estados deben ser explícitos.
+
+Como mínimo:
+
+SCHEDULED
+PREPARING
+OPEN
+CLOSING
+LOCKED
+DRAWING
+RESULT_PENDING
+RESULT_VERIFIED
+PUBLISHED
+COMPLETED
+CANCELLED
+SUSPENDED
+ERROR
+RECOVERY
+
+No implementes esto necesariamente con estos nombres si la arquitectura existente tiene una mejor solución, pero debe existir una máquina de estados equivalente y explícita.
+
+4. EVENTOS Y JUEGOS DEBEN ESTAR SEPARADOS
+
+Un juego define:
+
+qué se juega.
+
+Un evento define:
+
+cuándo y bajo qué versión de reglas se ejecuta una instancia de ese juego.
+
+Ejemplo:
+
+GAME
+LOT39
+
+EVENT
+MJP-2026-08-25-2000-LOT39
+
+Esto permitirá reutilizar el mismo juego miles de veces sin duplicar su definición.
+
+5. CREAR EL SCHEDULER ENGINE
+
+Quiero eliminar progresivamente la dependencia de programación manual.
+
+Debe existir un motor capaz de construir una programación de TV a partir de:
+
+juegos disponibles;
+duración;
+frecuencia;
+ventanas horarias;
+prioridad;
+categoría;
+nivel de importancia;
+restricciones;
+eventos especiales;
+pausas;
+bloques;
+reglas de programación;
+eventos ya programados.
+
+Debe evitar:
+
+solapamientos;
+eventos imposibles;
+cierres incompatibles;
+intervalos negativos;
+dos sorteos simultáneos;
+conflictos de recursos.
+6. EL SCHEDULER NO DEBE SER UN SIMPLE CALENDARIO
+
+Debe tener reglas.
+
+Ejemplo conceptual:
+
+GAME:
+Lotería 39
+
+FREQUENCY:
+5/week
+
+DURATION:
+5 min
+
+PRIORITY:
+HIGH
+
+PRIME_TIME:
+true
+
+MIN_GAP:
+120 min
+
+El sistema debe poder utilizar estas características para construir una pauta.
+
+7. CREAR PROGRAMACIÓN POR BLOQUES
+
+No quiero una televisión compuesta únicamente por:
+
+juego
+juego
+juego
+juego
+juego
+
+Debe existir el concepto de:
+
+PROGRAM BLOCK
+
+Ejemplos:
+
+MJP MEDIODÍA
+MJP PRIME
+MJP ESPECIAL
+MJP FIN DE SEMANA
+MJP INTERACTIVO
+MJP RESULTADOS
+
+Un bloque puede contener:
+
+apertura;
+presentación;
+juego;
+trivia;
+interacción;
+resultado;
+transición;
+publicidad futura;
+cierre.
+8. NO CREAR TODAVÍA UNA TV EXCESIVAMENTE COMPLEJA
+
+La primera versión debe ser funcional y modular.
+
+No quiero una producción televisiva de Hollywood.
+
+Quiero un sistema que pueda demostrar:
+
+BLOCK
+ ↓
+EVENT
+ ↓
+TV
+ ↓
+QR
+ ↓
+CELULAR
+ ↓
+INTERACCIÓN
+ ↓
+RESULTADO
+ ↓
+SIGUIENTE EVENTO
+9. CREAR EL TV CLIENT
+
+La TV debe tener un cliente independiente del motor.
+
+Conceptualmente:
+
+MJP ENGINE
+      ↓
+EVENT STATE
+      ↓
+MJP TV CLIENT
+      ↓
+PANTALLA
+
+El TV Client debe poder mostrar:
+
+estado del evento;
+nombre del juego;
+countdown;
+instrucciones;
+resultado;
+QR;
+mensajes;
+avatar;
+transición;
+contingencia;
+siguiente evento.
+10. NO HACER QUE YOUTUBE SEA EL CEREBRO
+
+Esto es importante.
+
+YouTube debe considerarse:
+
+canal de distribución.
+
+No:
+
+fuente de verdad del sistema.
+
+La fuente de verdad será MJP.
+
+Por tanto:
+
+MJP EVENT ENGINE
+       │
+       ├── TV CLIENT
+       ├── WEB
+       ├── PWA
+       └── YOUTUBE / STREAM
+
+Si YouTube falla, MJP debe continuar funcionando internamente.
+
+11. SEGUNDA PANTALLA: TV + CELULAR
+
+Implementar el concepto:
+
+SECOND SCREEN
+
+Cuando aparece un evento en TV:
+
+TV
+↓
+QR
+↓
+CELULAR
+↓
+EVENTO CORRESPONDIENTE
+
+El teléfono debe saber qué evento está viendo.
+
+No quiero que el usuario tenga que buscar manualmente el juego.
+
+12. QR DINÁMICO POR EVENTO
+
+Cada evento debe poder tener un QR asociado.
+
+Conceptualmente:
+
+QR
+ ↓
+EVENT_ID
+ ↓
+WEB/PWA
+ ↓
+EVENT CONTEXT
+
+El usuario entra directamente al evento.
+
+Debe evitarse que el QR permita acceder accidentalmente a un evento cerrado o incorrecto.
+
+13. SINCRONIZACIÓN TV-CELULAR
+
+Implementar una sincronización suficientemente robusta para mostrar en el celular:
+
+GAME
+EVENT
+STATUS
+COUNTDOWN
+RULE VERSION
+PARTICIPATION WINDOW
+
+Cuando el evento cambia de estado, el cliente debe actualizarse.
+
+Preferir mecanismos apropiados como:
+
+WebSocket;
+SSE;
+polling controlado;
+
+según lo que resulte más coherente con la arquitectura existente.
+
+No agregues infraestructura innecesaria si el proyecto ya dispone de un mecanismo adecuado.
+
+14. CONTROL REMOTO
+
+Aquí quiero una implementación prudente.
+
+NO convertir el control remoto tradicional en el mecanismo principal para seleccionar combinaciones complejas.
+
+Utilizarlo para:
+
+navegación;
+selección;
+OK;
+atrás;
+opciones;
+trivias;
+votaciones;
+decisiones simples.
+
+El celular será el método principal para entradas complejas.
+
+La arquitectura debe permitir agregar soporte específico para Smart TV posteriormente.
+
+15. SISTEMA DE INTERACCIÓN
+
+Crear una abstracción:
+
+INTERACTION
+
+Tipos posibles:
+
+CHOICE
+POLL
+TRIVIA
+NUMBER_SELECTION
+YES_NO
+COLOR
+ODD_EVEN
+VOTE
+REACTION
+PREDICTION
+
+No todos deben implicar juego monetario.
+
+La plataforma debe distinguir:
+
+ENTERTAINMENT INTERACTION
+
+de:
+
+GAME PARTICIPATION
+
+Esto es importante para la evolución futura del producto.
+
+16. AVATAR ENGINE
+
+Implementar una arquitectura de avatar.
+
+Pero:
+
+NO quiero un avatar hablando permanentemente.
+
+Debe ser contextual.
+
+El avatar debe activarse en momentos como:
+
+inicio;
+advertencia de cierre;
+cierre;
+inicio del sorteo;
+resultado;
+transición;
+anuncio;
+interacción.
+17. EL AVATAR NO DEBE CONTROLAR EL ESTADO DEL JUEGO
+
+Esto es crítico.
+
+El avatar:
+
+presenta el evento.
+
+No:
+
+decide el resultado.
+
+El flujo debe ser:
+
+GAME ENGINE
+     ↓
+EVENT ENGINE
+     ↓
+STATE
+     ↓
+AVATAR
+
+Nunca:
+
+AVATAR
+ ↓
+GAME RESULT
+18. AVATAR SCRIPT ENGINE
+
+Crear una estructura de guiones basada en eventos.
+
+Ejemplo:
+
+EVENT_STARTED
+
+"Comienza Lotería 39."
+
+EVENT_CLOSING
+
+"Faltan 10 segundos para cerrar la participación."
+
+DRAW_STARTED
+
+"El sorteo ha comenzado."
+
+RESULT_VERIFIED
+
+"El resultado ha sido verificado."
+
+Posteriormente podrá incorporarse generación mediante IA.
+
+Pero inicialmente debe existir un modo determinista y auditable.
+
+19. FUTURO GENERATIVO
+
+Preparar la arquitectura para:
+
+EVENT DATA
+ ↓
+SCRIPT GENERATOR
+ ↓
+VALIDATOR
+ ↓
+AVATAR
+
+Pero NO conectar un LLM directamente al resultado ni al motor financiero.
+
+La IA puede generar lenguaje.
+
+No puede modificar:
+
+resultados;
+premios;
+reglas;
+balances;
+estados oficiales.
+20. CONTENT ENGINE
+
+Crear una capa para generar automáticamente:
+
+mensajes;
+transiciones;
+titulares;
+instrucciones;
+textos del avatar;
+tarjetas;
+banners;
+avisos.
+
+Siempre a partir de datos estructurados.
+
+21. AUTOMATION ENGINE
+
+Quiero automatizar las operaciones repetitivas:
+
+scheduler
+ ↓
+event
+ ↓
+open
+ ↓
+countdown
+ ↓
+close
+ ↓
+draw
+ ↓
+verify
+ ↓
+publish
+ ↓
+archive
+ ↓
+next event
+
+Debe ser:
+
+idempotente;
+auditable;
+recuperable;
+seguro ante reinicios.
+22. HEARTBEAT / CRON
+
+Utilizar la infraestructura existente si es adecuada.
+
+Debe poder:
+
+detectar eventos vencidos;
+abrir eventos;
+cerrar eventos;
+recuperar estados;
+avanzar programación;
+registrar errores.
+
+No crear procesos duplicados.
+
+23. HUMAN OVERRIDE
+
+Esto es obligatorio.
+
+Debe existir una capa de supervisión humana.
+
+El operador debe poder:
+
+PAUSE EVENT
+RESUME EVENT
+CANCEL EVENT
+SUSPEND CHANNEL
+FORCE FALLBACK
+RETRY
+SKIP
+EMERGENCY STOP
+
+Las acciones manuales deben quedar auditadas.
+
+24. EMERGENCY STOP
+
+Implementar un mecanismo global.
+
+Debe poder detener:
+
+AUTOMATION
+TV
+EVENT
+INTERACTION
+PUBLICATION
+
+según el nivel seleccionado.
+
+No debe borrar datos.
+
+Debe cambiar el estado y registrar el incidente.
+
+25. CONTINGENCY ENGINE
+
+Este módulo es obligatorio.
+
+Simular fallos de:
+
+conexión;
+YouTube;
+avatar;
+QR;
+backend;
+transmisión;
+cliente TV;
+sincronización.
+
+Debe existir un estado:
+
+CONTINGENCY MODE
+
+La pantalla debe mostrar un contenido seguro previamente definido.
+
+Ejemplo:
+
+MJP
+MODO DE CONTINGENCIA
+
+Estamos restableciendo el servicio.
+
+Último evento confirmado:
+MJP-XXXXXXXX
+
+Último resultado verificado:
+XXXXXXXX
+26. NO PERDER EL ÚLTIMO ESTADO CONFIRMADO
+
+La TV nunca debería inventar información.
+
+Si falla el servidor:
+
+mostrar último estado conocido y claramente identificado.
+
+Nunca:
+
+simular que un evento sigue activo si no puede confirmarse.
+
+27. EXPERIENCE ENGINE
+
+Este módulo debe coordinar la experiencia.
+
+Debe decidir qué debe mostrar cada interfaz según el estado del evento.
+
+Por ejemplo:
+
+BEFORE EVENT
+→ countdown + QR
+
+OPEN
+→ participation + countdown
+
+LOCKED
+→ "participación cerrada"
+
+DRAWING
+→ animation
+
+RESULT
+→ result + verification
+
+COMPLETED
+→ next event
+28. ANALYTICS
+
+Preparar métricas para el piloto.
+
+Como mínimo:
+
+TV
+sesiones;
+espectadores disponibles si el dato existe;
+eventos emitidos;
+errores.
+QR
+impresiones;
+escaneos;
+tasa de escaneo.
+PWA
+usuarios;
+sesiones;
+participación;
+abandono.
+EVENTOS
+duración;
+cumplimiento;
+errores;
+cancelaciones;
+recuperaciones.
+JUEGOS
+frecuencia;
+participación;
+interacción.
+
+No inventar métricas que no podamos medir realmente.
+
+29. TELEMETRÍA DEL SISTEMA
+
+Crear un sistema coherente de:
+
+EVENT LOG
+SYSTEM LOG
+AUDIT LOG
+ERROR LOG
+SECURITY LOG
+OPERATOR ACTION LOG
+
+No mezclar todos los tipos indiscriminadamente.
+
+30. PANEL OPERATIVO
+
+El panel existente debe evolucionar.
+
+Debe mostrar como mínimo:
+
+┌──────────────────────────────┐
+│ MJP CONTROL CENTER           │
+├──────────────────────────────┤
+│ EVENTO ACTUAL                │
+│ ESTADO                       │
+│ SIGUIENTE EVENTO             │
+│ COUNTDOWN                    │
+│ TV STATUS                    │
+│ AUTOMATION STATUS            │
+│ STREAM STATUS                │
+│ QR STATUS                    │
+│ ALERTAS                      │
+└──────────────────────────────┘
+31. PROGRAMACIÓN AUTOMÁTICA
+
+Crear una vista:
+
+PROGRAMACIÓN
+
+Debe permitir:
+
+generar;
+revisar;
+modificar;
+aprobar;
+publicar;
+cancelar.
+
+No quiero que la automatización publique una programación nueva sin posibilidad de revisión durante el piloto.
+
+32. MODO AUTOMÁTICO Y MODO MANUAL
+
+Debe existir:
+
+MANUAL
+ASSISTED
+AUTOMATIC
+MANUAL
+
+El operador controla.
+
+ASSISTED
+
+El sistema propone.
+
+AUTOMATIC
+
+El sistema ejecuta.
+
+Esto permitirá probar la automatización progresivamente.
+
+33. CATÁLOGO DE JUEGOS
+
+NO agregar más juegos por ahora.
+
+Trabajar con los juegos existentes.
+
+Clasificarlos:
+
+TV_PRIMARY
+TV_SECONDARY
+INTERACTIVE
+BACKGROUND
+SIMULATOR_ONLY
+
+Si alguno no es adecuado para TV, no eliminarlo necesariamente.
+
+Simplemente sacarlo de la programación televisiva principal.
+
+34. NO TOCAR EL MOTOR MATEMÁTICO SIN JUSTIFICACIÓN
+
+Los juegos actuales tienen reglas, RTP y lógica existentes.
+
+Antes de modificarlos:
+
+identificar;
+documentar;
+probar.
+
+Especialmente:
+
+RTP;
+probabilidades;
+premios;
+redondeos;
+jackpots;
+reglas versionadas.
+
+No cambiar matemáticas simplemente para hacer que el sistema encaje en la nueva arquitectura.
+
+35. AUDITORÍA MATEMÁTICA
+
+Quiero una matriz:
+
+Juego	Regla	RTP	Código	Publicado	Consistente
+
+Si hay inconsistencias:
+
+NO las ocultes.
+
+Reportarlas.
+
+No habilitar comunicación comercial basada en datos no reconciliados.
+
+36. SEPARACIÓN ABSOLUTA DEL DINERO REAL
+
+Esta transformación NO debe habilitar:
+
+depósitos;
+retiros;
+Yape;
+conversión a soles;
+dinero real;
+KYC real;
+AML real.
+
+El piloto seguirá siendo:
+
+VIRTUAL / DEMOSTRATIVO.
+
+37. REGULACIÓN
+
+Crear una sección/documento técnico:
+
+REGULATORY READINESS
+
+Pero no afirmar:
+
+"cumple regulación"
+
+si no existe certificación o autorización.
+
+Separar:
+
+IMPLEMENTADO
+PREPARADO
+SIMULADO
+PENDIENTE
+NO APLICA
+38. EXPERIENCIA DE USUARIO
+
+Simplificar la navegación.
+
+La interfaz pública debería priorizar:
+
+INICIO
+
+EN VIVO
+
+JUEGOS
+
+APRENDER
+
+RESULTADOS
+
+MI CUENTA
+
+No mostrar toda la complejidad interna al usuario.
+
+39. PRINCIPIO UX
+
+El usuario debe saber siempre:
+
+¿Qué está pasando?
+¿Qué puedo hacer?
+¿Cuánto tiempo queda?
+¿Qué ocurre después?
+
+Si la interfaz no responde claramente esas cuatro preguntas, debe mejorarse.
+
+40. IMPLEMENTAR "AHORA"
+
+La pantalla principal debería poder responder:
+
+AHORA
+Lotería 39
+
+Faltan 00:32
+
+[PARTICIPAR]
+
+SIGUIENTE
+Bingo — 20:15
+41. IMPLEMENTAR "NEXT"
+
+Siempre mostrar:
+
+SIGUIENTE EVENTO
+
+Esto genera continuidad.
+
+El usuario no debería preguntarse:
+
+"¿Y ahora qué?"
+
+42. IMPLEMENTAR "LIVE"
+
+Cuando exista un evento activo:
+
+🔴 EN VIVO
+
+Debe ser un estado real del sistema.
+
+No una decoración.
+
+43. IMPLEMENTAR "VERIFICADO"
+
+Después del resultado:
+
+✓ RESULTADO VERIFICADO
+
+y permitir acceder a la verificación pública.
+
+44. MODO APRENDER
+
+Mantenerlo.
+
+De hecho, potenciarlo.
+
+Debe permitir entender:
+
+cómo funciona cada juego;
+probabilidades;
+RTP;
+reglas;
+simulaciones;
+ejemplos.
+
+Pero claramente separado del juego oficial.
+
+45. PRUEBAS
+
+No consideres terminado ningún módulo sin pruebas.
+
+Agregar pruebas para:
+
+Event Engine
+transición;
+cierre;
+cancelación;
+recuperación.
+Scheduler
+solapamientos;
+conflictos;
+generación.
+Second Screen
+QR;
+asociación;
+expiración.
+TV
+estados;
+fallback;
+reconexión.
+Automation
+idempotencia;
+reinicio;
+duplicación.
+Avatar
+correspondencia evento → guion.
+Emergency Stop
+detención;
+recuperación;
+auditoría.
+46. PRUEBA DE ESCENARIO COMPLETO
+
+Debes crear una prueba end-to-end:
+
+GENERAR PROGRAMACIÓN
+        ↓
+CREAR EVENTO
+        ↓
+ABRIR PARTICIPACIÓN
+        ↓
+GENERAR QR
+        ↓
+CONECTAR CELULAR
+        ↓
+ACTUALIZAR TV
+        ↓
+CERRAR
+        ↓
+EJECUTAR SORTEO VIRTUAL
+        ↓
+VERIFICAR RESULTADO
+        ↓
+MOSTRAR RESULTADO
+        ↓
+AVATAR
+        ↓
+SIGUIENTE EVENTO
+
+Todo sin dinero real.
+
+47. PRUEBA DE FALLA
+
+Después ejecutar:
+
+FALLA YOUTUBE
+FALLA TV
+FALLA CELULAR
+FALLA BACKEND
+REINICIO SERVIDOR
+EVENTO DUPLICADO
+EVENTO VENCIDO
+QR EXPIRADO
+AVATAR NO DISPONIBLE
+
+El sistema debe tener comportamiento definido.
+
+48. NO INVENTAR FUNCIONALIDAD
+
+Si una función requiere:
+
+API externa;
+credenciales;
+servicio de terceros;
+hardware;
+
+y no existe acceso:
+
+no simular que está funcionando realmente.
+
+Crear:
+
+MOCK
+SIMULATION
+STUB
+
+claramente identificados.
+
+49. DOCUMENTACIÓN OBLIGATORIA
+
+Al terminar quiero un documento único:
+
+MJP_MASTER_IMPLEMENTATION_AUDIT.md
+
+Debe contener:
+
+1. Estado inicial
+2. Arquitectura encontrada
+3. Cambios realizados
+4. Archivos modificados
+5. Archivos nuevos
+6. Módulos eliminados/deprecados
+7. Event Engine
+8. Scheduler
+9. TV Client
+10. Second Screen
+11. QR
+12. Interaction Engine
+13. Avatar Engine
+14. Content Engine
+15. Automation Engine
+16. Experience Engine
+17. Contingency Engine
+18. Human Override
+19. Emergency Stop
+20. Analytics
+21. Seguridad
+22. RTP y matemáticas
+23. Regulación
+24. Pruebas
+25. Resultados de pruebas
+26. Limitaciones
+27. Dependencias externas
+28. Riesgos
+29. Pendientes
+30. Recomendaciones
+50. MATRIZ FINAL OBLIGATORIA
+
+Quiero además una tabla:
+
+ID	Requisito	Estado	Evidencia	Test	Riesgo
+EV-001	Event Engine				
+SCH-001	Scheduler				
+TV-001	TV Client				
+SS-001	Second Screen				
+QR-001	QR dinámico				
+AV-001	Avatar				
+AUT-001	Automation				
+CTG-001	Contingencia				
+OPS-001	Human Override				
+SEC-001	Seguridad				
+MAT-001	RTP				
+UX-001	Experiencia				
+51. CHECKPOINT
+
+Antes de comenzar:
+
+CHECKPOINT ORIGINAL
+
+Después:
+
+CHECKPOINT TRANSFORMACIÓN
+
+No destruyas el estado anterior.
+
+Debe ser posible comparar.
+
+52. REGLA DE CALIDAD
+
+No quiero que declares:
+
+"implementado"
+
+porque existe un componente visual.
+
+Debe considerarse implementado solamente si:
+
+existe;
+está conectado;
+funciona;
+tiene manejo de errores;
+tiene pruebas cuando corresponda;
+está documentado.
+53. MUY IMPORTANTE: NO HAGAS ESTO
+
+No:
+
+habilites dinero real;
+integres pagos;
+actives retiros;
+conectes Yape;
+implementes KYC real;
+implementes AML real;
+afirmes homologación;
+afirmes autorización;
+elimines auditoría;
+ocultes errores;
+cambies RTP sin documentarlo;
+dependas de YouTube;
+conviertas el avatar en autoridad del juego;
+hagas que la IA decida resultados.
+54. OBJETIVO FINAL DE ESTA ITERACIÓN
+
+Al finalizar quiero poder abrir MJP y experimentar este flujo:
+
+                    MJP
+                     │
+                     ↓
+             PROGRAMACIÓN
+                     │
+                     ↓
+              EVENTO ACTIVO
+                     │
+          ┌──────────┴──────────┐
+          ↓                     ↓
+         TV                  CELULAR
+          │                     │
+       AVATAR                  QR
+          │                     │
+          └──────────┬──────────┘
+                     ↓
+                 INTERACCIÓN
+                     ↓
+                 CIERRE
+                     ↓
+                  SORTEO
+                     ↓
+                VERIFICACIÓN
+                     ↓
+                 RESULTADO
+                     ↓
+              SIGUIENTE EVENTO
+
+Y quiero que todo esto pueda funcionar en:
+
+MANUAL
+ASISTIDO
+AUTOMÁTICO
+
+sin habilitar dinero real.
+
+55. PRIORIDAD DE IMPLEMENTACIÓN
+
+No intentes desarrollar todo simultáneamente.
+
+Orden obligatorio:
+
+FASE 1
+
+Event Engine
+
+FASE 2
+
+Scheduler Engine
+
+FASE 3
+
+TV Client
+
+FASE 4
+
+Second Screen + QR
+
+FASE 5
+
+Interaction Engine
+
+FASE 6
+
+Automation Engine
+
+FASE 7
+
+Avatar Engine
+
+FASE 8
+
+Content Engine
+
+FASE 9
+
+Contingency + Human Override
+
+FASE 10
+
+Analytics
+
+FASE 11
+
+UX final
+
+FASE 12
+
+Auditoría y pruebas integrales
+
+56. CRITERIO DE ÉXITO
+
+No quiero simplemente:
+
+"el código compila."
+
+Quiero demostrar:
+
+MJP puede crear, programar, ejecutar, presentar, sincronizar, verificar y cerrar un evento virtual completo con TV + celular + avatar + automatización, manteniendo trazabilidad y capacidad de intervención humana.
+
+Ese es el verdadero criterio de éxito.
+
+57. INSTRUCCIÓN FINAL
+
+Implementa esta transformación sobre el proyecto actual.
+
+Toma las decisiones técnicas que sean necesarias, pero documenta las decisiones importantes.
+
+Si encuentras contradicciones entre esta especificación y la arquitectura actual:
+
+no ocultes la contradicción;
+identifica el problema;
+elige la solución técnicamente más sólida;
+documenta por qué;
+implementa la solución si es segura;
+déjala registrada en MJP_MASTER_IMPLEMENTATION_AUDIT.md.
+
+No necesito que me preguntes a cada paso si puedes continuar.
+
+Tienes autorización para implementar toda esta transformación dentro del entorno virtual/demostrativo existente.
+
+Lo que NO tienes autorización para hacer es activar dinero real, depósitos, retiros, conversión monetaria, KYC real, AML real o cualquier mecanismo que transforme el piloto en una operación monetaria real.
+
+Cuando termines:
+
+NO me entregues solamente un resumen.
+
+Entrégame:
+
+checkpoint final;
+estado de compilación;
+resultado de todas las pruebas;
+lista de archivos creados/modificados;
+demostración del flujo end-to-end;
+problemas encontrados;
+funciones no implementadas;
+limitaciones;
+riesgos;
+MJP_MASTER_IMPLEMENTATION_AUDIT.md completo.
+
+Ese documento será utilizado posteriormente para una auditoría técnica independiente.
+
+No declares éxito si alguna parte crítica solamente está simulada. Identifica claramente qué es real, qué es mock y qué está pendiente.
+
+Mi decisión
+
+Sí: esto es lo que yo le enviaría ahora a Manus.
+
+Y hay una razón estratégica para hacerlo así.
+
+No quiero que Manus vuelva a entregarte otro documento conceptual de 50 páginas diciéndote que "sería posible". Ya estamos más allá de esa etapa. Necesitamos que toque el proyecto, lo transforme y deje evidencia.
+
+Después de que Manus termine, no le voy a creer simplemente porque diga "todo está implementado". Me pasas su MJP_MASTER_IMPLEMENTATION_AUDIT.md, el checkpoint y los resultados de pruebas, y yo hago la segunda fase:
+
+AUDITORÍA CRUZADA
+
+Voy a revisar, entre otras cosas:
+
+si realmente implementó el Event Engine o solo cambió la UI;
+si el Scheduler realmente genera programación sin conflictos;
+si TV y celular están realmente sincronizados;
+si el QR está asociado al evento correcto;
+si el avatar está subordinado al estado del sistema;
+si la automatización es idempotente;
+si existe un verdadero mecanismo de contingencia;
+si el "Emergency Stop" realmente detiene lo que debe detener;
+si las pruebas demuestran lo que Manus afirma;
+si introdujo regresiones en los juegos existentes;
+si el modelo de datos es coherente;
+si la UX se volvió más simple o más compleja;
+y, especialmente, si realmente construyó una máquina de entretenimiento o simplemente una colección de funcionalidades.
+
+Ese último punto es el que más me interesa.
+
+Ahora sí: envíaselo íntegramente a Manus. No le resumas nada.

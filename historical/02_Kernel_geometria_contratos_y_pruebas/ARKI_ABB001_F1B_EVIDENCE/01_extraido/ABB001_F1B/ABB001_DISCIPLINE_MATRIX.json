@@ -1,0 +1,17 @@
+{
+  "schema":"ARKI-ABB001-DISCIPLINE-MATRIX-1.0",
+  "status":"DOCUMENTARY_CROSSWALK",
+  "rows":[
+    {"element":"site/lot","architecture":"EXISTS","structure":"MISSING","plumbing":"MISSING","electrical":"MISSING","evidence":"U-01 p.1"},
+    {"element":"levels and floors","architecture":"EXISTS","structure":"EXISTS","plumbing":"PARTIAL","electrical":"PARTIAL","evidence":"A-01/A-02 pp.2-3; E-01..E-03 pp.4-6; IS/IE sheets"},
+    {"element":"rooms/spaces","architecture":"EXISTS","structure":"UNKNOWN","plumbing":"PARTIAL","electrical":"PARTIAL","evidence":"A-01 p.2; IS-01/IS-03 pp.7/9; IE-01 p.11"},
+    {"element":"walls/masonry","architecture":"EXISTS","structure":"EXISTS","plumbing":"PARTIAL","electrical":"PARTIAL","evidence":"A-01; E-01/E-02; sanitary/electrical embedded-system notes"},
+    {"element":"doors/windows/mamparas","architecture":"EXISTS","structure":"PARTIAL","plumbing":"MISSING","electrical":"MISSING","evidence":"A-01/A-02 pp.2-3; structural lintel/anchoring details p.5"},
+    {"element":"stair","architecture":"EXISTS","structure":"EXISTS","plumbing":"MISSING","electrical":"UNKNOWN","evidence":"A-02 p.3; E-03 p.6"},
+    {"element":"slabs/roof","architecture":"EXISTS","structure":"EXISTS","plumbing":"PARTIAL","electrical":"PARTIAL","evidence":"A-01/A-02; E-02/E-03; IS-02/IS-04; IE-02"},
+    {"element":"foundation/cistern","architecture":"PARTIAL","structure":"EXISTS","plumbing":"EXISTS","electrical":"PARTIAL","evidence":"E-01/E-03 pp.4/6; IS-01..IS-04; IE sheets"},
+    {"element":"sanitary fixtures","architecture":"PARTIAL","structure":"MISSING","plumbing":"EXISTS","electrical":"PARTIAL","evidence":"A-01 wet rooms; IS-01/IS-03 details"},
+    {"element":"electrical points/circuits","architecture":"PARTIAL","structure":"MISSING","plumbing":"MISSING","electrical":"EXISTS","evidence":"IE-01/IE-02 pp.11-12"},
+    {"element":"exact common coordinates","architecture":"UNKNOWN","structure":"UNKNOWN","plumbing":"UNKNOWN","electrical":"UNKNOWN","evidence":"DWG not parsed"}
+  ]
+}

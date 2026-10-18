@@ -1,0 +1,141 @@
+5. Juegos de Habilidad
+
+5.1. Tipos de Juegos a Implementar
+
+Tipo Nombre Descripción Interacción
+Reflejos "Toca en el Momento Exacto" Tocar cuando la barra llega al punto exacto Tocar en el momento justo
+Precisión "Apunta y Dispara" Tocar en el objetivo en movimiento Tocar en el lugar correcto
+Trivia "Preguntas y Respuestas" Responder preguntas correctamente Seleccionar entre opciones
+Estrategia "Adivina la Combinación" Adivinar la combinación correcta Seleccionar números/colores
+Memoria "Memoriza la Secuencia" Recordar y repetir secuencias Tocar en el orden correcto
+
+---
+
+6. Juegos Cooperativos
+
+6.1. Tipos de Juegos a Implementar
+
+Tipo Nombre Descripción Interacción
+Desafío Colectivo "Todos Contra el Reloj" Todos responden correctamente para superar el umbral Cada jugador responde
+Construcción Colectiva "Construyan el Puntaje Más Alto" Cada jugador contribuye con puntos Cada jugador juega un minijuego
+
+---
+
+7. Puntuaciones y Rankings
+
+7.1. Modelo de Puntuaciones
+
+```typescript
+interface ScoreSystem {
+  playerId: string;
+  totalScore: number;
+  gamesPlayed: number;
+  gamesWon: number;
+  bossDamage: number;
+  bossHits: number;
+  reflexScore: number;
+  triviaScore: number;
+  cooperativeScore: number;
+  rank: number;
+  rankHistory: RankHistory[];
+}
+
+interface Leaderboard {
+  id: string;
+  type: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'ALL_TIME';
+  gameType: GameType;
+  entries: LeaderboardEntry[];
+  updatedAt: string;
+}
+```
+
+---
+
+8. Sistema de Recompensas y Logros
+
+```typescript
+interface RewardSystem {
+  playerId: string;
+  tokens: number;
+  items: PlayerItem[];
+  achievements: Achievement[];
+  dailyBonus: DailyBonus;
+}
+
+const ACHIEVEMENTS = [
+  { id: 'first-hit', name: 'Primer Golpe', reward: { type: 'TOKENS', amount: 10 } },
+  { id: 'boss-slayer', name: 'Cazador de Jefes', reward: { type: 'TOKENS', amount: 100 } },
+  { id: 'perfect-combo', name: 'Combo Perfecto', reward: { type: 'TOKENS', amount: 50 } },
+];
+```
+
+---
+
+9. Sistema de Torneos
+
+```typescript
+interface Tournament {
+  id: string;
+  name: string;
+  gameType: GameType;
+  entryFee: number;
+  prizePool: number;
+  maxPlayers: number;
+  currentPlayers: number;
+  status: 'REGISTRATION' | 'ACTIVE' | 'FINISHED';
+  rounds: TournamentRound[];
+  winner: Player | null;
+}
+```
+
+---
+
+10. Orden de Implementación
+
+Fase Tarea Dependencias Estimación
+1 Definir interfaces y modelos Ninguna 4h
+2 Implementar Gestión de Jugadores Concurrentes Fase 1 6h
+3 Implementar Sistema de Fichas y Monetización Fase 1 6h
+4 Implementar Juego "Todos Contra el Sistema" Fase 2 12h
+5 Implementar TV Experience para Boss Fight Fase 4 8h
+6 Implementar Celular Experience para Boss Fight Fase 4 8h
+7 Implementar Juegos de Habilidad (5 tipos) Fase 2 12h
+8 Implementar Juegos Cooperativos (2 tipos) Fase 2 8h
+9 Implementar Puntuaciones y Rankings Fase 2 6h
+10 Implementar Sistema de Recompensas y Logros Fase 3 6h
+11 Implementar Sistema de Torneos Fase 3, 9 8h
+12 Integrar con TV y Celular existentes Fase 4–11 8h
+13 Añadir pruebas y validación Fase 12 6h
+
+---
+
+11. Criterios de Aceptación
+
+# Criterio Verificación
+1 Jugadores pueden identificarse y ser rastreados ✅
+2 Múltiples jugadores pueden participar concurrentemente ✅
+3 Sistema de fichas funciona (compra, saldo, transacciones) ✅
+4 Juego "Todos Contra el Sistema" funciona con 1–100 jugadores ✅
+5 El jefe se mueve aleatoriamente en la pantalla ✅
+6 Cada golpe reduce la vida del jefe ✅
+7 El juego termina cuando la vida del jefe llega a 0 ✅
+8 Los jugadores reciben recompensas al ganar ✅
+9 Los juegos de habilidad funcionan correctamente ✅
+10 Los juegos cooperativos funcionan correctamente ✅
+11 Las puntuaciones y rankings se actualizan ✅
+12 Los torneos funcionan correctamente ✅
+13 Las suscripciones funcionan correctamente ✅
+14 La probabilidad de ganar es del 85% (demostrable) ✅
+15 El sistema es estable con múltiples jugadores ✅
+
+---
+
+12. Notas para Manus
+
+1. No reinventar la arquitectura existente. Usar Event Engine, Scheduler, WebSocket y TV existentes.
+2. Mantener la separación de autoridad. Lukita presenta, no gobierna.
+3. La TV es la pantalla principal. El celular es el control remoto.
+4. La sincronización es crítica. WebSocket debe manejar múltiples jugadores en tiempo real.
+5. La probabilidad de ganar del 85% debe ser demostrable. Incluir pruebas de simulación.
+6. Las recompensas deben ser configurables. No código duro.
+7. El sistema debe ser escalable. Soporte para hasta 100 jugadores concurrentes.

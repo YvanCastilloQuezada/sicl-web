@@ -1,0 +1,102 @@
+{
+  "schema": "ARKI-E8-MANIFEST-1.0",
+  "status": "E8-A IMPLEMENTED / PENDING INDEPENDENT REVIEW",
+  "authority": "Product Owner / Human Authority",
+  "baseline": "c62183a",
+  "cycleLimit": 1,
+  "implementationAuthorized": true,
+  "verificationStatus": "E8-A PENDING INDEPENDENT REVIEW",
+  "blocks": {
+    "E8-A": "IMPLEMENTED / PENDING REVIEW",
+    "E8-B": "NOT_STARTED",
+    "E8-C": "NOT_STARTED"
+  },
+  "capturesRequiredAtClosure": 6,
+  "capturesProducedThisBlock": 2,
+  "testsRequiredAtClosure": 12,
+  "testsProducedThisBlock": 4,
+  "sourceEvidence": [
+    {
+      "path": "E8_CONTRATO_PROPUESTO_V1.md",
+      "sha256": "dba7c7f71afab3e1324675d3f2e08c48a5004b956a4ad960123008e75a21520d"
+    },
+    {
+      "path": "E8_SCOPE_LIMITS.md",
+      "sha256": "e319dd1d8acc0f817ea1a71a68bea98c6ee163ebb15982bd61585b12ad482efe"
+    },
+    {
+      "path": "E8_PREFLIGHT_OUTPUTS.txt",
+      "sha256": "1cdb08e9de9a3fda37dc389a446626789aa5b763a4c3b22726f8ea7570563c93"
+    },
+    {
+      "path": "E8-A_REPORT.md",
+      "sha256": "47e0fd792d71f81b5ce6dca8e1e8f17baec1a42d2cbe0b7ecf75b11ef4f648d1"
+    },
+    {
+      "path": "E8A_GENERATION_OUTPUTS.txt",
+      "sha256": "bccb52302008797f8acb556adc1edace1f1bdfe19fa7a26fd630d5498c52b84a"
+    },
+    {
+      "path": "E8A_TEST_OUTPUTS.txt",
+      "sha256": "0be8bb0c0d3f2c54aadc953c2cd41d2b69a3e9c7169d962741ca3a62a61a0a78"
+    },
+    {
+      "path": "shared/arkiTechnicalDossierCompiler.ts",
+      "sha256": "7af807594a9d809fb7606d407902e47ecab27705633c7cbe3ccb72f7a9e0a8b5"
+    },
+    {
+      "path": "scripts/test-e8a-dossier.ts",
+      "sha256": "2e482f0ef3507ab2a1568b330d824c1b78d2766dca3bd5f293e9f53ffdbd5c32"
+    },
+    {
+      "path": "scripts/generate-e8a-evidence.ts",
+      "sha256": "062bcb3fc854fd122934788a3a896bbad3faedaec896e19a7ba520b366d983de"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "E8_A_OUTPUT/01-memoria-descriptiva.md",
+      "sha256": "8d0ccbdd2cedc6af1f9f42b93167e06cd301671c602ca226d8100cccf853905a"
+    },
+    {
+      "path": "E8_A_OUTPUT/02-especificaciones-tecnicas.md",
+      "sha256": "c9694db7ae67f27d06293c356e5c207c935b2d7fbb81fbe23b2b32cb7b838c39"
+    },
+    {
+      "path": "E8_A_OUTPUT/03-metrados.md",
+      "sha256": "d16270e49f7af384b38cc1f5f42c4a38ca4005e08f3d82920145124f1aae07c7"
+    },
+    {
+      "path": "E8_A_OUTPUT/04-presupuesto.md",
+      "sha256": "ff8e426646c310640e7567eb1cf4c67738440d2dd2576b584d1bfef9bedafc94"
+    },
+    {
+      "path": "E8_A_OUTPUT/05-planta.svg",
+      "sha256": "132cfb870a8847e475bda6973ed207878a93b4bd636634e012852235b3527fd3"
+    },
+    {
+      "path": "E8_A_OUTPUT/dossier-compilation.json",
+      "sha256": "2c9d72bb77fe172978e0fe170648207e5560b4b5dfa10f6ed12820124969ec1e"
+    }
+  ],
+  "captures": [
+    {
+      "path": "E8_CAPTURAS/01-expediente-compilado.svg",
+      "sha256": "964b2d28684e69b9aca5112e0153698d652fbe751a9f304b7e20ada65697e93d",
+      "format": "SVG",
+      "block": "E8-A"
+    },
+    {
+      "path": "E8_CAPTURAS/02-trazabilidad-snapshot.svg",
+      "sha256": "7f11648f63e3db2d21828042c6a3d3700ef37ca86879878c26a2c55b302fa0cc",
+      "format": "SVG",
+      "block": "E8-A"
+    }
+  ],
+  "notes": [
+    "E8-A is independently bounded and does not imply E8-B or E8-C completion.",
+    "The compiled dossier is derived from an approved snapshot and remains subject to specialist review.",
+    "E5/E6/E7 remain frozen and were not modified.",
+    "Final E8 manifest must be regenerated at cycle closure."
+  ]
+}

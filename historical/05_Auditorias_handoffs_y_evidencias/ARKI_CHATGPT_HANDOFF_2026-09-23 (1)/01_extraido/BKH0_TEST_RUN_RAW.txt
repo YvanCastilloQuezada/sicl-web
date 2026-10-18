@@ -1,0 +1,475 @@
+# BKH-0 verification outputs
+2026-09-23T07:51:29Z
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+exit=0
+## pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 16.47s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+exit=0
+## pnpm tsx scripts/test-access-matrix.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "roles": 4,
+  "modules": 16,
+  "cases": 64,
+  "visibleByRole": {
+    "visitor": 2,
+    "user": 14,
+    "specialist": 15,
+    "corporate": 16
+  },
+  "renamed": [
+    "Data",
+    "PRESUP-5D",
+    "GASTOS",
+    "EXP-TEC",
+    "O-M",
+    "ADM"
+  ],
+  "checks": [
+    "4 roles × 16 modules",
+    "visitor public access",
+    "2/14/15/16 visibility",
+    "canonical renames"
+  ]
+}
+(node:103791) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+exit=0
+## pnpm tsx scripts/test-bim-selection.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-bim-selection: PASS
+exit=0
+## pnpm tsx scripts/test-budget-reconciliation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "priceBookItems": 5,
+  "partidasVerified": 60,
+  "partidasSum": 1270854.8,
+  "elementCostsSum": 3402055.2,
+  "totalCalculated": 4672910,
+  "modelBudget": 4672910,
+  "formworkWithTraceability": 164,
+  "checks": [
+    "PriceBook schema, id, version, source, currency",
+    "items válidos",
+    "idempotencia de fromApuDatabase",
+    "coherencia item ↔ APU original",
+    "partidas del modelo referencian PriceBook",
+    "suma de partidas coincide con totalBudgetPen",
+    "encofrados con modelVersion, elementVersion, sourceSnapshotId, status"
+  ]
+}
+exit=0
+## pnpm tsx scripts/test-camera-modes.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","modes":["perspective","orthographic","plan","elevation","section"]}
+exit=0
+## pnpm tsx scripts/test-canvas-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-canvas-mount: PASS
+exit=0
+## pnpm tsx scripts/test-clipping-section.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","contract":"serializable clipping state","controls":["enabled","height"]}
+exit=0
+## pnpm tsx scripts/test-comparison-side-by-side.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","left":"v001","right":"v002","modified":1}
+exit=0
+## pnpm tsx scripts/test-constructive.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}
+exit=0
+## pnpm tsx scripts/test-context-panel.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-context-panel: PASS
+exit=0
+## pnpm tsx scripts/test-dossier-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","activeModule":"EXP-TEC","dossierMounted":true}
+exit=0
+## pnpm tsx scripts/test-e7.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checks":23,"budget":4650,"scheduleDays":7,"clashes":1,"structural":"NOT_DEMONSTRATED","mep":"VERIFIED","impacts":2}
+exit=0
+## pnpm tsx scripts/test-i18n-catalog.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "defaultLanguage": "es",
+  "languages": [
+    {
+      "code": "es",
+      "label": "Spanish",
+      "nativeLabel": "Español"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "nativeLabel": "English"
+    },
+    {
+      "code": "pt",
+      "label": "Portuguese",
+      "nativeLabel": "Português"
+    },
+    {
+      "code": "fr",
+      "label": "French",
+      "nativeLabel": "Français"
+    },
+    {
+      "code": "de",
+      "label": "German",
+      "nativeLabel": "Deutsch"
+    },
+    {
+      "code": "it",
+      "label": "Italian",
+      "nativeLabel": "Italiano"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
+      "nativeLabel": "中文"
+    },
+    {
+      "code": "ja",
+      "label": "Japanese",
+      "nativeLabel": "日本語"
+    }
+  ],
+  "catalogLanguages": [
+    "es",
+    "en",
+    "pt",
+    "fr",
+    "de",
+    "it",
+    "zh",
+    "ja"
+  ],
+  "checks": [
+    "8 exact languages",
+    "unique codes",
+    "non-empty metadata",
+    "default es",
+    "translation",
+    "fallback",
+    "persistence",
+    "v1.6 module labels and tooltip"
+  ]
+}
+exit=0
+## pnpm tsx scripts/test-ifc4-exporter.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","entities":28,"preserved":28,"missing":0,"lossReport":{"preserved":["muro-1-1","muro-1-2","muro-1-3","muro-1-4","space-1-1","space-1-2","space-1-3","space-1-4","foundation-1","foundation-2","foundation-3","foundation-4","column-1-1","column-1-2","column-1-3","column-1-4","beam-1-1","beam-1-2","beam-1-3","beam-1-4","slab-1","door-1","window-1","window-2","stair-1","floor-1","roof-1","partition-1"],"degraded":[],"lost":[],"propertiesLost":[],"relationsLost":[]}}
+exit=0
+## pnpm tsx scripts/test-ifc4-fixtures.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","fixtures":[{"filename":"fixture_01_simple_wall.ifc","sha256":"4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e","entities":28},{"filename":"fixture_02_room_with_door.ifc","sha256":"124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8","entities":28},{"filename":"fixture_03_multi_storey.ifc","sha256":"5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b","entities":53}]}
+exit=0
+## pnpm tsx scripts/test-ifc4-globalid.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checked":10,"deterministic":true,"globalIdLength":22}
+exit=0
+## pnpm tsx scripts/test-ifc4-web-ifc.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","parser":"web-ifc","schema":"IFC4","entities":29}
+exit=0
+## pnpm tsx scripts/test-isolate-freeze.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","operations":["isolate","freeze","show-all"]}
+exit=0
+## pnpm tsx scripts/test-measure-snap.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","unit":"m","snap":"centroide"}
+exit=0
+## pnpm tsx scripts/test-module-states.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "modules": 16,
+  "statuses": [
+    "IMPLEMENTED",
+    "PARTIAL",
+    "CONCEPTUAL",
+    "VERIFIED",
+    "NOT AVAILABLE",
+    "FUTURE REFERENCE"
+  ]
+}
+(node:105057) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+exit=0
+## pnpm tsx scripts/test-modules-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","modules":["GeneratorModule","BimModule","DossierModule","MetricsModule"],"homeOrchestrator":true,"inheritedLayout":false}
+exit=0
+## pnpm tsx scripts/test-navigator-layout.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","navigator":"deleted","contextPanel":"fixed left column","canvas":"plan","infoBox":"fixed right column","columns":"240px / fluid / 260px","responsive":true,"dossierMount":true}
+exit=0
+## pnpm tsx scripts/test-no-inherited-cleanup.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","navigatorDeleted":true,"cleanup":true,"fixedColumns":"240px / fluid / 260px","responsive":[1050,720]}
+exit=0
+## pnpm tsx scripts/test-persistence-formal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+exit=0
+## pnpm tsx scripts/test-persistence-idb.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+exit=0
+## pnpm tsx scripts/test-plan-3d-sync.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","contract":"shared SelectionProvider","views":["2D","3D"]}
+exit=0
+## pnpm tsx scripts/test-professional.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "periods": 3,
+  "financialTotal": 1759040.94,
+  "conflicts": 0,
+  "clashes": 480,
+  "approvalStatus": "pending",
+  "cdeDocuments": 2,
+  "s10Imported": 2
+}
+exit=0
+## pnpm tsx scripts/test-recalculation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "snapshot0": {
+    "version": 1,
+    "areaVidrio": 5.76,
+    "costo": 2080.8,
+    "duracionHoras": 8.93,
+    "widthM": 1.2,
+    "budget": {
+      "currency": "PEN",
+      "basePen": 4672910,
+      "mamparasPen": 2080.8,
+      "totalPen": 4674990.8,
+      "priceBookId": "PB-1C",
+      "priceBookVersion": 1
+    }
+  },
+  "snapshot1": {
+    "version": 2,
+    "areaVidrio": 7.2,
+    "costo": 2421,
+    "duracionHoras": 10.44,
+    "widthM": 1.5,
+    "budget": {
+      "currency": "PEN",
+      "basePen": 4672910,
+      "mamparasPen": 2421,
+      "totalPen": 4675331,
+      "priceBookId": "PB-1C",
+      "priceBookVersion": 1
+    },
+    "invalidations": [
+      "familyInstance:mampara-01.parameters.ancho_m",
+      "budget.totalPen",
+      "schedule",
+      "mamparaGeometry"
+    ]
+  },
+  "snapshot2": {
+    "version": 3,
+    "areaVidrio": 8.1,
+    "costo": 2664,
+    "heightM": 2.7
+  },
+  "ifc": {
+    "length0": 246753,
+    "length1": 246752,
+    "length2": 246752,
+    "changed": true
+  },
+  "markdown": {
+    "length0": 1128,
+    "length1": 1282,
+    "length2": 1280,
+    "changed": true
+  },
+  "determinism": "PASS",
+  "checks": [
+    "ancho cambia área de vidrio",
+    "ancho cambia perfiles",
+    "ancho cambia peso",
+    "ancho cambia partida AL-01",
+    "ancho cambia partida AL-02",
+    "ancho no cambia partida AL-03",
+    "ancho cambia costo total",
+    "ancho cambia geometría widthM",
+    "ancho cambia duración",
+    "ancho cambia presupuesto global (base + mamparas)",
+    "ancho cambia cronograma 4D",
+    "ancho cambia IFC",
+    "ancho cambia Markdown",
+    "alto cambia área y costo",
+    "alto cambia geometría heightM",
+    "alto cambia IFC",
+    "alto cambia Markdown",
+    "recalculateProject es determinista",
+    "CONSTRAINT_VIOLATION para ancho_m fuera de rango",
+    "CONSTRAINT_VIOLATION para alto_m fuera de rango",
+    "validateMamparaConstraints directo",
+    "UNSUPPORTED_CHANGE para update-formwork",
+    "UNSUPPORTED_CHANGE para update-specification",
+    "invalidaciones no vacías",
+    "provenance registra cambios"
+  ]
+}
+exit=0
+## pnpm tsx scripts/test-scene-comparison.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","added":0,"removed":0,"modified":16,"unchanged":16}
+exit=0
+## pnpm tsx scripts/test-scene-model-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-scene-model-mount: PASS
+exit=0
+## pnpm tsx scripts/test-scene-model.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","schema":"ARKI-SCENE-MODEL-1.0","nodes":57,"levels":[0,1,2],"bounds":{"widthM":16.5,"depthM":9.75,"heightM":10.8},"kinds":["wall","space","foundation","column","beam","slab","door","window","stair","floor","roof","partition"]}
+exit=0
+## pnpm tsx scripts/test-selection-info.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-selection-info: PASS
+exit=0
+## pnpm tsx scripts/test-serialization.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}
+exit=0
+## pnpm tsx scripts/test-technical-dossier.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "readiness": 50,
+  "specifications": 7,
+  "formwork": 164,
+  "prices": 7,
+  "findings": 4,
+  "sections": 6
+}
+exit=0
+## pnpm tsx scripts/test-viewpoints.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","fields":["viewMode","level","clipping","clipHeight","selectedIds"]}
+exit=0
+## pnpm tsx scripts/test-wall-coherence.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallsChecked": 16,
+  "checks": [
+    "capas con espesor > 0",
+    "capas con función válida",
+    "aberturas dentro del muro",
+    "aberturas con tipo válido",
+    "áreas no negativas",
+    "área neta == max(0, bruta - aberturas)",
+    "volumen no negativo",
+    "peso no negativo",
+    "metrado.m2_muro == area neta redondeada",
+    "metrado.m3_muro == volumen redondeado",
+    "peso_total_kg == suma de capas",
+    "metrado.peso_total_kg == peso_total_kg()",
+    "coherencia DTO ↔ dominio"
+  ]
+}
+exit=0
+## pnpm tsx scripts/test-wall-door-canvas.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","squareWalls":4,"doorId":"door-1","hostWallId":"muro-1-1","opening":{"id":"puerta-qaxtk0x","tipo":"puerta","ancho_m":0.9,"alto_m":2.1,"posicion_m":5.55,"tipo_marco":"aluminio"}}
+exit=0

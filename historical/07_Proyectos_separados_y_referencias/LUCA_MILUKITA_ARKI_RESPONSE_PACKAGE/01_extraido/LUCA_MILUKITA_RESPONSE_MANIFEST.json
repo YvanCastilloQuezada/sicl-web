@@ -1,0 +1,57 @@
+{
+  "schema": "LUCA-MILUKITA-RESPONSE-PACKAGE-1.0",
+  "status": "PARTIAL_EVIDENCE_BOUNDED",
+  "date": "2026-09-23",
+  "sourceRepository": "YvanCastilloQuezada/milukita",
+  "currentCheckout": {
+    "branch": "main",
+    "commit": "37d03d1b540a698716e243958423127bcf9ff15c",
+    "classification": "GOVERNANCE_RECOVERY_SHELL"
+  },
+  "structuredBranchEvidence": {
+    "ref": "origin/feature/luca-spatial-intelligence-control-center",
+    "commit": "bc652e70bf2f64e9737eeb06a7f2212f58d153ed",
+    "classification": "STRUCTURED_WORKSPACE_CANDIDATE"
+  },
+  "canonicalCommitMentionedByC001": {
+    "commit": "a6dafc5118dc8f36a1a5b60a21406397c089650e",
+    "availableInCurrentCheckout": false
+  },
+  "artifacts": [
+    {
+      "path": "LUCA_MILUKITA_AS_IS_SYSTEM_REPORT.md",
+      "bytes": 10021,
+      "sha256": "19a7b746916712f9ded2cf5e895ef5dad24489694258c15297c094b8ada599f4"
+    },
+    {
+      "path": "LUCA_MILUKITA_SYSTEM_MAP.md",
+      "bytes": 2201,
+      "sha256": "3da19d97269e8a3892841fc7f2fe4295deb359d8151b401a34aef0e3227964d9"
+    },
+    {
+      "path": "LUCA_MILUKITA_CAPABILITY_MATRIX.json",
+      "bytes": 2935,
+      "sha256": "f8d3652386507acf8e7391762e5317d2098264f8c02c205e8ac496dc9b36fcc5"
+    },
+    {
+      "path": "ARKI_LUCA_INTERRELATION_REPORT.md",
+      "bytes": 6100,
+      "sha256": "9be17d5687260420ec32d065eb36174582d69a9824ff4aed2d48d8676496aba9"
+    },
+    {
+      "path": "ARKI_LUCA_SHARED_CAPABILITY_MATRIX.json",
+      "bytes": 2194,
+      "sha256": "63d782eb7a1f8db276ed9da5f2fa460226f4417dc0c914efd465eea30ef26743"
+    },
+    {
+      "path": "LUCA_MILUKITA_UNIVERSAL_REMOTE_PAIRING_ADDENDUM.md",
+      "bytes": 12751,
+      "sha256": "33d45b1a7b7d4cfd0c4bd8fa19794bd42610000e7f597a73ca37d73c6b36cdfd"
+    },
+    {
+      "path": "LUCA_MILUKITA_REMOTE_PAIRING_MATRIX.json",
+      "bytes": 1924,
+      "sha256": "b2677ca074c5e1a6663af592b9459b8f8ab02efaf0f5a7b41dfdc392afb153dc"
+    }
+  ]
+}

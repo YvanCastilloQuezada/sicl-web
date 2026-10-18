@@ -1,0 +1,22 @@
+=== 03-test-constructive ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}

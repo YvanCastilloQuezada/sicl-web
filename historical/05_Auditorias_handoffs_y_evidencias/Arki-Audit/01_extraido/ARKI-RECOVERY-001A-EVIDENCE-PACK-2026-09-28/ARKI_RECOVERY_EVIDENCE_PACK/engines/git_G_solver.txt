@@ -1,0 +1,16 @@
+[33me80bd3a[m docs(architecture): close ARE source and dependency semantics
+[33mb84faa0[m docs(canon): add ARKI Principle 5
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mb919e24[m docs(rfc-037): formalize multi-engine absorption doctrine
+[33m39b7798[m docs(arki): record phase1 multi-master learning
+[33m2bafbc5[m feat: add explainable architectural design distance
+[33m5538a89[m feat: add traceable multi-agent design exploration
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33m499a397[m docs: lock project intelligence distinctions
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33mf7e2f6f[m docs: freeze multiscale variable intelligence decision lock
+[33me863fd7[m docs: add canonical CLI commands reference
+[33md93c610[m docs: add user manual and entity glossary
+[33m9b3ca67[m docs: define RFC-014 user copilot

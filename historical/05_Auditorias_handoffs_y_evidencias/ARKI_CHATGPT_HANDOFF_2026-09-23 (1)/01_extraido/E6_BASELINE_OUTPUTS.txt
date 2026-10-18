@@ -1,0 +1,109 @@
+# E6 baseline
+HEAD=c62183a
+-- pnpm check --
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+-- pnpm build --
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2203 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                   367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-CVd37v71.css    135.35 kB │ gzip:  23.95 kB
+../dist/public/assets/index-Bx-xgZmM.js   1,992.32 kB │ gzip: 545.73 kB
+✓ built in 12.16s
+-- test-constructive --
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}
+-- test-serialization --
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}
+-- test-wall-coherence --
+{
+  "status": "PASS",
+  "wallsChecked": 16,
+  "checks": [
+    "capas con espesor > 0",
+    "capas con función válida",
+    "aberturas dentro del muro",
+    "aberturas con tipo válido",
+    "áreas no negativas",
+    "área neta == max(0, bruta - aberturas)",
+    "volumen no negativo",
+    "peso no negativo",
+    "metrado.m2_muro == area neta redondeada",
+    "metrado.m3_muro == volumen redondeado",
+    "peso_total_kg == suma de capas",
+    "metrado.peso_total_kg == peso_total_kg()",
+    "coherencia DTO ↔ dominio"
+  ]
+}
+-- test-wall-door-canvas --
+{"status":"PASS","squareWalls":4,"doorId":"door-1","hostWallId":"muro-1-1","opening":{"id":"puerta-unyitnk","tipo":"puerta","ancho_m":0.9,"alto_m":2.1,"posicion_m":5.55,"tipo_marco":"aluminio"}}
+-- test-bim-selection --
+test-bim-selection: PASS
+-- test-scene-model --
+{"status":"PASS","schema":"ARKI-SCENE-MODEL-1.0","nodes":57,"levels":[0,1,2],"bounds":{"widthM":16.5,"depthM":9.75,"heightM":10.8},"kinds":["wall","space","foundation","column","beam","slab","door","window","stair","floor","roof","partition"]}
+-- test-scene-model-mount --
+test-scene-model-mount: PASS
+-- test-scene-comparison --
+{"status":"PASS","added":0,"removed":0,"modified":16,"unchanged":16}

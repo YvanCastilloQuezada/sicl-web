@@ -1,0 +1,12 @@
+{
+  "capabilityId": "C44",
+  "lifecycle": "DOCUMENTED",
+  "readiness": "KNOWLEDGE_DEFICIT",
+  "implementedBounded": false,
+  "adversariallyTested": false,
+  "transferTested": false,
+  "verifiedBounded": false,
+  "professionalValidationRequired": true,
+  "blocked": true,
+  "evidenceHash": "sha256:v1:587cf7dbbc927ee40191ab3f8118c40fab36e2a6daee0e74710fb945ca6f1abd"
+}

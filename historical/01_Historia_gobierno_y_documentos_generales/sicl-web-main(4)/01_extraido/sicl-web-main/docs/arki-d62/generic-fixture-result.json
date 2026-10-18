@@ -1,0 +1,309 @@
+{
+  "schema": "ARKI-D6.2-GENERIC-FIXTURE-0.1",
+  "executionId": "D62-GENERIC-001",
+  "projectId": "ARKICE-123-456",
+  "briefType": "MUNICIPAL_ARCHIVE_READING_ROOM",
+  "executionSurface": "PASS",
+  "freshBrief": "PASS",
+  "coreRetrieval": "PASS",
+  "knowledgeUsageTrace": "PASS",
+  "unknownTrace": "PASS",
+  "provenance": "PASS",
+  "replay": "PASS",
+  "noHardcoding": "PASS",
+  "noParallelEngine": "PASS",
+  "geometry": "NOT_REQUIRED_D6_2",
+  "retrievedKnowledgeIds": [
+    "KN-000002",
+    "KN-000004",
+    "KN-000001",
+    "KN-000003",
+    "KN-000005"
+  ],
+  "retrievedNotUsed": [],
+  "reasoningTrace": {
+    "PROJECT_INPUT": {
+      "executionId": "D62-GENERIC-001",
+      "brief": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+      "context": {
+        "typology": "MUNICIPAL_ARCHIVE_READING_ROOM",
+        "scale": "UNIT_FUNCTIONAL",
+        "geometryRequired": false
+      },
+      "constraints": [
+        "public and staff flows must be distinguishable",
+        "service intake must not require public access",
+        "the brief does not define staffing or collection capacity"
+      ],
+      "knownFacts": []
+    },
+    "ALREADY_KNOWN": [],
+    "RETRIEVED": [
+      {
+        "knowledgeId": "KN-000002",
+        "retrievalQuery": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+        "whyRetrieved": "Shared brief terms: design, room, area",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000004",
+        "retrievalQuery": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+        "whyRetrieved": "Shared brief terms: path",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000001",
+        "retrievalQuery": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000003",
+        "retrievalQuery": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000005",
+        "retrievalQuery": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      }
+    ],
+    "ADAPTED": [
+      {
+        "knowledgeId": "KN-000002",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000004",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000001",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000003",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000005",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      }
+    ],
+    "INFERRED": [
+      {
+        "id": "INF-D62-GENERIC-001-1",
+        "statement": "A new brief requires a typed program and relationship analysis before geometric generation.",
+        "status": "HYPOTHESIS"
+      }
+    ],
+    "EXECUTED": [
+      {
+        "id": "EXE-D62-GENERIC-001-1",
+        "action": "Retrieved bounded knowledge and assembled a non-geometric reasoning chain."
+      }
+    ],
+    "NEW_LEARNING_CANDIDATE": [
+      {
+        "id": "LC-D62-GENERIC-001-1",
+        "observation": "This execution demonstrates retrieval-to-trace linkage; it is not a promoted fact.",
+        "status": "OBSERVATION_ONLY",
+        "promotion": "NONE"
+      }
+    ],
+    "PURPOSE": "Design a small municipal archive reading room with a public consultation area, a controlled staff work area, and a service intake path.",
+    "CAPABILITIES": [
+      "brief interpretation",
+      "bounded knowledge retrieval",
+      "structured reasoning trace"
+    ],
+    "ACTIVITIES_PROCESSES": [
+      "interpret brief",
+      "inspect conditions",
+      "identify missing evidence"
+    ],
+    "RELATIONSHIPS_FLOWS": [
+      {
+        "relationship": "public and staff flows must be distinguishable",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "service intake must not require public access",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "the brief does not define staffing or collection capacity",
+        "status": "PROJECT_INPUT"
+      }
+    ],
+    "REQUIREMENTS_CONDITIONS": [
+      "public and staff flows must be distinguishable",
+      "service intake must not require public access",
+      "the brief does not define staffing or collection capacity"
+    ],
+    "UNKNOWN": [
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "staffing and collection capacity are not supplied",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-GENERIC-001-1"
+      }
+    ],
+    "DEFICITS": [
+      {
+        "deficit": "staffing and collection capacity are not supplied",
+        "consequence": "Incomplete diagnosis until resolution."
+      }
+    ],
+    "CAUSE_HYPOTHESES": [
+      {
+        "unknownId": "UNK-D62-GENERIC-001-1",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      }
+    ],
+    "STRATEGIES": [],
+    "CANDIDATES": [
+      {
+        "id": "CAND-D62-GENERIC-001-1",
+        "description": "Prepare a validated program/relationship candidate before geometry.",
+        "realization": "NOT_GEOMETRICALLY_EXECUTED"
+      }
+    ],
+    "WHY_TRACE": [
+      {
+        "knowledgeId": "KN-000002",
+        "retrievalReason": "Shared brief terms: design, room, area",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000004",
+        "retrievalReason": "Shared brief terms: path",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000001",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000003",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000005",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      }
+    ],
+    "RETRIEVED_NOT_USED": []
+  },
+  "output": {
+    "status": "EXECUTED",
+    "geometry": "NOT_REQUIRED_D6_2",
+    "humanAuthority": "FINAL",
+    "candidateCount": 1,
+    "unknownCount": 1
+  },
+  "coreKnowledgeVersion": 2,
+  "persistenceVersion": 3,
+  "timestamp": "2026-09-20T00:00:00.000Z"
+}

@@ -1,0 +1,7 @@
+src/sicl/design_knowledge.py:112:    applicable_typologies: list[str] = field(default_factory=list)
+src/sicl/design_knowledge.py:144:    applicable_typologies: list[str] = field(default_factory=list)
+src/sicl/design_knowledge.py:247:        values = (item for item in values if not item.applicable_typologies or typology in item.applicable_typologies)
+src/sicl/design_knowledge.py:256:        values = (item for item in values if not item.applicable_typologies or typology in item.applicable_typologies)
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:214:| `applicable_typologies` | array[string] | No | Tipologías compatibles |
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:279:| `applicable_typologies` | array[string] | No | Tipologías compatibles |
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:1009:3 Typologies

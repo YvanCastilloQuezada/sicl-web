@@ -1,0 +1,31 @@
+{
+  "exampleId": "EJEMPLO-052",
+  "title": "Ejemplo 052 · /PLANNING SHOW",
+  "commandName": "/PLANNING SHOW",
+  "category": "planning",
+  "syntax": "/PLANNING SHOW <instrument_id>",
+  "command": "/PLANNING SHOW INSTRUMENT-ID-001",
+  "arguments": [
+    {
+      "name": "instrument_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "INSTRUMENT-ID-001"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Requires an authorized SICL/Core or external evidence context.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /PLANNING SHOW.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

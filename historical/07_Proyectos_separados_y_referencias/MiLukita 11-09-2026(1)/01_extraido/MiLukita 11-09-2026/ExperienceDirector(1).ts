@@ -1,0 +1,2 @@
+import { createExperienceProposal, scoreExperience, type Finding } from "../../shared/experienceDirector";
+export class ExperienceDirector { readonly mode = "PROPOSE" as const; review(findings: Finding[]) { return { agent: "EXPERIENCE_DIRECTOR", mode: this.mode, score: scoreExperience({}, "UNAVAILABLE"), findings, proposals: findings.map(createExperienceProposal), autoDesignAllowed: false, autoDeployAllowed: false }; } }

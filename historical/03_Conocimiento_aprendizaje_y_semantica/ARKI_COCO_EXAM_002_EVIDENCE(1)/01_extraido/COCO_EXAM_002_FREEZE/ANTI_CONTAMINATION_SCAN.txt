@@ -1,0 +1,33 @@
+ANTI-CONTAMINATION SCAN
+classification=NO_MATERIAL_ORION_CONTAMINATION_DETECTED
+matchCount=29
+materialContaminationCount=0
+ARKI_COCO_EXAM_001_R1_RAW.json :: ARKI-TRANSFER-002 :: 2
+ARKI_COCO_EXAM_001_R1_RAW.json :: TRANSFER-002 :: 2
+ARKI_COCO_EXAM_001_R1_REPORT.md :: ARKI-TRANSFER-002 :: 2
+ARKI_COCO_EXAM_001_R1_REPORT.md :: TRANSFER-002 :: 2
+ARKI_COCO_EXAM_001_R1_OUTPUTS.txt :: ARKI-TRANSFER-002 :: 3
+ARKI_COCO_EXAM_001_R1_OUTPUTS.txt :: TRANSFER-002 :: 3
+ARKI_COCO_EXAM_001_R1_SCOPE_LIMITS.md :: ARKI-TRANSFER-002 :: 1
+ARKI_COCO_EXAM_001_R1_SCOPE_LIMITS.md :: TRANSFER-002 :: 1
+ARKI_COCO_EXAM_001_R1_MANIFEST.json :: ARKI-TRANSFER-002 :: 1
+ARKI_COCO_EXAM_001_R1_MANIFEST.json :: TRANSFER-002 :: 1
+scripts/test-coco-exam-001-r1.ts :: ARKI-TRANSFER-002 :: 2
+scripts/test-coco-exam-001-r1.ts :: TRANSFER-002 :: 4
+scripts/run-coco-exam-001-r1-evidence.sh :: ARKI-TRANSFER-002 :: 1
+scripts/run-coco-exam-001-r1-evidence.sh :: TRANSFER-002 :: 1
+scripts/create-coco-exam-001-r1-package.py :: ARKI-TRANSFER-002 :: 1
+scripts/create-coco-exam-001-r1-package.py :: TRANSFER-002 :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: PROJECT ORION :: 2
+scripts/run-coco-exam-002-freeze-scan.py :: ARKI-TRANSFER-002 :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: TRANSFER-002 :: 2
+scripts/run-coco-exam-002-freeze-scan.py :: SURPRISE TRANSFER :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: CENTRO DE PRODUCCIÓN, INVESTIGACIÓN Y DISTRIBUCIÓN :: 2
+scripts/run-coco-exam-002-freeze-scan.py :: EXAM_VERIFIED_FOR_BOUNDED_C1_C53_TRANSFER :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: COVERAGE_MATRIX_C1_C53 :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: PATTERN_TO_LAW :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: TYPOLOGY_TO_FACT :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: SIMULATION_TO_TRUTH :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: CERTIFICATION_PROJECTED_TO_CERTIFIED :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: PFH01_BYPASS :: 1
+scripts/run-coco-exam-002-freeze-scan.py :: ORION :: 6

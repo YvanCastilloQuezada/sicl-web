@@ -1,0 +1,115 @@
+{
+  "schema": "ARKI-BKH4-3-EVIDENCE-1.0",
+  "order": "96",
+  "status": "HARDENED / PENDING INDEPENDENT VERIFICATION",
+  "fixes": {
+    "FIX-BKH43-01": "CLOSED",
+    "FIX-BKH43-02": "CLOSED"
+  },
+  "codebook": "ARKI Master Codebook v1.0 CANONICAL",
+  "baseline": "BKH4-0/1/2 VERIFIED FOR APPROVED SCOPE",
+  "canonicalMutation": false,
+  "commitPathCreated": false,
+  "entries": [
+    {
+      "path": "shared/arkiSimulationSandbox.ts",
+      "sha256": "966c033d7f4d4890ad8f9e7b9c566cfa603c698a4e4fc674e4d9bc4d648146ca",
+      "bytes": 18025
+    },
+    {
+      "path": "scripts/test-bkh4-3-simulation.ts",
+      "sha256": "0042d2ed069f151880d62b820cb68fffc79d447bf6d8b236f1382915135a49b3",
+      "bytes": 13453
+    },
+    {
+      "path": "BKH4_3_IMPLEMENTATION_REPORT.md",
+      "sha256": "4b22a021220499f49c2d1e49da5a3faeeee9e5621c29d1805be102f776846fcc",
+      "bytes": 2319
+    },
+    {
+      "path": "BKH4_3_SIMULATION_CONTRACT.md",
+      "sha256": "b430fa79f3838bb75d2ff3a0577647bdfdbadf9873fb005c8f410ef7116812ce",
+      "bytes": 1990
+    },
+    {
+      "path": "BKH4_3_INVARIANT_REPORT.md",
+      "sha256": "6c0a35e44a8ee9ddc3f60ed95ebc52e550a0913c08ee8081eae1f25d1981c610",
+      "bytes": 2535
+    },
+    {
+      "path": "BKH4_3_TEST_MATRIX.md",
+      "sha256": "f0a33041e16c1d89b00c5c0b8ebbf0a2dc030b2cb1a06d4ed71378cd89f0dc15",
+      "bytes": 1550
+    },
+    {
+      "path": "BKH4_3_TORTURE_TEST.md",
+      "sha256": "051dbc61e3795f785e799a64accbdf269ac76dab0981895ed32170604bf48ca7",
+      "bytes": 1265
+    },
+    {
+      "path": "BKH4_3_REGRESSION_REPORT.md",
+      "sha256": "d0b6f8595852b64ec45adce386f84b6ff59ceccc4db3abc791f95cf9df4b4d3d",
+      "bytes": 1063
+    },
+    {
+      "path": "BKH4_3_SCOPE_LIMIT_REPORT.md",
+      "sha256": "8d422c890bd29ae30486c3efdbd31993ca9116f402782a52455c42e1b6ade895",
+      "bytes": 1164
+    },
+    {
+      "path": "BKH4_3_96A_FINAL_REPORT.md",
+      "sha256": "3ea4c75be3ad54b72f566dd22f0aa0b2ddabf2b5f6dd38bac5a7ccc364b43349",
+      "bytes": 1483
+    },
+    {
+      "path": "BKH4_3_REGRESSION_OUTPUTS.txt",
+      "sha256": "f08e3bc8abd72a3f602577b51af6b2773048df8a74e0e15cd2e500b1f7dbdd1c",
+      "bytes": 5437
+    },
+    {
+      "path": "BKH4_3_96A_REGRESSION_OUTPUTS.txt",
+      "sha256": "0546f060447e4fa3ba77f1bbc4537c4053a27bc9a75deaa2a288e77a139a076d",
+      "bytes": 5600
+    },
+    {
+      "path": "BKH4_TRANSACTION_ENGINE_CONTRACT_V1_1.md",
+      "sha256": "2a58213e0c36e62fcbdec222d280e063d705546c60fa8cb2d6d3df929ce4d8a3",
+      "bytes": 28213
+    },
+    {
+      "path": "BKH4_TEST_PLAN.md",
+      "sha256": "ac48465e91cfb5fbd792a07050228dac89b14fbf53a8ce0ca7a532c9b722a1e5",
+      "bytes": 4581
+    },
+    {
+      "path": "BKH4_TORTURE_SCENARIOS.md",
+      "sha256": "d25b43b3130dd4b822d54ab7634df1301b2c3534a2ff475e129829590dc838b1",
+      "bytes": 2081
+    },
+    {
+      "path": "BKH4_95A_OUTPUTS.txt",
+      "sha256": "2476e5d202b0201899f00125623b47933d76391be63efb352f6d0f189decbd39",
+      "bytes": 4601
+    },
+    {
+      "path": "ARKI_MASTER_CODEBOOK.md",
+      "sha256": "fd2b0566633e62c8a3aff1dce465e30fd8b48f7707bd602721a57fc52f024f7b",
+      "bytes": 8126
+    },
+    {
+      "path": "ARKI_CODEBOOK_FOR_ARCHITECT.md",
+      "sha256": "6dbed5661a1e6a8e347f0886e00f0ee774d4e17caf020767a14aff956f245db3",
+      "bytes": 3439
+    },
+    {
+      "path": "AKI001_CURRICULUM_DELTA_BKH4_3.md",
+      "sha256": "1a2f50920a34d1f75ecebea6a59b754bbe3b7cfb4db3ae7d5d29bb161c680ee4",
+      "bytes": 801
+    },
+    {
+      "path": "ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_3.md",
+      "sha256": "ab36c1f34beda26f302ab3963aed426cfabbf71dbde76d0114b0e03e99e50c70",
+      "bytes": 838
+    }
+  ]
+}

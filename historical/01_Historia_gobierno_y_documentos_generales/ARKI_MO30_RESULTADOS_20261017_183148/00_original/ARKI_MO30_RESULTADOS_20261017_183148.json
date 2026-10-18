@@ -1,0 +1,83 @@
+{
+  "protocol": "ARKI-MO30",
+  "utc": "2026-10-17T23:27:27.352673+00:00",
+  "endpoint": "http://127.0.0.1:11434",
+  "image": "/home/arki/Descargas/planta.png",
+  "checks": [
+    {
+      "model": "qwen3-vl:8b",
+      "kind": "ocr",
+      "status": "OK",
+      "seconds": 25.92,
+      "answer": "",
+      "eval_count": 400,
+      "total_duration": 25918880515
+    },
+    {
+      "model": "qwen3-vl:8b",
+      "kind": "architectural",
+      "status": "OK",
+      "seconds": 14.32,
+      "answer": "",
+      "eval_count": 400,
+      "total_duration": 14314003379
+    },
+    {
+      "model": "llama3.2-vision:11b",
+      "kind": "ocr",
+      "status": "ERROR",
+      "seconds": 2.42,
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "model": "llama3.2-vision:11b",
+      "kind": "architectural",
+      "status": "ERROR",
+      "seconds": 2.18,
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "model": "devstral-small-2:24b",
+      "kind": "ocr",
+      "status": "OK",
+      "seconds": 65.74,
+      "answer": "Aquí está la transcripción de los textos, números y cotas legibles en la imagen:\n\n### Ground Floor Plan\n- **Textos y cotas legibles:**\n  - \"GROUND FLOOR PLAN\"\n  - \"BEDROOM 1\" (27'0\" x 12'6\")\n  - \"BEDROOM 2\" (12'6\" x 12'6\")\n  - \"BEDROOM 3\" (12'6\" x 12'6\")\n  - \"KITCHEN\" (12'6\" x 12'6\")\n  - \"DINING\" (12'6\" x 12'6\")\n  - \"LIVING\" (12'6\" x 12'6\")\n  - \"POOL\" (12'6\" x 12'6\")\n  - \"GARAGE\" (12'6\" x 12'6\")\n  - \"STAIRS\" (12'6\" x 12'6\")\n  - \"PORCH\" (12'6\" x 12'6\")\n  - \"PATIO\" (12'6\" x 12'6\")\n  - \"GARDEN\" (12'6\" x 12'6\")\n  - \"DRIVEWAY\" (12'6\" x 12'6\")\n  - \"ENTRANCE\" (12'6\" x 12'6\")\n  - \"WALL\" (12'6\" x 12'6\")\n  - \"FENCE\" (12'6\" x 12'6\")\n  - \"GATE\" (12'6\" x 12'6\")\n  - \"SIDEWAL",
+      "eval_count": 400,
+      "total_duration": 65742469302
+    },
+    {
+      "model": "devstral-small-2:24b",
+      "kind": "architectural",
+      "status": "OK",
+      "seconds": 65.75,
+      "answer": "### **Análisis del Plano (Observación Directa)**\n\n#### **1. Ambientes Identificados (Ground Floor Plan)**\n- **Living Room (Salón):** Ubicado en la parte central, con acceso directo a la entrada principal.\n- **Dining Room (Comedor):** Adyacente al salón, con una mesa central.\n- **Kitchen (Cocina):** Conectada al comedor, equipada con electrodomésticos y área de trabajo.\n- **Bedroom 1 (Dormitorio 1):** Con baño privado (WC) y closet.\n- **Bedroom 2 (Dormitorio 2):** Con baño privado (WC) y closet.\n- **Study Room (Oficina/Estudio):** Pequeño espacio con escritorio.\n- **Utility Room (Lavandería):** Con lavadora y secadora.\n- **Staircase (Escalera):** Conecta el primer piso con el segundo piso.\n\n#### **2. Accesos y Relaciones Espaciales (Ground Floor Plan)**\n- **Entrada Principal:** Da acceso directo al salón.\n- **Salón → Comedor → Cocina:** Flujo continuo sin barreras.\n- **Dormitorios:** Cada uno tiene baño privado y closet.\n- **Escalera:** Ubicada cerca de la entrada, conectando con el segundo piso.\n\n#### **3. Orientación y Cotas Legibles (Ground Floor Plan)**\n- **Cotas en metros (m):** Las dimensiones están marcadas en metros (ej: 3.60 m, 4.20 m).\n- **Orientación:** No hay indicación clara de norte/sur, pero las cotas permiten medir distancias.\n- **Puertas y Ventanas:** Marcadas con líneas discontinuas, pero no hay detalles de orientación solar.\n\n---\n\n#### **4. Ambientes Identificados (First Floor Plan)**\n- **Bedroom ",
+      "eval_count": 400,
+      "total_duration": 65747743297
+    },
+    {
+      "model": "qwen3-coder:30b",
+      "kind": "code",
+      "status": "OK",
+      "seconds": 30.81,
+      "answer": "```python\nimport re\nimport unittest\n\ndef parse_dimension(texto):\n    if not isinstance(texto, str):\n        raise ValueError(\"La entrada debe ser una cadena de texto.\")\n    \n    texto = texto.strip()\n    if not texto:\n        raise ValueError(\"La entrada no puede estar vacía.\")\n    \n    # Patrón para coincidir con número seguido de unidad (m, cm, mm)\n    patron = r'^([+-]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?)\\s*(m|cm|mm)$'\n    match = re.match(patron, texto)\n    \n    if not match:\n        raise ValueError(\"Formato inválido. Debe ser 'número unidad' donde la unidad es m, cm o mm.\")\n    \n    numero_str, unidad = match.groups()\n    try:\n        numero = float(numero_str)\n    except ValueError:\n        raise ValueError(\"El valor numérico es inválido.\")\n    \n    # Convertir a metros\n    if unidad == 'm':\n        return numero\n    elif unidad == 'cm':\n        return numero / 100.0\n    elif unidad == 'mm':\n        return numero / 1000.0\n    else:\n        raise ValueError(\"Unidad desconocida.\")\n\nclass TestParseDimension(unittest.TestCase):\n    \n    def test_metros(self):\n        self.assertEqual(parse_dimension(\"3.50 m\"), 3.5)\n        \n    def test_centimetros(self):\n        self.assertEqual(parse_dimension(\"350 cm\"), 3.5)\n        \n    def test_milimetros(self):\n        self.assertEqual(parse_dimension(\"3500 mm\"), 3.5)\n        \n    def test_entrada_invalida_formato(self):\n        with self.assertRaises(ValueError):\n            parse_dimension(\"3.50\")\n            \n    def test_entrada_invalida_unidad(self):\n       ",
+      "eval_count": 400,
+      "total_duration": 30813342497
+    },
+    {
+      "model": "qwen3-coder-next:q4_K_M",
+      "kind": "code",
+      "status": "OK",
+      "seconds": 54.06,
+      "answer": "Aquí tienes una función Python **pura** (sin efectos secundarios, sin dependencias externas) `parse_dimension(texto)` que:\n\n- Acepta cadenas como `\"3.50 m\"` o `\"350 cm\"`.\n- Devuelve el valor en **metros** como `float`.\n- Rechaza entradas inválidas lanzando `ValueError`.\n- Maneja mayúsculas/minúsculas en la unidad (`m`, `M`, `cm`, `CM`, etc.).\n- Valida que el número sea válido y que la unidad sea `m` o `cm`.\n\nTambién incluye **5 pruebas unitarias** con `unittest`.\n\n```python\nimport re\nimport unittest\n\ndef parse_dimension(texto):\n    \"\"\"\n    Parsea una cadena que representa una dimensión (longitud) y devuelve su valor en metros.\n    \n    Args:\n        texto (str): Cadena como \"3.50 m\" o \"350 cm\".\n    \n    Returns:\n        float: Valor en metros.\n    \n    Raises:\n        ValueError: Si la entrada no tiene el formato esperado o unidad no reconocida.\n    \"\"\"\n    if not isinstance(texto, str):\n        raise ValueError(\"Input must be a string\")\n    \n    # Patrón: número (entero o decimal, opcionalmente con signo) seguido de espacio y unidad (m o cm)\n    pattern = r'^\\s*([+-]?\\d+\\.?\\d*)\\s*(m|cm)\\s*$'\n    match = re.match(pattern, texto, re.IGNORECASE)\n    \n    if not match:\n        raise ValueError(f\"Invalid format: '{texto}'. Expected format: '<number> m' or '<number> cm'\")\n    \n    valor_str, unidad = match.groups()\n    \n    try:\n        valor = float(valor_str)\n    except ValueError:\n        raise ValueError(f\"",
+      "eval_count": 400,
+      "total_duration": 54057629289
+    }
+  ],
+  "installed": [
+    "devstral-small-2:24b",
+    "llama3.2-vision:11b",
+    "qwen3-coder-next:q4_K_M",
+    "qwen3-coder:30b",
+    "qwen3-vl:8b"
+  ]
+}

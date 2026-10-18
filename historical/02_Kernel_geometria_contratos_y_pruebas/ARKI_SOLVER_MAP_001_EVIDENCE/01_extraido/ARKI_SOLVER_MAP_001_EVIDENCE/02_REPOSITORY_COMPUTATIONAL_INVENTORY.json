@@ -1,0 +1,258 @@
+{
+  "generatedAt": "2026-09-24",
+  "assets": [
+    {
+      "path": "client/src/canvas/SceneModel3D.tsx",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "client/src/comparison/SceneComparisonSideBySide.tsx",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "client/src/ifc4/Ifc4Panel.tsx",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "client/src/modules/SceneModelModule.tsx",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/__pycache__/create-solver-map.cpython-312.pyc",
+      "classification": "BOUNDED",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/create-arki-cad-001a-package.py",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/create-arki-cad-001b-docs.py",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/create-arki-cad-001c-manifest.py",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/create-cad-001d-package.py",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/create-solver-map-package.py",
+      "classification": "BOUNDED",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/create-solver-map.py",
+      "classification": "BOUNDED",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/generate-ifc-fixtures.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-arki-cad-gateway.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-arki-cad-real-reader.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-bkh2-constraint-engine.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-bkh3-regeneration-engine.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-bkh4-3-simulation.ts",
+      "classification": "BOUNDED",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-ifc4-exporter.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-ifc4-fixtures.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-ifc4-globalid.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-ifc4-web-ifc.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-scene-comparison.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-scene-model-mount.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-scene-model.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/test-solver-map-package.py",
+      "classification": "BOUNDED",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "scripts/verify-cad-001d-package.py",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiCadGateway.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiConstraintEngine.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiPriceBook.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiRegenerationEngine.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiSceneComparison.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiSceneModel.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiSimulationSandbox.ts",
+      "classification": "BOUNDED",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/arkiTransactionEngine.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/ifc4/arkiIfc4.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    },
+    {
+      "path": "shared/ifc4/webIfcAdapter.ts",
+      "classification": "ACTIVE",
+      "purpose": "Repository artifact matched computational inventory pattern",
+      "evidence": "filesystem + source inspection",
+      "solverInstalled": false
+    }
+  ],
+  "solverInstallationsObserved": []
+}

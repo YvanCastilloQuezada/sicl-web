@@ -1,0 +1,7 @@
+{
+  "schema":"ARKI-ABB001-CAD-LAYER-REGISTER-1.0",
+  "status":"NOT_EXECUTED",
+  "layers":[],
+  "requiredFields":["name","sourceFile","entityCount","representedEntityTypes","visibilityState","candidateDiscipline","candidateMeaning","semanticConfidenceBasis"],
+  "note":"Layer names are not available from the binary-only audit; no discipline meaning is inferred."
+}

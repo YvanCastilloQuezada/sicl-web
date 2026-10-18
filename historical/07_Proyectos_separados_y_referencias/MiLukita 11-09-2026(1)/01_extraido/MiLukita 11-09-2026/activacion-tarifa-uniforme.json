@@ -1,0 +1,93 @@
+{
+  "activated": [
+    {
+      "gameType": "ruleta",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-R-CQS-AOKC"
+    },
+    {
+      "gameType": "jackpot",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-J-BG94BEI3"
+    },
+    {
+      "gameType": "bingo",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-B-49K3NOSY"
+    },
+    {
+      "gameType": "loteria",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-L-I_TAMWSF"
+    },
+    {
+      "gameType": "loteria_29",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-L-1-CQ9VZR"
+    },
+    {
+      "gameType": "loteria_49",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-L-F2W7COQK"
+    },
+    {
+      "gameType": "loteria_59",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-L-3PGLGA6T"
+    },
+    {
+      "gameType": "cartas",
+      "version": "v1.1.0",
+      "activeRoundPublicId": "RP-C-LGGHHJYB"
+    }
+  ],
+  "archivedPublicIds": [
+    "RP-R-DLDZH_8_",
+    "RP-R-DC2FVBV9",
+    "RP-R-PCUSXLUH",
+    "RP-R-XX3BE-_H",
+    "RP-R-B84B0E2J",
+    "RP-J-6R56QW3A",
+    "RP-J-CFUZ-_Y3",
+    "RP-J-BXYZSSWG",
+    "RP-J-AHGJWXB0",
+    "RP-J-CTAZ1CT1",
+    "RP-B-CU2CJ8PL",
+    "RP-B-_KSEMDHN",
+    "RP-B-KGDEXNDI",
+    "RP-B-B8TDDXT1",
+    "RP-B-D86ZX4PZ",
+    "RP-B-RF0C_S8N",
+    "RP-L-9TLIRCPN",
+    "RP-L-1JIPSVXR",
+    "RP-L-K7WLR4VS",
+    "RP-L-YXGDT73G",
+    "RP-L-WCCSLDTO",
+    "RP-L-JHSUQVSJ",
+    "RP-L-OUUFKSR_",
+    "RP-L--0FEWENY",
+    "RP-L-N7HKQ6EG",
+    "RP-L-RYK1O0EK",
+    "RP-L-2FOKLT8S",
+    "RP-L-NBRR8IVM",
+    "RP-L-3DVJEQBB",
+    "RP-L-VRKNEHII",
+    "RP-L-ZUCUASI2",
+    "RP-L-XXRWJZRQ",
+    "RP-L-5JPD16WL",
+    "RP-L-5VQLRROH",
+    "RP-L-FGBO7RH6",
+    "RP-L-CL7ADOPW",
+    "RP-L-RQRKIAI6",
+    "RP-C-EXGMOK45",
+    "RP-C-NCIZOB_R",
+    "RP-C-LE3RYRR4",
+    "RP-C-5UJNZGY1",
+    "RP-C--9VQBMC_"
+  ],
+  "excluded": {
+    "gameType": "loteria_39",
+    "reason": "MJP Extra conserva el costo adicional, multiplicador ×2 y RTP publicado de 75,1562 %."
+  },
+  "pilotOnly": true
+}

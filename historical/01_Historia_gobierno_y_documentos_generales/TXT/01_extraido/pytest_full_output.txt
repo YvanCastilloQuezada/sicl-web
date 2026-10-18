@@ -1,0 +1,10 @@
+ERROR: file or directory not found: tests/test_impact.py
+
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/ubuntu/sicl-core
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collected 0 items
+
+============================ no tests ran in 0.00s =============================

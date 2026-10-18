@@ -1,0 +1,119 @@
+{
+  "schema": "ARKI-C1C80-ASSIMILATION-1.0",
+  "capabilityId": "C01",
+  "foundation": [
+    "W1:identity",
+    "W1:epistemic",
+    "W1:evidence",
+    "W1:units",
+    "W1:geometry",
+    "W1:relationships"
+  ],
+  "formalModel": "Bounded declarative model for Spatial Syntax; no professional solver claim",
+  "inputContract": [
+    "stable identity",
+    "applicability",
+    "epistemic state",
+    "evidence",
+    "units",
+    "provenance"
+  ],
+  "outputContract": [
+    "bounded result",
+    "unknowns",
+    "evidence",
+    "limitations",
+    "candidate actions"
+  ],
+  "method": [
+    "reuse-before-build",
+    "explicit units",
+    "fail-closed unknowns",
+    "deterministic oracle where computable"
+  ],
+  "units": [
+    "explicit units required; no silent conversion"
+  ],
+  "assumptions": [
+    "no Aurora-specific input",
+    "no unsupported professional claim"
+  ],
+  "applicability": [
+    "registry scope only",
+    "readiness=KNOWLEDGE_DEFICIT"
+  ],
+  "unknownHandling": [
+    "UNKNOWN is non-pass",
+    "missing tools become TOOL_DEFICIT",
+    "missing evidence blocks promotion"
+  ],
+  "exercises": {
+    "normal": "Synthetic Architecture baseline",
+    "boundary": "near-limit synthetic variant",
+    "adversarial": "wrong unit, missing evidence, stale revision and unsupported certainty",
+    "mutants": [
+      "wrong unit",
+      "swapped value",
+      "wrong sign",
+      "stale revision",
+      "false provenance",
+      "invalid applicability"
+    ],
+    "transfer": "Unseen synthetic Architecture variant with changed scale or geometry"
+  },
+  "oracle": "Deterministic oracle required when objective computation is possible; otherwise independent reference or professional validation",
+  "regression": [
+    "WAVE0",
+    "WAVE1",
+    "DIGEST-001",
+    "capability-specific regression"
+  ],
+  "evidence": [],
+  "lifecycle": "DOCUMENTED",
+  "deficits": [
+    {
+      "kind": "IMPLEMENTATION_DEFICIT",
+      "what": "No capability-specific implementation is authorized by the foundation registry",
+      "why": "The registry records foundation binding, not a demonstrated domain implementation",
+      "evidence": [
+        "C1_C80_WAVE1_REGISTRY.json"
+      ],
+      "blocking": true,
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "resolutionPath": "Define bounded capability contract and implement only after prerequisite gate"
+    },
+    {
+      "kind": "EVIDENCE_DEFICIT",
+      "what": "No capability-specific evidence package",
+      "why": "Foundation evidence does not prove domain behavior",
+      "evidence": [
+        "WAVE1_OUTPUTS.txt"
+      ],
+      "blocking": true,
+      "dependencies": [
+        "C01"
+      ],
+      "resolutionPath": "Execute normal, adversarial, mutant, transfer and regression gates"
+    },
+    {
+      "kind": "PROFESSIONAL_VALIDATION_REQUIRED",
+      "what": "Professional validation boundary remains active",
+      "why": "BOUNDED_OR_NOT_APPLICABLE",
+      "evidence": [
+        "registry.professionalValidationRequirement"
+      ],
+      "blocking": true,
+      "dependencies": [
+        "C01"
+      ],
+      "resolutionPath": "Obtain authorized professional review; never self-certify"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+ARKI UI-2 v1.7 manifest
+files:
+README.md
+captures/01-exp-tec-mount.webp
+captures/02-three-column-generator.webp
+manifest.txt
+outputs/01-19-full-validation.txt
+outputs/full-validation.txt
+tracked_diff.patch
+sha256:
+620c6fc7f401e9a3488c41d2028494e4f7f1b5b02bf9056dbed1aa8f156b4add  ARKI_UI2_V17_VERIFICATION_PACKAGE/README.md
+31c80c82cef974fd9a4bd04aacdc25492ac62c96c49f77cb431880ac2a4dbfc4  ARKI_UI2_V17_VERIFICATION_PACKAGE/captures/01-exp-tec-mount.webp
+732d8b46c61d16de0d1573e589eafc3c9744f8a44ae67badad97d566c45476fd  ARKI_UI2_V17_VERIFICATION_PACKAGE/captures/02-three-column-generator.webp
+3a5af8aaf8bf0e46e1d394abbb0f9ab4b65fc4af9fb867e41ca2a67652831bc4  ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/01-19-full-validation.txt
+3a5af8aaf8bf0e46e1d394abbb0f9ab4b65fc4af9fb867e41ca2a67652831bc4  ARKI_UI2_V17_VERIFICATION_PACKAGE/outputs/full-validation.txt
+481ad0fd26e57e828285d9e864ac314a5868ca5551f1aa160ba524f1ecca4222  ARKI_UI2_V17_VERIFICATION_PACKAGE/tracked_diff.patch

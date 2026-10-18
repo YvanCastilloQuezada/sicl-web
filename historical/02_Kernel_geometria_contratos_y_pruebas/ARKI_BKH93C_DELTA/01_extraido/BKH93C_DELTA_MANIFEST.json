@@ -1,0 +1,55 @@
+{
+  "schema": "ARKI-BKH-93C-DELTA-1.0",
+  "physicalFilesTotal": 10,
+  "manifestEntries": 9,
+  "manifestFiles": 1,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "BKH_93AH_FINAL_REPORT.md",
+      "sha256": "b9e51ab0a2a1541a30226165f120701bbc212455c83b22e28a13f4637b9865d4",
+      "bytes": 2453
+    },
+    {
+      "path": "BKH_93AH_PERSISTENCE_ADAPTERS_OUTPUTS.txt",
+      "sha256": "91f3938f760efbadbef72cc1014d6011d84516bee84194a6f63386186c34f0eb",
+      "bytes": 3712
+    },
+    {
+      "path": "BKH_93C_FINAL_REPORT.md",
+      "sha256": "e3a0bc02f9e2305fa1f143009dda36b221d1af954dbb56dcd9fca8a71e7b72e9",
+      "bytes": 2107
+    },
+    {
+      "path": "BKH_93C_IDEMPOTENCE_OUTPUTS.txt",
+      "sha256": "e20a596be204ffadd989fa3fc9e6b9b59e8dd8225e3d524b7eb72f5b06162c85",
+      "bytes": 8220
+    },
+    {
+      "path": "BKH_HISTORICAL_DEBT_CROSS_MAP.md",
+      "sha256": "1c7be47acb5c07241aa24e68e84478d27d6b6d749e5e0797a29842a502a2e36e",
+      "bytes": 4470
+    },
+    {
+      "path": "BKH_KERNEL_DEFECT_LEDGER.md",
+      "sha256": "3ccac8a0ae80bdc53939712779879ac02037d727320fe7240e04cfa2750379e7",
+      "bytes": 2461
+    },
+    {
+      "path": "BKH_KERNEL_INVARIANT_MASTER_MATRIX.md",
+      "sha256": "5414d4d5a23f767fbb87e8295734238e7f1240864e8ecbd445a4e06c040b59bb",
+      "bytes": 2443
+    },
+    {
+      "path": "BKH_KERNEL_OPEN_ITEMS_REGISTER.md",
+      "sha256": "699b4ac959a5a23b9b7ea34ae055087fc221a1d7a97a4f4b80a0e755c7f90586",
+      "bytes": 2448
+    },
+    {
+      "path": "test-bkh93c-idempotence.ts",
+      "sha256": "fc78433461c49a7dc27720d6a836ba480173fc4f195e75f5bc00da892603c623",
+      "bytes": 3319
+    }
+  ]
+}

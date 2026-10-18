@@ -1,0 +1,186 @@
+ORDEN DEFINITIVA PARA MANUS
+PROYECTO: LUKA OS — Especificación v1.0
+PRIORIDAD: MÁXIMA
+
+REEMPLAZO TOTAL: Esta orden reemplaza TODAS las órdenes anteriores relacionadas con el diseño de "9 pantallas" o "menús de inicio". LUKA OS NO es una app con menús. Es un sistema operativo que cambia su interfaz según el CONTEXTO y la INTENCIÓN del usuario.
+
+1. PRINCIPIOS FUNDAMENTALES (NO NEGOCIABLES):
+
+Progressive Interface Disclosure: Ninguna función aparece en pantalla si no es relevante para el contexto actual.
+
+Intent Engine: LUKA interpreta la intención del usuario y activa el modo correcto (sin menús de selección).
+
+Voz como Control Principal: La voz es el método primario de interacción. El tacto es solo un respaldo.
+
+Presencia, no Aplicación: La primera impresión es LUKA en AR, no un formulario.
+
+2. ESTRUCTURA DE ENTRADA (LA "PRIMERA IMPRESIÓN"):
+
+FLUJO OBLIGATORIO:
+
+Usuario abre la app (QR, enlace, instalación).
+
+APARECE LUKA EN AR (No un dashboard). LUKA sale del suelo de la casa.
+
+LUKA dice (por voz): "Hola, soy LUKA. ¿Quieres entrar a mi mundo o ver TV?"
+
+NO se pide registro, permisos ni configuración en este punto. Eso se hará después, de forma contextual.
+
+El usuario responde por voz:
+
+"Mundo LUKA" → Activa VISOR AR
+
+"Ver TV" → Activa LUKA TV
+
+REGLAS DE IMPLEMENTACIÓN:
+
+Si el usuario no responde en 10 segundos, LUKA pregunta de nuevo suavemente.
+
+Si el usuario intenta hacer scroll o tocar la pantalla sin responder, el sistema activa la entrada táctil pero mantiene la pregunta visual en primer plano.
+
+3. MODO VISOR AR (El "MUNDO LUKA"):
+
+DESCRIPCIÓN: El estado natural del sistema. El usuario apunta el celular al mundo real y ve hologramas, lugares, turismo, cultura, historia, navegación, etc.
+
+FUNCIONALIDAD:
+
+LUKA aparece como anfitriona, pero no monopoliza la experiencia.
+
+El usuario puede decir: "LUKA, quiero ver TV" → El sistema cambia a MODO TV.
+
+El usuario puede decir: "LUKA, ¿dónde está la comisaría?" → LUKA proyecta la comisaría en AR.
+
+INTERFAZ:
+
+Barra superior: L★ (dorado), micrófono (esquina superior derecha con anillo de neón), "Di LUKA... para dar órdenes", estado de conexión.
+
+Centro: Cámara + hologramas + cursor dorado.
+
+Transición a TV: Si el usuario dice "LUKA, quiero ver TV", el sistema muestra un botón contextual "VER TV" en la parte inferior. Al tocarlo (o al confirmar por voz), se activa el modo TV.
+
+4. MODO LUKA TV:
+
+DESCRIPCIÓN: Modo para controlar Smart TV, TV Boxes, DVD, Cine en Casa.
+
+FLUJO OBLIGATORIO:
+
+LUKA detecta el TV (Bluetooth/WiFi) y activa el modo TV.
+
+LUKA muestra una barra contextual de modos (NO una barra con todos los modos a la vez).
+
+No hay botón CONFIG. La configuración es un menú secundario oculto (se activa solo por voz: "LUKA, configuración").
+
+CADENA CONTEXTUAL DE MODOS (Contextual Mode Chain):
+
+Modo Activo	Modos que se muestran como "Siguiente Acción Útil"
+TV MEDIA	TRACKPAD, GAMEPAD, TECLADO, VISOR AR
+TRACKPAD	VISOR AR (escape natural al mundo)
+GAMEPAD	TECLADO
+TECLADO	GAMEPAD
+BARRA SUPERIOR (En TODOS los modos):
+
+L★ (dorado) + "Conectado a Smart TV" (check verde) + Micrófono (esquina superior derecha, con anillo neón) + "Di LUKA... para dar órdenes" + Batería + WiFi + Hora.
+
+BOTONES FIJOS (En TODOS los modos):
+
+BRILLO + / - (extremos laterales)
+
+ATRÁS (rectangular, turquesa)
+
+OK (circular, verde neón)
+
+INICIO (neutro)
+
+5. LUKA INTENT ENGINE (La Capa Superior):
+
+DESCRIPCIÓN: LUKA interpreta la intención del usuario y activa el modo correcto. No se necesitan comandos exactos.
+
+EJEMPLOS OBLIGATORIOS (Base de datos de intenciones):
+
+"LUKA, quiero escribir" → TECLADO
+
+"LUKA, quiero jugar" → GAMEPAD
+
+"LUKA, quiero navegar por el TV" → TRACKPAD
+
+"LUKA, quiero volver a la calle" → VISOR AR
+
+"LUKA, pon Netflix" → TV MEDIA (y abre Netflix si el TV lo permite)
+
+"LUKA, configuración" → CONFIG (menú oculto)
+
+PROCESO DEL INTENT ENGINE:
+
+Wake Word: "LUKA" (latencia < 200 ms).
+
+Reconocimiento de voz: Convierte palabras a texto.
+
+Intención: Interpreta la intención (escribir, jugar, ver TV).
+
+Selección del Modo: Elige el modo correspondiente.
+
+Ejecución: Cambia la interfaz automáticamente.
+
+6. MODO TECLADO, TRACKPAD Y GAMEPAD (Modos Especializados):
+
+6.1 TECLADO:
+
+Barra superior: L★, TV conectado, micrófono.
+
+Centro: Campo de texto + mini-teclado (A-Z, 0-9, espacio, borrar, enter).
+
+Botones fijos: BRILLO, ATRÁS, OK, INICIO.
+
+Botón contextual de escape: VISOR AR (si el usuario quiere volver a la calle).
+
+6.2 TRACKPAD:
+
+Barra superior: L★, TV conectado, micrófono.
+
+Centro: Trackpad Mágico (desliza el dedo para mover el cursor).
+
+Botones fijos: BRILLO, ATRÁS, OK, INICIO.
+
+Botón contextual de escape: VISOR AR (porque es el modo natural al que se puede volver).
+
+6.3 GAMEPAD:
+
+Barra superior: L★, TV conectado, micrófono.
+
+Centro: D-Pad (W, A, S, D) + Botón ACCIÓN.
+
+Botones fijos: BRILLO, ATRÁS, OK, INICIO.
+
+Botón contextual de escape: TECLADO (porque el usuario puede querer escribir un mensaje mientras juega).
+
+7. REGLAS DE SEGURIDAD Y PRIVACIDAD (Implementar desde el inicio):
+
+Permisos de cámara, micrófono y GPS solo cuando sean necesarios (contextualmente).
+
+Si el usuario no ha dado permiso de cámara, pero quiere ver TV, el sistema debe activar TV (sin pedir cámara). El permiso de cámara se pedirá solo si el usuario quiere activar el Visor AR.
+
+Registro: Los permisos se solicitan de forma contextual, no al inicio.
+
+8. ENTREGABLES OBLIGATORIOS (Antes de continuar agregando funciones):
+
+Manus debe entregar:
+
+Mapa completo de arquitectura LUKA OS (con los modos contextuales).
+
+Inventario del código actual y qué partes deben refactorizarse.
+
+LUKA Intent Engine (base de datos de intenciones).
+
+Progressive Interface Disclosure (lógica de qué mostrar y cuándo).
+
+Flujo de Entrada Universal (primera impresión: LUKA en AR).
+
+Cronograma realista (30, 90, 180, 365 días).
+
+9. REGLA FINAL:
+
+NO construir un menú principal con opciones.
+NO mostrar funciones que no sean relevantes para el contexto actual.
+NO pedir permisos ni configuración al inicio.
+
+El objetivo final: El usuario debe sentir que está interactuando con una presencia inteligente, y no con una aplicación llena de botones. LUKA OS se adapta y revela funciones cuando son necesarias.

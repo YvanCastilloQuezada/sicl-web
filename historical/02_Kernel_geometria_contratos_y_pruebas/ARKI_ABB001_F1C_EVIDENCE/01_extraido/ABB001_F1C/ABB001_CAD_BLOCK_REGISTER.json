@@ -1,0 +1,11 @@
+{
+  "schema":"ARKI-ABB001-CAD-BLOCK-REGISTER-1.0",
+  "status":"NOT_EXECUTED",
+  "blockDefinitions":[],
+  "blockInserts":[],
+  "attributes":[],
+  "nestedBlocks":[],
+  "explodedGeometry":[],
+  "unknownBlockSemantics":[],
+  "note":"No block names or handles were recovered; no block was promoted to a door, window or BIM family."
+}

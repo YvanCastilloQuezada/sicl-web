@@ -1,0 +1,857 @@
+Attribute VB_Name = "UserFormNuevaCartilla"
+Attribute VB_Base = "0{873B4CAE-B89C-4EC2-887E-DEECE29C99AD}{965FE176-5A7F-4FB6-894D-CCD4FED4D3BC}"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Attribute VB_TemplateDerived = False
+Attribute VB_Customizable = False
+' Asegúrate de que tienes la referencia a Microsoft Speech Object Library.
+Dim voice As Object
+Dim NumeroUsado As Collection
+
+Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+Private numerosSeleccionados(1 To 36) As Boolean
+
+Private Sub UserFormNuevaCartilla()
+    ' Limpia todas las cartillas al inicio del UserForm
+    LimpiarCartillaAleatoria
+    LimpiarCartillaPersonalizada
+    LimpiarCartillaDeLaSuerte
+End Sub
+
+Private Sub UserForm_Initialize()
+            
+    ' Configurar el control WindowsMediaPlayerVideo
+    With Me.WindowsMediaPlayerVideo
+        .Left = 786
+        .Top = 222
+        .Width = 320
+        .Height = 218
+        .ZOrder 0
+        .uiMode = "none" ' Ocultar los controles del reproductor
+        .windowlessVideo = True ' Permitir que el video se ajuste al tamaño del control
+        .Url = "C:\0-Videos\Ruleta.mp4"
+        .settings.setMode "loop", True ' Reproducir en bucle
+        .settings.autoStart = True ' Comenzar la reproducción automáticamente
+        .settings.volume = 10 ' Establecer el volumen inicial al 10%
+    End With
+
+    ' Configurar el control WindowsMediaPlayerAudio
+    With Me.WindowsMediaPlayerAudio
+        .Left = 786
+        .Top = 222
+        .Width = 320
+        .Height = 218
+        .ZOrder 0
+        .uiMode = "none" ' Ocultar los controles del reproductor
+        .Url = "C:\0-Musica\Nena.mp3"
+        .settings.setMode "loop", True ' Reproducir en bucle
+        .settings.autoStart = True ' Comenzar la reproducción automáticamente
+        .settings.volume = Me.ScrollBarVolumenAudio.value ' Establecer el volumen inicial al 10%
+    End With
+    
+    ' Configurar el ScrollBarVolumenAudio
+    With Me.ScrollBarVolumenAudio
+        .Min = 0
+        .Max = 100
+        .LargeChange = 10
+        .SmallChange = 1
+        .value = 10 ' Establecer el volumen inicial al 10%
+    End With
+
+    ' Inicializar los CheckBoxes
+    
+    For i = 55 To 58
+        Me.Controls("CheckBox" & i).value = False
+    Next i
+    For i = 61 To 65
+        Me.Controls("CheckBox" & i).value = False
+    Next i
+        
+    ' Inicializar los ComboBoxes y Labels para la Cartilla Personalizada
+    Call InitializeComboBoxes
+    
+    ' Establecer valores predeterminados
+    Me.LabelSorteo.Caption = ""
+    Me.LabelTipoDeJugada.Caption = ""
+    Me.LabelMultiplicador.Caption = "Sin Multiplicador"
+       
+    ' Configuración inicial del formulario
+    TextBoxDNI.Text = ""  ' Puedes inicializar el TextBoxDNI con un valor predeterminado si lo deseas
+    TextBoxCelular.Text = ""  ' Puedes inicializar el TextBoxCelular con un valor predeterminado si lo deseas
+    TextBoxOperacion.Text = ""  ' Puedes inicializar el TextBoxOperacion con un valor predeterminado si lo deseas
+            
+    Dim ws As Worksheet
+    Dim rng As Range
+    Dim cell As Range
+    Dim fechaHora As Date
+    
+    ' Establecer la hoja "Jugadas"
+    Set ws = ThisWorkbook.Sheets("Jugadas")
+    
+    ' Definir el rango de fechas en la columna B (desde B2 hasta B89)
+    Set rng = ws.Range("B2:B89")
+    
+    ' Limpiar el ComboBox antes de agregar elementos
+    ComboBoxJuegos.Clear
+    
+    ' Recorrer cada celda del rango
+    For Each cell In rng
+        If IsDate(cell.value) Then
+            fechaHora = CDate(cell.value)
+            ComboBoxJuegos.AddItem Format(fechaHora, "dddd, dd/mm/yyyy-HH:mm")
+        Else
+            MsgBox "Error en la celda: " & cell.Address
+        End If
+    Next cell
+    
+    ' Verificar si se agregaron elementos
+    If ComboBoxJuegos.ListCount = 0 Then
+        MsgBox "No se encontraron fechas válidas."
+    End If
+     
+    Dim TotalMultiplicador As Double
+    Dim CantidadJuegos As Integer
+    Dim costoJugada As Double
+
+    costoJugada = Val(LabelCostoJugada.Caption)
+
+    ' Inicializar monto a pagar en cero
+    LabelMontoPagar.Caption = "0"
+    
+    ' Revisar si se seleccionó algún CheckBox de jugadas
+    If CheckBox61.value Or CheckBox62.value Or CheckBox63.value Or _
+       CheckBox64.value Or CheckBox65.value Then
+        
+        ' Verificar multiplicador seleccionado
+        If CheckBox55.value Then TotalMultiplicador = 2
+        If CheckBox56.value Then TotalMultiplicador = 3
+        If CheckBox57.value Then TotalMultiplicador = 5
+        If CheckBox58.value Then TotalMultiplicador = 10
+
+        ' Determinar la cantidad de juegos seleccionados
+        If CheckBox61.value Then CantidadJuegos = 1
+        If CheckBox62.value Then CantidadJuegos = 2
+        If CheckBox63.value Then CantidadJuegos = 3
+        If CheckBox64.value Then CantidadJuegos = 4
+        If CheckBox65.value Then CantidadJuegos = 5
+        
+    End If
+    
+    Call ActualizarMontoPagar
+    
+    Set NumeroUsado = New Collection
+    
+    ' Población del ComboBoxFecha
+    Dim fecha As Date
+    For fecha = DateSerial(2024, 1, 1) To DateSerial(2024, 12, 31)
+        ComboBoxFecha.AddItem Format(fecha, "dd-mm-yyyy")
+    Next fecha
+    
+    ' Población del ComboBoxHora
+    Dim hora As Date
+    For hora = TimeSerial(9, 0, 0) To TimeSerial(13, 0, 0) Step TimeSerial(0, 30, 0)
+        ComboBoxHora.AddItem Format(hora, "hh:mm")
+    Next hora
+    For hora = TimeSerial(15, 0, 0) To TimeSerial(21, 0, 0) Step TimeSerial(0, 30, 0)
+        ComboBoxHora.AddItem Format(hora, "hh:mm")
+    Next hora
+    
+    ' Llamar a la función para actualizar LabelBuscar
+    ActualizarLabelBuscar
+    
+End Sub
+
+Private Sub CommandButtonAleatoria_Click()
+    Dim numJugadas As Integer
+    Dim i As Integer
+    Dim numeros(1 To 36) As Boolean
+    Dim Numero As Integer
+    Dim comboBoxName As String, labelNameResumen As String
+    
+    ' Determinar cuántas jugadas se han seleccionado
+    If CheckBox61.value Then numJugadas = 1
+    If CheckBox62.value Then numJugadas = 2
+    If CheckBox63.value Then numJugadas = 3
+    If CheckBox64.value Then numJugadas = 4
+    If CheckBox65.value Then numJugadas = 5
+        
+    ' Limpiar los ComboBoxes y Labels
+    For i = 1 To 5
+        Me.Controls("ComboBox" & i).value = ""
+        Me.Controls("Label" & (i + 100)).Caption = ""
+    Next i
+    Me.ComboBox6.value = ""
+    Me.Label106.Caption = ""
+    
+    ' Reiniciar los números generados
+    For i = 1 To 36
+        numeros(i) = False
+    Next i
+
+    ' Generar números aleatorios según el número de jugadas
+    For i = 1 To numJugadas
+        Do
+            Numero = WorksheetFunction.RandBetween(1, 36)
+        Loop While numeros(Numero)
+        
+        numeros(Numero) = True
+        
+        comboBoxName = "ComboBox" & i
+        labelNameResumen = "Label" & (i + 100)
+        
+        On Error Resume Next
+        Me.Controls(comboBoxName).value = Numero
+        Me.Controls(labelNameResumen).Caption = Numero
+        On Error GoTo 0
+    Next i
+    
+    ' Generar un número aleatorio para ComboBox6 si se selecciona algún CheckBox del 61 al 65
+    If numJugadas > 3 Then
+        Dim Numero6 As Integer
+        Dim numeros6(1 To 17) As Boolean
+        
+        ' Marcar números ya seleccionados en ComboBoxes 1 a 5
+        For i = 1 To 5
+            If Me.Controls("ComboBox" & i).value <> "" Then
+                Numero = Me.Controls("ComboBox" & i).value
+                If Numero <= 17 Then
+                    numeros6(Numero) = True
+                End If
+            End If
+        Next i
+        
+        ' Generar un número aleatorio entre 1 y 17 para ComboBox6 que no esté repetido
+        Do
+            Numero6 = WorksheetFunction.RandBetween(1, 17)
+        Loop While numeros6(Numero6)
+        
+        Me.ComboBox6.value = Numero6
+        Me.Label106.Caption = Numero6
+    End If
+End Sub
+
+Private Sub ValidateComboBoxValue(changedComboBox As MSForms.ComboBox, label As MSForms.label)
+    Dim valorSeleccionado As Integer
+    Dim i As Integer
+    Dim duplicado As Boolean
+    duplicado = False
+    
+    If IsNumeric(changedComboBox.value) Then
+        valorSeleccionado = CInt(changedComboBox.value)
+        
+        ' Verificar que el número no esté en ninguno de los otros ComboBoxes, excepto ComboBox6
+        If changedComboBox.Name <> "ComboBox6" Then
+            For i = 1 To 5
+                If Me.Controls("ComboBox" & i).value = valorSeleccionado And Me.Controls("ComboBox" & i).Name <> changedComboBox.Name Then
+                    duplicado = True
+                    Exit For
+                End If
+            Next i
+            
+            If duplicado Then
+                MsgBox "El número " & valorSeleccionado & " ya está seleccionado en otro ComboBox. Elija un número diferente.", vbExclamation
+                changedComboBox.value = ""
+            Else
+                label.Caption = valorSeleccionado
+            End If
+        Else
+            ' Si es ComboBox6, simplemente actualizar la etiqueta sin verificación de duplicado
+            label.Caption = valorSeleccionado
+        End If
+    End If
+End Sub
+
+Private Sub ComboBox1_Change()
+    ' Obtener el valor seleccionado del ComboBox1
+    Dim valorSeleccionado As String
+    valorSeleccionado = ComboBox1.value
+    
+    ' Asignar el valor seleccionado al Label101
+    Label101.Caption = valorSeleccionado
+    ValidateComboBoxValue Me.ComboBox1, Me.Label101
+End Sub
+
+Private Sub ComboBox2_Change()
+    ' Obtener el valor seleccionado del ComboBox2
+    Dim valorSeleccionado As String
+    valorSeleccionado = ComboBox2.value
+    
+    ' Asignar el valor seleccionado al Label102
+    Label102.Caption = valorSeleccionado
+    ValidateComboBoxValue Me.ComboBox2, Me.Label102
+End Sub
+
+Private Sub ComboBox3_Change()
+    ' Obtener el valor seleccionado del ComboBox3
+    Dim valorSeleccionado As String
+    valorSeleccionado = ComboBox3.value
+    
+    ' Asignar el valor seleccionado al Label103
+    Label103.Caption = valorSeleccionado
+    ValidateComboBoxValue Me.ComboBox3, Me.Label103
+End Sub
+
+Private Sub ComboBox4_Change()
+    ' Obtener el valor seleccionado del ComboBox4
+    Dim valorSeleccionado As String
+    valorSeleccionado = ComboBox4.value
+    
+    ' Asignar el valor seleccionado al Label104
+    Label104.Caption = valorSeleccionado
+    ValidateComboBoxValue Me.ComboBox4, Me.Label104
+End Sub
+
+Private Sub ComboBox5_Change()
+    ' Obtener el valor seleccionado del ComboBox5
+    Dim valorSeleccionado As String
+    valorSeleccionado = ComboBox5.value
+    
+    ' Asignar el valor seleccionado al Label105
+    Label105.Caption = valorSeleccionado
+    ValidateComboBoxValue Me.ComboBox5, Me.Label105
+End Sub
+
+Private Sub ComboBox6_Change()
+    ' Obtener el valor seleccionado del ComboBox6
+    Dim valorSeleccionado As String
+    valorSeleccionado = ComboBox6.value
+    
+    ' Asignar el valor seleccionado al Label106
+    Label106.Caption = valorSeleccionado
+    ValidateComboBoxValue Me.ComboBox6, Me.Label106
+End Sub
+
+Private Sub ActualizarCartillaPersonalizada(ByVal indice As Integer, ByVal Numero As Integer)
+    Dim comboBoxName As String
+    Dim labelNameSuerte As String
+    Dim existeEnSuerte As Boolean
+    Dim existeEnPersonalizada As Boolean
+    
+    ' Verificar si el número ya existe en la cartilla de la suerte
+    existeEnSuerte = NumerosExists(Numero, CartillaSuerte)
+    
+    ' Mostrar mensaje si el número ya está presente en la Cartilla de la Suerte
+    ' If existeEnSuerte Then
+        ' MsgBox "Este número ya está presente en la Cartilla de la Suerte. Elija otro número.", vbExclamation
+        ' Exit Sub
+    ' End If
+    
+    ' Verificar si el número ya existe en la cartilla personalizada
+    existeEnPersonalizada = NumerosExists(Numero, CartillaPersonalizada)
+    
+    ' Mostrar mensaje si el número ya está presente en la Cartilla Personalizada
+    If existeEnPersonalizada Then
+        MsgBox "Este número ya está presente en la Cartilla Personalizada. Elija otro número.", vbExclamation
+        Exit Sub
+    End If
+    
+    ' Actualizar el ComboBox correspondiente en la Cartilla Personalizada
+    comboBoxName = "ComboBox" & indice
+    Me.Controls(comboBoxName).value = Numero
+    
+    ' Actualizar el Label de resumen en la Cartilla Personalizada
+    labelNameSuerte = "Label" & (indice + 100)
+    Me.Controls(labelNameSuerte).Caption = Numero
+    
+    ' Guardar el número en la colección de la Cartilla Personalizada
+    CartillaPersonalizada(indice) = Numero
+End Sub
+
+Private Sub TextBoxDNI_Exit(ByVal Cancel As MSForms.ReturnBoolean)
+    ' Verificar que el DNI tenga exactamente 8 dígitos numéricos al salir del TextBox
+    If Not IsNumeric(TextBoxDNI.Text) Or Len(TextBoxDNI.Text) <> 8 Then
+        MsgBox "El DNI debe tener exactamente 8 números enteros.", vbExclamation, "Formato incorrecto"
+        TextBoxDNI.Text = ""  ' Limpiar el TextBox si el formato es incorrecto
+    End If
+End Sub
+
+Private Sub TextBoxCelular_Exit(ByVal Cancel As MSForms.ReturnBoolean)
+    ' Verificar que el Celular comience con 9 y tenga exactamente 9 dígitos numéricos al salir del TextBox
+    If Not IsNumeric(TextBoxCelular.Text) Or Len(TextBoxCelular.Text) <> 9 Or Left(TextBoxCelular.Text, 1) <> "9" Then
+        MsgBox "El Celular debe comenzar con 9 y tener exactamente 9 números enteros.", vbExclamation, "Formato incorrecto"
+        TextBoxCelular.Text = ""  ' Limpiar el TextBox si el formato es incorrecto
+    End If
+End Sub
+
+Private Sub InitializeComboBoxes()
+    Dim i As Integer
+    Dim cmb As MSForms.ComboBox
+
+    ' Reiniciar números seleccionados
+    For i = 1 To 36
+        numerosSeleccionados(i) = False
+    Next i
+
+    ' Inicializar los ComboBoxes con los valores apropiados
+    For i = 1 To 5
+        Set cmb = Me.Controls("ComboBox" & i)
+        If Not cmb Is Nothing Then
+            Call InitializeComboBox(cmb, 1, 36)
+        End If
+    Next i
+
+    ' Inicializar ComboBox6 con valores del 1 al 17
+    Set cmb = Me.Controls("ComboBox6")
+    If Not cmb Is Nothing Then
+        Call InitializeComboBox(cmb, 1, 17)
+    End If
+End Sub
+
+Private Sub InitializeComboBox(cmb As MSForms.ComboBox, minVal As Integer, maxVal As Integer)
+    Dim i As Integer
+    
+    cmb.Clear
+    For i = minVal To maxVal
+        cmb.AddItem i
+    Next i
+End Sub
+
+Private Sub LimpiarCartillaPersonalizada()  ' Subrutina para limpiar la cartilla personalizada
+    Dim i As Integer
+    For i = 1 To 6
+        Me.Controls("ComboBox" & i).value = ""
+        Me.Controls("Label" & (i + 100)).Caption = ""
+    Next i
+End Sub
+
+Private Sub LimpiarCartillaDeLaSuerte()
+    ' Subrutina para limpiar la cartilla de la suerte
+    Dim i As Integer
+    For i = 1 To 6
+        Dim labelNameSuerte As String
+        labelNameSuerte = "Label" & (100 + i)
+        On Error Resume Next
+        Me.Controls(labelNameSuerte).Caption = ""
+        On Error GoTo 0
+    Next i
+End Sub
+
+Private Sub ComboBoxJuegos_Change()
+    ' Verificar si hay un valor seleccionado en el ComboBoxJuegos
+    If Me.ComboBoxJuegos.ListIndex <> -1 Then
+        Me.LabelSorteo.Caption = Me.ComboBoxJuegos.value
+    Else
+        Me.LabelSorteo.Caption = "" ' Limpiar el Label si no hay selección
+    End If
+    
+    Dim numeroAleatorio As String
+    Dim JuegoSeleccionado As String
+    Dim PosComa As Integer
+    
+    ' Obtener el juego seleccionado y eliminar el día de la semana y la coma
+    JuegoSeleccionado = ComboBoxJuegos.value
+    PosComa = InStr(JuegoSeleccionado, ",")
+    If PosComa > 0 Then
+        JuegoSeleccionado = Mid(JuegoSeleccionado, PosComa + 1)
+    End If
+
+    ' Generar un número aleatorio único
+    numeroAleatorio = GenerarNumeroUnico()
+    
+    ' Actualizar el LabelTicket
+    LabelTicket.Caption = "Rul-" & JuegoSeleccionado & "-" & numeroAleatorio
+End Sub
+
+Private Sub ActualizarLabelMultiplicador()
+    Dim i As Integer
+    Dim cbName As String
+    Dim seleccionado As Boolean
+    
+    ' Inicializar a "Sin Multiplicador"
+    ' Me.LabelMultiplicador.Caption = "Sin Multiplicador"
+    ' seleccionado = False
+    
+    ' Recorrer los checkboxes del 55 al 58
+    For i = 55 To 58
+        cbName = "CheckBox" & i
+        If Me.Controls(cbName).value = True Then
+            If seleccionado Then
+                MsgBox "Solo puede seleccionar una opción de multiplicador.", vbExclamation
+                Me.Controls(cbName).value = False
+                Exit Sub
+            End If
+            Me.LabelMultiplicador.Caption = Me.Controls(cbName).Caption
+            seleccionado = True
+        End If
+    Next i
+  
+End Sub
+
+Private Sub CommandButtonAceptar_Click()
+    ' Actualizar los labels con los textos seleccionados
+    Call ActualizarLabelSorteo
+    Call ActualizarLabelTipoDeJugada
+    Call ActualizarLabelMultiplicador
+    
+    ' Validar selección obligatoria
+    If Me.LabelSorteo.Caption = "" Or Me.LabelMultiplicador.Caption = "" Or Me.LabelTipoDeJugada.Caption = "" Then
+        MsgBox "Debe seleccionar las opciones obligatorias.", vbExclamation
+        Exit Sub
+    End If
+   
+End Sub
+
+Private Sub CheckBox55_Click()
+    Call CheckBox_Click(55, 58, "labelMultiplicador")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox56_Click()
+    Call CheckBox_Click(55, 58, "labelMultiplicador")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox57_Click()
+    Call CheckBox_Click(55, 58, "labelMultiplicador")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox58_Click()
+    Call CheckBox_Click(55, 58, "labelMultiplicador")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox61_Click()
+    Call CheckBox_Click(61, 65, "labelTipoDeJugada")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox62_Click()
+    Call CheckBox_Click(61, 65, "labelTipoDeJugada")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox63_Click()
+    Call CheckBox_Click(61, 65, "labelTipoDeJugada")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox64_Click()
+    Call CheckBox_Click(61, 65, "labelTipoDeJugada")
+    Call ActualizarMontoPagar
+End Sub
+
+Private Sub CheckBox65_Click()
+    Call CheckBox_Click(61, 65, "labelTipoDeJugada")
+    Call ActualizarMontoPagar
+End Sub
+
+Sub CheckBox_Click(startIndex As Integer, endIndex As Integer, labelName As String)
+    Dim i As Integer
+    Dim selectedText As String
+    selectedText = ""
+    
+    ' Recorrer todos los checkboxes en el rango
+    For i = startIndex To endIndex
+        If Me.Controls("CheckBox" & i).value = True Then
+            ' Obtener el texto del checkbox seleccionado
+            selectedText = Me.Controls("CheckBox" & i).Caption
+            
+            ' Desmarcar todos los otros checkboxes en el rango
+            UncheckOtherCheckBoxes startIndex, endIndex, i
+            
+            ' Salir del bucle al encontrar el checkbox seleccionado
+            Exit For
+        End If
+    Next i
+    
+    ' Actualizar el label correspondiente con el texto seleccionado
+    If selectedText = "" And labelName = "labelMultiplicador" Then
+        Me.Controls(labelName).Caption = "Sin Multiplicador"
+    Else
+        Me.Controls(labelName).Caption = selectedText
+    End If
+End Sub
+
+Sub UncheckOtherCheckBoxes(startIndex As Integer, endIndex As Integer, selectedIdx As Integer)
+    Dim i As Integer
+    ' Recorrer todos los checkboxes en el rango y desmarcar los que no son el seleccionado
+    For i = startIndex To endIndex
+        If i <> selectedIdx Then
+            Me.Controls("CheckBox" & i).value = False
+        End If
+    Next i
+End Sub
+
+Private Sub ScrollBarVolumenAudio_Change()
+    ' Ajustar el volumen del WindowsMediaPlayerAudio basado en la posición del ScrollBar
+    Me.WindowsMediaPlayerAudio.settings.volume = Me.ScrollBarVolumenAudio.value
+End Sub
+
+Private Sub CommandButtonSalir_Click()
+    ' Detener el audio
+    Me.WindowsMediaPlayerAudio.Controls.stop
+    
+    ' Detener el video
+    Me.WindowsMediaPlayerVideo.Controls.stop
+    
+    ' Aquí puedes agregar cualquier otro código que maneje el cierre del UserForm o la aplicación
+    Unload Me ' Cierra el UserForm
+End Sub
+
+Private Sub CommandButtonSubirImagen_Click()
+    
+    Call ActualizarMontoPagar
+    ' Leer el monto a pagar en voz alta
+    Dim montoPagarTexto As String
+    montoPagarTexto = LabelMontoPagar.Caption
+    montoPagarTexto = "La cantidad a pagar, depositar o yapear es de " & CDbl(montoPagarTexto) & " soles"
+    Call LeerTexto(montoPagarTexto)
+    
+    Dim fd As FileDialog
+    Dim selectedFile As String
+    
+    ' Crear el cuadro de diálogo para seleccionar archivos
+    Set fd = Application.FileDialog(msoFileDialogFilePicker)
+    
+    ' Configurar el cuadro de diálogo
+    With fd
+        .Title = "Seleccionar Imagen"
+        .Filters.Add "Archivos de Imágenes", "*.jpg; *.jpeg; *.png; *.bmp; *.gif", 1
+        .AllowMultiSelect = False
+        
+        ' Mostrar el cuadro de diálogo
+        If .Show = -1 Then
+            ' Obtener el archivo seleccionado
+            selectedFile = .SelectedItems(1)
+            
+            ' Mostrar la imagen en el control Image y ajustar el tamaño
+            With ImageYape
+                .Picture = LoadPicture(selectedFile)
+                '.PictureSizeMode = fmPictureSizeModeZoom
+            End With
+        End If
+    End With
+    
+    ' Limpiar
+    Set fd = Nothing
+       
+End Sub
+
+Private Sub CommandButtonImprimir_Click()
+    Dim imgPath As String
+
+    ' Mostrar el cuadro de diálogo para seleccionar la ubicación y nombre del archivo
+    imgPath = Application.GetSaveAsFilename(InitialFileName:="Imagen.png", FileFilter:="PNG Files (*.png), *.png", Title:="Guardar imagen como")
+    
+    ' Verificar si el usuario ha seleccionado un archivo
+    If imgPath <> "Falso" Then
+        ' Capturar y guardar la imagen del UserForm
+        CaptureUserFormAsImage Me, imgPath
+    End If
+End Sub
+
+Private Sub CaptureUserFormAsImage(uf As Object, imgPath As String)
+    ' Usar el método PrintForm para capturar la imagen
+    uf.PrintForm
+    
+    ' Guardar la imagen capturada como archivo
+    ' (Necesitamos una forma de guardar esta imagen, por lo general PrintForm envía a la impresora o se copia al portapapeles)
+    ' Aquí debes implementar el guardado de la imagen usando el portapapeles o métodos alternativos.
+    ' Nota: PrintForm generalmente no guarda imágenes directamente, puede requerir métodos adicionales para la captura.
+End Sub
+
+Private Sub ActualizarMontoPagar()
+    Dim multiplicador As Double
+    Dim cantidadJugada As Integer
+    Dim costoJugada As Double
+    
+    ' Inicializamos los valores
+    multiplicador = 1
+    cantidadJugada = 0
+    costoJugada = CDbl(LabelCostoJugada.Caption)
+    
+    ' Revisar los CheckBoxes de multiplicador
+    If CheckBox55.value = True Then
+        multiplicador = 2
+    ElseIf CheckBox56.value = True Then
+        multiplicador = 3
+    ElseIf CheckBox57.value = True Then
+        multiplicador = 5
+    ElseIf CheckBox58.value = True Then
+        multiplicador = 10
+    End If
+    
+    ' Revisar los CheckBoxes de cantidad de jugadas
+    If CheckBox61.value = True Then
+        cantidadJugada = 1
+    ElseIf CheckBox62.value = True Then
+        cantidadJugada = 2
+    ElseIf CheckBox63.value = True Then
+        cantidadJugada = 3
+    ElseIf CheckBox64.value = True Then
+        cantidadJugada = 4
+    ElseIf CheckBox65.value = True Then
+        cantidadJugada = 5
+    End If
+    
+    ' Calcular el monto a pagar
+    If cantidadJugada > 0 Then
+        LabelMontoPagar.Caption = multiplicador * cantidadJugada * costoJugada
+    Else
+        LabelMontoPagar.Caption = 0
+    End If
+End Sub
+
+Sub LeerTexto(texto As String)
+    If voice Is Nothing Then
+        Set voice = CreateObject("SAPI.SpVoice")
+    End If
+    voice.Speak texto
+End Sub
+
+Private Sub LeerMontoPagar()
+    Dim monto As String
+    
+    ' Obtener el texto del LabelMontoPagar
+    monto = LabelMontoPagar.Caption
+    
+    ' Leer el monto en voz alta
+    Dim textoCompleto As String
+    textoCompleto = "La cantidad a pagar, depositar o yapear es de " & monto
+    
+    ' Usar la función de lectura de texto
+    Call LeerTexto(textoCompleto)
+End Sub
+
+Private Sub CommandButtonLimpiar_Click()
+    ' Limpiar el contenido de todos los ComboBox
+    ComboBox1.Clear
+    ComboBox2.Clear
+    ComboBox3.Clear
+    ComboBox4.Clear
+    ComboBox5.Clear
+    ComboBox6.Clear
+End Sub
+Private Sub CommandButtonBorrar_Click()
+    ' Limpiar el contenido de todos los ComboBox
+    ComboBox1.Clear
+    ComboBox2.Clear
+    ComboBox3.Clear
+    ComboBox4.Clear
+    ComboBox5.Clear
+    ComboBox6.Clear
+    ComboBoxJuegos.Clear
+    
+    ' Limpiar los TextBox
+    TextBoxNombre.Text = ""
+    TextBoxCelular.Text = ""
+    TextBoxDNI.Text = ""
+    TextBoxOperacion.Text = ""
+    
+    ' Limpiar los CheckBox (del 55 al 58 y del 61 al 66)
+    CheckBox55.value = False
+    CheckBox56.value = False
+    CheckBox57.value = False
+    CheckBox58.value = False
+    CheckBox61.value = False
+    CheckBox62.value = False
+    CheckBox63.value = False
+    CheckBox64.value = False
+    CheckBox65.value = False
+        
+    ' Limpiar los Labels
+    LabelSorteo.Caption = ""
+    LabelMultiplicador.Caption = ""
+    LabelTipoDeJugada.Caption = ""
+    
+    ' Limpiar los Labels desde el label101 al label106
+    Label101.Caption = ""
+    Label102.Caption = ""
+    Label103.Caption = ""
+    Label104.Caption = ""
+    Label105.Caption = ""
+    Label106.Caption = ""
+    
+    ' Limpiar la imagen en ImageYape
+    ImageYape.Picture = Nothing
+        
+End Sub
+
+Function GenerarNumeroUnico() As String
+    Dim Numero As String
+    Dim Letra1 As String, Letra2 As String, Letra3 As String, Letra4 As String
+    Dim Digito As Integer
+    Dim Intentos As Integer
+    
+    ' Inicializar la colección si es la primera vez
+    If NumeroUsado Is Nothing Then
+        Set NumeroUsado = New Collection
+    End If
+    
+    Do
+        Randomize
+        Letra1 = Chr(Int((90 - 65 + 1) * Rnd + 65))  ' Genera una letra aleatoria entre A-Z
+        Letra2 = Chr(Int((90 - 65 + 1) * Rnd + 65))  ' Genera una letra aleatoria entre A-Z
+        Letra3 = Chr(Int((90 - 65 + 1) * Rnd + 65))  ' Genera una letra aleatoria entre A-Z
+        Letra4 = Chr(Int((90 - 65 + 1) * Rnd + 65))  ' Genera una letra aleatoria entre A-Z
+        Digito = Int((9 - 0 + 1) * Rnd + 0)          ' Genera un dígito aleatorio entre 0-9
+        Numero = Letra1 & Letra2 & Letra3 & Letra4 & Digito
+        
+        ' Verificar que el número no se haya usado antes
+        Intentos = Intentos + 1
+        On Error Resume Next
+        NumeroUsado.Add Numero, CStr(Numero)
+        On Error GoTo 0
+    Loop While Err.Number <> 0 And Intentos < 1000  ' Limita los intentos a 1000
+
+    ' Devolver el número único generado
+    GenerarNumeroUnico = Numero
+End Function
+
+Private Sub TextBoxBoleto_AfterUpdate()
+    ' Validar y dar formato al boleto (4 letras y 1 número)
+    Dim boleto As String
+    boleto = TextBoxBoleto.value
+    
+    If Len(boleto) = 5 And IsNumeric(Right(boleto, 1)) And Not IsNumeric(Left(boleto, 4)) Then
+        TextBoxBoleto.value = UCase(Left(boleto, 4)) & Right(boleto, 1)
+    Else
+        MsgBox "Por favor, ingrese 4 letras seguidas de 1 número.", vbExclamation
+        TextBoxBoleto.SetFocus
+    End If
+    
+    ' Llamar a la función para actualizar LabelBuscar
+    ActualizarLabelBuscar
+End Sub
+
+Private Sub ActualizarLabelBuscar()
+    ' Combinar los valores y mostrar en LabelBuscar
+    If ComboBoxFecha.ListIndex <> -1 And ComboBoxHora.ListIndex <> -1 And _
+       Len(TextBoxBoleto.value) = 5 And IsNumeric(Right(TextBoxBoleto.value, 1)) And _
+       Not IsNumeric(Left(TextBoxBoleto.value, 4)) Then
+       
+        Dim FechaFormateada As String
+        Dim FechaPartes() As String
+        FechaPartes = Split(ComboBoxFecha.value, "-")
+        FechaFormateada = FechaPartes(0) & "/" & FechaPartes(1) & "/" & FechaPartes(2) ' Convertir el formato a dd/mm/yyyy
+        
+        LabelBuscar.Caption = "Rul1-" & FechaFormateada & "-" & ComboBoxHora.value & "-" & TextBoxBoleto.value
+    Else
+        LabelBuscar.Caption = ""
+    End If
+End Sub
+
+Private Sub ComboBoxFecha_Change()
+    ' Llamar a la función ActualizarLabelBuscar al cambiar el valor de ComboBoxFecha
+    ActualizarLabelBuscar
+End Sub
+
+Private Sub ComboBoxHora_Change()
+    ' Llamar a la función ActualizarLabelBuscar al cambiar el valor de ComboBoxHora
+    ActualizarLabelBuscar
+End Sub
+
+Private Sub TextBoxBoleto_Change()
+    ' Llamar a la función ActualizarLabelBuscar al cambiar el valor de TextBoxBoleto
+    ActualizarLabelBuscar
+End Sub
+
+' Función para verificar la existencia de un control en el formulario
+Private Function ControlExists(controlName As String) As Boolean
+    On Error Resume Next
+    ControlExists = Not Me.Controls(controlName) Is Nothing
+    On Error GoTo 0
+End Function

@@ -1,0 +1,101 @@
+{
+  "schema": "ARKI-COCO-001-EVIDENCE-PACKAGE-1.0",
+  "status": "COCO-A/B/C/D PREREQUISITES TESTED / PENDING INDEPENDENT REVIEW",
+  "files": [
+    {
+      "path": "COCO/COCO_ORDER_SOURCE.txt",
+      "sha256": "7b9bc1c45e0cd84326f88def5cfd9bf0b794960cb53a0672e8607edd57f3fbd2",
+      "bytes": 18883
+    },
+    {
+      "path": "COCO/COCO_AUDIT.md",
+      "sha256": "fd019ed40d1b54deefd2885316cce98753e88698b7f34389203448040681e12a",
+      "bytes": 1752
+    },
+    {
+      "path": "COCO/COCO_SCOPE_LIMITS.md",
+      "sha256": "a3ac3920c6754191dddf25720a69138973a8512692210e0743c519ee8ea2d5df",
+      "bytes": 1702
+    },
+    {
+      "path": "COCO/COCO_REPORT.md",
+      "sha256": "ddd2aeb07306387429bd3324efa8e2b7c8b87349d8eefa04b7ec1f54f0c683dd",
+      "bytes": 3608
+    },
+    {
+      "path": "COCO/COCO_TEST_MATRIX.csv",
+      "sha256": "c5edbf5ff02127feb02ae3b9d1d5caf152d6d016056e2d42e1f1dac7d53e9631",
+      "bytes": 1624
+    },
+    {
+      "path": "COCO/AUDIT/COCO-A_AUDIT.md",
+      "sha256": "567ce956fb670466be888d44bc851064e5a782bf1342adb8ecccfb0e46e5575a",
+      "bytes": 26581
+    },
+    {
+      "path": "COCO/AUDIT/COCO-B_AUDIT.md",
+      "sha256": "1aaeba70515f71e3feedd4fe29f5e9d60182c5070f46aa8bf68141ee419a4974",
+      "bytes": 31665
+    },
+    {
+      "path": "COCO/AUDIT/COCO-C_AUDIT.md",
+      "sha256": "6941b2bc3e27416d0a0979d552c55cd22dcc40e7b8cb229306f02843136da146",
+      "bytes": 26774
+    },
+    {
+      "path": "COCO/AUDIT/COCO-D_AUDIT.md",
+      "sha256": "89792b9c0e7e3aa5f24e9f8cc57e68d96e89fb5fa54cd394a21ca8e954229e50",
+      "bytes": 22028
+    },
+    {
+      "path": "shared/arkiCocoSpatial.ts",
+      "sha256": "71b5301bd89dcff2f1d56266b90fdcb4f73656ce036f70067dd650280e9cba5c",
+      "bytes": 4337
+    },
+    {
+      "path": "shared/arkiCocoDossier.ts",
+      "sha256": "6c5ae454b2af95a662c521a071fe09a8ae45bb045ac5dde1896f80d162e366d5",
+      "bytes": 2994
+    },
+    {
+      "path": "shared/arkiCocoAvatar.ts",
+      "sha256": "771b61e0402b1b09dc1127bb79e035370799f5a42cba5a3c3c15b8b2bcc9bd9f",
+      "bytes": 2912
+    },
+    {
+      "path": "shared/arkiCocoOm.ts",
+      "sha256": "89fc759a9eea6afdce67b0af24257c29162c89c64b57165f7bb7d97477c4df79",
+      "bytes": 2853
+    },
+    {
+      "path": "scripts/test-coco.ts",
+      "sha256": "ff3e790f57c27886ae95172a96bf3c21de45486d3855de2307dc94dbcf8e4395",
+      "bytes": 6916
+    },
+    {
+      "path": "scripts/run-coco-evidence.sh",
+      "sha256": "50eb71d63088f34b1eed53e2ca75d8cb710828a6479ad1a3372c6ad4305a384a",
+      "bytes": 1210
+    },
+    {
+      "path": "scripts/create-coco-package.py",
+      "sha256": "0dc0459176ba8279aa2036f88e9e8b02746cdae0f9e7cfeb79f79567debcebfc",
+      "bytes": 2587
+    },
+    {
+      "path": "PA001_REQUIREMENT_MATRIX.md",
+      "sha256": "e5c2bb15fba9cae1e66ebc05b24bcc33ab1941fbbe1831526c875f23c3f87b97",
+      "bytes": 1804
+    },
+    {
+      "path": "COCO/OUTPUTS/COCO_OUTPUTS.txt",
+      "sha256": "d5d33176bc8aea75b5d314b2bfbebb035c8c919f4062f5bee3f584b0250d852a",
+      "bytes": 7479
+    },
+    {
+      "path": "COCO/COCO_MANIFEST.json",
+      "sha256": "dd3b17b69a36c848fe1a0634a05fc4e0a91a13f1bf518d1cb9054546684d7b54",
+      "bytes": 3861
+    }
+  ]
+}

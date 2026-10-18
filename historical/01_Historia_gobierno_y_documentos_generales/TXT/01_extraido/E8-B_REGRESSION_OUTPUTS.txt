@@ -1,0 +1,71 @@
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+## pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-CRV5mGzQ.js        2,009.82 kB │ gzip: 549.84 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.91s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+## E8-B tests
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8B-01 PASS — unapproved snapshot rejected
+E8B-02 PASS — missing element rejected
+E8B-03 PASS — asset, warranty, manual, inspection and work-order lifecycle validated
+E8B-04 PASS — IndexedDB close/reopen restores asset, warranty and chronological history
+{
+  "status": "PASS",
+  "schema": "ARKI-E8B-OM-1.0",
+  "assetId": "ARKI-4ba5cb0d",
+  "elementId": "muro-1-1",
+  "snapshotId": "ARKI-ffdee204",
+  "historyEntries": 3,
+  "stores": [
+    "assets",
+    "warranties",
+    "manuals",
+    "inspections",
+    "workOrders",
+    "assetHistory"
+  ]
+}
+EXIT_CODE=0
+## technical dossier regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "readiness": 50,
+  "specifications": 7,
+  "formwork": 164,
+  "prices": 7,
+  "findings": 4,
+  "sections": 6
+}
+EXIT_CODE=0
+## persistence formal regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+EXIT_CODE=0

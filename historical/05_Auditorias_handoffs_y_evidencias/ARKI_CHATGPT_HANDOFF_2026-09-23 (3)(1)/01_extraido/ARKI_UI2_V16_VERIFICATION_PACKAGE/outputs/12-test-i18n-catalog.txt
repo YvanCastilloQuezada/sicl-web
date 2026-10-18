@@ -1,0 +1,68 @@
+=== 12-test-i18n-catalog ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "defaultLanguage": "es",
+  "languages": [
+    {
+      "code": "es",
+      "label": "Spanish",
+      "nativeLabel": "Español"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "nativeLabel": "English"
+    },
+    {
+      "code": "pt",
+      "label": "Portuguese",
+      "nativeLabel": "Português"
+    },
+    {
+      "code": "fr",
+      "label": "French",
+      "nativeLabel": "Français"
+    },
+    {
+      "code": "de",
+      "label": "German",
+      "nativeLabel": "Deutsch"
+    },
+    {
+      "code": "it",
+      "label": "Italian",
+      "nativeLabel": "Italiano"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
+      "nativeLabel": "中文"
+    },
+    {
+      "code": "ja",
+      "label": "Japanese",
+      "nativeLabel": "日本語"
+    }
+  ],
+  "catalogLanguages": [
+    "es",
+    "en",
+    "pt",
+    "fr",
+    "de",
+    "it",
+    "zh",
+    "ja"
+  ],
+  "checks": [
+    "8 exact languages",
+    "unique codes",
+    "non-empty metadata",
+    "default es",
+    "translation",
+    "fallback",
+    "persistence",
+    "v1.6 module labels and tooltip"
+  ]
+}

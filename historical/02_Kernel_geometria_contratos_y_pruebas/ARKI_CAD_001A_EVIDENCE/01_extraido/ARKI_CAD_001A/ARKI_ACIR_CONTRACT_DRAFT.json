@@ -1,0 +1,12 @@
+{
+  "schema":"ARKI-ACIR-CONTRACT-1.0",
+  "status":"DRAFT_ONLY_NOT_IMPLEMENTED",
+  "purpose":"Represent CAD facts before semantic BIM interpretation",
+  "types":["ACIRDocument","ACIRSpace","ACIRLayout","ACIRLayer","ACIREntity","ACIRGeometry","ACIRBlockDefinition","ACIRBlockInstance","ACIRText","ACIRDimension","ACIRReference","ACIRTransform","ACIRProvenance"],
+  "requiredEntityProvenance":["sourceFile","sourceHash","sourceFormat","sourceEntityIdOrHandle","sourceLayer","sourceSpace","sourceLayout","adapter","adapterVersion","transformationHistory","geometry","properties","epistemicState"],
+  "epistemicStates":["EXTRACTED","PARTIAL","UNKNOWN","NOT_DEMONSTRATED","LOSSY_DERIVATION","INVALID_SOURCE","UNSUPPORTED_ENTITY"],
+  "invariants":["ACIR_IS_DERIVED_NOT_CANONICAL","SOURCE_HASH_REQUIRED","NO_SEMANTIC_PROMOTION","NO_SILENT_LOSS","NO_SYNTHETIC_HANDLE","NO_UNIT_ASSUMPTION","NO_COORDINATE_ASSUMPTION","DETERMINISTIC_SERIALIZATION","UNKNOWN_NOT_PASS"],
+  "semanticFirewall":{"line":"NOT_AUTOMATICALLY_WALL","block":"NOT_AUTOMATICALLY_DOOR","polyline":"NOT_AUTOMATICALLY_ROOM","circle":"NOT_AUTOMATICALLY_PIPE"},
+  "authority":"CAD_GATEWAY_ENDS_BEFORE_BIM",
+  "implementationStatus":"BLOCKED_PENDING_ADAPTER_SELECTION_AND_HUMAN_AUTHORITY"
+}

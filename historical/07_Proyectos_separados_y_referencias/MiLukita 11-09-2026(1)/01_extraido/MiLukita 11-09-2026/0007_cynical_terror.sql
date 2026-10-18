@@ -1,0 +1,3 @@
+ALTER TABLE `game_rounds` MODIFY COLUMN `gameType` enum('ruleta','jackpot','bingo','loteria','loteria_29','loteria_39','loteria_49','loteria_59','cartas') NOT NULL;--> statement-breakpoint
+ALTER TABLE `game_rulesets` MODIFY COLUMN `gameType` enum('ruleta','jackpot','bingo','loteria','loteria_29','loteria_39','loteria_49','loteria_59','cartas') NOT NULL;--> statement-breakpoint
+ALTER TABLE `pilot_tickets` MODIFY COLUMN `gameType` enum('ruleta','jackpot','bingo','loteria','loteria_29','loteria_39','loteria_49','loteria_59','cartas') NOT NULL;

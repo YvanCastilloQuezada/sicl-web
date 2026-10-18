@@ -1,0 +1,26 @@
+api/schemas.py:196:    typology: str | None = None
+api/routes/v1.py:176:def design_knowledge_catalog(scope: str | None = None, typology: str | None = None) -> V1Envelope:
+api/routes/v1.py:183:    return _ok({"sources": list_knowledge_sources(), "items": list_knowledge_items(spatial_scope, typology), "patterns": list_knowledge_patterns(spatial_scope, typology), "scales": [item.value for item in SpatialScope]})
+api/routes/v1.py:197:        typology=request.typology,
+api/routes/v1.py:1568:    typology: str | None = Query(default=None),
+api/routes/v1.py:1585:            typology=typology,
+src/sicl/design_knowledge.py:46:    TYPOLOGY = "TYPOLOGY"
+src/sicl/design_knowledge.py:164:    typology: str | None = None
+src/sicl/design_knowledge.py:242:def list_items(scope: SpatialScope | None = None, typology: str | None = None) -> list[dict[str, Any]]:
+src/sicl/design_knowledge.py:246:    if typology:
+src/sicl/design_knowledge.py:247:        values = (item for item in values if not item.applicable_typologies or typology in item.applicable_typologies)
+src/sicl/design_knowledge.py:251:def list_patterns(scope: SpatialScope | None = None, typology: str | None = None) -> list[dict[str, Any]]:
+src/sicl/design_knowledge.py:255:    if typology:
+src/sicl/design_knowledge.py:256:        values = (item for item in values if not item.applicable_typologies or typology in item.applicable_typologies)
+src/sicl/design_knowledge.py:271:        items = list_items(request.spatial_scope, request.typology)
+src/sicl/design_knowledge.py:272:        patterns = list_patterns(request.spatial_scope, request.typology)
+src/sicl/design_knowledge.py:285:        if request.typology is None:
+src/sicl/capabilities.py:23:    typology: str | None = None
+src/sicl/capabilities.py:81:def resolve_example_capability(example_id: str, capability_id: str, spatial_scope: SpatialScope | str, *, typology: str | None = None, stage: str | None = None, available_data: Iterable[str] | None = None, objectives: Iterable[str] | None = None, context: str | None = None) -> CapabilityResolution:
+src/sicl/capabilities.py:85:    return resolve_capability(capability_id, ProjectCapabilityContext(spatial_scope, typology, stage, data, tuple(objectives or ()), context))
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:233:TYPOLOGY
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:526:typology
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:147:Dynamic workspace composition, scale-aware modules, context-aware capabilities, typology-aware capabilities, stage-aware tools, data-aware UI, jurisdiction-aware intelligence, adaptive visualization, adaptive agents, and dynamic capability presentation remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:163:An explicit order must specify the capability-model contract and the first scale/typology subset.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:357:A complete design-knowledge repository, source/evidence linkage, principle and pattern retrieval, typology and precedent intelligence, contextual design questions, applicability explanations, knowledge-assisted alternative generation, and knowledge-assisted evaluation remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:399:Parametric, constraint-aware, objective-aware, typology-aware generation, mutation, recombination, design-space exploration, alternative genealogy, iterative evolution, human-guided generation, and AI-assisted generation remain frozen.

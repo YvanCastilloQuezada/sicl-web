@@ -1,0 +1,851 @@
+ORDEN 60 — SEGURIDAD INTEGRAL MiLukita
+IMPLEMENTACIÓN DE SEGURIDAD BACKEND / DOMAIN / INFRASTRUCTURE
+
+OBJETIVO
+
+Implementar y reforzar todas las medidas de seguridad necesarias
+en el código actual de MiLukita, especialmente las superficies
+creadas o modificadas durante las Órdenes 52–59.
+
+Esta orden es exclusivamente de:
+
+- backend
+- domain
+- API
+- persistencia
+- autenticación
+- autorización
+- RBAC
+- capabilities
+- sesiones
+- tokens
+- validación
+- auditoría
+- integridad
+- protección de datos
+- infraestructura de seguridad
+- tests de seguridad.
+
+============================================================
+1. PROHIBICIÓN ABSOLUTA DE FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX visual
+- CSS
+- Tailwind
+- layouts
+- páginas
+- componentes visuales
+- iconos
+- navegación visual
+- UX
+- responsive
+- animaciones
+- estilos.
+
+NO realizar mejoras visuales.
+
+NO crear pantallas.
+
+NO corregir frontend.
+
+Si existe un problema de seguridad en frontend:
+
+NO modificarlo.
+
+Reportarlo como:
+
+FRONTEND_SECURITY_PENDING
+
+y continuar con la protección backend.
+
+============================================================
+2. PRINCIPIO FUNDAMENTAL
+============================================================
+
+NINGUNA SEGURIDAD CRÍTICA DEBE DEPENDER DEL FRONTEND.
+
+Toda operación sensible debe ser validada en backend.
+
+Nunca confiar exclusivamente en:
+
+- botones ocultos
+- rutas frontend
+- parámetros del navegador
+- localStorage
+- estado React
+- URL
+- QR
+- voz
+- cliente móvil.
+
+============================================================
+3. INVENTARIO DE SEGURIDAD
+============================================================
+
+Antes de modificar código:
+
+localizar e inspeccionar:
+
+- autenticación
+- sesiones
+- cookies
+- JWT si existe
+- tokens
+- API
+- tRPC/REST
+- middleware
+- RBAC
+- capabilities
+- ownership
+- audit
+- database
+- migrations
+- secrets
+- environment variables
+- rate limiting
+- CSRF si corresponde
+- CORS
+- uploads
+- assets
+- QR
+- ShareService
+- Mapper
+- The Eye
+- World Engine
+- LUKA AR
+- Copilot
+- Human Authority.
+
+No duplicar mecanismos existentes.
+
+============================================================
+4. AUTHENTICATION
+============================================================
+
+Verificar y reforzar autenticación.
+
+Debe existir una frontera clara:
+
+UNAUTHENTICATED
+→ AUTHENTICATED
+→ AUTHORIZED.
+
+No permitir acceso a operaciones privadas mediante:
+
+- URL directa
+- ID conocido
+- QR
+- token manipulable
+- parámetros del cliente.
+
+============================================================
+5. AUTHORIZATION
+============================================================
+
+Toda operación sensible debe validar:
+
+USER
++
+ROLE
++
+CAPABILITY
++
+RESOURCE
++
+RESOURCE STATE.
+
+No basta con comprobar que existe un usuario autenticado.
+
+============================================================
+6. RBAC
+============================================================
+
+Revisar y reforzar roles existentes.
+
+Como mínimo distinguir conceptualmente:
+
+PUBLIC
+FIELD_OPERATOR / MAPPER
+THE_EYE_REVIEWER
+HUMAN_AUTHORITY
+ADMIN.
+
+Utilizar los roles existentes si ya están definidos.
+
+NO crear roles duplicados.
+
+============================================================
+7. CAPABILITIES
+============================================================
+
+Implementar/completar autorización basada en capabilities.
+
+Ejemplos:
+
+MAPPER:
+- capture
+- edit_capture
+- save
+- sync
+- request_review
+
+THE_EYE:
+- review
+- request_evidence
+- verify
+- reject
+- dispute
+
+HUMAN_AUTHORITY:
+- approve_publication
+- publish
+
+COPILOT:
+- assist
+- propose
+- execute_allowed_action
+
+PUBLIC:
+- read_published.
+
+============================================================
+8. HUMAN AUTHORITY
+============================================================
+
+Crear una barrera backend inequívoca para acciones que requieran
+autoridad humana.
+
+La IA NO puede:
+
+- publicar
+- aprobar publicación
+- cambiar RBAC
+- conceder permisos
+- resolver conflictos críticos
+- modificar governance.
+
+Copilot NO puede sustituir Human Authority.
+
+The Eye NO debe publicar automáticamente.
+
+Mapper NO puede publicar.
+
+============================================================
+9. MJP CORE — AISLAMIENTO
+============================================================
+
+ESTA ES UNA REGLA CRÍTICA.
+
+Las superficies de MiLukita NO pueden modificar:
+
+- RNG
+- RTP
+- RULES
+- RESULT
+- WALLET
+- LEDGER
+- SETTLEMENT
+- juegos
+- sorteos
+- pagos
+- liquidaciones.
+
+Implementar, cuando sea técnicamente viable, barreras de código
+que impidan acceso no autorizado desde módulos territoriales,
+Copilot, QR, AR o Economy.
+
+No modificar la lógica interna de MJP CORE.
+
+============================================================
+10. QR SECURITY
+============================================================
+
+Revisar ShareService de la Orden 52.
+
+Garantizar:
+
+QR != AUTHORIZATION.
+
+Los QR deben utilizar:
+
+- tokens opacos
+- TTL
+- expiración
+- revocación
+- validación backend.
+
+Nunca colocar en QR:
+
+- passwords
+- secrets
+- permisos
+- credenciales
+- información sensible.
+
+Un QR público nunca debe convertirse en acceso administrativo.
+
+============================================================
+11. SESSION SECURITY
+============================================================
+
+Revisar:
+
+- creación
+- expiración
+- revocación
+- ownership
+- rotación cuando corresponda
+- invalidación.
+
+Evitar tokens predecibles.
+
+Utilizar generación criptográficamente segura.
+
+No aceptar tokens manipulados.
+
+============================================================
+12. OWNERSHIP
+============================================================
+
+Toda operación sobre recursos privados debe verificar ownership
+o capability administrativa.
+
+Ejemplo:
+
+USER A
+
+NO puede acceder a:
+
+USER B's
+
+- session
+- capture
+- evidence
+- share
+- private resource
+
+simplemente porque conoce el ID.
+
+============================================================
+13. IDOR
+============================================================
+
+Buscar y eliminar vulnerabilidades de tipo:
+
+IDOR
+(Insecure Direct Object Reference)
+
+Probar específicamente:
+
+- WorldObject
+- CaptureSession
+- Evidence
+- Claims
+- Reviews
+- ShareSession
+- Assets
+- Experiences.
+
+============================================================
+14. INPUT VALIDATION
+============================================================
+
+Validar todos los inputs en backend.
+
+Utilizar Zod u otro mecanismo existente.
+
+Validar:
+
+- tipos
+- rangos
+- tamaños
+- IDs
+- enums
+- coordenadas
+- timestamps
+- URLs
+- metadata
+- archivos.
+
+No confiar en validación frontend.
+
+============================================================
+15. INJECTION
+============================================================
+
+Revisar y proteger contra:
+
+- SQL injection
+- command injection
+- path traversal
+- template injection
+- XSS cuando corresponda
+- SSRF cuando corresponda.
+
+Utilizar queries parametrizadas/ORM existente.
+
+NO ejecutar comandos construidos directamente desde input del usuario.
+
+============================================================
+16. FILE UPLOAD / ASSETS
+============================================================
+
+Revisar especialmente LUKA AR.
+
+Validar:
+
+- MIME
+- extensión
+- tamaño
+- nombre
+- ruta
+- checksum
+- contenido cuando sea viable.
+
+Evitar:
+
+- path traversal
+- overwrite arbitrario
+- ejecución de archivos
+- acceso a archivos privados.
+
+Los assets públicos solamente deben estar disponibles mediante
+las rutas autorizadas.
+
+============================================================
+17. API SECURITY
+============================================================
+
+Revisar todos los endpoints/procedures sensibles.
+
+Cada uno debe comprobar:
+
+- authentication
+- authorization
+- input validation
+- resource ownership
+- state
+- capability.
+
+No permitir que un endpoint administrativo sea invocado por
+un usuario público.
+
+============================================================
+18. RATE LIMITING
+============================================================
+
+Implementar rate limiting donde sea necesario, especialmente en:
+
+- login
+- creación de sesiones
+- QR resolution
+- token resolution
+- endpoints públicos
+- operaciones costosas.
+
+No implementar límites arbitrarios que rompan el funcionamiento.
+
+Documentar valores elegidos.
+
+============================================================
+19. CORS
+============================================================
+
+Revisar configuración CORS.
+
+No utilizar:
+
+Access-Control-Allow-Origin: *
+
+cuando una operación requiera credenciales.
+
+Configurar origins explícitos cuando corresponda.
+
+============================================================
+20. CSRF
+============================================================
+
+Determinar si la arquitectura utiliza cookies/sesiones que requieran
+protección CSRF.
+
+Si corresponde:
+
+implementar protección.
+
+Si no corresponde:
+
+documentar técnicamente por qué.
+
+============================================================
+21. SECURITY HEADERS
+============================================================
+
+Revisar backend/web server para implementar cuando corresponda:
+
+- CSP
+- X-Content-Type-Options
+- Referrer-Policy
+- Permissions-Policy
+- HSTS cuando HTTPS sea garantizado
+- frame protections.
+
+NO modificar frontend.
+
+============================================================
+22. SECRETS
+============================================================
+
+Buscar:
+
+- API keys
+- passwords
+- tokens
+- private keys
+- secrets hardcodeados.
+
+NO imprimir secretos en el reporte.
+
+No mover secretos a código.
+
+Utilizar variables de entorno/secret management existente.
+
+Si existe un secreto comprometido:
+
+reportarlo como:
+
+SECRET_ROTATION_REQUIRED
+
+============================================================
+23. LOGGING
+============================================================
+
+Evitar registrar:
+
+- passwords
+- tokens completos
+- secrets
+- información privada innecesaria.
+
+Auditoría debe registrar suficiente información para trazabilidad
+sin almacenar secretos.
+
+============================================================
+24. AUDIT INTEGRITY
+============================================================
+
+Integrar con Audit/Governance de la Orden 56.
+
+Registrar:
+
+- authentication events
+- authorization failures
+- sensitive actions
+- role changes
+- capability changes
+- QR session creation/revocation
+- Mapper operations
+- The Eye decisions
+- publication actions
+- security failures.
+
+============================================================
+25. SECURITY EVENTS
+============================================================
+
+Crear eventos cuando corresponda:
+
+AUTH_FAILURE
+AUTHZ_FAILURE
+INVALID_TOKEN
+EXPIRED_TOKEN
+REVOKED_TOKEN
+OWNERSHIP_DENIED
+RATE_LIMITED
+INVALID_INPUT
+SECURITY_POLICY_VIOLATION
+SECRET_EXPOSURE_ATTEMPT.
+
+Utilizar el sistema de auditoría existente.
+
+============================================================
+26. COPILOT SECURITY
+============================================================
+
+Copilot debe estar sujeto a:
+
+CAPABILITY GATE
++
+RBAC
++
+CONTEXT
++
+CONFIRMATION.
+
+Lenguaje natural nunca puede:
+
+- saltar autorización
+- publicar
+- cambiar permisos
+- resolver conflictos críticos
+- acceder a MJP CORE.
+
+============================================================
+27. INTENT / ACTION
+============================================================
+
+Mantener separación:
+
+INTENT_DETECTED
+
+de
+
+ACTION_EXECUTED.
+
+Un intent detectado no demuestra que una acción haya ocurrido.
+
+============================================================
+28. WORLD ENGINE SECURITY
+============================================================
+
+Runtime público solamente puede recibir:
+
+PUBLISHED.
+
+Bloquear acceso público a:
+
+- DRAFT
+- UNDER_REVIEW
+- EVIDENCE_REQUIRED
+- VERIFIED no publicado
+- DISPUTED
+- REJECTED
+- ARCHIVED.
+
+============================================================
+29. THE EYE SECURITY
+============================================================
+
+Verificar que:
+
+- un reviewer no pueda elevar sus propios privilegios;
+- un reviewer no pueda modificar audit;
+- The Eye no pueda publicar fuera de Human Authority;
+- evidencia no pueda alterarse sin historial;
+- decisiones tengan actor y timestamp.
+
+============================================================
+30. MAPPER SECURITY
+============================================================
+
+Verificar que Mapper:
+
+NO pueda:
+
+- publicar
+- verificar
+- cambiar RBAC
+- modificar auditoría
+- modificar MJP CORE.
+
+============================================================
+31. DATA PROTECTION
+============================================================
+
+Revisar exposición de:
+
+- ubicación
+- fotografías
+- observaciones
+- datos de usuarios
+- sesiones
+- tokens
+- metadata.
+
+Aplicar mínimo privilegio.
+
+No exponer datos privados en endpoints públicos.
+
+============================================================
+32. ERROR HANDLING
+============================================================
+
+No devolver al cliente:
+
+- stack traces
+- SQL
+- filesystem paths
+- secrets
+- internal configuration
+- tokens
+- información innecesaria.
+
+Utilizar errores controlados.
+
+Registrar detalles internos solamente en logs seguros.
+
+============================================================
+33. DEPENDENCY SECURITY
+============================================================
+
+Revisar dependencias relacionadas con seguridad.
+
+Identificar vulnerabilidades conocidas si las herramientas locales
+lo permiten.
+
+NO actualizar masivamente dependencias sin necesidad.
+
+Si una actualización es necesaria:
+
+indicar:
+
+- paquete
+- versión actual
+- versión propuesta
+- motivo
+- impacto.
+
+============================================================
+34. SECURITY TEST SUITE
+============================================================
+
+Crear tests de seguridad para:
+
+AUTH
+AUTHZ
+RBAC
+CAPABILITIES
+OWNERSHIP
+IDOR
+QR
+TOKENS
+EXPIRATION
+REVOCATION
+MAPPER
+THE_EYE
+WORLD_ENGINE
+COPILOT
+LUKA_AR
+AUDIT
+MJP_CORE_ISOLATION
+INPUT_VALIDATION.
+
+============================================================
+35. NEGATIVE TESTING
+============================================================
+
+Probar explícitamente operaciones que DEBEN FALLAR.
+
+Ejemplos:
+
+PUBLIC → publish
+MAPPER → publish
+MAPPER → verify
+COPILOT → publish
+THE_EYE → bypass Human Authority
+USER_A → USER_B resource
+expired token → access
+revoked token → access
+invalid capability → action
+DRAFT → public runtime
+DISPUTED → public runtime.
+
+============================================================
+36. NO CAMBIAR REGLAS DE NEGOCIO
+============================================================
+
+Esta orden es de seguridad.
+
+NO utilizar seguridad como excusa para cambiar:
+
+- reglas de juegos
+- economía
+- RTP
+- RNG
+- resultados
+- experiencia visual
+- diseño funcional previamente aprobado.
+
+============================================================
+37. NO MJP CORE
+============================================================
+
+MJP CORE permanece protegido.
+
+No modificar su lógica.
+
+Si detectas una vulnerabilidad en MJP CORE:
+
+NO modificarla.
+
+Reportar:
+
+MJP_CORE_SECURITY_REVIEW_REQUIRED
+
+y describir el archivo/superficie afectada sin modificarla.
+
+============================================================
+38. CRITERIO DE TERMINACIÓN
+============================================================
+
+NO declarar:
+
+"100% seguro"
+"SECURE"
+"PRODUCTION READY"
+
+La seguridad absoluta no puede demostrarse mediante esta orden.
+
+Declarar solamente:
+
+IMPLEMENTED
+PARTIAL
+NOT_VERIFIED
+REQUIRES_HUMAN
+EXTERNAL_REQUIRED.
+
+============================================================
+39. ENTREGA
+============================================================
+
+Entregar:
+
+1. archivos backend modificados
+2. archivos nuevos
+3. migraciones
+4. middleware
+5. servicios
+6. APIs/procedures
+7. políticas de autorización
+8. cambios RBAC/capabilities
+9. tests de seguridad
+10. resultado de tests
+11. TypeScript
+12. build
+13. dependencias modificadas
+14. secretos encontrados sin revelar valores
+15. vulnerabilidades no resueltas
+16. elementos que requieren prueba externa.
+
+NO entregar cambios frontend.
+
+============================================================
+40. REGLA FINAL
+============================================================
+
+Esta orden autoriza GENERACIÓN Y MODIFICACIÓN DE CÓDIGO DE SEGURIDAD.
+
+No autoriza:
+
+- frontend
+- diseño
+- UX
+- mockups
+- nuevas páginas
+- rediseño
+- reconstrucción de MiLukita.
+
+FIN DE LA ORDEN 60.

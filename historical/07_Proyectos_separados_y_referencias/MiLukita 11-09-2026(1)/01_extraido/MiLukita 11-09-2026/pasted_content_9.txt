@@ -1,0 +1,186 @@
+ORDEN MAESTRA FINAL CONSOLIDADA PARA MANUS
+PROYECTO: LUKA OS — Especificación v1.0 + LUKA TV Runtime
+PRIORIDAD: MÁXIMA
+
+1. PRINCIPIOS FUNDAMENTALES (NO NEGOCIABLES):
+
+Progressive Interface Disclosure: Ninguna función aparece si no es relevante para el contexto actual.
+
+Intent Engine: LUKA interpreta la intención del usuario y activa el modo correcto (sin menús).
+
+Voz como Control Principal: La voz es el método primario. El tacto es respaldo.
+
+Presencia, no Aplicación: La primera impresión es LUKA en AR.
+
+2. ENTRADA UNIVERSAL (LA PRIMERA IMPRESIÓN):
+FLUJO OBLIGATORIO:
+
+Usuario abre la app (QR, enlace, instalación).
+
+LUKA aparece en AR (sale del suelo de la casa) y dice: "Hola, soy LUKA. ¿Quieres entrar a mi mundo o ver TV?"
+
+NO se pide registro, permisos ni configuración (se hará contextualmente después).
+
+Si el usuario responde "Mundo LUKA" → Activa VISOR AR.
+
+Si el usuario responde "Ver TV" → Activa LUKA TV.
+
+PERMISOS CONTEXTUALES:
+
+Permiso de cámara solo si se activa el Visor AR.
+
+Permiso de micrófono solo si LUKA necesita escuchar.
+
+Permiso de GPS solo si se activa la exploración del territorio.
+
+3. LUKA TV RUNTIME (EL "PEQUEÑO NAVEGADOR" PARA SMART TVs):
+
+DESCRIPCIÓN: LUKA OS debe ejecutarse en Smart TVs usando estándares abiertos y protocolos de interoperabilidad, para que una sola base de código funcione en Samsung Tizen, LG webOS, Android TV, Roku y Chromecast.
+
+REQUISITOS TÉCNICOS OBLIGATORIOS:
+a) Descubrimiento del dispositivo (Celular ↔ TV):
+
+Implementar DLNA/UPnP y Open Screen Protocol (OSP) para que el celular detecte automáticamente los Smart TVs en la red (WiFi o LAN).
+
+LUKA répond: "He detectado tu Smart TV. ¿Deseas conectar?".
+
+b) Lanzamiento de la WebApp en la TV:
+
+Android TV / Google TV: Utilizar Trusted Web Activity (TWA) o Google Cast SDK para lanzar la URL de LUKA directamente en el navegador del TV.
+
+Samsung (Tizen): Empacar la WebApp como app nativa (Tizen SDK) o activar el Developer Mode para enviar la URL.
+
+LG (webOS): Empacar la WebApp en formato IPK o activar el Developer Mode.
+
+Roku: Usar una arquitectura de Cloud Connector (como Senza) donde la UI se renderiza en la nube y se transmite al TV como video (streaming).
+
+c) Navegación espacial (LRUD):
+
+Implementar la librería de Spatial Navigation (LRUD) para que el control remoto del TV (flechas, OK, Back) navegue fluidamente por la interfaz de LUKA.
+
+El sistema doit intégrer Web Key Events para mapear los botones del control remoto (ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Enter, Back).
+
+d) Control por voz en el TV:
+
+Implementar Google Cast SDK para que, cuando el usuario presione el micrófono de LUKA (o diga "LUKA"), el audio se transmita al TV y LUKA actúe como agente conversacional en la pantalla grande.
+
+Prioridad: "LUKA, cambia al canal 5", "LUKA, pon Netflix", "LUKA, baja el volumen 20%".
+
+e) Compatibilidad:
+
+La WebApp doit être écrite en HTML5, CSS3 y JavaScript (estándares web).
+
+Tester sur LG (webOS), Samsung (Tizen) et Android TV avant le lancement officiel.
+
+4. MODO VISOR AR (EL "MUNDO LUKA"):
+DESCRIPCIÓN: El estado natural del système. El usuario apunta el celular al mundo real y ve hologramas, lugares, turismo, culture, histoire, navigation, etc.
+
+INTERFACE:
+
+Barre supérieure: L★ (doré), "Di LUKA... para dar órdenes", micrófono (esquina supérieure droite, avec anneau néon), état de connexion.
+
+Centre: Caméra + hologrammes + curseur doré.
+
+Transition contextuelle: Si le user dit "LUKA, je veux voir TV", le système affiche un bouton contextuel "VER TV" en bas. Au toucher (ou confirmation vocale), le mode TV est activé.
+
+INTENT ENGINE (Base de données d'intentions obligatoire):
+
+"LUKA, je veux écrire" → TECLADO
+
+"LUKA, je veux jouer" → GAMEPAD
+
+"LUKA, je veux naviguer sur le TV" → TRACKPAD
+
+"LUKA, je veux retourner dans la rue" → VISOR AR
+
+"LUKA, mets Netflix" → TV MEDIA (si le TV le permet)
+
+"LUKA, configuration" → CONFIG (menu caché)
+
+5. MODO LUKA TV (LE CONTRÔLE CONTEXTUEL):
+DESCRIPTION: Mode pour contrôler Smart TV, TV Boxes, DVD, Cine en Casa.
+
+FLUX OBLIGATOIRE:
+
+LUKA détecte le TV (Bluetooth/WiFi) et active le mode TV.
+
+LUKA affiche une barre contextuelle de modes (pas une barre avec tous les modes à la fois).
+
+Pas de bouton CONFIG. La configuration est un menu secondaire caché (activé par voix: "LUKA, configuration").
+
+CHAÎNE CONTEXTUELLE DE MODES (Contextual Mode Chain):
+
+Mode Actif	Modes affichés comme "prochaine action utile"
+TV MEDIA	TRACKPAD, GAMEPAD, TECLADO, VISOR AR
+TRACKPAD	VISOR AR (échappement naturel au monde)
+GAMEPAD	TECLADO
+TECLADO	GAMEPAD
+BARRE SUPÉRIEURE (Dans tous les modes):
+
+L★ (doré) + "Conectado a Smart TV" (check vert) + Micrófono (coin supérieur droit, anneau néon) + "Di LUKA... para dar órdenes" + Batterie + WiFi + Heure.
+
+BOUTONS FIXES (Dans tous les modes):
+
+BRILLO + / - (extrémités latérales)
+
+ATRÁS (rectangulaire, turquoise)
+
+OK (circulaire, vert néon)
+
+INICIO (neutre)
+
+6. MODES SPÉCIALISÉS (TECLADO, TRACKPAD, GAMEPAD):
+
+6.1 TECLADO:
+
+Centre: Champ de texte + mini-clavier (A-Z, 0-9, espace, effacer, entrer).
+
+Bouton contextuel d'échappement: VISOR AR (si le user veut retourner dans la rue).
+
+6.2 TRACKPAD:
+
+Centre: Trackpad magique (glisser le doigt pour déplacer le curseur).
+
+Bouton contextuel d'échappement: VISOR AR.
+
+6.3 GAMEPAD:
+
+Centre: D-Pad (W, A, S, D) + Bouton ACTION.
+
+Bouton contextuel d'échappement: TECLADO.
+
+7. SÉCURITÉ ET CONFIDENTIALITÉ (Dès le début):
+
+Permission de caméra, micro, GPS uniquement quand nécessaires (contextuellement).
+
+Si le user n'a pas donné la permission caméra mais veut voir TV, le système doit activer TV (sans demander caméra).
+
+Journalisation: Les permissions sont demandées de manière contextuelle, pas au début.
+
+8. ENTREGAIS OBLIGATOIRES (Avant de continuer à ajouter des fonctions):
+
+Manus doit livrer:
+
+Carte complète d'architecture LUKA OS (avec les modes contextuels et le TV Runtime).
+
+Inventaire du code actuel et quelles parties doivent être refactorisées.
+
+LUKA Intent Engine (base de données d'intentions).
+
+Progressive Interface Disclosure (logique de ce qui doit être montré et quand).
+
+Flux d'entrée universel (première impression: LUKA en AR).
+
+LUKA TV Runtime (DLNA/UPnP, Open Screen Protocol, Spatial Navigation, Google Cast SDK).
+
+Chronogramme réaliste (30, 90, 180, 365 jours).
+
+9. RÈGLE FINALE:
+
+NE PAS construire un menu principal avec des options.
+NE PAS montrer des fonctions qui ne sont pas pertinentes pour le contexte actuel.
+NE PAS demander de permissions ni de configuration au début.
+
+Objectif final: L'utilisateur doit sentir qu'il interagit avec une présence intelligente, et non avec une application pleine de boutons. LUKA OS s'adapte et révèle des fonctions quand elles sont nécessaires.
+
+CONCLUISON: Cette commande est la base définitive pour que l'équipe technique construise LUKA OS comme un Système Opérationnel Intelligent, une app "à révélation progressive", et non comme une app avec des menus. La structure de contexte et d'intention garantit que l'utilisateur ait toujours une expérience propre, simple et magique.

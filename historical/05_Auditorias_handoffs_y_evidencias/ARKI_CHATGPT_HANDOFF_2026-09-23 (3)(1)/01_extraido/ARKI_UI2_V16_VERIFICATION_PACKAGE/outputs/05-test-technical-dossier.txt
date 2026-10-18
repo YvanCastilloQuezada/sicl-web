@@ -1,0 +1,10 @@
+=== 05-test-technical-dossier ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "readiness": 50,
+  "specifications": 7,
+  "formwork": 164,
+  "prices": 7,
+  "findings": 4,
+  "sections": 6
+}

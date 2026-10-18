@@ -1,0 +1,538 @@
+{
+  "run": 2,
+  "label": "ESPACIO (ROOM-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "ROOM-001",
+  "status": "PASS",
+  "commands_total": 20,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0256,
+  "failures": [],
+  "snapshot": {
+    "project_id": "ROOM-001",
+    "name": "Sala de estar",
+    "spatial_scope": "espacio",
+    "temporal_scope": "proyecto",
+    "stage": "DRAFT",
+    "version": 19,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 1,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 2,
+    "comparisons": 1,
+    "simulations": 1,
+    "multiobjectives": 0,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 19
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE ROOM-001 \"Sala de estar\" espacio proyecto",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "ROOM-001",
+          "name": "Sala de estar",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "espacio",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001136
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN ROOM-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "ROOM-001",
+          "name": "Sala de estar",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "espacio",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000597
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El área útil es 24 m2\" PLANO",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-77074b8c88",
+          "project_id": "ROOM-001",
+          "statement": "El área útil es 24 m2",
+          "source": "PLANO",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001192
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-R001 \"Ventanal al norte\" OBSERVATION",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-R001",
+          "project_id": "ROOM-001",
+          "source_id": null,
+          "statement": "Ventanal al norte",
+          "evidence_type": "OBSERVATION",
+          "captured_at": "2026-09-16 18:06:10.600869+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "593a30ee258eb42ca0034756b1af345f79e87d2004999e98f449c55f6d958c8d",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001145
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET LUZ_NATURAL MAXIMIZE 85",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-0f7c009671",
+          "project_id": "ROOM-001",
+          "key": "LUZ_NATURAL",
+          "direction": "MAXIMIZE",
+          "value": "85",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001023
+    },
+    {
+      "sequence": 6,
+      "command": "/CONSTRAINT SET RUIDO <= 40 DB",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-b2610676a3",
+          "project_id": "ROOM-001",
+          "key": "RUIDO",
+          "operator": "<=",
+          "value": "40",
+          "unit": "DB",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001124
+    },
+    {
+      "sequence": 7,
+      "command": "/ALTERNATIVE CREATE ROOM-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-07ed8fd2a6",
+          "project_id": "ROOM-001",
+          "name": "ROOM-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001118
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE SET ROOM-A muebles 4",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-07ed8fd2a6",
+          "project_id": "ROOM-001",
+          "name": "ROOM-A",
+          "description": "",
+          "parameters": {
+            "muebles": "4"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001239
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET ROOM-A ventana norte",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-07ed8fd2a6",
+          "project_id": "ROOM-001",
+          "name": "ROOM-A",
+          "description": "",
+          "parameters": {
+            "muebles": "4",
+            "ventana": "norte"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001212
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET ROOM-A area_libre 8",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-07ed8fd2a6",
+          "project_id": "ROOM-001",
+          "name": "ROOM-A",
+          "description": "",
+          "parameters": {
+            "muebles": "4",
+            "ventana": "norte",
+            "area_libre": "8"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001367
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE CREATE ROOM-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-675cc78a41",
+          "project_id": "ROOM-001",
+          "name": "ROOM-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001504
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE SET ROOM-B muebles 4",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-675cc78a41",
+          "project_id": "ROOM-001",
+          "name": "ROOM-B",
+          "description": "",
+          "parameters": {
+            "muebles": "4"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001356
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET ROOM-B ventana norte",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-675cc78a41",
+          "project_id": "ROOM-001",
+          "name": "ROOM-B",
+          "description": "",
+          "parameters": {
+            "muebles": "4",
+            "ventana": "norte"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00134
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET ROOM-B area_libre 10",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-675cc78a41",
+          "project_id": "ROOM-001",
+          "name": "ROOM-B",
+          "description": "",
+          "parameters": {
+            "muebles": "4",
+            "ventana": "norte",
+            "area_libre": "10"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00131
+    },
+    {
+      "sequence": 15,
+      "command": "/EVALUATE ROOM-A LUZ_NATURAL 75 SCORE 0.85 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-bbbf02f24e",
+          "alternative_id": "ALT-07ed8fd2a6",
+          "objective_id": "OBJ-0f7c009671",
+          "value": 75.0,
+          "unit": "SCORE",
+          "confidence": 0.85,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001486
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE ROOM-B LUZ_NATURAL 88 SCORE 0.85 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-5a47274128",
+          "alternative_id": "ALT-675cc78a41",
+          "objective_id": "OBJ-0f7c009671",
+          "value": 88.0,
+          "unit": "SCORE",
+          "confidence": 0.85,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001302
+    },
+    {
+      "sequence": 17,
+      "command": "/COMPARE ROOM-A ROOM-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-4b0b4c28ff",
+          "project_id": "ROOM-001",
+          "alternative_ids": [
+            "ALT-07ed8fd2a6",
+            "ALT-675cc78a41"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-bbbf02f24e",
+              "alternative_id": "ALT-07ed8fd2a6",
+              "objective_id": "OBJ-0f7c009671",
+              "value": 75.0,
+              "unit": "SCORE",
+              "confidence": 0.85,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-5a47274128",
+              "alternative_id": "ALT-675cc78a41",
+              "objective_id": "OBJ-0f7c009671",
+              "value": 88.0,
+              "unit": "SCORE",
+              "confidence": 0.85,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001397
+    },
+    {
+      "sequence": 18,
+      "command": "/SIMULATE RUN DETERMINISTIC deterministic_basic_v1 '{\"alternative_id\":\"ROOM-B\",\"objective_id\":\"LUZ_NATURAL\",\"parameter_value\":88}'",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "simulation": {
+            "simulation_id": "SIM-d5a9ee890f",
+            "project_id": "ROOM-001",
+            "simulation_type": "DETERMINISTIC",
+            "method": "deterministic_basic_v1",
+            "method_version": "1.0",
+            "inputs": {
+              "alternative_id": "ROOM-B",
+              "objective_id": "LUZ_NATURAL",
+              "parameter_value": 88
+            },
+            "outputs": {
+              "missing_inputs": [
+                "alternative_id"
+              ]
+            },
+            "state": "INSUFFICIENT",
+            "started_at": "2026-09-16T18:06:10.619018+00:00",
+            "finished_at": "2026-09-16T18:06:10.619034+00:00",
+            "evidence_hash": "0bae7b8aa7600c0ddd70e6651791cbd61e9b774a8ab023c6cda0064a11b32fc5",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001452
+    },
+    {
+      "sequence": 19,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión del análisis\" \"Diseño interior validado\" \"Interior designer\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-af56af36f4",
+          "project_id": "ROOM-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión del análisis",
+          "reason": "Diseño interior validado",
+          "authority": "Interior designer",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00133
+    },
+    {
+      "sequence": 20,
+      "command": "/DECISION RECORD \"Adoptar ROOM-B\" architect-yvan \"Interior designer\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-d94e511cc1",
+          "project_id": "ROOM-001",
+          "statement": "Adoptar ROOM-B",
+          "actor": "architect-yvan",
+          "authority": "Interior designer",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00134
+    }
+  ]
+}

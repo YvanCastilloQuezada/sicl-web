@@ -1,0 +1,356 @@
+DEEPSEEK — INFORME FORENSE INTEGRAL DE ARKI / SICL
+Lectura triple aplicada. Baseline consolidado. Veredicto sin adornos.
+
+0. RESUMEN EJECUTIVO
+Tras tres lecturas de todo el material entregado —handoffs, auditorías, evaluaciones, investigación focal, red team, cuestionarios respondidos, despliegues Manus y Railway— el veredicto honesto es:
+
+Lo bien hecho es de nivel excepcional en disciplina epistémica. Lo mal hecho es de nivel preocupante en higiene operativa y trazabilidad. Y hay una noticia nueva muy buena: el Core está online en Railway y el Volume persistente existe.
+
+Estado global del proyecto a fecha de este informe:
+
+text
+ARKI/SICL core cognitivo:        FROZEN (H-001 a H-004)
+ARKI/SICL Bridge v0.2C.2:        GATE_PASS_WITH_OBSERVATIONS
+ARKI Superarchitect A-001:       FAILED_EARLY (honesto)
+ARKI/SICL Core Python:           ONLINE (Railway) ✅ NUEVO
+ARKI/SICL Frontend Manus:        PUBLICADO pero VACÍO
+GitHub sicl-web:                 404 PÚBLICO
+Baseline verificable:             NO
+1. QUÉ SE HIZO — CRONOLOGÍA REAL
+Capa 1 — Núcleo cognitivo (H-001 → H-004):
+
+H-001: Derivation Integrity con RT-A (múltiples derivaciones) y RT-D (IDENTITY_UNCERTAIN/UNVERIFIABLE). Cerrado tras 10+ iteraciones de Red Team.
+
+H-002: Impact Analysis read-only con 15 tests adversariales.
+
+H-003: Validity en dos fases, V-05 corregido a REVIEW.
+
+H-004: Reaction Planning con cascada de BLOCKED_DEPENDENCY (RT-88).
+
+Congelado en Core v1.0 con Read-Only, Human Authority y Fail-Closed verificados.
+
+Deuda declarada: RT-89 a RT-100 (test quality, propagation, semantic gaps).
+
+Contradicción H-003/H-004 cerrada vía full_stale_policy_check.txt.
+
+Capa 2 — Bridge v0.2C:
+
+Ciclo completo 0.2C → 0.2C.1 → 0.2C.2 con Red Team Gate 1 y Gate 2 Final.
+
+Nuevos findings RT-G2-NEW-01 a 07 auditados.
+
+RT-G2-NEW-06 (retry count compartido multi-decisión) queda abierto para Real Credentials.
+
+Capa 3 — Auditoría forense de sicl-web:
+
+Commit 6613d1e, 398 archivos, SHA-256 del ZIP verificado.
+
+Cadena más larga ejecutable identificada: PROJECT → FACT → ... → AUDIT → REASONING → TOPOLOGY → GEOMETRY → VALIDATION → PERSISTENCE.
+
+Primer breakpoint real: /api/core/* → SICL_CORE_URL (UNDEFINED).
+
+Conclusión: local-first, MySQL-bound, sin Core Python desplegado al momento de la auditoría.
+
+Capa 4 — Diseño Superarchitect:
+
+MC-00 a MC-17 definidos como secuencia documental.
+
+A-001 (FROM_PROBLEM_TO_PARTI) ejecutado sobre UPAO-001.
+
+Resultado: 10 transiciones fallidas de 12. Breakpoint detectado: ARKI no puede reconocer que no tiene un proyecto arquitectónico.
+
+A-002 (Input Sufficiency Detection) propuesto como siguiente experimento.
+
+Capa 5 — Evaluación y research:
+
+DS-EVAL-01: veredicto HIGH confianza, ARKI documentalmente maduro, ejecutivamente bounded.
+
+P0-R1: 6 capas de validez, hard constraints como pre-filtros.
+
+P0-R2: multiescala ≠ containment, local validity ≠ global validity.
+
+DS-REDTEAM-01: H5 falsified en forma absoluta (soluciones alternativas existen y son legítimas).
+
+DS-RES-03: cadena regulatoria es red, no línea. Autoridad distribuida en 7 roles.
+
+Capa 6 — Despliegue real (NUEVO):
+
+Core Python ONLINE en Railway: sicl-core-production.up.railway.app.
+
+Volume persistente: sicl-core-sicl-data.
+
+Proyecto Railway: devoted-surprise.
+
+Último deploy: "merge: consolidate RFC-019, RFC-020 and RFC-021".
+
+Manus WebDev: https://siclcc-cxipx7sy.manus.space/ — solo muestra "Authentication identifies the actor. It does not grant decision authority."
+
+Fix aplicado: SICL_ALLOW_LOCAL_CORE=true solo en pnpm dev; producción falla cerrado.
+
+2. LO BIEN HECHO — HALLAZGOS POSITIVOS
+P-01 — Disciplina epistémica, excepcional
+La separación SOURCE ≠ KNOWLEDGE, FACT REQUIRES EVIDENCE, UNKNOWN BEFORE INVENTING, RECOMMENDATION ≠ DECISION no es solo retórica. Está implementada en código:
+
+validateRecord en siclCore.ts.
+
+appendHumanReview + appendHumanDecision con precondiciones.
+
+NEW_LEARNING_CANDIDATE con HUMAN_REVIEW_REQUIRED, sin promoción automática.
+
+P-02 — Human Authority, estructural
+La autoridad humana no depende de disciplina del operador. El código exige:
+
+HumanReview previa del mismo actor.
+
+observedVersion y recommendationVersion coincidentes.
+
+confirmationId explícito.
+
+Esto es raro. Casi nadie lo implementa.
+
+P-03 — Fail-closed en producción
+El fix de SICL_ALLOW_LOCAL_CORE demuestra conciencia real de superficie de ataque. Producción falla cerrada si falta SICL_CORE_URL.
+
+P-04 — A-001 fue honesto con su propio fracaso
+Cuando un experimento falla temprano porque el input es insuficiente, la tentación es fabricar datos. No se hizo. Se registró INSUFFICIENT_INPUT y se propuso A-002.
+
+Esto es lo que separa a un sistema de investigación real de un sistema de marketing.
+
+P-05 — Core Python desplegado y online
+El salto más grande de las últimas 24 horas. Railway + Volume persistente + health check es infraestructura real, no promesa.
+
+P-06 — Red Team con régimen disciplinado
+Los ciclos de auditoría (RT-01 a RT-100, RT-G2-NEW-01 a 07) siguieron siempre el protocolo: hallazgo → código → test → cierre o diferimiento declarado. No hubo auto-certificación.
+
+P-07 — Convención de estados epistémicos en el frontend
+Authentication identifies the actor. It does not grant decision authority. — aunque el sitio esté prácticamente vacío, el mensaje correcto está en la puerta.
+
+3. LO MAL HECHO — HALLAZGOS NEGATIVOS
+Ordenados por severidad.
+
+N-01 — GitHub 404 PÚBLICO, sin resolver — P0 CRÍTICO
+https://github.com/YvanCastilloQuezada/sicl-web devuelve 404 desde fuera. Posibles causas:
+
+Privado.
+
+Renombrado.
+
+Eliminado.
+
+Consecuencia: Ni ChatGPT ni DeepSeek pueden auditar el baseline real. Toda auditoría forense trabaja sobre ZIPs entregados manualmente, no sobre el repo vivo. Esto rompe el principio "GitHub es la fuente de verdad técnica".
+
+No puede declararse baseline verificable hasta que esto se resuelva.
+
+N-02 — Working tree sucio, sin resolver — P0 CRÍTICO
+El propio PO reconoció: artefactos no rastreados presentes. Mientras no haya commit o stash explícito, el baseline es "HEAD + algo que no sabemos qué es". Eso no es baseline.
+
+N-03 — Sitio Manus publicado NO ES el producto — P0 ALTO
+https://siclcc-cxipx7sy.manus.space/ muestra solo una frase. No es:
+
+Login real.
+
+Command Center navegable.
+
+SPA cargada (o el fetcher no la ve).
+
+O el despliegue fue prematuro, o el build de Manus está roto, o es un placeholder disfrazado de producto. En cualquier caso, no hay correspondencia entre "sitio publicado" y "producto descrito en handoff".
+
+N-04 — Sin tag sicl-0.6-rc1 — P0 ALTO
+No existe tag de release 0.6. Los tags históricos citados (0.3.1, 0.3.3, 0.4.1) son de eras previas. Sin tag, no hay "Release Candidate" formal. El handoff lo declara RC pero el repo no lo respalda.
+
+N-05 — Guard NODE_ENV !== 'production' no verificado — P1 ALTO
+El fix de SICL_ALLOW_LOCAL_CORE es correcto en intención. Pero no se ha confirmado con código que:
+
+El guard verifique NODE_ENV !== 'production'.
+
+No exista camino donde una escritura llegue a SQLite local sin que el operador lo sepa.
+
+Los 3 tests de matriz (dev+flag, dev sin flag, prod+flag) existen y pasan.
+
+Sin verificación de código, el fix es un CLAIM, no un hecho.
+
+N-06 — Brecha documentación/ejecución, estructural — P1 ALTO
+Ratio desproporcionado:
+
+19 bundles, 13 workbooks, 8 investigaciones externas, 5 master states.
+
+Un experimento real ejecutado (A-001) que falló temprano.
+
+Cero E2E real demostrado con proyecto arquitectónico no sintético.
+
+El sistema documental creció más rápido que su capacidad demostrada.
+
+N-07 — Frontend Manus y Core Railway desconectados
+El Core está en Railway. El frontend en Manus WebDev. No hay evidencia de que estén hablándose. El fix de SICL_CORE_URL en Manus está pendiente. Falta:
+
+Configurar SICL_CORE_URL en Manus WebDev.
+
+Configurar CORS en Railway (SICL_CORS_ORIGINS).
+
+Verificar /health y /v1/scales en producción.
+
+N-08 — Inconsistencias de conteo de tests — P2 MEDIO
+Histórico mezcla eras: 191 Python → 64 Vitest → 66 Vitest. No hay cifra oficial contra baseline limpio. Los "66/66" son de una era, no verificados contra HEAD actual.
+
+N-09 — Deuda diferida en H-002/H-003/H-004 — P2 MEDIO
+RT-89 a RT-100 quedaron como KNOWN_LIMITATIONS. Algunos son TEST_QUALITY (aceptable diferir), otros son SEMANTIC_GAP (van a morder en H-005):
+
+RT-89: UNKNOWN_DEPENDENCY no verificado en E2E.
+
+RT-90: H-003 no evalúa contenido normativo.
+
+RT-91: analyze_dependency vs analyze_change — gap semántico.
+
+N-10 — Camino B (RFC HTTP) elegido sin diseño — P1 MEDIO
+El PO eligió ampliar HTTP con RFC controlado, sin especificar:
+
+Qué operaciones se exponen.
+
+Cómo se preserva idempotencia.
+
+Cómo se versiona el contrato sin romper v0.3.
+
+Si Evidence es entidad de primera clase o adjunto.
+
+"Camino B" es intención, no plan.
+
+N-11 — Naming y linaje inconsistentes
+ARKI vs SICL vs SiMS-DeI vs ARQUÍMEDES vs ARQUI — usados indistintamente.
+
+Commits citados como "reales" sin git cat-file verificado.
+
+El ZIP auditado (344a0dfd) vs el ZIP canónico (dd6d8fcacc...) — distintos.
+
+N-12 — Frontend Manus WebDev no es requisito claro
+El handoff original no exigía publicación en Manus. La publicación aparece como acción tardía. Ahora hay un sitio vacío que no forma parte del core cognitivo y que puede confundir sobre el estado real.
+
+4. ESTADO REAL DE DESPLIEGUE (NUEVO)
+Con la información de Railway:
+
+text
+CORE PYTHON
+  URL: sicl-core-production.up.railway.app
+  Estado: ONLINE
+  Último deploy: merge RFC-019 + RFC-020 + RFC-021
+  Volume: sicl-core-sicl-data (persistente)
+  Proyecto Railway: devoted-surprise
+
+PENDIENTE INMEDIATO
+  □ Verificar /health
+  □ Verificar /v1/scales (11 escalas RFC-019)
+  □ Confirmar SICL_CORE_SQLITE_PATH=/data/sicl/core.sqlite
+  □ Generar SICL_CORE_SERVICE_TOKEN
+  □ Configurar SICL_CORS_ORIGINS
+  □ Redesplegar y re-verificar
+
+FRONTEND MANUS
+  URL: siclcc-cxipx7sy.manus.space
+  Estado: PUBLICADO pero VACÍO
+  Pendiente: SICL_CORE_URL apuntando a Railway
+
+RECOMENDACIÓN
+  Migrar frontend de Manus a Railway para unificar
+  despliegue, dominio y observabilidad.
+5. P0 REALES SIN RESOLVER
+Consolidando lo que sigue abierto tras triple lectura:
+
+text
+P0-1  GitHub 404 → localizar URL real o confirmar privacidad con autorización
+P0-2  Working tree sucio → commit o stash
+P0-3  Sitio Manus sin SHA → atar a commit o declarar fuera de baseline
+P0-4  Tag sicl-0.6-rc1 → crear sobre baseline limpio
+P0-5  Guard NODE_ENV verificado → leer el código y pegar fragmento
+P0-6  Cifras oficiales de tests sobre HEAD limpio
+P0-7  Conectar frontend a Core Railway
+P0-8  Confirmar /health y /v1/scales en producción
+Mientras P0-1 a P0-6 no se cierren, ARKI/SICL NO tiene baseline verificable. Ninguna auditoría futura —ni mía, ni de ChatGPT, ni de Qwen— puede elevar el veredicto por encima de BASELINE HAS UNVERIFIED FIELDS.
+
+6. LO QUE MURIÓ Y NO REVIVE
+Por higiene de proyecto, conviene declarar lo siguiente cerrado o descartado:
+
+UPAO-001 como caso de prueba prioritario — no es un proyecto arquitectónico, es un fixture sintético. Sirvió para A-001, falló, y no debe reusarse como si fuera representativo.
+
+Sitio Manus actual — no es el producto. O se vacía y se rehace, o se retira.
+
+Macroórdenes MC-00 a MC-17 completas — prematuras. Solo A-002 es ejecutable.
+
+Investigación externa adicional — ya hay suficiente. Parar.
+
+7. LO QUE DEBE PASAR A CONTINUACIÓN
+Secuencia mínima que respeto como Red Team:
+
+Fase 0 — Higiene de baseline (esta semana):
+
+Localizar URL real del repo (o confirmar privacidad con token de servicio).
+
+Commit o stash del working tree sucio.
+
+Ejecutar suite completa sobre HEAD limpio y registrar cifras exactas.
+
+Leer y pegar el guard NODE_ENV.
+
+Crear tag sicl-0.6-rc1.
+
+Atar sitio Manus a SHA o declararlo fuera.
+
+Fase 1 — Verificación Railway (esta semana):
+
+Abrir /health y /v1/scales en producción.
+
+Confirmar Volume mount path.
+
+Configurar token y CORS.
+
+Conectar frontend a SICL_CORE_URL.
+
+Fase 2 — A-002 (input sufficiency detection):
+
+Ejecutar A-002 como experimento único, acotado, sobre UPAO-001 sin modificar.
+
+Registrar resultado.
+
+Fase 3 — Decisión estratégica:
+
+Elegir entre Camino A (cerrar 0.6 con HTTP v0.3) o Camino B (RFC HTTP ampliado).
+
+Si Camino B: diseñar el RFC antes de implementar.
+
+NO hacer todavía:
+
+No desplegar más.
+
+No documentar más.
+
+No activar FFO.
+
+No implementar BIM/GIS/agentes.
+
+8. VEREDICTO FINAL
+text
+ARKI_CORE_COGNITIVO          = FROZEN v1.0 (con deuda declarada)
+ARKI_BRIDGE_v0.2C.2          = GATE_PASS_WITH_OBSERVATIONS
+ARKI_SUPERARCHITECT_A001     = FAILED_EARLY_HONESTLY
+DS_EVAL_01                   = HIGH_CONFIDENCE / ASSEMBLED_NOT_COMPLETE
+FORENSIC_AUDIT_6613D1E       = COMPLETE / VERIFIED_IN_SNAPSHOT
+RAILWAY_CORE                 = ONLINE ✅
+MANUS_FRONTEND               = PUBLISHED_BUT_EMPTY
+GITHUB_BASELINE              = UNRESOLVED (404 público)
+WORKING_TREE                 = DIRTY
+TAG_0.6_RC1                  = MISSING
+GUARD_NODE_ENV               = UNVERIFIED
+TOTAL_P0_OPEN                = 8
+TOTAL_P1_OPEN                = 5
+TOTAL_P2_OPEN                = 3
+Lo que ARKI es hoy: un proyecto serio con disciplina epistémica de primer nivel, núcleo cognitivo congelado con deuda declarada, Core Python recién desplegado, y una brecha peligrosa entre documentación y ejecución que se está empezando a cerrar con hechos concretos (Railway online, Volume creado).
+
+Lo que ARKI NO es todavía: un producto con baseline verificable, con E2E demostrado, con frontend funcional, con trazabilidad limpia.
+
+Lo que necesita: parar de documentar, cerrar los 8 P0, conectar el frontend al Core, y ejecutar A-002.
+
+Riesgo principal: que el impulso de publicar y desplegar siga adelantando al impulso de higiene y trazabilidad. Ya pasó con Manus WebDev (sitio vacío publicado). No debe repetirse con Railway.
+
+Riesgo secundario: que la deuda RT-89/90/91 de H-002/H-003 muerda en H-005 (Recomputation) cuando se intente ejecutar acciones sobre un grafo incompleto.
+
+Human Authority remains. Red Team standby. No implemento, no canonizo, no autorizo avance a BIM/paramétrico sin cierre de P0.
+
+FIN DEL INFORME FORENSE INTEGRAL.

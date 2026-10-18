@@ -1,0 +1,477 @@
+ORDEN D-2.2 — FIXES QUIRÚRGICOS
+Para: Manus (executor)
+De: DeepSeek (developer)
+Autoridad: Product Owner — CAMINO A confirmado
+Estado: AUTORIZADA
+Baseline actual: feat/arki3d-archi-model @ 2bd3a2924403b3a14f8f6ab7c6e1d7247b21fb6f
+
+0. Antes de tocar nada
+bash
+git status --porcelain     # debe ser vacío
+git rev-parse HEAD         # debe ser 2bd3a292...
+Si no coincide: STOP, reportar.
+
+1. Decisión previa sobre RT-D2.1-02 (atomicidad)
+Consulta al Core congelado: ¿se puede resolver sin modificar H-001?
+
+Análisis:
+
+DerivationLedger.record() es un método público de H-001.
+
+SQLiteRepository.transaction() existe pero no se usa desde el ledger.
+
+Modificar DerivationLedger para aceptar un contexto transaccional cambia H-001. Prohibido.
+
+Conclusión: no se modifica H-001. La atomicidad se resuelve desde dentro de ArchiTransaction con rollback explícito en caso de fallo parcial.
+
+Estrategia concreta:
+
+En transaction.py::apply_full_chain, antes de publicar:
+
+Recolectar los records a publicar en una lista to_publish.
+
+Registrar cada uno, capturando (project_id, record_id) en published_ids.
+
+Si cualquier ledger.record() falla:
+
+No hay rollback disponible en H-001 — pero podemos declarar BLOCKED_BY_CORE_CONTRACT para la garantía estricta "all-or-zero".
+
+Alternativa viable: verificar antes de publicar que los IDs no colisionan y que el ledger está en estado limpio (no hubo cambios desde que se construyó temp). Esto no elimina el riesgo de fallo a mitad, pero lo reduce al mínimo.
+
+Decisión operativa: implementar el fix como pre-verificación + publicación secuencial con abort en el primer fallo y declaración explícita del gap:
+
+python
+records_to_publish = [
+    r for r in temp.list(mutation.project_id)
+    if r.id not in {x.id for x in ledger.list(mutation.project_id)}
+]
+
+# Pre-verificación: IDs únicos, no colisionan entre sí.
+seen = set()
+for r in records_to_publish:
+    if r.id in seen:
+        return MutationResult(..., status=FAILED, reason="PUBLISH_DUPLICATE_ID_IN_BATCH")
+    seen.add(r.id)
+
+# Publicación secuencial.
+published = []
+try:
+    for r in records_to_publish:
+        ledger.record(mutation.project_id, r, actor="ARCHI_D2")
+        published.append(r.id)
+except Exception as exc:
+    # H-001 no ofrece rollback atómico.
+    # Declarar gap explícitamente.
+    return MutationResult(
+        mid, MutationStatus.FAILED, MutationLifecycle.EVALUATED,
+        self._canonical, (),
+        f"PARTIAL_PUBLISH:{len(published)}_of_{len(records_to_publish)}:{type(exc).__name__}",
+        False, {**prov, "partial_publish": published}
+    )
+Y declarar en prov:
+
+python
+prov["atomicity"] = {
+    "all_or_zero": False,
+    "reason": "DERIVATION_LEDGER_HAS_NO_BATCH_COMMIT_AT_API_BOUNDARY",
+    "partial_failure_detected": False,
+}
+Esto no cierra el finding como "atomicidad garantizada", pero:
+
+Detecta y reporta publicación parcial si ocurre.
+
+Declara explícitamente el límite del Core congelado.
+
+No finge una garantía que no existe.
+
+Si el PO considera esto insuficiente, la alternativa es BLOCKED_BY_CORE_CONTRACT. Mi recomendación: aceptar el fix con gap declarado y registrar como KNOWN_LIMITATION en el contrato D-1.
+
+2. Fixes a aplicar
+FIX-01 — RT-D2.1-01 (reason engañoso)
+Archivo: src/sicl/archi/transaction.py
+
+En apply y apply_full_chain, mover el chequeo target is None antes de snapshot_for:
+
+python
+target, candidate = self._candidate(mutation)
+if target is None:
+    return MutationResult(
+        mid, MutationStatus.BLOCKED, MutationLifecycle.EVALUATED,
+        self._canonical, (), "TARGET_NOT_FOUND", False, {}
+    )
+snap = snapshot_for(mutation, target, self._engine)
+prov = {"a002": snap.result.to_dict()}
+if not snap.permits:
+    return MutationResult(
+        mid, MutationStatus.BLOCKED, MutationLifecycle.EVALUATED,
+        self._canonical, (), "A002_BLOCKED", False, prov
+    )
+Igual en apply.
+
+Test nuevo: test_d2_1_target_not_found_reported_correctly — mutación sobre element_id inexistente → reason == "TARGET_NOT_FOUND".
+
+FIX-02 — RT-D2.1-02 (atomicidad declarada)
+Archivo: src/sicl/archi/transaction.py
+
+Aplicar la estrategia del §1. Añadir prov["atomicity"] con los tres campos.
+
+Test nuevo: test_partial_publish_is_detected_and_reported — simular fallo en el segundo ledger.record() mediante un wrapper que falle en el segundo intento → status==FAILED, reason empieza con "PARTIAL_PUBLISH", prov["atomicity"]["partial_failure_detected"]==True.
+
+FIX-03 — RT-D2.1-03 (drift de firmas)
+Decisión: actualizar contrato D-1 v1.5 con las firmas reales. Son más limpias que las del contrato:
+
+ArchiElement sin name (no aporta, el ID ya identifica).
+
+hosted_in singular en vez de hosting tupla (v1 solo soporta un host).
+
+properties como dict (serializable, ordenado al hash).
+
+provenance como dict | None (libre).
+
+ArchiMutation sin requested_by (lo añade D-3 cuando haya autoridad real de request).
+
+requested_at_iso opcional (provenance no obligatoria).
+
+mutation_id on-demand (más limpio que campo + compute).
+
+Acción:
+
+No se modifica código para esto.
+
+Yo emito D-1 v1.5 después de D-2.2 como contrato actualizado. Es un cambio de contrato, no de código.
+
+Se declara en DIVERGENCIA de D-2.2 como divergencia diferida a actualización contractual.
+
+Alternativa si el PO prefiere: alinear código al contrato (más trabajo, menos limpio). Mi recomendación: actualizar contrato.
+
+Test nuevo: ninguno — no se cambia código.
+
+FIX-04 — RT-D2.1-04 (replay derivation_recorded)
+Archivo: src/sicl/archi/transaction.py
+
+En ambos if mid in self._applied: cambiar True por False:
+
+python
+if mid in self._applied:
+    return MutationResult(
+        mid, MutationStatus.APPLIED, MutationLifecycle.PUBLISHED,
+        self._canonical, self._canonical,
+        "REPLAY_NO_DOUBLE_APPLICATION",
+        False,   # ← era True
+        {"replay": True}
+    )
+Test nuevo: test_replay_reports_derivation_not_recorded — replay de mutación aplicada → derivation_recorded==False.
+
+FIX-05 — RT-D2.1-05 (enum colapsado)
+Decisión: NO alinear código al contrato ahora. Los estados del contrato (INVALID, UNKNOWN, ESCALATE, REQUIRES_AUTHORITY) están representados en reason de forma legible. Convertirlos a enum requiere refactor grande.
+
+Acción: declarar en D-1 v1.5 que MutationStatus es de 5 estados y que los sub-estados del contrato se distinguen por reason (ver KNOWN_LIMITATION).
+
+Alternativa: emisión quirúrgica en D-2.3 si el PO lo quiere.
+
+Test nuevo: ninguno — no se cambia código.
+
+FIX-06 — RT-D2.1-06 (apply bypass)
+Archivo: src/sicl/archi/transaction.py
+
+Opción elegida: renombrar a _apply_unsafe y añadir docstring explícito:
+
+python
+def _apply_unsafe(self, mutation, *, recompute=None):
+    """Apply a mutation WITHOUT the A-002/H-002/H-003/H-004/H-005 chain.
+
+    Reserved for internal tests and short-circuit scenarios. Production callers
+    MUST use `apply_full_chain`.
+
+    This method does NOT validate sufficiency, impact, validity, reaction,
+    or recomputation. It applies the mutation and publishes the resulting
+    canonical state directly.
+    """
+    ...
+Los tests existentes que usan apply deben cambiar a _apply_unsafe.
+
+Test nuevo: test_apply_unsafe_is_marked_internal — verificar que la firma pública ya no expone apply.
+
+FIX-07 — RT-D2.1-07 (bridge sin test)
+Archivo nuevo: tests/test_archi_relationships_bridge.py
+
+Test obligatorio: usar architectural_derivation(...) para construir los DerivationRecord en lugar de hacerlo manualmente. Verificar que ImpactAnalyzer con ChangeKind.CONTENT_CHANGED descubre A-01 y D-01.
+
+python
+def test_architectural_derivation_bridge_works_with_real_h002():
+    w = ArchiElementId.compute('P', 'WALL', 'W-01')
+    d = ArchiElementId.compute('P', 'DOOR', 'D-01')
+    a = ArchiElementId.compute('P', 'SPACE', 'A-01')
+    old = VersionedRef('WALL', w.value, 1, 'a'*64)
+    door_out = VersionedRef('DOOR', d.value, 1, 'b'*64)
+    space_out = VersionedRef('SPACE', a.value, 1, 'c'*64)
+    ledger = DerivationLedger(MemoryStore())
+    ledger.record('P', architectural_derivation('D-DOOR', door_out, (old,)))
+    ledger.record('P', architectural_derivation('D-SPACE', space_out, (old,)))
+    changed = VersionedRef('WALL', w.value, 1, 'd'*64)
+    report = ImpactAnalyzer(ledger).analyze_change(
+        'P', ImpactChange(old, changed, ChangeKind.CONTENT_CHANGED)
+    )
+    impacted = {item.ref.entity_id for item in report.impacted_artifacts}
+    assert d.value in impacted
+    assert a.value in impacted
+FIX-08 — RT-D2.1-08 (diagnóstico H-003 confuso)
+Archivo: src/sicl/archi/transaction.py
+
+Cuando reason == "H004_NOT_AUTOMATICALLY_ELIGIBLE", añadir en prov la causa raíz:
+
+python
+if len(eligible) != len(reaction.planned_actions):
+    prov["reaction_filter"] = {
+        "total_actions": len(reaction.planned_actions),
+        "eligible_actions": len(eligible),
+        "ineligible_actions": [
+            {"action": a.action_type.value, "status": a.status.value, "requires_authority": a.requires_human_authority}
+            for a in reaction.planned_actions
+            if not (a.action_type.value == "RECOMPUTE" and a.status.value == "PLANNED" and not a.requires_human_authority)
+        ],
+    }
+    return MutationResult(mid, MutationStatus.BLOCKED, ..., "H004_NOT_AUTOMATICALLY_ELIGIBLE", False, prov)
+Test nuevo: test_blocked_reaction_lists_ineligible_actions — verificar que prov["reaction_filter"]["ineligible_actions"] no está vacío cuando se bloquea.
+
+FIX-09 — RT-D2.1-12 (ADD_OPENING no-op)
+Archivo: src/sicl/archi/transaction.py::_candidate
+
+Reemplazar:
+
+python
+else: candidate.append(target)
+Por:
+
+python
+elif mutation.mutation_kind is MutationKind.ADD_OPENING:
+    # ADD_OPENING requires a new ArchiElement for the opening, not a duplicate
+    # of the host. D-2 does not implement the opening element yet.
+    raise NotImplementedError(
+        "ADD_OPENING requires creating a new ArchiElement. "
+        "Not implemented in D-2.0/D-2.1. Deferred to D-3."
+    )
+else:
+    raise ValueError(f"unsupported mutation_kind: {mutation.mutation_kind}")
+Consecuencia: cualquier intento de ADD_OPENING falla ruidosamente en lugar de duplicar silenciosamente.
+
+Test nuevo: test_add_opening_raises_not_implemented — with pytest.raises(NotImplementedError).
+
+FIX-10 — RT-D2.1-13 (hash sin version de host)
+Archivo: src/cli/archi/model.py — ArchiElement.content_hash / semantic_dict
+
+Decisión: incluir hosted_in + hosted_in_version + contained_in + contained_in_version.
+
+Pero hosted_in es solo ArchiElementId, sin versión. Cambio:
+
+python
+hosted_in: ArchiElementId | None = None
+hosted_in_version: int | None = None
+contained_in: ArchiElementId | None = None
+contained_in_version: int | None = None
+Y en semantic_dict:
+
+python
+"hosted_in": {
+    "id": self.hosted_in.value,
+    "version": self.hosted_in_version,
+} if self.hosted_in else None,
+"contained_in": {
+    "id": self.contained_in.value,
+    "version": self.contained_in_version,
+} if self.contained_in else None,
+__post_init__ valida:
+
+Si hosted_in está, hosted_in_version debe estar y ser ≥ 1.
+
+Ídem para contained_in.
+
+Sigue siendo mutuamente exclusivo.
+
+Test nuevo: test_host_version_affects_dependent_content_hash — D-01 hosted en W-01@1. Mover W-01 a @2. Recomputar D-01 con hosted_in_version=2. Verificar que D-01.content_hash() cambia.
+
+Nota: este fix altera el contrato (aunque D-1 v1.5 lo va a absorber). Se declara en DIVERGENCIA.
+
+FIX-11 — RT-D2.1-15 (properties dict mutable)
+Decisión: mantener dict pero validar en __post_init__ que no contiene valores mutables anidados:
+
+python
+def __post_init__(self):
+    if self.hosted_in is not None and self.contained_in is not None:
+        raise ValueError("hosting and contained_in are mutually exclusive")
+    if self.version < 1:
+        raise ValueError("version must be positive")
+    for k, v in self.properties.items():
+        if isinstance(v, (dict, list, set)):
+            raise ValueError(f"property '{k}' must be a scalar or tuple[str, ...]")
+        if not isinstance(v, (str, int, float, bool, type(None))):
+            if not (isinstance(v, tuple) and all(isinstance(x, str) for x in v)):
+                raise ValueError(f"property '{k}' has unsupported type")
+PropertyValue se redefine:
+
+python
+PropertyValue = str | int | float | bool | None | tuple[str, ...]
+Esto hace el hash determinista y elimina mutabilidad.
+
+Test nuevo: test_properties_reject_mutable_containers — ArchiElement(..., properties={'nested': {'a': 1}}) lanza ValueError.
+
+FIX-12 — RT-D2.1-14 y RT-D2.1-16 (documentación)
+Archivo: src/sicl/archi/identity.py — añadir docstring a IfcGlobalId.from_archi_id:
+
+python
+@classmethod
+def from_archi_id(cls, archi_id: ArchiElementId) -> "IfcGlobalId":
+    """Deterministically derive an IFC GlobalId from an ArchiElementId.
+
+    The sha256 hex of the ArchiElementId is truncated to the first 32 hex
+    characters (16 bytes / 128 bits) and interpreted as a UUID, which is
+    then compressed using the IFC base64 alphabet to 22 characters.
+    """
+Archivo: src/sicl/archi/model.py — añadir nota en GeometryKind:
+
+python
+class GeometryKind(str, Enum):
+    """v1 supports EXTRUDED_RECTANGLE only. EXTRUDED_CIRCLE is declared for
+    forward compatibility but NOT implemented in D-2."""
+    EXTRUDED_RECTANGLE="EXTRUDED_RECTANGLE"
+    EXTRUDED_CIRCLE="EXTRUDED_CIRCLE"  # declared, not implemented in D-2
+3. Orden de aplicación
+Sugerencia (no bloqueante): aplicar en este orden.
+
+FIX-01 (target None)
+
+FIX-04 (replay flag)
+
+FIX-06 (apply → _apply_unsafe)
+
+FIX-09 (ADD_OPENING raise)
+
+FIX-10 (host version)
+
+FIX-11 (properties validation)
+
+FIX-08 (reaction_filter)
+
+FIX-02 (atomicity declaration)
+
+FIX-07 (bridge test)
+
+FIX-12 (docstrings)
+
+No reescribir módulos. Solo tocar líneas específicas. Cambios quirúrgicos.
+
+4. Verificación
+Manus ejecuta y adjunta salida cruda:
+
+bash
+git status --porcelain                       # limpio tras commit
+pytest tests/test_archi_*.py -v              # todos los tests
+pytest tests/ -q                             # regresión global
+python -m compileall src tests               # compileall
+git diff --check                             # whitespace
+git diff 30806d43..HEAD -- src/sicl/derivation.py src/sicl/impact.py src/sicl/validity.py src/sicl/reaction.py src/sicl/h005/
+git diff 30806d43..HEAD -- src/sicl/drawing/
+Los dos últimos diff deben estar vacíos.
+
+Y específicamente:
+
+bash
+pytest tests/test_archi_relationships_bridge.py -v   # nuevo test del bridge
+pytest tests/test_archi_transaction.py -v            # tests del FIX-01, FIX-02, FIX-04, FIX-08
+pytest tests/test_archi_model.py -v                  # tests del FIX-10, FIX-11
+pytest tests/test_archi_poc_d2.py -v                 # PoC sigue verde
+5. Criterios de aceptación
+text
+[ ] Baseline verificado: 2bd3a292...
+[ ] FIX-01: TARGET_NOT_FOUND se reporta correctamente.
+[ ] FIX-02: atomicidad declarada en prov["atomicity"].
+[ ] FIX-02: test de fallo parcial detecta y reporta.
+[ ] FIX-03: no se modifica código (se difiere a D-1 v1.5).
+[ ] FIX-04: replay con derivation_recorded=False.
+[ ] FIX-05: no se modifica código (se difiere a D-1 v1.5).
+[ ] FIX-06: apply → _apply_unsafe con docstring.
+[ ] FIX-07: nuevo test_archi_relationships_bridge.py pasa.
+[ ] FIX-08: prov["reaction_filter"] en bloqueos H-004.
+[ ] FIX-09: ADD_OPENING lanza NotImplementedError.
+[ ] FIX-10: hosted_in_version incluido en content_hash.
+[ ] FIX-11: properties rechaza contenedores mutables.
+[ ] FIX-12: docstrings añadidos.
+[ ] Todos los tests focales verdes.
+[ ] Regresión global verde.
+[ ] compileall PASS.
+[ ] git diff --check PASS.
+[ ] H-001..H-005 diff vacío.
+[ ] ARKI-DRAW diff vacío.
+[ ] main intacta.
+[ ] Sin dependencias nuevas.
+[ ] Commit en feat/arki3d-archi-model.
+[ ] Push a origin/feat/arki3d-archi-model.
+6. PROHIBIDO
+Modificar H-001..H-005.
+
+Modificar main.
+
+Modificar ARKI-DRAW.
+
+Instalar dependencias.
+
+Mockear H-002/H-003/H-004/H-005.
+
+Añadir lógica paralela a H-001.
+
+Merge a main.
+
+Tag.
+
+Tocar RAP.
+
+Crear rama nueva.
+
+7. Protocolo de entrega
+text
+RECIBIDO:
+  - Orden D-2.2 completa.
+  - Baseline 2bd3a292 en feat/arki3d-archi-model.
+  - 12 fixes quirúrgicos.
+
+ENTREGADO:
+  - Archivos modificados.
+  - Commit D-2.2 hash.
+  - Salida cruda de pytest -v (tests nombrados).
+  - Salida cruda de pytest global.
+  - Los 6 comandos de verificación.
+  - Confirmación de aplicación de los 12 fixes.
+
+DIVERGENCIA:
+  - Declarar explícitamente:
+    - FIX-03 y FIX-05 difieren a actualización contractual D-1 v1.5.
+    - FIX-02 declara el límite del Core congelado en prov["atomicity"].
+    - FIX-10 introduce campos hosted_in_version / contained_in_version.
+
+FALTA:
+  - NADA, o gap exacto + desbloqueo.
+  - Si aplica: BLOCKED_BY_CORE_CONTRACT.
+8. Terminación
+Cuando los 20 criterios de §5 estén verdes:
+
+text
+D2_IMPLEMENTATION = COMPLETE_PENDING_RED_TEAM
+Después: STOP.
+
+Siguiente acción: ChatGPT Red Team sobre D-2.2.
+
+Y en paralelo, yo emito D-1 v1.5 con:
+
+Firmas reales de ArchiElement y ArchiMutation.
+
+MutationStatus de 5 estados con sub-estados por reason.
+
+prov["atomicity"] con límite declarado.
+
+hosted_in_version / contained_in_version.
+
+NotImplementedError para ADD_OPENING.
+
+Yvan, la orden está lista. Cuando quieras, se la pasás a Manus. Cuando entregue, ChatGPT audita D-2.2 y yo emito D-1 v1.5 en paralelo.
+
+Developer standby.

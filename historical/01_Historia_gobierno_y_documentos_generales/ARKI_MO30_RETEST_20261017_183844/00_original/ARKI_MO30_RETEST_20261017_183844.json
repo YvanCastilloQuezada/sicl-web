@@ -1,0 +1,43 @@
+{
+  "protocol": "ARKI-MO30-RETEST",
+  "timestamp_utc": "2026-10-17T23:37:57.321696+00:00",
+  "image": "/home/arki/Descargas/planta.png",
+  "checks": [
+    {
+      "model": "qwen3-vl:8b",
+      "kind": "vision_basica",
+      "status": "ANSWER",
+      "seconds": 13.28,
+      "answer": "El idioma de las etiquetas es el **inglés**.  \n\nSe observan **4 plantas arquitectónicas distintas**:  \n- Ground Floor Plan (Planta baja)  \n- First Floor Plan (Primera planta)  \n- Second Floor Plan (Segunda planta)  \n- Roof Plan (Planta techada)  \n\nTres etiquetas EXACTAS que se pueden leer:  \n1. **GROUND FLOOR PLAN**  \n2. **SECOND FLOOR PLAN**  \n3. **FIRST FLOOR PLAN**",
+      "thinking_chars": 1119,
+      "thinking_excerpt": "<think>\nGot it, let's analyze the image. First, the labels: the text like \"GROUND FLOOR PLAN\", \"SECOND FLOOR PLAN\", etc., are in English. So the language of the labels is English.\n\nNow, how many distinct architectural floors? Let's count: Ground Floor, Second Floor, First Floor, Roof Plan. Wait, the image has four sections: Ground Floor Plan, Second Floor Plan, First Floor Plan, Roof Plan. So that",
+      "eval_count": 385,
+      "done_reason": "stop"
+    },
+    {
+      "model": "qwen3-vl:8b",
+      "kind": "ocr",
+      "status": "EMPTY_CONTENT",
+      "seconds": 28.26,
+      "answer": "",
+      "thinking_chars": 4179,
+      "thinking_excerpt": "<think>\nGot it, let's look at the floor plans. First, identify five room labels. Let's check each plan.\n\nGround Floor Plan: There's \"LIVING ROOM\", \"DINING ROOM\", \"BEDROOM 1\", \"BEDROOM 2\", \"BATHROOM\". Wait, need to check the labels. Let's see the text in red. For example, \"LIVING ROOM\" is visible. \"DINING ROOM\" is there. \"BEDROOM 1\" and \"BEDROOM 2\" are labeled. Also \"BATHROOM\". Let's pick five.\n\nTh",
+      "eval_count": 1200,
+      "done_reason": "length"
+    },
+    {
+      "model": "llama3.2-vision:11b",
+      "kind": "vision_basica",
+      "status": "ERROR",
+      "seconds": 3.37,
+      "error": "HTTP 500: {\"error\":\"llama-server process has terminated: exit status 1: error loading model: unknown model architecture: 'mllama'\\nerror loading model: unknown model architecture: 'mllama'\"}"
+    },
+    {
+      "model": "llama3.2-vision:11b",
+      "kind": "ocr",
+      "status": "ERROR",
+      "seconds": 2.11,
+      "error": "HTTP 500: {\"error\":\"llama-server process has terminated: exit status 1: error loading model: unknown model architecture: 'mllama'\\nerror loading model: unknown model architecture: 'mllama'\"}"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-08-24T17:32:29.693Z",
+  "safety": {
+    "databaseTouched": false,
+    "networkCalls": false,
+    "usesProductionUsers": false,
+    "note": "La simulación usa un generador pseudoaleatorio sembrado, usuarios ficticios y un libro mayor en memoria."
+  },
+  "config": {
+    "name": "loteria-validation",
+    "totalRounds": 1000,
+    "ticketsPerRound": 10000,
+    "users": 50,
+    "games": [
+      "loteria"
+    ],
+    "seed": "multi-juegos-loteria-v101-10000",
+    "initialBalancePerUser": 10000000,
+    "outputReport": "/home/ubuntu/ruleta-peru-online/.simulation-results/simulation-report-loteria-v101.json",
+    "targetP95Ms": 500,
+    "rtpTolerance": 0.01
+  },
+  "durationMs": 50300.320213,
+  "summary": {
+    "totalTickets": 10000000,
+    "totalRounds": 1000,
+    "totalCost": 250000000,
+    "totalPrize": 181686250,
+    "overallRtp": 0.726745,
+    "errors": 0,
+    "errorRate": 0,
+    "balanceConsistent": true,
+    "initialBalance": 500000000,
+    "finalBalance": 431686250
+  },
+  "byGame": {
+    "loteria": {
+      "tickets": 10000000,
+      "cost": 250000000,
+      "prize": 181686250,
+      "rtpObserved": 0.726745,
+      "rtpTheoretical": 0.7250138302735104,
+      "deviation": 0.0017311697264895676
+    }
+  },
+  "performance": {
+    "avgResponseTimeMs": 0.0047721350802001124,
+    "p95ResponseTimeMs": 0.0066389999999501015,
+    "p99ResponseTimeMs": 0.00976900000000569,
+    "maxResponseTimeMs": 4.662339000000429,
+    "targetP95Ms": 500,
+    "targetMet": true,
+    "scope": "Procesamiento aislado de reglas y libro mayor en memoria; excluye red, OAuth, SQL y renderizado."
+  },
+  "validation": {
+    "minimumTicketsPerGame": 10000,
+    "rtpTolerance": 0.01,
+    "rtpPassed": true,
+    "integrityPassed": true,
+    "performancePassed": true,
+    "byGame": {
+      "loteria": {
+        "eligible": true,
+        "passed": true,
+        "deviation": 0.0017311697264895676
+      }
+    }
+  },
+  "conclusions": [
+    "Integridad de saldo: aprobada; saldo inicial - costos + premios = saldo final.",
+    "Rendimiento puro: p95 dentro del objetivo de 500 ms.",
+    "RTP observado: dentro de la tolerancia configurada para todas las modalidades con muestra suficiente.",
+    "Bingo mantiene un RTP teórico no superior al costo configurado.",
+    "Alcance: este informe mide un motor aislado en memoria. No equivale a una prueba HTTP, OAuth ni base de datos de producción."
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "ARKI-CAD-001B-EVIDENCE-1.0",
+  "order": "ARKI-CAD-001B",
+  "status": "COMPLETE_FOR_FORENSIC_SELECTION / IMPLEMENTATION_BLOCKED",
+  "verdict": "MORE_EVIDENCE_REQUIRED",
+  "cadGeometryReady": "NO",
+  "acirImplemented": "NO/UNVERIFIED",
+  "abb001Unblocked": "NO",
+  "candidates": {
+    "primary": "ODA_DRAWINGS_SDK",
+    "crossCheck": "AUTODESK_REALDWG",
+    "fallback": "GNU_LIBREDWG",
+    "diagnostic": "ODA_FILE_CONVERTER"
+  },
+  "sourceEvidence": [
+    "ARKI_CAD_001A_FORENSIC.md",
+    "ARKI_CAD_ADAPTER_CANDIDATES.json",
+    "ARKI_ACIR_CONTRACT_DRAFT.json",
+    "ARKI_CAD_001B_FORENSIC.md",
+    "ARKI_CAD_001B_LICENSING_DEPLOYMENT.md",
+    "ARKI_CAD_001B_ADAPTER_PROTOCOL.md",
+    "ARKI_CAD_001B_BENCHMARK_PLAN.md",
+    "ARKI_CAD_001B_RECOMMENDATION.md"
+  ],
+  "prohibitions": [
+    "no_installation",
+    "no_purchase",
+    "no_product_change",
+    "no_bim_generation",
+    "no_abb001_f2"
+  ],
+  "files": {
+    "ARKI_CAD_001A_FORENSIC.md": {
+      "sha256": "a6cf6cbeb1e3f00ef640df2b8368384ab9acda26fe5122db4e1cec69cb1758bf",
+      "bytes": 2457
+    },
+    "ARKI_CAD_ADAPTER_CANDIDATES.json": {
+      "sha256": "4cdc4603f17c65d327f23bbb59989d2e1e2b60c2ee7fd30de1d6daedcad71e75",
+      "bytes": 2026
+    },
+    "ARKI_ACIR_CONTRACT_DRAFT.json": {
+      "sha256": "8bce6b54e2c19272232daaee5e3db969fabdea6f2bf3647242e00ebf23ea1a6c",
+      "bytes": 1245
+    },
+    "ARKI_CAD_001B_FORENSIC.md": {
+      "sha256": "15ca9511f193375402feeaec728bfb5ea65d5c3049e13e20df9c65ec864153f7",
+      "bytes": 4562
+    },
+    "ARKI_CAD_001B_LICENSING_DEPLOYMENT.md": {
+      "sha256": "8636c50761bcf348aa815f9eb7cf58588e5b8fba25b0a730eb11b339f7662519",
+      "bytes": 2736
+    },
+    "ARKI_CAD_001B_ADAPTER_PROTOCOL.md": {
+      "sha256": "c662ed5bc7dafd42e8a492f47dd85fc202bae6d2a514c524682149d83b335641",
+      "bytes": 2506
+    },
+    "ARKI_CAD_001B_BENCHMARK_PLAN.md": {
+      "sha256": "cfb525b1baf271751cca5fce266aacce87fc3d8374a59a12bfc8f600ec958629",
+      "bytes": 1913
+    },
+    "ARKI_CAD_001B_RECOMMENDATION.md": {
+      "sha256": "2c88002e813f77d23c03146bad469e47e92b7bef58bf10c249fefbe9bda7cd55",
+      "bytes": 2404
+    }
+  }
+}

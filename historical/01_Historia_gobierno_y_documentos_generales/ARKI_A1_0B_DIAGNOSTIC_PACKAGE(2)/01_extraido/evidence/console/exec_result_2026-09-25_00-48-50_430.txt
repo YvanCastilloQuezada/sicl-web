@@ -1,0 +1,1 @@
+"{\"url\":\"https://4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer/spatial\",\"routeMatched\":true,\"meaningful\":false,\"fallback\":true,\"core503\":false,\"authRedirect\":false,\"tail\":\"Instala ARKI como WebApp\\n\\nAcceso rápido y una experiencia local preparada para conectividad intermitente.\\n\\nInstalar\\nSICL\\n⌘K\\nCargando módulo\"}"

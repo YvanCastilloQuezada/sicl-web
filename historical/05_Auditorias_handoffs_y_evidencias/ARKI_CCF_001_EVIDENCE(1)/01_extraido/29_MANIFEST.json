@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "CCF-001",
+  "artifact": "ARKI_CCF_001_EVIDENCE",
+  "status": "CCF_PARTIAL / PENDING MAJOR OBJECTIVE REVIEW",
+  "sourceOrder": "pasted_content_191.txt",
+  "baseline": {
+    "repo": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+    "worktreeStatus": "historical dirty; not claimed clean"
+  },
+  "fileCount": 50,
+  "files": [
+    {
+      "path": "00_EXECUTIVE_REPORT.md",
+      "sha256": "9ac5860cf5cef9a63bab48d3ba4c5698131bb30aa417abeaed4f5ac81a88d2c1",
+      "bytes": 1005
+    },
+    {
+      "path": "01_CCF_REPOSITORY_PREFLIGHT.md",
+      "sha256": "9d2bad653ca12447e37f2803cae81dfba53f4f53684821ec908b31731087639b",
+      "bytes": 790
+    },
+    {
+      "path": "02_CCF_ARCHITECTURE.md",
+      "sha256": "bba4f8815b781b46809c5fd488aedc380d7385529ab08a5be7635bf41dd68b46",
+      "bytes": 920
+    },
+    {
+      "path": "03_AREA_REGISTRY.md",
+      "sha256": "35d2ee4716b5ce47d5bdfb0972f806f1859d961032f5dd4b6419db011a4f77ea",
+      "bytes": 867
+    },
+    {
+      "path": "04_AREA_REGISTRY.json",
+      "sha256": "c3230aaddb063f59266c902653f35451fd4c9dae658d97a411b25baf471b8966",
+      "bytes": 19883
+    },
+    {
+      "path": "05_AREA_CONTRACT.md",
+      "sha256": "8e08cfda91ef068155d2e7661ed53328369195708cf7e612462217d32b8e7f20",
+      "bytes": 757
+    },
+    {
+      "path": "06_AREA_STATE_MODEL.md",
+      "sha256": "b950dd29002e87111669be73cee8c48920f9d72dbb8595009f2a71f730f666e2",
+      "bytes": 834
+    },
+    {
+      "path": "07_EVENT_MODEL.md",
+      "sha256": "bc85a20f56a9012147999834ce728ebe617fbb711fed2c7cb1b9059306dc022a",
+      "bytes": 698
+    },
+    {
+      "path": "08_DEPENDENCY_MODEL.md",
+      "sha256": "dfae2f72729a4fde83fcf561138a9c2c03103ddf14b9c6491ec05bae9998026c",
+      "bytes": 752
+    },
+    {
+      "path": "09_HUMAN_AUTHORITY_MODEL.md",
+      "sha256": "a97a1e52253210564f1f40e515c76994d36bb00271398b19d6eeab0e0442998d",
+      "bytes": 765
+    },
+    {
+      "path": "10_ACTION_CONTRACT.md",
+      "sha256": "c81f08842d832c556c77237cf7f19849df7fa0311018d7d5aac164d0a01800f1",
+      "bytes": 609
+    },
+    {
+      "path": "11_OBSERVABILITY_CONTRACT.md",
+      "sha256": "49ac7282214f166407ea693ffb9d0a41726f818ed916f4554b9bbecc962492e1",
+      "bytes": 699
+    },
+    {
+      "path": "12_MASTER_COMMAND_CENTER.md",
+      "sha256": "f60749a4fdfd78e8aea965b0acae0ad0ec8882512babaf9ff34e6e87f8750d07",
+      "bytes": 729
+    },
+    {
+      "path": "13_AUTOPILOT_AREA.md",
+      "sha256": "2788f0ff8dc210fa9f4fe3671156bd980b31dd682fe626e71ea39e49097839f7",
+      "bytes": 654
+    },
+    {
+      "path": "14_BIM_OR_REAL_DOMAIN_AREA.md",
+      "sha256": "5b414a0eb72d9bad05b3c392acba3174b154e634294257eec3d2e49d0c4f14b2",
+      "bytes": 801
+    },
+    {
+      "path": "15_PROJECT_VIEW.md",
+      "sha256": "f74d61499a503cca4dbaf0c16312c249a5f9407e0587639ee9915aa2d305f72c",
+      "bytes": 547
+    },
+    {
+      "path": "16_SYSTEM_VIEW.md",
+      "sha256": "315297e07d0fe15f1a276ff06b212a4f8c1ed01b073b6bbe734abb7f501d01e3",
+      "bytes": 590
+    },
+    {
+      "path": "17_GLOBAL_LIVE_CONSOLE.md",
+      "sha256": "0a476bf3a01b0d5320360152a2a78628ab50d3ae8dd6a220b524be32a5a095c7",
+      "bytes": 674
+    },
+    {
+      "path": "18_SINCE_LAST_VISIT.md",
+      "sha256": "dc8cb8ab212d3a7fd29d08608b747faa480b21f4c28d093e6fc04332d746a0e5",
+      "bytes": 564
+    },
+    {
+      "path": "19_DIRECTIVE_CONSOLE.md",
+      "sha256": "960dd7d14f28e6c2814e0db7a1ad9e10673ef4d69a55a5d04eb5effd26079153",
+      "bytes": 619
+    },
+    {
+      "path": "20_DIRECTOR_LIVE_FORENSIC.md",
+      "sha256": "53b176304348da8f1a37427f2b7fcaf8978109f50eca0008876097fccf5d8ae0",
+      "bytes": 611
+    },
+    {
+      "path": "21_REALTIME_ARCHITECTURE.md",
+      "sha256": "3ebe61e0cb363f9a9bf899ab5ed2ba7cd7c62506d6c71e83ae8424970f4dd5b8",
+      "bytes": 668
+    },
+    {
+      "path": "22_SECURITY_MODEL.md",
+      "sha256": "7fe982f1ec1b71a35d0bb6fca0f4e31e54d26f7c840ba6e6d253573b047adf3d",
+      "bytes": 695
+    },
+    {
+      "path": "23_UI_TEST_RESULTS.md",
+      "sha256": "ea74f2c46f32b0d265689dd066ecf329a8f549052b3eb7bfe5492375092d8b17",
+      "bytes": 682
+    },
+    {
+      "path": "24_ADVERSARIAL_RESULTS.md",
+      "sha256": "624a122a828e5f6880fd08d4e09bc609746b01261306d9539ba6ee78a350c241",
+      "bytes": 850
+    },
+    {
+      "path": "25_UNKNOWN_REGISTER.md",
+      "sha256": "02b40bf6a11d87cf3ce740bdd57a2923064d5c3fb385f8aa190ae2593b1cb309",
+      "bytes": 655
+    },
+    {
+      "path": "26_RISK_REGISTER.md",
+      "sha256": "88970956892843ff61cd3e205f9cd2ed8583ecf2a119e3b8503724a0b2a7ae66",
+      "bytes": 697
+    },
+    {
+      "path": "27_DECISION_REGISTER.md",
+      "sha256": "5c21f562790ce60316738bd13db9585e1f93ede84ec0dd446bae87bb55a49c69",
+      "bytes": 702
+    },
+    {
+      "path": "28_EVIDENCE_MATRIX.md",
+      "sha256": "6bfd71b30c10b002902e2679b31adf4bd7d4ce905ece60bd4609fa6ec3c7dc44",
+      "bytes": 1001
+    },
+    {
+      "path": "30_RAW_OUTPUTS.txt",
+      "sha256": "4b5fefab5da844b11119427ecc79ce610e898857d14774fe3e9b74ff5caee6c1",
+      "bytes": 536
+    },
+    {
+      "path": "ARKI_CCF_SCREENSHOTS/01_desktop.png",
+      "sha256": "887cc69c41af42c999dfc4a74de791f7e38559dcddfff3e4c7f1c8f27bf059c7",
+      "bytes": 851806
+    },
+    {
+      "path": "ARKI_CCF_SCREENSHOTS/02_mobile.png",
+      "sha256": "e7517e70716567913cd24ba5fb3a56fe67152eba07d688cd64f5ad1b0727fc29",
+      "bytes": 1527114
+    },
+    {
+      "path": "raw/autopilot-command-center-tests.txt",
+      "sha256": "c37ae86793d2fa32232bc5a2fed899545890486d873278fcb6514e5c5aed2bc4",
+      "bytes": 282
+    },
+    {
+      "path": "raw/ccf-framework-tests.txt",
+      "sha256": "c3bce9cc094d19804f1f3206446f1487ec1fbdc7301df7c828614ddc880c363f",
+      "bytes": 356
+    },
+    {
+      "path": "raw/ccf-preflight.txt",
+      "sha256": "6982f38cdc8c1ae00de92b4de11a4585c394bc3242fbb971995ed9826715f01d",
+      "bytes": 154
+    },
+    {
+      "path": "raw/master-command-center-tests.txt",
+      "sha256": "a8868eaba9ed59f6ce12f1b5cd57d850e32ee017ecb40724f4667f82b73184e3",
+      "bytes": 349
+    },
+    {
+      "path": "source/client/public/__autopilot__/areas.json",
+      "sha256": "d3ca66bbff8dd9651e16d03ff9dbd72c01ecbbc619bfb6fc3a93d20bd10bb678",
+      "bytes": 19576
+    },
+    {
+      "path": "source/client/public/__autopilot__/dependencies.json",
+      "sha256": "1c819041c0e5601b57b74393295eb57ae9f3c2f1bbc75c2b8834b391fe8bf0b5",
+      "bytes": 1763
+    },
+    {
+      "path": "source/client/public/__autopilot__/events.json",
+      "sha256": "0d63553e716a878bfd1f2eb8b964695e4aec9a348130ae36a3ac59a34b935d1b",
+      "bytes": 17320
+    },
+    {
+      "path": "source/client/src/App.tsx",
+      "sha256": "d1c5245d0c6089bf954dc4dfcc100ce2a6c0f80aa739ec62a0e29a316f1c4828",
+      "bytes": 1752
+    },
+    {
+      "path": "source/client/src/components/AreaCommandCenterShell.tsx",
+      "sha256": "4bb5d24c970aebd6fb9483e798c0b775f602eb0bab1e3ad98bef41d427900060",
+      "bytes": 853
+    },
+    {
+      "path": "source/client/src/components/ArkiWorkspaceShell.tsx",
+      "sha256": "1a94372471c90106ff395f72ac148306a051279ee024b19a27bd044426d0610c",
+      "bytes": 10905
+    },
+    {
+      "path": "source/client/src/pages/AutopilotCommandCenter.tsx",
+      "sha256": "2d4dfc0d2ad21161a42ac5017f879275a971dada31b935aaf4bf5ee69480b201",
+      "bytes": 19307
+    },
+    {
+      "path": "source/pasted_content_191.txt",
+      "sha256": "c91ea863fd0ddb058d4bed6972e002e108e162d62555b3ecd18522e21f6508b3",
+      "bytes": 28070
+    },
+    {
+      "path": "source/scripts/create-ccf-registry.py",
+      "sha256": "99d21b33bfb665ebfdf2be7b2f6b9a3f28960aa9bee16a3030924aef4dbc8678",
+      "bytes": 3298
+    },
+    {
+      "path": "source/scripts/normalize-ccf-events.py",
+      "sha256": "4b401ed7e0e872cd488897ebf963cdcbe8daac4ecf26ae4035c84dd27bda2c9c",
+      "bytes": 1057
+    },
+    {
+      "path": "source/scripts/test-ccf-framework.ts",
+      "sha256": "6e645d06a655fb5bb62b52d7e9bf145a81cf2ca04931dec11661fce42e870a95",
+      "bytes": 3343
+    },
+    {
+      "path": "source/shared/arkiAutopilot.ts",
+      "sha256": "3af90c392625c53a26b6bc50c7891aa687851b7235056b7ada4cb0a8bd95d3c0",
+      "bytes": 13288
+    },
+    {
+      "path": "source/shared/arkiCommandCenterFramework.ts",
+      "sha256": "7bd914cc477a888898b1e32d9560662d093b585bf6325c3fc8eeaf7d8b81426e",
+      "bytes": 3229
+    },
+    {
+      "path": "source/shared/arkiMasterCommandCenter.ts",
+      "sha256": "33308e88aae7dcbd2fae52a163fb88e04fb7ea6c270d473b245511e736822acd",
+      "bytes": 1934
+    }
+  ],
+  "scopeGuard": [
+    "no C1-C80 implementation",
+    "no Aurora",
+    "no TX-005",
+    "no canonical mutation",
+    "no migration",
+    "no deploy/push/merge/release",
+    "no purchase"
+  ],
+  "verification": [
+    "pnpm check PASS",
+    "pnpm build PASS",
+    "CCF framework tests PASS",
+    "desktop/mobile screenshots captured"
+  ]
+}

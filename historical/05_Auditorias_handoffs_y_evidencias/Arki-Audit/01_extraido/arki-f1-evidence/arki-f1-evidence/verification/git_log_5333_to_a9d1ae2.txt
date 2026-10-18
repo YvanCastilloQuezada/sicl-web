@@ -1,0 +1,22 @@
+[33ma9d1ae2[m test(H-005): add adversarial and semantic audit coverage
+ tests/test_h005_adversarial.py | 66 [32m++++++++++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 66 insertions(+)
+[33mb55e2bf[m test(H-005): verify persistent H001-H005 causal integration
+ tests/test_h005_e2e_persistence.py | 56 [32m++++++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 56 insertions(+)
+[33m1bf02bc[m test(H-005): harden causal propagation and fail-closed behavior
+ src/sicl/h005/engine.py        |  4 [32m+[m[31m-[m
+ tests/test_h005_fail_closed.py | 97 [32m++++++++++++++++++++++++++++++++++++++++++[m
+ tests/test_h005_propagation.py | 75 [32m++++++++++++++++++++++++++++++++[m
+ 3 files changed, 175 insertions(+), 1 deletion(-)
+[33m19232fb[m feat(H-005): implement selective recomputation engine
+ src/sicl/h005/__init__.py |   2 [32m+[m
+ src/sicl/h005/engine.py   | 156 [32m++++++++++++++++++++++++++++++++++++++++++++++[m
+ tests/test_h005_engine.py |  88 [32m++++++++++++++++++++++++++[m
+ 3 files changed, 246 insertions(+)
+[33mf61c870[m feat(H-005): add selective recomputation contract and registry
+ src/sicl/h005/__init__.py            |  9 [32m++++[m
+ src/sicl/h005/contract.py            | 97 [32m++++++++++++++++++++++++++++++++++++[m
+ src/sicl/h005/registry.py            | 59 [32m++++++++++++++++++++++[m
+ tests/test_h005_contract_registry.py | 51 [32m+++++++++++++++++++[m
+ 4 files changed, 216 insertions(+)

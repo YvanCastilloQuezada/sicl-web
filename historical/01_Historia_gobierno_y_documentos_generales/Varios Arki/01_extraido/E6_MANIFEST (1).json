@@ -1,0 +1,220 @@
+{
+  "schema": "ARKI-E6-MANIFEST-2.0",
+  "status": "REOPENED FOR EVIDENCE CLOSURE / PENDING INDEPENDENT REVIEW",
+  "generatedAt": "2026-09-23",
+  "historicalBaseline": "E6_MANIFEST.json before surgical reopening",
+  "regressions": {
+    "e6": "PASS",
+    "e5": "PASS",
+    "e7": "PASS",
+    "e8": "PASS",
+    "pnpmCheck": "PASS",
+    "pnpmBuild": "PASS"
+  },
+  "evidence": {
+    "webIfcFixtures": 3,
+    "exportedEntities": 28,
+    "identityPreserved": 28,
+    "identityMissing": 0,
+    "globalIdLength": 22,
+    "gateMissing": 0,
+    "svg": 6,
+    "webp": 6
+  },
+  "viewpoints": "resolved by E5-CLOSE-02; real-browser restoration remains declared debt",
+  "declaredDebt": [
+    "complete IFC geometry",
+    "complete materials",
+    "complete spatial relations",
+    "complete properties",
+    "geometric/property lossReport",
+    "real-browser restoration"
+  ],
+  "files": [
+    {
+      "path": "E6_BASELINE_OUTPUTS.txt",
+      "sha256": "0b003f1fc4d72e4be9cabacde6677f145ecb07f6a6f0cf0e7b44b9095254ab9d",
+      "bytes": 3271
+    },
+    {
+      "path": "E6_CAPTURAS/01-ifc4-parser-web-ifc.svg",
+      "sha256": "97462e0b02b677b12f20681d8c5400da1f9be8f943f0df242904db896f5734d6",
+      "bytes": 1563
+    },
+    {
+      "path": "E6_CAPTURAS/01-ifc4-parser-web-ifc.webp",
+      "sha256": "8acc3112d9f9cf79549e9ce4564ecfd1f3d2dc98a2784428234f4b5e38d020f5",
+      "bytes": 28466
+    },
+    {
+      "path": "E6_CAPTURAS/02-ifc4-exporter.svg",
+      "sha256": "e0f9e84d823a6daabb4e66db1cfea8098dd5c57e09453dd1f8986e58cd8b4901",
+      "bytes": 1469
+    },
+    {
+      "path": "E6_CAPTURAS/02-ifc4-exporter.webp",
+      "sha256": "7004fdd3d64c076885d78a1d684389183547371b5836347a00a7d9518dd44f13",
+      "bytes": 24318
+    },
+    {
+      "path": "E6_CAPTURAS/03-globalid-determinista.svg",
+      "sha256": "a52a84b741a0fbad0e4f79f8c84ca5d22ae2996888404d785451ae847d01dd38",
+      "bytes": 1547
+    },
+    {
+      "path": "E6_CAPTURAS/03-globalid-determinista.webp",
+      "sha256": "8cca155f7e1ddb908254af99ee06b866eb16f593b71ad39c89325dbf7028e847",
+      "bytes": 24528
+    },
+    {
+      "path": "E6_CAPTURAS/04-persistencia-indexeddb-v2.svg",
+      "sha256": "959000f069af856d6b110421b0d1bc27c936405b1fd6043f94a91fa19db55f06",
+      "bytes": 1557
+    },
+    {
+      "path": "E6_CAPTURAS/04-persistencia-indexeddb-v2.webp",
+      "sha256": "fc637ddbf93d16de2f2b5d69ef2429c3f58aaaa7a98648b2aa2777b8cbfd4e50",
+      "bytes": 24818
+    },
+    {
+      "path": "E6_CAPTURAS/05-gate-snapshot-aprobado.svg",
+      "sha256": "b40c7f6400c4830f463e33283229185555e98944e8b931a8d45a9d2590b90a16",
+      "bytes": 1673
+    },
+    {
+      "path": "E6_CAPTURAS/05-gate-snapshot-aprobado.webp",
+      "sha256": "88084867e7c8e7842a7016447e7fa390b48eca4906d11127ebd6e90bcbaaa2f5",
+      "bytes": 27102
+    },
+    {
+      "path": "E6_CAPTURAS/06-loss-report-identidad.svg",
+      "sha256": "2e182bc1379787fdb6ed78cbdd9c92870a2540d355a75d2fd584c6d9bd48ac81",
+      "bytes": 1548
+    },
+    {
+      "path": "E6_CAPTURAS/06-loss-report-identidad.webp",
+      "sha256": "096bc6ac4920c19601269552df31f6a2955ca92372c57f1798f623289071b311",
+      "bytes": 23882
+    },
+    {
+      "path": "E6_CAPTURE_OUTPUTS.txt",
+      "sha256": "92365d74b71642d23a07c5d81f29151830e1cf40d7c9df56d791fc41c54913d2",
+      "bytes": 1168
+    },
+    {
+      "path": "E6_CLOSURE_REPORT.md",
+      "sha256": "fce4ba1f3e17529f6a40e2c6d4650af7893e228bbeb1b80abda72ecb7bce3338",
+      "bytes": 1757
+    },
+    {
+      "path": "E6_DEBT_INHERITED.md",
+      "sha256": "16391fe9ddb2f1bf3c283c898898e295837b71040a84e692ccc5612d20281428",
+      "bytes": 893
+    },
+    {
+      "path": "E6_OUTPUTS.txt",
+      "sha256": "73c410183a82155a4d83ba22d89b7cdb7d0164f4f0829b937a55bbc1236af16f",
+      "bytes": 13203
+    },
+    {
+      "path": "E6_PO_APPROVAL.md",
+      "sha256": "15dbd8f88839097251194297315d45502a1115cf7abb665b142a3603c06c2e9a",
+      "bytes": 1308
+    },
+    {
+      "path": "E6_SCOPE_LIMITS.md",
+      "sha256": "4a430d02cbf5e2b980712b87aca7c57832b081f4e23001328baa409946494149",
+      "bytes": 1622
+    },
+    {
+      "path": "client/src/persistence/arkiIndexedDb.ts",
+      "sha256": "41974621b046afa1fabc2cf944baf82499ff9650ac9e5c87a94dc7b3fbd09082",
+      "bytes": 5349
+    },
+    {
+      "path": "fixtures/ifc4/fixture_01_simple_wall.ifc",
+      "sha256": "4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e",
+      "bytes": 2937
+    },
+    {
+      "path": "fixtures/ifc4/fixture_02_room_with_door.ifc",
+      "sha256": "124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8",
+      "bytes": 2942
+    },
+    {
+      "path": "fixtures/ifc4/fixture_03_multi_storey.ifc",
+      "sha256": "5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b",
+      "bytes": 5297
+    },
+    {
+      "path": "scripts/create-e6-manifest.py",
+      "sha256": "cef6b131f3fb4ac386bb27c3d37a4b203877653974e50f66ed71d2079c31ed70",
+      "bytes": 2401
+    },
+    {
+      "path": "scripts/create-e6-package.py",
+      "sha256": "f0e52d77458848d1b14228de831989375c01701b523db7c25ac5a5f6f6405518",
+      "bytes": 987
+    },
+    {
+      "path": "scripts/generate-e6-evidence.ts",
+      "sha256": "4e20f6c8ca0984d8f8cba50b614eff9fc0c1d1d6e5350894120b4fd940dff87c",
+      "bytes": 7087
+    },
+    {
+      "path": "scripts/run-e6-reopen-evidence.sh",
+      "sha256": "bd6cd306d6ad537c4cffaf29746811f1e77f34949700fd5f00501553f12444b2",
+      "bytes": 1474
+    },
+    {
+      "path": "scripts/test-ifc4-exporter.ts",
+      "sha256": "459ccb87bcc5f270bee39556d96408eb5fcccee9b59d8eeea337770dfde76d95",
+      "bytes": 1233
+    },
+    {
+      "path": "scripts/test-ifc4-fixtures.ts",
+      "sha256": "d6677a8a4f183b8303a113f8bc3943ed5be0a5afefcbfcfdf031115e884460a7",
+      "bytes": 759
+    },
+    {
+      "path": "scripts/test-ifc4-globalid.ts",
+      "sha256": "7f4d23805c1a477a9be42cd700044f4ad4e77b3fd2abc11a4c0dab5cc949772d",
+      "bytes": 1000
+    },
+    {
+      "path": "scripts/test-ifc4-web-ifc.ts",
+      "sha256": "0589f0f20da5f9ac10d6eedb302ca27ce99aa492a151705fb13a0531d1fc0a10",
+      "bytes": 667
+    },
+    {
+      "path": "scripts/test-persistence-formal.ts",
+      "sha256": "6367df3074e9b53c1dfc54731877f21850cc61d56dac9bb32e35214c7b36fe10",
+      "bytes": 1172
+    },
+    {
+      "path": "scripts/test-persistence-idb.ts",
+      "sha256": "3873061bfe9c0d056cf7c26b4ca4cff7f2f6d48a50e321a8969c2d33f98cd814",
+      "bytes": 1087
+    },
+    {
+      "path": "shared/identity/arkiGlobalId.ts",
+      "sha256": "75facea32445d12444cbdb165ae445fff7ec7dcfa9a883c896e84437cd1687ff",
+      "bytes": 1178
+    },
+    {
+      "path": "shared/ifc4/arkiIfc4.ts",
+      "sha256": "09f0ec6080e0c7dcb035fa6b6b4f31f73315ad8d7349e5ba8e85cad91ce79882",
+      "bytes": 3892
+    },
+    {
+      "path": "shared/ifc4/webIfcAdapter.ts",
+      "sha256": "6b17d6639eb8ce18ce26a94626260b1d335196b15992f3c3f34d066889c014d4",
+      "bytes": 1295
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "sha256": "e4df67d28327b41208f1c67b43160671b8de54b5f8a9280712a677c2aa1c37ea",
+      "bytes": 4734
+    }
+  ]
+}

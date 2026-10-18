@@ -1,0 +1,1117 @@
+INCORPORACIÓN CONSTITUCIONAL DEL LEGAL & COMPLIANCE INTELLIGENCE AGENT
+
+
+ORDEN DE ARQUITECTURA — INCORPORACIÓN CONSTITUCIONAL DEL LEGAL & COMPLIANCE INTELLIGENCE AGENT
+PROYECTO: MiLukita
+TIPO DE ORDEN: Arquitectura / Gobernanza / Definición estructural
+PRIORIDAD: ALTA
+ESTADO: EJECUTAR
+IMPLEMENTACIÓN DEL AGENTE: NO INICIAR
+AUTONOMÍA: 0
+AUTORIDAD OPERATIVA: DESHABILITADA
+MODO: PLANNED / DISABLED
+ALCANCE: Arquitectura, organigrama, contratos de autoridad, documentación, dependencias y límites
+NO ALCANCE: Desarrollo funcional del agente
+________________________________________
+0. INSTRUCCIÓN EJECUTIVA
+Incorporar oficialmente a MiLukita el:
+LEGAL & COMPLIANCE INTELLIGENCE AGENT
+como componente constitucional de la arquitectura superior del sistema.
+Este agente debe quedar definido, registrado, documentado y arquitectónicamente reservado, pero NO debe desarrollarse, activarse ni recibir capacidades operativas en esta fase.
+La finalidad de esta orden es evitar que las futuras decisiones de producto, negocio, UX, monetización, distribución, datos, contratos, publicidad, gaming o expansión internacional se diseñen de manera incompatible con una futura capa jurídica y regulatoria.
+________________________________________
+1. PRINCIPIO FUNDAMENTAL
+Establecer desde ahora la siguiente regla:
+LEGAL & COMPLIANCE INTELLIGENCE AGENT es una capa de inteligencia jurídica y regulatoria de carácter consultivo. No es un abogado autónomo, no sustituye asesoría jurídica profesional y no posee autoridad para tomar decisiones jurídicas vinculantes.
+Su futura función será:
+READ
+↓
+ANALYZE
+↓
+CLASSIFY
+↓
+DETECT
+↓
+ASSESS RISK
+↓
+PROPOSE
+↓
+ALERT
+↓
+ESCALATE
+↓
+HUMAN / QUALIFIED PROFESSIONAL DECISION
+Nunca:
+AI
+↓
+LEGAL DECISION
+↓
+AUTONOMOUS EXECUTION
+________________________________________
+2. ESTADO OBLIGATORIO
+Registrar el agente exactamente con una estructura equivalente a:
+agent:
+  id: legal_compliance_intelligence
+  name: Legal & Compliance Intelligence Agent
+
+  status: PLANNED
+
+  implementation:
+    state: NOT_STARTED
+    enabled: false
+    production: false
+
+  authority:
+    level: ADVISORY_ONLY
+    autonomy: 0
+    execution: DISABLED
+
+  human_approval:
+    required: true
+
+  modification_of_core:
+    allowed: false
+
+  legal_decision_authority:
+    allowed: false
+
+  contractual_authority:
+    allowed: false
+
+  regulatory_filing_authority:
+    allowed: false
+
+  licensing_authority:
+    allowed: false
+Si el sistema utiliza otro formato de configuración, adaptar esta definición al formato existente sin alterar la semántica.
+________________________________________
+3. INCORPORACIÓN AL ORGANIGRAMA SUPERIOR
+Actualizar el organigrama oficial de MiLukita.
+La arquitectura conceptual deberá reconocer como mínimo:
+                         MILUKITA
+                            │
+          ┌─────────────────┼─────────────────┐
+          │                 │                 │
+          ↓                 ↓                 ↓
+   ENTERTAINMENT OS     BUSINESS OS      GOVERNANCE
+          │                 │                 │
+          │                 │                 │
+          │                 │        AGENT GOVERNANCE OS
+          │                 │                 │
+          │                 │                 │
+          └────────────┬────┴─────────────────┘
+                       │
+                       ↓
+             LEGAL & COMPLIANCE
+                INTELLIGENCE
+                       │
+                       ↓
+                HUMAN AUTHORITY
+                       │
+                       ↓
+                  AUTHORITY
+                    LAYER
+                       │
+                       ↓
+                   MJP CORE
+Nota: Legal & Compliance debe considerarse una función transversal de gobernanza y no simplemente otro módulo de Business OS.
+________________________________________
+4. POSICIÓN ARQUITECTÓNICA
+Registrar explícitamente que Legal & Compliance mantiene relaciones con:
+Entertainment OS
+Para:
+•	juegos;
+•	contenido;
+•	eventos;
+•	TV;
+•	Web;
+•	móvil;
+•	QR;
+•	Lukita;
+•	promociones;
+•	experiencia de usuario.
+Business OS
+Para:
+•	monetización;
+•	publicidad;
+•	sponsorship;
+•	contratos;
+•	distribución;
+•	pagos;
+•	revenue;
+•	fiscalidad;
+•	expansión internacional;
+•	estructura empresarial.
+Experience / UX Intelligence
+Para:
+•	claims;
+•	publicidad;
+•	consentimiento;
+•	menores;
+•	información al usuario;
+•	términos;
+•	disclosures;
+•	promociones;
+•	interfaces potencialmente reguladas.
+Data / Analytics
+Para:
+•	datos personales;
+•	consentimiento;
+•	retención;
+•	tratamiento;
+•	transferencia;
+•	privacidad;
+•	gobernanza de datos.
+Agent Governance OS
+Para:
+•	autoridad de agentes;
+•	límites;
+•	auditoría;
+•	escalamiento;
+•	decisiones sensibles;
+•	compliance de agentes.
+MJP CORE
+Relación exclusivamente mediante interfaces autorizadas.
+LEGAL AGENT no puede modificar MJP CORE.
+________________________________________
+5. DOMINIOS FUTUROS DEL AGENTE
+Registrar como dominios previstos, sin implementarlos:
+LEGAL & COMPLIANCE INTELLIGENCE
+│
+├── Corporate Legal
+├── Regulatory Intelligence
+├── Gaming Regulation
+├── Advertising Compliance
+├── Consumer Protection
+├── Privacy & Data Protection
+├── Intellectual Property
+├── Contracts
+├── Licensing
+├── AI Governance
+├── Digital Services / E-Commerce
+├── International Expansion
+└── Legal Claims & Representation Guard
+Estos dominios constituyen el mapa funcional futuro.
+No deben interpretarse como instrucciones para construir múltiples agentes independientes.
+________________________________________
+6. CORPORATE LEGAL
+Reservar capacidad futura para analizar:
+•	estructura societaria;
+•	jurisdicción;
+•	forma societaria;
+•	obligaciones corporativas;
+•	administradores;
+•	socios;
+•	accionistas;
+•	gobierno corporativo;
+•	poderes;
+•	representación;
+•	obligaciones registrales;
+•	documentación corporativa;
+•	cambios societarios.
+El agente futuro podrá:
+ANALYZE
+↓
+COMPARE
+↓
+IDENTIFY REQUIREMENTS
+↓
+RISK ASSESSMENT
+↓
+RECOMMEND
+Pero nunca podrá:
+•	constituir automáticamente una empresa;
+•	modificar estatutos;
+•	registrar sociedades;
+•	aceptar obligaciones;
+•	representar jurídicamente a MiLukita.
+________________________________________
+7. REGULATORY INTELLIGENCE
+Diseñar conceptualmente un futuro flujo:
+COUNTRY
+↓
+ACTIVITY
+↓
+BUSINESS MODEL
+↓
+USER TYPE
+↓
+PAYMENT MODEL
+↓
+PRIZE / REWARD MODEL
+↓
+DISTRIBUTION MODEL
+↓
+DATA MODEL
+↓
+ADVERTISING MODEL
+↓
+APPLICABLE REGULATION
+↓
+LICENSES / REGISTRATIONS
+↓
+OBLIGATIONS
+↓
+RESTRICTIONS
+↓
+RISK SCORE
+↓
+HUMAN REVIEW
+El sistema deberá contemplar que una misma funcionalidad puede tener consecuencias regulatorias diferentes dependiendo de:
+•	país;
+•	residencia del usuario;
+•	naturaleza de la actividad;
+•	monetización;
+•	premios;
+•	participación;
+•	edad;
+•	medio de distribución;
+•	modalidad online/offline;
+•	procesamiento de datos.
+________________________________________
+8. GAMING REGULATION
+Registrar específicamente este dominio como CRITICAL.
+El futuro agente deberá poder analizar conceptualmente:
+•	naturaleza del juego;
+•	juego de azar;
+•	lotería;
+•	apuestas;
+•	promociones;
+•	concursos;
+•	premios;
+•	participación gratuita;
+•	participación monetaria;
+•	wallet;
+•	créditos;
+•	depósitos;
+•	retiros;
+•	settlement;
+•	RNG;
+•	RTP;
+•	jurisdicción;
+•	licencias;
+•	restricciones de edad;
+•	publicidad;
+•	juego responsable.
+Debe quedar establecido:
+Nunca asumir que una funcionalidad es legal simplemente porque técnicamente funciona.
+La clasificación jurídica debe preceder a cualquier recomendación de explotación comercial.
+________________________________________
+9. ADVERTENCIA ARQUITECTÓNICA SOBRE GAMING
+Registrar como principio:
+TECHNICAL CAPABILITY
+        ≠
+LEGAL AUTHORIZATION
+Y:
+GAME IMPLEMENTED
+        ≠
+GAME LEGALLY OPERABLE
+Y:
+PAYMENT ENABLED
+        ≠
+PAYMENT LEGALLY AUTHORIZED
+Y:
+AVAILABLE ONLINE
+        ≠
+AVAILABLE IN ALL JURISDICTIONS
+Esto deberá quedar incorporado a la documentación constitucional.
+________________________________________
+10. ADVERTISING & MARKETING COMPLIANCE
+El futuro agente deberá poder revisar:
+•	publicidad;
+•	sponsorship;
+•	promociones;
+•	claims;
+•	influencers;
+•	campañas;
+•	publicidad dirigida;
+•	menores;
+•	contenido comercial;
+•	identificación de publicidad;
+•	afirmaciones sobre premios;
+•	afirmaciones sobre resultados;
+•	disponibilidad territorial.
+Especialmente:
+MARKETING AGENT
+        ↓
+CONTENT
+        ↓
+LEGAL / CLAIM GUARD
+        ↓
+APPROVED / BLOCKED / HUMAN REVIEW
+El Marketing Agent no debe poder publicar automáticamente determinados claims sensibles sin pasar por las políticas correspondientes cuando Legal esté operativo.
+________________________________________
+11. CLAIM & REPRESENTATION GUARD
+Crear desde ahora la especificación conceptual de:
+CLAIM & REPRESENTATION GUARD
+Su objetivo futuro será impedir que MiLukita comunique como hecho algo que:
+•	no está demostrado;
+•	no está disponible;
+•	no está autorizado;
+•	no está vigente;
+•	no está correctamente contextualizado.
+Ejemplos:
+"Legal en todos los países"
+"Licenciado"
+"Certificado"
+"Seguro al 100%"
+"Premio garantizado"
+"Disponible mundialmente"
+"24/7"
+"Operación autónoma"
+"Oficial"
+"Sin riesgo"
+Flujo futuro:
+CLAIM
+↓
+EVIDENCE CHECK
+↓
+SOURCE CHECK
+↓
+JURISDICTION CHECK
+↓
+STATUS CHECK
+↓
+RISK CLASSIFICATION
+↓
+APPROVE / BLOCK / HUMAN REVIEW
+________________________________________
+12. REGLA NO DATA → NO CLAIM
+Integrar formalmente:
+NO DATA → NO CLAIM
+Y una regla complementaria:
+NO VERIFIED EVIDENCE → NO LEGAL REPRESENTATION
+El sistema deberá distinguir conceptualmente:
+REAL
+SIMULATED
+ESTIMATED
+PROJECTED
+PLANNED
+EXTERNAL_REQUIRED
+UNAVAILABLE
+Una capacidad marcada como:
+SIMULATED
+no puede ser presentada como:
+PRODUCTION
+Una capacidad marcada como:
+PLANNED
+no puede ser presentada como:
+AVAILABLE
+________________________________________
+13. CONTRACT INTELLIGENCE
+Reservar el siguiente módulo funcional futuro:
+CONTRACT
+↓
+DOCUMENT EXTRACTION
+↓
+CLAUSE CLASSIFICATION
+↓
+PARTIES
+↓
+OBLIGATIONS
+↓
+RIGHTS
+↓
+DEADLINES
+↓
+PAYMENTS
+↓
+TERRITORY
+↓
+EXCLUSIVITY
+↓
+IP RIGHTS
+↓
+LIABILITY
+↓
+TERMINATION
+↓
+RISKS
+↓
+ALERTS
+El futuro agente podrá asistir en la lectura y análisis.
+No podrá:
+•	firmar;
+•	aceptar;
+•	negociar vinculantemente;
+•	modificar contratos sin autorización;
+•	asumir obligaciones;
+•	representar a MiLukita.
+________________________________________
+14. INTELLECTUAL PROPERTY
+Reservar capacidad futura para:
+IP INTELLIGENCE
+│
+├── Trademarks
+├── Copyright
+├── Logos
+├── Lukita
+├── MiLukita
+├── Music
+├── Images
+├── Video
+├── Games
+├── Software
+├── Fonts
+├── AI-generated assets
+└── Third-party assets
+Debe poder detectar potencialmente:
+•	falta de licencia;
+•	licencia vencida;
+•	restricciones territoriales;
+•	restricciones comerciales;
+•	atribuciones;
+•	uso incompatible;
+•	derechos de terceros;
+•	conflictos potenciales.
+________________________________________
+15. PRIVACY & DATA
+Registrar Privacy / Data Protection como dominio interno de Legal & Compliance.
+No crear todavía un agente independiente.
+Reservar capacidad futura para analizar:
+•	datos personales;
+•	consentimiento;
+•	participantes;
+•	cuentas;
+•	dispositivos;
+•	cookies;
+•	analytics;
+•	perfiles;
+•	marketing;
+•	retención;
+•	eliminación;
+•	transferencia;
+•	terceros;
+•	proveedores;
+•	menores;
+•	derechos de usuarios.
+Arquitectura prevista:
+USER DATA
+↓
+DATA GOVERNANCE
+↓
+PRIVACY ANALYSIS
+↓
+LEGAL REQUIREMENTS
+↓
+POLICY
+↓
+IMPLEMENTATION
+↓
+AUDIT
+________________________________________
+16. AI GOVERNANCE
+Reservar un dominio específico para revisar futuras capacidades de IA de MiLukita.
+Deberá contemplar conceptualmente:
+•	uso de IA;
+•	contenido generado;
+•	agentes;
+•	decisiones automatizadas;
+•	transparencia;
+•	supervisión humana;
+•	registros;
+•	límites;
+•	riesgos;
+•	claims relacionados con IA.
+Especialmente:
+AI CAPABILITY
+≠
+AI AUTHORITY
+Y:
+AUTONOMOUS AGENT
+≠
+AUTONOMOUS LEGAL AUTHORITY
+________________________________________
+17. INTERNATIONAL EXPANSION
+El agente futuro deberá poder participar en un análisis como:
+COUNTRY A
+COUNTRY B
+COUNTRY C
+...
+       ↓
+LEGAL
+       +
+REGULATORY
+       +
+TAX
+       +
+BUSINESS
+       +
+LICENSING
+       +
+DATA
+       +
+ADVERTISING
+       +
+PAYMENTS
+       +
+GAMING
+       ↓
+JURISDICTION RISK MATRIX
+       ↓
+BUSINESS CASE
+       ↓
+HUMAN DECISION
+Importante:
+Legal no debe seleccionar automáticamente la jurisdicción definitiva.
+Debe producir inteligencia para la decisión.
+________________________________________
+18. RELACIÓN CON FINANCIAL, ACCOUNTING & TAX INTELLIGENCE
+Formalizar esta dependencia:
+BUSINESS QUESTION
+        │
+        ├───────────────┐
+        ↓               ↓
+LEGAL             FINANCIAL
+        │               │
+Regulation        Cost
+Licensing         Tax
+Compliance        Cash
+Risk              Margin
+        │               │
+        └───────┬───────┘
+                ↓
+          BUSINESS CASE
+                ↓
+         HUMAN DECISION
+Ninguno de los dos agentes debe intentar sustituir al otro.
+Regla:
+Tax is not only Finance. Regulatory is not only Legal. Business decisions require cross-domain analysis.
+________________________________________
+19. RELACIÓN CON EXPERIENCE / UX INTELLIGENCE
+Definir una futura validación:
+UX PROPOSAL
+↓
+CONTENT
+↓
+CLAIM CHECK
+↓
+LEGAL / COMPLIANCE
+↓
+APPROVED
+│
+├── YES → CONTINUE
+├── BLOCK → MODIFY
+└── HUMAN REVIEW
+Especial atención a:
+•	registro;
+•	participación;
+•	premios;
+•	publicidad;
+•	menores;
+•	términos;
+•	consentimiento;
+•	mensajes de riesgo;
+•	disponibilidad geográfica;
+•	promociones.
+________________________________________
+20. RELACIÓN CON MARKETING AGENT
+El Marketing Agent podrá producir:
+•	campañas;
+•	posts;
+•	anuncios;
+•	contenido;
+•	copies;
+•	material promocional.
+Pero deberá existir una futura frontera:
+MARKETING
+↓
+GENERATE
+↓
+LEGAL / CLAIM CHECK
+↓
+POLICY CHECK
+↓
+APPROVAL
+↓
+PUBLISH
+No implementar ahora.
+Solo dejar preparada la arquitectura.
+________________________________________
+21. AUTORIDAD PROHIBIDA
+Registrar expresamente que el Legal Agent NO PODRÁ:
+SIGN CONTRACT
+ACCEPT LIABILITY
+REGISTER COMPANY
+MODIFY CORPORATE STRUCTURE
+FILE LEGAL DOCUMENT
+REPRESENT MILUKITA
+MAKE BINDING LEGAL DECISION
+DECLARE FINAL LEGAL COMPLIANCE
+OBTAIN LICENSE AUTONOMOUSLY
+NEGOTIATE BINDING TERMS
+ACCEPT SETTLEMENT
+AUTHORIZE REGULATED ACTIVITY
+MODIFY MJP CORE
+MODIFY RNG
+MODIFY RTP
+MODIFY RESULT
+MODIFY WALLET
+MODIFY LEDGER
+MODIFY SETTLEMENT
+________________________________________
+22. CAPACIDADES PERMITIDAS EN EL FUTURO
+Cuando sea implementado, su autoridad máxima prevista será:
+READ
+ANALYZE
+CLASSIFY
+COMPARE
+DETECT
+MONITOR
+SCORE
+ALERT
+PROPOSE
+DOCUMENT
+ESCALATE
+Toda acción jurídicamente vinculante:
+REQUIRES HUMAN
+o:
+REQUIRES QUALIFIED PROFESSIONAL
+según la naturaleza del asunto.
+________________________________________
+23. RISK LEVELS
+Diseñar conceptualmente una escala:
+LEGAL RISK
+
+L0 — INFORMATIONAL
+L1 — LOW
+L2 — MODERATE
+L3 — HIGH
+L4 — CRITICAL
+Ejemplos:
+L0
+Información jurídica general.
+L1
+Revisión documental rutinaria.
+L2
+Posible obligación o riesgo que requiere atención.
+L3
+Potencial incumplimiento, contrato sensible, regulación relevante.
+L4
+Gaming regulado, licencia, sanción potencial, litigio, responsabilidad significativa, privacidad crítica, estructura societaria sensible.
+Para L3/L4:
+HUMAN / PROFESSIONAL REVIEW REQUIRED
+________________________________________
+24. DECISION GATE
+Definir conceptualmente:
+LEGAL CHECK
+      │
+      ├── GREEN
+      │     ↓
+      │   CONTINUE
+      │
+      ├── YELLOW
+      │     ↓
+      │   HUMAN REVIEW
+      │
+      └── RED
+            ↓
+          BLOCK
+            ↓
+       HUMAN / PROFESSIONAL
+El agente nunca debe convertir una recomendación en autorización jurídica.
+________________________________________
+25. AUDITABILITY
+Cuando se implemente, toda futura salida legal deberá poder registrar:
+QUERY
+SOURCE
+JURISDICTION
+DATE
+ANALYSIS
+ASSUMPTIONS
+EVIDENCE
+RISK
+RECOMMENDATION
+CONFIDENCE
+HUMAN REVIEW
+DECISION
+DECISION MAKER
+TIMESTAMP
+VERSION
+Esto es obligatorio como requisito arquitectónico futuro.
+________________________________________
+26. FUENTES Y EVIDENCIA
+Definir desde ahora que el futuro agente deberá diferenciar:
+PRIMARY LEGAL SOURCE
+SECONDARY SOURCE
+PROFESSIONAL INTERPRETATION
+INTERNAL POLICY
+INTERNAL DOCUMENT
+ASSUMPTION
+INFERENCE
+Nunca presentar una inferencia de IA como si fuera una norma jurídica.
+Regla:
+Legal Intelligence must be evidence-based and jurisdiction-specific.
+________________________________________
+27. NO CREAR AHORA
+Manus deberá abstenerse expresamente de desarrollar en esta orden:
+•	RAG jurídico;
+•	base de legislación;
+•	crawler jurídico;
+•	buscador normativo;
+•	análisis contractual;
+•	motor regulatorio;
+•	motor de licencias;
+•	privacy engine;
+•	IP engine;
+•	claim engine operativo;
+•	legal dashboard;
+•	legal chatbot;
+•	automatización de filings;
+•	integración con organismos reguladores.
+Todo lo anterior queda:
+PLANNED
+NOT IMPLEMENTED
+DISABLED
+________________________________________
+28. NO CREAR AGENTES ADICIONALES POR AHORA
+No dividir Legal en:
+Gaming Agent
+Privacy Agent
+Contract Agent
+IP Agent
+Advertising Agent
+Regulatory Agent
+en esta fase.
+Todos quedan definidos como dominios futuros del Legal & Compliance Intelligence Agent.
+Solo se separarán posteriormente si existe una necesidad técnica, operacional o de gobernanza demostrable.
+________________________________________
+29. INTEGRACIÓN CON AGENT GOVERNANCE OS
+Registrar al Legal Agent dentro del modelo general:
+AGENT
+↓
+IDENTITY
+↓
+ROLE
+↓
+AUTHORITY
+↓
+PERMISSIONS
+↓
+POLICIES
+↓
+AUDIT
+↓
+OBSERVABILITY
+↓
+HUMAN ESCALATION
+Pero con:
+STATUS = DISABLED
+AUTONOMY = 0
+________________________________________
+30. INTEGRACIÓN CON OBSERVABILITY / CONTROL ROOM
+Aunque no se implemente el agente, preparar su espacio conceptual en el futuro Control Room:
+LEGAL & COMPLIANCE
+
+Status: PLANNED
+Implementation: NOT STARTED
+Authority: ADVISORY ONLY
+Autonomy: 0
+Execution: DISABLED
+Risk Engine: NOT ACTIVE
+Regulatory Monitoring: NOT ACTIVE
+Contract Intelligence: NOT ACTIVE
+Claim Guard: NOT ACTIVE
+No desarrollar todavía funcionalidades operativas.
+________________________________________
+31. ACTUALIZACIÓN DEL REGISTRO MAESTRO DE AGENTES
+Añadir:
+AGENT REGISTRY
+
+ID:
+legal_compliance_intelligence
+
+NAME:
+Legal & Compliance Intelligence Agent
+
+DOMAIN:
+Legal / Regulatory / Compliance
+
+STATUS:
+PLANNED
+
+IMPLEMENTATION:
+NOT_STARTED
+
+AUTONOMY:
+0
+
+AUTHORITY:
+ADVISORY_ONLY
+
+EXECUTION:
+DISABLED
+
+CORE_ACCESS:
+NONE
+
+MJP_CORE_ACCESS:
+NONE
+
+HUMAN_APPROVAL:
+REQUIRED
+
+PROFESSIONAL_REVIEW:
+REQUIRED_WHEN_APPLICABLE
+________________________________________
+32. ACTUALIZACIÓN DE LA MATRIZ DE AUTORIDAD
+Añadir como mínimo:
+Capacidad	Legal Agent	Humano
+Leer normativa	Futuro	Sí
+Analizar normativa	Futuro	Sí
+Detectar riesgo	Futuro	Sí
+Proponer	Futuro	Sí
+Alertar	Futuro	Sí
+Firmar contrato	NO	Sí
+Aceptar responsabilidad	NO	Sí
+Registrar empresa	NO	Sí
+Obtener licencia	NO	Sí
+Presentar documento jurídico vinculante	NO	Sí
+Autorizar actividad regulada	NO	Sí
+Modificar MJP CORE	NO	Sí, mediante procesos técnicos autorizados
+Modificar RNG	NO	NO por Legal
+Modificar resultados	NO	NO por Legal
+Modificar wallet	NO	NO
+Modificar settlement	NO	NO
+La tabla puede adaptarse al formato existente de autoridad de MiLukita.
+________________________________________
+33. PRINCIPIO DE SEPARACIÓN
+Establecer como principio constitucional:
+Legal Intelligence informs authority; it does not become authority.
+Y:
+Human Authority remains the final decision layer for legal, regulatory, contractual and corporate decisions.
+________________________________________
+34. COMPATIBILIDAD CON EL MODELO "SIMULATED ≠ PRODUCTION"
+La existencia arquitectónica del agente NO debe interpretarse como existencia funcional.
+Por tanto:
+LEGAL AGENT
+        ↓
+PLANNED
+        ↓
+NOT IMPLEMENTED
+        ↓
+NOT ACTIVE
+        ↓
+NOT AVAILABLE
+La interfaz, documentación o cualquier sistema futuro no deberá presentar al agente como operativo.
+________________________________________
+35. DOCUMENTACIÓN OBLIGATORIA
+Actualizar los documentos existentes de MiLukita que describan:
+•	organigrama;
+•	arquitectura superior;
+•	agentes;
+•	autoridad;
+•	governance;
+•	roadmap;
+•	Control Room;
+•	Agent Registry;
+•	Security;
+•	Business OS;
+•	Entertainment OS.
+Añadir Legal & Compliance en todos los lugares donde corresponda.
+No duplicar definiciones contradictorias.
+Si existen definiciones anteriores que entren en conflicto, esta orden prevalece sobre ellas.
+________________________________________
+36. REVISIÓN DE CONSISTENCIA
+Después de incorporar el agente, realizar una auditoría arquitectónica para detectar:
+DOCUMENT
+vs
+CODE
+vs
+CONFIGURATION
+vs
+AGENT REGISTRY
+vs
+ROADMAP
+vs
+UI
+Buscar especialmente:
+•	agentes inexistentes presentados como activos;
+•	capacidades legales atribuidas a otros agentes;
+•	referencias a CNAE como decisión automática;
+•	claims regulatorios;
+•	automatizaciones no autorizadas;
+•	dependencias incorrectas;
+•	accesos directos a MJP CORE.
+________________________________________
+37. REGLA ESPECIAL SOBRE JURISDICCIÓN
+Eliminar cualquier arquitectura que implique:
+LOW TAX
+↓
+SELECT COUNTRY
+y reemplazar conceptualmente por:
+BUSINESS MODEL
++
+LEGAL
++
+REGULATORY
++
+TAX
++
+LICENSING
++
+DATA
++
+PAYMENTS
++
+OPERATING COST
++
+BANKING
++
+INVESTMENT
++
+SUBSTANCE
++
+MARKET
+↓
+JURISDICTION ANALYSIS
+↓
+RECOMMENDATION
+↓
+HUMAN / PROFESSIONAL DECISION
+________________________________________
+38. CRITERIO DE ÉXITO DE ESTA ORDEN
+Esta orden se considera completada únicamente cuando:
+Arquitectura
+•	Legal & Compliance Intelligence Agent está registrado.
+•	El organigrama ha sido actualizado.
+•	Su posición arquitectónica está definida.
+•	Sus dominios futuros están documentados.
+Gobernanza
+•	Authority = ADVISORY_ONLY.
+•	Autonomy = 0.
+•	Execution = DISABLED.
+•	MJP CORE access = NONE.
+•	Human approval = REQUIRED.
+Integración
+•	Business OS reconoce Legal.
+•	Experience/UX reconoce Legal.
+•	Marketing reconoce Legal.
+•	Agent Governance reconoce Legal.
+•	Control Room tiene su espacio conceptual.
+Documentación
+•	Agent Registry actualizado.
+•	Authority Matrix actualizada.
+•	Architecture documentation actualizada.
+•	Roadmap actualizado.
+•	No existen referencias contradictorias.
+Desarrollo
+•	NO se ha desarrollado el agente.
+•	NO se han creado subagentes.
+•	NO se ha activado ninguna capacidad legal.
+•	NO se han creado integraciones jurídicas operativas.
+________________________________________
+39. ORDEN DE PRIORIDAD
+Ejecutar en este orden:
+1. READ CURRENT ARCHITECTURE
+        ↓
+2. LOCATE AGENT REGISTRY
+        ↓
+3. LOCATE AUTHORITY MODEL
+        ↓
+4. LOCATE MASTER ORGANIGRAM
+        ↓
+5. REGISTER LEGAL AGENT
+        ↓
+6. DEFINE STATUS / AUTHORITY
+        ↓
+7. UPDATE ORGANIGRAM
+        ↓
+8. UPDATE AUTHORITY MATRIX
+        ↓
+9. UPDATE GOVERNANCE DOCUMENTATION
+        ↓
+10. UPDATE ROADMAP
+        ↓
+11. RUN CONSISTENCY AUDIT
+        ↓
+12. VERIFY NO FUNCTIONAL IMPLEMENTATION
+        ↓
+13. REPORT RESULTS
+________________________________________
+40. RESTRICCIÓN ABSOLUTA
+NO convertir esta orden en una orden de desarrollo.
+Si durante la ejecución aparece una dependencia que normalmente requeriría implementar Legal, NO desarrollarla.
+Registrar:
+DEPENDENCY DETECTED
+↓
+FUTURE LEGAL REQUIREMENT
+↓
+IMPLEMENTATION BLOCKED
+↓
+ROADMAP / BACKLOG
+La finalidad es preparar la arquitectura, no abrir un nuevo frente de desarrollo.
+________________________________________
+41. RESULTADO ESPERADO
+Al finalizar, MiLukita deberá reconocer oficialmente:
+MILUKITA
+│
+├── MiLukita.com
+├── MiLukita LIVE
+├── Lukita
+│
+├── ENTERTAINMENT OS
+│
+├── BUSINESS OS
+│   ├── Finance
+│   ├── Accounting
+│   ├── Tax Intelligence
+│   ├── Revenue
+│   ├── Commercial
+│   ├── Marketing
+│   ├── Sales
+│   ├── Partnerships
+│   └── Distribution
+│
+├── AGENT GOVERNANCE OS
+│
+├── LEGAL & COMPLIANCE
+│   └── INTELLIGENCE AGENT
+│       STATUS: PLANNED
+│       AUTONOMY: 0
+│       EXECUTION: DISABLED
+│
+├── KPI & OBSERVABILITY
+│
+├── CONTROL ROOM
+│
+└── MJP CORE
+    ├── RNG
+    ├── RESULT
+    ├── LEDGER
+    ├── WALLET
+    └── SETTLEMENT
+________________________________________
+42. PRINCIPIO CONSTITUCIONAL FINAL
+Incorporar literalmente como principio de arquitectura:
+MiLukita podrá utilizar inteligencia artificial para comprender, analizar, detectar riesgos y proponer acciones en materia legal y regulatoria, pero ninguna IA podrá convertir por sí misma una recomendación jurídica en una decisión jurídica vinculante. La autoridad legal permanece en el nivel humano y profesional correspondiente.
+Y:
+La arquitectura de MiLukita deberá ser compatible desde ahora con futuras obligaciones legales, regulatorias, fiscales, contractuales, de privacidad, propiedad intelectual, publicidad y licenciamiento, incluso cuando los componentes encargados de analizarlas permanezcan desactivados.
+________________________________________
+43. CIERRE DE LA ORDEN
+Una vez completada la incorporación:
+NO continuar con el desarrollo del Legal Agent.
+NO iniciar nuevos subagentes legales.
+NO crear infraestructura jurídica operativa.
+NO abrir nuevos frentes de producto.
+El objetivo de esta fase es únicamente:
+DEFINE
+REGISTER
+BOUND
+DOCUMENT
+INTEGRATE
+DISABLE
+VERIFY
+Después de completar esto, detenerse y entregar un informe de:
+1.	archivos modificados;
+2.	componentes afectados;
+3.	organigrama actualizado;
+4.	Agent Registry actualizado;
+5.	Authority Matrix actualizada;
+6.	documentación actualizada;
+7.	dependencias detectadas;
+8.	inconsistencias corregidas;
+9.	elementos que permanecen PLANNED;
+10.	confirmación explícita de que Legal & Compliance Intelligence Agent permanece NOT IMPLEMENTED / DISABLED / AUTONOMY 0.
+No realizar ninguna otra expansión funcional como parte de esta orden.
+

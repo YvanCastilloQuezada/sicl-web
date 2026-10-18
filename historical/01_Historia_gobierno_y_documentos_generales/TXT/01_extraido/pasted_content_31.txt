@@ -1,0 +1,82 @@
+> **© 2026 Wilfredo Yvan Castillo Quezada. Todos los derechos reservados.**
+> **CONFIDENCIAL Y PROPIETARIO**
+> **Regla de Sistema:** `ONE GEOMETRY. ONE SEMANTICS. MULTIPLE OUTPUTS.` | `HUMAN AUTHORITY = FINAL DECISION`
+
+---
+
+# 🎯 ARKI — RED TEAM PACKAGE v2.0
+## Ciclo Cognitivo Completo: H-001 → H-002 → H-003 → E2E Multiescala
+
+| Campo | Valor |
+|---|---|
+| **ID** | `ARKI-REDTEAM-v2.0-CYCLE-COMPLETE` |
+| **Estado** | `READY FOR DEEPSEEK STATIC RED TEAM` |
+| **Autoridad** | Wilfredo Yvan Castillo Quezada (Product Owner) |
+| **Fecha** | 2026-09-27 |
+| **Preparado por** | Qwen (segunda opinión) |
+
+---
+
+## 1. DECLARACIONES CRÍTICAS
+1. **DeepSeek NO tiene runtime.** Revisión 100% estática sobre contratos, tests e interfaces.
+2. **Implementación real adjunta.** Código Python ejecutable de H-001, H-002, H-003 y E2E.
+3. **Método:** `analyze_dependency()` (WHAT-IF estático) y `analyze_change()` (WHAT-IF dinámico).
+4. **F-1 y RT-A cerrados en H-001.** `integrity_checks()` devuelve `IDENTITY_UNCERTAIN`/`UNVERIFIABLE`. `list()`, `record()`, `why()` permiten múltiples derivaciones legítimas.
+5. **H-003 integrado nativamente.** Sin monkey-patches. Consume H-001 real.
+
+---
+
+## 2. ESTADO ACTUAL DEL SISTEMA (Commits Reales)
+| Módulo | Commit | Tests | Estado |
+|---|---|---|---|
+| **H-001** | `94f3fcf` | 20 PASS | ✅ CERRADO (RT-A + RT-D oficiales) |
+| **H-002** | `d3b4462` | 20 PASS | ✅ CERRADO (RT-01 a RT-14) |
+| **H-003** | `3f4ce33` | 8 PASS | ✅ CERRADO (V-01 a V-08) |
+| **E2E Multiescala**| `3bbc5cf` | 1 PASS | ✅ VALIDADO (8 escalas) |
+| **Regresión Total**| — | 49 PASS | ✅ CONSISTENTE |
+
+---
+
+## 3. PETICIÓN EXPLÍCITA A DEEPSEEK
+
+### 3.1 Qué atacar
+Auditar estáticamente los 4 archivos canónicos:
+1. `src/sicl/derivation.py` (H-001)
+2. `src/sicl/impact.py` (H-002)
+3. `src/sicl/validity.py` (H-003)
+4. `tests/test_multiscale_wall_move_e2e.py` (E2E)
+
+**Buscar específicamente:**
+1. Falso negativo/positivo de impacto.
+2. Pérdida de paths o colisión de ciclos.
+3. Drift de hash o ambigüedad `changeKind`.
+4. Reportes parciales que aparenten completitud.
+5. No determinismo o explosión combinatoria no contenida.
+6. Contaminación dependencia → causalidad.
+7. Violación de invariantes V-01 a V-08, RT-01 a RT-14, o de H-001.
+8. Fugas en la cadena causal E2E o fallos en la agregación multiescala.
+
+### 3.2 Qué NO atacar
+- ❌ Deuda heredada DEBT-01 (Concurrencia) y DEBT-02 (Escalabilidad O(E)).
+- ❌ Limitaciones conocidas KL-01 (`assumptions` no traversables) y KL-02 (Ontología básica).
+- ❌ Tests IFC bloqueados por `ifcopenshell`.
+
+### 3.3 Formato de reporte esperado
+| Vector | Resultado | Severidad | Evidencia estática | Contraejemplo |
+|---|---|---|---|---|
+| RT-XX | PASS/FAIL | CRITICAL/HIGH/MEDIUM/LOW | Línea X archivo Y | ... |
+
+**Regla:** No conceder PASS por presencia de tests. Para cada FAIL, entregar contraejemplo ejecutable mínimo.
+
+---
+
+## 4. CRITERIOS DE CIERRE DEL RED TEAM
+El Red Team se considera **CERRADO** cuando:
+- ✅ Los vectores están auditados.
+- ✅ No hay findings CRÍTICOS sin resolver.
+- ✅ Los findings ALTOS tienen corrección o declaración explícita.
+- ✅ Yvan aprueba el cierre.
+
+---
+
+**FIN DEL PAQUETE**

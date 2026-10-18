@@ -1,0 +1,31 @@
+{
+  "exampleId": "EJEMPLO-035",
+  "title": "Ejemplo 035 · /ALTERNATIVE PROMOTE",
+  "commandName": "/ALTERNATIVE PROMOTE",
+  "category": "alternative",
+  "syntax": "/ALTERNATIVE PROMOTE <alternative_id>",
+  "command": "/ALTERNATIVE PROMOTE ALT-001",
+  "arguments": [
+    {
+      "name": "alternative_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ALT-001"
+    }
+  ],
+  "mode": "DECIDE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Human review required; this example must not execute automatically.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /ALTERNATIVE PROMOTE.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

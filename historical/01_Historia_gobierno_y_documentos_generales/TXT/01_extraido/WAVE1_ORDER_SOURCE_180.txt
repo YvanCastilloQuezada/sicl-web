@@ -1,0 +1,544 @@
+SUPLEMENTO A MANUS
+ARKI-C1C80-INTEGRATE-002.S1
+WAVE 1 — PO DECISIONS + DEEPSEEK REVIEW INCORPORATION
+
+He revisado la evaluación independiente de DeepSeek sobre WAVE 0.
+
+Se mantiene:
+
+WAVE 0 VERIFIED FOR REGISTRY AND PLAN SCOPE.
+
+Y como Product Owner:
+
+AUTORIZO WAVE 1.
+
+Esta autorización resuelve las decisiones necesarias para iniciar
+la fundación, pero NO autoriza TX-005 ni waves posteriores.
+
+======================================================================
+1. DEC-01 — LEGACY WRITERS
+======================================================================
+
+DECISIÓN:
+
+NO AUTORIZAR todavía migración de legacy writers.
+
+Durante WAVE 1:
+
+- inventariarlos;
+- clasificarlos;
+- aislar sus responsabilidades;
+- impedir que nuevas fundaciones creen writers adicionales;
+- diseñar compatibility/migration boundary cuando sea necesario.
+
+Si una función WAVE 1 necesita mutación canónica que no pueda
+realizarse por el camino autorizado actual:
+
+BLOCK
++
+DECISION_REQUIRED.
+
+NO migración silenciosa.
+
+TX-005 sigue separado.
+
+======================================================================
+2. DEC-02 — IDENTITY OWNER
+======================================================================
+
+DECISIÓN:
+
+NO canonizar automáticamente:
+
+ArchiElementId + GlobalId
+
+como solución universal.
+
+WAVE 1 debe reconciliar la identidad existente y determinar
+el owner correcto.
+
+Objetivo arquitectónico:
+
+ARKI_ENTITY_ID
+        ↓
+EXTERNAL IDENTITY MAPPINGS.
+
+Pero ARKI_ENTITY_ID puede reutilizar una identidad existente
+si la evidencia demuestra que satisface el contrato.
+
+Por tanto:
+
+REUSE BEFORE CREATE.
+
+Debes demostrar:
+
+stability
+uniqueness
+cross-domain applicability
+version behavior
+lineage
+external mapping
+collision handling
+persistence compatibility.
+
+Solo entonces recomendar owner definitivo.
+
+Si requiere decisión irreversible:
+
+DECISION_REQUIRED.
+
+======================================================================
+3. DEC-03 — SEMANTIC CURATOR
+======================================================================
+
+DECISIÓN:
+
+AUTORIZADA RECONCILIACIÓN
++
+INTEGRACIÓN BOUNDED
+
+siempre que se demuestre compatible con la arquitectura real.
+
+NO copiar starter automáticamente.
+
+NO convertirlo en segundo motor.
+
+NO convertirlo en segundo canonical writer.
+
+Permitido:
+
+REGISTER
+MAP
+VALIDATE
+DETECT CONFLICT
+CHECK APPLICABILITY
+TRACE LINEAGE
+PROPOSE.
+
+Prohibido:
+
+DIRECT CANONICAL COMMIT
+SELF-APPROVAL
+HUMAN AUTHORITY BYPASS.
+
+Si el starter colisiona con infraestructura existente:
+
+ADAPT / REFACTOR / REJECT DUPLICATE.
+
+======================================================================
+4. DEC-04 — TX-005
+======================================================================
+
+DECISIÓN:
+
+NO AUTORIZADO.
+
+WAVE 1 debe ser capaz de terminar su scope fundacional
+sin ejecutar TX-005.
+
+Si una parte específica no puede verificarse por esta razón:
+
+WAVE1_PARTIAL
+
+o
+
+DECISION_REQUIRED
+
+según corresponda.
+
+No utilizar TX-005 únicamente para conseguir un veredicto VERIFIED.
+
+======================================================================
+5. DEC-05 — PROFESSIONAL SOLVERS
+======================================================================
+
+DECISIÓN:
+
+NO instalar todavía.
+
+WAVE 1 puede definir:
+
+solver contracts
+tool interfaces
+provenance requirements
+result contracts
+oracle contracts.
+
+Pero no instalar todavía:
+
+OpenSees
+EnergyPlus
+Radiance
+OpenFOAM
+FDS
+WUFI
+
+salvo autorización posterior.
+
+======================================================================
+6. DEC-06 — FRONTEND
+======================================================================
+
+DECISIÓN:
+
+Mantener shell honesto.
+
+Se permite integración mínima de los nuevos contratos para visualizar:
+
+FACT
+OBSERVED
+INFERRED
+ASSUMPTION
+UNKNOWN
+PROPOSAL
+EVIDENCE
+PROVENANCE
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+No frontend productivo completo.
+
+No fingir capacidades.
+
+UI TRUTH = SYSTEM TRUTH.
+
+======================================================================
+7. DEC-07 — ENTERPRISE
+======================================================================
+
+DECISIÓN:
+
+DEFER.
+
+No enterprise backend en WAVE 1.
+
+No tenant.
+No billing.
+No commerce implementation.
+
+Mantener arquitectura extensible.
+
+======================================================================
+8. DEC-08 — C1–C80 STATUS
+======================================================================
+
+DECISIÓN:
+
+CONFIRMADO.
+
+C1–C80:
+
+REGISTERED / DOCUMENTED
+
+NO deben considerarse capacidad operativa
+por el hecho de estar en el Registry.
+
+Cada capacidad deberá ganar su estado mediante evidencia.
+
+======================================================================
+9. NUEVO REQUISITO — UNITS FOUNDATION
+======================================================================
+
+DeepSeek detectó correctamente que Units debe formar parte explícita
+de WAVE 1.
+
+Añadir:
+
+COMMON UNIT SYSTEM.
+
+Debe soportar:
+
+quantity type
+unit
+dimension
+conversion
+source unit
+canonical/internal unit when applicable
+display unit
+precision
+tolerance.
+
+Debe detectar:
+
+unit mismatch
+dimension mismatch
+silent conversion
+missing unit
+invalid conversion.
+
+No permitir:
+
+12 m + 5 m²
+
+ni equivalentes dimensionalmente inválidos.
+
+Toda futura ingeniería deberá consumir este contrato.
+
+======================================================================
+10. WAVE1-DAG-INTEGRITY
+======================================================================
+
+Añadir test obligatorio.
+
+Debe verificar:
+
+- exactamente 80 capability IDs;
+- IDs únicos;
+- nombres únicos;
+- toda dependencia apunta a capability existente;
+- ausencia de ciclos prohibidos;
+- detección de capacidades huérfanas;
+- domains válidos;
+- wave assignment válido;
+- shared-engine references válidas;
+- dependency ordering coherente;
+- no self-dependency.
+
+Generar también representación machine-readable del DAG.
+
+Si existe ciclo intencional:
+
+debe estar explícitamente modelado fuera del DAG de prerequisites.
+
+======================================================================
+11. INPUT CONTRACT BASE
+======================================================================
+
+WAVE 0 dejó:
+
+WAVE0_CONTRACT_TO_DEFINE.
+
+WAVE 1 debe eliminar ese placeholder mediante un contrato base
+compartido.
+
+Definir:
+
+ARKI_CAPABILITY_INPUT_BASE
+
+con, como mínimo:
+
+request/context identity
+project identity when applicable
+entity references
+epistemic state
+evidence references
+provenance
+units
+scale
+time
+jurisdiction/applicability
+scenario
+source/version
+unknowns
+human-authority requirements.
+
+No todas las capacidades utilizarán todos los campos.
+
+Diseñar composición/extensión.
+
+NO crear un objeto gigante obligatorio.
+
+======================================================================
+12. OUTPUT CONTRACT BASE
+======================================================================
+
+Crear también:
+
+ARKI_CAPABILITY_OUTPUT_BASE.
+
+Debe poder representar:
+
+result
+result type
+affected entities
+epistemic state
+evidence
+provenance
+units
+assumptions
+unknowns
+limitations
+confidence when valid
+professional validation requirement
+dependencies invalidated
+candidate actions
+canonical mutation requested?
+
+Por defecto:
+
+canonical mutation requested = false.
+
+CAPABILITY OUTPUT
+≠
+CANONICAL COMMIT.
+
+======================================================================
+13. F0 ↔ C1–C80 MAP
+======================================================================
+
+Añadir el documento que DeepSeek detectó como faltante:
+
+F0_C1_C80_FOUNDATION_MAP.
+
+Para cada fundación existente:
+
+Canonical Project State
+Transaction Engine
+Identity
+Audit
+Snapshot/Version
+SceneModel
+Selection/Context
+E5/E6/E7/E8/BKH components
+
+indicar qué C1–C80 la consumen.
+
+No elevar estado por dependencia.
+
+======================================================================
+14. FOUNDATIONAL_OVERLAP
+======================================================================
+
+Resolver la ambigüedad detectada.
+
+No usar FOUNDATIONAL_OVERLAP como estado si no está formalmente
+definido.
+
+Preferencia:
+
+separar:
+
+IMPLEMENTATION_STATUS
+
+de
+
+REUSE_STRATEGY.
+
+Ejemplo:
+
+implementationStatus = DOCUMENTED
+reuseStrategy = ADAPT_SHARED_ENGINE.
+
+No mezclar ambos conceptos.
+
+======================================================================
+15. TESTS DE UNITS
+======================================================================
+
+Añadir mutantes:
+
+meter vs millimeter
+m² vs m
+kN vs N
+Pa vs kPa
+°C vs K where absolute/delta distinction matters
+W vs kW
+L/s vs m³/s
+degrees vs radians
+currency without date/context
+unit missing.
+
+Cada caso debe:
+
+detect
+reject
+or explicitly convert
+
+según contrato.
+
+Nunca conversión silenciosa peligrosa.
+
+======================================================================
+16. WAVE 1 EXIT GATE
+======================================================================
+
+WAVE 1 puede alcanzar:
+
+WAVE1_VERIFIED
+
+SIN TX-005
+
+si demuestra dentro de su scope:
+
+semantic foundation
+identity contract
+epistemic model
+evidence model
+provenance model
+units model
+scale/applicability
+time
+relationships
+dependency/invalidation contract
+input/output base contracts
+DAG integrity
+C1–C80 foundation binding
+
+y ninguno necesita violar canonical boundaries.
+
+La existencia de legacy writers externos a este scope
+debe permanecer como riesgo/deuda explícita,
+no como excusa para modificar su estado sin autorización.
+
+======================================================================
+17. PROHIBICIONES VIGENTES
+======================================================================
+
+NO TX-005.
+NO legacy writer migration.
+NO WAVE 2.
+NO C1 domain implementation.
+NO professional solver installation.
+NO C81–C92.
+NO enterprise backend.
+NO mass frontend.
+NO deploy.
+NO push.
+NO PR.
+NO merge.
+
+======================================================================
+18. STOP
+======================================================================
+
+Ejecuta WAVE 1 conforme a:
+
+ARKI-C1C80-INTEGRATE-002
++
+este suplemento S1.
+
+Al terminar:
+
+STOP.
+
+Devuelve:
+
+WAVE1 VERDICT
+HEAD
+WORKTREE
+FILES CHANGED
+SEMANTIC FOUNDATION
+IDENTITY RESULT
+EPISTEMIC MODEL
+EVIDENCE MODEL
+PROVENANCE MODEL
+UNITS MODEL
+INPUT/OUTPUT CONTRACTS
+DAG INTEGRITY RESULT
+MUTANTS KILLED/SURVIVED
+REGRESSIONS
+C1–C80 FOUNDATION BINDING
+UNKNOWN
+RISKS
+DECISIONS REQUIRED
+EVIDENCE PACKAGE
+SHA-256.
+
+ONE ARKI.
+ONE FOUNDATION.
+NO SECOND TRUTH.
+NO SECOND WRITER.
+NO FAKE CAPABILITY.
+EVIDENCE FIRST.
+HUMAN AUTHORITY.
+
+STOP.

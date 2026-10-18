@@ -1,0 +1,9 @@
+client/src/components/ArkiNavigator.tsx
+client/src/components/ArkiWorkspaceShell.tsx
+client/src/contexts/ProjectContext.tsx
+client/src/index.css
+client/src/modules/GeneratorModule.tsx
+package.json
+pnpm-lock.yaml
+scripts/test-navigator-layout.ts
+scripts/test-no-inherited-cleanup.ts

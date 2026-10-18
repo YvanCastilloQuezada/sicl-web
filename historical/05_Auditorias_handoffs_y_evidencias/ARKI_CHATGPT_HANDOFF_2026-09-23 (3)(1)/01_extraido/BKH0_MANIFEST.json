@@ -1,0 +1,29 @@
+{
+  "schema": "ARKI-BKH0-MANIFEST-1.1",
+  "verdict": "BKH-0 VERIFIED",
+  "repo": "/home/ubuntu/generador-familias",
+  "branch": "main",
+  "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "product_code_modified_by_bkh0": false,
+  "bkh1_started": false,
+  "e5_e6_e7_reopened": false,
+  "e8_started": false,
+  "files": [
+    {"path":"BKH0_FORENSIC_MAP.md","bytes":6074,"sha256":"0c21f11a03428e17aa7d058ea6fdd57209ff1b46ab1526a622ea07117d97c3a7"},
+    {"path":"BKH0_ENTITY_REGISTRY.md","bytes":2993,"sha256":"68377798b808c4af182f89768c45b0022a163124cfabb170446b9af01b4e9700"},
+    {"path":"BKH0_RELATIONSHIP_INVENTORY.md","bytes":2548,"sha256":"a6cf4e1381403530af5edc52f3804967fcfcf032c3f32e52fea541225aeb4f40"},
+    {"path":"BKH0_DUPLICATION_REPORT.md","bytes":2300,"sha256":"ae6f2c1a9599c61806b80ac2c9a9e65daf6fdf35991c10a4bf21ef52fa419f46"},
+    {"path":"BKH0_DEPENDENCY_MAP.md","bytes":2317,"sha256":"4e56bdcac01ad2e98b859af407c43a502ab0a4705afd79b6cf59f661d21ceb66"},
+    {"path":"BKH0_IMPLEMENTATION_GAPS.md","bytes":2196,"sha256":"40b91181c6bdfcad4c108102fb71c99b5a9f4d25d1263309db6a5394b7537455"},
+    {"path":"BKH0_CANONICAL_OWNERSHIP_MAP.md","bytes":2063,"sha256":"15b9e82f2add8f3e1125c13d666d2f4b81bbb263078ffb75b07415702ca353b1"},
+    {"path":"BKH0_MUTATION_PATH_MAP.md","bytes":2941,"sha256":"d29b09ecd7a2c729bc4da6d4ca62f4bfeddf023c988c86806d75dcaec61643ea"},
+    {"path":"BKH0_INVARIANT_REGISTRY.md","bytes":2431,"sha256":"dadc81264089a08d042a63e56f74dcefd6aa0cee2e136ca138de3f1e627031f5"},
+    {"path":"BKH0_OUTPUTS.txt","bytes":1782,"sha256":"5862d310433743a3d70da9e310a5453b0b130ddb66658620f1b0e86bff89728c"},
+    {"path":"BKH0_REPORT.md","bytes":4530,"sha256":"873e5e72991f04de3e5479e7f49879d7927372ff9c0d957fee54feccc994c01e"},
+    {"path":"BKH0_BASELINE.txt","bytes":5276,"sha256":"cfb6366b1d688bc315cb7b87e0ed295035a66c6d7c92612d452d98d872b2952b"},
+    {"path":"BKH0_INSPECTION_RAW.txt","bytes":333077,"sha256":"de89182676a23613331a651925fa24007547e632797cddd02eabcec5e956b0a5"},
+    {"path":"BKH0_DUPLICATION_RAW.txt","bytes":64040,"sha256":"83ef4546372a9db2ecc2c9f52304f4fd928903b00f2e8c5d8c8c4c83a2e7c665"},
+    {"path":"BKH0_TEST_RUN_RAW.txt","bytes":20895,"sha256":"4227fc33e185ad274e978711e475ab9264cc646677d3e84aade63218553aadca"},
+    {"path":"BKH0_CURRENT_PRODUCT_DIFF.txt","bytes":282,"sha256":"d8acf633f5999a33ee7ecf918f4c953af7c8da28900be8bcb25defda90c310bf"}
+  ]
+}

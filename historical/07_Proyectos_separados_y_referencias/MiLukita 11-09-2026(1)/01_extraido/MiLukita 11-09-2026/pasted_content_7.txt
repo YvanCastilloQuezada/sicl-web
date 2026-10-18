@@ -1,0 +1,1397 @@
+ORDEN MAESTRA PARA MANUS
+MILUKITA — IMPLEMENTACIÓN DEL MARKETING INTELLIGENCE & CONTENT FACTORY
+Y ACTUALIZACIÓN DEL ORGANIGRAMA OFICIAL DEL MILUKITA ENTERTAINMENT OS
+TIPO: ORDEN DE IMPLEMENTACIÓN
+PRIORIDAD: ALTA / ESTRATÉGICA
+ALCANCE: Marketing Intelligence + Content Factory + Campaign Engine + Quality Gates + Dashboard + integración con Legal/Experience/KPI/Observability + actualización del Organigrama
+ESTADO OBJETIVO: IMPLEMENTADO Y VERIFICABLE
+MJP CORE: INTOCABLE / AISLADO
+REGLA GENERAL: NO ampliar el alcance fuera de lo especificado en esta orden.
+________________________________________
+0. AUTORIDAD DE ESTA ORDEN
+Esta orden establece la nueva dirección arquitectónica para el Marketing Agent de MiLukita Entertainment OS.
+Manus deberá:
+1.	inspeccionar primero el estado actual del repositorio; 
+2.	identificar qué componentes ya existen; 
+3.	reutilizar todo lo reutilizable; 
+4.	evitar duplicaciones; 
+5.	implementar únicamente lo necesario; 
+6.	integrar el nuevo sistema con la arquitectura existente; 
+7.	actualizar el organigrama oficial; 
+8.	actualizar la documentación arquitectónica; 
+9.	ejecutar pruebas; 
+10.	generar evidencia verificable; 
+11.	crear un checkpoint final. 
+No se autoriza reconstruir innecesariamente componentes existentes.
+________________________________________
+1. CAMBIO ESTRATÉGICO
+A partir de esta orden, el componente anteriormente denominado simplemente:
+MARKETING AGENT
+deberá evolucionar conceptualmente a:
+MARKETING INTELLIGENCE AGENT
+con un subsistema operativo:
+MARKETING CONTENT FACTORY
+El objetivo no es generar publicaciones masivamente.
+El objetivo es crear un sistema que pueda:
+ANALIZAR
+    ↓
+FORMULAR HIPÓTESIS
+    ↓
+DISEÑAR CAMPAÑA
+    ↓
+GENERAR CONTENIDO
+    ↓
+VALIDAR
+    ↓
+PROPONER
+    ↓
+ESPERAR APROBACIÓN
+    ↓
+PUBLICAR / PROGRAMAR
+    ↓
+MEDIR
+    ↓
+APRENDER
+    ↓
+OPTIMIZAR
+________________________________________
+2. DEFINICIÓN OFICIAL
+Implementar la siguiente definición en la documentación del sistema:
+Marketing Intelligence Agent es el agente especializado responsable de analizar la audiencia, diseñar estrategias de adquisición y posicionamiento, generar y evaluar activos de marketing, construir campañas, medir resultados y proponer optimizaciones para MiLukita, siempre dentro de las políticas de marca, verdad, legalidad, regulación y autoridad establecidas por MiLukita Entertainment OS.
+El agente:
+PUEDE
+•	leer; 
+•	analizar; 
+•	comparar; 
+•	generar; 
+•	recomendar; 
+•	proponer; 
+•	medir; 
+•	experimentar dentro de límites autorizados. 
+NO PUEDE
+•	modificar MJP CORE; 
+•	modificar RNG; 
+•	modificar resultados; 
+•	modificar RTP; 
+•	modificar wallet; 
+•	modificar ledger; 
+•	modificar settlement; 
+•	inventar hechos; 
+•	presentar funcionalidades no implementadas como existentes; 
+•	emitir decisiones legales definitivas; 
+•	emitir decisiones fiscales definitivas; 
+•	publicar contenido crítico sin autorización; 
+•	ejecutar acciones fuera de su autoridad. 
+________________________________________
+3. PRINCIPIO FUNDAMENTAL
+Implementar obligatoriamente:
+READ
+ ↓
+ANALYZE
+ ↓
+PROPOSE
+ ↓
+VALIDATE
+ ↓
+APPROVE
+ ↓
+EXECUTE
+ ↓
+MEASURE
+ ↓
+LEARN
+No implementar:
+AI
+ ↓
+DECIDE
+ ↓
+PUBLISH
+como flujo autónomo por defecto.
+________________________________________
+4. INSPECCIÓN OBLIGATORIA ANTES DE MODIFICAR CÓDIGO
+Antes de escribir código, Manus deberá inspeccionar:
+4.1. Agentes existentes
+•	Marketing Agent. 
+•	Audience Intelligence Agent. 
+•	Content Agent. 
+•	Lukita Agent. 
+•	Experience/UX Agent. 
+•	Legal Agent. 
+•	Business/Commercial Agent. 
+•	Revenue Agent. 
+•	Sales Agent. 
+•	Financial/Accounting/Tax Agent. 
+•	Supervisor. 
+•	Auditor. 
+•	Watchdog. 
+•	Recovery. 
+4.2. Infraestructura existente
+Buscar:
+•	modelos de datos; 
+•	APIs; 
+•	servicios; 
+•	dashboards; 
+•	Control Room; 
+•	event store; 
+•	analytics; 
+•	KPI engine; 
+•	alertas; 
+•	autorización; 
+•	RBAC; 
+•	audit log; 
+•	approval workflows; 
+•	content management; 
+•	componentes UI; 
+•	librerías de generación; 
+•	almacenamiento de assets. 
+4.3. Documentación
+Inspeccionar:
+/docs
+README
+architecture
+agents
+governance
+security
+KPI
+observability
+MJP CORE
+4.4. Resultado de inspección
+Antes de implementar, generar internamente:
+EXISTING
+REUSABLE
+MISSING
+DUPLICATED
+CONFLICTING
+DEPRECATED
+No crear una segunda implementación de algo que ya exista.
+________________________________________
+5. ARQUITECTURA OBJETIVO
+La arquitectura deberá quedar conceptualmente:
+                         MILUKITA
+                            │
+          ┌─────────────────┼─────────────────┐
+          │                 │                 │
+       PRODUCTS        ENTERTAINMENT OS    BUSINESS OS
+          │                 │                 │
+          │                 │                 │
+ MiLukita.com          EXPERIENCE         MARKETING
+ MiLukita LIVE         CONTENT            SALES
+                       LUKITA             REVENUE
+                       AUDIENCE           FINANCE
+                       EVENTS             ACCOUNTING
+                                          TAX
+                                          SPONSORSHIP
+                                          PARTNERSHIPS
+                                          DISTRIBUTION
+                            │
+                            ↓
+                    AGENT GOVERNANCE
+                            │
+              ┌─────────────┼─────────────┐
+              ↓             ↓             ↓
+            LEGAL         AUDITOR      SUPERVISOR
+              │             │             │
+              └─────────────┼─────────────┘
+                            ↓
+                   KPI / OBSERVABILITY
+                            │
+                            ↓
+                      CONTROL ROOM
+                            │
+                            ↓
+                         MJP CORE
+                    TRUST / INTEGRITY
+IMPORTANTE: el diagrama anterior es conceptual. Manus deberá adaptarlo a la arquitectura real existente sin romper componentes funcionales.
+________________________________________
+6. ACTUALIZACIÓN OBLIGATORIA DEL ORGANIGRAMA
+Manus deberá actualizar el Organigrama Oficial de MiLukita Entertainment OS.
+No deberá simplemente agregar "Marketing Agent" a una lista.
+Debe reorganizarse jerárquicamente.
+NIVEL 0 — MILUKITA
+MILUKITA
+________________________________________
+NIVEL 1 — PRODUCTOS
+PRODUCTS
+│
+├── MiLukita.com
+└── MiLukita LIVE
+________________________________________
+NIVEL 2 — ENTERTAINMENT OS
+ENTERTAINMENT OS
+│
+├── Experience
+├── Content
+├── Audience Intelligence
+├── Events
+├── Lukita
+└── Interactive Experience
+________________________________________
+7. BUSINESS OS
+Crear formalmente:
+BUSINESS OS
+│
+├── Marketing Intelligence
+├── Sales
+├── Revenue
+├── Advertising
+├── Sponsorship
+├── Partnerships
+├── Distribution
+├── Financial Intelligence
+├── Accounting
+├── Tax Intelligence
+└── Jurisdiction Intelligence
+El Marketing Intelligence Agent debe quedar dentro de Business OS.
+No debe quedar subordinado al Content Agent.
+________________________________________
+8. GOVERNANCE OS
+Crear/representar formalmente:
+GOVERNANCE OS
+│
+├── Supervisor Agent
+├── Legal Agent
+├── Auditor Agent
+├── Watchdog
+├── Recovery Agent
+├── Authority Engine
+├── Policy Engine
+├── Approval Engine
+└── Decision Log
+________________________________________
+9. INTELLIGENCE & MEASUREMENT LAYER
+Representar explícitamente:
+INTELLIGENCE / MEASUREMENT
+│
+├── KPI Engine
+├── Analytics
+├── Event Store
+├── Data Quality
+├── Experimentation
+├── Forecasting
+├── Attribution
+└── Observability
+________________________________________
+10. MJP CORE
+MJP CORE deberá aparecer como:
+MJP CORE
+│
+├── RNG
+├── Game Rules
+├── Results
+├── RTP
+├── Wallet
+├── Ledger
+├── Settlement
+└── Integrity / Audit
+Y deberá aparecer visualmente como zona protegida.
+Los agentes comerciales y de marketing no forman parte de MJP CORE.
+________________________________________
+11. MARKETING INTELLIGENCE AGENT
+Implementar el agente con los siguientes módulos.
+MARKETING INTELLIGENCE AGENT
+│
+├── Brand Intelligence
+├── Audience Intelligence Interface
+├── Content Strategy
+├── Content Factory
+├── Campaign Engine
+├── Channel Strategy
+├── Creative Testing
+├── Marketing Analytics
+├── Attribution
+├── Funnel Intelligence
+├── Growth Intelligence
+└── Optimization Engine
+________________________________________
+12. BRAND INTELLIGENCE
+Crear una estructura centralizada para:
+•	identidad; 
+•	posicionamiento; 
+•	propuesta de valor; 
+•	personalidad; 
+•	tono; 
+•	lenguaje; 
+•	mensajes aprobados; 
+•	claims permitidos; 
+•	claims prohibidos; 
+•	audiencia; 
+•	diferenciadores; 
+•	productos; 
+•	funcionalidades; 
+•	estado de cada funcionalidad. 
+Debe existir una clasificación obligatoria:
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PROJECTION
+EXTERNAL_REQUIRED
+ROADMAP
+BLOCKED
+REQUIRES_HUMAN
+________________________________________
+13. TRUTHFUL MARKETING ENGINE
+Implementar un mecanismo que impida que Marketing promocione funcionalidades inexistentes.
+Ejemplo:
+CONTENT:
+"MiLukita ya está disponible en 50 canales de TV."
+
+SYSTEM CHECK
+        ↓
+FACT DATABASE
+        ↓
+FALSE / UNSUPPORTED
+        ↓
+BLOCK
+Resultado:
+CONTENT STATUS:
+BLOCKED
+
+REASON:
+UNVERIFIED CLAIM
+Regla:
+Marketing no puede convertir una proyección en un hecho.
+________________________________________
+14. CONTENT TRUTH ENGINE
+Antes de aprobar cualquier contenido:
+CONTENT
+ ↓
+FACT CHECK
+ ↓
+PRODUCT STATE CHECK
+ ↓
+CLAIM CHECK
+ ↓
+LEGAL CHECK
+ ↓
+BRAND CHECK
+El contenido deberá conservar metadatos:
+source
+timestamp
+fact_status
+confidence
+product_state
+approval_status
+legal_status
+________________________________________
+15. CONTENT FACTORY
+Crear una fábrica de contenido capaz de generar:
+Instagram
+•	Posts. 
+•	Carruseles. 
+•	Reels. 
+•	Stories. 
+TikTok
+•	Shorts. 
+•	Scripts. 
+•	Hooks. 
+•	Teasers. 
+YouTube
+•	Shorts. 
+•	Videos. 
+•	Trailers. 
+•	Explicadores. 
+Facebook
+•	Posts. 
+•	Videos. 
+•	Stories. 
+X
+•	Posts. 
+•	Threads. 
+•	Event updates. 
+LinkedIn
+•	Tecnología. 
+•	IA. 
+•	Entertainment OS. 
+•	B2B. 
+•	Sponsorship. 
+•	Advertising. 
+•	Business model. 
+________________________________________
+16. CONTENT REPURPOSING ENGINE
+Implementar:
+ONE IDEA
+   ↓
+MASTER CONTENT
+   ↓
+├── Reel
+├── TikTok
+├── YouTube Short
+├── Instagram Post
+├── Story
+├── LinkedIn
+├── X
+└── Blog / Landing
+La transformación deberá preservar:
+•	factualidad; 
+•	mensaje; 
+•	marca; 
+•	intención. 
+________________________________________
+17. CONTENT LIBRARY
+Crear/usar una biblioteca con estados:
+IDEA
+ ↓
+DRAFT
+ ↓
+GENERATED
+ ↓
+QA
+ ↓
+LEGAL REVIEW
+ ↓
+HUMAN REVIEW
+ ↓
+APPROVED
+ ↓
+SCHEDULED
+ ↓
+PUBLISHED
+ ↓
+MEASURED
+ ↓
+ARCHIVED
+Cada pieza deberá tener:
+•	ID; 
+•	campaña; 
+•	objetivo; 
+•	audiencia; 
+•	canal; 
+•	formato; 
+•	versión; 
+•	autor/agente; 
+•	fecha; 
+•	estado; 
+•	métricas; 
+•	aprobaciones. 
+________________________________________
+18. CAMPAIGN ENGINE
+Permitir crear una campaña mediante:
+CAMPAIGN CREATE
+con:
+•	nombre; 
+•	objetivo; 
+•	audiencia; 
+•	duración; 
+•	presupuesto; 
+•	canales; 
+•	mensaje; 
+•	CTA; 
+•	KPIs; 
+•	restricciones. 
+El sistema deberá generar:
+CAMPAIGN
+│
+├── Strategy
+├── Audience
+├── Positioning
+├── Message
+├── Content Calendar
+├── Assets
+├── Scripts
+├── CTAs
+├── Hashtags
+├── Landing Brief
+├── Measurement Plan
+└── KPI Targets
+________________________________________
+19. PRIMER PAQUETE: 30 DÍAS
+Implementar una función para generar:
+MILUKITA 30-DAY LAUNCH PACK
+Debe producir:
+Semana 1
+¿Qué es MiLukita?
+Semana 2
+TV → QR → Mobile
+Semana 3
+Lukita + entretenimiento
+Semana 4
+Comunidad + interacción
+El sistema deberá generar:
+•	calendario; 
+•	piezas; 
+•	scripts; 
+•	CTAs; 
+•	visual briefs; 
+•	objetivos; 
+•	KPI; 
+•	variantes. 
+________________________________________
+20. CONTENT PILLARS
+Implementar una matriz configurable.
+Inicialmente:
+1. MILUKITA
+2. MILUKITA LIVE
+3. LUKITA
+4. INTERACTIVE TV
+5. QR EXPERIENCE
+6. GAMES
+7. AI
+8. TECHNOLOGY
+9. COMMUNITY
+10. BEHIND THE SCENES
+11. B2B
+12. SPONSORS
+________________________________________
+21. LUKITA CONTENT
+Marketing deberá poder solicitar contenidos protagonizados por Lukita.
+Tipos:
+LUKITA EXPLAINS
+LUKITA ASKS
+LUKITA INVITES
+LUKITA REACTS
+LUKITA TEASES
+LUKITA PRESENTS
+LUKITA EDUCATES
+Pero Lukita nunca podrá:
+•	inventar resultados; 
+•	anunciar resultados no confirmados; 
+•	modificar resultados; 
+•	afirmar disponibilidad inexistente; 
+•	emitir decisiones financieras; 
+•	emitir decisiones legales. 
+________________________________________
+22. TV → QR → MOBILE CONTENT
+Crear una línea especial de contenido dedicada a explicar la experiencia:
+TV
+ ↓
+QR
+ ↓
+PHONE
+ ↓
+JOIN
+ ↓
+INTERACT
+ ↓
+RESULT
+ ↓
+RETURN TO TV
+Generar automáticamente:
+•	reels; 
+•	shorts; 
+•	carruseles; 
+•	infografías; 
+•	scripts; 
+•	teasers; 
+•	tutoriales. 
+________________________________________
+23. B2B MARKETING ENGINE
+El agente deberá poder producir:
+Media Kit
+Sponsor Deck
+Advertising Deck
+Partnership Proposal
+Distribution Deck
+Technology Overview
+Investor/Stakeholder Brief
+Pero siempre distinguiendo:
+CURRENT CAPABILITY
+vs
+ROADMAP
+________________________________________
+24. SPONSOR CONTENT
+Crear plantillas para explicar:
+AUDIENCE
+ ↓
+TV
+ ↓
+QR
+ ↓
+MOBILE
+ ↓
+INTERACTION
+ ↓
+BRAND ACTIVATION
+ ↓
+MEASUREMENT
+ ↓
+ROI
+El sistema deberá permitir proponer formatos como:
+•	sponsorship; 
+•	branded content; 
+•	interactive campaigns; 
+•	QR activations; 
+•	event sponsorship; 
+•	digital placement. 
+________________________________________
+25. FUNNEL INTELLIGENCE
+Implementar el funnel:
+IMPRESSION
+ ↓
+REACH
+ ↓
+VIEW
+ ↓
+ENGAGEMENT
+ ↓
+PROFILE VISIT
+ ↓
+MILUKITA.COM
+ ↓
+QR / CTA
+ ↓
+REGISTRATION
+ ↓
+FIRST INTERACTION
+ ↓
+RETURN USER
+Medir cada etapa.
+________________________________________
+26. KPI MARKETING
+Implementar como mínimo:
+Awareness
+•	Reach. 
+•	Impressions. 
+•	Video Views. 
+•	View-through Rate. 
+Engagement
+•	Engagement Rate. 
+•	Shares. 
+•	Saves. 
+•	Comments. 
+Acquisition
+•	CTR. 
+•	Landing Conversion. 
+•	Registration Conversion. 
+•	QR Scan Rate. 
+Growth
+•	New Users. 
+•	Returning Users. 
+•	DAU. 
+•	WAU. 
+•	MAU. 
+Economics
+•	CAC. 
+•	Cost per Lead. 
+•	Cost per Registration. 
+•	Campaign ROI. 
+Quality
+•	Content Error Rate. 
+•	Brand Compliance. 
+•	Claim Violation Rate. 
+•	Duplicate Content Rate. 
+Strategic
+•	Audience Growth. 
+•	Brand Search Growth. 
+•	Conversion Lift. 
+•	Incremental Users. 
+•	Incremental Revenue. 
+________________________________________
+27. TIME TO FIRST INTERACTION
+Implementar como KPI:
+TIME TO FIRST INTERACTION
+Medir desde:
+FIRST EXPOSURE
+        ↓
+FIRST INTERACTION
+Esto será especialmente importante para campañas:
+TV → QR → MOBILE
+________________________________________
+28. CONTENT PERFORMANCE
+Cada contenido publicado deberá generar:
+CONTENT PERFORMANCE RECORD
+con:
+•	impressions; 
+•	reach; 
+•	views; 
+•	watch time; 
+•	engagement; 
+•	shares; 
+•	CTR; 
+•	QR scans; 
+•	registrations; 
+•	first interactions; 
+•	conversions; 
+•	revenue attribution cuando corresponda. 
+________________________________________
+29. EXPERIMENTATION ENGINE
+Permitir:
+VERSION A
+VERSION B
+VERSION C
+Comparar:
+•	hook; 
+•	título; 
+•	imagen; 
+•	CTA; 
+•	duración; 
+•	mensaje; 
+•	formato. 
+El agente deberá recomendar:
+KEEP
+IMPROVE
+RETIRE
+SCALE
+No deberá declarar una variante "ganadora" con muestras estadísticamente insuficientes.
+________________________________________
+30. EXPERIENCE AGENT INTEGRATION
+Marketing deberá enviar contenidos candidatos al:
+EXPERIENCE / UX INTELLIGENCE AGENT
+para verificar:
+•	claridad; 
+•	jerarquía; 
+•	legibilidad; 
+•	densidad; 
+•	mobile UX; 
+•	TV UX; 
+•	QR visibility; 
+•	CTA; 
+•	consistencia; 
+•	accesibilidad. 
+Flujo:
+MARKETING
+ ↓
+CONTENT
+ ↓
+EXPERIENCE QA
+ ↓
+RESULT
+________________________________________
+31. LEGAL AGENT INTEGRATION
+Todo contenido sensible deberá poder pasar por:
+LEGAL AGENT
+Especialmente:
+•	juegos; 
+•	premios; 
+•	dinero; 
+•	promociones; 
+•	concursos; 
+•	publicidad; 
+•	claims regulatorios; 
+•	privacidad; 
+•	términos; 
+•	derechos de imagen; 
+•	propiedad intelectual; 
+•	influencers; 
+•	sponsors. 
+Flujo:
+MARKETING
+ ↓
+CONTENT
+ ↓
+LEGAL REVIEW
+ ↓
+APPROVED / BLOCKED / HUMAN REVIEW
+El Legal Agent asesora y detecta riesgos.
+No sustituye asesoría jurídica profesional cuando corresponda.
+________________________________________
+32. HUMAN APPROVAL
+Implementar explícitamente:
+AI GENERATED
+      ↓
+AI VALIDATED
+      ↓
+HUMAN REVIEW
+      ↓
+APPROVED
+      ↓
+PUBLISH
+Para contenidos clasificados como críticos:
+LEGAL_REQUIRED
+FINANCIAL_REQUIRED
+REGULATORY_REQUIRED
+BRAND_CRITICAL
+la publicación deberá quedar bloqueada hasta la aprobación correspondiente.
+________________________________________
+33. PUBLICATION MODEL
+La primera versión deberá soportar:
+GENERATE
+ ↓
+APPROVE
+ ↓
+EXPORT
+La integración automática con redes sociales deberá quedar preparada arquitectónicamente, pero no es requisito habilitar publicación autónoma en esta fase si las credenciales/integraciones externas no están disponibles.
+En ese caso:
+STATUS = EXTERNAL_REQUIRED
+Nunca:
+STATUS = IMPLEMENTED
+________________________________________
+34. MARKETING DASHBOARD
+Crear:
+/control-room/marketing
+o integrarlo al Control Room existente.
+Debe mostrar:
+OVERVIEW
+Reach
+Impressions
+Engagement
+CTR
+QR Scan
+New Users
+CAC
+ROI
+CONTENT
+Top Content
+Worst Content
+Trending
+Declining
+CAMPAIGNS
+Active
+Completed
+Draft
+Blocked
+FUNNEL
+Exposure
+ ↓
+Engagement
+ ↓
+Visit
+ ↓
+Registration
+ ↓
+Interaction
+________________________________________
+35. MARKETING HEALTH
+El dashboard deberá mostrar:
+MARKETING HEALTH
+con:
+•	data freshness; 
+•	tracking status; 
+•	attribution status; 
+•	content pipeline; 
+•	pending approvals; 
+•	blocked content; 
+•	legal reviews; 
+•	failed campaigns; 
+•	API status. 
+________________________________________
+36. ALERTAS
+Crear alertas para:
+CRITICAL
+•	claim violation; 
+•	unauthorized publication; 
+•	legal block bypass; 
+•	false product claim; 
+•	tracking failure; 
+•	attribution corruption. 
+WARNING
+•	CTR deterioration; 
+•	engagement deterioration; 
+•	campaign underperformance; 
+•	CAC increase; 
+•	QR conversion decrease; 
+•	content pipeline backlog. 
+________________________________________
+37. GOVERNANCE
+Registrar todas las decisiones:
+MARKETING DECISION LOG
+Cada acción deberá poder responder:
+•	qué hizo el agente; 
+•	por qué; 
+•	con qué datos; 
+•	qué versión utilizó; 
+•	qué política aplicó; 
+•	qué resultado produjo; 
+•	quién aprobó; 
+•	cuándo se ejecutó. 
+________________________________________
+38. AUTHORITY
+Implementar límites explícitos.
+Marketing Agent
+READ:
+Marketing data
+Audience data
+Approved product information
+Approved brand information
+Campaign data
+
+WRITE:
+Draft content
+Campaign proposals
+Analytics
+Recommendations
+
+REQUIRES HUMAN:
+Publication of critical content
+Budget changes
+Legal-sensitive campaigns
+Regulatory claims
+Commercial commitments
+External contracts
+________________________________________
+39. MJP CORE ISOLATION
+REGLA ABSOLUTA
+Marketing no deberá tener acceso directo a:
+RNG
+RESULT
+RTP
+WALLET
+LEDGER
+SETTLEMENT
+El acceso, si alguna funcionalidad legítima lo requiere, deberá producirse exclusivamente mediante APIs autorizadas y de lectura limitada.
+Implementar pruebas que demuestren:
+Marketing → MJP CORE WRITE = DENIED
+Marketing → RESULT WRITE = DENIED
+Marketing → RNG WRITE = DENIED
+Marketing → WALLET WRITE = DENIED
+________________________________________
+40. OBSERVABILITY
+El Marketing Agent deberá integrarse con el sistema general de observabilidad.
+Registrar:
+•	execution count; 
+•	execution time; 
+•	success rate; 
+•	failure rate; 
+•	tool failures; 
+•	API failures; 
+•	content generation errors; 
+•	validation errors; 
+•	policy violations; 
+•	escalation rate. 
+________________________________________
+41. AGENT KPIs
+Separar claramente:
+BUSINESS KPI
+de:
+AGENT KPI
+Ejemplo:
+Business
+Reach
+Revenue
+CAC
+Conversion
+Users
+ROI
+Agent
+Task Success
+Generation Success
+Validation Success
+Recommendation Acceptance
+False Claim Rate
+Policy Violation Rate
+Human Escalation Rate
+Execution Latency
+No mezclar ambos tipos.
+________________________________________
+42. QUALITY GATE
+Toda pieza deberá atravesar:
+CONTENT
+ ↓
+TRUTH
+ ↓
+BRAND
+ ↓
+LEGAL
+ ↓
+EXPERIENCE
+ ↓
+ACCESSIBILITY
+ ↓
+PRODUCT STATE
+ ↓
+APPROVAL
+Resultado:
+APPROVED
+o:
+BLOCKED
+o:
+REQUIRES_HUMAN
+________________________________________
+43. NO DATA → NO CLAIM
+Implementar como regla global:
+Si una fuente autoritativa no contiene evidencia suficiente, el sistema no puede presentar la información como hecho.
+Estados permitidos:
+KNOWN
+UNKNOWN
+ESTIMATED
+PROJECTED
+SIMULATED
+EXTERNAL_REQUIRED
+________________________________________
+44. NO AUTOMATIZAR BASURA
+El Marketing Agent no deberá optimizar:
+NUMBER OF POSTS
+como objetivo principal.
+Su función objetivo debe considerar:
+QUALITY
++
+REACH
++
+ENGAGEMENT
++
+CONVERSION
++
+LEARNING
++
+BUSINESS IMPACT
+________________________________________
+45. PRIMER OBJETIVO OPERACIONAL
+Preparar el sistema para generar:
+MILUKITA LAUNCH CAMPAIGN — 30 DAYS
+con:
+•	estrategia; 
+•	audiencia; 
+•	positioning; 
+•	messaging; 
+•	content pillars; 
+•	calendario; 
+•	publicaciones; 
+•	scripts; 
+•	reels; 
+•	shorts; 
+•	stories; 
+•	Lukita content; 
+•	TV→QR→Mobile content; 
+•	B2B material; 
+•	sponsor material; 
+•	KPIs; 
+•	experimentos; 
+•	measurement plan. 
+________________________________________
+46. NO PUBLICAR TODAVÍA SIN APROBACIÓN
+La primera fase deberá terminar con:
+30-DAY CAMPAIGN
+        ↓
+GENERATED
+        ↓
+VALIDATED
+        ↓
+READY FOR HUMAN APPROVAL
+No:
+GENERATED
+ ↓
+AUTO-PUBLISHED
+salvo que exista una política explícita y una integración autorizada para una categoría de contenido no crítica.
+________________________________________
+47. ACTUALIZACIÓN DOCUMENTAL
+Actualizar o crear:
+docs/MILUKITA_MARKETING_INTELLIGENCE.md
+docs/MILUKITA_CONTENT_FACTORY.md
+docs/MILUKITA_CAMPAIGN_ENGINE.md
+docs/MILUKITA_MARKETING_GOVERNANCE.md
+docs/MILUKITA_MARKETING_KPI.md
+docs/MILUKITA_ORGANIZATION.md
+docs/MILUKITA_AGENT_ORGANIGRAM.md
+Si existen documentos equivalentes, actualizarlos en lugar de duplicarlos.
+________________________________________
+48. ORGANIGRAMA FINAL A DOCUMENTAR
+El organigrama oficial deberá representar al menos:
+                         MILUKITA
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+     PRODUCTS         ENTERTAINMENT OS      BUSINESS OS
+        │                   │                   │
+        │              ┌────┼────┐        ┌─────┼──────────┐
+        │              │    │    │        │     │          │
+     .COM           EXPERIENCE CONTENT  MARKETING SALES   REVENUE
+     LIVE           AUDIENCE   LUKITA   ADVERTISING      FINANCE
+                    EVENTS              SPONSORSHIP      ACCOUNTING
+                    UX                  PARTNERSHIPS    TAX
+                                        DISTRIBUTION    JURISDICTION
+                            │
+                            ↓
+                     GOVERNANCE OS
+                            │
+             ┌──────────────┼──────────────┐
+             ↓              ↓              ↓
+           LEGAL          AUDITOR       SUPERVISOR
+             │              │              │
+             └──────────────┼──────────────┘
+                            ↓
+                  KPI / OBSERVABILITY
+                            │
+                            ↓
+                      CONTROL ROOM
+                            │
+                            ↓
+                         MJP CORE
+                            │
+            ┌───────────────┼──────────────┐
+            ↓               ↓              ↓
+           RNG           RESULTS         LEDGER
+           RTP           RULES           WALLET
+                                        SETTLEMENT
+Este organigrama debe convertirse en referencia oficial de la arquitectura.
+________________________________________
+49. IMPORTANTE: AGENTES FUTUROS
+El organigrama deberá permitir agentes adicionales sin romper la estructura.
+Por ejemplo:
+BUSINESS OS
+├── Marketing
+├── Sales
+├── Revenue
+├── Finance
+├── Accounting
+├── Tax
+├── Partnerships
+└── Distribution
+Pero no implementar agentes nuevos solamente para completar casillas del organigrama.
+Si un agente todavía no está desarrollado:
+STATUS = PLANNED
+o:
+STATUS = ARCHITECTURE_ONLY
+No presentarlo como operativo.
+________________________________________
+50. VALIDACIÓN TÉCNICA
+Ejecutar:
+pnpm check
+pnpm test -- --run
+pnpm build
+pnpm simulate:live
+Si existen comandos adicionales específicos para agentes, analytics o Control Room, ejecutarlos también.
+________________________________________
+51. PRUEBAS OBLIGATORIAS
+Crear pruebas para demostrar:
+Content
+•	generación; 
+•	almacenamiento; 
+•	versionado; 
+•	aprobación; 
+•	rechazo. 
+Truth
+•	detección de claim falso; 
+•	detección de funcionalidad inexistente; 
+•	detección de estado SIMULATED presentado como IMPLEMENTED. 
+Legal
+•	bloqueo de contenido sensible; 
+•	escalamiento. 
+Authority
+•	Marketing no puede modificar MJP CORE. 
+Analytics
+•	eventos correctamente registrados; 
+•	KPI correctamente calculados. 
+Campaign
+•	generación de campaña; 
+•	calendario; 
+•	assets; 
+•	KPI. 
+Dashboard
+•	datos correctos; 
+•	estados correctos; 
+•	alertas. 
+________________________________________
+52. PRUEBA ESPECIAL DE SEGURIDAD
+Ejecutar explícitamente:
+MARKETING → MJP CORE WRITE ATTEMPT
+Resultado obligatorio:
+DENIED
+Registrar el intento en auditoría.
+________________________________________
+53. CLASIFICACIÓN FINAL
+Cada componente deberá terminar con uno de estos estados:
+IMPLEMENTED
+PARTIAL
+PENDING
+SIMULATED
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+ARCHITECTURE_ONLY
+NOT_VERIFIABLE
+Manus deberá evitar usar:
+DONE
+si no existe evidencia suficiente.
+________________________________________
+54. ENTREGABLES OBLIGATORIOS
+Al finalizar, entregar:
+1.
+Marketing Intelligence Agent implementado.
+2.
+Marketing Content Factory.
+3.
+Content Library.
+4.
+Campaign Engine.
+5.
+30-Day Launch Pack Generator.
+6.
+Truth/Claim Validation.
+7.
+Legal Integration.
+8.
+Experience/UX Integration.
+9.
+Marketing KPI.
+10.
+Marketing Dashboard.
+11.
+Observability.
+12.
+Approval Workflow.
+13.
+Authority Controls.
+14.
+MJP CORE isolation tests.
+15.
+Organigrama actualizado.
+16.
+Documentación.
+17.
+Tests.
+18.
+Checkpoint verificable.
+________________________________________
+55. FORMATO DEL REPORTE FINAL DE MANUS
+El reporte deberá comenzar:
+MILUKITA MARKETING INTELLIGENCE
+IMPLEMENTATION REPORT
+Y contener:
+1. Estado inicial
+2. Arquitectura encontrada
+3. Componentes reutilizados
+4. Componentes implementados
+5. Componentes modificados
+6. Marketing Intelligence
+7. Content Factory
+8. Campaign Engine
+9. 30-Day Launch Pack
+10. Legal Integration
+11. Experience Integration
+12. KPI
+13. Dashboard
+14. Observability
+15. Governance
+16. Authority Tests
+17. MJP CORE Isolation
+18. Tests
+19. Build
+20. Documentation
+21. Organigram Update
+22. Known Limitations
+23. External Dependencies
+24. Remaining Work
+25. Final Status
+26. Checkpoint
+________________________________________
+56. CRITERIO DE ACEPTACIÓN
+La implementación solamente será considerada completa cuando:
+MARKETING
+     │
+     ↓
+STRATEGY
+     │
+     ↓
+CONTENT
+     │
+     ↓
+TRUTH CHECK
+     │
+     ↓
+LEGAL
+     │
+     ↓
+EXPERIENCE
+     │
+     ↓
+HUMAN APPROVAL
+     │
+     ↓
+PUBLICATION READY
+     │
+     ↓
+MEASUREMENT
+     │
+     ↓
+LEARNING
+     │
+     ↓
+OPTIMIZATION
+funcione como flujo verificable.
+Y simultáneamente:
+MARKETING
+      X
+      │
+      ↓
+   MJP CORE
+debe permanecer aislado y protegido.
+________________________________________
+57. PRIORIDAD DE IMPLEMENTACIÓN
+Orden obligatorio:
+P0 — Arquitectura y autoridad
+1.	Inspección. 
+2.	Organigrama. 
+3.	Roles. 
+4.	Permisos. 
+5.	Integración Governance. 
+6.	MJP CORE isolation. 
+P1 — Intelligence
+7.	Brand Intelligence. 
+8.	Truth Engine. 
+9.	Audience interface. 
+10.	Strategy Engine. 
+P2 — Content
+11.	Content Factory. 
+12.	Content Library. 
+13.	Repurposing. 
+14.	Lukita Content. 
+P3 — Campaign
+15.	Campaign Engine. 
+16.	30-Day Launch Pack. 
+17.	B2B/Sponsor materials. 
+P4 — Quality
+18.	Legal. 
+19.	Experience. 
+20.	Accessibility. 
+21.	Approval. 
+P5 — Measurement
+22.	Marketing KPI. 
+23.	Funnel. 
+24.	Attribution. 
+25.	Analytics. 
+P6 — Control
+26.	Dashboard. 
+27.	Alerts. 
+28.	Observability. 
+P7 — Validation
+29.	Tests. 
+30.	Check. 
+31.	Build. 
+32.	Simulation. 
+33.	Documentation. 
+34.	Checkpoint. 
+________________________________________
+58. REGLA FINAL DE ESTA ORDEN
+NO CONVERTIR MARKETING EN UN GENERADOR DE CONTENIDO AISLADO.
+Debe convertirse en:
+MARKETING INTELLIGENCE SYSTEM
+dentro de:
+BUSINESS OS
+conectado con:
+AUDIENCE
+CONTENT
+EXPERIENCE
+LEGAL
+ANALYTICS
+KPI
+GOVERNANCE
+pero separado de:
+MJP CORE
+La arquitectura objetivo es:
+                    MILUKITA
+                       │
+              ┌────────┴────────┐
+              ↓                 ↓
+       ENTERTAINMENT OS      BUSINESS OS
+              │                 │
+       Experience             Marketing
+       Content                Sales
+       Audience               Revenue
+       Lukita                 Finance
+       Events                 Accounting
+                              Tax
+                              Sponsorship
+                              Distribution
+              │                 │
+              └────────┬────────┘
+                       ↓
+                GOVERNANCE OS
+                       │
+             Legal / Audit / Policy
+                       │
+                       ↓
+              KPI / OBSERVABILITY
+                       │
+                       ↓
+                  CONTROL ROOM
+                       │
+                       ↓
+                    MJP CORE
+                  PROTECTED
+OBJETIVO FINAL
+No queremos que Manus simplemente diga:
+"Marketing Agent implementado."
+Queremos que pueda demostrarse:
+"MiLukita dispone de una capacidad de Marketing Intelligence capaz de convertir estrategia en contenido, contenido en campañas, campañas en medición y medición en aprendizaje, manteniendo control humano, veracidad, cumplimiento, observabilidad y aislamiento absoluto de MJP CORE."
+Ejecutar esta orden como una iniciativa consolidada. Inspeccionar → reutilizar → diseñar → implementar → integrar → probar → corregir → documentar → actualizar organigrama → validar → checkpoint.
+No ampliar el alcance innecesariamente. No inventar capacidades. No presentar simulaciones como producción. No romper funcionalidades existentes. No modificar MJP CORE.
+

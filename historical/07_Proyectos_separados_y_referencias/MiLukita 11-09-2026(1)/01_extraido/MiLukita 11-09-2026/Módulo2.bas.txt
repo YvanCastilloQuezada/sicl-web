@@ -1,0 +1,74 @@
+Attribute VB_Name = "Módulo2"
+' Declaraciones necesarias para trabajar con gráficos
+Private Declare PtrSafe Function CreateCompatibleDC Lib "gdi32" () As LongPtr
+Private Declare PtrSafe Function DeleteDC Lib "gdi32" (ByVal hdc As LongPtr) As Long
+Private Declare PtrSafe Function CreateCompatibleBitmap Lib "gdi32" ( _
+    ByVal hdc As LongPtr, ByVal nWidth As Long, ByVal nHeight As Long) As LongPtr
+Private Declare PtrSafe Function SelectObject Lib "gdi32" (ByVal hdc As LongPtr, ByVal hObject As LongPtr) As LongPtr
+Private Declare PtrSafe Function DeleteObject Lib "gdi32" (ByVal hObject As LongPtr) As Long
+Private Declare PtrSafe Function BitBlt Lib "gdi32" ( _
+    ByVal hdcDest As LongPtr, ByVal xDest As Long, ByVal yDest As Long, _
+    ByVal nWidth As Long, ByVal nHeight As Long, ByVal hdcSrc As LongPtr, _
+    ByVal xSrc As Long, ByVal ySrc As Long, ByVal dwRop As Long) As Long
+Private Declare PtrSafe Function GetDC Lib "user32" (ByVal hwnd As LongPtr) As LongPtr
+Private Declare PtrSafe Function ReleaseDC Lib "user32" (ByVal hwnd As LongPtr, ByVal hdc As LongPtr) As Long
+
+Public Sub CommandButtonImprimir_Click()
+    Dim imgPath As String
+    
+    ' Configurar coordenadas y dimensiones
+    Dim l As Long
+    Dim t As Long
+    Dim w As Long
+    Dim h As Long
+    l = 462
+    t = 270
+    w = 270
+    h = 282
+
+    ' Mostrar el cuadro de diálogo para seleccionar la ubicación y nombre del archivo
+    imgPath = Application.GetSaveAsFilename(InitialFileName:="Imagen.png", FileFilter:="PNG Files (*.png), *.png", Title:="Guardar imagen como")
+    
+    ' Verificar si el usuario ha seleccionado un archivo
+    If imgPath <> "Falso" Then
+        ' Capturar y guardar la imagen del UserForm
+        CaptureUserFormArea Me, imgPath, l, t, w, h
+    End If
+End Sub
+
+Public Sub CaptureUserFormArea(uf As Object, imgPath As String, l As Long, t As Long, w As Long, h As Long)
+    Dim hdc As LongPtr
+    Dim hdcMem As LongPtr
+    Dim hbm As LongPtr
+    Dim hbmOld As LongPtr
+    Dim hBitmap As LongPtr
+    
+    ' Crear un Device Context (DC) compatible
+    hdc = GetDC(0)
+    hdcMem = CreateCompatibleDC(hdc)
+    
+    ' Crear un bitmap compatible
+    hbm = CreateCompatibleBitmap(hdc, w, h)
+    hbmOld = SelectObject(hdcMem, hbm)
+    
+    ' Capturar el área del UserForm
+    BitBlt hdcMem, 0, 0, w, h, uf.hdc, l, t, vbSrcCopy
+
+    ' Guardar el bitmap como archivo
+    SaveBitmapAsFile hbm, imgPath
+    
+    ' Limpiar
+    SelectObject hdcMem, hbmOld
+    DeleteObject hbm
+    DeleteDC hdcMem
+    ReleaseDC 0, hdc
+End Sub
+
+Private Sub SaveBitmapAsFile(hBitmap As LongPtr, fileName As String)
+    Dim pic As Object
+    Set pic = CreateObject("MSComctlLib.PictureBox")
+    pic.Picture = hBitmap
+    pic.SavePicture pic.Picture, fileName
+End Sub
+
+

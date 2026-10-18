@@ -1,0 +1,150 @@
+Attribute VB_Name = "UserFormResultados"
+Attribute VB_Base = "0{B4119FF3-53F7-438C-9E71-CF668F41F5EC}{4FD412CA-2085-4EA4-A725-1C0ECE931AE2}"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Attribute VB_TemplateDerived = False
+Attribute VB_Customizable = False
+
+Private Sub CommandButtonSalir_Click()
+    Unload Me
+End Sub
+
+' Sub MostrarMensaje(totales As String)
+    ' Me.Label1.Caption = totales
+    ' Me.Show
+' End Sub
+
+Private Sub TextBoxBuscarCelular_Change()
+    Dim ws As Worksheet
+    Dim frmResultados As UserFormResultados
+    Dim rowNum As Long
+    Dim valorAD As String
+    Dim premio As Variant
+    Dim celularBuscado As String
+    
+    ' Inicializar el UserForm
+    Set frmResultados = UserFormResultados
+    
+    ' Asignar la hoja de trabajo
+    Set ws = ThisWorkbook.Sheets("BaseDeDatos")
+    
+    ' Obtener el valor del TextBox de búsqueda
+    celularBuscado = frmResultados.TextBoxBuscarCelular.Text
+    
+    ' Inicializar el ListBox
+    With frmResultados.ListBoxPower
+        .Clear ' Limpiar el ListBox
+        .ColumnCount = 6
+        .ColumnWidths = "46;74;54;54;70;160" ' Ajustar el tamaño de las columnas
+        
+        ' Añadir encabezados manualmente
+        ' AddItem "Boleto" & vbTab & "Celular" & vbTab & "Multi" & vbTab & "Apuesta" & vbTab & "Ganadores" & vbTab & "Premio"
+    End With
+    
+    ' Recorrer las filas de datos
+    For rowNum = 2 To ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+        ' Leer el valor de Ganadores y Premio
+        valorAD = ws.Cells(rowNum, 30).value ' Columna AD
+        
+        ' Filtrar filas que contienen valores válidos en Ganadores
+        If valorAD = "6" Or valorAD = "5 + A" Or valorAD = "5 + F1" Or valorAD = "5 + F2" Or valorAD = "5 + F3" Or _
+           valorAD = "5" Or valorAD = "4 + A" Or valorAD = "4" Or valorAD = "3 + A" Or valorAD = "3" Or _
+           valorAD = "2 + A" Or valorAD = "2" Or valorAD = "1 + A" Or valorAD = "A" Then
+           
+            ' Determinar el premio adecuado
+            Select Case valorAD
+                Case "A", "1 + A", "2 + A", "3 + A", "4 + A", "5 + A"
+                    premio = ws.Cells(rowNum, 17).value ' Columna Q
+                Case "5 + F1"
+                    premio = ws.Cells(rowNum, 18).value ' Columna R
+                Case "5 + F2"
+                    premio = ws.Cells(rowNum, 18).value ' Columna R
+                Case "5 + F3"
+                    premio = ws.Cells(rowNum, 18).value ' Columna R
+                Case Else
+                    premio = ws.Cells(rowNum, 16).value ' Columna P (Para otros casos)
+            End Select
+            
+            ' Agregar al ListBox si el celular coincide con el valor buscado
+            If InStr(1, ws.Cells(rowNum, 2).value, celularBuscado, vbTextCompare) > 0 Then
+                With frmResultados.ListBoxPower
+                    .AddItem ws.Cells(rowNum, 1).value ' Boleto
+                    .List(.ListCount - 1, 1) = ws.Cells(rowNum, 2).value ' Celular
+                    .List(.ListCount - 1, 2) = ws.Cells(rowNum, 3).value ' Multi
+                    .List(.ListCount - 1, 3) = ws.Cells(rowNum, 4).value ' Apuesta
+                    .List(.ListCount - 1, 4) = valorAD ' Ganadores
+                    .List(.ListCount - 1, 5) = premio ' Premio
+                End With
+            End If
+        End If
+    Next rowNum
+End Sub
+
+Private Sub TextBoxBuscarBoleto_Change()
+    Dim ws As Worksheet
+    Dim frmResultados As UserFormResultados
+    Dim rowNum As Long
+    Dim valorAD As String
+    Dim premio As Variant
+    Dim boletoBuscado As String
+    
+    ' Inicializar el UserForm
+    Set frmResultados = UserFormResultados
+    
+    ' Asignar la hoja de trabajo
+    Set ws = ThisWorkbook.Sheets("BaseDeDatos")
+    
+    ' Obtener el valor del TextBox de búsqueda
+    boletoBuscado = frmResultados.TextBoxBuscarBoleto.Text
+    
+    ' Inicializar el ListBox
+    With frmResultados.ListBoxPower
+        .Clear ' Limpiar el ListBox
+        .ColumnCount = 6
+        .ColumnWidths = "46;74;54;54;70;160" ' Ajustar el tamaño de las columnas
+        
+        ' Añadir encabezados manualmente
+        ' .AddItem "Boleto" & vbTab & "Celular" & vbTab & "Multi" & vbTab & "Apuesta" & vbTab & "Ganadores" & vbTab & "Premio"
+    End With
+    
+    ' Recorrer las filas de datos
+    For rowNum = 2 To ws.Cells(ws.Rows.Count, 1).End(xlUp).Row
+        ' Leer el valor de Ganadores y Premio
+        valorAD = ws.Cells(rowNum, 30).value ' Columna AD
+        
+        ' Filtrar filas que contienen valores válidos en Ganadores
+        If valorAD = "6" Or valorAD = "5 + A" Or valorAD = "5 + F1" Or valorAD = "5 + F2" Or valorAD = "5 + F3" Or _
+           valorAD = "5" Or valorAD = "4 + A" Or valorAD = "4" Or valorAD = "3 + A" Or valorAD = "3" Or _
+           valorAD = "2 + A" Or valorAD = "2" Or valorAD = "1 + A" Or valorAD = "A" Then
+           
+            ' Determinar el premio adecuado
+            Select Case valorAD
+                Case "A", "1 + A", "2 + A", "3 + A", "4 + A", "5 + A"
+                    premio = ws.Cells(rowNum, 17).value ' Columna Q
+                Case "5 + F1"
+                    premio = ws.Cells(rowNum, 18).value ' Columna R
+                Case "5 + F2"
+                    premio = ws.Cells(rowNum, 18).value ' Columna R
+                Case "5 + F3"
+                    premio = ws.Cells(rowNum, 18).value ' Columna R
+                Case Else
+                    premio = ws.Cells(rowNum, 16).value ' Columna P (Para otros casos)
+            End Select
+            
+            ' Agregar al ListBox si el boleto coincide con el valor buscado
+            If InStr(1, ws.Cells(rowNum, 1).value, boletoBuscado, vbTextCompare) > 0 Then
+                With frmResultados.ListBoxPower
+                    .AddItem ws.Cells(rowNum, 1).value ' Boleto
+                    .List(.ListCount - 1, 1) = ws.Cells(rowNum, 2).value ' Celular
+                    .List(.ListCount - 1, 2) = ws.Cells(rowNum, 3).value ' Multi
+                    .List(.ListCount - 1, 3) = ws.Cells(rowNum, 4).value ' Apuesta
+                    .List(.ListCount - 1, 4) = valorAD ' Ganadores
+                    .List(.ListCount - 1, 5) = premio ' Premio
+                End With
+            End If
+        End If
+    Next rowNum
+End Sub
+

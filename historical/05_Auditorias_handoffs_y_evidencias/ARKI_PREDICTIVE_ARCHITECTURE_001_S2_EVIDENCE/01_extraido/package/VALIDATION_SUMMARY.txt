@@ -1,0 +1,15 @@
+ARKI-PREDICTIVE-ARCHITECTURE-001.S2
+Verdict: COST_INTELLIGENCE_PARTIAL
+Checkpoint baseline: 661483ee5524062c8dc72fb7919e2eb2625172b4
+Final checkpoint: pending save after Spanish UI normalization
+Branch: feature/arki-native-generator-v1
+Idioma visible por defecto: español
+TypeScript: PASS
+Focused S2: PASS 16/16
+Focused S1+S2: PASS 24/24
+Full regression previously: PASS 95 files / 429 tests
+Build after Spanish UI: PASS
+Diff check: PASS
+Conflict scan: PASS
+Browser visual verification: BLOCKED_BY_AUTH_GATE (no bypass used)
+App.tsx conflict in recovered workspace: NOT FOUND; no App.tsx modification made

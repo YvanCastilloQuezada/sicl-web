@@ -1,0 +1,34 @@
+COCO-EXPRESS-002 — Familia L — microejercicios propios
+
+Alcance: invariantes epistemológicos y de trazabilidad. No son solver profesional, certificación, firma ni respuesta de examen. Código de ejecución aislado: /home/ubuntu/jobs/cbef0db18f21_a6/test_l.py
+
+ORACLE / INVARIANTES
+- Cada registro debe conservar: provenance, epistemic_state, units, applicability, scale, project, time y scenario.
+- UNKNOWN exige unknown_reason.
+- kind ∈ {simulation, observation, forecast, hash, import_success} no puede tener truth_status TRUE ni CERTIFIED.
+- La ejecución no modifica Product State, BKH, TX, E5-E8 ni PF-H01.
+
+NORMAL — L8-CX-01 — observación de commissioning
+Entrada: lectura 18.4 °C, sensor S-17, unidad °C, proyecto P-LAB-01, escala room, escenario startup, tiempo 2026-09-23T10:00Z, provenance sensor/reading, epistemic_state OBSERVED, truth_status NOT_ESTABLISHED, applicability commissioning trial only.
+Oracle: PASS.
+Razón: conserva contexto y provenance; observación no se eleva a verdad ni certificación.
+
+ADVERSARIAL — L8-CX-02 — simulación con certificación indebida
+Entrada: simulación HVAC-v3/run-44, valor 0.82 fraction, escala building, proyecto P-EDGE-02, escenario peak load, forecast horizon 2027, epistemic_state SIMULATED, pero truth_status CERTIFIED.
+Oracle: REJECTED.
+Razón: el guard transversal detecta que una simulación no puede presentarse como certificada, aunque tenga provenance, unidades, escala y contexto completos.
+
+TRANSFER — L6-L7-CX-03 — hash/import success en handover
+Entrada: import_success con hash sha256:abc123, package as-built-07/importer v2, unidad dimensionless, escala asset, proyecto P-MUNI-03, tiempo 2026-09-23, escenario handover, epistemic_state UNKNOWN y unknown_reason explícita.
+Oracle: PASS.
+Razón: el evento de importación y el hash se conservan como evidencia técnica limitada; no prueban condición de campo, verdad, autenticidad plena ni certificación.
+
+EJECUCIÓN Y MUTANTE CONTROLADO
+Comando: python3 /home/ubuntu/jobs/cbef0db18f21_a6/test_l.py
+Salida observada:
+NORMAL=PASS; ADVERSARIAL=REJECTED; TRANSFER=PASS; MUTANTS_KILLED=1
+CORRECT_ORACLE_INTACT=PASS
+
+Mutante: copia local de oracle sin el guard anti-certificación para kinds simulation/observation/forecast/hash/import_success. Resultado: el mismo caso ADVERSARIAL fue aceptado por el mutante; assertion `assert mutant_killed` lo marcó como mutante muerto (detectado). El oracle correcto quedó intacto y fue re-ejecutado: `CORRECT_ORACLE_INTACT=PASS`.
+
+Criterio de estado: PREREQUISITE_TESTED para este conjunto de invariantes y ejercicios solamente; no equivale a competencia profesional, conformidad normativa, aceptación de obra, commissioning real, BMS productivo, PKI ni certificación.

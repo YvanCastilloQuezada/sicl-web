@@ -1,0 +1,24 @@
+{
+  "schema":"ARKI-CAD-CAPABILITY-MATRIX-1.0",
+  "status":"FORENSIC_NOT_EXECUTED_ON_ABB001",
+  "legend":"CLAIMED_BY_VENDOR means documented capability; ABB001_TEST means not yet executed",
+  "criteria":[
+    {"criterion":"DWG fidelity","ODA":"CLAIMED_BY_VENDOR","RealDWG":"CLAIMED_BY_VENDOR","LibreDWG":"PARTIAL_R2018_READ","Converter":"UNKNOWN_LOSS"},
+    {"criterion":"AC1032","ODA":"SUPPORTED_PRODUCT_MATRIX","RealDWG":"VERSION_DEPENDENT","LibreDWG":"READ_COVERAGE","Converter":"CONVERSION_VERSION"},
+    {"criterion":"entity handles","ODA":"API_DOCUMENTED","RealDWG":"DATABASE_HANDLE_DOCUMENTED","LibreDWG":"SOURCE_OBJECT_IDS_NOT_EQ_GLOBAL_HANDLE","Converter":"NOT_EXPOSED"},
+    {"criterion":"layers/blocks/attributes","ODA":"API_DOCUMENTED","RealDWG":"OBJECTARX_SUBSET","LibreDWG":"PARTIAL_AND_OBJECT_DEPENDENT","Converter":"NOT_EXPOSED"},
+    {"criterion":"dimensions/text/MTEXT","ODA":"API_DOCUMENTED","RealDWG":"OBJECTARX_SUBSET","LibreDWG":"PARTIAL_OBJECT_COVERAGE","Converter":"NOT_EXPOSED"},
+    {"criterion":"layouts/model-paper","ODA":"API_DOCUMENTED","RealDWG":"DATABASE_OBJECTS","LibreDWG":"MODEL/PAPER_BLOCKS","Converter":"NOT_EXPOSED"},
+    {"criterion":"XREF","ODA":"API_DOCUMENTED","RealDWG":"CLAIMED_BY_VENDOR","LibreDWG":"NOT_FULLY_PROVEN","Converter":"UNKNOWN"},
+    {"criterion":"units/coordinates/extents","ODA":"API_DOCUMENTED","RealDWG":"DATABASE_API","LibreDWG":"PARSABLE_FIELDS","Converter":"NOT_EXPOSED"},
+    {"criterion":"2D/3D","ODA":"STRONG_CLAIM","RealDWG":"STRONG_CLAIM","LibreDWG":"PARTIAL_OBJECT_COVERAGE","Converter":"PRESERVATION_UNKNOWN"},
+    {"criterion":"Linux","ODA":"SUPPORTED_PATH","RealDWG":"NOT_PUBLISHED_FOR_LINUX","LibreDWG":"SUPPORTED_BUILD_PATH","Converter":"SUPPORTED_PACKAGE_PATH"},
+    {"criterion":"Windows","ODA":"SUPPORTED_PATH","RealDWG":"SUPPORTED_64_BIT","LibreDWG":"SUPPORTED_BUILD_PATH","Converter":"SUPPORTED_X64"},
+    {"criterion":"server automation","ODA":"POSSIBLE_PRODUCT_FAMILY","RealDWG":"CONTRACT_AND_HOST_REVIEW","LibreDWG":"SELF_HOSTED_PROCESS","Converter":"BATCH_CLI_DIAGNOSTIC"},
+    {"criterion":"Web/SaaS licensing","ODA":"SUSTAINING_OR_FOUNDING_REVIEW","RealDWG":"NOT_ESTABLISHED","LibreDWG":"GPLV3_FACT_DEPENDENT","Converter":"NON_COMMERCIAL_FOR_NON_MEMBERS"},
+    {"criterion":"security","ODA":"VENDOR_DUE_DILIGENCE","RealDWG":"VENDOR_DUE_DILIGENCE","LibreDWG":"ADVISORIES_AND_SANDBOX_REQUIRED","Converter":"BINARY_TOOL_SANDBOX_REQUIRED"},
+    {"criterion":"maintenance/vendor dependency","ODA":"HIGH_VENDOR_DEPENDENCY","RealDWG":"HIGH_VENDOR_DEPENDENCY","LibreDWG":"COMMUNITY/GNU_MAINTENANCE","Converter":"ODA_RELEASE_DEPENDENCY"},
+    {"criterion":"ABB001 actual extraction","ODA":"NOT_EXECUTED","RealDWG":"NOT_EXECUTED","LibreDWG":"NOT_EXECUTED","Converter":"NOT_EXECUTED"}
+  ],
+  "fatalCriteria":["commercial_web_saas_license","actual_ABB001_fidelity","security_isolation","supported_deployment_target"]
+}

@@ -1,0 +1,84 @@
+ORDEN PARA MANUS (Con el "Motivo" explícito)
+ORDEN PARA MANUS: INTEGRACIÓN DE LOS 8 MODOS DE CONTROL (CONTROL PACKS)
+
+MOTIVO (Por qué se implementa esto):
+LUKA OS no debe funcionar como una app con menús. Debe funcionar como un sistema operativo inteligente que detecta qué dispositivo quiere controlar el usuario y se transforma automáticamente en la pantalla de control adecuada. Estos 8 modos representan las configuraciones ergonómicas que LUKA adopta, pero nunca se muestran todos a la vez.
+
+REGLA DE ORO:
+LUKA detecta la intención (por voz o por conexión) y revela solo el modo necesario. Los demás quedan ocultos hasta que se necesiten.
+
+1. LUKA TRACKPAD
+Motivo: Para navegar en un PC, una pizarra o una consola cuando el usuario necesita moverse por un menú o interfaz digital.
+Dispositivos: PC, Pizarras, Consolas.
+Centro: Superficie de Trackpad (navegar).
+Activación: LUKA detecta un dispositivo de "navegación" (PC, pizarra) o el usuario dice: "LUKA, quiero navegar".
+
+2. LUKA KEYBOARD
+Motivo: Para escribir en un PC, una pizarra o una consola cuando el usuario necesita introducir texto (ej. buscar en YouTube, escribir un nombre).
+Dispositivos: PC, Pizarras.
+Centro: Campo de texto + Mini-teclado.
+Activación: El usuario toca un campo de texto o dice: "LUKA, quiero escribir".
+
+3. LUKA GAMEPAD
+Motivo: Para jugar en una consola o en un PC cuando el usuario necesita controles de acción (D-Pad, botones).
+Dispositivos: Consolas (PS, Xbox, Nintendo).
+Centro: D-Pad + Botón de Acción.
+Activación: LUKA detecta una consola o el usuario dice: "LUKA, quiero jugar".
+
+4. LUKA LIGHTS & CLIMATE
+Motivo: Para controlar la domótica del hogar (luces, temperatura, ventilación) quando el usuario necesita ajustar el ambiente de su casa.
+Dispositivos: Luces, AC, Ventiladores, Cortinas, Termostatos, Enchufes, Calefactores, Purificadores, Humidificadores, Aspiradoras, Camas inteligentes.
+Centro: Sliders (brillo, temperatura, velocidad) + Interruptores.
+Activación: LUKA detecta un dispositivo de domótica o el usuario dice: "LUKA, baja la luz".
+
+5. LUKA AUDIO
+Motivo: Para controlar el audio de la casa (soundbars, bocinas, auriculares) quando el usuario necesita ajustar la música o el volumen.
+Dispositivos: Soundbars, Bocinas, Auriculares.
+Centro: Volumen + Play/Pause + Slider.
+Activación: LUKA detecta un dispositivo de audio o el usuario dice: "LUKA, sube el volumen".
+
+6. LUKA WEARABLES
+Motivo: Para comunicarse con los dispositivos personales (smartwatches, rings) y recibir/analizar datos sensoriales (notificaciones, vibración, pulsaciones).
+Dispositivos: Smartwatches, Smart Rings.
+Centro: Mini-Board (notificaciones, vibración).
+Activación: LUKA détecte un wearable o el usuario dice: "LUKA, muéstrame mi pulso".
+
+7. LUKA VEHICLE DASHBOARD
+Motivo: Para controlar los dispositivos de movilidad (e-bikes, patinetes, motos) quando el usuario necesita ajustar la velocidad, la temperatura o verificar el estado del vehículo.
+Dispositivos: Bicicletas eléctricas, Patinetes eléctricos, Motos eléctricas.
+Centro: Sliders (velocidad, temperatura, verificación).
+Activación: LUKA détecte un vehículo o el usuario dice: "LUKA, muestra el estado de mi bici".
+
+8. LUKA TV
+Motivo: Para controlar un Smart TV, una TV Box, un DVD o un cine en casa quando el usuario necesita ver contenido (cambiar canales, subir volumen, abrir streaming).
+Dispositivos: Smart TV, TV Boxes, DVD, Cine en Casa.
+Centro: Teclado numérico (0-9) + Volumen + Trackpad + Streaming.
+Activación: LUKA détecte un TV o el usuario dice: "LUKA, quiero ver TV".
+
+PUNTOS CRÍTICOS DE IMPLEMENTACIÓN:
+
+LUKA DEVICE DETECTOR: El sistema doit posséder un module qui détecte automatiquement quel dispositif est connecté (Bluetooth/WiFi) et quel mode doit être activé.
+
+INTENT ENGINE: Le système doit interpréter les commandes vocales du type: "LUKA, quiero ver TV", "LUKA, baja la luz", "LUKA, quiero jugar", et activer le mode correspondant.
+
+PROGRESSIVE INTERFACE DISCLOSURE: Le système ne doit jamais montrer plus de 1 ou 2 modes à la fois. Les autres modes restent cachés até que le contexte les révèle.
+
+INTEGRACIÓN CON LA ARQUITECTURA EXISTENTE:
+
+Tous les modes appartiennent à LUKA TV (un seul mode "TV" avec plusieurs configurations).
+
+Tous les modes partagent la barre supérieure universelle (L★, micrófono, "Di LUKA...").
+
+Tous les modes partagent les boutons fixes (BRILLO, ATRÁS, OK, INICIO).
+
+ENTREGABLES:
+
+LUKA DEVICE DETECTOR (détection automatique de dispositifs).
+
+LUKA INTENT ENGINE (traduction des commandes vocales en modes).
+
+LUKA PROGRESSIVE INTERFACE (logique de révélation contextuelle).
+
+Les 8 modes de contrôle (configurations ergonomiques du même système).
+
+Manuel de référence pour les développeurs.

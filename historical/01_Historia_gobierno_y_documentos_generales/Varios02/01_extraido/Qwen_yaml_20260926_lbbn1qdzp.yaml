@@ -1,0 +1,26 @@
+LEVEL_ID: L18
+NAME: "Mentor de Casos"
+DEFINITION: "ARKI presenta casos correctos, incorrectos y contraejemplos con explicación."
+INPUTS:
+  - design_problem: "DesignProblem"
+  - context: "ProjectContext"
+OUTPUTS:
+  - case_examples: "list<CaseExample>"
+  - counterexamples: "list<Counterexample>"
+  - explanations: "list<Explanation>"
+CONTRACTS:
+  - "CASE ≠ KNOWLEDGE"
+  - "Contraejemplos son conocimiento valioso"
+  - "No enseñar solo soluciones bonitas"
+RULES:
+  - "L-05: Error pedagógico"
+  - "INV6-021: RETRIEVAL OF A STORED SOLUTION ≠ LEARNING"
+  - "INV6-022: PRECEDENT TRANSFER ≠ FORM COPYING"
+GATES:
+  - "GATE_L18_PASS: Casos y contraejemplos presentados"
+EVIDENCE_REQUIRED:
+  - "Case example registry"
+  - "Counterexample registry"
+  - "Explanation log"
+  - "Learning evidence"
+CURRENT_STATUS: "RESEARCHED"

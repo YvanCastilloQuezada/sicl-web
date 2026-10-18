@@ -1,0 +1,87 @@
+=== 09-test-recalculation ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "snapshot0": {
+    "version": 1,
+    "areaVidrio": 5.76,
+    "costo": 2080.8,
+    "duracionHoras": 8.93,
+    "widthM": 1.2,
+    "budget": {
+      "currency": "PEN",
+      "basePen": 4672910,
+      "mamparasPen": 2080.8,
+      "totalPen": 4674990.8,
+      "priceBookId": "PB-1C",
+      "priceBookVersion": 1
+    }
+  },
+  "snapshot1": {
+    "version": 2,
+    "areaVidrio": 7.2,
+    "costo": 2421,
+    "duracionHoras": 10.44,
+    "widthM": 1.5,
+    "budget": {
+      "currency": "PEN",
+      "basePen": 4672910,
+      "mamparasPen": 2421,
+      "totalPen": 4675331,
+      "priceBookId": "PB-1C",
+      "priceBookVersion": 1
+    },
+    "invalidations": [
+      "familyInstance:mampara-01.parameters.ancho_m",
+      "budget.totalPen",
+      "schedule",
+      "mamparaGeometry"
+    ]
+  },
+  "snapshot2": {
+    "version": 3,
+    "areaVidrio": 8.1,
+    "costo": 2664,
+    "heightM": 2.7
+  },
+  "ifc": {
+    "length0": 246753,
+    "length1": 246752,
+    "length2": 246752,
+    "changed": true
+  },
+  "markdown": {
+    "length0": 1128,
+    "length1": 1282,
+    "length2": 1280,
+    "changed": true
+  },
+  "determinism": "PASS",
+  "checks": [
+    "ancho cambia área de vidrio",
+    "ancho cambia perfiles",
+    "ancho cambia peso",
+    "ancho cambia partida AL-01",
+    "ancho cambia partida AL-02",
+    "ancho no cambia partida AL-03",
+    "ancho cambia costo total",
+    "ancho cambia geometría widthM",
+    "ancho cambia duración",
+    "ancho cambia presupuesto global (base + mamparas)",
+    "ancho cambia cronograma 4D",
+    "ancho cambia IFC",
+    "ancho cambia Markdown",
+    "alto cambia área y costo",
+    "alto cambia geometría heightM",
+    "alto cambia IFC",
+    "alto cambia Markdown",
+    "recalculateProject es determinista",
+    "CONSTRAINT_VIOLATION para ancho_m fuera de rango",
+    "CONSTRAINT_VIOLATION para alto_m fuera de rango",
+    "validateMamparaConstraints directo",
+    "UNSUPPORTED_CHANGE para update-formwork",
+    "UNSUPPORTED_CHANGE para update-specification",
+    "invalidaciones no vacías",
+    "provenance registra cambios"
+  ]
+}

@@ -1,0 +1,474 @@
+[
+  {
+    "file": "EXPEDIENTE COMPLETO/PLANOS PDF/ARQUITECTURA  MODIFICADA.pdf",
+    "pages": 2,
+    "pdfinfo": "Title:           Presentación2\nCreator:         AutoCAD 2020 - Español (Spanish) 2020 (23.1s (LMS Tech))\nProducer:        pdfplot15.hdi 15.01.047.000\nCreationDate:    Mon Jul 13 20:21:08 2026 UTC\nModDate:         Mon Jul 13 20:21:08 2026 UTC\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           2\nEncrypted:       no\nPage size:       2384 x 1684 pts (A1)\nPage rot:        0\nFile size:       630601 bytes\nOptimized:       no\nPDF version:     1.7\n",
+    "textChars": 87426,
+    "textLines": 296,
+    "pageSummaries": [
+      {
+        "page": 1,
+        "firstLines": [
+          "A B A B A B A B",
+          "A A' B B' C D E A A' B B' C D E A A' B B' C D E A A' B B' C D E",
+          "7.00 7.00 7.00 7.00",
+          "1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65",
+          "0.15 0.15 0.15 0.15 0.15",
+          "0.15 0.15 0.15 0.15",
+          "6.70 1.80 1.80 2.35 0.60 6.70 6.70",
+          "9 0.15 0.15 9 9 0.15 0.15 9 9 0.15 0.15 9 9 0.15 0.15 9",
+          "1.40 1.40 1.40 1.40 1.40 1.40 1.40 1.40",
+          "1.40 1.40 1.40",
+          "1.55 1.55",
+          "1.75 1.75 BALCÓN 1.75"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 1,
+          "ESTRUCTURA": 1,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 2,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 2,
+        "firstLines": [
+          "N.P.T.+3.30",
+          "N.P.T.+3.15",
+          "TECHO",
+          "N.P.T.+9.15",
+          "AZOTEA CTO. PLANCHADO PARRILLA TERRAZA N.P.T.+0.00 N.P.T.+0.00",
+          "N.P.T.+6.15 N.P.T.+6.15 N.P.T.+6.15 N.P.T.+6.15",
+          "ELEVACIÓN CERCO",
+          "Esc: 1/50",
+          "N.P.T.+9.35",
+          "N.P.T.+9.15",
+          "BALCÓN DORMITORIO BAÑO BAÑO DORMITORIO BALCÓN",
+          "N.P.T.+3.15 N.P.T.+3.15 N.P.T.+3.15 N.P.T.+3.15 N.P.T.+3.15 N.P.T.+3.15"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 1,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 1,
+          "PLANTA": 0,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 3,
+        "firstLines": [],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 0,
+          "UBICACION": 0,
+          "ESCALA": 0,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      }
+    ]
+  },
+  {
+    "file": "EXPEDIENTE COMPLETO/PLANOS PDF/PROY. FERNANDEZ ROJAS.pdf",
+    "pages": 12,
+    "pdfinfo": "Title:           Presentación1\nCreator:         AutoCAD 2020 - Español (Spanish) 2020 (23.1s (LMS Tech))\nProducer:        pdfplot15.hdi 15.01.047.000\nCreationDate:    Mon Jul 13 20:10:26 2026 UTC\nModDate:         Mon Jul 13 20:10:26 2026 UTC\nCustom Metadata: no\nMetadata Stream: no\nTagged:          no\nUserProperties:  no\nSuspects:        no\nForm:            none\nJavaScript:      no\nPages:           12\nEncrypted:       no\nPage size:       842 x 1191 pts (A3)\nPage rot:        270\nFile size:       3750733 bytes\nOptimized:       no\nPDF version:     1.7\n",
+    "textChars": 854305,
+    "textLines": 3540,
+    "pageSummaries": [
+      {
+        "page": 1,
+        "firstLines": [
+          "xiste",
+          "VIA C",
+          "OLEC",
+          "TORA",
+          "3",
+          "No e",
+          "0",
+          "15.7",
+          "CAL",
+          "AREA LE U",
+          "RECREA",
+          "TIVA"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 1,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 1,
+          "ELEVACION": 0,
+          "PLANTA": 0,
+          "UBICACION": 1,
+          "ESCALA": 3,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 2,
+        "firstLines": [
+          "A B A B A B A B",
+          "A A' B B' C D E A A' B B' C D E A A' B B' C D E A A' B B' C D E",
+          "7.00 7.00 7.00 7.00",
+          "1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65",
+          "0.15 0.15 0.15 0.15 0.15",
+          "0.15 0.15 0.15 0.15",
+          "6.70 1.80 1.80 2.35 0.60 6.70 6.70",
+          "9 0.15 0.15 9 9 0.15 0.15 9 9 0.15 0.15 9 9 0.15 0.15 9",
+          "1.40 1.40 1.40 1.40 1.40 1.40 1.40 1.40",
+          "1.40 1.40 1.40",
+          "1.55 1.55",
+          "1.75 1.75 1.75"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 1,
+          "ESTRUCTURA": 1,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 2,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 3,
+        "firstLines": [
+          "N.P.T.+3.30",
+          "N.P.T.+3.15",
+          "TECHO",
+          "N.P.T.+9.15",
+          "0.20",
+          "0.20 0.55",
+          "1.60 1.45",
+          "N.P.T.+0.00 N.P.T.+0.00",
+          "1.20 AZOTEA CTO. PLANCHADO PARRILLA TERRAZA 1.20",
+          "N.P.T.+6.15 N.P.T.+6.15 N.P.T.+6.15 N.P.T.+6.15",
+          "0.20 0.20 ELEVACIÓN CERCO",
+          "Esc: 1/50"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 1,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 1,
+          "PLANTA": 0,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 4,
+        "firstLines": [
+          ".15",
+          ".25",
+          "NIVEL DE TECHO (Tip.)",
+          "2Ø1/2\"",
+          "4Ø1/2\"+ 4Ø1/2\"+ 4Ø1/2\"+ .15",
+          "0.15 0.15 0.15",
+          "A A' B B' C D E 2Ø3/8\" 2Ø3/8\" 2Ø3/8\"",
+          ".30 .30",
+          "7.00",
+          ".35",
+          "2Ø1/2\"",
+          "Ø3/8\"@.15"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 1,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 1,
+          "ELEVACION": 0,
+          "PLANTA": 7,
+          "UBICACION": 0,
+          "ESCALA": 4,
+          "NIVEL": 4,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 5,
+        "firstLines": [
+          "A A' B B' C D E A A' B B' C D E",
+          "7.00 7.00",
+          "1.58 0.77 0.73 0.82 1.45 1.65 1.58 0.77 0.73 0.82 1.45 1.65",
+          "9 VA1(.15x.20) VA1(.15x.20) 9 9 9",
+          "VA1(.15x.20)",
+          "VA1(.15x.20)",
+          "1.40 1.40 1.40 1.40",
+          "LONGITUD DE TRASLAPE",
+          "1.) USO:",
+          "8' CB CB CA 8' 8' 8'",
+          "a) SOLO DONDE NO SE INDIQUE EXPRESAMENTE EN LOS PLANOS",
+          "Malla Ø3/8\"@.20 Sup. Malla Ø3/8\"@.20 Sup."
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 5,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 2,
+          "ELEVACION": 0,
+          "PLANTA": 1,
+          "UBICACION": 0,
+          "ESCALA": 4,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 6,
+        "firstLines": [
+          "A A' B B' C D E",
+          "7.00",
+          "1.58 0.77 0.73 0.82 1.45 1.65",
+          "PARAMETROS SISMO - RESISTENTES",
+          "9 9",
+          "- SISTEMA ESTRUCTURAL :",
+          "1.40 1.40",
+          "X-X MUROS DE ALBAÑILERÍA CONFINADA",
+          "Y-Y MUROS DE ALBAÑILERÍA CONFINADA",
+          "8' 8'",
+          "0.63 0.63 DETALLE TIPICO DE ESCALERA",
+          "- PERÍODO FUNDAMENTAL DE VIBRACIÓN :"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 2,
+          "SANITARIA": 1,
+          "ELECTRICA": 0,
+          "CORTE": 2,
+          "ELEVACION": 2,
+          "PLANTA": 3,
+          "UBICACION": 0,
+          "ESCALA": 3,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 7,
+        "firstLines": [
+          "LEYENDA RED DE DESAGÜE",
+          "ESPECIFICACIONES TECNICAS",
+          "SIMBOLO DESCRIPCION",
+          "RED DE DESAGUE PVC-SAP Ø 4\"",
+          "REJILLA PLUVIAL Ø3\" REJILLA PLUVIAL Ø3\"",
+          "REJILLA ANTIROEDORES REJILLA ANTIROEDORES RED DE DESAGUE PVC-SAP Ø 2\"",
+          "S-3\" S-3\"",
+          "TUBERIA DE VENTILACION Ø 2\" PVC- SAL",
+          "SUMIDERO",
+          "Evacuacion Pluvial Evacuacion Pluvial",
+          "Llega Montante Baja Montante",
+          "Ø3\" PVC - SAL Ø3\" PVC - SAL"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 1,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 2,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 3,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 8,
+        "firstLines": [
+          "LEYENDA RED DE DESAGÜE ESPECIFICACIONES TECNICAS",
+          "SIMBOLO DESCRIPCION",
+          "RED DE DESAGUE PVC-SAP Ø 4\"",
+          "RED DE DESAGUE PVC-SAP Ø 2\"",
+          "TUBERIA DE VENTILACION Ø 2\" PVC- SAL",
+          "SUMIDERO",
+          "Evacuacion Pluvial CAJA DE REGISTRO",
+          "Baja Montante",
+          "S= Ø3\" PVC - SAL",
+          "1% 1%",
+          "S=",
+          "REGISTRO ROSCADO DE BRONCE"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 1,
+          "ELECTRICA": 0,
+          "CORTE": 3,
+          "ELEVACION": 1,
+          "PLANTA": 3,
+          "UBICACION": 0,
+          "ESCALA": 4,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 9,
+        "firstLines": [
+          "LEYENDA RED DE DESAGÜE",
+          "ESPECIFICACIONES TECNICAS",
+          "SIMBOLO DESCRIPCION",
+          "PVC Ø1/2\"",
+          "RED DE DESAGUE PVC-SAP Ø 4\"",
+          "Punto para grifo",
+          "de riego RED DE DESAGUE PVC-SAP Ø 2\"",
+          "PVC Ø3/4\"",
+          "TUBERIA DE VENTILACION Ø 2\" PVC- SAL",
+          "SUMIDERO",
+          "CAJA DE REGISTRO",
+          "REGISTRO ROSCADO DE BRONCE"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 1,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 2,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 3,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 10,
+        "firstLines": [
+          "LEYENDA RED DE DESAGÜE ESPECIFICACIONES TECNICAS",
+          "SIMBOLO DESCRIPCION",
+          "RED DE DESAGUE PVC-SAP Ø 4\"",
+          "RED DE DESAGUE PVC-SAP Ø 2\"",
+          "TUBERIA DE VENTILACION Ø 2\" PVC- SAL",
+          "SUMIDERO",
+          "CAJA DE REGISTRO",
+          "REGISTRO ROSCADO DE BRONCE",
+          "\"Y\" SIMPLE",
+          "\"Y\" DOBLE",
+          "CODO 45°",
+          "S = 1% PENDIENTE DE LA TUBERIA"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 1,
+          "ELECTRICA": 0,
+          "CORTE": 3,
+          "ELEVACION": 1,
+          "PLANTA": 3,
+          "UBICACION": 0,
+          "ESCALA": 4,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 11,
+        "firstLines": [
+          "ESPECIFICACIONES TECNICAS",
+          "P 1.- Caracteristicas del Sistema Monofásico 2 hilos 220 voltios 60 Hz.cos. Ø= 0.9",
+          "j j",
+          "2.- El mínimo conductor THW y tubería PVC SAP a usar será de 2.5 mm - 15 mm Ø",
+          "Caja de paso para toda la tubería a empotrara en techo y/o piso será del tipo pesado (SAP) y la empotrada",
+          "salida cerco eléctrico",
+          "en pared del tipo liviana SEL",
+          "3.- Las cajas para interiores serán metálicas de características siguientes",
+          "Octogonales: Para salida de iluminación",
+          "P",
+          "Rectangulares: Para salida de interruptores, tomacorrientes, telef. interno",
+          "i i l l tv. y pulsador."
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 0,
+          "ELECTRICA": 2,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 2,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 12,
+        "firstLines": [
+          "ESPECIFICACIONES TECNICAS",
+          "1.- Caracteristicas del Sistema Monofásico 2 hilos 220 voltios 60 Hz.cos. Ø= 0.9",
+          "2.- El mínimo conductor THW y tubería PVC SAP a usar será de 2.5 mm - 15 mm Ø",
+          "toda la tubería a empotrara en techo y/o piso será del tipo pesado (SAP) y la empotrada",
+          "en pared del tipo liviana SEL",
+          "3.- Las cajas para interiores serán metálicas de características siguientes",
+          "Octogonales: Para salida de iluminación",
+          "Rectangulares: Para salida de interruptores, tomacorrientes, telef. interno",
+          "@",
+          "tv. y pulsador.",
+          "P Cuadradas: Para pase y/o empalme",
+          "4.- Los tomacorrientes monofásicos de baño serán del tipo con puesta a tierra y se conectarán"
+        ],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 0,
+          "ELECTRICA": 4,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 1,
+          "UBICACION": 0,
+          "ESCALA": 1,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      },
+      {
+        "page": 13,
+        "firstLines": [],
+        "keywords": {
+          "ARQUITECTURA": 0,
+          "ESTRUCTURA": 0,
+          "SANITARIA": 0,
+          "ELECTRICA": 0,
+          "CORTE": 0,
+          "ELEVACION": 0,
+          "PLANTA": 0,
+          "UBICACION": 0,
+          "ESCALA": 0,
+          "NIVEL": 0,
+          "REVISION": 0
+        }
+      }
+    ]
+  }
+]

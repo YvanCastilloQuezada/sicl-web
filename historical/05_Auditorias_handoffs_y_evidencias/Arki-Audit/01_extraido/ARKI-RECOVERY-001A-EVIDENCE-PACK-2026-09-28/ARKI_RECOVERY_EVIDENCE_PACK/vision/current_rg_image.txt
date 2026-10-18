@@ -1,0 +1,13 @@
+tests/test_drawing_block2.py:41:    assert not root.findall(".//s:image", ns)
+docs/learning/PHASE1_REPORT.md:35:Imagen archivada:
+docs/OPERATIONS_MANUAL.md:53:Cuando el repositorio tenga una imagen construida para el Core, el patrón operativo es:
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:998:| Kevin Lynch | Legibilidad e imagen urbana |
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:212:- **Raster:** PNG, JPEG, WEBP for renders, photorealism, image composition, textures, and photographic content.
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:31:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:41:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:31:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:41:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:51:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:61:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:71:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:151:| Fondo | Blanco | Paleta autorizada | Imagen/material PBR |

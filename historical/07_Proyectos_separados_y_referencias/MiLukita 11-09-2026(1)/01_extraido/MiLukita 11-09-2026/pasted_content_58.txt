@@ -1,0 +1,172 @@
+ORDEN 58 — LUKA AR
+GENERACIÓN DE SERVICIOS BACKEND / DOMAIN
+
+OBJETIVO
+
+Implementar o completar exclusivamente los servicios necesarios
+para gestionar assets y su relación con WorldObjects para LUKA AR.
+
+NO realizar frontend.
+
+============================================================
+1. PROHIBICIÓN FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX
+- CSS
+- layouts
+- páginas
+- componentes
+- UX
+- selector visual
+- botones.
+
+============================================================
+2. ASSET DOMAIN
+============================================================
+
+Implementar/completar dominio para:
+
+- asset
+- asset version
+- format
+- metadata
+- checksum
+- ownership
+- status
+- publication.
+
+Soportar cuando corresponda:
+
+GLB
+GLTF
+textures
+metadata.
+
+============================================================
+3. ASSET REGISTRY
+============================================================
+
+Crear/completar servicios para:
+
+- registerAsset
+- getAsset
+- updateAssetMetadata
+- createAssetVersion
+- archiveAsset
+- validateAsset.
+
+No duplicar registry existente.
+
+============================================================
+4. WORLD OBJECT ASSOCIATION
+============================================================
+
+Permitir relacionar:
+
+WORLD OBJECT
+
+con
+
+AR ASSET.
+
+Mantener separación:
+
+WORLD OBJECT DATA
+
+de
+
+AR PRESENTATION.
+
+============================================================
+5. VERSIONING
+============================================================
+
+Cada asset debe poder tener versiones.
+
+No destruir versiones anteriores.
+
+Registrar checksum.
+
+============================================================
+6. VALIDATION
+============================================================
+
+Validar:
+
+- formato
+- metadata
+- tamaño
+- checksum
+- referencia válida
+- asset existente
+- WorldObject existente.
+
+No asumir que un GLB es válido solamente porque tiene extensión .glb.
+
+============================================================
+7. PUBLICATION
+============================================================
+
+Un asset no debe ser visible en Runtime público hasta que la
+versión correspondiente haya sido autorizada/publicada según
+las reglas del sistema.
+
+Runtime solamente debe consumir la versión publicada.
+
+============================================================
+8. WORLD ENGINE
+============================================================
+
+Integrar con World Engine existente.
+
+NO crear un segundo sistema de publicación.
+
+============================================================
+9. API
+============================================================
+
+Completar servicios/procedures equivalentes a:
+
+registerAsset()
+getAsset()
+createAssetVersion()
+validateAsset()
+associateAsset()
+getPublishedAsset()
+archiveAsset()
+
+============================================================
+10. TESTS
+============================================================
+
+Tests para:
+
+- registration
+- metadata
+- checksum
+- versioning
+- association
+- invalid asset
+- unauthorized asset
+- publication
+- runtime filtering.
+
+============================================================
+11. MJP CORE
+============================================================
+
+NO modificar MJP CORE.
+
+============================================================
+12. ENTREGA
+============================================================
+
+Solo código backend/domain/persistencia/tests.
+
+NO frontend.
+
+FIN.

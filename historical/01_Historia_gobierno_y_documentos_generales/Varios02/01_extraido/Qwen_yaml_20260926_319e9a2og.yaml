@@ -1,0 +1,26 @@
+LEVEL_ID: L16
+NAME: "Coordinador de Especialistas"
+DEFINITION: "ARKI detecta sus límites y conecta con humanos expertos."
+INPUTS:
+  - project_context: "ProjectContext"
+  - unknowns: "list<Unknown>"
+OUTPUTS:
+  - specialist_requests: "list<SpecialistRequest>"
+  - brief_documents: "list<BriefDocument>"
+  - handoff_packages: "list<HandoffPackage>"
+CONTRACTS:
+  - "No certificar por especialistas"
+  - "Brief claro y completo"
+  - "Trazabilidad de handoff"
+RULES:
+  - "DL-04: HUMAN AUTHORITY"
+  - "E-05: DEMONSTRATION ≠ PROFESSIONAL VALIDATION"
+  - "Unknown taxonomy: SPECIALIST type"
+GATES:
+  - "GATE_L16_PASS: Solicitudes a especialistas generadas"
+EVIDENCE_REQUIRED:
+  - "Specialist request log"
+  - "Brief documents"
+  - "Handoff packages"
+  - "Specialist response tracking"
+CURRENT_STATUS: "DOCUMENTED_ONLY"

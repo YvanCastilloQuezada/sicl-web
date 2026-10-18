@@ -1,0 +1,684 @@
+============================================================
+ORDEN PARA MANUS
+LUKA — PORTAL COMPARTIBLE L★ v1.0
+GLOBAL SHARE QR / ACTIVE CONTEXT QR
+============================================================
+
+OBJETIVO
+------------------------------------------------------------
+
+Convertir el icono L★ ubicado permanentemente en la esquina
+superior izquierda de la interfaz móvil en un PORTAL GLOBAL
+DE LUKA.
+
+La finalidad principal es permitir que el usuario pueda
+mostrar el QR correspondiente a LUKA o a la experiencia
+actual EN CUALQUIER MOMENTO y DESDE CUALQUIER PANTALLA,
+mediante un simple toque sobre la L★.
+
+PRINCIPIO UX:
+
+"Toca la L★ y muestra el QR."
+
+La interacción debe ser inmediata.
+
+No crear un menú intermedio para el toque corto.
+
+============================================================
+1. L★ COMO ELEMENTO GLOBAL
+============================================================
+
+La L★ debe existir como elemento persistente/global del
+shell de la aplicación móvil.
+
+Debe permanecer disponible mientras el usuario navega
+por las experiencias compatibles.
+
+Ubicación:
+
+ESQUINA SUPERIOR IZQUIERDA.
+
+Debe respetar:
+
+- safe area;
+- notch;
+- status bar;
+- diferentes tamaños de pantalla;
+- orientación compatible;
+- accesibilidad táctil.
+
+No debe interferir con controles críticos de la pantalla.
+
+============================================================
+2. TOQUE CORTO — ACCESO DIRECTO AL QR
+============================================================
+
+Al realizar un TAP sobre L★:
+
+NO mostrar menú.
+
+NO pedir confirmación.
+
+NO abrir una pantalla intermedia.
+
+Mostrar inmediatamente el ACTIVE SHARE QR.
+
+Flujo:
+
+TAP L★
+   ↓
+RESOLVER CONTEXTO ACTUAL
+   ↓
+RESOLVER ACTIVE SHARE QR
+   ↓
+MOSTRAR QR
+
+Objetivo:
+
+El usuario debe poder mostrar el QR a otra persona
+en aproximadamente una acción.
+
+============================================================
+3. ACTIVE SHARE QR
+============================================================
+
+Crear el concepto:
+
+ACTIVE_SHARE_QR
+
+El sistema debe determinar automáticamente qué QR corresponde
+al contexto actual.
+
+Prioridad sugerida:
+
+1. QR contextual de una experiencia activa;
+2. QR de sesión compartible, si existe y está autorizado;
+3. QR público de LUKA.
+
+No hardcodear un único QR para toda la aplicación.
+
+El QR debe representar el destino que realmente corresponde
+al contexto.
+
+============================================================
+4. CASOS DE USO
+============================================================
+
+CASO A — LUKA GENERAL
+
+Si no existe una experiencia o sesión específica:
+
+L★
+→ QR PÚBLICO DE LUKA
+
+CASO B — EXPERIENCIA LUKA AR
+
+Si el usuario está dentro de una experiencia AR compartible:
+
+L★
+→ QR DE LA EXPERIENCIA ACTUAL
+
+CASO C — MAPPER
+
+Si existe una sesión de campo y el usuario está autorizado
+para compartirla:
+
+L★
+→ QR DE SESIÓN
+
+CASO D — THE EYE
+
+Si corresponde compartir una vista/experiencia permitida:
+
+L★
+→ QR CONTEXTUAL AUTORIZADO
+
+CASO E — LUKA TV
+
+L★
+→ QR DE LA EXPERIENCIA/ENTRADA PERMITIDA
+
+Nunca utilizar el QR para otorgar permisos administrativos.
+
+============================================================
+5. PANTALLA DEL QR
+============================================================
+
+Al mostrar el QR:
+
+- utilizar pantalla/modal de alta visibilidad;
+- mantener identidad visual LUKA;
+- mostrar L★;
+- QR grande;
+- contraste suficiente;
+- permitir lectura desde otro teléfono;
+- evitar animaciones excesivas;
+- mantener el QR estable.
+
+Texto contextual breve.
+
+Ejemplo:
+
+"Escanea para entrar a LUKA."
+
+Cuando corresponda:
+
+"Escanea para compartir esta experiencia."
+
+Para sesión:
+
+"Escanea para unirte a esta sesión."
+
+No utilizar un único texto genérico cuando el contexto
+requiera mayor precisión.
+
+============================================================
+6. CIERRE DEL QR
+============================================================
+
+El usuario debe poder cerrar el QR fácilmente.
+
+Al cerrar:
+
+REGRESAR EXACTAMENTE A LA PANTALLA ANTERIOR.
+
+No reiniciar:
+
+- sesión;
+- navegación;
+- estado de formulario;
+- captura;
+- reproducción;
+- experiencia AR;
+- estado del Copiloto.
+
+La apertura del QR debe ser una capa temporal sobre
+la experiencia actual.
+
+============================================================
+7. TOQUE LARGO — SHARE CENTER
+============================================================
+
+Implementar LONG PRESS sobre L★.
+
+El toque largo NO debe ejecutar inmediatamente una acción
+destructiva ni alterar la experiencia.
+
+Debe abrir:
+
+LUKA SHARE CENTER
+
+Opciones posibles:
+
+1. Mostrar QR actual
+2. Compartir enlace
+3. Copiar enlace
+4. Compartir LUKA
+5. Compartir experiencia actual
+6. Compartir sesión, cuando corresponda
+
+Mostrar únicamente las opciones válidas para el contexto.
+
+No mostrar opciones no autorizadas.
+
+============================================================
+8. QR PÚBLICO
+============================================================
+
+El QR público:
+
+- no debe contener credenciales;
+- no debe contener tokens privados;
+- no debe contener información personal;
+- no debe revelar información interna;
+- debe dirigir a una URL pública válida de LUKA.
+
+La URL puede resolver posteriormente el contexto
+correspondiente.
+
+============================================================
+9. QR CONTEXTUAL
+============================================================
+
+Los QR contextuales deben contener únicamente la información
+necesaria para resolver el destino.
+
+Preferir:
+
+OPAQUE IDENTIFIER
++
+TOKEN TEMPORAL cuando corresponda
+
+No incluir:
+
+- contraseñas;
+- JWT permanentes;
+- datos sensibles;
+- identificadores internos innecesarios;
+- información privada en texto claro.
+
+============================================================
+10. QR DE SESIÓN
+============================================================
+
+Cuando se comparta una CaptureSession:
+
+utilizar un mecanismo seguro de sesión compartible.
+
+Debe existir:
+
+- token opaco;
+- expiración;
+- revocación;
+- autorización;
+- identificación de sesión;
+- auditoría cuando corresponda.
+
+El QR de sesión NO debe equivaler a una credencial
+administrativa.
+
+Escanear el QR no debe otorgar:
+
+- rol MAPPER;
+- rol THE_EYE;
+- HUMAN_AUTHORITY;
+- ADMIN;
+- acceso al Controller Lab.
+
+============================================================
+11. SEGURIDAD
+============================================================
+
+El QR es un mecanismo de entrada/compartición,
+NO un mecanismo de autorización.
+
+Toda autorización debe continuar pasando por:
+
+AUTHENTICATION
++
+RBAC
++
+CAPABILITY CHECK
+
+El Copiloto tampoco puede utilizar el QR
+para saltarse estas restricciones.
+
+============================================================
+12. INTEGRACIÓN CON EL COPILOTO
+============================================================
+
+El Copiloto debe reconocer el Portal L★ como capacidad
+global de experiencia.
+
+Ejemplos:
+
+"LUKA, muéstrame el QR."
+
+→ Mostrar ACTIVE_SHARE_QR.
+
+"Comparte esto."
+
+→ Resolver el contexto actual.
+
+Si existen múltiples destinos posibles:
+
+"¿Quieres compartir LUKA o la sesión actual?"
+
+El Copiloto NO debe crear permisos que el usuario
+no posee.
+
+============================================================
+13. INTEGRACIÓN CON EL COPILOTO VISUAL
+============================================================
+
+Cuando el QR esté visible:
+
+el estado debe ser reconocible por el Copiloto.
+
+Ejemplo:
+
+COPILOT STATE:
+
+SHARE_QR_VISIBLE
+
+Esto permite posteriormente:
+
+"LUKA, cierra el QR."
+
+"LUKA, comparte el enlace."
+
+sin necesidad de crear una segunda arquitectura.
+
+============================================================
+14. ACCESIBILIDAD
+============================================================
+
+La L★ debe tener:
+
+- área táctil suficiente;
+- aria-label;
+- soporte para teclado cuando corresponda;
+- feedback de interacción;
+- compatibilidad con lectores de pantalla;
+- alternativa al long press.
+
+No depender exclusivamente del gesto.
+
+============================================================
+15. FEEDBACK
+============================================================
+
+Al tocar L★:
+
+feedback táctil/visual breve.
+
+Al abrir QR:
+
+transición rápida.
+
+No utilizar animaciones que retrasen la aparición
+del QR.
+
+La prioridad es VELOCIDAD DE COMPARTICIÓN.
+
+============================================================
+16. QR DINÁMICO
+============================================================
+
+No generar un QR visualmente diferente innecesariamente
+en cada render.
+
+Resolver el destino y generar/refrescar el QR solamente
+cuando corresponda.
+
+Si existe expiración:
+
+mostrar opcionalmente:
+
+"QR válido hasta HH:MM"
+
+o un indicador de vigencia.
+
+No mostrar información técnica innecesaria al usuario.
+
+============================================================
+17. COMPARTIR ENLACE
+============================================================
+
+Cuando el dispositivo lo permita:
+
+utilizar Web Share API / mecanismo nativo disponible.
+
+Fallback:
+
+COPIAR ENLACE.
+
+No bloquear el QR si Web Share no está disponible.
+
+============================================================
+18. CONTEXTO Y PRIORIDAD
+============================================================
+
+Crear una función conceptual:
+
+resolveActiveShareTarget()
+
+Debe devolver:
+
+- tipo de destino;
+- URL/destino;
+- contexto;
+- expiración cuando corresponda;
+- autorización;
+- texto de presentación.
+
+Ejemplo:
+
+ACTIVE_SHARE_TARGET
+
+type:
+PUBLIC_LUKA
+
+o:
+
+EXPERIENCE
+
+o:
+
+SESSION
+
+o:
+
+OTHER_ALLOWED_CONTEXT
+
+No hardcodear la lógica dentro del componente visual L★.
+
+============================================================
+19. ARQUITECTURA
+============================================================
+
+Separar:
+
+L★ UI
+        ↓
+Share Controller
+        ↓
+Active Share Resolver
+        ↓
+Context Adapter
+        ↓
+Authorization
+        ↓
+QR Generator
+        ↓
+Destination
+
+La UI L★ no debe contener toda la lógica.
+
+Esto permitirá reutilizar el sistema posteriormente
+en otras interfaces.
+
+============================================================
+20. MJP CORE
+============================================================
+
+MJP CORE permanece completamente protegido.
+
+Esta implementación NO debe modificar:
+
+- juegos;
+- RNG;
+- reglas;
+- RTP;
+- wallet;
+- liquidaciones;
+- MjpTvManifest;
+- autoridad de resultados;
+- autoridad financiera.
+
+LUKA TV podrá utilizar únicamente capacidades de TV
+expresamente autorizadas.
+
+El Portal L★ no debe proporcionar acceso indirecto
+a MJP CORE.
+
+============================================================
+21. NO HACER
+============================================================
+
+NO convertir el TAP en un menú.
+
+NO pedir confirmación para mostrar el QR.
+
+NO utilizar credenciales dentro del QR.
+
+NO utilizar tokens permanentes para sesiones.
+
+NO otorgar permisos mediante QR.
+
+NO permitir bypass de RBAC.
+
+NO permitir acceso administrativo mediante QR.
+
+NO modificar MJP CORE.
+
+NO inventar destinos inexistentes.
+
+NO mostrar como disponible una opción que el contexto
+actual no permite.
+
+============================================================
+22. TESTS
+============================================================
+
+Crear tests para:
+
+1. TAP L★.
+2. LONG PRESS L★.
+3. QR público.
+4. QR contextual.
+5. QR de experiencia.
+6. QR de sesión.
+7. sesión sin autorización.
+8. token expirado.
+9. token revocado.
+10. cierre del QR.
+11. regreso al estado anterior.
+12. offline.
+13. ausencia de Web Share.
+14. fallback copiar enlace.
+15. navegación entre módulos.
+16. permisos.
+17. RBAC.
+18. accesibilidad.
+19. responsive/mobile.
+20. persistencia de estado de la experiencia.
+
+============================================================
+23. VALIDACIÓN REAL
+============================================================
+
+Diferenciar:
+
+VALIDACIÓN TÉCNICA
+
+de
+
+VALIDACIÓN FÍSICA.
+
+Validación física:
+
+- Android real;
+- iPhone/iOS real cuando corresponda;
+- lectura del QR desde otro teléfono;
+- diferentes niveles de brillo;
+- diferentes distancias;
+- diferentes tamaños de pantalla;
+- conexión ONLINE;
+- conexión OFFLINE;
+- QR expirado;
+- QR de sesión.
+
+Hasta realizar estas pruebas:
+
+PHYSICAL_VALIDATION = EXTERNAL_REQUIRED
+
+============================================================
+24. REPORTE DE MANUS
+============================================================
+
+Al finalizar entregar:
+
+A. archivos creados/modificados;
+B. componente L★;
+C. Share Controller;
+D. Active Share Resolver;
+E. QR Generator;
+F. tipos de QR implementados;
+G. seguridad;
+H. RBAC;
+I. Copiloto;
+J. tests;
+K. resultados;
+L. limitaciones;
+M. validación física pendiente;
+N. confirmación de MJP CORE intacto.
+
+Utilizar únicamente:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+
+No declarar:
+
+100%
+READY
+PRODUCTION READY
+
+sin evidencia.
+
+============================================================
+25. CRITERIO DE ACEPTACIÓN
+============================================================
+
+La funcionalidad se considera IMPLEMENTED cuando:
+
+1. L★ está disponible globalmente;
+2. TAP muestra inmediatamente el QR;
+3. no existe menú intermedio en TAP;
+4. el QR corresponde al contexto actual;
+5. existe fallback al QR público;
+6. LONG PRESS abre Share Center;
+7. existen controles de seguridad;
+8. QR de sesión utiliza mecanismo temporal/revocable;
+9. QR no otorga privilegios;
+10. el estado anterior se conserva;
+11. funciona sin Web Share mediante fallback;
+12. está integrado con Copiloto;
+13. existen tests;
+14. no existen capacidades simuladas presentadas como reales;
+15. MJP CORE permanece intacto.
+
+============================================================
+RESULTADO UX DESEADO
+============================================================
+
+El comportamiento debe poder resumirse en una sola frase:
+
+"Si quieres compartir LUKA, toca la L★."
+
+============================================================
+FIN DE ORDEN
+============================================================
+Mi recomendación final
+
+Hay una idea de fondo aquí que me parece más importante que el QR mismo:
+
+L★ puede convertirse en el "botón universal de presencia" de LUKA.
+
+No solamente:
+
+QR.
+
+Sino:
+
+L★ = "Aquí está LUKA."
+
+Y dependiendo del contexto:
+
+muestra el QR;
+comparte la experiencia;
+comparte una sesión autorizada;
+permite entrar al mundo LUKA;
+eventualmente puede abrir el Copiloto;
+eventualmente puede mostrar información contextual.
+
+Pero el toque corto debe seguir siendo brutalmente simple: L★ → QR.
+
+No metería ahora más funciones en ese botón. Primero hagamos que ese comportamiento sea impecable. Después podremos convertir el long press en el verdadero centro de compartición de LUKA.

@@ -1,0 +1,54 @@
+code,name,coverage,result,evidence,limit
+C1,Spatial Syntax,CROSS_DOMAIN_TEST,PASS_WITH_OBSERVATIONS,ORION cold assessment for Spatial Syntax.,
+C2,Program + Circulation,CROSS_DOMAIN_TEST,PASS_WITH_OBSERVATIONS,ORION cold assessment for Program + Circulation.,
+C3,Thermal,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Thermal.,Professional/runtime evidence unavailable; no solver or certification claim.
+C4,Daylight + Acoustics,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Daylight + Acoustics.,Professional/runtime evidence unavailable; no solver or certification claim.
+C5,Normative,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Normative.,Professional/runtime evidence unavailable; no solver or certification claim.
+C6,Structures,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Structures.,Professional/runtime evidence unavailable; no solver or certification claim.
+C7,MEP,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for MEP.,Professional/runtime evidence unavailable; no solver or certification claim.
+C8,Construction,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Construction.,
+C9,LCA/LCC,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for LCA/LCC.,
+C10,Technical Dossier,CROSS_DOMAIN_TEST,PASS_WITH_OBSERVATIONS,ORION cold assessment for Technical Dossier.,
+C11,Shape Grammars,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Shape Grammars.,
+C12,Topology Optimization,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Topology Optimization.,
+C13,NSGA-II,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for NSGA-II.,
+C14,Monte Carlo,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Monte Carlo.,
+C15,Genetic Layout,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Genetic Layout.,
+C16,Simulated Annealing,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Simulated Annealing.,
+C17,CFD,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for CFD.,Professional/runtime evidence unavailable; no solver or certification claim.
+C18,FDS,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for FDS.,Professional/runtime evidence unavailable; no solver or certification claim.
+C19,EnergyPlus,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for EnergyPlus.,Professional/runtime evidence unavailable; no solver or certification claim.
+C20,Radiance,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Radiance.,Professional/runtime evidence unavailable; no solver or certification claim.
+C21,WUFI,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for WUFI.,Professional/runtime evidence unavailable; no solver or certification claim.
+C22,OpenFOAM,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for OpenFOAM.,Professional/runtime evidence unavailable; no solver or certification claim.
+C23,As-Built + Commissioning,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for As-Built + Commissioning.,Professional/runtime evidence unavailable; no solver or certification claim.
+C24,Predictive O&M,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Predictive O&M.,Professional/runtime evidence unavailable; no solver or certification claim.
+C25,Decarbonization,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Decarbonization.,Professional/runtime evidence unavailable; no solver or certification claim.
+C26,Circular Economy,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Circular Economy.,Professional/runtime evidence unavailable; no solver or certification claim.
+C27,Pattern Language,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Pattern Language.,
+C28,Typology Recognition,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Typology Recognition.,
+C29,Formal Reasoning,CROSS_DOMAIN_TEST,PASS_WITH_OBSERVATIONS,ORION cold assessment for Formal Reasoning.,
+C30,Avatar,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Avatar.,
+C31,Luka Vision/OCR,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Luka Vision/OCR.,
+C32,Contextual Guide,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Contextual Guide.,
+C33,AR/WebXR,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for AR/WebXR.,
+C34,Revit,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Revit.,
+C35,DWG/DXF,DIRECT_TEST,PASS_WITH_OBSERVATIONS,ACIR real-reader boundary: CAD fact only; semantic promotion prohibited.,
+C36,Point Cloud,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Point Cloud.,
+C37,IFC4x3,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for IFC4x3.,
+C38,gbXML,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for gbXML.,
+C39,Multiuser,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Multiuser.,
+C40,BCF,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for BCF.,
+C41,CDE,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for CDE.,
+C42,PKI,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for PKI.,
+C43,Tamper-Evident Audit,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Tamper-Evident Audit.,
+C44,Dashboard,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Dashboard.,
+C45,Prediction,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Prediction.,
+C46,Benchmark,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Benchmark.,
+C47,Machine Learning,CROSS_DOMAIN_TEST,PARTIAL,ORION cold assessment for Machine Learning.,
+C48,LEED,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for LEED.,Professional/runtime evidence unavailable; no solver or certification claim.
+C49,EDGE,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for EDGE.,Professional/runtime evidence unavailable; no solver or certification claim.
+C50,BREEAM,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for BREEAM.,Professional/runtime evidence unavailable; no solver or certification claim.
+C51,WELL,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for WELL.,Professional/runtime evidence unavailable; no solver or certification claim.
+C52,Passive House,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Passive House.,Professional/runtime evidence unavailable; no solver or certification claim.
+C53,Net Zero Certifications,CROSS_DOMAIN_TEST,BLOCKED,ORION cold assessment for Net Zero Certifications.,Professional/runtime evidence unavailable; no solver or certification claim.

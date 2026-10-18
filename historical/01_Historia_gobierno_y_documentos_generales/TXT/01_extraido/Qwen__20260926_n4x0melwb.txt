@@ -1,0 +1,19 @@
+PASO 1: Canonicalización de ciclos
+  Contrato: ✅ REDACTADO
+  Tests CP-01 a CP-07: ✅ REDACTADOS (TDD, deben fallar)
+  Implementación: ⏳ PENDIENTE (surge del fallo de tests)
+
+PASO 1b: Resolución F-1
+  Contrato: ✅ REDACTADO
+  Tests CF-1-01 a CF-1-03: ✅ REDACTADOS (TDD, deben fallar)
+  Implementación: ⏳ PENDIENTE (surge del fallo de tests)
+
+PASO 2: Red Team final H-002
+  Especificación 10 ataques: ✅ REDACTADA
+  Ejecución: ⏳ PENDIENTE (DeepSeek como atacante independiente)
+
+PASO 3: F-1 cerrado
+  Estado: ⏳ BLOQUEADO hasta PASS de CF-1-01 a CF-1-03
+
+PASO 4: H-003
+  Estado: 🔒 BLOQUEADO hasta PASO 1 + 2 + 3 completados

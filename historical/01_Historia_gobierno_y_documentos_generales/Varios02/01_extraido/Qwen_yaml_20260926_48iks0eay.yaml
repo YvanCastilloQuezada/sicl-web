@@ -1,0 +1,29 @@
+LEVEL_ID: L07
+NAME: "Generador de Estrategias"
+DEFINITION: "ARKI propone familias de estrategias (no soluciones únicas)."
+INPUTS:
+  - deficits: "list<Deficit>"
+  - causes: "list<Cause>"
+  - design_freedom: "DesignFreedomMap"
+OUTPUTS:
+  - strategy_families: "list<StrategyFamily>"
+  - strategy_instances: "list<Strategy>"
+  - expected_effects: "list<ExpectedEffect>"
+CONTRACTS:
+  - "STRATEGY ≠ TEMPLATE"
+  - "STRATEGY ≠ REALIZATION"
+  - "Mínimo 2 familias de estrategias genuinamente distintas"
+  - "Variantes paramétricas ≠ diversidad estratégica"
+RULES:
+  - "INV6-003: DEFICIT ≠ CAUSE ≠ STRATEGY ≠ SOLUTION"
+  - "INV6-004: STRATEGY ≠ TEMPLATE"
+  - "AC-04: Strategy diversity (≥2 families)"
+  - "Design Strategy Families: SPATIAL, TOPOLOGICAL, ALLOCATIVE, TEMPORAL, CONTROL, RESOURCE, TECHNICAL, EXTERNAL, HYBRID"
+GATES:
+  - "GATE_L07_PASS: Familias de estrategias generadas con diversidad"
+EVIDENCE_REQUIRED:
+  - "Strategy family definitions"
+  - "Strategy instances with rationale"
+  - "Expected effects (benefits, costs, risks)"
+  - "Diversity verification"
+CURRENT_STATUS: "RESEARCHED"

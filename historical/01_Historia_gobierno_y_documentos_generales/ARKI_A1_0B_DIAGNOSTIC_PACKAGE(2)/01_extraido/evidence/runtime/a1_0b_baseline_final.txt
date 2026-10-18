@@ -1,0 +1,34 @@
+UTC=2026-09-25T00:49:05Z
+REPOSITORY=/home/ubuntu/sicl-web
+BRANCH=feature/arki-native-generator-v1
+HEAD=69ff2ad2f7537dd5b752ec8dce90f7c27d5ec3f6
+STATUS=
+[31m??[m docs/arki-ui-governance-001/A0/06_UI_ACTION_REGISTRY.json
+[31m??[m docs/arki-ui-governance-001/A0/ARKI_UI_GOVERNANCE_A0_R2.zip
+[31m??[m docs/arki-ui-governance-001/A0/ARKI_UI_GOVERNANCE_A0_R3.zip
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/ARKI_COMPLETE_CONTACT_SHEET.pdf
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/
+[31m??[m docs/arki-ui-governance-001/A1/
+[31m??[m outputs/atril_colegio_biologos_doble_helice_unica.png
+[31m??[m outputs/atril_colegio_biologos_perspectiva.png
+[31m??[m outputs/atril_colegio_biologos_perspectiva_v2.png
+[31m??[m outputs/atril_colegio_biologos_vista_lateral.png
+[31m??[m outputs/atril_colegio_biologos_vista_lateral_v2.png
+[31m??[m outputs/colegio_biologos_implantacion_aerea.png
+[31m??[m outputs/colegio_biologos_parque_cientifico.png
+[31m??[m outputs/colegio_biologos_parque_con_escultura_adn.png
+[31m??[m outputs/colegio_biologos_perspectiva_institucional.png
+[31m??[m outputs/doble_helice_posmodernista_posfuturista_hd.png
+[31m??[m scripts/a1_trace_source_build.py
+[31m??[m scripts/create_a1_0_deliverables.py
+PROCESSES=
+793586 node dist/index.js
+828478 node dist/index.js
+PORT_4001=
+LISTEN 0      511                *:4001             *:*    users:(("node",pid=828478,fd=28))        
+BUILD_ID=
+7dffcfe9caa1e3e4a879034984ac5ba7d8b8074e2aeb58c6a7dac00bce449f47  dist/public/index.html
+RUNTIME_ENTRY=
+aa5b19b915b24dfcfcacf13137b77ca341e66d2d2292801dd2e3119947291ffc  dist/index.js
+PRODUCT_DIFF=
+DIFF_CHECK=

@@ -1,0 +1,17 @@
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33md5df55c[m feat(d2.2r): resolve material architectural model findings
+[33m4d932c2[m feat(arkidraw): add deterministic drawing primitives and SVG export
+[33mac240d5[m docs(governance): declare patched baseline and preserve orders
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mf8ec89b[m feat(vsm): add weekly master registry and detector
+[33md740892[m docs(rfc-037): add weekly master surveillance
+[33m2de6011[m feat(rfc-030): architectural drawing generation foundation
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m09449fc[m docs: close multisource knowledge macroorder
+[33m1551851[m feat: add multisource design knowledge pilot
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m3fa1387[m docs: add complete project handover
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+[33md60f3a5[m feat: add RNE RM verifier and E030 human review

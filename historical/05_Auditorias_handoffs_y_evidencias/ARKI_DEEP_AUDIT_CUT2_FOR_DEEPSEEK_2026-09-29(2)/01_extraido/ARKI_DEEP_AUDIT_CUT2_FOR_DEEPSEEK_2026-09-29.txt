@@ -1,0 +1,403 @@
+ARKI / ARQUI — AUDITORÍA PROFUNDA, CORTE 2
+ADDENDUM FORENSE PARA DEEPSEEK
+Fecha: 2026-09-29
+Modo: READ-ONLY / NO IMPLEMENTACIÓN
+
+BASELINE CONTINÚA:
+sicl-core/main = 71e72bb1abfb217bf4854f464ae443764281f469
+sicl-web/main = 69ff2ad2f7537dd5b752ec8dce90f7c27d5ec3f6
+
+OBJETIVO DE ESTE CORTE
+Resolver tres dudas del corte 1:
+1) si las ramas ARKI-DRAW Block2 y CASE-001 contienen trabajo no consolidado;
+2) cómo funciona realmente el event log/persistencia disponible para reasoning-executions;
+3) si conviene crear un microcaso nuevo o reutilizar CASE-001.
+
+======================================================================
+A. ARKI-DRAW BLOCK 2: LA RAMA DIVERGENTE NO SIGNIFICA QUE MAIN CAREZCA DEL ADAPTER
+======================================================================
+
+La comparación de rama había mostrado:
+feat/arkidraw-block2-scene-adapter = diverged, 2 ahead / 4 behind.
+
+Sin embargo, inspección directa de main confirma que main YA contiene:
+- src/sicl/drawing/scene_adapter.py
+- tests/test_drawing_block2.py
+- docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md
+
+El scene_adapter de main está incluso endurecido respecto al blob de la rama:
+- valida semantic_role == entity.role
+- valida operación CUT_PROJECTION vs BELOW_CUT_PROJECTION
+- falla cerrado ante contradicciones de trace.
+- mantiene GraphicScene como única autoridad gráfica.
+- no inspecciona D-2 directamente.
+- no duplica ARE projection.
+- no fabrica door swing, hatch, labels ni dimensions.
+
+CONCLUSIÓN:
+NO hay que "rescatar" ciegamente la rama Block2.
+Main ya contiene la capacidad.
+La rama debe considerarse HISTORICAL/DIVERGED hasta demostrar un delta útil no presente en main.
+
+Esto reduce el supuesto gap de consolidación del corte 1.
+
+======================================================================
+B. CASE-001: TRABAJO REAL NO PRESENTE EN MAIN
+======================================================================
+
+feat/arki-case-001-controlled-house:
+- 1 commit ahead de main
+- 0 behind
+- agrega únicamente:
+  artifacts/arki-case-001/ARKI_CASE_001_BASE.svg
+  artifacts/arki-case-001/ARKI_CASE_001_MUTATED.svg
+  artifacts/arki-case-001/ARKI_CASE_001_EVIDENCE.json
+  artifacts/arki-case-001/ARKI_CASE_001_TRACEABILITY.json
+  docs/cases/ARKI_CASE_001_REPORT.md
+  scripts/arki_case_001.py
+  tests/test_case_001.py
+
+No modifica el kernel.
+
+El caso construye un fixture D-2 explícito:
+- SITE 1
+- SPACE 6
+- WALL 12
+- DOOR 5
+- WINDOW 4
+- total 28 elementos
+
+Cadena del caso:
+D-2 fixture
+→ project_architectural_plan
+→ GraphicScene
+→ graphic_scene_to_svg
+→ SVG vectorial
+
+Además:
+- muta controladamente WALL W07 +600 mm en X
+- verifica que cambia el SVG
+- preserva identidad de elementos no afectados
+- produce trazabilidad D2 element → GraphicEntity → primitive → SVG
+- audita ausencia de elementos gráficos no soportados.
+
+El reporte histórico de esa rama declara suites verdes en su baseline de ejecución.
+Eso es evidencia histórica de la rama, NO prueba de que main actual esté verde.
+Main actual sigue teniendo el problema reportlab observado en CI.
+
+CONCLUSIÓN:
+CASE-001 es valioso y debe REUTILIZARSE como fixture downstream D-2→representación.
+NO sustituye el nuevo microcaso upstream Brain→D6.2→PARTI→D6.3→DeveloperProposal→D-2.
+
+RECOMENDACIÓN:
+No crear dos casos independientes.
+Crear MICROCASE-DEV-001 como prefijo upstream y, una vez promovido a D-2, alimentar la misma infraestructura de proyección/Draw que CASE-001 ya prueba.
+CASE-001 queda como regression fixture de representación.
+
+======================================================================
+C. EVENT LOG REAL EN SICL-CORE
+======================================================================
+
+src/sicl/repository.py confirma SQLiteRepository.
+
+Tabla events real:
+- id INTEGER PRIMARY KEY AUTOINCREMENT
+- timestamp TEXT
+- project_id TEXT
+- type TEXT
+- payload TEXT
+- actor TEXT
+- source TEXT DEFAULT USER_COMMAND
+
+Hay triggers:
+- events_no_update
+- events_no_delete
+
+Por tanto events es append-only a nivel SQLite.
+
+Métodos reales:
+- add_event(event): inserta y commit
+- _insert_event(event)
+- add_events_atomic(events): batch all-or-zero
+- events(project_id=None): lectura ordenada por id.
+
+Event real en src/sicl/domain.py:
+- id
+- timestamp
+- project_id
+- type
+- payload: dict
+- actor
+- source.
+
+GET /v1/projects/{project_id}/history:
+- verifica proyecto vía snapshot
+- devuelve repo.events(project_id).
+
+ESTO CORRIGE UNA PARTE DE LA PROPUESTA DE DEEPSEEK:
+Sí existe infraestructura de event log append-only y puede reutilizarse.
+Pero no existe actualmente un método semántico específico
+insert_reasoning_execution_and_event ni una tabla reasoning_executions.
+
+Por tanto NO debe decirse que "reasoning execution ya tiene persistencia canónica".
+Existe un event log genérico capaz de registrar el evento; falta definir el contrato semántico del payload y su relación con snapshot/version.
+
+======================================================================
+D. PROBLEMA DE VERSIONADO DEL ENDPOINT PROPUESTO
+======================================================================
+
+DeepSeek propuso:
+POST /v1/projects/{project_id}/reasoning-executions
+request.observed_version = N
+response.observed_version = N+1
+
+Eso NO está todavía justificado por el repositorio.
+
+Hecho observado:
+repo.add_event() inserta evento y hace commit, pero por sí solo NO incrementa project.version.
+
+En otros writes canónicos:
+- preference crea entidad
+- incrementa project.version
+- persiste entidad + evento de forma coordinada.
+
+Human review y decision pasan por CLI y la semántica de mutación del proyecto.
+
+Por tanto un endpoint reasoning-executions no debe prometer N→N+1 sólo porque añade un Event.
+
+DECISIÓN TÉCNICA A RESOLVER:
+¿ReasoningExecution es:
+A) evidencia/evento append-only que NO muta project snapshot/version;
+o
+B) entidad canónica proyectada en snapshot que SÍ debe versionar proyecto?
+
+Mi recomendación técnica:
+Para Brain/D6.2/D6.3, tratarlos como REASONING EVIDENCE / PROPOSAL HISTORY, no como arquitectura canónica.
+El endpoint puede registrar un evento append-only y devolver el observed project version sin incrementarlo, salvo que se cree explícitamente una proyección de reasoning dentro del Project Snapshot.
+
+No crear una tabla nueva sólo para forzar versión.
+
+======================================================================
+E. CONTRATO MÍNIMO RECOMENDADO PARA reasoning-executions
+======================================================================
+
+Antes de código, contrato sugerido:
+
+POST /v1/projects/{project_id}/reasoning-executions
+
+Payload:
+{
+  execution_id: stable fingerprint/id,
+  kind: PROJECT_BRAIN | D6_2 | D6_3 | DEVELOPER_PROPOSAL,
+  fingerprint: sha256,
+  input_fingerprint: sha256 | null,
+  payload: {...},
+  epistemic_status: FACT | ASSUMPTION | HYPOTHESIS | UNKNOWN | CONFLICT,
+  human_authority_ref: {...} | null,
+  source_refs: [...],
+  created_at: ISO timestamp
+}
+
+Persistencia mínima:
+Event(
+  type="REASONING_EXECUTION_RECORDED",
+  payload=<validated envelope>,
+  actor=<explicit actor>,
+  source="ARKI_REASONING"
+)
+
+Invariantes:
+- project debe existir.
+- execution_id/fingerprint obligatorios.
+- kind allowlist.
+- payload no puede afirmar D-2 commit.
+- D6.3 se registra HYPOTHESIS.
+- DeveloperProposal se registra PROPOSAL/HYPOTHESIS.
+- no promoción automática.
+- no Human Decision implícita.
+- event append-only.
+- history permite replay/auditoría.
+- observed_version refleja versión real del proyecto; no inventar +1.
+
+FUTURO:
+Si se necesita query eficiente por execution_id/kind, puede añadirse proyección/índice después. No es requisito para cerrar el primer E2E.
+
+======================================================================
+F. D-2 NO ESTÁ EXPUESTO POR HTTP: IMPLICACIÓN PARA DeveloperPromotion
+======================================================================
+
+El corte 1 ya encontró que las capacidades D-2/transaction existen internamente pero no tienen endpoint HTTP observado en v1.py.
+
+Por tanto crear en sicl-web:
+arkiDeveloperPromotion.ts
+que pretenda hacer
+Developer → HumanReview → A002 → ArchiTransaction
+vía HTTP
+sería prematuro si el core no expone la operación.
+
+Arquitectura recomendada:
+
+WEB:
+Brain / D6.2 / PARTI / D6.3
+→ DeveloperProposal (proposal only)
+→ HTTP proposal/reasoning event
+
+CORE:
+recibe proposal
+→ Human Review
+→ promoción controlada
+→ A002
+→ ArchiTransaction
+→ D-2
+
+Es decir:
+LA MUTACIÓN D-2 DEBE SER OWNED BY CORE.
+
+No poner ArchiTransaction emulado en TypeScript.
+No duplicar A002 en web.
+No serializar una "falsa D-2 transaction" desde frontend.
+
+======================================================================
+G. CORRECCIÓN AL CONTRATO DE DEEPSEEK
+======================================================================
+
+DeepSeek propone proposedElements: [...ArchiElement] y proposedRelationships: [...TypedRelation].
+
+Precisión necesaria:
+El Developer en TypeScript NO debe afirmar que sus objetos SON las dataclasses Python ArchiElement/TypedRelation del core.
+Debe producir DTOs de propuesta compatibles/validables por un endpoint del core.
+
+Nombre recomendado:
+ProposedArchiElementDTO
+ProposedArchiRelationDTO
+ProposedDerivationDTO
+
+El core:
+- valida schema
+- convierte a tipos internos
+- ejecuta suficiencia/transacción
+- sólo entonces crea/muta D-2.
+
+Esto evita type drift silencioso entre TypeScript y Python.
+
+======================================================================
+H. MICROCASO DE DEEPSEEK: AÚN FABRICA GEOMETRÍA
+======================================================================
+
+DeepSeek corrigió varias reglas inventadas, pero su output esperado todavía propone:
+
+- SPACE local comercial rectángulo 7×7
+- SPACE baño rectángulo 1.7×1.7
+- WALL entre zonas
+- DOOR entrada
+- DOOR baño
+
+El encargo que él mismo define sólo proporciona:
+- local area = 50
+- baño area = 3
+- site 10×10
+- relación CONNECTED
+- flow entrada→local→baño.
+
+De 50 m² NO se deriva 7×7 (49 m²).
+De 3 m² NO se deriva 1.7×1.7 (2.89 m²).
+No hay evidencia para la posición exacta del muro.
+CONNECTED no define por sí solo una puerta geométrica exacta.
+"entrada" en flow no aporta ancho/posición de puerta.
+
+Por tanto el microcaso propuesto TODAVÍA VIOLA la regla fail-closed si esos tamaños/elementos se tratan como output derivado.
+
+CORRECCIÓN:
+El microcaso debe aportar explícitamente geometría si el objetivo es probar transformación, o mantenerla UNKNOWN si el objetivo es probar reasoning.
+
+Opción recomendada para MICROCASE-DEV-001:
+INPUT EXPLÍCITO:
+- site 10m×10m
+- zona venta: rectangle 0,0, 5m×10m = 50m²
+- zona baño: rectangle explícito 5m,0, 1.5m×2m = 3m²
+- boundary entre ambas: explícito si se desea generar WALL
+- opening location/width: UNKNOWN
+
+Entonces Developer puede proponer SPACE geometry con provenance directa.
+WALL sólo si boundary semantics y dimensiones son suficientes.
+DOOR debe quedar UNKNOWN hasta que ubicación/ancho/host estén explícitos o derivados por una regla autorizada.
+
+Esto prueba que ARKI NO inventa.
+
+======================================================================
+I. LAS 6 "DECISIONES DE YVAN" NO SON 6 DECISIONES ARQUITECTÓNICAS
+======================================================================
+
+Clasificación:
+
+D1 tocar core para endpoint reasoning-executions:
+DECISIÓN TÉCNICA/ARQUITECTURA SOFTWARE.
+No requiere juicio arquitectónico de Yvan si se mantiene canon y trazabilidad.
+
+D2 corregir G12 falso:
+CORRECCIÓN DE VERACIDAD.
+Debe hacerse. No es preferencia humana.
+
+D3 quitar canonical:true de D6.3:
+CORRECCIÓN DE OWNERSHIP/CANON.
+Debe hacerse si D-2 es único estado arquitectónico canónico.
+
+D4 formalizar ownership map:
+DOCUMENTACIÓN DE ARQUITECTURA SOFTWARE.
+Debe hacerse.
+
+D5 arreglar CI reportlab:
+MANTENIMIENTO TÉCNICO.
+Debe hacerse.
+
+D6 microcaso ultra-mínimo:
+ELECCIÓN DE ESTRATEGIA DE PRUEBA.
+Puede decidirla el equipo técnico mientras no cambie el método arquitectónico.
+
+Yvan sólo debe intervenir si:
+- una decisión cambia el modelo cognitivo de ARKI;
+- una propuesta se promueve como Human Decision;
+- se elige arquitectura/diseño;
+- se altera una regla canónica que él haya establecido;
+- hay tradeoff de producto que sólo él puede aceptar.
+
+======================================================================
+J. NUEVO ORDEN DE TRABAJO RECOMENDADO
+======================================================================
+
+1. Fix CI dependency contract (reportlab) y obtener baseline verificable.
+2. Corregir D6.3:
+   - G12 no puede ser PASS mientras haya hardcoding.
+   - eliminar canonical:true como autoridad arquitectónica.
+3. Implementar/validar endpoint mínimo reasoning-executions sobre event log existente.
+4. Contract test sicl-web ↔ sicl-core.
+5. Developer sólo produce Proposal DTO.
+6. Implementar endpoint/core service de promoción a D-2 reutilizando:
+   HumanReview + A002 + ArchiTransaction + H001-H005.
+7. MICROCASE-DEV-001 con inputs geométricos explícitos y UNKNOWN real.
+8. Promover a D-2.
+9. Reutilizar ARE/ARKI-DRAW main para SVG.
+10. Mantener CASE-001 como regression fixture downstream.
+11. Sólo después ampliar complejidad.
+
+======================================================================
+K. INSTRUCCIÓN PARA DEEPSEEK
+======================================================================
+
+DeepSeek:
+
+Ajusta tu respuesta anterior con este Corte 2.
+
+En particular:
+1. No trates feat/arkidraw-block2-scene-adapter como código que haya que rescatar sin más; main ya contiene scene_adapter y tests endurecidos.
+2. Reutiliza CASE-001 como evidencia downstream; no lo confundas con el microcaso upstream del Developer.
+3. No prometas observed_version N+1 por insertar un Event. Demuestra primero la semántica de versionado.
+4. No implementes ArchiTransaction/A002 en TypeScript.
+5. Developer produce DTO de propuesta; Core valida y convierte.
+6. Corrige tu microcaso: 7×7 y 1.7×1.7 no se derivan de 50 y 3 m² y son fabricación.
+7. No pidas a Yvan seis decisiones técnicas rutinarias.
+8. Devuelve un plan de implementación por commits pequeños y tests, con cada modificación asignada a sicl-web o sicl-core.
+9. Mantén Human Authority final.
+10. No programes todavía si falta resolver un contrato real; especifica primero el contrato exacto.
+
+FIN CORTE 2

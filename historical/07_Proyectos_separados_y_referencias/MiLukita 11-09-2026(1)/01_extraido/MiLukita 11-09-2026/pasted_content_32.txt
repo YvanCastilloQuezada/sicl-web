@@ -1,0 +1,370 @@
+ORDEN DEFINITIVA PARA MANUS — FASE DE ROBUSTECIMIENTO DEL WORLD ENGINE
+
+ORDEN: IMPLEMENTAR SNAPSHOTS HISTÓRICOS + SINCRONIZACIÓN OFFLINE CONTROLADA + PRUEBA E2E MAPPER → THE EYE → RUNTIME
+
+Motivo
+
+MiLukita necesita transformar información del mundo real en conocimiento territorial confiable. La arquitectura actual ya dispone de CaptureSession, edición/versionado de WorldObject, filtros y auditoría.
+
+Antes de construir la interfaz definitiva y comenzar la captura territorial real, debemos cerrar tres garantías:
+
+1. Podemos reconstruir exactamente qué ocurrió.
+2. Podemos capturar en campo aunque la conectividad sea limitada.
+3. Podemos demostrar automáticamente que ningún dato no autorizado llega al Runtime público.
+
+Esta fase no busca agregar funcionalidades ornamentales. Busca convertir el sistema actual en una infraestructura confiable de producción.
+
+1. SNAPSHOTS HISTÓRICOS COMPLETOS
+
+Implementar un mecanismo de snapshots inmutables para WorldObject.
+
+Requisitos
+
+Cada modificación relevante debe generar una nueva versión/snapshot que permita reconstruir el estado completo del objeto en ese momento.
+
+El snapshot debe conservar, cuando corresponda:
+
+identidad del WorldObject;
+geometría/coordenadas;
+precisión GPS;
+tipo;
+nombre;
+Claims;
+Sources;
+Evidence;
+Assets asociados;
+estado de verificación;
+estado de publicación;
+confidence_score;
+usuario responsable;
+fecha/hora;
+número de versión;
+relación con CaptureSession.
+Reglas
+Los snapshots históricos NO deben modificarse.
+Una nueva edición genera una nueva versión.
+Debe ser posible consultar cualquier versión anterior.
+Debe ser posible restaurar una versión anterior mediante la creación de una nueva versión, nunca sobrescribiendo la historia.
+Registrar toda restauración en Audit Log.
+Regla crítica
+
+La versión aprobada por The Eye debe quedar identificada de forma inequívoca.
+
+El Runtime debe poder responder:
+
+¿Qué versión exacta de este WorldObject estoy mostrando?
+
+2. SINCRONIZACIÓN OFFLINE DEL MAPPER
+
+Implementar una primera versión controlada, no un sistema distribuido excesivamente complejo.
+
+El objetivo del MVP es permitir captura territorial cuando el Mapper pierde temporalmente conexión.
+
+El Mapper offline debe poder:
+crear WorldObjects;
+obtener/registrar coordenadas GPS;
+registrar precisión GPS;
+tomar fotografías;
+registrar notas;
+asociar evidencia;
+guardar localmente;
+identificar cada captura con un ID único;
+mostrar claramente OFFLINE / PENDIENTE DE SINCRONIZACIÓN.
+Al recuperar conexión
+
+El sistema debe:
+
+detectar registros pendientes;
+sincronizarlos;
+confirmar recepción del servidor;
+marcar el registro como sincronizado;
+conservar trazabilidad de la operación.
+3. NO IMPLEMENTAR "CONFLICT RESOLUTION" DESTRUCTIVA
+
+No utilizar automáticamente "última escritura gana".
+
+Para el MVP:
+
+detectar conflictos;
+conservar ambas versiones;
+marcar CONFLICT;
+enviar el caso a revisión;
+permitir resolución humana.
+
+Ningún conflicto debe destruir silenciosamente información.
+
+La resolución automática avanzada queda fuera de esta fase.
+
+4. IDENTIDAD Y TRAZABILIDAD DE CAPTURAS
+
+Cada captura offline debe poseer un identificador único y estable.
+
+Debe poder establecerse:
+
+CaptureSession → Device/Mapper → Capture → WorldObject → Version → Evidence
+
+Esto es importante porque posteriormente necesitaremos saber quién, cuándo, dónde y con qué evidencia construyó un dato territorial.
+
+5. PRUEBA E2E OBLIGATORIA
+
+Crear una prueba automatizada del flujo completo:
+
+MAPPER
+
+↓
+
+Crear WorldObject
+
+↓
+
+Asociar Evidence + Source + Claim
+
+↓
+
+Guardar versión
+
+↓
+
+Enviar a The Eye
+
+↓
+
+THE EYE
+
+Verificar
+
+↓
+
+Aprobar una versión concreta
+
+↓
+
+HUMAN AUTHORITY
+
+Autorizar publicación
+
+↓
+
+RUNTIME
+
+Consumir únicamente la versión autorizada
+
+6. PRUEBAS NEGATIVAS — OBLIGATORIAS
+
+La prueba E2E no debe comprobar solamente que el camino correcto funciona.
+
+También debe demostrar que los caminos incorrectos NO funcionan.
+
+Verificar como mínimo:
+
+Caso A
+
+DRAFT → Runtime
+
+DEBE FALLAR.
+
+Caso B
+
+CAPTURED → Runtime
+
+DEBE FALLAR.
+
+Caso C
+
+UNDER_REVIEW → Runtime
+
+DEBE FALLAR.
+
+Caso D
+
+REJECTED → Runtime
+
+DEBE FALLAR.
+
+Caso E
+
+VERIFIED sin autorización final de publicación → Runtime
+
+DEBE FALLAR.
+
+Caso F
+
+Versión antigua de un objeto → Runtime después de aprobar una versión nueva
+
+El Runtime debe consumir la versión publicada/autorizada, no una versión anterior accidentalmente.
+
+7. INTEGRIDAD DEL RUNTIME
+
+Establecer una frontera inequívoca:
+
+Mapper produce datos.
+
+The Eye verifica datos.
+
+Human Authority autoriza publicación.
+
+Runtime consume únicamente datos autorizados.
+
+El Runtime NO debe decidir qué información es verdadera.
+
+Tampoco debe consumir directamente datos del Mapper.
+
+8. THE EYE — PREPARAR LA BASE DE VERIFICACIÓN
+
+Sin implementar todavía toda la UI definitiva, dejar preparada la estructura para:
+
+verificar WorldObject;
+verificar Claims individualmente;
+consultar Sources;
+consultar Evidence;
+registrar observaciones;
+registrar conflictos;
+establecer estado de verificación;
+asignar confidence_score;
+identificar la versión examinada;
+registrar quién tomó la decisión.
+
+Importante:
+
+La aprobación debe estar vinculada a una versión concreta.
+
+No debe existir una aprobación ambigua del tipo:
+
+WorldObject X = VERIFIED
+
+sin indicar:
+
+WorldObject X / Version N = VERIFIED.
+
+9. AUDIT LOG
+
+Confirmar que Audit Log registre como mínimo:
+
+creación;
+edición;
+nueva versión;
+snapshot;
+envío a revisión;
+aprobación;
+rechazo;
+solicitud de evidencia;
+conflicto;
+resolución;
+publicación;
+archivado;
+restauración;
+sincronización.
+
+Registrar:
+
+actor + timestamp + action + object + version + result
+
+10. SEGURIDAD
+
+Mantener:
+
+RBAC;
+autorización server-side;
+validación de inputs;
+protección de uploads;
+rate limiting;
+audit log;
+separación de privilegios.
+
+Mapper nunca puede aprobarse a sí mismo.
+
+The Eye no debe modificar arbitrariamente una versión histórica.
+
+Runtime no debe tener capacidad de publicar.
+
+11. MJP CORE
+
+ABSOLUTAMENTE NO MODIFICAR.
+
+Mapper, The Eye, World Engine y Runtime territorial deben permanecer desacoplados de las autoridades del MJP CORE.
+
+12. CRITERIOS DE ACEPTACIÓN
+
+La implementación solamente se considera terminada cuando:
+
+A. Historia
+
+Se puede reconstruir cualquier versión histórica de un WorldObject.
+
+B. Restauración
+
+Se puede restaurar una versión anterior creando una nueva versión.
+
+C. Offline
+
+Un Mapper puede capturar información sin conexión y sincronizarla posteriormente.
+
+D. Conflictos
+
+Una modificación concurrente no destruye silenciosamente información.
+
+E. Verificación
+
+The Eye puede aprobar una versión específica.
+
+F. Publicación
+
+Human Authority puede autorizar esa versión.
+
+G. Runtime
+
+El Runtime solamente puede consumir la versión autorizada.
+
+H. Seguridad
+
+Ningún estado previo a la autorización puede aparecer públicamente.
+
+I. E2E
+
+Todo el flujo anterior debe estar cubierto por pruebas automatizadas, incluyendo pruebas negativas.
+
+13. VALIDACIÓN FINAL
+
+Al terminar, entregar:
+
+resumen de arquitectura implementada;
+migraciones realizadas;
+nuevos modelos/tablas;
+endpoints o servicios creados;
+estrategia de sincronización;
+estrategia de resolución de conflictos;
+snapshots implementados;
+Audit Log;
+pruebas unitarias;
+pruebas E2E;
+pruebas negativas;
+resultado de TypeScript;
+resultado de build;
+número total de tests;
+confirmación explícita de que MJP CORE permanece intacto.
+
+NO iniciar todavía la implementación visual definitiva de Mapper + The Eye.
+
+Primero entregar esta capa funcional y reportar resultados.
+
+PRINCIPIO ARQUITECTÓNICO QUE DEBE QUEDAR FIJADO
+
+CAPTURE → EVIDENCE → VERIFY → AUTHORIZE → PUBLISH
+
+Y una segunda regla:
+
+NINGÚN DATO ENTRA AL MUNDO DE MILUKITA PORQUE ALGUIEN LO ESCRIBIÓ.
+
+Entra porque existe una cadena trazable de captura, evidencia, verificación y autorización.
+
+Mi corrección estratégica
+
+Hay una diferencia importante respecto a lo que veníamos haciendo: no llamaría todavía a esto “la base sólida completa del World Engine”. Manus ha construido una buena base, pero falta demostrar la propiedad fundamental del sistema: que la verdad publicada es trazable hasta una versión concreta y que el Runtime no puede saltarse el proceso.
+
+Y hay algo todavía más importante: The Eye no debe ser solamente una pantalla bonita con barras de confianza. Su verdadero producto es el registro de decisiones sobre evidencia.
+
+Si esta orden termina correctamente, recién ahí tiene sentido pasar a:
+
+Fase siguiente → UI definitiva de MiLukita Mapper + The Eye → captura de los primeros WorldObjects reales de Trujillo → primera experiencia pública de El Mundo de MiLukita.
+
+Ese es el camino que reduce el riesgo de que terminemos construyendo una interfaz espectacular encima de una base de datos territorial que todavía no puede demostrar por qué sus datos son confiables.

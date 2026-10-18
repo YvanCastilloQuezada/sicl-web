@@ -1,0 +1,96 @@
+COCO-EXPRESS-002 / FAMILIA A — MICROEJERCICIOS
+================================================
+Alcance: A1-A13. Son fixtures educativos propios, no exámenes DeepSeek/Lipsic.
+No son solvers profesionales, expedientes, certificaciones ni firmas.
+
+RUNNER AISLADO
+--------------
+Archivo temporal ejecutado (no forma parte del producto):
+/home/ubuntu/jobs/cbef0db18f21_a0/exercises_a_runner.ts
+Comando: npx tsx /home/ubuntu/jobs/cbef0db18f21_a0/exercises_a_runner.ts
+Resultado: PASS
+
+NORMAL — Programa de acceso y conexión visual
+-----------------------------------------------
+Situación: En un centro comunitario conceptual, lobby->ramp tiene
+DIRECT_ACCESS_TO obligatorio y observado en survey://normal-01. lobby->courtyard
+tiene VISUAL_CONNECTION_TO de prioridad HIGH, pero no hay observación suficiente.
+La evidencia conserva `clear width=1.20 m`, `daylight=UNKNOWN`, units=m,
+projectId=A-NORMAL, scale=room, projectPhase=schematic y scenario=summer-day.
+
+Oracle/assertions:
+- La relación observada queda SATISFIED.
+- La relación no observada queda UNKNOWN, no VIOLATED ni SATISFIED.
+- El resultado conserva provenance PROJECT_EVIDENCE.
+- El cálculo declara computedAt=DETERMINISTIC; esto no implica verdad física.
+
+Salida ejecutada:
+{
+  "satisfied": ["lobby|ramp|DIRECT_ACCESS_TO"],
+  "unknown": ["lobby|courtyard|VISUAL_CONNECTION_TO"]
+}
+
+ADVERSARIAL — Conflicto espacial con importación tentadora
+------------------------------------------------------------
+Situación: Un artefacto importado anuncia import_success=true y
+hash=sha256:fixture para el par gallery/service. Un requisito obligatorio pide
+ADJACENT_TO y otro, con igual prioridad, pide SEPARATED_FROM. La importación y
+el hash prueban flujo/integridad del fixture, no veracidad geométrica,
+cumplimiento ni certificación. La evidencia se limita a OBSERVED del artefacto.
+Se conserva projectId=A-ADVERSARIAL, scale=room, projectPhase=schematic y
+scenario=summer-day.
+
+Oracle/assertions:
+- El evaluador no elige una relación silenciosamente.
+- Ambas relaciones aparecen en conflicts.
+- satisfiedRelations queda vacío.
+- import_success/hash no se transforman en certificación.
+
+Salida ejecutada:
+{
+  "conflicts": [
+    "gallery|service|ADJACENT_TO",
+    "gallery|service|SEPARATED_FROM"
+  ]
+}
+
+TRANSFER — Screening multicriterio con estados incompatibles
+--------------------------------------------------------------
+Situación: Se transfieren tres criterios para una biblioteca conceptual y un
+mismo escenario/escala: daylight_factor=2.4 % (SIMULATED), clear_width=1.2 m
+(OBSERVED) y air_change_rate=UNKNOWN 1/h (UNKNOWN). Los registros conservan
+projectId=A-TRANSFER, scenario=summer-day, scale=room, provenance individual,
+tiempo de fixture y unidades. La ausencia de ACH impide un score total.
+
+Oracle/assertions:
+- unknown=[air_change_rate].
+- score=null; no se imputa cero ni media.
+- certification=false.
+- SIMULATED no se convierte en OBSERVED; UNKNOWN no se convierte en forecast.
+- El screening no declara cumplimiento ni competencia profesional.
+
+Salida ejecutada:
+{
+  "unknown": ["air_change_rate"],
+  "score": null,
+  "certification": false
+}
+
+MUTANTE CONTROLADO / TEST-THE-TEST
+------------------------------------
+Mutación aplicada sólo en memoria, sin tocar el código correcto ni los outputs:
+transfer.unknown=[]; transfer.score=1.2; transfer.certification=true.
+
+Oracle:
+unknown incluye air_change_rate AND score===null AND certification===false AND
+projectId===A-TRANSFER.
+
+Resultado: PASS. El oracle devolvió true para el resultado correcto y false para
+el mutante; mutantsKilled=1. El runner terminó con status=PASS.
+
+GUARDAS PRESERVADAS
+--------------------
+Los tres ejercicios mantienen UNKNOWN, provenance, units, applicability,
+scale, projectId, time cuando corresponde y scenario. No se convirtió
+simulación, observación, forecast, hash o import success en verdad ni
+certificación. No se modificaron Product State, BKH, TX, E5-E8 ni PF-H01.

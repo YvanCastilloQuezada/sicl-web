@@ -1,0 +1,109 @@
+{
+  "schema": "ARKI-MASTER-CODEBOOK-V10-CANONICAL-1.0",
+  "status": "APPROVED / CANONICAL",
+  "documentationOnly": true,
+  "productCodeChanges": false,
+  "kernelChanges": false,
+  "reconciliation": {
+    "BKH2": "VERIFIED",
+    "BKH3": "VERIFIED",
+    "BKH4_0_1_2": "VERIFIED FOR APPROVED SCOPE",
+    "ORDER_95A": "CLOSED / VERIFIED FOR APPROVED SCOPE",
+    "F1": "CLOSED",
+    "F2": "CLOSED",
+    "F3": "CLOSED"
+  },
+  "historicalStatesPreserved": true,
+  "canonicalApproval": {
+    "date": "2026-09-23",
+    "authority": "Product Owner / Human Authority",
+    "decision": "APPROVED / CANONICAL"
+  },
+  "consistencyClosure": "CODEBOOK-001B / CB-FINAL-01/02/03 CLOSED",
+  "physicalFilesTotal": 17,
+  "manifestEntries": 16,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "ARKI_CODEBOOK_CANONICAL_APPROVAL.md",
+      "sha256": "b7b96153409eb123bd52475533eac97fe551f1cae55abeea542be31f42340c6b",
+      "bytes": 895
+    },
+    {
+      "path": "ARKI_CODEBOOK_EVIDENCE_INDEX.md",
+      "sha256": "3574f08cf5ebd6ad59c7e77461cbabe0a786e37372760a7650e9e5405407b55f",
+      "bytes": 3931
+    },
+    {
+      "path": "ARKI_CODEBOOK_FOR_ARCHITECT.md",
+      "sha256": "8506d2943854f84dadbb3afe5c5dc72c607f7affab00029e807c9f43f369b734",
+      "bytes": 3389
+    },
+    {
+      "path": "ARKI_CODEBOOK_MANIFEST.json",
+      "sha256": "2b312f926964bcf568c5ef9bbc4cd3f8fec0db93b6fd50bea6b2673ae093b421",
+      "bytes": 1125
+    },
+    {
+      "path": "ARKI_CODEBOOK_OPEN_ITEMS.md",
+      "sha256": "e0ef555b9bca90c4b1faf330fc5a64d422453fb057af129adf141121a52f5fb0",
+      "bytes": 1931
+    },
+    {
+      "path": "ARKI_CODEBOOK_QC_V10.json",
+      "sha256": "f073da5988b8be3ddf338f42b417152b9b9da194152a5869e35f9021e4747342",
+      "bytes": 1037
+    },
+    {
+      "path": "ARKI_CODEBOOK_RECONCILIATION_DELTA.md",
+      "sha256": "fa594c0cedf29d017388c100c561d0e049ab767593fc43c1d51a8a180b13321d",
+      "bytes": 2801
+    },
+    {
+      "path": "ARKI_CODE_CROSSWALK.md",
+      "sha256": "73398f96b212abd9f3b40b021bc87e75fc59f08ad8589a4aec80e0e654f700cc",
+      "bytes": 3746
+    },
+    {
+      "path": "ARKI_MASTER_CODEBOOK.md",
+      "sha256": "90d91cf9638627f34df24d76fa6ed0927164eaef0c3a2b0e3f40c1e71fdf1293",
+      "bytes": 7933
+    },
+    {
+      "path": "ARKI_MASTER_PROJECT_MAP.md",
+      "sha256": "ec2f2c04dba5bf1749ec3310ed3b08fc5d03d70f034d3a50322042fb9d0ee95d",
+      "bytes": 2960
+    },
+    {
+      "path": "ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md",
+      "sha256": "7e99c9d65fbe4d433e07389ac13eaf5a37965c5775276126c24b63b907774f55",
+      "bytes": 5028
+    },
+    {
+      "path": "BKH2_REPORT.md",
+      "sha256": "4dbc987825b9d14748fd1618086fcaba425e151d653a5ee39a6b5a6951dd4c7e",
+      "bytes": 3204
+    },
+    {
+      "path": "BKH3_REPORT.md",
+      "sha256": "177f19b89d9e085bc6a18d96dffcc700c7a0e8f5c161c966cd7ddbe416292cec",
+      "bytes": 3205
+    },
+    {
+      "path": "BKH4_95A_OUTPUTS.txt",
+      "sha256": "2476e5d202b0201899f00125623b47933d76391be63efb352f6d0f189decbd39",
+      "bytes": 4601
+    },
+    {
+      "path": "BKH4_95A_SCOPE_LIMIT_REPORT.md",
+      "sha256": "916dc4d771bf936bf6429f4d4bffa56f544accdb7af7c42c29a57e273e1f7939",
+      "bytes": 2008
+    },
+    {
+      "path": "CODEBOOK_001B_CONSISTENCY_SCAN.txt",
+      "sha256": "04cb42eccb938f08c28a74b502f76990745aa70f757931f002864ae6fd8d82b5",
+      "bytes": 838
+    }
+  ]
+}

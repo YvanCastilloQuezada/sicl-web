@@ -1,0 +1,6 @@
+[33m3bbc5cf[m test(H-001/H-002/H-003): add multiscale E2E test (Wall-Move Lite)
+[33m90421fb[m docs: add rfc structure and reference folders
+[33m1c41655[m docs: add canonical master handoff
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+[33md60f3a5[m feat: add RNE RM verifier and E030 human review

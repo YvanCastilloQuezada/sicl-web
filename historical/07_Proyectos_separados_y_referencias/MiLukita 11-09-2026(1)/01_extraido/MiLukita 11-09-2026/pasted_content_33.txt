@@ -1,0 +1,987 @@
+ORDEN DEFINITIVA PARA MANUS
+IMPLEMENTACIÓN DEL SISTEMA OPERATIVO DE CAPTURA Y VERIFICACIÓN TERRITORIAL
+MiLukita Mapper + The Eye + Workflow de Publicación
+
+Prioridad: ALTA
+
+0. PROPÓSITO DE ESTA ORDEN
+
+Manus debe implementar y consolidar el workflow operativo completo de MiLukita Mapper + The Eye, tomando como especificación funcional el siguiente principio:
+
+REALIDAD → CAPTURA → EVIDENCIA → VERIFICACIÓN → AUTORIZACIÓN → PUBLICACIÓN
+
+El objetivo no es simplemente tener dos pantallas.
+
+El objetivo es construir el mecanismo mediante el cual MiLukita transforma información del mundo real en conocimiento territorial trazable, verificable y publicable.
+
+El sistema debe permitir demostrar:
+
+quién capturó un objeto;
+cuándo lo capturó;
+dónde estaba;
+qué observó;
+qué evidencia aportó;
+qué afirmaciones realizó;
+qué fuentes respaldan esas afirmaciones;
+quién las verificó;
+qué decisión tomó The Eye;
+qué versión concreta fue autorizada;
+qué versión terminó publicada en el Runtime.
+Por qué esto es necesario
+
+El verdadero activo de El Mundo de MiLukita no será solamente el visor AR.
+
+Será la base territorial estructurada y confiable que se construya progresivamente.
+
+Un competidor puede copiar una interfaz.
+
+Puede copiar un mapa.
+
+Puede incluso copiar una experiencia AR.
+
+Pero no puede copiar fácilmente una base territorial que acumula:
+
+WorldObjects + Claims + Sources + Evidence + Verification + Audit History + versiones publicadas.
+
+Por eso Mapper y The Eye son infraestructura estratégica, no simples pantallas administrativas.
+
+1. ESTADO ACTUAL QUE DEBE PRESERVARSE
+
+Manus ya ha implementado:
+
+CaptureSession persistente.
+Responsable de sesión.
+Territorio.
+Estado de sesión.
+Sincronización.
+Área.
+Contadores.
+Agrupación de capturas e importaciones por sesión.
+Edición de WorldObjects antes de revisión.
+Validación de coordenadas.
+Bloqueo de estados finales.
+Incremento de versión.
+Retorno a CAPTURED después de edición.
+Auditoría.
+Filtros favoritos locales.
+TypeScript PASS.
+125 archivos aprobados.
+453 pruebas aprobadas.
+4 omitidas.
+Build PASS.
+MJP CORE intacto.
+
+No romper ni degradar estas funcionalidades.
+
+2. PRINCIPIO FUNDAMENTAL
+
+Implementar Mapper y The Eye como dos responsabilidades distintas.
+
+MiLukita Mapper
+
+CAPTURA LA REALIDAD.
+
+No decide que algo sea verdadero.
+
+The Eye
+
+VERIFICA LA CALIDAD Y TRAZABILIDAD DE LA INFORMACIÓN.
+
+No modifica arbitrariamente lo capturado.
+
+Human Authority
+
+AUTORIZA LA PUBLICACIÓN.
+
+No debe confundirse verificación con publicación.
+
+Runtime
+
+CONSUME ÚNICAMENTE CONTENIDO AUTORIZADO.
+
+3. MODELO OPERATIVO DEFINITIVO
+
+Implementar este flujo:
+
+                  MUNDO REAL
+                      │
+                      ▼
+             MILUKITA MAPPER
+                      │
+             CAPTURE_SESSION
+                      │
+                      ▼
+               WORLD_OBJECT
+                      │
+          ┌───────────┼────────────┐
+          ▼           ▼            ▼
+       CLAIMS       SOURCES      EVIDENCE
+          │           │            │
+          └───────────┼────────────┘
+                      ▼
+                 UNDER_REVIEW
+                      │
+                      ▼
+                  THE EYE
+                      │
+        ┌─────────────┼─────────────┐
+        ▼             ▼             ▼
+     VERIFIED    EVIDENCE_REQUIRED  DISPUTED
+        │
+        ▼
+              HUMAN AUTHORITY
+        │                    │
+        ▼                    ▼
+     PUBLISHED             HELD
+        │
+        ▼
+                  RUNTIME
+        │
+        ▼
+           EL MUNDO DE MILUKITA
+4. MILUKITA MAPPER
+4.1 Objetivo
+
+Mapper será el Cuaderno Digital de Campo de MiLukita.
+
+Debe estar optimizado para:
+
+celular;
+tablet;
+trabajo en exteriores;
+GPS;
+fotografías;
+notas rápidas;
+funcionamiento offline;
+captura rápida de múltiples objetos.
+
+No debe parecer un formulario administrativo tradicional.
+
+Debe sentirse como una herramienta profesional de levantamiento territorial.
+
+5. CAPTURE SESSION
+
+La sesión debe ser la unidad operacional de trabajo del Mapper.
+
+Ejemplo:
+
+Sesión:
+TRUJILLO CENTRO HISTÓRICO — 01/09/2026
+
+Responsable:
+Mapper-001
+
+Territorio:
+Centro Histórico
+
+Estado:
+ACTIVE
+
+WorldObjects:
+24
+
+Evidence:
+63
+
+GPS:
+GOOD
+
+Sync:
+ONLINE
+
+Debe permitir:
+
+crear sesión;
+iniciar sesión;
+pausar;
+reanudar;
+cerrar;
+consultar estadísticas;
+filtrar objetos por sesión;
+consultar evidencias capturadas;
+identificar elementos pendientes de sincronización.
+6. CAPTURA RÁPIDA
+
+El Mapper debe poder hacer una captura con el mínimo número posible de acciones.
+
+Flujo
+GPS
+ ↓
+CAPTURAR
+ ↓
+FOTOGRAFÍA
+ ↓
+NOTA OPCIONAL
+ ↓
+CREAR WORLDOBJECT
+
+Registrar automáticamente:
+
+fecha;
+hora;
+operador;
+coordenadas;
+precisión GPS;
+dispositivo, si corresponde;
+sesión;
+fotografías;
+estado;
+versión.
+Importante
+
+La fotografía y coordenadas deben conservar metadatos suficientes para permitir posteriormente la auditoría.
+
+7. EXPEDIENTE DEL WORLDOBJECT
+
+Cada WorldObject debe convertirse en un expediente.
+
+Como mínimo:
+
+Identidad
+ID;
+nombre;
+tipo;
+categoría;
+descripción.
+Geometría
+latitud;
+longitud;
+geometría;
+precisión;
+radio;
+orientación, cuando corresponda.
+Captura
+CaptureSession;
+Mapper;
+fecha;
+hora;
+dispositivo;
+evidencias de campo.
+Conocimiento
+Claims;
+Sources;
+Evidence.
+Control
+versión;
+estado;
+historial;
+auditoría;
+verificación.
+8. CLAIMS
+
+Un Claim no debe tratarse como un simple campo de texto.
+
+Ejemplo:
+
+"La Huaca del Sol pertenece a la cultura Moche."
+
+Debe almacenarse como una afirmación independiente.
+
+Debe poder tener:
+
+texto;
+tipo;
+fuente;
+evidencia;
+fecha;
+autor/origen;
+estado;
+confianza;
+observaciones;
+versión.
+
+Esto permitirá posteriormente verificar afirmaciones individualmente.
+
+9. SOURCES
+
+Una fuente debe ser un objeto estructurado.
+
+Debe poder registrar:
+
+institución/persona;
+tipo de fuente;
+título;
+autor;
+documento;
+URL o referencia;
+fecha;
+nivel de autoridad;
+observaciones.
+
+Ejemplos:
+
+Ministerio de Cultura;
+municipalidad;
+universidad;
+publicación científica;
+libro;
+archivo histórico;
+documento oficial;
+observación de campo.
+10. EVIDENCE
+
+Evidence debe diferenciarse claramente de Source.
+
+Una fuente dice:
+
+"¿De dónde proviene la información?"
+
+La evidencia responde:
+
+"¿Qué prueba o soporte tenemos?"
+
+Puede ser:
+
+fotografía;
+video;
+audio;
+documento;
+medición;
+coordenada;
+observación de campo;
+registro institucional;
+enlace documental.
+11. MODO OFFLINE
+
+Como Mapper es una herramienta de campo, debe poder trabajar sin conexión.
+
+Offline debe permitir:
+
+crear sesiones;
+crear WorldObjects;
+GPS;
+fotografías;
+notas;
+evidencias;
+edición local.
+
+Cuando vuelva la conexión:
+
+LOCAL
+ ↓
+PENDIENTE DE SYNC
+ ↓
+SYNC
+ ↓
+SERVIDOR
+Conflictos
+
+No utilizar silenciosamente "last write wins" para datos territoriales importantes.
+
+Si existe conflicto:
+
+CONFLICT DETECTED
+       ↓
+REVISIÓN
+       ↓
+Mantener A
+Mantener B
+Combinar
+Revisión manual
+
+Debe conservarse la trazabilidad.
+
+12. VERSIONADO Y SNAPSHOTS
+
+Implementar snapshots completos.
+
+Cada versión aprobable debe poder reconstruirse.
+
+Un snapshot debe conservar, como mínimo:
+
+WorldObject;
+Claims;
+Sources;
+Evidence;
+geometría;
+assets;
+estado;
+versión;
+fecha;
+autor;
+relación con auditoría.
+
+Debe ser posible responder:
+
+"¿Exactamente qué información estaba publicada el día X?"
+
+Y:
+
+"¿Qué versión aprobó The Eye?"
+
+Y:
+
+"¿Qué cambió después?"
+
+13. THE EYE
+Concepto
+
+The Eye será el Laboratorio de Verificación Territorial.
+
+No debe limitarse a mostrar una pantalla de "aprobar/rechazar".
+
+Debe ayudar al auditor a responder:
+
+¿Qué sabemos, qué evidencia tenemos, qué fuente lo respalda y qué nivel de confianza podemos asignar?
+
+14. EVIDENCE MATRIX
+
+Implementar una matriz de verificación como:
+
+Dimensión	Evaluación
+Existencia	✓ / ? / ✗
+Ubicación	✓ / ? / ✗
+Identidad	✓ / ? / ✗
+Contenido	✓ / ? / ✗
+Fuente	✓ / ? / ✗
+Actualidad	✓ / ? / ✗
+Evidencia	✓ / ? / ✗
+Consistencia	✓ / ? / ✗
+
+No convertir esto en una falsa "barra de verdad".
+
+Debe representar estado de verificación y suficiencia de evidencia, no una certeza matemática inexistente.
+
+15. CONFIDENCE SCORE
+
+Implementar confidence_score, pero:
+
+NO
+87% = verdad
+SÍ
+87 = nivel de confianza
+
+El score debe poder estar respaldado por factores como:
+
+calidad de fuente;
+cantidad de fuentes independientes;
+evidencia;
+actualidad;
+consistencia;
+precisión geográfica;
+revisión humana.
+
+El sistema debe mostrar por qué se obtiene determinado nivel.
+
+16. CONFLICTOS
+
+Implementar una vista específica de conflictos.
+
+Ejemplo:
+
+CLAIM A
+
+"Construido en 1920"
+
+Fuente:
+Archivo X
+
+
+VS.
+
+
+CLAIM B
+
+"Construido en 1925"
+
+Fuente:
+Documento Y
+
+The Eye debe permitir:
+
+aceptar A;
+aceptar B;
+solicitar evidencia;
+mantener ambos;
+marcar DISPUTED.
+Regla importante
+
+Nunca eliminar silenciosamente un Claim conflictivo.
+
+Debe conservarse el historial.
+
+17. ESTADOS
+
+Consolidar los estados para evitar inconsistencias entre objetos, claims y publicación.
+
+Propuesta:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+DISPUTED
+OUTDATED
+REJECTED
+PUBLISHED
+ARCHIVED
+
+Pero separar conceptualmente:
+
+Estado de conocimiento
+DRAFT
+CAPTURED
+UNDER_REVIEW
+VERIFIED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED
+Estado de publicación
+UNPUBLISHED
+AUTHORIZED
+PUBLISHED
+HELD
+
+Esto es mejor que intentar meter verificación y publicación en una sola variable.
+
+18. HUMAN AUTHORITY
+
+Implementar la separación:
+
+THE EYE
+   ↓
+VERIFIED
+   ↓
+HUMAN AUTHORITY
+   ↓
+AUTHORIZED
+   ↓
+PUBLISHED
+
+The Eye puede determinar:
+
+"La evidencia es suficiente para considerar este objeto verificado."
+
+Pero eso no significa automáticamente:
+
+"Debe aparecer públicamente."
+
+La autoridad de publicación permanece separada.
+
+19. RUNTIME
+
+El Runtime jamás debe consumir directamente la tabla general de WorldObjects sin aplicar reglas de publicación.
+
+Debe consumir únicamente una representación autorizada/publicable.
+
+Condición mínima:
+
+verification_status = VERIFIED
++
+publication_status = PUBLISHED
++
+approved_version = current_runtime_version
+
+Esto es fundamental.
+
+Si mañana un Mapper modifica un objeto que ya estaba publicado, esa modificación no debe aparecer automáticamente en el Mundo de MiLukita.
+
+Debe volver a pasar por el proceso correspondiente.
+
+20. AUDIT LOG
+
+Registrar:
+
+creación;
+modificación;
+eliminación lógica;
+cambio de estado;
+envío a revisión;
+solicitud de evidencia;
+aprobación;
+rechazo;
+conflicto;
+resolución;
+autorización;
+publicación;
+archivado;
+restauración de versión;
+sincronización;
+resolución de conflictos.
+
+Registrar:
+
+WHO
+WHEN
+WHAT
+FROM
+TO
+WHY
+VERSION
+
+El Audit Log debe ser append-only o contar con mecanismos que impidan alteraciones silenciosas.
+
+21. RBAC
+
+Implementar como mínimo:
+
+Mapper
+
+Puede:
+
+crear;
+editar;
+capturar;
+importar;
+adjuntar evidencia;
+enviar a revisión.
+
+No puede:
+
+aprobar su propio objeto;
+publicar.
+Auditor / The Eye
+
+Puede:
+
+revisar;
+verificar;
+solicitar evidencia;
+marcar conflicto;
+rechazar;
+aprobar para verificación.
+
+No puede:
+
+modificar retroactivamente la captura original.
+Human Authority / Admin
+
+Puede:
+
+autorizar publicación;
+retener;
+archivar;
+administrar roles;
+resolver situaciones excepcionales.
+22. PRUEBA E2E OBLIGATORIA
+
+Crear una prueba automatizada:
+
+CREATE SESSION
+      ↓
+MAPPER CAPTURES OBJECT
+      ↓
+ADD PHOTO
+      ↓
+ADD CLAIM
+      ↓
+ADD SOURCE
+      ↓
+ADD EVIDENCE
+      ↓
+SAVE VERSION
+      ↓
+SUBMIT TO THE EYE
+      ↓
+AUDITOR REVIEWS
+      ↓
+VERIFIED
+      ↓
+HUMAN AUTHORITY
+      ↓
+AUTHORIZED
+      ↓
+PUBLISHED
+      ↓
+RUNTIME
+
+Y verificar además:
+
+Caso negativo 1
+
+Un objeto DRAFT no aparece en Runtime.
+
+Caso negativo 2
+
+Un objeto UNDER_REVIEW no aparece.
+
+Caso negativo 3
+
+Un objeto DISPUTED no aparece.
+
+Caso negativo 4
+
+Una nueva versión editada de un objeto publicado no reemplaza automáticamente la versión publicada.
+
+Caso negativo 5
+
+Un Mapper no puede aprobar su propio WorldObject.
+
+23. UI: NO IMPLEMENTAR TODAVÍA LA UI "PREMIUM" DEFINITIVA
+
+La UI definitiva debe construirse sobre el workflow funcional ya probado.
+
+Por ahora, implementar únicamente la interfaz funcional necesaria para probar:
+
+Mapper
+Sesiones.
+Captura.
+WorldObject.
+Claims.
+Sources.
+Evidence.
+Versiones.
+Offline/sync.
+Envío a The Eye.
+The Eye
+Cola.
+Expediente.
+Evidence Matrix.
+Claims.
+Sources.
+Evidence.
+Conflictos.
+Decisión.
+Audit Log.
+
+No invertir todavía tiempo excesivo en glassmorphism, efectos visuales o animaciones.
+
+Primero funcionamiento. Después estética.
+
+24. MANUAL DE USO COMO ESPECIFICACIÓN
+
+El siguiente manual conceptual debe incorporarse al proyecto como referencia operativa:
+
+Mapper
+Nueva sesión
+↓
+Capturar ubicación
+↓
+GPS
+↓
+Fotografía
+↓
+Nota
+↓
+Crear WorldObject
+↓
+Completar expediente
+↓
+Claims
+↓
+Sources
+↓
+Evidence
+↓
+Guardar versión
+↓
+Enviar a The Eye
+The Eye
+Recibir objeto
+↓
+Revisar expediente
+↓
+Verificar existencia
+↓
+Verificar ubicación
+↓
+Verificar identidad
+↓
+Verificar contenido
+↓
+Verificar fuentes
+↓
+Verificar evidencia
+↓
+Evaluar actualidad
+↓
+Evaluar conflictos
+↓
+Decidir
+
+Decisiones:
+
+VERIFIED
+EVIDENCE_REQUIRED
+DISPUTED
+REJECTED
+
+Después:
+
+VERIFIED
+↓
+HUMAN AUTHORITY
+↓
+AUTHORIZED
+↓
+PUBLISHED
+25. CRITERIOS DE ACEPTACIÓN
+
+La implementación se considera correcta solamente si podemos realizar una demostración completa con un WorldObject real.
+
+Ejemplo:
+
+HUACA DEL SOL
+
+El sistema debe permitir:
+
+Mapper
+
+Crear la captura.
+
+Expediente
+
+Agregar fotografía, coordenadas, Claim, Source y Evidence.
+
+The Eye
+
+Abrir exactamente ese expediente.
+
+Auditoría
+
+Ver quién lo creó y quién lo verificó.
+
+Versionado
+
+Identificar exactamente qué versión fue revisada.
+
+Decisión
+
+Aprobarla.
+
+Human Authority
+
+Autorizarla.
+
+Runtime
+
+Comprobar que esa versión específica, y no otra, aparece públicamente.
+
+26. PRUEBAS ANTES DE LA UI DEFINITIVA
+
+Manus debe entregar:
+
+CaptureSession funcionando.
+WorldObject funcionando.
+Claims funcionando.
+Sources funcionando.
+Evidence funcionando.
+Snapshots completos.
+Versionado.
+Offline/sync.
+Resolución de conflictos.
+The Eye.
+Evidence Matrix.
+Confidence Score explicable.
+Estados.
+RBAC.
+Audit Log.
+Human Authority.
+Runtime filtering.
+E2E Mapper → The Eye → Human Authority → Runtime.
+27. REGRESIÓN DEL MJP CORE
+
+MJP CORE permanece absolutamente intacto.
+
+Al finalizar:
+
+ejecutar tests existentes;
+ejecutar build;
+comprobar TypeScript;
+comprobar que no se modificaron autoridades del sistema de juegos;
+documentar cualquier dependencia nueva.
+
+Si alguna modificación al MJP CORE resulta técnicamente inevitable, DETENER y solicitar autorización antes de realizarla.
+
+28. ENTREGABLE FINAL DE MANUS
+
+No entregar únicamente:
+
+"Implemented successfully."
+
+Entregar un informe con:
+
+A. Implementado
+
+Lista concreta de funcionalidades.
+
+B. Tests
+Tests:
+PASS:
+FAIL:
+SKIPPED:
+C. E2E
+
+Mostrar el resultado del recorrido completo.
+
+D. Seguridad
+
+Confirmar RBAC, autorización server-side y audit log.
+
+E. Datos
+
+Confirmar modelo:
+
+WorldObject
+Claim
+Source
+Evidence
+CaptureSession
+Snapshot
+Verification
+Publication
+AuditLog
+F. MJP CORE
+
+Confirmación documentada de que permanece intacto.
+
+G. Pendientes
+
+Separar:
+
+obligatorio antes del MVP;
+recomendable después del MVP;
+mejoras futuras.
+29. FASE SIGUIENTE
+
+NO comenzar todavía la UI definitiva premium.
+
+Una vez que esta orden termine satisfactoriamente:
+
+FASE 1
+
+Motor de confianza territorial
+
+Mapper + The Eye + workflow + E2E.
+
+FASE 2
+
+UI definitiva
+
+Diseño de las cuatro vistas:
+
+Mapper — Sesión.
+Mapper — Expediente.
+The Eye — Cola.
+The Eye — Conflicto.
+FASE 3
+
+Primer levantamiento real
+
+Crear los primeros WorldObjects de Trujillo.
+
+FASE 4
+
+Primera experiencia pública
+
+Capturar → verificar → autorizar → publicar → experimentar.
+
+La decisión estratégica
+
+Yo sí enviaría esta orden ahora.
+
+Pero hay una diferencia importante respecto a lo que veníamos haciendo: no le pediría a Manus que convierta todavía Mapper + The Eye en una obra visual premium.
+
+El orden correcto es:
+
+Primero demostrar que MiLukita sabe distinguir entre lo que alguien afirma y lo que puede demostrar.
+
+Después hacemos que esa maquinaria sea hermosa.
+
+Y hay una razón todavía más importante: cuando lleguemos a los primeros 10–20 objetos reales de Trujillo, vamos a descubrir los problemas que ningún diseño de maqueta puede revelar: coordenadas imprecisas, fuentes contradictorias, objetos duplicados, información desactualizada, claims ambiguos, evidencia insuficiente y conflictos entre versiones.
+
+Esos casos reales son los que deben terminar de definir la UI.
+
+Esta orden, por tanto, cierra la etapa de arquitectura funcional y prepara el salto hacia el territorio real.

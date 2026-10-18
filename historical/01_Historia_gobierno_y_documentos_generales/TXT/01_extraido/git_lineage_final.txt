@@ -1,0 +1,19 @@
+=== git log ===
+* [33mbf46805[m test: harden multiscale E2E and determinism evidence
+* [33m49edb90[m test: close Red Team evidence and E2E determinism gaps
+* [33m509f1fe[m fix(H-003/H-004): close Red Team validity and reaction findings
+* [33m3336d03[m fix(H-003): preserve source check names in validity reports
+* [33m09557fa[m fix(H-003/H-004): adopt deterministic FULLY_STALE policy
+* [33ma807708[m fix(H-004): fail closed on malformed discrepancies
+* [33m1590b65[m test(H-002/H-004): tighten cycle and adversarial coverage
+* [33mb7f22d6[m fix(H-002/H-003/H-004): align adversarial coverage and review policy
+* [33m4a680c7[m feat(H-004): add read-only reaction planning
+* [33m3bbc5cf[m test(H-001/H-002/H-003): add multiscale E2E test (Wall-Move Lite)
+
+=== commit ===
+[33mbf46805[m test: harden multiscale E2E and determinism evidence
+ tests/test_multiscale_wall_move_e2e.py | 41 [32m++++++++++++++++++++++++++++++++++[m
+ 1 file changed, 41 insertions(+)
+
+=== lineage ===
+09557fa5 is ancestor of HEAD: PASS

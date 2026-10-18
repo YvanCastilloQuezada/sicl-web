@@ -1,0 +1,523 @@
+D-1 v1.3 — CONTRATO CONSOLIDADO
+Baseline: main@30806d434374602ebf71091371e228ac34a411c1
+Tag de referencia: sicl-a002-v1.4.3
+Estado: CANDIDATE_PENDING_RED_TEAM
+Autor: DeepSeek (developer)
+
+1. Cambios respecto a v1.2
+Finding	Cambio
+RT-D12-01	Corregida semántica IFC: Door→IfcDoor, Window→IfcWindow, Opening→IfcOpeningElement. Cadena host --RelVoids--> opening --RelFills--> door/window. GlobalId vía ifcopenshell.guid.compress desde fuente determinista.
+RT-D12-02	Especificada proyección de relaciones en derivaciones de elementos. Eliminado CONTAINS por redundante con BOUNDS. Declarado criterio D-2 y fallback BLOCKED_BY_CORE_CONTRACT.
+RT-D12-03	Añadida semántica transaccional PROPOSED → EVALUATED → AUTHORIZED → APPLIED → PUBLISHED. Canonical inmutable ante cualquier resultado != APPLIED.
+SpatialScope	Reutiliza el tipo canónico de sicl.domain. No se crea nuevo.
+Conservados sin tocar: identidad estable, birth_nonce, content_hash canónico, mutation_id determinista, request_nonce, A-002 operation-specific, versionado unificado, H-002 cero impactos esperados = UNKNOWN, H-005 PLANNED+no-authority, IFC-only en D-2, hosting semantics, PoC 4 muros, fail-closed.
+
+2. Alcance
+Dentro: namespace src/sicl/archi/; tipos v1 (Site, Space, Wall, Slab, Column, Beam, Door, Window, Opening); relaciones v1 (HOSTED_IN, BOUNDS); identidad estable; geometría por extrusión paramétrica; exportación IFC vía IfcOpenShell 0.8.5; integración completa con la cadena cognitiva; PoC D-2.
+
+Fuera: BRep/NURBS, render, GLB/OBJ, DXF, DWG, STEP, ARKI-DRAW Bloque 2, proyección 2D, multiescala superior, topografía real, perfiles regulatorios reales.
+
+3. Modelo semántico
+3.1 Identidad estable
+python
+@dataclass(frozen=True)
+class ArchiElementId:
+    value: str  # sha256 hex, 64 chars
+
+    @classmethod
+    def compute(cls, project_id: str, kind: "ElementKind", birth_nonce: str) -> "ArchiElementId":
+        canonical = json.dumps({
+            "schema": "archi-element-id-v1",
+            "projectId": project_id,
+            "kind": kind.value,
+            "birthNonce": birth_nonce,
+        }, sort_keys=True, separators=(",", ":"))
+        return cls(hashlib.sha256(canonical.encode("utf-8")).hexdigest())
+Reglas duras: birth_nonce obligatorio provisto por caller. Prohibido: time.time(), Date.now(), uuid.uuid4(), os.urandom, geometría, hash de timestamp. Mismo (project_id, kind, birth_nonce) → mismo ID. Mover geometría no cambia ID.
+
+3.2 Tipos v1
+python
+class ElementKind(str, Enum):
+    SITE = "SITE"; SPACE = "SPACE"; WALL = "WALL"; SLAB = "SLAB"
+    COLUMN = "COLUMN"; BEAM = "BEAM"; DOOR = "DOOR"
+    WINDOW = "WINDOW"; OPENING = "OPENING"
+3.3 Estructura del elemento
+python
+PropertyValue = str | int | float | bool
+
+@dataclass(frozen=True)
+class ArchiElement:
+    element_id: ArchiElementId
+    kind: ElementKind
+    project_id: str
+    name: str
+    geometry: "ArchiGeometry"
+    hosting: tuple[ArchiElementId, ...] = ()
+    contained_in: ArchiElementId | None = None
+    properties: tuple[tuple[str, PropertyValue], ...] = ()
+    version: int = 1
+    provenance: tuple[str, ...] = ()
+
+    def __post_init__(self):
+        if not self.name.strip(): raise ValueError("name required")
+        if self.version < 1: raise ValueError("version >= 1")
+        if self.hosting and self.contained_in is not None:
+            raise ValueError("cannot host and be contained simultaneously")
+        keys = [k for k, _ in self.properties]
+        if keys != sorted(keys): raise ValueError("properties must be sorted")
+        if len(keys) != len(set(keys)): raise ValueError("properties keys unique")
+
+    def content_hash(self) -> str:
+        state = {
+            "schema": "archi-element-state-v1",
+            "elementId": self.element_id.value,
+            "kind": self.kind.value,
+            "projectId": self.project_id,
+            "name": self.name,
+            "geometry": self.geometry.to_canonical(),
+            "hosting": [h.value for h in self.hosting],
+            "containedIn": self.contained_in.value if self.contained_in else None,
+            "properties": [[k, _serialize_property_value(v)] for k, v in self.properties],
+            "version": self.version,
+        }
+        canonical = json.dumps(state, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+provenance queda FUERA del content_hash. Cambio administrativo no altera identidad semántica.
+
+3.4 Properties tagged union
+python
+def _serialize_property_value(v: PropertyValue) -> object:
+    if isinstance(v, bool):   return {"t": "bool",  "v": v}
+    if isinstance(v, int):    return {"t": "int",   "v": v}
+    if isinstance(v, float):  return {"t": "float", "v": round(v, 6)}
+    if isinstance(v, str):    return {"t": "str",   "v": v}
+    raise TypeError(f"unsupported: {type(v)}")
+bool antes que int. Floats canonicalizados a 6 decimales.
+
+4. Geometría
+python
+class GeometryKind(str, Enum):
+    EXTRUDED_RECTANGLE = "EXTRUDED_RECTANGLE"
+    EXTRUDED_CIRCLE = "EXTRUDED_CIRCLE"
+
+@dataclass(frozen=True)
+class ProfileSpec:
+    kind: GeometryKind
+    width_mm: float | None = None
+    height_mm: float | None = None
+    radius_mm: float | None = None
+
+@dataclass(frozen=True)
+class ArchiGeometry:
+    kind: GeometryKind
+    origin_mm: tuple[float, float, float]
+    direction: tuple[float, float, float]   # unit
+    profile: ProfileSpec
+    length_mm: float
+    material_ref: str | None = None
+
+    def to_canonical(self) -> dict:
+        return {
+            "kind": self.kind.value,
+            "originMm": [round(x, 6) for x in self.origin_mm],
+            "direction": [round(x, 6) for x in self.direction],
+            "profile": {
+                "kind": self.profile.kind.value,
+                "widthMm": round(self.profile.width_mm, 6) if self.profile.width_mm else None,
+                "heightMm": round(self.profile.height_mm, 6) if self.profile.height_mm else None,
+                "radiusMm": round(self.profile.radius_mm, 6) if self.profile.radius_mm else None,
+            },
+            "lengthMm": round(self.length_mm, 6),
+            "materialRef": self.material_ref,
+        }
+Unidades: mm.
+
+5. Relaciones
+5.1 Tipos v1
+python
+class RelationshipKind(str, Enum):
+    HOSTED_IN = "HOSTED_IN"     # Door/Window/Opening → Wall/Slab
+    BOUNDS    = "BOUNDS"        # Wall → Space (muro delimita espacio)
+CONTAINS eliminado. Era redundante con BOUNDS expresado desde la perspectiva opuesta. Si en v2 se necesita jerarquía Site⊃Space, se reintroduce con semántica distinta.
+
+5.2 Proyección en H-002 — RT-D12-02
+Regla obligatoria: cada elemento dependiente genera su propia derivación con la dependencia como input.
+
+Para cada ArchiElement que tenga dependencias:
+
+python
+DerivationRecord(
+    id=f"{element_id.value}@{version}-derivation",
+    output=VersionedRef(kind.value, element_id.value, version, content_hash),
+    inputs=tuple(dependency_refs),
+    method=f"archi.{kind.lower()}.derived",
+    method_version="1",
+    relations=tuple(
+        TypedRelation(output_ref, dep_ref, rel_kind.value, "ARCHITECTURAL")
+        for dep_ref, rel_kind in dependencies
+    ),
+)
+Reglas específicas:
+
+Wall W-01 (primitivo en v1): output=W-01@v, inputs=(), method="archi.wall.primitive".
+
+Door D-01 (hosted en W-01): output=D-01@v, inputs=(W-01@v,), relations=(HOSTED_IN,), method="archi.door.hosting".
+
+Space A-01 (delimitado por W-01..04): output=A-01@v, inputs=(W-01@v, W-02@v, W-03@v, W-04@v), relations=(BOUNDS×4,), method="archi.space.boundaries".
+
+No hay derivaciones separadas para ArchiRelationship. La relación se codifica dentro de la derivación del elemento dependiente. La clase ArchiRelationship sigue existiendo como entidad de API y para export IFC, pero no genera DerivationRecord propio — de lo contrario produciría ruido sin ganar causalidad.
+
+Mecanismo de traversal asumido: H-002 usa inputs para reverse traversal. Cambio en W-01@v → W-01@v+1 produce reverse lookup → encuentra D-01@v y A-01@v (ambos tienen W-01@v como input) → los reporta como impactados.
+
+5.3 Criterio de aceptación D-2
+D-2 debe pasar sin mocks ni lógica paralela:
+
+text
+Input: ImpactChange(W-01@1, W-01@2, VERSION_UPGRADED)
+       con la cadena H-002 real
+Expected: impacted includes A-01
+          impacted includes D-01
+Si D-2 no logra esto con el H-002 real congelado, se declara BLOCKED_BY_CORE_CONTRACT y D-2 se detiene. No se simula con lookup ad-hoc. No se hardcodea el PoC. No se mockea.
+
+5.4 Identidad y versionado de relaciones
+Cambio de geometría de source/target → NO cambia identidad ni versión de la relación.
+
+Cambio de source, target o RelationshipKind → cambio estructural: nuevo relationship_id, anterior cerrado.
+
+Cambio únicamente de provenance → no altera identidad ni versión.
+
+6. Mutación semántica
+6.1 Contrato
+python
+class MutationKind(str, Enum):
+    MOVE = "MOVE"; RESIZE = "RESIZE"; ADD_OPENING = "ADD_OPENING"; DELETE = "DELETE"
+
+@dataclass(frozen=True)
+class ArchiMutation:
+    kind: MutationKind
+    target: ArchiElementId
+    target_version: int
+    payload: tuple[tuple[str, PropertyValue], ...]
+    requested_by: str
+    requested_at_iso: str          # provenance, NOT identity
+    request_nonce: str             # caller-provided, required
+    project_id: str
+    mutation_id: str = ""
+
+    def compute_id(self) -> str:
+        identity = {
+            "schema": "archi-mutation-id-v1",
+            "projectId": self.project_id,
+            "mutationKind": self.kind.value,
+            "targetId": self.target.value,
+            "targetVersion": self.target_version,
+            "canonicalPayload": [[k, _serialize_property_value(v)] for k, v in self.payload],
+            "requestNonce": self.request_nonce,
+        }
+        canonical = json.dumps(identity, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+mutation_id NO incluye requested_at_iso. Test obligatorio: dos mutaciones semánticamente idénticas con timestamps distintos → mismo mutation_id.
+
+6.2 A-002 operation-specific
+python
+class ArchiOperation(str, Enum):
+    ARCHI_MOVE = "archi.move"
+    ARCHI_RESIZE = "archi.resize"
+    ARCHI_ADD_OPENING = "archi.add_opening"
+    ARCHI_DELETE = "archi.delete"
+Prohibido usar preliminary building massing para mutaciones arquitectónicas.
+
+Snapshot común mínimo:
+
+python
+@dataclass(frozen=True)
+class ArchiSufficiencySnapshot:
+    project_id: str
+    operation: ArchiOperation
+    target_element_id: str
+    target_version: int
+    target_content_hash: str
+    canonical_mutation_payload: tuple[tuple[str, PropertyValue], ...]
+    scale: SpatialScope | None
+    jurisdiction: str | None
+    context: str | None
+    relevant_relationships: tuple[str, ...]
+    human_authority_ref: str | None
+Cada operación tiene sus OperationRequirement. Ejemplos v1 mínimos:
+
+archi.move: target_id/target_version/target_content_hash/mutation_payload.blocking. human_authority_ref blocking si toca elemento estructural o regulatory-bound.
+
+archi.resize: análogo.
+
+archi.add_opening: target host blocking, opening_spec blocking.
+
+archi.delete: siempre blocking human_authority_ref.
+
+Perfiles regulatorios reales quedan fuera del PoC.
+
+6.3 Versionado unificado
+ArchiElement.version es la verdad canónica.
+
+VersionedRef.version debe ser idéntico.
+
+Mutación aplicada: version(n+1) = version(n) + 1.
+
+Cambio de solo provenance: no incrementa versión.
+
+No hay dos contadores independientes.
+
+6.4 Hosting semantics
+Mutación del host propaga al hosted:
+
+MOVE W-01 +1.00 m sur → D-01 (HOSTED_IN W-01) se mueve.
+
+Si D-01 queda fuera de rango → H-003 INVALID → H-004 ESCALATE.
+
+Nunca se deja un hosted flotando en silencio.
+
+7. Semántica transaccional — RT-D12-03
+7.1 Modelo
+text
+CANONICAL STATE n
+      ↓
+PROPOSED MUTATION
+      ↓
+CANDIDATE STATE
+      ↓
+A-002 (operation-specific)
+      ↓
+H-001 / H-002 / H-003 / H-004 / H-005
+      ↓
+DECISION
+   ↙          ↘
+NO COMMIT    COMMIT
+               ↓
+        CANONICAL STATE n+1
+Regla dura: el canonical state permanece intacto hasta que la decisión sea APPLIED. Cualquier otro resultado no modifica el canonical state, no parcialmente, no transitoriamente, no como evento:
+
+text
+BLOCKED, NEEDS_REVIEW, FAILED, INVALID, UNKNOWN,
+ESCALATE, REQUIRES_AUTHORITY
+7.2 Estados distinguidos
+python
+class MutationLifecycle(str, Enum):
+    PROPOSED   = "PROPOSED"    # mutación recibida
+    EVALUATED  = "EVALUATED"   # A-002 + H-002/H-003 completados, sin commit
+    AUTHORIZED = "AUTHORIZED"  # aprobado por autoridad cuando se requiere
+    APPLIED    = "APPLIED"     # canonical n → n+1 (único estado que muta)
+    PUBLISHED  = "PUBLISHED"   # representación (IFC) regenerada y emitida
+7.3 Qué se registra sin afirmar commit
+Eventos de evaluación (A-002 report, H-002 impacto, H-003 validez, H-004 plan) se registran como audit events sin DERIVATION_RECORDED de la mutación.
+
+Solo en APPLIED se registra el DerivationRecord de la nueva versión del elemento.
+
+El registro previo no afirma falsamente que el estado arquitectónico cambió.
+
+7.4 Test obligatorio D-2
+text
+A-002 BLOCK          → canonical unchanged
+H-003 INVALID        → canonical unchanged
+H-004 REVIEW         → canonical unchanged
+H-004 ESCALATE       → canonical unchanged
+recompute failure    → canonical unchanged, no partial state
+successful mutation  → exactly one n → n+1 transition
+same mutation replay → no double application
+8. Cadena obligatoria de mutación
+text
+1. ArchiMutation con mutation_id determinista
+2. A-002 operation-specific → si BLOCK: MutationResult(BLOCKED), canonical intacto
+3. Si A-002 ALLOW: registrar audit events (evaluación)
+4. H-001: preparar DerivationRecord candidato (NO registrado aún)
+5. H-002: descubrir impactos
+   → si cero impactos y por relaciones se esperaban: UNKNOWN → BLOCKED
+6. H-003: validez
+7. H-004: ReactionPlan
+8. Filtrar acciones: solo PLANNED + requires_human_authority=False
+9. H-005: recomputación selectiva
+10. Si todo OK: registrar DerivationRecord → canonical n → n+1 (APPLIED)
+11. Regenerar representación IFC de afectados (PUBLISHED)
+12. MutationResult con provenance completa
+9. Exportación IFC — RT-D12-01
+9.1 Mapeo correcto
+ArchiElement	IFC entity
+SITE	IfcSite
+SPACE	IfcSpace
+WALL	IfcWallStandardCase
+SLAB	IfcSlab
+COLUMN	IfcColumn
+BEAM	IfcBeam
+OPENING	IfcOpeningElement
+DOOR	IfcDoor
+WINDOW	IfcWindow
+Door y Window NO son IfcOpeningElement.
+
+9.2 Cadena relacional
+text
+Wall/Slab --IfcRelVoidsElement--> Opening
+Opening   --IfcRelFillsElement--> Door/Window
+No se requiere BRep ni boolean operation. El visor aplica el void al leer.
+
+9.3 GlobalId determinista
+python
+import ifcopenshell.guid, uuid, hashlib
+
+def compute_ifc_guid(archi_id: ArchiElementId) -> str:
+    digest = hashlib.sha256(archi_id.value.encode("utf-8")).digest()[:16]
+    uuid_str = str(uuid.UUID(bytes=digest))
+    return ifcopenshell.guid.compress(uuid_str)
+Prohibido: uuid.uuid4() en runtime, os.urandom, GUIDs no derivados de ArchiElementId. Test: mismo ArchiElementId → mismo GUID válido.
+
+9.4 Header fijo
+Campo	Valor
+time_stamp	1970-01-01T00:00:00
+author	"ARKI"
+organization	"ARKI"
+application	"ARKI"
+authorization	"ARKI"
+preprocessor_version	"ARKI-3D-v1"
+9.5 Orden determinista
+Entidades por ArchiElementId.value ascendente. Relaciones por relationship_id ascendente.
+
+9.6 Test obligatorio D-2
+text
+- IfcOpenShell reabre el IFC sin error
+- Wall --IfcRelVoidsElement--> Opening
+- Opening --IfcRelFillsElement--> Door/Window
+- Door sigue siendo IfcDoor
+- Window sigue siendo IfcWindow
+- sha256(ifc_1) == sha256(ifc_2) — misma exportación × 2
+9.7 D-2 representation
+text
+D-2 representation regeneration = IFC only
+2D semantic projection = deferred
+advanced 3D/render/mesh = deferred
+10. Fail-closed declarado
+Capacidad	v1	Razón
+BRep/NURBS	NO	Sin OCC
+Render	NO	Sin Blender
+Mesh GLB/OBJ	NO	Sin trimesh/pygltflib
+DXF	NO	Sin ezdxf
+DWG/STEP/IGS	NO	Sin SDK
+IFC vía IfcOpenShell 0.8.5	SÍ	Disponible
+Extrusión paramétrica	SÍ	Disponible
+Sin motor → sin representación. Sin representación → sin promesa.
+
+11. SpatialScope
+Reutiliza el tipo canónico existente (sicl.domain.SpatialScope). No se crea uno nuevo. Si durante D-2 aparece incompatibilidad real de tipos, se declara; no se duplica el concepto.
+
+12. PoC D-2
+text
+Proyecto: D2-POC
+Site:     S-1, 10.00 × 20.00 m
+Space:    A-01 rectangular 5.00 × 4.00 m
+Wall:     W-01 sur   5.00 × 0.15 × 2.70 m
+Wall:     W-02 este  4.00 × 0.15 × 2.70 m
+Wall:     W-03 norte 5.00 × 0.15 × 2.70 m
+Wall:     W-04 oeste 4.00 × 0.15 × 2.70 m
+Door:     D-01 0.90 × 2.10 m, HOSTED_IN W-01
+
+Relaciones v1:
+  D-01 HOSTED_IN W-01
+  W-01 BOUNDS A-01
+  W-02 BOUNDS A-01
+  W-03 BOUNDS A-01
+  W-04 BOUNDS A-01
+
+Operación: archi.move, MOVE W-01 +1.00 m sur
+Criterios de aceptación D-2:
+
+text
+[ ] A-002 operation="archi.move" valida input suficiente.
+[ ] Si A-002 BLOCK → canonical unchanged.
+[ ] H-001 registra derivaciones candidatas (no canonical).
+[ ] H-002 real descubre A-01 y D-01 como afectados (sin mocks).
+[ ] Si H-002 no descubre ambos → BLOCKED_BY_CORE_CONTRACT y STOP.
+[ ] H-003 evalúa validez.
+[ ] H-004 planifica acciones.
+[ ] H-005 recomputa solo lo autorizado.
+[ ] canonical n → n+1 solo en APPLIED.
+[ ] IFC abre en ifcopenshell.read().
+[ ] RelVoidsElement y RelFillsElement verificables.
+[ ] sha256(ifc_v1) == sha256(ifc_v2).
+[ ] H-001..H-005 diff contra baseline = vacío.
+[ ] ARKI-DRAW no modificado.
+[ ] Sin dependencias nuevas.
+13. Estrategia de rama
+text
+main = 30806d43 (A-002 v1.4.3 cerrado)
+→ feat/arki3d-archi-model desde main
+→ implementación D-2
+→ ChatGPT Red Team
+→ PO firma
+→ merge + tag sicl-arki3d-v0.1
+Sin saltos. Sin mocks de A-002 ni de H-002.
+
+14. Criterios de firma D-1 v1.3
+text
+[ ] Identidad estable
+[ ] mutation_id determinista
+[ ] content_hash canónico
+[ ] Versionado unificado
+[ ] A-002 operation-specific
+[ ] Proyección H-002 especificada (§5.2) + fallback BLOCKED_BY_CORE_CONTRACT
+[ ] Semántica transaccional §7
+[ ] IFC Door/Window/Opening correcto (§9)
+[ ] GlobalId vía IfcOpenShell (§9.3)
+[ ] Header IFC fijo
+[ ] Fail-closed declarado
+[ ] SpatialScope reutilizado
+[ ] PoC escenario + criterios
+[ ] Fuera de alcance
+[ ] Cero dependencias nuevas
+15. Estado
+text
+D1_VERSION              = 1.3
+D1_STATUS               = CANDIDATE_PENDING_RED_TEAM
+D1_BASELINE             = main@30806d434374602ebf71091371e228ac34a411c1
+D1_TAG_REFERENCE        = sicl-a002-v1.4.3
+D1_IMPLEMENTATION       = NOT_STARTED
+D1_NEXT_STEP            = ChatGPT Red Team
+PROTOCOLO
+RECIBIDO:
+
+D-1 v1.2 + Qwen + ChatGPT Full Red Team.
+
+3 findings materiales: RT-D12-01, RT-D12-02, RT-D12-03.
+
+SpatialScope deferido.
+
+ENTREGADO:
+
+D-1 v1.3 completo consolidado.
+
+RT-D12-01 RESOLVED (IFC Door/Window/Opening + GlobalId).
+
+RT-D12-02 RESOLVED (derivaciones de elementos; CONTAINS eliminado; criterio D-2; fallback declarado).
+
+RT-D12-03 RESOLVED (semántica transaccional; canonical inmutable ante no-APPLIED).
+
+SpatialScope reutilizado.
+
+DIVERGENCIA:
+
+Qué: Eliminada ArchiRelationship.compute → DerivationRecord que existía en v1.2.
+
+Por qué: El modelo output=Relationship, inputs=(source,target) no permite a H-002 descubrir D-01 desde cambio en W-01 (W-01 es input, no output). Se reemplaza por derivaciones de elementos: output=dependente, inputs=(dependencia,).
+
+Efecto: H-002 puede descubrir dependencias causalmente. Menos registros en el ledger. Si H-002 real no sigue este modelo, se declara BLOCKED_BY_CORE_CONTRACT.
+
+FALTA:
+
+ChatGPT Red Team sobre D-1 v1.3.
+
+Firma PO.
+
+Bloqueado por: Red Team no iniciado.
+
+Desbloquea cuando: ChatGPT emita veredicto.
+
+Yvan, D-1 v1.3 completo en tus manos.
+
+Nota honesta: RT-D12-02 es el más delicado. Propongo un modelo (derivaciones de elementos con dependencias como inputs) que asumo compatible con el H-002 congelado. No puedo verificarlo sin código. Por eso D-1 v1.3 declara explícitamente: si D-2 no logra el descubrimiento real, BLOCKED_BY_CORE_CONTRACT y parada. No oculto incertidumbre con lógica paralela.
+
+Standby. Sin D-2 hasta Red Team PASS + firma PO.

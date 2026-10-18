@@ -1,0 +1,19 @@
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8A-01 PASS — unapproved snapshot rejected
+E8A-02 PASS — five technical documents compiled
+E8A-03 PASS — snapshot/version/element traceability preserved
+E8A-04 PASS — budget and traceable plan emitted
+{
+  "status": "PASS",
+  "schema": "ARKI-E8A-TECHNICAL-DOSSIER-1.0",
+  "snapshotId": "ARKI-d9565f3b",
+  "version": 1,
+  "documents": [
+    "01-memoria-descriptiva.md",
+    "02-especificaciones-tecnicas.md",
+    "03-metrados.md",
+    "04-presupuesto.md",
+    "05-planta.svg"
+  ],
+  "tracedElements": 356
+}

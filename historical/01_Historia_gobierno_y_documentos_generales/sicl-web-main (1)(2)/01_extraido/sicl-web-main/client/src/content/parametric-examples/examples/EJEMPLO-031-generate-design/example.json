@@ -1,0 +1,41 @@
+{
+  "exampleId": "EJEMPLO-031",
+  "title": "Ejemplo 031 · /GENERATE DESIGN",
+  "commandName": "/GENERATE DESIGN",
+  "category": "generate",
+  "syntax": "/GENERATE DESIGN <method> <parameters_json>",
+  "command": "/GENERATE DESIGN PARAMETRIC_MASSING {\"width\":24,\"depth\":16,\"height\":3.2,\"floors\":2,\"kind\":\"RECTANGULAR_MASS\"}",
+  "arguments": [
+    {
+      "name": "method",
+      "required": true,
+      "type": "string",
+      "exampleValue": "PARAMETRIC_MASSING"
+    },
+    {
+      "name": "parameters_json",
+      "required": true,
+      "type": "string",
+      "exampleValue": "{\"width\":24,\"depth\":16,\"height\":3.2,\"floors\":2,\"kind\":\"RECTANGULAR_MASS\"}"
+    }
+  ],
+  "mode": "EXPLORE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE DESIGN.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": [
+    "EJEMPLO-031.ark",
+    "EJEMPLO-031.dyn",
+    "EJEMPLO-031.ghx"
+  ]
+}

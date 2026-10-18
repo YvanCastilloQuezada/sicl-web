@@ -1,0 +1,661 @@
+{
+  "run": 10,
+  "label": "10 — MULTIESCALA (MULTI-001) — caso sintético añadido porque la orden adjunta termina en el proyecto 9",
+  "source": "caso-sintético-complementario",
+  "project_id": "MULTI-001",
+  "status": "PASS",
+  "commands_total": 25,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0332,
+  "failures": [],
+  "snapshot": {
+    "project_id": "MULTI-001",
+    "name": "Corredor territorial Andes-Costa",
+    "spatial_scope": "pais",
+    "temporal_scope": "escenario_2050",
+    "stage": "DRAFT",
+    "version": 24,
+    "facts": 2,
+    "assumptions": 1,
+    "evidence": 2,
+    "objectives": 2,
+    "constraints": 2,
+    "alternatives": 2,
+    "evaluations": 4,
+    "comparisons": 1,
+    "simulations": 0,
+    "multiobjectives": 1,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 24
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE MULTI-001 \"Corredor territorial Andes-Costa\" pais escenario_2050",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "MULTI-001",
+          "name": "Corredor territorial Andes-Costa",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "pais",
+          "temporal_scope": "escenario_2050",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001121
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN MULTI-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "MULTI-001",
+          "name": "Corredor territorial Andes-Costa",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "pais",
+          "temporal_scope": "escenario_2050",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000624
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El corredor conecta ciudades de costa y sierra con presión creciente sobre agua y movilidad\" CEPLAN",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-8ad152c7ef",
+          "project_id": "MULTI-001",
+          "statement": "El corredor conecta ciudades de costa y sierra con presión creciente sobre agua y movilidad",
+          "source": "CEPLAN",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001147
+    },
+    {
+      "sequence": 4,
+      "command": "/FACT SET \"La población urbana del corredor supera 2 millones de habitantes\" INEI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-cef715f91e",
+          "project_id": "MULTI-001",
+          "statement": "La población urbana del corredor supera 2 millones de habitantes",
+          "source": "INEI",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001112
+    },
+    {
+      "sequence": 5,
+      "command": "/ASSUMPTION SET \"La coordinación intermunicipal continuará hasta 2050\" GOBERNANZA",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "assumption_id": "ASM-ee5d624e16",
+          "project_id": "MULTI-001",
+          "statement": "La coordinación intermunicipal continuará hasta 2050",
+          "basis": "GOBERNANZA",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001206
+    },
+    {
+      "sequence": 6,
+      "command": "/EVIDENCE ADD EVD-M001 \"Diagnóstico territorial y de infraestructura\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-M001",
+          "project_id": "MULTI-001",
+          "source_id": null,
+          "statement": "Diagnóstico territorial y de infraestructura",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.870659+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "e44a8ed3a123e2dafea0a1e2f2852523ad29ff101e192d5c0b7e263ccc5a3c27",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001296
+    },
+    {
+      "sequence": 7,
+      "command": "/EVIDENCE ADD EVD-M002 \"Serie histórica de movilidad y agua\" MEASUREMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-M002",
+          "project_id": "MULTI-001",
+          "source_id": null,
+          "statement": "Serie histórica de movilidad y agua",
+          "evidence_type": "MEASUREMENT",
+          "captured_at": "2026-09-16 18:06:10.871963+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "f358dfdc0d667bf6b3567a22d3b8efac6f34b840d9fddad65845d46943789318",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001375
+    },
+    {
+      "sequence": 8,
+      "command": "/OBJECTIVE SET CONECTIVIDAD MAXIMIZE 90",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-9be2c3bcc5",
+          "project_id": "MULTI-001",
+          "key": "CONECTIVIDAD",
+          "direction": "MAXIMIZE",
+          "value": "90",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001244
+    },
+    {
+      "sequence": 9,
+      "command": "/OBJECTIVE SET RESILIENCIA MAXIMIZE 85",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-d0c783e95b",
+          "project_id": "MULTI-001",
+          "key": "RESILIENCIA",
+          "direction": "MAXIMIZE",
+          "value": "85",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001318
+    },
+    {
+      "sequence": 10,
+      "command": "/CONSTRAINT SET INVERSION <= 1200 USD_MILLION",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-09986c6332",
+          "project_id": "MULTI-001",
+          "key": "INVERSION",
+          "operator": "<=",
+          "value": "1200",
+          "unit": "USD_MILLION",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001082
+    },
+    {
+      "sequence": 11,
+      "command": "/CONSTRAINT SET EMISIONES <= 5000 TON_YEAR",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-8a46a28fb8",
+          "project_id": "MULTI-001",
+          "key": "EMISIONES",
+          "operator": "<=",
+          "value": "5000",
+          "unit": "TON_YEAR",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001225
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE CREATE MULTI-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4746aa27b7",
+          "project_id": "MULTI-001",
+          "name": "MULTI-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00124
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET MULTI-A corredores_ferroviarios 2",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4746aa27b7",
+          "project_id": "MULTI-001",
+          "name": "MULTI-A",
+          "description": "",
+          "parameters": {
+            "corredores_ferroviarios": "2"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001412
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET MULTI-A inversion 1100",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4746aa27b7",
+          "project_id": "MULTI-001",
+          "name": "MULTI-A",
+          "description": "",
+          "parameters": {
+            "corredores_ferroviarios": "2",
+            "inversion": "1100"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001215
+    },
+    {
+      "sequence": 15,
+      "command": "/ALTERNATIVE CREATE MULTI-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7c3af1266f",
+          "project_id": "MULTI-001",
+          "name": "MULTI-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001322
+    },
+    {
+      "sequence": 16,
+      "command": "/ALTERNATIVE SET MULTI-B corredores_ferroviarios 3",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7c3af1266f",
+          "project_id": "MULTI-001",
+          "name": "MULTI-B",
+          "description": "",
+          "parameters": {
+            "corredores_ferroviarios": "3"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001221
+    },
+    {
+      "sequence": 17,
+      "command": "/ALTERNATIVE SET MULTI-B inversion 1180",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-7c3af1266f",
+          "project_id": "MULTI-001",
+          "name": "MULTI-B",
+          "description": "",
+          "parameters": {
+            "corredores_ferroviarios": "3",
+            "inversion": "1180"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001166
+    },
+    {
+      "sequence": 18,
+      "command": "/EVALUATE MULTI-A CONECTIVIDAD 78 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-379d89b316",
+          "alternative_id": "ALT-4746aa27b7",
+          "objective_id": "OBJ-9be2c3bcc5",
+          "value": 78.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001276
+    },
+    {
+      "sequence": 19,
+      "command": "/EVALUATE MULTI-A RESILIENCIA 70 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-55e6e38246",
+          "alternative_id": "ALT-4746aa27b7",
+          "objective_id": "OBJ-d0c783e95b",
+          "value": 70.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001316
+    },
+    {
+      "sequence": 20,
+      "command": "/EVALUATE MULTI-B CONECTIVIDAD 90 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-084d2e1ebe",
+          "alternative_id": "ALT-7c3af1266f",
+          "objective_id": "OBJ-9be2c3bcc5",
+          "value": 90.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001401
+    },
+    {
+      "sequence": 21,
+      "command": "/EVALUATE MULTI-B RESILIENCIA 86 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-d8bcdcc84b",
+          "alternative_id": "ALT-7c3af1266f",
+          "objective_id": "OBJ-d0c783e95b",
+          "value": 86.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001602
+    },
+    {
+      "sequence": 22,
+      "command": "/COMPARE MULTI-A MULTI-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-fa70caa560",
+          "project_id": "MULTI-001",
+          "alternative_ids": [
+            "ALT-4746aa27b7",
+            "ALT-7c3af1266f"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-379d89b316",
+              "alternative_id": "ALT-4746aa27b7",
+              "objective_id": "OBJ-9be2c3bcc5",
+              "value": 78.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-55e6e38246",
+              "alternative_id": "ALT-4746aa27b7",
+              "objective_id": "OBJ-d0c783e95b",
+              "value": 70.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-084d2e1ebe",
+              "alternative_id": "ALT-7c3af1266f",
+              "objective_id": "OBJ-9be2c3bcc5",
+              "value": 90.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-d8bcdcc84b",
+              "alternative_id": "ALT-7c3af1266f",
+              "objective_id": "OBJ-d0c783e95b",
+              "value": 86.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001558
+    },
+    {
+      "sequence": 23,
+      "command": "/MULTIOBJECTIVE PARETO CONECTIVIDAD RESILIENCIA",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "multiobjective": {
+            "multiobjective_id": "MOBJ-8b6699b05d",
+            "project_id": "MULTI-001",
+            "method": "pareto_front_v1",
+            "method_version": "1.0",
+            "objectives": [
+              "CONECTIVIDAD",
+              "RESILIENCIA"
+            ],
+            "alternatives": [
+              "ALT-4746aa27b7",
+              "ALT-7c3af1266f"
+            ],
+            "pareto_front": [
+              "ALT-7c3af1266f"
+            ],
+            "dominated": [
+              "ALT-4746aa27b7"
+            ],
+            "incomplete": [],
+            "tradeoffs": {
+              "matrix": {
+                "ALT-4746aa27b7": {
+                  "CONECTIVIDAD": 78.0,
+                  "RESILIENCIA": 70.0
+                },
+                "ALT-7c3af1266f": {
+                  "CONECTIVIDAD": 90.0,
+                  "RESILIENCIA": 86.0
+                }
+              }
+            },
+            "state": "EXECUTED",
+            "inputs_hash": "f310e5ff2e8b7ec3e3e22bde5cbf6fa5c04a33172e25de45da52c284424e38f7",
+            "created_at": "2026-09-16T18:06:10.893471+00:00",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.002357
+    },
+    {
+      "sequence": 24,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión multiescala\" \"Corredor validado para demostración\" \"Arquitecto principal\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-034dc75150",
+          "project_id": "MULTI-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión multiescala",
+          "reason": "Corredor validado para demostración",
+          "authority": "Arquitecto principal",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001362
+    },
+    {
+      "sequence": 25,
+      "command": "/DECISION RECORD \"Adoptar MULTI-B como escenario preferente sujeto a coordinación territorial\" architect-yvan \"Arquitecto principal\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-97c3991cc6",
+          "project_id": "MULTI-001",
+          "statement": "Adoptar MULTI-B como escenario preferente sujeto a coordinación territorial",
+          "actor": "architect-yvan",
+          "authority": "Arquitecto principal",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001284
+    }
+  ]
+}

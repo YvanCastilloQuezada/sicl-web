@@ -1,0 +1,209 @@
+[1mdiff --git a/client/src/components/ArkiGateway.tsx b/client/src/components/ArkiGateway.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2047a68[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/components/ArkiGateway.tsx[m
+[36m@@ -0,0 +1,31 @@[m
+[32m+[m[32mimport { ArrowRight, Building2, Calculator, Eye, ShieldCheck, UsersRound, Workflow, type LucideIcon } from "lucide-react";[m
+[32m+[m[32mimport { useTranslation } from "../i18n/useTranslation";[m
+[32m+[m[32mimport type { TranslationKey } from "../i18n/catalog";[m
+[32m+[m
+[32m+[m[32mexport type ArkiAccess = "visitor" | "user" | "specialist" | "corporate";[m
+[32m+[m[32mexport type ArkiModuleStatus = "IMPLEMENTED" | "VERIFIED" | "PARTIAL" | "CONCEPTUAL" | "NOT AVAILABLE" | "FUTURE REFERENCE";[m
+[32m+[m[32mexport type ArkiModuleDefinition = { name: string; icon: LucideIcon; status: ArkiModuleStatus; allowed: readonly ArkiAccess[] };[m
+[32m+[m[32mtype AccessCard = { id: ArkiAccess; titleKey: TranslationKey; subtitleKey: TranslationKey; descriptionKey: TranslationKey; icon: LucideIcon; accent: "yellow" | "orange" | "cyan" | "green"; moduleKeys: readonly TranslationKey[] };[m
+[32m+[m
+[32m+[m[32mexport const ACCESS_CARDS: readonly AccessCard[] = [[m
+[32m+[m[32m  { id: "visitor", titleKey: "visitor", subtitleKey: "visitorSubtitle", descriptionKey: "visitorDescription", icon: Eye, accent: "yellow", moduleKeys: ["demo", "publicLibrary", "documentation"] },[m
+[32m+[m[32m  { id: "user", titleKey: "user", subtitleKey: "userSubtitle", descriptionKey: "userDescription", icon: Building2, accent: "orange", moduleKeys: ["projects", "generatorShort", "bimShort"] },[m
+[32m+[m[32m  { id: "specialist", titleKey: "specialist", subtitleKey: "specialistSubtitle", descriptionKey: "specialistDescription", icon: UsersRound, accent: "cyan", moduleKeys: ["disciplines", "review", "interferences"] },[m
+[32m+[m[32m  { id: "corporate", titleKey: "corporate", subtitleKey: "corporateSubtitle", descriptionKey: "corporateDescription", icon: Calculator, accent: "green", moduleKeys: ["costs", "clashesShort", "governance"] },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32mexport default function ArkiGateway({ onEnter }: { onEnter: (access: ArkiAccess) => void }) {[m
+[32m+[m[32m  const { t } = useTranslation();[m
+[32m+[m[32m  return <main className="arki-gateway"><div className="gateway-orbit gateway-orbit-a" /><div className="gateway-orbit gateway-orbit-b" /><section className="gateway-inner"><header className="gateway-brand"><div className="gateway-mark"><Workflow size={23} /></div><div><strong>{t("brand")}</strong><span>{t("runtime")}</span></div><div className="gateway-status"><span /> {t("engine")}</div></header><div className="gateway-copy"><span className="gateway-kicker"><ShieldCheck size={14} /> {t("gatewayKicker")}</span><h1>{t("gatewayTitle")}<br /><em>{t("gatewayTitleAccent")}</em></h1><p>{t("gatewayDescription")}</p></div><div className="access-grid">{ACCESS_CARDS.map((item) => { const Icon = item.icon; return <button key={item.id} className={`access-card access-${item.accent}`} onClick={() => onEnter(item.id)}><div className="access-card-top"><span className="access-icon"><Icon size={19} /></span><ArrowRight size={16} className="access-arrow" /></div><span className="access-subtitle">{t(item.subtitleKey)}</span><strong>{t(item.titleKey)}</strong><p>{t(item.descriptionKey)}</p><div className="access-modules">{item.moduleKeys.map((module) => <span key={module}>{t(module)}</span>)}</div></button>; })}</div><footer className="gateway-footer"><span>{t("prototypeFooter")}</span><span>{t("standardsFooter")}</span></footer></section></main>;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function accessLabel(access: ArkiAccess): TranslationKey { return access; }[m
+[32m+[m[32mexport function accessSubtitle(access: ArkiAccess): TranslationKey { return `${access}Subtitle` as TranslationKey; }[m
+[32m+[m[32mexport function accessColor(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.accent ?? "orange"; }[m
+[32m+[m
+[32m+[m[32mconst BASE_MODULE_ACCESS: Record<string, readonly ArkiAccess[]> = {[m
+[32m+[m[32m  Inicio: ["visitor", "user", "specialist", "corporate"], Biblioteca: ["visitor", "user", "specialist", "corporate"], Proyectos: ["user", "specialist", "corporate"], Generador: ["user", "specialist", "corporate"], "Modelo BIM": ["user", "specialist", "corporate"], Planta: ["user", "specialist", "corporate"], Corte: ["user", "specialist", "corporate"], "3D": ["user", "specialist", "corporate"], Metrados: ["user", "specialist", "corporate"], Presupuesto: ["user", "specialist", "corporate"], "Costos contractuales": ["corporate"], "4D": ["user", "specialist", "corporate"], Clashes: ["specialist", "corporate"], Expediente: ["user", "specialist", "corporate"], "O&M": ["specialist", "corporate"], Administración: ["corporate"],[m
+[32m+[m[32m};[m
+[32m+[m[32mexport function isAccessAllowed(access: ArkiAccess, module: string) { return BASE_MODULE_ACCESS[module]?.includes(access) ?? false; }[m
+[32m+[m[32mexport function moduleAccess(module: string) { return BASE_MODULE_ACCESS[module] ?? []; }[m
+[32m+[m[32mexport function moduleNames() { return Object.keys(BASE_MODULE_ACCESS); }[m
+[1mdiff --git a/client/src/components/ArkiWorkspaceShell.tsx b/client/src/components/ArkiWorkspaceShell.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6bcc2a1[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/components/ArkiWorkspaceShell.tsx[m
+[36m@@ -0,0 +1,63 @@[m
+[32m+[m[32mimport { useEffect, useMemo, useState } from "react";[m
+[32m+[m[32mimport { BarChart3, Box, Building2, CircleHelp, ClipboardCheck, DoorOpen, FileText, Layers3, LayoutDashboard, LogOut, PanelLeft, Settings2, ShieldAlert, SlidersHorizontal, WalletCards, Workflow } from "lucide-react";[m
+[32m+[m[32mimport { toast } from "sonner";[m
+[32m+[m[32mimport type { ArkiAccess } from "./ArkiGateway";[m
+[32m+[m[32mimport { accessColor, accessLabel, accessSubtitle, isAccessAllowed, type ArkiModuleDefinition } from "./ArkiGateway";[m
+[32m+[m[32mimport { useTranslation } from "../i18n/useTranslation";[m
+[32m+[m[32mimport { supportedLanguages } from "../i18n/languages";[m
+[32m+[m[32mimport type { TranslationKey } from "../i18n/catalog";[m
+[32m+[m
+[32m+[m[32mexport const MODULE_DEFINITIONS: readonly ArkiModuleDefinition[] = [[m
+[32m+[m[32m  { name: "Inicio", icon: LayoutDashboard, status: "IMPLEMENTED", allowed: ["visitor", "user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Biblioteca", icon: Layers3, status: "PARTIAL", allowed: ["visitor", "user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Proyectos", icon: Building2, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Generador", icon: Workflow, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Modelo BIM", icon: Layers3, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Planta", icon: PanelLeft, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Corte", icon: SlidersHorizontal, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "3D", icon: Box, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Metrados", icon: BarChart3, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Presupuesto", icon: WalletCards, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Costos contractuales", icon: WalletCards, status: "NOT AVAILABLE", allowed: ["corporate"] },[m
+[32m+[m[32m  { name: "4D", icon: ClipboardCheck, status: "PARTIAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Clashes", icon: ShieldAlert, status: "PARTIAL", allowed: ["specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Expediente", icon: FileText, status: "PARTIAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "O&M", icon: Settings2, status: "FUTURE REFERENCE", allowed: ["specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Administración", icon: Settings2, status: "FUTURE REFERENCE", allowed: ["corporate"] },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mconst MODULE_LABEL_KEYS: Record<string, TranslationKey> = { Inicio: "home", Biblioteca: "library", Proyectos: "projectsModule", Generador: "generatorModule", "Modelo BIM": "bimModule", Planta: "plan", Corte: "section", "3D": "model3d", Metrados: "quantities", Presupuesto: "budget", "Costos contractuales": "contractCosts", "4D": "schedule4d", Clashes: "clashesModule", Expediente: "dossier", "O&M": "operations", Administración: "administration" };[m
+[32m+[m[32mfunction moduleLabelKey(name: string) { return MODULE_LABEL_KEYS[name] ?? name; }[m
+[32m+[m[32mexport function moduleDefinition(name: string) { return MODULE_DEFINITIONS.find((module) => module.name === name); }[m
+[32m+[m
+[32m+[m[32mfunction EmptyModuleState({ name }: { name: string }) {[m
+[32m+[m[32m  const { t } = useTranslation();[m
+[32m+[m[32m  const definition = moduleDefinition(name);[m
+[32m+[m[32m  return <div className="arki-empty-module"><div className="arki-empty-module-icon"><Workflow size={24} /></div><span className="arki-context-kicker">MÓDULO REGISTRADO · {definition?.status ?? "PENDING"}</span><h2>{t(moduleLabelKey(name))}</h2><p>Este módulo está integrado al workspace, pero su integración de dominio aún está pendiente. El generador funcional permanece disponible desde la pestaña Generador.</p><small>{t("status")}: {definition?.status ?? "NOT AVAILABLE"} · {t("ui1")}</small></div>;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport default function ArkiWorkspaceShell({ access, onExit, children }: { access: ArkiAccess; onExit: () => void; children: React.ReactNode }) {[m
+[32m+[m[32m  const [activeModule, setActiveModule] = useState("Generador");[m
+[32m+[m[32m  const [navOpen, setNavOpen] = useState(true);[m
+[32m+[m[32m  const { language, setLanguage, t } = useTranslation();[m
+[32m+[m[32m  const roleColor = accessColor(access);[m
+[32m+[m[32m  const availableModules = useMemo(() => MODULE_DEFINITIONS.filter(({ name }) => isAccessAllowed(access, name)), [access]);[m
+[32m+[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    const onKeyDown = (event: KeyboardEvent) => {[m
+[32m+[m[32m      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); toast.info(t("searchCommands"), { description: t("commandHint") }); }[m
+[32m+[m[32m      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") { event.preventDefault(); toast.success(t("localDraft"), { description: t("backendLater") }); }[m
+[32m+[m[32m      if (event.key === "Escape") toast.dismiss();[m
+[32m+[m[32m    };[m
+[32m+[m[32m    window.addEventListener("keydown", onKeyDown);[m
+[32m+[m[32m    return () => window.removeEventListener("keydown", onKeyDown);[m
+[32m+[m[32m  }, []);[m
+[32m+[m
+[32m+[m[32m  const selectModule = (name: string) => { setActiveModule(name); if (name !== "Generador") toast.info(`${name} seleccionado`, { description: t("moduleStateShown") }); };[m
+[32m+[m[32m  const changeLanguage = () => { const currentIndex = supportedLanguages.findIndex(({ code }) => code === language); const next = supportedLanguages[(currentIndex + 1) % supportedLanguages.length]; setLanguage(next.code); toast.info(`${t("languageSelected")}: ${next.nativeLabel}`, { description: t("languagePrepared") }); };[m
+[32m+[m[32m  const activeDefinition = moduleDefinition(activeModule);[m
+[32m+[m
+[32m+[m[32m  return <div className="arki-workspace"><header className="arki-workspace-top"><div className="arki-workspace-brand"><div className="arki-mini-mark"><Workflow size={16} /></div><div><strong>ARKI</strong><span>{t("workspace")}</span></div></div><div className="arki-project-context"><span>{t("activeProject")}</span><b>{t("projectName")}</b><i>v1.0 · {t("local")}</i></div><div className="arki-top-actions"><span className={`arki-role-badge role-${roleColor}`}>{accessLabel(access)} · PERFIL LOCAL</span><button className="arki-language-button" title={t("changeLanguage")} onClick={changeLanguage}>🌐 {language.toUpperCase()}</button><button className="arki-icon-button" title={t("help")} onClick={() => toast.info(t("help"), { description: t("commandHint") })}><CircleHelp size={16} /></button><button className="arki-icon-button" title={t("exit")} onClick={onExit}><LogOut size={16} /></button></div></header><div className="arki-workspace-tabs">{["Inicio", "Generador", "Planta", "Corte", "3D", "BIM", "Presupuesto", "4D", "Clashes", "Expediente"].map((tab) => { const name = tab === "BIM" ? "Modelo BIM" : tab; return <button key={tab} className={activeModule === name ? "active" : ""} onClick={() => selectModule(name)}>{t(tab === "Inicio" ? "home" : tab === "Generador" ? "generatorModule" : tab === "Planta" ? "plan" : tab === "Corte" ? "section" : tab === "3D" ? "model3d" : tab === "BIM" ? "bimModule" : tab === "Presupuesto" ? "budget" : tab === "4D" ? "schedule4d" : tab === "Clashes" ? "clashesModule" : "dossier")}</button>; })}</div><div className="arki-workspace-body"><aside className={`arki-module-nav ${navOpen ? "open" : "closed"}`}><button className="arki-collapse" onClick={() => setNavOpen((value) => !value)}><PanelLeft size={14} />{navOpen && t("navigator")}</button>{navOpen && <><div className="arki-nav-context"><span>{t("activeProfile")}</span><strong>{t(accessSubtitle(access))}</strong><small>{t("prototype")}</small></div><nav>{availableModules.map(({ name, icon: Icon, status }) => <button key={name} className={activeModule === name ? "active" : ""} onClick={() => selectModule(name)}><Icon size={14} /><span>{t(moduleLabelKey(name))}</span><small className={`arki-module-status status-${status.toLowerCase().replaceAll(" ", "-")}`}>{status}</small></button>)}</nav><div className="arki-nav-foot"><span className="arki-engine-dot" /> {t("engine")}</div></>}</aside><main className="arki-workspace-canvas"><div className="arki-context-toolbar"><div><span className="arki-context-kicker"><Workflow size={12} /> {activeModule.toUpperCase()} · {activeDefinition?.status ?? "PENDING"}</span><strong>{activeModule === "Generador" ? t("generator") : t(moduleLabelKey(activeModule))}</strong></div><div className="arki-context-actions"><span>PE · RNE-PE</span><span>ESCALA 1:100</span><span>UI-1</span></div></div><div className="arki-legacy-content">{activeModule === "Generador" ? children : <EmptyModuleState name={activeModule} />}</div></main><aside className="arki-info-box"><div className="arki-info-head"><span>{t("infoBox")} · {t("pendingSelection")}</span><button onClick={() => toast.info(t("selectionUi2"))}>?</button></div><div className="arki-info-empty"><DoorOpen size={22} /><strong>{t("noSelection")}</strong><p>El canvas aún no emite un contrato de selección. Cuando se integre, aquí aparecerán propiedades, materiales, metrados, costo y trazabilidad.</p></div><div className="arki-info-status"><span className="arki-engine-dot" />{t(accessLabel(access))}<b>{t("local")}</b></div></aside></div><footer className="arki-workspace-status"><span><i className="arki-engine-dot" /> MOTOR OPERATIVO</span><span>{t("units")}</span><span>{t("discipline")}</span><span>{t("phase")}</span><span className="arki-status-warning">{t("visibleStates")}</span><span className="arki-status-spacer" /><span>{t("commands")}</span></footer></div>;[m
+[32m+[m[32m}[m
+[1mdiff --git a/client/src/i18n/languages.ts b/client/src/i18n/languages.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9cba8d8[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/i18n/languages.ts[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32mexport type LanguageCode = "es" | "en" | "pt" | "fr" | "de" | "it" | "zh" | "ja";[m
+[32m+[m[32mexport type SupportedLanguage = { code: LanguageCode; label: string; nativeLabel: string };[m
+[32m+[m[32mexport const supportedLanguages: readonly SupportedLanguage[] = [[m
+[32m+[m[32m  { code: "es", label: "Spanish", nativeLabel: "Español" }, { code: "en", label: "English", nativeLabel: "English" },[m
+[32m+[m[32m  { code: "pt", label: "Portuguese", nativeLabel: "Português" }, { code: "fr", label: "French", nativeLabel: "Français" },[m
+[32m+[m[32m  { code: "de", label: "German", nativeLabel: "Deutsch" }, { code: "it", label: "Italian", nativeLabel: "Italiano" },[m
+[32m+[m[32m  { code: "zh", label: "Chinese", nativeLabel: "中文" }, { code: "ja", label: "Japanese", nativeLabel: "日本語" },[m
+[32m+[m[32m];[m
+[32m+[m[32mexport const defaultLanguage: LanguageCode = "es";[m
+[1mdiff --git a/client/src/i18n/catalog.ts b/client/src/i18n/catalog.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9bf960f[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/i18n/catalog.ts[m
+[36m@@ -0,0 +1,6 @@[m
+[32m+[m[32mimport { defaultLanguage, type LanguageCode } from "./languages";[m
+[32m+[m[32mexport type TranslationKey = keyof typeof catalog.es;[m
+[32m+[m[32mconst es = { brand: "ARKI", workspace: "BIM WORKSPACE", activeProject: "PROYECTO ACTIVO", local: "LOCAL", help: "Ayuda", exit: "Salir", changeLanguage: "Cambiar idioma", prototype: "PROTOTIPO LOCAL", navigator: "NAVEGADOR", activeProfile: "PERFIL ACTIVO", engine: "MOTOR LOCAL OPERATIVO", infoBox: "INFO BOX", pendingSelection: "SELECCIÓN PENDIENTE", noSelection: "Sin selección", selectionPending: "El canvas aún no emite un contrato de selección.", moduleRegistered: "MÓDULO REGISTRADO", generator: "Generador dinámico de familias", pendingModule: "Este módulo está integrado al workspace, pero su integración de dominio aún está pendiente.", availableFromGenerator: "El generador funcional permanece disponible desde la pestaña Generador.", status: "Estado", units: "UNIDADES: MÉTRICO", discipline: "DISCIPLINA: ARQUITECTURA", phase: "FASE: PROPUESTA", ui1: "UI-1", visitor: "Visitante", user: "Usuario / Proyecto", specialist: "Especialista / Coordinación", corporate: "Corporativo", selected: "seleccionado", languagePrepared: "Selector preparado; traducción completa se implementará con el sistema i18n.", searchCommands: "Búsqueda de comandos", commandHint: "Usa las pestañas del workspace para navegar.", localDraft: "Borrador local listo", backendLater: "La persistencia corporativa se implementará en la fase de backend.", languageSelected: "Idioma seleccionado", projectName: "Generador de familias", localProfile: "PERFIL LOCAL", moduleStateShown: "El estado del módulo ahora se muestra en el canvas.", selectionUi2: "La selección de elementos se integrará con el canvas BIM en UI-2.", visibleStates: "ESTADOS UI-1 VISIBLES", commands: "Ctrl/Cmd+K COMANDOS", runtime: "PARAMETRIC BIM RUNTIME", gatewayKicker: "ESTACIÓN CORPORATIVA DE DISEÑO Y COORDINACIÓN", gatewayTitle: "Elige tu espacio", gatewayTitleAccent: "de trabajo.", gatewayDescription: "Una plataforma para pasar de la intención arquitectónica al modelo, el costo, la coordinación y el ciclo de vida del proyecto.", prototypeFooter: "PROTOTIPO LOCAL · UI-1 · NO ES AUTENTICACIÓN DE PRODUCCIÓN", standardsFooter: "PE · RNE-PE · IFC4X3", visitorSubtitle: "Explora ARKI", visitorDescription: "Conoce el motor BIM, las familias y el flujo completo sin acceder a información privada.", userSubtitle: "Diseña tu proyecto", userDescription: "Crea propuestas, revisa espacios, compara versiones y prepara tu expediente.", specialistSubtitle: "Revisa por disciplina", specialistDescription: "Trabaja con arquitectura, estructuras, MEP, costos, coordinación y construcción.", corporateSubtitle: "Costos e interferencias", corporateDescription: "Administra estándares, PriceBook, APU, clashes, CDE e integraciones.", demo: "Demostraciones", publicLibrary: "Biblioteca pública", documentation: "Documentación", projects: "Proyectos", generatorShort: "Generador", bimShort: "Modelo BIM", disciplines: "Disciplinas", review: "Revisión", interferences: "Interferencias", costs: "Costos", clashesShort: "Clashes", governance: "Gobierno", home: "Inicio", library: "Biblioteca", projectsModule: "Proyectos", generatorModule: "Generador", bimModule: "Modelo BIM", plan: "Planta", section: "Corte", model3d: "3D", quantities: "Metrados", budget: "Presupuesto", contractCosts: "Costos contractuales", schedule4d: "4D", clashesModule: "Clashes", dossier: "Expediente", operations: "O&M", administration: "Administración" } as const;[m
+[32m+[m[32mconst catalog = { es, en: { ...es, workspace: "BIM WORKSPACE", activeProject: "ACTIVE PROJECT", local: "LOCAL", help: "Help", exit: "Exit", changeLanguage: "Change language", navigator: "NAVIGATOR", activeProfile: "ACTIVE PROFILE", infoBox: "INFO BOX", pendingSelection: "PENDING SELECTION", noSelection: "No selection", moduleRegistered: "REGISTERED MODULE", generator: "Dynamic family generator", pendingModule: "This module is registered in the workspace, but its domain integration is pending.", availableFromGenerator: "The functional generator remains available from the Generator tab.", status: "Status", units: "UNITS: METRIC", discipline: "DISCIPLINE: ARCHITECTURE", phase: "PHASE: PROPOSAL", visitor: "Visitor", user: "User / Project", specialist: "Specialist / Coordination", corporate: "Corporate", selected: "selected", languagePrepared: "Selector prepared; full translation will be implemented with the i18n system.", searchCommands: "Command search", commandHint: "Use workspace tabs to navigate.", localDraft: "Local draft ready", backendLater: "Corporate persistence will be implemented in the backend phase.", languageSelected: "Language selected" }, pt: { ...es, help: "Ajuda", exit: "Sair", changeLanguage: "Mudar idioma", navigator: "NAVEGADOR", noSelection: "Sem seleção", status: "Estado", visitor: "Visitante", user: "Usuário / Projeto", specialist: "Especialista / Coordenação", corporate: "Corporativo", selected: "selecionado", languageSelected: "Idioma selecionado" }, fr: { ...es, help: "Aide", exit: "Sortir", changeLanguage: "Changer de langue", navigator: "NAVIGATEUR", noSelection: "Aucune sélection", status: "État", visitor: "Visiteur", user: "Utilisateur / Projet", specialist: "Spécialiste / Coordination", corporate: "Entreprise", selected: "sélectionné", languageSelected: "Langue sélectionnée" }, de: { ...es, help: "Hilfe", exit: "Beenden", changeLanguage: "Sprache ändern", navigator: "NAVIGATOR", noSelection: "Keine Auswahl", status: "Status", visitor: "Besucher", user: "Benutzer / Projekt", specialist: "Fachplaner / Koordination", corporate: "Unternehmen", selected: "ausgewählt", languageSelected: "Sprache ausgewählt" }, it: { ...es, help: "Aiuto", exit: "Esci", changeLanguage: "Cambia lingua", navigator: "NAVIGATORE", noSelection: "Nessuna selezione", status: "Stato", visitor: "Visitatore", user: "Utente / Progetto", specialist: "Specialista / Coordinamento", corporate: "Aziendale", selected: "selezionato", languageSelected: "Lingua selezionata" }, zh: { ...es, help: "帮助", exit: "退出", changeLanguage: "切换语言", navigator: "导航器", noSelection: "未选择", status: "状态", visitor: "访客", user: "用户 / 项目", specialist: "专家 / 协调", corporate: "企业", selected: "已选择", languageSelected: "已选择语言" }, ja: { ...es, help: "ヘルプ", exit: "終了", changeLanguage: "言語を変更", navigator: "ナビゲーター", noSelection: "未選択", status: "状態", visitor: "訪問者", user: "ユーザー / プロジェクト", specialist: "専門家 / 調整", corporate: "企業", selected: "選択済み", languageSelected: "選択言語" } } as const;[m
+[32m+[m[32mexport function t(key: TranslationKey, language: LanguageCode = defaultLanguage): string { return catalog[language][key] ?? catalog[defaultLanguage][key] ?? key; }[m
+[32m+[m[32mexport { catalog };[m
+[1mdiff --git a/client/src/i18n/useTranslation.ts b/client/src/i18n/useTranslation.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d099054[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/i18n/useTranslation.ts[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32mimport { useCallback, useState } from "react";[m
+[32m+[m[32mimport { defaultLanguage, supportedLanguages, type LanguageCode } from "./languages";[m
+[32m+[m[32mimport { t as translate, type TranslationKey } from "./catalog";[m
+[32m+[m[32mexport const LANGUAGE_STORAGE_KEY = "arki-ui-language-v1";[m
+[32m+[m[32mtype LanguageStorage = { getItem: (key: string) => string | null; setItem: (key: string, value: string) => void };[m
+[32m+[m[32mexport function readPersistedLanguage(storage: LanguageStorage): LanguageCode { const saved = storage.getItem(LANGUAGE_STORAGE_KEY); return supportedLanguages.some(({ code }) => code === saved) ? saved as LanguageCode : defaultLanguage; }[m
+[32m+[m[32mexport function persistLanguage(storage: LanguageStorage, language: LanguageCode) { storage.setItem(LANGUAGE_STORAGE_KEY, language); }[m
+[32m+[m[32mfunction browserLanguage(): LanguageCode { return typeof localStorage === "undefined" ? defaultLanguage : readPersistedLanguage(localStorage); }[m
+[32m+[m[32mexport function useTranslation() { const [language, setLanguageState] = useState<LanguageCode>(() => browserLanguage()); const setLanguage = useCallback((next: LanguageCode) => { if (typeof localStorage !== "undefined") persistLanguage(localStorage, next); setLanguageState(next); }, []); const t = useCallback((key: TranslationKey) => translate(key, language), [language]); return { language, setLanguage, t, supportedLanguages }; }[m
+[1mdiff --git a/scripts/test-access-matrix.ts b/scripts/test-access-matrix.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..89a520d[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-access-matrix.ts[m
+[36m@@ -0,0 +1,16 @@[m
+[32m+[m[32mimport { isAccessAllowed } from "../client/src/components/ArkiGateway";[m
+[32m+[m[32mimport { MODULE_DEFINITIONS } from "../client/src/components/ArkiWorkspaceShell";[m
+[32m+[m[32mimport type { ArkiAccess } from "../client/src/components/ArkiGateway";[m
+[32m+[m
+[32m+[m[32mconst roles: ArkiAccess[] = ["visitor", "user", "specialist", "corporate"];[m
+[32m+[m[32mconst checks: string[] = [];[m
+[32m+[m[32mfor (const role of roles) for (const module of MODULE_DEFINITIONS) {[m
+[32m+[m[32m  const expected = module.allowed.includes(role);[m
+[32m+[m[32m  const actual = isAccessAllowed(role, module.name);[m
+[32m+[m[32m  if (actual !== expected) throw new Error(`Access mismatch: ${role} -> ${module.name}; expected ${expected}, got ${actual}`);[m
+[32m+[m[32m  checks.push(`${role}:${module.name}`);[m
+[32m+[m[32m}[m
+[32m+[m[32mif (checks.length !== 64) throw new Error(`Expected 64 role/module cases, got ${checks.length}`);[m
+[32m+[m[32mif (!isAccessAllowed("visitor", "Inicio") || !isAccessAllowed("visitor", "Biblioteca")) throw new Error("Visitor public access failed");[m
+[32m+[m[32mif (isAccessAllowed("visitor", "Generador") || isAccessAllowed("user", "Costos contractuales") || isAccessAllowed("specialist", "Administración")) throw new Error("Restricted access leaked");[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", roles: roles.length, modules: MODULE_DEFINITIONS.length, cases: checks.length, checks: ["4 roles × 16 modules", "visitor public access", "restricted modules", "corporate matrix"] }, null, 2));[m
+[1mdiff --git a/scripts/test-module-states.ts b/scripts/test-module-states.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..dcf464d[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-module-states.ts[m
+[36m@@ -0,0 +1,10 @@[m
+[32m+[m[32mimport { MODULE_DEFINITIONS } from "../client/src/components/ArkiWorkspaceShell";[m
+[32m+[m
+[32m+[m[32mconst allowed = new Set(["IMPLEMENTED", "VERIFIED", "PARTIAL", "CONCEPTUAL", "NOT AVAILABLE", "FUTURE REFERENCE"]);[m
+[32m+[m[32mif (MODULE_DEFINITIONS.length === 0) throw new Error("No modules declared");[m
+[32m+[m[32mfor (const module of MODULE_DEFINITIONS) {[m
+[32m+[m[32m  if (!module.name || !module.icon || !allowed.has(module.status) || module.allowed.length === 0) throw new Error(`Invalid module state: ${module.name}`);[m
+[32m+[m[32m}[m
+[32m+[m[32mconst uniqueNames = new Set(MODULE_DEFINITIONS.map(({ name }) => name));[m
+[32m+[m[32mif (uniqueNames.size !== MODULE_DEFINITIONS.length) throw new Error("Duplicate module name");[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", modules: MODULE_DEFINITIONS.length, statuses: [...new Set(MODULE_DEFINITIONS.map(({ status }) => status))] }, null, 2));[m
+[1mdiff --git a/scripts/test-i18n-catalog.ts b/scripts/test-i18n-catalog.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a9f342b[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-i18n-catalog.ts[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32mimport { catalog, t } from "../client/src/i18n/catalog";[m
+[32m+[m[32mimport { defaultLanguage, supportedLanguages } from "../client/src/i18n/languages";[m
+[32m+[m[32mimport { LANGUAGE_STORAGE_KEY, persistLanguage, readPersistedLanguage } from "../client/src/i18n/useTranslation";[m
+[32m+[m
+[32m+[m[32mconst expected = ["es", "en", "pt", "fr", "de", "it", "zh", "ja"];[m
+[32m+[m[32mif (supportedLanguages.length !== 8) throw new Error(`Expected exactly 8 languages, got ${supportedLanguages.length}`);[m
+[32m+[m[32mif (supportedLanguages.map(({ code }) => code).join(",") !== expected.join(",")) throw new Error("Language codes/order mismatch");[m
+[32m+[m[32mif (new Set(supportedLanguages.map(({ code }) => code)).size !== 8) throw new Error("Language codes are not unique");[m
+[32m+[m[32mif (defaultLanguage !== "es") throw new Error("Default language must be es");[m
+[32m+[m[32mfor (const language of supportedLanguages) if (!language.code || !language.label || !language.nativeLabel) throw new Error(`Incomplete language: ${language.code}`);[m
+[32m+[m[32mif (t("generator", "en") !== "Dynamic family generator") throw new Error("Existing translation failed");[m
+[32m+[m[32mif (t("generator", "ja") === "") throw new Error("Non-empty fallback/translation expected");[m
+[32m+[m[32mconst fakeStorage = new Map<string, string>();[m
+[32m+[m[32mconst storage = { getItem: (key: string) => fakeStorage.get(key) ?? null, setItem: (key: string, value: string) => { fakeStorage.set(key, value); } };[m
+[32m+[m[32mpersistLanguage(storage, "ja");[m
+[32m+[m[32mif (fakeStorage.get(LANGUAGE_STORAGE_KEY) !== "ja" || readPersistedLanguage(storage) !== "ja") throw new Error("Language persistence failed");[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", defaultLanguage, languages: supportedLanguages, catalogLanguages: Object.keys(catalog), checks: ["8 exact languages", "unique codes", "non-empty metadata", "default es", "translation", "fallback", "persistence"] }, null, 2));[m

@@ -1,0 +1,16 @@
+ID,DOMAIN,KNOWLEDGE,SOURCE,EVIDENCE,IMPLEMENTATION_STATUS,CONFIDENCE,DEPENDENCY,MIGRATION_PRIORITY,RISK,DESTINATION
+KTC-001,identity,MiLukita/LUKA/LUKALLPA separation,docs/02_MILUKITA_DEFINITION.md,definition and terminology,IMPLEMENTED,high,project docs,P0,identity drift,architecture team
+KTC-002,architecture,layered territorial flow,docs/04_MILUKITA_MASTER_ARCHITECTURE.md,architecture map,DOCUMENTED,high,client server shared drizzle,P0,wrong boundary,architect
+KTC-003,territory,WorldObject and WorldPoint,drizzle/schema.ts;docs/08_MILUKITA_DATA_MODEL.md,schema and model,PARTIAL,high,MySQL/TiDB ORM,P0,data loss,data engineer
+KTC-004,mapper,capture and evidence workflow,client/src/components/TerritorialFieldTools.tsx;docs/12_MAPPER_ANALYSIS.md,UI and service,IMPLEMENTED,medium,auth GPS camera S3,P0,field failure,field team
+KTC-005,the_eye,claims sources evidence review,server/territorialTrust.ts;docs/13_THE_EYE_ANALYSIS.md,backend procedures and UI,IMPLEMENTED,medium,RBAC audit,P0,unreviewed truth,review team
+KTC-006,publication,verified versus published,shared/territorialTrust.ts;docs/07_MILUKITA_STATE_MACHINES.md,canonical states,DOCUMENTED,high,Human Authority,P0,unsafe runtime,governance
+KTC-007,ar,LUKA AR loading and fallback,client/src/pages/LukitaARStagePage.tsx;docs/15_LUKA_AR_ANALYSIS.md,Three.js GLB UI,PARTIAL,medium,HTTPS camera GLB WebXR,P1,device failure,AR engineer
+KTC-008,qr,round QR and deep links,client/src/lib/customQrGenerator.ts;shared/circularQr.ts;docs/16_QR_LSTAR_ANALYSIS.md,generator and contract,IMPLEMENTED,medium,URL Web Share,P1,misleading access,frontend
+KTC-009,tv,Remote TV UI,client/src/pages/TouchRemotePage.tsx;docs/17_TV_REMOTE_ANALYSIS.md,React controls,UI_ONLY,medium,receiver protocol WebSocket,P1,UI mistaken for control,TV engineer
+KTC-010,copilot,voice intent and fallback,client/src/components/TerritorialPilotConsole.tsx;docs/11_LUKA_COPILOT_ANALYSIS.md,voice states and fallback,PARTIAL,medium,microphone browser permissions,P1,wrong action,AI governance
+KTC-011,security,RBAC and backend enforcement,server/territorialTrust.ts;docs/19_SECURITY_RBAC_ANALYSIS.md,procedures tests,PARTIAL,medium,OAuth JWT DB,P0,privilege escalation,security
+KTC-012,audit,hashes snapshots decisions,shared/territorialTrust.ts;docs/20_AUDIT_GOVERNANCE_ANALYSIS.md,contracts and docs,PARTIAL,medium,DB storage Human Authority,P0,untraceable change,auditor
+KTC-013,mjp_core,isolation boundary,shared/mjpCoreIsolation.test.ts;docs/21_MJP_CORE_DEPENDENCY_MAP.md,negative tests and map,PROTECTED,high,MJP CORE interfaces,P0,catastrophic coupling,owner
+KTC-014,migration,external infrastructure requirements,docs/25_MIGRATION_REQUIREMENTS.md,requirements matrix,EXTERNAL_REQUIRED,high,OAuth S3 DB maps voice,P1,blocked migration,platform team
+KTC-015,gaps,knowledge transfer limitations,docs/KNOWLEDGE_TRANSFER_GAP_REPORT.md,conceptual handover test,REQUIRES_HUMAN,high,owner secrets devices,P0,unsafe continuation,new IA

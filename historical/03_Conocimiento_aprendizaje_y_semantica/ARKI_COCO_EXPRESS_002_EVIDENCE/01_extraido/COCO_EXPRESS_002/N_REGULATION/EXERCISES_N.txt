@@ -1,0 +1,144 @@
+COCO-EXPRESS-002 — FAMILIA N / MICROEJERCICIOS
+================================================
+
+Propósito del archivo
+---------------------
+Estos ejercicios son prerrequisitos de razonamiento normativo. No son exámenes conocidos, no memorizan respuestas DeepSeek/Lipsic, no implementan solvers profesionales y no certifican cumplimiento. El oracle es fail-closed: conserva UNKNOWN y devuelve revisión requerida cuando falta evidencia.
+
+Campos invariantes conservados en cada caso
+--------------------------------------------
+UNKNOWN; provenance (source y epistemic_status); units (value, unit, dimension); applicability (jurisdiction, domain, phase); scale; project (id y type); time (valid_from y valid_to); scenario.
+
+EJERCICIO 1 — NORMAL
+---------------------
+ID: N-NORMAL-01
+Tipo: NORMAL
+Dominio: accesibilidad
+Pregunta: Una observación conceptual registra 1.20 m en una ruta. ¿Puede la preevaluación declarar conformidad RNE?
+
+Entrada:
+{
+  "id": "N-NORMAL-01",
+  "claim_kind": "OBSERVATION",
+  "unknown": true,
+  "value": 1.20,
+  "units": {"value": 1.20, "unit": "m", "dimension": "LENGTH"},
+  "provenance": {
+    "source": "survey://mock/access-route-01",
+    "epistemic_status": "OBSERVED",
+    "import_success": false,
+    "hash_only": false
+  },
+  "applicability": {"jurisdiction": "PE", "domain": "accessibility", "phase": "concept"},
+  "scale": "SPACE",
+  "project": {"id": "P-N-DEMO", "type": "multifamiliar"},
+  "time": {"valid_from": "2026-01-01", "valid_to": null},
+  "scenario": "design-review"
+}
+
+Oracle esperado:
+- STATUS = UNKNOWN
+- REASON = MISSING_VERIFIED_NORMATIVE_OR_PROJECT_EVIDENCE
+- CERTIFIABLE = false
+
+Lectura: la observación conserva su unidad y provenance, pero no se actualiza a conformidad porque falta fuente normativa situada y revisión aplicable. La medición no se descarta ni se convierte en FALSE.
+
+EJERCICIO 2 — ADVERSARIAL
+--------------------------
+ID: N-ADVERSARIAL-01
+Tipo: ADVERSARIAL
+Dominio: evacuación
+Pregunta: Una simulación/forecast de 82 s fue importada correctamente y tiene hash. ¿Puede tratarse como tiempo real verificado de evacuación?
+
+Entrada:
+{
+  "id": "N-ADVERSARIAL-01",
+  "claim_kind": "FORECAST",
+  "unknown": true,
+  "value": 82,
+  "units": {"value": 82, "unit": "s", "dimension": "TIME"},
+  "provenance": {
+    "source": "simulation://egress-forecast-01",
+    "epistemic_status": "INFERENCE",
+    "import_success": true,
+    "fidelity_verified": false,
+    "hash_only": true
+  },
+  "applicability": {"jurisdiction": "PE", "domain": "evacuation", "phase": "concept"},
+  "scale": "BUILDING",
+  "project": {"id": "P-N-DEMO", "type": "educational"},
+  "time": {"valid_from": "2026-01-01", "valid_to": "2026-12-31"},
+  "scenario": "peak-occupancy-forecast"
+}
+
+Oracle esperado:
+- STATUS = UNKNOWN
+- REASON = FORECAST_NOT_TRUTH
+- CERTIFIABLE = false
+
+Lectura: se preservan escenario, periodo, escala, segundos, fuente y estado inferido. `import_success` no se interpreta como fidelity; `hash_only` no se interpreta como firma o verificación; un forecast no se interpreta como observación ni como certificación.
+
+EJERCICIO 3 — TRANSFER
+-----------------------
+ID: N-TRANSFER-01
+Tipo: TRANSFER
+Dominio: estructural conceptual
+Pregunta: Un modelo propone una losa de 0.15 m. ¿Puede el conocimiento conceptual declarar que la losa es segura sin solver externo, suelo, cargas completas y revisión?
+
+Entrada:
+{
+  "id": "N-TRANSFER-01",
+  "claim_kind": "PROPOSAL",
+  "unknown": true,
+  "value": 0.15,
+  "units": {"value": 0.15, "unit": "m", "dimension": "LENGTH"},
+  "provenance": {
+    "source": "model://concept-slab-01",
+    "epistemic_status": "PROPOSED",
+    "import_success": false,
+    "hash_only": false
+  },
+  "applicability": {"jurisdiction": "PE", "domain": "structural", "phase": "concept"},
+  "scale": "COMPONENT",
+  "project": {"id": "P-N-DEMO", "type": "housing"},
+  "time": {"valid_from": "2026-01-01", "valid_to": null},
+  "scenario": "preliminary-layout",
+  "external_solver_evidence": false
+}
+
+Oracle esperado:
+- STATUS = UNKNOWN
+- REASON = MISSING_VERIFIED_NORMATIVE_OR_PROJECT_EVIDENCE
+- CERTIFIABLE = false
+
+Lectura: el espesor es una propuesta dimensional, no un diseño. Se conserva la escala COMPONENT y el escenario. La ausencia de cargas, suelo, combinaciones, modelo validado y revisión mantiene UNKNOWN; no se activa solver ni se afirma seguridad.
+
+EJECUCIÓN Y ASSERTIONS
+======================
+Comando ejecutado:
+  python3 /home/ubuntu/jobs/cbef0db18f21_a2/test_n_exercises.py
+
+Salida observada:
+  MUTANT_ORACLE_FINAL_DETECTED hash/import metadata cannot upgrade forecast to observation
+  N_ASSERTIONS=PASS
+  N-NORMAL-01 STATUS=UNKNOWN REASON=MISSING_VERIFIED_NORMATIVE_OR_PROJECT_EVIDENCE CERTIFIABLE=False
+  N-ADVERSARIAL-01 STATUS=UNKNOWN REASON=FORECAST_NOT_TRUTH CERTIFIABLE=False
+  N-TRANSFER-01 STATUS=UNKNOWN REASON=MISSING_VERIFIED_NORMATIVE_OR_PROJECT_EVIDENCE CERTIFIABLE=False
+  MUTANT_KILLED=1
+  CORRECT_CODE_LEFT_INTACT=1
+  PRESERVED_FIELDS=UNKNOWN,provenance,units,applicability,scale,project,time,scenario
+  BOUNDARY=not_a_solver;not_a_certification;not_a_truth_oracle
+  FINAL_ORACLE=PASS
+
+Mutante controlado
+-------------------
+Mutación: cambiar `claim_kind` de N-ADVERSARIAL-01 desde `FORECAST` a `OBSERVATION`, sin cambiar la provenance que dice simulation/INFERENCE, `import_success=true`, `fidelity_verified=false` y `hash_only=true`.
+
+Resultado: el oracle detecta el mutante y lo mata con la assertion:
+`hash/import metadata cannot upgrade forecast to observation`.
+
+Interpretación: el mutante intenta convertir una simulación/forecast importada en observación por relabeling. La invariancia correcta lo rechaza. El código correcto queda intacto; sólo se ejecutó un harness en el directorio de trabajo temporal.
+
+Límites de la prueba
+--------------------
+La prueba demuestra conservación de campos, abstención y rechazo epistemológico en fixtures pequeños. No demuestra vigencia completa del RNE, cumplimiento de un proyecto real, exactitud de un modelo, desempeño de evacuación, habitabilidad, cálculo estructural, certificación ni competencia profesional.

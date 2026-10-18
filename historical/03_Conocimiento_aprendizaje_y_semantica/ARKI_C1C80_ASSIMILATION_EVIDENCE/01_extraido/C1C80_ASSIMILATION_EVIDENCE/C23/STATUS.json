@@ -1,0 +1,12 @@
+{
+  "capabilityId": "C23",
+  "lifecycle": "DOCUMENTED",
+  "readiness": "KNOWLEDGE_DEFICIT",
+  "implementedBounded": false,
+  "adversariallyTested": false,
+  "transferTested": false,
+  "verifiedBounded": false,
+  "professionalValidationRequired": true,
+  "blocked": true,
+  "evidenceHash": "sha256:v1:c027e1f374a42a148156d90234295363ebe0d72a2ce22e2a37680e8d1803bcf4"
+}

@@ -1,0 +1,4 @@
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:42:| Axonometric | `DECLARED_NOT_IMPLEMENTED` | Taxonomy only | 3D geometry, camera | no 3D projection contract | approve camera/3D source contract | 3D Representation |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:55:| 3D representation | `DECLARED_NOT_IMPLEMENTED` | neutral spatial geometry exists; no ARE 3D scene | 3D view, camera, scene | 3D contract absent | authorize 3D representation front | 3D Representation |
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:170:- `ViewDefinition`: view type, source, projection, cut plane/camera, scale, extent.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:160:orientation           north/direction/camera orientation when applicable

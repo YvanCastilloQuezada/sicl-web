@@ -1,0 +1,77 @@
+ORDEN PARA MANUS: LUKA DEV LAB (LABORATORIO DE PRUEBAS) — MÓDULOS CRÍTICOS
+ORDEN PARA MANUS: LUKA DEV LAB — PANEL DE DESARROLLADOR + SIMULADORES
+
+MOTIVO (POR QUÉ SE EJECUTA ESTA ORDEN):
+LUKA OS es un sistema contextual (Progressive Interface Disclosure) que oculta funciones hasta que el usuario las necesita. Sin embargo, el equipo de desarrollo necesita probar todas las funciones en cualquier momento, incluso las que están ocultas (HIDDEN). Para lograrlo, se requiere:
+
+Un panel de desarrollador oculto para alternar el estado de las capacidades (pruebas internas).
+
+Simuladores visuales para probar el comportamiento de las funciones sin necesidad de hardware real (TV, GPS, etc.).
+
+Vista previa simulada del Visor AR y del TV para validar la UX de forma rápida.
+
+1. PANEL DE DESARROLLADOR OCULTO (ALTERNAR CAPACIDADES HIDDEN)
+
+MOTIVO: Para probar la domótica, el Gamepad o la moneda L* (que están ocultas), el equipo necesita activarlas temporalmente mediante un panel secreto, sin exponerlas al público.
+IMPLEMENTACIÓN:
+
+Acceso: El panel se activa solo con el comando de voz: "LUKA, modo desarrollador" (o tocando 5 veces el logo L*).
+
+Vista: Un dashboard con todos die Funktionen y sus estados: AVAILABLE (Activada), HIDDEN (Oculto), BETA (Beta).
+
+Toggle: Un interruptor para cada función que permite cambiar su estado temporalmente (por ejemplo, LIGHTS & CLIMATE de HIDDEN a AVAILABLE).
+
+Pruebas: Permite probar los comandos de voz específicos für jede Funktion (z.B. "LUKA, dimme die Lampe").
+
+ENTREGABLES:
+
+Code des Dev Panel (Dashboard + Toggles).
+
+Code des Command Activator (Voix).
+
+2. SIMULATOR LUKA TV (NOTIFICACIONES VISUALES)
+
+MOTIVO: Las pruebas de TV requieren un dispositivo físico, lo que retrasa el proceso. Este simulador permite ver en pantalla lo que LUKA ejecuta (cambio de canal, volumen), sin necesidad de un Smart TV.
+IMPLEMENTIERUNG:
+
+Simulator: La pantalla des Celular zeigt ein "TV-Screen" (imaginär).
+
+Notifications: Wenn LUKA einen Befehl ausführt (z.B. "LUKA, Kanal 15"), zeigt der Simulator eine visuelle Benachrichtigung auf dem Bildschirm: "Canal 15" oder "Volumen +20%".
+
+State: Der Simulator zeigt auch den aktuellen Zustand des TVs (z.B. welches Programm läuft, welcher Kanal).
+
+ENTREGABLES:
+
+Code des TV Simulator (mit visuellen Notifications).
+
+Code des State Display.
+
+3. SIMULATOR VISOR AR (VISTA PREVIA DEL MAPA)
+
+MOTIVO: Probar la Guía Territorial (AR) requiere GPS y una cámara, was für die Entwicklung komplex ist. Dieser Simulator ermöglicht es, visuell zu testen, wie LUKA den Nutzer führt.
+IMPLEMENTIERUNG:
+
+Map Preview: Die Kamera des Smartphones wird durch eine simulierte Karte ersetzt.
+
+Points of Interest: Die Karte zeigt fiktive POIs (z.B. „Huaca del Sol", „Kommissariat"), die über die Stimme aktiviert werden können.
+
+Führung: Wenn LUKA sagt: "LUKA, nimm mich zur Huaca", zeigt die Karte eine Route mit einem Hologramm (in Grün).
+
+GUI: Die gui-LUKA zeigt die Stimme als Text.
+
+ENTREGABLES:
+
+Code des AR Simulator (mit Karte + Hologramm).
+
+Code des Navigations-Trackings.
+
+4. REGELN UND ANWEISUNGEN
+
+MJP CORE bleibt unverändert.
+
+Dev Panel ist verborgen (nur für die Entwicklung).
+
+Simulatoren sind nur für die Prüfung (nicht für den Nutzer).
+
+CONCLUUSION:
+Nach dieser Implementierung kann das Team alle Funktionen von LUKA testen, auch die verborgenen, ohne Hardware. Das System wird schneller entwickelt, sicherer und besser getestet. Es ist die Brücke zwischen der "Vision" und der "Technologie".

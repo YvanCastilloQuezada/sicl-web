@@ -1,0 +1,31 @@
+{
+  "fixture_id": "UPAO-001",
+  "status": "SYNTHETIC_ILLUSTRATIVE_ONLY",
+  "warning": "No representa datos profesionales, evidencia real, autorización ni recomendación para ejecutar obras.",
+  "project": {
+    "name": "UPAO Plaza Center (synthetic demo)",
+    "location": "Trujillo, Peru",
+    "spatial_scope": { "scale": "PROJECT", "id": "UPAO-001", "name": "UPAO Plaza Center" },
+    "temporal_scope": { "horizon": "PRESENT", "scenario": "illustrative baseline" }
+  },
+  "objectives": [
+    { "id": "OBJ-COST", "name": "Minimize illustrative total cost", "direction": "MINIMIZE" }
+  ],
+  "constraints": [
+    { "id": "CON-HEIGHT", "name": "Illustrative height limit", "metric": "height_m", "operator": "<=", "threshold": 12 }
+  ],
+  "preferences": [
+    { "id": "PREF-PUBLIC", "name": "Prefer public courtyard access", "strength": "SOFT", "justification": "Synthetic stakeholder preference", "domain": "PROGRAM", "scope_type": "PROJECT", "scope_id": "UPAO-001", "provenance": ["SYNTHETIC-FIXTURE"] }
+  ],
+  "alternatives": [
+    { "id": "ALT-A", "name": "Base illustrative", "area": 1000, "unit_cost": 850 },
+    { "id": "ALT-B", "name": "Alternative illustrative", "area": 1000, "unit_cost": 920 }
+  ],
+  "evaluations": [
+    { "id": "EVAL-A-COST", "alternative_id": "ALT-A", "objective_id": "OBJ-COST", "criterion": "total_cost", "value": 850000, "unit": "USD", "method": "synthetic_arithmetic", "inputs": [{ "area": 1000, "unit_cost": 850 }], "provenance": ["SYNTHETIC-FIXTURE"], "feasibility_status": "UNKNOWN" },
+    { "id": "EVAL-B-COST", "alternative_id": "ALT-B", "objective_id": "OBJ-COST", "criterion": "total_cost", "value": 920000, "unit": "USD", "method": "synthetic_arithmetic", "inputs": [{ "area": 1000, "unit_cost": 920 }], "provenance": ["SYNTHETIC-FIXTURE"], "feasibility_status": "UNKNOWN" }
+  ],
+  "comparison": { "id": "CMP-COST", "objective_id": "OBJ-COST", "evaluation_ids": ["EVAL-A-COST", "EVAL-B-COST"], "direction": "MINIMIZE", "comparison_kind": "BINARY", "feasibility_status": "INSUFFICIENT_DATA" },
+  "decision_condition": { "id": "COND-COST", "alternative_id": "ALT-A", "objective_id": "OBJ-COST", "criterion": "total_cost", "operator": ">", "threshold": 1000000, "unit": "USD", "rationale": "Synthetic boundary for demonstrating conditional review", "provenance": ["SYNTHETIC-FIXTURE"], "condition_status": "UNTESTED" },
+  "human_boundary": { "recommendation": "Must be created explicitly from the comparison", "human_review": "Must be recorded by an identified human actor", "decision": "Must be explicitly authorized; fixture does not authorize a decision" }
+}

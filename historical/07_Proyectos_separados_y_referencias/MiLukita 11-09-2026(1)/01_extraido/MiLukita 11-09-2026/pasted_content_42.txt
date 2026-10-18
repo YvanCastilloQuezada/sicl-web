@@ -1,0 +1,881 @@
+============================================================
+ORDEN PARA MANUS
+FIELD GATE 001 + LUKA FIELD VOICE COPILOT
+RECOLECCIÓN TERRITORIAL GEOLOCALIZADA GUIADA POR VOZ
+============================================================
+
+ESTADO ACTUAL:
+TECHNICALLY_READY
+
+FASE:
+FIELD OPERATIONS MVP
+
+OBJETIVO:
+
+Preparar y habilitar el primer levantamiento real de datos
+geolocalizados en Trujillo mediante Mapper, incorporando a LUKA
+como COPILOTO DE CAMPO GUIADO POR VOZ.
+
+El objetivo NO es crear un asistente conversacional general.
+
+El objetivo es que LUKA acompañe al operador durante la captura
+territorial, reduciendo fricción, errores operativos y necesidad
+de manipular constantemente la pantalla.
+
+============================================================
+1. PRINCIPIO FUNDAMENTAL
+============================================================
+
+LUKA será:
+
+COPILOTO DE CAMPO
+
+NO será:
+
+- autoridad de verificación
+- autoridad de publicación
+- autoridad financiera
+- autoridad de resultados de MJP
+- fuente automática de verdad
+
+LUKA:
+
+GUIA
+ESCUCHA
+CONFIRMA
+REGISTRA
+PROPONE
+AVISA
+ORIENTA
+
+Pero:
+
+THE EYE VERIFICA.
+
+HUMAN AUTHORITY AUTORIZA PUBLICACIÓN.
+
+============================================================
+2. MJP CORE — BLOQUEADO
+============================================================
+
+NO modificar MJP CORE.
+
+NO modificar:
+
+- juegos
+- RNG
+- RTP
+- reglas
+- wallet
+- liquidaciones
+- pagos
+- sorteos
+- MjpTvManifest
+- autoridad financiera
+- lógica de premios
+- dinero real
+
+Mapper + LUKA Voice Copilot deben permanecer completamente
+fuera del MJP CORE.
+
+Al finalizar realizar integrity/diff check.
+
+============================================================
+3. FIELD GATE 001
+============================================================
+
+Preparar:
+
+TRUJILLO - FIELD GATE 001
+
+Objetivo inicial:
+
+5 WORLDOBJECTS REALES
+
+La selección exacta de los objetos será realizada
+por el operador durante la salida de campo.
+
+NO hardcodear coordenadas.
+
+NO fabricar fotografías.
+
+NO fabricar observaciones.
+
+NO fabricar claims.
+
+NO fabricar fuentes.
+
+============================================================
+4. LUKA FIELD VOICE COPILOT
+============================================================
+
+Implementar dentro de Mapper un modo:
+
+FIELD VOICE
+
+o equivalente.
+
+El sistema debe permitir que LUKA acompañe al operador
+durante el proceso de captura.
+
+Flujo conceptual:
+
+START SESSION
+↓
+LOCATE
+↓
+CAPTURE OBJECT
+↓
+GPS
+↓
+PHOTO
+↓
+OBSERVATION
+↓
+SAVE
+↓
+REVIEW
+↓
+SUBMIT TO THE EYE
+
+============================================================
+5. GUÍA POR VOZ
+============================================================
+
+LUKA debe proporcionar instrucciones cortas y contextuales.
+
+Ejemplo:
+
+"Estamos listos para comenzar.
+¿Quieres iniciar la sesión?"
+
+Después:
+
+"Sesión TRUJILLO - FIELD GATE 001 iniciada."
+
+Después:
+
+"Busca el objeto que quieres registrar."
+
+Después:
+
+"¿Quieres capturar la ubicación?"
+
+Después:
+
+"Ubicación registrada.
+Precisión aproximada: 4 metros."
+
+Después:
+
+"Ahora toma una fotografía."
+
+Después:
+
+"Fotografía registrada.
+¿Quieres añadir una observación?"
+
+Después de la observación:
+
+"He registrado tu observación.
+¿Quieres guardarla?"
+
+Después:
+
+"Objeto guardado."
+
+El texto exacto puede adaptarse a la interfaz existente,
+pero debe mantenerse:
+
+- corto
+- claro
+- contextual
+- no invasivo
+
+============================================================
+6. NO DEPENDER DE FRASES EXACTAS
+============================================================
+
+NO exigir únicamente comandos rígidos como:
+
+"Nueva sesión"
+"Capturar"
+"Guardar"
+
+Implementar un pequeño conjunto de INTENCIONES.
+
+Ejemplos:
+
+"Sí"
+"Listo"
+"Capturar"
+"Ubicación"
+"Foto"
+"Guardar"
+"Cancelar"
+"Repetir"
+"Agregar observación"
+"Enviar"
+"Atrás"
+"Terminar sesión"
+
+También aceptar variantes razonables cuando el motor de voz
+lo permita.
+
+Si la intención no es suficientemente clara:
+
+LUKA debe preguntar.
+
+Ejemplo:
+
+"No entendí. ¿Quieres guardar el objeto?"
+
+NO ejecutar una acción ambigua.
+
+============================================================
+7. CONFIRMACIÓN DE ACCIONES
+============================================================
+
+Clasificar acciones.
+
+ACCIONES DE BAJO RIESGO:
+
+- avanzar
+- repetir instrucción
+- solicitar GPS
+- activar captura
+- abrir cámara
+
+ACCIONES QUE REQUIEREN CONFIRMACIÓN:
+
+- guardar objeto
+- eliminar evidencia
+- descartar captura
+- enviar a The Eye
+- finalizar sesión
+
+Nunca eliminar datos simplemente por interpretar mal
+una orden de voz.
+
+============================================================
+8. GPS GUIADO POR VOZ
+============================================================
+
+Cuando el operador solicite ubicación:
+
+1. obtener GPS
+2. registrar timestamp
+3. registrar precisión
+4. mostrar coordenadas
+5. informar precisión por voz
+
+Ejemplo:
+
+"Ubicación registrada.
+Precisión aproximada de cinco metros."
+
+Si la precisión es deficiente:
+
+"La ubicación tiene baja precisión.
+Puedes esperar unos segundos o continuar."
+
+NO afirmar:
+
+"Esta es la ubicación exacta."
+
+============================================================
+9. FOTOGRAFÍA GUIADA
+============================================================
+
+LUKA puede indicar:
+
+"Ahora toma una fotografía."
+
+Después de la captura:
+
+"Fotografía registrada."
+
+Si la cámara falla:
+
+"No pude registrar la fotografía.
+Revisa el permiso de cámara."
+
+Debe utilizarse el mecanismo de permisos existente.
+
+============================================================
+10. OBSERVACIÓN POR DICTADO
+============================================================
+
+Implementar:
+
+VOICE NOTE / VOICE OBSERVATION
+
+El operador podrá dictar una observación.
+
+Ejemplo:
+
+Operador:
+
+"Fachada deteriorada en el segundo nivel.
+Se observa acceso peatonal."
+
+El sistema deberá almacenar:
+
+- texto transcrito
+- timestamp
+- responsable
+- WorldObject
+- CaptureSession
+- fuente = OBSERVACIÓN DE CAMPO
+
+Cuando sea posible, conservar también:
+
+- audio original
+
+siempre respetando las políticas de almacenamiento y privacidad
+existentes.
+
+============================================================
+11. TRANSCRIPCIÓN NO ES VERIFICACIÓN
+============================================================
+
+CRÍTICO:
+
+La transcripción de voz NO convierte automáticamente
+una declaración del operador en un hecho verificado.
+
+Ejemplo:
+
+Operador dice:
+
+"Este edificio es de 1820."
+
+El sistema debe registrar:
+
+CLAIM / OBSERVATION PENDING VERIFICATION
+
+NO:
+
+VERIFIED_FACT
+
+The Eye deberá determinar posteriormente qué puede verificarse.
+
+============================================================
+12. ESTRUCTURACIÓN ASISTIDA
+============================================================
+
+Cuando sea seguro hacerlo, LUKA puede ayudar a estructurar
+la observación.
+
+Ejemplo:
+
+Entrada:
+
+"Veo una fachada deteriorada y un acceso peatonal."
+
+Puede sugerir:
+
+OBSERVACIÓN:
+Deterioro visible en fachada.
+
+ACCESO:
+Peatonal.
+
+Pero debe conservarse el texto original.
+
+La estructura derivada debe quedar marcada como:
+
+AI_ASSISTED
+
+o equivalente.
+
+Nunca reemplazar silenciosamente la observación original.
+
+============================================================
+13. LECTURA DE RESUMEN
+============================================================
+
+Antes de guardar, LUKA debe poder leer un resumen:
+
+"Voy a guardar:
+
+Objeto: [nombre]
+Ubicación: registrada
+Precisión: [X] metros
+Fotografías: 1
+Observaciones: 2
+
+¿Confirmas?"
+
+Operador:
+
+"Sí."
+
+LUKA:
+
+"Objeto guardado."
+
+============================================================
+14. MODO MANUAL SIEMPRE DISPONIBLE
+============================================================
+
+La voz NO puede convertirse en requisito obligatorio.
+
+Debe existir fallback:
+
+TOUCH / MANUAL
+
+para:
+
+- iniciar
+- capturar
+- guardar
+- cancelar
+- repetir
+- enviar
+
+Si el micrófono falla:
+
+"Modo de voz no disponible."
+
+El operador continúa manualmente.
+
+============================================================
+15. ACTIVACIÓN DEL MICRÓFONO
+============================================================
+
+No asumir reproducción automática ni escucha permanente
+del navegador.
+
+Respetar:
+
+- permisos del navegador
+- HTTPS
+- interacción inicial del usuario
+- restricciones de autoplay
+- disponibilidad real de Speech Recognition
+- disponibilidad real de Speech Synthesis
+
+Si el navegador no soporta alguna función:
+
+VOICE_UNAVAILABLE
+
+y continuar mediante UI manual.
+
+NO simular reconocimiento de voz.
+
+============================================================
+16. ESTADOS DE VOZ
+============================================================
+
+Mostrar visualmente:
+
+VOICE_OFF
+VOICE_READY
+LISTENING
+PROCESSING
+SPEAKING
+CONFIRMATION_REQUIRED
+VOICE_ERROR
+VOICE_UNAVAILABLE
+
+Debe existir feedback visual además del audio.
+
+============================================================
+17. IDENTIDAD DE LUKA
+============================================================
+
+La voz debe pertenecer claramente a LUKA.
+
+Mantener una personalidad:
+
+- breve
+- clara
+- orientada a acción
+- amable pero no infantil
+- profesional
+- territorial
+
+No convertir la captura en una conversación larga.
+
+Durante campo:
+
+LUKA debe hablar cuando aporta valor.
+
+No hablar innecesariamente.
+
+============================================================
+18. CONTEXTO DE LA SESIÓN
+============================================================
+
+LUKA debe conocer el contexto operativo actual:
+
+- CaptureSession
+- WorldObject actual
+- estado GPS
+- estado cámara
+- estado conexión
+- número de objetos capturados
+- número de evidencias
+- estado de sincronización
+
+Ejemplo:
+
+"Objeto 3 de 5 capturado."
+
+Esto reduce la necesidad de mirar la pantalla.
+
+============================================================
+19. OFFLINE
+============================================================
+
+El Voice Copilot debe funcionar en la medida técnicamente posible
+cuando el dispositivo esté offline.
+
+IMPORTANTE:
+
+El reconocimiento de voz puede depender del navegador/plataforma.
+
+Por tanto:
+
+NO asumir que speech recognition funciona offline.
+
+Separar:
+
+VOICE_OFFLINE_CAPABLE
+
+de:
+
+VOICE_NETWORK_DEPENDENT
+
+Reportar la limitación real.
+
+El núcleo de captura debe seguir funcionando offline aunque
+la voz no esté disponible.
+
+============================================================
+20. SINCRONIZACIÓN
+============================================================
+
+LUKA debe informar estados críticos:
+
+"Guardado localmente."
+
+"Esperando conexión."
+
+"Sincronizando."
+
+"Sincronización completada."
+
+"Se detectó un conflicto."
+
+"Se produjo un error de sincronización."
+
+Nunca ocultar un error.
+
+============================================================
+21. THE EYE
+============================================================
+
+Al completar el expediente:
+
+LUKA puede decir:
+
+"El expediente está completo.
+¿Quieres enviarlo a The Eye?"
+
+Después de confirmación:
+
+"Expediente enviado a The Eye."
+
+A partir de aquí:
+
+LUKA NO decide.
+
+The Eye realiza la revisión.
+
+============================================================
+22. PUBLICACIÓN
+============================================================
+
+LUKA NO puede:
+
+- aprobar definitivamente
+- resolver conflictos de verdad
+- autorizar publicación
+- publicar por sí misma
+
+El flujo sigue siendo:
+
+MAPPER
+↓
+THE EYE
+↓
+HUMAN AUTHORITY
+↓
+PUBLISHED
+↓
+RUNTIME
+
+============================================================
+23. PANEL DE CONTROL
+============================================================
+
+El Dashboard debe mostrar adicionalmente:
+
+VOICE SESSIONS
+VOICE COMMANDS
+VOICE ERRORS
+VOICE UNAVAILABLE
+
+cuando esos eventos existan.
+
+No registrar contenido sensible innecesario.
+
+Preferir métricas operativas:
+
+- sesiones con voz
+- comandos reconocidos
+- comandos no reconocidos
+- errores
+- tiempo de interacción
+
+============================================================
+24. AUDITORÍA
+============================================================
+
+Registrar eventos relevantes:
+
+VOICE_MODE_ENABLED
+VOICE_MODE_DISABLED
+VOICE_INTENT_DETECTED
+VOICE_INTENT_CONFIRMED
+VOICE_INTENT_REJECTED
+VOICE_ERROR
+VOICE_UNAVAILABLE
+VOICE_NOTE_CREATED
+
+No registrar permanentemente audio si no es necesario.
+
+Si se conserva audio:
+
+- asociarlo al WorldObject
+- protegerlo
+- controlar acceso
+- definir retención
+
+============================================================
+25. SEGURIDAD Y PRIVACIDAD
+============================================================
+
+No transmitir ni almacenar audio sin necesidad.
+
+No convertir el micrófono en escucha permanente.
+
+El usuario debe saber cuándo:
+
+LISTENING
+
+está activo.
+
+Debe existir indicador visual.
+
+No capturar conversaciones ambientales fuera de la interacción
+necesaria.
+
+============================================================
+26. E2E — PRUEBA CONTROLADA
+============================================================
+
+Antes del Field Gate real probar:
+
+1. activar voz
+2. iniciar sesión
+3. localizar
+4. GPS
+5. fotografía
+6. dictar observación
+7. revisar resumen
+8. guardar
+9. sincronizar
+10. enviar a The Eye
+
+Probar además:
+
+- comando ambiguo
+- comando no reconocido
+- micrófono denegado
+- cámara denegada
+- GPS denegado
+- pérdida de conexión
+- error de sincronización
+- voz no disponible
+
+============================================================
+27. PRUEBA REAL
+============================================================
+
+Manus debe distinguir:
+
+SIMULATED
+
+de:
+
+PHYSICALLY_TESTED
+
+Si no dispone de Android/iPhone real:
+
+EXTERNAL_REQUIRED
+
+No afirmar que Speech Recognition, cámara, GPS o permisos
+funcionan físicamente en todos los dispositivos.
+
+============================================================
+28. FIELD GATE 001
+============================================================
+
+Durante la prueba física:
+
+capturar 5 WorldObjects reales.
+
+Para cada uno:
+
+GPS
++
+PHOTO
++
+OBSERVATION
++
+TIMESTAMP
++
+RESPONSIBLE
++
+SESSION
+
+Después:
+
+SYNC
+→
+THE EYE
+→
+HUMAN AUTHORITY
+→
+PUBLISH
+
+============================================================
+29. MÉTRICAS DE VALIDACIÓN
+============================================================
+
+Registrar:
+
+- tiempo promedio por objeto
+- tiempo hasta obtener GPS
+- precisión GPS
+- número de fotografías
+- porcentaje de capturas exitosas
+- comandos de voz reconocidos
+- comandos no reconocidos
+- errores
+- sincronizaciones
+- conflictos
+- objetos enviados a The Eye
+- objetos publicados
+
+También registrar:
+
+VOICE_USED = YES/NO
+
+============================================================
+30. CRITERIO DE ÉXITO
+============================================================
+
+FIELD GATE 001 será exitoso si:
+
+[ ] QR funciona
+[ ] Mapper abre en móvil
+[ ] Session creada
+[ ] GPS real funciona
+[ ] Cámara real funciona
+[ ] Voice Copilot funciona o fallback manual disponible
+[ ] 5 objetos reales capturados
+[ ] fotografías reales
+[ ] coordenadas reales
+[ ] precisión registrada
+[ ] observaciones reales
+[ ] offline probado
+[ ] sincronización probada
+[ ] The Eye recibe los expedientes
+[ ] decisiones auditables
+[ ] Human Authority autoriza
+[ ] Runtime muestra únicamente versión publicada
+[ ] MJP CORE intacto
+
+============================================================
+31. REPORTING DE MANUS
+============================================================
+
+Separar obligatoriamente:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+
+Para Voice Copilot reportar además:
+
+- navegador utilizado
+- Speech Recognition utilizado
+- Speech Synthesis utilizado
+- dependencia de red
+- permisos requeridos
+- limitaciones Android
+- limitaciones iOS
+- fallback disponible
+
+============================================================
+32. REGLA FINAL
+============================================================
+
+NO convertir esta orden en un proyecto separado de "AI Voice".
+
+Voice Copilot es una capacidad del Mapper.
+
+La prioridad es:
+
+CAPTURA TERRITORIAL REAL.
+
+La voz existe para hacer esa captura:
+
+MÁS RÁPIDA
+MÁS CLARA
+MÁS TRAZABLE
+MÁS CÓMODA
+
+No para agregar complejidad innecesaria.
+
+============================================================
+FIN DE LA ORDEN
+============================================================
+La mejora estratégica
+
+Hay algo más importante detrás de esta orden.
+
+Si funciona, LUKA deja de ser solamente una interfaz que muestra información territorial. Empieza a convertirse en un intermediario activo entre la persona y el territorio:
+
+PERSONA → LUKA → TERRITORIO → DATOS → THE EYE → MUNDO DIGITAL
+
+Y ahí aparece una idea bastante potente para el futuro: el mismo motor de voz podría servir después para Turismo, Cultura, Educación y Recreación, no solamente para Mapper.
+
+Pero no lo desarrollaría ahora.
+
+Primero quiero que el Field Gate 001 demuestre algo mucho más básico:
+
+¿Puede una persona caminar por Trujillo, prácticamente sin mirar la pantalla, y producir un WorldObject geolocalizado, fotografiado, documentado y trazable usando LUKA como copiloto?
+
+Si la respuesta es sí, entonces tenemos algo que vale la pena escalar.
+
+Esta orden sí se la pasaría a Manus.

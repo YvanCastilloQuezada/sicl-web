@@ -1,0 +1,672 @@
+src/sicl/projection.py:37:    """Raised when a requested projection cannot be proven from D2 evidence."""
+src/sicl/projection.py:120:        return "DOOR_EVIDENCE"
+src/sicl/projection.py:122:        return "WINDOW_EVIDENCE"
+src/sicl/projection.py:154:    """Project supported D2 evidence into one deterministic architectural plan scene."""
+src/sicl/representation.py:96:    MISSING_REQUIRED_EVIDENCE = "MISSING_REQUIRED_EVIDENCE"
+src/sicl/representation.py:326:                raise RepresentationError("section views require cut_plane evidence")
+src/sicl/representation.py:341:    validation_evidence_required: bool = False
+src/sicl/representation.py:350:        if not isinstance(self.validation_evidence_required, bool):
+src/sicl/representation.py:351:            raise RepresentationError("validation_evidence_required must be bool")
+src/sicl/representation.py:505:        if representation_profile.validation_evidence_required:
+src/sicl/representation.py:506:            raise RepresentationError(DiagnosticCode.MISSING_REQUIRED_EVIDENCE.value)
+src/sicl/representation.py:507:        diagnostics = tuple(diagnostics) + (DiagnosticCode.MISSING_REQUIRED_EVIDENCE,)
+src/sicl/archi/sufficiency.py:6:from ..a002 import (EvidenceRef, KnowledgeItem, KnowledgeState, OperationRequirement, SufficiencyEngine, SufficiencyRequest, SufficiencyResult)
+src/sicl/archi/sufficiency.py:18:    knowledge=[]; requirements=[]; evidence=[]
+src/sicl/archi/sufficiency.py:20:        evidence_id = f"ARCHI-{field}"
+src/sicl/archi/sufficiency.py:21:        ref = EvidenceRef.from_statement(evidence_id, f"{field}={value}", "ARCHI_MODEL", mutation.project_id)
+src/sicl/archi/sufficiency.py:22:        evidence.append(ref); knowledge.append(KnowledgeItem(field, value, KnowledgeState.KNOWN, (evidence_id,)))
+src/sicl/archi/sufficiency.py:36:    req=SufficiencyRequest(mutation.project_id, operation, tuple(knowledge), tuple(requirements), tuple(evidence))
+docs/ARKI_DRAW_B1_1_REALITY_AUDIT.md:9:| Area | Evidence in code | Audit result |
+docs/ARKI_DRAW_B1_1_REALITY_AUDIT.md:50:## Runtime evidence
+api/schemas.py:117:class EvidenceCreateRequest(BaseModel):
+api/schemas.py:118:    evidence_id: str = Field(min_length=1)
+api/schemas.py:120:    evidence_type: str = Field(min_length=1)
+api/schemas.py:122:    evidence_url: str | None = None
+api/schemas.py:125:    evidence_hash: str | None = None
+tests/test_drawing_block2.py:18:    "WALL_CUT", "WALL_PROJECTED", "SPACE_BOUNDARY", "DOOR_EVIDENCE",
+tests/test_drawing_block2.py:19:    "WINDOW_EVIDENCE", "OPENING_CUT", "OPENING_PROJECTED",
+tests/test_drawing_block2.py:94:def test_door_evidence_has_no_swing_arc_and_no_material_hatch():
+tests/test_drawing_block2.py:97:    assert not any(item.semantic_role == "DOOR_EVIDENCE" and item.__class__.__name__ == "Arc" for item in adapted.viewport.elements)
+tests/test_drawing_block2.py:145:    role_mismatch = replace(entity, trace=replace(entity.trace, semantic_role="DOOR_EVIDENCE"))
+api/routes/v1.py:29:    EvidenceCreateRequest,
+api/routes/v1.py:59:from sicl.domain import Evidence, EvidenceType, InterpretationConfidence, InterpretationState, KNOWLEDGE_STATES, NormativeInterpretation, NormativeSnapshot, NormativeSnapshotState, PlanningInstrumentType, Preference, Regulation, RegulationStatus, ScaleRelationType, Source, SourceType, SpatialScope
+api/routes/v1.py:694:    item = Regulation(current.regulation_id, current.jurisdiction, current.authority, current.code, current.title, current.version, current.publication_date, current.effective_date, status, current.source_url, current.source_type, current.evidence_hash, current.scope_applicable, current.parent_regulation_id, current.summary, current.version_field + 1)
+api/routes/v1.py:1129:@router.post("/projects/{project_id}/evidence", dependencies=[Depends(_auth)])
+api/routes/v1.py:1130:def create_evidence(project_id: str, request: EvidenceCreateRequest, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1136:    if repo.get_evidence(project_id, request.evidence_id) is not None:
+api/routes/v1.py:1137:        _error({"code": "EVIDENCE_ALREADY_EXISTS", "message": request.evidence_id}, project_id)
+api/routes/v1.py:1139:        evidence_type = EvidenceType(request.evidence_type.upper())
+api/routes/v1.py:1141:        _error({"code": "INVALID_EVIDENCE_TYPE", "message": request.evidence_type}, project_id)
+api/routes/v1.py:1149:    evidence = Evidence(
+api/routes/v1.py:1150:        evidence_id=request.evidence_id,
+api/routes/v1.py:1154:        evidence_type=evidence_type,
+api/routes/v1.py:1157:        evidence_url=request.evidence_url,
+api/routes/v1.py:1158:        evidence_hash=request.evidence_hash or hashlib.sha256(request.statement.encode("utf-8")).hexdigest(),
+api/routes/v1.py:1161:    project.evidence[evidence.evidence_id] = evidence
+api/routes/v1.py:1164:    repo.insert_evidence_and_event(
+api/routes/v1.py:1165:        evidence,
+api/routes/v1.py:1167:        cli._event(project_id, "EVIDENCE_ADDED", {"evidence_id": evidence.evidence_id, "statement": evidence.statement, "evidence_type": evidence.evidence_type.value, "state": evidence.state}),
+api/routes/v1.py:1169:    return _ok({"evidence": asdict(evidence)}, project_id, project.version)
+api/routes/v1.py:1293:@router.get("/projects/{project_id}/evidence", dependencies=[Depends(_auth)])
+api/routes/v1.py:1294:def list_evidence(project_id: str, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1298:    return _ok({"evidence": [asdict(item) for item in repo.list_evidence(project_id)]}, project_id, project.version)
+api/routes/v1.py:1301:@router.get("/projects/{project_id}/evidence/{evidence_id}", dependencies=[Depends(_auth)])
+api/routes/v1.py:1302:def get_evidence(project_id: str, evidence_id: str, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1306:    evidence = repo.get_evidence(project_id, evidence_id)
+api/routes/v1.py:1307:    if evidence is None:
+api/routes/v1.py:1308:        _error({"code": "EVIDENCE_NOT_FOUND", "message": evidence_id}, project_id)
+api/routes/v1.py:1309:    return _ok({"evidence": asdict(evidence)}, project_id, project.version)
+src/sicl/a002/model.py:1:"""A-002 semantic model: explicit knowledge states and auditable evidence.
+src/sicl/a002/model.py:51:class EvidenceVerificationLevel(str, Enum):
+src/sicl/a002/model.py:69:    evidence_refs: tuple[str, ...] = ()
+src/sicl/a002/model.py:89:            "evidenceRefs": list(self.evidence_refs),
+src/sicl/a002/model.py:99:class EvidenceRef:
+src/sicl/a002/model.py:100:    """A reference to evidence whose hash is derived from its statement.
+src/sicl/a002/model.py:107:    evidence_id: str
+src/sicl/a002/model.py:117:        if not self.evidence_id.strip() or not self.statement.strip():
+src/sicl/a002/model.py:118:            raise ValueError("evidence_id and statement are required")
+src/sicl/a002/model.py:120:            raise ValueError("evidence hash is required")
+src/sicl/a002/model.py:122:            raise ValueError("evidence hash does not match statement")
+src/sicl/a002/model.py:124:            raise ValueError("evidence version must be positive")
+src/sicl/a002/model.py:129:        evidence_id: str,
+src/sicl/a002/model.py:134:    ) -> "EvidenceRef":
+src/sicl/a002/model.py:136:        return cls(evidence_id, statement, source_type, digest, project_id, **kwargs)
+src/sicl/a002/model.py:138:    def guaranteed_verification_level(self) -> EvidenceVerificationLevel:
+src/sicl/a002/model.py:142:        any existing EvidenceRef is at CONTENT_HASH_MATCHES_DECLARED.
+src/sicl/a002/model.py:144:        return EvidenceVerificationLevel.CONTENT_HASH_MATCHES_DECLARED
+src/sicl/a002/model.py:148:            "evidenceId": self.evidence_id,
+src/sicl/a002/model.py:227:    evidence: tuple[EvidenceRef, ...] = ()
+src/sicl/a002/model.py:248:            "evidence": [e.to_dict() for e in sorted(self.evidence, key=lambda x: (x.evidence_id, x.version))],
+src/sicl/a002/model.py:283:    evidence_ids: tuple[str, ...] = ()
+src/sicl/a002/model.py:284:    evidence_level: EvidenceVerificationLevel = EvidenceVerificationLevel.ABSENT
+src/sicl/a002/model.py:294:            "evidenceIds": list(self.evidence_ids),
+src/sicl/a002/model.py:295:            "evidenceLevel": self.evidence_level.value,
+src/sicl/a002/model.py:318:    evidence_refs: tuple[str, ...]
+src/sicl/a002/model.py:319:    evidence_levels: tuple[tuple[str, str], ...]
+src/sicl/a002/model.py:347:            "evidenceRefs": list(self.evidence_refs),
+src/sicl/a002/model.py:348:            "evidenceLevels": [list(x) for x in self.evidence_levels],
+tests/test_projection.py:68:    assert {entity.role for entity in scene.entities} == {"WALL_CUT", "SPACE_BOUNDARY", "DOOR_EVIDENCE"}
+tests/test_projection.py:69:    door = next(entity for entity in scene.entities if entity.role == "DOOR_EVIDENCE")
+tests/test_projection.py:101:def test_cut_plane_classifies_boundaries_and_does_not_emit_above_without_visibility_evidence():
+tests/test_projection.py:166:    assert door.role == "DOOR_EVIDENCE"
+src/sicl/a002/engine.py:5:- A KNOWN without valid evidence downgrades to OBSERVED.
+src/sicl/a002/engine.py:17:    EvidenceVerificationLevel,
+src/sicl/a002/engine.py:68:        evidence_by_id = {e.evidence_id: e for e in request.evidence}
+src/sicl/a002/engine.py:84:        evidence_refs_seen: set[str] = set()
+src/sicl/a002/engine.py:85:        evidence_levels: list[tuple[str, str]] = []
+src/sicl/a002/engine.py:119:                        f"WHY CANNOT CONTINUE: this blocking requirement has no evidence."
+src/sicl/a002/engine.py:139:                    "CONFLICTING_EVIDENCE" if KnowledgeState.CONFLICTING in states else "CONFLICTING_VALUES"
+src/sicl/a002/engine.py:146:                        f"WHY REQUIRED: evidence conflicts; "
+src/sicl/a002/engine.py:164:            # Evidence checks.
+src/sicl/a002/engine.py:165:            evidence_ids_in_item = tuple(item.evidence_refs)
+src/sicl/a002/engine.py:166:            resolved_evidence = [evidence_by_id[i] for i in evidence_ids_in_item if i in evidence_by_id]
+src/sicl/a002/engine.py:167:            for ref in resolved_evidence:
+src/sicl/a002/engine.py:168:                evidence_refs_seen.add(ref.evidence_id)
+src/sicl/a002/engine.py:169:                evidence_levels.append((ref.evidence_id, ref.guaranteed_verification_level().value))
+src/sicl/a002/engine.py:171:            evidence_valid = bool(item.evidence_refs) and all(
+src/sicl/a002/engine.py:172:                ref_id in evidence_by_id
+src/sicl/a002/engine.py:173:                and evidence_by_id[ref_id].project_id == request.project_id
+src/sicl/a002/engine.py:174:                and (not allowed_scales or evidence_by_id[ref_id].scale in allowed_scales)
+src/sicl/a002/engine.py:176:                    evidence_by_id[ref_id].jurisdiction is None
+src/sicl/a002/engine.py:178:                    or evidence_by_id[ref_id].jurisdiction == request.jurisdiction
+src/sicl/a002/engine.py:180:                for ref_id in item.evidence_refs
+src/sicl/a002/engine.py:193:            elif declared is KnowledgeState.KNOWN and not evidence_valid:
+src/sicl/a002/engine.py:196:                    "KNOWN_WITHOUT_EVIDENCE" if not item.evidence_refs else "EVIDENCE_INVALID"
+src/sicl/a002/engine.py:282:                    evidence_ids=evidence_ids_in_item,
+src/sicl/a002/engine.py:283:                    evidence_level=(
+src/sicl/a002/engine.py:284:                        EvidenceVerificationLevel.CONTENT_HASH_MATCHES_DECLARED
+src/sicl/a002/engine.py:285:                        if evidence_valid
+src/sicl/a002/engine.py:286:                        else EvidenceVerificationLevel.ABSENT
+src/sicl/a002/engine.py:352:            evidence_refs=tuple(sorted(evidence_refs_seen)),
+src/sicl/a002/engine.py:353:            evidence_levels=tuple(sorted(set(evidence_levels))),
+src/sicl/a002/__init__.py:7:    EvidenceRef,
+src/sicl/a002/__init__.py:8:    EvidenceVerificationLevel,
+src/sicl/a002/__init__.py:32:    "EvidenceRef",
+src/sicl/a002/__init__.py:33:    "EvidenceVerificationLevel",
+tests/test_representation.py:103:    assert DiagnosticCode.MISSING_REQUIRED_EVIDENCE in scene.diagnostics
+tests/test_representation.py:107:def test_unknown_with_required_evidence_is_blocked():
+tests/test_representation.py:110:    required = RepresentationProfile("REQUIRED", ProfileKind.PROFESSIONAL, ViewFamily.GEOMETRIC, validation_evidence_required=True)
+tests/test_representation.py:111:    with pytest.raises(RepresentationError, match="MISSING_REQUIRED_EVIDENCE"):
+tests/test_representation.py:121:    assert DiagnosticCode.MISSING_REQUIRED_EVIDENCE in scene.diagnostics
+tests/test_representation.py:122:    required = RepresentationProfile("REQUIRED", ProfileKind.PROFESSIONAL, ViewFamily.GEOMETRIC, validation_evidence_required=True)
+tests/test_representation.py:123:    with pytest.raises(RepresentationError, match="MISSING_REQUIRED_EVIDENCE"):
+tests/test_representation.py:212:def test_section_requires_cut_plane_evidence():
+src/sicl/memory.py:41:        evidence=list(project.evidence.keys()),
+src/sicl/compliance/iso_42001.py:37:            "evidenceStatus": "INSUFFICIENT_EVIDENCE" if total == 0 else "EVIDENCE_PRESENT",
+tests/test_a002_v1_4_injections.py:9:    EvidenceRef,
+tests/test_a002_v1_4_injections.py:10:    EvidenceVerificationLevel,
+tests/test_a002_v1_4_injections.py:24:def ev(project: str = "P", field: str = "x") -> EvidenceRef:
+tests/test_a002_v1_4_injections.py:25:    return EvidenceRef.from_statement("E-" + field, "verified " + field, "USER", project)
+tests/test_a002_v1_4_injections.py:38:def request(item, evidence=(), **kw):
+tests/test_a002_v1_4_injections.py:39:    return SufficiencyRequest("P", "op", (item,), (req(item.field, **kw),), tuple(evidence))
+tests/test_a002_v1_4_injections.py:42:def test_declared_known_without_evidence_downgrades_to_unknown():
+tests/test_a002_v1_4_injections.py:50:    assert a.downgrade_reason == "KNOWN_WITHOUT_EVIDENCE"
+tests/test_a002_v1_4_injections.py:80:    evidence = ev()
+tests/test_a002_v1_4_injections.py:81:    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN, (evidence.evidence_id,))
+tests/test_a002_v1_4_injections.py:82:    r = SufficiencyEngine().evaluate(request(item, [evidence]))
+tests/test_a002_v1_4_injections.py:95:    evidence = ev()
+tests/test_a002_v1_4_injections.py:96:    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN, (evidence.evidence_id,))
+tests/test_a002_v1_4_injections.py:97:    r = SufficiencyEngine().evaluate(request(item, [evidence], require_human_authority=True))
+tests/test_a002_v1_4_injections.py:106:            (evidence,),
+tests/test_a002_v1_4_injections.py:143:def test_evidence_verification_level_is_explicit_and_bounded():
+tests/test_a002_v1_4_injections.py:144:    evidence = ev()
+tests/test_a002_v1_4_injections.py:145:    item = KnowledgeItem("x", "v", KnowledgeState.KNOWN, (evidence.evidence_id,))
+tests/test_a002_v1_4_injections.py:146:    r = SufficiencyEngine().evaluate(request(item, [evidence]))
+tests/test_a002_v1_4_injections.py:147:    assert r.evidence_levels == (
+tests/test_a002_v1_4_injections.py:148:        (evidence.evidence_id, EvidenceVerificationLevel.CONTENT_HASH_MATCHES_DECLARED.value),
+tests/test_a002_v1_4_injections.py:151:        level != EvidenceVerificationLevel.SUPPORT_SEMANTICALLY_VERIFIED.value
+tests/test_a002_v1_4_injections.py:152:        for _, level in r.evidence_levels
+tests/test_a002_v1_4_3_fixes.py:6:    EvidenceRef,
+tests/test_a002_v1_4_3_fixes.py:16:def evidence(project: str = "P") -> EvidenceRef:
+tests/test_a002_v1_4_3_fixes.py:17:    return EvidenceRef.from_statement("E-X", "verified x", "USER", project)
+tests/test_a002_v1_4_3_fixes.py:21:    ref = evidence()
+tests/test_a002_v1_4_3_fixes.py:25:        (KnowledgeItem("x", "value", KnowledgeState.OBSERVED, (ref.evidence_id,)),),
+tests/test_a002_v1_4_3_fixes.py:37:    ref = evidence()
+tests/test_a002_v1_4_3_fixes.py:41:        (KnowledgeItem("x", "value", KnowledgeState.KNOWN, (ref.evidence_id,)),),
+tests/test_a002_v1_4_3_fixes.py:51:    ref = evidence()
+tests/test_a002_v1_4_3_fixes.py:55:        (KnowledgeItem("x", "value", KnowledgeState.KNOWN, (ref.evidence_id,)),),
+tests/test_a002_v1_4_3_fixes.py:70:    ref = evidence()
+tests/test_a002_v1_4_3_fixes.py:74:        (KnowledgeItem("x", "value", KnowledgeState.KNOWN, (ref.evidence_id,)),),
+src/sicl/ifc_adapter.py:22:    evidence_ids: list[str]
+src/sicl/ifc_adapter.py:90:    evidence_by_code: dict[str, list[str]] = {}
+src/sicl/ifc_adapter.py:91:    for evidence in fixture["evidence"]:
+src/sicl/ifc_adapter.py:92:        code = evidence["article_reference"].split("-")[0]
+src/sicl/ifc_adapter.py:93:        evidence_by_code.setdefault(code, []).append(evidence["evidence_id"])
+src/sicl/ifc_adapter.py:106:                reason="The fixture is NO_VERIFICADA; BIM geometry and parameters do not constitute legal compliance evidence.",
+src/sicl/ifc_adapter.py:107:                evidence_ids=evidence_by_code.get(code, []),
+tests/test_a002_sufficiency.py:7:    EvidenceRef,
+tests/test_a002_sufficiency.py:27:def ev(eid: str, text: str, project: str = "A002-P", scale: SpatialScope | None = None, jurisdiction: str | None = None) -> EvidenceRef:
+tests/test_a002_sufficiency.py:28:    return EvidenceRef.from_statement(eid, text, "USER_PROVIDED", project, scale=scale, jurisdiction=jurisdiction)
+tests/test_a002_sufficiency.py:31:def item(field: str, state: KnowledgeState, value: object, evidence_id: str | None = None, scale: SpatialScope | None = None, jurisdiction: str | None = None, reason: str = "") -> KnowledgeItem:
+tests/test_a002_sufficiency.py:32:    return KnowledgeItem(field, value, state, (evidence_id,) if evidence_id else (), scale, jurisdiction, None, 1, reason)
+tests/test_a002_sufficiency.py:35:def base_knowledge(evidence: list[EvidenceRef], *, height: KnowledgeState = KnowledgeState.MISSING, orientation: KnowledgeState = KnowledgeState.KNOWN, project: str = "A002-P") -> tuple[KnowledgeItem, ...]:
+tests/test_a002_sufficiency.py:36:    ids = {x.evidence_id for x in evidence}
+tests/test_a002_sufficiency.py:49:def full_evidence(project: str = "A002-P") -> list[EvidenceRef]:
+tests/test_a002_sufficiency.py:61:def request(knowledge, evidence, *, allow=False, project="A002-P", scale=SpatialScope.EDIFICACION):
+tests/test_a002_sufficiency.py:62:    return SufficiencyRequest(project, OP, tuple(knowledge), REQ, tuple(evidence), scale, "conceptual", "Trujillo", allow)
+tests/test_a002_sufficiency.py:66:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:67:    result = SufficiencyEngine().evaluate(request(base_knowledge(evidence), evidence))
+tests/test_a002_sufficiency.py:74:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:75:    knowledge = base_knowledge(evidence, orientation=KnowledgeState.OBSERVED, height=KnowledgeState.KNOWN)
+tests/test_a002_sufficiency.py:76:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:82:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:83:    knowledge = base_knowledge(evidence, orientation=KnowledgeState.ASSUMED, height=KnowledgeState.KNOWN)
+tests/test_a002_sufficiency.py:84:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:90:def test_unknown_never_promotes_to_known_without_evidence():
+tests/test_a002_sufficiency.py:91:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:92:    knowledge = list(base_knowledge(evidence, height=KnowledgeState.KNOWN))
+tests/test_a002_sufficiency.py:94:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:100:def test_wrong_project_evidence_is_not_valid_provenance():
+tests/test_a002_sufficiency.py:101:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:102:    knowledge = base_knowledge(evidence, height=KnowledgeState.KNOWN)
+tests/test_a002_sufficiency.py:103:    wrong = [ev(x.evidence_id, x.statement, "OTHER-P", x.scale, x.jurisdiction) if x.evidence_id == "height" else x for x in evidence]
+tests/test_a002_sufficiency.py:109:def test_wrong_scale_evidence_does_not_satisfy_requirement():
+tests/test_a002_sufficiency.py:110:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:111:    knowledge = list(base_knowledge(evidence, height=KnowledgeState.KNOWN))
+tests/test_a002_sufficiency.py:113:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:119:    evidence = full_evidence() + [ev("height-2", "Height limit is 18m", scale=SpatialScope.EDIFICACION, jurisdiction="Trujillo")]
+tests/test_a002_sufficiency.py:120:    knowledge = list(base_knowledge(evidence, height=KnowledgeState.KNOWN))
+tests/test_a002_sufficiency.py:122:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:128:    evidence = [x for x in full_evidence() if x.evidence_id != "jurisdiction"]
+tests/test_a002_sufficiency.py:129:    knowledge = list(base_knowledge(evidence, height=KnowledgeState.KNOWN))
+tests/test_a002_sufficiency.py:131:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:137:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:138:    knowledge = base_knowledge(evidence, height=KnowledgeState.KNOWN)
+tests/test_a002_sufficiency.py:139:    first = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:140:    second = SufficiencyEngine().evaluate(request(tuple(reversed(knowledge)), tuple(reversed(evidence))))
+tests/test_a002_sufficiency.py:146:    evidence = tuple(ev(f"scale-{scale.value}", f"verified {scale.value}", scale=scale) for scale in scales)
+tests/test_a002_sufficiency.py:149:    result = SufficiencyEngine().evaluate(SufficiencyRequest("A002-P", "multiscale audit", knowledge, requirements, evidence, None, "audit", None))
+tests/test_a002_sufficiency.py:155:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:156:    req = request(base_knowledge(evidence, height=KnowledgeState.KNOWN), evidence)
+tests/test_a002_sufficiency.py:165:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:166:    req = request(base_knowledge(evidence), evidence)
+tests/test_a002_sufficiency.py:173:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:174:    req = request(base_knowledge(evidence, height=KnowledgeState.KNOWN), evidence)
+tests/test_a002_sufficiency.py:192:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:193:    req = request(base_knowledge(evidence, height=KnowledgeState.KNOWN), evidence)
+tests/test_a002_sufficiency.py:195:    changed = request(base_knowledge(evidence, height=KnowledgeState.KNOWN), evidence, project="NEW-P")
+tests/test_a002_sufficiency.py:202:    evidence = full_evidence()
+tests/test_a002_sufficiency.py:204:    t0 = engine.evaluate(request(base_knowledge(evidence), evidence))
+tests/test_a002_sufficiency.py:205:    t1 = engine.evaluate(request(base_knowledge(evidence, height=KnowledgeState.KNOWN), evidence))
+tests/test_a002_sufficiency.py:217:def test_evidence_hash_mismatch_rejected():
+tests/test_a002_sufficiency.py:219:        EvidenceRef("e", "statement", "USER_PROVIDED", "bad", "A002-P")
+src/sicl/derivation.py:4:queries derivation evidence; it never propagates, invalidates, recomputes,
+src/sicl/derivation.py:70:    Examples: Area COMPUTED_FROM Geometry; Claim SUPPORTED_BY Evidence.
+src/sicl/feasibility.py:81:    evidence_ids: tuple[str, ...]
+src/sicl/feasibility.py:90:        for key in ("failed_constraint_ids", "unknown_constraint_ids", "insufficient_constraint_ids", "evidence_ids", "assumption_ids"):
+tests/test_a002_adversarial.py:5:from sicl.a002 import A002H005Gate, EvidenceRef, KnowledgeItem, KnowledgeState, SufficiencyEngine, SufficiencyRequest, SufficiencyStatus, requirements_for
+tests/test_a002_adversarial.py:13:    return EvidenceRef.from_statement(eid, statement, "OFFICIAL", project, scale=scale, jurisdiction=jurisdiction)
+tests/test_a002_adversarial.py:21:    evidence = [
+tests/test_a002_adversarial.py:34:    return evidence, knowledge
+tests/test_a002_adversarial.py:37:def req(knowledge, evidence, project="P", allow=False, operation=OP, scale=SpatialScope.EDIFICACION, jurisdiction="Trujillo"):
+tests/test_a002_adversarial.py:38:    return SufficiencyRequest(project, operation, tuple(knowledge), REQ, tuple(evidence), scale, "conceptual", jurisdiction, allow)
+tests/test_a002_adversarial.py:42:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:45:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:50:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:53:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:58:def test_stale_evidence_version_is_not_silently_preferred():
+tests/test_a002_adversarial.py:59:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:60:    stale = evidence
+tests/test_a002_adversarial.py:68:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:69:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:70:    other = req(knowledge, evidence, operation="construction documents")
+tests/test_a002_adversarial.py:75:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:76:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:77:    other = req(knowledge, evidence, scale=SpatialScope.PARCELA_SITIO)
+tests/test_a002_adversarial.py:82:    evidence, knowledge = complete("P")
+tests/test_a002_adversarial.py:83:    result = SufficiencyEngine().evaluate(req(knowledge, evidence, project="P"))
+tests/test_a002_adversarial.py:84:    other_evidence, other_knowledge = complete("Q")
+tests/test_a002_adversarial.py:85:    other = req(other_knowledge, other_evidence, project="Q")
+tests/test_a002_adversarial.py:90:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:91:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:97:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:100:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:105:def test_partial_evidence_cannot_satisfy_all_requirements():
+tests/test_a002_adversarial.py:106:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:107:    partial = evidence[:2]
+tests/test_a002_adversarial.py:114:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:115:    evidence = evidence + [e("height-b", "height 20m", project="P")]
+tests/test_a002_adversarial.py:117:    first = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:118:    second = SufficiencyEngine().evaluate(req(list(reversed(knowledge)), list(reversed(evidence))))
+tests/test_a002_adversarial.py:124:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:127:    no_policy = req(knowledge, evidence, allow=False)
+tests/test_a002_adversarial.py:131:    with_policy = req(knowledge, evidence, allow=True)
+tests/test_a002_adversarial.py:137:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:140:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:147:    evidence, knowledge = complete()
+tests/test_a002_adversarial.py:148:    evidence.append(e("height-b", "height 20m"))
+tests/test_a002_adversarial.py:150:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:152:        A002H005Gate.execute_if_permitted(req(knowledge, evidence), result, lambda: pytest.fail("bypass"))
+tests/test_a002_adversarial.py:155:def test_malformed_evidence_hash_fails_closed_at_construction():
+tests/test_a002_adversarial.py:157:        EvidenceRef("fake", "authoritative", "OFFICIAL", "0" * 64, "P")
+src/sicl/domain.py:178:class EvidenceType(str, Enum):
+src/sicl/domain.py:277:    evidence: dict[str, "Evidence"] = field(default_factory=dict)
+src/sicl/domain.py:524:    evidence: list[str]
+src/sicl/domain.py:546:    evidence_hash: str | None
+src/sicl/domain.py:596:    """Optional provenance record referenced by one or more Evidence items."""
+src/sicl/domain.py:607:class Evidence:
+src/sicl/domain.py:610:    Evidence records what was captured; it does not become a Fact or Assumption
+src/sicl/domain.py:614:    evidence_id: str
+src/sicl/domain.py:618:    evidence_type: EvidenceType
+src/sicl/domain.py:621:    evidence_url: str | None
+src/sicl/domain.py:622:    evidence_hash: str | None
+src/sicl/drawing/scene_adapter.py:26:    "OPENING_PROJECTED", "DOOR_EVIDENCE", "WINDOW_EVIDENCE",
+src/sicl/drawing/scene_adapter.py:32:    """Raised when GraphicScene evidence cannot be adapted safely."""
+src/sicl/design_knowledge.py:118:    evidence_ids: list[str] = field(default_factory=list)
+src/sicl/design_knowledge.py:188:    evidence_ids: list[str]
+tests/test_multiscale_wall_move_e2e.py:144:    parti_evidence_v1 = ref("DesignEvidence", "PARTI-EVIDENCE", 1, "9" * 64)
+tests/test_multiscale_wall_move_e2e.py:148:    ledger.record(project_id, record("D-PARTI", parti_v1, [p03_v1, parti_evidence_v1],
+tests/test_multiscale_wall_move_e2e.py:213:        omit=(("Regulation", "RNE-A010"), ("DesignEvidence", "PARTI-EVIDENCE")),
+tests/test_iso_42001.py:20:        assert report["evidenceStatus"] == "INSUFFICIENT_EVIDENCE"
+src/sicl/site_intelligence.py:32:    evidence_url: str = ""
+src/sicl/site_intelligence.py:33:    evidence_hash: str = ""
+src/sicl/site_intelligence.py:41:        if not self.evidence_hash and self.raw_response:
+src/sicl/site_intelligence.py:43:            object.__setattr__(self, "evidence_hash", hashlib.sha256(canonical).hexdigest())
+src/sicl/site_intelligence.py:57:    evidence_url="fixture://FALLBACK_TRUJILLO",
+src/sicl/site_intelligence.py:105:        evidence_url=f"{geo_url} | {weather_url}",
+src/sicl/site_intelligence.py:129:        "hourly": hourly, "selected_date": selected_date, "evidence_url": weather_url,
+src/sicl/site_intelligence.py:171:        "evidence_url": f"{geo_url} | {weather_url}",
+tests/test_rfc025_corpus.py:8:from sicl.regulatory_corpus import evidence_traceability_report, load_corpus_fixture, validate_corpus_fixture
+tests/test_rfc025_corpus.py:18:    assert len(payload["evidence"]) == 7
+tests/test_rfc025_corpus.py:25:def test_a010_evidence_review_has_complete_source_links() -> None:
+tests/test_rfc025_corpus.py:27:    report = evidence_traceability_report(payload)
+tests/test_rfc025_corpus.py:29:    assert report["evidence_count"] == 7
+tests/test_rfc025_corpus.py:36:    payload["evidence"][0]["source_id"] = "SRC-MISSING"
+tests/test_rfc025_corpus.py:37:    with pytest.raises(ValueError, match="evidence source_id"):
+tests/test_rfc025_corpus.py:43:    payload["evidence"][0]["article_reference"] = ""
+src/sicl/simulation.py:39:    evidence_hash: str
+src/sicl/cli.py:12:from .domain import Actor, ActorPosition, ActorRole, ActorState, Assumption, AuthorityLevel, Constraint, CycleHorizon, CycleState, Decision, Evidence, EvidenceType, Event, EvolutionState, GeneratedAlternative, GenerationMethod, GenerationState, HumanReview, Fact, InterpretationConfidence, InterpretationState, MemoryState, MultiobjectiveResult, MultiobjectiveState, NormativeInterpretation, NormativeSnapshot, NormativeSnapshotState, Objective, PlanningInstrument, PlanningInstrumentStatus, PlanningInstrumentType, Project, Regulation, RegulationStatus, Role, ScaleRelation, ScaleRelationType, ScenarioBranch, ScenarioEvolution, ScenarioState, SpatialScope, SourceType, Stance, SubjectType, TemporalCycle, TemporalScope, KNOWLEDGE_STATES, DIRECTIONS, STAGES, now_iso
+src/sicl/cli.py:53:                return self._ok({"commands": ["/PROJECT CREATE", "/PROJECT OPEN", "/PROJECT SET SCOPE", "/PROJECT IMPORT OBJECTIVE", "/PROJECT SHOW", "/PROJECT LIST", "/STAGE SET", "/OBJECTIVE SET", "/CONSTRAINT SET", "/ROLE ADD", "/ACTOR ADD", "/ACTOR LIST", "/ACTOR SHOW", "/POSITION ADD", "/POSITION LIST", "/CYCLE CREATE", "/CYCLE LIST", "/CYCLE SHOW", "/SCENARIO CREATE", "/SCENARIO LIST", "/SCENARIO SELECT", "/FACT SET", "/ASSUMPTION SET", "/EVIDENCE ADD", "/EVIDENCE LIST", "/EVIDENCE SHOW", "/HUMAN REVIEW", "/SITE INTELLIGENCE", "/AGENT RUN", "/DEBATE", "/GENERATE DESIGN", "/GENERATE LIST", "/GENERATE SHOW", "/GENERATE METHODS", "/ALTERNATIVE PROMOTE", "/MEMORY LIST", "/MEMORY SHOW", "/MEMORY EXTRACT", "/MEMORY REVOKE", "/MEMORY APPLY", "/MEMORY TYPES", "/GENERATE", "/PARETO", "/TRADEOFF_MATRIX", "/MULTIOBJECTIVE", "/SCALE PARENT", "/SCALE CHILDREN", "/SCALE RELATE", "/SCALE RELATIONS", "/PLANNING ADD", "/PLANNING LIST", "/PLANNING SHOW", "/PLANNING TYPES", "/REGULATION ADD", "/REGULATION LIST", "/REGULATION SHOW", "/REGULATION STATUS", "/INTERPRET ADD", "/INTERPRET LIST", "/INTERPRET REVIEW", "/SNAPSHOT CREATE", "/SNAPSHOT LIST", "/SNAPSHOT FREEZE", "/DECISION RECORD", "/STATUS", "/HISTORY", "/EXIT"]})
+src/sicl/cli.py:138:            if head == ("/EVIDENCE", "ADD"):
+src/sicl/cli.py:139:                return self.evidence_add(parts[2:])
+src/sicl/cli.py:140:            if head == ("/EVIDENCE", "LIST"):
+src/sicl/cli.py:141:                return self.evidence_list()
+src/sicl/cli.py:142:            if head == ("/EVIDENCE", "SHOW"):
+src/sicl/cli.py:143:                return self.evidence_show(parts[2:])
+src/sicl/cli.py:358:        updated = Regulation(current.regulation_id, current.jurisdiction, current.authority, current.code, current.title, current.version, current.publication_date, current.effective_date, status, current.source_url, current.source_type, current.evidence_hash, current.scope_applicable, current.parent_regulation_id, current.summary, current.version_field + 1)
+src/sicl/cli.py:776:        for statement, evidence_source in facts:
+src/sicl/cli.py:778:                recorded.append(self.fact_set([statement, evidence_source], event_source=source)["data"])
+src/sicl/cli.py:788:    def evidence_add(self, args: list[str]) -> dict:
+src/sicl/cli.py:790:            raise SICLError("INVALID_ARGUMENT", "evidence_id statement evidence_type [source_id] [evidence_url] required")
+src/sicl/cli.py:792:        evidence_id, statement, evidence_type_text = args[:3]
+src/sicl/cli.py:794:            evidence_type = EvidenceType(evidence_type_text.upper())
+src/sicl/cli.py:796:            raise SICLError("INVALID_EVIDENCE_TYPE", evidence_type_text) from exc
+src/sicl/cli.py:797:        if evidence_id in p.evidence:
+src/sicl/cli.py:798:            raise SICLError("EVIDENCE_ALREADY_EXISTS", evidence_id)
+src/sicl/cli.py:800:        evidence_url = args[4] if len(args) == 5 else None
+src/sicl/cli.py:801:        evidence = Evidence(
+src/sicl/cli.py:802:            evidence_id=evidence_id,
+src/sicl/cli.py:806:            evidence_type=evidence_type,
+src/sicl/cli.py:809:            evidence_url=evidence_url,
+src/sicl/cli.py:810:            evidence_hash=hashlib.sha256(statement.encode("utf-8")).hexdigest(),
+src/sicl/cli.py:813:        p.evidence[evidence_id] = evidence
+src/sicl/cli.py:816:            "evidence_id": evidence.evidence_id,
+src/sicl/cli.py:817:            "statement": evidence.statement,
+src/sicl/cli.py:818:            "evidence_type": evidence.evidence_type.value,
+src/sicl/cli.py:819:            "source_id": evidence.source_id,
+src/sicl/cli.py:820:            "evidence_url": evidence.evidence_url,
+src/sicl/cli.py:821:            "evidence_hash": evidence.evidence_hash,
+src/sicl/cli.py:822:            "state": evidence.state,
+src/sicl/cli.py:824:        self.repo.insert_evidence_and_event(evidence, p, self._event(p.project_id, "EVIDENCE_ADDED", event_payload))
+src/sicl/cli.py:825:        return self._ok(asdict(evidence))
+src/sicl/cli.py:827:    def evidence_list(self) -> dict:
+src/sicl/cli.py:828:        return self._ok({"evidence": [asdict(item) for item in self.repo.list_evidence(self._project().project_id)]})
+src/sicl/cli.py:830:    def evidence_show(self, args: list[str]) -> dict:
+src/sicl/cli.py:832:            raise SICLError("INVALID_ARGUMENT", "evidence_id required")
+src/sicl/cli.py:833:        evidence = self.repo.get_evidence(self._project().project_id, args[0])
+src/sicl/cli.py:834:        if evidence is None:
+src/sicl/cli.py:835:            raise SICLError("EVIDENCE_NOT_FOUND", args[0])
+src/sicl/cli.py:836:        return self._ok(asdict(evidence))
+tests/test_monte_carlo.py:37:        assert first["evidence_hash"] == hashlib.sha256(canonical.encode()).hexdigest()
+tests/test_derivation.py:41:    s=MemoryStore(); l=DerivationLedger(s); src=ref("Source","S1",1); ev=ref("Evidence","E1",2); cl=ref("Claim","C1",1); h=ref("Hypothesis","H1",3)
+src/sicl/repository.py:11:from .domain import Actor, ActorPosition, ActorRole, ActorState, Assumption, AuthorityLevel, Constraint, CycleHorizon, CycleState, Decision, Evidence, EvidenceType, Event, EvolutionState, GeneratedAlternative, GenerationMethod, GenerationState, InstitutionalMemory, MemoryConfidence, MemoryState, MemoryType, Fact, HumanReview, InterpretationConfidence, InterpretationState, MultiobjectiveResult, MultiobjectiveState, NormativeInterpretation, NormativeSnapshot, NormativeSnapshotState, Objective, PlanningInstrument, PlanningInstrumentStatus, PlanningInstrumentType, Preference, Project, Regulation, RegulationStatus, Role, ScenarioBranch, ScenarioEvolution, ScenarioState, ScaleRelation, ScaleRelationType, Source, SourceType, SpatialScope, Stance, SubjectType, TemporalCycle, TemporalScope
+src/sicl/repository.py:175:        CREATE TABLE IF NOT EXISTS evidence (
+src/sicl/repository.py:176:          evidence_id TEXT NOT NULL, project_id TEXT NOT NULL REFERENCES projects(project_id),
+src/sicl/repository.py:177:          source_id TEXT NULL, statement TEXT NOT NULL, evidence_type TEXT NOT NULL,
+src/sicl/repository.py:178:          captured_at TEXT NOT NULL, method_version TEXT NOT NULL, evidence_url TEXT NULL,
+src/sicl/repository.py:179:          evidence_hash TEXT NULL, state TEXT NOT NULL, version INTEGER NOT NULL,
+src/sicl/repository.py:180:          PRIMARY KEY (project_id, evidence_id)
+src/sicl/repository.py:186:          started_at TEXT NOT NULL, finished_at TEXT NULL, evidence_hash TEXT NOT NULL,
+src/sicl/repository.py:223:          summary TEXT NOT NULL, evidence_json TEXT NOT NULL, decisions_json TEXT NOT NULL,
+src/sicl/repository.py:260:          source_url TEXT NULL, source_type TEXT NOT NULL, evidence_hash TEXT NULL,
+src/sicl/repository.py:308:        CREATE TRIGGER IF NOT EXISTS evidence_no_update
+src/sicl/repository.py:309:        BEFORE UPDATE ON evidence
+src/sicl/repository.py:310:        BEGIN SELECT RAISE(ABORT, 'evidence is append-only'); END;
+src/sicl/repository.py:311:        CREATE TRIGGER IF NOT EXISTS evidence_no_delete
+src/sicl/repository.py:312:        BEFORE DELETE ON evidence
+src/sicl/repository.py:313:        BEGIN SELECT RAISE(ABORT, 'evidence is append-only'); END;
+src/sicl/repository.py:523:        return Regulation(row["regulation_id"], row["jurisdiction"], row["authority"], row["code"], row["title"], row["version"], date.fromisoformat(row["publication_date"]) if row["publication_date"] else None, date.fromisoformat(row["effective_date"]) if row["effective_date"] else None, RegulationStatus(row["status"]), row["source_url"], SourceType(row["source_type"]), row["evidence_hash"], [SpatialScope(value) for value in json.loads(row["scope_applicable_json"])], row["parent_regulation_id"], row["summary"], row["version_field"])
+src/sicl/repository.py:559:        p.evidence = {r["evidence_id"]: Evidence(r["evidence_id"], r["project_id"], r["source_id"], r["statement"], EvidenceType(r["evidence_type"]), datetime.fromisoformat(r["captured_at"]), r["method_version"], r["evidence_url"], r["evidence_hash"], r["state"], r["version"]) for r in self.conn.execute("SELECT * FROM evidence WHERE project_id=?", (project_id,))}
+src/sicl/repository.py:560:        p.simulations = {r["simulation_id"]: Simulation(r["simulation_id"], r["project_id"], SimulationType(r["simulation_type"]), r["method"], r["method_version"], json.loads(r["inputs_json"]), json.loads(r["outputs_json"]), SimulationState(r["state"]), datetime.fromisoformat(r["started_at"]), datetime.fromisoformat(r["finished_at"]) if r["finished_at"] else None, r["evidence_hash"], r["version"]) for r in self.conn.execute("SELECT * FROM simulations WHERE project_id=?", (project_id,))}
+src/sicl/repository.py:645:    def insert_evidence_and_event(self, evidence: Evidence, project: Project, event: Event) -> None:
+src/sicl/repository.py:648:                "INSERT INTO evidence(evidence_id, project_id, source_id, statement, evidence_type, captured_at, method_version, evidence_url, evidence_hash, state, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+src/sicl/repository.py:649:                (evidence.evidence_id, evidence.project_id, evidence.source_id, evidence.statement, evidence.evidence_type.value, evidence.captured_at.isoformat(), evidence.method_version, evidence.evidence_url, evidence.evidence_hash, evidence.state, evidence.version),
+src/sicl/repository.py:654:    def list_evidence(self, project_id: str) -> list[Evidence]:
+src/sicl/repository.py:656:        return list(project.evidence.values()) if project else []
+src/sicl/repository.py:658:    def get_evidence(self, project_id: str, evidence_id: str) -> Evidence | None:
+src/sicl/repository.py:659:        row = self.conn.execute("SELECT * FROM evidence WHERE project_id=? AND evidence_id=?", (project_id, evidence_id)).fetchone()
+src/sicl/repository.py:662:        return Evidence(row["evidence_id"], row["project_id"], row["source_id"], row["statement"], EvidenceType(row["evidence_type"]), datetime.fromisoformat(row["captured_at"]), row["method_version"], row["evidence_url"], row["evidence_hash"], row["state"], row["version"])
+src/sicl/repository.py:667:                "INSERT INTO simulations(simulation_id, project_id, simulation_type, method, method_version, inputs_json, outputs_json, state, started_at, finished_at, evidence_hash, version) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+src/sicl/repository.py:668:                (simulation.simulation_id, simulation.project_id, simulation.simulation_type.value, simulation.method, simulation.method_version, json.dumps(simulation.inputs, sort_keys=True), json.dumps(simulation.outputs, sort_keys=True), simulation.state.value, simulation.started_at.isoformat(), simulation.finished_at.isoformat() if simulation.finished_at else None, simulation.evidence_hash, simulation.version),
+src/sicl/repository.py:718:                 memory.project_id_source, memory.summary, json.dumps(memory.evidence), json.dumps(memory.decisions_referenced),
+src/sicl/repository.py:732:        revoked = InstitutionalMemory(memory.memory_id, memory.memory_type, memory.scope, memory.project_id_source, memory.summary, memory.evidence, memory.decisions_referenced, MemoryState.REVOKED, memory.confidence, memory.anonymized, datetime.now(), memory.version + 1)
+src/sicl/repository.py:736:                (revoked.memory_id, revoked.version, revoked.memory_type.value, json.dumps([item.value for item in revoked.scope]), revoked.project_id_source, revoked.summary, json.dumps(revoked.evidence), json.dumps(revoked.decisions_referenced), revoked.state.value, revoked.confidence.value, int(revoked.anonymized), revoked.created_at.isoformat()),
+src/sicl/repository.py:743:        return InstitutionalMemory(row["memory_id"], MemoryType(row["memory_type"]), [SpatialScope(item) for item in json.loads(row["scope_json"])], row["project_id_source"], row["summary"], json.loads(row["evidence_json"]), json.loads(row["decisions_json"]), MemoryState(row["state"]), MemoryConfidence(row["confidence"]), bool(row["anonymized"]), datetime.fromisoformat(row["created_at"]), row["version"])
+src/sicl/repository.py:800:                 regulation.status.value, regulation.source_url, regulation.source_type.value, regulation.evidence_hash,
+src/sicl/regulatory_corpus.py:15:REQUIRED_EVIDENCE_KEYS = {"evidence_id", "source_id", "evidence_type", "article_reference", "statement", "method_version", "state"}
+src/sicl/regulatory_corpus.py:18:ALLOWED_EVIDENCE_STATES = {"OBSERVED", "UNVERIFIED", "REVIEWED", "REJECTED"}
+src/sicl/regulatory_corpus.py:42:    evidence = payload.get("evidence")
+src/sicl/regulatory_corpus.py:47:    if not isinstance(evidence, list) or not evidence:
+src/sicl/regulatory_corpus.py:48:        raise ValueError("fixture requires at least one evidence record")
+src/sicl/regulatory_corpus.py:76:    evidence_ids: set[str] = set()
+src/sicl/regulatory_corpus.py:77:    for item in evidence:
+src/sicl/regulatory_corpus.py:78:        missing = REQUIRED_EVIDENCE_KEYS - item.keys()
+src/sicl/regulatory_corpus.py:80:            raise ValueError(f"evidence missing keys: {sorted(missing)}")
+src/sicl/regulatory_corpus.py:81:        if item["evidence_id"] in evidence_ids:
+src/sicl/regulatory_corpus.py:82:            raise ValueError(f"duplicate evidence_id: {item['evidence_id']}")
+src/sicl/regulatory_corpus.py:84:            raise ValueError(f"evidence source_id does not exist: {item['source_id']}")
+src/sicl/regulatory_corpus.py:86:            raise ValueError("evidence article_reference is required")
+src/sicl/regulatory_corpus.py:88:            raise ValueError("evidence method_version is required")
+src/sicl/regulatory_corpus.py:89:        if item["state"] not in ALLOWED_EVIDENCE_STATES:
+src/sicl/regulatory_corpus.py:90:            raise ValueError(f"invalid evidence state: {item['state']}")
+src/sicl/regulatory_corpus.py:91:        evidence_ids.add(item["evidence_id"])
+src/sicl/regulatory_corpus.py:94:def evidence_traceability_report(payload: dict[str, Any]) -> dict[str, Any]:
+src/sicl/regulatory_corpus.py:95:    """Return a reviewable report for every evidence-to-source link."""
+src/sicl/regulatory_corpus.py:99:    for evidence in payload["evidence"]:
+src/sicl/regulatory_corpus.py:100:        source = sources[evidence["source_id"]]
+src/sicl/regulatory_corpus.py:102:            "evidence_id": evidence["evidence_id"],
+src/sicl/regulatory_corpus.py:103:            "source_id": evidence["source_id"],
+src/sicl/regulatory_corpus.py:106:            "article_reference": evidence["article_reference"],
+src/sicl/regulatory_corpus.py:107:            "method_version": evidence["method_version"],
+src/sicl/regulatory_corpus.py:108:            "state": evidence["state"],
+src/sicl/regulatory_corpus.py:109:            "traceable": bool(source["url"] and evidence["article_reference"] and evidence["method_version"]),
+src/sicl/regulatory_corpus.py:111:    return {"fixture_status": payload["corpus_status"], "evidence_count": len(rows), "all_traceable": all(row["traceable"] for row in rows), "rows": rows}
+tests/test_evidence.py:10:from sicl.domain import EvidenceType, SourceType
+tests/test_evidence.py:14:def test_evidence_add_minimum_fields_and_hash():
+tests/test_evidence.py:17:    assert cli.execute('/PROJECT CREATE P-E1 "Evidence"')["code"] == "OK"
+tests/test_evidence.py:18:    result = cli.execute('/EVIDENCE ADD E-1 "Measured area is 2000 m2" MEASUREMENT')
+tests/test_evidence.py:20:    evidence = repo.get_evidence("P-E1", "E-1")
+tests/test_evidence.py:21:    assert evidence.evidence_type is EvidenceType.MEASUREMENT
+tests/test_evidence.py:22:    assert evidence.evidence_hash == hashlib.sha256(b"Measured area is 2000 m2").hexdigest()
+tests/test_evidence.py:23:    assert evidence.state == "OBSERVED"
+tests/test_evidence.py:24:    assert repo.events("P-E1")[-1].type == "EVIDENCE_ADDED"
+tests/test_evidence.py:27:def test_evidence_add_all_fields_and_cli_list_show():
+tests/test_evidence.py:30:    cli.execute('/PROJECT CREATE P-E2 "Evidence"')
+tests/test_evidence.py:31:    result = cli.execute('/EVIDENCE ADD E-2 "Official plan" DOCUMENT SRC-1 https://example.test/plan')
+tests/test_evidence.py:33:    listed = cli.execute('/EVIDENCE LIST')
+tests/test_evidence.py:34:    shown = cli.execute('/EVIDENCE SHOW E-2')
+tests/test_evidence.py:36:    assert listed["data"]["evidence"][0]["evidence_id"] == "E-2"
+tests/test_evidence.py:37:    assert shown["data"]["evidence_id"] == "E-2"
+tests/test_evidence.py:39:    assert shown["data"]["evidence_url"] == "https://example.test/plan"
+tests/test_evidence.py:42:def test_evidence_duplicate_id_is_rejected():
+tests/test_evidence.py:45:    cli.execute('/PROJECT CREATE P-E3 "Evidence"')
+tests/test_evidence.py:46:    assert cli.execute('/EVIDENCE ADD E-3 "First" DOCUMENT')["code"] == "OK"
+tests/test_evidence.py:47:    duplicate = cli.execute('/EVIDENCE ADD E-3 "Second" DOCUMENT')
+tests/test_evidence.py:48:    assert duplicate["code"] == "EVIDENCE_ALREADY_EXISTS"
+tests/test_evidence.py:49:    assert len(repo.list_evidence("P-E3")) == 1
+tests/test_evidence.py:52:def test_evidence_invalid_type_is_rejected():
+tests/test_evidence.py:55:    cli.execute('/PROJECT CREATE P-E4 "Evidence"')
+tests/test_evidence.py:56:    result = cli.execute('/EVIDENCE ADD E-4 "Unknown" NOT_A_TYPE')
+tests/test_evidence.py:57:    assert result["code"] == "INVALID_EVIDENCE_TYPE"
+tests/test_evidence.py:60:def test_evidence_persists_after_restart(tmp_path):
+tests/test_evidence.py:61:    db = tmp_path / "evidence.sqlite"
+tests/test_evidence.py:64:    cli.execute('/PROJECT CREATE P-E5 "Evidence"')
+tests/test_evidence.py:65:    cli.execute('/EVIDENCE ADD E-5 "Persisted" OBSERVATION')
+tests/test_evidence.py:68:    evidence = second.get_evidence("P-E5", "E-5")
+tests/test_evidence.py:69:    assert evidence is not None
+tests/test_evidence.py:70:    assert evidence.statement == "Persisted"
+tests/test_evidence.py:71:    assert evidence.evidence_type is EvidenceType.OBSERVATION
+tests/test_evidence.py:74:def test_evidence_does_not_create_fact_automatically():
+tests/test_evidence.py:77:    cli.execute('/PROJECT CREATE P-E6 "Evidence"')
+tests/test_evidence.py:78:    cli.execute('/EVIDENCE ADD E-6 "Observed statement" OBSERVATION')
+tests/test_evidence.py:81:    assert set(project.evidence) == {"E-6"}
+tests/test_evidence.py:84:def test_evidence_is_append_only():
+tests/test_evidence.py:87:    cli.execute('/PROJECT CREATE P-E7 "Evidence"')
+tests/test_evidence.py:88:    cli.execute('/EVIDENCE ADD E-7 "Immutable" DOCUMENT')
+tests/test_evidence.py:90:        repo.conn.execute("UPDATE evidence SET statement='changed' WHERE project_id='P-E7' AND evidence_id='E-7'")
+tests/test_evidence.py:91:        assert False, "Evidence UPDATE should be rejected"
+tests/test_evidence.py:95:        repo.conn.execute("DELETE FROM evidence WHERE project_id='P-E7' AND evidence_id='E-7'")
+tests/test_evidence.py:96:        assert False, "Evidence DELETE should be rejected"
+tests/test_evidence.py:108:def test_http_evidence_create_list_get_and_hash(tmp_path, monkeypatch):
+tests/test_evidence.py:109:    repo = SQLiteRepository(tmp_path / "api-evidence.sqlite", check_same_thread=False)
+tests/test_evidence.py:114:            created_project = client.post("/v1/projects", json={"project_id": "P-API-E", "name": "API Evidence"})
+tests/test_evidence.py:116:            created = client.post("/v1/projects/P-API-E/evidence", json={"evidence_id": "E-API", "statement": "API observation", "evidence_type": "OBSERVATION"})
+tests/test_evidence.py:122:            assert body["data"]["evidence"]["evidence_hash"] == hashlib.sha256(b"API observation").hexdigest()
+tests/test_evidence.py:123:            listed = client.get("/v1/projects/P-API-E/evidence")
+tests/test_evidence.py:124:            individual = client.get("/v1/projects/P-API-E/evidence/E-API")
+tests/test_evidence.py:126:            assert len(listed.json()["data"]["evidence"]) == 1
+tests/test_evidence.py:127:            assert individual.json()["data"]["evidence"]["evidence_id"] == "E-API"
+tests/test_evidence.py:133:def test_http_evidence_invalid_type_and_duplicate_are_rejected(tmp_path, monkeypatch):
+tests/test_evidence.py:134:    repo = SQLiteRepository(tmp_path / "api-evidence-errors.sqlite", check_same_thread=False)
+tests/test_evidence.py:139:            client.post("/v1/projects", json={"project_id": "P-API-ERR", "name": "API Evidence"})
+tests/test_evidence.py:140:            invalid = client.post("/v1/projects/P-API-ERR/evidence", json={"evidence_id": "E-ERR", "statement": "Bad", "evidence_type": "BAD"})
+tests/test_evidence.py:142:            assert invalid.json()["detail"]["code"] == "INVALID_EVIDENCE_TYPE"
+tests/test_evidence.py:143:            client.post("/v1/projects/P-API-ERR/evidence", json={"evidence_id": "E-ERR", "statement": "Good", "evidence_type": "DOCUMENT"})
+tests/test_evidence.py:144:            duplicate = client.post("/v1/projects/P-API-ERR/evidence", json={"evidence_id": "E-ERR", "statement": "Again", "evidence_type": "DOCUMENT"})
+tests/test_evidence.py:146:            assert duplicate.json()["detail"]["code"] == "EVIDENCE_ALREADY_EXISTS"
+tests/test_simulation.py:53:        assert simulation["evidence_hash"] == hashlib.sha256(expected.encode()).hexdigest()
+tests/test_source_http.py:118:def test_evidence_can_reference_http_source(tmp_path, monkeypatch):
+tests/test_source_http.py:121:        project(client, "P-EVIDENCE")
+tests/test_source_http.py:122:        assert client.post("/v1/projects/P-EVIDENCE/sources", json=source("SRC-E")).status_code == 200
+tests/test_source_http.py:123:        response = client.post("/v1/projects/P-EVIDENCE/evidence", json={"evidence_id": "E-1", "statement": "Recorded", "evidence_type": "DOCUMENT", "source_id": "SRC-E"})
+tests/test_source_http.py:125:        assert response.json()["data"]["evidence"]["source_id"] == "SRC-E"
+tests/test_site_intelligence.py:68:    assert FALLBACK_TRUJILLO.evidence_url == "fixture://FALLBACK_TRUJILLO"
+tests/test_site_intelligence.py:69:    assert FALLBACK_TRUJILLO.evidence_hash
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:86:Relaciones adicionales —`Requirement formalizes_as Objective/Constraint/Preference`, `Source provides Evidence`, `Alternative evaluated_by Evaluation`, `Decision responds_to Analysis`— quedan preservadas como ontología v1.0, pero no se activan automáticamente por el MVP CLI reducido.
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:104:11. El núcleo no inventa Facts, Evidence, fuentes ni autoridad.
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:156:- ¿Cuál es el modelo final de Fact/Assumption y Source/Evidence?
+docs/RFC-026_PERSISTENCE_AND_BIBLIOGRAPHY_PLAN.md:18:El esquema debe incluir claves de procedencia hacia `sources` y `evidence` cuando el registro se vincule al proyecto. Las fuentes bibliográficas del catálogo global no deben depender de un `project_id`; el uso en un proyecto se registrará mediante una tabla de relación o mediante eventos de consulta.
+docs/RFC-028_GIS_CADASTRAL_PARCELA_SITIO.md:18:Los datos catastrales externos se registran como `Evidence` y `Fact`. Una fuente puede permanecer en estado `UNVERIFIED` o `REVIEW_REQUIRED`. El Core determinista nunca promoverá automáticamente una fuente a `VIGENTE`.
+docs/RFC-028_GIS_CADASTRAL_PARCELA_SITIO.md:43:### 3.2 GeometryEvidence
+docs/SICL_CORE_CONTRACT_v1.0.md:18:- `Evidence` y `Source` como registros de procedencia explícita
+docs/SICL_CORE_CONTRACT_v1.0.md:50:| Evidence | `evidence_id`, `project_id`, `source_id?`, `statement`, `evidence_type`, `captured_at`, `method_version`, `evidence_url?`, `evidence_hash?`, `state`, `version` |
+docs/SICL_CORE_CONTRACT_v1.0.md:54:| SiteObservation | `location`, valores con unidad, `source`, `state`, `captured_at`, `method`, `evidence` |
+docs/SICL_CORE_CONTRACT_v1.0.md:58:| Simulation | `simulation_id`, `project_id`, `simulation_type`, `method`, `method_version`, `inputs`, `outputs`, `state`, `started_at`, `finished_at?`, `evidence_hash`, `version` |
+docs/SICL_CORE_CONTRACT_v1.0.md:63:| Regulation | `regulation_id`, `jurisdiction`, `authority`, `code`, `title`, `version`, `publication_date?`, `effective_date?`, `status`, `source_url?`, `source_type`, `evidence_hash?`, `scope_applicable`, `parent_regulation_id?`, `summary?`, `version_field` |
+docs/SICL_CORE_CONTRACT_v1.0.md:97:/EVIDENCE ADD <evidence_id> <statement> <evidence_type> [source_id] [evidence_url]
+docs/SICL_CORE_CONTRACT_v1.0.md:98:/EVIDENCE LIST
+docs/SICL_CORE_CONTRACT_v1.0.md:99:/EVIDENCE SHOW <evidence_id>
+docs/SICL_CORE_CONTRACT_v1.0.md:158:15. `Evidence` solo registra declaraciones capturadas; no se convierte automáticamente en `Fact` o `Assumption`.
+docs/SICL_CORE_CONTRACT_v1.0.md:159:16. `Evidence` acepta únicamente los tipos y estados canónicos, calcula SHA-256 desde `statement` cuando falta hash y es append-only.
+docs/SICL_CORE_CONTRACT_v1.0.md:265:La superficie canónica expone `POST /v1/projects/{project_id}/sources`, `GET /v1/projects/{project_id}/sources` y `GET /v1/projects/{project_id}/sources/{source_id}`. Source es un registro de procedencia project-scoped, con tipos `OFFICIAL`, `SECONDARY`, `USER_PROVIDED` y `UNKNOWN`; su creación es append-only, produce `SOURCE_ADDED` y no crea Evidence, Fact, Recommendation ni Decision. No existen endpoints HTTP de actualización o eliminación.
+docs/RFC-017_CORE_CONTRACT_VERSIONING.md:209:La revisión también debe confirmar que los eventos críticos siguen siendo append-only y que Fact, Assumption, Preference y Evidence no se mezclan por conveniencia.
+docs/RFC-017_CORE_CONTRACT_VERSIONING.md:247:La transición a v2.0 incorporó el modelo multiescala, el contrato HTTP `/v1/...`, Evidence, Source, Evaluation, Comparison, simulaciones, multiobjetivo, instrumentos de planificación, regulación y relaciones multiescala.
+docs/RFC-017_CORE_CONTRACT_VERSIONING.md:283:- [ ] Fact, Assumption, Preference, Evidence y Decision permanecen separados.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:24:| FFO-07 | Regulatory Intelligence | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Regulatory entities, RNE fixture/corpus foundations, evidence linkage, and normative state concepts | Jurisdiction resolution, rule applicability, updates, conflict detection, snapshots, and explanations | RFC-025; constitutional authority locks | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:25:| FFO-08 | Design Knowledge Intelligence | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Initial design-knowledge entities, catalog/query agent foundation, and source/evidence separation | Complete repository, contextual retrieval, applicability explanation, and knowledge-assisted evaluation/generation | RFC-026; human-authority locks | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:37:- **IMPLEMENTED:** The whole FFO scope is supported by current evidence. No activation is required for that FFO, although operational deployment remains separate.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:43:- **STATUS_UNCERTAIN / REQUIRES_FUTURE_FOCUSED_VERIFICATION:** Evidence is insufficient and must not be converted into an assumption.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:87:The future order must define geometry-to-environment coupling, temporal aggregation, validation evidence, uncertainty treatment, and human review before any performance claim is introduced.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:231:Missing-data prioritization, acquisition recommendations, guided acquisition, source discovery, evidence requests, project-document extraction, GIS acquisition, external API acquisition, derived-data generation, assumption proposals, uncertainty visualization, capability-impact explanation, and alternative-analysis impact remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:247:The Product Owner must identify acquisition classes, authority boundaries, evidence requirements, and whether the system may only suggest or may execute acquisition.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:307:Regulatory intelligence must connect authoritative sources to evidence, rules, applicability, constraints, and feasibility without rewriting historical project state.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:311:The Core contains regulation, evidence, normative interpretation, snapshot concepts, and the initial RNE corpus/fixture foundation. These foundations preserve source and review states.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:315:Jurisdiction resolution, authority classification, regulatory source management, source versions, effective and retrieval dates, evidence extraction, rule extraction, applicability resolution, supersession, regulatory snapshots, project-specific regulatory state, update detection, conflicting-rule detection, and feasibility explanation remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:327:RFC-025 and the authority, evidence, and historical-state invariants.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:331:A future order must specify the jurisdiction, source corpus, evidence review protocol, and human authority required for every promotion or interpretation.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:353:The initial DesignKnowledgeSource, DesignKnowledgeItem, DesignPattern, catalog/query agent, and HTTP query foundation are present in the approved RFC-026 lineage. Reference knowledge remains distinct from normative evidence.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:357:A complete design-knowledge repository, source/evidence linkage, principle and pattern retrieval, typology and precedent intelligence, contextual design questions, applicability explanations, knowledge-assisted alternative generation, and knowledge-assisted evaluation remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:369:RFC-026 and the source/evidence authority boundaries.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:373:A future order must name the source family, review state, retrieval scope, and whether the result is reference-only, strategy-candidate, or authoritative evidence.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:377:`OFFICIAL_REGULATION > VALIDATED_EVIDENCE > TECHNICAL_MANUAL > REFERENCE_WORK > DESIGN_HEURISTIC`, where applicable. A heuristic must never silently become a regulatory Constraint.
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:19:    PARCEL[ParcelSnapshot / Evidence\nfuente, CRS, fecha, hash]
+docs/RFC-003_REGULATORY_CORPUS.md:64:1. Regulation no es PlanningInstrument, DesignPrinciple, Preference ni Evidence.
+tests/test_rfc027_bim.py:33:            "provenance": {"source": "USER_PROVIDED", "evidence_id": "EV-BIM-001"},
+docs/RFC-014_USER_COPILOT.md:85:- si existe una `Assumption` sin `Evidence` asociada, señalar la necesidad de verificación;
+docs/RFC-014_USER_COPILOT.md:481:- RFC-002 — Evidence HTTP.
+docs/GLOSSARY.md:68:## Evidence
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:18:SICL ya dispone de entidades `Regulation`, `NormativeInterpretation`, `NormativeSnapshot`, `Source` y `Evidence`. También dispone de factibilidad, variables de proyecto, optimización de Pareto y Site Intelligence. Sin una estructura de ingesta explícita, esos componentes no podrían demostrar qué documento sustenta una regla, cuándo fue recuperado ni qué parte fue revisada por una persona autorizada.
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:48:    → Evidence
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:76:### 5.3 Evidence
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:78:`Evidence` registra una afirmación capturada, su tipo, la fuente, la referencia de artículo, el método de captura y su hash. El estado de evidencia distingue información observada de información todavía no verificada.
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:99:- `evidence` para siete referencias descriptivas.
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:201:El informe generado por `evidence_traceability_report` contiene una fila por evidencia y el campo `traceable`. El lote actual contiene siete evidencias y todas resultaron trazables. La validación no promueve ninguna evidencia a `REVIEWED` ni ninguna regulación a `VIGENTE`; esos cambios requieren revisión humana posterior.
+docs/RFC-002_EVIDENCE_HTTP.md:1:# RFC-002 — Evidence HTTP
+docs/RFC-002_EVIDENCE_HTTP.md:8:Evidence es una entidad canónica de primera clase para registrar declaraciones capturadas desde documentos, observaciones, mediciones, referencias, testimonios o fuentes normativas.
+docs/RFC-002_EVIDENCE_HTTP.md:12:`Evidence` contiene `evidence_id`, `project_id`, `source_id`, `statement`, `evidence_type`, `captured_at`, `method_version`, `evidence_url`, `evidence_hash`, `state` y `version`.
+docs/RFC-002_EVIDENCE_HTTP.md:16:Los tipos de Evidence son `DOCUMENT`, `OBSERVATION`, `MEASUREMENT`, `REFERENCE`, `TESTIMONY`, `NORMATIVE` y `OTHER`. Los tipos de Source son `OFFICIAL`, `SECONDARY`, `USER_PROVIDED` y `UNKNOWN`.
+docs/RFC-002_EVIDENCE_HTTP.md:24:| `POST` | `/v1/projects/{id}/evidence` | Crea Evidence append-only |
+docs/RFC-002_EVIDENCE_HTTP.md:25:| `GET` | `/v1/projects/{id}/evidence` | Lista Evidence del proyecto |
+docs/RFC-002_EVIDENCE_HTTP.md:26:| `GET` | `/v1/projects/{id}/evidence/{evidence_id}` | Recupera una Evidence |
+docs/RFC-002_EVIDENCE_HTTP.md:32:- `/EVIDENCE ADD <evidence_id> <statement> <evidence_type> [source_id] [evidence_url]`
+docs/RFC-002_EVIDENCE_HTTP.md:33:- `/EVIDENCE LIST`
+docs/RFC-002_EVIDENCE_HTTP.md:34:- `/EVIDENCE SHOW <evidence_id>`
+docs/RFC-002_EVIDENCE_HTTP.md:36:Cada creación produce exactamente un evento `EVIDENCE_ADDED` con actor y timestamp.
+docs/RFC-002_EVIDENCE_HTTP.md:40:Evidence registra lo que se declara y no infiere contenido. No se convierte automáticamente en Fact ni Assumption. Si no se recibe `evidence_hash`, se calcula como SHA-256 de `statement`. Evidence no se actualiza ni elimina; una futura sustitución deberá registrarse como una nueva Evidence relacionada mediante un mecanismo explícito.
+docs/RFC-002_EVIDENCE_HTTP.md:44:SQLite usa tablas `evidence` y `sources`. La clave primaria compuesta `(project_id, evidence_id)` evita duplicados dentro de un proyecto. La persistencia se conserva tras reiniciar el repositorio.
+docs/RFC-002_EVIDENCE_HTTP.md:56:El `source_id` es único dentro del proyecto. `source_type` admite únicamente `OFFICIAL`, `SECONDARY`, `USER_PROVIDED` y `UNKNOWN`. La creación produce `SOURCE_ADDED`; no crea Evidence, Fact, Recommendation ni Decision. La URL es opcional y las rutas no exponen operaciones de actualización o eliminación.
+docs/BIM_CHANGESET_HUMAN_REVIEW_TEMPLATE.md:42:| Cambio | Evidence ID | Fuente | Hash / versión | Estado de evidencia |
+docs/BIM_CHANGESET_HUMAN_REVIEW_TEMPLATE.md:44:| `{{ change_id }}` | `{{ evidence_id }}` | `{{ source }}` | `{{ source_version }}` | `{{ evidence_state }}` |
+docs/RFC-011_INSTITUTIONAL_MEMORY.md:9:`InstitutionalMemory` es una proyección global, no una entidad canónica de `Project`. Cada registro contiene `memory_id`, `memory_type`, `scope`, `project_id_source`, `summary`, referencias a `evidence` y `decisions_referenced`, `state`, `confidence`, `anonymized`, `created_at` y `version`.
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md:22:- `GraphicStyle.line_weights[role]` maps to `LineWeight`; missing or invalid style evidence fails closed.
+docs/RFC-006_SIMULATION_CONTRACT.md:25:- `evidence_hash`
+docs/OPERATIONS_MANUAL.md:191:/EVIDENCE ADD EVD-001 "El plano registra 2000 m2" DOCUMENT CATASTRO https://example.org/plano
+docs/OPERATIONS_MANUAL.md:194:**HTTP equivalente.** `POST /v1/projects/{project_id}/evidence`.
+docs/OPERATIONS_MANUAL.md:198:  "evidence_id":"EVD-001",
+docs/OPERATIONS_MANUAL.md:200:  "evidence_type":"DOCUMENT",
+docs/OPERATIONS_MANUAL.md:202:  "evidence_url":"https://example.org/plano",
+docs/OPERATIONS_MANUAL.md:207:**Salida esperada.** Envelope v1 con `data.evidence` y hash de la declaración cuando no se suministra uno.
+docs/OPERATIONS_MANUAL.md:784:**Salida esperada.** Statistics, seed, sample count y evidence hash. Repetir con los mismos inputs y semilla debe producir el mismo resultado. Cambiar la semilla produce una ejecución distinta. Ninguna ejecución crea Decision o Recommendation.
+docs/OPERATIONS_MANUAL.md:828:| Epistemología | `/FACT SET`, `/ASSUMPTION SET`, `/EVIDENCE ADD`, `/EVIDENCE LIST`, `/EVIDENCE SHOW`, `/SOURCE ADD`, `/SOURCE LIST`, `/SOURCE SHOW` |
+docs/OPERATIONS_MANUAL.md:854:| POST/GET | `/v1/projects/{id}/evidence` | Crear o listar evidencia |
+docs/OPERATIONS_MANUAL.md:901:6. Events, Evidence, Simulation, GeneratedAlternative y relaciones temporales son append-only según su contrato.
+docs/OPERATIONS_MANUAL.md:915:[4]: docs/RFC-002_EVIDENCE_HTTP.md "RFC-002 Evidence HTTP"
+docs/COMMANDS_REFERENCE.md:173:### /EVIDENCE ADD
+docs/COMMANDS_REFERENCE.md:175:**Sintaxis:** `/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]`
+docs/COMMANDS_REFERENCE.md:180:/EVIDENCE ADD EVD-001 "Frente de 40 m" OBSERVATION
+docs/COMMANDS_REFERENCE.md:185:**Errores comunes:** `EVIDENCE_ALREADY_EXISTS, INVALID_EVIDENCE_TYPE, INVALID_ARGUMENT`
+docs/COMMANDS_REFERENCE.md:187:### /EVIDENCE LIST
+docs/COMMANDS_REFERENCE.md:189:**Sintaxis:** `/EVIDENCE LIST`
+docs/COMMANDS_REFERENCE.md:194:/EVIDENCE LIST
+docs/COMMANDS_REFERENCE.md:201:### /EVIDENCE SHOW
+docs/COMMANDS_REFERENCE.md:203:**Sintaxis:** `/EVIDENCE SHOW <evidence_id>`
+docs/COMMANDS_REFERENCE.md:208:/EVIDENCE SHOW EVD-001
+docs/COMMANDS_REFERENCE.md:213:**Errores comunes:** `EVIDENCE_NOT_FOUND, INVALID_ARGUMENT`
+docs/COMMANDS_REFERENCE.md:1463:| `EVIDENCE_ALREADY_EXISTS` | El evidence_id ya existe; use otro identificador. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
+docs/COMMANDS_REFERENCE.md:1464:| `EVIDENCE_NOT_FOUND` | La evidencia no existe. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
+docs/COMMANDS_REFERENCE.md:1473:| `INVALID_EVIDENCE_TYPE` | Tipo Evidence no permitido. | Consulte la sintaxis del comando y verifique el estado, identificadores y autoridad requeridos. |
+docs/COMMANDS_REFERENCE.md:1528:### Evidence types
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:9:| Capability | Evidence | Decision |
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:14:| D2 relationships | `hosted_in` / `contained_in`, versioned fields | Preserve hosting evidence; do not infer door swing. |
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:24:- Cut relation and view visibility are separate. Exact model-unit boundaries use `bottom <= cut <= top` for `CUT`; `BELOW_CUT` is visible with an explicit below-cut operation; `ABOVE_CUT` is `UNKNOWN_VISIBILITY` and is not emitted without a visibility policy/evidence.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:26:- `DOOR_EVIDENCE` retains only geometric evidence and hosting trace; no swing arc or handing is fabricated.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:48:- Materials and hatches: evidence and backend concerns are separate from projection.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:49:- Dimensions, labels, professional symbols, door swing, and window conventions: no semantic evidence/policy in this engine.
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:8:| Capability | Evidence | Decision |
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:11:| Canonical architectural elements | `src/sicl/archi/model.py`, `ArchiElement`, `ArchiGeometry` | Treat as canonical source evidence; no mutation or duplication. |
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:29:| RFC-030 synthetic fallback behavior | It may invent architectural elements when evidence is absent; forbidden in ARE. |
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:43:- Declared freshness is evidence metadata only; `build_scene()` verifies derived freshness against an explicit canonical context.
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:46:- Required-evidence gating: unknown freshness may create only a diagnostic scene when the profile does not require validation evidence.
+docs/SICL_V1_ARCHITECTURE_BASELINE.md:17:`Context`, `Requirement`, `Preference`, `Fact`, `Assumption`, `Source`, `Evidence`, `Alternative`, `Evaluation`, `Comparison`, `Conflict`, `Uncertainty`, `Recommendation` y `Decision`.
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:31:| Source / Evidence | PENDIENTE | La separación es recomendada, no congelada. |
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:57:3. `Fact`, `Assumption`, `Evidence`, `Source`, `Requirement`, `Preference` y `Project DNA` aparecen con importancia ontológica desigual y sin una tabla única de obligatoriedad.
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:67:- Separación contractual Source/Evidence.
+docs/USER_MANUAL.md:101:/EVIDENCE ADD E-001 "El sitio se encuentra en Trujillo" OBSERVATION
+docs/USER_MANUAL.md:102:/EVIDENCE LIST
+docs/USER_MANUAL.md:103:/EVIDENCE SHOW E-001
+docs/USER_MANUAL.md:277:/EVIDENCE ADD <id> <statement> <type> [source_id] [url]
+docs/USER_MANUAL.md:278:/EVIDENCE LIST
+docs/USER_MANUAL.md:279:/EVIDENCE SHOW <id>
+docs/USER_MANUAL.md:423:POST /v1/projects/{project_id}/evidence
+docs/USER_MANUAL.md:424:GET  /v1/projects/{project_id}/evidence
+docs/USER_MANUAL.md:425:GET  /v1/projects/{project_id}/evidence/{evidence_id}
+docs/USER_MANUAL.md:727:[3]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-002_EVIDENCE_HTTP.md "RFC-002 Evidence HTTP"
+docs/USER_MANUAL.md:739:[15]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-002_EVIDENCE_HTTP.md#source-http "RFC-016 Source HTTP"
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:43:ARKI is not a wrapper around an external engine. Future capability follows **learn → replicate → improve**: observe useful external conventions, reproduce the validated semantics internally, then improve the autonomous ARKI contract. External tools may be explicit adapters or evidence sources; they are never the canonical authority or an implicit production dependency.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:65:| Existing capability | Current evidence | Contract interpretation |
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:104:ARE is a transformation boundary, not an alternate model. A transformation must be deterministic for the same source snapshot, `ViewDefinition`, `RepresentationProfile`, `GraphicStyle`, `AnnotationProfile`, and transform version. This is **GraphicScene determinism**. Serialized output has a second backend-specific layer: when serialization depends on it, the backend version is also part of the output identity. Any uncertainty or missing source evidence remains explicit.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:182:validation_evidence_required
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:221:DERIVED_SOURCE    → derived evidence with lineage
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:291:Every representable primitive should be traceable, when source evidence exists, to one or more semantic entity references. The minimum answer must be:
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:348:SOURCE KNOWLEDGE + GEOMETRY + MATERIAL/CONTEXT EVIDENCE
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:397:> ARKI uses the least costly representation that provides the evidence necessary for the current decision.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:410:ARE may prepare evidence and alternatives. Only the authorized human/authority workflow can approve, reject, or authorize consequential architectural decisions.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:421:- required semantic and geometric evidence;
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:440:1. **Learn:** inspect validated conventions and external-tool outputs as evidence, without adopting their runtime authority.
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:220:| `evidence_ids` | array[string] | No | Evidencias de soporte |
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:568:evidence_ids
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:735:evidence_ids
+docs/SIMS_DEI_PROJECT_HANDOVER.md:42:Source dispone de endpoints HTTP para creación, consulta y listado. Evidence puede referenciar fuentes trazables.
+docs/SIMS_DEI_PROJECT_HANDOVER.md:123:Los módulos complementarios son Context/Site, Objectives & Constraints, Alternatives & Evaluation, Evidence, Evaluations, Comparisons, Council/Recommendation y Build Governance.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:73:Events, Evidence, Simulations, ciclos, ramas, evoluciones y otras entidades históricas no se actualizan ni eliminan destructivamente. Las correcciones crean nuevas versiones o eventos.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:97:Incluye Facts, Assumptions, Evidence, Sources, SiteObservations, Regulations, NormativeInterpretations y NormativeSnapshots.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:166:    K --> S[Sources and Evidence]
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:221:### 7.8 Evidence
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:223:Evidence conserva una declaración capturada, su tipo, hash, fecha, método y referencia a Source.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:227:Source identifica el origen de una Evidence. Puede ser oficial, secundario, proporcionado por usuario o desconocido.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:338:### 8.3 Evidence y Sources
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:343:- `POST /v1/projects/{project_id}/evidence`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:344:- `GET /v1/projects/{project_id}/evidence`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:345:- `GET /v1/projects/{project_id}/evidence/{evidence_id}`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:437:- `/EVIDENCE ADD ...`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:438:- `/EVIDENCE LIST`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:439:- `/EVIDENCE SHOW <evidence_id>`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:535:5. Evidence no se convierte automáticamente en Fact.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:538:8. Evidence es inmutable.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:571:Camino A primero: Project → Preference → Recommendation → HumanReview → Decision → Audit → Council. Camino B queda para una fase posterior con Evidence, Objective, Constraint, Alternative, Evaluation y Comparison.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:635:| Evidence HTTP | IMPLEMENTED | RFC-002 extension |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:673:| RFC-002 extension | Evidence HTTP | IMPLEMENTED |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:735:El Copilot no tiene autoridad decisional. Sus salidas deben tratarse como propuesta, explicación o ayuda de usuario y no como Fact, Evidence, Recommendation o Decision sin una operación explícita y validada.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:793:Introdujo el modelo multiescala, HTTP v1, Evidence, Evaluation, Comparison, simulación, Pareto, planificación, relaciones de escala y regulación.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:241:> **ARKI should use the least costly representation that provides sufficient evidence for the current decision.**
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:249:High-fidelity output should not be generated automatically for possibilities that can still be eliminated by lower-cost evidence.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:25:| Capability | Status | Existing evidence / scope | Depends on | Blocked by | Unlock condition | Target front |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:36:| Zoning schematic | `DECLARED_NOT_IMPLEMENTED` | No canonical ARE implementation | functional zones, adjacency | no view/scene runtime | zoning semantics and source evidence | Knowledge Views |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:39:| Architectural plan | `PARTIAL` | RFC-030 projector/composer generates technical plan evidence | geometry, view, profile, ARKI-DRAW | not a generalized ARE pipeline | ARE integration authorization and tests | Projection Engine / ARKI-DRAW |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:43:| Analytical 3D | `DECLARED_NOT_IMPLEMENTED` | Spatial geometry can carry neutral volumes | analysis semantics, 3D source | no analytical scene contract | define analytical evidence contract | Analytical Representation |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:62:| Fidelity/compute policy | `PARTIAL` | law and cheapest-sufficient direction documented | stage, evidence, cost | no runtime funnel | separate funnel authorization | Policy |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:63:| Render validation | `BLOCKED_BY_CONTRACT` | render is explicitly not validation | validation domain, evidence | human/validation separation | define independent validation workflow | Governance |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:65:| Source freshness / staleness | `BLOCKED_BY_CONTRACT` | fingerprints and versions exist in source capabilities | snapshot correspondence, freshness evidence | no ARE freshness evaluator | approve freshness status contract | ARE Core Types / Governance |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:55:SQLite es el adaptador aprobado del baseline. Las tablas de estado almacenan proyectos y entidades. La tabla `events` es append-only y conserva `id`, `timestamp`, `project_id`, `type`, `payload`, `actor` y `source`. Las entidades históricas relevantes —Evidence, Simulation, MultiobjectiveResult, PlanningInstrument, Regulation, NormativeInterpretation, NormativeSnapshot y ScaleRelation— poseen controles append-only propios.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:66:| RFC-002 | `Source`, `Evidence`, tipos y estados de evidencia; HTTP Evidence | Implementado |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:126:### 7.4 Evidence, Evaluation y Comparison
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:128:- `POST /v1/projects/{project_id}/evidence`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:129:- `GET /v1/projects/{project_id}/evidence`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:130:- `GET /v1/projects/{project_id}/evidence/{evidence_id}`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:196:/EVIDENCE ADD <evidence_id> <statement> <evidence_type> [source_id] [evidence_url]
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:197:/EVIDENCE LIST
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:198:/EVIDENCE SHOW <evidence_id>
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:266:12. `Evidence` no se transforma automáticamente en `Fact` o `Assumption`.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:284:| Evidence / Source | Implementado | Procedencia y append-only |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:311:| RFC-011 | Evidence provenance and external source synchronization | Versionado de capturas, refresh controlado, hashes, expiración y reconciliación de fuentes externas |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:320:- [RFC-002 — Evidence HTTP](RFC-002_EVIDENCE_HTTP.md)

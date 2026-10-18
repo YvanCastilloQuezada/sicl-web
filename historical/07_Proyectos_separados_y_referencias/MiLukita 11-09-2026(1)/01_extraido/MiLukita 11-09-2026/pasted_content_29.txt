@@ -1,0 +1,1297 @@
+ORDEN DE IMPLEMENTACIÓN — MiLukita MAPPER + THE EYE
+MOTIVO
+
+El Mundo de MiLukita depende de datos reales del territorio. No se debe construir el Runtime público directamente sobre datos introducidos por operadores, porque eso permitiría introducir información incorrecta, falsa, desactualizada o sin evidencia.
+
+Por tanto, se establece una separación estricta entre:
+
+CAPTURA → VERIFICACIÓN → PUBLICACIÓN
+
+MiLukita Mapper será el sistema de captura y estructuración de información territorial.
+
+The Eye será el sistema de verificación, auditoría, trazabilidad y control de calidad de dicha información.
+
+Ningún dato territorial podrá considerarse conocimiento público de MiLukita únicamente por haber sido ingresado mediante Mapper.
+
+1. MiLukita Mapper
+
+Implementar un módulo administrativo restringido denominado:
+
+MiLukita Mapper
+
+Su función es capturar objetos y datos de la realidad física.
+
+Debe permitir:
+
+ubicación mediante mapa;
+captura mediante GPS;
+coordenadas;
+precisión de ubicación;
+fotografía;
+video;
+nombre;
+categoría;
+descripción;
+atributos;
+fecha/hora de captura;
+operador responsable;
+fuentes conocidas;
+observaciones;
+asociación de assets;
+asociación de experiencias;
+importación CSV/XLSX;
+exportación GeoJSON/CSV;
+versionado.
+
+Mapper NO APRUEBA LA VERACIDAD.
+
+Mapper únicamente genera registros y evidencia.
+
+2. Modelo de World Object
+
+Crear una entidad territorial base:
+
+WorldObject
+
+Debe soportar como mínimo:
+
+ID único;
+tipo;
+nombre;
+geometría;
+coordenadas;
+precisión;
+estado;
+fecha de creación;
+fecha de actualización;
+creador;
+versión;
+assets;
+relaciones;
+claims;
+sources;
+evidence;
+verification.
+
+No limitar el modelo exclusivamente a POIs.
+
+Debe permitir evolucionar posteriormente hacia:
+
+lugares;
+edificios;
+monumentos;
+negocios;
+calles;
+espacios públicos;
+patrimonio;
+objetos;
+eventos;
+rutas;
+elementos naturales;
+infraestructura.
+3. Claims — Afirmaciones sobre la realidad
+
+Implementar una entidad:
+
+Claim
+
+Una afirmación debe poder estar asociada a un WorldObject.
+
+Ejemplo:
+
+Claim: "El edificio fue construido en el siglo XVIII"
+
+Cada Claim debe poder almacenar:
+
+texto;
+tipo de afirmación;
+fuente;
+evidencia;
+fecha;
+autor/origen;
+estado de verificación;
+nivel de confianza;
+observaciones;
+versión.
+
+Esto permitirá separar los objetos físicos de las afirmaciones realizadas sobre ellos.
+
+4. Sources
+
+Implementar:
+
+Source
+
+Registrar:
+
+institución/persona;
+tipo de fuente;
+URL o referencia documental cuando corresponda;
+fecha;
+autor;
+documento;
+nivel de autoridad;
+observaciones.
+
+No asumir que toda fuente tiene el mismo peso.
+
+5. Evidence
+
+Implementar:
+
+Evidence
+
+Puede incluir:
+
+fotografía;
+video;
+documento;
+enlace;
+registro institucional;
+medición;
+coordenada;
+observación de campo;
+otro tipo de evidencia.
+
+Cada evidencia debe conservar:
+
+origen;
+fecha;
+responsable;
+relación con el Claim;
+integridad;
+versión.
+6. THE EYE
+
+Crear una segunda superficie administrativa independiente:
+
+THE EYE
+
+Función:
+
+verificar, contrastar y auditar la información territorial antes de su publicación.
+
+Debe permitir revisar:
+
+existencia;
+ubicación;
+identidad;
+contenido;
+fuentes;
+evidencia;
+actualidad;
+contradicciones;
+duplicados;
+calidad de assets;
+coherencia territorial.
+7. Sistema de confianza
+
+Cada WorldObject y cada Claim deben poder tener:
+
+verification_status
+
+y:
+
+confidence_score
+
+No utilizar la confianza como sustituto de evidencia.
+
+Un score alto debe estar respaldado por reglas y evidencia registradas.
+
+8. Estados
+
+Implementar como mínimo:
+
+DRAFT
+
+CAPTURED
+
+UNDER_REVIEW
+
+EVIDENCE_REQUIRED
+
+VERIFIED
+
+PUBLISHED
+
+DISPUTED
+
+OUTDATED
+
+REJECTED
+
+ARCHIVED
+
+9. Human Authority
+
+The Eye podrá recomendar una decisión, pero la autoridad final de publicación deberá permanecer en un usuario autorizado.
+
+El sistema debe registrar:
+
+quién verificó;
+cuándo;
+qué evidencia revisó;
+qué decisión tomó;
+qué versión aprobó;
+motivo de aprobación/rechazo.
+10. Auditoría
+
+Implementar Audit Log inmutable para:
+
+creación;
+modificación;
+eliminación lógica;
+cambio de estado;
+modificación de Claims;
+modificación de Sources;
+modificación de Evidence;
+aprobación;
+rechazo;
+publicación;
+archivado.
+11. Runtime
+
+El Runtime público de MiLukita NO debe consumir directamente registros DRAFT, CAPTURED o UNDER_REVIEW.
+
+Solo podrá consumir información autorizada para publicación.
+
+12. MJP CORE
+
+Mantener completamente aislado MJP CORE.
+
+Mapper y The Eye no deben convertirse en autoridades de juegos, sorteos, pagos ni operaciones del MJP CORE.
+
+13. Seguridad
+
+Implementar:
+
+RBAC;
+autenticación robusta;
+autorización server-side;
+validación server-side;
+rate limiting;
+protección de uploads;
+audit log;
+separación de privilegios;
+protección de endpoints administrativos;
+control de acceso a assets.
+14. PRINCIPIO ARQUITECTÓNICO OBLIGATORIO
+
+Mapper produce evidencia.
+
+The Eye verifica evidencia.
+
+Human Authority autoriza publicación.
+
+Runtime consume únicamente información publicada.
+
+No invertir este flujo.
+
+15. ENTREGABLES
+MiLukita Mapper.
+WorldObject.
+Claim.
+Source.
+Evidence.
+The Eye.
+Workflow de verificación.
+Confidence/verification model.
+Versionado.
+Audit Log.
+RBAC.
+API para Runtime.
+Pruebas.
+Documentación.
+Confirmación de aislamiento de MJP CORE.
+CRITERIO DE ACEPTACIÓN
+
+Debe ser posible tomar un objeto real del territorio, registrarlo mediante Mapper, asociar evidencia y fuentes, enviarlo a The Eye, verificarlo, aprobar una versión concreta y comprobar que únicamente esa versión aprobada puede aparecer posteriormente en el Mundo de MiLukita.
+
+Este flujo constituye la base de confianza territorial de MiLukita y deberá implementarse antes de escalar masivamente el contenido del World Engine.
+
+Esta es la orden que yo mandaría ahora.
+
+Y hay una decisión conceptual que no recomiendo volver a tocar: Mapper y The Eye no son dos pantallas bonitas del administrador. Son dos funciones epistemológicas distintas: uno captura la realidad y el otro determina qué podemos afirmar responsablemente sobre ella.
+
+Eso cambia bastante el nivel del proyecto.
+
+que opinas: ORDEN DEFINITIVA PARA MANUS: IMPLEMENTACIÓN DE PANTALLAS (MAPPER + THE EYE)
+
+ORDEN PARA MANUS: IMPLEMENTACIÓN DE PANTALLAS DE ADMINISTRACIÓN (MILUKITA MAPPER + THE EYE)
+
+MOTIVO (POR QUÉ SE EJECUTA ESTA ORDEN):
+El Mundo de MiLukita depende de datos reales del territorio. Para construir una representación confiable del mundo, se necesitan dos superficies administrativas separadas:
+1. MiLukita Mapper (Captura y estructura la realidad).
+2. The Eye (Verifica, contrasta, audita y decide si esa representación merece entrar al mundo público).
+
+Separación estricta:
+CAPTURA → VERIFICACIÓN → PUBLICACIÓN
+
+Ningún dato territorial podrá considerarse conocimiento público únicamente por haber sido ingresado mediante Mapper.
+
+1. PANTALLA: MILUKITA MAPPER (CAPTURA Y ESTRUCTURACIÓN)
+
+1.1 INTERFAZ:
+
+Mapa interactivo (con búsqueda, ubicación actual, geocodificación).
+Formulario de WorldObject (nombre, tipo, latitud, longitud, precisión, estado).
+Captura multimedia (fotografía, video, audio).
+Asociación de Claims (afirmaciones sobre el objeto, con su fuente).
+Asociación de Sources (fuentes institucionales, académicas, documentales).
+Asociación de Evidence (fotografías, documentos, mediciones).
+Importación masiva (CSV/XLSX).
+Exportación (CSV/GeoJSON).
+Versionado (historial de cambios).
+
+1.2 FLUJO OBLIGATORIO:
+
+Abrir Mapper.
+Seleccionar ubicación (tocar mapa o GPS).
+Crear WorldObject (nombre, tipo, coordenadas).
+Asociar Claims + Sources + Evidence.
+Guardar versión.
+Enviar a The Eye para validación.
+
+2. PANTALLA: THE EYE (VERIFICACIÓN Y AUDITORÍA)
+
+2.1 INTERFAZ:
+
+Lista de objetos pendientes (enviados por el Mapper).
+Vista detallada (coordenadas, claims, sources, evidence, estado).
+Verificación multidimensional:
+Existencia
+Ubicación
+Identidad
+Contenido
+Fuente
+Confiabilidad
+Actualidad
+Evidencia
+Consistencia
+Aprobación / Rechazo (con motivo).
+Sistema de confianza (verification_status + confidence_score).
+Auditoría (registro de quién verificó, cuándo, qué decisión tomó).
+Alertas (detección de duplicados, coordenadas inválidas, fuentes no confiables).
+
+2.2 FLUJO OBLIGATORIO:
+
+Mapper envía objeto.
+The Eye lo recibe (estado: "Pendiente de Validación").
+Auditor verifica calidad (existencia, ubicación, contenido, evidencia).
+Auditor aprueba o rechaza.
+Si aprueba: El objeto pasa a estado "Verified" y se publica en el Runtime.
+Si rechaza: Se envía de vuelta al Mapper con motivo de rechazo.
+
+3. MODELO DE DATOS (WorldObject + Claim + Source + Evidence)
+
+3.1 WorldObject:
+ID, tipo, nombre, geometría, coordenadas, precisión, estado, fecha de creación, fecha de actualización, creador, versión, assets, relaciones, claims, sources, evidence, verification.
+
+3.2 Claim:
+Texto, tipo de afirmación, fuente, evidencia, fecha, autor/origen, estado de verificación, nivel de confianza, observaciones, versión.
+
+3.3 Source:
+Institución/persona, tipo de fuente, URL o referencia documental, fecha, autor, documento, nivel de autoridad, observaciones.
+
+3.4 Evidence:
+Fotografía, video, documento, enlace, registro institucional, medición, coordenada, observación de campo.
+
+4. SISTEMA DE CONFIANZA
+
+Cada WorldObject y cada Claim deben tener:
+verification_status (DRAFT, CAPTURED, UNDER_REVIEW, EVIDENCE_REQUIRED, VERIFIED, PUBLISHED, DISPUTED, OUTDATED, REJECTED, ARCHIVED).
+confidence_score (respaldo por evidencia y reglas).
+
+5. AUTORIDAD Y AUDITORÍA
+
+Human Authority: La autoridad final de publicación permanece en un usuario autorizado.
+Audit Log inmutable: Registra creación, modificación, cambio de estado, aprobación, rechazo, publicación, archivado.
+
+6. RUNTIME
+
+El Runtime público de MiLukita NO debe consumir registros DRAFT, CAPTURED o UNDER_REVIEW.
+Solo consume información autorizada para publicación.
+
+7. SEGURIDAD
+
+RBAC (Roles: Mapper, Auditor, Admin).
+Autenticación robusta.
+Autorización server-side.
+Rate Limiting.
+Protección de uploads.
+Audit Log.
+
+8. MJP CORE
+
+ABSOLUTAMENTE NO MODIFICAR.
+Mapper y The Eye son superficies de presentación, no autoridades de juego.
+
+9. ENTREGABLES
+
+Código de la pantalla MiLukita Mapper.
+Código de la pantalla The Eye.
+Modelo de datos WorldObject + Claim + Source + Evidence.
+Sistema de verificación y confianza.
+Audit Log.
+RBAC (Roles).
+Pruebas de validación.
+Confirmación de MJP CORE intacto.
+
+10. CRITERIO DE ACEPTACIÓN
+
+Debe ser posible:
+
+Tomar un objeto real del territorio.
+Registrarlo mediante Mapper.
+Asociar evidencia y fuentes.
+Enviarlo a The Eye.
+Verificarlo.
+Aprobar una versión concreta.
+Comprobar que únicamente esa versión aprobada puede aparecer en el Mundo de MiLukita.
+
+CONCLUSIÓN:
+Con MiLukita Mapper (captura) y The Eye (verificación), el equipo podrá construir el territorio digital de forma controlada, confiable y auditada. Este flujo constituye la base de confianza territorial de MiLukita y deberá implementarse antes de escalar masivamente el contenido del World Engine.
+
+💡 MI OPINIÓN ESTRATÉGICA (Lo que esto significa):
+
+Estás construyendo el "Foso Defensivo" de MiLukita.
+
+Cualquier competidor puede copiar una pantalla AR. Pero no podrá copiar:
+
+El World Engine estructurado.
+El sistema de Claims + Sources + Evidence.
+El proceso de verificación de The Eye.
+El historial de auditoría.
+La confianza territorial que se construye con el tiempo.
+
+Eso es lo que hace que MiLukita sea un "mundo", no una "app".
+
+Sí. La estructura es correcta y, de hecho, ahora estamos entrando en una parte mucho más importante que la interfaz AR. Pero no enviaría la orden exactamente como está. Hay varios puntos que debemos corregir antes de congelarla.
+
+El cambio conceptual importante es este:
+
+MiLukita no debe limitarse a saber “dónde está algo”. Debe saber qué afirma sobre ese algo, de dónde salió esa afirmación, qué evidencia la respalda, cuándo fue verificada y qué tan confiable es.
+
+Eso convierte al World Engine en una base de conocimiento territorial verificable, no en una simple base de POIs.
+
+1. Mi evaluación
+
+La arquitectura:
+
+MAPPER → THE EYE → RUNTIME
+
+es correcta.
+
+Pero añadiría una cuarta dimensión:
+
+MAPPER → THE EYE → HUMAN AUTHORITY → RUNTIME
+
+Porque hay una diferencia fundamental entre:
+
+detectar que los datos parecen correctos;
+verificar técnicamente;
+y autorizar que esos datos representen públicamente a MiLukita.
+
+The Eye puede hacer gran parte de la primera y segunda. La autoridad humana debe conservar la decisión final en los casos relevantes.
+
+2. El principal problema de la orden actual
+
+Hay una frase que debemos cambiar:
+
+"Si aprueba: El objeto pasa a estado VERIFIED y se publica en el Runtime."
+
+Eso mezcla verificación con publicación.
+
+Son dos cosas diferentes.
+
+Un objeto puede estar:
+
+VERIFIED
+
+pero todavía no estar:
+
+PUBLISHED
+
+Por ejemplo:
+
+Huaca X
+Existencia: verificada
+Ubicación: verificada
+Historia: parcialmente verificada
+Fuente: Ministerio de Cultura
+Estado: VERIFIED
+Publicación: pendiente
+
+Eso es mucho más potente.
+
+Propongo separar:
+
+Estado de conocimiento
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED
+
+Estado de publicación
+
+UNPUBLISHED
+PUBLISHED
+PAUSED
+RETIRED
+
+Así nunca confundimos:
+
+"sabemos que esto es cierto"
+
+con:
+
+"hemos decidido mostrarlo al público".
+
+3. Hay algo todavía más importante: el Claim
+
+Aquí está, en mi opinión, la parte que puede convertirse en uno de los activos más importantes de MiLukita.
+
+No debemos pensar:
+
+WorldObject = información.
+
+Debemos pensar:
+
+WorldObject = entidad física.
+Claim = afirmación sobre esa entidad.
+
+Ejemplo:
+
+WorldObject
+
+Huaca del Sol
+
+Coordenadas
+Geometría
+Fotografías
+Tipo
+Identificador
+Estado
+
+Pero luego tenemos:
+
+Claim 001
+
+"La Huaca del Sol pertenece a la cultura Moche."
+
+Claim 002
+
+"El complejo fue construido aproximadamente entre los siglos III y IX d.C."
+
+Claim 003
+
+"El monumento se encuentra en el valle de Moche."
+
+Cada afirmación puede tener:
+
+fuente;
+evidencia;
+fecha;
+autor;
+nivel de autoridad;
+estado de verificación;
+confianza;
+fecha de revisión.
+
+Esto es muchísimo más sofisticado que un sistema convencional de POIs.
+
+4. The Eye no debería ser solamente una pantalla
+
+Aquí haría otra corrección importante.
+
+The Eye debe ser un sistema de verificación, cuya pantalla es solamente su interfaz.
+
+Es decir:
+
+                 WORLD ENGINE
+                      │
+                WorldObjects
+                      │
+                    Claims
+                      │
+             Sources + Evidence
+                      │
+                      ▼
+                 THE EYE ENGINE
+                      │
+        ┌─────────────┼─────────────┐
+        ▼             ▼             ▼
+   reglas          IA/ML        auditor humano
+        │             │             │
+        └─────────────┼─────────────┘
+                      ▼
+             Verification Record
+                      │
+                      ▼
+              Human Authority
+                      │
+                      ▼
+                   Runtime
+
+La interfaz The Eye es solamente la superficie donde el auditor ve y decide.
+
+Esto importa porque más adelante podremos hacer que The Eye analice automáticamente:
+
+duplicados;
+contradicciones;
+coordenadas;
+fuentes;
+fechas;
+fotografías;
+cambios;
+inconsistencias;
+claims incompatibles;
+información desactualizada.
+
+Y el humano interviene donde realmente aporta valor.
+
+5. También cambiaría "confidence_score"
+
+No debemos permitir que un número se convierta en una falsa sensación de certeza.
+
+Por ejemplo:
+
+confidence_score = 0.94
+
+¿94 % de qué?
+
+Eso no significa nada si no sabemos cómo fue calculado.
+
+Mejor:
+
+confidence_score
+confidence_method
+confidence_factors
+confidence_updated_at
+
+Y que el sistema pueda explicar:
+
+Confianza: ALTA
+
+Fuente institucional: +++
+Evidencia fotográfica: +++
+Confirmación geográfica: +++
+Verificación humana: +++
+Información reciente: ++
+Fuentes contradictorias: 0
+
+Eso es explicable.
+
+Y es coherente con lo que ya veníamos planteando para MiLukita.
+
+6. Falta una cosa crítica: temporalidad
+
+Esto es indispensable para un mundo real.
+
+Un negocio puede cerrar.
+
+Un museo puede cambiar de horario.
+
+Una estatua puede trasladarse.
+
+Una carretera puede cambiar.
+
+Una autoridad puede cambiar.
+
+Un edificio puede desaparecer.
+
+Por tanto:
+
+VERIFIED no significa VERIFIED PARA SIEMPRE.
+
+Necesitamos:
+
+verified_at
+last_reviewed_at
+next_review_at
+valid_from
+valid_until
+
+Y especialmente:
+
+OUTDATED
+
+Un dato antiguo no necesariamente es falso.
+
+Es simplemente no suficientemente actualizado para considerarlo vigente.
+
+7. Y falta "DISPUTED"
+
+Ya lo tienes, pero hay que darle verdadera importancia.
+
+Supongamos:
+
+Fuente A:
+
+"El edificio fue construido en 1920."
+
+Fuente B:
+
+"El edificio fue construido en 1925."
+
+The Eye no debería simplemente escoger arbitrariamente una.
+
+Debe registrar:
+
+CLAIM A
+CLAIM B
+CONFLICT
+SOURCES
+EVIDENCE
+
+Y eventualmente presentar:
+
+Dato en disputa.
+
+Esto puede ser extraordinariamente valioso para patrimonio, historia, urbanismo, turismo y educación.
+
+8. Mi propuesta final
+
+Yo mandaría a Manus una orden ligeramente modificada, porque esta ya debería convertirse en la especificación base del sistema.
+
+ORDEN PARA MANUS
+IMPLEMENTACIÓN DEL SISTEMA MILUKITA MAPPER + THE EYE
+MOTIVO — POR QUÉ SE IMPLEMENTA
+
+El Mundo de MiLukita no puede construirse únicamente mediante puntos georreferenciados.
+
+Para representar el mundo físico de manera confiable, MiLukita necesita distinguir entre:
+
+aquello que fue capturado;
+aquello que se afirma;
+la fuente de esa afirmación;
+la evidencia disponible;
+aquello que ha sido verificado;
+aquello que está en disputa o desactualizado;
+y aquello que finalmente ha sido autorizado para publicación.
+
+Por ello se establece el siguiente flujo estructural:
+
+REALIDAD
+   ↓
+MAPPER
+   ↓
+WORLD OBJECT + CLAIMS
+   ↓
+SOURCES + EVIDENCE
+   ↓
+THE EYE
+   ↓
+VERIFICATION
+   ↓
+HUMAN AUTHORITY
+   ↓
+PUBLICATION
+   ↓
+MILUKITA RUNTIME
+PRINCIPIO FUNDAMENTAL
+
+Ningún dato territorial ingresado al sistema se considera verdadero únicamente por haber sido registrado.
+
+El ingreso constituye captura, no conocimiento validado.
+
+1. MILUKITA MAPPER
+Función
+
+MiLukita Mapper será la herramienta de captura y estructuración de la realidad territorial.
+
+Debe permitir registrar:
+
+WorldObject
+ID único
+nombre
+tipo
+categoría
+geometría
+coordenadas
+precisión
+dirección
+fotografías
+video
+audio
+creador
+fecha de captura
+fecha de actualización
+versión
+relaciones
+estado
+Captura geográfica
+
+Debe permitir:
+
+seleccionar ubicación en mapa;
+utilizar GPS;
+introducir coordenadas;
+visualizar precisión GPS;
+detectar objetos cercanos;
+advertir posibles duplicados.
+2. CLAIMS
+
+Cada WorldObject podrá tener múltiples afirmaciones.
+
+Ejemplo:
+
+WORLD OBJECT
+Huaca del Sol
+
+CLAIM 001
+"La Huaca del Sol pertenece a la cultura Moche."
+
+CLAIM 002
+"El complejo se encuentra en el valle de Moche."
+
+Cada Claim deberá permitir asociar:
+
+texto;
+tipo;
+fuente;
+evidencia;
+autor/origen;
+fecha;
+estado;
+nivel de confianza;
+observaciones;
+versión;
+fecha de verificación;
+fecha de próxima revisión.
+3. SOURCES
+
+Cada afirmación debe poder asociarse a una o varias fuentes.
+
+Tipos posibles:
+
+institución pública;
+institución académica;
+publicación científica;
+documento oficial;
+archivo histórico;
+sitio web institucional;
+observación de campo;
+testimonio;
+fuente secundaria;
+otra.
+
+Debe registrarse:
+
+source_id
+source_type
+institution
+author
+title
+url/reference
+publication_date
+access_date
+authority_level
+observations
+4. EVIDENCE
+
+La evidencia podrá incluir:
+
+fotografías;
+videos;
+audios;
+documentos;
+mediciones;
+coordenadas;
+registros institucionales;
+observaciones de campo;
+enlaces;
+otros documentos verificables.
+
+La evidencia debe conservar:
+
+origen;
+fecha;
+autor;
+relación con el Claim;
+relación con el WorldObject;
+integridad del archivo;
+versión.
+5. THE EYE
+Función
+
+The Eye no es simplemente una pantalla de aprobación.
+
+Es el sistema de verificación, contraste, auditoría y control de confiabilidad territorial de MiLukita.
+
+Debe analizar:
+
+A. Existencia
+
+¿El objeto existe?
+
+B. Ubicación
+
+¿Está realmente donde se indica?
+
+C. Identidad
+
+¿El objeto corresponde al nombre y tipo declarado?
+
+D. Contenido
+
+¿Las afirmaciones son correctas?
+
+E. Fuente
+
+¿La fuente es identificable y apropiada?
+
+F. Evidencia
+
+¿Existe evidencia suficiente?
+
+G. Consistencia
+
+¿Las diferentes fuentes son compatibles?
+
+H. Actualidad
+
+¿La información continúa vigente?
+
+I. Duplicación
+
+¿Existe otro WorldObject equivalente?
+
+J. Conflictos
+
+¿Existen Claims contradictorios?
+
+6. THE EYE ENGINE
+
+La arquitectura debe permitir que la verificación sea progresivamente automatizada.
+
+Debe quedar preparada para incorporar:
+
+reglas determinísticas;
+validaciones geográficas;
+detección de duplicados;
+análisis de fuentes;
+análisis de evidencia;
+IA;
+detección de contradicciones;
+scoring explicable;
+revisión humana.
+
+La IA no tendrá autoridad final para declarar verdadero un dato crítico.
+
+La IA podrá:
+
+detectar, comparar, señalar, priorizar y recomendar.
+
+La autoridad humana podrá:
+
+verificar, aprobar, rechazar y publicar.
+
+7. SISTEMA DE VERIFICACIÓN
+
+Cada WorldObject y cada Claim deberá disponer de:
+
+verification_status
+confidence_score
+confidence_method
+verification_reason
+verified_by
+verified_at
+last_reviewed_at
+next_review_at
+
+Estados mínimos:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED
+8. SEPARAR VERIFICACIÓN DE PUBLICACIÓN
+
+IMPORTANTE:
+
+No utilizar VERIFIED como equivalente de PUBLISHED.
+
+Implementar dos estados independientes:
+
+Verification Status
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED
+Publication Status
+UNPUBLISHED
+PUBLISHED
+PAUSED
+RETIRED
+
+Un objeto puede estar:
+
+VERIFIED + UNPUBLISHED
+
+o:
+
+VERIFIED + PUBLISHED
+
+La publicación requiere autorización independiente.
+
+9. HUMAN AUTHORITY
+
+La decisión final sobre la publicación de información territorial permanecerá bajo autoridad humana autorizada.
+
+The Eye podrá recomendar:
+
+APPROVE
+REJECT
+REQUEST_EVIDENCE
+FLAG_CONFLICT
+MARK_OUTDATED
+
+pero la publicación de información sensible o relevante deberá conservar una autoridad humana explícita.
+
+10. HISTORIAL Y VERSIONADO
+
+Cada modificación importante debe crear una nueva versión.
+
+Ejemplo:
+
+WorldObject v1
+      ↓
+The Eye
+      ↓
+Verified
+      ↓
+WorldObject v2
+      ↓
+The Eye
+      ↓
+Verified
+
+El Runtime debe saber exactamente:
+
+qué versión está publicada.
+
+Nunca sobrescribir silenciosamente una versión previamente verificada.
+
+11. AUDIT LOG
+
+Registrar como mínimo:
+
+quién;
+qué hizo;
+cuándo;
+sobre qué objeto;
+versión anterior;
+versión nueva;
+motivo;
+decisión;
+fuente;
+evidencia.
+
+El registro de auditoría debe ser resistente a modificaciones posteriores.
+
+12. RUNTIME
+
+El Runtime público de MiLukita NO debe consumir directamente la base de captura.
+
+Debe consumir únicamente información que cumpla las reglas de publicación.
+
+En consecuencia:
+
+DRAFT          → NO
+CAPTURED       → NO
+UNDER_REVIEW   → NO
+EVIDENCE_REQUIRED → NO
+REJECTED       → NO
+DISPUTED       → NO* 
+OUTDATED       → NO*
+VERIFIED       → puede publicarse
+PUBLISHED      → SÍ
+
+DISPUTED y OUTDATED podrán tener tratamientos especiales en futuras versiones, pero no deben presentarse como hechos incontrovertibles.
+
+13. ROLES
+MAPPER
+
+Puede:
+
+crear;
+editar;
+capturar;
+aportar evidencia;
+asociar fuentes;
+enviar a revisión.
+
+No puede aprobar su propio contenido.
+
+AUDITOR / THE EYE
+
+Puede:
+
+revisar;
+contrastar;
+solicitar evidencia;
+verificar;
+rechazar;
+marcar conflicto;
+marcar desactualización.
+
+No debe aprobar automáticamente su propio contenido.
+
+ADMIN / HUMAN AUTHORITY
+
+Puede:
+
+administrar;
+configurar;
+autorizar;
+publicar;
+retirar;
+gestionar roles.
+14. SEGURIDAD
+
+Implementar:
+
+RBAC;
+autorización server-side;
+autenticación robusta;
+protección de sesiones;
+rate limiting;
+validación de inputs;
+protección de archivos;
+control de MIME;
+límites de tamaño;
+antivirus/escaneo cuando corresponda;
+almacenamiento seguro;
+audit log;
+protección contra modificación no autorizada de registros verificados.
+15. IMPORTACIÓN Y EXPORTACIÓN
+
+Mapper debe permitir:
+
+Importación
+CSV
+XLSX
+GeoJSON
+Exportación
+CSV
+GeoJSON
+
+Pero los registros importados no deben saltarse The Eye.
+
+Toda importación masiva debe entrar como:
+
+CAPTURED
+
+y pasar por el proceso de verificación correspondiente.
+
+16. MJP CORE
+
+ABSOLUTAMENTE NO MODIFICAR MJP CORE.
+
+Mapper, The Eye y el World Engine deben permanecer desacoplados de las autoridades del sistema de juegos.
+
+No introducir lógica de juego dentro de:
+
+WorldObject;
+Claim;
+Source;
+Evidence;
+Verification;
+Mapper;
+The Eye.
+17. CRITERIO DE ACEPTACIÓN
+
+Manus deberá demostrar mediante una prueba completa que:
+
+Se identifica un objeto real.
+Mapper registra su ubicación.
+Se crea un WorldObject.
+Se agregan Claims.
+Se agregan Sources.
+Se agrega Evidence.
+Se genera una versión.
+El objeto pasa a The Eye.
+The Eye detecta posibles problemas.
+Un auditor realiza la revisión.
+Se genera un registro de verificación.
+Se aprueba una versión concreta.
+Human Authority autoriza su publicación.
+El Runtime consume exactamente esa versión autorizada.
+Una versión posterior no publicada no aparece en el Runtime.
+Toda acción queda registrada en Audit Log.
+Se demuestra que MJP CORE permanece intacto.
+18. PRINCIPIO ARQUITECTÓNICO QUE DEBE QUEDAR FIJADO
+
+MiLukita no debe confundir realidad, captura, afirmación, evidencia, verificación y publicación.
+
+Son capas diferentes:
+
+REALIDAD
+   ↓
+CAPTURA
+   ↓
+WORLD OBJECT
+   ↓
+CLAIMS
+   ↓
+SOURCES
+   ↓
+EVIDENCE
+   ↓
+VERIFICATION
+   ↓
+AUTHORIZATION
+   ↓
+PUBLICATION
+   ↓
+EXPERIENCE
+Mi veredicto
+
+Esta versión sí la considero suficientemente sólida para enviarla a Manus.
+
+Y hay una razón estratégica más profunda.
+
+Hasta ahora podíamos estar pensando:
+
+"Necesitamos muchos POIs para que MiLukita tenga contenido."
+
+Ese pensamiento es demasiado pequeño.
+
+La verdadera infraestructura que necesitamos es:
+
+"Necesitamos construir una representación digital del territorio cuya información tenga procedencia, evidencia, trazabilidad, temporalidad y nivel de confianza."
+
+Eso cambia completamente el proyecto.
+
+Google Maps tiene millones de lugares. Wikipedia tiene millones de artículos. Un mapa AR puede ser copiado.
+
+Pero un World Engine territorial con objetos + claims + fuentes + evidencia + verificación + historial + confianza requiere años de construcción.
+
+Ahí sí aparece un activo difícil de replicar.
+
+Y hay otro punto: no debemos intentar poblar todo Trujillo antes de lanzar. Sería un error clásico de proyecto: construir infraestructura y contenido durante meses antes de comprobar que la gente realmente quiere interactuar con el mundo.
+
+Primero necesitamos un territorio piloto pequeño pero impecablemente verificado, por ejemplo una zona concreta de Trujillo, con suficientes WorldObjects para demostrar el ciclo completo:
+
+capturar → verificar → publicar → experimentar → aprender.
+
+Después se escala.
+
+Esa es la orden que yo enviaría ahora a Manus.

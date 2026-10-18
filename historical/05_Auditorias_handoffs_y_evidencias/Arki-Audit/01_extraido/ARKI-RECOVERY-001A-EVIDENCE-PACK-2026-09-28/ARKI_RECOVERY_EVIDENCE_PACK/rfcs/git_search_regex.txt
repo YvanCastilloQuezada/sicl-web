@@ -1,0 +1,62 @@
+[33m34617e0[m test(case): add controlled house E2E validation
+[33m944dd52[m fix(arkidraw): enforce graphic trace integrity
+[33mc13c0ea[m fix(arkidraw): enforce semantic role gate
+[33m580b77e[m fix(arkidraw): harden M1 graphic scene boundary
+[33m8a0863a[m feat(arkidraw): adapt graphic scene to vector svg
+[33m27ff812[m feat(arkidraw): adapt graphic scene to vector svg
+[33mc914a27[m fix(are): enforce projection view semantics
+[33mfaf8d4e[m feat(are): implement 2d architectural projection
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33me80bd3a[m docs(architecture): close ARE source and dependency semantics
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m155a330[m fix(arkidraw): close Block 1 material findings
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33md5df55c[m feat(d2.2r): resolve material architectural model findings
+[33mb84faa0[m docs(canon): add ARKI Principle 5
+[33m3ae67e3[m feat(d2.1): connect architectural transaction to H003-H005
+[33m79b3a80[m feat(d2): add deterministic architectural model and IFC export
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+[33m96dab57[m feat(a002): unify v1.4 policy identity and authority contracts
+[33m4d932c2[m feat(arkidraw): add deterministic drawing primitives and SVG export
+[33m8b1b6c2[m feat(A-002): implement input sufficiency engine and gate
+[33ma9d1ae2[m test(H-005): add adversarial and semantic audit coverage
+[33m1bf02bc[m test(H-005): harden causal propagation and fail-closed behavior
+[33m19232fb[m feat(H-005): implement selective recomputation engine
+[33mac240d5[m docs(governance): declare patched baseline and preserve orders
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mf8ec89b[m feat(vsm): add weekly master registry and detector
+[33mb919e24[m docs(rfc-037): formalize multi-engine absorption doctrine
+[33m39b7798[m docs(arki): record phase1 multi-master learning
+[33m5fa7138[m feat(rfc-034.1): sheet composition and layout engine
+[33m90421fb[m docs: add rfc structure and reference folders
+[33m1c41655[m docs: add canonical master handoff
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m33ce390[m feat: add bounded real spatial context
+[33m7a55bd0[m feat: activate georeferenced site intelligence foundation
+[33m2bafbc5[m feat: add explainable architectural design distance
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m09449fc[m docs: close multisource knowledge macroorder
+[33m7e0af62[m docs: register generative design knowledge patterns as frozen
+[33m6dd35d3[m fix: normalize spatial synthesis candidates for GDI
+[33m5538a89[m feat: add traceable multi-agent design exploration
+[33m6a1b198[m feat(environment): add adaptive territorial scale profiles
+[33m5547acd[m feat(environment): add territorial environmental intelligence foundation
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33m499a397[m docs: lock project intelligence distinctions
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33mf7e2f6f[m docs: freeze multiscale variable intelligence decision lock
+[33md6aabb6[m feat: add canonical UPAO001 spatial evaluations
+[33mfc44b1a[m feat: complete GIS persistence and BIM review contracts
+[33mdb7b9ec[m feat: add physical IFC adapter and GIS RFC-028
+[33md1ef50d[m feat: implement RFC-027 BIM IFC exchange contract
+[33me863fd7[m docs: add canonical CLI commands reference
+[33m5edd01f[m feat: extend design generation methods
+[33md93c610[m docs: add user manual and entity glossary
+[33m9b3ca67[m docs: define RFC-014 user copilot
+[33m19c2fac[m feat: add explicit design generation contract
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis
+[33mbf4a1e1[m chore: backup SICL Core v1.2 + API Layer + Export features

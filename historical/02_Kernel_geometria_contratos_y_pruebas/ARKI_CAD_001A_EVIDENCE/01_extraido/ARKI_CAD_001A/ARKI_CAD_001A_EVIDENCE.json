@@ -1,0 +1,15 @@
+{
+  "schema":"ARKI-CAD-001A-EVIDENCE-1.0",
+  "order":"ARKI-CAD-001A",
+  "status":"COMPLETE_FOR_FORENSIC_SELECTION",
+  "verdict":"MORE_EVIDENCE_REQUIRED",
+  "technicalRecommendation":"ODA_DRAWINGS_SDK_PRIMARY_BENCHMARK; LIBREDWG_BASELINE; REALDWG_ORACLE_CANDIDATE; ODA_FILE_CONVERTER_DIAGNOSTIC_ONLY",
+  "commercialApproval":"NOT_GRANTED",
+  "implementation":"NOT_AUTHORIZED",
+  "abb001Experiment":"NOT_EXECUTED",
+  "f2":"BLOCKED",
+  "productMutation":false,
+  "bkhMutation":false,
+  "prohibitionsVerified":["NO_PURCHASE","NO_PRODUCTION_INTEGRATION","NO_BIM_GENERATION","NO_SEMANTIC_INTERPRETATION","NO_SOURCE_MODIFICATION","NO_NEW_GEOMETRY_CORE","NO_NEW_BIM_CORE","NO_PUBLIC_SERVICE"],
+  "sourceReferences":["https://www.opendesign.com/products/drawings","https://www.opendesign.com/pricing","https://aps.autodesk.com/developer/overview/realdwg-api","https://www.gnu.org/software/libredwg/manual/LibreDWG.pdf","https://www.opendesign.com/faq/question/what-are-oda-viewer-and-oda-file-converter"]
+}

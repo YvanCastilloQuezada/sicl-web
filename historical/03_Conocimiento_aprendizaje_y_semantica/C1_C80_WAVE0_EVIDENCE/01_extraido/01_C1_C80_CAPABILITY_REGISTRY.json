@@ -1,0 +1,2186 @@
+{
+  "registry": "ARKI_CAPABILITY_REGISTRY",
+  "status": "WAVE0_REGISTERED_NOT_IMPLEMENTED",
+  "generatedAt": "2026-09-24T07:04:26.236218+00:00",
+  "capabilities": [
+    {
+      "id": "C01",
+      "name": "Spatial Syntax",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C02",
+      "name": "Programa Arquitectónico + Circulación",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C03",
+      "name": "Física Térmica",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C04",
+      "name": "Daylight + Acústica",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C05",
+      "name": "Normativa como Código",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C06",
+      "name": "Estructuras Profesionales",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C07",
+      "name": "MEP Profesional",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C08",
+      "name": "Construcción + Lean + LOB + Takt",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C09",
+      "name": "LCA / LCC",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C10",
+      "name": "Expediente Técnico Real",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W1:evidence",
+        "W1:units",
+        "W1:geometry",
+        "W1:relationships"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C11",
+      "name": "Shape Grammars",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C12",
+      "name": "Optimización Topológica",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C13",
+      "name": "NSGA-II Multiobjetivo",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C14",
+      "name": "Monte Carlo",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C15",
+      "name": "Algoritmos Genéticos de Layout",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C16",
+      "name": "Simulated Annealing",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C17",
+      "name": "CFD",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:units",
+        "W1:evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C18",
+      "name": "FDS",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:units",
+        "W1:evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C19",
+      "name": "EnergyPlus",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:units",
+        "W1:evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C20",
+      "name": "Radiance",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:units",
+        "W1:evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C21",
+      "name": "WUFI",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:units",
+        "W1:evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C22",
+      "name": "OpenFOAM Avanzado",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:units",
+        "W1:evidence",
+        "W3:solver-interface"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C23",
+      "name": "As-Built + Comisionamiento",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C24",
+      "name": "O&M Predictivo",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C25",
+      "name": "Descarbonización / Net Zero",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C26",
+      "name": "Economía Circular / Renovación",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C27",
+      "name": "Pattern Language",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:semantic-registry",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C28",
+      "name": "Reconocimiento de Tipología",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:semantic-registry",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C29",
+      "name": "Razonamiento Formal Arquitectónico",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:semantic-registry",
+        "W2:architectural-core"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C30",
+      "name": "Avatar ARKI",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C31",
+      "name": "Luka",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C32",
+      "name": "Guía Contextual",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C33",
+      "name": "AR / WebXR",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C34",
+      "name": "Revit RVT/RFA",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C35",
+      "name": "DWG/DXF Gobernado",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C36",
+      "name": "Point Cloud",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C37",
+      "name": "IFC4x3",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C38",
+      "name": "gbXML",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C39",
+      "name": "Multiusuario + Concurrencia",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C40",
+      "name": "BCF",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C41",
+      "name": "CDE / ISO 19650",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C42",
+      "name": "PKI",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C43",
+      "name": "Auditoría Inmutable",
+      "domain": "Interoperability",
+      "dependencies": [
+        "W1:identity",
+        "W1:provenance",
+        "W4:interoperability"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C44",
+      "name": "Dashboards",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C45",
+      "name": "Predicción de Desviaciones",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C46",
+      "name": "Benchmark de Proyectos",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C47",
+      "name": "Machine Learning",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:evidence",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C48",
+      "name": "LEED",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C49",
+      "name": "EDGE",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C50",
+      "name": "BREEAM",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C51",
+      "name": "WELL",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C52",
+      "name": "Passive House",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C53",
+      "name": "Net Zero Carbon Certifications",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W7:evaluation-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C54",
+      "name": "Benchmark vs Arquitectos",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C55",
+      "name": "Generación Adversarial",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C56",
+      "name": "Meta-Learning",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C57",
+      "name": "Transfer Learning",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C58",
+      "name": "Explicabilidad Avanzada",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C59",
+      "name": "Auto-Evaluación",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:epistemic",
+        "W7:learning-framework"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C60",
+      "name": "Isovist y Visibilidad",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C61",
+      "name": "Acústica Ray-Tracing",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C62",
+      "name": "Estructuras No Lineales + Performance-Based",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C63",
+      "name": "Real Estate / Factibilidad",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C64",
+      "name": "Digital Twin + IoT",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:geometry",
+        "W3:engineering-model",
+        "W5:simulation"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C65",
+      "name": "Post-Occupancy Evaluation",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C66",
+      "name": "Diseño Biofílico / Neuroarquitectura",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C67",
+      "name": "Fabricación Digital",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C68",
+      "name": "Construcción Industrializada",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C69",
+      "name": "Value Engineering",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C70",
+      "name": "MCDA",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C71",
+      "name": "Real Options Analysis",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C72",
+      "name": "Risk Management Cuantitativo",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C73",
+      "name": "Contratos y Procurement",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C74",
+      "name": "Edificios Especializados",
+      "domain": "Engineering",
+      "dependencies": [
+        "W1:provenance",
+        "W3:engineering-model",
+        "W6:lifecycle"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "YES",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C75",
+      "name": "ARKI Self-Hosting",
+      "domain": "Experience",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "BLOCKED_UNTIL_DEPENDENCIES_OR_EXTERNAL_TOOL",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C76",
+      "name": "Debugging Asistido",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C77",
+      "name": "Auto-Explicación de Decisiones",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C78",
+      "name": "Simulación de Roles Especialistas",
+      "domain": "Learning and evaluation",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "FOUNDATIONAL_OVERLAP",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "ADAPT_SHARED_ENGINE",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C79",
+      "name": "Diseño Universal",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    },
+    {
+      "id": "C80",
+      "name": "Wayfinding y Señalética",
+      "domain": "Architecture",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "implementationStatus": "PARTIAL",
+      "runtimeStatus": "NOT_DEMONSTRATED",
+      "verificationStatus": "NOT_VERIFIED",
+      "requiredTools": [],
+      "availableTools": [],
+      "inputContract": "WAVE0_CONTRACT_TO_DEFINE",
+      "outputContract": "WAVE0_EVIDENCE_RECORD",
+      "oracle": "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED",
+      "tests": [
+        "WAVE0-REG-01",
+        "CAPABILITY-SPECIFIC-TEST-REQUIRED"
+      ],
+      "professionalValidationRequirement": "BOUNDED_OR_NOT_APPLICABLE",
+      "frontendExposure": "NOT_EXPOSED_BY_WAVE0",
+      "version": "C1C80-W0-v0.1",
+      "reuseDecision": "REUSE_OR_EXTEND",
+      "evidenceBasis": "repository audit; no capability implementation performed in WAVE 0"
+    }
+  ]
+}

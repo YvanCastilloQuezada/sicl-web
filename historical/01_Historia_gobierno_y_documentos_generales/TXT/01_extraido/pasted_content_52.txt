@@ -1,0 +1,449 @@
+ORDEN DE GENERACIÓN DE CÓDIGO — L★ / QR
+MODO: BACKEND / LÓGICA / DATOS / API / TESTS
+
+OBJETIVO
+
+Aprovechar el entorno actual de Manus exclusivamente para generar,
+completar o reforzar CÓDIGO FUNCIONAL de MiLukita relacionado con
+L★ / QR.
+
+ESTA ORDEN NO AUTORIZA TRABAJO DE FRONTEND.
+
+============================================================
+1. PROHIBICIÓN ABSOLUTA DE FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX de interfaces
+- CSS
+- estilos
+- Tailwind
+- diseño visual
+- layouts
+- componentes visuales
+- iconos
+- animaciones
+- responsive design
+- colores
+- tipografías
+- navegación visual
+- landing pages
+- dashboards visuales
+- botones
+- menús
+- modales
+- páginas existentes.
+
+NO reconstruir ninguna interfaz.
+
+NO hacer "mejoras visuales".
+
+NO corregir problemas estéticos.
+
+NO crear nuevas pantallas.
+
+NO convertir una funcionalidad en una nueva página.
+
+Si una funcionalidad necesita frontend para ser utilizada,
+NO implementarla visualmente.
+
+Implementar solamente la lógica, API, servicios, tipos,
+persistencia y tests que permitan que el frontend existente
+pueda utilizarla posteriormente.
+
+============================================================
+2. INSPECCIÓN PREVIA
+============================================================
+
+Primero localizar en el código existente:
+
+- L★
+- QR
+- QR Generator
+- QR Studio
+- Circular QR
+- MiLukitaCircularQR
+- customQrGenerator
+- circularQr
+- rutas/API relacionadas
+- servicios relacionados
+- modelos de datos relacionados.
+
+Determinar qué lógica ya existe.
+
+NO duplicar funcionalidades existentes.
+
+NO crear una segunda arquitectura paralela.
+
+============================================================
+3. ACTIVE SHARE TARGET
+============================================================
+
+Implementar exclusivamente la lógica necesaria para resolver:
+
+resolveActiveShareTarget()
+
+Debe devolver un objeto de dominio claramente tipado.
+
+Prioridad:
+
+1. ACTIVE EXPERIENCE
+2. AUTHORIZED SESSION
+3. PUBLIC LUKA
+
+Ejemplo conceptual:
+
+{
+  type: "EXPERIENCE" | "SESSION" | "PUBLIC_LUKA",
+  targetId: string | null,
+  url: string,
+  expiresAt: string | null
+}
+
+Adaptar al modelo real del proyecto.
+
+NO crear interfaz para esto.
+
+============================================================
+4. SERVICIO DE RESOLUCIÓN
+============================================================
+
+Crear o completar un servicio de dominio/backend para:
+
+- resolver destino QR
+- validar contexto
+- validar existencia
+- validar expiración
+- validar revocación
+- determinar tipo de QR
+- generar URL segura.
+
+Separar:
+
+QR RESOLUTION
+
+de
+
+AUTHORIZATION.
+
+============================================================
+5. QR PÚBLICO
+============================================================
+
+Implementar la generación/resolución del destino público de LUKA.
+
+El QR público NO debe contener:
+
+- credenciales
+- sesiones administrativas
+- tokens de autorización
+- secretos
+- información privada.
+
+============================================================
+6. QR DE EXPERIENCIA
+============================================================
+
+Implementar la lógica necesaria para representar una experiencia
+específica.
+
+Debe existir una identificación inequívoca del target.
+
+Validar:
+
+- existencia
+- estado
+- disponibilidad
+- publicación cuando corresponda.
+
+No permitir que un QR público acceda directamente a recursos
+privados.
+
+============================================================
+7. QR DE SESIÓN
+============================================================
+
+Implementar exclusivamente backend/lógica para:
+
+- creación de token opaco
+- expiración
+- revocación
+- validación
+- resolución del target
+- invalidación.
+
+El token NO debe contener permisos administrativos.
+
+IMPORTANTE:
+
+ESCANEAR QR NO CONCEDE AUTORIZACIÓN.
+
+La autorización debe continuar dependiendo de:
+
+AUTHENTICATION
++
+RBAC
++
+CAPABILITY CHECK.
+
+============================================================
+8. SHARE TARGET
+============================================================
+
+Crear o completar un modelo de dominio para representar:
+
+PUBLIC_LUKA
+EXPERIENCE
+SESSION
+
+Evitar lógica dispersa en componentes frontend.
+
+La resolución debe estar centralizada.
+
+============================================================
+9. SHARE SERVICE
+============================================================
+
+Crear o completar un servicio equivalente conceptualmente a:
+
+ShareService
+
+con funciones como:
+
+- resolveActiveShareTarget()
+- createExperienceShare()
+- createSessionShare()
+- revokeSessionShare()
+- resolveShareToken()
+- validateShareTarget()
+- getPublicLukaTarget()
+
+Usar los nombres y arquitectura existentes cuando corresponda.
+
+NO duplicar servicios si ya existen.
+
+============================================================
+10. SEGURIDAD
+============================================================
+
+Implementar validaciones backend.
+
+Nunca confiar únicamente en:
+
+- frontend
+- URL
+- parámetros enviados por cliente
+- estado local.
+
+Validar siempre:
+
+- autenticación
+- autorización
+- ownership
+- RBAC
+- capability
+- expiración
+- revocación.
+
+============================================================
+11. AUDITORÍA
+============================================================
+
+Registrar, cuando corresponda:
+
+- creación de sesión QR
+- revocación
+- resolución
+- acceso relevante
+- errores de autorización.
+
+No registrar información sensible innecesaria.
+
+Utilizar el mecanismo de audit existente.
+
+NO crear un segundo sistema de auditoría.
+
+============================================================
+12. PERSISTENCIA
+============================================================
+
+Si el sistema actual necesita persistencia:
+
+crear/modificar únicamente:
+
+- schema
+- tablas
+- migraciones
+- repositorios
+- queries
+- servicios.
+
+No modificar datos existentes innecesariamente.
+
+No destruir información.
+
+No realizar migraciones destructivas.
+
+============================================================
+13. TIPOS
+============================================================
+
+Crear tipos/interfaces de dominio necesarios para evitar strings
+dispersos.
+
+Por ejemplo conceptualmente:
+
+ShareTargetType
+ShareTarget
+ShareSession
+ShareResolution
+
+Adaptarlos al sistema real.
+
+============================================================
+14. API
+============================================================
+
+Si el proyecto ya utiliza API/tRPC/REST:
+
+crear únicamente los procedimientos/endpoints necesarios.
+
+No modificar la interfaz.
+
+No crear páginas.
+
+No agregar botones.
+
+No modificar navegación.
+
+============================================================
+15. TESTS
+
+============================================================
+
+Crear tests automatizados para:
+
+- public LUKA target
+- experience target
+- session target
+- prioridad de resolución
+- sesión expirada
+- sesión revocada
+- target inexistente
+- usuario no autorizado
+- RBAC
+- capability
+- token inválido
+- token manipulado
+- acceso sin autenticación
+- auditoría
+- aislamiento de información privada.
+
+============================================================
+16. INTEGRIDAD DE MJP CORE
+============================================================
+
+PROHIBIDO modificar:
+
+- RNG
+- RTP
+- RULES
+- RESULT
+- WALLET
+- LEDGER
+- SETTLEMENT
+- juegos
+- sorteos
+- pagos
+- liquidación
+- autoridad de MJP CORE.
+
+L★ / QR debe permanecer completamente fuera de esas
+superficies.
+
+============================================================
+17. NO FRONTEND
+============================================================
+
+Repetición deliberada:
+
+NO modificar ningún archivo cuya finalidad principal sea:
+
+- UI
+- JSX
+- TSX visual
+- CSS
+- layout
+- componentes visuales.
+
+Si un archivo contiene frontend y backend/lógica mezclados:
+
+NO modificar la parte frontend.
+
+Preferir crear/modificar servicios, procedimientos,
+schemas, tipos, repositorios y tests.
+
+============================================================
+18. NO DOCUMENTACIÓN EXTENSA
+============================================================
+
+NO generar:
+
+- manuales
+- whitepapers
+- especificaciones largas
+- auditorías
+- nuevas órdenes
+- informes conceptuales.
+
+Solamente entregar un reporte técnico breve de lo realizado.
+
+============================================================
+19. CRITERIO DE TERMINACIÓN
+============================================================
+
+La orden se considera terminada cuando:
+
+A. el código de dominio/backend está implementado;
+B. la persistencia necesaria está implementada;
+C. las APIs/procedimientos necesarios están implementados;
+D. los tests están creados y ejecutados;
+E. TypeScript/build pasa cuando corresponda;
+F. MJP CORE permanece intacto.
+
+NO declarar:
+
+"100%"
+"PRODUCTION READY"
+"COMPLETO"
+
+sin evidencia.
+
+============================================================
+20. ENTREGA FINAL
+============================================================
+
+Entregar únicamente:
+
+1. Archivos de backend/lógica modificados.
+2. Archivos nuevos creados.
+3. Tablas/migraciones creadas.
+4. APIs/procedimientos creados.
+5. Tests creados.
+6. Tests ejecutados y resultado.
+7. TypeScript/build y resultado.
+8. Dependencias nuevas, si las hubiera.
+9. Riesgos o limitaciones.
+10. Código que todavía requerirá integración frontend.
+
+IMPORTANTE:
+
+NO realizar ningún cambio frontend aunque encuentres problemas
+visuales o funcionales en la interfaz.
+
+Esos problemas serán tratados posteriormente mediante una orden
+independiente.
+
+FIN DE LA ORDEN.

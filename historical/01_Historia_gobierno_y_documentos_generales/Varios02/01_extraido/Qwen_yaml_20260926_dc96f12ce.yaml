@@ -1,0 +1,26 @@
+LEVEL_ID: L05
+NAME: "Diagnosticador"
+DEFINITION: "ARKI explica el porqué de un estado (WHY backward)."
+INPUTS:
+  - artifact: "VersionedRef"
+  - query: "WHY question"
+OUTPUTS:
+  - derivation_chain: "DerivationChain"
+  - rationale: "Rationale"
+  - evidence_refs: "list<EvidenceRef>"
+CONTRACTS:
+  - "Trazabilidad WHY completa"
+  - "No inferir causalidad sin evidencia"
+  - "OBSERVED CHANGE ≠ PROVEN CAUSALITY"
+RULES:
+  - "INV-K-023: OBSERVED CHANGE ≠ PROVEN CAUSALITY"
+  - "INV6-002: GENERATED GEOMETRY WITHOUT TRACEABLE DESIGN INTENT IS SEMANTICALLY INCOMPLETE"
+  - "H-001: Derivation Integrity Foundation"
+GATES:
+  - "GATE_L05_PASS: Cadena WHY completa con evidencia"
+EVIDENCE_REQUIRED:
+  - "DerivationLedger entries"
+  - "VersionedRef chain"
+  - "Rationale statements"
+  - "Evidence references"
+CURRENT_STATUS: "DEMONSTRATED"

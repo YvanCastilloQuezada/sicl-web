@@ -1,0 +1,27 @@
+........................................................................ [ 12%]
+........................................................................ [ 25%]
+........................................................................ [ 37%]
+........................................................................ [ 50%]
+........................................................................ [ 62%]
+........................................................................ [ 75%]
+........................................................................ [ 87%]
+.....................................................................    [100%]
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.12/dist-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_rfc030_drawing.py::test_ifc_invalid_rejected
+  /home/ubuntu/.local/lib/python3.12/site-packages/_pytest/unraisableexception.py:67: PytestUnraisableExceptionWarning: Exception ignored in: <function file.__del__ at 0x7fbb0ba85580>
+  
+  Traceback (most recent call last):
+    File "/home/ubuntu/.local/lib/python3.12/site-packages/ifcopenshell/file.py", line 649, in __del__
+      del file_dict[self.file_pointer()]
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  KeyError: 200639648
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html

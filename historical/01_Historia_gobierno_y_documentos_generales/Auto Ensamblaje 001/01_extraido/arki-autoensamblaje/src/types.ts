@@ -1,0 +1,9 @@
+export type Authority = 'CORE'|'D2'|'AGK'|'WEB'|'ACS'|'HUMAN';
+export type Epistemic = 'UNKNOWN'|'DESIGNED'|'IMPLEMENTED'|'EXECUTED'|'VERIFIED'|'FROZEN';
+export type Capability = Readonly<{id:string; name:string; repository:string; path:string; phase:number|null; authority:Authority; dependencies:readonly string[]; inputs:readonly string[]; outputs:readonly string[]; evidence:readonly string[]; epistemic:Epistemic; version:string; tags?:readonly string[]}>;
+export type Registry = Readonly<{schema:'ARKI-ASSEMBLY-REGISTRY-1'; capabilities:readonly Capability[]}>;
+export type Blocker = Readonly<{code:string; detail:string}>;
+export type Option = Readonly<{id:string; kind:'DIRECT'|'ADAPTER'|'LAB'; title:string; rationale:string; risk:'LOW'|'MEDIUM'|'HIGH'; checks:readonly string[]; permitted:boolean}>;
+export type Proposal = Readonly<{schema:'ARKI-ASSEMBLY-PROPOSAL-1'; id:string; capabilityId:string; proposedPhase:number|null; blockers:readonly Blocker[]; options:readonly [Option,Option,Option]; status:'PENDING_HUMAN_REVIEW'; selected:null; evidenceHash:string}>;
+export type Decision = Readonly<{proposalId:string; optionId:string; actorId:string; rationale:string; approvedAt:string; evidenceHash:string}>;
+export type Simulation = Readonly<{proposalId:string; optionId:string; passed:boolean; findings:readonly string[]; mode:'DRY_RUN_ONLY'}>;

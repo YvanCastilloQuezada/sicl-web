@@ -1,0 +1,7 @@
+        if not isinstance(action, PlannedAction):
+            return self._blocked(project_id, action, "MALFORMED_PLAN", empty_inputs)
+        try:
+            candidate = RecomputationCandidate.from_action(action, method="placeholder", method_version="placeholder")
+        except Exception as exc:
+            return self._rejected(project_id, action, f"ACTION_NOT_ELIGIBLE:{exc}", empty_inputs)
+

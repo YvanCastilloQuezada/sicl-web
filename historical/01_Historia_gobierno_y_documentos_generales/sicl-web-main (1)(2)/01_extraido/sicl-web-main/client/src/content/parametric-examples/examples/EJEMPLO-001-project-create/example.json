@@ -1,0 +1,49 @@
+{
+  "exampleId": "EJEMPLO-001",
+  "title": "Ejemplo 001 · /PROJECT CREATE",
+  "commandName": "/PROJECT CREATE",
+  "category": "project",
+  "syntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]",
+  "command": "/PROJECT CREATE EXAMPLE-ARCH-001 Casa Demo Paramétrica PROJECT 2026",
+  "arguments": [
+    {
+      "name": "project_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "EXAMPLE-ARCH-001"
+    },
+    {
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "exampleValue": "Casa Demo Paramétrica"
+    },
+    {
+      "name": "spatial_scope",
+      "required": false,
+      "type": "string",
+      "exampleValue": "PROJECT"
+    },
+    {
+      "name": "temporal_scope",
+      "required": false,
+      "type": "string",
+      "exampleValue": "2026"
+    }
+  ],
+  "mode": "EXPLORE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /PROJECT CREATE.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

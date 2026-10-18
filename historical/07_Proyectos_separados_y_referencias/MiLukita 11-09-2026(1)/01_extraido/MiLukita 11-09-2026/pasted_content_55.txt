@@ -1,0 +1,219 @@
+ORDEN 55 — WORLD ENGINE
+GENERACIÓN DE CÓDIGO DE SERVICIOS Y REGLAS
+
+OBJETIVO
+
+Implementar o completar exclusivamente los servicios backend/domain
+del World Engine de MiLukita.
+
+NO realizar frontend.
+
+============================================================
+1. PROHIBICIÓN FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX visual
+- CSS
+- layouts
+- páginas
+- componentes
+- UX
+- navegación.
+
+============================================================
+2. OBJETIVO
+============================================================
+
+World Engine debe actuar como capa que gobierna:
+
+REALIDAD
+→ CAPTURA
+→ WORLD OBJECT / WORLD POINT
+→ VERSIONAMIENTO
+→ PUBLICACIÓN
+→ RUNTIME.
+
+============================================================
+3. WORLD OBJECT LIFECYCLE
+============================================================
+
+Implementar/completar servicios para:
+
+- crear
+- actualizar
+- versionar
+- consultar
+- archivar
+- publicar según autoridad
+- invalidar
+- marcar outdated.
+
+============================================================
+4. PUBLICATION MODEL
+============================================================
+
+Separar claramente:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+VERIFIED
+PUBLISHED
+DISPUTED
+OUTDATED
+ARCHIVED.
+
+Runtime solamente recibe datos publicados.
+
+============================================================
+5. VERSIONADO
+============================================================
+
+Implementar:
+
+- versiones
+- snapshots
+- historial
+- current version
+- published version.
+
+Una nueva edición no reemplaza automáticamente la versión publicada.
+
+============================================================
+6. GEO
+============================================================
+
+Implementar validación de:
+
+- latitude
+- longitude
+- precision
+- timestamp
+- coordinate validity
+- territorial bounds cuando existan.
+
+No inventar coordenadas.
+
+============================================================
+7. SPATIAL AR
+============================================================
+
+Mantener separado:
+
+GEO DATA
+
+de
+
+SPATIAL AR DATA.
+
+No mezclar reglas territoriales con lógica visual AR.
+
+============================================================
+8. RUNTIME CONTRACT
+============================================================
+
+Implementar/completar una consulta segura equivalente a:
+
+getPublishedWorld()
+
+o la existente.
+
+Debe devolver exclusivamente:
+
+PUBLISHED
+
+No devolver:
+
+DRAFT
+UNDER_REVIEW
+DISPUTED
+REJECTED
+
+al runtime público.
+
+============================================================
+9. REGLAS DE CONSISTENCIA
+============================================================
+
+Implementar validaciones para:
+
+- referencias inexistentes
+- versiones inválidas
+- claims sin evidencia requerida
+- publicación sin autorización
+- objetos corruptos
+- relaciones inconsistentes.
+
+============================================================
+10. EVENTOS
+============================================================
+
+Si existe event store:
+
+integrar con él.
+
+Registrar eventos relevantes del ciclo territorial.
+
+No crear un segundo sistema paralelo.
+
+============================================================
+11. API
+============================================================
+
+Completar servicios/procedures necesarios para:
+
+- getWorldObject
+- createWorldObject
+- updateWorldObject
+- getVersion
+- getPublishedVersion
+- validateWorldObject
+- archiveWorldObject
+- publishWorldObject
+
+Adaptar a arquitectura existente.
+
+============================================================
+12. TESTS
+============================================================
+
+Tests para:
+
+- lifecycle
+- versioning
+- publication gate
+- runtime filtering
+- GEO validation
+- consistency
+- archived objects
+- disputed objects
+- unauthorized publication.
+
+============================================================
+13. MJP CORE
+============================================================
+
+NO MODIFICAR MJP CORE.
+
+============================================================
+14. ENTREGA
+============================================================
+
+Código únicamente.
+
+Informar:
+
+- archivos
+- servicios
+- APIs
+- modelos
+- tests
+- resultados
+- limitaciones.
+
+NO frontend.
+
+FIN.

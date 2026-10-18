@@ -1,0 +1,18 @@
+import { useMemo, useState } from "react";
+import { Eye, FileImage, MonitorPlay, Smartphone, Tv2 } from "lucide-react";
+import { Logo } from "./Brand/Logo";
+import { LukitaAvatar } from "./Brand/LukitaAvatar";
+import { MILUKITA_BRAND } from "../../../shared/brandSystem";
+
+const surfaces = ["Header", "Home", "TV", "Overlay", "PWA", "Manifest"] as const;
+type Surface = (typeof surfaces)[number];
+
+export default function BrandPreviewPanel() {
+  const [surface, setSurface] = useState<Surface>("Header");
+  const preview = useMemo(() => ({ Header: "Encabezado público y navegación", Home: "Hero, catálogo y avisos del piloto", TV: "Pantalla MiLukita TV y selección de modo", Overlay: "Overlay de ronda y panel de estadísticas", PWA: "Instalación y acceso móvil", Manifest: "Identidad comercial dentro de MjpTvManifest" }[surface]), [surface]);
+  return <section className="brand-preview-panel mt-6 border border-amber-200/15 bg-[#15130e] p-5 sm:p-7" aria-labelledby="brand-preview-title">
+    <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-start"><div><p className="eyebrow text-amber-200">MiLukita Brand Preview</p><h3 id="brand-preview-title" className="font-display mt-2 text-2xl text-white">Revisión visual de todos los puntos de contacto</h3><p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">Vista de control no publicada. Permite revisar la identidad sin cambiar reglas, resultados ni el manifest autoritativo.</p></div><Eye className="h-5 w-5 text-amber-200" /></div>
+    <div className="mt-5 flex flex-wrap gap-2" role="tablist" aria-label="Superficies de marca">{surfaces.map((item) => <button key={item} type="button" role="tab" aria-selected={surface === item} onClick={() => setSurface(item)} className={`brand-tab rounded-full border px-3 py-2 text-xs font-bold transition ${surface === item ? "border-amber-200/50 bg-amber-200/15 text-amber-100" : "border-white/10 bg-white/5 text-slate-400 hover:border-amber-200/30 hover:text-white"}`}>{item}</button>)}</div>
+    <div className="brand-preview-stage mt-5 grid gap-5 border border-white/10 bg-[#071310] p-5 lg:grid-cols-[1.1fr_.9fr] lg:p-7"><div className="min-w-0"><p className="text-xs font-bold uppercase tracking-[.14em] text-emerald-200">{surface}</p><h4 className="font-display mt-2 text-3xl text-white">{preview}</h4><div className="mt-6 flex flex-wrap items-center gap-5"><Logo compact={surface === "PWA"} /><LukitaAvatar mood={surface === "TV" ? "speaking" : "ready"} /></div><div className="mt-6 grid gap-3 sm:grid-cols-3"><div className="brand-swatch bg-[#f6c453] text-slate-950"><span>Sol</span><strong>#F6C453</strong></div><div className="brand-swatch bg-[#58c7e8] text-slate-950"><span>Cielo</span><strong>#58C7E8</strong></div><div className="brand-swatch bg-[#5ee8b6] text-slate-950"><span>Hoja</span><strong>#5EE8B6</strong></div></div></div><div className="border border-white/10 bg-white/[.03] p-5"><div className="flex items-center gap-3 text-slate-300"><MonitorPlay className="h-4 w-4 text-cyan-200" /><span className="text-sm font-bold">Aplicación en {surface}</span></div><div className="mt-5 space-y-3 text-sm leading-6 text-slate-300"><p><strong className="text-white">Marca:</strong> {MILUKITA_BRAND.name}</p><p><strong className="text-white">Anfitrión:</strong> {MILUKITA_BRAND.host}</p><p><strong className="text-white">Canal:</strong> {MILUKITA_BRAND.tvName}</p><p><strong className="text-white">Estado:</strong> <span className="text-emerald-200">Piloto · créditos virtuales</span></p></div><div className="mt-6 flex items-center gap-3 text-xs text-slate-500"><Tv2 className="h-4 w-4" /><Smartphone className="h-4 w-4" /><FileImage className="h-4 w-4" /> Sincronizado con aliases técnicos MJP</div></div></div>
+  </section>;
+}

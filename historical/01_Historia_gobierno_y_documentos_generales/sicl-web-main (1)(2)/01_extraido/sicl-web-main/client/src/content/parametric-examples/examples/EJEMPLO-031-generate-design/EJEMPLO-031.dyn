@@ -1,0 +1,38 @@
+{
+  "Version": "3.0.0",
+  "RunType": "Manual",
+  "Nodes": [
+    {
+      "id": "width",
+      "op": "constant",
+      "params": {
+        "value": 24
+      }
+    },
+    {
+      "id": "depth",
+      "op": "constant",
+      "params": {
+        "value": 16
+      }
+    },
+    {
+      "id": "height",
+      "op": "constant",
+      "params": {
+        "value": 6.4
+      }
+    },
+    {
+      "id": "mass",
+      "op": "rectangle_points",
+      "params": {
+        "width": 24,
+        "height": 16
+      }
+    }
+  ],
+  "Notes": [
+    "Example only; execute in an approved Dynamo/Revit host."
+  ]
+}

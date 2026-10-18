@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/ubuntu/sicl-core
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collected 66 items
+
+tests/test_derivation.py ....................                            [ 30%]
+tests/test_impact.py ....................                                [ 60%]
+tests/test_impact_adversarial.py ..........                              [ 75%]
+tests/test_validity.py ........                                          [ 87%]
+tests/test_multiscale_wall_move_e2e.py .                                 [ 89%]
+tests/test_reaction.py .......                                           [100%]
+
+============================== 66 passed in 0.23s ==============================

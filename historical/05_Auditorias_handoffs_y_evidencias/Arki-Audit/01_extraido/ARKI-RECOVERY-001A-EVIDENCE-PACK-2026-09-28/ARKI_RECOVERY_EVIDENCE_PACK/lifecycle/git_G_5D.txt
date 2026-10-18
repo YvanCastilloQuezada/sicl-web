@@ -1,0 +1,5 @@
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33m6fb8be8[m feat(rfc-030): add ISO128 RNE drawing standard
+[33ma6f727f[m fix(rfc-030): improve hatch cuts elevation and roof plan
+[33m8e41ed3[m fix(rfc-030): generate real IFC and content-differentiated views
+[33m2de6011[m feat(rfc-030): architectural drawing generation foundation

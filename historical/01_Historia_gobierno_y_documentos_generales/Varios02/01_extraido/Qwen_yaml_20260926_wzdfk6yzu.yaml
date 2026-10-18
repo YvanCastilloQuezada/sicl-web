@@ -1,0 +1,28 @@
+LEVEL_ID: L14
+NAME: "Transferidor Crítico"
+DEFINITION: "ARKI aplica principios entre tipologías detectando diferencias bloqueantes."
+INPUTS:
+  - source_case: "Case"
+  - target_context: "TargetContext"
+  - knowledge: "Knowledge"
+OUTPUTS:
+  - transfer_analysis: "TransferAnalysis"
+  - adaptation_burden: "AdaptationBurden"
+  - transfer_decision: "TRANSFER | ADAPT | DO_NOT_TRANSFER"
+CONTRACTS:
+  - "SIMILARITY ≠ TRANSFERABILITY"
+  - "Transferencia requiere tests T1-T4"
+  - "Detectar diferencias críticas"
+RULES:
+  - "INV6-025: SIMILARITY ≠ TRANSFERABILITY"
+  - "INV6-026: MOST SIMILAR CASE ≠ MOST REUSABLE CASE"
+  - "L-03: Transfer tests (T1-T4)"
+  - "Transfer & Generalization Contract"
+GATES:
+  - "GATE_L14_PASS: Transferencia con análisis de diferencias"
+EVIDENCE_REQUIRED:
+  - "Transfer analysis report"
+  - "T1-T4 test results"
+  - "Adaptation burden assessment"
+  - "Critical differences list"
+CURRENT_STATUS: "RESEARCHED"

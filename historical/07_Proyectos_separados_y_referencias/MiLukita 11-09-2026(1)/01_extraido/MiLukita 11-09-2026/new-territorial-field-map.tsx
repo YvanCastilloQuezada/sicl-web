@@ -1,0 +1,175 @@
+export function TerritorialFieldMap({ objects }: { objects: TerritorialMapObject[] }) {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [syncFilter, setSyncFilter] = useState<TerritorialMapSyncFilter>("ALL");
+  const [confidenceFilter, setConfidenceFilter] = useState<TerritorialMapConfidenceFilter>("ALL");
+  const [gpsCenter, setGpsCenter] = useState<{ lat: number; lng: number } | null>(null);
+  const [gpsMessage, setGpsMessage] = useState<string | null>(null);
+  const [mapZoom, setMapZoom] = useState(13);
+  const [offlinePan, setOfflinePan] = useState({ x: 0, y: 0 });
+  const [viewportBounds, setViewportBounds] = useState<{ north: number; south: number; east: number; west: number } | null>(null);
+  const [offlineConsent, setOfflineConsent] = useState(false);
+  const [offlineMode, setOfflineMode] = useState(false);
+  const [cachedObjects, setCachedObjects] = useState<TerritorialMapObject[]>([]);
+  const [tileDownload, setTileDownload] = useState<{ state: "IDLE" | "DOWNLOADING" | "READY" | "ERROR"; completed: number; total: number; message?: string }>({ state: "IDLE", completed: 0, total: 0 });
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("milukita:territorial-map-cache");
+      if (raw) {
+        const parsed = JSON.parse(raw) as { objects?: TerritorialMapObject[] };
+        if (Array.isArray(parsed.objects)) setCachedObjects(parsed.objects.slice(0, 1000));
+      }
+    } catch { /* Cache local corrupta: se ignora sin bloquear Mapper. */ }
+  }, []);
+
+  const sourceObjects = offlineMode && cachedObjects.length ? cachedObjects : objects;
+  const points = useMemo(() => sourceObjects
+    .map(object => ({
+      ...object,
+      lat: Number(object.latitude),
+      lng: Number(object.longitude),
+      sync: object.syncStatus ?? (object.status === "PUBLISHED" ? "SYNCED" : "SERVER_RECORD"),
+      confidence: typeof object.confidenceScore === "number" ? object.confidenceScore : calculateConfidenceScore({
+        sourceCount: object.sources?.length ?? 0,
+        evidenceCount: object.evidence?.length ?? 0,
+        claimCount: object.claims?.length ?? 0,
+        accuracyMeters: Number(object.accuracyMeters ?? 0),
+        status: object.status as never,
+      }),
+    }))
+    .filter(object => Number.isFinite(object.lat) && Number.isFinite(object.lng)), [sourceObjects]);
+  const filteredPoints = useMemo(() => points.filter(point => matchesTerritorialMapFilters(point, syncFilter, confidenceFilter)), [points, syncFilter, confidenceFilter]);
+  const viewportPoints = useMemo(() => viewportBounds
+    ? filteredPoints.filter(point => point.lng >= viewportBounds.west && point.lng <= viewportBounds.east && point.lat >= viewportBounds.south && point.lat <= viewportBounds.north)
+    : filteredPoints, [filteredPoints, viewportBounds]);
+  const clusterPrecision = mapZoom >= 16 ? 4 : mapZoom >= 14 ? 3 : 2;
+  const clusters = useMemo(() => clusterTerritorialPoints(viewportPoints, clusterPrecision), [viewportPoints, clusterPrecision]);
+  const bounds = useMemo(() => {
+    const lats = filteredPoints.map(point => point.lat);
+    const lngs = filteredPoints.map(point => point.lng);
+    return {
+      minLat: Math.min(...lats, -90),
+      maxLat: Math.max(...lats, 90),
+      minLng: Math.min(...lngs, -180),
+      maxLng: Math.max(...lngs, 180),
+    };
+  }, [filteredPoints]);
+  const selected = filteredPoints.find(point => point.publicId === selectedId) ?? null;
+
+  useEffect(() => { setViewportBounds(null); }, [offlineMode]);
+
+  const centerOnGps = () => {
+    if (!navigator.geolocation) {
+      setGpsMessage("Este navegador no ofrece GPS; puedes usar las coordenadas registradas.");
+      return;
+    }
+    setGpsMessage("Solicitando ubicación…");
+    navigator.geolocation.getCurrentPosition(position => {
+      const next = { lat: position.coords.latitude, lng: position.coords.longitude };
+      setGpsCenter(next);
+      setGpsMessage(`Mapa centrado en tu ubicación · precisión ±${Math.round(position.coords.accuracy)} m`);
+    }, () => setGpsMessage("No se pudo obtener la ubicación. Revisa el permiso GPS y vuelve a intentarlo."), { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
+  };
+
+  const saveOfflineCache = () => {
+    if (!offlineConsent) return;
+    const payload = JSON.stringify({ savedAt: Date.now(), objects: objects.slice(0, 1000) });
+    if (payload.length > 1_000_000) {
+      setGpsMessage("La caché supera 1 MB; reduce los filtros o usa una sesión más pequeña.");
+      return;
+    }
+    localStorage.setItem("milukita:territorial-map-cache", payload);
+    setCachedObjects(objects.slice(0, 1000));
+    setGpsMessage(`Caché offline guardada · ${Math.min(objects.length, 1000)} registros`);
+  };
+
+  const downloadOfflineMap = async () => {
+    if (!offlineConsent) {
+      setTileDownload({ state: "ERROR", completed: 0, total: 0, message: "Primero acepta guardar una zona cartográfica local." });
+      return;
+    }
+    if (!window.caches || !filteredPoints[0]) {
+      setTileDownload({ state: "ERROR", completed: 0, total: 0, message: "Este navegador no permite descargar mapas o no hay registros filtrados." });
+      return;
+    }
+    const urls = offlineMapTileUrls(filteredPoints[0].lat, filteredPoints[0].lng, mapZoom, 1);
+    setTileDownload({ state: "DOWNLOADING", completed: 0, total: urls.length });
+    try {
+      const cache = await window.caches.open("milukita-map-tiles-v1");
+      for (const [index, url] of urls.entries()) {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        await cache.put(url, response.clone());
+        setTileDownload({ state: "DOWNLOADING", completed: index + 1, total: urls.length });
+      }
+      setTileDownload({ state: "READY", completed: urls.length, total: urls.length, message: `Zona descargada: ${urls.length} teselas en zoom ${mapZoom}.` });
+    } catch (error) {
+      setTileDownload(current => ({ ...current, state: "ERROR", message: `No se pudo completar la descarga (${error instanceof Error ? error.message : "proveedor no disponible"}).` }));
+    }
+  };
+
+  const mapMarkers = clusters.map(point => ({
+    id: point.publicId,
+    position: { lat: point.lat, lng: point.lng },
+    label: point.count > 1 ? String(point.count) : undefined,
+    title: point.count > 1 ? `${point.count} puntos agrupados` : `${point.name} · ${point.status} · confianza ${point.confidence}/100`,
+    status: point.status,
+    onClick: () => setSelectedId(point.members[0]?.publicId ?? point.publicId),
+  }));
+
+  return (
+    <section className="mt-6 border border-emerald-200/15 bg-emerald-200/[.03] p-5" aria-labelledby="field-map-title">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.14em] text-emerald-200">World Engine · vista territorial</p>
+          <h2 id="field-map-title" className="mt-1 font-display text-2xl text-white">Puntos de levantamiento</h2>
+          <p className="mt-2 max-w-3xl text-xs leading-5 text-slate-400">Vista operativa del inventario cargado. El mapa no convierte un punto en dato publicado.</p>
+        </div>
+        <span className="flex items-center gap-2 text-xs text-slate-400"><WifiOff className="h-4 w-4 text-emerald-200" />{points.length} puntos</span>
+      </div>
+
+      <div className="mt-5 grid gap-3 border border-white/10 bg-black/20 p-3 md:grid-cols-[1fr_auto_auto_auto] md:items-end">
+        <label className="text-xs text-slate-400">Estado de sincronización
+          <select value={syncFilter} onChange={event => setSyncFilter(event.target.value as TerritorialMapSyncFilter)} className="mt-1 block w-full border border-white/15 bg-[#071914] px-3 py-2 text-sm text-white">
+            <option value="ALL">Todos</option><option value="SYNCED">SYNCED</option><option value="SERVER_RECORD">Registro server</option><option value="PENDING_SYNC">PENDING_SYNC</option><option value="CONFLICT">CONFLICT</option>
+          </select>
+        </label>
+        <label className="text-xs text-slate-400">Nivel de confianza
+          <select value={confidenceFilter} onChange={event => setConfidenceFilter(event.target.value as TerritorialMapConfidenceFilter)} className="mt-1 block w-full border border-white/15 bg-[#071914] px-3 py-2 text-sm text-white">
+            <option value="ALL">Todos</option><option value="HIGH">Alto · 80–100</option><option value="MEDIUM">Medio · 50–79</option><option value="LOW">Bajo · 0–49</option>
+          </select>
+        </label>
+        <p className="text-xs text-slate-500">Mostrando <strong className="text-white">{viewportPoints.length}</strong> de {points.length} · {clusters.length} grupos · {offlineMode ? "offline" : "online"}</p>
+        <Button type="button" size="sm" variant="outline" onClick={centerOnGps}><Crosshair className="mr-2 h-4 w-4" />Centrar GPS</Button>
+      </div>
+      {gpsMessage ? <p className="mt-2 text-xs text-cyan-100" role="status">{gpsMessage}</p> : null}
+
+      <div className="mt-3 flex flex-wrap items-center gap-3 border border-white/10 bg-black/20 p-3 text-xs">
+        <label className="flex items-center gap-2 text-slate-300"><input type="checkbox" checked={offlineConsent} onChange={event => setOfflineConsent(event.target.checked)} />Permitir caché local limitada a 1 MB</label>
+        <Button type="button" size="sm" variant="outline" onClick={saveOfflineCache} disabled={!offlineConsent}>Guardar registros offline</Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => setOfflineMode(current => !current)} disabled={!cachedObjects.length}>{offlineMode ? "Usar datos online" : `Usar caché offline (${cachedObjects.length})`}</Button>
+        <Button type="button" size="sm" variant="outline" onClick={() => void downloadOfflineMap()} disabled={!offlineConsent || tileDownload.state === "DOWNLOADING"}>{tileDownload.state === "DOWNLOADING" ? `Descargando ${tileDownload.completed}/${tileDownload.total}` : "Descargar mapas offline"}</Button>
+        <span className="text-slate-500">La descarga guarda hasta 9 teselas del centro actual; no se descargan zonas sin nuevo consentimiento.</span>
+      </div>
+      {tileDownload.total > 0 ? <div className="mt-2 h-1.5 w-full bg-white/10" aria-label={`Progreso de mapas offline ${tileDownload.completed} de ${tileDownload.total}`}><div className={`h-1.5 ${tileDownload.state === "ERROR" ? "bg-orange-300" : "bg-cyan-200"}`} style={{ width: `${Math.min(100, (tileDownload.completed / tileDownload.total) * 100)}%` }} /></div> : null}
+      {tileDownload.message ? <p className={`mt-2 text-xs ${tileDownload.state === "ERROR" ? "text-orange-200" : "text-emerald-200"}`} role="status">{tileDownload.message}</p> : null}
+
+      <div className="mt-5 border border-white/10 bg-black/20 p-3">
+        <div className="flex flex-wrap items-center justify-between gap-2"><p className="text-xs font-bold uppercase tracking-[.12em] text-cyan-200">Cartografía real · OpenStreetMap + Google Maps proxy</p><p className="text-[11px] text-slate-500">OpenStreetMap aporta contexto raster; el proxy habilita navegación cuando está disponible.</p></div>
+        <div className="relative mt-3 h-[220px] overflow-hidden border border-white/10 bg-[#0b2520]"><img src={openStreetMapTile(filteredPoints[0]?.lat ?? -8.1116, filteredPoints[0]?.lng ?? -79.0287)} alt="Contexto cartográfico OpenStreetMap del territorio" className="h-full w-full object-cover opacity-80" loading="lazy" /><div className="absolute bottom-2 left-2 border border-white/15 bg-black/65 px-2 py-1 text-[10px] text-white">© OpenStreetMap contributors · capa de contexto</div></div>
+        <MapView initialCenter={filteredPoints[0] ? { lat: filteredPoints[0].lat, lng: filteredPoints[0].lng } : { lat: -8.1116, lng: -79.0287 }} center={gpsCenter ?? undefined} initialZoom={13} zoom={mapZoom} onZoomChanged={setMapZoom} onViewportChanged={viewport => { setMapZoom(viewport.zoom); setViewportBounds(viewport.bounds); }} markers={mapMarkers} />
+      </div>
+
+      <div className="relative mt-5 min-h-[320px] overflow-hidden border border-white/10 bg-[#091b18]" role="application" aria-label={`Mapa esquemático con ${filteredPoints.length} puntos de levantamiento`}>
+        <div className="absolute right-3 top-3 z-10 flex items-center gap-1 border border-white/15 bg-black/65 p-1" aria-label="Navegación offline del mapa"><span className="px-2 text-[10px] font-bold uppercase tracking-[.12em] text-cyan-100">Offline</span><button type="button" className="grid h-7 w-7 place-items-center text-slate-200 hover:bg-white/10" aria-label="Mover mapa arriba" onClick={() => setOfflinePan(current => ({ ...current, y: current.y - 8 }))}><ArrowUp className="h-3.5 w-3.5" /></button><button type="button" className="grid h-7 w-7 place-items-center text-slate-200 hover:bg-white/10" aria-label="Mover mapa abajo" onClick={() => setOfflinePan(current => ({ ...current, y: current.y + 8 }))}><ArrowDown className="h-3.5 w-3.5" /></button><button type="button" className="grid h-7 w-7 place-items-center text-slate-200 hover:bg-white/10" aria-label="Mover mapa a la izquierda" onClick={() => setOfflinePan(current => ({ ...current, x: current.x - 8 }))}><ArrowLeft className="h-3.5 w-3.5" /></button><button type="button" className="grid h-7 w-7 place-items-center text-slate-200 hover:bg-white/10" aria-label="Mover mapa a la derecha" onClick={() => setOfflinePan(current => ({ ...current, x: current.x + 8 }))}><ArrowRight className="h-3.5 w-7" /></button><button type="button" className="grid h-7 w-7 place-items-center text-slate-200 hover:bg-white/10" aria-label="Acercar mapa offline" onClick={() => setMapZoom(current => Math.min(18, current + 1))}><ZoomIn className="h-3.5 w-3.5" /></button><button type="button" className="grid h-7 w-7 place-items-center text-slate-200 hover:bg-white/10" aria-label="Alejar mapa offline" onClick={() => setMapZoom(current => Math.max(8, current - 1))}><ZoomOut className="h-3.5 w-3.5" /></button></div>
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "linear-gradient(rgba(91,234,208,.35) 1px, transparent 1px), linear-gradient(90deg, rgba(91,234,208,.35) 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
+        {clusters.map(point => { const x = bounds.maxLng === bounds.minLng ? 50 : ((point.lng - bounds.minLng) / (bounds.maxLng - bounds.minLng)) * 86 + 7; const y = bounds.maxLat === bounds.minLat ? 50 : (1 - (point.lat - bounds.minLat) / (bounds.maxLat - bounds.minLat)) * 78 + 10; const tone = point.status === "PUBLISHED" ? "bg-emerald-300 text-[#062019]" : point.status === "CONFLICT" || point.status === "DISPUTED" ? "bg-orange-300 text-[#2d1700]" : "bg-cyan-200 text-[#062019]"; return <button key={point.publicId} type="button" onClick={() => setSelectedId(point.publicId)} className={`absolute grid h-9 w-9 -translate-x-1/2 -translate-y-1/2 place-items-center border-2 border-[#071914] shadow-[0_0_0_3px_rgba(101,247,215,.18)] ${selectedId === point.publicId ? "ring-2 ring-white ring-offset-2 ring-offset-[#091b18]" : ""} ${tone}`} style={{ left: `calc(${x}% + ${offlinePan.x}px)`, top: `calc(${y}% + ${offlinePan.y}px)` }} title={`${point.name} · ${point.status} · confianza ${point.confidence}/100`} aria-label={`${point.count > 1 ? `${point.count} puntos agrupados` : point.name}, estado ${point.status}, confianza ${point.confidence} de 100`}><MapPin className="h-4 w-4" />{point.count > 1 ? <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-white px-1 text-[10px] font-bold text-[#062019]">{point.count}</span> : null}</button>; })}
+        {!filteredPoints.length ? <div className="absolute inset-0 grid place-items-center p-6 text-center text-sm text-slate-500">No hay puntos que coincidan con los filtros activos.</div> : null}
+        <div className="absolute bottom-3 left-3 flex flex-wrap gap-2 border border-white/10 bg-black/40 p-2 text-[11px] text-slate-300"><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-cyan-200" />Registro</span><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-orange-300" />Conflicto</span><span><i className="mr-1 inline-block h-2 w-2 rounded-full bg-emerald-300" />Publicado</span></div>
+        {selected ? <div className="absolute right-3 top-3 w-64 border border-white/15 bg-[#071914]/95 p-4 shadow-xl"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[11px] text-cyan-200">{selected.publicId}</p><p className="mt-1 text-sm font-bold text-white">{selected.name}</p></div><button type="button" aria-label="Cerrar detalle del punto" onClick={() => setSelectedId(null)} className="text-slate-400 hover:text-white">×</button></div><p className="mt-3 text-xs text-slate-300">{selected.latitude}, {selected.longitude}</p><div className="mt-3 flex items-center justify-between text-xs"><span className="text-slate-500">Workflow · sync</span><strong className="text-white">{selected.status} · {selected.sync}</strong></div><div className="mt-2 flex items-center justify-between text-xs"><span className="text-slate-500">Confianza explicable</span><strong className="text-emerald-200">{selected.confidence}/100</strong></div><p className="mt-3 text-[11px] leading-4 text-slate-500">v{selected.version} · precisión ±{selected.accuracyMeters} m. Haz clic para abrir el expediente completo.</p></div> : null}
+      </div>
+
+      {selected ? <div className="fixed inset-0 z-[70] grid place-items-center bg-black/70 p-4" role="dialog" aria-modal="true" aria-labelledby="territorial-point-dialog"><div className="max-h-[85vh] w-full max-w-2xl overflow-auto border border-cyan-200/25 bg-[#071914] p-6 text-slate-100 shadow-2xl"><div className="flex items-start justify-between gap-4"><div><p className="font-mono text-xs text-cyan-200">{selected.publicId}</p><h3 id="territorial-point-dialog" className="mt-1 font-display text-3xl text-white">{selected.name}</h3><p className="mt-2 text-sm text-slate-400">Expediente completo del levantamiento · v{selected.version}</p></div><button type="button" aria-label="Cerrar modal del levantamiento" onClick={() => setSelectedId(null)} className="text-2xl text-slate-400 hover:text-white">×</button></div><div className="mt-5 grid gap-3 sm:grid-cols-3"><div className="border border-white/10 bg-black/20 p-3"><p className="text-xs text-slate-500">Coordenadas</p><p className="mt-1 text-sm text-white">{selected.latitude}, {selected.longitude}</p></div><div className="border border-white/10 bg-black/20 p-3"><p className="text-xs text-slate-500">Estado</p><p className="mt-1 text-sm text-white">{selected.status} · {selected.sync}</p></div><div className="border border-white/10 bg-black/20 p-3"><p className="text-xs text-slate-500">Confianza explicable</p><p className="mt-1 text-sm text-emerald-200">{selected.confidence}/100</p></div></div><div className="mt-5 grid gap-4 md:grid-cols-3"><div><p className="text-xs font-bold uppercase tracking-[.12em] text-cyan-200">Claims</p><p className="mt-2 text-sm text-slate-300">{selected.claims?.length ?? 0} registrados</p>{selected.claims?.slice(0, 3).map((claim, index) => <p key={`claim-${index}`} className="mt-2 text-xs leading-5 text-slate-400">{typeof claim === "string" ? claim : JSON.stringify(claim)}</p>)}</div><div><p className="text-xs font-bold uppercase tracking-[.12em] text-amber-200">Sources</p><p className="mt-2 text-sm text-slate-300">{selected.sources?.length ?? 0} registradas</p>{selected.sources?.slice(0, 3).map((source, index) => <p key={`source-${index}`} className="mt-2 text-xs leading-5 text-slate-400">{typeof source === "string" ? source : JSON.stringify(source)}</p>)}</div><div><p className="text-xs font-bold uppercase tracking-[.12em] text-emerald-200">Evidence & assets</p><p className="mt-2 text-sm text-slate-300">{(selected.evidence?.length ?? 0) + (selected.assets?.length ?? 0)} adjuntas</p>{selected.assets?.slice(0, 3).map((asset, index) => <p key={`asset-${index}`} className="mt-2 text-xs leading-5 text-slate-400">{asset.originalName ?? `Asset ${index + 1}`} · {asset.mimeType ?? "tipo no informado"} · {asset.accessScope ?? "scope protegido"}</p>)}</div></div><div className="mt-5 border border-white/10 bg-black/20 p-4"><p className="text-xs font-bold uppercase tracking-[.12em] text-slate-300">Matriz de evidencia</p><p className="mt-2 text-xs leading-5 text-slate-400">El score es una señal explicable para priorizar revisión; no certifica por sí solo la verdad del levantamiento ni habilita publicación.</p></div></div></div> : null}
+    </section>
+  );
+}

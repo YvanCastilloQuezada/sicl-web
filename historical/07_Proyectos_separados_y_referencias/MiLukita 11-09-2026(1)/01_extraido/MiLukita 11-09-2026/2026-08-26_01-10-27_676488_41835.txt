@@ -1,0 +1,202 @@
+# Terminal Full Output
+# Terminal: mjp-debug-tv-run-5
+# Command: cd /home/ubuntu/ruleta-peru-online && node scripts/debug-tv-e2e.mjs
+# PID: 41835
+# Timestamp: 2026-08-26_01-10-27.676488
+# Original Length: 9996 characters
+# ----------------------------------------
+
+[32mubuntu@sandbox:~$ [0mcd /home/ubuntu/ruleta-peru-online && node scripts/debug-tv-e2e.mjs
+console debug [vite] connecting...
+console debug [Manus] Debug collector initialized (no rrweb, UI events only)
+console debug [vite] connected.
+console info %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+OK goto http://127.0.0.1:3000/tv
+OK start http://127.0.0.1:3000/tv
+OK online http://127.0.0.1:3000/tv
+OK close guide http://127.0.0.1:3000/tv
+OK mode text http://127.0.0.1:3000/tv
+FAIL change locator.click: Timeout 5000ms exceeded.
+Call log:
+[2m  - waiting for locator('main button').filter({ hasText: 'Cambiar modo' })
+[22m[2m    - locator resolved to <button type="button" data-slot="button" data-loc="client/src/pages/BroadcastPage.tsx:109" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-
+invalid:ring-destructive/40 aria…>Cambiar modo</button>
+[22m[2m  - attempting click action
+[22m[2m    2 × waiting for element to be visible, enabled and stable
+[22m[2m      - element is visible, enabled and stable
+[22m[2m      - scrolling into view if needed
+[22m[2m      - done scrolling
+[22m[2m      - <div data-state="open" aria-hidden="true" data-aria-hidden="true" data-slot="sheet-overlay" data-loc="client/src/components/ui/sheet.tsx:57" class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"></div> intercepts pointer events
+[22m[2m    - retrying click action
+[22m[2m    - waiting 20ms
+[22m[2m    2 × waiting for element to be visible, enabled and stable
+[22m[2m      - element is visible, enabled and stable
+[22m[2m      - scrolling into view if needed
+[22m[2m      - done scrolling
+[22m[2m      - <div data-state="open" aria-hidden="true" data-aria-hidden="true" data-slot="sheet-overlay" data-loc="client/src/components/ui/sheet.tsx:57" class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"></div> intercepts pointer events
+[22m[2m    - retrying click action
+[22m[2m      - waiting 100ms
+[22m[2m    9 × waiting for element to be visible, enabled and stable
+[22m[2m      - element is visible, enabled and stable
+[22m[2m      - scrolling into view if needed
+[22m[2m      - done scrolling
+[22m[2m      - <div data-state="open" aria-hidden="true" data-aria-hidden="true" data-slot="sheet-overlay" data-loc="client/src/components/ui/sheet.tsx:57" class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50"></div> intercepts pointer events
+[22m[2m    - retrying click action
+[22m[2m      - waiting 500ms
+[22mPILOTO GRATUITO · CRÉDITOS VIRTUALES · SIN DINERO REAL · SIN RETIROS
+RP
+Multi Juegos Perú
+TRANSPARENCIA Y PROPÓSITO
+Ruleta
+TV en vivo
+Jackpot
+Bingo
+Lotería
+Trío 13
+MultiMarket
+Impacto
+Tablas
+RTP
+Aprender
+Lotes
+Billetera
+Verificar
+Perfil
+Operación
+Idioma
+Español
+English
+Italiano
+Français
+Deutsch
+中文
+Instalar
+2,650 créditos
+Ingresar
+MODO SELECCIONADO: VER EN LÍNEA
+Cambiar modo
+Salir
+Canal virtual
+Sorteos en vivo, participación desde tu celular.
+La transmisión presenta el espectáculo; el servidor conserva la autoridad del cierre, el sorteo y la evidencia. Todo el piloto usa créditos virtuales gratuitos.
+Verificar sorteos
+Modo en línea activo
+La señal audiovisual y el estado de la ronda están disponibles.
+TEMA DE AVISOS EN TIEMPO REAL
+Adapta el color de las notificaciones a la identidad visual de tu marca.
+Seleccionar tema de notificaciones
+Esmeralda MJP
+Dorado cálido
+Azul medianoche
+Alto contraste
+MJPTVMANIFEST V1
+Estado unificado del evento
+El TV Client, el overlay y la pan
+[
+  {
+    text: [32m''[39m,
+    aria: [32m'Accesibilidad'[39m,
+    html: [32m'<button data-loc="client/src/components/PilotLayout.tsx:72" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium'
+[39m  },
+  {
+    text: [32m'Instalar'[39m,
+    aria: [32m'Instalar Multi Juegos Perú'[39m,
+    html: [32m'<button data-loc="client/src/components/PwaInstallButton.tsx:39" data-slot="button" class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-'
+[39m  },
+  {
+    text: [32m''[39m,
+    aria: [32m'Abrir guía táctil'[39m,
+    html: [32m'<button data-loc="client/src/components/TouchGuide.tsx:37" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium '
+[39m  },
+  {
+    text: [32m''[39m,
+    aria: [32m'Activar modo claro'[39m,
+    html: [32m'<button data-loc="client/src/components/PilotLayout.tsx:86" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium'
+[39m  },
+  {
+    text: [32m'Ingresar'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/PilotLayout.tsx:96" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium'
+[39m  },
+  {
+    text: [32m''[39m,
+    aria: [32m'Instalar Multi Juegos Perú'[39m,
+    html: [32m'<button data-loc="client/src/components/PwaInstallButton.tsx:39" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-m'
+[39m  },
+  {
+    text: [32m''[39m,
+    aria: [32m'Abrir guía táctil'[39m,
+    html: [32m'<button data-loc="client/src/components/TouchGuide.tsx:37" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium '
+[39m  },
+  {
+    text: [32m''[39m,
+    aria: [32m'Activar modo claro'[39m,
+    html: [32m'<button data-loc="client/src/components/PilotLayout.tsx:100" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-mediu'
+[39m  },
+  {
+    text: [32m''[39m,
+    aria: [32m'Abrir menú'[39m,
+    html: [32m'<button data-loc="client/src/components/PilotLayout.tsx:100" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-mediu'
+[39m  },
+  {
+    text: [32m'Cambiar modo'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/pages/BroadcastPage.tsx:109" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transitio'
+[39m  },
+  {
+    text: [32m'Salir'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/pages/BroadcastPage.tsx:109" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium transitio'
+[39m  },
+  {
+    text: [32m'Verificar sorteos'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/pages/BroadcastPage.tsx:109" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium t'
+[39m  },
+  {
+    text: [32m'Jugar en vivo'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/BroadcastAccessGuide.tsx:24" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm fo'
+[39m  },
+  {
+    text: [32m'Jugar en línea'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/BroadcastAccessGuide.tsx:24" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm fo'
+[39m  },
+  {
+    text: [32m'Ver transmisión'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/BroadcastAccessGuide.tsx:24" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm fo'
+[39m  },
+  {
+    text: [32m'Cerrar'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/TouchGuide.tsx:42" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium '
+[39m  },
+  {
+    text: [32m'Siguiente'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/TouchGuide.tsx:42" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium '
+[39m  },
+  {
+    text: [32m'Close'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button type="button" data-loc="client/src/components/ui/sheet.tsx:75" class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-x'
+[39m  },
+  {
+    text: [32m'Cerrar'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/TouchGuide.tsx:42" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium '
+[39m  },
+  {
+    text: [32m'Siguiente'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button data-loc="client/src/components/TouchGuide.tsx:42" data-slot="button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium '
+[39m  },
+  {
+    text: [32m'Close'[39m,
+    aria: [1mnull[22m,
+    html: [32m'<button type="button" data-loc="client/src/components/ui/sheet.tsx:75" class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-x'
+[39m  }
+]
+[32mubuntu@sandbox:~/ruleta-peru-online$ [0m

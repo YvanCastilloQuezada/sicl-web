@@ -1,0 +1,583 @@
+ORDEN ARKI-CODEBOOK-001
+ARKI MASTER CODEBOOK — FORENSIC INVENTORY, HUMAN-READABLE NOMENCLATURE & PROJECT MAP
+
+Tipo: Documentation / Architecture Governance
+Prioridad: ALTA
+Product Owner: Human Authority
+Código de producto: PROHIBIDO
+Cambios al Kernel: PROHIBIDOS
+Objetivo: construir el diccionario maestro canónico de códigos, fases, órdenes, deltas, programas, pruebas y estados históricos de ARKI.
+
+1. PROBLEMA
+
+ARKI ha acumulado durante su evolución identificadores como:
+
+D6, D6.1, D6.2, D6.3, E4, E5, E6, E7, E8, Delta, AKI-001, BKH-0...BKH-7, 92A, 93C, 94A, 95, 95A, etc.
+
+Estos códigos fueron creados durante distintas etapas del proyecto y actualmente dificultan que el Product Owner comprenda inmediatamente:
+
+qué significa cada código;
+por qué existe;
+a qué programa pertenece;
+qué problema resolvía;
+si sigue vigente;
+qué relación tiene con la arquitectura actual;
+qué está VERIFIED;
+qué está pendiente;
+qué fue superseded;
+qué es simplemente histórico.
+
+No asumir que estos códigos corresponden a teorías universales de IA.
+
+El Codebook deberá distinguir claramente:
+
+ARKI INTERNAL CODE
+
+de:
+
+INDUSTRY / SCIENTIFIC / STANDARD TERMINOLOGY.
+
+2. PRINCIPIO CENTRAL
+
+El Codebook será el mapa de orientación del proyecto ARKI.
+
+Debe estar escrito para que pueda comprenderlo un arquitecto que conoce sistemas pero no necesita ser programador.
+
+Para cada término deberá existir:
+
+NOMBRE TÉCNICO + EXPLICACIÓN PROFESIONAL + EXPLICACIÓN EN LENGUAJE SIMPLE.
+
+Ejemplo de estilo:
+
+BKH-3
+
+Nombre: Regeneration Engine
+Castellano: Motor de Regeneración
+En palabras simples: determina qué partes del proyecto deben volver a calcularse o regenerarse cuando otra parte cambia.
+Analogía arquitectónica: si cambia la posición de un muro, determina qué planos, espacios, cantidades u otros elementos dependientes quedan afectados y requieren actualización.
+
+3. REGLA FORENSE
+
+NO INVENTAR SIGNIFICADOS RETROSPECTIVAMENTE.
+
+Antes de definir cualquier código:
+
+localizar evidencia documental o de repositorio;
+identificar su primera utilización disponible;
+identificar documentos posteriores que modificaron su significado;
+determinar su estado actual;
+citar internamente la evidencia.
+
+Si no existe evidencia suficiente:
+
+MEANING = UNKNOWN
+
+o
+
+HISTORICAL_MEANING_NOT_FULLY_RECOVERED.
+
+Nunca completar el significado por intuición.
+
+4. INVENTARIO FORENSE
+
+Buscar en toda la documentación accesible de ARKI:
+
+códigos históricos;
+nombres de fases;
+órdenes;
+subórdenes;
+deltas;
+auditorías;
+programas;
+gates;
+pruebas;
+experimentos;
+defects;
+fixes;
+ADR;
+invariantes;
+engines;
+fabrics;
+modules;
+milestones;
+capability identifiers;
+evidence package identifiers.
+
+Incluir como mínimo los códigos conocidos:
+
+D*
+
+E*
+
+Delta*
+
+AKI-*
+
+BKH-*
+
+FIX-*
+
+OI-*
+
+ORDEN 89...95A cuando exista evidencia.
+
+Incluir otros encontrados durante el inventario.
+
+5. NO CONFUNDIR DISTINTOS TIPOS DE IDENTIFICADORES
+
+Crear una taxonomía explícita.
+
+Como mínimo:
+
+HISTORICAL_PHASE
+
+CURRENT_PROGRAM
+
+WORK_ORDER
+
+CORRECTIVE_ORDER
+
+DELTA
+
+AUDIT
+
+TEST
+
+DEFECT
+
+OPEN_ITEM
+
+INVARIANT
+
+CAPABILITY
+
+ENGINE
+
+FABRIC
+
+STANDARD
+
+EXTERNAL_STANDARD
+
+RESEARCH_PROGRAM
+
+ARCHITECTURAL_DECISION
+
+EVIDENCE_PACKAGE
+
+STATUS.
+
+Un número similar no implica pertenencia a la misma familia.
+
+6. REGISTRO MAESTRO
+
+Cada entrada deberá contener como mínimo:
+
+code
+
+canonicalName
+
+spanishName
+
+category
+
+parentProgram
+
+historicalOrCurrent
+
+plainLanguageMeaning
+
+architectAnalogy
+
+technicalPurpose
+
+createdOrFirstObserved
+
+predecessor
+
+successor
+
+dependencies
+
+relatedCodes
+
+currentStatus
+
+supersededBy
+
+evidence
+
+confidence
+
+notes.
+
+7. ESTADOS
+
+Normalizar documentalmente, sin alterar sistemas existentes, estados como:
+
+PROPOSED
+
+DESIGNED
+
+CONTRACT_APPROVED
+
+IMPLEMENTED
+
+PARTIAL
+
+VERIFIED
+
+HARDENED
+
+FROZEN
+
+BLOCKED
+
+DEFERRED
+
+SUPERSEDED
+
+NOT_STARTED
+
+NOT_DEMONSTRATED
+
+UNKNOWN
+
+CLOSED_FOR_APPROVED_SCOPE.
+
+Si los documentos históricos utilizan otros estados, conservarlos y mapearlos; no reescribir la historia.
+
+8. DIFERENCIAR CÓDIGO ARKI DE CONCEPTO UNIVERSAL
+
+Cada entrada deberá indicar:
+
+ORIGIN = ARKI_INTERNAL | INDUSTRY | SCIENTIFIC | STANDARD | REGULATORY | UNKNOWN
+
+Ejemplo:
+
+BKH-3
+
+→ ARKI_INTERNAL
+
+transaction
+
+→ concepto de ingeniería/software
+
+IFC
+
+→ estándar externo/buildingSMART
+
+ISO 16739
+
+→ estándar ISO
+
+CityGML
+
+→ estándar OGC
+
+No presentar códigos internos como terminología universal.
+
+9. CREAR UN MAPA VISUAL DE ARKI
+
+Generar:
+
+ARKI_MASTER_PROJECT_MAP.md
+
+Debe mostrar, en lenguaje comprensible:
+
+ARKI
+│
+├── HISTORICAL DEVELOPMENT
+│     ├── D...
+│     └── E...
+│
+├── KNOWLEDGE / INTELLIGENCE
+│
+├── BIM KERNEL HARDENING
+│     ├── BKH-0  Forensic Mapping
+│     ├── BKH-1  Relationship Fabric
+│     ├── BKH-2  Constraint Engine
+│     ├── BKH-3  Regeneration Engine
+│     ├── BKH-4  Transaction Engine
+│     ├── BKH-5  Documentation Compiler
+│     ├── BKH-6  Performance
+│     └── BKH-7  Integrated Torture Test
+│
+├── KNOWLEDGE PROGRAMS
+│
+├── STANDARDS
+│     ├── IFC
+│     ├── ISO
+│     ├── OGC
+│     ├── Smart Cities
+│     └── Urban Digital Twins
+│
+└── FUTURE / OPEN
+
+Esta estructura es orientativa.
+
+Reconstruir la estructura final desde evidencia real.
+
+10. CREAR UNA VISTA ESPECIAL PARA EL PRODUCT OWNER
+
+Generar:
+
+ARKI_CODEBOOK_FOR_ARCHITECT.md
+
+Ésta será la versión que el Product Owner pueda consultar rápidamente.
+
+Formato:
+
+Código	Qué significa	En palabras simples	Estado	¿Debo preocuparme ahora?
+
+La última columna deberá usar únicamente:
+
+YES
+
+NO
+
+WATCH
+
+HISTORICAL.
+
+No ocultar información técnica; traducirla.
+
+11. CREAR CROSSWALKS
+
+Crear:
+
+ARKI_CODE_CROSSWALK.md
+
+para resolver códigos que hayan cambiado de nombre o pertenezcan a generaciones anteriores.
+
+Ejemplo conceptual:
+
+HISTORICAL CODE
+      ↓
+HISTORICAL FUNCTION
+      ↓
+CURRENT OWNER/CAPABILITY
+      ↓
+CURRENT STATUS
+
+No afirmar equivalencia cuando sólo exista relación parcial.
+
+Usar:
+
+SAME
+
+MAPPED_TO
+
+PARTIALLY_SUPERSEDED_BY
+
+SUPERSEDED_BY
+
+HISTORICAL_ONLY
+
+NO_CURRENT_EQUIVALENT
+
+UNKNOWN.
+
+12. GLOSARIO TÉCNICO
+
+Crear:
+
+ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md
+
+Explicar en castellano sencillo términos que aparecen repetidamente, por ejemplo:
+
+Kernel
+
+Engine
+
+Fabric
+
+Schema
+
+Runtime
+
+State
+
+Canonical
+
+Transaction
+
+Commit
+
+Rollback
+
+Undo
+
+Redo
+
+Atomicity
+
+Persistence
+
+Serialization
+
+Provenance
+
+Invariant
+
+Constraint
+
+Dependency
+
+Regeneration
+
+Semantic
+
+Ontology
+
+Topology
+
+Graph
+
+API
+
+Adapter
+
+Interface
+
+Round-trip
+
+Regression
+
+Fixture
+
+Hash
+
+Manifest
+
+Baseline
+
+Delta
+
+E2E
+
+IFC
+
+BIM
+
+GIS
+
+Digital Twin.
+
+Para cada uno:
+
+Technical definition
+
+Plain Spanish
+
+Architectural analogy
+
+ARKI example.
+
+13. REGLA DE MANTENIMIENTO
+
+El Master Codebook deberá convertirse en documentación viva.
+
+A partir de su aprobación:
+
+todo nuevo código oficial de ARKI deberá registrarse en el Codebook o ser referenciado por él.
+
+Ningún nuevo identificador deberá reutilizar un código existente con otro significado.
+
+No renumerar códigos históricos.
+
+No borrar códigos obsoletos.
+
+Marcarlos:
+
+SUPERSEDED o HISTORICAL.
+
+Mantener trazabilidad.
+
+14. NO HACER
+
+Esta orden NO autoriza:
+
+modificar producto;
+modificar BIM Kernel;
+modificar BKH1/2/3/4;
+implementar BKH4-3;
+modificar Transaction Engine;
+resolver defects de 95A;
+implementar IFC;
+implementar Smart Cities;
+implementar Urban Digital Twin;
+crear agentes;
+crear motores;
+cambiar arquitectura;
+renombrar archivos históricos;
+reescribir commits;
+declarar capacidades nuevas.
+
+DOCUMENTATION ONLY.
+
+15. ENTREGABLES OBLIGATORIOS
+
+Crear:
+
+ARKI_MASTER_CODEBOOK.md
+
+ARKI_MASTER_PROJECT_MAP.md
+
+ARKI_CODEBOOK_FOR_ARCHITECT.md
+
+ARKI_CODE_CROSSWALK.md
+
+ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md
+
+ARKI_CODEBOOK_OPEN_ITEMS.md
+
+ARKI_CODEBOOK_EVIDENCE_INDEX.md
+
+ARKI_CODEBOOK_MANIFEST.json
+
+Incluir SHA-256 de todos los entregables.
+
+16. CONTROL DE CALIDAD
+
+Antes de cerrar:
+
+detectar códigos duplicados;
+detectar códigos sin definición;
+detectar definiciones contradictorias;
+detectar códigos reutilizados;
+detectar códigos históricos presentados incorrectamente como actuales;
+detectar códigos internos presentados como estándares externos;
+verificar crosswalk;
+verificar evidencias;
+verificar que UNKNOWN permanezca UNKNOWN;
+confirmar cero modificaciones de producto/Kernel.
+17. ESTADO DE CIERRE
+
+No autodeclarar el Codebook como canónico.
+
+Estado máximo permitido:
+
+ARKI MASTER CODEBOOK v0.1 — FORENSIC DRAFT / PENDING HUMAN & INDEPENDENT REVIEW
+
+Reportar:
+
+baseline;
+fuentes inspeccionadas;
+cantidad total de códigos encontrados;
+cantidad CURRENT;
+cantidad HISTORICAL;
+cantidad SUPERSEDED;
+cantidad UNKNOWN;
+contradicciones encontradas;
+open items;
+archivos creados;
+manifest;
+hashes;
+ZIP SHA-256.
+
+STOP.
+
+Esperar revisión independiente y autorización del Product Owner antes de declarar:
+
+ARKI MASTER CODEBOOK — CANONICAL.

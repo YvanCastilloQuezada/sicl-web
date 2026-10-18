@@ -1,0 +1,374 @@
+# MICRO-ORDEN DE CIERRE — FASE A
+
+## ORDEN MAESTRA 001 v1.2.1
+
+**Estado:** AUTORIZADA
+**Alcance:** exclusivamente cierre y verificación puntual de Fase A
+**No autoriza:** inicio de Fase B ni modificación de otras órdenes
+
+---
+
+## 1. OBJETIVO
+
+Realizar únicamente la verificación puntual necesaria para determinar si la **Fase A de la Orden Maestra 001 v1.2.1** puede cerrarse formalmente.
+
+No realizar una auditoría general del sistema.
+
+No reconstruir componentes.
+
+No desarrollar nuevas funcionalidades fuera de los puntos indicados.
+
+No iniciar Fase B.
+
+---
+
+# 2. PUNTOS A VERIFICAR
+
+Verificar únicamente los siguientes puntos:
+
+### A. Mobile Shell
+
+Confirmar que la estructura rescatada de Mobile Shell es realmente la utilizada por la experiencia actual y no solamente un conjunto de componentes existentes.
+
+Indicar:
+
+* qué estructura/componente actúa como Mobile Shell;
+* dónde está integrado;
+* qué rutas/superficies utiliza;
+* qué elementos comunes proporciona.
+
+No crear otro Mobile Shell si ya existe uno funcional.
+
+---
+
+### B. L★ GLOBAL
+
+Confirmar que L★ está integrado en el Mobile Shell y no solamente en una página particular.
+
+Verificar específicamente:
+
+1. L★ aparece en el contexto móvil correspondiente.
+
+2. Está ubicado en la zona superior izquierda.
+
+3. El toque corto abre directamente el QR contextual.
+
+4. La resolución del QR sigue la prioridad:
+
+   **Active Experience → Authorized Session → Public LUKA**
+
+5. Si no existe contexto autorizado, utiliza el QR público de LUKA.
+
+6. Cerrar el QR devuelve al usuario exactamente al estado anterior.
+
+7. QR ≠ autorización.
+
+8. No se conceden permisos o roles por escanear un QR.
+
+Indicar el componente/ruta responsable y la evidencia concreta de integración.
+
+---
+
+### C. LUKA UNIVERSAL ENTRY
+
+Confirmar que `LukaUniversalEntry` fue realmente **rescatado e integrado**, y no solamente conservado como archivo existente.
+
+Verificar:
+
+* si está importado;
+* si está conectado a una ruta o flujo real;
+* desde qué punto de entrada puede utilizarse;
+* qué funcionalidades existentes fueron reutilizadas;
+* qué elementos fueron excluidos por pertenecer a laboratorio/demo.
+
+Si finalmente no fue integrado funcionalmente, declararlo explícitamente como:
+
+**NOT DEMONSTRATED / PARTIAL**
+
+No crear una segunda versión paralela de LUKA Entry para ocultar esta situación.
+
+---
+
+### D. PRESENCIA PÚBLICA DE LUKA
+
+Verificar que la entrada pública actual de LUKA:
+
+* presenta a LUKA como presencia central;
+* no se comporta como dashboard técnico;
+* no expone innecesariamente herramientas de laboratorio;
+* no convierte a LUKA en un super-agente;
+* mantiene la separación entre LUKA, agentes, servicios, engines y capabilities.
+
+No realizar todavía una reconstrucción estética completa.
+
+La evaluación visual profunda corresponde a Fase B.
+
+---
+
+### E. AGENTES / SERVICIOS DE FASE A
+
+Entregar únicamente un mapa **enfocado** de los agentes, servicios, engines, adapters, context/intent y capability gates que realmente participan o son relevantes para Fase A.
+
+No desarrollar agentes nuevos salvo que exista una dependencia técnica imprescindible.
+
+Distinguir claramente:
+
+* AGENT
+* SERVICE
+* ENGINE
+* ADAPTER
+* CAPABILITY
+* AUTHORITY
+
+Confirmar expresamente que:
+
+**LUKA NO ES UN SUPER-AGENTE.**
+
+Ningún agente adquiere autoridad sobre MJP CORE.
+
+---
+
+# 3. SECURITYHEALTH
+
+No ejecutar una auditoría de seguridad general.
+
+Únicamente determinar el significado del fallo informado:
+
+**`securityHealth`: DENY frente a expectativa histórica SAMEORIGIN**
+
+Clasificarlo en una de estas categorías:
+
+* **A — Test/contrato histórico desactualizado**
+* **B — Comportamiento actualmente incorrecto**
+* **C — No puede determinarse con la evidencia disponible**
+
+Explicar brevemente por qué.
+
+Si corresponde a A, registrar que requiere una futura micro-orden de corrección del contrato/test.
+
+Si corresponde a B y representa un riesgo que afecta directamente la continuación segura del proyecto:
+
+**STOP → INFORMAR → ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.**
+
+No resolver una deuda de seguridad general dentro de esta micro-orden.
+
+---
+
+# 4. SHARETARGET / QR
+
+No desarrollar nuevas funciones.
+
+Indicar únicamente el estado actual de la validación del flujo:
+
+**L★ → QR contextual → ShareTarget publicado**
+
+Si todavía no existe una validación con un ShareTarget publicado real, registrar:
+
+**IMPLEMENTADO / VALIDACIÓN PENDIENTE**
+
+No declararlo como físicamente validado ni completamente demostrado.
+
+---
+
+# 5. ORDEN 60
+
+Mantener expresamente:
+
+**ORDEN 60 — ABIERTA — PENDIENTES**
+
+La presente micro-orden:
+
+* no cierra la Orden 60;
+* no cancela la 60.1;
+* no redefine sus pendientes;
+* no convierte pendientes de seguridad en controles completados.
+
+Si alguna modificación de Fase A hubiera afectado directamente un control pendiente de Orden 60, indicarlo.
+
+---
+
+# 6. MJP CORE
+
+Confirmar únicamente que Fase A no modificó:
+
+* juegos;
+* RNG;
+* RTP;
+* reglas;
+* wallet;
+* liquidación;
+* MjpTvManifest;
+* autoridad del MJP CORE;
+* ni ninguna otra lógica protegida.
+
+No realizar cambios en MJP CORE.
+
+---
+
+# 7. RESCUE_AUDIT_001.md
+
+Actualizar o completar `RESCUE_AUDIT_001.md` con el resultado de esta microverificación.
+
+Debe incluir como mínimo:
+
+* Orden de origen: Orden Maestra 001 v1.2.1
+* Fase: A
+* estado de la Orden 60 al momento de la verificación;
+* puntos verificados;
+* evidencia utilizada;
+* componentes rescatados;
+* componentes nuevos, si los hubiera;
+* tests ejecutados;
+* resultado de `securityHealth`;
+* estado del QR contextual;
+* limitaciones;
+* elementos NOT DEMONSTRATED;
+* elementos fuera de alcance;
+* impacto sobre MJP CORE;
+* conclusión de cierre de Fase A.
+
+---
+
+# 8. ESTADOS OBLIGATORIOS
+
+No utilizar simplemente:
+
+**READY / COMPLETE / PRODUCTION READY**
+
+Utilizar estados verificables:
+
+* IMPLEMENTED
+* INTEGRATED
+* FUNCTIONAL
+* TESTED
+* PARTIAL
+* SIMULATED
+* NOT_DEMONSTRATED
+* EXTERNAL_REQUIRED
+* REQUIRES_HUMAN
+* BLOCKED
+* NOT_IMPLEMENTED
+
+La existencia de código no equivale a funcionalidad demostrada.
+
+Un test automatizado no equivale a validación física.
+
+---
+
+# 9. NO EXPANSIÓN DE ALCANCE
+
+Esta micro-orden NO autoriza:
+
+* Fase B;
+* rediseño completo de LUKA;
+* reconstrucción del Mobile Shell;
+* desarrollo de Mapper;
+* desarrollo de The Eye;
+* Universal Controller;
+* nuevos agentes;
+* producción de Voice;
+* AR productivo;
+* TV;
+* nuevas experiencias;
+* nuevas funciones comerciales;
+* modificaciones de MJP CORE;
+* auditoría general de seguridad.
+
+Si detectas una mejora necesaria fuera de este alcance, **registrarla como pendiente y no implementarla**.
+
+---
+
+# 10. CRITERIO DE CIERRE
+
+La Fase A podrá declararse:
+
+**🟢 CERRADA CON OBSERVACIONES**
+
+si los puntos A–E están implementados/integrados de manera demostrable y las observaciones restantes no bloquean la continuación.
+
+Si alguno de los puntos fundamentales no puede demostrarse:
+
+**🟡 FASE A PARCIAL — NO CERRAR**
+
+Si existe una regresión grave o riesgo de seguridad directamente relacionado con el trabajo realizado:
+
+**🔴 BLOQUEADA**
+
+---
+
+# 11. RESPUESTA OBLIGATORIA DE MANUS
+
+Entregar una respuesta breve y verificable con esta estructura:
+
+### 1. Estado final de Fase A
+
+🟢 CERRADA
+🟡 PARCIAL
+🔴 BLOQUEADA
+
+### 2. Tabla
+
+| Punto                     | Estado | Evidencia |
+| ------------------------- | ------ | --------- |
+| Mobile Shell              |        |           |
+| L★ global                 |        |           |
+| QR contextual             |        |           |
+| LUKA Universal Entry      |        |           |
+| Presencia pública de LUKA |        |           |
+| Agentes/Servicios Fase A  |        |           |
+| SecurityHealth            |        |           |
+| MJP CORE                  |        |           |
+
+### 3. Tests
+
+Indicar únicamente los tests ejecutados para esta verificación y su resultado.
+
+### 4. `RESCUE_AUDIT_001.md`
+
+Indicar si fue actualizado y qué información contiene.
+
+### 5. Pendientes
+
+Separar claramente:
+
+* pendientes de Fase A;
+* pendientes de Orden 60;
+* pendientes futuras.
+
+### 6. Estado de las fases siguientes
+
+Declarar expresamente:
+
+**FASE B — NO INICIADA.**
+
+---
+
+# 12. REGLA FINAL
+
+Una vez entregado este informe:
+
+**DETENER LA EJECUCIÓN.**
+
+No iniciar Fase B.
+
+No ejecutar nuevas órdenes.
+
+Esperar revisión y autorización expresa de:
+
+**HUMAN AUTHORITY.**
+
+La siguiente decisión será tomada después de revisar esta respuesta.
+
+---
+
+## PRINCIPIO DE ESTA MICRO-ORDEN
+
+**VERIFICAR LO NECESARIO.
+NO AUDITAR TODO.
+NO EXPANDIR EL ALCANCE.
+NO OCULTAR PENDIENTES.
+NO INICIAR LA SIGUIENTE FASE SIN AUTORIZACIÓN.**
+
+**MANUS IMPLEMENTA.
+MANUS DEMUESTRA.
+HUMAN AUTHORITY DECIDE.**

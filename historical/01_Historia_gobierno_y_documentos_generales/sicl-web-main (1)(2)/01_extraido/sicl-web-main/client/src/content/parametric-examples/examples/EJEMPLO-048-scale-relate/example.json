@@ -1,0 +1,43 @@
+{
+  "exampleId": "EJEMPLO-048",
+  "title": "Ejemplo 048 · /SCALE RELATE",
+  "commandName": "/SCALE RELATE",
+  "category": "scale",
+  "syntax": "/SCALE RELATE <parent_id> <child_id> <relation_type>",
+  "command": "/SCALE RELATE PARENT-ID-001 CHILD-ID-001 ARCHITECTURAL",
+  "arguments": [
+    {
+      "name": "parent_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "PARENT-ID-001"
+    },
+    {
+      "name": "child_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "CHILD-ID-001"
+    },
+    {
+      "name": "relation_type",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ARCHITECTURAL"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /SCALE RELATE.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

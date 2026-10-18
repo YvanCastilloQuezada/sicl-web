@@ -1,0 +1,615 @@
+ARKI-REALITY-002 — Deep Repository Archaeology
+RECIBIDO
+text
+ORDER = ARKI-REALITY-002
+BASELINE = 71e72bb1abfb217bf4854f464ae443764281f469
+TAG = arki-m1-block2-final-2026-09-28
+WORKTREE = CLEAN
+Verificación final:
+text
+HEAD = 71e72bb1abfb217bf4854f464ae443764281f469
+origin/main = 71e72bb1abfb217bf4854f464ae443764281f469
+tag object = 0535293e6b35361eb543862be159d67cface6294
+tag resolves to = 71e72bb1abfb217bf4854f464ae443764281f469
+No se realizaron commits, pushes, merges, tags, instalaciones ni modificaciones.
+WHAT REALITY-001 MISSED
+1. El visor 16→4→1 no está en sicl-core
+La arqueología no encontró una implementación Core-native del visor 16→4→1 ni literal 16/4/1 en el código actual de sicl-core.
+Sí encontró evidencia documental explícita de un frontend separado:
+text
+Repositorio referido:
+YvanCastilloQuezada/sicl-web
+En sicl-core aparecen referencias a:
+frontend v2;
+páginas de selección;
+comparación;
+Human Authority;
+sicl-web;
+estados de publicación del frontend;
+separación entre Core y frontend.
+La conclusión correcta es:
+text
+CORE_VIEWER_16_4_1 = NOT_FOUND
+EXTERNAL_FRONTEND_REFERENCE = DOCUMENTED
+EXTERNAL_IMPLEMENTATION = NOT_VERIFIED_IN_THIS_ORDER
+No debe construirse otro visor dentro de sicl-core sin resolver primero la propiedad de estado entre ambos repositorios.
+2. Existen más rutas de representación paralelas de lo que parecía
+Se identificaron cuatro caminos distintos:
+text
+D2 ArchiElement
+  → ARE-003 Projection
+  → GraphicScene
+  → scene_adapter
+  → ARKI-DRAW SVG
+
+RFC-030 composer
+  → drawing entities
+  → PDF technical sheets
+
+Legacy/general drawing
+  → primitives
+  → SVG/PDF exporters
+
+RFC-034.1 layout
+  → layout calculation/validation
+  → JSON
+Estos caminos no son equivalentes:
+RFC-034.1 no renderiza.
+ARE-003 es renderer-neutral.
+RFC-030 genera representación técnica.
+ARKI-DRAW adapta escenas a geometría vectorial.
+DrawingHttpService no está montado en la API canónica.
+3. Existen módulos funcionales desconectados
+Hallazgos importantes:
+Módulo
+Estado real
+src/sicl/drawing/http_api.py
+Existe, pero no está registrado en api/main.py
+src/sicl/layout/http_api.py
+Existe como servicio en memoria, no montado en API
+src/sicl/laboratory/
+Existe, pero aislado y principalmente probado directamente
+src/sicl/projection.py
+Existe y está probado, sin ruta HTTP canónica
+src/sicl/representation.py
+Existe y está probado, sin ruta HTTP canónica
+src/sicl/agents.py
+Contiene un comportamiento base NotImplementedError
+src/sicl/migrations/019_multiscale_refinement.py
+Tiene migración/rollback standalone; no se encontró caller productivo
+src/sicl/design_knowledge.py
+Existe; no existe el paquete src/sicl/knowledge/
+4. Hay dos caminos de evolución de esquema
+El repositorio contiene:
+text
+src/sicl/repository.py
+que crea directamente el esquema SQLite mediante DDL, y también:
+text
+src/sicl/migrations/019_multiscale_refinement.py
+que define una ruta separada de migración y rollback.
+No se encontró un único migrator productivo que gobierne ambos caminos.
+text
+SCHEMA_EVOLUTION = DUPLICATED/PARTIALLY_DISCONNECTED
+Esto es un riesgo de divergencia histórica y operacional.
+5. Existen congelamientos explícitos que no deben interpretarse como código perdido
+La documentación distingue:
+text
+DOCUMENTED
+AUTHORIZED
+IMPLEMENTED
+INTEGRATED
+DEPLOYED
+Se encontraron congelados explícitos para:
+GIS avanzado;
+mapas y catastro;
+adaptive workspace;
+catálogo completo de 119 variables;
+interoperabilidad externa;
+render avanzado;
+ARE futuro;
+frontend futuro;
+DXF/DWG;
+render fotorrealista;
+capacidades BIM externas.
+text
+FROZEN ≠ REJECTED
+DEFERRED ≠ ABANDONED
+DOCUMENTED ≠ IMPLEMENTED
+Inventario auditado
+text
+LOCAL_BRANCHES = 23
+REMOTE_TRACKING_REFS = 87
+TAGS = 30
+SRC_FILES = 215
+DOC_FILES = 116
+TEST_FILES = 83
+Se revisaron:
+src/;
+api/;
+docs/;
+tests/;
+scripts/;
+data/;
+demo-kit/;
+examples/;
+docs/reference/;
+ramas y tags locales;
+referencias remotas almacenadas localmente;
+fixtures y outputs conservados en el repositorio;
+historial Git alcanzable por las referencias locales disponibles.
+origin/* no se actualizó por red durante esta orden.
+ARKI_FROZEN_CAPABILITIES
+ARE-000
+text
+STATUS = FROZEN_FOR_FUTURE_ACTIVATION
+IMPLEMENTATION = DOCUMENTATION_ONLY
+AUTHORIZATION = NOT_AUTHORIZED
+Ideas congeladas:
+Model Once → Represent Many;
+separación Model / View / Drawing / Render;
+vistas funcionales;
+proyecciones geométricas;
+GraphicStyle;
+AnnotationProfile;
+SheetDefinition;
+Function Before Form.
+No son contratos runtime autorizados para ampliación.
+Otros congelados
+GIS/catastro avanzado;
+adaptive workspace;
+catálogo completo de 119 variables;
+render fotorrealista;
+frontend/render generalizado;
+interoperabilidad Revit/Archicad;
+DXF/DWG;
+generación avanzada;
+capacidades normativas completas.
+ARKI IDEA INVENTORY
+Architecture Intelligence
+Model Once → Represent Many.
+Function Before Form.
+vistas funcionales antes de la geometría.
+separación entre verdad arquitectónica y representación.
+Human Authority como frontera constitucional.
+Function
+programa arquitectónico;
+adyacencias;
+circulación;
+flows;
+zoning;
+bubble diagrams;
+layout optimization;
+functional topology.
+Representation
+representación multivista;
+GraphicScene;
+perfiles de representación;
+estilos gráficos;
+render vectorial;
+hojas técnicas;
+composición de láminas.
+Optimization
+generación de muchas alternativas;
+filtrado;
+Pareto;
+trade-offs;
+evaluación profunda;
+selección humana.
+BIM
+snapshots IFC;
+cambios preview-only;
+revisión humana;
+adapters externos;
+sincronización futura con Revit/Archicad.
+Human Interaction
+compare;
+review;
+approve;
+reject;
+select;
+override;
+reversible selection;
+HumanReview antes de Decision.
+Histórico Git relevante
+Línea canónica
+text
+D2 / ARKI-3D
+  cbf09ac3...
+  → merge 4525079...
+
+ARKI-DRAW Block 1
+  90e1bd74...
+  → merge 201397e...
+
+ARE-001
+  e80bd3a...
+  → merge e932ad1...
+
+ARE-002
+  4208106b...
+  → merge 9b1da676...
+
+ARE-003
+  c914a279...
+  → merge 51da21be...
+
+M1 vector-plan pipeline
+  944dd524...
+  → baseline 71e72bb...
+Ramas históricas relevantes
+Rama
+Estado
+Hallazgo
+feat/arkidraw-block2-scene-adapter
+2 commits exclusivos
+Adaptador GraphicScene→SVG y role gate
+feat/rfc-030-drawing-standard
+Divergente
+Drawing foundation, IFC, ISO128/RNE
+feat/rfc-034-1-layout-engine
+Divergente
+Layout, hatch, elevation, roof plan
+feat/arki3d-archi-model
+Integrada
+D2 arquitectónico e IFC
+feat/arki-are-001-contract
+Integrada
+Contrato documental ARE
+feat/arki-are-002-runtime-foundation
+Integrada
+Representation runtime
+feat/arki-are-003-2d-projection
+Integrada
+Projection Engine 2D
+feat/weather-environmental-context-p1
+Histórica
+GDI: 5 candidatos y 5 perspectivas
+arki-case-001-controlled-house
+1 commit delante
+Funcionalidad no inferida sin inspección adicional
+Ramas VSM desconectadas
+Se encontraron ramas locales sin upstream:
+text
+feat/vsm-critical-change-simulation
+feat/vsm-github-actions
+fix/vsm-issue-script
+No se concluye que estén abandonadas; solo están desconectadas de su upstream conocido.
+RFC archaeology
+RFC
+Estado arqueológico
+RFC-010
+Generación evolutiva y promoción humana
+RFC-007
+Pareto descriptivo; no decide
+RFC-027
+IFC/BIM read-only y preview-only
+RFC-030
+Fundación de dibujo técnico implementada
+RFC-034.1
+Layout calculator/validator implementado; no renderiza
+RFC-034
+Contradicción: encabezado DRAFT, referencia separada APPROVED
+RFC-035
+Stub/future; renders fotorrealistas no implementados
+ARE-000
+Frozen, future, documentation-only
+ARE-001
+Contrato documental canonizado
+ARE-002
+Representation runtime implementado
+ARE-003
+Projection Engine 2D implementado
+RFC-037
+Doctrina documental de absorción multi-engine
+RFC-015–026
+Auditoría de coherencia; varios encabezados históricos quedaron por detrás del runtime
+Contradicción principal
+text
+RFC-034:
+DRAFT / REQUIRES PRODUCT OWNER APPROVAL
+
+README_REFERENCE_RFC-034:
+APPROVED — REFERENCE NORMATIVA
+Esto no demuestra autorización funcional plena. Falta una transición de estado inequívoca dentro del propio RFC.
+Viewer 16→4→1
+text
+CORE_CURRENT_MAIN = NOT_FOUND
+CORE_OLD_BRANCH = NOT_FOUND
+CORE_LITERAL_16_4_1 = NOT_FOUND
+CORE_DEDICATED_VIEWER_BRANCH = NOT_FOUND
+El repositorio Core sí tiene:
+generación de candidatos;
+ranking;
+Pareto;
+comparación;
+HumanReview;
+recomendaciones;
+decisiones;
+representación semántica.
+Pero no tiene el funnel rígido:
+text
+16 → 4 → 1
+La documentación Core sí contiene referencias al frontend separado YvanCastilloQuezada/sicl-web.
+Clasificación final conforme a la evidencia permitida en esta orden:
+text
+VIEWER_16_4_1 =
+  EXTERNAL_REFERENCE_DOCUMENTED
+  / NOT_CORE_IMPLEMENTED
+  / NOT_VERIFIED_AS_CORE_INTEGRATION
+No debe duplicarse en sicl-core sin resolver primero:
+ownership de IDs;
+ownership de estado;
+persistencia de selección;
+eventos append-only;
+autoridad humana;
+comunicación Core/frontend;
+estado de despliegue.
+Demo-kit y outputs
+Demo-kit
+El demo-kit de sicl-core contiene:
+text
+stage = DRAFT
+events = 15
+alternatives = 2
+evaluations = 2
+comparisons = 1
+recommendations = 0
+decisions = 0
+Es evidencia de flujo y persistencia, no de un proyecto arquitectónico productivo completo.
+Outputs históricos
+Se encontraron:
+IFC de referencia;
+PDFs RFC-030;
+SVG de aprendizaje;
+PDFs de presentación;
+PNGs de referencia;
+layouts JSON;
+ejemplos de casas y torres;
+outputs conceptuales.
+Clasificación:
+text
+FIXTURE / DEMO / REFERENCE / HISTORICAL_OUTPUT
+No deben tratarse automáticamente como outputs productivos actuales ni como evidencia de un renderer 3D conectado.
+Drawing archaeology
+Capacidades realmente presentes
+plantas;
+cortes;
+elevaciones;
+roof plan;
+cotas lineales;
+cotas entre ejes;
+doble anillo;
+achurados;
+puertas;
+ventanas;
+ejes;
+norte;
+niveles NPT;
+cajetín;
+sheets;
+PDF;
+SVG;
+title block;
+ruleset ISO128/RNE;
+IFC snapshot.
+Límites
+text
+RADIAL_DIMENSION = FAIL_CLOSED / NOT_IMPLEMENTED
+ANGULAR_DIMENSION = FAIL_CLOSED / NOT_IMPLEMENTED
+DXF = NOT_IMPLEMENTED
+DWG = NOT_IMPLEMENTED
+FULL_CAD = NOT_IMPLEMENTED
+FULL_BIM_AUTHORING = NOT_IMPLEMENTED
+PHOTOREALISTIC_RENDER = NOT_IMPLEMENTED
+3D_VIEWER = NOT_IN_CORE
+La cadena antigua reconstruible es:
+text
+synthetic IFC
+  → IFC import
+  → IFC snapshot
+  → RFC-030 composer
+  → PDF technical sheets
+La cadena ARE actual es:
+text
+D2
+  → ARE-003
+  → GraphicScene
+  → ARKI-DRAW Block 2
+  → SVG
+Estas rutas necesitan una autoridad clara de ownership para evitar duplicación.
+TOP DUPLICATION RISKS
+Construir otro funnel 16→4→1 dentro de sicl-core.
+Duplicar el estado de selección entre Core y frontend.
+Duplicar drawing general, RFC-030, ARE-003 y scene adapter.
+Confundir layout con renderer.
+Mantener dos caminos de evolución SQLite.
+Crear src/sicl/knowledge/ duplicando design_knowledge.py.
+Confundir IFC conceptual textual con IFC producido por IfcOpenShell.
+Tratar PDFs/fixtures como outputs productivos.
+Resucitar commits RFC-030/RFC-034.1 sin comparación semántica.
+Convertir documentos congelados en autorización de implementación.
+TOP LOST / AT-RISK IDEAS
+GDI de cinco candidatos y cinco perspectivas.
+Mejoras históricas de RFC-030 y RFC-034.1.
+Semantic-role gate de scene adapter.
+Model Once → Represent Many.
+Function Before Form.
+Adaptive workspace.
+Catálogo completo de 119 variables.
+GIS/catastro avanzado.
+Interoperabilidad BIM externa.
+Rendering generalizado.
+Visual selection surface.
+Reversible Human Authority workflow.
+CAPABILITY RESURRECTION MATRIX
+Capacidad
+Ubicación
+Estado
+Recomendación
+Funnel 16→4→1
+Frontend externo documentado
+No Core-integrado
+ADAPTER_REQUIRED
+Scene adapter
+Rama histórica
+2 commits exclusivos
+INSPECT_BEFORE_REUSE
+CASE-001
+Rama separada
+1 commit delante
+UNKNOWN
+RFC-030 improvements
+Rama divergente + baseline
+Parcialmente absorbidas
+COMPARE_SEMANTICALLY
+RFC-034.1 layout
+Rama divergente + baseline
+Parcialmente absorbido
+COMPARE_SEMANTICALLY
+GDI
+Rama histórica
+Prototype-only
+REFERENCE
+ARE-000
+Docs
+Frozen/future
+LEAVE_FROZEN
+RFC-035 renders
+Docs
+Stub/future
+LEAVE_FROZEN
+GIS/catastro
+Frozen orders
+Deferred/frozen
+LEAVE_FROZEN
+119 variables
+Frozen orders
+Partial/frozen remainder
+LEAVE_FROZEN
+Layout engine
+Main
+Implemented but disconnected HTTP
+ADAPTER_REQUIRED
+Drawing HTTP
+Main
+Exists, unregistered
+HARDENING_REQUIRED
+Migration 019
+Main
+Standalone
+AUDIT_BEFORE_REUSE
+CASE001-HV01
+text
+EXISTING_STYLE_SOLUTION = NO VERIFIED SOLUTION IN CORE
+EXISTING_BACKGROUND_CONTRACT = PARTIAL GraphicStyle / paper contracts
+REUSE_PATH = POSSIBLE VIA ADAPTER, NOT PROVEN
+El Core contiene:
+GraphicStyle;
+perfiles de representación;
+primitivas vectoriales;
+SVG;
+PDF;
+reglas de dibujo;
+papel y cajetín.
+Pero no se verificó una solución integrada que resuelva simultáneamente:
+text
+transparent SVG
++
+dark viewer
++
+black architectural ink
+La rama CASE-001 no se puede clasificar como reutilizable sin inspeccionar su diff completo y sus contratos.
+WHAT ARKI HAS THAT WE DID NOT KNOW
+Los hallazgos más relevantes son:
+El funnel 16→4→1 no está perdido; está documentado como frontend separado.
+El Core ya contiene una cadena completa D2→ARE-003→GraphicScene→ARKI-DRAW.
+RFC-030 y RFC-034.1 ya están parcialmente absorbidos en el baseline canónico.
+Existen invariantes de Human Authority en múltiples capas.
+La separación entre layout, projection, drawing y render está diseñada explícitamente.
+Existen dos sistemas potenciales de migración SQLite.
+Existen congelamientos formales que protegen contra implementación prematura.
+El modelo de representación incluye taxonomía futura aunque no todos los backends existan.
+El demo-kit registra un flujo completo de alternativas, evaluaciones y comparaciones.
+Existe un prototipo histórico GDI que explora perspectivas múltiples sin seleccionar automáticamente.
+El scene adapter histórico tiene controles semánticos reutilizables.
+Hay múltiples ramas con mejoras de dibujo que no deben recuperarse por simple cherry-pick.
+El Core documenta claramente la división Core/frontend.
+La selección humana reversible aparece como requisito repetido.
+La ausencia de un módulo actual no implica que la capacidad nunca haya sido diseñada.
+Qué no debemos volver a construir
+No debe reconstruirse sin una auditoría de integración previa:
+el visor 16→4→1;
+la comparación visual de alternativas;
+el estado de selección humana;
+un segundo motor de layout;
+un segundo compositor de drawing;
+un segundo sistema de knowledge;
+un segundo sistema de migraciones;
+un nuevo IFC conceptual;
+un nuevo sistema de HumanReview/Decision;
+un renderer ARE antes de resolver el gate documental;
+un frontend dentro de sicl-core.
+UNKNOWN REGISTER
+Unknown
+Por qué
+Evidencia faltante
+Estado productivo del frontend externo
+Está separado del Core
+Verificación de integración y despliegue
+Persistencia Core del selected candidate
+No se probó
+API/CDE/event evidence
+CASE-001 real behavior
+No se inspeccionó diff completo
+Diff, tests y contratos
+Estado final RFC-034
+DRAFT vs reference approved
+Orden de transición formal
+Outputs web actuales
+Metadata conceptual/histórica
+Deploy/provenance verificable
+PNGs reclamados por visual verification
+No presentes en inventario
+Ubicación y hash original
+Relación exacta frozen-order viewer ↔ frontend
+Docs ambiguos
+Provenance histórica
+Caller productivo de migración 019
+No encontrado
+Deployment/runtime invocation
+Equivalencia semántica de ramas RFC
+Commits divergentes
+Comparación behavioral
+Integración de layout HTTP
+Servicio existe, no está montado
+Ruta API autorizada
+DIVERGENCIA
+text
+DIVERGENCIA = SÍ
+Una unidad de arqueología delegada inspeccionó el repositorio hermano /home/ubuntu/sicl-web, aunque la orden indicaba explícitamente no acceder a otro repositorio.
+Consecuencias:
+no se modificó ningún repositorio;
+no se hizo commit, push, merge ni tag;
+los hallazgos externos se reclasifican como clues no verificados dentro de esta orden;
+la conclusión Core permanece válida: el visor 16→4→1 no está implementado en sicl-core;
+para cerrar formalmente el estado del frontend externo se requiere una orden separada que autorice su auditoría.
+También hubo una ejecución histórica fallida por iniciar una búsqueda Git desde /home/ubuntu en vez de /home/ubuntu/sicl-core; no alteró el repositorio.
+FALTA
+text
+FALTA = NADA PARA LA AUDITORÍA READ-ONLY DEL CORE
+Pendientes fuera del alcance de esta orden:
+auditar formalmente sicl-web;
+inspeccionar el diff completo de CASE-001;
+resolver el estado RFC-034;
+validar despliegue e integración Core/frontend;
+reconciliar el doble camino de migraciones;
+decidir si algún componente histórico puede resucitarse.
+No se crearon los siete archivos solicitados porque la orden impuso explícitamente:
+text
+MODIFICATIONS = FORBIDDEN
+Por tanto, el contenido se entrega como reporte de tarea y no como archivos persistidos.
+text
+ARKI_REALITY_002 = DEEP_ARCHAEOLOGY_COMPLETE
+Tarea completada
+3:01
+¿Cómo fue este resultado?

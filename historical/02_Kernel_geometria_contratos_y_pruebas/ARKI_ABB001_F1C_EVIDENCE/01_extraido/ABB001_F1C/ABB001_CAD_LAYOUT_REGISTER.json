@@ -1,0 +1,9 @@
+{
+  "schema":"ARKI-ABB001-CAD-LAYOUT-REGISTER-1.0",
+  "status":"NOT_EXECUTED",
+  "spaces":[],
+  "layouts":[],
+  "viewports":[],
+  "xrefs":[],
+  "note":"Paper/model space and layout records require a DWG parser."
+}

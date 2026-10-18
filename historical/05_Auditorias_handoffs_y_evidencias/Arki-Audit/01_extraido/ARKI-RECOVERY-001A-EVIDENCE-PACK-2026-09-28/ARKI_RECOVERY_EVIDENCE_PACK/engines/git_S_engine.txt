@@ -1,0 +1,30 @@
+[33m34617e0[m test(case): add controlled house E2E validation
+[33mc914a27[m fix(are): enforce projection view semantics
+[33mfaf8d4e[m feat(are): implement 2d architectural projection
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m155a330[m fix(arkidraw): close Block 1 material findings
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33md5df55c[m feat(d2.2r): resolve material architectural model findings
+[33m3ae67e3[m feat(d2.1): connect architectural transaction to H003-H005
+[33m79b3a80[m feat(d2): add deterministic architectural model and IFC export
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+[33m96dab57[m feat(a002): unify v1.4 policy identity and authority contracts
+[33m4d932c2[m feat(arkidraw): add deterministic drawing primitives and SVG export
+[33m8b1b6c2[m feat(A-002): implement input sufficiency engine and gate
+[33m1bf02bc[m test(H-005): harden causal propagation and fail-closed behavior
+[33m19232fb[m feat(H-005): implement selective recomputation engine
+[33mac240d5[m docs(governance): declare patched baseline and preserve orders
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mf8ec89b[m feat(vsm): add weekly master registry and detector
+[33m39b7798[m docs(arki): record phase1 multi-master learning
+[33m5fa7138[m feat(rfc-034.1): sheet composition and layout engine
+[33m90421fb[m docs: add rfc structure and reference folders
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m09449fc[m docs: close multisource knowledge macroorder
+[33m7e0af62[m docs: register generative design knowledge patterns as frozen
+[33m6dd35d3[m fix: normalize spatial synthesis candidates for GDI
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema

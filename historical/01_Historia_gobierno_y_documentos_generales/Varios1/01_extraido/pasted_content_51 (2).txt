@@ -1,0 +1,1025 @@
+ORDEN 55 — CONTRATO TÉCNICO DE TRANSFERENCIA DE CONOCIMIENTO MiLukita
+Puedes enviarla a Manus después de la Orden 54, o mejor aún, como ampliación de la misma si todavía no empezó a ejecutarla.
+ORDEN 55
+CONTRATO TÉCNICO DE TRANSFERENCIA DE CONOCIMIENTO
+MiLukita — KNOWLEDGE TRANSFER CONTRACT (KTC)
+
+========================================================
+OBJETIVO
+========================================================
+
+Generar un CONTRATO TÉCNICO DE TRANSFERENCIA DE CONOCIMIENTO
+del sistema MiLukita.
+
+Este documento NO tiene como objetivo crear código.
+
+NO implementar.
+
+NO reconstruir.
+
+NO modificar.
+
+NO refactorizar.
+
+NO corregir.
+
+NO crear un nuevo proyecto.
+
+Su finalidad es documentar exhaustivamente el conocimiento necesario
+para que un tercero —arquitecto, ingeniero, equipo de desarrollo o
+otra IA— pueda comprender, mantener, auditar y eventualmente continuar
+MiLukita sin depender de las conversaciones originales de Manus.
+
+========================================================
+1. DEFINICIÓN
+========================================================
+
+El documento debe titularse:
+
+CONTRATO TÉCNICO DE TRANSFERENCIA DE CONOCIMIENTO
+MiLukita
+
+Versión 1.0
+
+Debe funcionar como un contrato técnico entre:
+
+ORIGEN:
+Material, código, documentación y conocimiento actualmente existente
+en Manus.
+
+DESTINO:
+Un futuro entorno independiente bajo control del propietario del
+proyecto y/o una IA/equipo de desarrollo externo.
+
+El documento debe establecer:
+
+QUÉ SE TRANSFIERE
+DE DÓNDE PROVIENE
+QUÉ ESTADO TIENE
+QUÉ DEPENDENCIAS TIENE
+QUÉ LIMITACIONES EXISTEN
+QUÉ CONOCIMIENTO ES NECESARIO
+QUÉ REGLAS DEBEN PRESERVARSE
+QUÉ ELEMENTOS NO PUEDEN MODIFICARSE
+QUÉ INFORMACIÓN FALTA.
+
+========================================================
+2. PRINCIPIO FUNDAMENTAL
+========================================================
+
+El conocimiento del sistema NO debe quedar únicamente implícito
+en el código.
+
+Debe quedar explícito y legible para humanos y para IA.
+
+La transferencia debe permitir que una nueva IA pueda comprender
+MiLukita sin haber participado en su desarrollo original.
+
+========================================================
+3. IDENTIDAD DEL SISTEMA
+========================================================
+
+Documentar:
+
+Nombre:
+MiLukita
+
+Identidad:
+LUKA
+
+Universo:
+El Mundo de MiLukita
+
+Componentes conocidos:
+
+LUKA OS
+LUKA AR
+LUKA TV
+LUKA CONNECT
+LUKA DISCOVERY
+LUKA PEOPLE
+LUKA EXPERIENCES
+LUKA ECONOMY
+LUKA AI
+Mapper
+The Eye
+Controller Lab
+World Engine
+WorldObjects
+WorldPoints
+Field Gate
+LUKA Field Voice Copilot
+L★
+QR
+QR Lab
+Remote TV
+
+Explicar cuáles existen realmente en código y cuáles solamente
+están documentados.
+
+========================================================
+4. DEFINICIÓN DE MiLukita
+========================================================
+
+Responder de manera exhaustiva:
+
+¿Qué es MiLukita?
+
+¿Por qué existe?
+
+¿Cuál es su propósito?
+
+¿Cuál es su visión?
+
+¿Cuál es su misión?
+
+¿Qué problema resuelve?
+
+¿Quiénes son sus usuarios?
+
+¿Cuál es la propuesta de valor?
+
+¿Cuál es la relación entre MiLukita y LUKA?
+
+¿Qué diferencia existe entre:
+
+marca
+ecosistema
+plataforma
+agente
+personaje
+unidad de valor
+experiencia
+infraestructura?
+
+No inventar.
+
+Toda conclusión debe indicar su fuente.
+
+========================================================
+5. MODELO CONCEPTUAL
+========================================================
+
+Construir el modelo conceptual completo:
+
+REALIDAD
+↓
+CAPTURA
+↓
+WorldPoint / WorldObject
+↓
+WORLD ENGINE
+↓
+THE EYE
+↓
+HUMAN AUTHORITY
+↓
+PUBLISHED VERSION
+↓
+RUNTIME
+↓
+LUKA AR
+
+Explicar cada etapa.
+
+Indicar:
+
+INPUT
+PROCESS
+OUTPUT
+ACTOR
+AUTHORITY
+DATA
+STATE
+AUDIT
+DEPENDENCIES.
+
+========================================================
+6. ORGANIGRAMA
+========================================================
+
+Incluir tres organigramas:
+
+A. ORGANIGRAMA INSTITUCIONAL
+
+B. ORGANIGRAMA OPERATIVO
+
+C. ORGANIGRAMA TECNOLÓGICO
+
+Además:
+
+D. ORGANIGRAMA DE AGENTES IA
+
+E. ORGANIGRAMA DE AUTORIDAD
+
+Para cada actor:
+
+- función;
+- autoridad;
+- permisos;
+- información;
+- acciones;
+- restricciones.
+
+========================================================
+7. MATRIZ DE RESPONSABILIDAD
+========================================================
+
+Crear una matriz RACI para:
+
+Mapper
+The Eye
+World Engine
+Human Authority
+Copilot
+LUKA
+Controller Lab
+Runtime
+LUKA AR
+QR
+QR Lab
+Remote TV
+Field Gate
+Administración
+Usuarios.
+
+Columnas:
+
+RESPONSIBLE
+ACCOUNTABLE
+CONSULTED
+INFORMED.
+
+Si una asignación es inferida, marcarla como INFERIDA.
+
+========================================================
+8. CONOCIMIENTO DE NEGOCIO
+========================================================
+
+Documentar todas las reglas de negocio conocidas.
+
+Separar:
+
+REGLA
+FUENTE
+IMPLEMENTACIÓN
+ESTADO
+IMPORTANCIA
+RIESGO.
+
+========================================================
+9. CONOCIMIENTO TÉCNICO
+========================================================
+
+Documentar:
+
+Frontend
+Backend
+API
+Database
+ORM
+Authentication
+Authorization
+RBAC
+WebSocket
+Storage
+AR
+Maps
+GPS
+Camera
+Voice
+QR
+Build
+Deployment
+Tests
+Dependencies
+External services.
+
+========================================================
+10. MODELO DE DATOS
+========================================================
+
+Documentar todas las entidades importantes.
+
+Para cada entidad:
+
+NOMBRE
+DESCRIPCIÓN
+CAMPOS
+RELACIONES
+CREACIÓN
+MODIFICACIÓN
+ELIMINACIÓN
+VERSIONADO
+AUDITORÍA
+PERMISOS.
+
+Incluir especialmente:
+
+WorldObject
+WorldPoint
+Claim
+Evidence
+Source
+CaptureSession
+Publication
+Observation
+Sync
+Conflict
+QR
+Experience
+User
+Role
+Permission
+Audit.
+
+========================================================
+11. FLUJOS
+========================================================
+
+Documentar todos los flujos principales.
+
+Por ejemplo:
+
+LOGIN
+SESSION
+GPS
+CAPTURE
+PHOTO
+OBSERVATION
+SAVE
+OFFLINE
+SYNC
+CONFLICT
+EVIDENCE
+VERIFY
+PUBLISH
+RUNTIME
+AR
+QR
+COPILOT
+TV.
+
+Cada flujo debe incluir:
+
+TRIGGER
+ACTOR
+INPUT
+STEPS
+STATE
+OUTPUT
+ERRORS
+AUDIT.
+
+========================================================
+12. MÁQUINAS DE ESTADO
+========================================================
+
+Documentar todas las máquinas de estado encontradas.
+
+No inventar.
+
+Distinguir:
+
+IMPLEMENTED
+DOCUMENTED
+SIMULATED
+UNKNOWN.
+
+========================================================
+13. REGLAS DE AUTORIDAD
+========================================================
+
+Documentar expresamente:
+
+Quién puede capturar.
+
+Quién puede editar.
+
+Quién puede verificar.
+
+Quién puede resolver conflictos.
+
+Quién puede publicar.
+
+Quién puede modificar datos publicados.
+
+Quién tiene autoridad humana final.
+
+Especialmente comprobar:
+
+VERIFIED ≠ PUBLISHED
+
+y:
+
+RUNTIME → solamente PUBLISHED.
+
+========================================================
+14. LUKA COPILOT
+========================================================
+
+Documentar:
+
+IDENTIDAD
+CONTEXTO
+INTENTS
+ACCIONES
+CAPABILITIES
+LIMITACIONES
+VOZ
+FALLBACK
+AUDITORÍA.
+
+Debe quedar explícito:
+
+El Copilot puede asistir.
+
+El Copilot no sustituye Human Authority.
+
+El Copilot no debe verificar verdad.
+
+El Copilot no debe publicar.
+
+El Copilot no debe resolver conflictos salvo que exista
+autorización explícita y documentada.
+
+Separar:
+
+INTENT DETECTED
+
+de:
+
+ACTION EXECUTED.
+
+========================================================
+15. MAPPER
+========================================================
+
+Documentar completamente:
+
+CaptureSession
+GPS
+Camera
+Photo
+Observation
+WorldObject
+WorldPoint
+Evidence
+Offline
+Sync
+Conflict
+History
+Version
+Audit.
+
+Explicar el ciclo completo de captura.
+
+========================================================
+16. THE EYE
+========================================================
+
+Documentar:
+
+Claims
+Sources
+Evidence
+Evidence Matrix
+Confidence
+Conflict
+Resolution
+Version
+Audit
+Human Authority.
+
+Explicar exactamente cómo funciona la transición:
+
+CAPTURED
+→ REVIEW
+→ VERIFIED
+→ PUBLISHED
+
+si dicha transición realmente existe.
+
+Si no está implementada, indicarlo.
+
+========================================================
+17. WORLD ENGINE
+========================================================
+
+Documentar:
+
+WorldObject
+WorldPoint
+territorial state
+versions
+publication
+runtime.
+
+Explicar qué está realmente implementado.
+
+========================================================
+18. LUKA AR
+========================================================
+
+Documentar:
+
+GPS
+Location
+WorldObjects
+WorldPoints
+Published data
+Runtime
+GLB
+GLTF
+Three.js
+A-Frame
+AR.js
+Camera
+Calibration
+Loading
+Fallback.
+
+========================================================
+19. QR / L★
+========================================================
+
+Documentar:
+
+L★
+Public QR
+Context QR
+Experience QR
+Session QR
+QR Lab
+Share Center
+Tokens
+Expiration
+Revocation
+Deep links
+Authorization.
+
+Distinguir:
+
+SHARING
+
+de:
+
+AUTHORIZATION.
+
+========================================================
+20. TV
+========================================================
+
+Documentar:
+
+LUKA TV
+Remote TV
+WebSocket
+Receiver
+Commands
+QR
+Protocol
+Limitations.
+
+Separar:
+
+REAL
+SIMULATED
+UI ONLY.
+
+========================================================
+21. ECONOMÍA
+========================================================
+
+Documentar:
+
+LUKA
+LUKA value
+economy
+rewards
+transactions
+wallet
+points
+tokens
+advertising
+experiences.
+
+Separar completamente de:
+
+MJP CORE.
+
+========================================================
+22. MJP CORE
+========================================================
+
+MJP CORE debe aparecer en el contrato como:
+
+PROTECTED SYSTEM
+READ ONLY
+NO MODIFICATION.
+
+Documentar solamente:
+
+DEPENDENCIES
+INTERFACES
+INTEGRATION POINTS
+DATA EXCHANGES.
+
+NO reinterpretar reglas de MJP CORE.
+
+========================================================
+23. SEGURIDAD
+========================================================
+
+Documentar:
+
+Authentication
+Authorization
+RBAC
+Roles
+Permissions
+Tokens
+Sessions
+Capability Gates
+Audit.
+
+Identificar cualquier punto donde exista diferencia entre:
+
+UI PERMISSION
+
+y:
+
+BACKEND ENFORCEMENT.
+
+========================================================
+24. IA
+========================================================
+
+Inventariar todos los componentes IA.
+
+Para cada uno:
+
+NAME
+PURPOSE
+MODEL
+INPUT
+OUTPUT
+TOOLS
+AUTHORITY
+CAPABILITIES
+RESTRICTIONS
+MEMORY
+AUDIT.
+
+========================================================
+25. ESTADO REAL
+========================================================
+
+Crear matriz:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+DEPRECATED.
+
+NO utilizar "READY" sin evidencia objetiva.
+
+========================================================
+26. DEPENDENCIAS EXTERNAS
+========================================================
+
+Crear inventario:
+
+DEPENDENCY
+PURPOSE
+VERSION
+REQUIRED
+OPTIONAL
+EXTERNAL
+COST
+CREDENTIAL
+RISK
+MIGRATION IMPACT.
+
+========================================================
+27. CONOCIMIENTO PERDIDO
+========================================================
+
+Identificar qué conocimiento NO está disponible.
+
+Para cada elemento:
+
+MISSING KNOWLEDGE
+IMPACT
+POSSIBLE SOURCE
+RECOVERY METHOD
+PRIORITY.
+
+========================================================
+28. CONOCIMIENTO IMPLÍCITO
+========================================================
+
+Identificar lógica importante que actualmente solo pueda inferirse
+del código.
+
+Transformarla en documentación explícita.
+
+Indicar:
+
+ARCHIVO
+FUNCIÓN
+LÓGICA
+INTERPRETACIÓN
+RIESGO.
+
+========================================================
+29. CONTRADICCIONES
+========================================================
+
+Comparar:
+
+DOCUMENTACIÓN
+CÓDIGO
+TESTS
+UI
+ARQUITECTURA
+REGLAS.
+
+Crear:
+
+KNOWLEDGE_CONTRADICTIONS.md
+
+========================================================
+30. REGLAS INMUTABLES
+========================================================
+
+Crear:
+
+MILUKITA_KNOWLEDGE_INVARIANTS.md
+
+Incluir únicamente reglas sustentadas.
+
+Ejemplos:
+
+MJP CORE protegido.
+
+VERIFIED ≠ PUBLISHED.
+
+Runtime solamente consume PUBLISHED.
+
+Human Authority conserva autoridad final.
+
+QR no es autorización.
+
+Copilot no sustituye autoridad humana.
+
+Etc.
+
+========================================================
+31. MATRIZ DE TRANSFERENCIA
+========================================================
+
+Crear:
+
+KNOWLEDGE_TRANSFER_MATRIX.csv
+
+Columnas:
+
+ID
+DOMAIN
+KNOWLEDGE
+SOURCE
+EVIDENCE
+IMPLEMENTATION_STATUS
+CONFIDENCE
+DEPENDENCY
+MIGRATION_PRIORITY
+RISK
+DESTINATION.
+
+========================================================
+32. PERFIL PARA UNA NUEVA IA
+========================================================
+
+Crear:
+
+MILUKITA_AI_ONBOARDING.md
+
+Debe permitir que una IA nueva responda correctamente:
+
+¿Qué es MiLukita?
+
+¿Cómo está organizado?
+
+¿Qué puede hacer?
+
+¿Qué no puede hacer?
+
+¿Qué datos maneja?
+
+¿Qué reglas no puede romper?
+
+¿Qué módulos existen?
+
+¿Cómo interactúan?
+
+¿Qué depende de qué?
+
+¿Qué está realmente implementado?
+
+¿Qué es simulación?
+
+¿Qué está pendiente?
+
+¿Cómo debe comenzar a trabajar?
+
+========================================================
+33. PRUEBA DE TRANSFERENCIA
+========================================================
+
+Este punto es obligatorio.
+
+Después de generar la documentación, realizar una prueba conceptual:
+
+"Suponga que mañana desaparece Manus y una nueva IA recibe
+únicamente el paquete de transferencia."
+
+Determinar:
+
+¿Podría comprender MiLukita?
+
+¿Podría instalarlo?
+
+¿Podría ejecutarlo?
+
+¿Podría modificarlo sin romper reglas?
+
+¿Podría continuar Mapper?
+
+¿Podría continuar The Eye?
+
+¿Podría continuar LUKA AR?
+
+¿Podría continuar Copilot?
+
+¿Podría comprender MJP CORE?
+
+¿Podría identificar qué no debe modificar?
+
+Crear:
+
+KNOWLEDGE_TRANSFER_GAP_REPORT.md
+
+con todos los conocimientos faltantes.
+
+========================================================
+34. CRITERIOS DE ACEPTACIÓN
+========================================================
+
+El contrato será considerado COMPLETO solamente si:
+
+1. Define MiLukita.
+2. Define LUKA.
+3. Define la arquitectura.
+4. Define el organigrama.
+5. Define actores.
+6. Define autoridad.
+7. Define módulos.
+8. Define datos.
+9. Define APIs.
+10. Define eventos.
+11. Define flujos.
+12. Define estados.
+13. Define IA.
+14. Define seguridad.
+15. Define Mapper.
+16. Define The Eye.
+17. Define World Engine.
+18. Define LUKA AR.
+19. Define QR/L★.
+20. Define TV.
+21. Define Copilot.
+22. Define MJP CORE.
+23. Define invariantes.
+24. Define dependencias.
+25. Define estado real.
+26. Identifica contradicciones.
+27. Identifica conocimiento faltante.
+28. Permite onboarding de una nueva IA.
+29. Permite evaluar la migración.
+30. Cada afirmación crítica tiene evidencia.
+
+========================================================
+35. PAQUETE FINAL
+========================================================
+
+Crear:
+
+00_KNOWLEDGE_TRANSFER_CONTRACT.md
+
+y como anexos:
+
+ANNEX_A_SYSTEM_DEFINITION.md
+ANNEX_B_ORGANIGRAM.md
+ANNEX_C_RACI.md
+ANNEX_D_ARCHITECTURE.md
+ANNEX_E_DATA_MODEL.md
+ANNEX_F_API_MAP.md
+ANNEX_G_USER_FLOWS.md
+ANNEX_H_STATE_MACHINES.md
+ANNEX_I_AI_AGENTS.md
+ANNEX_J_SECURITY.md
+ANNEX_K_MAPPER.md
+ANNEX_L_THE_EYE.md
+ANNEX_M_WORLD_ENGINE.md
+ANNEX_N_LUKA_AR.md
+ANNEX_O_QR_LSTAR.md
+ANNEX_P_TV.md
+ANNEX_Q_COPILOT.md
+ANNEX_R_MJP_CORE_DEPENDENCIES.md
+ANNEX_S_INVARIANTS.md
+ANNEX_T_DEPENDENCIES.md
+ANNEX_U_KNOWLEDGE_GAPS.md
+ANNEX_V_MIGRATION_REQUIREMENTS.md
+ANNEX_W_AI_ONBOARDING.md
+ANNEX_X_EVIDENCE_INDEX.md
+
+Además:
+
+KNOWLEDGE_TRANSFER_MATRIX.csv
+
+========================================================
+36. EVIDENCIA
+========================================================
+
+Para cada afirmación técnica importante indicar:
+
+archivo
+ruta
+función
+componente
+tabla
+test
+documentación
+o fuente correspondiente.
+
+No inventar.
+
+No asumir.
+
+No completar huecos mediante imaginación.
+
+========================================================
+37. PROHIBICIONES
+========================================================
+
+NO modificar código.
+
+NO modificar MJP CORE.
+
+NO reconstruir.
+
+NO refactorizar.
+
+NO crear funcionalidades.
+
+NO instalar dependencias.
+
+NO hacer deployment.
+
+NO crear repositorio sustituto.
+
+NO eliminar archivos.
+
+NO sobrescribir archivos.
+
+NO alterar el proyecto original.
+
+========================================================
+38. OBJETIVO FINAL
+========================================================
+
+El resultado debe ser suficientemente completo para que:
+
+CHATGPT
++
+UNA IA DE CODIFICACIÓN LOCAL
++
+UN ARQUITECTO
++
+UN INGENIERO
+
+puedan recibir el paquete y comprender MiLukita.
+
+El conocimiento debe quedar fuera de Manus en forma documental.
+
+La transferencia debe eliminar la dependencia intelectual del proyecto
+respecto de una única plataforma.
+
+FIN DE LA ORDEN 55
+

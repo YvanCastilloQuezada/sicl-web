@@ -1,0 +1,15 @@
+{
+  "schema":"ARKI-ABB001-MISSING-INFORMATION-1.0",
+  "items":[
+    {"item":"governing architectural issue","status":"MISSING","impact":"cannot select canonical geometry"},
+    {"item":"revision metadata and approval","status":"MISSING","impact":"modified file cannot be promoted automatically"},
+    {"item":"exact DWG geometry and entity properties","status":"UNKNOWN","impact":"BIM geometry not demonstrated"},
+    {"item":"normalized openings schedule","status":"PARTIAL","impact":"codes and some dimensions visible, complete normalized register absent"},
+    {"item":"common coordinate system across disciplines","status":"UNKNOWN","impact":"cross-discipline spatial merge not demonstrated"},
+    {"item":"structural design assumptions and professional validation","status":"PARTIAL","impact":"drawings contain design notes but no ARKI professional certification"},
+    {"item":"sanitary/electrical revision linkage to modified architecture","status":"MISSING","impact":"coordination status unknown"},
+    {"item":"materials, assemblies and construction specifications for every BIM element","status":"PARTIAL","impact":"some technical notes exist; complete object-level data absent"},
+    {"item":"authoritative project datum and survey control","status":"PARTIAL","impact":"site sheet exists; survey/CAD control not verified"},
+    {"item":"professional sign-off and construction release","status":"MISSING","impact":"not suitable for construction authorization"}
+  ]
+}

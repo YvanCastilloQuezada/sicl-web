@@ -1,0 +1,547 @@
+{
+  "run": 5,
+  "label": "BARRIO/SECTOR (BARRIO-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "BARRIO-001",
+  "status": "PASS",
+  "commands_total": 20,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0571,
+  "failures": [],
+  "snapshot": {
+    "project_id": "BARRIO-001",
+    "name": "Sector residencial Monserrate",
+    "spatial_scope": "barrio_sector",
+    "temporal_scope": "mediano_plazo",
+    "stage": "DRAFT",
+    "version": 19,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 1,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 2,
+    "comparisons": 1,
+    "simulations": 1,
+    "multiobjectives": 0,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 19
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE BARRIO-001 \"Sector residencial Monserrate\" barrio_sector mediano_plazo",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "BARRIO-001",
+          "name": "Sector residencial Monserrate",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "barrio_sector",
+          "temporal_scope": "mediano_plazo",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000905
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN BARRIO-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "BARRIO-001",
+          "name": "Sector residencial Monserrate",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "barrio_sector",
+          "temporal_scope": "mediano_plazo",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000562
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El sector tiene 12 manzanas\" MUNICIPIO",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-7c4bb90073",
+          "project_id": "BARRIO-001",
+          "statement": "El sector tiene 12 manzanas",
+          "source": "MUNICIPIO",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.000983
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-BR001 \"Déficit de áreas verdes 2 m2 por habitante\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-BR001",
+          "project_id": "BARRIO-001",
+          "source_id": null,
+          "statement": "Déficit de áreas verdes 2 m2 por habitante",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.673506+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "a7d34ec212da31c5e4c9dd268984201b98124d547b2c0fb59e3a3562ffcf9563",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001084
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET AREA_VERDE MAXIMIZE 90",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-f426a02766",
+          "project_id": "BARRIO-001",
+          "key": "AREA_VERDE",
+          "direction": "MAXIMIZE",
+          "value": "90",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.00107
+    },
+    {
+      "sequence": 6,
+      "command": "/CONSTRAINT SET DENSIDAD <= 300 HAB_HA",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-1493fd337b",
+          "project_id": "BARRIO-001",
+          "key": "DENSIDAD",
+          "operator": "<=",
+          "value": "300",
+          "unit": "HAB_HA",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001065
+    },
+    {
+      "sequence": 7,
+      "command": "/ALTERNATIVE CREATE BARRIO-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-9a0a5d5f7c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.011425
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE SET BARRIO-A parques 1",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-9a0a5d5f7c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-A",
+          "description": "",
+          "parameters": {
+            "parques": "1"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001443
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET BARRIO-A area_verde 8000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-9a0a5d5f7c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-A",
+          "description": "",
+          "parameters": {
+            "parques": "1",
+            "area_verde": "8000"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001258
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET BARRIO-A viviendas 400",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-9a0a5d5f7c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-A",
+          "description": "",
+          "parameters": {
+            "area_verde": "8000",
+            "parques": "1",
+            "viviendas": "400"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00116
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE CREATE BARRIO-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4b58b27d2c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001104
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE SET BARRIO-B parques 4",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4b58b27d2c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-B",
+          "description": "",
+          "parameters": {
+            "parques": "4"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001083
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET BARRIO-B area_verde 12000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4b58b27d2c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-B",
+          "description": "",
+          "parameters": {
+            "parques": "4",
+            "area_verde": "12000"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00105
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET BARRIO-B viviendas 420",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4b58b27d2c",
+          "project_id": "BARRIO-001",
+          "name": "BARRIO-B",
+          "description": "",
+          "parameters": {
+            "area_verde": "12000",
+            "parques": "4",
+            "viviendas": "420"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001173
+    },
+    {
+      "sequence": 15,
+      "command": "/EVALUATE BARRIO-A AREA_VERDE 60 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-8ce955988f",
+          "alternative_id": "ALT-9a0a5d5f7c",
+          "objective_id": "OBJ-f426a02766",
+          "value": 60.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001115
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE BARRIO-B AREA_VERDE 85 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-05f9b1e961",
+          "alternative_id": "ALT-4b58b27d2c",
+          "objective_id": "OBJ-f426a02766",
+          "value": 85.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.020601
+    },
+    {
+      "sequence": 17,
+      "command": "/COMPARE BARRIO-A BARRIO-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-5d5826a570",
+          "project_id": "BARRIO-001",
+          "alternative_ids": [
+            "ALT-9a0a5d5f7c",
+            "ALT-4b58b27d2c"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-8ce955988f",
+              "alternative_id": "ALT-9a0a5d5f7c",
+              "objective_id": "OBJ-f426a02766",
+              "value": 60.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-05f9b1e961",
+              "alternative_id": "ALT-4b58b27d2c",
+              "objective_id": "OBJ-f426a02766",
+              "value": 85.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.002199
+    },
+    {
+      "sequence": 18,
+      "command": "/SIMULATE MONTE_CARLO BARRIO-B AREA_VERDE area_verde '{\"type\":\"NORMAL\",\"parameters\":{\"mean\":12000,\"std_dev\":800}}' 1000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "simulation": {
+            "simulation_id": "SIM-16efe50cd9",
+            "project_id": "BARRIO-001",
+            "simulation_type": "MONTE_CARLO",
+            "method": "monte_carlo_v1",
+            "method_version": "1.0",
+            "inputs": {
+              "alternative_id": "BARRIO-B",
+              "iterations": 1000,
+              "objective_id": "AREA_VERDE",
+              "parameter_distribution": {
+                "parameters": {
+                  "mean": 12000,
+                  "std_dev": 800
+                },
+                "type": "NORMAL"
+              },
+              "parameter_name": "area_verde",
+              "seed": 20260916
+            },
+            "outputs": {
+              "missing_inputs": [
+                "alternative_id"
+              ]
+            },
+            "state": "INSUFFICIENT",
+            "started_at": "2026-09-16T18:06:10.721039+00:00",
+            "finished_at": "2026-09-16T18:06:10.721061+00:00",
+            "evidence_hash": "75abf538d39b1c4d2160b22e4861d46cf71e623477460e1ca285a86f163b1694",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.002643
+    },
+    {
+      "sequence": 19,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión urbanística\" \"Sector validado\" \"Urban planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-50efda13eb",
+          "project_id": "BARRIO-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión urbanística",
+          "reason": "Sector validado",
+          "authority": "Urban planner",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.002374
+    },
+    {
+      "sequence": 20,
+      "command": "/DECISION RECORD \"Adoptar BARRIO-B\" architect-yvan \"Urban planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-25322027d6",
+          "project_id": "BARRIO-001",
+          "statement": "Adoptar BARRIO-B",
+          "actor": "architect-yvan",
+          "authority": "Urban planner",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001945
+    }
+  ]
+}

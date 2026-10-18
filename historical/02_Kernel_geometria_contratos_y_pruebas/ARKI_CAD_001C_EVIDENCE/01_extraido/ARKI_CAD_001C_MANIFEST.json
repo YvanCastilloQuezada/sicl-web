@@ -1,0 +1,55 @@
+{
+  "schema": "ARKI-CAD-001C-MANIFEST-1.0",
+  "order": "ARKI-CAD-001C",
+  "status": "IMPLEMENTED_FOR_OPEN_CONTRACT_SCOPE",
+  "baseline": {
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa"
+  },
+  "deployment": "WINDOWS-FIRST / HEADLESS-CAPABLE",
+  "primaryReaderRuntime": "BLOCKED_BY_LICENSE_OR_ACCESS",
+  "licenseGate": "BLOCKED",
+  "cadGeometryReady": "NO",
+  "abb001": "BLOCKED",
+  "bkhTouched": false,
+  "commercialSdkLoaded": false,
+  "semanticPromotion": "PROHIBITED",
+  "files": {
+    "shared/arkiCadGateway.ts": {
+      "sha256": "699667c754f5e7886f258d0c826ec856a3142d19cd97c2d2d5c401d42e959aff",
+      "bytes": 8637
+    },
+    "scripts/test-arki-cad-gateway.ts": {
+      "sha256": "338f4c09d901ebda7a0e677c634f2198897179d7f8aa2815cdac9e664939ce85",
+      "bytes": 1813
+    },
+    "ARKI_CAD_001C_IMPLEMENTATION_REPORT.md": {
+      "sha256": "e11d3ea7f100dafdd5e76d8e4bc820604bc9d0572366ea41cf9bd4aa25fa79bb",
+      "bytes": 2625
+    },
+    "ARKI_CAD_001C_VALIDATION_REPORT.md": {
+      "sha256": "ca33d39f1e159f0249a2a3f3257d55924ce5d367cbd75f169d6d134615757d21",
+      "bytes": 1897
+    },
+    "ARKI_CAD_001C_GAPS.md": {
+      "sha256": "8fb0394155b7d3d57fd3a77450d79083bdcc81e9786fbde5fb973a44700cfe1e",
+      "bytes": 1566
+    },
+    "ARKI_CAD_001C_TEST_OUTPUTS.txt": {
+      "sha256": "dba78acecee8eb50a3a733958be5870845a4852572c61556ccc5aef1a257b311",
+      "bytes": 848
+    },
+    "ARKI_CAD_001C_BUILD_OUTPUTS.txt": {
+      "sha256": "71acf6ae1e56a0cfbec5db31a2eb6ae2352a7400c1acfe016aa0101f2d8b042a",
+      "bytes": 1271
+    },
+    "ARKI_CAD_001C_IFC_REGRESSION_OUTPUTS.txt": {
+      "sha256": "4e40ced767545b2717ac5d5fcbf47143cc3fdc40faedf6ba1039177914b03dba",
+      "bytes": 2102
+    },
+    "pasted_content_128.txt": {
+      "sha256": "df541d253a4e238d3e934bed591dc8cbbf2de2e959af87d760d448e686d15453",
+      "bytes": 10473
+    }
+  }
+}

@@ -1,0 +1,98 @@
+# Z — Microejercicios propios y salida de ejecución
+
+**Orden:** COCO-EXPRESS-002 FULL ARSENAL PRETRAINING  
+**Capacidades:** Z1 dashboards; Z2 predicción de desviaciones; Z3 benchmarking.  
+**Anti-contaminación:** fixtures sintéticos propios; no se usaron respuestas de exámenes DeepSeek/Lipsic.  
+**Boundary:** los resultados son pruebas de contrato y no certifican datos, modelos, proyectos ni competencia profesional.
+
+## Contrato común
+
+Cada registro conserva: `project`, `time`, `scenario`, `metric`, `value` nullable, `unit`, `provenance`, `epistemic`, `applicability` y `scale`. La ausencia de valor conserva `UNKNOWN`; no se imputa cero. `OBSERVED` no se mezcla con `FORECAST`. Un resultado comparativo conserva unidad, provenance, aplicabilidad, escala, proyecto, tiempo y escenario. Las comparaciones incompatibles devuelven `UNKNOWN`.
+
+## NORMAL — dashboard y delta contextualizado
+
+Fixture: proyecto `P-17`, escenario `plan`, métrica `energy`, unidad `kWh`, escala `project`, aplicabilidad `same_building`, fuente `meter:M17:v2`. Snapshot observado septiembre = `120 kWh`; baseline observado agosto = `100 kWh`. Un segundo registro de septiembre es `UNKNOWN` porque su valor falta y su provenance es `model:forecast:v1`.
+
+Assertions ejecutadas:
+
+```text
+DASHBOARD_RESULT {'known_count': 1, 'unknown_count': 1, 'units': ['kWh']}
+DEVIATION_RESULT {'status': 'COMPUTED_DEVIATION', 'delta': 20.0, 'unit': 'kWh', 'provenance': 'meter:M17:v2|meter:M17:v2', 'applicability': 'same_building', 'scale': 'project', 'project': 'P-17', 'time': '2026-09', 'scenario': 'plan'}
+deviation(UNKNOWN, baseline).status == UNKNOWN
+```
+
+**Resultado:** `NORMAL=PASS`. El dashboard no cuenta el registro desconocido como conocido y el delta mantiene su envolvente contextual.
+
+## ADVERSARIAL — forecast y escalas no comparables
+
+Se intenta comparar el registro `UNKNOWN` de `P-17` con un forecast de `P-42` en `MJ`, escala `portfolio`, aplicabilidad `other_building`. Aunque ambos se refieren nominalmente a energía, cambian unidad, escala, aplicabilidad y rol epistemológico.
+
+Assertions ejecutadas:
+
+```text
+deviation(UNKNOWN, peer_bad).status == UNKNOWN
+any(v['status'] == 'DESCRIPTIVE_ONLY' for v in benchmark([obs, peer_bad]).values())
+```
+
+**Resultado:** `ADVERSARIAL=PASS`. La comparación incompatible no fabrica un delta ni convierte forecast en observación. El benchmark sólo conserva grupos descriptivos que sí son comparables.
+
+## TRANSFER — benchmarking entre proyectos sintéticos
+
+Se comparan tres observaciones `energy/kWh/project/same_building`: `P-17` septiembre `120 kWh`, `P-17` agosto `100 kWh` y `P-42` septiembre `90 kWh`. Sus provenance son respectivamente `meter:M17:v2`, `meter:M17:v2` y `meter:M42:v1`.
+
+Assertions ejecutadas:
+
+```text
+all(v['status'] == 'DESCRIPTIVE_ONLY' for v in benchmark([obs, base, peer]).values())
+peer.provenance == 'meter:M42:v1'
+```
+
+**Resultado:** `TRANSFER=PASS`. La salida es comparativa y descriptiva; no declara ganador, conformidad, norma ni certificación.
+
+## Mutante controlado y oracle
+
+Mutante introducido sólo dentro del test, sin alterar el código correcto:
+
+```python
+def mutant_dashboard(records):
+    known = [r.value for r in records if r.value is not None or r.epistemic == "UNKNOWN"]
+    return {"known_count": len(known), "unknown_count": len(records) - len(known), "units": sorted({r.unit for r in records})}
+```
+
+El oracle espera `known_count=1` y `unknown_count=1` para `[obs, unk]`. El mutante produce `known_count=2` y `unknown_count=0`; la assertion falla y se captura como detección esperada.
+
+```text
+MUTANT_RESULT {'known_count': 2, 'unknown_count': 0, 'units': ['kWh']}
+MUTANT_KILLED=1
+CORRECT_CODE_INTACT=PASS
+UNKNOWN_PRESERVED=PASS
+PROVENANCE_UNITS_APPLICABILITY_SCALE_CONTEXT=PASS
+NO_CERTIFICATION_OR_TRUTH_PROMOTION=PASS
+```
+
+## Ejecución reproducida
+
+Comando:
+
+```text
+python3 /home/ubuntu/jobs/cbef0db18f21_a11/test_z.py
+```
+
+Salida completa:
+
+```text
+NORMAL=PASS
+ADVERSARIAL=PASS
+TRANSFER=PASS
+MUTANT_KILLED=1
+CORRECT_CODE_INTACT=PASS
+UNKNOWN_PRESERVED=PASS
+PROVENANCE_UNITS_APPLICABILITY_SCALE_CONTEXT=PASS
+NO_CERTIFICATION_OR_TRUTH_PROMOTION=PASS
+DASHBOARD_RESULT {'known_count': 1, 'unknown_count': 1, 'units': ['kWh']}
+DEVIATION_RESULT {'status': 'COMPUTED_DEVIATION', 'delta': 20.0, 'unit': 'kWh', 'provenance': 'meter:M17:v2|meter:M17:v2', 'applicability': 'same_building', 'scale': 'project', 'project': 'P-17', 'time': '2026-09', 'scenario': 'plan'}
+BENCHMARK_RESULT {"('energy', 'kWh', 'project', 'same_building')": {'n': 3, 'known': 3, 'status': 'DESCRIPTIVE_ONLY'}}
+MUTANT_RESULT {'known_count': 2, 'unknown_count': 0, 'units': ['kWh']}
+```
+
+El script aislado usado para ejecutar estas assertions queda en `/home/ubuntu/jobs/cbef0db18f21_a11/test_z.py`; no es código de producto y no modifica las áreas protegidas.

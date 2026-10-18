@@ -1,0 +1,499 @@
+ORDEN MAESTRA PARA MANUS
+AUDITORÍA REAL DE PORTAL + QR + MAPPER + THE EYE + TV + SIMPLIFICACIÓN DE PORTADA LUKA
+
+NO IMPLEMENTAR TODAVÍA. NO DESPLEGAR TODAVÍA.
+
+El objetivo de esta orden es determinar qué existe realmente hoy, cuáles son las rutas accesibles, cuáles son funcionales y qué falta para lograr el flujo que estamos buscando.
+
+MJP CORE permanece completamente aislado e intacto.
+
+1. OBJETIVO PRINCIPAL
+
+Quiero comprobar este flujo conceptual:
+
+CELULAR
+   │
+   ├── escanea QR PORTAL
+   │       ↓
+   │   EL MUNDO DE MILUKITA
+   │
+   ├── escanea QR THE EYE
+   │       ↓
+   │   THE EYE
+   │
+   └── escanea QR MAPPER
+           ↓
+       MAPPER
+
+Y, por separado:
+
+CELULAR
+   │
+   │ mecanismo de conexión compatible
+   ↓
+TV
+   │
+   └── experiencia LUKA / TV
+
+Necesito saber qué partes de esto ya existen realmente y cuáles todavía son simulación, maqueta o inexistentes.
+
+2. ENTREGA PRIMERO LOS LINKS EXACTOS
+
+Localiza y entrega las URL/rutas actuales de:
+
+A. PORTAL PRINCIPAL
+Nombre:
+URL:
+Ruta:
+Estado:
+¿Accesible desde navegador?
+¿Requiere login?
+B. MAPPER
+Nombre:
+URL:
+Ruta:
+Estado:
+¿Accesible desde navegador?
+¿Requiere login?
+Rol requerido:
+C. THE EYE
+Nombre:
+URL:
+Ruta:
+Estado:
+¿Accesible desde navegador?
+¿Requiere login?
+Rol requerido:
+D. QR / L★
+Nombre:
+URL/ruta:
+¿Existe generador QR?
+¿Existe QR público?
+¿Existe QR contextual?
+¿Existe QR para Mapper?
+¿Existe QR para The Eye?
+¿Existe QR de sesión?
+Estado real:
+E. TV
+
+Localiza cualquier ruta, componente o módulo relacionado con:
+
+LUKA TV
+TV connection
+Cast
+Bluetooth
+Wi-Fi
+DLNA
+AirPlay
+Google Cast
+Tizen
+webOS
+TV pairing
+QR TV
+
+Indica exactamente qué existe.
+
+3. NO CONFUNDIR "RUTA EXISTENTE" CON "FUNCIONALIDAD"
+
+Para cada elemento utiliza obligatoriamente esta clasificación:
+
+Estado	Significado
+🟢 IMPLEMENTED	Funciona realmente
+🟡 PARTIAL	Funciona parcialmente
+🟠 MOCK	Existe visualmente pero es maqueta/simulación
+🔵 SIMULATED	El comportamiento está simulado
+🔴 NOT_IMPLEMENTED	No existe
+⚪ NOT_VERIFIED	No se pudo comprobar
+🟣 EXTERNAL_REQUIRED	Requiere prueba física externa
+🟤 REQUIRES_HUMAN	Requiere autorización humana
+⚫ BLOCKED	Existe pero está bloqueado
+
+No utilizar "READY", "PRODUCTION READY" o "TECHNICALLY READY" como sustituto de esta clasificación.
+
+4. PRUEBA REAL DEL QR DEL PORTAL
+
+Comprueba si existe actualmente un QR que permita:
+
+ESCANEAR QR
+      ↓
+ABRIR NAVEGADOR
+      ↓
+PORTAL LUKA
+
+Determina:
+
+URL contenida en el QR.
+Si la URL es pública.
+Si es localhost.
+Si es sandbox.
+Si es una URL de preview.
+Si tiene HTTPS.
+Si funciona fuera del entorno de desarrollo.
+Si requiere instalación de aplicación.
+Si funciona solamente dentro de la red local.
+Importante
+
+Si actualmente no existe una URL pública, dilo claramente:
+
+"El QR existe como mecanismo/código, pero no puede utilizarse todavía desde Internet porque no existe despliegue público."
+
+No lo clasifiques como funcional simplemente porque genera una imagen QR.
+
+5. PRUEBA CONCEPTUAL QR → THE EYE
+
+Determina si actualmente existe:
+
+QR
+ ↓
+/the-eye
+ ↓
+THE EYE
+
+Comprobar:
+
+ruta;
+componente;
+navegación;
+autenticación;
+RBAC;
+persistencia;
+si la interfaz es realmente funcional;
+si solamente es una maqueta.
+
+También determina si existe un QR específico para The Eye.
+
+6. PRUEBA CONCEPTUAL QR → MAPPER
+
+Determina si actualmente existe:
+
+QR
+ ↓
+/mapper
+ ↓
+MAPPER
+
+Comprobar:
+
+ruta;
+sesión;
+GPS;
+cámara;
+captura;
+observación;
+WorldObject;
+persistencia;
+evidencia;
+offline;
+sincronización;
+conflictos;
+envío a The Eye;
+autorización.
+
+Igualmente, indicar si existe un QR específico para Mapper.
+
+7. UNA DISTINCIÓN FUNDAMENTAL: QR ≠ AUTORIZACIÓN
+
+Verificar que:
+
+QR → abre URL
+
+no implique:
+
+QR → concede permisos
+
+Especialmente:
+
+Mapper
+
+El QR no debe conceder automáticamente permisos para:
+
+modificar datos protegidos;
+publicar;
+verificar;
+resolver conflictos;
+acceder a funciones administrativas.
+The Eye
+
+El QR no debe conceder automáticamente:
+
+VERIFIED;
+PUBLISHED;
+Human Authority;
+administración.
+
+Toda autorización debe continuar pasando por:
+
+AUTHENTICATION
+        ↓
+RBAC
+        ↓
+CAPABILITY
+        ↓
+ACTION
+8. L★ EN LA PORTADA
+
+Quiero además que compruebes el estado actual de L★.
+
+La intención UX es:
+
+L★
+│
+├── pulsación corta
+│       ↓
+│   mostrar QR
+│
+└── pulsación larga
+        ↓
+    Share Center
+
+Pero antes de implementar nada, indica si esto ya existe realmente.
+
+Comprobar:
+
+L★ presente en shell móvil;
+posición;
+click;
+long press;
+QR;
+Share Center;
+restauración de pantalla;
+QR público;
+QR contextual;
+integración con Copilot.
+
+Si algo solamente está dibujado pero no funciona, marcarlo como MOCK/PARTIAL.
+
+9. CONEXIÓN CELULAR → TV
+
+Aquí quiero una auditoría separada.
+
+NO asumir que Wi-Fi + Bluetooth + Internet = control universal de cualquier TV.
+
+Determina qué mecanismo existe actualmente.
+
+Buscar específicamente:
+
+Google Cast
+Chromecast
+AirPlay
+DLNA
+UPnP
+Samsung Tizen
+LG webOS
+Android TV
+Bluetooth
+Wi-Fi Direct
+WebSocket
+QR pairing
+TV receiver
+
+Para cada uno indicar:
+
+Tecnología	Código existente	Funcional	Simulado	Requiere hardware
+Google Cast				
+AirPlay				
+DLNA/UPnP				
+Tizen				
+webOS				
+Android TV				
+Bluetooth				
+Wi-Fi				
+Pregunta concreta que debes responder
+
+¿Hoy puedo tomar un celular real, conectarlo a una TV real y ejecutar una experiencia LUKA en esa TV utilizando lo que ya existe en el proyecto?
+
+Responder:
+
+SÍ / PARCIAL / NO / NO VERIFICADO
+
+Y explicar exactamente por qué.
+
+10. NO IMPLEMENTAR TODAVÍA TV
+
+No integrar todavía:
+
+Google Cast;
+Tizen;
+webOS;
+DLNA;
+AirPlay;
+Bluetooth especializado;
+SDKs adicionales.
+
+Primero quiero conocer el estado real existente.
+
+Después decidiremos cuál tecnología tiene sentido.
+
+11. SIMPLIFICACIÓN DE LA PORTADA DE LUKA
+
+Además de la auditoría anterior, quiero establecer como dirección de diseño que la portada pública de LUKA sea extremadamente simple.
+
+La portada NO debe parecer un panel administrativo.
+
+La experiencia principal debe ser aproximadamente:
+
+                 LUKA
+
+          Hola, soy LUKA.
+
+      ¿Dónde quieres ir?
+
+   ┌──────────────────────┐
+   │   EL MUNDO DE LUKA   │
+   └──────────────────────┘
+
+   ┌──────────────────────┐
+   │       VER TV         │
+   └──────────────────────┘
+
+La estética debe ser limpia y centrada en LUKA.
+
+No mostrar directamente en la portada:
+
+Mapper
+The Eye
+Controller Lab
+Dev Lab
+dashboards
+configuración técnica
+auditorías
+herramientas internas
+debugging
+estados técnicos
+administración
+infraestructura.
+12. ZONA TÉCNICA
+
+Todo lo anterior debe quedar en una zona separada.
+
+Por ejemplo:
+
+/lab
+/admin
+/controller
+/mapper
+/the-eye
+/dev
+
+No elegir todavía cuál URL definitiva.
+
+Primero identificar qué rutas existen actualmente.
+
+La portada pública y las herramientas internas deben ser conceptualmente independientes:
+
+                  LUKA
+                   │
+          ┌────────┴────────┐
+          ↓                 ↓
+       MUNDO                TV
+          │
+          │
+       experiencia
+          │
+          ↓
+     Zona técnica
+          │
+    ┌─────┼─────┐
+    ↓     ↓     ↓
+ Mapper  Eye   QR
+13. NO HACER SEARCH-AND-REPLACE
+
+No cambiar nombres indiscriminadamente.
+
+Respetar la arquitectura oficial:
+
+MiLukita
+El Mundo de MiLukita
+LUKA
+LUKA OS
+LUKA AR
+LUKA TV
+Mapper
+The Eye
+Controller Lab
+
+No modificar MJP CORE.
+
+14. ENTREGABLE FINAL
+
+Quiero un único informe estructurado así:
+
+A. LINKS ACTUALES
+
+Todas las URL/rutas encontradas.
+
+B. PORTAL
+
+Estado real.
+
+C. QR
+
+Estado real de:
+
+Portal
+Mapper
+The Eye
+L★
+QR contextual
+QR de sesión
+D. MAPPER
+
+Qué funciona realmente.
+
+E. THE EYE
+
+Qué funciona realmente.
+
+F. L★
+
+Qué funciona realmente.
+
+G. TV
+
+Qué existe realmente y qué está simulado.
+
+H. PORTADA LUKA
+
+Qué existe actualmente y qué habría que mover para obtener la portada simplificada.
+
+I. MATRIZ GENERAL
+Componente	URL	Visual	Funcional	Persistente	Simulado	Estado
+Portal						
+Mapper						
+The Eye						
+L★						
+QR Portal						
+QR Mapper						
+QR Eye						
+TV						
+J. BLOQUEADORES REALES
+
+Separar:
+
+bloqueadores de software;
+bloqueadores de despliegue;
+bloqueadores de autenticación;
+bloqueadores de infraestructura;
+bloqueadores de hardware;
+pruebas que requieren teléfono real;
+pruebas que requieren TV real.
+K. CONCLUSIÓN
+
+Responder inequívocamente estas cinco preguntas:
+
+¿Hoy un celular puede escanear un QR y entrar al Portal LUKA?
+¿Hoy un celular puede escanear otro QR y entrar a The Eye?
+¿Hoy un celular puede escanear otro QR y entrar a Mapper?
+¿Hoy un celular puede conectarse a una TV real mediante lo que ya está implementado?
+¿Qué porcentaje de cada flujo es realmente funcional y qué porcentaje es maqueta/simulación?
+REGLA FINAL
+
+No implementes funcionalidades nuevas en esta orden.
+
+Quiero primero el mapa de realidad del sistema.
+
+Después de recibir tu informe, se decidirá qué implementar.
+
+MJP CORE: ABSOLUTAMENTE INTACTO.
+
+Esta orden es mejor que la anterior porque no manda a Manus a desplegar ni a inventar una solución de TV antes de saber qué existe. Primero obtenemos las rutas y hacemos el corte exacto entre maqueta → simulación → funcional → pendiente de prueba física. Luego podremos decidir si el siguiente paso es despliegue, QR, Field Gate o TV.

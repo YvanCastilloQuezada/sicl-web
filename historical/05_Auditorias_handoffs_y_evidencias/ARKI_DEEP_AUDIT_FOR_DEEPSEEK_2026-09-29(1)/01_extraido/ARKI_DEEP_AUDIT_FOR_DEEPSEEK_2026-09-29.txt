@@ -1,0 +1,746 @@
+ARKI / ARQUI — AUDITORÍA PROFUNDA DE LOS DOS REPOSITORIOS CORTE FORENSE
+PARA DEEPSEEK Fecha: 2026-09-29 Modo: READ-ONLY / NO IMPLEMENTACIÓN
+Repositorios auditados: 1) YvanCastilloQuezada/sicl-core 2)
+YvanCastilloQuezada/sicl-web
+
+OBJETIVO Establecer qué existe realmente en GitHub, qué está probado,
+qué está conectado, qué es canónico, qué es sintético o histórico, qué
+está desconectado y cuáles son los gaps que deben resolverse antes de
+añadir arquitectura nueva.
+
+REGLA DE EVIDENCIA EXISTS != TESTED != CONNECTED != CANONICAL !=
+E2E_VERIFIED. TEST GREEN != ARCHITECTURAL CORRECTNESS. DOCUMENTATION !=
+RUNTIME. UNKNOWN permanece UNKNOWN. Human Authority permanece final. No
+crear un segundo estado arquitectónico canónico. D-2 es el estado
+arquitectónico semántico canónico observado en sicl-core.
+
+====================================================================== 1.
+BASELINE OBSERVADO
+======================================================================
+
+sicl-core - default branch: main - HEAD auditado:
+71e72bb1abfb217bf4854f464ae443764281f469 - archivos blob observados en
+árbol completo: 363 - lenguaje principal: Python - permisos de conexión
+disponibles: admin/maintain/push/pull - CI actual de main: FAILURE.
+
+sicl-web - default branch: main - HEAD auditado:
+69ff2ad2f7537dd5b752ec8dce90f7c27d5ec3f6 - archivos blob observados en
+árbol completo: 1189 - lenguaje principal: TypeScript - repositorio
+privado, accesible - permisos de conexión disponibles:
+admin/maintain/push/pull - CI actual de main: SUCCESS. - último CI
+observado: pnpm check OK, 96 test files PASS, 434 tests PASS, build OK.
+
+No se modificó código durante esta auditoría.
+
+======================================================================
+2. HALLAZGO CRÍTICO DE CI EN SICL-CORE
+======================================================================
+
+El CI de sicl-core/main NO está verde.
+
+Run observado: - workflow: SICL Core CI - SHA:
+71e72bb1abfb217bf4854f464ae443764281f469 - Python 3.11: failure - Python
+3.12: cancelled después de failure de tests.
+
+Causa concreta observada en logs: ModuleNotFoundError: No module named
+‘reportlab’
+
+La colección de pytest se interrumpe en: - tests/test_drawing.py -
+tests/test_drawing_block2.py - tests/test_rfc030_content.py -
+tests/test_rfc030_drawing.py
+
+Origen: src/sicl/drawing/init.py importa pdf_export.py y éste importa
+reportlab, pero la instalación de CI no instala reportlab.
+
+Consecuencia: No es correcto afirmar que la suite global actual de
+sicl-core/main está pasando. El fallo observado es de
+dependencia/packaging en la capa drawing, no evidencia por sí solo un
+fallo lógico de D-2/H001-H005.
+
+PRIORIDAD TÉCNICA: Corregir el contrato de dependencias de
+reportlab/extra de drawing y recuperar CI verde antes de usar “tests
+passed” como baseline actual.
+
+======================================================================
+3. D-2 REAL EN SICL-CORE
+======================================================================
+
+Archivo: src/sicl/archi/model.py SHA blob:
+376646bd03fc4515f010cc1a0ffd38a52b1e523a
+
+El propio módulo se declara: “D-2 architectural semantic model and
+restricted geometry.”
+
+ElementKind observado: - SITE - SPACE - WALL - SLAB - COLUMN - BEAM -
+DOOR - WINDOW - OPENING
+
+D-2 tiene: - identidad de elemento - project_id - kind - geometría
+restringida - properties - version - hosted_in - contained_in -
+content_hash - VersionedRef derivable
+
+VEREDICTO: EXISTS / CANONICAL CANDIDATE CONFIRMED BY CODE. No es un
+modelo arquitectónico total; es un modelo semántico arquitectónico
+acotado.
+
+======================================================================
+4. RELACIONES, MUTACIÓN Y CADENA H
+======================================================================
+
+src/sicl/archi/relationships.py - ArchiRelationship - RelationshipKind -
+project_derived_from(…) - architectural_derivation(…) - usa
+TypedRelation / DerivationRecord.
+
+src/sicl/archi/sufficiency.py - integra mutaciones arquitectónicas con
+A-002. - explícitamente declara que no duplica lógica de suficiencia. -
+operaciones observadas: MOVE, RESIZE, ADD_OPENING, DELETE. - DELETE
+exige human_authority_ref. - fail-closed mediante SufficiencyEngine.
+
+src/sicl/archi/transaction.py - mantiene canonical tuple de
+ArchiElement. - apply_full_chain ejecuta una cadena de
+suficiencia/impacto/validez/reacción/recomputación. - bloquea si no hay
+target. - ADD_OPENING aparece explícitamente como
+OPERATION_NOT_IMPLEMENTED. - bloquea si A002 no permite. - bloquea si
+H002 no encuentra impacto. - H004 filtra acciones automáticas que no
+requieren Human Authority. - H005 usa ledger temporal antes de
+publicación. - publicación de IFC y ledger está tratada
+transaccionalmente. - sólo después del commit point reemplaza
+self._canonical.
+
+VEREDICTO: Existe una cadena seria de mutación controlada sobre D-2. No
+confundir esto con un generador arquitectónico D6.3→D-2.
+
+======================================================================
+5. DERIVATION / IMPACT / REACTION
+======================================================================
+
+src/sicl/derivation.py - VersionedRef - TypedRelation -
+DerivationRecord - DerivationLedger - list - record / record_batch -
+why - explain - dependency_checks - version_mismatches -
+integrity_checks - fingerprint estable.
+
+src/sicl/impact.py - ImpactChange - ChangeKind, incluyendo UNKNOWN -
+ImpactPath / ImpactedArtifact / ImpactReport - coverageWarning - partial
+/ partialDepth - analyze_change - analyze_dependency - traversal
+transitive. - UNKNOWN_CHANGE_KIND falla cerrado.
+
+src/sicl/reaction.py - ReactionPlanner - PlannedAction -
+requires_human_authority - tratamiento explícito de PARTIALLY_VALID,
+PARTIALLY_STALE, REQUIRES_HUMAN_REVIEW, etc.
+
+VEREDICTO: La infraestructura de causalidad/impacto/reacción existe en
+código actual. Debe seguir auditándose contra persistencia real antes de
+afirmar E2E causal completo.
+
+======================================================================
+6. GENERACIÓN Y OPTIMIZACIÓN EN CORE
+======================================================================
+
+src/sicl/generation.py Observado: - generate_parametric -
+generate_pattern - generate_evolutionary - generate_candidates -
+hash_candidate - estados y payloads deterministas.
+
+src/sicl/optimization.py Observado: - GenerativeOptimizer -
+tradeoff_matrix - pareto_front - dominancia multiobjetivo.
+
+VEREDICTO: EXISTS. No demuestra por sí mismo concepción arquitectónica.
+No debe confundirse “generar candidatos paramétricos/evolutivos” con
+“generar un parti arquitectónico”.
+
+======================================================================
+7. CONOCIMIENTO DE DISEÑO
+======================================================================
+
+src/sicl/design_knowledge.py Existe: - DesignKnowledgeSource -
+DesignKnowledgeItem - DesignPattern - DesignKnowledgeQuery / Response -
+DesignKnowledgeAgent - escalas aplicables y excluidas -
+autoridad/estado/revisión - separación de conocimiento teórico y
+normativo.
+
+Fuentes observadas en código: - Ching, Architecture: Form, Space, and
+Order - Alexander et al., A Pattern Language - RNE controlled corpus.
+
+El agente: - exige contexto suficiente. - recupera por
+escala/tipología. - preserva límites normativos. - marca regulación para
+revisión humana. - declara patrones como orientación, no como
+restricciones ni decisiones automáticas.
+
+VEREDICTO: EXISTS / BOUNDED. No equivale a una investigación web
+automática de precedentes ni a una memoria arquitectónica completa.
+
+======================================================================
+8. SITE INTELLIGENCE
+======================================================================
+
+src/sicl/site_intelligence.py Existe: - SiteObservation - estados de
+conocimiento - hash de evidencia - Open-Meteo - solar por coordenadas -
+fallback Trujillo explícito para fixture.
+
+api/routes/v1.py además expone: - locations - current location -
+missing-data - site-observations - environmental analysis para UPAO-001.
+
+VEREDICTO: EXISTS / PARTIAL. Clima/solar y localización están
+representados. No se ha demostrado aquí DEM/DTM/topografía
+avanzada/hidrología/contexto urbano integral.
+
+======================================================================
+9. SPATIAL REPRESENTATION DEL CORE
+======================================================================
+
+src/sicl/spatial.py El propio módulo declara que es representación
+derivada y que NO: - muta dominio canónico - persiste geometría
+canónica - cambia entidades canónicas.
+
+Tiene: - SpatialElement - SpatialRepresentation - validación - IDs
+deterministas - geometría - parent_id - niveles - labels/metadata -
+fingerprint de input.
+
+src/sicl/spatial_generator.py Es explícitamente: “Deterministic UPAO-001
+spatial generator (S2)” y declara UPAO-001 como sintético/educativo.
+
+Genera elementos como: - SiteBoundary - BuildingFootprint -
+BuildingMass - SpatialZone - CirculationElement
+
+api/routes/v1.py: GET /projects/{project_id}/spatial-representations
+
+Para UPAO-001: - genera alternativas sintéticas. Para otros proyectos: -
+requiere alternativas persistidas. - no fabrica silenciosamente si no
+existen.
+
+VEREDICTO: Existe una segunda familia de representación espacial
+DERIVADA. NO es D-2. Debe evitarse promoverla accidentalmente a segundo
+estado arquitectónico canónico.
+
+======================================================================
+10. REPRESENTACIÓN / DRAW / IFC
+======================================================================
+
+src/sicl/representation.py Contrato fuerte de representación: -
+SourceAuthority - CANONICAL_SOURCE / DERIVED_SOURCE - Freshness,
+incluido UNKNOWN - SourceLineage - conflictos de fuente - ViewFamily /
+ViewType - ProjectionKind - RepresentationProfile - GraphicScene -
+build_scene - fingerprints.
+
+El módulo declara que representación no debe mutar D-2.
+
+src/sicl/drawing/* Existe infraestructura para: - primitives -
+annotation - composer - paper - scale - sheet - title block - SVG -
+PDF - scene adapter - symbols - tables.
+
+src/sicl/archi/ifc_export.py - export IFC determinista mínimo desde
+D-2. - nombre de modelo ARKI-D2.ifc.
+
+PERO: CI actual está roto por dependencia reportlab. Por tanto la capa
+drawing existe, pero el baseline actual no puede calificarse TESTED
+GREEN globalmente.
+
+======================================================================
+11. PROJECT BRAIN EN SICL-WEB
+======================================================================
+
+server/arkiProjectBrain.ts SHA blob:
+f7b3a3479eb58a29438ea7e38d37ce3a60d3c8c7
+
+Existe: - CanonicalProjectBrain - epistemic states FACT / ASSUMPTION /
+HYPOTHESIS / UNKNOWN / CONFLICT - input sufficiency - problem framing -
+dynamic partis - evaluation matrix - genealogy - WHY - simulateRemoval -
+Human Authority.
+
+Aspectos buenos: - location/jurisdiction/activities/site pueden bloquear
+y pedir humano. - UNKNOWN se conserva. - evaluaciones de
+clima/estructura/regulación/costo etc. permanecen UNKNOWN cuando no hay
+evidencia. - decisión humana permanece pendiente.
+
+LIMITACIÓN IMPORTANTE: deriveDynamicPartis() crea actualmente tres
+familias predefinidas: - Separation spine - Central relational hub -
+Independent rings
+
+Esto es un mecanismo de hipótesis acotado, no una creatividad
+arquitectónica general. No debe tratarse como un generador universal de
+parti.
+
+======================================================================
+12. D6.2 REASONING
+======================================================================
+
+server/arkiD62ReasoningHarness.ts SHA blob:
+5598629e5fb41f3974906d36cc6b427df0552081
+
+Existe: - retrieval/transfer/adapt/do-not-transfer/unknown -
+estrategias - perturbaciones - fallos/counterexamples - program
+derivation - UNKNOWN - learning candidate con HUMAN_REVIEW_REQUIRED.
+
+Secuencia funcional declarada: PURPOSE → OPERATING_MODEL →
+SUBJECTS_ROLES → ACTIVITIES → PROCESSES → CAPABILITIES → STATES →
+RELATIONSHIPS → FLOWS → CONDITIONS → HAZARDS → CAPACITY_TIME →
+REQUIREMENTS → UNKNOWN
+
+El propio output declara: geometry: NOT_REQUIRED_D6_2 humanAuthority:
+FINAL
+
+LIMITACIÓN: Las estrategias observadas incluyen formulaciones
+predefinidas (“Civic spine…” / “Distributed activity clusters…”). Esto
+es reasoning harness acotado, no demostración de arquitectura general.
+
+======================================================================
+13. PARTI CONTRACT
+======================================================================
+
+server/arkiPartiContract.ts SHA blob:
+e39897e64979d3bed8e5ce9e1f642a49a1a537eb
+
+Comentario del propio código: “Documentary contract only: this type
+records a parti; it does not generate design.”
+
+Preserva explícitamente: PARTI != FORM PARTI != ORGANIZATION PARTI !=
+TOPOLOGY PARTI != GEOMETRY AI_PROPOSED != HUMAN_DECIDED UNKNOWN !=
+FAILURE
+
+Incluye: - intention - originConditions - organizingRules -
+functionalRelationships - hierarchies - circulation - limits -
+unknowns - provenance - topologyId - geometryIds - human authority -
+mutations/backtrack - transfer.
+
+HALLAZGO: buildPartiProof() es una prueba/fixture documental con tres
+partis construidos en código y luego llama D6.3. No demuestra todavía un
+flujo general Project Brain → parti elegido → D6.3 para proyectos
+reales.
+
+VEREDICTO: CONTRACT EXISTS / TEST FIXTURE. No confundir contrato con
+motor de síntesis.
+
+======================================================================
+14. D6.3 GEOMETRIC BRIDGE — HALLAZGO CRÍTICO
+======================================================================
+
+server/arkiD63GeometricBridge.ts SHA blob:
+ff78600ab0398e1cc1ceec486a6b3d4e4cd4fbbb
+
+Existe: - CanonicalSpatialRepresentation local a D6.3 - SiteBoundary /
+SpatialZone / CirculationElement - GeometryRequirement - DesignMove -
+Mutation - CandidateValidation - candidateA / candidateB - SVG -
+traceabilidad - UNKNOWN funcional/operacional - regulación y calidad
+NOT_EVALUATED.
+
+PERO HAY UNA CONTRADICCIÓN REAL:
+
+El gate: G12_NO_TEMPLATE_HARDCODING = “PASS”
+
+sin embargo executeD63G() construye directamente:
+
+Candidate A: publicZone x=1 y=1 width=7 height=10 buffer x=8 y=1 width=2
+height=10 staffZone x=10 y=1 width=7 height=10
+
+Candidate B: publicZone x=1 y=1 width=16 height=4 buffer x=1 y=5
+width=16 height=2 staffZone x=1 y=7 width=16 height=4
+
+y mutations registra bufferWidth/bufferDepth = 2 como
+EXPLORATORY_PARAMETER.
+
+Por tanto: G12 “NO_TEMPLATE_HARDCODING: PASS” NO está respaldado por el
+código observado. El puente es un microcaso geométrico
+hardcoded/bounded. Debe corregirse el gate o generalizarse el generador;
+no venderlo como no-hardcoded.
+
+Además metadata marca los elementos: semanticStatus: HYPOTHESIS
+canonical: true
+
+Ese “canonical: true” dentro de una representación D6.3 local puede
+crear confusión con D-2, que es el estado arquitectónico canónico del
+core.
+
+RECOMENDACIÓN: D6.3 debe ser candidato/hipótesis derivada, no segundo
+canonical architectural state.
+
+======================================================================
+15. CANONICAL EXECUTION WEB→CORE — HALLAZGO CRÍTICO
+======================================================================
+
+server/arkiCanonicalExecution.ts SHA blob:
+2250e6bcb67599631a7c83b027aaeb4d182650ee
+
+Pretende: 1. exigir SICL_CORE_URL 2. fetch canonical snapshot 3.
+ejecutar Project Brain 4. appendCoreReasoningExecution(…) 5. refetch
+snapshot 6. ejecutar D6.2 7. appendCoreReasoningExecution(…) 8. devolver
+persistence = CANONICAL_CORE 9. humanAuthority = FINAL 10. promotion =
+HUMAN_REVIEW_REQUIRED
+
+server/coreHttpClient.ts: appendCoreReasoningExecution() llama: POST
+/v1/projects/{project_id}/reasoning-executions
+
+PERO EN sicl-core/main: api/routes/v1.py NO contiene la ruta
+“reasoning-executions”. La búsqueda directa del archivo actual
+confirma: - reasoning-executions: NOT FOUND - human-reviews: FOUND -
+decisions: FOUND - archi endpoints: NOT FOUND - derivation endpoints:
+NOT FOUND - impact endpoints: NOT FOUND - reaction endpoints: NOT FOUND
+
+CONCLUSIÓN: El “canonical execution” de sicl-web y la API actual de
+sicl-core/main están DESALINEADOS. El cliente web llama un endpoint que
+no existe en el core main observado.
+
+Esto es un gap E2E real y de prioridad alta.
+
+No afirmar: “Project Brain y D6.2 persisten actualmente en Core E2E”
+hasta corregir/confirmar el contrato HTTP.
+
+======================================================================
+16. PROJECT STATE EN SICL-WEB
+======================================================================
+
+shared/arkiProjectState.ts Existe un ArkiProjectState con: -
+parameters - metrics - provenance - unknowns - version -
+humanApprovalRequired - proposal/apply approved change.
+
+projectStateContract() declara: persistence: SICL_PROJECT_SNAPSHOT
+mutation: OPTIMISTIC_VERSIONED_COMMIT automaticPromotion: false.
+
+RIESGO: Es otro modelo de estado en web. Debe demostrarse su relación
+exacta con snapshot de sicl-core y con D-2. No permitir que se convierta
+en segunda fuente de verdad arquitectónica.
+
+======================================================================
+17. DESIGN FUNNEL 16→4→1
+======================================================================
+
+shared/arkiDesignFunnel.ts SHA blob:
+85bc476244f1e97f5466f3d2c52a9ef18c9a2d9c
+
+Contrato real: GENERATED → SCREENED → SURVIVOR → DESIGN_EXPLORER_16 →
+FINALIST_4 → SELECTED_FOR_DEVELOPMENT → DEVELOPMENT_IN_PROGRESS / etc.
+
+Human Authority: - 16→4 exige humanActor - 4→1 exige humanActor -
+reversible mediante returnToFinalFour.
+
+PERO: createDemoCandidates() fabrica exactamente 16 alternativas
+A01-A16. Son demo/sintéticas: - estrategias rotativas - áreas calculadas
+por índice - efficiency textual por índice - cost por índice - preview
+conceptual.
+
+CONCLUSIÓN: El Funnel es un contrato de selección humana válido. La
+población que alimenta el demo NO es generación arquitectónica real. No
+conectar Developer a createDemoCandidates como fuente arquitectónica
+canónica.
+
+======================================================================
+18. NATIVE GENERATOR
+======================================================================
+
+shared/arkiNativeGenerator.ts Tiene templates con geometrías explícitas:
+COURTYARD_MASS / RECTANGULAR_MASS con
+width/depth/height/floors/courtyardRatio hardcoded por tipología.
+
+Sirve como generador conceptual/template. No debe confundirse con
+síntesis arquitectónica ni con D-2.
+
+======================================================================
+19. API CORE: CAPACIDADES REALES OBSERVADAS
+======================================================================
+
+api/routes/v1.py tiene aproximadamente 1595 líneas y expone una API
+amplia.
+
+Observado: - health - operations research - simulation methods -
+generation methods - design knowledge catalog/query - BIM snapshots -
+IFC import read-only - generations y promote - memory -
+actors/positions - temporal cycles/scenarios/evolutions - design
+principles - multiscale relations - planning instruments - regulatory
+corpus / interpretations / normative snapshots - simulations -
+multiobjective Pareto/tradeoffs - variables - feasibility -
+projects/snapshot/history - commands - preferences - human reviews -
+decisions - recommendations - council - site observations - agent
+evaluations - pareto - debate - evidence/sources -
+evaluations/comparisons - spatial locations - missing-data - spatial
+representations - environmental analysis.
+
+NO observado en v1.py main: - reasoning-executions - HTTP D-2
+architectural element API - HTTP derivation ledger API - HTTP impact
+API - HTTP reaction API.
+
+Esto significa que hay capacidades internas del core que todavía no
+están expuestas por el puente HTTP que sicl-web necesita.
+
+======================================================================
+20. BRANCH ARCHAEOLOGY
+======================================================================
+
+La mayoría de ramas históricas importantes del core están ya detrás de
+main, lo que indica que sus cambios fueron absorbidos o superados en la
+historia actual.
+
+Ejemplos: - feat/h001-examen-11-rt-a-rt-d: 0 ahead / 47 behind main -
+feat/h005-selective-recomputation: 0 ahead / 35 behind -
+feat/arki3d-archi-model: 0 ahead / 19 behind -
+feat/arki-are-001-contract: 0 ahead / 12 behind -
+feat/arki-are-002-runtime-foundation: 0 ahead / 8 behind -
+feat/arki-are-003-2d-projection: 0 ahead / 5 behind -
+feat/arki-m1-vector-plan-pipeline: 0 ahead / 1 behind -
+rfc-010-design-generation: 0 ahead / 165 behind -
+rfc-011-institutional-memory: 0 ahead / 164 behind -
+rfc-026-design-knowledge: 0 ahead / 117 behind -
+rfc-027-bim-ifc-exchange: 0 ahead / 113 behind.
+
+EXCEPCIONES IMPORTANTES: 1) feat/arkidraw-block2-scene-adapter -
+diverged - 2 commits ahead / 4 behind - archivos exclusivos/diferentes:
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md
+src/sicl/drawing/init.py src/sicl/drawing/scene_adapter.py
+tests/test_drawing_block2.py
+
+2)  feat/arki-case-001-controlled-house
+    -   1 commit ahead / 0 behind
+    -   contiene artifacts, report, script y test del caso controlado.
+
+Estas dos ramas deben revisarse antes de declarar main como
+consolidación total.
+
+======================================================================
+21. ESTADO DE CI WEB
+======================================================================
+
+sicl-web main SHA: 69ff2ad2f7537dd5b752ec8dce90f7c27d5ec3f6
+
+Último CI: SUCCESS
+
+Evidencia del log: - pnpm check: OK - Test Files: 96 passed (96) -
+Tests: 434 passed (434) - build: OK
+
+Esto prueba coherencia técnica del repositorio web en ese SHA. NO prueba
+que los endpoints remotos de sicl-core existan ni que el flujo
+cross-repo funcione E2E.
+
+======================================================================
+22. MAPA DE ESTADOS / FUENTES DE VERDAD
+======================================================================
+
+Actualmente se observan al menos estas familias:
+
+A)  sicl-core Project Snapshot
+    -   persistente/canónico a nivel de proyecto SICL.
+B)  sicl-core D-2 ArchiElement
+    -   modelo semántico arquitectónico canónico/restringido.
+C)  sicl-core SpatialRepresentation
+    -   representación derivada, explícitamente no canónica.
+D)  sicl-web CanonicalProjectBrain
+    -   razonamiento/problema/partis/evaluación/genealogía.
+E)  sicl-web ArkiProjectState
+    -   estado web versionado con aprobación humana.
+F)  sicl-web D6.3 CanonicalSpatialRepresentation
+    -   hipótesis geométrica local; usa palabra “Canonical” y metadata
+        canonical:true.
+G)  Design Funnel State
+    -   estado de exploración/selección humana.
+
+RIESGO PRINCIPAL: La palabra “canonical” está usada en varias capas con
+significados distintos.
+
+REGLA RECOMENDADA: - CANONICAL PROJECT STATE = sicl-core project
+snapshot. - CANONICAL ARCHITECTURAL STATE = D-2. -
+Brain/D6.2/PARTI/D6.3/Funnel = reasoning/exploration/proposal states. -
+Representation = derived. - Web ProjectState = UI/workflow projection,
+no architectural source of truth.
+
+======================================================================
+23. CADENA E2E REAL OBSERVADA
+======================================================================
+
+Lo que existe por piezas:
+
+ENCARGO / INPUT ↓ Project Brain [EXISTS, web] ↓ D6.2 reasoning [EXISTS,
+web] ↓ PARTI contract [EXISTS, documentary/test fixture] ↓ D6.3 [EXISTS,
+bounded/hardcoded microcase] ↓ ????????????????????????????????? ↓ D-2
+[EXISTS, core] ↓ Archi relationships/mutation/transaction [EXISTS] ↓
+Derivation/Impact/Reaction/H005 [EXISTS internally] ↓
+Representation/Draw/IFC [EXISTS, drawing CI currently blocked by
+reportlab]
+
+GAP CENTRAL: No se ha encontrado en main un adaptador/promotor general y
+probado: D6.3 / selected architectural hypothesis → D-2.
+
+GAP CROSS-REPO: El canonical execution web intenta persistir Brain/D6.2
+mediante un endpoint reasoning-executions que no existe en core/main.
+
+Por tanto la cadena completa NO está cerrada hoy.
+
+======================================================================
+24. SOBRE arkiArchitecturalDeveloper.ts
+======================================================================
+
+La idea del Developer sigue siendo técnicamente defendible como proceso
+de transformación, PERO sólo bajo este contrato:
+
+Developer != canonical architectural state. Developer != second brain.
+Developer != second D-2. Developer != geometry fabrication engine.
+
+Developer = controlled transformation/development process que toma una
+hipótesis seleccionada + provenance + explicit inputs y prepara una
+propuesta D-2 sin inventar conocimiento faltante.
+
+Antes de implementarlo definitivamente deben cerrarse dos cosas: 1)
+contrato HTTP web↔core real; 2) contrato de promoción a D-2 real.
+
+El Developer debe reutilizar: - D-2 - ArchiRelationship - TypedRelation
+/ DerivationRecord - A002 sufficiency - Human Authority - existing
+transaction/impact/reaction/recomputation y no duplicarlos.
+
+======================================================================
+25. GAPS CONFIRMADOS POR ESTA AUDITORÍA
+======================================================================
+
+GAP-01 — CI CORE ROJO reportlab ausente en dependencias de CI/package.
+
+GAP-02 — WEB→CORE REASONING ENDPOINT MISSING sicl-web llama POST
+/v1/projects/{id}/reasoning-executions. sicl-core/main no expone esa
+ruta.
+
+GAP-03 — D6.3→D-2 PROMOTION NOT FOUND No se encontró adaptador general
+en main que convierta hipótesis D6.3 seleccionada en propuesta D-2.
+
+GAP-04 — D6.3 HARDCODED VS GATE CLAIM G12 declara NO_TEMPLATE_HARDCODING
+PASS, pero las coordenadas de A/B están hardcoded.
+
+GAP-05 — CANONICAL SEMANTICS COLLISION D6.3 usa
+“CanonicalSpatialRepresentation” y metadata canonical:true aunque D-2 es
+la verdad arquitectónica canónica.
+
+GAP-06 — MULTIPLE STATE MODELS NEED OWNERSHIP MAP Core snapshot / D-2 /
+web ProjectState / Brain / Funnel / D6.3 requieren contrato explícito de
+ownership.
+
+GAP-07 — CORE INTERNAL CAPABILITIES NOT EXPOSED TO WEB
+D-2/derivation/impact/reaction no tienen endpoints HTTP observados en v1
+main.
+
+GAP-08 — DRAWING CI DEPENDENCY Drawing/PDF rompe colección global por
+reportlab.
+
+GAP-09 — TWO BRANCHES NOT FULLY CONSOLIDATED
+arkidraw-block2-scene-adapter diverged; arki-case-001-controlled-house
+ahead.
+
+======================================================================
+26. COSAS QUE NO SON GAPS Y NO DEBEN DUPLICARSE
+======================================================================
+
+NO recrear: - D-2 semantic element model - VersionedRef -
+TypedRelation - DerivationRecord / DerivationLedger - ImpactAnalyzer -
+ReactionPlanner - A002 sufficiency - ArchiTransaction - generation
+parametric/pattern/evolutionary - Pareto engine - institutional memory
+base - design knowledge base/agent - site intelligence Open-Meteo base -
+SpatialRepresentation schema - representation source/freshness/lineage
+contract - drawing primitives/composer/SVG/PDF infrastructure - IFC D-2
+export - Human Review / Decision API - Funnel 16→4→1 human selection
+contract.
+
+Si DeepSeek necesita estas capacidades, debe
+reutilizar/adaptar/endurecer antes de crear otra.
+
+======================================================================
+27. LO QUE TODAVÍA NO PUEDE AFIRMARSE
+======================================================================
+
+No afirmar todavía: - que ARKI completo diseña edificios E2E. - que
+Project Brain→D6.2 persiste E2E en core actual. - que D6.3 es un
+generador general. - que D6.3 no tiene hardcoding. - que D6.3 es D-2. -
+que Funnel recibe 16 soluciones arquitectónicas reales. - que
+createDemoCandidates son arquitectura. - que NativeGenerator es síntesis
+arquitectónica. - que toda la suite de core está verde. - que
+section/elevation/3D/IFC profesional están cerrados E2E. - que A11-A27
+forman actualmente una cadena runtime demostrada dentro de estos dos
+main sólo por documentación histórica. - que tests verdes de web prueban
+integración cross-repo.
+
+======================================================================
+28. ORDEN RECOMENDADA PARA DEEPSEEK
+======================================================================
+
+NO empezar agregando grandes módulos.
+
+Secuencia quirúrgica:
+
+PASO A — RESTAURAR BASELINE VERIFICABLE - arreglar reportlab/dependency
+contract. - obtener CI core verde. - no cambiar arquitectura durante
+este arreglo.
+
+PASO B — CERRAR CONTRATO HTTP - decidir endpoint canónico para reasoning
+execution. - preferir implementar/adaptar un endpoint mínimo en core si
+el modelo persistente ya existe. - agregar contract tests web↔core. - no
+duplicar snapshot/persistence.
+
+PASO C — DEFINIR OWNERSHIP Formalizar: Project Snapshot = canonical
+project state. D-2 = canonical architectural state.
+Brain/D6.2/PARTI/D6.3/Funnel = proposal/reasoning/exploration.
+Representation = derived.
+
+PASO D — CORREGIR D6.3 - quitar claim falso G12 o eliminar hardcoding. -
+canonical:true debe ser reemplazado por semántica de hypothesis/derived
+candidate. - no inventar dimensiones.
+
+PASO E — IMPLEMENTAR DEVELOPER COMO ADAPTADOR Input: - selected
+hypothesis - parti/intention - topology - D6.3 candidate - explicit
+project dimensions/evidence - unknowns - provenance - human selection
+evidence.
+
+Output: - D-2 promotion proposal - candidate ArchiElements - candidate
+ArchiRelationships - DerivationRecords - unresolved UNKNOWNs - required
+Human Authority actions - no canonical mutation.
+
+PASO F — PROMOCIÓN CONTROLADA Sólo tras aprobación humana: - A002 -
+transaction - impact - validity - reaction - H005 - commit D-2.
+
+PASO G — REPRESENTAR DESDE EL MISMO D-2 D-2 → PLAN → SECTION → ELEVATION
+→ 3D → IFC sin estados geométricos paralelos.
+
+======================================================================
+29. MICROCASO E2E RECOMENDADO
+======================================================================
+
+No usar Plaza Trujillo todavía.
+
+Usar microcaso controlado con: - site/envelope explícito - 2-3
+actividades - 2 relaciones funcionales - una separación requerida - una
+dimensión explícita - una dimensión UNKNOWN - un parti AI_PROPOSED -
+selección humana simulada como evento explícito - D6.3 candidate -
+Developer proposal - D-2 candidate - Human Review - D-2 commit -
+PLAN/SVG derivado.
+
+Pruebas obligatorias: 1. UNKNOWN no se rellena. 2. ninguna
+pared/puerta/core/dimensión aparece sin provenance. 3. D6.3 no muta D-2.
+4. Developer no muta D-2. 5. Human Review es necesario para promoción.
+6. D-2 es único owner arquitectónico. 7. representación se deriva de
+D-2. 8. cambio D-2 dispara la cadena de impacto/reacción
+correspondiente. 9. WHY puede remontar desde representación/D-2 hacia
+parti/input. 10. replay determinista donde aplique.
+
+======================================================================
+30. MENSAJE OPERATIVO PARA DEEPSEEK
+======================================================================
+
+DeepSeek:
+
+Toma este documento como baseline forense del código observado
+directamente en GitHub al 2026-09-29.
+
+No asumas que documentación histórica equivale a runtime actual. No
+abras 15 frentes. No dupliques capacidades enumeradas en la sección 26.
+
+Tu misión inmediata es confrontar tu propuesta
+arkiArchitecturalDeveloper.ts contra estos hallazgos y devolver:
+
+A)  qué partes de tu propuesta mantienes;
+B)  qué partes cambias;
+C)  qué código existente vas a reutilizar;
+D)  cómo resolverás el endpoint reasoning-executions ausente;
+E)  cómo eliminarás la contradicción de D6.3 hardcoded/G12;
+F)  contrato exacto D6.3→Developer→D-2 proposal;
+G)  microcaso E2E;
+H)  archivos concretos a tocar;
+I)  tests concretos;
+J)  riesgos que requieren decisión de Yvan.
+
+No programes un segundo D-2. No programes un segundo Project State. No
+programes un segundo Derivation/Impact/Reaction engine. No inventes
+arquitectura para hacer pasar tests. No conviertas UNKNOWN en default.
+No confundas representación con modelo. No confundas test fixture con
+capacidad general. No confundas candidate con Human Decision.
+
+Human Authority final = Yvan.
+
+FIN DEL CORTE FORENSE v1

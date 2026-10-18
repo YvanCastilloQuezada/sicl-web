@@ -1,0 +1,2 @@
+tests/test_design_generation.py:57:    result = cli.execute(f"/GENERATE DESIGN pattern_variation_v1 {shlex.quote(json.dumps(inputs))}")
+tests/test_design_generation.py:104:    created = cli.execute(f"/GENERATE DESIGN pattern_variation_v1 {shlex.quote(json.dumps({'pattern': {'MASS': 'A'}, 'variations': {'MASS': ['A', 'B']}}))}")

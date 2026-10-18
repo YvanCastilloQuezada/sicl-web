@@ -1,0 +1,6 @@
+ARKI compileall validation report
+===============================
+Command: python -m compileall -q src tests
+Result: PASS
+Return code: 0
+Scope: src/ tests/

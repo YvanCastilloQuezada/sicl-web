@@ -1,0 +1,566 @@
+Después de revisar todo lo anterior, mi opinión es que debes incorporarlo ahora mismo al organigrama, aunque permanezca totalmente desactivado. Y haría una pequeña corrección a lo que veníamos planteando: no lo llamaría simplemente “Agente Legal”, sino Legal, Regulatory & Compliance Intelligence Agent (LRCI).
+
+Además, al revisar el marco actual peruano, la decisión cobra todavía más sentido: los juegos a distancia tienen un régimen específico bajo la Ley 31557 y sus modificatorias, con intervención de MINCETUR y obligaciones tributarias específicas; además, en 2025 la SBS aprobó normas de prevención de LA/FT para empresas de juegos y apuestas a distancia. 
+R
+Renta 2019
++1
+ La protección de datos también tiene un marco propio bajo la Ley 29733 y su Reglamento aprobado por D.S. 016-2024-JUS. 
+S
+SMV
++1
+
+Por eso, Legal no es un accesorio. Es parte de la arquitectura estructural.
+
+Mi decisión: INCORPORARLO AHORA, DESARROLLARLO DESPUÉS
+Lo registraría así:
+
+Elemento	Estado
+Legal, Regulatory & Compliance Intelligence Agent	DEFINED
+Arquitectura	DEFINED
+Interfaces	DEFINED
+Autoridad	ADVISORY ONLY
+Ejecución	DISABLED
+Automatización	0%
+Integraciones externas	NONE
+Base jurídica automatizada	NOT IMPLEMENTED
+Decisiones jurídicas	HUMAN / PROFESSIONAL
+Modificación MJP CORE	PROHIBITED
+
+Esto es exactamente lo que necesitamos: que exista en el mapa, pero no fingir que existe operativamente.
+
+1. Yo cambiaría ligeramente el organigrama definitivo
+Después de todo lo que hemos discutido, lo dejaría así:
+
+                         ┌──────────────────────┐
+                         │       MILUKITA       │
+                         │ ENTERTAINMENT NETWORK│
+                         └──────────┬───────────┘
+                                    │
+             ┌──────────────────────┼──────────────────────┐
+             │                      │                      │
+             ▼                      ▼                      ▼
+      ENTERTAINMENT OS         BUSINESS OS          EXPERIENCE OS
+             │                      │                      │
+      ┌──────┼──────┐        ┌──────┼──────┐        ┌─────┼─────┐
+      │      │      │        │      │      │        │     │     │
+   Content Games Audience  Finance Revenue Sales    Web  Mobile TV
+      │      │      │        │      │      │        QR   UX    PWA
+      │      │      │        │      │      │
+      └──────┴──────┘        └──────┴──────┘
+             │                      │
+             └──────────┬───────────┘
+                        │
+                        ▼
+              ┌──────────────────────┐
+              │       AGENT OS       │
+              ├──────────────────────┤
+              │ Audience             │
+              │ Marketing            │
+              │ Social               │
+              │ Content              │
+              │ Lukita               │
+              │ Sales                │
+              │ Revenue              │
+              │ Advertising          │
+              │ Distribution         │
+              │ Scheduler            │
+              │ Experience           │
+              └──────────┬───────────┘
+                         │
+                         ▼
+              ┌──────────────────────┐
+              │    GOVERNANCE OS     │
+              ├──────────────────────┤
+              │ Supervisor           │
+              │ Auditor              │
+              │ Watchdog              │
+              │ Recovery             │
+              │ Policy               │
+              │ KPI / Observability  │
+              │ AUTHORITY             │
+              └──────────┬───────────┘
+                         │
+          ┌──────────────┴───────────────┐
+          │                              │
+          ▼                              ▼
+┌────────────────────────┐    ┌─────────────────────────┐
+│ LEGAL / REGULATORY /   │    │ FINANCIAL / TAX         │
+│ COMPLIANCE INTELLIGENCE│    │ INTELLIGENCE            │
+├────────────────────────┤    ├─────────────────────────┤
+│ Legal                  │    │ Finance                 │
+│ Regulatory             │    │ Accounting              │
+│ Compliance             │    │ Tax                     │
+│ Privacy / Data         │    │ Treasury                │
+│ Contracts              │    │ Financial Planning      │
+│ IP / Brand             │    │                         │
+│ Licensing              │    │                         │
+│ Consumer               │    │                         │
+│ Advertising            │    │                         │
+└────────────┬───────────┘    └────────────┬────────────┘
+             │                             │
+             └──────────────┬──────────────┘
+                            ▼
+                 ┌──────────────────────┐
+                 │   AUTHORITY LAYER    │
+                 │ HUMAN GOVERNANCE     │
+                 └──────────┬───────────┘
+                            │
+                     PROTECTED BOUNDARY
+                            │
+                            ▼
+                 ┌──────────────────────┐
+                 │       MJP CORE       │
+                 ├──────────────────────┤
+                 │ RNG                  │
+                 │ Game Rules           │
+                 │ Results              │
+                 │ Wallet               │
+                 │ Ledger               │
+                 │ Settlement           │
+                 │ Integrity            │
+                 └──────────────────────┘
+
+Este organigrama me parece mucho más completo que el anterior.
+
+2. Una corrección importante: Tax no debe desaparecer dentro de Legal
+Aquí mantendría la separación que ya detectamos.
+
+No haría:
+
+LEGAL
+ └── TAX
+
+ni:
+
+FINANCE
+ └── LEGAL
+
+Sino:
+
+BUSINESS OS
+    │
+    ├── Financial Intelligence
+    ├── Accounting
+    ├── Revenue
+    ├── Treasury
+    └── Tax Intelligence
+
+GOVERNANCE OS
+    │
+    ├── Legal Intelligence
+    ├── Regulatory Intelligence
+    ├── Compliance
+    ├── Privacy
+    ├── Contracts
+    └── IP / Licensing
+
+Y ambos colaboran.
+
+Por ejemplo:
+
+NUEVO PAÍS
+    │
+    ├───────────────┐
+    ▼               ▼
+  LEGAL            TAX
+    │               │
+Licencias       Impuestos
+Regulación      Estructura
+Contratos       Residencia
+    │               │
+    └───────┬───────┘
+            ▼
+       BUSINESS CASE
+            │
+            ▼
+      HUMAN DECISION
+
+Eso es mucho más correcto.
+
+3. El LRCI debería tener 10 dominios
+No crearía 10 agentes diferentes. Un solo agente, diez dominios.
+
+LRCI — Legal, Regulatory & Compliance Intelligence
+LRCI
+│
+├── 1. CORPORATE LEGAL
+├── 2. REGULATORY
+├── 3. GAMING / PROMOTIONS
+├── 4. CONTRACTS
+├── 5. PRIVACY / DATA
+├── 6. IP / TRADEMARK / COPYRIGHT
+├── 7. ADVERTISING / CONSUMER
+├── 8. LICENSING / DISTRIBUTION
+├── 9. AI GOVERNANCE
+└── 10. COMPLIANCE
+
+Eso cubre prácticamente todo lo que hemos venido identificando.
+
+4. Y añadiría algo que considero fundamental: JURISDICTION ENGINE
+Para MiLukita esto será enorme.
+
+No podemos diseñar el sistema pensando solamente en:
+
+"¿Es legal MiLukita?"
+
+La pregunta correcta será:
+
+¿Qué puede hacer MiLukita, bajo qué condiciones, en qué jurisdicción y con qué estructura?
+
+Por ejemplo:
+
+COUNTRY
+   ↓
+USER LOCATION
+   ↓
+ACTIVITY
+   ↓
+PRODUCT
+   ↓
+MONEY FLOW
+   ↓
+PRIZE / REWARD
+   ↓
+DATA
+   ↓
+ADVERTISING
+   ↓
+DISTRIBUTION
+   ↓
+REGULATORY CLASSIFICATION
+   ↓
+REQUIREMENTS
+
+Esto será especialmente importante si MiLukita pretende operar internacionalmente.
+
+Y en Perú, por ejemplo, la regulación de juegos a distancia tiene implicaciones específicas y SUNAT contempla incluso situaciones de operadores extranjeros y criterios relacionados con la residencia del jugador. 
+O
+Orientación SUNAT
+
+5. Hay otro dominio que no debemos olvidar: AML/KYC
+Aquí haría una distinción.
+
+No necesariamente crearía ahora un "AML Agent".
+
+Pero sí reservaría el dominio:
+
+LEGAL / COMPLIANCE
+       │
+       └── AML / KYC / CDD
+
+¿Por qué?
+
+Porque el marco peruano ya contempla obligaciones de prevención de lavado de activos y financiamiento del terrorismo para empresas de juegos y apuestas deportivas a distancia bajo supervisión de MINCETUR. La SBS señala, entre otras cosas, debida diligencia, capacitación, oficial de cumplimiento, registro de operaciones e informes. 
+S
+SBS
+
+Eso significa que, estratégicamente, no conviene diseñar MiLukita como si compliance fuera solamente contratos y privacidad.
+
+6. También incorporaría "Truth & Claims Governance"
+Esta parte me parece particularmente importante para todo el sistema de agentes.
+
+Crearía una política transversal:
+
+CLAIM
+  ↓
+SOURCE
+  ↓
+EVIDENCE
+  ↓
+JURISDICTION
+  ↓
+DATE
+  ↓
+STATUS
+  ↓
+APPROVED / REVIEW / BLOCKED
+
+Por ejemplo:
+
+"MiLukita es un canal FAST operativo."
+
+El sistema debería preguntar:
+
+¿Existe distribución FAST real?
+        ↓
+¿Existe señal externa?
+        ↓
+¿Existe proveedor?
+        ↓
+¿Existe evidencia?
+        ↓
+¿Existe contrato?
+        ↓
+¿Está operativo?
+
+Si no:
+
+CLAIM = NOT VERIFIED
+
+No se debería publicar como hecho.
+
+Esto conecta directamente con lo que ya hiciste en el Documento 75: EXTERNAL_REQUIRED es exactamente el tipo de estado honesto que debemos preservar.
+
+7. Legal también debería vigilar el lenguaje comercial
+Esto será crítico para Marketing, Content y Lukita.
+
+Por ejemplo:
+
+MARKETING
+   ↓
+"Premio garantizado"
+   ↓
+LRCI
+   ↓
+CLAIM CHECK
+   ↓
+REVIEW
+
+O:
+
+LUKITA
+   ↓
+"Has ganado"
+   ↓
+MJP CORE
+   ↓
+RESULT AUTHORITY
+   ↓
+VALID?
+
+La segunda operación no debe depender del LRCI.
+
+MJP CORE es quien sabe si realmente hubo un resultado.
+
+El LRCI determina si ese resultado puede comunicarse de determinada manera.
+
+Esa separación es muy importante.
+
+8. La frontera entre Legal y MJP CORE debe ser inviolable
+Yo escribiría literalmente en la arquitectura:
+
+LRCI
+  │
+  │ READ / ANALYZE / ADVISE
+  ▼
+POLICY / AUTHORITY LAYER
+  │
+  X
+  │
+  X  NO DIRECT WRITE
+  │
+  ▼
+MJP CORE
+
+Legal no modifica:
+
+RNG
+resultados
+RTP
+wallet
+ledger
+settlement
+game state.
+Ni siquiera debería poder hacerlo indirectamente.
+
+9. Y algo que considero muy importante: no debemos fingir que Legal existe
+Esto debe quedar igual de claro que FAST.
+
+En el sistema:
+
+LRCI STATUS
+
+DEFINED
+IMPLEMENTATION: NOT_STARTED
+EXECUTION: DISABLED
+EXTERNAL_INTEGRATIONS: NONE
+LEGAL_DECISION_AUTHORITY: NONE
+
+No:
+
+LEGAL COMPLIANCE: 100%
+
+Eso sería peligroso.
+
+El sistema debe poder decir:
+
+Legal Intelligence architecture defined. Operational legal review not implemented. Human professional review required.
+
+Eso es mucho más serio.
+
+10. ¿Dónde lo pondría en los KPIs?
+Todavía no le pondría KPIs operativos falsos, porque el agente estará deshabilitado.
+
+Pero sí dejaría definidos los futuros KPI.
+
+Por ejemplo:
+
+KPI futuro	Qué mide
+Regulatory Coverage	% de dominios regulatorios mapeados
+Legal Risk Detection	Riesgos detectados
+Compliance Coverage	Obligaciones con control definido
+Regulatory Change Detection	Cambios normativos detectados
+Contract Risk Detection	Riesgos contractuales identificados
+License Expiration Alerts	Licencias detectadas antes de vencimiento
+Claim Verification Rate	Claims con evidencia suficiente
+Legal Escalation Rate	Casos enviados a humano
+False Legal Alert Rate	Falsos positivos
+Unresolved High-Risk Issues	Riesgos altos pendientes
+
+Y uno que considero fundamental:
+
+Legal Unknown Rate
+CASOS SIN INFORMACIÓN SUFICIENTE
+/
+CASOS ANALIZADOS
+
+Porque un buen agente jurídico no es el que siempre responde.
+
+Es el que sabe cuándo no puede responder.
+
+11. Esto también mejora muchísimo el concepto de "autonomía"
+La autonomía de MiLukita ya no debería ser:
+
+"La IA puede hacer todo sola."
+
+Debe ser:
+
+AUTONOMY
+     =
+CAPABILITY
+     +
+AUTHORITY
+     +
+EVIDENCE
+     +
+POLICY
+     +
+OBSERVABILITY
+     +
+RECOVERY
+
+Y Legal forma parte de esa ecuación.
+
+Por eso el flujo final podría ser:
+
+AGENT PROPOSAL
+      ↓
+DATA VALIDATION
+      ↓
+POLICY CHECK
+      ↓
+LEGAL / REGULATORY CHECK
+      ↓
+FINANCIAL CHECK
+      ↓
+AUTHORITY CHECK
+      ↓
+HUMAN APPROVAL?
+      │
+ ┌────┴────┐
+ NO        YES
+ │          │
+EXECUTE   ESCALATE
+ │          │
+ ↓          ↓
+AUDIT     HUMAN
+ │
+ ↓
+MEASURE
+
+12. Mi opinión final sobre el documento anterior
+La visión que escribiste es correcta y representa un salto conceptual importante.
+
+Pero ahora que añadimos Legal, yo considero que ya estamos muy cerca de la arquitectura constitucional de MiLukita.
+
+Y aquí haría algo que considero muy importante:
+
+NO AGREGAR MÁS AGENTES POR AHORA.
+Tenemos suficientes.
+
+Ya tenemos:
+
+Entertainment OS
+Experience OS
+Business OS
+Agent OS
+Governance OS
+Legal / Regulatory / Compliance
+Financial / Tax
+MJP CORE
+Control Room
+KPI / Observability
+El siguiente paso no debería ser inventar otro agente.
+
+Debe ser consolidar.
+
+13. El mapa que yo congelaría
+                         MILUKITA
+                            │
+                ENTERTAINMENT NETWORK
+                            │
+       ┌────────────────────┼────────────────────┐
+       │                    │                    │
+       ▼                    ▼                    ▼
+ ENTERTAINMENT           EXPERIENCE            BUSINESS
+     OS                    OS                    OS
+       │                    │                    │
+ Content / Games       Web / Mobile          Finance
+ Events / Shows        TV / QR               Revenue
+ Lukita                UX                    Accounting
+ Audience              PWA                   Tax
+ Programming           Accessibility         Sales
+ Advertising                                 Distribution
+       │                    │                    │
+       └────────────────────┼────────────────────┘
+                            ▼
+                         AGENT OS
+                            │
+        Audience / Marketing / Social / Content
+        Lukita / Sales / Revenue / Advertising
+        Distribution / Scheduler / Experience
+                            │
+                            ▼
+                      GOVERNANCE OS
+                            │
+        Supervisor / Auditor / Watchdog / Recovery
+        Policy / Authority / KPI / Observability
+                            │
+               ┌────────────┴────────────┐
+               ▼                         ▼
+       LEGAL / REGULATORY          FINANCIAL / TAX
+         / COMPLIANCE                INTELLIGENCE
+               │                         │
+       Legal / Regulatory          Finance / Accounting
+       Privacy / Data              Revenue / Treasury
+       Contracts                   Tax
+       IP / Licensing
+       Consumer
+       Advertising
+       AML / KYC
+       AI Governance
+               │                         │
+               └────────────┬────────────┘
+                            ▼
+                     HUMAN AUTHORITY
+                            │
+                     PROTECTED BOUNDARY
+                            │
+                            ▼
+                         MJP CORE
+
+Mi conclusión
+Sí: inclúyelo ahora. Y, de hecho, considero que es el momento correcto para congelar el organigrama.
+
+No necesitamos que el LRCI funcione todavía. Necesitamos que su existencia, límites, autoridad, dependencias y estado estén definidos antes de continuar expandiendo el sistema.
+
+Y hay una razón adicional para hacerlo ahora: el contexto regulatorio no es hipotético. En Perú ya existen obligaciones específicas para juegos a distancia, tributación asociada y prevención de LA/FT, además de un marco vigente de protección de datos. 
+R
+Renta 2019
++2
+
+Por tanto, yo pondría en la próxima Orden Maestra una instrucción muy concreta:
+
+"Incorporar LEGAL, REGULATORY & COMPLIANCE INTELLIGENCE AGENT (LRCI) al organigrama constitucional de MiLukita, en estado DEFINED / PLANNED / DISABLED. No desarrollar su motor jurídico ni activar integraciones. Definir únicamente su misión, dominios, límites de autoridad, interfaces futuras, estados, dependencias y KPIs previstos. Ningún componente existente podrá asumir que LRCI está operativo."
+
+Y después de eso, congelaría la arquitectura y dejaría de añadir nuevos agentes. El siguiente trabajo debería ser demostrar que los componentes que ya tenemos funcionan juntos, con evidencia real, estados honestos y fronteras de autoridad claras.

@@ -1,0 +1,19 @@
+{
+  "taskUid": "simulation-task-24h",
+  "startAt": "2026-08-26T00:00:00.000Z",
+  "endAt": "2026-08-27T00:00:00.000Z",
+  "windowHours": 24,
+  "intervalMinutes": 1,
+  "ticks": 1440,
+  "totalAttempts": 2880,
+  "uniqueClaims": 1440,
+  "duplicateClaims": 1440,
+  "duplicateRate": 0.5,
+  "stableClaimKeys": true,
+  "passed": true,
+  "limitations": [
+    "Simulación determinista de buckets y claims; no ejecuta cron ni una base de datos real.",
+    "No certifica disponibilidad 24/7, carga, latencia ni recuperación de infraestructura.",
+    "La autonomía operativa continúa protegida por el kill switch y depende del proveedor de ejecución."
+  ]
+}

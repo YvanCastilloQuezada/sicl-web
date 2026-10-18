@@ -1,0 +1,894 @@
+ORDEN DEFINITIVA PARA MANUS
+
+Esta es la que yo enviaría. Es deliberadamente más estricta que la propuesta original porque no quiero que Manus convierta esto en un "agente omnipotente".
+
+============================================================
+ORDEN PARA MANUS
+LUKA COPILOTO — TRANSVERSAL EXPERIENCE LAYER v1.0
+============================================================
+
+OBJETIVO
+------------------------------------------------------------
+
+Implementar el COPILOTO DE LUKA como una CAPA TRANSVERSAL
+DE EXPERIENCIA dentro de LUKA OS.
+
+El Copiloto debe proporcionar una única presencia de LUKA
+que pueda acompañar diferentes experiencias del ecosistema
+según el contexto:
+
+1. MAPPER
+2. THE EYE
+3. LUKA AR
+4. LUKA TV
+
+IMPORTANTE:
+
+El Copiloto es transversal.
+
+SU AUTORIDAD NO ES TRANSVERSAL.
+
+El Copiloto debe operar únicamente mediante capacidades
+explícitas y limitadas por contexto.
+
+============================================================
+1. PRINCIPIO ARQUITECTÓNICO
+============================================================
+
+Implementar:
+
+LUKA COPILOTO
+       ↓
+CONTEXT ENGINE
+       ↓
+INTENT / INTERACTION ENGINE
+       ↓
+CAPABILITY GATE
+       ↓
+CONTEXT ADAPTER
+       ↓
+MÓDULO DESTINO
+
+No permitir acceso genérico del Copiloto a todo el sistema.
+
+El Copiloto debe conocer únicamente el contexto necesario
+para realizar su función.
+
+============================================================
+2. SEPARACIÓN DE CONCEPTOS
+============================================================
+
+Mantener separados:
+
+A. COPILOTO
+   Presencia/asistencia de LUKA.
+
+B. MODO
+   Comportamiento contextual.
+
+C. CAPACIDAD
+   Acción técnicamente permitida.
+
+D. AUTORIDAD
+   Autoridad del sistema o del usuario responsable.
+
+El Copiloto NO debe adquirir autoridad por el hecho
+de poder interpretar lenguaje natural.
+
+============================================================
+3. MODOS DEL COPILOTO
+============================================================
+
+Implementar inicialmente:
+
+SILENCIOSO
+CONCENTRACIÓN
+NORMAL
+ASISTIDO
+DEMO
+
+El modo determina:
+
+- frecuencia de intervención;
+- nivel de explicación;
+- cantidad de confirmaciones;
+- proactividad;
+- longitud de las respuestas.
+
+No determina permisos de autoridad.
+
+Los permisos dependen del CAPABILITY GATE.
+
+============================================================
+4. CONTEXTO GLOBAL
+============================================================
+
+Crear un contrato de contexto común:
+
+CopilotContext
+
+Debe poder contener, según corresponda:
+
+- usuario/rol;
+- módulo actual;
+- sesión;
+- estado operativo;
+- ubicación;
+- conectividad;
+- dispositivo;
+- permisos;
+- objeto actual;
+- acción actual;
+- alertas;
+- tareas pendientes.
+
+No almacenar información innecesaria.
+
+No exponer datos sensibles al Copiloto si no son necesarios
+para la experiencia.
+
+============================================================
+5. MAPPER MODE
+============================================================
+
+Rol:
+
+COPILOTO DE CAPTURA TERRITORIAL.
+
+Puede:
+
+- iniciar sesión;
+- informar estado de GPS;
+- informar cámara;
+- guiar captura;
+- escuchar observaciones;
+- transcribir;
+- confirmar guardado;
+- informar sincronización;
+- informar offline;
+- informar errores;
+- mostrar siguiente acción.
+
+Puede escribir únicamente mediante las acciones explícitas
+permitidas por Mapper.
+
+Puede:
+
+CAPTURE
+SAVE
+ADD_OBSERVATION
+REQUEST_PHOTO
+REQUEST_GPS
+REQUEST_SYNC
+
+No puede:
+
+VERIFY
+PUBLISH
+RESOLVE_CONFLICT
+OVERRIDE_AUTHORITY
+
+Mantener:
+
+REALIDAD
+→ MAPPER
+→ WORLD OBJECT
+
+============================================================
+6. THE EYE MODE
+============================================================
+
+Rol:
+
+COPILOTO DE VERIFICACIÓN/AUDITORÍA.
+
+Puede:
+
+- informar objetos pendientes;
+- resumir expediente;
+- localizar Claims;
+- mostrar Sources;
+- mostrar Evidence;
+- explicar Evidence Matrix;
+- detectar que existen conflictos registrados;
+- mostrar comparación de versiones;
+- navegar entre elementos;
+- solicitar al auditor que revise algo.
+
+Ejemplo:
+
+"Este objeto tiene dos Claims en conflicto."
+
+Puede:
+
+OPEN_DOSSIER
+SHOW_EVIDENCE
+SHOW_CLAIMS
+SHOW_CONFLICT
+COMPARE_VERSIONS
+FILTER_QUEUE
+NAVIGATE
+
+NO puede:
+
+VERIFY
+ACCEPT_TRUTH
+REJECT_TRUTH
+RESOLVE_CONFLICT
+PUBLISH
+
+La autoridad continúa:
+
+THE EYE
+→ HUMAN AUTHORITY
+→ PUBLICATION
+
+============================================================
+7. LUKA AR MODE
+============================================================
+
+Rol:
+
+COPILOTO DE EXPERIENCIA TERRITORIAL.
+
+Debe utilizar únicamente información territorial
+permitida para Runtime.
+
+Runtime consume:
+
+publicationStatus = PUBLISHED
+
+y la versión publicada correspondiente.
+
+El Copiloto puede:
+
+- explicar lugares;
+- responder preguntas sobre contenido publicado;
+- orientar;
+- indicar distancias;
+- sugerir recorridos;
+- presentar experiencias;
+- activar navegación;
+- contextualizar el territorio;
+- ayudar a explorar.
+
+Ejemplo:
+
+"Estás aproximadamente a 200 metros de este punto."
+
+"Hay tres lugares publicados cerca de ti."
+
+No puede:
+
+- modificar WorldObjects;
+- modificar Claims;
+- verificar contenido;
+- publicar contenido;
+- convertir una sugerencia de IA en verdad;
+- acceder a drafts como si fueran contenido público.
+
+============================================================
+8. LUKA TV MODE
+============================================================
+
+Rol:
+
+COPILOTO DE CONTROL Y EXPERIENCIA.
+
+Puede ejecutar únicamente comandos de TV expresamente
+autorizados por la capa de TV.
+
+Ejemplos:
+
+SUBIR_VOLUMEN
+BAJAR_VOLUMEN
+PAUSAR
+REANUDAR
+CAMBIAR_CANAL
+ABRIR_EXPERIENCIA
+NAVEGAR_UI
+
+El Copiloto NO obtiene autoridad sobre:
+
+- sorteos;
+- resultados;
+- RNG;
+- reglas;
+- RTP;
+- wallet;
+- liquidaciones;
+- MjpTvManifest;
+- autoridad financiera;
+- cualquier autoridad del MJP CORE.
+
+============================================================
+9. CAPABILITY GATE
+============================================================
+
+Implementar una matriz explícita:
+
+Capability
+Context
+Role
+Allowed / Denied
+
+Ejemplo:
+
+MAPPER:
+CAPTURE = ALLOW
+SAVE = ALLOW
+VERIFY = DENY
+PUBLISH = DENY
+
+THE EYE:
+SHOW_EVIDENCE = ALLOW
+COMPARE = ALLOW
+VERIFY = DENY para Copiloto
+PUBLISH = DENY
+
+AR:
+READ_PUBLISHED = ALLOW
+NAVIGATE = ALLOW
+MODIFY_WORLD_OBJECT = DENY
+PUBLISH = DENY
+
+TV:
+TV_CONTROL = ALLOW
+MJP_CORE_MUTATION = DENY
+
+No depender exclusivamente del frontend.
+
+Las restricciones críticas deben existir también
+en backend/API.
+
+============================================================
+10. VOZ UNIFICADA
+============================================================
+
+Mantener una única identidad de voz de LUKA.
+
+El contenido cambia según el contexto.
+
+La identidad no.
+
+Mapper:
+
+"Objeto guardado."
+
+The Eye:
+
+"Hay dos Claims en conflicto."
+
+AR:
+
+"Hay un punto de interés cerca."
+
+TV:
+
+"Volumen aumentado."
+
+Evitar una personalidad diferente por módulo.
+
+============================================================
+11. MOTOR DE INTERACCIÓN
+============================================================
+
+El Copiloto debe aceptar lenguaje natural razonable.
+
+NO exigir comandos rígidos.
+
+Ejemplos:
+
+"LUKA, guarda esto."
+
+"¿Qué falta?"
+
+"Muéstrame la evidencia."
+
+"¿Qué hay cerca?"
+
+"Sube el volumen."
+
+Si existe ambigüedad:
+
+pedir aclaración.
+
+Ejemplo:
+
+"¿Quieres guardar el objeto actual?"
+
+Las acciones potencialmente destructivas requieren
+confirmación explícita.
+
+============================================================
+12. MODO RADAR
+============================================================
+
+El Modo Radar será transversal.
+
+Debe observar:
+
+- estado del módulo;
+- estado de sesión;
+- GPS;
+- cámara;
+- conectividad;
+- tareas;
+- errores;
+- conflictos;
+- estado de UI;
+- acciones pendientes.
+
+El Radar NO debe hablar constantemente.
+
+Regla:
+
+SI NO HAY INFORMACIÓN ÚTIL,
+ACCIÓN PENDIENTE,
+ALERTA
+O CONFIRMACIÓN:
+
+SILENCIO.
+
+============================================================
+13. POLÍTICA DE SILENCIO
+============================================================
+
+Implementar:
+
+- prioridad de mensajes;
+- cooldown;
+- deduplicación;
+- cancelación de mensajes obsoletos;
+- cola de mensajes;
+- prevención de interrupciones.
+
+No repetir mensajes.
+
+No hablar mientras el usuario dicta.
+
+No interrumpir una acción.
+
+No narrar operaciones internas.
+
+============================================================
+14. FEEDBACK MULTIMODAL
+============================================================
+
+Toda acción relevante debe poder reflejarse mediante:
+
+VOZ
++
+UI
+
+Ejemplo:
+
+Objeto guardado:
+
+VOZ:
+"Objeto guardado."
+
+UI:
+✓ OBJETO 08
+
+Error:
+
+VOZ:
+"Precisión GPS baja."
+
+UI:
+GPS ⚠
+
+No crear dos estados independientes.
+
+La UI y la voz deben consumir el mismo estado operacional.
+
+============================================================
+15. FALLBACK
+============================================================
+
+Si voz no está disponible:
+
+VOICE_UNAVAILABLE
+
+El sistema debe continuar mediante UI táctil.
+
+No bloquear Mapper, The Eye, AR o TV únicamente
+porque la voz no esté disponible.
+
+============================================================
+16. TELEMETRÍA DEL COPILOTO
+============================================================
+
+Registrar como mínimo:
+
+- tiempo de interacción;
+- comandos;
+- intents reconocidos;
+- intents ambiguos;
+- comandos no reconocidos;
+- repeticiones;
+- cancelaciones;
+- errores;
+- frecuencia de intervención;
+- modo utilizado;
+- módulo utilizado.
+
+No almacenar audio innecesariamente.
+
+Si se almacena audio:
+
+debe existir una política explícita de privacidad,
+retención y acceso.
+
+============================================================
+17. PROTECCIÓN DE DATOS
+============================================================
+
+El Copiloto no debe convertirse en un canal de acceso
+general a datos privados.
+
+Aplicar:
+
+RBAC
+least privilege
+capability checks
+audit logging
+
+Toda operación sensible debe pasar por las mismas
+autoridades del sistema que una operación realizada
+manualmente.
+
+La voz NO puede convertirse en bypass de seguridad.
+
+============================================================
+18. AUDITORÍA
+============================================================
+
+Registrar operaciones relevantes del Copiloto:
+
+- usuario;
+- contexto;
+- intent;
+- capability;
+- resultado;
+- timestamp;
+- módulo;
+- estado.
+
+Diferenciar:
+
+INTENT DETECTADO
+
+de
+
+ACCIÓN EJECUTADA.
+
+Ejemplo:
+
+Usuario:
+"Publica este objeto."
+
+Sistema:
+
+INTENT = PUBLISH_OBJECT
+
+CAPABILITY = DENIED
+
+RESULT = NOT_EXECUTED
+
+El Copiloto nunca debe presentar una acción no ejecutada
+como si hubiera sido ejecutada.
+
+============================================================
+19. MJP CORE
+============================================================
+
+MJP CORE permanece AISLADO.
+
+Esta implementación NO modifica:
+
+- juegos;
+- RNG;
+- reglas;
+- RTP;
+- wallet;
+- liquidaciones;
+- MjpTvManifest;
+- autoridad de resultados;
+- autoridad financiera.
+
+No realizar refactorizaciones de MJP CORE como parte
+de esta orden.
+
+============================================================
+20. COMPATIBILIDAD CON ARQUITECTURA TERRITORIAL
+============================================================
+
+Mantener la cadena:
+
+REALIDAD
+↓
+MAPPER
+↓
+WORLD OBJECT
+↓
+WORLD ENGINE
+↓
+THE EYE
+↓
+HUMAN AUTHORITY
+↓
+PUBLISHED VERSION
+↓
+RUNTIME
+↓
+LUKA AR
+
+El Copiloto puede acompañar cada etapa,
+pero NO puede saltarse ninguna autoridad.
+
+============================================================
+21. IMPLEMENTACIÓN PROGRESIVA
+============================================================
+
+FASE 1:
+
+Implementar infraestructura transversal:
+
+- CopilotContext;
+- Mode;
+- Capability;
+- Capability Gate;
+- Intent;
+- Interaction State;
+- Voice State;
+- Radar;
+- silencio;
+- telemetría;
+- auditoría.
+
+FASE 2:
+
+Integrar:
+
+MAPPER
+THE EYE
+
+FASE 3:
+
+Integrar:
+
+LUKA AR
+
+utilizando únicamente contenido publicado.
+
+FASE 4:
+
+Integrar:
+
+LUKA TV
+
+mediante capacidades explícitas de control.
+
+No implementar simultáneamente nuevas capacidades
+no solicitadas.
+
+============================================================
+22. NO HACER
+============================================================
+
+NO crear un agente omnipotente.
+
+NO dar acceso directo a bases de datos sensibles.
+
+NO permitir que LLM ejecute SQL arbitrario.
+
+NO permitir que lenguaje natural salte RBAC.
+
+NO permitir que el Copiloto publique.
+
+NO permitir que el Copiloto resuelva conflictos.
+
+NO permitir que el Copiloto determine verdad.
+
+NO permitir que el Copiloto modifique MJP CORE.
+
+NO simular capacidades que no estén implementadas.
+
+NO implementar visión artificial como requisito de esta fase.
+
+============================================================
+23. CRITERIO DE IMPLEMENTACIÓN REAL
+============================================================
+
+Una capacidad solo puede marcarse como:
+
+IMPLEMENTED
+
+cuando exista:
+
+UI / interacción
++
+lógica real
++
+persistencia cuando corresponda
++
+integración real
++
+control de permisos
++
+tests
++
+evidencia de funcionamiento.
+
+Si solamente existe una interfaz:
+
+PARTIAL
+
+Si es mock/demo:
+
+SIMULATED
+
+Si depende de dispositivo físico:
+
+EXTERNAL_REQUIRED
+
+Si necesita decisión humana:
+
+REQUIRES_HUMAN
+
+============================================================
+24. VALIDACIÓN
+============================================================
+
+Separar:
+
+VALIDACIÓN TÉCNICA
+
+de
+
+VALIDACIÓN FÍSICA.
+
+Validación técnica:
+
+- build;
+- tests;
+- persistencia;
+- permisos;
+- estados;
+- integración;
+- auditoría.
+
+Validación física:
+
+- Android;
+- iOS;
+- micrófono;
+- altavoz;
+- cámara;
+- GPS;
+- conectividad;
+- ruido ambiental;
+- uso caminando.
+
+No declarar FIELD READY por tests solamente.
+
+============================================================
+25. REPORTE GENERAL OBLIGATORIO
+============================================================
+
+Al finalizar entregar:
+
+A. arquitectura real implementada;
+B. archivos/módulos creados o modificados;
+C. capacidades del Copiloto;
+D. matriz de capacidades por contexto;
+E. Mapper;
+F. The Eye;
+G. LUKA AR;
+H. LUKA TV;
+I. Radar;
+J. modos;
+K. voz;
+L. fallback;
+M. telemetría;
+N. seguridad/RBAC;
+O. auditoría;
+P. pruebas;
+Q. validación física pendiente;
+R. bloqueadores;
+S. estado de MJP CORE.
+
+Para cada componente:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+
+No utilizar "100%" ni "READY" sin evidencia.
+
+============================================================
+26. ACEPTACIÓN
+============================================================
+
+La implementación será aceptada cuando:
+
+1. exista una capa transversal real;
+2. exista CopilotContext;
+3. exista Capability Gate;
+4. exista separación entre intent y acción;
+5. exista separación entre asistencia y autoridad;
+6. funcionen los modos definidos;
+7. funcione Radar;
+8. funcione política de silencio;
+9. Mapper esté integrado;
+10. The Eye esté integrado;
+11. AR consuma solamente publicación;
+12. TV utilice capacidades permitidas;
+13. exista fallback sin voz;
+14. exista auditoría;
+15. existan tests;
+16. no haya simulaciones presentadas como reales;
+17. MJP CORE permanezca intacto.
+
+============================================================
+FIN DE ORDEN
+============================================================
+Lo que considero especialmente importante
+
+Hay una frase de tu propuesta que yo sí conservaría como principio oficial de LUKA:
+
+"Una sola presencia, diferentes contextos."
+
+Pero agregaría inmediatamente:
+
+"Una sola presencia no significa una sola autoridad."
+
+Ese principio nos resuelve un problema arquitectónico importante.
+
+LUKA puede sentirse como la misma entidad cuando:
+
+acompaña al Mapper;
+ayuda al auditor;
+guía al ciudadano en AR;
+controla la experiencia de TV.
+
+Pero internamente debe saber:
+
+              LUKA
+                │
+        ┌───────┴───────┐
+        │   COPILOTO    │
+        │               │
+        │ guía/asiste   │
+        └───────┬───────┘
+                │
+         CAPABILITY GATE
+                │
+     ┌──────────┼──────────┐
+     ↓          ↓          ↓
+   MAPPER    THE EYE     RUNTIME
+     │          │          │
+   CREA       VERIFICA   PRESENTA
+     │          │          │
+     └──────────┼──────────┘
+                ↓
+        HUMAN AUTHORITY
+                ↓
+            PUBLICA
+
+Y LUKA TV queda como una rama de experiencia, con acceso únicamente a los controles autorizados.
+
+Eso permite que en el futuro podamos decir simplemente:
+
+"LUKA, ayúdame."
+
+y que la respuesta dependa del contexto, sin convertir a LUKA en una autoridad que pueda hacer cualquier cosa.
+
+Esa es, en mi opinión, la arquitectura correcta para que el Copiloto pueda crecer con todo el ecosistema sin terminar convirtiéndose en un punto único de riesgo.

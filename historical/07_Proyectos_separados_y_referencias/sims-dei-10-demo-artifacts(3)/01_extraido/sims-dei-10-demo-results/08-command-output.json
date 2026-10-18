@@ -1,0 +1,584 @@
+{
+  "run": 8,
+  "label": "REGIÓN (REGION-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "REGION-001",
+  "status": "PASS",
+  "commands_total": 21,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0271,
+  "failures": [],
+  "snapshot": {
+    "project_id": "REGION-001",
+    "name": "Región La Libertad",
+    "spatial_scope": "region",
+    "temporal_scope": "escenario_2040",
+    "stage": "DRAFT",
+    "version": 20,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 2,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 4,
+    "comparisons": 1,
+    "simulations": 0,
+    "multiobjectives": 1,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 20
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE REGION-001 \"Región La Libertad\" region escenario_2040",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "REGION-001",
+          "name": "Región La Libertad",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "region",
+          "temporal_scope": "escenario_2040",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001009
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN REGION-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "REGION-001",
+          "name": "Región La Libertad",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "region",
+          "temporal_scope": "escenario_2040",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000642
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"La región tiene 2000000 habitantes\" INEI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-cdc2f20de8",
+          "project_id": "REGION-001",
+          "statement": "La región tiene 2000000 habitantes",
+          "source": "INEI",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00135
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-RG001 \"PBI regional 30000 millones USD\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-RG001",
+          "project_id": "REGION-001",
+          "source_id": null,
+          "statement": "PBI regional 30000 millones USD",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.805708+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "954af2ff7efded11f179840fdc65ab4c738199349234364127e4f74ef55d88e4",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001571
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET PBI_PER_CAPITA MAXIMIZE 9000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-039629be5a",
+          "project_id": "REGION-001",
+          "key": "PBI_PER_CAPITA",
+          "direction": "MAXIMIZE",
+          "value": "9000",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001108
+    },
+    {
+      "sequence": 6,
+      "command": "/OBJECTIVE SET DESIGUALDAD MINIMIZE 0.35",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-bbb9605b1c",
+          "project_id": "REGION-001",
+          "key": "DESIGUALDAD",
+          "direction": "MINIMIZE",
+          "value": "0.35",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001099
+    },
+    {
+      "sequence": 7,
+      "command": "/CONSTRAINT SET DESIGUALDAD <= 0.35 GINI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-909a9b77e4",
+          "project_id": "REGION-001",
+          "key": "DESIGUALDAD",
+          "operator": "<=",
+          "value": "0.35",
+          "unit": "GINI",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001222
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE CREATE REGION-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4c6e56d16b",
+          "project_id": "REGION-001",
+          "name": "REGION-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001299
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET REGION-A pbi_per_capita 9000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4c6e56d16b",
+          "project_id": "REGION-001",
+          "name": "REGION-A",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "9000"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001218
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET REGION-A gini 0.42",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-4c6e56d16b",
+          "project_id": "REGION-001",
+          "name": "REGION-A",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "9000",
+            "gini": "0.42"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001418
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE CREATE REGION-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-84cb9f3d05",
+          "project_id": "REGION-001",
+          "name": "REGION-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001359
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE SET REGION-B pbi_per_capita 9500",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-84cb9f3d05",
+          "project_id": "REGION-001",
+          "name": "REGION-B",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "9500"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001149
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET REGION-B gini 0.30",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-84cb9f3d05",
+          "project_id": "REGION-001",
+          "name": "REGION-B",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "9500",
+            "gini": "0.30"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001302
+    },
+    {
+      "sequence": 14,
+      "command": "/EVALUATE REGION-A PBI_PER_CAPITA 9000 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-4e8e3dbe19",
+          "alternative_id": "ALT-4c6e56d16b",
+          "objective_id": "OBJ-039629be5a",
+          "value": 9000.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001244
+    },
+    {
+      "sequence": 15,
+      "command": "/EVALUATE REGION-A DESIGUALDAD 0.42 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-3787f5e7a2",
+          "alternative_id": "ALT-4c6e56d16b",
+          "objective_id": "OBJ-bbb9605b1c",
+          "value": 0.42,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001266
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE REGION-B PBI_PER_CAPITA 9500 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-5eca8c89dc",
+          "alternative_id": "ALT-84cb9f3d05",
+          "objective_id": "OBJ-039629be5a",
+          "value": 9500.0,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001317
+    },
+    {
+      "sequence": 17,
+      "command": "/EVALUATE REGION-B DESIGUALDAD 0.30 SCORE 0.8 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-5cc5732f04",
+          "alternative_id": "ALT-84cb9f3d05",
+          "objective_id": "OBJ-bbb9605b1c",
+          "value": 0.3,
+          "unit": "SCORE",
+          "confidence": 0.8,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001244
+    },
+    {
+      "sequence": 18,
+      "command": "/COMPARE REGION-A REGION-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-f28c0d26a2",
+          "project_id": "REGION-001",
+          "alternative_ids": [
+            "ALT-4c6e56d16b",
+            "ALT-84cb9f3d05"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-4e8e3dbe19",
+              "alternative_id": "ALT-4c6e56d16b",
+              "objective_id": "OBJ-039629be5a",
+              "value": 9000.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-3787f5e7a2",
+              "alternative_id": "ALT-4c6e56d16b",
+              "objective_id": "OBJ-bbb9605b1c",
+              "value": 0.42,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-5eca8c89dc",
+              "alternative_id": "ALT-84cb9f3d05",
+              "objective_id": "OBJ-039629be5a",
+              "value": 9500.0,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-5cc5732f04",
+              "alternative_id": "ALT-84cb9f3d05",
+              "objective_id": "OBJ-bbb9605b1c",
+              "value": 0.3,
+              "unit": "SCORE",
+              "confidence": 0.8,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001312
+    },
+    {
+      "sequence": 19,
+      "command": "/MULTIOBJECTIVE PARETO PBI_PER_CAPITA DESIGUALDAD",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "multiobjective": {
+            "multiobjective_id": "MOBJ-e96f19d476",
+            "project_id": "REGION-001",
+            "method": "pareto_front_v1",
+            "method_version": "1.0",
+            "objectives": [
+              "PBI_PER_CAPITA",
+              "DESIGUALDAD"
+            ],
+            "alternatives": [
+              "ALT-4c6e56d16b",
+              "ALT-84cb9f3d05"
+            ],
+            "pareto_front": [
+              "ALT-84cb9f3d05"
+            ],
+            "dominated": [
+              "ALT-4c6e56d16b"
+            ],
+            "incomplete": [],
+            "tradeoffs": {
+              "matrix": {
+                "ALT-4c6e56d16b": {
+                  "PBI_PER_CAPITA": 9000.0,
+                  "DESIGUALDAD": 0.42
+                },
+                "ALT-84cb9f3d05": {
+                  "PBI_PER_CAPITA": 9500.0,
+                  "DESIGUALDAD": 0.3
+                }
+              }
+            },
+            "state": "EXECUTED",
+            "inputs_hash": "2885cb3b25c22fe278e03618392916346693cdc30fd24865607389e25cdcebd7",
+            "created_at": "2026-09-16T18:06:10.825076+00:00",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001577
+    },
+    {
+      "sequence": 20,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión regional\" \"Región validada\" \"Regional planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-80e40d7649",
+          "project_id": "REGION-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión regional",
+          "reason": "Región validada",
+          "authority": "Regional planner",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001306
+    },
+    {
+      "sequence": 21,
+      "command": "/DECISION RECORD \"Adoptar REGION-B\" architect-yvan \"Regional planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-7f63018512",
+          "project_id": "REGION-001",
+          "statement": "Adoptar REGION-B",
+          "actor": "architect-yvan",
+          "authority": "Regional planner",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001418
+    }
+  ]
+}

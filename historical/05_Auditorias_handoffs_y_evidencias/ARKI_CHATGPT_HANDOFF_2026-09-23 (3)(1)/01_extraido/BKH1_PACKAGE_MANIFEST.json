@@ -1,0 +1,15 @@
+{
+  "schema": "ARKI-BKH1-CONTRACT-PACKAGE-1.1",
+  "status": "APPROVE WITH FIXES - PENDING FINAL REVIEW",
+  "implementation": "BLOCKED",
+  "fixes": ["multiscale source/target/applicability", "cross-discipline source/target/relationship", "stable semantic identity and revision", "RelationshipTypeRegistry"],
+  "files": [
+    {"path":"BKH1_RELATIONSHIP_FABRIC_CONTRACT.md","bytes":5554,"sha256":"1907cdfd7c8ddaf6da1693d57da2807c15e94365a08ab8f20bf15a47c79bf829"},
+    {"path":"BKH1_RELATION_MIGRATION_MATRIX.md","bytes":4175,"sha256":"64e1d524c7dfd1aa36263e724a37447aa7d1359fa272bccd12676be3b8503747"},
+    {"path":"BKH1_RELATIONSHIP_SCHEMA.md","bytes":3664,"sha256":"aba4be8632de39eceb585054021e1be6cfbecfdea76e52ae5eb5a0e04779ac89"},
+    {"path":"BKH1_TEST_PLAN.md","bytes":3841,"sha256":"4b9b4fbcbc05b719ecdc342cb54bdaece603f5923dde07ac672d03d5e0b70209"},
+    {"path":"BKH1_SCOPE_LIMITS.md","bytes":1689,"sha256":"020690853a18e5201b4137e30990d95f3198a6242f3e57b2339f0dc4785de25e"},
+    {"path":"BKH1_IMPLEMENTATION_SEQUENCE.md","bytes":3205,"sha256":"b12d96e381b7e23aaf7fce60dd9ad59375b55b2b2d67c4c646a6d34668db586d"},
+    {"path":"BKH1_PACKAGE_README.md","bytes":2141,"sha256":"ee003bf548b6cf5d8bab8e0c1fdae839e304ee5168aac0bcc5363204e89f9792"}
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "verdict": "AURORA_R0_BASELINE_PARTIAL",
+  "contaminationStatus": "ISOLATED_WITH_DECLARED_HISTORICAL_CONTAMINATION_RISK",
+  "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "worktreeEntries": 1130,
+  "inputFreezeHash": "sha256:v1:62bc38612346e336624802c8b569ab0f427fc4a277e4203d72eaa6a593d49231",
+  "taskCounts": {
+    "tasksAttempted": 91,
+    "tasksSupportedByEvidence": 0,
+    "tasksReasoned": 91,
+    "tasksComputationallyExecuted": 0,
+    "tasksModeled": 0,
+    "tasksVerified": 0,
+    "unknownsCorrectlyDetected": 35,
+    "unsupportedClaimsBlocked": 14,
+    "adversarialTrapsDetected": 4,
+    "adversarialTrapsMissedOrNotDemonstrated": 10,
+    "toolDeficits": 10,
+    "knowledgeDeficits": 91,
+    "reasoningDeficits": 91,
+    "professionalBoundariesRespected": true
+  },
+  "unknownCount": 35,
+  "requiredInputCount": 35,
+  "activationDistribution": {
+    "FOUNDATION_ONLY": 80
+  },
+  "toolDeficits": 10,
+  "failureDistribution": {
+    "KNOWLEDGE_DEFICIT": 91,
+    "REASONING_DEFICIT": 91,
+    "EVIDENCE_DEFICIT": 91,
+    "GEOMETRY_DEFICIT": 1,
+    "RELATIONSHIP_DEFICIT": 20,
+    "CAUSAL_DEFICIT": 20,
+    "CONSTRAINT_DEFICIT": 91,
+    "STATE_DEFICIT": 1,
+    "TOOL_DEFICIT": 10,
+    "PROFESSIONAL_VALIDATION_REQUIRED": 91,
+    "UNKNOWN": 35
+  },
+  "historicalAurora": [
+    {
+      "path": "ARKI_RASCACIELOS_150_PISOS/VERTICAL_AURORA_DISTRIBUCION_ESTRUCTURA.md",
+      "classification": "PREVIOUS_SOLUTION",
+      "action": "EXCLUDED_FROM_COLD_EXAM"
+    },
+    {
+      "path": "ARKI_RASCACIELOS_150_PISOS/PLANO_PISO_100_ESCALA_1_100.svg",
+      "classification": "PREVIOUS_OUTPUT",
+      "action": "EXCLUDED_FROM_COLD_EXAM"
+    },
+    {
+      "path": "scripts/create-arki-be-x01-package.py",
+      "classification": "PREVIOUS_EXAM_OR_PACKAGE",
+      "action": "EXCLUDED_FROM_COLD_EXAM"
+    },
+    {
+      "path": "C1_C80_WAVE0/ORDER_SOURCE_178.txt",
+      "classification": "HISTORICAL_RECORD",
+      "action": "EXCLUDED_FROM_COLD_EXAM"
+    },
+    {
+      "path": "pasted_content_181.txt",
+      "classification": "PREVIOUS_INPUT",
+      "action": "EXCLUDED_FROM_COLD_EXAM"
+    }
+  ],
+  "stop": true
+}

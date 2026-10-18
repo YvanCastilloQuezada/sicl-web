@@ -1,0 +1,23 @@
+{
+  "schema":"LUCA-MILUKITA-REMOTE-PAIRING-MATRIX-1.0",
+  "status":"REFERENCE_ONLY_NOT_IMPLEMENTED",
+  "currentEvidence":"NOT_DEMONSTRATED",
+  "transports":["IR","IR_OVER_WIFI_GATEWAY","PROPRIETARY_RF","BLUETOOTH_CLASSIC","BLUETOOTH_LE","WIFI_IP","CLOUD","HDMI_CEC","USB_HID","NFC","UWB","MATTER_THREAD_WIFI"],
+  "pairingModes":[
+    {"id":"NONE_IR","security":"none_at_receiver","use":"legacy_IR"},
+    {"id":"MANUAL_CODE","security":"compatibility_not_identity","use":"manufacturer_code_setup"},
+    {"id":"IR_LEARNING","security":"none_at_receiver","use":"capture_original_remote_pattern"},
+    {"id":"RF_ENROLLMENT","security":"vendor_dependent","use":"hub_or_remote_registration"},
+    {"id":"BLE_JUST_WORKS","security":"limited_MITM_protection","use":"low_risk_devices"},
+    {"id":"BLE_NUMERIC_COMPARISON","security":"LE_SECURE_CONNECTIONS_MITM_RESISTANT","use":"display_plus_confirm_button"},
+    {"id":"BLE_PASSKEY","security":"LE_SECURE_CONNECTIONS_OR_LEGACY_DEPENDENT","use":"numeric_input"},
+    {"id":"BLE_OOB","security":"depends_on_OOB_channel","use":"NFC_QR_or_pre_shared_data"},
+    {"id":"WIFI_SOFTAP","security":"credential_onboarding","use":"headless_or_new_device"},
+    {"id":"QR_MANUAL_COMMISSIONING","security":"passcode_or_device_onboarding","use":"Matter_or_vendor_setup"},
+    {"id":"MATTER_COMMISSIONING","security":"PASE_ATTESTATION_CASE","use":"fabric_onboarding"},
+    {"id":"ACCOUNT_CLOUD_BINDING","security":"identity_token_and_acl","use":"remote_access"},
+    {"id":"CERTIFICATE_BINDING","security":"PKI_device_identity","use":"professional_infrastructure"}
+  ],
+  "semanticSeparations":["discovered_not_paired","paired_not_authorized","authorized_not_connected","command_sent_not_acknowledged","acknowledged_not_state_observed"],
+  "lucaCurrentStatus":{"universalRemote":"NOT_DEMONSTRATED","keyboard":"NOT_DEMONSTRATED","trackpad":"NOT_DEMONSTRATED","pairingRuntime":"NOT_DEMONSTRATED"}
+}

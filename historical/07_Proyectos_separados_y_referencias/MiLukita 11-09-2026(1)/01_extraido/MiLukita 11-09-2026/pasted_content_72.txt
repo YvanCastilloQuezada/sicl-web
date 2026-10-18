@@ -1,0 +1,384 @@
+CIERRE DE FASE E.5 Y AUTORIZACIÓN DE FASE F
+Documento: ORDEN MAESTRA 001 — ACTA DE CIERRE FASE E.5 Y AUTORIZACIÓN FASE F
+Versión: 9.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+
+PARTE I — ACTA DE CIERRE DE FASE E.5
+1. ESTADO FINAL DE FASE E.5
+🟢 FASE E.5 — CERRADA CON OBSERVACIONES.
+
+2. VERIFICACIÓN DE PUNTOS
+Punto	Estado	Evidencia
+TV Engine	🟢 IMPLEMENTED / INTEGRATED	Superficies existentes consolidadas sin crear pantallas nuevas
+Estados de conexión	🟢 IMPLEMENTED / TESTED	Estados real/simulada/degradada/offline implementados
+Fallback QR/móvil	🟢 IMPLEMENTED / TESTED	Fallback implementado
+Autoridad server-side	🟢 IMPLEMENTED / INTEGRATED	Autoridad server-side visible
+Contrato de participación segura	🟢 IMPLEMENTED / TESTED	Contrato creado
+Games	🟢 IMPLEMENTED / INTEGRATED	Sesiones y créditos virtuales; sin modificar reglas protegidas
+MJP CORE	🟢 INTACT / TESTED	Aislamiento estricto mantenido
+Orden 60	🟢 ABIERTA	Correctamente mantenida como ABIERTA — PENDIENTES
+Fase F	🟢 NO INICIADA	Correctamente detenida
+3. VALIDACIÓN TÉCNICA
+Aspecto	Resultado
+Archivos	✅ 8 PASS
+Tests	✅ 38 PASS
+TypeScript	✅ PASS
+Build	✅ PASS
+Verificación visual móvil	✅ PASS
+38 tests PASS es evidencia sólida.
+
+4. COMPONENTES RESCATADOS
+Componente	Estado previo	Intervención	Estado posterior
+Superficies TV	Existente	Consolidadas	🟢 IMPLEMENTED / INTEGRATED
+Superficies Games	Existente	Consolidadas	🟢 IMPLEMENTED / INTEGRATED
+Estados de conexión	Parcial	Implementados	🟢 IMPLEMENTED / TESTED
+Fallback QR/móvil	Parcial	Implementado	🟢 IMPLEMENTED / TESTED
+Autoridad server-side	Parcial	Visible	🟢 IMPLEMENTED / INTEGRATED
+Contrato de participación	No existía	Creado	🟢 IMPLEMENTED / TESTED
+5. COMPONENTES NUEVOS
+Componente	Justificación	Estado
+Contrato de participación segura	Necesario para garantizar participación segura en TV/Games	🟢 IMPLEMENTED / TESTED
+Manus creó solo lo estrictamente necesario. ✅
+
+6. OBSERVACIONES REGISTRADAS
+Observación	Estado	Acción
+Probar Cast/DLNA en dispositivos reales	🟡 PENDIENTE	Fase H
+Validar flujo TV–móvil con QR publicado real	🟡 PENDIENTE	Micro-orden futura
+Validación física de modalidades	🟡 PENDIENTE	Fase H
+Integración real de Home/Field	🟡 PENDIENTE	Micro-orden futura
+Pruebas tRPC del routing	🟡 SUGERIDA	Micro-orden futura
+Validación AR/GPS/WebXR	🟡 PENDIENTE	Fase H
+Validación de POIs publicados reales	🟡 PENDIENTE	Micro-orden futura
+Validación externa de voz	🟡 PENDIENTE	Fase H
+Pruebas tRPC de fieldVoice.transcribe	🟡 SUGERIDA	Micro-orden futura
+Legal & Compliance	🟡 PLANNED / DISABLED	Pendiente de activación
+Pruebas tRPC de agentRoute	🟡 SUGERIDA	Micro-orden futura
+ShareTarget publicado real	🟡 PENDIENTE	Micro-orden futura
+SecurityHealth	🟡 PENDIENTE	Micro-orden independiente
+Orden 60	🟢 ABIERTA	Mantener ABIERTA — PENDIENTES
+Ninguna de las observaciones bloquea la continuación.
+
+7. DECLARACIÓN DE CIERRE
+FASE E.5: 🟢 CERRADA CON OBSERVACIONES.
+
+Razón: Los criterios de E.5 están implementados, integrados y verificados. Las observaciones restantes (validación física de TV, validación de QR real, pruebas tRPC) no bloquean la continuación.
+
+Con esto, FASE E queda completamente cerrada:
+
+text
+E.1 ✅ Agentes Especializados
+E.2 ✅ Voice Productivo
+E.3 ✅ AR Productivo
+E.4 ✅ Universal Controller Completo
+E.5 ✅ TV + Games
+PARTE II — AUTORIZACIÓN DE FASE F
+8. OBJETIVO DE FASE F
+FASE F — MAPPER.
+
+Objetivo: Consolidar Mapper como herramienta profesional de campo, con flujo completo de captura, evidencia, almacenamiento local, sincronización y conexión con The Eye.
+
+Pregunta central:
+
+"¿Puede el profesional de campo capturar evidencia de forma rápida, segura y offline, y sincronizarla cuando haya conexión?"
+
+9. ALCANCE DE FASE F
+Área	Qué se trabaja
+Flujo profesional	Sesión → Territorio → GPS → Captura → Observación → Evidencia → Guardar → Sincronizar → The Eye
+Sesión de captura	Inicio, estado, cierre
+Territorio	Contexto geográfico
+GPS	Posicionamiento real
+Captura	Fotografía, audio, texto
+Observación	Notas de campo
+Evidencia	Claims, Sources, Evidence
+Almacenamiento local	IndexedDB / Cache
+Cola offline	Sincronización diferida
+Sincronización	Envío al servidor
+Resolución de conflictos	Merge, disputed
+Interfaz profesional	Herramienta, no landing page
+10. LO QUE NO INCLUYE FASE F
+NO autoriza:
+
+❌ The Eye (Fase G)
+
+❌ Modificar WorldObjects sin autorización
+
+❌ Publicar POIs sin autorización
+
+❌ Modificar MJP CORE
+
+❌ Nuevas funciones comerciales
+
+❌ Cambios en Orden 60
+
+❌ Creación de nuevas pantallas (solo rescatar, conectar, integrar, corregir)
+
+❌ Rediseño visual
+
+❌ Confundir Mapper con landing page
+
+11. DISTINCIONES OBLIGATORIAS
+Manus deberá mantener claramente diferenciados:
+
+Distinción	Descripción
+Mapper ≠ Landing page	Mapper es herramienta profesional
+Captura ≠ Publicación	Capturar no es publicar
+Evidencia ≠ Verdad	La evidencia no es verdad verificada
+Intención ≠ Autorización	Detectar una intención no autoriza la acción
+Sesión ≠ Autoridad	Una sesión no concede permisos
+WorldObject ≠ Published	Un WorldObject no es un POI publicado
+12. PRINCIPIOS RECTORES DE FASE F
+Principio	Descripción
+Mapper es herramienta profesional.	No landing page. No dashboard decorativo.
+Flujo profesional.	Sesión → Captura → Evidencia → Guardar → Sincronizar → The Eye
+No publicar sin autorización.	La publicación requiere Human Authority.
+No modificar WorldObjects sin autorización.	Gobernanza territorial.
+Capability Gate siempre activo.	Toda acción sensible pasa por verificación.
+Fallback offline disponible.	Si no hay conexión, guardar localmente.
+Estado real.	No mostrar como real lo que el sistema no ha confirmado.
+Recuperación manual.	El usuario siempre puede recuperar el control.
+No reconstruir por defecto.	Rescatar lo existente antes de crear.
+13. CRITERIOS DE ACEPTACIÓN DE FASE F
+Fase F se considerará completada cuando:
+
+Criterio	Descripción
+Flujo profesional	Sesión → Captura → Evidencia → Guardar → Sincronizar → The Eye
+Sesión de captura	Inicio, estado, cierre funcional
+GPS	Posicionamiento real
+Captura	Fotografía, audio, texto funcional
+Observación	Notas de campo funcional
+Evidencia	Claims, Sources, Evidence funcional
+Almacenamiento local	IndexedDB / Cache funcional
+Cola offline	Sincronización diferida funcional
+Sincronización	Envío al servidor funcional
+Resolución de conflictos	Merge, disputed funcional
+Interfaz profesional	Herramienta, no landing page
+Capability Gate	Activo
+Tests	TypeScript PASS, tests PASS, build PASS
+Evidencia	Documentada en RESCUE_AUDIT_001.md
+14. FORMATO DE REPORTE DE FASE F
+Manus deberá reportar, al finalizar Fase F:
+
+Campo	Contenido
+1. Estado final	🟢 / 🟡 / 🔴
+2. Componentes rescatados	Qué ya existía y fue reutilizado
+3. Componentes modificados	Qué se corrigió
+4. Componentes nuevos	Qué fue realmente necesario crear
+5. Flujo profesional	Estado real
+6. Sesión de captura	Estado real
+7. GPS	Estado real
+8. Captura	Estado real
+9. Observación	Estado real
+10. Evidencia	Estado real
+11. Almacenamiento local	Estado real
+12. Cola offline	Estado real
+13. Sincronización	Estado real
+14. Resolución de conflictos	Estado real
+15. Interfaz profesional	Estado real
+16. Capability Gate	Estado real
+17. Tests	Solo los relacionados con Fase F
+18. Limitaciones	Qué no se puede declarar
+19. MJP CORE	Confirmación de protección
+20. Orden 60	Estado
+21. Fase G	NO INICIADA
+15. DETENCIÓN OBLIGATORIA
+Al completar Fase F:
+
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR FASE G.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+16. REGLAS DE FASE F
+Regla	Descripción
+No expandir alcance	Solo lo autorizado en Fase F
+No reconstruir	Rescatar lo existente antes de crear
+No crear nuevas pantallas	Solo rescatar, conectar, integrar, corregir
+No modificar MJP CORE	Bloqueo explícito
+No modificar WorldObjects sin autorización	Gobernanza territorial
+No publicar POIs sin autorización	Human Authority
+No iniciar Fase G	Detención obligatoria
+Reportar evidencia	No declarar sin pruebas
+Mapper es herramienta	No landing page
+17. PENDIENTES REGISTRADOS
+Pendiente	Origen	Acción futura
+Probar Cast/DLNA en dispositivos reales	E.5	Fase H
+Validar flujo TV–móvil con QR publicado real	E.5	Micro-orden futura
+Validación física de modalidades	E.4	Fase H
+Integración real de Home/Field	E.4	Micro-orden futura
+Pruebas tRPC del routing	E.4	Micro-orden futura
+Validación AR/GPS/WebXR	E.3	Fase H
+Validación de POIs publicados reales	E.3	Micro-orden futura
+Validación externa de voz	E.2	Fase H
+Pruebas tRPC de fieldVoice.transcribe	E.2	Micro-orden futura
+Legal & Compliance	E.1	Pendiente de activación
+Pruebas tRPC de agentRoute	E.1	Micro-orden futura
+Validación física de presencia	Fase D	Fase H
+Validación real de continuidad 2D ↔ AR	Fase D	Fase H
+Equivalencia con dispositivos físicos	Fase C	Fase H
+ShareTarget publicado real	Fase A	Micro-orden futura
+SecurityHealth	Fase A	Micro-orden independiente
+Orden 60	Orden anterior	Mantener ABIERTA — PENDIENTES
+Ninguno bloquea Fase F.
+
+18. ESTADO DE LAS FASES
+text
+🟢 FASE A — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE B — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE C — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE D — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE E — COMPLETA (E.1–E.5 CERRADAS CON OBSERVACIONES)
+        ↓
+🟡 FASE F — MAPPER (AUTORIZADA)
+        ↓
+🔵 FASE G — THE EYE (NO INICIADA)
+        ↓
+🔵 FASE H — VALIDACIÓN FÍSICA (NO INICIADA)
+19. ORDEN DE EJECUCIÓN INMEDIATA
+MANUS AI:
+
+Ejecutar únicamente:
+
+text
+FASE F — MAPPER
+Antes de modificar:
+
+Localizar componentes existentes de Mapper
+
+Identificar qué puede rescatarse
+
+Identificar conexiones faltantes
+
+Identificar duplicaciones
+
+Durante Fase F:
+
+Consolidar flujo profesional
+
+Consolidar sesión de captura
+
+Consolidar GPS
+
+Consolidar captura
+
+Consolidar observación
+
+Consolidar evidencia
+
+Consolidar almacenamiento local
+
+Consolidar cola offline
+
+Consolidar sincronización
+
+Consolidar resolución de conflictos
+
+Consolidar interfaz profesional
+
+Verificar Capability Gate
+
+Mantener Mapper NO es landing page
+
+No modificar WorldObjects sin autorización
+
+No publicar POIs sin autorización
+
+Al finalizar Fase F:
+
+Ejecutar pruebas focalizadas
+
+Documentar evidencia
+
+Actualizar RESCUE_AUDIT_001.md
+
+Reportar estado final
+
+DETENERSE.
+
+NO ejecutar Fase G ni posteriores sin autorización.
+
+20. FORMATO DE RESPUESTA OBLIGATORIA
+Manus deberá entregar una respuesta breve y verificable con esta estructura:
+
+text
+### 1. Estado final de Fase F
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla
+
+| Punto | Estado | Evidencia |
+|-------|--------|-----------|
+| Flujo profesional | | |
+| Sesión de captura | | |
+| GPS | | |
+| Captura | | |
+| Observación | | |
+| Evidencia | | |
+| Almacenamiento local | | |
+| Cola offline | | |
+| Sincronización | | |
+| Resolución de conflictos | | |
+| Interfaz profesional | | |
+| Capability Gate | | |
+| MJP CORE | | |
+| Orden 60 | | |
+
+### 3. Tests
+Indicar únicamente los tests ejecutados para esta fase y su resultado.
+
+### 4. RESCUE_AUDIT_001.md
+Indicar si fue actualizado y qué información contiene.
+
+### 5. Pendientes
+Separar claramente:
+- pendientes de Fase F;
+- pendientes de Fase E;
+- pendientes de Fase D;
+- pendientes de Fase C;
+- pendientes de Fase B;
+- pendientes de Fase A;
+- pendientes de Orden 60;
+- pendientes futuras.
+
+### 6. Estado de las fases siguientes
+Declarar expresamente:
+FASE G — NO INICIADA.
+21. PRINCIPIO DE ESTA ORDEN
+text
+VERIFICAR LO NECESARIO.
+NO AUDITAR TODO.
+NO EXPANDIR EL ALCANCE.
+NO CREAR NUEVAS PANTALLAS.
+NO OCULTAR PENDIENTES.
+NO INICIAR LA SIGUIENTE FASE SIN AUTORIZACIÓN.
+
+MAPPER ES HERRAMIENTA, NO LANDING PAGE.
+NO MODIFICAR WORLDOBJECTS SIN AUTORIZACIÓN.
+NO PUBLICAR POIS SIN AUTORIZACIÓN.
+CAPABILITY GATE SIEMPRE ACTIVO.
+
+MANUS IMPLEMENTA.
+MANUS DEMUESTRA.
+HUMAN AUTHORITY DECIDE.
+22. CIERRE
+FASE E.5: 🟢 CERRADA CON OBSERVACIONES.
+
+FASE E: ✅ COMPLETA (E.1–E.5).
+
+FASE F: 🟡 AUTORIZADA.
+
+Fase autorizada: F — Mapper.
+
+Pendientes registrados: Probar Cast/DLNA en dispositivos reales · Validar flujo TV–móvil con QR publicado real · Validación física de modalidades · Integración real de Home/Field · Pruebas tRPC del routing · Validación AR/GPS/WebXR · Validación de POIs publicados reales · Validación externa de voz · Pruebas tRPC de fieldVoice.transcribe · Legal & Compliance · Pruebas tRPC de agentRoute · Validación física de presencia · Validación real de continuidad 2D ↔ AR · Equivalencia con dispositivos físicos · ShareTarget real · SecurityHealth · Orden 60.
+
+Próximo paso: Ejecutar Fase F. Detenerse. Reportar. Esperar autorización.
+
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Orden Maestra 001 — Acta de Cierre Fase E.5 y Autorización Fase F
+Estado: Listo para envío a Manus

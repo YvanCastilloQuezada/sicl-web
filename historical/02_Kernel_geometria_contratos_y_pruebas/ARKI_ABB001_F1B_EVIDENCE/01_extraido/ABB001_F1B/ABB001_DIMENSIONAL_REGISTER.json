@@ -1,0 +1,26 @@
+{
+  "schema": "ARKI-ABB001-DIMENSIONAL-REGISTER-1.0",
+  "status": "DOCUMENTARY_VALUES / CAD_EXACTNESS_NOT_DEMONSTRATED",
+  "sourceFreeze": "ARKI_ABB001_SOURCE_FREEZE_V1",
+  "values": [
+    {"id":"site.frontage","value":"7.00 m","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"U-01","page":1},
+    {"id":"site.area","value":"140.00 m2","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"U-01","page":1},
+    {"id":"levels.ground","value":"N.P.T. +0.00 / +0.15","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"levels.second","value":"N.P.T. +3.15","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"levels.terrace","value":"N.P.T. +6.15","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"levels.roof","value":"N.P.T. +9.15","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"level.height.floor_to_floor","value":"3.15 m inferred from +0.00 to +3.15","classification":"DERIVED","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"level.height.second_to_terrace","value":"3.00 m inferred from +3.15 to +6.15","classification":"DERIVED","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"level.height.terrace_to_roof","value":"3.00 m inferred from +6.15 to +9.15","classification":"DERIVED","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"grid.width","value":"7.00 m repeated grid dimension","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/E-01/E-02","pages":[2,4,5]},
+    {"id":"bay.dimensions","value":"1.58, 0.77, 0.73, 0.82, 1.45, 1.65 m","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/E-01/E-02","pages":[2,4,5]},
+    {"id":"wall_or_joint.thickness","value":"0.15 m annotations","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/E-01/E-02","pages":[2,4,5]},
+    {"id":"slab.thickness","value":"h=0.20 m for aligerado detail","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"E-02","page":5},
+    {"id":"foundation.depth.footings","value":"1.80 m from NTN","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"E-01","page":4},
+    {"id":"foundation.depth.strip","value":"1.20 m from NTN","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"E-01","page":4},
+    {"id":"plumbing.slope","value":"1%","classification":"EXPLICIT","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"IS-02/IS-04","pages":[8,10]},
+    {"id":"openings","value":"door/window codes and some widths visible; complete schedule not normalized","classification":"PARTIAL","source":"PROY. FERNANDEZ ROJAS.pdf","sheet":"A-01/A-02","pages":[2,3]},
+    {"id":"modified.elevation.levels","value":"+7.35 and +6.40 in modified extraction versus +7.15 and +6.15 in base extraction","classification":"CONFLICT","source":"both architecture PDFs","sheet":"A-02/A-02-M","pages":[3,2]},
+    {"id":"exact_coordinates","value":null,"classification":"UNKNOWN","source":"DWG sources present but not parsed","sheet":null}
+  ]
+}

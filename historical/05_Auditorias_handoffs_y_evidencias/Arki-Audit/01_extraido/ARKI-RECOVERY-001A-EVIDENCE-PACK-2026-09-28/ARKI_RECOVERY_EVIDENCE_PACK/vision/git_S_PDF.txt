@@ -1,0 +1,18 @@
+[33mfaf8d4e[m feat(are): implement 2d architectural projection
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33m39b7798[m docs(arki): record phase1 multi-master learning
+[33m2de6011[m feat(rfc-030): architectural drawing generation foundation
+[33m5fa7138[m feat(rfc-034.1): sheet composition and layout engine
+[33m6920469[m Add files via upload
+[33m1a5f093[m Add files via upload
+[33m0a9dfe5[m Add files via upload
+[33m75076b8[m Add files via upload
+[33m90421fb[m docs: add rfc structure and reference folders
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33md60f3a5[m feat: add RNE RM verifier and E030 human review
+[33mf0aef3b[m feat: review RNE promotion and five-norm Camino A
+[33mee2ec36[m feat: expand RFC-025 RNE corpus sources
+[33m37926a2[m feat: add RFC-025 regulatory corpus foundation

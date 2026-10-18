@@ -1,0 +1,25 @@
+{
+  "codebookStatus": "FORENSIC DRAFT / PENDING HUMAN & INDEPENDENT REVIEW",
+  "canonical": false,
+  "documentationOnly": true,
+  "productCodeChanges": false,
+  "kernelChanges": false,
+  "masterGroupedCodeMentions": 73,
+  "masterUniqueCodeMentions": 41,
+  "repeatedMentionsExpectedInNarrativeAndMap": [
+    "BKH-0",
+    "BKH-1",
+    "BKH-2",
+    "BKH-3",
+    "BKH-4",
+    "E5",
+    "E6",
+    "E7",
+    "E8",
+    "UI-1"
+  ],
+  "duplicateCanonicalDefinitions": [],
+  "architectCodesWithoutMasterMention": [],
+  "normalizedStatesDocumented": true,
+  "unknownPolicyDocumented": true
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "deficitId": "S2-D-001",
+    "capability": "Real ABB benchmark execution",
+    "status": "PENDING",
+    "cause": "ABB-001..007 authorized datasets not supplied",
+    "impact": "Cannot claim professional service readiness",
+    "remediation": "Supply authorized non-commercial fixtures"
+  },
+  {
+    "deficitId": "S2-D-002",
+    "capability": "Production review desk UI",
+    "status": "BOUNDED_CONTRACT_ONLY",
+    "cause": "Workflow validated before ornamental UI",
+    "impact": "No production customer/professional workspace",
+    "remediation": "Implement bounded UI after independent contract review"
+  }
+]

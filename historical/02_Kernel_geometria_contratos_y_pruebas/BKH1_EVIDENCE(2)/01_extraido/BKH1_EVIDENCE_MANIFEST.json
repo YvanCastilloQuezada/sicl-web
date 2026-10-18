@@ -1,0 +1,27 @@
+{
+  "schema": "ARKI-BKH1-EVIDENCE-1.0",
+  "status": "IMPLEMENTED / PENDING EVIDENCE REVIEW",
+  "baseline": "main@c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "product_scope": ["shared/arkiRelationshipFabric.ts", "shared/arkiRelationshipAdapters.ts", "scripts/test-bkh1-relationship-fabric.ts"],
+  "files": [
+    {"path":"BKH1_REPORT.md","bytes":3553,"sha256":"24b716a9b907f174532597d8cb8c3cb28e4405cd62bb7f1fa8f590dbf217eedc"},
+    {"path":"BKH1_CHANGE_LIST.md","bytes":7354,"sha256":"ef7f5343604e62b9c756954e2f0fcf2a80f65f4ab138c309ad82ca7e04c5e510"},
+    {"path":"BKH1_DIFF.patch","bytes":26878,"sha256":"e573d928713116195f9a3913659073a528d6cf79fee225d85e8576a6d4b7eb11"},
+    {"path":"BKH1_GATE1_BASELINE.txt","bytes":54007,"sha256":"c6f0b2c1f8be359b6e2b1b2ae29549341bf9088cca94dfc541ecd65f0279302f"},
+    {"path":"BKH1_GATE1_BASELINE_RAW.txt","bytes":54007,"sha256":"c6f0b2c1f8be359b6e2b1b2ae29549341bf9088cca94dfc541ecd65f0279302f"},
+    {"path":"BKH1_IMPLEMENTATION_OUTPUTS.txt","bytes":7220,"sha256":"57630981290d8bb6d727c0987afbd9ab434d8850dc2bca47afa13a3f216e964a"},
+    {"path":"BKH1_WORKTREE_AFTER.txt","bytes":6784,"sha256":"f425738c320534214e21321300f9a8d7acc7ba2631132bdd29b83878953454d8"},
+    {"path":"BKH1_TRACKED_DIFF_AFTER.txt","bytes":696,"sha256":"b3b56046a09bb8d719be57d43adea11d524d08c3392a32005eee2f1f24d14e11"},
+    {"path":"BKH1_RELATIONSHIP_FABRIC_CONTRACT.md","bytes":5604,"sha256":"5e5552885d27caceb52ecbd3c86fbea0b74d4a7a0a8befdd357c1299001fdfe1"},
+    {"path":"BKH1_RELATIONSHIP_SCHEMA.md","bytes":3664,"sha256":"aba4be8632de39eceb585054021e1be6cfbecfdea76e52ae5eb5a0e04779ac89"},
+    {"path":"BKH1_RELATION_MIGRATION_MATRIX.md","bytes":4175,"sha256":"64e1d524c7dfd1aa36263e724a37447aa7d1359fa272bccd12676be3b8503747"},
+    {"path":"BKH1_TEST_PLAN.md","bytes":3841,"sha256":"4b9b4fbcbc05b719ecdc342cb54bdaece603f5923dde07ac672d03d5e0b70209"},
+    {"path":"BKH1_SCOPE_LIMITS.md","bytes":1689,"sha256":"020690853a18e5201b4137e30990d95f3198a6242f3e57b2339f0dc4785de25e"},
+    {"path":"BKH1_IMPLEMENTATION_SEQUENCE.md","bytes":3205,"sha256":"b12d96e381b7e23aaf7fce60dd9ad59375b55b2b2d67c4c646a6d34668db586d"},
+    {"path":"shared/arkiRelationshipFabric.ts","bytes":12387,"sha256":"fd663d49f561e45fc6d786eefa3956218e33bbbc7b0f3814189ae48e36f7c9a3"},
+    {"path":"shared/arkiRelationshipAdapters.ts","bytes":6212,"sha256":"68c563f24211e88ade9bcc3cee6a5e83f5d8f8a9c4553d0eeba36a6805d38870"},
+    {"path":"scripts/test-bkh1-relationship-fabric.ts","bytes":3890,"sha256":"7a2464d1d83faa903b8f804bffa0dd3f0822843dc3158a5be4bebbb8d1a23fa8"},
+    {"path":"AKI001_CURRICULUM_DELTA_BKH1.md","bytes":1691,"sha256":"cf61bb6d59f7bfb6a4174062bf299971e7bd70e65b735005ffe75bcd9d9032e0"},
+    {"path":"ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md","bytes":1258,"sha256":"c77069f60aaae166f6967b0d97dad23ddf94faf0d374916435801881c56fb2e1"}
+  ]
+}

@@ -1,0 +1,153 @@
+--- a/src/sicl/derivation.py
++++ b/src/sicl/derivation.py
+@@ -211,7 +211,6 @@
+         _required_text(project_id, "project_id")
+         result: list[DerivationRecord] = []
+         ids: dict[str, DerivationRecord] = {}
+-        outputs: dict[VersionedRef, DerivationRecord] = {}
+         for event in self.store.events(project_id):
+             if event.type != self.EVENT_TYPE:
+                 continue
+@@ -226,13 +225,7 @@
+                 if prior_id == record:
+                     continue
+                 raise DerivationValidationError(f"historical derivation id conflict: {record.id}")
+-            prior_output = outputs.get(record.output)
+-            if prior_output is not None:
+-                if prior_output == record:
+-                    continue
+-                raise DerivationValidationError(f"historical output derivation conflict: {record.output.to_dict()}")
+             ids[record.id] = record
+-            outputs[record.output] = record
+             result.append(record)
+         return result
+ 
+@@ -245,23 +238,33 @@
+                 if existing == record:
+                     return existing  # idempotent replay, no duplicate event
+                 raise DerivationValidationError(f"derivation id already exists with different content: {record.id}")
+-            if existing.output == record.output:
+-                raise DerivationValidationError(f"output already has a derivation: {record.output.to_dict()}")
+         self.store.add_event(Event(None, now_iso(), project_id, self.EVENT_TYPE, {"derivation": record.to_dict()}, actor, self.EVENT_SOURCE))
+         return record
+ 
+     def why(self, project_id: str, output: VersionedRef) -> list[DerivationRecord]:
++        """Return every recorded justification path for output, deterministically and cycle-bounded."""
+         records = self.list(project_id)
+-        by_output = {r.output: r for r in records}
+-        result, visited = [], set()
+-        def visit(ref: VersionedRef) -> None:
+-            if ref in visited: return
+-            visited.add(ref)
+-            rec = by_output.get(ref)
+-            if rec is None: return
+-            result.append(rec)
+-            for inp in rec.inputs: visit(inp)
+-        visit(output)
++        by_output: dict[VersionedRef, list[DerivationRecord]] = {}
++        for record in records:
++            by_output.setdefault(record.output, []).append(record)
++        for alternatives in by_output.values():
++            alternatives.sort(key=lambda record: record.id)
++
++        result: list[DerivationRecord] = []
++        visited_records: set[str] = set()
++
++        def visit(ref: VersionedRef, active_refs: frozenset[VersionedRef]) -> None:
++            if ref in active_refs:
++                return
++            next_active = active_refs | {ref}
++            for record in by_output.get(ref, ()):
++                if record.id not in visited_records:
++                    visited_records.add(record.id)
++                    result.append(record)
++                for input_ref in record.inputs:
++                    visit(input_ref, next_active)
++
++        visit(output, frozenset())
+         return result
+ 
+     def explain(self, project_id: str, output: VersionedRef) -> dict[str, Any]:
+@@ -304,7 +307,11 @@
+                     raise DerivationValidationError("current_refs values must be matching VersionedRef values")
+                 if current.version != expected.version:
+                     checks.append({"record_id": record.id, "reference": expected.to_dict(), "current": current.to_dict(), "code": "VERSION_MISMATCH"})
+-                elif expected.content_hash is not None and current.content_hash is not None and expected.content_hash != current.content_hash:
++                elif expected.content_hash is None and current.content_hash is None:
++                    checks.append({"record_id": record.id, "reference": expected.to_dict(), "current": current.to_dict(), "code": "IDENTITY_UNVERIFIABLE"})
++                elif expected.content_hash is None or current.content_hash is None:
++                    checks.append({"record_id": record.id, "reference": expected.to_dict(), "current": current.to_dict(), "code": "IDENTITY_UNCERTAIN"})
++                elif expected.content_hash != current.content_hash:
+                     checks.append({"record_id": record.id, "reference": expected.to_dict(), "current": current.to_dict(), "code": "CONTENT_HASH_MISMATCH"})
+         return checks
+ 
+--- a/tests/test_derivation.py
++++ b/tests/test_derivation.py
+@@ -45,10 +45,11 @@
+ def test_cycle_is_bounded_but_does_not_mutate():
+     s=MemoryStore(); l=DerivationLedger(s); a=ref("Area","A",1); q=ref("Quantity","Q",1); l.record("P",record("DA",a,[q])); l.record("P",record("DQ",q,[a])); assert len(l.why("P",a))==2; assert len(s.items)==2
+ 
+-def test_record_is_idempotent_but_conflicting_id_or_duplicate_output_rejected():
++def test_record_is_idempotent_conflicting_id_rejected_but_independent_output_derivation_allowed():
+     s=MemoryStore(); l=DerivationLedger(s); a=ref("Area","A",1); g=ref("Geometry","G",1); r=record("D",a,[g]); l.record("P",r); l.record("P",r); assert len(s.items)==1
+     with pytest.raises(DerivationValidationError): l.record("P",record("D",ref("Area","A2",1),[g]))
+-    with pytest.raises(DerivationValidationError): l.record("P",record("D2",a,[g]))
++    l.record("P",record("D2",a,[ref("Geometry","G2",1)]))
++    assert [item.id for item in l.why("P",a)] == ["D", "D2"]
+ 
+ def test_dependency_checks_distinguish_missing_and_version_mismatch_without_stale_inference():
+     s=MemoryStore(); l=DerivationLedger(s); g=ref("Geometry","G1",3); a=ref("Area","A1",1); l.record("P",record("D",a,[g]))
+@@ -84,17 +85,18 @@
+         ledger.list("P1")
+ 
+ 
+-def test_historical_conflicting_outputs_fail_closed():
++def test_multiple_independent_derivations_for_same_output_are_preserved():
+     store = MemoryStore()
+     ledger = DerivationLedger(store)
+     g1, g2 = ref("Geometry", "G1", 1), ref("Geometry", "G2", 1)
+     a = ref("Area", "A1", 1)
+     r1 = record("D1", a, [g1])
+     r2 = record("D2", a, [g2])
+-    store.items.append(Event(None, "2026-01-01T00:00:00+00:00", "P1", "DERIVATION_RECORDED", {"derivation": r1.to_dict()}, "x", "x"))
+-    store.items.append(Event(None, "2026-01-01T00:00:01+00:00", "P1", "DERIVATION_RECORDED", {"derivation": r2.to_dict()}, "x", "x"))
+-    with pytest.raises(DerivationValidationError):
+-        ledger.why("P1", a)
++    ledger.record("P1", r1)
++    ledger.record("P1", r2)
++    why = ledger.why("P1", a)
++    assert [item.id for item in why] == ["D1", "D2"]
++    assert {item.inputs[0] for item in why} == {g1, g2}
+ 
+ 
+ def test_assumptions_are_canonical_and_unique():
+@@ -130,3 +132,29 @@
+     raw["contractVersion"] = 2
+     with pytest.raises(DerivationValidationError):
+         DerivationRecord.from_dict(raw)
++
++
++def test_identity_gap_is_explicit_when_hashes_absent():
++    store = MemoryStore(); ledger = DerivationLedger(store)
++    g = ref("Geometry", "G1", 1); a = ref("Area", "A1", 1)
++    ledger.record("P", record("D", a, [g]))
++    checks = ledger.integrity_checks("P", {g.key(): ref("Geometry", "G1", 1)})
++    assert checks == [{"record_id": "D", "reference": g.to_dict(), "current": g.to_dict(), "code": "IDENTITY_UNVERIFIABLE"}]
++
++
++def test_identity_gap_is_uncertain_when_only_one_side_has_hash():
++    store = MemoryStore(); ledger = DerivationLedger(store)
++    h = "a" * 64
++    g = VersionedRef("Geometry", "G1", 1, h); a = ref("Area", "A1", 1)
++    ledger.record("P", record("D", a, [g]))
++    current = ref("Geometry", "G1", 1)
++    checks = ledger.integrity_checks("P", {g.key(): current})
++    assert checks[0]["code"] == "IDENTITY_UNCERTAIN"
++
++
++def test_same_output_same_record_id_different_content_still_fails_closed():
++    store = MemoryStore(); ledger = DerivationLedger(store)
++    a = ref("Area", "A1", 1)
++    ledger.record("P", record("D", a, [ref("Geometry", "G1", 1)]))
++    with pytest.raises(DerivationValidationError):
++        ledger.record("P", record("D", a, [ref("Geometry", "G2", 1)]))

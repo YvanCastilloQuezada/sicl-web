@@ -1,0 +1,288 @@
+ORDEN EJECUTIVA — A-002 v1.4 UNIFICACIÓN QUIRÚRGICA
+Para: Manus (ejecutor)
+De: DeepSeek (developer de referencia)
+Autoridad: Product Owner
+Estado: AUTORIZADA — ejecutar en rama, no en main
+
+1. Confirmación de la decisión
+text
+OPCIÓN          = A (unificación quirúrgica, no merge)
+NOMBRE          = A-002 v1.4 (candidata)
+RAMA OBJETIVO   = feat/a002-v1.4-unified
+BASELINE        = main @ 4de9ca1b25fed8b60dce8ead4923a76fef0ee8eb
+MERGE A MAIN    = NO hasta pasar Red Team (ChatGPT) + firma PO
+La implementación actual de Manus es la base. No se reescribe. Se inyectan 7 elementos faltantes del contrato DeepSeek v1.3. Se preservan las decisiones superiores que Manus ya tomó.
+
+Esta orden NO es una reescritura. Es una extensión quirúrgica.
+
+2. Restricciones duras
+2.1 Se preserva sin tocar
+Componente Manus	Por qué se preserva
+EvidenceRef.from_statement()	Deriva SHA-256 del contenido. Resuelve RT12-02 mejor que v1.3. Intocable.
+EvidenceRef.__post_init__ que valida hash == sha256(statement)	Consistencia criptográfica real.
+SufficiencyStateStore con JSONL append-only	Resuelve RT12-08 mejor que v1.3. Intocable.
+Uso de SpatialScope del dominio real	Multiescala concreta. Intocable.
+A002H005Gate.execute_if_permitted con PermissionError	API funcional. Se extiende, no se reemplaza.
+preliminary_building_massing_requirements()	Política operacional concreta. Intocable.
+Formato de preguntas WHAT IS MISSING / WHY REQUIRED / OPERATION / WHY CANNOT CONTINUE	Accionable. Intocable.
+Los 2 tests adversariales actuales	Baseline de no regresión.
+2.2 No se toca ningún otro módulo
+src/sicl/derivation.py, impact.py, validity.py, reaction.py, h005/ — FROZEN.
+
+main — FROZEN.
+
+feat/arkidraw-block1 — FROZEN.
+
+Perfiles RNE/Trujillo reales — fuera de alcance.
+
+3. Los 7 elementos a inyectar
+Inyección 01 — declared_state vs effective_state (RT-03)
+Archivo: src/sicl/a002/model.py
+
+Modificación a KnowledgeItem:
+
+Añadir dos campos calculados (no declarados):
+
+python
+@dataclass(frozen=True)
+class KnowledgeItem:
+    # ... campos actuales ...
+    declared_state: KnowledgeState        # lo que el input declara
+    effective_state: KnowledgeState       # lo que el sistema acepta tras validación
+    downgrade_reason: str = ""            # por qué se degradó
+Regla de derivación (en engine.py, no en el __post_init__):
+
+declared_state = KNOWN + sin evidencia válida → effective_state = OBSERVED, downgrade_reason = "KNOWN_WITHOUT_EVIDENCE".
+
+declared_state = KNOWN + evidencia inválida (cross-project, scale wrong, hash mismatch) → effective_state = OBSERVED, downgrade_reason = "EVIDENCE_INVALID".
+
+declared_state = KNOWN + evidencia válida → effective_state = KNOWN.
+
+declared_state = ASSUMED + reason presente → effective_state = ASSUMED.
+
+declared_state = ASSUMED sin reason → effective_state = UNKNOWN, downgrade_reason = "ASSUMED_WITHOUT_REASON".
+
+Resto de estados → iguales entre declared y effective.
+
+Retrocompatibilidad: KnowledgeItem.state se mantiene como alias de declared_state para no romper tests existentes. En v1.4.x se puede deprecar.
+
+Inyección 02 — PolicyIdentity con fingerprint (RT12-04)
+Archivo nuevo: src/sicl/a002/policy.py
+
+python
+@dataclass(frozen=True)
+class PolicyIdentity:
+    policy_id: str
+    policy_version: int
+    policy_fingerprint: str  # sha256 hex de la política ejecutada
+    policy_text: str = ""     # explicación legible, no identidad
+
+    def __post_init__(self) -> None:
+        # validaciones de non-empty, version >= 1, fingerprint 64 hex
+        ...
+Modificación a SufficiencyRequest: añadir campo policy: PolicyIdentity.
+
+Modificación a requirements.py: cada preliminary_building_massing_requirements() devuelve también el PolicyIdentity asociado (calculado sobre el conjunto de requisitos + flags de política).
+
+Modificación a SufficiencyResult: incluir policy en to_dict().
+
+Inyección 03 — EvaluationIdentityPayload canónico → evaluation_id (RT12-06)
+Archivo nuevo: src/sicl/a002/identity.py
+
+python
+@dataclass(frozen=True)
+class EvaluationIdentityPayload:
+    schema: str = "a002-evaluation-identity-v1"
+    project_id: str
+    snapshot_fingerprint: str
+    profile_id: str
+    profile_version: int
+    operation: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "schema": self.schema,
+            "projectId": self.project_id,
+            "snapshotFingerprint": self.snapshot_fingerprint,
+            "profileId": self.profile_id,
+            "profileVersion": self.profile_version,
+            "operation": self.operation,
+        }
+
+def compute_evaluation_id(payload: EvaluationIdentityPayload) -> str:
+    canonical = json.dumps(payload.to_dict(), sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+Modificación a SufficiencyResult: añadir evaluation_id: str y identity_payload: dict.
+
+Modificación a A002H005Gate.check: validar también result.evaluation_id == compute_evaluation_id(expected_payload).
+
+Inyección 04 — HumanAuthorityRef (RT12-07)
+Archivo nuevo: src/sicl/a002/authority.py
+
+python
+@dataclass(frozen=True)
+class HumanAuthorityRef:
+    actor_id: str
+    decision_context: str
+    recorded_at_iso: str
+    reference: str
+
+    def __post_init__(self) -> None:
+        # validaciones de non-empty en todos los campos
+        ...
+Modificación a SufficiencyResult: añadir human_authority_ref: HumanAuthorityRef | None = None.
+
+Modificación a requirements.py: añadir flag require_human_authority: bool = False a OperationRequirement.
+
+Modificación a engine.py: si algún requisito aplicable tiene require_human_authority=True y no se provee HumanAuthorityRef en el request → SufficiencyStatus.INSUFFICIENT con reason_codes=("HUMAN_AUTHORITY_REQUIRED",).
+
+Inyección 05 — conditional_reasons explícitos (RT12-03)
+Modificación a SufficiencyResult: añadir conditional_reasons: tuple[str, ...].
+
+Valores válidos:
+
+"ASSUMED_BLOCKING" — algún campo blocking quedó en ASSUMED
+
+"ASSUMED_NON_BLOCKING" — solo no-blocking
+
+"NON_BLOCKING_MISSING" — solo faltan no-blocking
+
+"APPLICABILITY_UNKNOWN" — aplicabilidad declarada como desconocida en non-blocking
+
+Regla de gate: CONDITIONALLY_SUFFICIENT + allow_assumptions=False + "ASSUMED_BLOCKING" in conditional_reasons → BLOCK.
+
+Actualmente Manus ya tiene policy_allow_assumptions pero no distingue el motivo. Este cambio cierra RT12-03.
+
+Inyección 06 — ApplicabilityStatus.CONFLICTING explícito (RT-01)
+Modificación a model.py:
+
+python
+class ApplicabilityStatus(str, Enum):
+    ESTABLISHED    = "ESTABLISHED"
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+    CONFLICTING    = "CONFLICTING"
+    UNKNOWN        = "UNKNOWN"
+Modificación a OperationRequirement: añadir applicability_required: bool = False (separado de jurisdiction_required).
+
+Modificación a engine.py: cuando dos fuentes declaran aplicabilidades incompatibles para el mismo campo blocking → SufficiencyStatus.CONFLICTING.
+
+Modificación a las preguntas humanas: cuando applicability = CONFLICTING → pregunta específica de arbitraje.
+
+Inyección 07 — EvidenceVerificationLevel explícito (RT12-02)
+Modificación a model.py:
+
+python
+class EvidenceVerificationLevel(str, Enum):
+    ABSENT                        = "ABSENT"
+    HASH_FORMAT_VALID             = "HASH_FORMAT_VALID"
+    CONTENT_HASH_MATCHES_DECLARED = "CONTENT_HASH_MATCHES_DECLARED"
+    SUPPORT_SEMANTICALLY_VERIFIED = "SUPPORT_SEMANTICALLY_VERIFIED"  # fuera de scope A-002
+Modificación a EvidenceRef: añadir método verification_level() -> EvidenceVerificationLevel.
+
+Como Manus usa from_statement(), el nivel alcanzable máximo es CONTENT_HASH_MATCHES_DECLARED. Nunca SUPPORT_SEMANTICALLY_VERIFIED. Declarar como límite.
+
+Modificación a SufficiencyResult: añadir evidence_levels: tuple[tuple[str, str], ...] — pares (evidence_id, level).
+
+4. Archivos afectados
+4.1 Nuevos
+text
+src/sicl/a002/policy.py        — PolicyIdentity
+src/sicl/a002/identity.py      — EvaluationIdentityPayload + compute_evaluation_id
+src/sicl/a002/authority.py     — HumanAuthorityRef
+4.2 Modificados
+text
+src/sicl/a002/model.py         — declared/effective, ApplicabilityStatus.CONFLICTING, EvidenceVerificationLevel
+src/sicl/a002/engine.py        — derivación declared→effective, conditional_reasons, gate human authority
+src/sicl/a002/gate.py          — validación evaluation_id
+src/sicl/a002/requirements.py  — policy + require_human_authority + applicability_required
+src/sicl/a002/__init__.py      — exports
+4.3 Tests añadidos
+text
+tests/test_a002_v1_4_injections.py   — uno por cada inyección (7 tests mínimo)
+4.4 Tests existentes
+text
+tests/test_a002_sufficiency.py        — no se toca
+tests/test_a002_adversarial.py        — no se toca
+5. No regresión
+Baseline de no regresión obligatorio:
+
+text
+Antes de v1.4: 565 tests PASS (o el número real que Manus reporte como línea base).
+Después de v1.4: mismos 565 + nuevos 7 tests PASS.
+Si algún test previo falla → la inyección rompió algo → corregir antes de push.
+Comando exacto:
+
+text
+pytest tests/ -q
+python -m compileall src tests
+git diff --check
+6. Protocolo de entrega (obligatorio)
+Al cierre de la ejecución, la entrega DEBE incluir las cuatro secciones:
+
+text
+RECIBIDO:
+  - Esta orden ejecutiva A-002 v1.4
+  - Baseline main@4de9ca1b
+  - Rama objetivo feat/a002-v1.4-unified
+
+ENTREGADO:
+  - [archivos nuevos/modificados]
+  - [commit hash]
+  - [tests: X passed, Y failed]
+
+DIVERGENCIA: NO | SÍ
+  [si SÍ:]
+  - Qué: [lista de cambios respecto a esta orden]
+  - Por qué: [razón técnica por cada uno]
+  - Efecto: [qué se gana, qué se pierde]
+
+FALTA: NADA | SÍ
+  [si SÍ:]
+  - [elemento no implementado]
+  - Bloqueado por: [causa]
+  - Desbloquea cuando: [condición]
+Adicional obligatorio: análisis retrospectivo declarado de qué se preservó de la implementación actual de Manus y qué se incorporó del contrato v1.3.
+
+7. Secuencia posterior
+text
+1. Manus ejecuta v1.4 en rama                    ← esta orden
+2. DeepSeek revisa código                        ← tras entrega
+3. ChatGPT Red Team audita código                ← tras revisión DeepSeek
+4. Corrección solo si aparece defecto material   ← condicional
+5. Firma PO                                      ← cierre
+6. Merge a main + tag sicl-a002-v1.4             ← solo tras firma
+Ningún paso se salta. Ningún paso se autoaprueba.
+
+8. Restricciones de estilo
+No eval, exec, __import__, subprocess, socket, requests, urllib, httpx.
+
+Sin dependencias externas más allá de stdlib (o las ya presentes en el repo).
+
+Sin Math.random, sin Date.now — fechas siempre explícitas.
+
+Determinismo byte-a-byte en canonical_dict() / to_dict().
+
+Read-only respecto a H-001..H-005.
+
+9. Criterios de aceptación
+text
+[ ] Los 7 elementos inyectados y testeados individualmente.
+[ ] EvidenceRef.from_statement intacto.
+[ ] SufficiencyStateStore JSONL intacto.
+[ ] SpatialScope intacto.
+[ ] A002H005Gate extendido, no reemplazado.
+[ ] 565 tests originales PASS.
+[ ] +7 tests nuevos PASS (mínimo).
+[ ] compileall PASS.
+[ ] git diff --check PASS.
+[ ] H-001..H-005 sin modificar.
+[ ] Protocolo de entrega con las 4 secciones + retrospectiva.
+[ ] Rama pusheada a origin/feat/a002-v1.4-unified.
+[ ] NO merge a main.
+[ ] NO tag.
+10. Cierre
+Esta es la orden. Manus ejecuta. DeepSeek revisa. ChatGPT audita. PO firma. Con eso cerramos A-002 sin dos implementaciones paralelas.
+
+Yvan, cuando quieras, se la pasás a Manus tal cual. Está calibrada para que no haya preguntas de vuelta: los 7 elementos están especificados, los archivos afectados están listados, los criterios de aceptación son binarios, y el protocolo de entrega está explicitado.
+
+Standby. Cuchillos guardados. Esta orden cierra el ciclo de A-002 en dos rondas como máximo.

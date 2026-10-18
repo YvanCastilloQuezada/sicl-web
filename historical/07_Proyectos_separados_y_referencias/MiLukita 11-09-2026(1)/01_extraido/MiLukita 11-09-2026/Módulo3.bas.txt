@@ -1,0 +1,178 @@
+Attribute VB_Name = "Módulo3"
+Sub CrearHojaBaseDeDatos()
+    Dim ws As Worksheet
+    Dim headers As Variant
+    Dim i As Integer
+    Dim j As Integer
+    Dim numeroAleatorio As Integer
+    Dim filaInicial As Integer
+    Dim numeroSecuencial As Integer
+    Dim nombreApellido As String
+    Dim celular As String
+    Dim numerosCarton As Collection
+    Dim numerosBolillas As Collection
+
+    ' Verificar si la hoja "BaseDeDatos" ya existe y eliminarla si es necesario
+    On Error Resume Next
+    Set ws = ThisWorkbook.Sheets("BaseDeDatos")
+    On Error GoTo 0
+    If Not ws Is Nothing Then
+        Application.DisplayAlerts = False
+        ws.Delete
+        Application.DisplayAlerts = True
+    End If
+
+    ' Crear una nueva hoja "BaseDeDatos"
+    Set ws = ThisWorkbook.Sheets.Add
+    ws.Name = "BaseDeDatos"
+
+    ' Definir los encabezados en negrita
+    headers = Array("Boleto", "Nombre y Apellido", "Celular", "Operación", _
+                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", _
+                "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", _
+                "21", "22", "23", "24", "a)", "b)", "c)", "d)", "e)", "f)", _
+                "g)", "h)", "i)", "j)", "k)", "l)", "m)", "n)", _
+                "o)", "p)", "q)", "r)", "s)", "t)", "u)", "v)", "w)")
+
+    ' Escribir encabezados en la primera fila
+    With ws
+        For i = LBound(headers) To UBound(headers)
+            .Cells(1, i + 1).value = headers(i)
+        Next i
+
+        ' Formatear encabezados en negrita y bordes gruesos
+        With .Range(.Cells(1, 1), .Cells(1, UBound(headers) + 1))
+            .Font.Bold = True
+            .Borders.LineStyle = xlContinuous
+            .Borders.Weight = xlThick
+        End With
+
+        ' Rellenar 20 filas con datos
+        filaInicial = 2 ' Iniciar desde la segunda fila
+
+        For j = filaInicial To filaInicial + 19
+            ' 1) Rellenar Boleto con número secuencial
+            .Cells(j, 1).value = j - 1
+
+            ' 2) Rellenar Nombre y Apellido
+            numeroSecuencial = j - 1
+            nombreApellido = "Yvan Castillo" & numeroSecuencial
+            .Cells(j, 2).value = nombreApellido
+
+            ' 3) Generar número aleatorio de celular de 9 dígitos empezando con 9
+            Randomize
+            celular = "9" & Format(Rnd * 1000000000, "000000000")
+            .Cells(j, 3).value = celular
+
+            ' 4) Generar 24 números enteros aleatorios del 1 al 75 que no se repitan entre sí (Cartón del jugador)
+            Set numerosCarton = New Collection
+            For i = 5 To 28 ' Columnas D hasta AA (24 números)
+                Do
+                    numeroAleatorio = Int((75 * Rnd) + 1)
+                Loop Until Not NumeroEnColeccion(numerosCarton, numeroAleatorio)
+                numerosCarton.Add numeroAleatorio, CStr(numeroAleatorio) ' Usamos CStr para convertir el número en clave de la colección
+                .Cells(j, i).value = numeroAleatorio
+            Next i
+
+            ' Aplicar bordes negros delgados a los datos generados para el cartón del jugador
+            With .Range(.Cells(j, 1), .Cells(j, 28))
+                .Borders.LineStyle = xlContinuous
+                .Borders.Weight = xlThin
+            End With
+        Next j
+
+        ' Añadir encabezados del 1 al 75 desde la celda AS1 en horizontal (Números de las bolillas)
+        For i = 1 To 75
+            .Cells(1, 55 + i).value = i
+        Next i
+
+        ' Formatear encabezados del 1 al 75 en negrita y bordes gruesos
+        With .Range(.Cells(1, 56), .Cells(1, 56 + 75 - 1))
+            .Font.Bold = True
+            .Borders.LineStyle = xlContinuous
+            .Borders.Weight = xlThick
+        End With
+
+        ' Generar 30 números enteros aleatorios únicos para las celdas AE2 hasta CA2 (Números de las bolillas)
+        Set numerosBolillas = New Collection
+        For i = 1 To 30
+            Do
+                numeroAleatorio = Int((75 * Rnd) + 1)
+            Loop Until Not NumeroEnColeccion(numerosBolillas, numeroAleatorio)
+            numerosBolillas.Add numeroAleatorio, CStr(numeroAleatorio) ' Usamos CStr para convertir el número en clave de la colección
+            .Cells(2, 55 + i).value = numeroAleatorio
+        Next i
+
+        ' Ajustar automáticamente el ancho de las columnas basado en el contenido
+        .Columns.AutoFit
+    End With
+End Sub
+
+Function NumeroEnColeccion(col As Collection, num As Integer) As Boolean
+    On Error Resume Next
+    NumeroEnColeccion = Not IsEmpty(col(CStr(num)))
+    On Error GoTo 0
+End Function
+
+Sub VerificarJugadas()
+    Dim ws As Worksheet
+    Dim numerosCarton As Range
+    Dim persona As Range
+    Dim filaInicial As Integer
+    Dim jugada As Variant
+    Dim ganador As Boolean
+    Dim i As Integer, j As Integer
+    Dim jugadas As Collection
+
+    ' Definir las jugadas
+    Set jugadas = New Collection
+    jugadas.Add Array(1, 5, 21, 25) ' Esquinas
+    jugadas.Add Array(1, 7, 19, 25) ' Diagonal 1
+    jugadas.Add Array(5, 9, 17, 21) ' Diagonal 2
+    jugadas.Add Array(1, 6, 11, 16, 21) ' Fila 1
+    jugadas.Add Array(2, 7, 12, 17, 22) ' Fila 2
+    jugadas.Add Array(3, 8, 18, 23) ' Fila 3
+    jugadas.Add Array(4, 9, 14, 19, 24) ' Fila 4
+    jugadas.Add Array(5, 10, 15, 20, 25) ' Fila 5
+    jugadas.Add Array(1, 2, 3, 4, 5) ' Columna 1
+    jugadas.Add Array(6, 7, 8, 9, 10) ' Columna 2
+    jugadas.Add Array(11, 12, 14, 15) ' Columna 3 (posición libre excluida)
+    jugadas.Add Array(16, 17, 18, 19, 20) ' Columna 4
+    jugadas.Add Array(21, 22, 23, 24, 25) ' Columna 5
+    jugadas.Add Array(3, 7, 9, 11, 15, 17, 19, 23) ' Rombo
+    jugadas.Add Array(6, 7, 8, 9, 10, 11, 15, 16, 17, 18, 19, 20) ' Número 0
+    jugadas.Add Array(3, 8, 18, 23, 11, 12, 14, 15) ' +
+    jugadas.Add Array(1, 5, 7, 9, 14, 17, 19, 21, 25) ' Letra X
+    jugadas.Add Array(1, 6, 11, 12, 13, 14, 15, 16, 21) ' Letra T
+    jugadas.Add Array(1, 2, 3, 4, 5, 10, 15, 20, 25) ' Letra L
+    jugadas.Add Array(1, 2, 3, 4, 5, 8, 18, 21, 22, 23, 24, 25) ' Letra H
+    jugadas.Add Array(1, 2, 3, 4, 5, 10, 15, 20, 21, 22, 23, 24, 25) ' Letra U
+    jugadas.Add Array(1, 2, 3, 4, 5, 6, 10, 11, 15, 16, 20, 21, 22, 23, 24, 25) ' Letra O
+    jugadas.Add Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25) ' Bingo Completo
+
+    Set ws = ThisWorkbook.Sheets("BaseDeDatos")
+    filaInicial = 2 ' Asumiendo que los datos comienzan en la fila 2
+
+    ' Rango de números en las cartillas (Columnas D hasta Y)
+    Set numerosCarton = ws.Range(ws.Cells(filaInicial, 5), ws.Cells(filaInicial + 9, 28)) ' Columnas E a AB (24 números)
+
+    ' Recorrer cada persona (10 jugadores)
+    For Each persona In ws.Range("A" & filaInicial & ":A" & filaInicial + 9)
+        ' Verificar cada tipo de jugada
+        For j = 1 To jugadas.Count
+            ganador = True
+            For i = LBound(jugadas(j)) To UBound(jugadas(j))
+                If IsError(Application.Match(jugadas(j)(i), numerosCarton.Rows(persona.Row - filaInicial + 1), 0)) Then
+                    ganador = False
+                    Exit For
+                End If
+            Next i
+            
+            ' Marcar la jugada correspondiente con una "X" si el jugador ganó
+            If ganador Then
+                ws.Cells(persona.Row, "AC").Offset(0, j - 1).value = "X"
+                Exit For ' Salir del bucle una vez que se marca como ganador
+            End If
+        Next j
+    Next persona
+End Sub

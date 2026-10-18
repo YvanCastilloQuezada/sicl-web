@@ -1,0 +1,128 @@
+src/sicl/projection.py:132:def _entity_id(element: ArchiElement, view: ViewDefinition, role: str, operation: str) -> str:
+src/sicl/projection.py:136:        "operation": operation,
+src/sicl/projection.py:183:        operation = "CUT_PROJECTION" if cut_relation == "CUT" else "BELOW_CUT_PROJECTION"
+src/sicl/projection.py:187:                entity_id=_entity_id(element, view, role, operation),
+src/sicl/projection.py:193:                    operation=f"ARE-003:ARCHITECTURAL_PLAN:{operation}",
+api/schemas.py:200:    requested_operation: str = "KNOWLEDGE_RETRIEVAL"
+src/sicl/representation.py:402:    operation: str
+src/sicl/representation.py:411:        _text(self.operation, "operation")
+src/sicl/archi/transaction.py:124:        if mutation.mutation_kind.value=="ADD_OPENING": return MutationResult(mid, MutationStatus.BLOCKED, MutationLifecycle.EVALUATED, self._canonical, (), "OPERATION_NOT_IMPLEMENTED", False, {"operation": mutation.mutation_kind.value})
+tests/test_drawing_block2.py:142:def test_trace_role_and_operation_mismatches_fail_closed():
+tests/test_drawing_block2.py:148:    operation_mismatch = replace(entity, trace=replace(entity.trace, operation="ARE-003:ARCHITECTURAL_PLAN:BELOW_CUT_PROJECTION"))
+tests/test_drawing_block2.py:149:    with pytest.raises(DrawingAdapterError, match="GRAPHIC_TRACE_OPERATION_MISMATCH"):
+tests/test_drawing_block2.py:150:        graphic_scene_to_svg(replace(scene, entities=(operation_mismatch, *scene.entities[1:])))
+src/sicl/archi/sufficiency.py:6:from ..a002 import (EvidenceRef, KnowledgeItem, KnowledgeState, OperationRequirement, SufficiencyEngine, SufficiencyRequest, SufficiencyResult)
+src/sicl/archi/sufficiency.py:8:_OPERATIONS={MutationKind.MOVE:"archi.move",MutationKind.RESIZE:"archi.resize",MutationKind.ADD_OPENING:"archi.add_opening",MutationKind.DELETE:"archi.delete"}
+src/sicl/archi/sufficiency.py:11:    operation: str
+src/sicl/archi/sufficiency.py:17:    operation=_OPERATIONS[mutation.mutation_kind]; engine=engine or SufficiencyEngine()
+src/sicl/archi/sufficiency.py:30:    requirements += [OperationRequirement("target_id", (KnowledgeState.KNOWN,), True), OperationRequirement("target_version", (KnowledgeState.KNOWN,), True), OperationRequirement("content_hash", (KnowledgeState.KNOWN,), True)]
+src/sicl/archi/sufficiency.py:32:        requirements.append(OperationRequirement("host", (KnowledgeState.KNOWN,), True))
+src/sicl/archi/sufficiency.py:35:        requirements.append(OperationRequirement("human_authority_ref", (KnowledgeState.KNOWN,), True, require_human_authority=True))
+src/sicl/archi/sufficiency.py:36:    req=SufficiencyRequest(mutation.project_id, operation, tuple(knowledge), tuple(requirements), tuple(evidence))
+src/sicl/archi/sufficiency.py:37:    return ArchiSufficiencySnapshot(operation, engine.evaluate(req))
+tests/test_projection.py:72:    assert door.trace.operation == "ARE-003:ARCHITECTURAL_PLAN:CUT_PROJECTION"
+tests/test_projection.py:148:def test_non_cut_projection_has_truthful_operation_and_identity():
+tests/test_projection.py:157:    assert item.trace.operation.endswith("BELOW_CUT_PROJECTION")
+tests/test_projection.py:158:    assert not item.trace.operation.endswith(":CUT_PROJECTION")
+api/routes/v1.py:160:@router.get("/operations-research/methods", dependencies=[Depends(_auth)])
+api/routes/v1.py:201:        requested_operation=request.requested_operation,
+tests/test_archi_transaction.py:83:    assert result.status is MutationStatus.BLOCKED and result.reason=='OPERATION_NOT_IMPLEMENTED' and result.canonical==(t,)
+tests/test_archi_sufficiency.py:3:def test_move_uses_archi_operation_and_allows():
+tests/test_archi_sufficiency.py:4:    t=target(); m=ArchiMutation('P',MutationKind.MOVE,t.element_id,t.version,{'dx_mm':100},'n'); s=snapshot_for(m,t); assert s.operation=='archi.move' and s.permits
+tests/test_archi_sufficiency.py:6:    t=target(); m=ArchiMutation('P',MutationKind.DELETE,t.element_id,t.version,{},'n'); s=snapshot_for(m,t); assert s.operation=='archi.delete' and not s.permits
+src/sicl/a002/policy.py:1:"""Stable identity for the operation policy executed by A-002."""
+src/sicl/a002/identity.py:4:  (schema, project_id, snapshot_fingerprint, operation, policy_id, policy_version)
+src/sicl/a002/identity.py:20:    operation: str
+src/sicl/a002/identity.py:30:            "operation": self.operation,
+src/sicl/design_knowledge.py:168:    requested_operation: str = "KNOWLEDGE_RETRIEVAL"
+src/sicl/a002/requirements.py:1:"""Operation-specific A-002 requirement policies."""
+src/sicl/a002/requirements.py:8:from .model import KnowledgeState, OperationRequirement
+src/sicl/a002/requirements.py:12:def preliminary_building_massing_requirements() -> tuple[OperationRequirement, ...]:
+src/sicl/a002/requirements.py:14:        OperationRequirement(
+src/sicl/a002/requirements.py:21:        OperationRequirement(
+src/sicl/a002/requirements.py:28:        OperationRequirement(
+src/sicl/a002/requirements.py:35:        OperationRequirement(
+src/sicl/a002/requirements.py:43:        OperationRequirement(
+src/sicl/a002/requirements.py:51:        OperationRequirement(
+src/sicl/a002/requirements.py:59:        OperationRequirement(
+src/sicl/a002/requirements.py:67:        OperationRequirement(
+src/sicl/a002/requirements.py:78:def policy_for(operation: str) -> PolicyIdentity:
+src/sicl/a002/requirements.py:81:        if operation == "preliminary building massing"
+src/sicl/a002/requirements.py:87:        policy_id="a002-" + operation.replace(" ", "-"),
+src/sicl/a002/requirements.py:90:        policy_text=operation,
+src/sicl/a002/requirements.py:94:def requirements_for(operation: str) -> tuple[OperationRequirement, ...]:
+src/sicl/a002/requirements.py:95:    if operation == "preliminary building massing":
+src/sicl/a002/requirements.py:97:    raise KeyError(f"no A-002 policy registered for operation: {operation}")
+tests/test_a002_v1_4_injections.py:15:    OperationRequirement,
+tests/test_a002_v1_4_injections.py:28:def req(field: str = "x", **kw) -> OperationRequirement:
+tests/test_a002_v1_4_injections.py:29:    return OperationRequirement(
+tests/test_a002_v1_4_injections.py:79:def test_evaluation_identity_uses_policy_not_operation_twice():
+tests/test_a002_v1_4_injections.py:87:        operation=r.operation,
+src/sicl/a002/model.py:182:class OperationRequirement:
+src/sicl/a002/model.py:224:    operation: str
+src/sicl/a002/model.py:226:    requirements: tuple[OperationRequirement, ...]
+src/sicl/a002/model.py:239:            "operation": self.operation,
+src/sicl/a002/model.py:304:    operation: str
+src/sicl/a002/model.py:335:            "operation": self.operation,
+tests/test_a002_v1_4_3_fixes.py:9:    OperationRequirement,
+tests/test_a002_v1_4_3_fixes.py:26:        (OperationRequirement("x", (KnowledgeState.KNOWN,), True, reason="known required"),),
+tests/test_a002_v1_4_3_fixes.py:42:        (OperationRequirement("x", (KnowledgeState.KNOWN,), True),),
+tests/test_a002_v1_4_3_fixes.py:56:        (OperationRequirement("x", (KnowledgeState.KNOWN,), True, applicability_required=True),),
+tests/test_a002_v1_4_3_fixes.py:75:        (OperationRequirement("x", (KnowledgeState.KNOWN,), True, applicability_required=True),),
+src/sicl/a002/gate.py:25:        if result.project_id != request.project_id or result.operation != request.operation:
+src/sicl/a002/gate.py:38:                operation=request.operation,
+tests/test_a002_sufficiency.py:10:    OperationRequirement,
+tests/test_a002_sufficiency.py:148:    requirements = tuple(OperationRequirement(f"field-{index}", (KnowledgeState.KNOWN,), True, (scale,), reason=f"requires {scale.value}") for index, scale in enumerate(scales))
+src/sicl/a002/engine.py:7:- Policy is resolved automatically from operation if not supplied.
+src/sicl/a002/engine.py:62:        policy = request.policy if request.policy is not None else policy_for(request.operation)
+src/sicl/a002/engine.py:118:                        f"OPERATION: {request.operation}; "
+src/sicl/a002/engine.py:147:                        f"OPERATION: {request.operation}; "
+src/sicl/a002/engine.py:211:                            f"OPERATION: {request.operation}; "
+src/sicl/a002/engine.py:267:                    f"OPERATION: {request.operation}; "
+src/sicl/a002/engine.py:332:            operation=request.operation,
+src/sicl/a002/engine.py:340:            operation=request.operation,
+tests/test_a002_adversarial.py:37:def req(knowledge, evidence, project="P", allow=False, operation=OP, scale=SpatialScope.EDIFICACION, jurisdiction="Trujillo"):
+tests/test_a002_adversarial.py:38:    return SufficiencyRequest(project, operation, tuple(knowledge), REQ, tuple(evidence), scale, "conceptual", jurisdiction, allow)
+tests/test_a002_adversarial.py:67:def test_wrong_operation_result_cannot_pass_gate():
+tests/test_a002_adversarial.py:70:    other = req(knowledge, evidence, operation="construction documents")
+src/sicl/a002/__init__.py:1:"""A-002 Input Sufficiency: deterministic, operation-specific, fail-closed."""
+src/sicl/a002/__init__.py:12:    OperationRequirement,
+src/sicl/a002/__init__.py:39:    "OperationRequirement",
+src/sicl/compliance/__init__.py:80:            return ComplianceResult("RULE_41", ComplianceStatus.NON_COMPLIANT, "risk_tier=UNACCEPTABLE: operation blocked by compliance policy")
+src/sicl/drawing/scene_adapter.py:126:    operation = entity.trace.operation.rsplit(":", 1)[-1]
+src/sicl/drawing/scene_adapter.py:127:    if relation == "CUT" and operation != "CUT_PROJECTION":
+src/sicl/drawing/scene_adapter.py:128:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:129:    if relation == "BELOW_CUT" and operation != "BELOW_CUT_PROJECTION":
+src/sicl/drawing/scene_adapter.py:130:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:132:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:134:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:242:    """Convenience E2E operation: GraphicScene → adapter → existing SVG backend."""
+src/sicl/h005/contract.py:13:    """Base error for fail-closed H-005 operations."""
+tests/test_api_v1.py:63:    response = client.post("/v1/projects/V1-PREF/preferences", json={"statement": "Prefer low operational energy", "actor": "owner"})
+tests/test_api_v1.py:66:    assert preference["statement"] == "Prefer low operational energy"
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:68:| Event | `event_id`, `project_id`, `timestamp`, `operation`, `command?`, `status`, `data` | REQUIRES_HUMAN_DECISION |
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:72:| Operation | intención semántica normalizada | PROPUESTO |
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:80:Operation changes Project State
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:81:Event records Operation
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:83:Response reports Operation result
+docs/DOCUMENTATION_BASELINE_2.11.md:14:6. `OPERATIONS_MANUAL.md` describe operación, salud, persistencia y recuperación.
+docs/COMMANDS_REFERENCE.md:7:Esta referencia describe el dispatcher real. Si contradice `USER_MANUAL.md`, `OPERATIONS_MANUAL.md` u otro documento, prevalece esta referencia. Los comandos marcados **HTTP-only** no son aceptados por el CLI local.
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:536:requested_operation
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:539:`requested_operation` puede ser:
+docs/SICL_V1_ARCHITECTURE_BASELINE.md:13:`Project`, `Stage`, `Objective`, `Constraint`, `Role`, `Event`, `State`, `History`, `Response`, `Error`, `Command`, `Operation` e `Interpreter`.
+docs/SICL_V1_ARCHITECTURE_BASELINE.md:42:Command → parse → validate → Operation → domain validation
+docs/USER_MANUAL.md:388:GET /v1/operations-research/methods
+docs/SIMS_DEI_PROJECT_HANDOVER.md:194:- `docs/OPERATIONS_MANUAL.md`.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:98:- `GET /v1/operations-research/methods`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:313:| RFC-013 | Production operations and release governance | Migraciones, backups, observabilidad, despliegue, política de secretos, retención de eventos y release gates |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:37:- **IMPLEMENTED:** The whole FFO scope is supported by current evidence. No activation is required for that FFO, although operational deployment remains separate.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:289:A future order must explicitly define the input channel, suggestion states, actor authority, confirmation operation, and audit trail.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:595:## 19. Operational exclusions
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:607:They are operational or integration gates and remain governed by their own explicit orders.
+docs/architecture/M1_REALITY_AUDIT.md:4:Block 2 validates the consistency observable without inspecting D2: `GraphicTrace.semantic_role` must equal `GraphicEntity.role`; `geometry_intent.cut_relation` must agree with the final operation token (`CUT_PROJECTION` or `BELOW_CUT_PROJECTION`); and `_CUT`/`_PROJECTED` roles must agree with that relation. A malformed trace, unresolved visibility, unresolved cut relation, style-reference mismatch, or invalid geometry fails closed.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:112:8. A backend consumes a scene and reports unsupported operations; it must not silently substitute another backend.
+docs/architecture/MV_P1_0_RUNTIME_VARIABLE_ARCHITECTURE_LOCK.md:94:This is the smallest architecture that supports stable identity, SQLite MVP operation, migration safety, and future catalogue growth without duplicating project state. A future catalogue persistence migration remains possible if catalogue size or administrative workflows require it.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:23:- Entity identity is derived from source element, view, operation, semantic role, and projection version.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:24:- Cut relation and view visibility are separate. Exact model-unit boundaries use `bottom <= cut <= top` for `CUT`; `BELOW_CUT` is visible with an explicit below-cut operation; `ABOVE_CUT` is `UNKNOWN_VISIBILITY` and is not emitted without a visibility policy/evidence.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:51:- A-002 runtime integration: no operation-specific contract is required by this projection boundary yet.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:53:- `semantic_scope` is enforced as a project scope restriction; `filters`, `visibility`, and `level_scope` execution remain `DEFERRED_WITH_REASON` until ARE defines their operational semantics.

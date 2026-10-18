@@ -1,0 +1,7 @@
+ARKI compileall validation report
+===============================
+Command: python -m compileall -q src tests
+Result: PASS
+Return code: 0
+Compiled bytecode files present: 175
+Scope: src/ tests/

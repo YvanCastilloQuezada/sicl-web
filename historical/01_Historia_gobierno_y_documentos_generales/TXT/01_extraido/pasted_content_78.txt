@@ -1,0 +1,453 @@
+# PASO 3 — MAPA DE HUECOS REALES
+
+## MiLukita / LUKA
+
+### OBJETIVO
+
+Determinar, a partir de la arquitectura existente, cuáles son las capacidades:
+
+* que ya existen y no requieren desarrollo;
+* que existen pero necesitan integración;
+* que existen parcialmente y necesitan completarse;
+* que realmente faltan.
+
+Este documento NO autoriza implementación.
+
+Su finalidad es evitar crear componentes o agentes que ya existen bajo otra forma.
+
+---
+
+# 1. REGLA CENTRAL
+
+No preguntar:
+
+> ¿Qué agentes faltan?
+
+Preguntar:
+
+> ¿Qué capacidades necesita MiLukita y cuál es el estado real de cada una?
+
+La cadena de análisis será:
+
+**CAPACIDAD → COMPONENTE → INTEGRACIÓN → OPERATIVIDAD → EVIDENCIA → GAP → PRIORIDAD**
+
+---
+
+# 2. ESCALA DE ESTADO
+
+### 🟢 EXISTE — NO HACER NADA
+
+La capacidad existe y la arquitectura correspondiente está suficientemente implementada para el nivel actual.
+
+Puede requerir posteriormente validación, pero no requiere crear otro componente para reemplazarla.
+
+### 🟡 EXISTE — FALTA INTEGRACIÓN / VALIDACIÓN
+
+La capacidad existe, pero falta demostrar:
+
+* integración;
+* flujo completo;
+* pruebas;
+* validación física;
+* integración con otra superficie;
+* o evidencia operacional.
+
+### 🟠 PARCIAL — COMPLETAR
+
+Existe arquitectura y parte de la implementación, pero la capacidad todavía no está suficientemente completa.
+
+### 🔴 REALMENTE FALTA
+
+No existe una implementación o arquitectura suficiente para la capacidad requerida.
+
+**Esta categoría requiere la mayor evidencia antes de proponer desarrollo.**
+
+---
+
+# 3. MAPA MAESTRO DE HUECOS
+
+| ID      | CAPACIDAD               | EXISTE  | COMPONENTE ACTUAL                     | INTEGRACIÓN    | OPERATIVIDAD  | EVIDENCIA           | GAP                        | ESTADO | PRIORIDAD |
+| ------- | ----------------------- | ------- | ------------------------------------- | -------------- | ------------- | ------------------- | -------------------------- | ------ | --------- |
+| GAP-001 | Registro de agentes     | Sí      | agentRegistry                         | Sí             | Sí            | Registry            | Ninguno crítico            | 🟢     | Baja      |
+| GAP-002 | Gobierno de agentes     | Sí      | agentGovernance                       | Sí             | Parcial       | Código/tests        | Validación integral        | 🟡     | Alta      |
+| GAP-003 | Safe Capabilities       | Sí      | agentSafeCapability                   | Sí             | Parcial       | Código/tests        | Correlación completa       | 🟡     | Alta      |
+| GAP-004 | Maturity Gate           | Sí      | agentMaturityGate                     | Sí             | Parcial       | Código/tests        | Evidencia por agente       | 🟡     | Media     |
+| GAP-005 | Agent Router            | Sí      | agentRouter                           | Sí             | Parcial       | Router/tests        | E2E completo               | 🟡     | Alta      |
+| GAP-006 | Auditor                 | Sí      | AuditorAgent                          | Sí             | Parcial       | Código/router/tests | E2E/producción             | 🟡     | Alta      |
+| GAP-007 | Watchdog                | Sí      | WatchdogAgent                         | Sí             | Parcial       | Código/router/tests | E2E/producción             | 🟡     | Alta      |
+| GAP-008 | Financial Intelligence  | Sí      | FinancialIntelligenceAgent            | Sí             | Parcial       | Código/router       | E2E                        | 🟡     | Media     |
+| GAP-009 | Experience Director     | Sí      | ExperienceAgent                       | Sí             | Parcial       | Código/router       | E2E                        | 🟡     | Media     |
+| GAP-010 | Recovery                | Sí      | RecoveryEngine                        | Parcial        | No demostrado | Código              | Integración                | 🟠     | Media     |
+| GAP-011 | Business Strategy       | Sí      | Business Strategy                     | Parcial        | No demostrado | Código/docs         | Integración                | 🟠     | Media     |
+| GAP-012 | Audience Intelligence   | Sí      | Registry/infraestructura              | Parcial        | No demostrado | Registry            | Integración                | 🟠     | Media     |
+| GAP-013 | Marketing Intelligence  | Sí      | Registry/infraestructura              | Parcial        | No demostrado | Registry            | Integración                | 🟠     | Media     |
+| GAP-014 | Social                  | Sí      | Registry                              | Parcial        | No demostrado | Registry            | Implementación/integración | 🟠     | Baja      |
+| GAP-015 | Content                 | Sí      | Registry                              | Parcial        | No demostrado | Registry            | Implementación/integración | 🟠     | Media     |
+| GAP-016 | Sales                   | Sí      | Registry                              | Parcial        | No demostrado | Registry            | Integración                | 🟠     | Media     |
+| GAP-017 | Revenue                 | Sí      | Registry                              | Parcial        | No demostrado | Registry            | Integración                | 🟠     | Media     |
+| GAP-018 | Supervisor              | Sí      | Registry                              | Parcial        | No demostrado | Registry            | Integración                | 🟠     | Media     |
+| GAP-019 | Distribution            | Sí      | Registry/router                       | Parcial        | No            | Router NO_DATA      | Implementación             | 🟠     | Media     |
+| GAP-020 | Legal & Compliance      | Sí      | legalComplianceAgent                  | No operacional | No            | PLANNED/DISABLED    | No activar                 | 🟡     | Bloqueada |
+| GAP-021 | World                   | Sí      | World infrastructure                  | Sí             | Parcial       | Código              | Validación                 | 🟡     | Alta      |
+| GAP-022 | World Engine            | Sí      | World Engine                          | Sí             | Parcial       | Código              | E2E/validación             | 🟡     | Alta      |
+| GAP-023 | Territorial             | Sí      | Territorial services                  | Sí             | Parcial       | Código/tests        | Validación                 | 🟡     | Alta      |
+| GAP-024 | Mapper                  | Sí      | TerritorialFieldEntryPage + servicios | Sí             | Parcial       | Código/tests        | Validación física/E2E      | 🟡     | CRÍTICA   |
+| GAP-025 | The Eye                 | Sí      | TerritorialTrustPage + servicios      | Sí             | Parcial       | Código/tests        | Validación física/E2E      | 🟡     | CRÍTICA   |
+| GAP-026 | Claims                  | Sí      | Territorial Trust                     | Sí             | Parcial       | Código              | E2E                        | 🟡     | Alta      |
+| GAP-027 | Evidence                | Sí      | Evidence infrastructure               | Sí             | Parcial       | Código/tests        | E2E                        | 🟡     | Alta      |
+| GAP-028 | Snapshots               | Sí      | Snapshot infrastructure               | Sí             | Parcial       | Código/tests        | E2E                        | 🟡     | Alta      |
+| GAP-029 | Conflict resolution     | Sí      | Conflict infrastructure               | Sí             | Parcial       | Tests               | Validación E2E             | 🟡     | Alta      |
+| GAP-030 | Offline queue           | Sí      | Sync/offline infrastructure           | Sí             | Parcial       | Tests               | Validación física          | 🟡     | Alta      |
+| GAP-031 | Sync                    | Sí      | Sync infrastructure                   | Sí             | Parcial       | Tests               | Validación física          | 🟡     | Alta      |
+| GAP-032 | Publication workflow    | Sí      | Publication infrastructure            | Sí             | Parcial       | Código/tests        | Validación                 | 🟡     | CRÍTICA   |
+| GAP-033 | Human Authority gate    | Sí      | Governance/publication boundary       | Sí             | Parcial       | Contratos           | E2E                        | 🟡     | CRÍTICA   |
+| GAP-034 | Voice Engine            | Sí      | voiceEngine                           | Sí             | Parcial       | Código              | Producción                 | 🟠     | Media     |
+| GAP-035 | Field Voice Copilot     | Sí      | fieldVoiceCopilot                     | Parcial        | No demostrado | Código              | Integración real           | 🟠     | Media     |
+| GAP-036 | LUKA Voice              | Sí      | LukitaVoiceEngine                     | Sí             | No producción | PREVIEW_ONLY        | Producción                 | 🟠     | Media     |
+| GAP-037 | LUKA Presence           | Sí      | lukaPresenceAdvanced                  | Sí             | Parcial       | Código              | E2E                        | 🟡     | Media     |
+| GAP-038 | Universal Interaction   | Sí      | universalInteraction                  | Sí             | Parcial       | Código/tests        | E2E multimodal             | 🟡     | Alta      |
+| GAP-039 | Universal Controller    | Sí      | universalController                   | Sí             | Parcial       | Código              | Validación física          | 🟡     | Media     |
+| GAP-040 | Intent                  | Sí      | Intent contract/infrastructure        | Sí             | Parcial       | Código              | E2E                        | 🟡     | Alta      |
+| GAP-041 | Gesture                 | Sí      | Gesture contract                      | Parcial        | No demostrado | Código              | Validación                 | 🟡     | Media     |
+| GAP-042 | AR Runtime              | Sí      | LukitaARStagePage + AR infrastructure | Sí             | Parcial       | Código              | Validación física          | 🟡     | CRÍTICA   |
+| GAP-043 | AR Assets               | Sí      | arAssets                              | Sí             | Parcial       | Código              | Validación de assets       | 🟡     | Media     |
+| GAP-044 | Published Spatial Data  | Sí      | World/Publication                     | Parcial        | No demostrado | Código              | E2E                        | 🟡     | Alta      |
+| GAP-045 | TV                      | Sí      | TV modules                            | Sí             | Parcial       | Código              | E2E/physical               | 🟡     | Media     |
+| GAP-046 | Games                   | Sí      | Games modules                         | Sí             | Parcial       | Código              | E2E                        | 🟡     | Media     |
+| GAP-047 | Share Service           | Sí      | ShareService                          | Sí             | Parcial       | Código/tests        | E2E                        | 🟡     | Alta      |
+| GAP-048 | QR contextual           | Sí      | LukaContextQrPage                     | Sí             | Parcial       | Código/tests        | Physical QA                | 🟡     | Alta      |
+| GAP-049 | Session QR              | Sí      | ShareService                          | Sí             | Parcial       | Código              | Physical/security QA       | 🟡     | Alta      |
+| GAP-050 | Authentication          | Sí      | Auth infrastructure                   | Sí             | Parcial       | Tests               | Adversarial testing        | 🟡     | CRÍTICA   |
+| GAP-051 | RBAC / AUTHZ            | Sí      | Security infrastructure               | Sí             | Parcial       | Tests               | Integral testing           | 🟠     | CRÍTICA   |
+| GAP-052 | IDOR protection         | Parcial | Security tests                        | Parcial        | No demostrado | securityOrder60     | Completar pruebas          | 🟠     | CRÍTICA   |
+| GAP-053 | Token expiry/revocation | Sí      | Security/Share                        | Parcial        | Parcial       | Tests               | Adversarial validation     | 🟡     | Alta      |
+| GAP-054 | Security events         | Parcial | Security infrastructure               | Parcial        | No demostrado | Order 60            | Completar                  | 🟠     | CRÍTICA   |
+| GAP-055 | Physical mobile QA      | No      | Externo                               | No             | No            | Ninguna             | Ejecutar físicamente       | 🔴     | CRÍTICA   |
+| GAP-056 | Physical AR QA          | No      | Externo                               | No             | No            | Ninguna             | Ejecutar físicamente       | 🔴     | CRÍTICA   |
+| GAP-057 | Physical Mapper QA      | No      | Externo                               | No             | No            | Ninguna             | Ejecutar físicamente       | 🔴     | CRÍTICA   |
+| GAP-058 | Physical Eye QA         | No      | Externo                               | No             | No            | Ninguna             | Ejecutar físicamente       | 🔴     | CRÍTICA   |
+| GAP-059 | Physical Voice QA       | No      | Externo                               | No             | No            | Ninguna             | Ejecutar físicamente       | 🔴     | Alta      |
+| GAP-060 | Physical Controller QA  | No      | Externo                               | No             | No            | Ninguna             | Ejecutar físicamente       | 🔴     | Media     |
+
+---
+
+# 4. HALLAZGO PRINCIPAL
+
+La matriz demuestra que la mayor parte de los supuestos "faltantes" son en realidad:
+
+**capacidades existentes con integración o validación pendiente.**
+
+Por tanto:
+
+## NO EXISTE JUSTIFICACIÓN ACTUAL PARA CREAR UNA NUEVA FAMILIA DE AGENTES.
+
+Antes debe cerrarse la integración y validación de lo existente.
+
+---
+
+# 5. HUECOS CRÍTICOS
+
+Los huecos que merecen prioridad real son:
+
+### GAP-024 — Mapper
+
+La infraestructura existe.
+
+El hueco principal es:
+
+**validación funcional completa + validación física.**
+
+No crear Mapper Agent.
+
+---
+
+### GAP-025 — The Eye
+
+La infraestructura existe.
+
+El hueco principal es:
+
+**validación funcional completa + validación física.**
+
+No crear The Eye Agent.
+
+---
+
+### GAP-032 — Publication Workflow
+
+La arquitectura existe.
+
+Debe demostrarse el flujo:
+
+```text
+CAPTURE
+ ↓
+REVIEW
+ ↓
+VERIFY
+ ↓
+HUMAN AUTHORITY
+ ↓
+PUBLISH
+ ↓
+RUNTIME
+```
+
+No saltar directamente de captura a publicación.
+
+---
+
+### GAP-033 — Human Authority
+
+La autoridad está conceptualmente protegida.
+
+Debe verificarse operacionalmente que ninguna interfaz, agente, router o capability pueda saltarla.
+
+---
+
+### GAP-050 / 051 / 052 / 053 / 054 — Security
+
+Este grupo permanece abierto.
+
+Especialmente:
+
+* RBAC;
+* AUTHZ;
+* IDOR;
+* expiración;
+* revocación;
+* eventos de seguridad;
+* pruebas adversariales.
+
+**No debe declararse cerrado Order 60.**
+
+---
+
+# 6. HUECOS FÍSICOS
+
+Hay una diferencia fundamental:
+
+```text
+CÓDIGO
+  ↓
+TESTS
+  ↓
+BUILD
+```
+
+no equivale a:
+
+```text
+TELÉFONO REAL
+  ↓
+GPS REAL
+  ↓
+CÁMARA REAL
+  ↓
+MICRÓFONO REAL
+  ↓
+RED REAL
+  ↓
+AR REAL
+  ↓
+USUARIO REAL
+```
+
+Por ello permanecen como:
+
+**EXTERNAL_REQUIRED**
+
+los siguientes:
+
+* Mobile QA;
+* Mapper QA;
+* The Eye QA;
+* AR QA;
+* Voice QA;
+* Controller QA.
+
+---
+
+# 7. CAPACIDADES QUE NO DEBEN CONVERTIRSE EN AGENTES
+
+El mapa actual confirma:
+
+| Capacidad             | Implementación existente | Crear agente |
+| --------------------- | -----------------------: | -----------: |
+| World                 |                       Sí |           NO |
+| World Engine          |                       Sí |           NO |
+| Territorial           |                       Sí |           NO |
+| Mapper                |                       Sí |           NO |
+| The Eye               |                       Sí |           NO |
+| Voice                 |                       Sí |           NO |
+| Field Voice Copilot   |                       Sí |           NO |
+| AR                    |                       Sí |           NO |
+| TV                    |                       Sí |           NO |
+| Games                 |                       Sí |           NO |
+| Intent                |                       Sí |           NO |
+| Gesture               |                       Sí |           NO |
+| Security              |                       Sí |           NO |
+| Universal Interaction |                       Sí |           NO |
+| Universal Controller  |                       Sí |           NO |
+| Share / QR            |                       Sí |           NO |
+| Presence              |                       Sí |           NO |
+
+---
+
+# 8. ¿REALMENTE FALTA ALGÚN AGENTE?
+
+### Resultado provisional:
+
+**NO DEMOSTRADO.**
+
+No existe todavía evidencia suficiente para decir:
+
+> "Hace falta crear el Agente X."
+
+Lo que sí está demostrado es:
+
+> existen capacidades que todavía necesitan integración, correlación, validación o pruebas físicas.
+
+---
+
+# 9. PRIORIDADES
+
+## PRIORIDAD 1 — CRÍTICA
+
+1. Security / AUTHZ / RBAC / IDOR
+2. Mapper funcional
+3. The Eye funcional
+4. Publication + Human Authority
+5. Physical Mobile QA
+6. Physical Mapper QA
+7. Physical Eye QA
+8. Physical AR QA
+
+## PRIORIDAD 2 — ALTA
+
+9. Universal Interaction E2E
+10. Intent E2E
+11. World Engine E2E
+12. Territorial E2E
+13. Evidence / Claims / Snapshots
+14. Conflict resolution
+15. Offline / Sync
+16. Share / QR
+17. Published Spatial Data
+18. Auditor / Watchdog E2E
+
+## PRIORIDAD 3 — MEDIA
+
+19. Voice / Copilot
+20. Universal Controller
+21. TV
+22. Games
+23. Recovery
+24. Business Strategy
+25. Financial Intelligence
+26. Experience Director
+
+## PRIORIDAD 4 — BAJA / FUTURA
+
+27. Social
+28. Revenue
+29. Distribution
+30. otras capacidades preparadas que no tengan una necesidad inmediata demostrada.
+
+---
+
+# 10. ORDEN DE TRABAJO RECOMENDADO
+
+No enviar todavía una orden enorme a Manus.
+
+El orden correcto ahora sería:
+
+```text
+MAPA DE HUECOS
+      ↓
+PRIORIZACIÓN
+      ↓
+SEGURIDAD CRÍTICA
+      ↓
+MAPPER + THE EYE
+      ↓
+PUBLICATION + HUMAN AUTHORITY
+      ↓
+E2E
+      ↓
+PHYSICAL QA
+      ↓
+VOICE / CONTROLLER / TV / GAMES
+      ↓
+REVISIÓN FINAL
+```
+
+---
+
+# 11. REGLA PARA LOS AGENTES
+
+Queda establecida provisionalmente:
+
+> **NO CREAR UN AGENTE CUANDO LA CAPACIDAD YA EXISTE COMO SERVICE, ENGINE, CONTRACT, CAPABILITY, TOOL, RUNTIME O MODULE.**
+
+Solo se considerará crear un nuevo agente si:
+
+1. la capacidad requerida está identificada;
+2. no existe una implementación equivalente;
+3. no puede resolverse mediante un componente existente;
+4. existe una necesidad arquitectónica real de autonomía;
+5. existe un límite de autoridad claramente definido;
+6. existe un caso de uso concreto;
+7. existe evidencia suficiente para justificar su creación.
+
+---
+
+# 12. RESULTADO DEL PASO 3
+
+## 🟢 YA EXISTE
+
+La mayor parte de la arquitectura base.
+
+## 🟡 EXISTE — FALTA INTEGRACIÓN / VALIDACIÓN
+
+La mayor parte de los huecos actuales.
+
+## 🟠 PARCIAL
+
+Principalmente determinadas integraciones de agentes, seguridad avanzada, voz y algunas superficies.
+
+## 🔴 REALMENTE FALTA
+
+Por ahora, principalmente **validación física externa**, no nuevos agentes.
+
+---
+
+# 13. CONCLUSIÓN
+
+El proyecto no necesita, en este momento, una expansión indiscriminada de agentes.
+
+Necesita **cerrar la distancia entre arquitectura existente y funcionamiento demostrado**.
+
+La pregunta correcta ya no es:
+
+> "¿Qué agentes debemos construir?"
+
+La pregunta correcta es:
+
+> **"¿Qué capacidades existentes todavía no atraviesan completamente la cadena código → integración → operación → evidencia → validación?"**
+
+Ese cambio evita duplicación, reduce consumo de créditos y mantiene la arquitectura coherente.
+
+---
+
+# SIGUIENTE PASO
+
+Con este mapa podemos construir el:
+
+## PASO 4 — MATRIZ DE DECISIÓN
+
+Para cada GAP:
+
+**GAP → CAUSA → SOLUCIÓN → COMPONENTE EXISTENTE → ¿MANUS DEBE INTERVENIR? → PRIORIDAD → RIESGO → ORDEN RECOMENDADA**
+
+El objetivo del Paso 4 será llegar a **una lista corta de órdenes concretas**, en lugar de enviar a Manus otra orden gigantesca.

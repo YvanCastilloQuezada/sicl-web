@@ -1,0 +1,73 @@
+# BKH4-3 REGRESSION OUTPUTS
+2026-09-23T16:00:28Z
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+exit=0
+## pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.11s
+
+  dist/index.js  788b 
+
+⚡ Done in 4ms
+exit=0
+## pnpm tsx scripts/test-bkh1-relationship-fabric.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH-1 relationship fabric PASS: 130 migrated relationships, registry=14
+exit=0
+## pnpm tsx scripts/test-bkh2-constraint-engine.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","requiredCases":28,"registryTypes":13,"statuses":["SATISFIED","VIOLATED","UNKNOWN","NOT_APPLICABLE","CONFLICTING","ERROR"],"reasons":["NOT_DEMONSTRATED","EXTERNAL_ORACLE_REQUIRED","INSUFFICIENT_EVIDENCE","INSUFFICIENT_EPISTEMIC_STATE","MISSING_DEPENDENCY","INVALID_INPUT"],"currencySafety":"PEN_USD_INCOMPATIBLE","arbitraryExecution":"PROHIBITED","mutation":"UNCHANGED"}
+exit=0
+## pnpm tsx scripts/test-bkh3-regeneration-engine.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","planStatus":"BLOCKED","executionStatus":"BLOCKED","regenerated":2,"blocked":1,"traceEvents":5,"noCanonicalMutation":true}
+exit=0
+## pnpm tsx scripts/test-bkh3-corrective.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","freshnessE2E":true,"conditionalPropagation":["TRUE","FALSE","UNKNOWN"],"minimalDirtySet":["cost","geometry","quantity"],"aggregation":["COMPLETED","PARTIAL","BLOCKED","FAILED","UNKNOWN"],"bkh2Statuses":["SATISFIED","VIOLATED","UNKNOWN"],"selfCertification":"REJECTED","torture":"PARAMETER→GEOMETRY→RELATIONSHIP→QUANTITY→COST","noCanonicalMutation":true}
+exit=0
+## pnpm tsx scripts/test-bkh93c-idempotence.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","run1":"COMPLETED","run2":"COMPLETED","outputHashEqual":true,"semanticEqual":true,"validityEqual":true,"provenanceEqual":true,"sourceUnchanged":true,"artificialRevision":false,"silentMutation":false,"regenerator":"geometry","version":"1.0.0"}
+exit=0
+## pnpm tsx scripts/test-bkh4-foundation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","revisionStatusRestricted":true,"stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"operationInvariants":7,"arbitraryCodeRejectedStructurally":true,"malformedMutationRejected":true,"deterministicSerialization":true,"duplicateRevisionRejected":true,"provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}
+exit=0
+## pnpm tsx scripts/test-bkh4-3-simulation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH4-3 SIMULATION TESTS: PASS
+CANONICAL_STATE_UNCHANGED: PASS
+SIMULATION_DETERMINISM: PASS
+STALE_BASE_VERSION: PASS
+CONSTRAINT_VIOLATION: PASS
+CONSTRAINT_UNKNOWN: PASS
+MISSING_DEPENDENCY: PASS
+REGENERATION_BLOCKED: PASS
+REGENERATION_FAILED: PASS
+MALFORMED_TRANSACTION: PASS
+NO_COMMIT_PATH_CREATED: PASS
+exit=0

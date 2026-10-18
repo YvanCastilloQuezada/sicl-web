@@ -1,0 +1,1169 @@
+{
+  "schema": "ARKI-AURORA-R0-PROJECT-STATE-1.0",
+  "facts": [
+    {
+      "claim": "Vertical Aurora",
+      "status": "FACT",
+      "source": "frozen order"
+    },
+    {
+      "claim": "150 storeys",
+      "status": "FACT",
+      "source": "frozen order"
+    }
+  ],
+  "observations": [
+    {
+      "claim": "Repository contains shared/arkiSharedFoundation.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiSharedFoundation.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiCapabilityContracts.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiCapabilityContracts.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiCapabilityDigest.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiCapabilityDigest.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiConstraintEngine.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiConstraintEngine.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiRegenerationEngine.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiRegenerationEngine.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiRelationshipFabric.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiRelationshipFabric.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiTransactionEngine.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiTransactionEngine.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiSceneModel.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiSceneModel.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiBimSelection.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiBimSelection.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiCanonicalPersistence.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiCanonicalPersistence.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiTechnicalDossierCompiler.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiTechnicalDossierCompiler.ts"
+    },
+    {
+      "claim": "Repository contains shared/arki4d/index.ts",
+      "status": "OBSERVED",
+      "source": "shared/arki4d/index.ts"
+    },
+    {
+      "claim": "Repository contains shared/arki5d/index.ts",
+      "status": "OBSERVED",
+      "source": "shared/arki5d/index.ts"
+    },
+    {
+      "claim": "Repository contains shared/structural/index.ts",
+      "status": "OBSERVED",
+      "source": "shared/structural/index.ts"
+    },
+    {
+      "claim": "Repository contains shared/mep/index.ts",
+      "status": "OBSERVED",
+      "source": "shared/mep/index.ts"
+    },
+    {
+      "claim": "Repository contains shared/arkiOperationMaintenance.ts",
+      "status": "OBSERVED",
+      "source": "shared/arkiOperationMaintenance.ts"
+    },
+    {
+      "claim": "Repository contains scripts/test-wave1-foundation.ts",
+      "status": "OBSERVED",
+      "source": "scripts/test-wave1-foundation.ts"
+    },
+    {
+      "claim": "Repository contains scripts/test-e8a-dossier.ts",
+      "status": "OBSERVED",
+      "source": "scripts/test-e8a-dossier.ts"
+    },
+    {
+      "claim": "Repository contains scripts/test-e8b-assets.ts",
+      "status": "OBSERVED",
+      "source": "scripts/test-e8b-assets.ts"
+    }
+  ],
+  "inferences": [
+    {
+      "claim": "Integrated high-rise assessment requires multiple coupled disciplines",
+      "status": "INFERRED"
+    }
+  ],
+  "assumptions": [],
+  "unknowns": [
+    {
+      "what": "country",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed country input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "city",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed city input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "coordinates",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed coordinates input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "climate",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed climate input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "soil",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed soil input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "geotechnical profile",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed geotechnical profile input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "seismic parameters",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed seismic parameters input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "wind parameters",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed wind parameters input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "codes",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed codes input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "jurisdiction",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed jurisdiction input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "plot dimensions",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed plot dimensions input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "FAR",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed FAR input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "height limit",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed height limit input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "airport restrictions",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed airport restrictions input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "groundwater",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed groundwater input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "flooding",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed flooding input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "program distribution",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed program distribution input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "occupancy",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed occupancy input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "structural material",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed structural material input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "structural system",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed structural system input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "foundation system",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed foundation system input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "façade system",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed façade system input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "MEP system",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed MEP system input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "fire strategy",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed fire strategy input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "vertical transportation strategy",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed vertical transportation strategy input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "energy source",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed energy source input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "water availability",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed water availability input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "budget",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed budget input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "construction schedule",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed construction schedule input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "carbon factors",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed carbon factors input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "tariffs",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed tariffs input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "BIM authoring platform",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed BIM authoring platform input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "as-built conditions",
+      "why": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "affectedScope": "VERTICAL AURORA",
+      "dependsOn": [
+        "project definition",
+        "professional analysis"
+      ],
+      "evidenceToResolve": "Provide governed as-built conditions input",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "professional structural solver output",
+      "why": "No executed traceable solver run is admissible in this R0",
+      "affectedScope": "structure/wind/seismic",
+      "dependsOn": [
+        "solver",
+        "site inputs",
+        "model"
+      ],
+      "evidenceToResolve": "Validated solver run",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    },
+    {
+      "what": "production BIM completeness",
+      "why": "schemas and partial adapters do not establish a complete coordinated model",
+      "affectedScope": "BIM",
+      "dependsOn": [
+        "semantic model",
+        "exchange validation",
+        "round-trip fixtures"
+      ],
+      "evidenceToResolve": "Production BIM validation",
+      "canContinueProvisionally": false,
+      "dangerousAssumption": true
+    }
+  ],
+  "requiredInputs": [
+    {
+      "input": "country",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed country input",
+      "blocking": true
+    },
+    {
+      "input": "city",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed city input",
+      "blocking": true
+    },
+    {
+      "input": "coordinates",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed coordinates input",
+      "blocking": true
+    },
+    {
+      "input": "climate",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed climate input",
+      "blocking": true
+    },
+    {
+      "input": "soil",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed soil input",
+      "blocking": true
+    },
+    {
+      "input": "geotechnical profile",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed geotechnical profile input",
+      "blocking": true
+    },
+    {
+      "input": "seismic parameters",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed seismic parameters input",
+      "blocking": true
+    },
+    {
+      "input": "wind parameters",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed wind parameters input",
+      "blocking": true
+    },
+    {
+      "input": "codes",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed codes input",
+      "blocking": true
+    },
+    {
+      "input": "jurisdiction",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed jurisdiction input",
+      "blocking": true
+    },
+    {
+      "input": "plot dimensions",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed plot dimensions input",
+      "blocking": true
+    },
+    {
+      "input": "FAR",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed FAR input",
+      "blocking": true
+    },
+    {
+      "input": "height limit",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed height limit input",
+      "blocking": true
+    },
+    {
+      "input": "airport restrictions",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed airport restrictions input",
+      "blocking": true
+    },
+    {
+      "input": "groundwater",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed groundwater input",
+      "blocking": true
+    },
+    {
+      "input": "flooding",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed flooding input",
+      "blocking": true
+    },
+    {
+      "input": "program distribution",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed program distribution input",
+      "blocking": true
+    },
+    {
+      "input": "occupancy",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed occupancy input",
+      "blocking": true
+    },
+    {
+      "input": "structural material",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed structural material input",
+      "blocking": true
+    },
+    {
+      "input": "structural system",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed structural system input",
+      "blocking": true
+    },
+    {
+      "input": "foundation system",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed foundation system input",
+      "blocking": true
+    },
+    {
+      "input": "façade system",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed façade system input",
+      "blocking": true
+    },
+    {
+      "input": "MEP system",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed MEP system input",
+      "blocking": true
+    },
+    {
+      "input": "fire strategy",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed fire strategy input",
+      "blocking": true
+    },
+    {
+      "input": "vertical transportation strategy",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed vertical transportation strategy input",
+      "blocking": true
+    },
+    {
+      "input": "energy source",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed energy source input",
+      "blocking": true
+    },
+    {
+      "input": "water availability",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed water availability input",
+      "blocking": true
+    },
+    {
+      "input": "budget",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed budget input",
+      "blocking": true
+    },
+    {
+      "input": "construction schedule",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed construction schedule input",
+      "blocking": true
+    },
+    {
+      "input": "carbon factors",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed carbon factors input",
+      "blocking": true
+    },
+    {
+      "input": "tariffs",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed tariffs input",
+      "blocking": true
+    },
+    {
+      "input": "BIM authoring platform",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed BIM authoring platform input",
+      "blocking": true
+    },
+    {
+      "input": "as-built conditions",
+      "reason": "Not present in the frozen Aurora input or admissible current repository evidence",
+      "minimumEvidence": "Provide governed as-built conditions input",
+      "blocking": true
+    },
+    {
+      "input": "professional structural solver output",
+      "reason": "No executed traceable solver run is admissible in this R0",
+      "minimumEvidence": "Validated solver run",
+      "blocking": true
+    },
+    {
+      "input": "production BIM completeness",
+      "reason": "schemas and partial adapters do not establish a complete coordinated model",
+      "minimumEvidence": "Production BIM validation",
+      "blocking": true
+    }
+  ],
+  "entities": [
+    {
+      "id": "AURORA",
+      "type": "BUILDING",
+      "status": "CONCEPT_ONLY"
+    }
+  ],
+  "systems": [
+    {
+      "name": "Architecture",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Structure",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Wind",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Seismic",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Foundations/Geotechnics",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Fire/Life Safety",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Vertical Transportation",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "MEP",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Energy/Environment",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Façade",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "BIM/Digital Representation",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Cross-Discipline",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Construction",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Cost/Financial/Schedule",
+      "status": "NOT_DEMONSTRATED"
+    },
+    {
+      "name": "Operations/Digital Twin",
+      "status": "NOT_DEMONSTRATED"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "FORM",
+      "to": "WIND",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FORM",
+      "to": "STRUCTURE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "STRUCTURE",
+      "to": "CORE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CORE",
+      "to": "ELEVATORS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CORE",
+      "to": "EGRESS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "STRUCTURE",
+      "to": "MEP",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FLOOR_HEIGHT",
+      "to": "MEP",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FAÇADE",
+      "to": "WIND",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FAÇADE",
+      "to": "ENERGY",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FAÇADE",
+      "to": "STRUCTURAL_DRIFT",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FIRE",
+      "to": "CORE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FIRE",
+      "to": "MEP",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "GEOTECHNICS",
+      "to": "STRUCTURE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FOUNDATION",
+      "to": "WATER_TABLE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "PROGRAM",
+      "to": "VERTICAL_TRANSPORT",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "OCCUPANCY",
+      "to": "EGRESS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CONSTRUCTION",
+      "to": "STRUCTURAL_SEQUENCE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "COST",
+      "to": "SYSTEM_SELECTION",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CARBON",
+      "to": "MATERIALS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "OPERATIONS",
+      "to": "DESIGN",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "FORM",
+      "to": "WIND",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FORM",
+      "to": "STRUCTURE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "STRUCTURE",
+      "to": "CORE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CORE",
+      "to": "ELEVATORS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CORE",
+      "to": "EGRESS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "STRUCTURE",
+      "to": "MEP",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FLOOR_HEIGHT",
+      "to": "MEP",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FAÇADE",
+      "to": "WIND",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FAÇADE",
+      "to": "ENERGY",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FAÇADE",
+      "to": "STRUCTURAL_DRIFT",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FIRE",
+      "to": "CORE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FIRE",
+      "to": "MEP",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "GEOTECHNICS",
+      "to": "STRUCTURE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "FOUNDATION",
+      "to": "WATER_TABLE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "PROGRAM",
+      "to": "VERTICAL_TRANSPORT",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "OCCUPANCY",
+      "to": "EGRESS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CONSTRUCTION",
+      "to": "STRUCTURAL_SEQUENCE",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "COST",
+      "to": "SYSTEM_SELECTION",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "CARBON",
+      "to": "MATERIALS",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    },
+    {
+      "from": "OPERATIONS",
+      "to": "DESIGN",
+      "direction": "REQUIRED_INPUT_OR_DEPENDENCY",
+      "propagation": "NOT_DEMONSTRATED_IN_R0",
+      "invalidation": "UNKNOWN",
+      "unknownImpact": "REQUIRES_GOVERNED_MODEL_AND_VALIDATION"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "order-182",
+      "hash": "sha256:v1:62bc38612346e336624802c8b569ab0f427fc4a277e4203d72eaa6a593d49231",
+      "status": "PRESENT"
+    }
+  ],
+  "provenance": [
+    {
+      "source": "Product Owner order",
+      "type": "USER_INPUT"
+    }
+  ],
+  "units": [],
+  "applicability": [],
+  "limitations": [
+    "no site",
+    "no solver",
+    "no production BIM",
+    "no professional validation"
+  ]
+}

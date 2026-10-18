@@ -1,0 +1,24 @@
+[
+  {
+    "deficitId": "BIM-D-001",
+    "failedCapability": "Real BIM-E2E datasets",
+    "evidence": "No legitimate client/project dataset supplied",
+    "rootCause": "Input not available",
+    "affectedLayer": "E2E",
+    "severity": "HIGH",
+    "proposedRemediation": "Provide authorized fixture",
+    "architectureImpact": "NONE_DEMONSTRATED",
+    "bkhImpact": "NONE"
+  },
+  {
+    "deficitId": "BIM-D-002",
+    "failedCapability": "Production IFC round-trip",
+    "evidence": "Existing bounded IFC tests only",
+    "rootCause": "Scope and fixture limits",
+    "affectedLayer": "Interoperability",
+    "severity": "HIGH",
+    "proposedRemediation": "Separate supported round-trip fixture",
+    "architectureImpact": "POSSIBLE",
+    "bkhImpact": "NONE"
+  }
+]

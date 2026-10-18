@@ -1,0 +1,351 @@
+{
+  "schema": "ARKI-LKS-97A-MANIFEST-1.1",
+  "order": "97A",
+  "status": "INTEGRATED / IMPLEMENTED FOR DECLARED SCOPE / PENDING INDEPENDENT VERIFICATION",
+  "canonicalCandidatePolicy": "ARCHITECTURAL_DECISION_REQUIRED",
+  "noSecondTruth": true,
+  "entries": [
+    {
+      "file": "ARKI_LKS_INTEGRATED_ARCHITECTURE.md",
+      "purpose": "97A evidence artifact",
+      "size": 1605,
+      "sha256": "a5b7cbae2a9c7a46c2c2b1f36e28b2aa61f68b05aca13b8a663fb98b77bf8357",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_INTEGRATED_ARCHITECTURE.md"
+    },
+    {
+      "file": "ARKI_EXISTING_KNOWLEDGE_INTEGRATION_REPORT.md",
+      "purpose": "97A evidence artifact",
+      "size": 1781,
+      "sha256": "e6d9b3a54290321b569650e72831e235396a649ce52770ec5f4e92a68aebd9b3",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_EXISTING_KNOWLEDGE_INTEGRATION_REPORT.md"
+    },
+    {
+      "file": "ARKI_CURRICULUM_VIEW_SPEC.md",
+      "purpose": "97A evidence artifact",
+      "size": 1086,
+      "sha256": "201fb6bcd5046abf67c1e5f58966a9150d93061d5c26b5211f0194f7e6d049de",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_CURRICULUM_VIEW_SPEC.md"
+    },
+    {
+      "file": "ARKI_CURRICULUM_DEPENDENCY_GRAPH.md",
+      "purpose": "97A evidence artifact",
+      "size": 703,
+      "sha256": "a1f0d7417a5acbdc5dd9e9d9ce33e25f328c9d1c2f953e6f67405c6cc96900b2",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_CURRICULUM_DEPENDENCY_GRAPH.md"
+    },
+    {
+      "file": "ARKI_CURRICULUM_DELTA_SPEC.md",
+      "purpose": "97A evidence artifact",
+      "size": 861,
+      "sha256": "bd963bdf2e847c1bf55997f0b52c3f8c08aae3368387924f78eceb4c74e6df8d",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_CURRICULUM_DELTA_SPEC.md"
+    },
+    {
+      "file": "ARKI_COMPETENCY_REVALIDATION_SPEC.md",
+      "purpose": "97A evidence artifact",
+      "size": 693,
+      "sha256": "174df2a43388c9135d93bbec9108848cd4322dffe8f79bbf435b18c96a037747",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_COMPETENCY_REVALIDATION_SPEC.md"
+    },
+    {
+      "file": "ARKI_STANDARDS_KNOWLEDGE_MODEL.md",
+      "purpose": "97A evidence artifact",
+      "size": 900,
+      "sha256": "da779bb58b1c6bd24917ed70466724689815f0fa9281f97a75539129aae987f4",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_STANDARDS_KNOWLEDGE_MODEL.md"
+    },
+    {
+      "file": "ARKI_ISO_KNOWLEDGE_FAMILY.md",
+      "purpose": "97A evidence artifact",
+      "size": 1619,
+      "sha256": "a623d340cd589fff77d02abf19d8ff02d980db5ee17788bcc74d79f407914414",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_ISO_KNOWLEDGE_FAMILY.md"
+    },
+    {
+      "file": "ARKI_STANDARDS_CURRICULUM_PROPAGATION.md",
+      "purpose": "97A evidence artifact",
+      "size": 788,
+      "sha256": "1599034ed3e56d78a93102cdf1960908696f54c783914789a08e28d6c279c59b",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_STANDARDS_CURRICULUM_PROPAGATION.md"
+    },
+    {
+      "file": "ARKI_KNOWLEDGE_PACKAGE_SPEC.md",
+      "purpose": "97A evidence artifact",
+      "size": 647,
+      "sha256": "6d46f697d30b07c2df2354a64e3790e985f6c2702fb77eeafa611576dbd99c8f",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_KNOWLEDGE_PACKAGE_SPEC.md"
+    },
+    {
+      "file": "ARKI_LKS_DUPLICATION_INVARIANTS.md",
+      "purpose": "97A evidence artifact",
+      "size": 1082,
+      "sha256": "2629a2e1977c94a88bf6579e1897872b6c0bea06e8f454d1b4b8e41e1e42dec1",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_DUPLICATION_INVARIANTS.md"
+    },
+    {
+      "file": "ARKI_LKS_MIGRATION_DECISIONS.md",
+      "purpose": "97A evidence artifact",
+      "size": 1352,
+      "sha256": "e84c205b2099dd19fb851dcd035c815d0463c1b8e31269e05de27cbd7dc76d00",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_MIGRATION_DECISIONS.md"
+    },
+    {
+      "file": "ADR_LKS_001_CANONICAL_CANDIDATE_AUTHORITY.md",
+      "purpose": "97A evidence artifact",
+      "size": 1336,
+      "sha256": "1416843ffd8f5a990e513da023bfe08f100cf3e7558b37a39d52fb951c0cbb4d",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ADR_LKS_001_CANONICAL_CANDIDATE_AUTHORITY.md"
+    },
+    {
+      "file": "ARKI_LKS_97A_TEST_MATRIX.md",
+      "purpose": "97A evidence artifact",
+      "size": 2070,
+      "sha256": "87ec6391e223e932f2bb3c38f6beb69e942ef9d1765d2cfdd02d3b7a65554c87",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_97A_TEST_MATRIX.md"
+    },
+    {
+      "file": "ARKI_LKS_97A_SCOPE_LIMIT_REPORT.md",
+      "purpose": "97A evidence artifact",
+      "size": 1419,
+      "sha256": "1009f7fdc5fe3a9c5d52051f8ba40f2e08db758ef8570c761a5e20c40294a8d4",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_97A_SCOPE_LIMIT_REPORT.md"
+    },
+    {
+      "file": "ARKI_LKS_97A_IMPLEMENTATION_REPORT.md",
+      "purpose": "97A evidence artifact",
+      "size": 1266,
+      "sha256": "c2023e66abe844b74700ecdb581cb6b35e626911f12194ab9942ab22e31e3a39",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_97A_IMPLEMENTATION_REPORT.md"
+    },
+    {
+      "file": "ARKI_LKS_97A_OUTPUTS.txt",
+      "purpose": "97A evidence artifact",
+      "size": 2818,
+      "sha256": "3700159a7a162c62a56df1a0c3593823b038d67a02b248260412da02140cbd49",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_97A_OUTPUTS.txt"
+    },
+    {
+      "file": "scripts/test-arki-lks-integration.ts",
+      "purpose": "97A evidence artifact",
+      "size": 5830,
+      "sha256": "85f461a811a13dfc8872ebac98afec91dc1128b3e23ff66700e2f72e656dd1f0",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/scripts/test-arki-lks-integration.ts"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "purpose": "97A evidence artifact",
+      "size": 21942,
+      "sha256": "0011f93ffe33272cdfcea83b8b180db131d109e05b6e6881681674fb2016f709",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/shared/arkiLivingKnowledge.ts"
+    },
+    {
+      "file": "ARKI_EXISTING_KNOWLEDGE_TOPOLOGY.md",
+      "purpose": "97A evidence artifact",
+      "size": 7252,
+      "sha256": "328b807d95f4b917213ff89209fe99cbb47f3ae0508ddb1b3f111e55deda401d",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_EXISTING_KNOWLEDGE_TOPOLOGY.md"
+    },
+    {
+      "file": "ARKI_KNOWLEDGE_OWNERSHIP_MAP.md",
+      "purpose": "97A evidence artifact",
+      "size": 4108,
+      "sha256": "2da4d3e80516be6b92cf91b3bebf7276cf3d598aef65200af91b477eda94c1be",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_KNOWLEDGE_OWNERSHIP_MAP.md"
+    },
+    {
+      "file": "ARKI_CURRICULUM_COMPETENCY_BASELINE.md",
+      "purpose": "97A evidence artifact",
+      "size": 3805,
+      "sha256": "b9c83bc9badb31e3df5c4ce10dc297890ac96bf91b0afc1d71b449a79452d5f4",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_CURRICULUM_COMPETENCY_BASELINE.md"
+    },
+    {
+      "file": "ARKI_LKS_MIGRATION_MAP.md",
+      "purpose": "97A evidence artifact",
+      "size": 4181,
+      "sha256": "beac99bce4193d54008a279dc04ad0275d47d8ea8efcba8a9fc31f5535a7d488",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_MIGRATION_MAP.md"
+    },
+    {
+      "file": "ARKI_LKS_DUPLICATION_RISK_REGISTER.md",
+      "purpose": "97A evidence artifact",
+      "size": 3401,
+      "sha256": "523e06940caf69f8d4654ceb4f025903bf00b921570b7c3e03daeeae9a4b4411",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_DUPLICATION_RISK_REGISTER.md"
+    },
+    {
+      "file": "AKI001_REPORT.md",
+      "purpose": "97A evidence artifact",
+      "size": 2108,
+      "sha256": "c17621c46c44a511e0dc2bec8750089f97fdb65427c1a9f9198f064ac1bdae1a",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/AKI001_REPORT.md"
+    },
+    {
+      "file": "AKI001_KNOWLEDGE_INVENTORY.md",
+      "purpose": "97A evidence artifact",
+      "size": 3358,
+      "sha256": "a2c97c27b02b5100c22f77fcbe902ef70b11a468baf7d620d7441e083d18206c",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/AKI001_KNOWLEDGE_INVENTORY.md"
+    },
+    {
+      "file": "AKI001_COMPETENCY_MATRIX.md",
+      "purpose": "97A evidence artifact",
+      "size": 2470,
+      "sha256": "41840a4960d954f425f9bfdf91d7869e0e9aad2051156100388ab1a7513129a1",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/AKI001_COMPETENCY_MATRIX.md"
+    },
+    {
+      "file": "AKI001_KNOWLEDGE_GAPS.md",
+      "purpose": "97A evidence artifact",
+      "size": 2080,
+      "sha256": "19945811d2c0e7215b04681a116fbe280f49fb98c887d4984c24744032e35484",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/AKI001_KNOWLEDGE_GAPS.md"
+    },
+    {
+      "file": "AKI001_HISTORICAL_CURRICULUM.md",
+      "purpose": "97A evidence artifact",
+      "size": 3418,
+      "sha256": "bd34817139e87535224c2040aee9ceeb22521a0df3cea42e973093da9064aa18",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/AKI001_HISTORICAL_CURRICULUM.md"
+    },
+    {
+      "file": "AKI001_EVIDENCE_INDEX.md",
+      "purpose": "97A evidence artifact",
+      "size": 2291,
+      "sha256": "9db3f12814ad93590ed7b2a3a4ce108314cd7558fac3dcbadcd404fb271e11f8",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/AKI001_EVIDENCE_INDEX.md"
+    },
+    {
+      "file": "ARKI_LKS_CONTRACT_V1.md",
+      "purpose": "97A evidence artifact",
+      "size": 1748,
+      "sha256": "07518e4c383e9f5c32dbf429c12696915c03b67d8c3a1dae84d54ada8b729fd6",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_CONTRACT_V1.md"
+    },
+    {
+      "file": "ARKI_LKS_SOURCE_REGISTER.md",
+      "purpose": "97A evidence artifact",
+      "size": 4242,
+      "sha256": "f50869b666d15ac37120876811f7758c9f57503fe245c28549645406e6fb9d3c",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_SOURCE_REGISTER.md"
+    },
+    {
+      "file": "ARKI_LKS_CAPABILITY_ATLAS.md",
+      "purpose": "97A evidence artifact",
+      "size": 2010,
+      "sha256": "6516b2e872f055c035307c5bfacb819d0d088eef6d2b8ef5a04b88879344a7b0",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_CAPABILITY_ATLAS.md"
+    },
+    {
+      "file": "ARKI_LKS_IMPLEMENTATION_REPORT.md",
+      "purpose": "97A evidence artifact",
+      "size": 1861,
+      "sha256": "086eeb4346abf7484b6a5152747c487396ab8b9bbd634a9c54b45863b5052edf",
+      "status": "NEWLY_IMPLEMENTED",
+      "evidenceCategory": "NEW_97A",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_LKS_IMPLEMENTATION_REPORT.md"
+    },
+    {
+      "file": "ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md",
+      "purpose": "97A evidence artifact",
+      "size": 10978,
+      "sha256": "c9a78f7bd4a4338a89ada19e0dcf42b0f8aa9d524317343f18be7b4d0de826d4",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md"
+    },
+    {
+      "file": "ARKI_MASTER_CODEBOOK.md",
+      "purpose": "97A evidence artifact",
+      "size": 9133,
+      "sha256": "dc9ec15f709f84cb3fa03a5d92aa1e5582e963b5999f76c36230bf1ab16eb2c8",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_MASTER_CODEBOOK.md"
+    },
+    {
+      "file": "ARKI_CODEBOOK_MANIFEST.json",
+      "purpose": "97A evidence artifact",
+      "size": 1336,
+      "sha256": "517a35d4106c1300e50cb016d1b0b17d62f28c400c47744d4a1fad67d90773e0",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/generador-familias/ARKI_CODEBOOK_MANIFEST.json"
+    },
+    {
+      "file": "pasted_content_104.txt",
+      "purpose": "97A evidence artifact",
+      "size": 36010,
+      "sha256": "a1d864081d092e9573f5be6fbec58f3e20c324068a46bae50da4e0e288c67355",
+      "status": "REUSED",
+      "evidenceCategory": "REUSED_OR_SOURCE",
+      "sourcePath": "/home/ubuntu/upload/pasted_content_104.txt"
+    }
+  ]
+}

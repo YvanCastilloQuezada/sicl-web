@@ -1,0 +1,1673 @@
+# ORDEN MAESTRA 001 v1.2.1
+
+# RESCATE, CONSOLIDACIÓN Y EVOLUCIÓN CONTROLADA DE MILUKITA
+
+**Proyecto:** MiLukita
+**Sistema de implementación:** Manus AI
+**Autoridad:** Human Authority
+**Versión:** 1.2.1
+**Naturaleza:** Orden Maestra de evolución controlada
+**Estado:** AUTORIZADA PARA EJECUCIÓN POR FASES
+**Dependencias:** Estado real disponible de las órdenes anteriores
+**Principio rector:** No reconstruir por defecto. Verificar por defecto. Auditar por excepción.
+
+---
+
+# 1. OBJETIVO GENERAL
+
+La presente Orden Maestra tiene como objetivo **rescatar, consolidar y evolucionar de manera controlada el sistema MiLukita existente**, aprovechando el trabajo ya desarrollado y evitando reconstrucciones innecesarias, duplicaciones, desviaciones de alcance y consumo innecesario de recursos.
+
+El objetivo no es comenzar MiLukita nuevamente.
+
+El objetivo es conseguir que las piezas que ya existen:
+
+* sean identificadas;
+* sean comprendidas;
+* sean conectadas cuando corresponda;
+* sean corregidas cuando sea necesario;
+* sean simplificadas cuando exista duplicación;
+* sean reemplazadas únicamente cuando exista una justificación técnica;
+* y sean presentadas como una experiencia coherente de MiLukita.
+
+La evolución deberá mantener como eje:
+
+**MiLukita → LUKA → Mobile Shell → L★ / Experience / Context → Universal Interaction → Capabilities → módulos especializados.**
+
+---
+
+# 2. PRINCIPIO FUNDAMENTAL
+
+## NO RECONSTRUIR POR DEFECTO.
+
+Antes de crear un componente nuevo deberá determinarse si ya existe:
+
+* un componente equivalente;
+* una implementación parcial;
+* una implementación desconectada;
+* una versión duplicada;
+* un servicio reutilizable;
+* una capacidad existente;
+* una interfaz que pueda ser rescatada.
+
+El orden de actuación será:
+
+**IDENTIFICAR → COMPRENDER → MAPEAR → RESCATAR → INTEGRAR → SIMPLIFICAR → VERIFICAR**
+
+y solo cuando corresponda:
+
+**CREAR LO QUE REALMENTE FALTA.**
+
+---
+
+# 3. VERIFICAR POR DEFECTO; AUDITAR POR EXCEPCIÓN
+
+Esta orden NO autoriza una auditoría general del proyecto en cada fase.
+
+La regla será:
+
+> **VERIFICAR POR DEFECTO; AUDITAR POR EXCEPCIÓN.**
+
+### Verificar
+
+Comprobar específicamente aquello que se haya:
+
+* modificado;
+* integrado;
+* conectado;
+* corregido;
+* rescatado;
+* reemplazado.
+
+### Auditar
+
+Una auditoría sistemática solo podrá realizarse:
+
+* cuando sea necesaria para resolver un riesgo concreto;
+* cuando una inconsistencia impida continuar;
+* cuando Human Authority la solicite expresamente.
+
+Descubrir durante una fase que existe otro problema no autoriza automáticamente a resolverlo.
+
+---
+
+# 4. NO EXPANSIÓN DE ALCANCE
+
+El descubrimiento de una oportunidad, problema, mejora o nueva funcionalidad **NO constituye autorización para implementarla**.
+
+Si durante una fase aparece algo que no pertenece al objetivo de dicha fase:
+
+**NO IMPLEMENTAR.**
+
+Cuando sea necesario registrarlo, utilizar:
+
+**OUT_OF_SCOPE / FUERA DE ALCANCE**
+
+y continuar con el objetivo autorizado.
+
+Esto incluye:
+
+* nuevas funcionalidades;
+* nuevas experiencias;
+* nuevos módulos;
+* nuevas integraciones;
+* mejoras de UX no relacionadas;
+* refactorizaciones generales;
+* nuevas capacidades de IA;
+* nuevas funciones comerciales;
+* nuevas funciones de juegos;
+* nuevas funciones de TV;
+* nuevas funciones de AR.
+
+---
+
+# 5. ÓRDENES ANTERIORES
+
+La Orden Maestra 001 v1.2.1 **no cancela, sustituye ni modifica automáticamente ninguna orden anterior**.
+
+Las órdenes anteriores mantienen sus propios estados.
+
+Cuando una orden anterior tenga pendientes:
+
+* estos no deben considerarse automáticamente completados;
+* tampoco deben impedir necesariamente el avance de la Orden 001;
+* deben mantenerse registrados como pendientes o deuda técnica conocida.
+
+La Orden 001 deberá trabajar utilizando como referencia el **estado real efectivamente demostrado**, no declaraciones históricas de READY.
+
+---
+
+# 6. SITUACIÓN ESPECÍFICA DE LA ORDEN 60
+
+La Orden 60 queda registrada actualmente como:
+
+## ABIERTA — PENDIENTES
+
+No se ejecutará ahora la totalidad de la **Orden 60.1**.
+
+Los pendientes reconocidos de seguridad quedan registrados como **deuda técnica conocida**, sin desaparecer ni considerarse completados.
+
+Entre ellos se encuentran:
+
+* cobertura adicional AUTHZ/RBAC/capabilities;
+* pruebas adicionales de IDOR;
+* pruebas adversariales de expiración y revocación;
+* determinados eventos de seguridad;
+* negative testing adicional;
+* verificaciones específicas de aislamiento;
+* dependency security;
+* infraestructura productiva externa.
+
+La existencia de estos pendientes **no autoriza a ignorar controles de seguridad existentes**.
+
+Tampoco autoriza a convertirlos artificialmente en “cerrados”.
+
+### Regla durante la Orden 001
+
+Si una modificación de la Orden 001 afecta directamente un control pendiente de Orden 60, Manus deberá:
+
+1. identificar la relación;
+2. verificar el control afectado;
+3. evitar introducir una regresión;
+4. informar si existe un bloqueo real.
+
+No deberá ejecutar automáticamente la totalidad de la Orden 60.1.
+
+Si aparece una vulnerabilidad que impida continuar de forma segura:
+
+**DETENER → INFORMAR → ESPERAR DECISIÓN DE HUMAN AUTHORITY.**
+
+---
+
+# 7. REGLA ABSOLUTA SOBRE MJP CORE
+
+**MJP CORE permanece aislado.**
+
+Esta Orden Maestra no autoriza modificar:
+
+* juegos;
+* reglas;
+* RNG;
+* RTP;
+* wallet;
+* liquidaciones;
+* MjpTvManifest;
+* autoridad del núcleo;
+* mecanismos esenciales de integridad del sistema MJP.
+
+Ningún:
+
+* agente;
+* Copilot;
+* Surface Agent;
+* módulo;
+* interfaz;
+* controlador;
+* experiencia;
+
+puede adquirir autoridad directa sobre MJP CORE por efecto de esta orden.
+
+Las modificaciones de MiLukita deberán respetar el aislamiento existente.
+
+Si una tarea aparentemente necesaria exige modificar MJP CORE:
+
+**DETENER → INFORMAR → ESPERAR AUTORIZACIÓN EXPLÍCITA.**
+
+---
+
+# 8. IDENTIDAD OFICIAL
+
+Se mantienen las siguientes definiciones:
+
+### MiLukita
+
+Marca y ecosistema.
+
+### El Mundo de MiLukita
+
+Universo público de experiencias.
+
+### LUKA
+
+Presencia, protagonista, anfitrión, interlocutor y conector del ecosistema.
+
+### LUKITA
+
+Manifestación o expresión de LUKA cuando corresponda al diseño de una experiencia.
+
+No debe convertirse automáticamente en una identidad independiente ni en una definición rígida de “cuerpo físico” de LUKA.
+
+### LUKA OS
+
+Capa de orquestación.
+
+### LUKA AR
+
+Experiencia espacial/AR.
+
+### LUKA TV
+
+Experiencia televisiva.
+
+### LUKA CONNECT / DISCOVERY / PEOPLE / EXPERIENCES / ECONOMY
+
+Componentes y dominios del ecosistema.
+
+---
+
+# 9. LUKA NO ES UN SUPER-AGENTE
+
+LUKA no debe convertirse en un agente con acceso indiscriminado a todo el sistema.
+
+LUKA es:
+
+* presencia;
+* anfitrión;
+* interlocutor;
+* guía;
+* conector.
+
+Los agentes especializados pueden existir detrás de LUKA.
+
+La arquitectura conceptual será:
+
+**MiLukita**
+
+↓
+
+**LUKA**
+
+↓
+
+**Experience Layer**
+
+↓
+
+**Context Engine**
+
+↓
+
+**Intent Engine**
+
+↓
+
+**Capability Gate**
+
+↓
+
+**Agent Router**
+
+↓
+
+**Agentes especializados / Services / Engines / Adapters**
+
+↓
+
+**Human Authority / Governance**
+
+---
+
+# 10. DISTINCIÓN ENTRE AGENT, SERVICE, ENGINE, ADAPTER, CAPABILITY Y AUTHORITY
+
+No utilizar estos conceptos como sinónimos.
+
+### AGENT
+
+Componente que puede razonar o actuar dentro de capacidades determinadas.
+
+### SERVICE
+
+Servicio funcional del sistema.
+
+### ENGINE
+
+Motor que procesa, calcula, transforma o coordina.
+
+### ADAPTER
+
+Puente entre una capacidad y una superficie, sistema o contexto.
+
+### CAPABILITY
+
+Acción o conjunto de acciones que el sistema permite ejecutar.
+
+### AUTHORITY
+
+Facultad para permitir, rechazar, publicar, aprobar o gobernar.
+
+**Automatización ≠ Autoridad.**
+
+---
+
+# 11. MAPA DE AGENTES DE LA FASE A
+
+La Fase A no desarrollará un inventario exhaustivo de agentes.
+
+Solo deberá identificar los agentes, servicios o motores relevantes para:
+
+* LUKA Entry;
+* Mobile Shell;
+* L★;
+* Context;
+* Universal Interaction;
+* seguridad/capability gate;
+* navegación necesaria.
+
+Para cada elemento identificado:
+
+* nombre;
+* función;
+* estado;
+* ubicación;
+* relación con LUKA;
+* capacidades;
+* dependencia;
+* si está integrado o desconectado.
+
+No crear agentes nuevos salvo que exista una necesidad demostrada dentro de la fase.
+
+---
+
+# 12. REGLA DE CAPACIDADES
+
+Toda capacidad deberá estar limitada por contexto y autoridad.
+
+La interfaz no puede conceder una capacidad que el backend no autorice.
+
+El lenguaje natural tampoco concede autorización.
+
+Por tanto:
+
+**INTENT ≠ AUTHORIZATION**
+
+**CAPABILITY ≠ AUTHORITY**
+
+**MODALITY ≠ AUTHORITY**
+
+---
+
+# 13. MOBILE SHELL
+
+La experiencia móvil deberá tender hacia un contenedor común:
+
+**MOBILE SHELL**
+
+Este Shell será responsable conceptualmente de proporcionar continuidad entre:
+
+* LUKA;
+* L★;
+* contexto;
+* experiencias;
+* navegación;
+* Universal Interaction;
+* capacidades disponibles.
+
+No se deberá crear un Mobile Shell completamente nuevo si ya existe una estructura reutilizable.
+
+---
+
+# 14. SI MOBILE SHELL NO EXISTE
+
+Si durante la Fase A se demuestra que no existe un Mobile Shell reutilizable:
+
+1. identificar primero las piezas existentes que cumplen parcialmente esa función;
+2. determinar qué puede rescatarse;
+3. determinar qué falta realmente;
+4. crear únicamente una estructura mínima necesaria;
+5. justificar por qué no puede reutilizarse una existente.
+
+No interpretar “no existe un componente con ese nombre” como prueba de que no existe funcionalmente.
+
+---
+
+# 15. L★
+
+L★ constituye el elemento universal de acceso rápido de MiLukita en el contexto móvil.
+
+Ubicación conceptual:
+
+**esquina superior izquierda del Mobile Shell.**
+
+### Pulsación corta
+
+Debe abrir directamente el QR correspondiente al contexto activo.
+
+No debe obligar al usuario a pasar por un menú intermedio.
+
+### Prioridad del QR
+
+1. experiencia activa;
+2. sesión autorizada;
+3. QR público de LUKA.
+
+Si no existe contexto especial:
+
+**QR público de LUKA.**
+
+### Cierre
+
+Al cerrar el QR:
+
+**volver exactamente al estado anterior.**
+
+### QR no es autorización
+
+El QR es:
+
+**entrada / compartir / acceso contextual.**
+
+No es:
+
+**autorización / RBAC / capability.**
+
+Las autorizaciones deben permanecer en el sistema de identidad y capacidades.
+
+---
+
+# 16. LUKA ENTRY
+
+La entrada de LUKA debe dejar de sentirse como un panel administrativo o un laboratorio técnico.
+
+Debe transmitir:
+
+> **LUKA entra en mi mundo.**
+
+La primera experiencia deberá priorizar:
+
+* presencia;
+* continuidad;
+* claridad;
+* descubrimiento;
+* mínima fricción.
+
+No debe comenzar necesariamente con una sucesión de:
+
+* tarjetas;
+* dashboards;
+* botones;
+* paneles técnicos;
+* tutoriales extensos.
+
+---
+
+# 17. RESCATE DE LukaUniversalEntry
+
+Antes de crear una nueva entrada de LUKA deberá revisarse la implementación existente de:
+
+**LukaUniversalEntry**
+
+Si existe código, componentes, lógica o capacidades reutilizables:
+
+**RESCATAR ANTES DE RECONSTRUIR.**
+
+Deberá determinarse:
+
+* qué funciona;
+* qué está desconectado;
+* qué está duplicado;
+* qué pertenece al producto;
+* qué pertenece a laboratorio/demo;
+* qué debe eliminarse de la experiencia pública;
+* qué puede integrarse en Mobile Shell.
+
+No mantener funcionalidades de laboratorio únicamente porque ya existen.
+
+---
+
+# 18. LUKA PRESENCE
+
+Debe diferenciarse:
+
+**LUKA PRESENCE**
+
+de:
+
+**AR STAGE**
+
+Un modelo 3D cargable no constituye por sí mismo la presencia completa de LUKA.
+
+LUKA Presence debe considerar:
+
+* presencia;
+* contexto;
+* acompañamiento;
+* comportamiento;
+* transición;
+* interacción;
+* continuidad.
+
+La capacidad de cargar un GLB deberá preservarse cuando ya exista y sea útil, pero no deberá confundirse con la definición completa de LUKA.
+
+---
+
+# 19. MAPPER
+
+Mapper es una herramienta profesional de trabajo territorial.
+
+Su flujo conceptual:
+
+**SESIÓN → TERRITORIO → GPS → CAPTURA → OBSERVACIÓN → EVIDENCIA → GUARDAR → OFFLINE/SYNC → THE EYE**
+
+Debe evitar convertirse en:
+
+* landing page;
+* presentación comercial;
+* dashboard innecesario;
+* demostración de funcionalidades no operativas.
+
+Cuando se modifique Mapper deberá verificarse específicamente la modificación.
+
+No realizar auditoría general.
+
+---
+
+# 20. THE EYE
+
+The Eye debe funcionar como herramienta profesional independiente para:
+
+* cola de revisión;
+* dossier;
+* Claims;
+* Sources;
+* Evidence;
+* matriz de evidencia;
+* conflictos;
+* comparación de versiones;
+* decisiones de revisión;
+* solicitud/publicación bajo autoridad correspondiente.
+
+No debe:
+
+* publicar automáticamente;
+* saltar Human Authority;
+* transformar una propuesta en verdad;
+* convertir VERIFIED en PUBLISHED automáticamente.
+
+Mantener:
+
+**VERIFIED ≠ PUBLISHED**
+
+---
+
+# 21. CREATE / PROPOSE / EVALUATE / PUBLISH
+
+El flujo conceptual no debe interpretarse como una secuencia obligatoriamente lineal.
+
+Puede existir:
+
+### Ruta privada
+
+**CREATE → PRIVATE / DRAFT**
+
+o:
+
+### Ruta gobernada
+
+**CREATE → PROPOSE → EVALUATE → PUBLISH**
+
+Esto permite trabajar sobre borradores sin obligar a publicar.
+
+---
+
+# 22. UNIVERSAL INTERACTION
+
+Universal Interaction es la capa conceptual que permite expresar una misma intención mediante diferentes modalidades.
+
+Arquitectura conceptual:
+
+**Context Engine**
+
+↓
+
+**Intent Engine**
+
+↓
+
+**Capability Gate**
+
+↓
+
+**Action**
+
+Las modalidades pueden incluir:
+
+* Touch;
+* Voice;
+* HAND;
+* Gesture;
+* Gaze;
+* Remote;
+* Gamepad;
+* Trackpad;
+* Keyboard;
+* AR;
+* Field.
+
+No deben convertirse automáticamente en productos independientes.
+
+---
+
+# 23. DISTINCIONES QUE NO PUEDEN ROMPERSE
+
+Mantener obligatoriamente:
+
+**GESTURE ≠ INTENT ≠ ACTION**
+
+**INTENT ≠ AUTHORIZATION**
+
+**POINT ≠ SELECT**
+
+**SELECT ≠ CONFIRM**
+
+**STOP ≠ CANCEL**
+
+**MOVEMENT ≠ AUTHORIZATION**
+
+**MODALITY ≠ AUTHORITY**
+
+**SURFACE ≠ CAPABILITY**
+
+---
+
+# 24. CAMBIO DE MODALIDAD
+
+El sistema podrá adaptarse al contexto.
+
+Sin embargo:
+
+**NO CAMBIAR DE MODALIDAD DURANTE UNA ACCIÓN ACTIVA SI EL CAMBIO PUEDE ALTERAR LA INTERPRETACIÓN DE LA INTENCIÓN.**
+
+La adaptación automática no debe producir acciones inesperadas.
+
+Cuando exista riesgo:
+
+**mantener el estado → aclarar → confirmar si corresponde.**
+
+---
+
+# 25. AMBIGÜEDAD
+
+No preguntar innecesariamente.
+
+Si una ambigüedad no afecta una acción sensible:
+
+* mantener el contexto;
+* proporcionar una ayuda discreta;
+* permitir corrección manual.
+
+Si afecta una acción sensible:
+
+**solicitar confirmación explícita.**
+
+---
+
+# 26. VOICE / FIELD VOICE COPILOT
+
+LUKA Field Voice Copilot será considerado una capacidad de asistencia.
+
+Puede:
+
+* escuchar;
+* interpretar;
+* confirmar;
+* registrar;
+* proponer;
+* alertar.
+
+No puede:
+
+* verificar verdad;
+* resolver conflictos;
+* publicar;
+* autorizar;
+* modificar autoridad.
+
+Debe distinguirse:
+
+**INTENT DETECTED**
+
+de:
+
+**ACTION EXECUTED**
+
+La voz nunca debe saltar:
+
+* RBAC;
+* capability gate;
+* Human Authority.
+
+Si la voz no está disponible:
+
+**la interfaz manual debe seguir funcionando.**
+
+---
+
+# 27. AR
+
+LUKA AR deberá distinguir:
+
+* experiencia AR;
+* Stage;
+* Presence;
+* World Engine;
+* Runtime.
+
+El Runtime territorial solo deberá consumir información autorizada/publicada según las reglas del sistema.
+
+No simular:
+
+* GPS;
+* cámara;
+* WebXR;
+* detección;
+* publicación;
+* carga;
+* sincronización.
+
+Una capacidad no verificada deberá permanecer identificada como tal.
+
+---
+
+# 28. LOADING Y PROGRESO
+
+Toda experiencia que requiera carga deberá presentar un estado honesto de:
+
+* preparación;
+* carga;
+* progreso cuando sea realmente determinable;
+* finalización;
+* error.
+
+No utilizar animaciones para aparentar progreso inexistente.
+
+Si el progreso real no puede medirse:
+
+utilizar un estado indeterminado honesto.
+
+---
+
+# 29. CONTROLLER UNIVERSAL
+
+Universal Controller es una capa/instrumento de interacción contextual.
+
+No debe fragmentarse innecesariamente en múltiples productos.
+
+Puede incluir modos:
+
+* Remote;
+* Gamepad;
+* Trackpad;
+* Keyboard;
+* Home;
+* Field;
+* AR.
+
+Estos modos deben utilizar la misma lógica de intención cuando corresponda.
+
+---
+
+# 30. TV
+
+LUKA TV deberá diferenciar:
+
+* interfaz web/PWA;
+* simulador;
+* protocolo;
+* receiver;
+* dispositivo físico.
+
+No declarar conexión universal con cualquier TV.
+
+Una interfaz de cuatro botones no demuestra por sí sola un sistema de control televisivo completo.
+
+La conectividad física permanecerá como:
+
+**EXTERNAL_REQUIRED**
+
+hasta que sea realmente validada.
+
+---
+
+# 31. UX/UI
+
+La interfaz deberá respetar el principio:
+
+> **La interfaz es consecuencia de la experiencia; no es el objetivo de la experiencia.**
+
+Debe mantenerse:
+
+* identidad visual coherente;
+* jerarquía visual;
+* profundidad y materialidad con propósito;
+* transiciones coherentes;
+* feedback multimodal no redundante;
+* accesibilidad;
+* privacidad;
+* seguridad;
+* diferenciación público/profesional.
+
+---
+
+# 32. REFERENCIAS VISUALES
+
+Cuando Human Authority proporcione:
+
+* mockups;
+* capturas;
+* referencias;
+* composiciones;
+* layouts;
+
+la prioridad será reproducir primero:
+
+* jerarquía;
+* estructura;
+* densidad;
+* sensación;
+* comportamiento;
+* continuidad.
+
+No añadir decoración simplemente para “mejorar” una referencia.
+
+La fidelidad funcional y visual precede a la ornamentación.
+
+---
+
+# 33. PUBLICO VS PROFESIONAL
+
+### Público
+
+Priorizar:
+
+* claridad;
+* descubrimiento;
+* emoción;
+* simplicidad;
+* presencia de LUKA.
+
+### Profesional
+
+Priorizar:
+
+* precisión;
+* densidad informativa;
+* trazabilidad;
+* control;
+* evidencia;
+* estados reales.
+
+Mapper y The Eye pertenecen al segundo grupo.
+
+No convertirlos en páginas de marketing.
+
+---
+
+# 34. SILENCIO INTELIGENTE
+
+LUKA no debe narrar continuamente lo que está haciendo.
+
+El sistema debe hablar cuando:
+
+* el usuario solicita;
+* existe una acción que requiere atención;
+* existe un error;
+* existe una confirmación;
+* existe una condición relevante.
+
+Debe evitar:
+
+* repetición;
+* interrupción;
+* narración técnica interna;
+* ruido constante.
+
+---
+
+# 35. CONTEXTO
+
+El contexto puede considerar:
+
+* ubicación;
+* orientación;
+* actividad;
+* experiencia actual;
+* dispositivo;
+* capacidades disponibles;
+* conectividad;
+* interacción reciente;
+* historial relevante.
+
+La inferencia contextual puede contener incertidumbre.
+
+**No atribuir intención al usuario sin evidencia suficiente.**
+
+---
+
+# 36. AUTOMATIZACIÓN
+
+MiLukita podrá buscar altos niveles de automatización.
+
+Sin embargo:
+
+**AUTOMATIZACIÓN ≠ AUTORIDAD**
+
+La automatización puede:
+
+* detectar;
+* proponer;
+* ordenar;
+* sugerir;
+* ejecutar capacidades autorizadas.
+
+La autoridad humana conserva:
+
+* decisiones sensibles;
+* publicación;
+* resolución de conflictos;
+* gobierno;
+* aprobación final cuando corresponda.
+
+---
+
+# 37. REALITY RULE
+
+Una regla transversal:
+
+> **NINGÚN ESTADO VISUAL DEBE REPRESENTAR COMO REAL ALGO QUE EL SISTEMA NO HAYA REALMENTE EJECUTADO O VALIDADO.**
+
+No mostrar:
+
+* “guardado” si no se guardó;
+* “sincronizado” si no se sincronizó;
+* “publicado” si no se publicó;
+* “GPS disponible” si no se obtuvo;
+* “cámara activa” si no está activa;
+* “AR funcionando” si no está funcionando;
+* “conectado” si no existe conexión;
+* “verificado” si no existe verificación.
+
+---
+
+# 38. ESTADOS
+
+Los estados deberán representar estados reales.
+
+Cuando corresponda utilizar distinciones como:
+
+* DESIGNED;
+* SPECIFIED;
+* IMPLEMENTED;
+* INTEGRATED;
+* FUNCTIONAL;
+* TESTED;
+* PHYSICALLY_TESTED;
+* PARTIAL;
+* MOCK;
+* SIMULATED;
+* EXTERNAL_REQUIRED;
+* BLOCKED;
+* NOT_IMPLEMENTED;
+* DEPRECATED;
+* NOT_VERIFIED;
+* REQUIRES_HUMAN.
+
+No utilizar:
+
+**READY**
+
+como sustituto de evidencia.
+
+---
+
+# 39. FASES DE EJECUCIÓN
+
+La Orden Maestra se ejecutará progresivamente.
+
+## FASE A — MOBILE SHELL + L★ + LUKA ENTRY
+
+Objetivo:
+
+* rescatar Mobile Shell;
+* integrar L★;
+* rescatar LUKA Entry;
+* identificar agentes/servicios relevantes;
+* eliminar desconexiones evidentes;
+* verificar el resultado.
+
+No desarrollar todavía todas las capacidades del ecosistema.
+
+### CRITERIO DE SALIDA
+
+Debe existir evidencia de:
+
+* estructura Mobile Shell existente o mínima justificada;
+* L★ integrado;
+* comportamiento QR contextual;
+* LUKA Entry funcional en el alcance de la fase;
+* mapa focalizado de agentes/servicios;
+* ausencia de duplicación innecesaria;
+* pruebas de las modificaciones realizadas.
+
+Después:
+
+**DETENERSE.**
+
+Esperar evaluación de Human Authority.
+
+---
+
+# 40. FASE B — LUKA PRESENCE
+
+Objetivo:
+
+* consolidar presencia;
+* separar Presence de AR Stage;
+* integrar contexto;
+* mejorar continuidad;
+* verificar estados reales.
+
+No convertir esta fase en una reconstrucción general del sistema AR.
+
+### SALIDA
+
+Presencia funcional en el alcance autorizado y evidencia correspondiente.
+
+Después:
+
+**DETENERSE.**
+
+---
+
+# 41. FASE C — MAPPER
+
+Objetivo:
+
+* rescatar la interfaz profesional;
+* integrar flujo de captura;
+* conectar capacidades existentes;
+* mantener sesión;
+* evidencia;
+* sincronización;
+* relación con The Eye.
+
+No ampliar el World Engine.
+
+### SALIDA
+
+Mapper funcional en el alcance autorizado y verificado específicamente.
+
+Después:
+
+**DETENERSE.**
+
+---
+
+# 42. FASE D — THE EYE
+
+Objetivo:
+
+* establecer interfaz profesional independiente;
+* conectar cola;
+* dossier;
+* Evidence Matrix;
+* Claims;
+* Sources;
+* conflictos;
+* decisiones;
+* publicación bajo autoridad.
+
+No publicar automáticamente.
+
+### SALIDA
+
+The Eye funcional en el alcance autorizado y verificado específicamente.
+
+Después:
+
+**DETENERSE.**
+
+---
+
+# 43. FASE E — UNIVERSAL INTERACTION
+
+Objetivo:
+
+Consolidar:
+
+* Context Engine;
+* Intent Engine;
+* Capability Gate;
+* modalidades;
+* equivalencia de intenciones;
+* fallback.
+
+No crear un super-agente.
+
+### SALIDA
+
+Una arquitectura de interacción coherente y verificable.
+
+Después:
+
+**DETENERSE.**
+
+---
+
+# 44. FASE F — CAPACIDADES ESPECIALIZADAS
+
+Solo después de las fases anteriores podrán abordarse, según autorización:
+
+* Voice;
+* Controller;
+* AR;
+* TV;
+* Games Interaction;
+* agentes especializados;
+* otras capacidades.
+
+Cada una deberá desarrollarse según su propio alcance.
+
+---
+
+# 45. FASE G — VALIDACIÓN FÍSICA
+
+La validación física se realizará posteriormente cuando existan condiciones reales.
+
+Podrá incluir:
+
+* Android;
+* iPhone;
+* GPS;
+* cámara;
+* micrófono;
+* QR;
+* AR;
+* TV;
+* control remoto;
+* conectividad;
+* condiciones de campo.
+
+Hasta entonces:
+
+**EXTERNAL_REQUIRED**
+
+cuando corresponda.
+
+---
+
+# 46. REGLA DE TRABAJO POR FASE
+
+El protocolo será:
+
+**ORDEN → UNA FASE → IMPLEMENTACIÓN → RESPUESTA → REVISIÓN → MICRO-ORDEN SI ES NECESARIO → CIERRE → SIGUIENTE FASE**
+
+No ejecutar simultáneamente todas las fases.
+
+---
+
+# 47. MICRO-ÓRDENES
+
+Si durante una fase aparece un problema concreto que requiere una instrucción adicional:
+
+se podrá emitir una:
+
+**MICRO-ORDEN**
+
+limitada exclusivamente a ese problema.
+
+La micro-orden deberá indicar:
+
+* objetivo;
+* alcance;
+* prohibiciones;
+* criterio de salida.
+
+No utilizar micro-órdenes para convertir una fase en una auditoría general.
+
+---
+
+# 48. VERIFICACIÓN PROPORCIONAL
+
+No todos los cambios requieren la misma cantidad de pruebas.
+
+### Cambio visual pequeño
+
+Verificación visual/funcional específica.
+
+### Cambio de navegación
+
+Prueba de rutas afectadas.
+
+### Cambio de backend
+
+Pruebas del endpoint/capacidad afectada.
+
+### Cambio de seguridad
+
+Pruebas del control afectado.
+
+### Cambio de datos
+
+Pruebas de persistencia/integridad.
+
+### Cambio transversal
+
+Pruebas específicas de las superficies afectadas.
+
+No ejecutar una batería completa del sistema cuando no sea necesaria para demostrar el cambio.
+
+---
+
+# 49. CRITERIO PARA CREAR COMPONENTES NUEVOS
+
+Un componente nuevo solo deberá crearse cuando:
+
+1. no exista uno reutilizable;
+2. las alternativas existentes sean insuficientes;
+3. la nueva pieza sea necesaria para el objetivo de la fase;
+4. su creación esté justificada;
+5. su impacto sea controlado.
+
+No utilizar cuotas artificiales como:
+
+* número mínimo de componentes rescatados;
+* porcentaje obligatorio de reducción de duplicación;
+* número máximo arbitrario de componentes nuevos.
+
+La calidad de la solución es el criterio.
+
+---
+
+# 50. INFORME DE CADA FASE
+
+Cada fase deberá terminar con un informe breve que contenga:
+
+## 1. Objetivo de la fase
+
+## 2. Componentes rescatados
+
+## 3. Componentes modificados
+
+## 4. Componentes nuevos
+
+Para cada componente nuevo:
+
+* por qué fue necesario;
+* qué alternativa existente fue evaluada.
+
+## 5. Integraciones realizadas
+
+## 6. Pruebas ejecutadas
+
+## 7. Estados reales
+
+## 8. Limitaciones
+
+## 9. Elementos OUT_OF_SCOPE
+
+## 10. Relación con órdenes anteriores
+
+## 11. Impacto sobre seguridad
+
+## 12. Impacto sobre MJP CORE
+
+## 13. Estado final de la fase
+
+---
+
+# 51. RESCUE_AUDIT_001.md
+
+Se deberá mantener un registro denominado:
+
+**RESCUE_AUDIT_001.md**
+
+Pero este documento NO deberá convertirse en una auditoría infinita.
+
+Será un:
+
+**REGISTRO DE RESCATE Y VERIFICACIÓN**
+
+y deberá incluir como mínimo:
+
+* fase;
+* componente;
+* orden de origen;
+* estado de la orden de origen;
+* situación encontrada;
+* acción realizada;
+* evidencia;
+* pruebas;
+* estado resultante;
+* dependencia;
+* OUT_OF_SCOPE;
+* impacto MJP CORE.
+
+---
+
+# 52. ESTADOS DE LAS ÓRDENES DE ORIGEN
+
+Cuando una funcionalidad provenga de una orden anterior, registrar:
+
+### ORDEN DE ORIGEN
+
+Número de orden.
+
+### ESTADO DE ORIGEN
+
+Estado conocido de esa orden.
+
+### EVIDENCIA DE CIERRE
+
+Si existe.
+
+Esto evita que una implementación antigua sea considerada automáticamente definitiva.
+
+---
+
+# 53. SEGURIDAD DURANTE LA EJECUCIÓN
+
+La seguridad existente deberá preservarse.
+
+Cuando una modificación afecte:
+
+* autenticación;
+* autorización;
+* RBAC;
+* capability;
+* ownership;
+* sesiones;
+* QR;
+* storage;
+* AR assets;
+* ShareService;
+
+deberá realizarse una **verificación proporcional del control afectado**.
+
+No ejecutar automáticamente toda la Orden 60.1.
+
+---
+
+# 54. REGRESIONES
+
+Antes de cerrar una fase verificar que los cambios no hayan producido regresiones evidentes en las áreas directamente afectadas.
+
+No se exige una auditoría general de regresión salvo que exista una razón concreta.
+
+---
+
+# 55. AGENTES Y SEGURIDAD
+
+Ningún agente podrá:
+
+* saltar RBAC;
+* saltar Capability Gate;
+* publicar sin autoridad;
+* verificar verdad por sí mismo cuando esa autoridad corresponda a The Eye/Human Authority;
+* modificar MJP CORE;
+* adquirir permisos por lenguaje natural.
+
+La existencia de un agente no implica autoridad.
+
+---
+
+# 56. QR Y SEGURIDAD
+
+Los QR deberán continuar siendo tratados como:
+
+**ENTRY / SHARE**
+
+y no como:
+
+**AUTHORIZATION**
+
+Los QR de sesión deberán conservar:
+
+* temporalidad;
+* revocación;
+* control de acceso;
+* ownership;
+* trazabilidad.
+
+---
+
+# 57. EXPERIENCIA Y CONTINUIDAD
+
+MiLukita debe evolucionar hacia una experiencia continua:
+
+**2D ↔ AR ↔ TV ↔ CONTROL ↔ CAMPO**
+
+sin obligar al usuario a reaprender el sistema en cada superficie.
+
+La continuidad no significa que todas las superficies tengan las mismas capacidades.
+
+Significa:
+
+**UNA INTENCIÓN → MÚLTIPLES FORMAS DE EXPRESARLA**
+
+cuando el contexto lo permita.
+
+---
+
+# 58. HUMAN AUTHORITY
+
+Human Authority conserva la capacidad de:
+
+* decidir;
+* aprobar;
+* rechazar;
+* publicar;
+* resolver conflictos;
+* modificar el alcance;
+* detener una fase;
+* autorizar una nueva fase.
+
+Manus implementa dentro del alcance autorizado.
+
+---
+
+# 59. REGLA DE DETENCIÓN
+
+Manus deberá detener la fase y solicitar decisión cuando:
+
+* exista una contradicción normativa;
+* una modificación pueda afectar MJP CORE;
+* exista una decisión de identidad no resuelta;
+* exista una decisión de arquitectura que exceda el alcance;
+* una modificación pueda destruir una funcionalidad existente importante;
+* exista un bloqueo técnico real;
+* una vulnerabilidad grave impida continuar de forma segura.
+
+No resolver unilateralmente decisiones estratégicas.
+
+---
+
+# 60. LO QUE MANUS NO DEBE HACER
+
+No:
+
+* reconstruir por comodidad;
+* duplicar componentes;
+* crear super-agentes;
+* convertir laboratorios en producto;
+* convertir Mapper/The Eye en landing pages;
+* simular capacidades;
+* declarar READY sin evidencia;
+* ampliar el alcance;
+* modificar MJP CORE;
+* cerrar órdenes ajenas;
+* ejecutar auditorías generales sin autorización;
+* utilizar el número de tests como sustituto de cobertura;
+* convertir una ausencia de error en prueba de seguridad;
+* modificar una modalidad durante una acción activa cuando pueda alterar la intención.
+
+---
+
+# 61. CRITERIO DE CALIDAD
+
+La calidad de cada fase se evaluará por:
+
+* reutilización inteligente;
+* integración;
+* coherencia;
+* ausencia de duplicación innecesaria;
+* claridad;
+* comportamiento real;
+* trazabilidad;
+* seguridad;
+* capacidad de evolución;
+* respeto de autoridad.
+
+No por cantidad de código producido.
+
+No por cantidad de componentes creados.
+
+No por cantidad de pantallas.
+
+No por cantidad de tests aislados.
+
+---
+
+# 62. RESULTADO FINAL ESPERADO
+
+Al concluir progresivamente las fases, MiLukita deberá evolucionar desde un conjunto de piezas parcialmente conectadas hacia una arquitectura coherente:
+
+**MiLukita**
+
+↓
+
+**LUKA**
+
+↓
+
+**Mobile Shell**
+
+↓
+
+**L★ / Experience / Context**
+
+↓
+
+**Universal Interaction**
+
+↓
+
+**Capability Gate**
+
+↓
+
+**Agentes / Services / Engines / Adapters**
+
+↓
+
+**Experiencias especializadas**
+
+manteniendo:
+
+**Human Authority**
+
+y:
+
+**MJP CORE aislado.**
+
+---
+
+# 63. FRASE MAESTRA DE LA ORDEN
+
+> **NO RECONSTRUIR POR DEFECTO.
+> NO AUDITAR POR DEFECTO.
+> VERIFICAR POR DEFECTO.
+> NO DUPLICAR.
+> NO SUPONER.
+> NO DECLARAR SIN EVIDENCIA.
+> RESCATAR LO QUE YA EXISTE.
+> INTEGRAR LO QUE ESTÁ DESCONECTADO.
+> CORREGIR LO QUE ESTÁ MAL.
+> CREAR SOLO LO QUE REALMENTE FALTA.
+> AUTOMATIZAR SIN USURPAR AUTORIDAD.
+> NO AMPLIAR EL ALCANCE SIN AUTORIZACIÓN.
+> PROTEGER SIEMPRE MJP CORE.**
+
+---
+
+# 64. REGLA FINAL
+
+Esta Orden Maestra no busca producir más software.
+
+Busca producir **un MiLukita más coherente** utilizando inteligentemente el software que ya existe.
+
+Por tanto:
+
+**MENOS DUPLICACIÓN.**
+
+**MENOS RECONSTRUCCIÓN.**
+
+**MENOS AUDITORÍA INNECESARIA.**
+
+**MÁS INTEGRACIÓN.**
+
+**MÁS EVIDENCIA.**
+
+**MÁS CONTROL.**
+
+**MÁS EXPERIENCIA.**
+
+**MÁS COHERENCIA.**
+
+---
+
+# 65. PROTOCOLO FINAL DE COLABORACIÓN
+
+La relación de trabajo será:
+
+**HUMAN AUTHORITY DEFINE Y DECIDE**
+
+↓
+
+**MANUS IMPLEMENTA**
+
+↓
+
+**MANUS DEMUESTRA**
+
+↓
+
+**HUMAN AUTHORITY REVISA**
+
+↓
+
+**SE AUTORIZA LA SIGUIENTE FASE**
+
+Ninguna respuesta de Manus constituye por sí sola autorización para ampliar el alcance.
+
+Ninguna implementación constituye por sí sola evidencia de funcionamiento.
+
+Ninguna prueba constituye por sí sola validación física.
+
+Ninguna simulación constituye implementación real.
+
+---
+
+# 66. ESTADO DE LA ORDEN
+
+**ORDEN MAESTRA 001 v1.2.1**
+
+**AUTORIZADA PARA EJECUCIÓN POR FASES**
+
+Primera ejecución autorizada:
+
+## FASE A — MOBILE SHELL + L★ + LUKA ENTRY + MAPA FOCALIZADO DE AGENTES/SERVICIOS
+
+**No ejecutar Fase B hasta recibir y revisar el resultado de Fase A.**
+
+---
+
+## CIERRE CONCEPTUAL
+
+**MANUS IMPLEMENTA.**
+
+**MANUS DEMUESTRA.**
+
+**HUMAN AUTHORITY DECIDE.**
+
+**MI LUKA EVOLUCIONA.**
+
+**MJP CORE PERMANECE PROTEGIDO.**

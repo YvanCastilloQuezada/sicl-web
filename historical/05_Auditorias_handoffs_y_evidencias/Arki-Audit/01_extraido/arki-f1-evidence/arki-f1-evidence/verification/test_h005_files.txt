@@ -1,0 +1,6 @@
+test_h005_adversarial.py
+test_h005_contract_registry.py
+test_h005_e2e_persistence.py
+test_h005_engine.py
+test_h005_fail_closed.py
+test_h005_propagation.py

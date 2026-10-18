@@ -1,0 +1,169 @@
+ORDEN PARA MANUS: FASE 2 — LUKA LIGHTS & CLIMATE + LUKA AUDIO (UPGRADE DE DOMÓTICA Y AUDIO)
+
+MOTIVO (POR QUÉ SE EJECUTA ESTA ORDEN):
+Después de la FASE 1 (LUKA VISOR AR + LUKA TV), el usuario ya tiene la experiencia principal de LUKA (Realidad Aumentada + Control de TV). Ahora, es momento de expandir la presencia de LUKA dentro del hogar: la domótica (LUKA LIGHTS & CLIMATE) y el audio (LUKA AUDIO). Estos dos módulos permiten que LUKA se vuelva un "Asistente del Hogar" que controla las luces, el clima y el audio de la casa, ofreciendo un valor tangible y de uso diario para el usuario.
+
+REGLA DE ORO (CRÍTICA):
+El MJP CORE sigue completamente intacto. La Fase 2 es un "plugin" que se conecta a la arquitectura existente a través des Capability Registry, sin tocar la verdad del juego (RNG, RTP, Ledger, etc.).
+
+1. LUKA LIGHTS & CLIMATE (DOMÓTICA BÁSICA)
+
+MOTIVO: El 90% de los usuarios tienen luces y clima en casa (AC, ventilador). Controlar estos dispositivos con LUKA (por voz) es una necesidad diaria y es el primer paso para que LUKA sea el "Cerebro del Hogar".
+
+1.1 IMPLEMENTACIÓN DE LA CONEXIÓN:
+
+Hardware/Protocolos: Integrar Matter (el estándar universal de domótica) und WiFi/Bluetooth para kontrollieren:
+
+Luces inteligentes (Smart Bulbs)
+
+Tiras LED
+
+Interruptores inteligentes
+
+Enchufes inteligentes
+
+Cortinas y persianas
+
+Termostatos
+
+Aires acondicionados
+
+Ventiladores
+
+Calefactores
+
+Purificadores
+
+Humidificadores
+
+Aspiradoras (nur Start/Pause)
+
+Camas inteligentes (nur Position)
+
+Connection: Verwenden Sie die WiFi/Bluetooth-APIs für die Erkennung und Kontrolle.
+
+1.2 IMPLEMENTACIÓN DES MODUS:
+
+Sliders: Helligkeit, Temperatur, Geschwindigkeit, Lautstärke (für Ventilatoren).
+
+Schalter: Ein/Aus, Modus (Heizung/Kühlung), Öffnen/Schließen (für Vorhänge).
+
+Räume: Zimmer, Küche, Schlafzimmer, Bad (automatische Gruppierung durch GPS).
+
+1.3 IMPLEMENTACIÓN DES INTENT ENGINE:
+
+"LUKA, dimme die Lampe um 20%" → LUKA LIGHTS & CLIMATE (Brille).
+
+"LUKA, erhöhe die Temperatur um 2 Grad" → LUKA LIGHTS & CLIMATE (Thermostat).
+
+"LUKA, schließe die Vorhänge" → LUKA LIGHTS & CLIMATE (Cortinas).
+
+"LUKA, schließe den Ventilator an" → LUKA LIGHTS & CLIMATE (Ventilator).
+
+ENTREGABLES:
+
+Code für LUKA LIGHTS & CLIMATE (Sliders, Schalter, Räume).
+
+Code für Matter/WiFi/Bluetooth (Device Detector).
+
+Code für den Intent Engine (komplette Datenbank mit Domotik-Befehlen).
+
+2. LUKA AUDIO (AUDIO-SYSTEME)
+
+MOTIVO: Kontrolle über Soundbars, Lautsprecher und Kopfhörer ist ein tägliches Bedürfnis. LUKA kann die Lautstärke steuern, Musik abspielen und die Wiedergabe steuern.
+
+2.1 IMPLEMENTIERUNG DER VERBINDUNG:
+
+Bluetooth: Verbindung mit Soundbars, Lautsprechern, Kopfhörern.
+
+WiFi: Verbindung mit Multiroom-Systemen (Sonos, etc.).
+
+2.2 IMPLEMENTIERUNG DES MODUS:
+
+Volumen: Slider für Lautstärke (0-100%).
+
+Play/Pause: Steuerung der Wiedergabe.
+
+Vor/Zurück: Wechsel der Tracks.
+
+Equalizer: Slider für Bass, Höhen.
+
+Spatial Audio: Steuerung für immersive Kopfhörer.
+
+2.3 IMPLEMENTIERUNG DES INTENT ENGINE:
+
+"LUKA, erhöhe die Lautstärke" → LUKA AUDIO (Volumen).
+
+"LUKA, spiele Musik" → LUKA AUDIO (Play/Pause).
+
+"LUKA, wechsle den Track" → LUKA AUDIO (Vor/Zurück).
+
+ENTREGABLES:
+
+Code für LUKA AUDIO (Volumen, Play/Pause, Equalizer).
+
+Code für den Bluetooth/WiFi-Device-Detector (Audio).
+
+Code für den Intent Engine (Audio-Befehle).
+
+3. PROGRESSIVE INTERFACE DISCLOSURE (Anzeige der Interfaces)
+MOTIVO: Die Interfaces für LUKA LIGHTS & CLIMATE und LUKA AUDIO sind nur bei Bedarf sichtbar. Sie werden automatisch aktiviert, wenn LUKA ein Gerät erkennt oder der Nutzer einen Befehl gibt.
+
+3.1 REGEL:
+
+Wenn LUKA eine Soundbar erkennt, zeigt sie LUKA AUDIO.
+
+Wenn LUKA eine Lampe erkennt, zeigt sie LUKA LIGHTS & CLIMATE.
+
+Die restlichen Interfaces bleiben HIDDEN (verborgen), bis sie relevant werden.
+
+ENTREGABLES:
+
+Code für die Progressive Disclosure (Anzeige der Interfaces).
+
+4. SICHERHEIT UND PRIVACY
+MOTIVO: Kontrolle über Geräte erfordert Sicherheit und Datenschutz.
+
+4.1 REGELN:
+
+Permissionen: Bluetooth/WiFi-Permissionen müssen kontextuell angefragt werden (nur wenn LUKA ein Gerät steuern will).
+
+Revokation: Der Nutzer muss jederzeit die Verbindung zu einem Gerät revozieren können.
+
+Audit: Jede Kontrolle über ein Gerät muss geloggt werden.
+
+ENTREGABLES:
+
+Code für Permission Management.
+
+Code für Revokation.
+
+Code für Audit Logs.
+
+5. TESTING UND VALIDIERUNG
+MOTIVO: Bevor LUKA LIGHTS & CLIMATE und LUKA AUDIO produktiv werden, müssen Sie auf realen Geräten getestet werden.
+
+5.1 TESTPLAN:
+
+Test 1: LUKA kontrolliert eine Smart Bulb (Ein/Aus, Helligkeit).
+
+Test 2: LUKA kontrolliert ein Thermostat (Temperatur).
+
+Test 3: LUKA kontrolliert eine Soundbar (Lautstärke, Play/Pause).
+
+ENTREGABLES:
+
+Testbericht mit realen Geräten.
+
+REGELN UND ANWEISUNGEN:
+
+MJP CORE bleibt unverändert.
+
+Jede Funktion muss als eigenständiges Modul existieren.
+
+Jede Funktion muss per Stimme aktivierbar sein.
+
+Jede Funktion kann individuell aktiviert oder verborgen werden.
+
+CONCLUUSION:
+Nach dieser FASE 2 erweitert LUKA ihre Präsenz im Haus: Sie kontrolliert Lichter, Klima und Audio. Damit wird LUKA zum intelligenten Haushaltsassistenten – eine natürliche Erweiterung der bereits etablierten FASE 1 (AR + TV).

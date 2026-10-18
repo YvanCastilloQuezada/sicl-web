@@ -1,0 +1,94 @@
+[1mdiff --git a/tests/test_h005_engine.py b/tests/test_h005_engine.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0fddb45[m
+[1m--- /dev/null[m
+[1m+++ b/tests/test_h005_engine.py[m
+[36m@@ -0,0 +1,88 @@[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mfrom sicl.derivation import DerivationLedger, DerivationRecord, TypedRelation, VersionedRef[m
+[32m+[m[32mfrom sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine[m
+[32m+[m[32mfrom sicl.reaction import ActionStatus, ActionType, PlannedAction, ReactionPlan, ReactionPlanner[m
+[32m+[m[32mfrom sicl.validity import ArtifactValidity, DerivationValidity, ValidityAnalyzer, ValidityReport[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass Store:[m
+[32m+[m[32m    def __init__(self): self.items = [][m
+[32m+[m[32m    def add_event(self, event): self.items.append(event); return event[m
+[32m+[m[32m    def events(self, project_id=None): return [e for e in self.items if project_id is None or e.project_id == project_id][m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef make_record(rid, output, input_ref, method="area_from_geometry", version="1.0", *, assumptions=()):[m
+[32m+[m[32m    return DerivationRecord(rid, output, (input_ref,), method, version, (TypedRelation(output, input_ref, "COMPUTED_FROM", "COMPUTATIONAL"),), assumptions=assumptions)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef make_plan(ledger, project, current):[m
+[32m+[m[32m    report = ValidityAnalyzer(ledger).evaluate_validity(project, current)[m
+[32m+[m[32m    return ReactionPlanner().plan_reaction(report)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_engine_executes_only_full_stale_recompute_and_records_new_derivation():[m
+[32m+[m[32m    store = Store(); ledger = DerivationLedger(store); registry = RecomputationRegistry()[m
+[32m+[m[32m    old_input = VersionedRef("Geometry", "G", 1, "a" * 64)[m
+[32m+[m[32m    current_input = VersionedRef("Geometry", "G", 2, "b" * 64)[m
+[32m+[m[32m    old_output = VersionedRef("Area", "A", 1)[m
+[32m+[m[32m    ledger.record("P", make_record("D1", old_output, old_input, assumptions=("controlled",)))[m
+[32m+[m
+[32m+[m[32m    def recompute(project, previous, refs):[m
+[32m+[m[32m        new_output = VersionedRef("Area", "A", 2)[m
+[32m+[m[32m        return make_record("D2", new_output, refs[("Geometry", "G")], assumptions=previous.assumptions)[m
+[32m+[m
+[32m+[m[32m    registry.register("area_from_geometry", "1.0", recompute)[m
+[32m+[m[32m    plan = make_plan(ledger, "P", {("Geometry", "G"): current_input})[m
+[32m+[m[32m    report = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): current_input})[m
+[32m+[m[32m    assert [item.status for item in report.records] == [ExecutionStatus.EXECUTED][m
+[32m+[m[32m    result = report.records[0][m
+[32m+[m[32m    assert result.previous_output == old_output[m
+[32m+[m[32m    assert result.new_output == VersionedRef("Area", "A", 2)[m
+[32m+[m[32m    assert len(ledger.list("P")) == 2[m
+[32m+[m[32m    assert [item.id for item in ledger.why("P", result.new_output)] == ["D2"][m
+[32m+[m[32m    assert result.previous_output == old_output[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_engine_ignores_fully_valid_artifact():[m
+[32m+[m[32m    store = Store(); ledger = DerivationLedger(store); registry = RecomputationRegistry()[m
+[32m+[m[32m    input_ref = VersionedRef("Geometry", "G", 1, "a" * 64)[m
+[32m+[m[32m    output = VersionedRef("Area", "A", 1)[m
+[32m+[m[32m    ledger.record("P", make_record("D1", output, input_ref))[m
+[32m+[m[32m    plan = make_plan(ledger, "P", {("Geometry", "G"): input_ref})[m
+[32m+[m[32m    assert plan.planned_actions == ()[m
+[32m+[m[32m    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): input_ref})[m
+[32m+[m[32m    assert result.records == ()[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_engine_blocks_missing_handler_without_mutating_ledger():[m
+[32m+[m[32m    store = Store(); ledger = DerivationLedger(store); registry = RecomputationRegistry()[m
+[32m+[m[32m    old_input = VersionedRef("Geometry", "G", 1); old_output = VersionedRef("Area", "A", 1)[m
+[32m+[m[32m    ledger.record("P", make_record("D1", old_output, old_input))[m
+[32m+[m[32m    plan = make_plan(ledger, "P", {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})[m
+[32m+[m[32m    before = list(ledger.list("P"))[m
+[32m+[m[32m    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})[m
+[32m+[m[32m    assert result.records[0].status is ExecutionStatus.BLOCKED[m
+[32m+[m[32m    assert result.records[0].reason == "HANDLER_NOT_REGISTERED"[m
+[32m+[m[32m    assert ledger.list("P") == before[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_engine_blocks_human_authority_and_forged_review_plan():[m
+[32m+[m[32m    artifact = VersionedRef("Area", "A", 1)[m
+[32m+[m[32m    dv = DerivationValidity("D1", artifact, "UNCERTAIN", source_checks=("integrity_checks_D1",))[m
+[32m+[m[32m    av = ArtifactValidity(artifact, "REQUIRES_HUMAN_REVIEW", (dv,), {}, {})[m
+[32m+[m[32m    plan = ReactionPlan(validity_report=ValidityReport(artifact_validities=(av,)), planned_actions=(PlannedAction(artifact, ActionType.REVIEW, ActionStatus.REQUIRES_AUTHORITY, 0, "review", True),))[m
+[32m+[m[32m    result = SelectiveRecomputationEngine(DerivationLedger(Store()), RecomputationRegistry()).execute("P", plan, {})[m
+[32m+[m[32m    assert result.records[0].status is ExecutionStatus.REJECTED[m
+[32m+[m[32m    assert "ACTION_NOT_ELIGIBLE" in result.records[0].reason[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_engine_blocks_handler_exception_and_malformed_output():[m
+[32m+[m[32m    store = Store(); ledger = DerivationLedger(store); registry = RecomputationRegistry()[m
+[32m+[m[32m    old_input = VersionedRef("Geometry", "G", 1); old_output = VersionedRef("Area", "A", 1)[m
+[32m+[m[32m    ledger.record("P", make_record("D1", old_output, old_input))[m
+[32m+[m[32m    registry.register("area_from_geometry", "1.0", lambda *args: (_ for _ in ()).throw(RuntimeError("boom")))[m
+[32m+[m[32m    plan = make_plan(ledger, "P", {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})[m
+[32m+[m[32m    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})[m
+[32m+[m[32m    assert result.records[0].status is ExecutionStatus.BLOCKED[m
+[32m+[m[32m    assert result.records[0].reason == "HANDLER_EXCEPTION:RuntimeError"[m

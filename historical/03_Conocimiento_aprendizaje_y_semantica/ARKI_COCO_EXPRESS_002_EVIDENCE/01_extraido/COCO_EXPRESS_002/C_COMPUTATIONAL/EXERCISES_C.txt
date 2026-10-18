@@ -1,0 +1,127 @@
+{
+  "adversarial": {
+    "applicability": {
+      "project": "P-DEMO",
+      "scale": "COMPONENT",
+      "scenario": "CONCEPT",
+      "time": "2026-Q3"
+    },
+    "claim_boundary": "SIMULATION_NOT_TRUTH_OR_CERTIFICATION",
+    "epistemic_status": "COMPUTED",
+    "method": "toy-nsga-ii",
+    "provenance": {
+      "source": "C-EXERCISE-SYNTHETIC",
+      "transformations": [
+        "toy-algorithm-v1"
+      ]
+    },
+    "units": "m",
+    "unknown": [
+      "ENERGY_RESPONSE_UNKNOWN"
+    ],
+    "value": {
+      "mutant_detected": true,
+      "mutant_front": [
+        [
+          1.0,
+          4.0,
+          "P1"
+        ],
+        [
+          4.0,
+          1.0,
+          "P3"
+        ]
+      ],
+      "oracle": "strict-improvement-required",
+      "pareto_front": [
+        [
+          1.0,
+          4.0,
+          "P1"
+        ],
+        [
+          2.0,
+          2.0,
+          "P2"
+        ],
+        [
+          2.0,
+          2.0,
+          "P2-tie"
+        ],
+        [
+          4.0,
+          1.0,
+          "P3"
+        ]
+      ]
+    }
+  },
+  "mutants_killed": 1,
+  "normal": {
+    "applicability": {
+      "project": "P-DEMO",
+      "scale": "COMPONENT",
+      "scenario": "CONCEPT",
+      "time": "2026-Q3"
+    },
+    "claim_boundary": "SIMULATION_NOT_TRUTH_OR_CERTIFICATION",
+    "epistemic_status": "COMPUTED",
+    "method": "shape-grammar+monte-carlo",
+    "provenance": {
+      "source": "C-EXERCISE-SYNTHETIC",
+      "transformations": [
+        "toy-algorithm-v1"
+      ]
+    },
+    "units": "m",
+    "unknown": [
+      "ENERGY_RESPONSE_UNKNOWN"
+    ],
+    "value": {
+      "sample_count": 4,
+      "sample_mean": 1.025,
+      "shape_leaves": 2
+    }
+  },
+  "status": "PREREQUISITE_TESTED",
+  "transfer": {
+    "applicability": {
+      "project": "P-DEMO",
+      "scale": "COMPONENT",
+      "scenario": "CONCEPT",
+      "time": "2026-Q3"
+    },
+    "claim_boundary": "SIMULATION_NOT_TRUTH_OR_CERTIFICATION",
+    "epistemic_status": "COMPUTED",
+    "method": "genetic-layout-transfer",
+    "provenance": {
+      "source": "C-EXERCISE-SYNTHETIC",
+      "transformations": [
+        "toy-algorithm-v1"
+      ]
+    },
+    "units": "m",
+    "unknown": [
+      "ENERGY_RESPONSE_UNKNOWN"
+    ],
+    "value": {
+      "cost": 0,
+      "cost_units": "m",
+      "grid": "2x2",
+      "layout": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "transfer_rule": "permutation-to-grid-adjacency"
+    }
+  }
+}
+ASSERTIONS: PASS
+MUTANT_ORACLE: PASS (mutant front differs from strict Pareto front)
+BOUNDARY: outputs are computed toy/simulation values; not observations, forecasts, truth, hashes, import success, certification, or professional solver results
+UNKNOWN_PRESERVED: PASS
+PROVENANCE_UNITS_APPLICABILITY_SCALE_PROJECT_TIME_SCENARIO: PASS

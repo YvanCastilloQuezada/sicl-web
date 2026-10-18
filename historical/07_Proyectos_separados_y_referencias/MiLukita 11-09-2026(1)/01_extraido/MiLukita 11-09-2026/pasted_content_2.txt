@@ -1,0 +1,681 @@
+Exactamente. Y aquí haría una distinción importante: no necesitas “crear muchas Lukitas” en código. Necesitas crear muchas instancias de un mismo tipo de objeto espacial, cada una con su propia ubicación, configuración y experiencia.
+
+Yo diseñaría desde ahora una entidad central llamada LukitaPoint.
+
+1. El concepto
+                         MiLukita
+                            │
+                     Experience Engine
+                            │
+                      ┌─────┴─────┐
+                      │           │
+                LUKITA POINT 1  LUKITA POINT 2
+                      │           │
+                   UPAO        HUANCHACO
+                      │           │
+                  Experience  Experience
+
+Y mañana:
+
+LukitaPoint
+├── UPAO
+├── Huanchaco
+├── Plaza de Armas
+├── Chan Chan
+├── Hotel X
+├── Restaurante Y
+├── Mall Z
+└── Evento W
+
+Todos usan el mismo motor.
+
+2. ¿Qué datos necesita cada Lukita?
+Yo dividiría la ficha de una Lukita en 8 bloques.
+
+A. IDENTIDAD
+lukitaPointId
+name
+slug
+status
+description
+
+Ejemplo:
+
+ID: LKPT-0001
+Nombre: Lukita UPAO
+Slug: lukita-upao
+Estado: ACTIVE
+
+3. UBICACIÓN GEOGRÁFICA
+Aquí está el corazón del sistema.
+
+latitude
+longitude
+altitude
+
+Por ejemplo:
+
+latitude: -8.xxxxx
+longitude: -79.xxxxx
+altitude: xxx
+
+Pero agregaría:
+
+coordinateSystem
+accuracy
+locationSource
+
+Porque no es lo mismo:
+
+“coordenadas obtenidas aproximadamente de Google Maps”
+
+que:
+
+“coordenadas levantadas físicamente con GPS de alta precisión”.
+
+4. ORIENTACIÓN DE LUKITA
+Esto es algo que fácilmente se nos puede escapar.
+
+No basta saber dónde está Lukita.
+
+Hay que saber hacia dónde mira.
+
+Por tanto:
+
+heading
+pitch
+roll
+
+Por ejemplo:
+
+heading: 180°
+pitch: 0°
+roll: 0°
+
+Así podemos decir:
+
+Lukita está ubicada aquí y mirando hacia aquella dirección.
+
+Esto será muy importante para experiencias frente a plazas, edificios, carreteras, monumentos, etc.
+
+5. PUNTO DE ANCLAJE
+Aquí debemos separar:
+
+GEOLOCALIZACIÓN
+lat / lon / altitude
+
+de:
+
+ANCLAJE AR
+anchorType
+anchorData
+
+Porque GPS puede decir:
+
+“El usuario está aproximadamente aquí.”
+
+pero el AR necesita determinar:
+
+“Pon a Lukita exactamente aquí respecto al mundo que ve la cámara.”
+
+Por eso el objeto debería tener algo como:
+
+spatialAnchor
+
+con posibilidad futura de soportar:
+
+GPS
+QR
+Image Marker
+Geo Anchor
+VPS
+Persistent Spatial Anchor
+
+No necesitamos implementar todos ahora.
+
+Pero sí debemos diseñar la entidad para que pueda soportarlos.
+
+6. ESCALA
+Aquí entra nuestra idea de Lukita gigante.
+
+No guardaría simplemente:
+
+height: 8
+
+Crearía una configuración de escala.
+
+scaleProfile
+
+Por ejemplo:
+
+scaleProfile:
+
+0–5 m       → 1.8 m
+5–10 m      → transición
+10–100 m    → 5 m
+100–500 m   → 8 m
+500–1000 m  → discovery scale
+
+Pero no lo programaría como números rígidos.
+
+Debe ser configurable:
+
+distance
+minHeight
+maxHeight
+transition
+
+Así podemos experimentar.
+
+7. RADIO DE EXPERIENCIA
+Otra cosa fundamental.
+
+Cada Lukita debe tener un área de influencia.
+
+experienceRadius
+activationRadius
+interactionRadius
+
+Por ejemplo:
+
+activationRadius: 1000 m
+interactionRadius: 20 m
+
+Entonces:
+
+          1000 m
+      ┌─────────────┐
+      │             │
+      │   DISCOVERY │
+      │      ☁️     │
+      │    LUKITA   │
+      │      ●      │
+      │             │
+      └─────────────┘
+             ↓
+          20 m
+       INTERACTION
+
+Esto nos permite que cada Lukita tenga comportamiento espacial propio.
+
+8. EXPERIENCIA ASOCIADA
+Una Lukita no debería contener directamente toda la experiencia.
+
+Debe apuntar a una o varias:
+
+experienceIds[]
+
+Por ejemplo:
+
+LKPT-0001
+    │
+    ├── EXP-001
+    │     Lukita Welcome
+    │
+    ├── EXP-002
+    │     Foto con Lukita
+    │
+    └── EXP-003
+          Historia UPAO
+
+Esto es muchísimo más flexible.
+
+9. ASSETS DE LUKITA
+La instancia debe poder seleccionar qué versión visual utilizar.
+
+characterId
+model3d
+animations
+voice
+music
+effects
+mascot
+
+Por ejemplo:
+
+characterId: LUKITA-V1
+
+model:
+lukita_v1.glb
+
+animations:
+idle
+wave
+dance
+pose
+celebrate
+
+Y eventualmente:
+
+Lukita Navidad
+Lukita Carnaval
+Lukita Moche
+Lukita Kids
+Lukita Sports
+
+sin cambiar la ubicación.
+
+10. AUDIO
+Como ya decidimos que la música será parte importante:
+
+audioProfile
+
+podría contener:
+
+music
+voice
+effects
+volume
+autoplayPolicy
+
+Y algo importante:
+
+no almacenar audio directamente dentro de la ubicación.
+
+La ubicación referencia los assets.
+
+11. QR
+Cada Lukita debería poder tener uno o varios mecanismos de entrada.
+
+qrId
+qrUrl
+qrStatus
+
+Por ejemplo:
+
+QR
+ ↓
+LKPT-0001
+ ↓
+Experience
+
+Esto nos permite cambiar la experiencia sin necesariamente cambiar físicamente el QR.
+
+12. DATOS DEL LUGAR
+Yo añadiría información contextual:
+
+placeName
+placeType
+city
+region
+country
+address
+
+Por ejemplo:
+
+placeName: UPAO
+placeType: UNIVERSITY
+city: Trujillo
+region: La Libertad
+country: Peru
+
+Pero también:
+
+timezone
+
+porque después podemos programar experiencias según horario.
+
+13. HORARIOS
+Esto abre posibilidades enormes.
+
+schedule
+
+Por ejemplo:
+
+lunes–viernes
+08:00–22:00
+
+Y luego:
+
+specialSchedule
+
+para:
+
+Navidad;
+ferias;
+eventos;
+vacaciones;
+conciertos.
+14. EVENTOS
+Una Lukita puede cambiar temporalmente.
+
+Por ejemplo:
+
+UPAO
+
+normalmente:
+
+Lukita bienvenida.
+
+Pero durante un evento:
+
+Lukita Festival Universitario.
+
+Por eso:
+
+campaignId
+eventId
+
+deberían poder asociarse a un LukitaPoint.
+
+15. COMERCIO
+No lo implementaría ahora, pero dejaría preparada la relación:
+
+nearbyBusinesses[]
+
+y posteriormente:
+
+sponsors[]
+
+Así una Lukita puede eventualmente saber:
+
+Lukita
+ ↓
+lugares cercanos
+ ↓
+restaurantes
+ ↓
+hoteles
+ ↓
+comercios
+
+16. ANALYTICS
+Cada punto debe poder generar estadísticas.
+
+analytics
+
+Pero no guardaría “personas identificadas”.
+
+Mediría eventos agregados:
+
+qrScans
+experienceStarts
+arSessions
+photos
+videos
+shares
+sessionDuration
+
+Y posteriormente:
+
+estimatedVisits
+businessClicks
+offerClicks
+conversions
+
+17. Un dato que considero MUY importante: visibilityProfile
+Porque tenemos una idea bastante particular:
+
+Lukita puede aparecer desde cientos de metros.
+
+Entonces cada punto debería tener:
+
+visibilityProfile
+
+Por ejemplo:
+
+visibility:
+  enabled: true
+
+  maxDistance: 1000m
+
+  tiers:
+    - distance: 1000
+      scale: ...
+      animation: discovery
+
+    - distance: 500
+      scale: ...
+      animation: idle
+
+    - distance: 100
+      scale: ...
+      animation: approach
+
+    - distance: 20
+      scale: ...
+      animation: interactive
+
+    - distance: 5
+      height: 1.8m
+      animation: full
+
+Esto es una de las cosas que yo sí incorporaría ahora a la arquitectura.
+
+18. Un esquema maestro
+Así podría quedar conceptualmente:
+
+LUKITA POINT
+│
+├── IDENTITY
+│   ├── id
+│   ├── name
+│   ├── slug
+│   └── status
+│
+├── LOCATION
+│   ├── latitude
+│   ├── longitude
+│   ├── altitude
+│   ├── accuracy
+│   └── address
+│
+├── ORIENTATION
+│   ├── heading
+│   ├── pitch
+│   └── roll
+│
+├── SPATIAL
+│   ├── anchorType
+│   ├── anchor
+│   ├── activationRadius
+│   └── interactionRadius
+│
+├── VISIBILITY
+│   ├── maxDistance
+│   └── distanceTiers
+│
+├── LUKITA
+│   ├── characterId
+│   ├── model3D
+│   ├── animations
+│   ├── voice
+│   └── mascot
+│
+├── AUDIO
+│   ├── music
+│   ├── effects
+│   └── voice
+│
+├── EXPERIENCES
+│   └── experienceIds[]
+│
+├── ACCESS
+│   ├── qr
+│   └── futureNFC
+│
+├── PLACE
+│   ├── type
+│   ├── city
+│   ├── region
+│   └── country
+│
+├── SCHEDULE
+│   ├── opening
+│   └── specialEvents
+│
+├── BUSINESS
+│   ├── businesses
+│   └── sponsors
+│
+└── ANALYTICS
+    ├── scans
+    ├── sessions
+    ├── captures
+    └── shares
+
+19. Y aquí está la parte que yo cambiaría de la orden anterior a Manus
+Antes dijimos:
+
+Place → Experience → Lukita
+
+Ahora que estamos aterrizando la red, yo lo dejaría así:
+
+                    MiLukita
+                       │
+                  PLACE SYSTEM
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+          PLACE              LUKITA POINT
+             │                   │
+             │          ┌────────┼─────────┐
+             │          │        │         │
+             │       LOCATION   AR      CONTENT
+             │                   │
+             └─────────┬─────────┘
+                       │
+                  EXPERIENCE
+                       │
+             ┌─────────┼─────────┐
+             ↓         ↓         ↓
+           LUKITA    MASCOT    AUDIO
+             │
+             ↓
+       CAMERA EXPERIENCE
+             │
+             ↓
+         PHOTO/VIDEO
+             │
+             ↓
+           SHARE
+
+Esto me parece más sólido.
+
+20. Y lo más importante: un panel para CREAR LUKITAS
+Si realmente vas a tener muchas ubicaciones, no puedes depender de Manus para crear cada una.
+
+Necesitamos eventualmente un:
+
+Lukita Point Manager
+Algo así:
+
+┌────────────────────────────────────────┐
+│        CREATE LUKITA POINT             │
+├────────────────────────────────────────┤
+│                                        │
+│ Nombre                                 │
+│ [ Lukita UPAO                       ]  │
+│                                        │
+│ Ubicación                              │
+│ Latitude  [ -8.xxxxx ]                 │
+│ Longitude [ -79.xxxxx ]                │
+│                                        │
+│ Altitud                                │
+│ [ 00.0 ]                               │
+│                                        │
+│ Orientación                            │
+│ Heading [180°]                         │
+│                                        │
+│ Activación                             │
+│ [1000 m]                               │
+│                                        │
+│ Altura Lukita                          │
+│ [8 m]                                  │
+│                                        │
+│ QR                                     │
+│ [ GENERAR QR ]                         │
+│                                        │
+│ Experiencia                            │
+│ [ Lukita Welcome ▼ ]                   │
+│                                        │
+│ [ GUARDAR LUKITA POINT ]               │
+└────────────────────────────────────────┘
+
+Y después:
+
+Mapa → colocar Lukita → configurar → publicar.
+
+Eso cambia completamente la escalabilidad.
+
+21. Incluso podríamos importar ubicaciones
+Si algún día tienes 100, 500 o 1.000 puntos, no querrás introducirlos uno por uno.
+
+Prepararía la posibilidad futura de importar:
+
+CSV
+JSON
+GeoJSON
+
+con:
+
+id
+name
+latitude
+longitude
+altitude
+heading
+place
+experience
+status
+
+Entonces podrías cargar:
+
+100 Lukitas
+
+de una sola vez.
+
+22. La arquitectura final que propondría
+                    MiLUKITA
+                       │
+                 PLACE DATABASE
+                       │
+                 LUKITA POINTS
+                       │
+       ┌───────────────┼────────────────┐
+       ↓               ↓                ↓
+   LOCATION          SPATIAL          CONTENT
+       │               │                │
+       ↓               ↓                ↓
+     GEO           WEBAR ENGINE      LUKITA
+       │               │                │
+       └───────────────┼────────────────┘
+                       ↓
+                  EXPERIENCE
+                       │
+                       ↓
+                  USER CAMERA
+                       │
+                  ┌────┴────┐
+                  ↓         ↓
+                PHOTO     VIDEO
+                  │         │
+                  └────┬────┘
+                       ↓
+                    SHARE
+                       ↓
+                   AUDIENCE
+                       ↓
+                    DATA
+                       ↓
+                  COMMERCE
+
+Y la clave:
+Lukita Point debe ser una entidad de primera clase del sistema.
+
+No una coordenada escondida dentro de una experiencia.
+
+Porque si la visión es tener decenas o cientos de Lukitas georreferenciadas, el activo de MiLukita será precisamente esa red espacial de puntos.
+
+Lo que yo le pediría a Manus ahora
+No le pediría todavía que programe 100 Lukitas.
+
+Le daría una orden mucho más precisa:
+
+“Implementa el modelo de datos Place → LukitaPoint → Experience, crea LukitaPoint como entidad reutilizable, incorpora coordenadas, altitud, orientación, radios, perfil de visibilidad por distancia, QR, assets de Lukita, audio, experiencias y analytics. Crea un primer LukitaPoint UPAO como instancia de prueba. No hardcodees UPAO dentro del motor. Prepara la arquitectura para que posteriormente podamos crear múltiples LukitaPoints desde un administrador y, eventualmente, importarlos masivamente.”
+
+Y añadiría una decisión que me parece estratégica:
+
+El sistema debe poder tener 1, 10, 100 o 10.000 LukitaPoints sin cambiar el modelo de datos ni el motor WebAR.
+
+Ese es el momento en que dejamos de construir “una Lukita en UPAO” y empezamos a construir realmente la infraestructura de MiLukita World.

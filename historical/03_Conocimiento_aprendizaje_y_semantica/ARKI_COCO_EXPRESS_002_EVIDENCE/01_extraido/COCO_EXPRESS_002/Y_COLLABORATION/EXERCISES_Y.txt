@@ -1,0 +1,26 @@
+# EXERCISES_Y — resultados ejecutados
+
+Orden: COCO-EXPRESS-002 FULL ARSENAL PRETRAINING | Familia: Y1-Y5
+Contaminación DeepSeek/Lipsic: NO; fixtures sintéticos propios; sin solver ni firma/certificación.
+
+## NORMAL — Y-N-017 (colaboración multiusuario)
+Input: operación de comentario sobre base_version=12 con actor, topic, provenance, units, applicability, scale, project, time y scenario.
+Output: {"reason": "evidence_preserved_not_certified", "status": "RECORDED", "truth": "UNKNOWN"}
+Assertions: PASS — contexto preservado; evidencia queda como OBSERVATION; no se declara verdad ni aprobación.
+
+## ADVERSARIAL — Y-A-031 (BCF incompleto + hash/import engañosos)
+Input: import_success=true y hash coincidente, pero BCF sin viewpoint; el hash sólo cubre bytes canónicos.
+Output: {"reason": "bcf_viewpoint_missing", "status": "UNKNOWN", "truth": "UNKNOWN"}
+Assertions: PASS — falta viewpoint produce UNKNOWN; import success/hash no se convierten en fidelity, verdad o certificación.
+
+## TRANSFER — Y-T-044 (forecast en taller de banco de semillas)
+Input: forecast P50 de 18.2 kW, sin intervalo de confianza, con unidades, escala facility, proyecto/tiempo/escenario y provenance.
+Output: {"reason": "forecast_not_observation", "status": "UNKNOWN", "truth": "UNKNOWN"}
+Assertions: PASS — forecast permanece UNKNOWN y no se trata como observación ni hecho canónico.
+
+## Mutante controlado
+Mutación: función incorrecta transforma cualquier UNKNOWN en FALSE.
+Resultado: KILLED — assertion detectó el mutante (mutant survived: UNKNOWN was collapsed to FALSE). La función correcta quedó intacta.
+
+## Boundary
+Estos ejercicios enseñan clasificación, trazabilidad e integridad; no implementan multiusuario productivo, BCF interoperable completo, CDE ISO 19650, PKI, firma, certificación ni solver profesional.

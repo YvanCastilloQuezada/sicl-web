@@ -1,0 +1,631 @@
+{
+  "schema": "ARKI-D6.2-RESTAURANT-EXAM-0.1",
+  "executionId": "D62-RESTAURANT-500-001",
+  "projectId": "ARKICE-123-456",
+  "sourceBrief": "/home/ubuntu/sicl-web/docs/exams/ARKI-RESTAURANT-500-EXAM-2026-09-20.md",
+  "restaurantRetestExecuted": "PASS",
+  "restaurantK0": "UNKNOWN / PROBABLEMENTE INSUFICIENTE EN UNA SOLA PLANTA",
+  "retrievedKnowledgeIds": [
+    "KN-000001",
+    "KN-000002",
+    "KN-000003",
+    "KN-000004",
+    "KN-000005",
+    "KN-000006",
+    "KN-000007",
+    "KN-000009"
+  ],
+  "unusedRetrievedKnowledge": [],
+  "reasoningTrace": {
+    "PROJECT_INPUT": {
+      "executionId": "D62-RESTAURANT-500-001",
+      "brief": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+      "context": {
+        "typology": "RESTAURANT",
+        "capacity": 500,
+        "site": "20x40m",
+        "mode": "BLIND_RETEST"
+      },
+      "constraints": [
+        "access principal legible and frontal",
+        "front parking must be declared feasible or insufficient",
+        "independent loading and service circuit",
+        "public and service flows must not cross normally",
+        "do not treat a room list as a floor plan",
+        "jurisdiction and applicable regulations are not supplied"
+      ],
+      "knownFacts": []
+    },
+    "ALREADY_KNOWN": [],
+    "RETRIEVED": [
+      {
+        "knowledgeId": "KN-000001",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000002",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000003",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000004",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000005",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000006",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000007",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      },
+      {
+        "knowledgeId": "KN-000009",
+        "retrievalQuery": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+        "whyRetrieved": "General invariant applicable to architectural reasoning",
+        "source": [
+          "SRC-WHITE-PROG",
+          "SRC-WHITE-FORM",
+          "SRC-NEUFERT",
+          "SRC-PLAZOLA-V01",
+          "SRC-PLAZOLA-V02",
+          "SRC-PLAZOLA-V03",
+          "SRC-PLAZOLA-V04",
+          "SRC-PLAZOLA-V05",
+          "SRC-PLAZOLA-V06",
+          "SRC-PLAZOLA-V07",
+          "SRC-PLAZOLA-V08",
+          "SRC-PLAZOLA-V09",
+          "SRC-PLAZOLA-V10"
+        ],
+        "evidence": [],
+        "scope": "SCP-GENERAL",
+        "epistemicStatus": "FACT"
+      }
+    ],
+    "ADAPTED": [
+      {
+        "knowledgeId": "KN-000001",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000002",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000003",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000004",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000005",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000006",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000007",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      },
+      {
+        "knowledgeId": "KN-000009",
+        "adaptation": "Apply only within the retrieved scope; do not copy a realization."
+      }
+    ],
+    "INFERRED": [
+      {
+        "id": "INF-D62-RESTAURANT-500-001-1",
+        "statement": "A new brief requires a typed program and relationship analysis before geometric generation.",
+        "status": "HYPOTHESIS"
+      }
+    ],
+    "EXECUTED": [
+      {
+        "id": "EXE-D62-RESTAURANT-500-001-1",
+        "action": "Retrieved bounded knowledge and assembled a non-geometric reasoning chain."
+      }
+    ],
+    "NEW_LEARNING_CANDIDATE": [
+      {
+        "id": "LC-D62-RESTAURANT-500-001-1",
+        "observation": "This execution demonstrates retrieval-to-trace linkage; it is not a promoted fact.",
+        "status": "OBSERVATION_ONLY",
+        "promotion": "NONE"
+      }
+    ],
+    "PURPOSE": "Diseñar la organización arquitectónica de un restaurante para 500 comensales en un terreno de 20 × 40 m. El acceso principal debe ser legible y frontal. El frente también debe resolver el estacionamiento o, si no es posible dentro del lote, declarar la insuficiencia y proponer una decisión de proyecto. Debe existir un circuito independiente de carga y descarga para trabajadores, mercancías, alimentos, residuos y mantenimiento, conectado con cocina y almacenes sin cruzar el flujo público.\n\nEl examen exige distinguir programa, actividades, relaciones, zonificación, topología, geometría y cumplimiento normativo. No se permite presentar una lista de ambientes como si fuera una planta. No se permite convertir referencias de Neufert, Plazola, RNE u otra fuente en requisito vigente sin verificar fuente, jurisdicción y alcance.",
+    "CAPABILITIES": [
+      "brief interpretation",
+      "bounded knowledge retrieval",
+      "structured reasoning trace"
+    ],
+    "ACTIVITIES_PROCESSES": [
+      "interpret brief",
+      "inspect conditions",
+      "identify missing evidence"
+    ],
+    "RELATIONSHIPS_FLOWS": [
+      {
+        "relationship": "access principal legible and frontal",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "front parking must be declared feasible or insufficient",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "independent loading and service circuit",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "public and service flows must not cross normally",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "do not treat a room list as a floor plan",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "jurisdiction and applicable regulations are not supplied",
+        "status": "PROJECT_INPUT"
+      }
+    ],
+    "REQUIREMENTS_CONDITIONS": [
+      "access principal legible and frontal",
+      "front parking must be declared feasible or insufficient",
+      "independent loading and service circuit",
+      "public and service flows must not cross normally",
+      "do not treat a room list as a floor plan",
+      "jurisdiction and applicable regulations are not supplied"
+    ],
+    "UNKNOWN": [
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "parking requirement and availability",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-RESTAURANT-500-001-1"
+      },
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "jurisdiction-specific occupancy and egress requirements",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-RESTAURANT-500-001-2"
+      },
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "multi-level accessibility, fire, structure and MEP requirements",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-RESTAURANT-500-001-3"
+      }
+    ],
+    "DEFICITS": [
+      {
+        "deficit": "parking requirement and availability",
+        "consequence": "Incomplete diagnosis until resolution."
+      },
+      {
+        "deficit": "jurisdiction-specific occupancy and egress requirements",
+        "consequence": "Incomplete diagnosis until resolution."
+      },
+      {
+        "deficit": "multi-level accessibility, fire, structure and MEP requirements",
+        "consequence": "Incomplete diagnosis until resolution."
+      }
+    ],
+    "CAUSE_HYPOTHESES": [
+      {
+        "unknownId": "UNK-D62-RESTAURANT-500-001-1",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      },
+      {
+        "unknownId": "UNK-D62-RESTAURANT-500-001-2",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      },
+      {
+        "unknownId": "UNK-D62-RESTAURANT-500-001-3",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      }
+    ],
+    "STRATEGIES": [],
+    "CANDIDATES": [
+      {
+        "id": "CAND-D62-RESTAURANT-500-001-1",
+        "description": "Prepare a validated program/relationship candidate before geometry.",
+        "realization": "NOT_GEOMETRICALLY_EXECUTED"
+      }
+    ],
+    "WHY_TRACE": [
+      {
+        "knowledgeId": "KN-000001",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000002",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000003",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000004",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000005",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000006",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000007",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      },
+      {
+        "knowledgeId": "KN-000009",
+        "retrievalReason": "General invariant applicable to architectural reasoning",
+        "reasoningMove": "BOUNDARY",
+        "rationale": "Use only within source scope and epistemic status.",
+        "resultingEffect": "Contributes to structured architectural diagnosis."
+      }
+    ],
+    "RETRIEVED_NOT_USED": []
+  },
+  "strategies": [],
+  "unknown": [
+    {
+      "type": "BRIEF_COMPLETENESS",
+      "whyUnknown": "parking requirement and availability",
+      "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+      "resolverAuthority": "HUMAN_ARCHITECT",
+      "id": "UNK-D62-RESTAURANT-500-001-1"
+    },
+    {
+      "type": "BRIEF_COMPLETENESS",
+      "whyUnknown": "jurisdiction-specific occupancy and egress requirements",
+      "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+      "resolverAuthority": "HUMAN_ARCHITECT",
+      "id": "UNK-D62-RESTAURANT-500-001-2"
+    },
+    {
+      "type": "BRIEF_COMPLETENESS",
+      "whyUnknown": "multi-level accessibility, fire, structure and MEP requirements",
+      "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+      "resolverAuthority": "HUMAN_ARCHITECT",
+      "id": "UNK-D62-RESTAURANT-500-001-3"
+    }
+  ],
+  "aAv": {
+    "activities": [
+      "interpret brief",
+      "inspect conditions",
+      "identify missing evidence"
+    ],
+    "relationshipsFlows": [
+      {
+        "relationship": "access principal legible and frontal",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "front parking must be declared feasible or insufficient",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "independent loading and service circuit",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "public and service flows must not cross normally",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "do not treat a room list as a floor plan",
+        "status": "PROJECT_INPUT"
+      },
+      {
+        "relationship": "jurisdiction and applicable regulations are not supplied",
+        "status": "PROJECT_INPUT"
+      }
+    ],
+    "requirementsConditions": [
+      "access principal legible and frontal",
+      "front parking must be declared feasible or insufficient",
+      "independent loading and service circuit",
+      "public and service flows must not cross normally",
+      "do not treat a room list as a floor plan",
+      "jurisdiction and applicable regulations are not supplied"
+    ],
+    "unknown": [
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "parking requirement and availability",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-RESTAURANT-500-001-1"
+      },
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "jurisdiction-specific occupancy and egress requirements",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-RESTAURANT-500-001-2"
+      },
+      {
+        "type": "BRIEF_COMPLETENESS",
+        "whyUnknown": "multi-level accessibility, fire, structure and MEP requirements",
+        "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+        "resolverAuthority": "HUMAN_ARCHITECT",
+        "id": "UNK-D62-RESTAURANT-500-001-3"
+      }
+    ],
+    "deficits": [
+      {
+        "deficit": "parking requirement and availability",
+        "consequence": "Incomplete diagnosis until resolution."
+      },
+      {
+        "deficit": "jurisdiction-specific occupancy and egress requirements",
+        "consequence": "Incomplete diagnosis until resolution."
+      },
+      {
+        "deficit": "multi-level accessibility, fire, structure and MEP requirements",
+        "consequence": "Incomplete diagnosis until resolution."
+      }
+    ],
+    "causeHypotheses": [
+      {
+        "unknownId": "UNK-D62-RESTAURANT-500-001-1",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      },
+      {
+        "unknownId": "UNK-D62-RESTAURANT-500-001-2",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      },
+      {
+        "unknownId": "UNK-D62-RESTAURANT-500-001-3",
+        "hypothesis": "Brief does not supply sufficient project-specific evidence."
+      }
+    ],
+    "strategies": [],
+    "candidates": [
+      {
+        "id": "CAND-D62-RESTAURANT-500-001-1",
+        "description": "Prepare a validated program/relationship candidate before geometry.",
+        "realization": "NOT_GEOMETRICALLY_EXECUTED"
+      }
+    ]
+  },
+  "prePostComparison": {
+    "preD61": {
+      "retrievalKnowledgeIds": "NOT_RECORDED",
+      "provenance": "DOCUMENT_ONLY",
+      "unknown": "PRESENT_IN_REPORT",
+      "structuredTrace": "NOT_EXECUTED"
+    },
+    "postD62": {
+      "retrievalKnowledgeIds": [
+        "KN-000001",
+        "KN-000002",
+        "KN-000003",
+        "KN-000004",
+        "KN-000005",
+        "KN-000006",
+        "KN-000007",
+        "KN-000009"
+      ],
+      "provenance": "CORE_IDS_AND_SOURCE_SCOPE",
+      "unknown": [
+        {
+          "type": "BRIEF_COMPLETENESS",
+          "whyUnknown": "parking requirement and availability",
+          "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+          "resolverAuthority": "HUMAN_ARCHITECT",
+          "id": "UNK-D62-RESTAURANT-500-001-1"
+        },
+        {
+          "type": "BRIEF_COMPLETENESS",
+          "whyUnknown": "jurisdiction-specific occupancy and egress requirements",
+          "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+          "resolverAuthority": "HUMAN_ARCHITECT",
+          "id": "UNK-D62-RESTAURANT-500-001-2"
+        },
+        {
+          "type": "BRIEF_COMPLETENESS",
+          "whyUnknown": "multi-level accessibility, fire, structure and MEP requirements",
+          "resolutionPath": "Collect project-specific evidence and obtain specialist or human review before promotion.",
+          "resolverAuthority": "HUMAN_ARCHITECT",
+          "id": "UNK-D62-RESTAURANT-500-001-3"
+        }
+      ],
+      "structuredTrace": "PASS"
+    }
+  },
+  "learningCandidates": [
+    {
+      "id": "LC-D62-RESTAURANT-500-001-1",
+      "observation": "This execution demonstrates retrieval-to-trace linkage; it is not a promoted fact.",
+      "status": "OBSERVATION_ONLY",
+      "promotion": "NONE"
+    }
+  ],
+  "knowledgeRegression": "PASS",
+  "reasoningRegression": "PASS",
+  "softwareRegression": "PREEXISTING_FAILURE_6_PHASE_A_THEME_TESTS",
+  "humanDecisionsRequired": [
+    "validate regulatory jurisdiction and occupancy",
+    "decide parking/site insufficiency response",
+    "review service topology and candidate before geometry"
+  ],
+  "replay": "PASS"
+}

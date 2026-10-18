@@ -1,0 +1,587 @@
+
+> arki-agent-bridge-v02a@0.2.0-alpha.8 test
+> node --test
+
+TAP version 13
+# (node:61285) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: restrictive precedence is deterministic and agent data cannot alter controls
+ok 1 - restrictive precedence is deterministic and agent data cannot alter controls
+  ---
+  duration_ms: 1.497156
+  ...
+# Subtest: soft kill, hard halt and out-of-band stop persist atomically
+ok 2 - soft kill, hard halt and out-of-band stop persist atomically
+  ---
+  duration_ms: 29.696895
+  ...
+# Subtest: budget checks before operation and accounts synthetic usage without invented pricing
+ok 3 - budget checks before operation and accounts synthetic usage without invented pricing
+  ---
+  duration_ms: 18.439843
+  ...
+# Subtest: loop governor detects max cycles, repeated action, stagnation and circuit breaker
+ok 4 - loop governor detects max cycles, repeated action, stagnation and circuit breaker
+  ---
+  duration_ms: 42.151349
+  ...
+# Subtest: revocation before dispatch and during active task cannot resume
+ok 5 - revocation before dispatch and during active task cannot resume
+  ---
+  duration_ms: 19.944635
+  ...
+# Subtest: Evidence Taxonomy distinguishes claim, artifact, integrity and verification
+ok 6 - Evidence Taxonomy distinguishes claim, artifact, integrity and verification
+  ---
+  duration_ms: 19.830069
+  ...
+# Subtest: hash does not imply verification and contradictions remain human-required
+ok 7 - hash does not imply verification and contradictions remain human-required
+  ---
+  duration_ms: 21.723895
+  ...
+# Subtest: policy_category is separate from reason and V1 remains compatible
+ok 8 - policy_category is separate from reason and V1 remains compatible
+  ---
+  duration_ms: 0.434879
+  ...
+# Subtest: external side effect uses intent persistence and refuses blind redispatch after unknown
+ok 9 - external side effect uses intent persistence and refuses blind redispatch after unknown
+  ---
+  duration_ms: 22.084906
+  ...
+# Subtest: restart preserves paused controls, counters and audit reconstruction
+ok 10 - restart preserves paused controls, counters and audit reconstruction
+  ---
+  duration_ms: 24.463347
+  ...
+# Subtest: failure injection: transaction rollback leaves durable state consistent
+ok 11 - failure injection: transaction rollback leaves durable state consistent
+  ---
+  duration_ms: 16.096329
+  ...
+# Subtest: persistence can represent stale and duplicate external results without duplicate effects
+ok 12 - persistence can represent stale and duplicate external results without duplicate effects
+  ---
+  duration_ms: 17.753776
+  ...
+# Subtest: revoked decision late webhook is recorded but cannot reactivate autonomy
+ok 13 - revoked decision late webhook is recorded but cannot reactivate autonomy
+  ---
+  duration_ms: 19.126226
+  ...
+# Subtest: kill during correction loop blocks the external correction
+ok 14 - kill during correction loop blocks the external correction
+  ---
+  duration_ms: 22.260822
+  ...
+# Subtest: failure injection: SQLite locked is surfaced without partial autonomy mutation
+ok 15 - failure injection: SQLite locked is surfaced without partial autonomy mutation
+  ---
+  duration_ms: 17.009556
+  ...
+# (node:61286) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: RT-G2-NEW-02 restart converts IN_FLIGHT to UNKNOWN and blocks redispatch
+ok 16 - RT-G2-NEW-02 restart converts IN_FLIGHT to UNKNOWN and blocks redispatch
+  ---
+  duration_ms: 26.041562
+  ...
+# Subtest: F-06 real ManusAdapter retries are counted separately from external calls
+ok 17 - F-06 real ManusAdapter retries are counted separately from external calls
+  ---
+  duration_ms: 75.991137
+  ...
+# Subtest: F-06 dispatch integrates retry count, failure reset and restart preservation
+ok 18 - F-06 dispatch integrates retry count, failure reset and restart preservation
+  ---
+  duration_ms: 37.777348
+  ...
+# Subtest: RT-G2-NEW-01 new session counts create plus review, usage adds zero calls
+ok 19 - RT-G2-NEW-01 new session counts create plus review, usage adds zero calls
+  ---
+  duration_ms: 44.357688
+  ...
+# Subtest: RT-G2-NEW-01 existing session counts one review plus independent usage
+ok 20 - RT-G2-NEW-01 existing session counts one review plus independent usage
+  ---
+  duration_ms: 34.972354
+  ...
+# Subtest: RT-G2-NEW-04 internal transition is governable without consuming external-call budget
+ok 21 - RT-G2-NEW-04 internal transition is governable without consuming external-call budget
+  ---
+  duration_ms: 18.887996
+  ...
+# Subtest: RT-G2-NEW-03 review claim exception is closed and recoverable after restart
+ok 22 - RT-G2-NEW-03 review claim exception is closed and recoverable after restart
+  ---
+  duration_ms: 32.218569
+  ...
+# Subtest: F-07 producer cannot fabricate INDEPENDENTLY_VERIFIED without registry act
+ok 23 - F-07 producer cannot fabricate INDEPENDENTLY_VERIFIED without registry act
+  ---
+  duration_ms: 0.53197
+  ...
+# Subtest: RT-G2-NEW-05 revocation is per decision while global OOB kill applies to all
+ok 24 - RT-G2-NEW-05 revocation is per decision while global OOB kill applies to all
+  ---
+  duration_ms: 27.458774
+  ...
+# Subtest: RT-G2-NEW-05 revocation during detail await prevents late transition
+ok 25 - RT-G2-NEW-05 revocation during detail await prevents late transition
+  ---
+  duration_ms: 30.658284
+  ...
+# Subtest: F-06 retry budget blocks a later external operation after real retry consumption
+ok 26 - F-06 retry budget blocks a later external operation after real retry consumption
+  ---
+  duration_ms: 29.247093
+  ...
+# Subtest: F-06 repeated failed dispatch feeds consecutive_failures and effective HALT
+ok 27 - F-06 repeated failed dispatch feeds consecutive_failures and effective HALT
+  ---
+  duration_ms: 28.313196
+  ...
+# Subtest: RT-G2-NEW-03 claimed review is recovered after actual store restart
+ok 28 - RT-G2-NEW-03 claimed review is recovered after actual store restart
+  ---
+  duration_ms: 21.44395
+  ...
+# Subtest: RT-G2-NEW-06 concurrent adapter requests return isolated retry counts and counters
+ok 29 - RT-G2-NEW-06 concurrent adapter requests return isolated retry counts and counters
+  ---
+  duration_ms: 80.809051
+  ...
+# Subtest: RT-G2-NEW-06 orchestrator attributes concurrent request retries to their decisions
+ok 30 - RT-G2-NEW-06 orchestrator attributes concurrent request retries to their decisions
+  ---
+  duration_ms: 50.12015
+  ...
+# Subtest: RT-G2-NEW-07 recovery claim contention has one winner
+ok 31 - RT-G2-NEW-07 recovery claim contention has one winner
+  ---
+  duration_ms: 19.64094
+  ...
+# Subtest: O-2 dispatch budget preflight with zero remaining makes zero Manus calls
+ok 32 - O-2 dispatch budget preflight with zero remaining makes zero Manus calls
+  ---
+  duration_ms: 18.49811
+  ...
+# Subtest: O-2 new OpenAI session preflights two calls and does not overshoot remaining one
+ok 33 - O-2 new OpenAI session preflights two calls and does not overshoot remaining one
+  ---
+  duration_ms: 20.472499
+  ...
+# Subtest: O-1 scoped setDecision never writes OOB global file; setGlobal does
+ok 34 - O-1 scoped setDecision never writes OOB global file; setGlobal does
+  ---
+  duration_ms: 16.974391
+  ...
+# Subtest: O-3 local persistence failure records Loop/Audit and keeps provider effect UNKNOWN
+ok 35 - O-3 local persistence failure records Loop/Audit and keeps provider effect UNKNOWN
+  ---
+  duration_ms: 30.056802
+  ...
+# (node:61287) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Manus adapter retries 429 and paginates
+ok 36 - Manus adapter retries 429 and paginates
+  ---
+  duration_ms: 27.986279
+  ...
+# Subtest: Orchestrator dispatches with fake Manus, reconciles stopped/background states and fake OpenAI
+ok 37 - Orchestrator dispatches with fake Manus, reconciles stopped/background states and fake OpenAI
+  ---
+  duration_ms: 47.855075
+  ...
+# Subtest: Manus adapter reports bounded failure without real network
+ok 38 - Manus adapter reports bounded failure without real network
+  ---
+  duration_ms: 79.559392
+  ...
+# Subtest: Manus adapter serializes private visibility and explicit empty capability boundaries
+ok 39 - Manus adapter serializes private visibility and explicit empty capability boundaries
+  ---
+  duration_ms: 4.924556
+  ...
+# Subtest: Manus adapter rejects non-private visibility before network
+ok 40 - Manus adapter rejects non-private visibility before network
+  ---
+  duration_ms: 1.055904
+  ...
+# Subtest: Manus adapter rejects non-array capability configuration before network
+ok 41 - Manus adapter rejects non-array capability configuration before network
+  ---
+  duration_ms: 1.545724
+  ...
+# Subtest: Manus adapter fails closed on non-private or share URL response
+ok 42 - Manus adapter fails closed on non-private or share URL response
+  ---
+  duration_ms: 2.982981
+  ...
+# Subtest: Bridge source has no ARKI repository mutation or external product path
+ok 43 - Bridge source has no ARKI repository mutation or external product path
+  ---
+  duration_ms: 3.670257
+  ...
+# (node:61294) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Architect input/output schemas are strict and external Manus data is marked untrusted
+ok 44 - Architect input/output schemas are strict and external Manus data is marked untrusted
+  ---
+  duration_ms: 4.292
+  ...
+# Subtest: PASS output reaches COMPLETED through policy and state machine
+ok 45 - PASS output reaches COMPLETED through policy and state machine
+  ---
+  duration_ms: 67.197378
+  ...
+# Subtest: FAIL correctable output sends bounded correction to Manus
+ok 46 - FAIL correctable output sends bounded correction to Manus
+  ---
+  duration_ms: 51.022575
+  ...
+# Subtest: scope delta, security boundary and prohibited output are never executed directly
+ok 47 - scope delta, security boundary and prohibited output are never executed directly
+  ---
+  duration_ms: 97.258314
+  ...
+# Subtest: OpenAI unavailable preserves result as REVIEW_REQUIRED
+ok 48 - OpenAI unavailable preserves result as REVIEW_REQUIRED
+  ---
+  duration_ms: 38.317086
+  ...
+# Subtest: session correlation isolates decisions and duplicate OpenAI events
+ok 49 - session correlation isolates decisions and duplicate OpenAI events
+  ---
+  duration_ms: 63.9034
+  ...
+# Subtest: session and events survive restart
+ok 50 - session and events survive restart
+  ---
+  duration_ms: 38.858912
+  ...
+# Subtest: state machine accepts authorized dispatch path and rejects illegal transitions
+ok 51 - state machine accepts authorized dispatch path and rejects illegal transitions
+  ---
+  duration_ms: 1.403984
+  ...
+# Subtest: policy classifies material categories and safe actions
+ok 52 - policy classifies material categories and safe actions
+  ---
+  duration_ms: 0.364837
+  ...
+# Subtest: provider mode defaults to mock and real activation fails closed
+ok 53 - provider mode defaults to mock and real activation fails closed
+  ---
+  duration_ms: 1.998765
+  ...
+# Subtest: secret redaction removes bearer and key-like values
+ok 54 - secret redaction removes bearer and key-like values
+  ---
+  duration_ms: 0.835178
+  ...
+# Subtest: OpenAI adapter is disabled unless mode is explicitly real
+ok 55 - OpenAI adapter is disabled unless mode is explicitly real
+  ---
+  duration_ms: 0.607339
+  ...
+# Subtest: OpenAI successful strict response maps IDs usage and rate metadata
+ok 56 - OpenAI successful strict response maps IDs usage and rate metadata
+  ---
+  duration_ms: 51.088915
+  ...
+# Subtest: OpenAI refusal is non-executable
+ok 57 - OpenAI refusal is non-executable
+  ---
+  duration_ms: 1.135974
+  ...
+# Subtest: OpenAI malformed JSON and schema violations fail locally
+ok 58 - OpenAI malformed JSON and schema violations fail locally
+  ---
+  duration_ms: 1.643624
+  ...
+# Subtest: OpenAI unexpected tool request is blocked
+ok 59 - OpenAI unexpected tool request is blocked
+  ---
+  duration_ms: 0.965064
+  ...
+# Subtest: OpenAI 401 is sanitized and 429/5xx are bounded errors
+ok 60 - OpenAI 401 is sanitized and 429/5xx are bounded errors
+  ---
+  duration_ms: 105.81134
+  ...
+# Subtest: OpenAI timeout produces no blind-success result
+ok 61 - OpenAI timeout produces no blind-success result
+  ---
+  duration_ms: 1.409535
+  ...
+# Subtest: Manus real adapter supports v2 task create/detail/messages/send through fake HTTP
+ok 62 - Manus real adapter supports v2 task create/detail/messages/send through fake HTTP
+  ---
+  duration_ms: 2.801228
+  ...
+# Subtest: Manus real adapter is disabled by default
+ok 63 - Manus real adapter is disabled by default
+  ---
+  duration_ms: 0.502053
+  ...
+# Subtest: Manus task lifecycle preserves omitted background as unknown
+ok 64 - Manus task lifecycle preserves omitted background as unknown
+  ---
+  duration_ms: 0.414493
+  ...
+# Subtest: Manus public key cache fetches once within TTL and refreshes when forced
+ok 65 - Manus public key cache fetches once within TTL and refreshes when forced
+  ---
+  duration_ms: 0.821962
+  ...
+# Subtest: Manus public key cache sanitizes unavailable response
+ok 66 - Manus public key cache sanitizes unavailable response
+  ---
+  duration_ms: 0.422548
+  ...
+# Subtest: Manus webhook envelope validates event/task identity and rejects malformed payload
+ok 67 - Manus webhook envelope validates event/task identity and rejects malformed payload
+  ---
+  duration_ms: 0.299511
+  ...
+# Subtest: Manus RSA-SHA256 signature vector verifies and replay window rejects
+ok 68 - Manus RSA-SHA256 signature vector verifies and replay window rejects
+  ---
+  duration_ms: 216.356043
+  ...
+# Subtest: Manus adapter handles cursor pagination and preserves request IDs
+ok 69 - Manus adapter handles cursor pagination and preserves request IDs
+  ---
+  duration_ms: 1.386426
+  ...
+# Subtest: Manus adapter maps 401 without retry and 429/5xx to bounded transient failure
+ok 70 - Manus adapter maps 401 without retry and 429/5xx to bounded transient failure
+  ---
+  duration_ms: 53.262523
+  ...
+# Subtest: Manus ambiguous network timeout remains unknown rather than success
+ok 71 - Manus ambiguous network timeout remains unknown rather than success
+  ---
+  duration_ms: 0.68311
+  ...
+# Subtest: Manus waiting and stopped payloads retain input metadata as data
+ok 72 - Manus waiting and stopped payloads retain input metadata as data
+  ---
+  duration_ms: 1.162962
+  ...
+# Subtest: Manus task.detail retries one transient 404 and then reconciles
+ok 73 - Manus task.detail retries one transient 404 and then reconciles
+  ---
+  duration_ms: 1003.12734
+  ...
+# Subtest: Manus provider errors retain sanitized HTTP diagnostics only
+ok 74 - Manus provider errors retain sanitized HTTP diagnostics only
+  ---
+  duration_ms: 1002.39588
+  ...
+# (node:61363) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: R03E create → persist → reconcile uses the same durable provider task ID
+ok 75 - R03E create → persist → reconcile uses the same durable provider task ID
+  ---
+  duration_ms: 44.167634
+  ...
+# Subtest: R03E restart recovery preserves provider identity and requires reconciliation
+ok 76 - R03E restart recovery preserves provider identity and requires reconciliation
+  ---
+  duration_ms: 23.608897
+  ...
+# Subtest: R03E persistence failure after provider success becomes unknown and does not retry create
+ok 77 - R03E persistence failure after provider success becomes unknown and does not retry create
+  ---
+  duration_ms: 33.694375
+  ...
+# Subtest: R03E duplicate dispatch returns persisted task without second provider create
+ok 78 - R03E duplicate dispatch returns persisted task without second provider create
+  ---
+  duration_ms: 27.745413
+  ...
+# Subtest: R3C boundary does not claim skills are none
+ok 79 - R3C boundary does not claim skills are none
+  ---
+  duration_ms: 0.967684
+  ...
+# Subtest: R3C create boundary keeps private, connectors none and no selected skills
+ok 80 - R3C create boundary keeps private, connectors none and no selected skills
+  ---
+  duration_ms: 1.822688
+  ...
+# Subtest: R3C ManusAdapter serializes explicit private and empty connector/skill fields
+ok 81 - R3C ManusAdapter serializes explicit private and empty connector/skill fields
+  ---
+  duration_ms: 52.658314
+  ...
+# Subtest: R3C follow-up and confirmation operations fail closed
+ok 82 - R3C follow-up and confirmation operations fail closed
+  ---
+  duration_ms: 0.321245
+  ...
+# Subtest: R3C observation preserves UNKNOWN skills and halts waiting or external action
+ok 83 - R3C observation preserves UNKNOWN skills and halts waiting or external action
+  ---
+  duration_ms: 0.726241
+  ...
+# Subtest: R3C prompt is defense in depth only and contains no authority expansion
+ok 84 - R3C prompt is defense in depth only and contains no authority expansion
+  ---
+  duration_ms: 0.372818
+  ...
+# (node:61385) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: F-01 direct OOB file overrides DB RUNNING through effective envelope
+ok 85 - F-01 direct OOB file overrides DB RUNNING through effective envelope
+  ---
+  duration_ms: 22.610715
+  ...
+# Subtest: F-02 category mapping requires Human Authority only for material categories
+ok 86 - F-02 category mapping requires Human Authority only for material categories
+  ---
+  duration_ms: 0.272043
+  ...
+# Subtest: F-02 integration keeps EXECUTION/EVIDENCE safe when content is in scope
+ok 87 - F-02 integration keeps EXECUTION/EVIDENCE safe when content is in scope
+  ---
+  duration_ms: 23.827183
+  ...
+# Subtest: F-03 dispatch and message persist one ExternalEffectCoordinator intent each
+ok 88 - F-03 dispatch and message persist one ExternalEffectCoordinator intent each
+  ---
+  duration_ms: 38.64214
+  ...
+# Subtest: F-04 post-review gate blocks PASS after kill during OpenAI await
+ok 89 - F-04 post-review gate blocks PASS after kill during OpenAI await
+  ---
+  duration_ms: 35.503262
+  ...
+# Subtest: F-05 revoked running/stopped webhook and restart late event do not transition state
+ok 90 - F-05 revoked running/stopped webhook and restart late event do not transition state
+  ---
+  duration_ms: 28.043096
+  ...
+# Subtest: F-06 actual reconcile observes cycles/results and blocks stagnant result
+ok 91 - F-06 actual reconcile observes cycles/results and blocks stagnant result
+  ---
+  duration_ms: 38.740274
+  ...
+# Subtest: F-07 producer cannot self-assign verification; Bridge registry performs act
+ok 92 - F-07 producer cannot self-assign verification; Bridge registry performs act
+  ---
+  duration_ms: 34.483377
+  ...
+# Subtest: F-08 message/correction idempotency prevents duplicate material sends
+ok 93 - F-08 message/correction idempotency prevents duplicate material sends
+  ---
+  duration_ms: 35.791663
+  ...
+# Subtest: F-09 fake provider usage is accounted and blocks next operation
+ok 94 - F-09 fake provider usage is accounted and blocks next operation
+  ---
+  duration_ms: 40.987932
+  ...
+# Subtest: F-10 LoopGovernor HALT remains HALT through envelope
+ok 95 - F-10 LoopGovernor HALT remains HALT through envelope
+  ---
+  duration_ms: 23.097915
+  ...
+# Subtest: F-11 concurrent dispatch creates one durable claim and one task
+ok 96 - F-11 concurrent dispatch creates one durable claim and one task
+  ---
+  duration_ms: 33.541524
+  ...
+# Subtest: F-12 duplicate re-review returns existing consumed review and no second correction
+ok 97 - F-12 duplicate re-review returns existing consumed review and no second correction
+  ---
+  duration_ms: 35.057508
+  ...
+# Subtest: F-02 composition maps CREDENTIAL and COST to Human Authority despite AUTO/PASS labels
+ok 98 - F-02 composition maps CREDENTIAL and COST to Human Authority despite AUTO/PASS labels
+  ---
+  duration_ms: 23.862281
+  ...
+# Subtest: F-03 local persistence failure after provider success becomes UNKNOWN and blocks blind redispatch
+ok 99 - F-03 local persistence failure after provider success becomes UNKNOWN and blocks blind redispatch
+  ---
+  duration_ms: 23.196778
+  ...
+# Subtest: F-04 contradicted evidence during OpenAI await blocks PASS
+ok 100 - F-04 contradicted evidence during OpenAI await blocks PASS
+  ---
+  duration_ms: 33.677011
+  ...
+# Subtest: F-06 repeated action through sendMessage reaches LoopGovernor PAUSE
+ok 101 - F-06 repeated action through sendMessage reaches LoopGovernor PAUSE
+  ---
+  duration_ms: 26.74606
+  ...
+# (node:61396) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: schemas reject missing fields and oversized messages
+ok 102 - schemas reject missing fields and oversized messages
+  ---
+  duration_ms: 1.426595
+  ...
+# Subtest: Manus waiting, stopped/background true and unknown are not treated as complete
+ok 103 - Manus waiting, stopped/background true and unknown are not treated as complete
+  ---
+  duration_ms: 106.395958
+  ...
+# Subtest: Manus stopped/background false reaches result received after lifecycle reconciliation
+ok 104 - Manus stopped/background false reaches result received after lifecycle reconciliation
+  ---
+  duration_ms: 45.340516
+  ...
+# Subtest: valid webhook signature and canonical URL pass
+ok 105 - valid webhook signature and canonical URL pass
+  ---
+  duration_ms: 3.305071
+  ...
+# Subtest: missing key, invalid signature, expired timestamp and URL mismatch reject
+ok 106 - missing key, invalid signature, expired timestamp and URL mismatch reject
+  ---
+  duration_ms: 1.876225
+  ...
+# Subtest: bridge authentication fails closed and uses constant-time comparison path
+ok 107 - bridge authentication fails closed and uses constant-time comparison path
+  ---
+  duration_ms: 0.616822
+  ...
+# (node:61421) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Gateway rejects missing auth, accepts authenticated decision and replays idempotently
+ok 108 - Gateway rejects missing auth, accepts authenticated decision and replays idempotently
+  ---
+  duration_ms: 83.13332
+  ...
+# Subtest: Webhook route fails closed before parsing when key/url are absent
+ok 109 - Webhook route fails closed before parsing when key/url are absent
+  ---
+  duration_ms: 31.91678
+  ...
+# (node:61432) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: SQLite migrations, repositories, transitions and restart recovery
+ok 110 - SQLite migrations, repositories, transitions and restart recovery
+  ---
+  duration_ms: 35.320452
+  ...
+# Subtest: transaction rolls back on failure
+ok 111 - transaction rolls back on failure
+  ---
+  duration_ms: 19.7063
+  ...
+1..111
+# tests 111
+# suites 0
+# pass 111
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2803.840502

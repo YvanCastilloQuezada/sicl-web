@@ -1,0 +1,3 @@
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix

@@ -1,0 +1,7 @@
+[33m1bf02bc[m test(H-005): harden causal propagation and fail-closed behavior
+[33m509f1fe[m fix(H-003/H-004): close Red Team validity and reaction findings
+[33mfb4a761[m feat: add architectural spatial synthesis foundation
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix

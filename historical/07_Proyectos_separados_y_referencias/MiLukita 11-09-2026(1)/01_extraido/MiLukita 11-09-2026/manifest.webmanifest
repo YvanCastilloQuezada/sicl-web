@@ -1,0 +1,22 @@
+{
+  "name": "MiLukita · Piloto virtual",
+  "short_name": "MiLukita",
+  "description": "Piloto gratuito de entretenimiento virtual verificable, sin dinero real ni retiros.",
+  "lang": "es-PE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071310",
+  "theme_color": "#0d5d43",
+  "orientation": "any",
+  "categories": ["entertainment", "games", "tv"],
+  "iarc_rating_id": "100",
+  "shortcuts": [{ "name": "MiLukita TV", "short_name": "TV", "url": "/tv?mode=online", "icons": [{ "src": "/pwa-icon.svg", "sizes": "any" }] }],
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

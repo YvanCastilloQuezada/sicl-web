@@ -1,0 +1,222 @@
+ORDEN DE RECUPERACIÓN — MILUKITA WORKSPACE ORIGINAL
+
+IMPORTANTE: esta es una operación de preservación y recuperación. No debes modificar, refactorizar, corregir ni reconstruir el proyecto.
+
+Necesito recuperar el workspace fuente original y completo de MiLukita conservando exactamente su estructura real de directorios y archivos.
+
+Una exportación anterior produjo aproximadamente 952 archivos pero eliminó todos los directorios y dejó los archivos aplanados. Ese resultado NO es utilizable como repositorio.
+
+FASE 1 — LOCALIZA EL WORKSPACE REAL
+
+Antes de exportar absolutamente nada, identifica el directorio raíz real desde el cual has estado desarrollando MiLukita.
+
+Debes comprobar físicamente que existen directorios y rutas reales.
+
+Busca especialmente, sin asumir que necesariamente tengan estos nombres:
+
+client/
+
+server/
+
+shared/
+
+drizzle/
+
+docs/
+
+scripts/
+
+y archivos de configuración del proyecto.
+
+Comprueba específicamente si existen físicamente archivos como:
+
+package.json
+
+pnpm-lock.yaml u otro lockfile
+
+tsconfig.json
+
+drizzle.config.ts
+
+client/src/App.tsx
+
+server/_core/index.ts
+
+server/territorialTrust.ts
+
+shared/territorialTrust.ts
+
+No crees ninguno si falta.
+
+Si alguno no existe, simplemente repórtalo.
+
+FASE 2 — DEMUESTRA LA ESTRUCTURA
+
+Antes de generar ZIP o realizar GitHub push, entrégame:
+
+ruta raíz real del workspace;
+árbol de directorios de los primeros niveles;
+número de directorios;
+número de archivos;
+presencia o ausencia de .git;
+presencia del package.json;
+presencia del lockfile;
+presencia de TypeScript/configuración;
+presencia de client, server, shared y drizzle, si realmente existen.
+
+STOP CONDITION TEMPORAL: si descubres que el workspace disponible también está aplanado o incompleto, DETENTE y repórtalo. No intentes reconstruir las carpetas.
+
+FASE 3 — PRESERVA EL ORIGINAL
+
+No modifiques el workspace original.
+
+No:
+
+arregles imports;
+actualices dependencias;
+cambies código;
+ejecutes migraciones;
+borres archivos;
+reorganices carpetas;
+reconstruyas rutas;
+modifiques MJP CORE.
+
+La prioridad absoluta es preservar exactamente lo que existe.
+
+FASE 4 — GITHUB
+
+Si el workspace original es estructurado y completo, determina si ya contiene .git.
+
+Si existe Git, informa:
+
+branch actual;
+commit actual;
+remotes configurados;
+estado del working tree.
+
+Si existe una conexión GitHub válida del proyecto, úsala solamente después de verificar que corresponde realmente a MiLukita.
+
+Si GitHub todavía no contiene este workspace completo, prepara la incorporación preservando toda la estructura.
+
+No uses force push.
+
+No sobrescribas historia existente.
+
+No borres ramas.
+
+No hagas squash destructivo del historial existente.
+
+Si necesitas crear una rama de recuperación, utiliza:
+
+recovery/original-manus-workspace
+
+El repositorio debe permanecer PRIVATE durante esta recuperación.
+
+Si necesitas una autorización externa de GitHub que yo tenga que realizar manualmente, DETENTE únicamente en ese punto y dime exactamente:
+
+1. qué botón debo pulsar;
+2. qué permiso se solicita;
+3. qué repositorio se utilizará;
+4. qué ocurrirá después de autorizar.
+
+No me des instrucciones genéricas de Git.
+
+FASE 5 — ZIP ESTRUCTURADO DE RESPALDO
+
+Independientemente de GitHub, si el entorno lo permite, genera además un ZIP del directorio raíz real del workspace.
+
+El ZIP debe conservar literalmente la jerarquía de directorios.
+
+Por ejemplo:
+
+client/src/...
+
+server/...
+
+shared/...
+
+drizzle/...
+
+etc.
+
+No utilices una herramienta de exportación que recopile archivos individualmente y elimine sus rutas.
+
+No incluir:
+
+node_modules;
+cachés;
+builds reproducibles;
+secretos .env;
+credenciales.
+
+Sí incluir los archivos fuente y de configuración necesarios para reconstruir el entorno.
+
+FASE 6 — VERIFICACIÓN DEL ZIP
+
+NO me entregues el ZIP inmediatamente después de crearlo.
+
+Primero vuelve a abrir/inspeccionar el ZIP generado y demuestra que conserva la estructura.
+
+Informa:
+
+DIRECTORIES IN ZIP = N
+
+FILES IN ZIP = N
+
+y muestra al menos 20 rutas completas representativas, incluyendo archivos de diferentes directorios.
+
+El criterio obligatorio es:
+
+DIRECTORIES IN ZIP > 0
+
+Si:
+
+DIRECTORIES IN ZIP = 0
+
+NO ENTREGUES ESE ZIP COMO BACKUP COMPLETO.
+
+Decláralo inválido y busca otra forma de empaquetar directamente el workspace.
+
+FASE 7 — ENTREGA
+
+Si todo es correcto quiero, preferentemente, ambas cosas:
+
+A. GitHub privado con el workspace estructurado.
+
+B. ZIP estructurado descargable como respaldo independiente.
+
+Para GitHub informa:
+
+OWNER
+
+REPOSITORY
+
+BRANCH
+
+COMMIT
+
+REMOTE
+
+Para ZIP informa:
+
+FILE NAME
+
+FILE SIZE
+
+DIRECTORY COUNT
+
+FILE COUNT
+
+y proporciona un enlace/archivo descargable real.
+
+REGLA FINAL
+
+RECUPERAR, NO RECONSTRUIR.
+
+PRESERVAR, NO CORREGIR.
+
+ESTRUCTURA REAL, NO ESTRUCTURA INFERIDA.
+
+NO DECLARES ÉXITO HASTA HABER VERIFICADO EL CONTENIDO DEL ARTEFACTO RESULTANTE.
+
+Al terminar, detente. No continúes implementando funcionalidades de MiLukita.

@@ -1,0 +1,22 @@
+{
+  "schema":"ARKI-LUCA-SHARED-CAPABILITY-MATRIX-1.0",
+  "status":"ARCHITECTURAL_ANALYSIS_ONLY",
+  "rows":[
+    {"capability":"identity","classification":"POTENTIALLY_SHARED","boundary":"federated adapter; separate authorization"},
+    {"capability":"device_session","classification":"POTENTIALLY_SHARED","boundary":"shared transport contract; product-specific permissions"},
+    {"capability":"coordinates_crs","classification":"POTENTIALLY_SHARED","boundary":"versioned spatial reference; no silent transform"},
+    {"capability":"evidence_provenance","classification":"POTENTIALLY_SHARED","boundary":"common provenance shape; separate semantic owners"},
+    {"capability":"computer_vision_ocr","classification":"POTENTIALLY_SHARED","boundary":"untrusted observation/evidence output"},
+    {"capability":"3d_glb_scene_transport","classification":"POTENTIALLY_SHARED","boundary":"representation only; not BIM ownership"},
+    {"capability":"maps_gis","classification":"POTENTIALLY_SHARED","boundary":"LUCA observation context; ARKI project/site semantics"},
+    {"capability":"storage_compute","classification":"POTENTIALLY_SHARED","boundary":"infrastructure sharing without shared domain tables"},
+    {"capability":"ai_model_gateway","classification":"POTENTIALLY_SHARED","boundary":"separate tools, prompts, permissions and human gates"},
+    {"capability":"bim_semantics","classification":"ARKI_SPECIFIC","boundary":"no direct LUCA writes"},
+    {"capability":"constraint_relationship_regeneration_transaction","classification":"ARKI_SPECIFIC","boundary":"kernel authority"},
+    {"capability":"world_observation_poi_community","classification":"LUCA_SPECIFIC","boundary":"no automatic BIM promotion"},
+    {"capability":"tv_remote_pairing","classification":"LUCA_SPECIFIC","boundary":"device control domain"},
+    {"capability":"mjp_core","classification":"MUST_NOT_BE_SHARED","boundary":"protected core isolation"},
+    {"capability":"cross_product_publication","classification":"MUST_NOT_BE_SHARED","boundary":"independent publication authority"},
+    {"capability":"shared_ambiguous_geometry_owner","classification":"MUST_NOT_BE_SHARED","boundary":"prevents semantic collision"}
+  ]
+}

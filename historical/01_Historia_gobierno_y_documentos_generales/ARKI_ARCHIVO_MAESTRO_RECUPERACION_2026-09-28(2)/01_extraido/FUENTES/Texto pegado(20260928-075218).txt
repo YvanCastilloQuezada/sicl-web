@@ -1,0 +1,1046 @@
+ARKI-REALITY-001 — Mapa integral de realidad del repositorio
+1. Veredicto ejecutivo
+text
+AUDIT_TYPE = READ_ONLY
+BASELINE = 71e72bb1abfb217bf4854f464ae443764281f469
+TAG = arki-m1-block2-final-2026-09-28
+TAG_RESOLVES_TO = 71e72bb1abfb217bf4854f464ae443764281f469
+WORKTREE = CLEAN
+MAIN_DIVERGENCE = NO
+Resultado general
+ARKI sí posee un núcleo funcional amplio para:
+modelo de proyectos;
+alternativas y generación paramétrica;
+evaluación y Pareto;
+simulaciones deterministas;
+restricciones y factibilidad;
+A-002;
+H-001 a H-005;
+modelo arquitectónico D-2;
+IFC import/export limitado;
+ARE-002 y ARE-003;
+ARKI-DRAW Block 1.1 y Block 2;
+API FastAPI;
+persistencia SQLite;
+trazabilidad y evidencia.
+Pero también existen límites importantes:
+No existe frontend en el repositorio.
+No existe visor 3D real.
+No existe flujo implementado 16 → 4 → 1.
+No existe renderer fotorrealista local.
+No existe BIM authoring nativo para Revit o Archicad.
+No existe conocimiento normativo legalmente validado.
+No existe exportación DXF, DWG, GLTF, GLB, OBJ, PNG o JPG.
+La generación geométrica arquitectónica real está limitada.
+El backend/API sí está declarado y probado, pero el frontend de usuario no existe.
+2. Inventario completo
+Los conteos incluyen archivos versionados y archivos generados localmente presentes en el árbol; los .pyc están separados conceptualmente como artefactos de ejecución.
+text
+TOTAL_FILES       = 670
+SOURCE_FILES      = 212
+TEST_FILES        = 254
+DOC_FILES         = 107
+FRONTEND_FILES    = 0
+BACKEND_FILES     = 18
+CONFIG_FILES      = 18
+FIXTURE_FILES     = 13
+ASSET_FILES       = 15
+SCRIPT_FILES      = 13
+Estructura principal
+Directorio
+Responsabilidad real
+src/sicl/
+Núcleo Python del sistema
+src/sicl/archi/
+Modelo arquitectónico D-2, mutaciones, relaciones e IFC
+src/sicl/a002/
+Suficiencia, aplicabilidad y gates del Principio 5
+src/sicl/drawing/
+ARKI-DRAW, RFC-030 y exportación gráfica
+src/sicl/h005/
+Recomputación selectiva
+src/sicl/compliance/
+ISO 42001, EU AI Act y etiquetado
+src/sicl/layout/
+Composición y validación de layouts
+src/sicl/laboratory/
+Generadores y registros de laboratorio
+api/
+FastAPI y rutas HTTP
+tests/
+Suites unitarias, integración y E2E
+docs/
+Contratos, auditorías, RFCs y fixtures
+scripts/
+Demos, migraciones y herramientas operativas
+data/
+Rulesets, símbolos, corpus y registros
+demo-kit/
+Datos y reportes de demostración
+Lenguajes y frameworks
+text
+Python 3.11+
+FastAPI
+Uvicorn
+SQLite
+IfcOpenShell
+ReportLab
+JSON Schema
+Pytest
+Docker
+Railway / Render deployment descriptors
+No se encontró:
+text
+React
+Next.js
+Vue
+Three.js
+WebGL
+TypeScript
+JavaScript frontend
+package.json
+CSS frontend
+HTML frontend
+3. Arquitectura real
+Flujo principal de dominio
+text
+API / CLI
+  ↓
+SQLiteRepository
+  ↓
+Project / Domain objects
+  ↓
+Generation / Evaluation / Simulation / Feasibility
+  ↓
+Alternatives / Comparisons / Pareto / Recommendations
+  ↓
+Events / Evidence / Snapshots / Audit trail
+Flujo arquitectónico D-2
+text
+ArchiElement
+  ↓
+ArchiMutation
+  ↓
+ArchiTransaction
+  ↓
+A-002 SufficiencyEngine
+  ↓
+H-002 ImpactAnalyzer
+  ↓
+H-003 ValidityAnalyzer
+  ↓
+H-004 ReactionPlanner
+  ↓
+H-005 SelectiveRecomputationEngine
+  ↓
+DerivationLedger / IFC staging
+  ↓
+Canonical architectural result
+Flujo de representación ARE
+text
+D2 ArchiElement
+  ↓
+ARE-003 Projection Engine
+  ↓
+GraphicScene
+  ↓
+GraphicEntity + GraphicTrace
+  ↓
+ARE-DRAW scene adapter
+  ↓
+Vector primitives
+  ↓
+SVG
+El flujo CASE-001 verificó esta cadena sobre un modelo controlado.
+4. API / Bridge / Server
+Estado
+text
+API_EXISTS = YES
+SERVER_EXISTS = YES
+BRIDGE_EXISTS = PARTIAL
+FRONTEND_BACKEND_PATH_EXISTS = NO FRONTEND
+FastAPI incluye:
+text
+/v1/*
+/projects/*
+/commands
+/v1/gis/*
+/health
+Rutas
+text
+ROUTER_DECLARED_ENTRIES = 115
+OPENAPI_EFFECTIVE_UNIQUE_PATHS = 91
+Los 115 registros declarados no equivalen a 115 URLs únicas porque existen rutas repetidas por método, prefijos y variantes. El OpenAPI efectivo contiene 91 paths únicos.
+El backend sí está montado en create_app() y las pruebas HTTP pasan.
+Limitación
+No existe una aplicación cliente que consuma estas rutas. Por tanto:
+text
+BACKEND_RUNTIME = IMPLEMENTED_VERIFIED
+USER_FACING_FRONTEND = NOT_IMPLEMENTED
+END_TO_END_BROWSER_PATH = NOT_VERIFIED
+5. Core / reasoning / alternativas
+Generación
+Capacidad
+Estado
+Generación paramétrica
+IMPLEMENTED_VERIFIED
+Variaciones por patrón
+IMPLEMENTED_VERIFIED
+Generación evolutiva determinista
+IMPLEMENTED_VERIFIED
+Generación asistida por LLM
+DECLARED_NOT_IMPLEMENTED / DEFINED_NOT_CONFIGURED
+Candidate IDs y hashes
+IMPLEMENTED_VERIFIED
+Seed determinista
+IMPLEMENTED_VERIFIED
+La generación evolutiva produce candidatos y ranking estable. El código declara explícitamente que el ranking no constituye por sí solo una decisión arquitectónica.
+Optimización
+Capacidad
+Estado
+Pareto front
+IMPLEMENTED_VERIFIED
+Trade-off matrix
+IMPLEMENTED_VERIFIED
+Feasible Pareto
+IMPLEMENTED_VERIFIED
+GenerativeOptimizer
+PARTIAL
+Solver externo
+NOT_IMPLEMENTED
+Optimización arquitectónica completa
+PARTIAL
+16 → 4 → 1
+text
+VISOR_16_TO_4_TO_1 = NOT_FOUND
+GALLERY = NOT_FOUND
+SHORTLIST_4 = NOT_FOUND
+WINNER_1 = NOT_FOUND
+HUMAN_SELECTION_UI = NOT_FOUND
+Sí existen piezas relacionadas:
+candidates;
+alternatives;
+ranking;
+Pareto;
+comparisons;
+human reviews;
+decisions;
+recommendations.
+Pero no existe una implementación canónica del embudo visual:
+text
+16 candidates → 4 finalists → 1 winner
+Tampoco existe una interfaz visual para seleccionar esos grupos.
+Agentes
+Existen agentes deterministas:
+BioclimaticAgent;
+StructuralAgent;
+EconomicAgent.
+Estado:
+text
+DECLARED = YES
+CONFIGURED = YES
+EXECUTABLE = YES
+CONNECTED = PARTIAL
+TESTED = YES
+LLM_AGENT_RUNTIME = NOT VERIFIED
+Son sistemas expertos parametrizados, no agentes autónomos con razonamiento general.
+6. Principio 5 / A-002 / compliance
+A-002
+text
+A002_IMPLEMENTATION = IMPLEMENTED_VERIFIED
+A002_TESTS = PASS
+APPLICABILITY = IMPLEMENTED_VERIFIED
+JURISDICTION_HANDLING = IMPLEMENTED_VERIFIED
+UNKNOWN_HANDLING = IMPLEMENTED_VERIFIED
+REQUIRED_STATES = IMPLEMENTED_VERIFIED
+EVIDENCE_GATE = IMPLEMENTED_VERIFIED
+A-002 realiza:
+resolución de policy;
+evaluación de evidencia;
+validación de valores;
+aplicabilidad por campo;
+jurisdicción;
+estados KNOWN, OBSERVED, UNKNOWN, etc.;
+bloqueo fail-closed cuando corresponde;
+salida machine-readable.
+Conocimiento normativo
+Existe un corpus RNE controlado y validado estructuralmente.
+Sin embargo:
+text
+RNE_KNOWLEDGE = SAMPLE_UNVERIFIED
+LEGAL_DETERMINATION = NOT_IMPLEMENTED
+AUTOMATIC_LEGAL_COMPLIANCE = NO
+HUMAN_REVIEW = REQUIRED
+El código distingue correctamente entre:
+text
+GENERIC_CONSTRAINT_ENGINE
+y:
+text
+LEGAL / REGULATORY DETERMINATION
+El corpus no constituye por sí mismo evidencia legal vigente.
+7. Functional intelligence
+Capacidad
+Estado
+Spaces / rooms
+IMPLEMENTED_VERIFIED
+Program
+PARTIAL
+Adjacency
+PARTIAL
+Relationships
+IMPLEMENTED_VERIFIED
+Circulation
+PARTIAL
+Flows
+PARTIAL
+Access
+PARTIAL
+Functional topology
+PARTIAL
+Zoning
+PARTIAL
+Spatial graph
+PARTIAL
+Space syntax
+DECLARED_NOT_IMPLEMENTED
+Movement simulation
+PARTIAL
+Existe base útil para el Principio 6:
+La forma sigue a la función.
+Pero todavía no existe un motor integral que conecte automáticamente programa, adyacencias, circulación, evaluación funcional y generación geométrica completa.
+8. D2 / Architectural Model
+Tipos encontrados
+Tipo
+Create
+Read
+Mutate
+Project
+Export
+Trace
+Site
+Sí
+Sí
+Parcial
+Parcial
+IFC
+Sí
+Space
+Sí
+Sí
+Sí
+Sí
+IFC
+Sí
+Wall
+Sí
+Sí
+Sí
+Sí
+IFC
+Sí
+Slab
+Sí
+Sí
+Sí
+Parcial
+IFC
+Sí
+Column
+Sí
+Sí
+Sí
+Parcial
+IFC
+Sí
+Beam
+Sí
+Sí
+Sí
+Parcial
+IFC
+Sí
+Door
+Sí
+Sí
+Sí
+Sí
+IFC
+Sí
+Window
+Sí
+Sí
+Sí
+Sí
+IFC
+Sí
+Opening
+Sí
+Sí
+Sí
+Parcial
+IFC
+Sí
+Stair
+No aparece como tipo D2 canónico principal
+—
+—
+—
+—
+—
+Delete
+No se observó un flujo canónico completo de eliminación de elementos arquitectónicos. La arquitectura favorece:
+mutaciones;
+versiones;
+append-only;
+trazabilidad;
+invalidación/recomputación selectiva.
+text
+DELETE_CANONICAL_D2 = NOT_VERIFIED
+9. Geometry
+Implementado
+Point;
+Line;
+Polyline;
+Rect;
+Circle;
+Arc;
+Text;
+Hatch;
+Dimension;
+2D transforms básicas;
+bounds;
+escala;
+proyección ortográfica 2D;
+SVG vectorial.
+Parcial o no implementado
+Capacidad
+Estado
+Extruded rectangle IFC
+IMPLEMENTED_VERIFIED
+Extruded circle IFC
+DECLARED_NOT_IMPLEMENTED y fail-closed
+Mesh
+NOT_IMPLEMENTED
+BRep
+NOT_IMPLEMENTED
+Boolean geometry
+NOT_IMPLEMENTED
+3D solid engine
+PARTIAL
+Collision/layout 2D
+IMPLEMENTED_VERIFIED
+Collision 3D
+NOT_IMPLEMENTED
+Real-time geometry editor
+NOT_IMPLEMENTED
+10. BIM / IFC
+IFC
+Capacidad
+Estado
+IFC import con IfcOpenShell
+IMPLEMENTED_VERIFIED
+IFC snapshot
+IMPLEMENTED_VERIFIED
+IFC GlobalId mapping
+IMPLEMENTED_VERIFIED
+IFC deterministic export D-2
+IMPLEMENTED_VERIFIED
+IFC round-trip
+PARTIAL
+IFC semantic mapping
+PARTIAL
+IFC authoring completo
+NOT_IMPLEMENTED
+BIM reasoning
+NOT_IMPLEMENTED
+Revit native integration
+BLOCKED_BY_TOOLING
+Archicad native integration
+BLOCKED_BY_TOOLING
+Fixture IFC
+El archivo real:
+text
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01.ifc
+contiene:
+text
+TOTAL_ENTITIES = 1094
+IfcWall = 14
+IfcDoor = 4
+IfcWindow = 6
+La presencia de 1094 entidades demuestra que no es el IFC sintético mínimo de 551 bytes mencionado en órdenes históricas; el fixture actual es sustancialmente mayor.
+11. Representation Engine
+ARE-001
+text
+STATUS = CANONICAL_VERIFIED
+Es principalmente un contrato arquitectónico y backlog documental.
+ARE-002
+text
+STATUS = IMPLEMENTED_VERIFIED
+Incluye:
+SourceSnapshot;
+ViewDefinition;
+RepresentationProfile;
+GraphicScene;
+GraphicEntity;
+GraphicTrace;
+freshness;
+lineage;
+evidence gate;
+deterministic fingerprints;
+conflict detection;
+immutable structures.
+ARE-003
+text
+STATUS = IMPLEMENTED_VERIFIED
+Incluye:
+proyección 2D ortográfica;
+corte explícito;
+clasificación BELOW_CUT, CUT, ABOVE_BEYOND;
+dirección de proyección;
+trazabilidad;
+IDs deterministas;
+adaptación a GraphicScene.
+Limitación:
+text
+NO_FULL_3D_PROJECTION
+NO_PERSPECTIVE_ENGINE
+NO_PHOTOREALISTIC_RENDER
+12. ARKI-DRAW
+Primitivas
+Primitive
+Defined
+Serializable
+Tested
+Connected ARE
+Connected D2
+Point
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Line
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Polyline
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Rect
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Circle
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Arc
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Text
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Hatch
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Dimension
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Viewport
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Sheet
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Scale
+Sí
+Sí
+Sí
+Sí
+Indirecto
+SVG
+Sí
+Sí
+Sí
+Sí
+Indirecto
+Estado
+text
+ARKI_DRAW_BLOCK1_1 = CANONICAL_VERIFIED
+ARKI_DRAW_BLOCK2 = IMPLEMENTED_VERIFIED
+SVG_VECTOR_EXPORT = IMPLEMENTED_VERIFIED
+PDF_DRAWING_EXPORT = IMPLEMENTED_VERIFIED
+El PDF RFC-030 existente es un generador técnico específico y no equivale todavía a un sistema CAD/BIM profesional completo.
+13. Drawing types
+Tipo
+Estado
+Plan
+IMPLEMENTED_VERIFIED
+Dimensioned plan
+IMPLEMENTED_VERIFIED
+Section
+IMPLEMENTED_VERIFIED
+Elevation
+IMPLEMENTED_VERIFIED
+Roof plan
+IMPLEMENTED_VERIFIED
+Axonometric
+NOT_VERIFIED
+Circulation plan
+PARTIAL
+Relationship diagram
+PARTIAL
+Zoning diagram
+PARTIAL
+Functional diagram
+PARTIAL
+Detail drawing
+NOT_IMPLEMENTED
+Sheet
+IMPLEMENTED_VERIFIED
+Title block
+IMPLEMENTED_VERIFIED
+Professional technical dossier
+PARTIAL
+14. Dimensions
+Tipos definidos
+LINEAR_CHAIN;
+LINEAR_OVERALL;
+LINEAR_BETWEEN_AXES;
+RADIAL;
+ANGULAR.
+Estado geométrico
+Tipo
+Defined
+Implemented
+Geometrically correct
+Serialized
+Tested
+Auto-generated
+Linear chain
+Sí
+Sí
+Sí
+Sí
+Sí
+Parcial
+Linear overall
+Sí
+Sí
+Sí
+Sí
+Sí
+Parcial
+Between axes
+Sí
+Sí
+Sí
+Sí
+Sí
+Parcial
+Radial
+Sí
+No
+No
+No
+Sí, fail-closed
+No
+Angular
+Sí
+No
+No
+No
+Sí, fail-closed
+No
+La decisión actual es correcta: radial y angular no se falsifican; fallan cerrado.
+15. Sheets / cajetín / print
+Implementado
+A3;
+landscape;
+viewport;
+scale;
+title block;
+project;
+sheet;
+title;
+scale;
+date;
+author;
+revision;
+status;
+CAP number;
+specialty;
+SVG sheet;
+PDF drawing set.
+Limitaciones
+text
+VECTOR_PDF = IMPLEMENTED_PARTIAL
+NATIVE_CAD_PRINT_ENGINE = NOT_IMPLEMENTED
+PLOTTER_CALIBRATION = NOT_VERIFIED
+PROFESSIONAL_SIGNED_DOCUMENT = NOT_IMPLEMENTED
+El cajetín existe como contrato de datos y representación, pero no constituye una firma profesional ni una aprobación colegiada.
+16. Exportadores
+Formato
+Estado
+SVG
+REAL EXPORTER
+PDF
+REAL EXPORTER
+IFC import
+REAL IMPORTER
+IFC D-2 export
+REAL EXPORTER, limitado
+JSON
+REAL EXPORTER
+CSV
+REAL EXPORTER
+TXT report
+REAL EXPORTER
+DXF
+NOT_IMPLEMENTED
+DWG
+NOT_IMPLEMENTED
+GLTF
+NOT_IMPLEMENTED
+GLB
+NOT_IMPLEMENTED
+OBJ
+NOT_IMPLEMENTED
+PNG
+NOT_IMPLEMENTED en el core
+JPG
+NOT_IMPLEMENTED
+17. 3D viewer y render
+text
+THREE_JS = NOT_FOUND
+WEBGL = NOT_FOUND
+IFC_VIEWER = NOT_FOUND
+ORBIT_CAMERA = NOT_FOUND
+MESH_VIEWER = NOT_FOUND
+GLTF_VIEWER = NOT_FOUND
+PHOTOREALISTIC_RENDERER = NOT_FOUND
+BLENDER_RUNTIME = NOT_FOUND
+CYCLES = NOT_FOUND
+Los PNG y PDFs existentes son fixtures o referencias; no prueban un renderer integrado.
+text
+VIEWER = NO
+RENDERER = NO
+PHOTOREALISTIC_RENDERER = NO
+18. Spatial / GIS / site intelligence
+Spatial
+SpatialRepresentation y spatial_generator.py existen y están probados.
+Estado:
+text
+SPATIAL_MODEL = IMPLEMENTED_VERIFIED
+ANALYTICAL_GEOMETRY = IMPLEMENTED_VERIFIED
+UPAO001_GENERATOR = IMPLEMENTED_VERIFIED
+SURVEY-GRADE_GEOMETRY = NO
+El generador UPAO-001 está documentado como sintético y educativo.
+GIS
+Existe:
+catálogo GIS;
+observaciones de ubicación;
+snapshots de parcela;
+consultas OGC declaradas;
+conexión HTTP para datos externos;
+fallback fixture.
+Estado:
+text
+GIS_CONTRACT = IMPLEMENTED_VERIFIED
+LIVE_GIS_DATA = IMPLEMENTED_PARTIAL
+SURVEY/CADASTRAL_AUTHORITY = NOT_VERIFIED
+Site intelligence
+Existe integración con Open-Meteo mediante HTTP y fallback controlado.
+text
+LIVE_WEATHER/SOLAR = IMPLEMENTED_PARTIAL
+DETERMINISTIC_FALLBACK = IMPLEMENTED_VERIFIED
+CLIMATE_CERTIFICATION = NOT_IMPLEMENTED
+19. Knowledge / RAG / documents
+Existe
+catálogo de conocimiento de diseño;
+fuentes bibliográficas;
+patrones;
+corpus RNE controlado;
+evidencia;
+hashes;
+trazabilidad;
+estados de revisión.
+No existe
+text
+VECTOR_DATABASE = NOT_FOUND
+EMBEDDINGS = NOT_FOUND
+RAG_PIPELINE = NOT_FOUND
+SEMANTIC_RETRIEVAL_ENGINE = NOT_FOUND
+AUTOMATIC_NORMATIVE_RETRIEVAL = NOT_FOUND
+Estado global:
+text
+KNOWLEDGE_AVAILABLE = IMPLEMENTED_VERIFIED
+KNOWLEDGE_INTEGRATED_IN_GENERATION = PARTIAL
+LEGAL_NORMATIVE_REASONING = NOT_IMPLEMENTED
+20. H-001 a H-005
+Módulo
+Estado
+H-001 Derivation
+CANONICAL_VERIFIED
+H-002 Impact
+CANONICAL_VERIFIED
+H-003 Validity
+CANONICAL_VERIFIED
+H-004 Reaction
+CANONICAL_VERIFIED
+H-005 Selective Recomputation
+CANONICAL_VERIFIED
+H-006
+No encontrado
+Se verificó la presencia de:
+ledger;
+record batch atómico;
+event store;
+idempotencia;
+impacto;
+validez;
+reacción;
+recomputación selectiva;
+bloqueos fail-closed;
+persistencia;
+reapertura;
+integridad.
+21. Event store / replay
+Implementado
+SQLite event store;
+eventos append-only;
+triggers contra update/delete;
+snapshots;
+evidencia append-only;
+snapshots BIM append-only;
+snapshots normativos append-only;
+parcel snapshots append-only;
+add_events_atomic();
+record_batch();
+recuperación por replay.
+Distinción importante
+text
+EVENT_REPLAY ≠ IMPACT_PROPAGATION
+El repositorio implementa ambos conceptos por separado:
+replay reconstruye estado;
+H-002 calcula consecuencias sobre derivaciones registradas.
+22. Simulación
+Tipo
+Estado
+Basic deterministic
+IMPLEMENTED_VERIFIED
+Sensitivity
+IMPLEMENTED_VERIFIED
+Monte Carlo
+IMPLEMENTED_VERIFIED
+Environmental
+PARTIAL
+Solar/daylight physical simulation
+NOT_IMPLEMENTED
+Thermal engine
+NOT_IMPLEMENTED
+Ventilation engine
+NOT_IMPLEMENTED
+Structural solver
+NOT_IMPLEMENTED
+Cost/schedule simulation
+PARTIAL
+Urban simulation
+NOT_IMPLEMENTED
+Las simulaciones actuales son analíticas y deterministas; no constituyen motores físicos de ingeniería.
+23. Cost / quantities
+Existe soporte parcial para:
+áreas;
+parámetros;
+objetivos;
+métricas espaciales;
+exportación CSV;
+valores de costo básicos;
+evaluaciones económicas.
+No se encontró un sistema completo de:
+text
+BOQ PROFESIONAL = NO
+METRADOS NORMATIVOS = NO
+UNIT PRICE DATABASE = NO
+CONSTRUCTION COST ENGINE = PARTIAL
+QUANTITY TAKEOFF FROM BIM = NO
+24. Structural / MEP
+Existen
+StructuralAgent;
+clasificación de parámetros;
+entidades IFC genéricas;
+referencias normativas para algunos tipos.
+No existe un solver completo para
+text
+STRUCTURAL ANALYSIS = NO
+ELECTRICAL DESIGN = NO
+PLUMBING DESIGN = NO
+HVAC DESIGN = NO
+FIRE ENGINEERING = NO
+MEP COORDINATION = NO
+25. Fixtures, mocks y datos sintéticos
+Se encontraron:
+fixtures UPAO-001;
+fixture RNE;
+IFC sintético;
+fixtures RFC-030;
+referencias visuales;
+demo-kit;
+pruebas con tmp_path;
+mocks y monkeypatches;
+test E2E Ollama declarado.
+La auditoría distingue correctamente entre:
+text
+FIXTURE EXISTS ≠ REAL PROJECT DATA
+SYNTHETIC IFC ≠ BIM AUTHORING
+RNE CORPUS ≠ LEGAL VALIDATION
+MOCKED HTTP ≠ LIVE EXTERNAL INTEGRATION
+El caso CASE-001 fue ejecutado con datos controlados y no prueba capacidades de producción general.
+26. Test infrastructure
+Suite global
+text
+COLLECTED = 685
+PASSED = 685
+FAILED = 0
+Warnings observados:
+StarletteDeprecationWarning por la integración de TestClient con httpx.
+PytestUnraisableExceptionWarning relacionado con destrucción interna de un objeto IfcOpenShell durante una prueba de IFC inválido.
+Estos warnings no causaron fallos, pero deben registrarse como deuda técnica.
+Conteos relevantes
+Suite
+Tests
+A-002
+42
+H-001/H-002/H-003/H-004
+65
+H-005
+28
+D-2 + atomicidad
+42
+ARE-002 + ARE-003
+34
+ARKI-DRAW / RFC-030 / RFC-034.1
+97
+Global
+685
+Clasificación de tests
+Existen:
+unit tests;
+integración HTTP;
+filesystem tests;
+IFC real con IfcOpenShell;
+PDF real con ReportLab;
+mocks;
+monkeypatch;
+subprocess;
+pruebas E2E controladas.
+La suite verde demuestra regresión funcional, pero no sustituye auditoría arquitectónica ni revisión visual profesional.
+27. Capacidades declaradas pero no existentes o incompletas
+No encontradas
+text
+FRONTEND_WEB_APP
+16_TO_4_TO_1_VIEWER
+THREE_JS_VIEWER
+WEBGL_VIEWER
+FULL_3D_EDITOR
+PHOTOREALISTIC_RENDERER
+BLENDER_INTEGRATION
+RAG_VECTOR_DATABASE
+EMBEDDINGS_PIPELINE
+DXF_EXPORT
+DWG_EXPORT
+GLTF_EXPORT
+GLB_EXPORT
+OBJ_EXPORT
+PROFESSIONAL_BIM_AUTHORING
+STRUCTURAL_SOLVER
+MEP_SOLVER
+FULL_QUANTITY_TAKEOFF
+LEGAL_AUTOMATIC_COMPLIANCE
+Parciales
+text
+BIM
+IFC ROUND-TRIP
+GIS LIVE DATA
+FUNCTIONAL CIRCULATION
+COST
+ENVIRONMENTAL SIMULATION
+3D GEOMETRY
+PROFESSIONAL DRAWING DOSSIER
+FRONTEND-BACKEND USER FLOW
+HUMAN DECISION UI
+28. Rutas peligrosas o que no deben reutilizarse sin revisión
+text
+DO_NOT_REUSE:
+- synthetic spatial generators as real survey data;
+- fallback site observations as verified site intelligence;
+- RNE sample corpus as legal compliance;
+- IFC fixtures as BIM authoring evidence;
+- demo-kit outputs as production project state;
+- PDF drawing generator as a full CAD engine;
+- deterministic expert agents as autonomous architectural intelligence;
+- Pareto ranking as human architectural selection;
+- tests alone as proof of professional validity;
+- documentation claims without runtime path evidence.
+29. Estado final de repositorio
+text
+BRANCH = main
+HEAD = 71e72bb1abfb217bf4854f464ae443764281f469
+ORIGIN_MAIN = 71e72bb1abfb217bf4854f464ae443764281f469
+TAG = arki-m1-block2-final-2026-09-28
+TAG_COMMIT = 71e72bb1abfb217bf4854f464ae443764281f469
+WORKTREE = CLEAN
+PERSISTENT_FILE_CHANGES = 0
+COMMITS = 0
+PUSHES = 0
+MERGES = 0
+TAGS_CREATED = 0
+DEPENDENCIES_INSTALLED = 0
+Veredicto final
+text
+ARKI_REALITY_AUDIT = COMPLETE
+REPOSITORY_BASELINE = VERIFIED
+GLOBAL_TESTS = 685 PASS
+CORE = CANONICAL_VERIFIED
+D2 = CANONICAL_VERIFIED
+ARE-002 = IMPLEMENTED_VERIFIED
+ARE-003 = IMPLEMENTED_VERIFIED
+ARKI-DRAW = CANONICAL_VERIFIED / IMPLEMENTED_VERIFIED
+API_BACKEND = IMPLEMENTED_VERIFIED
+FRONTEND = NOT_IMPLEMENTED
+16_TO_4_TO_1 = NOT_IMPLEMENTED
+FULL_3D = NOT_IMPLEMENTED
+PHOTOREALISTIC_RENDER = NOT_IMPLEMENTED
+LEGAL_NORMATIVE_DETERMINATION = NOT_IMPLEMENTED
+READ_ONLY_INTEGRITY = PASS
+La auditoría se detiene aquí conforme a la orden. No se modificó el repositorio, no se creó ningún artefacto, no se hizo commit, push, merge ni tag.
+Tarea completada
+2:51
+¿Cómo fue este resultado?

@@ -1,0 +1,87 @@
+# ARKI BIM SERVICE PORTAL S1 OUTPUTS
+2026-09-23T18:18:13Z
+## check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+## portal
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+PORTAL-01 PASS service publication gate
+PORTAL-02 PASS upload size gate
+PORTAL-03 PASS upload integrity gate
+PORTAL-04 PASS preflight quote
+PORTAL-05 PASS missing input
+PORTAL-06 PASS state transition
+PORTAL-07 PASS illegal transition
+PORTAL-08 PASS pricing policy
+PORTAL-09 PASS payment bypass
+PORTAL-10 PASS payment evidence
+PORTAL-11 PASS project isolation
+PORTAL-12 PASS delivery contract
+{
+  "status": "PASS",
+  "checks": 12,
+  "realPayments": false,
+  "publicLaunch": false,
+  "uncontrolledUploads": false,
+  "professionalCertification": false
+}
+## LKS
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "codebooks": [
+    "LKC-001-IFC",
+    "LKC-002-SMART-CITIES",
+    "LKC-003-URBAN-DIGITAL-TWIN"
+  ],
+  "twoKeyRule": "PASS",
+  "humanAuthorityGate": "PASS",
+  "noConfidenceTheater": "PASS",
+  "capabilityAtlas": "PASS",
+  "gapRegister": "PASS",
+  "noChangeClosure": "PASS",
+  "changeDetection": "PASS",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED"
+}
+## OPBI
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "opportunityIdentity": "PASS",
+  "requirementTraceability": "PASS",
+  "fatalRequirement": "PASS",
+  "evidenceBoundary": "PASS",
+  "eligibility": "PASS",
+  "submissionGate": "PASS",
+  "humanAuthority": "PASS",
+  "boundedStatus": "PASS"
+}
+## build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.57s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+FINAL_EXIT_CODE=0

@@ -1,0 +1,25 @@
+LEVEL_ID: L02
+NAME: "Representador"
+DEFINITION: "ARKI representa el proyecto canónicamente (geometría, entidades, relaciones) sin interpretar."
+INPUTS:
+  - project_data: "CanonicalBuildingModel"
+  - user_instruction: "string"
+OUTPUTS:
+  - representation: "2D/3D/structured_data"
+  - entity_list: "list<Entity>"
+CONTRACTS:
+  - "ONE GEOMETRY. ONE SEMANTICS. MULTIPLE OUTPUTS."
+  - "NO DRAW WHAT THE MODEL DOES NOT KNOW"
+  - "VOLUME ≠ SPACE"
+  - "BOUNDARY ≠ WALL"
+RULES:
+  - "INV-K-004: GEOMETRY ≠ ARCHITECTURAL MEANING"
+  - "INV-K-005: VOLUME ≠ SPACE"
+  - "INV-K-013: BOUNDARY ≠ WALL"
+GATES:
+  - "GATE_L02_PASS: Representación canónica generada sin interpretación arquitectónica"
+EVIDENCE_REQUIRED:
+  - "CanonicalBuildingModel instance"
+  - "Output representation (GLB/IFC/JSON)"
+  - "Semantic consistency check"
+CURRENT_STATUS: "DEMONSTRATED"

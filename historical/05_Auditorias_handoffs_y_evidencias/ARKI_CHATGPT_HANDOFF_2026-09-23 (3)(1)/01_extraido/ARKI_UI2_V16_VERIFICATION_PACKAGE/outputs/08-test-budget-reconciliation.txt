@@ -1,0 +1,21 @@
+=== 08-test-budget-reconciliation ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "priceBookItems": 5,
+  "partidasVerified": 60,
+  "partidasSum": 1270854.8,
+  "elementCostsSum": 3402055.2,
+  "totalCalculated": 4672910,
+  "modelBudget": 4672910,
+  "formworkWithTraceability": 164,
+  "checks": [
+    "PriceBook schema, id, version, source, currency",
+    "items válidos",
+    "idempotencia de fromApuDatabase",
+    "coherencia item ↔ APU original",
+    "partidas del modelo referencian PriceBook",
+    "suma de partidas coincide con totalBudgetPen",
+    "encofrados con modelVersion, elementVersion, sourceSnapshotId, status"
+  ]
+}

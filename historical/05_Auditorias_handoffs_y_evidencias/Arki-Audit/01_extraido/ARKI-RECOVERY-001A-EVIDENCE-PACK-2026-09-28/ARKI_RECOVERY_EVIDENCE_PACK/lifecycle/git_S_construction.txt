@@ -1,0 +1,14 @@
+[33m34617e0[m test(case): add controlled house E2E validation
+[33me093da4[m fix(are): close source lineage and view semantics
+[33md5df55c[m feat(d2.2r): resolve material architectural model findings
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+[33m8b1b6c2[m feat(A-002): implement input sufficiency engine and gate
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33m6fb8be8[m feat(rfc-030): add ISO128 RNE drawing standard
+[33m69c8c3a[m feat: register APL-253 design knowledge metadata
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33m57b095e[m feat: add immutable multiscale variable catalog foundation
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix

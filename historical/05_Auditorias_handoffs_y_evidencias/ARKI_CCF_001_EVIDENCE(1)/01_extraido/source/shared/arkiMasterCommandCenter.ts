@@ -1,0 +1,9 @@
+export const MASTER_COMMAND_CENTER_SCHEMA_VERSION = "1.0" as const;
+export type AreaState = "ACTIVE" | "WORKING" | "TESTING" | "WAITING" | "BLOCKED" | "HUMAN_GATE" | "IDLE" | "DEGRADED" | "ERROR" | "OFFLINE" | "NOT_IMPLEMENTED" | "DOCUMENT_ONLY" | "UNKNOWN";
+export type AreaMaturity = "RUNTIME_EVIDENCE" | "CODE_EVIDENCE" | "DOCUMENTED" | "FUTURE" | "UNKNOWN";
+export type AreaRegistryEntry = { areaId: string; name: string; description: string; status: AreaState; maturity: AreaMaturity; source: string[]; activeObjective?: string; currentTask?: string; capabilities: string[]; dependencies: string[]; dependents: string[]; tools: string[]; workers: string[]; inputs: string[]; outputs: string[]; unknowns: string[]; deficits: string[]; risks: string[]; tests: string[]; evidence: string[]; humanGates: number; lastActivity?: string; health: "OBSERVED" | "UNKNOWN" };
+export type DependencyNode = { id: string; kind: "AREA" | "CAPABILITY" | "OBJECTIVE" | "TASK" | "INPUT" | "OUTPUT" | "TOOL" | "EVIDENCE" | "HUMAN_GATE"; label: string; status: string; source: string };
+export type DependencyEdge = { from: string; to: string; relation: "REQUIRES" | "BLOCKS" | "INVALIDATES" | "PRODUCES" | "EVIDENCED_BY" | "GATED_BY"; source: string };
+export type DependencyGraph = { schemaVersion: typeof MASTER_COMMAND_CENTER_SCHEMA_VERSION; nodes: DependencyNode[]; edges: DependencyEdge[] };
+export function areaIsTruthful(area: AreaRegistryEntry): boolean { return area.health === "OBSERVED" && area.source.length > 0; }
+export function dependencyImpact(graph: DependencyGraph, changedId: string): string[] { const impacted = new Set<string>(); const walk = (id: string) => { for (const edge of graph.edges.filter(candidate => candidate.from === id && ["BLOCKS", "INVALIDATES", "PRODUCES"].includes(candidate.relation))) if (!impacted.has(edge.to)) { impacted.add(edge.to); walk(edge.to); } }; walk(changedId); return Array.from(impacted); }

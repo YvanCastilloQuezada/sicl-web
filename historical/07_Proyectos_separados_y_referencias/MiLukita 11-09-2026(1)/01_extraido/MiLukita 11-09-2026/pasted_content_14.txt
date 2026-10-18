@@ -1,0 +1,94 @@
+ORDEN PARA MANUS: LUKA DEVICE DETECTOR + LUKA INTENT ENGINE + LUKA TV RUNTIME
+
+MOTIVO GLOBAL (POR QUÉ SE EJECUTA ESTA ORDEN):
+LUKA OS está arquitectónicamente listo (contexto, intención, revelación progresiva), pero el usuario no puede usarlo todavía porque faltan los módulos que conectan la "visión" con la "realidad técnica". Esta orden implementa los 3 módulos críticos que permitirán que LUKA detecte dispositivos, entienda comandos de voz y se ejecute en un Smart TV real. Sin estos módulos, LUKA es solo un diseño; con ellos, LUKA es un producto funcional.
+
+MODULO 1: LUKA DEVICE DETECTOR (Detector de Dispositivos)
+MOTIVO: LUKA no puede "saber" qué modo activar (TV, Audio, Domótica, etc.) si no detecta qué dispositivo está conectado. Un "detector" actúa como los "ojos" de LUKA, escaneando la red WiFi y Bluetooth para identificar automáticamente qué hay alrededor.
+
+IMPLEMENTACIÓN:
+
+WiFi Scanner: Detectar automáticamente Smart TVs, TV Boxes, Soundbars, Smart Bulbs, AC, Ventiladores, Enchufes.
+
+Bluetooth Scanner: Detectar automáticamente Consolas, Auriculares, Bocinas, Smartwatches, Smart Rings, E-Bikes, Patinetes.
+
+Automatización de Modos:
+
+Si detecta un Smart TV → Automáticamente activa LUKA TV.
+
+Si detecta una Soundbar → Automáticamente activa LUKA AUDIO.
+
+Si detecta una Luz inteligente → Automáticamente activa LUKA LIGHTS & CLIMATE.
+
+ENTREGABLES:
+
+Código des WiFi Scanner.
+
+Código des Bluetooth Scanner.
+
+Código des Mode Activator (qui active automatiquement le bon mode).
+
+MODULO 2: LUKA INTENT ENGINE (Motor de Intenciones)
+MOTIVO: LUKA doit être un agent, pas une "app avec des boutons". Le Intent Engine est le cerveau qui transforme les commandes vocales du utilisateur en actions concrètes. Sans lui, LUKA ne sait pas si "je veux jouer" signifie "ouvrir le Gamepad" ou "voir le TV".
+
+IMPLEMENTACIÓN:
+
+Base de données d'intentions (mots-clés):
+
+"LUKA, je veux voir le TV" → LUKA TV
+
+"LUKA, je veux écrire" → LUKA TECLADO
+
+"LUKA, je veux jouer" → LUKA GAMEPAD
+
+"LUKA, je veux être dans la rue" → LUKA VISOR AR
+
+"LUKA, je veux augmenter la voix" → LUKA AUDIO
+
+"LUKA, je veux diminuer les lumières" → LUKA LIGHTS & CLIMATE
+
+"LUKA, configuration" → LUKA CONFIG
+
+Verifikationsprozess: LUKA wiederholt die Anweisung, bevor sie ausgeführt wird: "Je vais augmenter la voix de 20%". Der Nutzer bestätigt: "Ja" oder "Nein".
+
+ENTREGABLES:
+
+Code des Intent Engine (base de données d'intentions).
+
+Code des Verifikationsprozesses (voz).
+
+Testbericht mit 10 Befehlen, die durch Sprache verarbeitet wurden.
+
+MODULO 3: LUKA TV RUNTIME (Runtime für Smart TVs)
+MOTIVO: Damit LUKA tatsächlich auf einem Smart TV funktioniert, muss sie sich mit dem Gerät verbinden und die WebApp darauf ausführen. Ohne den TV Runtime, kann LUKA keinen Kanal wechseln, kein Netflix öffnen und keine Lautstärke regeln.
+
+IMPLEMENTIERUNG:
+
+Android TV / Google TV: Implementieren Sie das Google Cast SDK und die Trusted Web Activity (TWA).
+
+Samsung Tizen: Implementieren Sie den DLNA/UPnP-Standard (oder nutzen Sie den Tizen SDK).
+
+Spatial Navigation (LRUD): Implementieren Sie die Navigation mit den Pfeilen und OK (damit das Bedienfeld der Fernbedienung durch die WebApp navigieren kann).
+
+Zustand: Bei Erfolg "Conectado a Smart TV" (mit grünem Haken), bei Fehler "No he encontrado tu TV".
+
+ENTREGABLES:
+
+Code des Google Cast SDK (Android).
+
+Code des DLNA/UPnP (Samsung).
+
+Code des Spatial Navigation (LRUD).
+
+Testbericht mit drei Android TVs und zwei Samsung TVs.
+
+REGELN:
+
+MJP CORE bleibt unverändert.
+
+LUKA muss aktiviert werden, bevor sie befragt wird.
+
+LUKA kann nicht mit einem "Menü" angezeigt werden, sondern reagiert auf den Kontext.
+
+CONCLUSION:
+Diese drei Module sind die Grundlage für die Nutzung des LUKA-Ökosystems. Mit dem DEVICE DETECTOR weiß LUKA, was um sie herum ist; mit dem INTENT ENGINE versteht sie, was der Nutzer will; und mit dem TV RUNTIME kann sie auf dem Smart TV tatsächlich handeln. Nach dieser Implementierung ist LUKA OS von der Vision zur Realität geworden.

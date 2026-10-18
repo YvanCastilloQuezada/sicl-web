@@ -1,0 +1,101 @@
+src/sicl/projection.py:4:It deliberately does not import drawing backends, create SVG/PDF, mutate D2,
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:96:docs/reference/PROY_FERNANDEZ_ROJAS.pdf
+src/sicl/layout/layout_engine.py:50:    # This method only stores/calculates geometry. It never renders, writes PDFs, or mutates BIM data.
+src/sicl/layout/http_api.py:13:    """HTTP application boundary for layout calculation; it never renders or emits PDFs."""
+src/sicl/drawing/__init__.py:19:from .pdf_export import export_drawing_set
+src/sicl/drawing/pdf_export.py:5:from reportlab.pdfgen import canvas
+src/sicl/layout/case_study.py:60:        "renders_pdf": False,
+src/sicl/drawing/http_api.py:5:from .pdf_export import export_drawing_set
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:5:The Ministry of Housing, Construction and Sanitation RNE portal identifies the RNE as the national technical framework and links the component PDFs:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:10:A.010 PDF:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:11:https://cdn.www.gob.pe/uploads/document/file/2366528/35%20A.010%20CONDICIONES%20GENERALES%20DE%20DISE%C3%91O%20-%20RM%20N%C2%B0%20191-2021-VIVIENDA.pdf?v=1636058378
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:13:E.030 PDF listed by portal:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:14:https://cdn.www.gob.pe/uploads/document/file/2366641/51%20E.030%20DISE%C3%91O%20SISMORRESISTENTE%20RM-043-2019-VIVIENDA.pdf?v=1677250657
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:16:E.060 PDF listed by portal:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:17:https://cdn.www.gob.pe/uploads/document/file/2366660/55%20E.060%20CONCRETO%20ARMADO%20DS%20N%C2%B0%20010-2009.pdf?v=1677250657
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:19:IS.010 PDF listed by portal:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:20:https://cdn.www.gob.pe/uploads/document/file/2366675/60%20IS.010%20INSTALACIONES%20SANITARIAS%20PARA%20EDIFICACIONES%20DS%20N%C2%B0%20017-2012.pdf?v=1677250657
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:22:EM.010 PDF listed by portal:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:23:https://cdn.www.gob.pe/uploads/document/file/2366690/62%20EM.010%20INSTALACIONES%20EL%C3%89CTRICAS%20INTERIORES%20-%20RM%20N%C2%B0%20083-2019-VIVIENDA.pdf?v=1677250657
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:38:All six fixture URLs returned HTTP 200 and PDF/HTML content types. That proves availability only. It does not prove current legal vigency. Automatic promotion is blocked for all five fixture regulations until a human reviewer reconciles versions and effective dates, especially the E.030 and IS.010 modifications.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:21:| PDF RM 183 | Oficial MVCS | Descargado y extraído |
+docs/RFC-025_E030_VIGENCY_REVIEW.md:22:| PDF NT E.030 2026 | Oficial MVCS | Descargado y extraído |
+docs/RFC-025_E030_VIGENCY_REVIEW.md:24:| PDF RM 217 | Oficial MVCS | Descargado y extraído |
+docs/RFC-025_E030_VIGENCY_REVIEW.md:112:- Marcar E.030 como `VIGENTE` solo por encontrar el PDF.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:130:- Fuente y hash de los PDFs almacenados.
+docs/RFC-025_E030_VIGENCY_REVIEW.md:164:[2]: https://cdn.www.gob.pe/uploads/document/file/9902956/8081915-rm-183-2026-vivienda-modifica-norma-tecnica-e-030.pdf?v=1777909402 "RM 183-2026-VIVIENDA — Modifica Norma Técnica E.030"
+docs/RFC-025_E030_VIGENCY_REVIEW.md:166:[3]: https://cdn.www.gob.pe/uploads/document/file/9902957/8081915-nt-e-030-diseno-sismorresistente-2026.pdf?v=1777909403 "NT E.030 Diseño Sismorresistente 2026"
+tests/test_rfc030_drawing.py:52:def test_layout_modes_both_produce_valid_pdf(tmp_path):
+tests/test_rfc030_drawing.py:55:        out=tmp_path/f'{mode}.pdf'; export_drawing_set(compose_drawing_set('X',s,mode),out); assert out.stat().st_size>1000; assert len(ifcopenshell.by_type if False else [1])==1
+tests/test_rfc030_drawing.py:66:    ds=compose_drawing_set('X',snap(tmp_path)); a=tmp_path/'plan.pdf'; b=tmp_path/'section.pdf'; export_drawing_set(_single_view(ds,0),a); export_drawing_set(_single_view(ds,2),b); assert a.read_bytes()!=b.read_bytes()
+tests/test_rfc030_drawing.py:68:    ds=compose_drawing_set('X',snap(tmp_path)); a=tmp_path/'plan.pdf'; b=tmp_path/'elevation.pdf'; export_drawing_set(_single_view(ds,0),a); export_drawing_set(_single_view(ds,4),b); assert a.read_bytes()!=b.read_bytes()
+tests/test_rfc030_drawing.py:90:    ds=compose_drawing_set('X',snap(tmp_path)); a=tmp_path/'long.pdf'; b=tmp_path/'trans.pdf'; export_drawing_set(_single_view(ds,2),a); export_drawing_set(_single_view(ds,3),b); assert a.read_bytes()!=b.read_bytes()
+tests/test_rfc030_content.py:15:def _pdf_text(path):
+tests/test_rfc030_content.py:17:        from pypdf import PdfReader
+tests/test_rfc030_content.py:18:        return '\n'.join(page.extract_text() or '' for page in PdfReader(str(path)).pages)
+tests/test_rfc030_content.py:38:    output = tmp_path / 'plan-standard.pdf'
+tests/test_rfc030_content.py:40:    text = _pdf_text(output)
+docs/learning/engines/freecad-techdraw.md:23:- Composición SVG/PDF.
+docs/learning/engines/comparison-matrix.md:23:| Emitir SVG/PDF vectorial | Conserva escala, edición y calidad de impresión |
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:88:El fixture contiene seis registros `Source`: el portal oficial del RNE y los PDF oficiales de A.010, E.030, E.060, IS.010 y EM.010. Todas las normas se registran como `NO_VERIFICADA` porque esta fase implementa la ingesta de prueba, no una certificación jurídica de vigencia.
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:245:[2]: https://cdn.www.gob.pe/uploads/document/file/2366528/35%20A.010%20CONDICIONES%20GENERALES%20DE%20DISE%C3%91O%20-%20RM%20N%C2%B0%20191-2021-VIVIENDA.pdf?v=1636058378 "A.010 Condiciones Generales de Diseño — RM N.° 191-2021-VIVIENDA"
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:247:[4]: https://cdn.www.gob.pe/uploads/document/file/2366641/51%20E.030%20DISE%C3%91O%20SISMORRESISTENTE%20RM-043-2019-VIVIENDA.pdf?v=1677250657 "E.030 Diseño Sismorresistente — RM-043-2019-VIVIENDA"
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:249:[5]: https://cdn.www.gob.pe/uploads/document/file/2366660/55%20E.060%20CONCRETO%20ARMADO%20DS%20N%C2%B0%20010-2009.pdf?v=1677250657 "E.060 Concreto Armado — DS N.° 010-2009"
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:251:[6]: https://cdn.www.gob.pe/uploads/document/file/2366675/60%20IS.010%20INSTALACIONES%20SANITARIAS%20PARA%20EDIFICACIONES%20DS%20N%C2%B0%20017-2012.pdf?v=1677250657 "IS.010 Instalaciones Sanitarias para Edificaciones — DS N.° 017-2012"
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:253:[7]: https://cdn.www.gob.pe/uploads/document/file/2366690/62%20EM.010%20INSTALACIONES%20EL%C3%89CTRICAS%20INTERIORES%20-%20RM%20N%C2%B0%20083-2019-VIVIENDA.pdf?v=1677250657 "EM.010 Instalaciones Eléctricas Interiores — RM N.° 083-2019-VIVIENDA"
+docs/learning/engines/blenderbim-bonsai.md:24:- Exportación SVG/PDF.
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:32:- Exportación PDF técnico y revisión contra fixture.
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:60:docs/reference/PROY_FERNANDEZ_ROJAS.pdf
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:124:/DRAWING SET EXPORT <drawing_set_id> --format=PDF
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:138:GET  /v1/projects/{project_id}/drawings/sets/{drawing_set_id}/export?format=PDF
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:161:FIXTURE: PROY_FERNANDEZ_ROJAS.pdf
+docs/learning/PHASE1_REPORT.md:23:docs/reference/PROY_FERNANDEZ_ROJAS.pdf
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:5:**Propósito:** calcular y validar la composición geométrica de láminas sin dibujar ni generar PDF.
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:9:El motor recibe formatos, márgenes, zonas y elementos geométricos, calcula bounding boxes y emite reportes JSON. No renderiza, no crea PDF/PNG, no modifica `BIMModelSnapshot` y no crea `Decision`.
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:75:PDF_GENERATED_BY_LAYOUT_ENGINE = NO
+docs/reference/README_REFERENCE.md:9:El fixture principal es `docs/reference/PROY_FERNANDEZ_ROJAS.pdf`. RFC-030 no se mezcla con los modos narrativo o fotorrealista.
+docs/reference/README_REFERENCE.md:32:| `PROY_FERNANDEZ_ROJAS.pdf` | `3867523efba38be10c1cf3703c5cfbbda628a80e0e29c620a8e47c1a6e01815d` |
+docs/reference/README_REFERENCE.md:33:| `CASA_NIDO_DE_CAMPO_PRESENTATION.pdf` | `50a53b3ab4905975997dc4a06773817ace706e16b3912e390959015598032236` |
+docs/reference/README_REFERENCE_RFC-034.md:7:**Fixture:** `CASA_NIDO_DE_CAMPO_PRESENTATION.pdf`
+docs/reference/README_REFERENCE_RFC-034.md:15:`CASA_NIDO_DE_CAMPO_PRESENTATION.pdf` representa una Casa Nido de Campo con paleta sobria crema/tierra, tipografía jerarquizada, narrativa visual, datos de proyecto, norte, escala gráfica o `ESCALA CONCEPTUAL` y disclaimer honesto. Es complemento del plano técnico: RFC-030 se entrega para municipalidad; RFC-034 se muestra al cliente.
+docs/reference/README_REFERENCE_RFC-034.md:68:| `PROY_FERNANDEZ_ROJAS.pdf` | `3867523efba38be10c1cf3703c5cfbbda628a80e0e29c620a8e47c1a6e01815d` |
+docs/reference/README_REFERENCE_RFC-034.md:69:| `CASA_NIDO_DE_CAMPO_PRESENTATION.pdf` | `50a53b3ab4905975997dc4a06773817ace706e16b3912e390959015598032236` |
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:9:**Salida:** PDF a color + PNG opcional
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:31:- Exportación PDF a color y PNG opcional.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:32:- Persistencia append-only con hash del PDF.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:63:10. El hash del PDF se persiste.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:90:/PRESENTATION SET EXPORT <presentation_set_id> --format=PDF|PNG
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:105:GET  /v1/projects/{project_id}/presentations/sets/{presentation_set_id}/export?format=PDF|PNG
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:128:├── PROY_FERNANDEZ_ROJAS.pdf              (RFC-030 técnico)
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:129:├── CASA_NIDO_DE_CAMPO_PRESENTATION.pdf   (RFC-034 presentación)
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:137:Los 18 tests se agrupan en ocho estructurales, seis constitucionales y cuatro de calidad: carga de plantilla, paleta, output mode, escala, append-only, hash, snapshot inmutable, marcador municipal, ausencia de Decision automática, revisión con autoridad, datos cuantitativos, disclaimer, violación de paleta, jerarquía, norte/escala, áreas y exportación PDF/PNG.
+docs/rfc/RFC-034-ARCHITECTURAL-PRESENTATION-SHEETS.md:146:OUTPUT: PDF (color), PNG
+docs/reference/RFC0341_CASA_NIDO_LAYOUT_REPORT.json:4:  "renders_pdf": false,
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:53:- DXF/DWG/PDF runtime exporters or a render engine;
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:342:       SVG / FUTURE VECTOR PDF / FUTURE DXF
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:64:Vector output remains subject to tolerances, numeric precision, units, transformations, format limits, and geometric rules. The phrase `INFINITE PRECISION` must not be used as a technical guarantee for SVG, DXF, PDF, or other vector formats.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:211:- **Vector:** SVG, vector PDF, DXF; DWG remains subject to a later technology/licensing decision.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:50:| Professional drawings | `PARTIAL` | RFC-030 PDFs and title blocks exist | plans/sections/elevations, sheet validation | quality remains fixture/profile-specific | acceptance profile and human review | Professional Documentation |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:52:| Vector PDF | `DECLARED_NOT_IMPLEMENTED` | RFC-030 PDF path exists for technical drawings, no ARE-general backend | GraphicScene, sheet, PDF backend | ARE contract and backend scope | explicit backend authorization and tests | Output Backend |
+docs/reference/PHASE1_MASTERS/README.md:9:No se crean PDFs maestros ficticios ni se presentan como reproducciones válidas. La única salida de prueba es el SVG de aprendizaje:
+docs/reference/PHASE1_COMPARISON.md:4:**Fixture:** `docs/reference/PROY_FERNANDEZ_ROJAS.pdf`, página 2, A-01
+docs/reference/PHASE1_COMPARISON.md:34:Por lo tanto, el criterio de Fase 1 — reproducción con al menos tres maestros y un PDF indistinguible — queda **NO CUMPLIDO**.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:33:| SVG/PDF/DXF/sheets/viewports | Serialization and composition are out of scope. |
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:62:- does not generate SVG, PDF, DXF, sheets, or viewports;
+docs/reference/RFC030_OUTPUT/COMPARISON.md:10:## Comparación contra `PROY_FERNANDEZ_ROJAS.pdf`
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:1:%PDF-1.3
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:2:%���� ReportLab Generated PDF document (opensource)
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:31:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:41:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:55:/Author (anonymous) /CreationDate (D:20260926214557+00'00') /Creator (anonymous) /Keywords () /ModDate (D:20260926214557+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf:97:% ReportLab generated PDF document -- digest (opensource)
+docs/reference/RFC030_OUTPUT/README.md:3:Estos PDFs son salidas técnicas monocromas de RFC-030. El motor de layout RFC-034.1 calcula posiciones; este módulo dibuja y exporta. No son láminas de presentación RFC-034.
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:1:%PDF-1.3
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:2:%���� ReportLab Generated PDF document (opensource)
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:31:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:41:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:51:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:61:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:71:/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:85:/Author (anonymous) /CreationDate (D:20260926214557+00'00') /Creator (anonymous) /Keywords () /ModDate (D:20260926214557+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_SINGLE_VIEW_PER_SHEET.pdf:154:% ReportLab generated PDF document -- digest (opensource)

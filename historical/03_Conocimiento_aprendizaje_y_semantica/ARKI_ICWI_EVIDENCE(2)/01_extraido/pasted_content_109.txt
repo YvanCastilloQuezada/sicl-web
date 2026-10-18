@@ -1,0 +1,1582 @@
+ORDEN 97A-05 — ARKI INFRASTRUCTURE & CIVIL WORKS INTELLIGENCE
+Territorial Infrastructure + Civil Works + Hydraulic Systems + Structural Infrastructure + Linear Networks
+
+Orden matriz: ORDEN 97A — ARKI Living Knowledge Integration v1.1
+Programa: ARKI-LKS-001 — ARKI Living Knowledge System
+Antecedentes: 97A-01 KCF + 97A-02 ACI + 97A-03 HAI + 97A-04 CFMI
+Código provisional: ARKI-ICWI-001
+Tipo: Mandatory Knowledge Architecture + Infrastructure Intelligence + Civil Works + Evidence Order
+Prioridad: HIGH / STRATEGIC
+Autoridad: Product Owner / Human Authority
+
+Esta Orden NO reemplaza, reinicia ni invalida 97A ni sus adendas anteriores.
+
+Amplía el conocimiento gobernado de ARKI hacia infraestructura territorial y obras civiles.
+
+ICWI-01. MISIÓN
+
+Construir dentro del Living Knowledge System de ARKI una capacidad gobernada para:
+
+COMPRENDER, MODELAR, RAZONAR, GENERAR, COMPARAR Y PROGRESIVAMENTE CALCULAR SISTEMAS DE INFRAESTRUCTURA Y OBRAS CIVILES DESDE EL TERRITORIO HASTA EL COMPONENTE, PRESERVANDO TRAZABILIDAD, CAUSALIDAD, INCERTIDUMBRE, VERIFICACIÓN Y AUTORIDAD HUMANA.
+
+ARKI deberá aprender a abordar infraestructura como:
+
+NEED
+↓
+TERRITORY
+↓
+NETWORK
+↓
+CORRIDOR / BASIN / SYSTEM
+↓
+SITE / ALIGNMENT
+↓
+CIVIL WORK
+↓
+ENGINEERING SYSTEM
+↓
+COMPONENT
+↓
+HUMAN / ENVIRONMENT / OPERATION
+ICWI-02. PRINCIPIO CENTRAL
+
+Formalizar:
+
+INFRASTRUCTURE IS NOT A COLLECTION OF CIVIL OBJECTS.
+
+INFRASTRUCTURE IS A TERRITORIAL SYSTEM OF RELATIONSHIPS, FLOWS, NETWORKS AND STRUCTURES.
+
+Consecuentemente:
+
+BRIDGE ≠ isolated object
+DAM ≠ wall
+CANAL ≠ trench
+AQUEDUCT ≠ pipe
+ROAD ≠ pavement
+RAILWAY ≠ tracks
+PORT ≠ docks
+
+Cada elemento pertenece a un sistema mayor.
+
+ICWI-03. INFRASTRUCTURE INTELLIGENCE
+
+ARKI deberá poder razonar progresivamente:
+
+WHY?
+WHERE?
+WHAT SYSTEM?
+WHAT CAPACITY?
+WHAT FLOW?
+WHAT LOAD?
+WHAT CONSTRAINTS?
+WHAT ALTERNATIVES?
+HOW CONSTRUCTED?
+HOW OPERATED?
+HOW MAINTAINED?
+WHAT CONSEQUENCES?
+WHAT UNKNOWN?
+
+antes de generar una solución.
+
+ICWI-04. NO OBJECT BEFORE SYSTEM
+
+Registrar:
+
+NO INFRASTRUCTURE OBJECT BEFORE INFRASTRUCTURE SYSTEM UNDERSTANDING.
+
+ARKI no deberá comenzar un puente, presa, canal, túnel u otra obra como objeto aislado sin comprender razonablemente el sistema al cual pertenece.
+
+ICWI-05. INFRASTRUCTURE TAXONOMY
+
+Crear o derivar una taxonomía extensible:
+
+INFRASTRUCTURE
+│
+├── STRUCTURAL
+├── HYDRAULIC / WATER
+├── TRANSPORT
+├── RAIL
+├── UNDERGROUND
+├── MARITIME / COASTAL
+├── ENERGY
+├── ENVIRONMENTAL
+├── TERRITORIAL NETWORKS
+├── URBAN INFRASTRUCTURE
+└── OTHER / FUTURE
+
+No crear bases independientes para cada familia.
+
+ICWI-06. STRUCTURAL INFRASTRUCTURE
+
+Incluir progresivamente:
+
+bridges
+viaducts
+footbridges
+large-span structures
+retaining structures
+towers where infrastructure-related
+special civil structures
+ICWI-07. BRIDGE INTELLIGENCE
+
+Para puentes:
+
+TRANSPORT NEED
+↓
+NETWORK
+↓
+CORRIDOR
+↓
+CROSSING
+↓
+SITE CONDITIONS
+↓
+SPAN REQUIREMENTS
+↓
+STRUCTURAL SYSTEM
+↓
+FOUNDATIONS
+↓
+CONSTRUCTION METHOD
+↓
+OPERATION / MAINTENANCE
+ICWI-08. BRIDGE DESIGN SPACE
+
+Preparar conocimiento comparativo sobre:
+
+beam
+girder
+box girder
+truss
+arch
+cable-stayed
+suspension
+extradosed
+segmental
+integral
+movable
+hybrid
+
+y otras familias cuando corresponda.
+
+La lista es conocimiento tipológico, no selector automático.
+
+ICWI-09. BRIDGE DECISION MODEL
+
+Evaluar relaciones entre:
+
+span
+loads
+traffic
+clearance
+hydrology
+navigation
+geology
+geotechnics
+seismicity
+wind
+material
+structural system
+foundation
+construction method
+durability
+inspection
+maintenance
+lifecycle
+cost
+landscape
+human experience
+ICWI-10. HYDRAULIC & WATER INFRASTRUCTURE
+
+Incluir:
+
+dams
+reservoirs
+irrigation systems
+canals
+aqueducts
+pipelines
+intakes
+pumping systems
+siphons
+tunnels
+spillways
+drainage
+flood-control infrastructure
+water-transfer systems
+water-supply infrastructure
+hydraulic structures
+ICWI-11. WATER SYSTEM FIRST
+
+Para infraestructura hidráulica:
+
+WATER NEED
+↓
+SOURCE
+↓
+WATERSHED
+↓
+HYDROLOGY
+↓
+STORAGE
+↓
+INTAKE
+↓
+CONVEYANCE
+↓
+DISTRIBUTION
+↓
+USE
+↓
+RETURN / DRAINAGE
+
+según el sistema.
+
+ICWI-12. DAM INTELLIGENCE
+
+Una presa deberá comprenderse como sistema:
+
+WATERSHED
+↓
+HYDROLOGY
+↓
+SEDIMENT
+↓
+RESERVOIR
+↓
+DAM
+├── foundation
+├── spillway
+├── intake
+├── outlet
+├── drainage
+├── instrumentation
+└── auxiliary works
+↓
+DOWNSTREAM SYSTEM
+ICWI-13. DAM TYPOLOGY
+
+Preparar conocimiento progresivo sobre:
+
+gravity
+arch
+buttress
+earthfill
+rockfill
+concrete-faced rockfill
+roller-compacted concrete
+composite
+
+sin seleccionar automáticamente una solución.
+
+ICWI-14. DAM CONSEQUENCE MODEL
+
+Evaluar relaciones entre:
+
+hydrology
+topography
+geology
+geotechnics
+seismicity
+foundation
+materials
+reservoir level
+storage
+spillway capacity
+sediment
+construction
+environment
+communities
+downstream conditions
+operation
+maintenance
+emergency planning
+cost
+lifecycle
+ICWI-15. IRRIGATION SYSTEM INTELLIGENCE
+
+Modelar:
+
+WATER SOURCE
+↓
+STORAGE
+↓
+INTAKE
+↓
+MAIN CONVEYANCE
+↓
+PRIMARY NETWORK
+↓
+SECONDARY NETWORK
+↓
+DISTRIBUTION
+↓
+AGRICULTURAL AREA
+↓
+USER / CROP / DEMAND
+ICWI-16. LINEAR INFRASTRUCTURE
+
+ARKI deberá incorporar explícitamente una ontología de infraestructura lineal:
+
+ORIGIN
+↓
+CORRIDOR
+↓
+ALIGNMENT
+↓
+SEGMENTS
+↓
+NODES
+↓
+CROSSINGS
+↓
+STRUCTURES
+↓
+DESTINATION
+ICWI-17. MULTI-SYSTEM ALIGNMENT
+
+Un corredor podrá cambiar de solución:
+
+OPEN CANAL
+→ AQUEDUCT
+→ SIPHON
+→ TUNNEL
+→ PIPELINE
+→ OPEN CANAL
+→ RESERVOIR
+
+manteniendo continuidad funcional y topológica.
+
+ICWI-18. ALIGNMENT INTELLIGENCE
+
+Para sistemas lineales considerar:
+
+terrain
+slope
+geology
+geotechnics
+hydrology
+crossings
+settlements
+environment
+right-of-way
+constructability
+access
+maintenance
+energy
+cost
+risk
+
+según dominio.
+
+ICWI-19. TRANSPORT INFRASTRUCTURE
+
+Incluir progresivamente:
+
+roads
+highways
+interchanges
+railways
+high-speed rail
+metro
+tram
+stations as system nodes
+tunnels
+viaducts
+transport corridors
+ICWI-20. TRANSPORT AS NETWORK
+
+No evaluar una carretera o línea férrea únicamente por geometría local.
+
+Modelar:
+
+ORIGIN / DESTINATION
+NETWORK
+DEMAND
+CAPACITY
+CORRIDOR
+NODES
+INTERCHANGES
+ACCESS
+MODAL CONNECTIONS
+TERRITORIAL CONSEQUENCES
+ICWI-21. UNDERGROUND INFRASTRUCTURE
+
+Incorporar:
+
+transport tunnels
+hydraulic tunnels
+utility tunnels
+underground stations
+caverns
+shafts
+galleries
+underground technical facilities
+ICWI-22. UNDERGROUND KNOWLEDGE
+
+Relacionar:
+
+geology
+geotechnics
+groundwater
+excavation
+support
+lining
+ventilation
+drainage
+fire/life safety
+access
+construction sequence
+monitoring
+maintenance
+
+sin afirmar cálculo especializado no demostrado.
+
+ICWI-23. MARITIME & COASTAL INFRASTRUCTURE
+
+Preparar conocimiento de:
+
+ports
+terminals
+breakwaters
+docks
+piers
+coastal protection
+navigation infrastructure
+dredging context
+logistics interfaces
+ICWI-24. ENERGY INFRASTRUCTURE
+
+Incluir progresivamente:
+
+hydroelectric complexes
+energy corridors
+substations as infrastructure systems
+renewable-energy infrastructure
+transmission-related territorial systems
+
+coordinando con CFMI cuando exista instalación compleja asociada.
+
+ICWI-25. PROJECT COMPOSITION
+
+Un proyecto podrá contener simultáneamente:
+
+TERRITORIAL SYSTEM
++
+LINEAR INFRASTRUCTURE
++
+CIVIL STRUCTURES
++
+COMPLEX FACILITIES
++
+BUILDINGS
++
+EQUIPMENT
+
+No fragmentar artificialmente el proyecto.
+
+ICWI-26. CFMI INTERFACE
+
+Definir:
+
+ICWI
+= infrastructure / civil system intelligence
+
+CFMI
+= complex facility intelligence
+
+Pueden coexistir.
+
+Ejemplo:
+
+HYDROELECTRIC PROJECT
+
+ICWI:
+watershed
+reservoir
+dam
+tunnels
+hydraulic works
+transmission territory
+
+CFMI:
+powerhouse
+control facility
+maintenance facility
+specialized systems
+
+Una sola realidad de proyecto; múltiples vistas de conocimiento.
+
+ICWI-27. MULTISCALE MODEL
+
+Aplicar la jerarquía canónica ARKI:
+
+COUNTRY
+↕
+REGION
+↕
+PROVINCE / METROPOLITAN SYSTEM
+↕
+CITY
+↕
+DISTRICT
+↕
+TERRITORIAL / INFRASTRUCTURE NETWORK
+↕
+CORRIDOR / BASIN
+↕
+SITE / ALIGNMENT
+↕
+CIVIL WORK / FACILITY
+↕
+SYSTEM / ZONE
+↕
+SPACE / SEGMENT
+↕
+ACTIVITY
+↕
+OBJECT
+↕
+COMPONENT
+↕
+HUMAN
+
+Si alguna entidad nueva resulta necesaria, no alterar silenciosamente la jerarquía canónica.
+
+Registrar:
+
+ONTOLOGY_EXTENSION_CANDIDATE.
+
+ICWI-28. SCALE ≠ ZOOM
+
+Mantener:
+
+MULTISCALE ≠ ZOOM.
+
+Cambiar de cuenca a presa o de red vial a puente implica cambio de:
+
+ontology
+knowledge
+rules
+evidence
+calculations
+relationships
+consequences
+ICWI-29. NO CROSS-SCALE RULE LEAKAGE
+
+Formalizar:
+
+A RULE VALID AT ONE INFRASTRUCTURE SCALE SHALL NOT BE AUTOMATICALLY APPLIED AT ANOTHER SCALE.
+
+ICWI-30. INFRASTRUCTURE RELATIONSHIP FABRIC
+
+Reutilizar BKH Relationship Fabric donde corresponda.
+
+Infraestructura deberá representar relaciones como:
+
+CONNECTS
+CROSSES
+FEEDS
+DRAINS_TO
+SUPPLIES
+RECEIVES_FROM
+SUPPORTS
+DEPENDS_ON
+CONSTRAINS
+AFFECTS
+REQUIRES
+ENABLES
+CONFLICTS_WITH
+PROPAGATES_TO
+
+No modificar BKH en esta Orden.
+
+ICWI-31. NETWORK TOPOLOGY
+
+Representar:
+
+NODE
+EDGE / LINK
+SEGMENT
+BRANCH
+JUNCTION
+SOURCE
+SINK
+CROSSING
+CONTROL POINT
+STORAGE
+
+como conceptos de infraestructura cuando sean aplicables.
+
+Si la ontología actual no puede expresarlos:
+
+REPRESENTATIONAL_GAP.
+
+No crear primitivas canónicas automáticamente.
+
+ICWI-32. FLOW INTELLIGENCE
+
+Las redes podrán transportar:
+
+PEOPLE
+VEHICLES
+WATER
+ENERGY
+MATERIAL
+GOODS
+INFORMATION
+WASTE
+
+según dominio.
+
+ARKI deberá distinguir tipo, dirección, capacidad, demanda y restricciones cuando sean relevantes.
+
+ICWI-33. CAUSAL INFRASTRUCTURE INTELLIGENCE
+
+Aplicar:
+
+NINGÚN CAMBIO SIN CONSECUENCIAS.
+
+NINGUNA CONSECUENCIA SIN TRAZABILIDAD.
+
+Ejemplo:
+
+RESERVOIR LEVEL CHANGE
+↓
+storage
+↓
+inundation area
+↓
+dam conditions
+↓
+communities / environment
+↓
+cost
+↓
+operations
+
+cuando la relación esté sustentada.
+
+ICWI-34. CAUSAL SAFETY
+
+Distinguir:
+
+PHYSICAL_CAUSAL_RELATION
+ENGINEERING_DEPENDENCY
+DOCUMENTED_CAUSE
+MODEL_PREDICTION
+CORRELATION
+HYPOTHESIS
+UNKNOWN
+ICWI-35. TERRITORIAL CONSEQUENCES
+
+Infraestructura deberá poder considerar:
+
+settlements
+accessibility
+land use
+economy
+agriculture
+environment
+ecosystems
+landscape
+mobility
+water availability
+regional development
+induced growth
+displacement where documented
+
+sin convertir consecuencias socioeconómicas complejas en certezas automáticas.
+
+ICWI-36. ENVIRONMENTAL INTELLIGENCE
+
+Integrar progresivamente:
+
+watershed
+ecosystem
+habitat
+water
+sediment
+flooding
+erosion
+landscape
+emissions
+construction impacts
+operational impacts
+resilience
+climate
+
+según proyecto.
+
+ICWI-37. CLIMATE & RESILIENCE
+
+Considerar:
+
+historical climate
+current climate
+design climate
+future climate scenarios
+extreme events
+uncertainty
+adaptation
+resilience
+
+sin presentar escenarios como hechos.
+
+ICWI-38. GEOLOGY / GEOTECHNICS
+
+Infraestructura depende fuertemente del terreno.
+
+ARKI deberá distinguir:
+
+geological knowledge
+geotechnical investigation
+interpreted ground model
+design parameters
+calculation
+professional verification
+
+MAP ≠ SITE INVESTIGATION.
+
+ICWI-39. HYDROLOGY / HYDRAULICS
+
+Mantener separados:
+
+HYDROLOGICAL KNOWLEDGE
+HYDROLOGICAL DATA
+HYDROLOGICAL MODEL
+HYDRAULIC MODEL
+DESIGN CALCULATION
+VERIFIED DESIGN
+ICWI-40. STRUCTURAL KNOWLEDGE
+
+Mantener:
+
+structural concept
+structural model
+loads
+combinations
+analysis
+design
+detailing
+verification
+
+como niveles distinguibles.
+
+No confundir geometría estructural con cálculo estructural.
+
+ICWI-41. COMPUTATIONAL FABRIC
+
+ICWI deberá poder identificar necesidades futuras para:
+
+ARKI.Math
+ARKI.Geometry
+ARKI.Structures
+ARKI.Seismic
+ARKI.Geotechnics
+ARKI.Hydraulics
+ARKI.GIS
+ARKI.Environment
+ARKI.Cost
+ARKI.Schedule
+ARKI.BIM
+
+entre otras.
+
+Esta Orden NO autoriza automáticamente construir dichos solvers.
+
+ICWI-42. KNOWLEDGE ≠ CALCULATION
+
+Registrar:
+
+READING A BRIDGE CODE ≠ CALCULATING A BRIDGE.
+
+KNOWING HYDRAULICS ≠ VERIFIED HYDRAULIC DESIGN.
+
+UNDERSTANDING A DAM ≠ PROFESSIONAL DAM DESIGN AUTHORITY.
+
+ICWI-43. COMPUTATIONAL COMPETENCE STATES
+
+Para cada dominio:
+
+KNOWLEDGE_EXPOSED
+KNOWLEDGE_STRUCTURED
+REASONING_DEMONSTRATED
+MODELING_DEMONSTRATED
+COMPUTATION_IMPLEMENTED
+COMPUTATION_TESTED
+COMPUTATION_VERIFIED_WITHIN_SCOPE
+PROFESSIONAL_VALIDATION_REQUIRED
+EXTERNAL_ORACLE_REQUIRED
+UNKNOWN
+ICWI-44. INFRASTRUCTURE READINESS GATE
+
+Crear/especificar:
+
+InfrastructureReadinessGate.
+
+Antes de generación informada evaluar:
+
+NEED
+FUNCTION
+NETWORK
+CAPACITY / DEMAND
+TERRITORY
+SITE / ALIGNMENT
+TOPOGRAPHY
+GEOLOGY
+GEOTECHNICS
+HYDROLOGY where applicable
+SEISMICITY
+CLIMATE
+ENVIRONMENT
+LOADS / FLOWS
+CONSTRUCTION
+OPERATION
+MAINTENANCE
+STANDARDS
+REGULATION
+SPECIALISTS
+UNKNOWN
+ICWI-45. READINESS RESULTS
+READY_FOR_SYSTEM_PLANNING
+READY_FOR_CONCEPTUAL_DESIGN
+CONDITIONALLY_READY
+RESEARCH_REQUIRED
+DATA_REQUIRED
+SITE_INVESTIGATION_REQUIRED
+SPECIALIST_REQUIRED
+NOT_READY
+UNKNOWN
+ICWI-46. READINESS BOUNDARY
+
+READY_FOR_CONCEPTUAL_DESIGN
+
+≠
+
+DETAILED_ENGINEERING_READY
+CONSTRUCTION_READY
+REGULATORY_APPROVED
+PROFESSIONALLY_VALIDATED
+ICWI-47. ALTERNATIVE GENERATION
+
+ARKI deberá poder generar alternativas de sistema, no únicamente alternativas formales.
+
+Ejemplo hidráulico:
+
+A — gravity canal
+B — tunnel + canal
+C — pressure pipeline
+D — mixed conveyance
+
+Ejemplo puente:
+
+A — girder
+B — arch
+C — cable-stayed
+
+solamente cuando las alternativas sean razonables para el problema.
+
+ICWI-48. ALTERNATIVE EVALUATION
+
+Comparar según proyecto:
+
+technical feasibility
+capacity
+performance
+constructability
+geology
+environment
+territory
+cost
+schedule
+maintenance
+durability
+resilience
+lifecycle
+risk
+architecture / landscape
+human consequences
+UNKNOWN
+ICWI-49. NO AUTOMATIC WINNER
+
+Mantener:
+
+ARKI COMPARES · HUMAN DECIDES.
+
+No seleccionar automáticamente una alternativa estratégica como verdad canónica.
+
+ICWI-50. CONSTRUCTION METHOD
+
+En infraestructura, el método constructivo puede determinar el diseño.
+
+Representar:
+
+temporary works
+access
+staging
+sequencing
+lifting
+launching
+excavation
+tunneling
+diversion
+cofferdams
+material supply
+construction logistics
+
+según proyecto.
+
+ICWI-51. TEMPORARY WORKS
+
+Reconocer explícitamente:
+
+TEMPORARY ≠ UNIMPORTANT.
+
+Las obras temporales pueden condicionar:
+
+feasibility
+safety
+schedule
+cost
+environmental impact
+permanent design
+ICWI-52. LIFECYCLE
+
+Modelar:
+
+PLANNING
+↓
+FEASIBILITY
+↓
+CONCEPT
+↓
+DESIGN
+↓
+CONSTRUCTION
+↓
+COMMISSIONING
+↓
+OPERATION
+↓
+INSPECTION
+↓
+MAINTENANCE
+↓
+REHABILITATION
+↓
+EXPANSION
+↓
+DECOMMISSIONING / REPLACEMENT
+ICWI-53. MAINTENANCE AS DESIGN INPUT
+
+Formalizar:
+
+INFRASTRUCTURE MUST BE DESIGNED TO BE INSPECTED, MAINTAINED AND RENEWED.
+
+ICWI-54. INFRASTRUCTURE DIGITAL TWIN
+
+Preparar integración futura:
+
+PHYSICAL INFRASTRUCTURE
+↕
+OBSERVED STATE
+↕
+CANONICAL DIGITAL STATE
+↕
+SENSOR / INSPECTION DATA
+↕
+SIMULATED STATE
+↕
+MAINTENANCE / INTERVENTION SCENARIOS
+
+BIM MODEL ≠ DIGITAL TWIN.
+
+ICWI-55. GIS / BIM RELATIONSHIP
+
+Infraestructura requiere continuidad:
+
+GIS / TERRITORY
+↕
+CORRIDOR / NETWORK
+↕
+BIM / CIVIL MODEL
+↕
+SYSTEM
+↕
+COMPONENT
+
+No establecer una frontera artificial entre GIS y BIM.
+
+ICWI-56. INFORMATION MODEL
+
+Cada activo podrá tener:
+
+identity
+geometry
+topology
+properties
+materials
+quantities
+relationships
+requirements
+calculations
+inspections
+condition
+maintenance
+provenance
+lifecycle
+
+según alcance.
+
+ICWI-57. INTEROPERABILITY
+
+Investigar progresivamente estándares y modelos de información aplicables a infraestructura mediante LKS.
+
+No asumir que IFC por sí solo resuelve toda la infraestructura.
+
+IFC seguirá siendo referencia externa de interoperabilidad donde corresponda, no ontología automática de ARKI.
+
+ICWI-58. REFERENCE INFRASTRUCTURE CORPUS
+
+Crear una vista gobernada:
+
+InfrastructureReferenceCorpus.
+
+Incluir:
+
+exemplary projects
+ordinary projects
+alternative solutions
+failures
+rehabilitations
+historical projects
+current projects
+built
+unbuilt where analytically relevant
+ICWI-59. LEARN FROM FAILURE
+
+Investigar mediante fuentes legítimas:
+
+structural failures
+hydraulic failures
+geotechnical failures
+cost overruns
+delays
+construction failures
+operational problems
+maintenance failures
+capacity failures
+environmental consequences
+successful recoveries
+
+con tratamiento responsable.
+
+ICWI-60. FAILURE ≠ SINGLE CAUSE
+
+Distinguir:
+
+DOCUMENTED_CAUSE
+CONTRIBUTING_FACTOR
+SYSTEMIC_FACTOR
+CORRELATION
+HYPOTHESIS
+UNKNOWN
+ICWI-61. HISTORICAL INFRASTRUCTURE
+
+Integrar con HAI.
+
+Estudiar también grandes infraestructuras históricas para comprender evolución de:
+
+structural systems
+hydraulic engineering
+construction
+materials
+territorial planning
+transportation
+maintenance
+engineering culture
+
+sin asumir vigencia normativa contemporánea.
+
+ICWI-62. INTERNATIONAL KNOWLEDGE
+
+Buscar conocimiento internacional sin convertir una jurisdicción en regla universal.
+
+Para cada referencia:
+
+country
+jurisdiction
+date
+standard
+environmental context
+technical context
+applicability
+ICWI-63. PERU
+
+ARKI deberá poder especializar progresivamente el conocimiento para Perú:
+
+geography
+coast
+Andes
+Amazonia
+seismicity
+hydrology
+climate
+infrastructure needs
+applicable regulation
+institutional context
+construction conditions
+
+siempre con fuentes y versiones verificadas.
+
+ICWI-64. PROJECT-SPECIFIC KNOWLEDGE
+
+Conocimiento general de puentes no sustituye:
+
+survey
+geotechnical investigation
+hydrological data
+traffic data
+environmental study
+site investigation
+project-specific requirements
+ICWI-65. SPECIALIST BOUNDARY
+
+Integrar con CFMI:
+
+SPECIALIST_REQUIRED
+EXTERNAL_ORACLE_REQUIRED
+PROFESSIONAL_VALIDATION_REQUIRED
+
+cuando corresponda.
+
+ARKI deberá saber cuándo detener inferencia y pedir conocimiento especializado.
+
+ICWI-66. HUMAN AUTHORITY
+
+Human Authority conserva:
+
+project participation
+strategic alternatives
+risk acceptance
+professional claims
+design decisions
+specialist engagement
+contractual decisions
+canonical decisions
+ICWI-67. INFRASTRUCTURE PILOT
+
+Ejecutar/diseñar un piloto acotado con tres problemas deliberadamente diferentes:
+
+PILOT A — BRIDGE
+
+PILOT B — DAM / RESERVOIR SYSTEM
+
+PILOT C — IRRIGATION / AQUEDUCT / CONVEYANCE SYSTEM
+ICWI-68. PILOT A — BRIDGE
+
+Debe demostrar:
+
+territorial/network need
+crossing
+site
+constraints
+structural alternatives
+construction alternatives
+maintenance
+causal consequences
+UNKNOWN
+specialist boundary
+
+No requiere todavía cálculo profesional completo.
+
+ICWI-69. PILOT B — DAM
+
+Debe demostrar:
+
+watershed
+hydrology knowledge structure
+reservoir
+dam system
+foundation dependency
+spillway/intake/outlet relationships
+territorial/environmental consequences
+lifecycle
+UNKNOWN
+specialist boundary
+ICWI-70. PILOT C — IRRIGATION / AQUEDUCT
+
+Debe demostrar:
+
+source
+demand
+network
+alignment
+segments
+nodes
+canal/aqueduct/tunnel/pipeline alternatives
+terrain interaction
+hydraulic knowledge boundary
+distribution
+operation
+maintenance
+UNKNOWN
+ICWI-71. CROSS-PILOT TEST
+
+Verificar si ARKI puede conservar una arquitectura común:
+
+NEED
+→ SYSTEM
+→ TERRITORY
+→ RELATIONSHIPS
+→ REQUIREMENTS
+→ ALTERNATIVES
+→ CONSEQUENCES
+→ UNKNOWN
+→ HUMAN DECISION
+
+mientras cambia completamente el dominio técnico.
+
+ICWI-72. ADVERSARIAL TESTS
+
+Como mínimo:
+
+“diseña un puente” sin contexto → request/identify missing system knowledge;
+beautiful bridge image → not structural competence;
+one bridge precedent → no typological truth;
+bridge type selected only aesthetically → reject shortcut;
+dam treated as wall → reject;
+reservoir level changed → propagate consequences;
+missing hydrology → DATA/RESEARCH_REQUIRED;
+geological map without investigation → not site geotechnics;
+canal alignment without terrain → NOT_READY;
+linear system represented only as isolated BIM objects → representational deficiency;
+tunnel segment changes → topology consequences preserved;
+international standard → not automatically Peruvian requirement;
+historical solution → not automatically current compliance;
+structural knowledge without solver → COMPUTATION_NOT_DEMONSTRATED;
+solver output without validation → not VERIFIED;
+cheapest alternative → not automatic winner;
+lowest environmental impact estimate → preserve model uncertainty;
+temporary works ignored → detect deficit;
+maintenance inaccessible → detect lifecycle deficit;
+bridge failure → no single-cause inference;
+reference project → no automatic design rule;
+network change → propagate to affected nodes/segments;
+scale-specific rule → no leakage;
+specialist requirement → cannot be hidden;
+critical UNKNOWN → cannot return unconditional READY;
+alternative comparison → no automatic strategic decision;
+project-specific data missing → general knowledge cannot substitute it;
+GIS information → not automatically canonical project fact without provenance;
+infrastructure model → not automatically digital twin;
+ARKI → cannot self-certify professional civil engineering authority.
+ICWI-73. DELIVERABLES
+
+Incorporar:
+
+ARKI_ICWI_ARCHITECTURE.md
+ARKI_INFRASTRUCTURE_TAXONOMY.md
+ARKI_INFRASTRUCTURE_SYSTEM_MODEL.md
+ARKI_LINEAR_INFRASTRUCTURE_MODEL.md
+ARKI_INFRASTRUCTURE_NETWORK_TOPOLOGY.md
+ARKI_INFRASTRUCTURE_FLOW_MODEL.md
+ARKI_BRIDGE_INTELLIGENCE_SPEC.md
+ARKI_DAM_INTELLIGENCE_SPEC.md
+ARKI_WATER_IRRIGATION_INTELLIGENCE_SPEC.md
+ARKI_TRANSPORT_INFRASTRUCTURE_SPEC.md
+ARKI_UNDERGROUND_INFRASTRUCTURE_SPEC.md
+ARKI_MARITIME_INFRASTRUCTURE_SPEC.md
+ARKI_INFRASTRUCTURE_READINESS_GATE.md
+ARKI_INFRASTRUCTURE_CAUSAL_MODEL.md
+ARKI_INFRASTRUCTURE_LIFECYCLE_MODEL.md
+ARKI_INFRASTRUCTURE_REFERENCE_CORPUS_SPEC.md
+ARKI_INFRASTRUCTURE_FAILURE_LEARNING.md
+ARKI_ICWI_CFMI_INTERFACE.md
+ARKI_ICWI_HAI_INTEGRATION.md
+ARKI_ICWI_KCF_INTEGRATION.md
+ARKI_ICWI_ACADEMY_INTEGRATION.md
+ARKI_ICWI_PILOT_SPEC.md
+ARKI_ICWI_TEST_MATRIX.md
+ARKI_ICWI_SCOPE_LIMIT_REPORT.md
+
+Si ya existe equivalente:
+
+REUSE → EXTEND → DERIVE.
+
+DO NOT DUPLICATE.
+
+ICWI-74. MACHINE-READABLE FOUNDATION
+
+No dejar ICWI únicamente en documentos.
+
+Deberá existir representación computable, como mínimo, para:
+
+InfrastructureSystem
+InfrastructureNetwork
+InfrastructureNode
+InfrastructureSegment
+InfrastructureFlow
+InfrastructureAsset
+InfrastructureRequirement
+InfrastructureAlternative
+InfrastructureConsequence
+InfrastructureReadinessAssessment
+
+o equivalentes arquitectónicamente justificados.
+
+ICWI-75. EXISTING KERNEL FIRST
+
+Antes de crear nuevas primitivas:
+
+REUSE
+BKH Relationship Fabric
+BKH Constraint Engine
+BKH Regeneration Engine
+existing Project State
+existing geometry
+existing topology
+existing evidence/provenance
+existing UNKNOWN
+
+Solo registrar un gap cuando exista evidencia de incapacidad representacional.
+
+ICWI-76. BKH FIREWALL
+
+Esta Orden NO autoriza:
+
+BKH4-4+
+canonical mutation implementation
+atomic commit
+rollback
+undo/redo
+crash recovery
+BKH5/6/7
+E8
+
+Si ICWI descubre una necesidad:
+
+REPRESENTATIONAL_GAP
+COMPUTATIONAL_GAP
+KERNEL_IMPACT_CANDIDATE
+
+documentarla y NO modificar Kernel.
+
+ICWI-77. NO NEW AGENT PROLIFERATION
+
+No crear:
+
+BridgeAgent
+DamAgent
+CanalAgent
+TunnelAgent
+PortAgent
+
+como inteligencias independientes.
+
+Son competencias, dominios, librerías y herramientas de ONE ARKI.
+
+ICWI-78. KNOWLEDGE GOVERNANCE
+
+Todo conocimiento externo:
+
+SOURCE
+↓
+RESEARCHER
+↓
+EXTRACT
+↓
+CURATOR
+↓
+VERIFY / PARTIAL / CONFLICT / UNKNOWN
+↓
+STAGING
+↓
+IMPACT
+↓
+GOVERNED KNOWLEDGE
+
+conforme a LKS.
+
+ICWI-79. KCF INTEGRATION
+
+KCF deberá poder detectar:
+
+missing infrastructure domain
+missing calculation capability
+missing standard
+missing typological knowledge
+recurring project deficit
+emerging infrastructure need
+new construction technology
+climate/resilience requirement
+societal infrastructure demand
+
+y producir LearningNeedCandidate.
+
+ICWI-80. ACADEMY INTEGRATION
+
+Academy podrá utilizar ICWI para:
+
+infrastructure systems
+structural concepts
+hydraulic concepts
+territorial reasoning
+topology
+GIS/BIM integration
+alternatives
+causal reasoning
+construction
+lifecycle
+multidisciplinary coordination
+
+manteniendo competencia demostrada separada de conocimiento estudiado.
+
+ICWI-81. LONG-TERM TARGET
+
+El objetivo estratégico futuro es que ARKI pueda recibir problemas como:
+
+“connect these territories”
+“cross this valley”
+“store this water”
+“irrigate this region”
+“move this flow”
+“protect this territory”
+
+y sea capaz de:
+
+UNDERSTAND
+→ RESEARCH
+→ MODEL
+→ IDENTIFY UNKNOWN
+→ GENERATE SYSTEM ALTERNATIVES
+→ COMPUTE WHEN COMPETENT
+→ SIMULATE
+→ COMPARE
+→ EXPLAIN CONSEQUENCES
+→ REQUEST SPECIALISTS WHEN REQUIRED
+→ SUPPORT HUMAN DECISION
+ICWI-82. PROFESSIONAL BOUNDARY
+
+Esta Orden NO declara que ARKI sea actualmente:
+
+structural engineer
+hydraulic engineer
+geotechnical engineer
+bridge engineer
+dam engineer
+transportation engineer
+tunnel engineer
+port engineer
+
+El objetivo es desarrollar inteligencia integrada verificable, no títulos profesionales ficticios.
+
+ICWI-83. MAXIMUM INITIAL STATUS
+
+Estado máximo tras implementación del alcance:
+
+ARKI-ICWI-001 — FOUNDATION IMPLEMENTED / BOUNDED PILOT / PENDING INDEPENDENT VERIFICATION
+
+No declarar:
+
+INFRASTRUCTURE MASTERY
+BRIDGE DESIGN MASTERY
+DAM DESIGN MASTERY
+HYDRAULIC DESIGN MASTERY
+CIVIL ENGINEERING PROFESSIONAL VALIDATION
+ICWI-84. ACCEPTANCE GATE
+
+Candidato a cierre únicamente si demuestra:
+
+infrastructure taxonomy
+system-before-object
+network topology
+linear infrastructure
+flow representation
+multiscale reasoning
+bridge model
+dam model
+irrigation/aqueduct model
+readiness gate
+causal propagation
+lifecycle
+specialist boundary
+LKS integration
+KCF integration
+CFMI interface
+HAI interface
+three bounded pilots
+adversarial tests
+UNKNOWN preservation
+Human Authority
+no duplicate knowledge system
+no unauthorized BKH change
+ICWI-85. CANONICAL PRINCIPLES
+
+Registrar:
+
+INFRASTRUCTURE IS A TERRITORIAL SYSTEM OF RELATIONSHIPS, FLOWS, NETWORKS AND STRUCTURES.
+
+NO INFRASTRUCTURE OBJECT BEFORE INFRASTRUCTURE SYSTEM UNDERSTANDING.
+
+A BRIDGE IS A CROSSING WITHIN A NETWORK BEFORE IT IS A STRUCTURAL OBJECT.
+
+A DAM IS A HYDRAULIC-TERRITORIAL SYSTEM BEFORE IT IS A WALL.
+
+A CANAL OR AQUEDUCT IS A CONTINUOUS FLOW SYSTEM BEFORE IT IS A SEQUENCE OF OBJECTS.
+
+ALIGNMENT IS A DESIGN DECISION WITH TERRITORIAL CONSEQUENCES.
+
+TEMPORARY WORKS ARE PART OF DESIGN INTELLIGENCE.
+
+OPERATION AND MAINTENANCE ARE DESIGN INPUTS.
+
+KNOWLEDGE ≠ CALCULATION ≠ VERIFICATION ≠ PROFESSIONAL AUTHORITY.
+
+GENERAL KNOWLEDGE SHALL NEVER SUBSTITUTE PROJECT-SPECIFIC DATA.
+
+MULTISCALE ≠ ZOOM.
+
+ARKI COMPARES · HUMAN DECIDES.
+
+ONE ARKI · MANY COMPETENCIES · MANY TOOLS · ONE PROJECT STATE · ONE GOVERNED KNOWLEDGE SYSTEM · HUMAN AUTHORITY.
+
+ICWI-86. STOP
+
+Ejecutar únicamente:
+
+forensic reuse analysis
+architecture
+schemas
+infrastructure taxonomy
+system/network/linear models
+bridge intelligence foundation
+dam intelligence foundation
+irrigation/aqueduct intelligence foundation
+readiness gate
+causal model
+lifecycle model
+CFMI/HAI/KCF/LKS integration
+bounded three-domain pilot
+adversarial tests
+evidence
+manifest
+
+Después:
+
+STOP → INDEPENDENT REVIEW → PRODUCT OWNER DECISION.
+
+No construir todavía solvers profesionales completos.
+
+No iniciar ingestión masiva.
+
+No crear agentes especializados independientes.
+
+No modificar BKH.
+
+No avanzar BKH4-4+.
+
+No afirmar competencia profesional.
+
+FIN ORDEN 97A-05 — ARKI INFRASTRUCTURE & CIVIL WORKS INTELLIGENCE.

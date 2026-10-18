@@ -1,0 +1,363 @@
+Informe R4.1 — Auditoría adversarial y canarios de dominio
+1. Baseline
+text
+Repository: /home/ubuntu/sicl-core
+Branch: feat/h001-examen-11-rt-a-rt-d
+HEAD: 5533bd8eb1e3b81c37d089bd30b424f2a4c1e231
+Estado final: ?? docs/orders/
+Hashes antes y después, idénticos:
+Archivo
+SHA-256
+src/sicl/derivation.py
+50db5bcaf2274393befb80251c8dfd324122d03dc0b34e33fef5bbc77d30c450
+src/sicl/impact.py
+0e2765a6e285d86eaf61afe4e942b558521309b0e0aa6686fcd60678124aa9b0
+src/sicl/validity.py
+2282cbd22a5a4a8ee3bb04f75c44ccb0728f8cc58cce890410e76e54a48b324b
+src/sicl/reaction.py
+5e544df8e4579f871dfd092ff70059b7cec8340397f4e134dfc0b635d82b0d4d
+No se modificaron los módulos congelados.
+2. Auditoría adversarial R4.1
+A1 — Auth bypass
+Todos fallaron cerrado:
+Ataque
+Resultado
+Sin header
+HTTP 401
+Secreto incorrecto
+HTTP 401
+Secreto vacío
+HTTP 401
+Headers duplicados
+HTTP 401
+A2 — Operation injection
+Todas las operaciones fueron rechazadas con:
+text
+ARKI_OPERATION_NOT_ALLOWED
+Probadas:
+text
+record
+write
+reaction
+recompute
+publish
+../../
+__import__
+eval
+exec
+A3/A4 — Parameter injection y path traversal
+Los intentos de cambiar:
+text
+repository
+Python executable
+runner path
+module
+symbol
+shell command
+filesystem path
+Git command
+fueron rechazados con:
+text
+ARKI_RESULT_SCHEMA_INVALID
+El recorrido continuó limitado a:
+text
+/home/ubuntu/sicl-core
+A5 — JSON inválido, schema y payload
+Caso
+Resultado
+JSON inválido
+HTTP 400, INVALID_JSON
+Campo desconocido
+HTTP 422, ARKI_RESULT_SCHEMA_INVALID
+Correlation ID inválido
+HTTP 422
+Payload excesivo
+HTTP 413, PAYLOAD_TOO_LARGE
+A6/A7
+Timeout controlado: cubierto por las pruebas del adapter.
+Crash y stdout malformado del runner: no se forzaron, porque hacerlo requeriría relajar la configuración trusted del runner fijo.
+Cadena controlada UNKNOWN → adapter → HTTP: no pudo probarse sobre datos cognitivos reales porque el EventStore no contiene derivaciones.
+text
+R4_ADAPTER_SECURITY=PARTIAL
+La superficie probada fue fail-closed; queda pendiente la inyección controlada de fallos internos del runner sin alterar su configuración de confianza.
+3. Descubrimiento del EventStore real
+El binding real SQLite está disponible:
+text
+/home/ubuntu/sicl-core/sicl.sqlite
+Se descubrieron:
+text
+PROJECT_COUNT=72
+Tipos de eventos reales:
+text
+PROJECT_CREATED=72
+SPATIAL_LOCATION_CONFIRMED=36
+DERIVATION_RECORDED=0
+Por tanto:
+text
+REAL_PROJECT_DISCOVERY=AVAILABLE
+REAL_EVENTSTORE_BINDING=AVAILABLE
+MEANINGFUL_DERIVATION_DATA=ABSENT
+No se inventó ningún project_id, derivación, referencia ni fixture.
+4. H-001 — Derivation Integrity
+Se ejecutó derivation_integrity vía:
+text
+POST /arki/query
+sobre un project_id real:
+text
+LOC-CANDIDATE-077efa28b3
+Resultado:
+text
+ok=true
+provenance.source=sicl-core
+provenance.module=sicl.derivation
+provenance.symbol=DerivationLedger.list
+read_only=true
+records=[]
+No existen registros DERIVATION_RECORDED en el EventStore real.
+Consecuencias:
+RT-A con múltiples derivaciones: RT_A_REAL_DATA_CASE_NOT_PRESENT
+Casos RT-D: no presentes
+why/explain: no ejecutables sobre un output real porque no existen outputs derivados reales
+No se puede declarar comportamiento H-001 cognitivo E2E verificado con datos significativos
+text
+H001_REAL_DOMAIN=PARTIAL
+Razón: el camino real fue alcanzado, pero el EventStore no contiene datos de derivación.
+5. H-002 — Impact Analysis
+No se encontraron referencias reales provenientes de H-001.
+Por lo tanto, no se ejecutó un impacto sintético disfrazado de real.
+text
+H002_REAL_DOMAIN=UNKNOWN
+Bloqueador concreto:
+text
+REAL_DERIVATION_REFERENCES_UNAVAILABLE
+No se pudieron verificar con datos reales:
+text
+paths
+depth
+confidence
+cycles
+coverage_warning
+partial
+fail_closed_reason
+6. H-003 — Validity
+Al no existir derivaciones ni referencias reales, no se ejecutó una evaluación H-003 inventando datos.
+text
+H003_REAL_DOMAIN=UNKNOWN
+Bloqueador concreto:
+text
+REAL_VALIDITY_INPUTS_UNAVAILABLE
+No se declara:
+text
+read_only=true
+como resultado de un canario cognitivo real H-003, aunque el contrato y las pruebas unitarias del Core sí lo definen.
+7. RT-88 / RT-99
+Se construyó un escenario externo, fuera del repositorio:
+text
+A malformed
+A → B → C
+Resultado observado:
+text
+A = BLOCKED
+B = BLOCKED_DEPENDENCY
+C = BLOCKED_DEPENDENCY
+Además:
+text
+B.blocked_by = [A]
+C.blocked_by = [B]
+read_only = true
+Clasificación:
+text
+RT88=VERIFIED
+RT99=VERIFIED
+RT99_BEHAVIOR_CONFIRMED.
+8. RT-97
+Escenario externo:
+text
+A malformed
+B ↔ C cycle
+B also depends on A
+Resultado:
+text
+A = BLOCKED / MALFORMED_DISCREPANCY
+B = BLOCKED / BLOCKED_DEPENDENCY
+C = BLOCKED / BLOCKED_DEPENDENCY
+Para B, el diagnóstico de ciclo no aparece como razón principal:
+text
+B.reason=BLOCKED_DEPENDENCY: depends on a blocked or malformed artifact
+B.blocked_by=[A,C]
+Clasificación:
+text
+RT97=VERIFIED
+RT97_CONFIRMED
+La acusación observada fue:
+El estado BLOCKED_DEPENDENCY eclipsa el diagnóstico explícito del ciclo para B.
+9. RT-98
+En el mismo escenario:
+text
+B.blocked_by=[A,C]
+C.blocked_by=[B]
+No se omitieron las dependencias del ciclo en blocked_by.
+Clasificación:
+text
+RT98=VERIFIED
+RT98_REFUTED
+Esto refuta, para este contraejemplo, la acusación de que blocked_by omite las dependencias unresolved.
+10. Reconciliación de tests
+Suite global
+text
+GLOBAL_TESTS_COLLECTED=449
+GLOBAL_PASS=449
+GLOBAL_FAIL=0
+GLOBAL_SKIPPED=0
+GLOBAL_XFAILED=0
+GLOBAL_DESELECTED=0
+Se produjeron warnings de terceros relacionados con FastAPI/Starlette e ifcopenshell, pero no fallos.
+Suites focales
+Suite
+Resultado
+H-001 — test_derivation.py
+20/20 PASS
+H-002 — test_impact.py + test_impact_adversarial.py
+35/35 PASS
+H-003 — test_validity.py
+11/11 PASS
+H-004 — test_reaction.py
+13/13 PASS
+Structural — test_multiscale_wall_move_e2e.py
+5/5 PASS
+Bridge R4
+136/136 PASS
+Bridge mock E2E
+14/14 PASS
+text
+RT100=PARTIAL
+La reconciliación de conteos fue exitosa, pero la suite global tuvo un efecto colateral descrito abajo.
+11. Finding crítico de no mutación
+La suite global regeneró temporalmente este archivo rastreado:
+text
+docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01.ifc
+El diff mostró cambios no deterministas en:
+FILE_NAME timestamp;
+GUIDs IFC;
+orden de unidades;
+orden de elementos contenidos;
+otros identificadores sintéticos.
+El archivo fue restaurado inmediatamente al contenido versionado previo. El estado final volvió a:
+text
+STATUS=?? docs/orders/
+Sin embargo, bajo la regla estricta de la orden:
+Cualquier cambio durante la verificación implica fallo inmediato.
+La suite global no es completamente no-mutante.
+text
+CORE_MUTATION=FAILED
+Esto debe corregirse en la infraestructura de tests antes de poder declarar una suite global realmente read-only.
+12. Integridad semántica
+Findings independientes:
+EventStore binding ≠ meaningful project data
+
+El binding existe, pero contiene cero derivaciones.
+Available ≠ verified
+
+Las capacidades están implementadas/importables, pero behavior_verified=false.
+Dependency ≠ causality
+
+H-002 no fue declarado sobre ausencia de derivaciones reales.
+Impact ≠ mutation
+
+El contraejemplo externo de H-004 solo produjo un plan read-only.
+Validity ≠ invalidation
+
+No se ejecutó invalidación ni recomputación.
+Hash integrity ≠ truth
+
+El presence de hashes de archivos Core verifica estabilidad del checkout, no corrección cognitiva.
+Read-only ≠ cognitively correct
+
+La ausencia de mutación no prueba la validez semántica de los resultados.
+text
+SEMANTIC_INTEGRITY=PARTIAL
+13. Evidence Protocol
+Baseline
+Core congelado en 5533bd8.
+Input
+72 proyectos reales enumerables.
+108 eventos reales:
+72 PROJECT_CREATED;
+36 SPATIAL_LOCATION_CONFIRMED.
+Initial UNKNOWNs
+No existen derivaciones reales.
+No existen outputs derivados reales.
+No existen referencias H-001 para alimentar H-002/H-003.
+Reasoning activated
+Verificación de autenticación.
+Validación de operaciones allowlisted.
+Validación de parámetros.
+Consulta real SQLite read-only.
+Observación externa de propagación de bloqueos.
+Reconciliación global/focal.
+Knowledge reused
+Contratos H-001, H-002, H-003 y H-004 existentes.
+RT-88 integrado en reaction.py.
+Separación de BLOCKED_DEPENDENCY y ciclos.
+Contrato de read_only.
+New knowledge
+El EventStore real está disponible.
+El dataset actual no contiene DERIVATION_RECORDED.
+RT-99 se confirma en el escenario externo.
+RT-97 se confirma en el escenario externo.
+RT-98 se refuta en el escenario externo.
+La suite global modifica temporalmente un IFC rastreado.
+Deficits detected
+Falta dataset real de derivaciones.
+Falta un canario cognitivo real significativo.
+La suite global tiene un side effect de regeneración IFC.
+No hay evidencia real de RT-A o RT-D en EventStore.
+UNKNOWN resolution path
+Para resolver los UNKNOWN de H-001/H-002/H-003 se requiere que el EventStore real contenga derivaciones registradas mediante el flujo legítimo del Core. No se deben fabricar desde el Bridge ni insertar durante esta auditoría.
+14. Matriz final
+Área
+Estado
+Detalle
+R4_ADAPTER_SECURITY
+PARTIAL
+A1–A5 pasan fail-closed; A6/A7 no completamente ejercitados
+H001_REAL_DOMAIN
+PARTIAL
+Camino real verificado, cero derivaciones reales
+H002_REAL_DOMAIN
+UNKNOWN
+No hay referencias H-001 reales
+H003_REAL_DOMAIN
+UNKNOWN
+No hay entradas H-001 reales
+RT88
+VERIFIED
+Propagación confirmada
+RT97
+VERIFIED
+Confirmado: ciclo eclipsado por BLOCKED_DEPENDENCY
+RT98
+VERIFIED
+Refutado en el contraejemplo: blocked_by conserva dependencias
+RT99
+VERIFIED
+Cadena A→B→C confirmada
+RT100
+PARTIAL
+Conteos reconciliados, pero suite global tiene side effect IFC
+SEMANTIC_INTEGRITY
+PARTIAL
+No hay equivalencias falsas en el adapter; faltan datos cognitivos reales
+CORE_MUTATION
+FAILED
+La suite global modificó temporalmente un IFC rastreado; fue restaurado
+Estado final
+text
+READY_FOR_LEVEL_1_TO_10=NO
+Blockers concretos
+DERIVATION_RECORDED=0 en el EventStore real.
+No hay referencias reales para canarios H-002/H-003.
+La suite global regenera un IFC rastreado y viola la condición estricta de no mutación.
+El adapter R4.1 aún no tiene una prueba completa de crash/stdout malformado del runner bajo configuración trusted.
+No debe emitirse un PASS global mientras CORE_MUTATION=FAILED.
+No se implementaron fixes, no se modificó el Core intencionalmente, no hubo commit, push, PR, merge ni llamadas reales a Manus/OpenAI.

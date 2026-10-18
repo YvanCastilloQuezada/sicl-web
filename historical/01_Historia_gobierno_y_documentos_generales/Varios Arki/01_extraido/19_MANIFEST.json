@@ -1,0 +1,121 @@
+{
+  "artifact": "ARKI-C1C80-INTEGRATE-001",
+  "wave": "WAVE 0",
+  "status": "WAVE0_VERIFIED_FOR_REGISTRY_AND_PLAN_SCOPE",
+  "productImplementation": "NONE",
+  "tx005": "NOT_AUTHORIZED_AND_NOT_EXECUTED",
+  "c81c92": "NOT_IMPLEMENTED",
+  "generatedAt": "2026-09-24T07:04:26.242277+00:00",
+  "files": [
+    {
+      "path": "00_BASELINE.md",
+      "sha256": "c90acdac07d9eea3b2d0db4fa69485fc035d53071e11012f58edb99fa5e19f8d",
+      "bytes": 920
+    },
+    {
+      "path": "01_C1_C80_CAPABILITY_REGISTRY.json",
+      "sha256": "93d19250952ec221530ae32d331f70000074098a5c316887d6a33b258d4e87de",
+      "bytes": 77602
+    },
+    {
+      "path": "02_C1_C80_CAPABILITY_MATRIX.md",
+      "sha256": "3829d6c256331d406ffe3ee5651b439b71333cfe7e98fe9a7b2d07e89e9a3a02",
+      "bytes": 10888
+    },
+    {
+      "path": "03_C1_C80_DEPENDENCY_DAG.md",
+      "sha256": "297f17d02351485205315ce8a4e8cf476bf0de7dfd7fa8fad93e837702353b4a",
+      "bytes": 1190
+    },
+    {
+      "path": "04_C1_C80_ACTIVATION_BOARD.md",
+      "sha256": "a9458d15d1ac8bcc6e44b1d7ce5e523fc04bac6970989bab9e0e4d4c0e4a33c4",
+      "bytes": 666
+    },
+    {
+      "path": "05_SHARED_ENGINE_MAP.md",
+      "sha256": "8db1ab57fcb9533508f558979d63f51a72bc6abcefda87a7f930b69bd5541775",
+      "bytes": 1202
+    },
+    {
+      "path": "06_EXISTING_REUSE_MAP.md",
+      "sha256": "59dd35a53a5a7b8baadaf58302a9292ab9a08e6e43cf5f7ed08ade29b5e6c107",
+      "bytes": 1422
+    },
+    {
+      "path": "07_CANONICAL_BOUNDARY_MAP.md",
+      "sha256": "cbd55810673d74bc1717656fa76f913d1aba201304786712d00c8dc0407ff015",
+      "bytes": 908
+    },
+    {
+      "path": "08_WAVE_IMPLEMENTATION_PLAN.md",
+      "sha256": "59b4700ab77f2b536ea67dc5b78b7ec0c0eab95b9560ce3007ffbf63fdaa79fb",
+      "bytes": 1236
+    },
+    {
+      "path": "09_TEST_ORACLE_MATRIX.md",
+      "sha256": "b4324e74ff2a72b9e7ddf7a0c4b160f7831069662299828e7969c1fce441bae1",
+      "bytes": 908
+    },
+    {
+      "path": "10_TOOL_REQUIREMENT_MATRIX.md",
+      "sha256": "c4fb2e9b4806474d35806ff5bd0c177c6ef3bb1d9b26bd770f9e71ccc44b29cb",
+      "bytes": 815
+    },
+    {
+      "path": "11_PROFESSIONAL_VALIDATION_MATRIX.md",
+      "sha256": "81baff552146f0c19f1768a5ba6e426c7e8e9c09823a61a00b2ee4d6498dcbe0",
+      "bytes": 436
+    },
+    {
+      "path": "12_IMPLEMENTATION_JOURNAL.md",
+      "sha256": "9334387a22b1f1ea7013b0ac3e4e84cd86af9ec9a5f958455e297b7748b5edb3",
+      "bytes": 534
+    },
+    {
+      "path": "13_WAVE0_TEST_RESULTS.md",
+      "sha256": "8eca75519f81f48eaf25a768edb9d22ec725195bb1deaf07cd342b100b290103",
+      "bytes": 543
+    },
+    {
+      "path": "14_WAVE0_REGRESSION_RESULTS.md",
+      "sha256": "b21376f01292104aaebba52fef10cb3ee218eb8cc9a038d5b31cb50dfd4a0265",
+      "bytes": 275
+    },
+    {
+      "path": "15_UNKNOWN_REGISTER.md",
+      "sha256": "070098aa6393f7041296aeae449407f2a196f97e1feedfc471603bdbfa4de318",
+      "bytes": 816
+    },
+    {
+      "path": "16_RISK_REGISTER.md",
+      "sha256": "4edd4def32236a61e58c1583713f3a7e06eae249dabf2e14831dda374f5a1a07",
+      "bytes": 755
+    },
+    {
+      "path": "17_DECISION_REQUIRED.md",
+      "sha256": "d3ea5e62eb2ddc8a767c529e8b40834b6008b1022c219fbb8644c9ff64cc1c00",
+      "bytes": 1439
+    },
+    {
+      "path": "18_EVIDENCE_MATRIX.md",
+      "sha256": "57291eb17f4b2d0d4cd5031a2a889501a8b3b4281bac1c3dfcafb7c15ffd12f9",
+      "bytes": 652
+    },
+    {
+      "path": "20_RAW_COMMAND_OUTPUTS.txt",
+      "sha256": "03f97c5adc1161becbdec7fd1895e13cfe9c619646bb8f64d2300a1938df45ba",
+      "bytes": 49413
+    },
+    {
+      "path": "ORDER_SOURCE_178.txt",
+      "sha256": "80757a6672219ac74cac40ead9e2b52bf6117729f72ccc5b3c1cbb2b7bd999cc",
+      "bytes": 22440
+    },
+    {
+      "path": "WAVE0_TEST_OUTPUT.txt",
+      "sha256": "cf6a032d6f43df1d55ee2853e7458710cce5b6e524b473c6c15d339cd7be9f17",
+      "bytes": 188
+    }
+  ]
+}

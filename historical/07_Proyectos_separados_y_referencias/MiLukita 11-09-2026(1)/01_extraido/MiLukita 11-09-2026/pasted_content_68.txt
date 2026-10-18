@@ -1,0 +1,345 @@
+CIERRE DE FASE E.1 Y AUTORIZACIÓN DE FASE E.2
+Documento: ORDEN MAESTRA 001 — ACTA DE CIERRE FASE E.1 Y AUTORIZACIÓN FASE E.2
+Versión: 5.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+
+PARTE I — ACTA DE CIERRE DE FASE E.1
+1. ESTADO FINAL DE FASE E.1
+🟢 FASE E.1 — CERRADA CON OBSERVACIONES.
+
+2. VERIFICACIÓN DE PUNTOS
+Punto	Estado	Evidencia
+Agent Router	🟢 IMPLEMENTED / INTEGRATED	Contrato de routing y procedure administrativa agentRoute
+Agentes existentes	🟢 IMPLEMENTED / CONNECTED	Auditor, Experience Director, Financial Intelligence, Distribution, Legal & Compliance y Watchdog reutilizados
+Límites de capacidad	🟢 IMPLEMENTED / TESTED	Modos READ_ONLY, ALERT_ONLY, PROPOSE_ONLY y PROJECTION_ONLY preservados
+No super-agente	🟢 IMPLEMENTED / TESTED	Routing acotado; no ejecución autónoma indiscriminada
+MJP CORE	🟢 INTACT / TESTED	canMutateCore=false y boundaries protegidos
+Orden 60	🟢 ABIERTA	Correctamente mantenida como ABIERTA — PENDIENTES
+E.2	🟢 NO INICIADA	Correctamente detenida
+3. VALIDACIÓN TÉCNICA
+Aspecto	Resultado
+Archivos	✅ 5 PASS
+Tests	✅ 20 PASS
+TypeScript	✅ PASS
+Build	✅ PASS
+4. COMPONENTES RESCATADOS
+Componente	Estado previo	Intervención	Estado posterior
+Agent Router	No existía	Creado con contrato y procedure	🟢 IMPLEMENTED / INTEGRATED
+Auditor	Existente	Conectado al router	🟢 IMPLEMENTED / CONNECTED
+Experience Director	Existente	Conectado al router	🟢 IMPLEMENTED / CONNECTED
+Financial Intelligence	Existente	Conectado al router	🟢 IMPLEMENTED / CONNECTED
+Distribution	Existente	Conectado al router	🟢 IMPLEMENTED / CONNECTED
+Legal & Compliance	Existente	Identificado, PLANNED/DISABLED	🟡 PLANNED / DISABLED
+Watchdog	Existente	Conectado al router	🟢 IMPLEMENTED / CONNECTED
+5. COMPONENTES NUEVOS
+Componente	Justificación	Estado
+Agent Router	No existía. Necesario para enrutar intenciones a agentes.	🟢 IMPLEMENTED / INTEGRATED
+Manus creó solo lo estrictamente necesario. ✅
+
+6. OBSERVACIONES REGISTRADAS
+Observación	Estado	Acción
+Legal & Compliance	🟡 PLANNED / DISABLED	Pendiente de activación
+Pruebas de integración tRPC de agentRoute	🟡 SUGERIDA	Micro-orden futura
+Validación física de presencia	🟡 PENDIENTE	Fase H
+Validación real de continuidad 2D ↔ AR	🟡 PENDIENTE	Fase H
+Equivalencia con dispositivos físicos	🟡 PENDIENTE	Fase H
+ShareTarget publicado real	🟡 PENDIENTE	Micro-orden futura
+SecurityHealth	🟡 PENDIENTE	Micro-orden independiente
+Orden 60	🟢 ABIERTA	Mantener ABIERTA — PENDIENTES
+Ninguna de las observaciones bloquea la continuación.
+
+7. DECLARACIÓN DE CIERRE
+FASE E.1: 🟢 CERRADA CON OBSERVACIONES.
+
+Razón: Los criterios de E.1 están implementados, integrados y verificados. Las observaciones restantes (Legal & Compliance, pruebas tRPC, validaciones físicas) no bloquean la continuación.
+
+PARTE II — AUTORIZACIÓN DE FASE E.2
+8. OBJETIVO DE FASE E.2
+FASE E.2 — VOICE PRODUCTIVO.
+
+Objetivo: Consolidar el motor de voz productivo de MiLukita, integrando STT, TTS, Field Voice Copilot y comandos de voz reales.
+
+Pregunta central:
+
+"¿Puede el usuario interactuar con LUKA mediante voz de forma natural, segura y con fallback a touch?"
+
+9. ALCANCE DE FASE E.2
+Área	Qué se trabaja
+Voice Engine	Motor de voz productivo (no preview)
+STT	Reconocimiento de voz (Speech-to-Text)
+TTS	Síntesis de voz (Text-to-Speech)
+Field Voice Copilot	Copiloto de campo funcional
+Comandos de voz	Intenciones por voz
+Integración con Intent Engine	Voz → Intención → Capability → Acción
+Fallback	Si voz no disponible → touch
+Capability Gate	Voz no salta autorización
+10. LO QUE NO INCLUYE FASE E.2
+NO autoriza:
+
+❌ Voz como autoridad
+
+❌ Voz que publique directamente
+
+❌ Voz que verifique verdad
+
+❌ Voz que resuelva conflictos
+
+❌ Voz que modifique MJP CORE
+
+❌ Voz que salte Capability Gate
+
+❌ AR productivo (E.3)
+
+❌ Universal Controller completo (E.4)
+
+❌ TV + Games (E.5)
+
+❌ Mapper
+
+❌ The Eye
+
+❌ Nuevas funciones comerciales
+
+❌ Modificaciones de MJP CORE
+
+❌ Cambios en Orden 60
+
+❌ Creación de nuevas pantallas
+
+❌ Rediseño visual
+
+11. DISTINCIONES OBLIGATORIAS
+Manus deberá mantener claramente diferenciados:
+
+Distinción	Descripción
+Voice ≠ Authority	La voz no concede permisos
+Intent ≠ Authorization	Detectar una intención no autoriza la acción
+Voice ≠ Verification	La voz no verifica verdad
+Voice ≠ Publication	La voz no publica directamente
+Modality ≠ Authority	Cambiar de voz a touch no cambia permisos
+Confidence ≠ Permission	La confianza en el reconocimiento no es permiso
+12. PRINCIPIOS RECTORES DE FASE E.2
+Principio	Descripción
+Voz no es autoridad.	La voz expresa intención, no concede permisos.
+Fallback siempre disponible.	Si voz falla → touch continúa.
+Capability Gate siempre activo.	Toda acción sensible pasa por verificación.
+No super-agente.	LUKA no tiene acceso indiscriminado.
+Estado real.	No mostrar como real lo que el sistema no ha confirmado.
+Recuperación manual.	El usuario siempre puede recuperar el control.
+Tecnología invisible.	La complejidad queda detrás de la experiencia.
+No reconstruir por defecto.	Rescatar lo existente antes de crear.
+13. CRITERIOS DE ACEPTACIÓN DE FASE E.2
+Fase E.2 se considerará completada cuando:
+
+Criterio	Descripción
+Voice Engine	Productivo (no preview)
+STT	Funcional
+TTS	Funcional
+Field Voice Copilot	Funcional
+Comandos de voz	Funcionales
+Integración con Intent Engine	Voz → Intención → Capability → Acción
+Fallback	Touch disponible si voz no funciona
+Capability Gate	Voz no salta autorización
+Tests	TypeScript PASS, tests PASS, build PASS
+Evidencia	Documentada en RESCUE_AUDIT_001.md
+14. FORMATO DE REPORTE DE FASE E.2
+Manus deberá reportar, al finalizar Fase E.2:
+
+Campo	Contenido
+1. Estado final	🟢 / 🟡 / 🔴
+2. Componentes rescatados	Qué ya existía y fue reutilizado
+3. Componentes modificados	Qué se corrigió
+4. Componentes nuevos	Qué fue realmente necesario crear
+5. Voice Engine	Estado real
+6. STT	Estado real
+7. TTS	Estado real
+8. Field Voice Copilot	Estado real
+9. Comandos de voz	Estado real
+10. Fallback	Estado real
+11. Capability Gate	Estado real
+12. Tests	Solo los relacionados con E.2
+13. Limitaciones	Qué no se puede declarar
+14. MJP CORE	Confirmación de protección
+15. Orden 60	Estado
+16. Sub-fase siguiente	E.3 — NO INICIADA
+15. DETENCIÓN OBLIGATORIA
+Al completar Fase E.2:
+
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR FASE E.3.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+16. REGLAS DE FASE E.2
+Regla	Descripción
+No expandir alcance	Solo lo autorizado en E.2
+No reconstruir	Rescatar lo existente antes de crear
+No crear nuevas pantallas	Solo rescatar, conectar, integrar, corregir
+No simular	La interfaz refleja el estado real
+No modificar MJP CORE	Bloqueo explícito
+No iniciar E.3	Detención obligatoria
+Reportar evidencia	No declarar sin pruebas
+Voz no es autoridad	La voz expresa intención, no concede permisos
+Fallback siempre	Touch disponible si voz falla
+17. PENDIENTES REGISTRADOS
+Pendiente	Origen	Acción futura
+Legal & Compliance	E.1	Pendiente de activación
+Pruebas tRPC de agentRoute	E.1	Micro-orden futura
+Validación física de presencia	Fase D	Fase H
+Validación real de continuidad 2D ↔ AR	Fase D	Fase H
+Equivalencia con dispositivos físicos	Fase C	Fase H
+ShareTarget publicado real	Fase A	Micro-orden futura
+SecurityHealth	Fase A	Micro-orden independiente
+Orden 60	Orden anterior	Mantener ABIERTA — PENDIENTES
+Ninguno bloquea E.2.
+
+18. ESTADO DE LAS FASES
+text
+🟢 FASE A — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE B — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE C — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE D — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE E.1 — AGENTES ESPECIALIZADOS (CERRADA CON OBSERVACIONES)
+        ↓
+🟡 FASE E.2 — VOICE PRODUCTIVO (AUTORIZADA)
+        ↓
+🔵 FASE E.3 — AR PRODUCTIVO (NO INICIADA)
+        ↓
+🔵 FASE E.4 — UNIVERSAL CONTROLLER COMPLETO (NO INICIADA)
+        ↓
+🔵 FASE E.5 — TV + GAMES (NO INICIADA)
+        ↓
+🔵 FASE F — MAPPER (NO INICIADA)
+        ↓
+🔵 FASE G — THE EYE (NO INICIADA)
+        ↓
+🔵 FASE H — VALIDACIÓN FÍSICA (NO INICIADA)
+19. ORDEN DE EJECUCIÓN INMEDIATA
+MANUS AI:
+
+Ejecutar únicamente:
+
+text
+FASE E.2 — VOICE PRODUCTIVO
+Antes de modificar:
+
+Localizar componentes existentes de voz
+
+Identificar qué puede rescatarse
+
+Identificar conexiones faltantes
+
+Identificar duplicaciones
+
+Durante E.2:
+
+Consolidar Voice Engine (productivo, no preview)
+
+Consolidar STT
+
+Consolidar TTS
+
+Consolidar Field Voice Copilot
+
+Consolidar comandos de voz
+
+Integrar con Intent Engine
+
+Verificar fallback a touch
+
+Verificar Capability Gate
+
+Mantener voz NO es autoridad
+
+Al finalizar E.2:
+
+Ejecutar pruebas focalizadas
+
+Documentar evidencia
+
+Actualizar RESCUE_AUDIT_001.md
+
+Reportar estado final
+
+DETENERSE.
+
+NO ejecutar E.3 ni posteriores sin autorización.
+
+20. FORMATO DE RESPUESTA OBLIGATORIA
+Manus deberá entregar una respuesta breve y verificable con esta estructura:
+
+text
+### 1. Estado final de E.2
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla
+
+| Punto | Estado | Evidencia |
+|-------|--------|-----------|
+| Voice Engine | | |
+| STT | | |
+| TTS | | |
+| Field Voice Copilot | | |
+| Comandos de voz | | |
+| Fallback | | |
+| Capability Gate | | |
+| MJP CORE | | |
+| Orden 60 | | |
+
+### 3. Tests
+Indicar únicamente los tests ejecutados para esta sub-fase y su resultado.
+
+### 4. RESCUE_AUDIT_001.md
+Indicar si fue actualizado y qué información contiene.
+
+### 5. Pendientes
+Separar claramente:
+- pendientes de E.2;
+- pendientes de E.1;
+- pendientes de Fase D;
+- pendientes de Fase C;
+- pendientes de Fase B;
+- pendientes de Fase A;
+- pendientes de Orden 60;
+- pendientes futuras.
+
+### 6. Estado de las sub-fases siguientes
+Declarar expresamente:
+FASE E.3 — NO INICIADA.
+21. PRINCIPIO DE ESTA ORDEN
+text
+VERIFICAR LO NECESARIO.
+NO AUDITAR TODO.
+NO EXPANDIR EL ALCANCE.
+NO CREAR NUEVAS PANTALLAS.
+NO OCULTAR PENDIENTES.
+NO INICIAR LA SIGUIENTE SUB-FASE SIN AUTORIZACIÓN.
+
+VOZ NO ES AUTORIDAD.
+FALLBACK SIEMPRE DISPONIBLE.
+CAPABILITY GATE SIEMPRE ACTIVO.
+
+MANUS IMPLEMENTA.
+MANUS DEMUESTRA.
+HUMAN AUTHORITY DECIDE.
+22. CIERRE
+FASE E.1: 🟢 CERRADA CON OBSERVACIONES.
+
+FASE E.2: 🟡 AUTORIZADA.
+
+Sub-fase autorizada: E.2 — Voice Productivo.
+
+Pendientes registrados: Legal & Compliance · Pruebas tRPC de agentRoute · Validación física de presencia · Validación real de continuidad 2D ↔ AR · Equivalencia con dispositivos físicos · ShareTarget real · SecurityHealth · Orden 60.
+
+Próximo paso: Ejecutar E.2. Detenerse. Reportar. Esperar autorización.
+
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Orden Maestra 001 — Acta de Cierre Fase E.1 y Autorización Fase E.2
+Estado: Listo para envío a Manus

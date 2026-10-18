@@ -1,0 +1,9 @@
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+ src/sicl/a002/__init__.py          |  46 [32m++++[m[31m-[m
+ src/sicl/a002/engine.py            | 397 [32m+++++++++++++++++++++++++++++++[m[31m------[m
+ src/sicl/a002/gate.py              |  69 [32m+++++[m[31m--[m
+ src/sicl/a002/identity.py          |  29 [32m++[m[31m-[m
+ src/sicl/a002/model.py             | 377 [32m+++++++++++++++++++++++++++++++[m[31m----[m
+ src/sicl/a002/requirements.py      |  96 [32m+++++++[m[31m--[m
+ tests/test_a002_v1_4_injections.py | 144 [32m+++++++++++[m[31m---[m
+ 7 files changed, 1004 insertions(+), 154 deletions(-)

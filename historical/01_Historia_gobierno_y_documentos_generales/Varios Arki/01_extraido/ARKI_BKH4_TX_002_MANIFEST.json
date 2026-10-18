@@ -1,0 +1,85 @@
+{
+  "package": "ARKI-BKH4-TX-002-DESIGN-LOCK",
+  "status": "DESIGN_COMPLETE_IMPLEMENTATION_NOT_AUTHORIZED",
+  "predecessor": "ARKI-BKH4-TX-001 Phase A",
+  "decisions": {
+    "canonicalOwner": "CanonicalProjectRepository",
+    "projectContextRole": "UI_WORKING_PROJECTION",
+    "persistenceBoundary": "ONE_INDEXEDDB_READWRITE_TRANSACTION_ACROSS_REQUIRED_STORES",
+    "historyStrategy": "HYBRID_TRANSACTION_LOG_PLUS_CANONICAL_REVISIONS",
+    "atomicCommitPersistenceDesign": "READY",
+    "currentImplementation": "PARTIAL_NOT_IMPLEMENTED",
+    "bkh4_4_ready": "NO"
+  },
+  "scopeGuard": [
+    "No ProjectContext migration",
+    "No canonical mutation",
+    "No atomic commit implementation",
+    "No rollback, undo, redo, or crash recovery implementation",
+    "No writer migration",
+    "No Event Store implementation",
+    "No CAD, ABB-001, cloud, or UI changes"
+  ],
+  "files": [
+    {
+      "path": "ARKI_BKH4_TX_002_DESIGN.md",
+      "bytes": 8432,
+      "sha256": "54ad7ade3abb8b4efa239c48a5a940d74dab8b3c32690f68bd152c3499773c2d"
+    },
+    {
+      "path": "ARKI_BKH4_TX_002_DECISION_TABLE.md",
+      "bytes": 2464,
+      "sha256": "498328da9ed1706a6e97819dada160cfe0519d6e312dae39b429567f37c1f42c"
+    },
+    {
+      "path": "ARKI_BKH4_TX_002_ARCHITECTURE.mmd",
+      "bytes": 781,
+      "sha256": "9241eff2c00df81c8cc858705f7c6ef61b4e525eed6db47b100ef67df555479d"
+    },
+    {
+      "path": "ARKI_BKH4_TX_002_ARCHITECTURE.png",
+      "bytes": 256102,
+      "sha256": "f88918d0c788d712a371ec3a8fa5e82b1af285795aa628df7be735c5747db459"
+    },
+    {
+      "path": "ARKI_BKH4_TX_002_GAPS.md",
+      "bytes": 898,
+      "sha256": "69009d69d32d5e8cfc596cda51399d25ecf1863ec767f00bb65575e44a02552b"
+    },
+    {
+      "path": "BKH4_TX_001_PHASE_A_ADDENDUM.md",
+      "bytes": 2338,
+      "sha256": "baf2c52d3b220c2383098c00abef48186efd96364a94d3d9207b7384e2f7982b"
+    },
+    {
+      "path": "BKH4_TX_001_PHASE_A_OUTPUTS.txt",
+      "bytes": 5991,
+      "sha256": "e65429f642dac49db3303b50a28343fec95cd35ac518856a116b8d9b6382263a"
+    },
+    {
+      "path": "ARKI_BKH4_TX_001_MANIFEST.json",
+      "bytes": 4560,
+      "sha256": "ff8ceab01cfa265563462c05448ee3b2220710145609e32856883304581de5f9"
+    },
+    {
+      "path": "shared/arkiTransactionEngine.ts",
+      "bytes": 15261,
+      "sha256": "3adb1100c5a53e360f28d064a42ee390944fcc1f73577e329f18ba2326420046"
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "bytes": 4194,
+      "sha256": "b54007e62f54c64259adff0955b78c57a82ce9ace886023b4170d66acca5a5c0"
+    },
+    {
+      "path": "client/src/persistence/arkiIndexedDb.ts",
+      "bytes": 4642,
+      "sha256": "4457522fbb0718600dd04e52e73ebcf8aa6636859f424761ac499a5d4bf13e02"
+    },
+    {
+      "path": "client/src/contexts/ProjectContext.tsx",
+      "bytes": 1032,
+      "sha256": "29d52cfebbfdd1be560b2ec7c53d3c9a3e4df355435dc44da38ae8279a262704"
+    }
+  ]
+}

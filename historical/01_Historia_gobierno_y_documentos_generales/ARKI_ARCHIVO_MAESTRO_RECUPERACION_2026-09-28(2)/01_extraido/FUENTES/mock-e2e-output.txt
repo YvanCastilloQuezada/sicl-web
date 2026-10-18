@@ -1,0 +1,7 @@
+
+> arki-agent-bridge-v02a@0.2.0-alpha.8 test:mock-e2e
+> node tests/mock-e2e/run.mjs
+
+(node:61460) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+MOCK_E2E_PASS scenarios=14

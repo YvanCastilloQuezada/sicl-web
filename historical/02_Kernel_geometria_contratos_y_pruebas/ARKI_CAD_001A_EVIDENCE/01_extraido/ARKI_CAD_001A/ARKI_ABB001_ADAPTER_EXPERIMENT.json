@@ -1,0 +1,13 @@
+{
+  "schema":"ARKI-ABB001-ADAPTER-EXPERIMENT-1.0",
+  "status":"NOT_EXECUTED",
+  "sourceFreeze":"ARKI_ABB001_SOURCE_FREEZE_V1",
+  "sourceFiles":5,
+  "candidates":["ODA_DRAWINGS_SDK","AUTODESK_REALDWG","GNU_LIBREDWG","ODA_FILE_CONVERTER"],
+  "requiredInputs":"DERIVED_COPIES_ONLY",
+  "requiredFields":["file","layout","modelSpace","paperSpace","layer","handle","entityType","coordinates","block","insert","attribute","text","mtext","dimension","hatch","xref","units","extents"],
+  "comparisonPipeline":["source_hash","adapter_extract","ACIR_candidate","render","visual_compare","structural_compare","loss_report"],
+  "dxfIntermediateTest":{"status":"NOT_EXECUTED","paths":["DWG→DXF→ACIR","DWG→DIRECT_EXTRACTION→ACIR"]},
+  "noSourceMutation":true,
+  "reason":"Selection order forbids purchase/integration and the environment has no authorized candidate runtime."
+}

@@ -1,0 +1,1761 @@
+# ORDEN MAESTRA PARA MANUS
+
+## LUKITA — CHARACTER + WEBAR SPATIAL EXPERIENCE
+
+### Versión consolidada de diseño, experiencia, arquitectura y criterios de aceptación
+
+---
+
+## 0. OBJETIVO DE ESTA ORDEN
+
+Esta orden consolida todas las decisiones tomadas hasta ahora sobre **Lukita**.
+
+No quiero que Lukita sea implementada como una simple mascota 3D, una estatua virtual ni un modelo GLB colocado sobre una superficie.
+
+El objetivo es construir el primer núcleo de:
+
+# ⭐ LUKITA LIVE
+
+Un personaje digital espacial que:
+
+* aparece en el mundo físico mediante WebAR;
+* puede ser descubierto desde cientos de metros de distancia;
+* cambia progresivamente de escala conforme el usuario se aproxima;
+* está siempre vivo y en movimiento;
+* reconoce la presencia/orientación del usuario;
+* interactúa visualmente con él;
+* tiene música y sonido propios;
+* tiene una mascota/compañero;
+* puede convertirse en protagonista de experiencias;
+* puede viajar entre diferentes ubicaciones;
+* puede tener diferentes vestuarios, comportamientos y experiencias sin perder su identidad;
+* y puede convertirse posteriormente en una IP comercial independiente.
+
+**Lukita debe ser tratada como un personaje, no como un objeto 3D.**
+
+---
+
+# 1. CONCEPTO CENTRAL
+
+La frase conceptual que debe orientar toda la implementación es:
+
+> **NO BUSQUES UNA ESTATUA. BUSCA A LUKITA.**
+
+Lukita debe dar la sensación de que:
+
+> **Lukita está realmente presente en ese lugar.**
+
+La experiencia no debe sentirse como:
+
+> “Abrí una aplicación y apareció un modelo 3D.”
+
+Debe sentirse como:
+
+> “Encontré a Lukita.”
+
+Y posteriormente:
+
+> “Lukita me vio.”
+
+Y finalmente:
+
+> “Lukita vino a encontrarse conmigo.”
+
+---
+
+# 2. LUKITA ES LA PROTAGONISTA
+
+No definir a Lukita como:
+
+* presentadora;
+* guía institucional;
+* avatar;
+* asistente;
+* estatua;
+* simple mascota.
+
+Definirla como:
+
+# ⭐ UNA ESTRELLA DIGITAL ESPACIAL
+
+Puede:
+
+* presentar;
+* guiar;
+* jugar;
+* bailar;
+* contar historias;
+* hacer turismo;
+* interactuar;
+* enseñar;
+* aparecer en eventos;
+* generar contenido social;
+* acompañar a niños;
+* interactuar con jóvenes;
+* participar en experiencias comerciales.
+
+Pero ninguna de esas funciones debe limitar su identidad.
+
+---
+
+# 3. PRINCIPIO FUNDAMENTAL: LUKITA NUNCA ESTÁ COMPLETAMENTE ESTÁTICA
+
+Esta es una regla de diseño obligatoria.
+
+Mientras la experiencia esté activa, Lukita NO debe parecer una estatua.
+
+Incluso cuando no esté ejecutando una acción principal deberá existir algún movimiento:
+
+* respiración;
+* desplazamiento sutil del peso;
+* movimiento de cabello;
+* mirada;
+* parpadeo;
+* pequeños gestos;
+* cambio de postura;
+* movimiento de manos;
+* interacción con la mascota;
+* reacción al entorno.
+
+Cuando exista interacción:
+
+* saluda;
+* camina;
+* gira;
+* baila;
+* señala;
+* se acerca;
+* hace una pose;
+* mira al usuario;
+* reacciona;
+* celebra;
+* juega.
+
+La percepción buscada es:
+
+> **Lukita tiene vida propia.**
+
+---
+
+# 4. DISEÑO DEL PERSONAJE
+
+Antes de cerrar el modelo 3D definitivo, establecer un:
+
+# LUKITA CHARACTER BIBLE
+
+Debe definir como mínimo:
+
+* rostro;
+* ojos;
+* cabello;
+* proporciones;
+* cuerpo;
+* manos;
+* pies;
+* vestimenta;
+* colores;
+* elemento icónico;
+* estrella/núcleo;
+* expresiones;
+* poses;
+* lenguaje corporal;
+* personalidad;
+* mascota;
+* reglas de variación;
+* reglas de identidad.
+
+---
+
+# 5. CUERPO
+
+No utilizar proporciones humanas hiperrealistas.
+
+La dirección buscada es:
+
+> **hero character + estrella pop + exploradora + personaje de animación + tecnología**
+
+Características deseadas:
+
+* cabeza ligeramente proporcionada hacia lo icónico;
+* ojos grandes y expresivos;
+* rostro limpio;
+* sonrisa reconocible;
+* cuerpo estilizado;
+* piernas relativamente largas;
+* brazos suficientemente expresivos;
+* manos capaces de transmitir gestos;
+* pies ligeramente grandes;
+* silueta inmediatamente reconocible.
+
+La prueba principal:
+
+> Si Lukita aparece solamente como una silueta negra, debe poder reconocerse que es Lukita.
+
+La identidad debe funcionar:
+
+* a 20 cm;
+* en un teléfono;
+* en vídeo;
+* a 2 m;
+* a 8 m;
+* y a cientos de metros como representación espacial.
+
+---
+
+# 6. VESTIMENTA
+
+NO vestir a Lukita como una presentadora convencional.
+
+Debe tener un:
+
+# TRAJE ICÓNICO
+
+Dirección visual inicial:
+
+* blanco/perlado como base;
+* detalles tecnológicos;
+* acentos de color de la identidad de Lukita;
+* apariencia moderna;
+* elegante;
+* juvenil;
+* amigable;
+* futurista;
+* no sexualizada.
+
+Debe funcionar simultáneamente para:
+
+* niños;
+* adolescentes;
+* universitarios;
+* familias;
+* adultos.
+
+Debe poder recibir variaciones digitales:
+
+* Lukita Original;
+* Lukita Exploradora;
+* Lukita Playa;
+* Lukita Cultura;
+* Lukita Universidad;
+* Lukita Deportes;
+* Lukita Navidad;
+* Lukita Festival;
+* Lukita Espacio;
+* etc.
+
+Pero:
+
+> rostro + cuerpo + identidad principal + elemento icónico deben permanecer consistentes.
+
+---
+
+# 7. ELEMENTO ICÓNICO
+
+Explorar y desarrollar la:
+
+# ⭐ ESTRELLA DE LUKITA
+
+No debe parecer simplemente un logo pegado.
+
+Debe formar parte del personaje.
+
+Puede funcionar como:
+
+* núcleo;
+* elemento luminoso;
+* insignia;
+* fuente de energía visual.
+
+Debe poder aparecer en:
+
+* pecho;
+* animaciones;
+* partículas;
+* interfaz;
+* AR;
+* merchandising;
+* recompensas;
+* mapa;
+* futuras versiones del personaje.
+
+La estrella debe convertirse progresivamente en un símbolo reconocible de Lukita.
+
+---
+
+# 8. MASCOTA / COMPAÑERO
+
+Lukita debe tener un pequeño compañero.
+
+Objetivo:
+
+> aumentar la conexión emocional con niños y familias sin quitar protagonismo a Lukita.
+
+Regla:
+
+# LUKITA = ESTRELLA
+
+# MASCOTA = COMPAÑERO TRAVIESO
+
+La mascota debe ser:
+
+* pequeña;
+* adorable;
+* expresiva;
+* juguetona;
+* curiosa;
+* ligeramente traviesa;
+* visualmente diferente de Lukita;
+* perteneciente al mismo universo.
+
+Evitar una copia convencional de perro/gato.
+
+Explorar una criatura propia del universo Lukita, potencialmente con elementos de:
+
+* estrella;
+* nube;
+* criatura digital;
+* animal fantástico.
+
+La mascota puede tener:
+
+* sus propios sonidos;
+* animaciones;
+* reacciones;
+* pequeñas acciones cómicas.
+
+Ejemplo:
+
+Lukita baila.
+
+La mascota intenta imitarla.
+
+Se equivoca.
+
+Lukita reacciona.
+
+Esto debe permitir crear microhistorias sin necesidad de diálogos permanentes.
+
+---
+
+# 9. LUKITA SCALE ENGINE
+
+Esta es una de las funciones principales del sistema.
+
+La escala de Lukita depende de la distancia del usuario al:
+
+# LUKITA POINT
+
+Pero el cambio debe ser:
+
+> **CONTINUO + SUAVIZADO + CINEMATOGRÁFICO**
+
+Nunca debe existir un salto visible de escala.
+
+---
+
+## 9.1 REGLA DE ESCALA DEFINITIVA
+
+Establecer estos puntos de referencia:
+
+| Distancia del usuario al Lukita Point | Altura objetivo de Lukita |
+| ------------------------------------- | ------------------------: |
+| 0–5 m                                 | aproximadamente 1.8–2.0 m |
+| 5 m                                   |     aproximadamente 2.0 m |
+| 10 m                                  |     aproximadamente 5.0 m |
+| 15 m o más                            |     aproximadamente 8.0 m |
+
+Entre estos puntos utilizar interpolación suave.
+
+Por tanto:
+
+**5 m → 2 m**
+
+**10 m → 5 m**
+
+**15 m → 8 m**
+
+Después:
+
+**15 m+ → aproximadamente 8 m**
+
+No implementar cambios instantáneos.
+
+---
+
+# 10. IMPORTANTE: NO DEBE PARECER QUE EL MODELO SIMPLEMENTE SE AGRANDA
+
+La transición debe ser una combinación de:
+
+* escala;
+* posición;
+* animación;
+* postura;
+* comportamiento;
+* cámara;
+* LOD.
+
+Ejemplo:
+
+A distancia:
+
+Lukita gigante.
+
+Cuando el usuario se acerca:
+
+Lukita puede inclinarse.
+
+Puede mirar al usuario.
+
+Puede acercarse ligeramente.
+
+Puede modificar su postura.
+
+Puede agacharse.
+
+Puede saludar.
+
+Debe sentirse como un personaje que está reaccionando al acercamiento.
+
+No como un objeto cuyo parámetro Scale cambió.
+
+---
+
+# 11. ESTADOS DE LUKITA
+
+Implementar conceptualmente un:
+
+# LUKITA BEHAVIOR ENGINE
+
+La lógica debe poder seleccionar comportamientos según:
+
+* distancia;
+* orientación del usuario;
+* estado de la sesión;
+* tiempo;
+* ubicación;
+* evento;
+* interacción;
+* presencia de otros usuarios cuando posteriormente corresponda.
+
+Estados iniciales:
+
+### LUKITA DISCOVERY
+
+Usuario lejos.
+
+### LUKITA BEACON
+
+Usuario aproximándose.
+
+### LUKITA APPROACH
+
+Usuario acercándose al punto.
+
+### LUKITA GIANT
+
+Usuario dentro del rango de experiencia gigante.
+
+### LUKITA PERSONAL
+
+Usuario cercano.
+
+### LUKITA GREETING
+
+Reconocimiento del usuario.
+
+### LUKITA PLAY
+
+Interacción.
+
+### LUKITA DANCE
+
+Animación musical.
+
+### LUKITA CELEBRATE
+
+Finalización/recompensa.
+
+### LUKITA IDLE
+
+Cuando no existe interacción directa.
+
+---
+
+# 12. EXPERIENCIA A DISTANCIA
+
+El sistema debe permitir que el usuario encuentre a Lukita desde:
+
+* 50 m;
+* 100 m;
+* 200 m;
+* 500 m;
+* 1 km aproximadamente.
+
+No asumir que el posicionamiento AR a 1 km tendrá precisión física perfecta.
+
+A grandes distancias utilizar:
+
+> **representación espacial orientativa / beacon visual**
+
+y no exigir precisión milimétrica.
+
+---
+
+# 13. LUKITA BEACON
+
+Cuando el usuario está lejos:
+
+Lukita puede aparecer:
+
+* elevada;
+* flotando;
+* sobre el horizonte;
+* sobre el punto de destino;
+* haciendo movimientos grandes;
+* saludando;
+* bailando;
+* interactuando con la mascota.
+
+La interfaz debe mostrar:
+
+> ⭐ LUKITA ESTÁ A 327 m
+
+y una indicación para desplazarse hacia ella.
+
+El objetivo es:
+
+> **ENCUENTRA A LUKITA**
+
+---
+
+# 14. EXPERIENCIA DE APROXIMACIÓN
+
+Ejemplo conceptual:
+
+### 800 m
+
+Lukita aparece como figura espacial.
+
+### 500 m
+
+Lukita hace movimientos amplios.
+
+### 300 m
+
+Lukita puede comenzar a reaccionar.
+
+### 150 m
+
+Lukita puede reconocer la aproximación.
+
+### 50 m
+
+Lukita está claramente presente en el espacio.
+
+### 15 m
+
+Lukita alcanza aproximadamente 8 m.
+
+### 10 m
+
+Lukita aproximadamente 5 m.
+
+### 5 m
+
+Lukita aproximadamente 2 m.
+
+### 0–5 m
+
+Lukita entra en:
+
+# LUKITA PERSONAL
+
+La interacción se vuelve cercana.
+
+---
+
+# 15. LA ESCALA ES PARTE DEL STORYTELLING
+
+No presentar la escala como una característica técnica.
+
+El usuario debe sentir:
+
+> “Lukita está creciendo.”
+
+o incluso:
+
+> “Lukita se está acercando a mí.”
+
+La transformación debe formar parte del espectáculo.
+
+---
+
+# 16. LUKITA AR STAGE
+
+Crear un visor WebAR de presentación independiente.
+
+Nombre de trabajo:
+
+# LUKITA AR STAGE
+
+Debe estar separado de:
+
+* Controller Lab;
+* MJP CORE;
+* sistemas de dinero;
+* pagos;
+* lógica financiera;
+* sorteos.
+
+No permitir que la experiencia AR modifique el modelo maestro.
+
+---
+
+# 17. ENTRADA
+
+El flujo inicial:
+
+**QR**
+
+↓
+
+**Landing/visor Lukita**
+
+↓
+
+Mensaje:
+
+> ⭐ LUKITA ESTÁ AQUÍ
+
+↓
+
+Botón:
+
+> **VER A LUKITA EN MI ESPACIO**
+
+↓
+
+Permiso de cámara
+
+↓
+
+Permiso de ubicación cuando sea necesario
+
+↓
+
+Experiencia.
+
+Debe existir fallback cuando el dispositivo no soporte WebAR/WebXR adecuadamente:
+
+> **VER EN 3D**
+
+No bloquear al usuario simplemente porque el dispositivo no tiene capacidades AR completas.
+
+---
+
+# 18. PRIMERA EXPERIENCIA
+
+La primera pantalla debe ser extremadamente sencilla.
+
+No saturar con botones.
+
+Propuesta:
+
+> ⭐ LUKITA
+>
+> **Encuéntrala en tu espacio**
+>
+> [ VER A LUKITA ]
+
+Después:
+
+> Apunta tu cámara hacia Lukita.
+
+La activación del audio debe respetar las restricciones de autoplay de navegadores móviles.
+
+Por tanto, el primer toque del usuario debe servir también para habilitar audio.
+
+---
+
+# 19. MÚSICA Y SONIDO
+
+Lukita debe tener identidad sonora propia.
+
+Crear conceptualmente:
+
+### LUKITA SOUND
+
+Firma sonora de aproximadamente 2–3 segundos.
+
+### LUKITA THEME
+
+Tema musical principal.
+
+### LUKITA SONGS
+
+Música completa para experiencias y eventos.
+
+---
+
+# 20. ACTIVACIÓN MUSICAL
+
+La idea es:
+
+**QR**
+
+↓
+
+usuario activa experiencia
+
+↓
+
+cámara
+
+↓
+
+detecta/orienta hacia Lukita
+
+↓
+
+⭐ Lukita responde
+
+↓
+
+🎵 comienza sonido/música
+
+La música no debe depender de autoplay automático prohibido por el navegador.
+
+Debe existir una activación inicial explícita del usuario.
+
+Una vez autorizada:
+
+> detección/enfoque de Lukita → activación musical.
+
+---
+
+# 21. SONIDO REACTIVO
+
+Crear lenguaje sonoro:
+
+Lukita aparece → firma sonora.
+
+Lukita saluda → sonido.
+
+Mascota aparece → sonido propio.
+
+Mascota salta → sonido corto.
+
+Lukita inicia baile → música.
+
+Lukita reconoce al usuario → señal sonora.
+
+Experiencia completada → recompensa sonora.
+
+---
+
+# 22. LUKITA NUNCA DEBE REPETIR MECÁNICAMENTE LA MISMA ANIMACIÓN
+
+No crear simplemente:
+
+animation1 → animation2 → animation1 → animation2.
+
+El sistema debe poder seleccionar comportamientos de forma pseudoaleatoria/controlada.
+
+Ejemplos:
+
+* mirar;
+* caminar;
+* saludar;
+* bailar;
+* girar;
+* señalar;
+* interactuar con mascota;
+* sentarse;
+* levantarse;
+* hacer pose;
+* mirar el entorno;
+* reaccionar al usuario.
+
+Debe existir un sistema de:
+
+# IDLE VARIATION
+
+para evitar la sensación de bucle.
+
+---
+
+# 23. POSES ICÓNICAS
+
+Crear como mínimo:
+
+1. Star Pose
+2. Saludo
+3. Abrazo
+4. Selfie
+5. Corazón
+6. Superheroína
+7. Estrella pop
+8. Invitación
+9. Celebración
+10. Pose con mascota
+11. Pose a la altura de un niño
+
+Especialmente importante:
+
+> Lukita debe poder agacharse o adaptar su lenguaje corporal para interactuar visualmente con niños.
+
+---
+
+# 24. LUKITA PHOTO EXPERIENCE
+
+El objetivo no es solamente mostrar el modelo.
+
+El objetivo es generar:
+
+* fotografías;
+* vídeos;
+* reels;
+* TikToks;
+* contenido compartible.
+
+La experiencia debe contemplar un:
+
+# LUKITA PHOTO MOMENT
+
+Lukita puede:
+
+* acercarse;
+* posar;
+* saludar;
+* hacer corazón;
+* inclinarse;
+* interactuar con la mascota.
+
+Posteriormente se podrá integrar una zona física de fotografía.
+
+---
+
+# 25. LUKITA LIVE POINT
+
+Cada ubicación debe convertirse conceptualmente en un:
+
+# LUKITA LIVE POINT
+
+No es necesariamente una estatua.
+
+Es una ubicación donde Lukita tiene presencia digital.
+
+Cada punto debe poder tener:
+
+* ID;
+* coordenadas;
+* QR;
+* NFC opcional;
+* radio de activación;
+* experiencias;
+* comportamiento;
+* tema musical;
+* configuración visual;
+* contenido;
+* negocios/eventos asociados posteriormente.
+
+---
+
+# 26. LUKITA PUEDE VIAJAR
+
+No crear una Lukita diferente para cada lugar.
+
+Debe existir:
+
+> **UNA MISMA LUKITA**
+
+que pueda aparecer en:
+
+* UPAO;
+* Trujillo;
+* Huanchaco;
+* Chan Chan;
+* Lima;
+* Cusco;
+* otras ciudades;
+* eventos;
+* hoteles;
+* centros comerciales;
+* universidades;
+* museos.
+
+La ubicación cambia.
+
+La identidad de Lukita no.
+
+---
+
+# 27. VARIANTES POR UBICACIÓN
+
+El sistema debe quedar preparado para:
+
+**Lukita UPAO**
+
+**Lukita Costa**
+
+**Lukita Cultura**
+
+**Lukita Turismo**
+
+**Lukita Festival**
+
+etc.
+
+Pero esto debe resolverse mediante:
+
+* configuración;
+* vestuario digital;
+* animaciones;
+* música;
+* entorno;
+* contenido.
+
+No duplicando el personaje maestro.
+
+---
+
+# 28. MODELO 3D
+
+El sistema debe utilizar un modelo:
+
+# GLB/GLTF
+
+Optimizado para móviles.
+
+Debe contemplar:
+
+* PBR;
+* texturas optimizadas;
+* compresión;
+* LOD;
+* animaciones;
+* expresiones;
+* rig adecuado;
+* posibilidad de reemplazar el modelo sin reescribir el sistema.
+
+Utilizar según conveniencia:
+
+* Draco;
+* Meshopt;
+* KTX2/Basis;
+* texture compression;
+* carga progresiva.
+
+---
+
+# 29. LOD
+
+Implementar diferentes niveles de detalle.
+
+### LOD LEJANO
+
+Modelo simplificado.
+
+### LOD MEDIO
+
+Mayor detalle.
+
+### LOD CERCANO
+
+Modelo completo.
+
+### LOD MUY CERCANO
+
+Rostro y expresiones de máxima calidad razonable para móvil.
+
+El usuario no debe percibir cambios abruptos.
+
+---
+
+# 30. MODELO MAESTRO VS EXPERIENCIA
+
+Separar:
+
+# LUKITA MASTER ASSET
+
+de:
+
+# LUKITA EXPERIENCE INSTANCE
+
+La instancia puede modificar:
+
+* escala;
+* posición;
+* rotación;
+* animación;
+* expresión;
+* vestuario;
+* efectos;
+* sonido.
+
+Pero NO puede alterar el personaje maestro.
+
+---
+
+# 31. ORIGEN DEL MODELO 3D
+
+No asumir que el primer modelo utilizado será el definitivo.
+
+El sistema debe permitir reemplazar el GLB posteriormente.
+
+Se debe evaluar la adquisición de un modelo comercial o personalizado en plataformas como:
+
+* Sketchfab;
+* CGTrader;
+* TurboSquid;
+* Fab;
+* Unity Asset Store;
+* Unreal Marketplace.
+
+Pero NO comprar un modelo solamente porque técnicamente funciona.
+
+El criterio prioritario es:
+
+> **potencial de convertirse en un personaje icónico.**
+
+Debe evaluarse:
+
+1. rostro;
+2. silueta;
+3. proporciones;
+4. ojos;
+5. manos;
+6. cabello;
+7. rig;
+8. expresividad;
+9. posibilidad de modificación;
+10. licencia comercial;
+11. facilidad de adaptación;
+12. rendimiento WebAR.
+
+Si ningún modelo existente cumple suficientemente bien:
+
+> utilizar un modelo provisional para validar la tecnología y dejar preparada la sustitución por un personaje original.
+
+---
+
+# 32. PRIORIDAD DE DISEÑO
+
+No sacrificar identidad por facilidad técnica.
+
+Orden de prioridades:
+
+### P0 — IDENTIDAD
+
+Lukita debe ser visualmente memorable.
+
+### P0 — EXPERIENCIA
+
+Debe sentirse viva.
+
+### P0 — ESCALA
+
+Debe reaccionar a la distancia.
+
+### P0 — PERFORMANCE
+
+Debe funcionar razonablemente en móviles.
+
+### P1 — AUDIO
+
+Debe tener identidad sonora.
+
+### P1 — MASCOTA
+
+Debe integrarse correctamente.
+
+### P1 — PHOTO MOMENTS
+
+Debe generar contenido.
+
+### P2 — VARIANTES
+
+Vestuario y experiencias por ubicación.
+
+### P2 — MULTIUSUARIO
+
+Dejar preparado conceptualmente, pero no implementar todavía si aumenta innecesariamente la complejidad.
+
+---
+
+# 33. TECNOLOGÍA
+
+Evaluar preferentemente:
+
+* WebXR;
+* WebAR;
+* Three.js;
+* GLTF/GLB;
+* geolocation;
+* orientación del dispositivo;
+* camera;
+* Web Audio;
+* PWA cuando corresponda.
+
+La solución debe funcionar como experiencia web.
+
+No convertir inicialmente esto en una aplicación nativa obligatoria.
+
+---
+
+# 34. PRECISIÓN GEOESPACIAL
+
+No prometer precisión AR absoluta a 500–1,000 m.
+
+Utilizar:
+
+* GPS;
+* heading;
+* orientación;
+* distancia;
+* bearing;
+* correcciones suaves;
+* visualización orientativa.
+
+Cuando el usuario esté cerca:
+
+**aumentar la exigencia de precisión espacial.**
+
+---
+
+# 35. EXPERIENCIA SIN AR
+
+Si WebXR no está disponible:
+
+mostrar una experiencia 3D alternativa.
+
+Debe conservar:
+
+* Lukita;
+* escala;
+* animación;
+* sonido;
+* comportamiento;
+* distancia;
+* interacción básica.
+
+La falta de AR no debe significar:
+
+> “No puedes usar Lukita.”
+
+---
+
+# 36. INTERFAZ
+
+La interfaz debe ser mínima.
+
+No convertir la pantalla en un dashboard.
+
+Controles esenciales:
+
+* iniciar;
+* pausa;
+* sonido;
+* ocultar;
+* recenter;
+* salir.
+
+Opcionalmente:
+
+* escala;
+* modo 3D;
+* información.
+
+Pero siempre priorizar:
+
+> **Lukita sobre la interfaz.**
+
+---
+
+# 37. PRIVACIDAD
+
+La cámara debe activarse solamente después del consentimiento.
+
+Cuando sea técnicamente posible:
+
+* procesamiento local;
+* no almacenar imágenes;
+* no grabar automáticamente;
+* no subir fotografías sin consentimiento;
+* no mantener cámara activa después de salir.
+
+La geolocalización debe solicitarse solamente cuando sea necesaria para la experiencia.
+
+---
+
+# 38. SEPARACIÓN ARQUITECTÓNICA
+
+Lukita AR Stage debe ser modular y estar aislado.
+
+Arquitectura conceptual:
+
+```text
+QR
+ │
+ ▼
+LUKITA AR STAGE
+ │
+ ├── Camera
+ ├── WebXR
+ ├── Geolocation
+ ├── Orientation
+ ├── Distance Engine
+ ├── Scale Engine
+ ├── Behavior Engine
+ ├── Animation System
+ ├── Audio Engine
+ ├── Character Loader
+ ├── Pet System
+ └── Experience Config
+```
+
+No conectar directamente con:
+
+```text
+MJP CORE
+Payments
+Wallet
+Lottery
+Financial Engine
+```
+
+Controller Lab permanece separado.
+
+---
+
+# 39. CONFIGURACIÓN DE LUKITA POINT
+
+Preparar una estructura configurable equivalente a:
+
+```text
+LUKITA_POINT
+    id
+    name
+    latitude
+    longitude
+    activationRadius
+    experienceRadius
+    qr
+    audioTheme
+    characterVersion
+    petVersion
+    defaultBehavior
+    locationTheme
+    availableExperiences
+```
+
+Esto permitirá crear posteriormente muchos Lukita Live Points sin duplicar código.
+
+---
+
+# 40. CONFIGURACIÓN DE ESCALA
+
+No codificar las distancias rígidamente en múltiples componentes.
+
+Crear un:
+
+# SCALE PROFILE
+
+con parámetros configurables.
+
+Ejemplo inicial:
+
+```text
+0–5 m      → 1.8–2.0 m
+5–10 m     → transición hacia 5.0 m
+10–15 m    → transición hacia 8.0 m
+15 m+      → 8.0 m
+```
+
+Los valores deben poder modificarse posteriormente desde configuración.
+
+---
+
+# 41. COMPORTAMIENTO SEGÚN DISTANCIA
+
+Crear perfiles iniciales:
+
+```text
+DISCOVERY
+500–1000 m
+
+BEACON
+100–500 m
+
+APPROACH
+15–100 m
+
+GIANT
+10–15 m
+
+GROWING
+5–15 m
+
+PERSONAL
+0–5 m
+```
+
+No asumir que estos rangos son definitivos para siempre.
+
+Deben ser configurables.
+
+---
+
+# 42. EJEMPLO DE EXPERIENCIA COMPLETA
+
+Una experiencia correcta sería:
+
+```text
+PERSONA
+   ↓
+VE QR
+   ↓
+ESCANEA
+   ↓
+"⭐ LUKITA ESTÁ AQUÍ"
+   ↓
+[VER A LUKITA]
+   ↓
+CAMERA + LOCATION
+   ↓
+LUKITA APARECE
+   ↓
+500 m
+Lukita gigante / beacon
+   ↓
+300 m
+Lukita se mueve
+   ↓
+100 m
+Lukita comienza a reconocer
+   ↓
+50 m
+Lukita 8 m aproximadamente
+   ↓
+15 m
+Lukita 8 m
+   ↓
+10 m
+Lukita 5 m
+   ↓
+5 m
+Lukita 2 m
+   ↓
+LUKITA PERSONAL
+   ↓
+Lukita mira al usuario
+   ↓
+Mascota aparece
+   ↓
+Música
+   ↓
+Animación
+   ↓
+Pose
+   ↓
+📸 PHOTO MOMENT
+   ↓
+EXPERIENCE
+```
+
+---
+
+# 43. EXPERIENCIA EMOCIONAL OBJETIVO
+
+El usuario debería pasar por:
+
+### 1. CURIOSIDAD
+
+> “¿Qué es eso?”
+
+### 2. DESCUBRIMIENTO
+
+> “¡Es Lukita!”
+
+### 3. SORPRESA
+
+> “¡Es enorme!”
+
+### 4. APROXIMACIÓN
+
+> “Está viniendo hacia mí.”
+
+### 5. RECONOCIMIENTO
+
+> “Lukita me vio.”
+
+### 6. CONEXIÓN
+
+> “Está interactuando conmigo.”
+
+### 7. PARTICIPACIÓN
+
+> “Quiero hacer una foto/video.”
+
+### 8. COMPARTIR
+
+> “Quiero mostrar esto.”
+
+Ese recorrido es más importante que añadir veinte funciones.
+
+---
+
+# 44. NO IMPLEMENTAR TODAVÍA
+
+No convertir esta primera versión en un sistema excesivamente complejo.
+
+No implementar inicialmente, salvo que sea indispensable:
+
+* multijugador;
+* voz avanzada;
+* lip-sync avanzado;
+* IA conversacional;
+* economía;
+* pagos;
+* juegos complejos;
+* NFT;
+* blockchain;
+* integración financiera;
+* funcionalidades MJP CORE.
+
+Todo eso puede llegar después.
+
+Primero debemos demostrar:
+
+> **Lukita aparece → vive → crece → reconoce → interactúa → suena → genera una experiencia memorable.**
+
+---
+
+# 45. CRITERIOS DE ACEPTACIÓN
+
+La implementación NO se considera satisfactoria simplemente porque:
+
+> “el modelo GLB aparece en AR”.
+
+Debe superar estas pruebas:
+
+### TEST 01 — IDENTIDAD
+
+¿Lukita es reconocible inmediatamente?
+
+### TEST 02 — DISTANCIA
+
+¿Funciona la experiencia desde grandes distancias razonables?
+
+### TEST 03 — ESCALA
+
+¿5 m ≈ 2 m?
+
+¿10 m ≈ 5 m?
+
+¿15 m+ ≈ 8 m?
+
+¿La transición es suave?
+
+### TEST 04 — MOVIMIENTO
+
+¿Lukita evita permanecer estática?
+
+### TEST 05 — COMPORTAMIENTO
+
+¿Lukita realiza diferentes acciones sin parecer un loop mecánico?
+
+### TEST 06 — ORIENTACIÓN
+
+¿El usuario puede encontrar razonablemente a Lukita?
+
+### TEST 07 — AUDIO
+
+¿La activación inicial permite reproducir sonido correctamente en móvil?
+
+### TEST 08 — MASCOTA
+
+¿La mascota complementa a Lukita sin competir con ella?
+
+### TEST 09 — PERFORMANCE
+
+¿La experiencia es razonablemente fluida en dispositivos móviles?
+
+### TEST 10 — FALLBACK
+
+¿Existe una experiencia útil si WebXR no está disponible?
+
+### TEST 11 — AISLAMIENTO
+
+¿Lukita AR Stage permanece separado de MJP CORE?
+
+### TEST 12 — SUSTITUCIÓN
+
+¿Podemos cambiar posteriormente el GLB de Lukita sin rehacer el sistema?
+
+---
+
+# 46. PRINCIPIO FINAL DE DISEÑO
+
+No quiero una demo técnicamente correcta pero emocionalmente mediocre.
+
+Quiero comprobar si estamos construyendo:
+
+> **un personaje que la gente quiera volver a encontrar.**
+
+La tecnología es el medio.
+
+Lukita es el producto.
+
+El WebAR es el escenario.
+
+La geolocalización es el mecanismo de descubrimiento.
+
+La escala es parte del espectáculo.
+
+El movimiento crea vida.
+
+La música crea identidad.
+
+La mascota crea conexión emocional.
+
+La fotografía crea difusión.
+
+Los Lukita Live Points crean presencia territorial.
+
+Y el personaje consistente crea una futura IP.
+
+---
+
+# 47. ENTREGABLES DE ESTA FASE
+
+Manus debe entregar:
+
+### A. CHARACTER SYSTEM
+
+Estructura preparada para Lukita Master Asset.
+
+### B. LUKITA AR STAGE
+
+Visor WebAR funcional.
+
+### C. GEOLOCATION ENGINE
+
+Distancia + bearing + orientación.
+
+### D. SCALE ENGINE
+
+Implementación continua y configurable.
+
+### E. BEHAVIOR ENGINE
+
+Estados y comportamientos iniciales.
+
+### F. ANIMATION SYSTEM
+
+Idle + interacción + poses.
+
+### G. AUDIO ENGINE
+
+Firma sonora + música + eventos.
+
+### H. PET SYSTEM
+
+Mascota preparada como entidad independiente.
+
+### I. LUKITA POINT CONFIG
+
+Configuración de ubicación.
+
+### J. FALLBACK 3D
+
+Experiencia sin WebXR.
+
+### K. PERFORMANCE
+
+GLB + LOD + compresión + carga progresiva.
+
+### L. DOCUMENTACIÓN
+
+Explicar:
+
+* arquitectura;
+* componentes;
+* configuración;
+* reemplazo del modelo;
+* configuración de Lukita Point;
+* escala;
+* comportamiento;
+* audio;
+* pruebas realizadas;
+* limitaciones conocidas.
+
+---
+
+# 48. ORDEN DE EJECUCIÓN
+
+Ejecutar en este orden:
+
+## FASE 1
+
+Auditar el proyecto actual y localizar exactamente dónde integrar Lukita.
+
+## FASE 2
+
+Crear la arquitectura modular de Lukita AR Stage.
+
+## FASE 3
+
+Implementar geolocalización + distancia + bearing.
+
+## FASE 4
+
+Implementar Scale Engine.
+
+## FASE 5
+
+Implementar personaje GLB provisional si el personaje definitivo aún no está adquirido.
+
+## FASE 6
+
+Implementar animaciones e Idle Behavior.
+
+## FASE 7
+
+Implementar Behavior Engine.
+
+## FASE 8
+
+Implementar audio.
+
+## FASE 9
+
+Implementar mascota.
+
+## FASE 10
+
+Implementar Photo Moments.
+
+## FASE 11
+
+Implementar fallback 3D.
+
+## FASE 12
+
+Optimizar rendimiento móvil.
+
+## FASE 13
+
+Realizar pruebas en iOS y Android.
+
+## FASE 14
+
+Documentar y preparar reemplazo del modelo maestro.
+
+---
+
+# 49. DECISIÓN ESTRATÉGICA SOBRE EL PERSONAJE
+
+No cerrar el diseño visual definitivo simplemente porque exista un modelo 3D técnicamente utilizable.
+
+Antes de adquirir o encargar el modelo definitivo, comprobar:
+
+> **¿Este personaje puede convertirse realmente en Lukita?**
+
+La pregunta no es:
+
+> “¿Este modelo es bonito?”
+
+La pregunta es:
+
+> **“¿Podría reconocerlo una persona dentro de cinco años y decir inmediatamente: esa es Lukita?”**
+
+Si la respuesta es no:
+
+**no utilizarlo como personaje definitivo.**
+
+---
+
+# 50. RESULTADO QUE QUIERO VER
+
+La primera demo ideal debería permitir hacer exactamente esto:
+
+Una persona camina por una ciudad.
+
+Encuentra un QR.
+
+Lo escanea.
+
+Activa Lukita.
+
+Mira hacia el punto.
+
+Aparece una figura gigantesca.
+
+Se acerca.
+
+Lukita se mueve.
+
+La persona continúa caminando.
+
+Lukita cambia de escala.
+
+La persona llega a 15 m.
+
+Lukita mide aproximadamente 8 m.
+
+Se acerca a 10 m.
+
+Lukita mide aproximadamente 5 m.
+
+Se acerca a 5 m.
+
+Lukita mide aproximadamente 2 m.
+
+Lukita la mira.
+
+La mascota aparece.
+
+Se activa el sonido.
+
+Lukita saluda.
+
+Hace una pose.
+
+La persona toma una fotografía.
+
+Y la sensación final debe ser:
+
+# “ACABO DE ENCONTRAR A LUKITA.”
+
+No:
+
+# “ACABO DE PROBAR UNA APP AR.”
+
+---
+
+## INSTRUCCIÓN FINAL A MANUS
+
+Implementa esta especificación como **LUKITA AR STAGE / LUKITA LIVE — primera arquitectura funcional**.
+
+No simplifiques el concepto reduciéndolo a un visor GLB.
+
+No conviertas a Lukita en una estatua.
+
+No hagas que permanezca estática.
+
+No acoples Lukita a MJP CORE.
+
+No hardcodees la identidad del personaje en el código de manera que impida reemplazar el modelo.
+
+Prioriza:
+
+**IDENTIDAD → VIDA → DISTANCIA → ESCALA → COMPORTAMIENTO → SONIDO → EXPERIENCIA → PERFORMANCE.**
+
+Si alguna funcionalidad avanzada no puede implementarse correctamente en esta fase, deja la arquitectura preparada y continúa con el núcleo.
+
+El objetivo de esta fase es demostrar que:
+
+> **Lukita puede entrar en el mundo físico digitalmente y comportarse como una estrella viva.**
+
+Ese es el producto que debemos validar antes de añadir complejidad.

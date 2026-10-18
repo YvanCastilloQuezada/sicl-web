@@ -1,0 +1,55 @@
+# Node and package managers
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn-cache/
+
+# Build outputs
+dist/
+build/
+.next/
+*.dist
+coverage/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+.sicl-core.env
+*.sicl-core.env
+*.pem
+*.key
+*.crt
+
+# Databases and runtime state
+*.db
+*.sqlite
+*.sqlite3
+
+# Generated exports and local artifacts
+exports/
+logs/
+*.log
+.tmp/
+tmp/
+temp/
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+*~
+
+# TypeScript and tooling caches
+*.tsbuildinfo
+.cache/
+.parcel-cache/
+.nyc_output/
+
+# WebDev generated metadata
+.webdev/
+.project-config.json
+client/public/__manus__/version.json

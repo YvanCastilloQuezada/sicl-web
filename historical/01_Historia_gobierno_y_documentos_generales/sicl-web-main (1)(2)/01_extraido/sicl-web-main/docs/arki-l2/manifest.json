@@ -1,0 +1,47 @@
+{
+  "schema": "ARKI-ANEXO-I-0.1",
+  "packageId": "ARKI-L2-TRANSFER-RUNTIME-2026-09-20",
+  "experiment": "L1_TO_L2_TRANSFER_RUNTIME",
+  "status": "IMPLEMENTED_LOCALLY",
+  "humanAuthority": "FINAL",
+  "artifacts": {
+    "engine": "server/arkiD62ReasoningHarness.ts",
+    "tests": "server/arkiD62ReasoningHarness.test.ts",
+    "router": "server/routers.ts",
+    "report": "docs/arki-l2/ARKI-L2-TRANSFER-RUNTIME.md"
+  },
+  "capabilities": [
+    "bounded retrieval",
+    "TRANSFER decision",
+    "ADAPT decision",
+    "DO_NOT_TRANSFER decision",
+    "UNKNOWN preservation",
+    "need-before-space derivation",
+    "genuinely divergent strategy candidates",
+    "perturbation reevaluation",
+    "physical-connectivity versus operational-topology distinction",
+    "counterexample refinement",
+    "human-review-required learning candidate",
+    "deterministic replay",
+    "local versioned reasoning persistence"
+  ],
+  "epistemicRules": [
+    "retrieval_is_not_learning",
+    "execution_is_not_canonical_knowledge",
+    "no_automatic_promotion",
+    "unknown_preservation",
+    "human_architect_final_authority",
+    "no_remote_write_without_documented_canonical_endpoint"
+  ],
+  "validation": {
+    "focusedTests": "PASS",
+    "fullTests": "177/177 PASS",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "diffCheck": "PASS"
+  },
+  "remotePersistence": "NOT_DEMONSTRATED",
+  "checkpointVersion": "35383e07",
+  "push": "NO",
+  "deploy": "NO"
+}

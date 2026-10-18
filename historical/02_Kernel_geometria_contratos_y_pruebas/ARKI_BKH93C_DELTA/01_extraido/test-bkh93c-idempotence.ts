@@ -1,0 +1,24 @@
+import { strict as assert } from "node:assert";
+import { buildRegenerationPlan, computeFreshnessFingerprint, executeRegenerationPlan, type DerivedStateNode, type RegenerationChangeSet, type RegeneratorDefinition } from "../shared/arkiRegenerationEngine";
+
+const provenance = { source: "fixture:93c-idempotence", transformations: ["bounded-real-run"] };
+const node: DerivedStateNode = { nodeId: "geometry-wall-1", entityId: "wall-1", outputDomain: "geometry", sourceIds: ["wall-1"], dependencyIds: [], validityState: "DIRTY", executionState: "PENDING" };
+const change: RegenerationChangeSet = { changeSetId: "change-wall-1", entityId: "wall-1", property: "height", previousValue: 3, proposedValue: 4, sourceRevision: "r1", targetRevision: "r2", projectVersion: "v2", initiatingCause: "human", origin: "HUMAN", timestamp: "2026-09-23T00:00:00Z", epistemicState: "PROPOSED", provenance };
+const regenerator: RegeneratorDefinition = { regeneratorId: "geometry", domain: "geometry", acceptedInputs: ["wall"], producedOutputs: ["geometry"], dependencies: [], version: "1.0.0", deterministic: true, idempotent: true, relevantContextKeys: ["unitPolicyRevision"], preconditions: [], postconditions: [], constraintChecks: [], provenance, run: ({ inputFingerprint }) => ({ outputHash: `geometry:${inputFingerprint.value}`, provenance }) };
+const input = { planId: "93c-idempotence", changes: [change], nodes: [node], relationships: [], propagationRules: [], regenerators: [regenerator], provenance };
+const planA = buildRegenerationPlan(input);
+const planB = buildRegenerationPlan(input);
+const executionInput = { changes: [change], nodes: [node], regenerators: [regenerator], context: { unitPolicyRevision: "u1" }, sourceRevisions: [{ id: "wall-1", revision: "r1", hash: "wall-hash" }], dependencyRevisions: [], provenance };
+const runA = executeRegenerationPlan({ plan: planA, ...executionInput });
+const runB = executeRegenerationPlan({ plan: planB, ...executionInput });
+const semantic = (run: typeof runA) => ({ result: run.result, traceEvents: run.trace.events.map(({ sequence: _sequence, ...event }) => event) });
+assert.deepEqual(semantic(runA), semantic(runB), "RUN 1 and RUN 2 semantic outputs must match");
+assert.equal(runA.result.nodes[0]?.outputFingerprint?.value, runB.result.nodes[0]?.outputFingerprint?.value, "output hash must match");
+assert.equal(runA.result.status, "COMPLETED");
+assert.equal(runA.result.nodes[0]?.validityState, "CLEAN");
+assert.deepEqual(runA.result.provenance, runB.result.provenance);
+assert.deepEqual(executionInput.nodes, [node], "source node input unchanged");
+const fpA = computeFreshnessFingerprint({ sourceRevisions: executionInput.sourceRevisions, dependencyRevisions: [], regenerator, context: executionInput.context });
+const fpB = computeFreshnessFingerprint({ sourceRevisions: executionInput.sourceRevisions, dependencyRevisions: [], regenerator, context: executionInput.context });
+assert.equal(fpA.value, fpB.value, "freshness fingerprint must not drift");
+console.log(JSON.stringify({ status: "PASS", run1: "COMPLETED", run2: "COMPLETED", outputHashEqual: true, semanticEqual: true, validityEqual: true, provenanceEqual: true, sourceUnchanged: true, artificialRevision: false, silentMutation: false, regenerator: regenerator.regeneratorId, version: regenerator.version }));

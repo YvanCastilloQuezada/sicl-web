@@ -1,0 +1,240 @@
+{
+  "baselineHead": "69ff2ad2f7537dd5b752ec8dce90f7c27d5ec3f6",
+  "entryBundle": "index-DNwvu7b4.js",
+  "targets": [
+    {
+      "route": "/arki",
+      "screenId": "R3-004",
+      "component": "HashWorkspaceRoute",
+      "routeDeclaration": "App.tsx:79",
+      "lazyImportExpression": "NOT_LAZY_DECLARATION",
+      "sourceModule": "NOT_APPLICABLE",
+      "sourceExists": false,
+      "defaultExport": false,
+      "defaultExportLine": null,
+      "generatedChunkCandidates": [],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": false,
+      "classification": "ROUTE_CONFIGURATION_DEFECT_OR_STALE_A0_CLASSIFICATION"
+    },
+    {
+      "route": "/arki-book",
+      "screenId": "R3-006",
+      "component": "ArkiBookPage",
+      "routeDeclaration": "App.tsx:84",
+      "lazyImportExpression": "const ArkiBookPage = lazy(() => import(\"./pages/ArkiBookPage\"))",
+      "sourceModule": "client/src/pages/ArkiBookPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 137,
+      "generatedChunkCandidates": [
+        "ArkiBookPage-Dta2P80J.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/arki-device-bridge",
+      "screenId": "R3-008",
+      "component": "ArkiDeviceInteroperabilityPage",
+      "routeDeclaration": "App.tsx:98",
+      "lazyImportExpression": "const ArkiDeviceInteroperabilityPage = lazy(() => import(\"./pages/ArkiDeviceInteroperabilityPage\"))",
+      "sourceModule": "client/src/pages/ArkiDeviceInteroperabilityPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 18,
+      "generatedChunkCandidates": [
+        "ArkiDeviceInteroperabilityPage-CcqzlCqa.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/arki-operations",
+      "screenId": "R3-013",
+      "component": "ArkiOperationsPage",
+      "routeDeclaration": "App.tsx:90",
+      "lazyImportExpression": "const ArkiOperationsPage = lazy(() => import(\"./pages/ArkiOperationsPage\"))",
+      "sourceModule": "client/src/pages/ArkiOperationsPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 31,
+      "generatedChunkCandidates": [
+        "ArkiOperationsPage-C3AQbGJE.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/arki-parametric-runtime",
+      "screenId": "R3-014",
+      "component": "ArkiParametricRuntimePage",
+      "routeDeclaration": "App.tsx:91",
+      "lazyImportExpression": "const ArkiParametricRuntimePage = lazy(() => import(\"./pages/ArkiParametricRuntimePage\"))",
+      "sourceModule": "client/src/pages/ArkiParametricRuntimePage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 61,
+      "generatedChunkCandidates": [
+        "ArkiParametricRuntimePage-BrOtj3Jh.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/arki-research-review",
+      "screenId": "R3-015",
+      "component": "ArkiResearchReviewPage",
+      "routeDeclaration": "App.tsx:107",
+      "lazyImportExpression": "const ArkiResearchReviewPage = lazy(() => import(\"./pages/ArkiResearchReviewPage\"))",
+      "sourceModule": "client/src/pages/ArkiResearchReviewPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 8,
+      "generatedChunkCandidates": [
+        "ArkiResearchReviewPage-Ddx7VetF.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/audit",
+      "screenId": "R3-019",
+      "component": "AuditRoute",
+      "routeDeclaration": "App.tsx:108",
+      "lazyImportExpression": "NOT_LAZY_DECLARATION",
+      "sourceModule": "NOT_APPLICABLE",
+      "sourceExists": false,
+      "defaultExport": false,
+      "defaultExportLine": null,
+      "generatedChunkCandidates": [],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": false,
+      "classification": "ROUTE_CONFIGURATION_DEFECT_OR_STALE_A0_CLASSIFICATION"
+    },
+    {
+      "route": "/comparisons",
+      "screenId": "R3-020",
+      "component": "ComparisonsPage",
+      "routeDeclaration": "App.tsx:82",
+      "lazyImportExpression": "const ComparisonsPage = lazy(() => import(\"./pages/ComparisonsPage\"))",
+      "sourceModule": "client/src/pages/ComparisonsPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 9,
+      "generatedChunkCandidates": [
+        "ComparisonsPage-lcSh-sJL.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/evaluations",
+      "screenId": "R3-022",
+      "component": "EvaluationsPage",
+      "routeDeclaration": "App.tsx:81",
+      "lazyImportExpression": "const EvaluationsPage = lazy(() => import(\"./pages/EvaluationsPage\"))",
+      "sourceModule": "client/src/pages/EvaluationsPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 9,
+      "generatedChunkCandidates": [
+        "EvaluationsPage-D4Is2kpJ.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/help/operations",
+      "screenId": "R3-028",
+      "component": "HelpArticlePage",
+      "routeDeclaration": "App.tsx:111",
+      "lazyImportExpression": "const HelpArticlePage = lazy(() => import(\"./pages/HelpArticlePage\"))",
+      "sourceModule": "client/src/pages/HelpArticlePage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 15,
+      "generatedChunkCandidates": [
+        "HelpArticlePage-BmQYr8gx.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/help/user",
+      "screenId": "R3-029",
+      "component": "HelpArticlePage",
+      "routeDeclaration": "App.tsx:110",
+      "lazyImportExpression": "const HelpArticlePage = lazy(() => import(\"./pages/HelpArticlePage\"))",
+      "sourceModule": "client/src/pages/HelpArticlePage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 15,
+      "generatedChunkCandidates": [
+        "HelpArticlePage-BmQYr8gx.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/security-events",
+      "screenId": "R3-033",
+      "component": "SecurityEventsPage",
+      "routeDeclaration": "App.tsx:106",
+      "lazyImportExpression": "const SecurityEventsPage = lazy(() => import(\"./pages/SecurityEventsPage\"))",
+      "sourceModule": "client/src/pages/SecurityEventsPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 7,
+      "generatedChunkCandidates": [
+        "SecurityEventsPage-BAICttcC.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/sources",
+      "screenId": "R3-034",
+      "component": "SourceLibraryPage",
+      "routeDeclaration": "App.tsx:87",
+      "lazyImportExpression": "const SourceLibraryPage = lazy(() => import(\"./pages/SourceLibraryPage\"))",
+      "sourceModule": "client/src/pages/SourceLibraryPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 13,
+      "generatedChunkCandidates": [
+        "SourceLibraryPage-BcrHv29H.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    },
+    {
+      "route": "/spatial",
+      "screenId": "R3-035",
+      "component": "SpatialViewerPage",
+      "routeDeclaration": "App.tsx:85",
+      "lazyImportExpression": "const SpatialViewerPage = lazy(() => import(\"./pages/SpatialViewerPage\"))",
+      "sourceModule": "client/src/pages/SpatialViewerPage.tsx",
+      "sourceExists": true,
+      "defaultExport": true,
+      "defaultExportLine": 4,
+      "generatedChunkCandidates": [
+        "SpatialViewerPage-CYYyj_ii.js"
+      ],
+      "entryBundle": "index-DNwvu7b4.js",
+      "entryContainsNamedModule": true,
+      "classification": "SOURCE_BUILD_MATCH"
+    }
+  ]
+}

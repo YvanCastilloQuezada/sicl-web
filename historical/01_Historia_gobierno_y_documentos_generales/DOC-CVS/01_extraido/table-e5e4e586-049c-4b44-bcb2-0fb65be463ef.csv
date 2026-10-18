@@ -1,0 +1,7 @@
+﻿ID,Invariante,Origen
+INV-H002-01,IMPACT DETECTED ≠ CHANGE EXECUTED,H-002 Examen 10
+INV-H002-02,PATH DISCOVERED ≠ CAUSAL EFFECT VERIFIED,H-002 Examen 10
+INV-H002-03,CHANGE ≠ PROPAGATION,H-002 Examen 10
+INV-H002-04,H-002 es read-only,H-002 Examen 10
+INV-H002-05,"Fail-closed, no truncamiento silencioso","H-002 Examen 3, 9"
+RC-01 a RC-07,Reglas de canonicalización,Este contrato

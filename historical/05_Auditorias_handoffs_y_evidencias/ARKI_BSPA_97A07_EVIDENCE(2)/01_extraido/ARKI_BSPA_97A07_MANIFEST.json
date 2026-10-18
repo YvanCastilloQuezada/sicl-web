@@ -1,0 +1,118 @@
+{
+  "schema": "ARKI-BSPA-97A07-MANIFEST-1.0",
+  "status": "FOUNDATION IMPLEMENTED + BOUNDED TESTS EXECUTED + E2E PILOTS NOT_DEMONSTRATED + PENDING INDEPENDENT VERIFICATION",
+  "firewall": [
+    "NO_PROFESSIONAL_CERTIFICATION",
+    "NO_CANONICAL_MUTATION",
+    "NO_BKH4_4_PLUS",
+    "NO_E8",
+    "NO_AUTONOMOUS_REDESIGN"
+  ],
+  "entries": [
+    {
+      "file": "ARKI_BSPA_ARCHITECTURE.md",
+      "size": 1301,
+      "sha256": "8c78e6d477dd29f6013274584489aaf226146392180531077d2c6812dca686aa"
+    },
+    {
+      "file": "ARKI_EXISTING_BIM_FORENSIC_MAP.md",
+      "size": 1510,
+      "sha256": "ab21c00275575c9eebb9517a0d0158dadb36646a555c258b7d7a68a333116699"
+    },
+    {
+      "file": "ARKI_BIM_SERVICE_MODELS.md",
+      "size": 1823,
+      "sha256": "11828a5a6c5665adc42711baeeab875b45e257769f1f7933c9784ada5db68ada"
+    },
+    {
+      "file": "ARKI_BIM_TEST_MATRIX.md",
+      "size": 1545,
+      "sha256": "9891605bbc9ba7738d021c02bf7a264c63f324bc53771c47dcfbabe28b2b224a"
+    },
+    {
+      "file": "ARKI_BIM_SERVICE_MODEL.md",
+      "size": 156,
+      "sha256": "43c22bb564f2b35d01916388d9154bf4bf5de1cb57680bb338b9d3b953cab2cd"
+    },
+    {
+      "file": "ARKI_BIM_AUDIT_MODEL.md",
+      "size": 183,
+      "sha256": "03573b3878c8b0b19cb135ea3da0971e02f3d6af6d0a4975b2c342d64cb64933"
+    },
+    {
+      "file": "ARKI_BIM_REQUIREMENT_MODEL.md",
+      "size": 176,
+      "sha256": "9dbf309f06565da35dae3f3f30acf8eabe5144976b3de943dac2a89751bacd9a"
+    },
+    {
+      "file": "ARKI_DRAWING_TO_BIM_MODEL.md",
+      "size": 143,
+      "sha256": "f3dcfda895f2440ee5627e3b22674443e76548d7a8b7dc2e98e11d9898f61b18"
+    },
+    {
+      "file": "ARKI_BIM_RESCUE_MODEL.md",
+      "size": 196,
+      "sha256": "ed1cd08287435ac228c59ecf633b05f5c594d8ea2b60dfc4e34a7d7496acf02c"
+    },
+    {
+      "file": "ARKI_PROJECT_ASSURANCE_MODEL.md",
+      "size": 175,
+      "sha256": "7f4a24f49161bb5a065ed69404524233acb1836c1e2575bdeea8700f1cfee0ba"
+    },
+    {
+      "file": "ARKI_POST_AWARD_BIM_RADAR.md",
+      "size": 136,
+      "sha256": "47ff0a9cb5c4c38f989094b1a6b6112cbbb3eb1f3d41f2f10273fa93bbef0399"
+    },
+    {
+      "file": "ARKI_BIM_CONFLICT_GOVERNANCE.md",
+      "size": 163,
+      "sha256": "6ebdacb8a3dd68008412f54936dbf6da092c9198677e79a963df7d8bc2e6cd9a"
+    },
+    {
+      "file": "ARKI_BIM_PROFESSIONAL_BOUNDARY.md",
+      "size": 187,
+      "sha256": "e2d538f519c80e96c098aa9f63efc8764d8845e7fc219e51376e002cc0a03ab6"
+    },
+    {
+      "file": "ARKI_BIM_SECURITY_BOUNDARY.md",
+      "size": 176,
+      "sha256": "10014df5ef89beb9c80221e281415a49f1aa620cd1d592e86eb9a3dc8bea1335"
+    },
+    {
+      "file": "ARKI_BIM_SCOPE_REPORT.md",
+      "size": 195,
+      "sha256": "b400c459487af7f39f5f7782c7bb7b176c44ed44237c8cc3fc3b883fd927218a"
+    },
+    {
+      "file": "ARKI_BIM_E2E_RESULTS.json",
+      "size": 505,
+      "sha256": "da961d595dae74f7a32109596d2ef8f0084b2654424539aec8d208132c379804"
+    },
+    {
+      "file": "ARKI_BIM_DEFICIT_REGISTER.json",
+      "size": 759,
+      "sha256": "0a1c823d37a8de9b71dea0b0eacf7c472d5c07fe41a97881d1501fe1fac7ada0"
+    },
+    {
+      "file": "ARKI_BIM_97A07_OUTPUTS.txt",
+      "size": 4978,
+      "sha256": "b3bef68b8d2447e07d690bb6a4304aaf5a854e7455909d236d1581b6f4e454ee"
+    },
+    {
+      "file": "scripts/test-arki-bim-services.ts",
+      "size": 6038,
+      "sha256": "513f0099ce9f76d39db5bbee9b124223bda171f060d02dc0994c4a5917d81741"
+    },
+    {
+      "file": "shared/arkiBimServices.ts",
+      "size": 7138,
+      "sha256": "971d3d37c9e4eae7aaad1a10047193b9df6ac6cbad2983b55fefbd7045b332d2"
+    },
+    {
+      "file": "pasted_content_114.txt",
+      "size": 28315,
+      "sha256": "cda1c11a04e6814b558168442c74b864f073600e89efa848d4805707048a7b6a"
+    }
+  ]
+}

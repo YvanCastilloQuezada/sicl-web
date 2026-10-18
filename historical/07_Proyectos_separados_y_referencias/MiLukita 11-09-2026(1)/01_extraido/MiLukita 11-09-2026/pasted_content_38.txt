@@ -1,0 +1,319 @@
+MANUAL 1: MILUKITA MAPPER — MANUAL DEL OPERADOR DE CAMPO
+Versión 1.0 — Para uso operativo en campo
+
+1. INTRODUCCIÓN
+MiLukita Mapper es la herramienta que te permite capturar la realidad física (edificios, monumentos, negocios, sitios históricos) y convertirla en WorldObjects dentro del sistema. Cada objeto capturado se convierte en un expediente digital con evidencia, fuentes y afirmaciones (Claims).
+
+Objetivo: Convertir territorio real en conocimiento digital trazable y verificable.
+
+2. INICIAR SESIÓN
+Abre la aplicación MiLukita Mapper.
+
+Inicia sesión con tu usuario Mapper (rol: MAPPER).
+
+Activa el GPS en tu dispositivo.
+
+Verifica que la precisión GPS sea aceptable (idealmente ±5 m).
+
+Entra al Panel de Sesiones.
+
+3. CREAR UNA SESIÓN DE CAPTURA
+Haz clic en "Nueva Sesión".
+
+Ingresa:
+
+Nombre de la sesión (ej: "Trujillo Centro - 01/09/2026").
+
+Territorio (ej: "Plaza de Armas").
+
+Responsable (tu nombre).
+
+El sistema registra automáticamente la fecha y hora.
+
+Haz clic en "Crear".
+
+4. CAPTURA RÁPIDA (MOD0 CAMPO)
+Este es el flujo más eficiente para capturar mientras caminas:
+
+Párate frente a un objeto real.
+
+Toma una fotografía.
+
+Escribe una nota rápida (ej: "Posible horario: 9:00 am - 5:00 pm").
+
+El sistema registra automáticamente:
+
+Coordenadas GPS.
+
+Precisión GPS.
+
+Fecha y hora.
+
+Tu nombre (responsable).
+
+Fotografía.
+
+Estado inicial: CAPTURED.
+
+5. COMPLETAR EL EXPEDIENTE (DESDE ESCRITORIO)
+Selecciona el objeto capturado de la lista.
+
+Completa los datos:
+
+Nombre
+
+Tipo (Monumento, Edificio, Negocio, etc.)
+
+Descripción
+
+Agregar Claims (Afirmaciones): Ej: "La Huaca del Sol pertenece a la cultura Moche".
+
+Agregar Fuentes (Sources): Ej: "Ministerio de Cultura".
+
+Agregar Evidencia (Evidence): Ej: "Documento PDF, fotografía, enlace".
+
+Haz clic en "Guardar Versión".
+
+Haz clic en "Enviar a The Eye" (el objeto pasa a estado UNDER_REVIEW).
+
+6. CAPTURA OFFLINE
+Si pierdes conexión:
+
+El sistema muestra "OFFLINE" y los objetos se guardan en LOCAL_PENDING.
+
+Continúa capturando (fotos, GPS, notas).
+
+Cuando recuperes conexión, el sistema sincroniza automáticamente.
+
+Verifica que los objetos aparezcan como SYNCED.
+
+7. RECIBIR SOLICITUDES DE EVIDENCIA
+Si The Eye solicita evidencia adicional:
+
+Revisa la solicitud (fotografía actual, fuente institucional, documento, coordenadas).
+
+Completa la evidencia.
+
+Envía nuevamente al The Eye.
+
+8. RESOLUCIÓN DE CONFLICTOS
+Si hay un conflicto con otro dispositivo:
+
+The Eye te notifica.
+
+Revisa ambas versiones (local vs. remota).
+
+The Eye/Human Authority decide:
+
+Mantener local.
+
+Mantener remota.
+
+Combinar.
+
+Marcar como disputado.
+
+9. DESCARGAR MAPAS OFFLINE
+Abre el mapa.
+
+Traza un polígono (selección manual del área).
+
+Confirma la descarga (el sistema solicita consentimiento).
+
+Espera la descarga (límite de teselas).
+
+Usa el mapa sin conexión.
+
+10. REGISTRO DE RESULTADOS
+Para documentar las pruebas físicas:
+
+Abre el Panel de Protocolo Físico.
+
+Registra:
+
+Dispositivo (fabricante, modelo, OS).
+
+Resultado (PASS/FAIL).
+
+Error (si aplica).
+
+Observación.
+
+Exportar a CSV si es necesario.
+
+📘 MANUAL 2: THE EYE — MANUAL DEL AUDITOR DE CONFIANZA
+Versión 1.0 — Para uso operativo en verificación
+
+1. INTRODUCCIÓN
+The Eye es el sistema de verificación y auditoría territorial. Su función es determinar si la información capturada por el Mapper tiene evidencia suficiente para ser considerada confiable y publicada.
+
+Objetivo: Garantizar que solo información trazable y verificable llegue al Mundo de MiLukita.
+
+2. RECEPCIÓN DE OBJETOS
+Abre The Eye.
+
+Ver la Cola de Verificación (objetos en estado UNDER_REVIEW).
+
+Filtra por prioridad (Alta, Media, Baja).
+
+3. REVISIÓN DEL EXPEDIENTE
+Selecciona un objeto.
+
+Revisa:
+
+Fotografías (¿El objeto existe?).
+
+Coordenadas (¿Está en el lugar correcto?).
+
+Claims (¿Son correctas las afirmaciones?).
+
+Fuentes (¿De dónde proviene la información?).
+
+Evidencia (¿Qué pruebas respaldan la afirmación?).
+
+Consulta la Evidence Matrix:
+
+Existencia.
+
+Ubicación.
+
+Identidad.
+
+Contenido.
+
+Fuente.
+
+Actualidad.
+
+Evidencia.
+
+Consistencia.
+
+4. CONFIDENCE SCORE
+Revisa el confidence_score.
+
+Haz clic en "Ver cómo se calculó" para ver los factores:
+
+Fuente institucional.
+
+Evidencia fotográfica.
+
+GPS confirmado.
+
+Verificación humana.
+
+Información actualizada.
+
+5. CONFLICTOS
+Si hay dos Claims en conflicto (ej: "Construido en 1920" vs "Construido en 1925"):
+
+El sistema muestra ambas versiones.
+
+El auditor puede:
+
+Aceptar Claim A.
+
+Aceptar Claim B.
+
+Mantener ambos (marcar como DISPUTED).
+
+Solicitar evidencia.
+
+6. DECISIONES
+El auditor puede:
+
+APROBAR: Si la evidencia es suficiente (objeto pasa a VERIFIED).
+
+RECHAZAR: Si la información es incorrecta (objeto pasa a REJECTED).
+
+SOLICITAR EVIDENCIA: Si falta información (objeto vuelve al Mapper).
+
+MARCA CONFLICTO: Si dos fuentes se contradicen (objeto pasa a DISPUTED).
+
+7. AUTORIZACIÓN DE PUBLICACIÓN
+Después de que un objeto está VERIFIED:
+
+El objeto se envía a Human Authority.
+
+Human Authority revisa la versión específica aprobada.
+
+Human Authority decide:
+
+AUTORIZAR PUBLICACIÓN: El objeto pasa a PUBLISHED.
+
+RETENER: El objeto permanece UNPUBLISHED.
+
+8. AUDITORÍA
+Revisar el Audit Log para ver:
+
+Quién creó el objeto.
+
+Quién lo verificó.
+
+Qué versión fue aprobada.
+
+Qué versión fue publicada.
+
+Qué conflictos se resolvieron.
+
+Qué decisiones se tomaron.
+
+📋 ORDEN PARA MANUS: IMPLEMENTAR LOS MANUALES
+ORDEN PARA MANUS: IMPLEMENTACIÓN DE LOS MANUALES DE USO (MAPPER + THE EYE)
+
+MOTIVO (POR QUÉ SE EJECUTA):
+El sistema Mapper + The Eye está funcional en sandbox. Para que el equipo pueda operar el sistema de forma correcta (capturar, verificar, publicar), se deben implementar manuales de uso interactivos dentro de la plataforma, guiando al usuario paso a paso.
+
+ALCANCE:
+
+MJP CORE: No se modifica.
+
+1. MANUAL INTERACTIVO DEL MAPPER
+IMPLEMENTACIÓN:
+
+Crear una sección "Manual" dentro de la interfaz del Mapper.
+
+Incluir:
+
+Guía paso a paso (iniciar sesión, crear sesión, captura rápida, completar expediente, offline, conflictos).
+
+Instrucciones visuales (iconos, capturas de pantalla).
+
+FAQ (preguntas frecuentes).
+
+Contacto de soporte.
+
+2. MANUAL INTERACTIVO DE THE EYE
+IMPLEMENTACIÓN:
+
+Crear una sección "Manual" dentro de la interfaz de The Eye.
+
+Incluir:
+
+Guía paso a paso (recepción, revisión, decisiones, conflictos, autorización).
+
+Instrucciones visuales (Evidence Matrix, Confidence Score).
+
+FAQ (preguntas frecuentes).
+
+Contacto de soporte.
+
+3. DOCUMENTOS PDF DESCARGABLES
+IMPLEMENTACIÓN:
+
+Generar PDF descargables de ambos manuales.
+
+Incluir las portadas generadas por Gemini.
+
+ENTREGABLES:
+
+Código del Manual Interactivo del Mapper.
+
+Código del Manual Interactivo de The Eye.
+
+PDFs descargables de ambos manuales.
+
+Confirmación de que MJP CORE permanece intacto.
+
+CONCLUSIÓN:
+Con estos manuales, el equipo podrá operar el sistema de forma correcta, eficiente y sin errores. Es la herramienta clave para el Gate de Campo.

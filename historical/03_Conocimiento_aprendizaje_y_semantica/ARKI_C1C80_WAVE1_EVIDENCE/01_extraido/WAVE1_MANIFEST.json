@@ -1,0 +1,97 @@
+{
+  "artifact": "ARKI-C1C80-INTEGRATE-002.S1",
+  "wave": "WAVE 1",
+  "status": "IMPLEMENTED / PENDING INDEPENDENT REVIEW",
+  "wave0Status": "VERIFIED FOR REGISTRY AND PLAN SCOPE",
+  "tx005": "NOT_AUTHORIZED_AND_NOT_EXECUTED",
+  "legacyWriterMigration": "NOT_AUTHORIZED_AND_NOT_EXECUTED",
+  "professionalSolvers": "NOT_INSTALLED",
+  "canonicalMutation": "NOT_EXECUTED",
+  "files": [
+    {
+      "path": "WAVE1_ORDER_SOURCE_180.txt",
+      "sha256": "976afb2a9e4f3b28efd0a6687d0298fe3314c2522a8265d1f0a50a768e1020d6",
+      "bytes": 10993
+    },
+    {
+      "path": "WAVE1_SCOPE_LIMITS.md",
+      "sha256": "4dbe7fdefc69a8a6e96c44528a670ca25d0778d2f9358a70ef9067a4c52d7b3c",
+      "bytes": 1306
+    },
+    {
+      "path": "WAVE1_IMPLEMENTATION_REPORT.md",
+      "sha256": "90491af832e9c0ed0a1f67d996cdb718eace552ada9f9a02972dad4b899a8920",
+      "bytes": 2380
+    },
+    {
+      "path": "WAVE1_LEGACY_WRITER_INVENTORY.md",
+      "sha256": "c7fcc14ee0dd12294f9b35801af4939a4295934f8006dee4a534b4b1a3a3a4f0",
+      "bytes": 1364
+    },
+    {
+      "path": "WAVE1_IDENTITY_RECONCILIATION.md",
+      "sha256": "90272805c43fd6c42402cc659b16d828fa1ea5d626c267b7d4422c4e17e4bbd3",
+      "bytes": 1648
+    },
+    {
+      "path": "WAVE1_OUTPUTS.txt",
+      "sha256": "7d46679476073be872ec3f9067bab874019c17f344de4ec51417d88e2650131c",
+      "bytes": 4883
+    },
+    {
+      "path": "C1_C80_WAVE1_REGISTRY.json",
+      "sha256": "fe3f91ff769efa6d98a6aaf60691ef53eab44f2bffd9d597109428c51c347f47",
+      "bytes": 83997
+    },
+    {
+      "path": "C1_C80_WAVE1_DAG.json",
+      "sha256": "5cd034d2368502f2234bfca67f989695d60e2af8ce3a7ab99a2ddb34b408b425",
+      "bytes": 33173
+    },
+    {
+      "path": "F0_C1_C80_FOUNDATION_MAP.md",
+      "sha256": "1c1c4e507df8b94c01c605228c5f85aab32cd53e37b8a08f309256b7fb18252c",
+      "bytes": 12445
+    },
+    {
+      "path": "F0_C1_C80_FOUNDATION_MAP.json",
+      "sha256": "5c77238731247ae54cdae199af8d4e37b33dfbb0ec8255de8cd2f29792e5123e",
+      "bytes": 34568
+    },
+    {
+      "path": "shared/arkiSharedFoundation.ts",
+      "sha256": "7d3a5d8f74211209a7172764bcca3a67c2da2662a82fc650c21255489ddd7566",
+      "bytes": 15755
+    },
+    {
+      "path": "shared/arkiCapabilityContracts.ts",
+      "sha256": "b5d44170830d589d5b3879a27b82a63c4c3ee450064a127e184563c44f81c25c",
+      "bytes": 3678
+    },
+    {
+      "path": "scripts/test-wave1-foundation.ts",
+      "sha256": "5ca955c6f86bb22749d5b2c5c4d06f8fe716a26e93c93239e1b5930d2cb0a8e3",
+      "bytes": 7101
+    },
+    {
+      "path": "scripts/create-wave1-binding.py",
+      "sha256": "fe7a4e4a8171efe50cef7cade4f8f442c29a90b87dc1f3e15e6aa5740faa842d",
+      "bytes": 3352
+    },
+    {
+      "path": "scripts/run-wave1-evidence.sh",
+      "sha256": "4ae3979d03dd2d88f2b4b755b784636c6da3ff71b9f3c144431b0683c775ffa3",
+      "bytes": 1134
+    },
+    {
+      "path": "C1_C80_WAVE0/01_C1_C80_CAPABILITY_REGISTRY.json",
+      "sha256": "93d19250952ec221530ae32d331f70000074098a5c316887d6a33b258d4e87de",
+      "bytes": 77602
+    },
+    {
+      "path": "C1_C80_WAVE0/19_MANIFEST.json",
+      "sha256": "c547b84aedc7c9806df63b0676ccb842fc6b9eb1ca9e94ae6c239a4f6336f5f5",
+      "bytes": 3828
+    }
+  ]
+}

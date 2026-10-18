@@ -1,0 +1,29 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { generateConstructionModel, APU_DATABASE } from "../shared/arkiConstructionOntology";
+import { fromApuDatabase } from "../shared/arkiPriceBook";
+import { createInitialSnapshot } from "../shared/arkiRecalculation";
+import { compileTechnicalDossier, type ApprovedSnapshot } from "../shared/arkiTechnicalDossierCompiler";
+
+const root = process.cwd();
+const outputDir = join(root, "E8_A_OUTPUT");
+const captureDir = join(root, "E8_CAPTURAS");
+mkdirSync(outputDir, { recursive: true });
+mkdirSync(captureDir, { recursive: true });
+
+const model = generateConstructionModel({ projectId: "E8A-PROJECT-001", name: "E8-A Fixture", widthM: 16.5, depthM: 9.75, floors: 4 });
+const priceBook = fromApuDatabase(APU_DATABASE, { id: "PB-E8A", version: 1, region: "La Libertad", country: "PE", currency: "PEN", validFrom: "2026-09-23" });
+const base = createInitialSnapshot({ model, instances: [], priceBook, formworkRulesVersion: 1 });
+const snapshot: ApprovedSnapshot = { ...base, approval: { gateStatus: "passed", approvedBy: "Product Owner", approvedAt: "2026-09-23T23:30:00.000Z" } };
+const dossier = compileTechnicalDossier(snapshot);
+
+for (const document of dossier.documents) writeFileSync(join(outputDir, document.fileName), document.content, "utf8");
+writeFileSync(join(outputDir, "dossier-compilation.json"), JSON.stringify(dossier, null, 2), "utf8");
+
+const traceRows = dossier.documents.map((document) => `<tr><td>${document.kind}</td><td>${document.fileName}</td><td>${document.traceability.sourceSnapshotId}</td><td>${document.traceability.sourceVersion}</td><td>${document.traceability.elementIds.length}</td></tr>`).join("");
+const overview = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700"><rect width="1200" height="700" fill="#080736"/><rect x="40" y="40" width="1120" height="620" rx="18" fill="#111044" stroke="#5c5ae8"/><text x="80" y="105" fill="#ffffff" font-family="Arial" font-size="32" font-weight="700">ARKI · E8-A EXPEDIENTE COMPILADO</text><text x="80" y="145" fill="#a8a7d8" font-family="Arial" font-size="18">Snapshot aprobado ${snapshot.id} · versión ${snapshot.version} · ${snapshot.approval.approvedBy}</text><text x="80" y="215" fill="#52e0a2" font-family="Arial" font-size="24">COMPILED · 5 documentos técnicos</text><text x="80" y="270" fill="#ffffff" font-family="Arial" font-size="20">01 Memoria descriptiva</text><text x="80" y="310" fill="#ffffff" font-family="Arial" font-size="20">02 Especificaciones técnicas</text><text x="80" y="350" fill="#ffffff" font-family="Arial" font-size="20">03 Metrados</text><text x="80" y="390" fill="#ffffff" font-family="Arial" font-size="20">04 Presupuesto</text><text x="80" y="430" fill="#ffffff" font-family="Arial" font-size="20">05 Planta SVG trazable</text><rect x="730" y="205" width="350" height="220" fill="#080736" stroke="#52e0a2"/><text x="765" y="255" fill="#52e0a2" font-family="Arial" font-size="20">Trazabilidad</text><text x="765" y="300" fill="#ffffff" font-family="Arial" font-size="17">Snapshot: ${snapshot.id}</text><text x="765" y="335" fill="#ffffff" font-family="Arial" font-size="17">Versión: ${snapshot.version}</text><text x="765" y="370" fill="#ffffff" font-family="Arial" font-size="17">Elementos: ${dossier.documents[0].traceability.elementIds.length}</text><text x="80" y="585" fill="#ffcf5a" font-family="Arial" font-size="17">NO APTO PARA CONSTRUCCIÓN · requiere revisión y firma profesional</text></svg>`;
+const trace = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700"><rect width="1200" height="700" fill="#080736"/><text x="50" y="70" fill="#ffffff" font-family="Arial" font-size="30" font-weight="700">ARKI · E8-A TRAZABILIDAD DOCUMENTAL</text><text x="50" y="108" fill="#a8a7d8" font-family="Arial" font-size="17">Fuente única: ${snapshot.id} · versión ${snapshot.version}</text><rect x="50" y="145" width="1100" height="420" fill="#111044" stroke="#5c5ae8"/><text x="75" y="190" fill="#52e0a2" font-family="Arial" font-size="18">DOCUMENTO</text><text x="275" y="190" fill="#52e0a2" font-family="Arial" font-size="18">ARCHIVO</text><text x="620" y="190" fill="#52e0a2" font-family="Arial" font-size="18">SNAPSHOT</text><text x="850" y="190" fill="#52e0a2" font-family="Arial" font-size="18">VERSION</text><text x="1000" y="190" fill="#52e0a2" font-family="Arial" font-size="18">ELEMENTOS</text>${dossier.documents.map((document, index) => `<text x="75" y="${235 + index * 55}" fill="#ffffff" font-family="Arial" font-size="17">${document.kind}</text><text x="275" y="${235 + index * 55}" fill="#ffffff" font-family="Arial" font-size="17">${document.fileName}</text><text x="620" y="${235 + index * 55}" fill="#ffffff" font-family="Arial" font-size="17">${snapshot.id}</text><text x="850" y="${235 + index * 55}" fill="#ffffff" font-family="Arial" font-size="17">${snapshot.version}</text><text x="1000" y="${235 + index * 55}" fill="#ffffff" font-family="Arial" font-size="17">${document.traceability.elementIds.length}</text>`).join("")}<text x="50" y="625" fill="#ffcf5a" font-family="Arial" font-size="17">Cada salida conserva snapshot, versión y elementos fuente; revisión profesional pendiente.</text></svg>`;
+writeFileSync(join(captureDir, "01-expediente-compilado.svg"), overview, "utf8");
+writeFileSync(join(captureDir, "02-trazabilidad-snapshot.svg"), trace, "utf8");
+
+console.log(JSON.stringify({ status: "PASS", outputDir: "E8_A_OUTPUT", captures: ["E8_CAPTURAS/01-expediente-compilado.svg", "E8_CAPTURAS/02-trazabilidad-snapshot.svg"], documents: dossier.documents.length, snapshotId: snapshot.id, version: snapshot.version, tracedElements: dossier.documents.reduce((sum, item) => sum + item.traceability.elementIds.length, 0), traceRows }, null, 2));

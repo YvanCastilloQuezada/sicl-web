@@ -1,0 +1,26 @@
+import { strict as assert } from "node:assert";
+import { assertNoCommercialProviderLoaded, createAcirEntity, createMockCadReaderAdapter, serializeAcir, sourceHash, type AcirEntity } from "../shared/arkiCadGateway";
+
+const adapter = createMockCadReaderAdapter();
+assertNoCommercialProviderLoaded(adapter);
+assert.equal(adapter.canRead("DWG", "AC1032"), true);
+assert.equal(adapter.canRead("DXF", "R2018"), true);
+const source = new Uint8Array([1, 2, 3, 4]);
+const first = adapter.parse(source, "fixture.dwg");
+const second = adapter.parse(source, "fixture.dwg");
+assert.equal(first.sourceHash, sourceHash(source));
+assert.equal(serializeAcir(first), serializeAcir(second));
+assert.equal(first.semanticPromotion, "PROHIBITED");
+assert.equal(first.entities[0]?.provenance.sourceEntityHandle, "SYNTH-1");
+assert.equal(first.entities[0]?.parseStatus, "PARSED");
+assert.throws(() => createAcirEntity({ ...first.entities[0]!, semanticMeaning: "WALL" as AcirEntity["semanticMeaning"] }), /ACIR_SEMANTIC_PROMOTION_PROHIBITED/);
+const corrupted = adapter.parse(new Uint8Array(), "empty.dwg");
+assert.equal(corrupted.parseStatus, "CORRUPTED");
+assert.equal(corrupted.entities[0]?.parseStatus, "CORRUPTED");
+const emptyInspection = adapter.inspect(new Uint8Array(), "empty.dwg");
+assert.equal(emptyInspection.diagnostics[0]?.code, "EMPTY_SOURCE");
+const capabilities = adapter.capabilities();
+assert.equal(capabilities.headless, true);
+assert.equal(capabilities.write, false);
+assert.equal(capabilities.licenseGate, "PASS");
+console.log(JSON.stringify({ status: "PASS", cases: 10, syntheticFixture: true, commercialProviderLoaded: false, deterministicSerialization: true, provenancePreserved: true, semanticPromotionBlocked: true, emptySourceRejected: true, noSilentLoss: true, cadGeometryReady: "NO", abb001: "BLOCKED" }));

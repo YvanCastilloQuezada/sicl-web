@@ -1,0 +1,336 @@
+ORDEN 53 — MAPPER
+GENERACIÓN DE CÓDIGO BACKEND / DOMAIN / PERSISTENCIA
+
+OBJETIVO
+
+Implementar o completar exclusivamente el código backend, dominio,
+persistencia, APIs/procedures y tests necesarios para que MiLukita
+Mapper pueda funcionar como sistema real de captura territorial.
+
+Esta orden NO autoriza trabajo frontend.
+
+============================================================
+1. PROHIBICIÓN ABSOLUTA DE FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX visual
+- CSS
+- Tailwind
+- layouts
+- componentes visuales
+- páginas
+- navegación visual
+- iconos
+- estilos
+- responsive
+- UX.
+
+NO reconstruir Mapper visualmente.
+
+NO crear páginas.
+
+NO corregir problemas estéticos.
+
+Si existe una interfaz incompleta, NO modificarla.
+
+Generar únicamente la infraestructura de código que posteriormente
+podrá utilizar el frontend existente.
+
+============================================================
+2. INSPECCIÓN PREVIA
+============================================================
+
+Localizar toda implementación existente relacionada con:
+
+- Mapper
+- Territorial Field Entry
+- CaptureSession
+- WorldObject
+- WorldPoint
+- territorial claims
+- territorial sources
+- territorial evidence
+- offline
+- sync
+- conflicts
+- publicationStatus
+- audit
+- RBAC territorial.
+
+Reutilizar la arquitectura existente.
+
+NO duplicar servicios, tablas o modelos que ya existan.
+
+============================================================
+3. CAPTURE SESSION
+============================================================
+
+Implementar/completar el dominio persistente de CaptureSession.
+
+Debe soportar:
+
+- creación
+- responsable
+- territorio
+- fecha/hora
+- estado
+- sincronización
+- contadores
+- cierre
+- reapertura controlada
+- auditoría.
+
+Utilizar los estados existentes si ya están definidos.
+
+No crear estados paralelos innecesarios.
+
+============================================================
+4. WORLD OBJECT
+============================================================
+
+Implementar/completar persistencia de WorldObject.
+
+Como mínimo:
+
+- id
+- sesión
+- coordenadas
+- precisión GPS
+- timestamp
+- tipo
+- estado
+- observación
+- metadata
+- publicationStatus
+- versión.
+
+Mantener separación:
+
+GEO
+
+de
+
+SPATIAL AR.
+
+============================================================
+5. EVIDENCIA
+============================================================
+
+Implementar/completar las relaciones:
+
+WORLD OBJECT
+→ CLAIM
+→ SOURCE
+→ EVIDENCE
+
+Soportar:
+
+- fotografías
+- observaciones
+- fuentes
+- evidencias
+- claims.
+
+Una observación de campo NO constituye un hecho verificado.
+
+============================================================
+6. FIELD OBSERVATION
+============================================================
+
+Conservar:
+
+- texto original
+- usuario
+- timestamp
+- sesión
+- WorldObject
+- origen.
+
+Cuando proceda:
+
+source = FIELD_OBSERVATION
+
+Si posteriormente existe transcripción de voz:
+
+conservar el texto original.
+
+No reemplazarlo por texto generado por IA.
+
+============================================================
+7. OFFLINE / SYNC
+============================================================
+
+Implementar/completar:
+
+- operaciones pendientes
+- idempotencia
+- reintentos
+- estados
+- errores
+- sincronización
+- detección de conflictos.
+
+NO usar last-write-wins como resolución automática.
+
+============================================================
+8. CONFLICTOS
+============================================================
+
+Soportar:
+
+KEEP_LOCAL
+KEEP_REMOTE
+COMBINE
+MARK_DISPUTED
+
+La resolución NO debe ser automática.
+
+Registrar:
+
+- usuario
+- fecha
+- decisión
+- versión anterior
+- versión posterior
+- motivo si existe.
+
+Respetar RBAC.
+
+============================================================
+9. VERSIONADO
+============================================================
+
+Conservar historial de modificaciones relevantes.
+
+NO eliminar versiones históricas.
+
+============================================================
+10. PUBLICATION STATUS
+============================================================
+
+Separar:
+
+WORKFLOW STATE
+
+de
+
+PUBLICATION STATUS.
+
+Editar un objeto NO debe publicarlo automáticamente.
+
+Runtime solamente puede consumir PUBLISHED.
+
+============================================================
+11. API / PROCEDURES
+============================================================
+
+Crear/completar los procedimientos necesarios.
+
+Conceptualmente:
+
+createCaptureSession()
+getCaptureSession()
+addWorldObject()
+updateWorldObject()
+addEvidence()
+addObservation()
+queueSync()
+syncCapture()
+detectConflict()
+getConflict()
+requestReview()
+
+Usar la arquitectura API existente.
+
+============================================================
+12. RBAC
+============================================================
+
+Mapper puede:
+
+- capturar
+- editar captura permitida
+- guardar
+- sincronizar
+- solicitar revisión.
+
+Mapper NO puede:
+
+- verificar
+- publicar
+- resolver decisiones reservadas a The Eye
+- otorgar permisos.
+
+============================================================
+13. AUDITORÍA
+============================================================
+
+Usar el sistema de auditoría existente.
+
+Registrar cambios relevantes.
+
+NO crear un segundo sistema de auditoría.
+
+============================================================
+14. TESTS
+============================================================
+
+Crear y ejecutar tests para:
+
+- sesión
+- WorldObject
+- coordenadas
+- evidencia
+- observación
+- versionado
+- offline
+- idempotencia
+- sincronización
+- conflictos
+- RBAC
+- publicationStatus
+- auditoría.
+
+============================================================
+15. MJP CORE
+============================================================
+
+PROHIBIDO modificar:
+
+- RNG
+- RTP
+- RULES
+- RESULT
+- WALLET
+- LEDGER
+- SETTLEMENT
+- juegos
+- sorteos
+- pagos
+- liquidación.
+
+============================================================
+16. ENTREGA
+============================================================
+
+Informar:
+
+1. archivos modificados
+2. archivos nuevos
+3. tablas
+4. migraciones
+5. servicios
+6. APIs
+7. tests
+8. resultado de tests
+9. TypeScript
+10. build
+11. dependencias nuevas
+12. limitaciones.
+
+NO modificar frontend.
+
+FIN.

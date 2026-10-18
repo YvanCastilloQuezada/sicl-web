@@ -1,0 +1,745 @@
+ORDEN MEJORADA PARA MANUS
+
+Yo sustituiría la orden anterior por esta. Es más precisa y evita que Manus convierta el copiloto en un proyecto de IA demasiado grande.
+
+============================================================
+ORDEN PARA MANUS
+LUKA FIELD VOICE COPILOT — UX/INTERACTION v1.0
+MEJORA DE EXPERIENCIA DEL COPILOTO DE CAMPO
+============================================================
+
+OBJETIVO
+------------------------------------------------------------
+
+Mejorar el Field Voice Copilot de LUKA para que el operador
+pueda realizar captura territorial con la menor fricción
+posible.
+
+El objetivo NO es hacer que LUKA hable más.
+
+El objetivo es que LUKA:
+
+1. conozca el contexto actual de la sesión;
+2. anticipe estados y problemas;
+3. intervenga solamente cuando aporte valor;
+4. confirme acciones de forma inmediata;
+5. reduzca errores;
+6. mantenga al operador concentrado en el territorio;
+7. funcione correctamente con conectividad variable;
+8. mantenga siempre la autoridad humana sobre verificación
+   y publicación.
+
+------------------------------------------------------------
+REGLA PRINCIPAL
+------------------------------------------------------------
+
+LUKA debe comportarse como COPILOTO DE CAMPO.
+
+NO como chatbot.
+
+NO como narrador.
+
+NO como verificador.
+
+NO como autoridad.
+
+Regla:
+
+SI NO EXISTE UNA ACCIÓN ÚTIL, UNA CONFIRMACIÓN,
+UNA ALERTA O UNA DECISIÓN PENDIENTE:
+
+LUKA PERMANECE EN SILENCIO.
+
+============================================================
+1. MÁQUINA DE ESTADOS DEL COPILOTO
+============================================================
+
+Implementar un estado explícito del Field Voice Copilot.
+
+Estados mínimos:
+
+IDLE
+SESSION_STARTING
+GPS_WAITING
+GPS_READY
+READY_TO_CAPTURE
+CAPTURING
+PHOTO_CAPTURED
+OBSERVATION_LISTENING
+OBSERVATION_RECORDED
+REVIEWING
+SAVING
+SAVED
+SYNCING
+OFFLINE
+SYNC_ERROR
+CONFLICT
+SESSION_FINISHED
+
+Cada estado debe determinar:
+
+- qué puede hacer el operador;
+- qué puede hacer LUKA;
+- qué mensaje puede emitir;
+- qué acciones están bloqueadas;
+- qué feedback visual corresponde.
+
+No permitir estados ambiguos.
+
+============================================================
+2. MODO RADAR
+============================================================
+
+Implementar "LUKA Radar".
+
+El Radar observa el contexto operacional:
+
+- GPS;
+- precisión;
+- cámara;
+- conectividad;
+- estado de sesión;
+- captura actual;
+- número de objetos;
+- pendientes de sincronización;
+- errores;
+- conflictos.
+
+El Radar NO debe hablar permanentemente.
+
+Debe generar intervención solamente cuando:
+
+A. exista una acción pendiente;
+B. exista un error;
+C. exista una condición relevante;
+D. se necesite confirmación;
+E. el operador solicite asistencia.
+
+Ejemplos:
+
+GPS insuficiente:
+
+"Precisión GPS baja. Esperemos un momento."
+
+GPS correcto:
+
+NO HABLAR.
+
+Cámara preparada:
+
+NO HABLAR.
+
+Objeto guardado:
+
+"Objeto guardado."
+
+Sin conexión:
+
+"Estamos offline. Continuamos y sincronizamos después."
+
+============================================================
+3. POLÍTICA DE SILENCIO
+============================================================
+
+Implementar una política explícita de silencio.
+
+LUKA NO debe:
+
+- repetir mensajes innecesariamente;
+- interrumpir al operador;
+- hablar durante una captura;
+- hablar durante una transcripción;
+- anunciar cada cambio pequeño del GPS;
+- repetir confirmaciones ya mostradas visualmente;
+- narrar operaciones internas.
+
+Implementar:
+
+- cooldown de mensajes;
+- deduplicación;
+- prioridad de alertas;
+- cola de mensajes;
+- cancelación de mensajes obsoletos.
+
+Si aparece una nueva condición más importante,
+debe cancelar el mensaje anterior cuando corresponda.
+
+============================================================
+4. MODOS DE INTERACCIÓN
+============================================================
+
+Implementar:
+
+A. SILENCIOSO
+B. CONCENTRACIÓN
+C. NORMAL
+D. ASISTIDO
+E. DEMO
+
+Comportamiento:
+
+SILENCIOSO:
+Solo alertas críticas.
+
+CONCENTRACIÓN:
+Confirmaciones importantes + alertas.
+
+NORMAL:
+Guía contextual.
+
+ASISTIDO:
+Mayor acompañamiento.
+
+DEMO:
+Explicación ampliada para demostraciones y capacitación.
+
+Modo predeterminado para FIELD GATE:
+
+CONCENTRACIÓN.
+
+============================================================
+5. CAPTURA RÁPIDA
+============================================================
+
+Optimizar la captura para que el flujo normal pueda ejecutarse
+en aproximadamente 10 segundos cuando las condiciones sean
+favorables.
+
+El objetivo es:
+
+VER
+→ CAPTURAR
+→ OBSERVAR
+→ CONFIRMAR
+→ GUARDAR
+→ CONTINUAR
+
+Los 10 segundos son OBJETIVO DE UX,
+NO garantía de rendimiento.
+
+Registrar métricas reales para comprobarlo.
+
+============================================================
+6. FEEDBACK VISUAL + VOZ
+============================================================
+
+Toda acción importante debe tener feedback visual inmediato.
+
+Ejemplo:
+
+FOTO CAPTURADA:
+
+[✓]
+
+"Foto guardada."
+
+OBJETO GUARDADO:
+
+[✓ OBJETO 08]
+
+"Objeto guardado."
+
+ERROR:
+
+[!]
+
+"Precisión GPS insuficiente."
+
+OFFLINE:
+
+[OFFLINE]
+
+"Sin conexión. Guardaremos localmente."
+
+El feedback visual y auditivo debe representar el MISMO estado.
+
+============================================================
+7. HUD DE CAMPO
+============================================================
+
+Crear un HUD compacto y permanente.
+
+Debe mostrar como mínimo:
+
+GPS
+precisión
+cámara
+sesión
+conectividad
+objetos capturados
+pendientes de sincronización
+
+Ejemplo:
+
+LUKA
+------------------------
+GPS       3.2 m
+CÁMARA    LISTA
+SESIÓN    ACTIVA
+RED       ONLINE
+
+OBJETOS   08
+PENDIENTES 02
+------------------------
+
+No convertir el HUD en un panel complejo.
+
+Debe poder consultarse rápidamente durante la caminata.
+
+============================================================
+8. ASISTENCIA POR VOZ
+============================================================
+
+Mantener comandos naturales.
+
+No exigir frases rígidas.
+
+Ejemplos válidos:
+
+"LUKA, guardar."
+
+"Guardar objeto."
+
+"Repetir."
+
+"Cancelar."
+
+"¿Qué sigue?"
+
+"Estado."
+
+"Estoy listo."
+
+LUKA debe interpretar intención dentro del contexto actual.
+
+Si existe ambigüedad:
+
+"¿Quieres guardar el objeto?"
+
+Acciones potencialmente destructivas:
+
+- eliminar;
+- descartar;
+- cancelar captura;
+
+requieren confirmación.
+
+============================================================
+9. DICTADO DE OBSERVACIONES
+============================================================
+
+Mantener:
+
+- transcripción original;
+- timestamp;
+- responsable;
+- sesión;
+- objeto;
+- origen FIELD_OBSERVATION.
+
+Si posteriormente se estructura la observación mediante IA:
+
+sourceType = FIELD_OBSERVATION
+derivedBy = AI_ASSISTED
+
+La información generada por IA NO debe convertirse
+automáticamente en hecho verificado.
+
+Debe mantenerse la diferencia entre:
+
+OBSERVACIÓN ORIGINAL
+y
+ESTRUCTURACIÓN / SUGERENCIA DE IA.
+
+============================================================
+10. PERSONALIDAD DE LUKA
+============================================================
+
+LUKA debe ser:
+
+- breve;
+- clara;
+- profesional;
+- territorial;
+- humana;
+- calmada;
+- no infantil;
+- no excesivamente conversacional.
+
+Ejemplos:
+
+"GPS listo."
+
+"Puedes capturar."
+
+"Foto guardada."
+
+"Objeto registrado."
+
+"Hay poca precisión GPS."
+
+"Tenemos dos elementos pendientes de sincronización."
+
+Evitar frases excesivamente largas.
+
+============================================================
+11. ADAPTACIÓN AL OPERADOR
+============================================================
+
+Registrar métricas:
+
+- tiempo de captura;
+- tiempo entre instrucciones;
+- comandos reconocidos;
+- comandos no reconocidos;
+- correcciones;
+- cancelaciones;
+- repeticiones;
+- errores de voz;
+- frecuencia de intervención de LUKA.
+
+Utilizar estas métricas para mejorar posteriormente
+la experiencia.
+
+NO implementar todavía aprendizaje autónomo complejo.
+
+Primero medir.
+
+============================================================
+12. RECONOCIMIENTO VISUAL
+============================================================
+
+NO asumir que LUKA puede identificar automáticamente
+"monumentos", "edificios patrimoniales" u otros objetos
+si no existe un sistema real de visión artificial conectado.
+
+No simular detección.
+
+Si existe infraestructura real de Computer Vision:
+
+integrarla solamente como SUGERENCIA.
+
+Ejemplo:
+
+"Posible punto de interés. ¿Quieres revisarlo?"
+
+Nunca:
+
+"Esto es un monumento."
+
+salvo que exista evidencia técnica suficiente.
+
+La visión artificial NO verifica la verdad del objeto.
+
+============================================================
+13. CHECKLIST DE INICIO
+============================================================
+
+Antes de iniciar una sesión de campo:
+
+LUKA debe comprobar:
+
+GPS
+CÁMARA
+MICRÓFONO
+ALMACENAMIENTO LOCAL
+CONECTIVIDAD
+SESIÓN
+
+Si todo está correcto:
+
+"Todo listo."
+
+Si existe un problema:
+
+indicar únicamente el problema relevante.
+
+No crear una secuencia larga de mensajes.
+
+============================================================
+14. OFFLINE
+============================================================
+
+El copiloto debe continuar funcionando cuando sea posible
+sin conectividad.
+
+Distinguir:
+
+ONLINE
+OFFLINE
+RECONNECTING
+SYNCING
+SYNC_ERROR
+
+No bloquear captura por pérdida temporal de red.
+
+Las operaciones deben quedar pendientes para sincronización.
+
+============================================================
+15. CONFLICTOS
+============================================================
+
+LUKA puede informar:
+
+"Existe un conflicto pendiente."
+
+Pero NO puede:
+
+- resolverlo;
+- aceptar una versión;
+- rechazar una versión;
+- publicar;
+- modificar la decisión de The Eye;
+- modificar la autoridad humana.
+
+El conflicto continúa hacia:
+
+THE EYE
+→ HUMAN AUTHORITY
+→ PUBLICATION
+
+============================================================
+16. MÉTRICA PRINCIPAL DEL COPILOTO
+============================================================
+
+Crear KPI:
+
+FIELD CAPTURE CYCLE TIME
+
+Definición:
+
+tiempo desde inicio de captura
+hasta objeto guardado.
+
+Medir además:
+
+- mediana;
+- P90;
+- errores;
+- repeticiones;
+- cancelaciones.
+
+Objetivo inicial:
+
+reducir progresivamente el tiempo sin aumentar errores.
+
+NO optimizar únicamente velocidad.
+
+La métrica correcta es:
+
+VELOCIDAD + PRECISIÓN + AUSENCIA DE ERRORES.
+
+============================================================
+17. VALIDACIÓN REAL
+============================================================
+
+Diferenciar obligatoriamente:
+
+A. VALIDACIÓN TÉCNICA
+B. VALIDACIÓN FÍSICA
+
+VALIDACIÓN TÉCNICA:
+
+- tests;
+- build;
+- persistencia;
+- estados;
+- integración;
+- auditoría.
+
+VALIDACIÓN FÍSICA:
+
+- Android real;
+- iPhone/iPad real cuando corresponda;
+- GPS real;
+- cámara real;
+- micrófono real;
+- permisos reales;
+- conectividad real;
+- ruido ambiental;
+- caminata;
+- uso prolongado.
+
+No declarar FIELD READY únicamente por pasar tests.
+
+============================================================
+18. MJP CORE
+============================================================
+
+MJP CORE permanece completamente protegido.
+
+NO modificar:
+
+- juegos;
+- RNG;
+- reglas;
+- RTP;
+- wallet;
+- liquidaciones;
+- MjpTvManifest;
+- autoridad de resultados;
+- lógica financiera.
+
+El Field Voice Copilot NO puede acceder ni alterar
+la autoridad del MJP CORE.
+
+============================================================
+19. AUDITORÍA
+============================================================
+
+Antes de declarar esta mejora como implementada,
+Manus debe comprobar el código real.
+
+Para cada componente indicar:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+
+No utilizar:
+
+"READY"
+"COMPLETE"
+"100%"
+"PRODUCTION READY"
+
+sin evidencia.
+
+============================================================
+20. ENTREGABLES
+============================================================
+
+Entregar:
+
+1. Máquina de estados del Copiloto.
+2. Modo Radar.
+3. Política de silencio.
+4. Modos SILENCIOSO / CONCENTRACIÓN / NORMAL /
+   ASISTIDO / DEMO.
+5. HUD de campo.
+6. Feedback visual + auditivo.
+7. Captura rápida.
+8. Voz contextual.
+9. Dictado y transcripción.
+10. Métricas de campo.
+11. Manejo ONLINE/OFFLINE.
+12. Manejo de errores.
+13. Integración con Mapper.
+14. Integración con The Eye sin saltarse su autoridad.
+15. Tests.
+16. Evidencia de funcionamiento real.
+17. Separación de validación técnica y física.
+18. Confirmación de MJP CORE intacto.
+
+============================================================
+21. REPORTE FINAL OBLIGATORIO
+============================================================
+
+Manus debe entregar una tabla:
+
+COMPONENTE
+ESTADO
+IMPLEMENTACIÓN REAL
+UI
+BACKEND
+PERSISTENCIA
+INTEGRACIÓN
+TESTS
+LIMITACIONES
+VALIDACIÓN FÍSICA
+SIGUIENTE PASO
+
+Además:
+
+A. qué está realmente implementado;
+B. qué está parcialmente implementado;
+C. qué es simulación;
+D. qué depende de hardware real;
+E. qué requiere intervención humana;
+F. qué bloquea FIELD GATE 001.
+
+============================================================
+CRITERIO FINAL DE ACEPTACIÓN
+============================================================
+
+El Copiloto será considerado IMPLEMENTADO
+solamente cuando:
+
+1. exista una máquina de estados funcional;
+2. el Radar responda al contexto real;
+3. la política de silencio funcione;
+4. los modos de interacción funcionen;
+5. la voz esté integrada con Mapper;
+6. las confirmaciones visuales correspondan
+   a estados reales;
+7. las observaciones se persistan correctamente;
+8. OFFLINE/ONLINE funcione correctamente;
+9. las métricas sean registradas;
+10. no exista simulación presentada como implementación;
+11. The Eye y Human Authority mantengan su autoridad;
+12. MJP CORE permanezca intacto.
+
+La validación física de Android/iOS/GPS/cámara/micrófono
+debe quedar marcada como EXTERNAL_REQUIRED hasta ser
+realizada efectivamente.
+
+============================================================
+FIN DE ORDEN
+============================================================
+Y cambiaría una cosa más de la estrategia
+
+No haría todavía que LUKA "detecte objetos" mediante IA visual.
+
+Eso puede venir después.
+
+Para Field Gate 001, quiero probar una cosa mucho más importante:
+
+¿Puede una persona caminar por un territorio real y registrar objetos reales de manera rápida, cómoda, trazable y sin confundirse?
+
+Si la respuesta es sí, tenemos el núcleo de LUKA funcionando.
+
+Después podemos agregar:
+
+LUKA Radar → visión artificial → reconocimiento de contexto → recomendaciones territoriales → aprendizaje del operador.
+
+Ese orden es importante. Si metemos visión, conversación, IA y automatización antes de comprobar el flujo básico, corremos el riesgo de construir una demostración espectacular pero una herramienta de campo mediocre.
+
+Mi definición de la experiencia objetivo
+                    LUKA
+                     │
+              OBSERVA CONTEXTO
+                     │
+        ┌────────────┼────────────┐
+        ↓            ↓            ↓
+       GPS         CÁMARA       RED
+        │            │            │
+        └────────────┼────────────┘
+                     ↓
+                MODO RADAR
+                     │
+             ¿Hace falta hablar?
+                /           \
+              NO             SÍ
+              │              │
+           SILENCIO       INTERVENIR
+                              │
+                    ┌─────────┼─────────┐
+                    ↓         ↓         ↓
+                 GUIAR     CONFIRMAR   ALERTAR
+                    │         │         │
+                    └─────────┼─────────┘
+                              ↓
+                         MAPPER
+                              ↓
+                         THE EYE
+                              ↓
+                    HUMAN AUTHORITY
+                              ↓
+                         PUBLICADO
+
+Eso, para mí, es LUKA como copiloto. No una IA que conversa con el operador, sino una capa inteligente que hace que el trabajo territorial resulte casi natural.

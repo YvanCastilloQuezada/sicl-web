@@ -1,0 +1,9 @@
+BID-E2E-001 source access record
+
+Candidate official source: SEACE/PLADICOP document fileCode=3c5245f0-50aa-4265-a118-a4647c7733e5
+Search result indicated educational infrastructure / technical-file consulting content.
+Retrieval attempt: 2026-09-23
+Result: HTTP 403 from execution environment.
+No source snapshot was accepted as evidence.
+Alternative MEF URL TDR_PUNO_P005.pdf returned HTML challenge rather than PDF.
+Classification: NOT_DEMONSTRATED.

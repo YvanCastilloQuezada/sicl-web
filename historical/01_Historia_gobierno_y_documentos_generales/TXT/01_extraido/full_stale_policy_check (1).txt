@@ -1,0 +1,4 @@
+RT-78 sourceChecks: PASS
+sourceChecks: ['integrity_checks_R1']
+H-003: {'action': 'RECOMPUTE', 'reason': 'All derivations are stale', 'requiresHumanAuthority': False}
+H-004: {'artifactRef': {'entityType': 'Area', 'entityId': 'A1', 'version': 1}, 'actionType': 'RECOMPUTE', 'status': 'PLANNED', 'priority': 0, 'reason': 'All derivations are stale', 'requiresHumanAuthority': False, 'blockedBy': []}

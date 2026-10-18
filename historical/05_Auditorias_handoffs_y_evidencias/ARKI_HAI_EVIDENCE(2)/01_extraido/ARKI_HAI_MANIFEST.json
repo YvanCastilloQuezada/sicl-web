@@ -1,0 +1,139 @@
+{
+  "schema": "ARKI-HAI-001-MANIFEST-1.0",
+  "status": "FOUNDATION IMPLEMENTED / HISTORICAL PILOT / PENDING INDEPENDENT VERIFICATION",
+  "order": "97A-03",
+  "program": "ARKI-LKS-001",
+  "parent": "ARKI-ACI-001",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED",
+  "ingestionPolicy": "NO MASS INGESTION / SELECTIVE / GOVERNED / TRACEABLE",
+  "ownership": "ONE ARKI / ONE GOVERNED KNOWLEDGE SYSTEM / MULTIPLE HISTORICAL VIEWS",
+  "baselinePackage": "ARKI_ACI_EVIDENCE.zip",
+  "entries": [
+    {
+      "file": "ARKI_HISTORICAL_ARCHITECTURAL_INTELLIGENCE.md",
+      "size": 642,
+      "sha256": "3ab818ab379fb52a7247e24810a400678f585dbdad6296d5839a9624cf9e7087",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_CORPUS_SCHEMA.md",
+      "size": 514,
+      "sha256": "21cf9911e3a70de229357190cc646bce7d15c7fce5db7ac68951e6fd4713b73b",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_COMPETITION_RECOVERY_PROTOCOL.md",
+      "size": 608,
+      "sha256": "683800aea07f4ee3f9984a372438e5ea2c87f2ba277b30d8ba240385349a3b84",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ARCHIVAL_SOURCE_MODEL.md",
+      "size": 443,
+      "sha256": "9d440aa40f6da4c2f3cf5b2a7804bba4ae147b9d4d19f25ad51ca0a28e5966ff",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_ARCHITECTURAL_WORK_MODEL.md",
+      "size": 492,
+      "sha256": "8190b2b1e839ebec0034003114416674a89f966be37e7e2737781479962a0aa9",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_CLASSIFICATION_POLICY.md",
+      "size": 475,
+      "sha256": "d14d852007688ef8cf2c1a066d671920bfd97be39d9804aabb3e370ebc1caa4d",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_IDENTITY_TEMPORALITY_SPEC.md",
+      "size": 450,
+      "sha256": "2c8b696ef8bd838a8843fda0805817ee905c429379d32a952c8c730570f636a4",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ARCHIVAL_GAP_MODEL.md",
+      "size": 492,
+      "sha256": "545a5ea9c7e0e31887de39da563325944552686b2c43f18a422af19b91d8bba7",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_BIAS_REGISTER.md",
+      "size": 442,
+      "sha256": "c44405e9129c5369b1642184486f4b6c2c16fec486afc4ebb8082b96ed416f71",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_SOVIET_RESEARCH_BACKLOG.md",
+      "size": 488,
+      "sha256": "5f7e38622692885ce34eaf6611162f7eb43b9610cbcc7b2ce5c225fa576c572c",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_YUGOSLAV_RESEARCH_BACKLOG.md",
+      "size": 479,
+      "sha256": "e1c2d9fbd3b7eb03cf30d8bcd7f82d9e5edd903e95500a623f58fdb3cc916521",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BRUTALISM_RESEARCH_BACKLOG.md",
+      "size": 490,
+      "sha256": "1fba3adc40285a78915ce1cb7d8cde5af2aa72d1eca16c47eed53ab4e0e5fafc",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_LATIN_AMERICA_HISTORICAL_BACKLOG.md",
+      "size": 425,
+      "sha256": "d6682a1c3240ee2edbb035f57147504bd5c7fca5ff705cb155b12b71bf5af335",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HISTORICAL_PILOT_SPEC.md",
+      "size": 576,
+      "sha256": "255ee64e1e2c3803d98d38077b8426f824ed801858678eb91f2c4a2e7fe864ed",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HAI_TEST_MATRIX.md",
+      "size": 1445,
+      "sha256": "b732bcc16318925365d1f7a8ae6fac258c89921bcb1638e67427dcd61b3e6c40",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HAI_SCOPE_LIMIT_REPORT.md",
+      "size": 888,
+      "sha256": "e72f3d870fa5a2d16ffd6965540456b89b552e444b2de483a73987a0cf957c27",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HAI_OUTPUTS.txt",
+      "size": 4501,
+      "sha256": "8fcfcd1fc871894da719bf4cfb7cc49da805d46f1d428245a60b8bc73d912d24",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "pasted_content_107.txt",
+      "size": 18763,
+      "sha256": "fa2e301451ac9ba7c0b63e9bdc4eb5786e2bc1d838aafae334499ea0011259bd",
+      "status": "BASELINE_OR_SOURCE"
+    },
+    {
+      "file": "scripts/test-arki-hai.ts",
+      "size": 3240,
+      "sha256": "71a3395b74b05156d6f790629f94f4a78cb47d6041c822c8053d7b44c98e0f0d",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "size": 39506,
+      "sha256": "e152d9d17c945e7d2b0fe821e572126b171d2e9def6068989d74b24f20a68d4a",
+      "status": "HAI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ACI_EVIDENCE.zip",
+      "size": 164825,
+      "sha256": "0917e2c4d983a27d3a3a49a8c01d7dbf27d4c5667ac4947751fff862afec6bed",
+      "status": "BASELINE_OR_SOURCE"
+    }
+  ]
+}

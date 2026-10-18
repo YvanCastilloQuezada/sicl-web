@@ -1,0 +1,336 @@
+api/schemas.py:136:class EvaluationCreateRequest(BaseModel):
+api/schemas.py:319:    evaluations: dict[str, Any] = Field(default_factory=dict)
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:173:→ SELECTIVE RE-EVALUATION
+api/routes/v1.py:31:    EvaluationCreateRequest,
+api/routes/v1.py:76:from sicl.spatial_evaluation import build_upao001_dataset
+api/routes/v1.py:1092:@router.post("/projects/{project_id}/agents/{agent}/evaluations", dependencies=[Depends(_auth)])
+api/routes/v1.py:1093:def agent_evaluation(project_id: str, agent: str, request: CanonicalWriteRequest, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1102:    return _ok({"evaluation": result.get("data", {}).get("evaluation"), "source": "EXPERT_SYSTEM", "decision_created": False}, project_id, project.version if project else None)
+api/routes/v1.py:1217:@router.post("/projects/{project_id}/evaluations", dependencies=[Depends(_auth)])
+api/routes/v1.py:1218:def create_evaluation(project_id: str, request: EvaluationCreateRequest, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1230:    if any(item.alternative_id == alternative.alternative_id and item.objective_id == objective.objective_id for item in project.evaluations.values()):
+api/routes/v1.py:1231:        _error({"code": "CONFLICT", "message": "evaluation already exists for alternative and objective"}, project_id)
+api/routes/v1.py:1241:    return _ok({"evaluation": result.get("data", {})}, project_id, project.version if project else None)
+api/routes/v1.py:1244:@router.get("/projects/{project_id}/evaluations", dependencies=[Depends(_auth)])
+api/routes/v1.py:1245:def list_evaluations(project_id: str, alternative: str | None = None, objective: str | None = None, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1249:    values = list(project.evaluations.values())
+api/routes/v1.py:1256:    return _ok({"evaluations": [asdict(item) for item in values]}, project_id, project.version)
+api/routes/v1.py:1452:        for item in dataset.evaluations
+api/routes/v1.py:1479:            "evaluations_persisted": False,
+tests/test_a002_v1_4_injections.py:8:    EvaluationIdentityPayload,
+tests/test_a002_v1_4_injections.py:20:    compute_evaluation_id,
+tests/test_a002_v1_4_injections.py:79:def test_evaluation_identity_uses_policy_not_operation_twice():
+tests/test_a002_v1_4_injections.py:83:    assert len(r.evaluation_id) == 64
+tests/test_a002_v1_4_injections.py:84:    payload = EvaluationIdentityPayload(
+tests/test_a002_v1_4_injections.py:91:    assert r.evaluation_id == compute_evaluation_id(payload)
+src/sicl/optimization.py:8:from .v11 import Alternative, Evaluation
+src/sicl/optimization.py:23:    def generate(self, alternative: Alternative, evaluations: Iterable[Evaluation]) -> list[Alternative]:
+src/sicl/optimization.py:24:        evaluations = list(evaluations)
+src/sicl/optimization.py:26:        over_budget = any(item.value < 0 and item.source == "EXPERT_SYSTEM" for item in evaluations)
+src/sicl/optimization.py:27:        poor_energy = any(0 <= item.value < 70 and item.source == "EXPERT_SYSTEM" for item in evaluations)
+src/sicl/optimization.py:43:def tradeoff_matrix(alternatives: Iterable[Alternative], evaluations: Iterable[Evaluation], objectives: list[Objective]) -> str:
+src/sicl/optimization.py:45:    evaluations = list(evaluations)
+src/sicl/optimization.py:46:    result = pareto_front(alternatives, evaluations, objectives)
+src/sicl/optimization.py:47:    values = {(item.alternative_id, item.objective_id): item.value for item in evaluations}
+src/sicl/optimization.py:81:def pareto_front(alternatives: Iterable[Alternative], evaluations: Iterable[Evaluation], objectives: list[Objective]) -> ParetoResult:
+src/sicl/optimization.py:83:    evaluation_map = {(item.alternative_id, item.objective_id): item.value for item in evaluations}
+src/sicl/optimization.py:87:        vector = [evaluation_map.get((alternative.alternative_id, objective.objective_id)) for objective in objectives]
+src/sicl/memory.py:17:    if project.evaluations:
+src/sicl/memory.py:18:        return MemoryType.EVALUATION_PATTERN
+src/sicl/memory.py:29:    evaluation_text = [f"{item.alternative_id}:{item.objective_id}={item.value}" for item in project.evaluations.values()]
+src/sicl/memory.py:31:    fragments = decision_text + preference_text + evaluation_text + generation_text
+src/sicl/domain.py:8:from .v11 import Alternative, Comparison, Evaluation, Recommendation
+src/sicl/domain.py:33:    EVALUATION_PATTERN = "EVALUATION_PATTERN"
+src/sicl/domain.py:274:    evaluations: dict[str, Evaluation] = field(default_factory=dict)
+src/sicl/design_knowledge.py:49:    EVALUATION_CRITERION = "EVALUATION_CRITERION"
+src/sicl/export.py:34:        "evaluations": [asdict(item) for item in project.evaluations.values()],
+src/sicl/export.py:60:        f"Evaluations: {len(project.evaluations)}",
+src/sicl/export.py:94:        for evaluation in comparison.evaluations:
+src/sicl/export.py:95:            scores.setdefault(evaluation.alternative_id, []).append(evaluation.value)
+src/sicl/export.py:98:            lines.append(f"- {names.get(alternative_id, alternative_id)}: score={score:.2f} evaluations={len(values)}")
+src/sicl/export.py:104:    completed = sum(bool(value) for value in (project.objectives, project.constraints, project.alternatives, project.evaluations, project.comparisons))
+src/sicl/export.py:112:        f"Evaluations={len(project.evaluations)} Comparisons={len(project.comparisons)} Recommendations={len(project.recommendations)}",
+src/sicl/evaluation.py:1:from .v11 import Evaluation, EVALUATION_SOURCES
+src/sicl/evaluation.py:3:__all__ = ["Evaluation", "EVALUATION_SOURCES"]
+src/sicl/spatial_evaluation.py:1:"""Canonical deterministic evaluation dataset for the UPAO-001 spatial pilot.
+src/sicl/spatial_evaluation.py:4:and the existing Objective/Evaluation/Pareto models. It does not persist data,
+src/sicl/spatial_evaluation.py:19:from .v11 import Alternative, Evaluation
+src/sicl/spatial_evaluation.py:26:# Evaluation.source is the existing canonical provenance field. The model has
+src/sicl/spatial_evaluation.py:28:EVALUATION_SOURCE = "SIMULATION"
+src/sicl/spatial_evaluation.py:32:class SpatialEvaluationIncomplete(ValueError):
+src/sicl/spatial_evaluation.py:37:class SpatialEvaluationDataset:
+src/sicl/spatial_evaluation.py:39:    evaluations: tuple[Evaluation, ...]
+src/sicl/spatial_evaluation.py:74:        raise SpatialEvaluationIncomplete(
+src/sicl/spatial_evaluation.py:79:        raise SpatialEvaluationIncomplete(
+src/sicl/spatial_evaluation.py:97:def _evaluation_id(alternative_id: str, objective_id: str, representation: SpatialRepresentation) -> str:
+src/sicl/spatial_evaluation.py:113:def canonical_evaluations(
+src/sicl/spatial_evaluation.py:116:) -> tuple[tuple[Evaluation, ...], dict[str, dict[str, float]]]:
+src/sicl/spatial_evaluation.py:117:    """Build exactly six deterministic evaluations for valid UPAO A/B/C data."""
+src/sicl/spatial_evaluation.py:129:    values: list[Evaluation] = []
+src/sicl/spatial_evaluation.py:139:                Evaluation(
+src/sicl/spatial_evaluation.py:140:                    _evaluation_id(representation.alternative_id, objective.objective_id, representation),
+src/sicl/spatial_evaluation.py:146:                    EVALUATION_SOURCE,
+src/sicl/spatial_evaluation.py:150:        raise AssertionError("S6-P0.1 must produce exactly six evaluations")
+src/sicl/spatial_evaluation.py:156:) -> SpatialEvaluationDataset:
+src/sicl/spatial_evaluation.py:158:    evaluations, metrics = canonical_evaluations(representations, objectives)
+src/sicl/spatial_evaluation.py:163:    result = pareto_front(alternatives, evaluations, list(objectives))
+src/sicl/spatial_evaluation.py:164:    return SpatialEvaluationDataset(objectives, evaluations, metrics, result)
+src/sicl/spatial_evaluation.py:169:    "EVALUATION_SOURCE",
+src/sicl/spatial_evaluation.py:173:    "SpatialEvaluationDataset",
+src/sicl/spatial_evaluation.py:174:    "SpatialEvaluationIncomplete",
+src/sicl/spatial_evaluation.py:176:    "canonical_evaluations",
+tests/test_v2.py:9:from sicl.v11 import Alternative, Evaluation
+tests/test_v2.py:49:    evaluation = BioclimaticAgent().evaluate(alternative, project)
+tests/test_v2.py:50:    assert evaluation.value == 64.0
+tests/test_v2.py:51:    assert evaluation.source == "EXPERT_SYSTEM"
+tests/test_v2.py:75:    evaluations = [Evaluation("a1", "A", "comfort", 90), Evaluation("a2", "A", "cost", 100), Evaluation("b1", "B", "comfort", 80), Evaluation("b2", "B", "cost", 80), Evaluation("c1", "C", "comfort", 70), Evaluation("c2", "C", "cost", 120)]
+tests/test_v2.py:76:    result = pareto_front(alternatives, evaluations, objectives)
+tests/test_v2.py:83:    result = pareto_front([Alternative("A", "P", "A")], [Evaluation("e", "A", "o1", 1)], objectives)
+tests/test_v2.py:88:def test_cli_agent_records_evaluation_without_decision():
+src/sicl/cli.py:14:from .v11 import Alternative, Comparison, Evaluation, Recommendation, EVALUATION_SOURCES
+src/sicl/cli.py:1037:        evaluation = agent.evaluate(alternative, p)
+src/sicl/cli.py:1038:        p.evaluations[evaluation.evaluation_id] = evaluation
+src/sicl/cli.py:1041:            "INSERT INTO evaluations VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+src/sicl/cli.py:1042:            (evaluation.evaluation_id, evaluation.alternative_id, evaluation.objective_id, evaluation.value, evaluation.unit, evaluation.confidence, evaluation.source, evaluation.version),
+src/sicl/cli.py:1044:            self._event(p.project_id, "AGENT_EVALUATION_RECORDED", asdict(evaluation), "EXPERT_SYSTEM"),
+src/sicl/cli.py:1046:        return self._ok({"agent": agent_name, "evaluation": asdict(evaluation), "decision_created": False})
+src/sicl/cli.py:1054:            raise SICLError("INVALID_STATE", "both objectives with evaluations are required")
+src/sicl/cli.py:1055:        result = pareto_front(p.alternatives.values(), p.evaluations.values(), objectives)
+src/sicl/cli.py:1071:        evaluations = list(p.evaluations.values())
+src/sicl/cli.py:1072:        result = pareto_front(alternatives, evaluations, objectives)
+src/sicl/cli.py:1073:        values = {(item.alternative_id, item.objective_id): item.value for item in evaluations}
+src/sicl/cli.py:1085:            "evaluations": [asdict(item) for item in evaluations],
+src/sicl/cli.py:1147:        evaluations = [item for item in p.evaluations.values() if item.alternative_id == alternative.alternative_id]
+src/sicl/cli.py:1148:        proposals = GenerativeOptimizer().generate(alternative, evaluations)
+src/sicl/cli.py:1167:            raise SICLError("INVALID_STATE", "both objectives with evaluations are required")
+src/sicl/cli.py:1168:        return self._text_response(tradeoff_matrix(p.alternatives.values(), p.evaluations.values(), objectives))
+src/sicl/cli.py:1179:        evaluations = []
+src/sicl/cli.py:1182:                evaluation = agent.evaluate(alternative, p)
+src/sicl/cli.py:1183:                evaluations.append(evaluation)
+src/sicl/cli.py:1184:                stance = "aprueba" if evaluation.value >= 0 else "rechaza"
+src/sicl/cli.py:1185:                lines.append(f"El Agente {agent.name.title()} {stance}: {evaluation.value} {evaluation.unit} (EXPERT_SYSTEM).")
+src/sicl/cli.py:1188:        if evaluations:
+src/sicl/cli.py:1189:            positive = sum(item.value >= 0 for item in evaluations)
+src/sicl/cli.py:1190:            verdict = f"{positive}/{len(evaluations)} agentes producen evaluaciones no negativas; revisar trade-offs antes de decidir."
+src/sicl/cli.py:1203:            raise SICLError("INVALID_STATE", "an Objective is required before Evaluation")
+src/sicl/cli.py:1207:        if source not in EVALUATION_SOURCES:
+src/sicl/cli.py:1208:            raise SICLError("INVALID_ARGUMENT", "invalid evaluation source")
+src/sicl/cli.py:1209:        evaluation = Evaluation(f"EVAL-{uuid.uuid4().hex[:10]}", alternative.alternative_id, objective.objective_id, float(args[2]), unit, confidence, source)
+src/sicl/cli.py:1210:        p.evaluations[evaluation.evaluation_id] = evaluation
+src/sicl/cli.py:1213:            "INSERT INTO evaluations VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+src/sicl/cli.py:1214:            (evaluation.evaluation_id, evaluation.alternative_id, evaluation.objective_id, evaluation.value, evaluation.unit, evaluation.confidence, evaluation.source, evaluation.version),
+src/sicl/cli.py:1216:            self._event(p.project_id, "EVALUATION_RECORDED", asdict(evaluation)),
+src/sicl/cli.py:1218:        return self._ok(asdict(evaluation))
+src/sicl/cli.py:1225:        evaluations = [e for e in p.evaluations.values() if e.alternative_id in {a.alternative_id for a in alternatives}]
+src/sicl/cli.py:1226:        comparison = Comparison(f"CMP-{uuid.uuid4().hex[:10]}", p.project_id, [a.alternative_id for a in alternatives], evaluations)
+src/sicl/cli.py:1231:            (comparison.comparison_id, p.project_id, json.dumps(comparison.alternative_ids), json.dumps([e.evaluation_id for e in evaluations]), json.dumps(comparison.tradeoffs), comparison.version),
+src/sicl/cli.py:1319:        for evaluation in comparison.evaluations:
+src/sicl/cli.py:1320:            scores.setdefault(evaluation.alternative_id, []).append(evaluation.value * evaluation.confidence)
+src/sicl/cli.py:1322:        recommendation = Recommendation(f"REC-{uuid.uuid4().hex[:10]}", comparison.comparison_id, recommended_id, "Highest deterministic weighted evaluation score", 0.5)
+tests/test_v1_evaluations_comparisons.py:24:def test_post_evaluation_valid_and_get_list_and_filter(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:28:        response = client.post("/v1/projects/P-RFC5/evaluations", json={"alternative": "Alpha", "objective": "ENERGY_SAVINGS", "value": 82, "unit": "%", "confidence": "0.8", "source": "USER_INPUT"})
+tests/test_v1_evaluations_comparisons.py:32:        assert body["data"]["evaluation"]["value"] == 82
+tests/test_v1_evaluations_comparisons.py:33:        listed = client.get("/v1/projects/P-RFC5/evaluations")
+tests/test_v1_evaluations_comparisons.py:34:        filtered = client.get("/v1/projects/P-RFC5/evaluations?alternative=Alpha")
+tests/test_v1_evaluations_comparisons.py:36:        assert len(listed.json()["data"]["evaluations"]) == 1
+tests/test_v1_evaluations_comparisons.py:37:        assert len(filtered.json()["data"]["evaluations"]) == 1
+tests/test_v1_evaluations_comparisons.py:43:def test_evaluation_missing_field_returns_400(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:47:        response = client.post("/v1/projects/P-RFC5/evaluations", json={"alternative": "Alpha", "value": 1})
+tests/test_v1_evaluations_comparisons.py:55:def test_evaluation_missing_alternative_returns_404(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:59:        response = client.post("/v1/projects/P-RFC5/evaluations", json={"alternative": "Missing", "objective": "ENERGY_SAVINGS", "value": 1})
+tests/test_v1_evaluations_comparisons.py:67:def test_evaluation_duplicate_returns_409(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:72:        assert client.post("/v1/projects/P-RFC5/evaluations", json=payload).status_code == 200
+tests/test_v1_evaluations_comparisons.py:73:        duplicate = client.post("/v1/projects/P-RFC5/evaluations", json=payload)
+tests/test_v1_evaluations_comparisons.py:111:def test_evaluation_and_comparison_do_not_create_recommendation_or_decision(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:115:        client.post("/v1/projects/P-RFC5/evaluations", json={"alternative": "Alpha", "objective": "ENERGY_SAVINGS", "value": 82})
+tests/test_v1_evaluations_comparisons.py:125:def test_evaluation_and_comparison_persist_after_restart(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:132:        client.post("/v1/projects/P-RFC5/evaluations", json={"alternative": "Alpha", "objective": "ENERGY_SAVINGS", "value": 82})
+tests/test_v1_evaluations_comparisons.py:139:            assert len(client.get("/v1/projects/P-RFC5/evaluations").json()["data"]["evaluations"]) == 1
+tests/test_v1_evaluations_comparisons.py:146:def test_evaluations_and_comparisons_are_append_only(tmp_path, monkeypatch):
+tests/test_v1_evaluations_comparisons.py:150:        client.post("/v1/projects/P-RFC5/evaluations", json={"alternative": "Alpha", "objective": "ENERGY_SAVINGS", "value": 82})
+tests/test_v1_evaluations_comparisons.py:152:        evaluation_id = next(iter(repo.get_project("P-RFC5").evaluations))
+tests/test_v1_evaluations_comparisons.py:155:            f"UPDATE evaluations SET value=0 WHERE id='{evaluation_id}'",
+tests/test_v1_evaluations_comparisons.py:156:            f"DELETE FROM evaluations WHERE id='{evaluation_id}'",
+tests/test_v12.py:29:    for key in ("objectives", "constraints", "facts", "alternatives", "evaluations", "comparisons", "recommendations", "events"):
+tests/test_v12.py:41:    for suffix in ("objectives", "constraints", "alternatives", "evaluations"):
+src/sicl/a002/identity.py:1:"""Canonical evaluation identity for A-002 reports.
+src/sicl/a002/identity.py:17:class EvaluationIdentityPayload:
+src/sicl/a002/identity.py:23:    schema: str = "a002-evaluation-identity-v1"
+src/sicl/a002/identity.py:36:def compute_evaluation_id(payload: EvaluationIdentityPayload) -> str:
+tests/test_v11.py:26:def test_evaluation_against_objective(tmp_path: Path):
+tests/test_v11.py:27:    repo = SQLiteRepository(tmp_path / "evaluation.sqlite")
+tests/test_v11.py:33:    evaluation = next(iter(cli.execute('/STATUS')["data"]["evaluations"].values()))
+tests/test_v11.py:34:    assert evaluation["value"] == 85.0
+tests/test_v11.py:35:    assert evaluation["source"] == "USER_INPUT"
+tests/test_v11.py:51:    assert len(comparison["evaluations"]) == 2
+tests/test_v11.py:93:def test_evaluation_uses_facts_and_assumptions(tmp_path: Path):
+tests/test_v11.py:102:    sources = {e["source"] for e in cli.execute('/STATUS')["data"]["evaluations"].values()}
+src/sicl/repository.py:13:from .v11 import Alternative, Comparison, Evaluation, Recommendation
+src/sicl/repository.py:143:        CREATE TABLE IF NOT EXISTS evaluations (
+src/sicl/repository.py:150:          alternative_ids_json TEXT NOT NULL, evaluations_json TEXT NOT NULL,
+src/sicl/repository.py:153:        CREATE TRIGGER IF NOT EXISTS evaluations_no_update
+src/sicl/repository.py:154:        BEFORE UPDATE ON evaluations
+src/sicl/repository.py:155:        BEGIN SELECT RAISE(ABORT, 'evaluations are append-only'); END;
+src/sicl/repository.py:156:        CREATE TRIGGER IF NOT EXISTS evaluations_no_delete
+src/sicl/repository.py:157:        BEFORE DELETE ON evaluations
+src/sicl/repository.py:158:        BEGIN SELECT RAISE(ABORT, 'evaluations are append-only'); END;
+src/sicl/repository.py:555:        p.evaluations = {r["id"]: Evaluation(r["id"], r["alternative_id"], r["objective_id"], r["value"], r["unit"], r["confidence"], r["source"], r["version"]) for r in self.conn.execute("SELECT e.* FROM evaluations e JOIN alternatives a ON a.id=e.alternative_id WHERE a.project_id=?", (project_id,))}
+src/sicl/repository.py:556:        p.comparisons = {r["id"]: Comparison(r["id"], r["project_id"], json.loads(r["alternative_ids_json"]), [p.evaluations[eid] for eid in json.loads(r["evaluations_json"])], json.loads(r["tradeoffs_json"]), r["version"]) for r in self.conn.execute("SELECT * FROM comparisons WHERE project_id=?", (project_id,))}
+src/sicl/agents.py:8:from .v11 import Alternative, Evaluation
+src/sicl/agents.py:15:    def evaluate(self, alternative: Alternative, project: Project) -> Evaluation:
+src/sicl/agents.py:31:    def evaluate(self, alternative: Alternative, project: Project) -> Evaluation:
+src/sicl/agents.py:44:        return Evaluation(f"EVAL-{uuid4().hex[:10]}", alternative.alternative_id, objective.objective_id, round(value, 2), "score", 0.8, "EXPERT_SYSTEM")
+src/sicl/agents.py:50:    def evaluate(self, alternative: Alternative, project: Project) -> Evaluation:
+src/sicl/agents.py:63:        return Evaluation(f"EVAL-{uuid4().hex[:10]}", alternative.alternative_id, objective.objective_id, value, "score", 0.85, "EXPERT_SYSTEM")
+src/sicl/agents.py:69:    def evaluate(self, alternative: Alternative, project: Project) -> Evaluation:
+src/sicl/agents.py:81:        return Evaluation(f"EVAL-{uuid4().hex[:10]}", alternative.alternative_id, objective.objective_id, value, "usd_or_status", 0.8, "EXPERT_SYSTEM")
+tests/test_spatial_pareto_transport.py:8:from sicl.spatial_evaluation import build_upao001_dataset
+tests/test_spatial_pareto_transport.py:29:        for item in dataset.evaluations
+tests/test_spatial_pareto_transport.py:75:    assert "evaluations_persisted" in first.json()["data"]
+tests/test_spatial_pareto_transport.py:76:    assert first.json()["data"]["evaluations_persisted"] is False
+src/sicl/v11.py:7:EVALUATION_SOURCES = {"USER_INPUT", "AI_INFERENCE", "SIMULATION", "FACT", "ASSUMPTION", "EXPERT_SYSTEM"}
+src/sicl/v11.py:29:class Evaluation:
+src/sicl/v11.py:30:    evaluation_id: str
+src/sicl/v11.py:42:        if self.source not in EVALUATION_SOURCES:
+src/sicl/v11.py:43:            raise ValueError(f"Invalid evaluation source: {self.source}")
+src/sicl/v11.py:51:    evaluations: list[Evaluation] = field(default_factory=list)
+src/sicl/a002/model.py:327:    evaluation_id: str = ""
+src/sicl/a002/model.py:354:            "evaluationId": self.evaluation_id,
+src/sicl/a002/gate.py:10:from .identity import EvaluationIdentityPayload, compute_evaluation_id
+src/sicl/a002/gate.py:34:        expected = compute_evaluation_id(
+src/sicl/a002/gate.py:35:            EvaluationIdentityPayload(
+src/sicl/a002/gate.py:44:        if result.evaluation_id != expected:
+src/sicl/a002/gate.py:45:            return GateDecision(False, "A002_EVALUATION_ID_MISMATCH")
+src/sicl/validity.py:1:"""ARKI H-003: Validity / Invalidation — Read-only evaluation.
+src/sicl/validity.py:8:  VALIDITY EVALUATION ≠ INVALIDATION EXECUTION
+src/sicl/validity.py:145:      V-01: VALIDITY EVALUATION ≠ INVALIDATION EXECUTION
+tests/test_spatial_evaluation.py:9:from sicl.spatial_evaluation import (
+tests/test_spatial_evaluation.py:13:    SpatialEvaluationIncomplete,
+tests/test_spatial_evaluation.py:28:    assert len(dataset.evaluations) == 6
+tests/test_spatial_evaluation.py:29:    assert {item.alternative_id for item in dataset.evaluations} == {
+tests/test_spatial_evaluation.py:32:    assert {item.objective_id for item in dataset.evaluations} == {
+tests/test_spatial_evaluation.py:35:    assert all(item.unit == "m²" for item in dataset.evaluations)
+tests/test_spatial_evaluation.py:36:    assert all(item.source == "SIMULATION" for item in dataset.evaluations)
+tests/test_spatial_evaluation.py:37:    assert all(item.alternative_id.startswith("UPAO-001-") for item in dataset.evaluations)
+tests/test_spatial_evaluation.py:38:    assert not any(item.alternative_id in {"ALT-1", "ALT-A"} for item in dataset.evaluations)
+tests/test_spatial_evaluation.py:59:    first_values = [(item.alternative_id, item.objective_id, item.value) for item in first.evaluations]
+tests/test_spatial_evaluation.py:60:    second_values = [(item.alternative_id, item.objective_id, item.value) for item in second.evaluations]
+tests/test_spatial_evaluation.py:85:    with pytest.raises(SpatialEvaluationIncomplete):
+tests/test_spatial_evaluation.py:106:    assert all(item.confidence == 1.0 for item in dataset.evaluations)
+src/sicl/a002/__init__.py:18:from .identity import EvaluationIdentityPayload, compute_evaluation_id
+src/sicl/a002/__init__.py:31:    "EvaluationIdentityPayload",
+src/sicl/a002/__init__.py:46:    "compute_evaluation_id",
+src/sicl/a002/engine.py:13:from .identity import EvaluationIdentityPayload, compute_evaluation_id
+src/sicl/a002/engine.py:325:        # Evaluation identity (RT-V14-02: use real policy identity).
+src/sicl/a002/engine.py:329:        payload = EvaluationIdentityPayload(
+src/sicl/a002/engine.py:336:        evaluation_id = compute_evaluation_id(payload)
+src/sicl/a002/engine.py:359:            evaluation_id=evaluation_id,
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:236:EVALUATION_CRITERION
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:403:  → Evaluation criterion
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:547:EVALUATION_CRITERIA
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:803:      "use": "evaluation_criterion"
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:1008:5 EvaluationCriteria
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:51:          → Evaluation / Feasibility
+tests/test_institutional_memory.py:60:    assert set(cli.execute('/MEMORY TYPES')["data"]["types"]) == {"DECISION_PATTERN", "PREFERENCE_PATTERN", "EVALUATION_PATTERN", "GENERATION_PATTERN", "LESSON_LEARNED"}
+tests/test_optimization_phase5.py:6:from sicl.v11 import Alternative, Evaluation
+tests/test_optimization_phase5.py:11:    proposals = GenerativeOptimizer().generate(alternative, [Evaluation("E", "A", "COST", -1, source="EXPERT_SYSTEM")])
+tests/test_optimization_phase5.py:20:    proposals = GenerativeOptimizer().generate(alternative, [Evaluation("E", "A", "ENERGY", 60, source="EXPERT_SYSTEM")])
+tests/test_optimization_phase5.py:79:        [Evaluation("E", "A", "O", 10)],
+docs/RFC-006_SIMULATION_CONTRACT.md:67:Simulation es distinta de Evaluation. Evaluation registra una valoración de una Alternative respecto a un Objective; Simulation registra la ejecución reproducible de un método sobre inputs y outputs. Una Simulation no sustituye una Evaluation ni la crea automáticamente.
+docs/SICL_V2_IMPLEMENTATION.md:15:`/AGENT RUN BIOCLIMATIC <ALTERNATIVE>` ejecuta reglas deterministas y registra una `Evaluation` con `source=EXPERT_SYSTEM`. El agente requiere un objetivo `ENERGY_SAVINGS`, puede penalizar una fachada de vidrio simple en clima cálido y aplicar un ajuste explícito de orientación. No crea `Decision`.
+docs/RFC-006.1_MONTE_CARLO.md:70:Monte Carlo no crea `Decision`, `Recommendation`, `HumanReview`, `Evaluation` ni `Assumption`. No convierte una `Assumption` en un `Fact`. La Simulation resultante es append-only: una ejecución nueva crea un registro nuevo y no sustituye ejecuciones previas. La capacidad tampoco constituye certificación profesional, validación normativa ni decisión humana.
+tests/test_agents_debate.py:14:    evaluation = StructuralAgent().evaluate(alternative, project)
+tests/test_agents_debate.py:15:    assert evaluation.value == 70.0
+tests/test_agents_debate.py:16:    assert evaluation.source == "EXPERT_SYSTEM"
+tests/test_agents_debate.py:41:    evaluation = EconomicAgent().evaluate(alternative, project)
+tests/test_agents_debate.py:42:    assert evaluation.value == -1.0
+tests/test_agents_debate.py:43:    assert evaluation.source == "EXPERT_SYSTEM"
+tests/test_agents_debate.py:92:def test_all_structural_and_economic_evaluations_are_expert_system():
+docs/SICL_V1_ARCHITECTURE_BASELINE.md:17:`Context`, `Requirement`, `Preference`, `Fact`, `Assumption`, `Source`, `Evidence`, `Alternative`, `Evaluation`, `Comparison`, `Conflict`, `Uncertainty`, `Recommendation` y `Decision`.
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:1:# RFC-005 — Evaluation / Comparison HTTP
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:8:Exponer por REST canónico `/v1/...` las entidades analíticas `Evaluation` y `Comparison`, sin convertirlas en Recommendation ni Decision.
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:12:`Evaluation` se define en `src/sicl/v11.py` con `evaluation_id`, `alternative_id`, `objective_id`, `value`, `unit`, `confidence`, `source` y `version`. Su relación es una Alternative y un Objective; la entidad no contiene actualmente campos separados de `method`, `inputs`, `provenance`, `contract_version` o `feasibility`. La procedencia disponible es `source`.
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:14:`Comparison` se define con `comparison_id`, `project_id`, `alternative_ids`, `evaluations`, `tradeoffs` y `version`. Relaciona dos o más Alternatives y contiene las Evaluations asociadas. No contiene actualmente una relación persistida con Objectives.
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:22:| `POST` | `/v1/projects/{project_id}/evaluations` | Registra una Evaluation mediante el handler CLI existente |
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:23:| `GET` | `/v1/projects/{project_id}/evaluations` | Lista y filtra por `alternative` u `objective` |
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:31:Evaluation:
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:57:Una Evaluation requiere Alternative, Objective y Value existentes. Las claves `(alternative_id, objective_id)` no se duplican. Una Comparison requiere al menos dos Alternatives distintas y no duplica el mismo conjunto.
+docs/RFC-005_EVALUATION_COMPARISON_HTTP.md:59:La creación de Evaluation o Comparison produce únicamente su evento correspondiente. No crea Recommendation ni Decision. Recommendation continúa siendo una operación separada mediante `/RECOMMEND`; Decision mantiene autoridad humana y HumanReview.
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:32:| Alternative / Evaluation / Comparison | PENDIENTE | Forman parte de la visión, pero no del MVP CLI mínimo declarado. |
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:37:| Evaluation Engine | FUTURO | Capacidad posterior; el MVP CLI no debe implementarlo implícitamente. |
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:56:2. El documento de Engineering Reset exige un MVP CLI reducido, mientras que los documentos semánticos incluyen Alternative, Evaluation, Conflict, Uncertainty, Recommendation y Decision. La frontera exacta requiere decisión.
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:69:- Inclusión o postergación de Alternative/Evaluation/Comparison/Recommendation/Decision.
+docs/OPERATIONS_MANUAL.md:304:**HTTP equivalente.** `POST /v1/projects/{project_id}/evaluations`.
+docs/OPERATIONS_MANUAL.md:310:**Salida esperada.** `data.evaluation` y una versión observada.
+docs/OPERATIONS_MANUAL.md:857:| POST/GET | `/v1/projects/{id}/evaluations` | Crear o listar evaluaciones |
+docs/OPERATIONS_MANUAL.md:917:[5]: docs/RFC-005_EVALUATION_COMPARISON_HTTP.md "RFC-005 Evaluation and Comparison HTTP"
+docs/SICL_V1_1_SCOPE.md:7:SICL v1.1 agrega exclusivamente `Alternative`, `Evaluation`, `Comparison` y `Recommendation` al Core CLI v1.0. No agrega Agents, Optimization/Pareto, Site Intelligence, lenguaje natural, Conflict Engine avanzado, GIS, BIM ni UI.
+docs/SICL_V1_1_SCOPE.md:12:2. Toda `Evaluation` tiene `source` explícito y válido: `USER_INPUT`, `AI_INFERENCE`, `SIMULATION`, `FACT` o `ASSUMPTION`.
+docs/SICL_V1_1_SCOPE.md:23:- Evaluation contra Objective;
+docs/SICL_V1_1_SCOPE.md:27:- Evaluation basada en Fact y Assumption.
+docs/GLOSSARY.md:61:## Evaluation
+docs/RFC-011_INSTITUTIONAL_MEMORY.md:11:Los tipos permitidos son `DECISION_PATTERN`, `PREFERENCE_PATTERN`, `EVALUATION_PATTERN`, `GENERATION_PATTERN` y `LESSON_LEARNED`. Los estados son `ACTIVE`, `SUPERSEDED` y `REVOKED`; la confianza puede ser `HIGH`, `MEDIUM`, `LOW` o `UNKNOWN`.
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:30:Alternative, Evaluation, Comparison, Recommendation y Decision permanecen preservadas conceptualmente, pero su inclusión ejecutable en este MVP requiere decisión explícita.
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:86:Relaciones adicionales —`Requirement formalizes_as Objective/Constraint/Preference`, `Source provides Evidence`, `Alternative evaluated_by Evaluation`, `Decision responds_to Analysis`— quedan preservadas como ontología v1.0, pero no se activan automáticamente por el MVP CLI reducido.
+docs/SICL_CORE_CONTRACT_v1.0_PROPOSED.md:154:- ¿El MVP CLI incluye solo las operaciones enumeradas o también Context, Requirement, Alternative, Evaluation, Comparison, Recommendation y Decision?
+docs/RFC-007_MULTIOBJECTIVE_CONTRACT.md:43:## Relación con Evaluation y Comparison
+docs/RFC-007_MULTIOBJECTIVE_CONTRACT.md:45:El cálculo lee `Alternative`, `Objective` y `Evaluation`. No modifica esas entidades. `tradeoffs` representa valores observados por alternativa y objetivo; no es una Comparison ni sustituye sus relaciones persistidas.
+docs/RFC-017_CORE_CONTRACT_VERSIONING.md:247:La transición a v2.0 incorporó el modelo multiescala, el contrato HTTP `/v1/...`, Evidence, Source, Evaluation, Comparison, simulaciones, multiobjetivo, instrumentos de planificación, regulación y relaciones multiescala.
+docs/RFC-014_USER_COPILOT.md:482:- RFC-005 — Evaluation / Comparison HTTP.
+docs/RFC-020_FEASIBILITY_FILTERING.md:11:`FEASIBLE` means every evaluated hard constraint is satisfied. `INFEASIBLE` means at least one hard constraint is violated. `INSUFFICIENT_DATA` means a required value is absent. `UNKNOWN` means evaluation cannot be determined safely.
+docs/SIMS_DEI_PROJECT_HANDOVER.md:123:Los módulos complementarios son Context/Site, Objectives & Constraints, Alternatives & Evaluation, Evidence, Evaluations, Comparisons, Council/Recommendation y Build Governance.
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:35:    PARETO[Pareto + evaluations]
+docs/SICL_CORE_CONTRACT_v1.0.md:24:- `Alternative`, `Evaluation`, `Comparison` y `Recommendation`.
+docs/SICL_CORE_CONTRACT_v1.0.md:26:- Agentes expertos que producen únicamente `Evaluation`.
+docs/SICL_CORE_CONTRACT_v1.0.md:56:| Evaluation | `evaluation_id`, `alternative_id`, `objective_id`, `value`, `unit`, `confidence`, `source`, `version` |
+docs/SICL_CORE_CONTRACT_v1.0.md:57:| Comparison | `comparison_id`, `project_id`, `alternative_ids`, `evaluations`, `tradeoffs`, `version` |
+docs/SICL_CORE_CONTRACT_v1.0.md:160:17. `Evaluation` requiere una Alternative y un Objective existentes; no crea Recommendation ni Decision.
+docs/SICL_CORE_CONTRACT_v1.0.md:164:21. `DesignPrinciple` es un catálogo read-only con fuente declarada; no crea Decision, Recommendation ni Evaluation automática.
+docs/SICL_CORE_CONTRACT_v1.0.md:165:22. `MultiobjectiveResult` es descriptivo: no crea Recommendation, Decision, Alternative ni Evaluation.
+docs/SICL_CORE_CONTRACT_v1.0.md:199:### HTTP v1 — Evaluation y Comparison
+docs/SICL_CORE_CONTRACT_v1.0.md:201:La superficie canónica expone `POST` y `GET` para `/v1/projects/{project_id}/evaluations` y `/v1/projects/{project_id}/comparisons`. Las respuestas usan el envelope v1 con `contract_version`, `status`, `code`, `message`, `project_id`, `observed_version` y `data`. Evaluation puede filtrarse por `alternative` y `objective`; Comparison recibe al menos dos alternativas. Recommendation continúa separada y Decision conserva autoridad humana.
+docs/SICL_CORE_CONTRACT_v1.0.md:229:`InstitutionalMemory` es una proyección global derivada de proyectos cerrados; no pertenece al estado canónico de `Project` y no reescribe hechos, decisiones ni eventos previos. Sus registros son versionados y append-only, con tipos `DECISION_PATTERN`, `PREFERENCE_PATTERN`, `EVALUATION_PATTERN`, `GENERATION_PATTERN` y `LESSON_LEARNED`, estados `ACTIVE`, `SUPERSEDED` y `REVOKED`, y confianza `HIGH`, `MEDIUM`, `LOW` o `UNKNOWN`.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:69:| RFC-005 | `Evaluation`, `Comparison` y endpoints HTTP | Implementado |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:122:- `POST /v1/projects/{project_id}/agents/{agent}/evaluations`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:126:### 7.4 Evidence, Evaluation y Comparison
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:131:- `POST /v1/projects/{project_id}/evaluations`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:132:- `GET /v1/projects/{project_id}/evaluations`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:267:13. Los agentes solo producen `Evaluation`.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:287:| Evaluation / Comparison | Implementado | Requiere entidades y objetivos existentes |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:323:- [RFC-005 — Evaluation / Comparison HTTP](RFC-005_EVALUATION_COMPARISON_HTTP.md)
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:103:Incluye Objectives, Constraints, Alternatives, GeneratedAlternatives, Evaluations, Comparisons, Simulations, MultiobjectiveResults, DesignPrinciples y Recommendations.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:237:### 7.12 Evaluation
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:239:Evaluation registra el valor de una alternativa respecto de un objetivo, con unidad, confianza y fuente.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:351:- `POST /v1/projects/{project_id}/evaluations`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:352:- `GET /v1/projects/{project_id}/evaluations`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:542:12. Los agentes solo generan Evaluation.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:571:Camino A primero: Project → Preference → Recommendation → HumanReview → Decision → Audit → Council. Camino B queda para una fase posterior con Evidence, Objective, Constraint, Alternative, Evaluation y Comparison.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:638:| Evaluation / Comparison HTTP | IMPLEMENTED | RFC-005 |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:676:| RFC-005 | Evaluation / Comparison HTTP | IMPLEMENTED |
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:793:Introdujo el modelo multiescala, HTTP v1, Evidence, Evaluation, Comparison, simulación, Pareto, planificación, relaciones de escala y regulación.
+docs/RFC-021_PROJECT_VARIABLES.md:25:Registering a variable does not authorize a decision. It only records explicit project information for later evaluation.
+docs/USER_MANUAL.md:181:Los agentes expertos solo producen `Evaluation`. No deciden.
+docs/USER_MANUAL.md:429:POST /v1/projects/{project_id}/evaluations
+docs/USER_MANUAL.md:430:GET  /v1/projects/{project_id}/evaluations
+docs/USER_MANUAL.md:439:POST /v1/projects/{project_id}/agents/{agent}/evaluations
+docs/USER_MANUAL.md:728:[4]: https://github.com/YvanCastilloQuezada/sicl-core/blob/main/docs/RFC-005_EVALUATION_COMPARISON_HTTP.md "RFC-005 Evaluation and Comparison HTTP"
+docs/architecture/MV_P1_0_RUNTIME_VARIABLE_ARCHITECTURE_LOCK.md:139:- Missing Data Intelligence through profile applicability and value-state evaluation.
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:37:- Explicit freshness evaluation: `CURRENT`, `STALE`, `UNKNOWN`.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:25:| FFO-08 | Design Knowledge Intelligence | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Initial design-knowledge entities, catalog/query agent foundation, and source/evidence separation | Complete repository, contextual retrieval, applicability explanation, and knowledge-assisted evaluation/generation | RFC-026; human-authority locks | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:27:| FFO-10 | Advanced Evaluation, Simulation & Multiobjective Optimization | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Evaluation, Comparison, raw Pareto, deterministic UPAO-001 dataset, and feasibility foundations | Expanded criteria, uncertainty, sensitivity, scenario analysis, robust optimization, and simulation envelopes | DL-S6P0-01..17; RFC-020 | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:71:FFO-01 relates to FFO-02 location, FFO-04 variables, FFO-05 missing data, FFO-09 spatial alternatives, and FFO-10 evaluation. Open-Meteo remains a source of environmental data, not a building simulation engine.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:273:Guided Project Setup, stakeholder interviews, natural-language briefings, intent extraction, semantic classification, clarification questions, stakeholder attribution, authority attribution, conflict detection, intent reconciliation, confirmation workflow, and intent-to-alternative/evaluation traceability remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:281:FFO-06 relates to FFO-03 adaptive workspace, FFO-07 regulation, FFO-08 design knowledge, FFO-09 generation, and FFO-10 evaluation.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:323:FFO-07 relates to FFO-02 location and jurisdiction, FFO-04 variables, FFO-05 missing data, FFO-06 intent, FFO-09 generation, and FFO-10 feasibility/evaluation.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:357:A complete design-knowledge repository, source/evidence linkage, principle and pattern retrieval, typology and precedent intelligence, contextual design questions, applicability explanations, knowledge-assisted alternative generation, and knowledge-assisted evaluation remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:365:FFO-08 relates to FFO-06 intent, FFO-09 generation, FFO-10 evaluation, and FFO-07 regulatory intelligence.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:425:## 12. FFO-10 — Advanced Evaluation, Simulation & Multiobjective Optimization
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:428:**TITLE:** Advanced Evaluation / Simulation / Multiobjective Optimization
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:433:Evaluation and multiobjective analysis should make trade-offs inspectable without creating an automatic best alternative or Decision.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:437:Evaluation, Comparison, raw Pareto analysis, deterministic UPAO-001 synthetic evaluation data, canonical alternatives, and feasibility foundations are present. The first spatial Pareto uses `GROSS_MASSING_AREA` and `OPEN_SITE_AREA` under the S6-P0 decision locks.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:441:Expanded criteria, normalization, uncertainty-aware evaluation, sensitivity analysis, scenario comparison, multiobjective optimization, Pareto exploration, trade-off explanation, robustness analysis, simulation integration, performance envelopes, and optimization under constraints remain frozen unless separately authorized.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:461:`EVALUATION != COMPARISON != PARETO != RECOMMENDATION != HUMAN_REVIEW != DECISION`. Pareto must never silently create a Decision.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:479:UPAO-001 remains the flagship educational/model example for `edificacion`. Existing synthetic spatial representations and deterministic evaluations are reusable foundations, but they do not constitute the eleven-project library.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:560:| FFO-06 | FFO-03, FFO-07, FFO-08, FFO-09, FFO-10 | Human intent may later guide project definition, regulation, knowledge, generation, and evaluation. |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:562:| FFO-08 | FFO-06, FFO-09, FFO-10 | Design knowledge may inform alternatives and evaluation only through traceable non-regulatory references. |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:564:| FFO-10 | FFO-01, FFO-04, FFO-05, FFO-07, FFO-08, FFO-09, FFO-12 | Evaluation and optimization consume explicit inputs and may ingest adapter results only through provenance. |

@@ -1,0 +1,28 @@
+=== 10-test-access-matrix ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "roles": 4,
+  "modules": 16,
+  "cases": 64,
+  "visibleByRole": {
+    "visitor": 2,
+    "user": 14,
+    "specialist": 15,
+    "corporate": 16
+  },
+  "renamed": [
+    "Data",
+    "PRESUP-5D",
+    "GASTOS",
+    "EXP-TEC",
+    "O-M",
+    "ADM"
+  ],
+  "checks": [
+    "4 roles × 16 modules",
+    "visitor public access",
+    "2/14/15/16 visibility",
+    "canonical renames"
+  ]
+}

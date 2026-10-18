@@ -1,0 +1,11 @@
+{
+  "schema":"ARKI-ABB001-ARCHITECTURE-GEOMETRIC-DIFF-1.0",
+  "status":"UNRESOLVED",
+  "base":"PROY. FERNANDEZ ROJAS - ARQUITECTURA.dwg",
+  "modified":"ARQUITECTURA MODIFICADA.dwg",
+  "comparison":"NOT_EXECUTED",
+  "items":[],
+  "classificationVocabulary":["GEOMETRY_ADDED","GEOMETRY_REMOVED","GEOMETRY_CHANGED","TEXT_CHANGED","DIMENSION_CHANGED","BLOCK_CHANGED","LAYER_CHANGED","UNCHANGED","UNRESOLVED"],
+  "reason":"No DWG entity extraction, handles, coordinates or layer data available",
+  "governingVersion":"NOT_DECIDED; preserved from F1B"
+}

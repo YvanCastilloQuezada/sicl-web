@@ -1,0 +1,269 @@
+06F-S1.27 — RAPID OPPORTUNITY PRIORITY
+
+El Opportunity Radar deberá descubrir todas las oportunidades relevantes, sin excluir procedimientos por tener plazos largos.
+
+Adicionalmente deberá identificar y elevar inmediatamente oportunidades con ventanas de preparación excepcionalmente cortas.
+
+Formalizar:
+
+SHORT DEADLINE ≠ AUTOMATIC REJECTION.
+
+SHORT DEADLINE MAY REPRESENT A STRATEGIC OPPORTUNITY FOR ARKI.
+
+06F-S1.28 — URGENCY CLASSIFICATION
+
+Calcular el tiempo efectivo restante desde la detección hasta el deadline aplicable:
+
+≤ 24 h       FLASH
+>24–48 h     CRITICAL
+>48–72 h     VERY_HIGH
+>72–96 h     HIGH
+>4–7 days    ACCELERATED
+>7 days      NORMAL
+
+Los umbrales serán inicialmente PROPOSED / REQUIRES_OPERATIONAL_VALIDATION y podrán recalibrarse con evidencia.
+
+06F-S1.29 — IMMEDIATE RAPID SCREENING
+
+Una oportunidad FLASH / CRITICAL / VERY_HIGH deberá activar prioritariamente:
+
+DETECT
+↓
+DEDUPLICATE
+↓
+VERIFY SOURCE
+↓
+FREEZE DEADLINE
+↓
+EXTRACT BASES
+↓
+IDENTIFY OBJECT
+↓
+ELIGIBILITY QUICK CHECK
+↓
+EVIDENCE QUICK CHECK
+↓
+DESIGN SCOPE CHECK
+↓
+FATAL BLOCKER CHECK
+↓
+HUMAN ALERT
+
+El objetivo es determinar rápidamente si merece análisis completo.
+
+06F-S1.30 — FAST-LANE CANDIDATE
+
+Si concurren:
+
+SHORT DEADLINE
++
+RELEVANT PROJECT
++
+DOCUMENTS AVAILABLE
++
+NO KNOWN FATAL ELIGIBILITY BLOCKER
++
+ARKI CAPABILITY APPEARS RELEVANT
+
+clasificar:
+
+RAPID_BID_CANDIDATE
+
+y elevarlo visualmente en el Opportunity Command Center.
+
+Esto NO equivale a:
+
+GO
+06F-S1.31 — RAPID OPPORTUNITY ALERT
+
+Una oportunidad de alta urgencia que supere el quick screening deberá generar:
+
+RAPID OPPORTUNITY
+
+Project:
+Entity:
+Location:
+Contract type:
+Design scope:
+
+Time remaining:
+Bases available:
+Eligibility:
+Evidence readiness:
+ARKI readiness:
+Missing specialists:
+Partner required:
+Fatal blockers:
+Critical UNKNOWN:
+
+STATUS:
+RAPID_BID_CANDIDATE
+
+HUMAN DECISION REQUIRED
+06F-S1.32 — PRIORITY ≠ WIN PROBABILITY
+
+No calcular ni presentar:
+
+"we are likely to win because there are only 2 days"
+
+El plazo corto puede reducir el tiempo disponible para otros participantes, pero no demuestra número de competidores, capacidad de los competidores ni probabilidad de adjudicación.
+
+La señal deberá denominarse:
+
+TIME_COMPRESSION_ADVANTAGE_CANDIDATE
+
+no:
+
+WIN_PROBABILITY
+06F-S1.33 — RAPID BID READINESS
+
+Calcular separadamente:
+
+TIME REMAINING
+DOCUMENT AVAILABILITY
+LEGAL ELIGIBILITY
+ACCREDITED EXPERIENCE
+PROFESSIONAL AVAILABILITY
+EVIDENCE READINESS
+DESIGN READINESS
+COMPUTATIONAL READINESS
+ECONOMIC READINESS
+PARTNER DEPENDENCY
+EXTERNAL DEPENDENCY
+UNKNOWN
+
+No ocultar requisitos fatales dentro de una puntuación agregada.
+
+06F-S1.34 — DEADLINE FEASIBILITY
+
+Estimar:
+
+TIME_REMAINING
+vs
+ESTIMATED_ARKI_PRODUCTION_TIME
+vs
+ESTIMATED_HUMAN_REVIEW_TIME
+vs
+EXTERNAL_DEPENDENCY_TIME
+
+Resultado:
+
+RAPID_FEASIBLE
+RAPID_FEASIBLE_WITH_CONDITIONS
+TIME_CRITICAL
+EXTERNAL_DEPENDENCY_BLOCKED
+NOT_FEASIBLE
+UNKNOWN
+06F-S1.35 — NO SHORTCUT THROUGH COMPLIANCE
+
+El modo rápido NO podrá reducir:
+
+requirement verification
+evidence verification
+legal applicability
+professional requirements
+technical coherence
+economic coherence
+Red Team
+Human Authority
+
+Formalizar:
+
+ARKI MAY COMPRESS TIME. ARKI SHALL NOT COMPRESS EVIDENCE.
+
+06F-S1.36 — PARALLEL RAPID BID
+
+Para oportunidades urgentes, diseñar ejecución paralela cuando la arquitectura existente lo permita:
+
+                BASES
+                  │
+       ┌──────────┼──────────┐
+       ↓          ↓          ↓
+REQUIREMENTS   EVIDENCE   DESIGN
+       │          │          │
+       ↓          ↓          ↓
+ELIGIBILITY   PERSONNEL   TECHNICAL
+       │          │       PROPOSAL
+       └──────────┼──────────┘
+                  ↓
+            BID ASSEMBLY
+                  ↓
+         ECONOMIC CONSISTENCY
+                  ↓
+              RED TEAM
+                  ↓
+            HUMAN REVIEW
+
+Sin crear múltiples autoridades ni agentes soberanos.
+
+06F-S1.37 — DEADLINE WATCH
+
+Las oportunidades activas deberán recalcular tiempo restante y cambios materiales.
+
+Estados:
+
+NORMAL
+ACCELERATED
+HIGH
+VERY_HIGH
+CRITICAL
+FLASH
+EXPIRED
+
+Una modificación de cronograma deberá actualizar automáticamente la clasificación interna cuando exista infraestructura de monitorización autorizada.
+
+06F-S1.38 — RADAR SORTING
+
+La vista principal deberá permitir simultáneamente:
+
+ALL OPPORTUNITIES
+RAPID OPPORTUNITIES
+HIGH STRATEGIC VALUE
+DESIGN-HEAVY
+MEGAPROJECTS
+INTERNATIONAL
+PROINVERSIÓN
+SEACE
+COMPETITIONS
+WATCHLIST
+
+RAPID OPPORTUNITIES deberá ser una vista prioritaria, no un filtro que elimine las demás.
+
+06F-S1.39 — RAPID-BID LEARNING
+
+Después de cada simulación o participación autorizada registrar:
+
+available time
+detection latency
+screening time
+requirement extraction time
+first design time
+technical offer time
+economic offer time
+Red Team time
+human review time
+total preparation time
+blockers
+rework
+defects
+
+Esto permitirá aprender empíricamente qué tipos de oportunidades ARKI puede abordar en:
+
+24 h
+48 h
+72 h
+96 h
+7 days
+06F-S1.40 — STRATEGIC OBJECTIVE
+
+La hipótesis estratégica a probar será:
+
+ARKI'S COMPUTATIONAL SPEED MAY CREATE A COMPETITIVE OPERATIONAL ADVANTAGE IN PROCUREMENT AND DESIGN OPPORTUNITIES WITH SEVERELY COMPRESSED PREPARATION WINDOWS.
+
+Estado inicial:
+
+HYPOTHESIS / NOT_DEMONSTRATED
+
+Solo evidencia operacional podrá elevarla.
+
+FIN DEL BLOQUE 06F-S1.27–40.

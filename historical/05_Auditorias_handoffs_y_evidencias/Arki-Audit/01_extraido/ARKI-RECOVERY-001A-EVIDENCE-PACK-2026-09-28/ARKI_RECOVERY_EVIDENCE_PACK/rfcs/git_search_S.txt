@@ -1,0 +1,4 @@
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33m6cdea17[m ci(vsm): automate weekly master surveillance
+[33md740892[m docs(rfc-037): add weekly master surveillance
+[33mb919e24[m docs(rfc-037): formalize multi-engine absorption doctrine

@@ -1,0 +1,55 @@
+{
+  "schema": "ARKI-ANEXO-I-0.1",
+  "packageId": "ARKI-D61-R1-EXECUTED",
+  "delta": "501",
+  "experiment": "D6.1-R1",
+  "status": "PASS_WITH_CONDITIONAL_RESTAURANT_BLOCK",
+  "artifacts": [
+    "D6.1-REPORT.md",
+    "roundtrip-result.json",
+    "schema-map.json",
+    "ARKI_D6.1_Executed_Checkpoint.xlsx",
+    "curriculum-update.md"
+  ],
+  "gates": {
+    "schemaReconciliation": "PASS",
+    "pilotRoundTrip": "PASS",
+    "persistence": "PASS",
+    "reload": "PASS",
+    "retrieval": "PASS",
+    "provenance": "PASS",
+    "scope": "PASS",
+    "rights": "PASS",
+    "humanValidation": "PASS",
+    "unknownConflict": "PASS",
+    "massIngestion": "PASS_WITHIN_AVAILABLE_CORPUS",
+    "restaurant": "BLOCKED_RUNTIME_EXAM_NOT_OPERATIONAL",
+    "softwareRegression": "PREEXISTING_FAILURE"
+  },
+  "counts": {
+    "discovered": 30,
+    "mapped": 30,
+    "ingested": 30,
+    "humanValidatedFacts": 9,
+    "unknown": 4
+  },
+  "generatedAt": "2026-09-20T10:07:50.213567+00:00",
+  "implementationFrozenDuringExam": false,
+  "implementationChangeScope": [
+    "generic SiclSnapshot knowledge fields",
+    "D6.1 round-trip runner",
+    "D6.1 tests",
+    "reports"
+  ],
+  "excluded": [
+    "docs/costs/"
+  ],
+  "regression": {
+    "fullSuite": "PARTIAL",
+    "passedTests": 167,
+    "failedTests": 6,
+    "failureSurface": "client/src/pages/phase-a-theme.test.ts",
+    "cause": "AppHeader tRPC hook mounted without provider",
+    "d61Attribution": false
+  }
+}

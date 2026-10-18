@@ -1,0 +1,71 @@
+{
+  "artifact": "ARKI-COCO-EXAM-001",
+  "schema": "ARKI-COCO-EXAM-MANIFEST-1.0",
+  "status": "EXAM_PARTIAL",
+  "caseId": "PROJECT-NEXUS-001",
+  "antiContamination": "PASS",
+  "productMutation": false,
+  "professionalCertification": false,
+  "entries": [
+    {
+      "path": "scripts/test-coco-exam-001.ts",
+      "sha256": "45dfa1b58da20da676fc05f7b2394d51f5385fedf64d71a9338f468050bfc0fa",
+      "bytes": 15553
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_RAW.json",
+      "sha256": "720960dc3d018f52259f3a91486a07df96a7096a6fa6e311b8a226eccb7f5ce0",
+      "bytes": 10814
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_REGRESSION_RAW.txt",
+      "sha256": "381bbc8bb7ea2e3335071e7cef6360949a7b61f3fb132919a16abf3cfe1b5aed",
+      "bytes": 3583
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_REPORT.md",
+      "sha256": "70119d2433775f44908b60cf98dce69a7de968865d76f510c036a4d2fa53adc4",
+      "bytes": 3432
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_MATRIX.csv",
+      "sha256": "c56ead8544cbd10d7c6434fcebc9355bd513e1c22ffd53eda2c561ce9f09665d",
+      "bytes": 5557
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_FAILURES.md",
+      "sha256": "4f354610325f8b2c4d56e9f8e7f2244a41b7c80d714558bdb3670190ac766d29",
+      "bytes": 1033
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_LEARNING_LEDGER.md",
+      "sha256": "2de1e7a5a323976cff654ccec6944fcf12bed4db13f8cf108c7c93be6d09df5e",
+      "bytes": 1064
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_MUTANTS.txt",
+      "sha256": "7a6bb978d219a33b09bf4185543c0b2eed43d09a25e12dbbaab430b38072d6be",
+      "bytes": 513
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_TRANSFER.txt",
+      "sha256": "0376142dfb4ac85c936be68dc2683b889a0f57e095973fb036ba9ac44ee545ff",
+      "bytes": 289
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_OUTPUTS.txt",
+      "sha256": "73ba7702337507d4d5d13efcb6094787ca533f942896b8989b593e381b77cf24",
+      "bytes": 312
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_SCOPE_LIMITS.md",
+      "sha256": "61fe15ce8484308d0c8e073c3e6c942dbcacb3960ad50261f5e69d22c2ff1c5a",
+      "bytes": 419
+    },
+    {
+      "path": "scripts/create-coco-exam-001-package.py",
+      "sha256": "005dace8bd6ebeb4522d8d33d50f80f0f05e1f7566f6247b5926e2270b6e0670",
+      "bytes": 10125
+    }
+  ]
+}

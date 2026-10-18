@@ -1,0 +1,28 @@
+LEVEL_ID: L10
+NAME: "Canonizador Bajo Autorización"
+DEFINITION: "ARKI promueve conocimiento a canónico solo con validación humana."
+INPUTS:
+  - knowledge_candidate: "KnowledgeCandidate"
+  - evidence: "EvidencePackage"
+  - human_validation: "HumanValidationEvent"
+OUTPUTS:
+  - canonical_knowledge: "CanonicalKnowledge"
+  - promotion_record: "PromotionRecord"
+CONTRACTS:
+  - "RECOMMENDATION ≠ DECISION"
+  - "No canonización automática"
+  - "Validación humana explícita y versionada"
+  - "Scope bounded"
+RULES:
+  - "DL-04: HUMAN AUTHORITY"
+  - "INV-K-003: DECISION → HUMAN AUTHORITY"
+  - "PG-06: Eligible for canonical promotion → CANONICAL/HUMAN-CONFIRMED"
+  - "Knowledge Promotion State Graph: OBSERVED → CANDIDATE → SUPPORTED → TRANSFER_TESTED → GENERALIZED_CANDIDATE → CANONICAL_CANDIDATE → CANONICAL/HUMAN-CONFIRMED"
+GATES:
+  - "GATE_L10_PASS: Canonización con validación humana explícita"
+EVIDENCE_REQUIRED:
+  - "Human validation event (scoped, versioned)"
+  - "Evidence package"
+  - "Promotion state transition log"
+  - "Scope declaration"
+CURRENT_STATUS: "DEMONSTRATED"

@@ -1,0 +1,29 @@
+LEVEL_ID: L20
+NAME: "Compañero Simbiótico Maduro"
+DEFINITION: "ARKI y el arquitecto forman un sistema único donde cada uno hace lo que mejor sabe."
+INPUTS:
+  - architect_intent: "ArchitectIntent"
+  - project_context: "ProjectContext"
+  - evidence: "EvidencePackage"
+OUTPUTS:
+  - collaborative_design: "CollaborativeDesign"
+  - decision_support: "DecisionSupport"
+  - learning_feedback: "LearningFeedback"
+CONTRACTS:
+  - "ARKI recuerda, calcula relaciones, expone evidencia"
+  - "Humano interpreta, decide, asume responsabilidad"
+  - "RECOMMENDATION ≠ DECISION (siempre)"
+  - "Simbiosis, no autonomía"
+RULES:
+  - "Todos los invariantes (INV-000 a INV-004)"
+  - "Todos los Decision Locks (DL-01 a DL-10)"
+  - "Todas las reglas epistémicas (E-01 a E-07)"
+  - "Fase 10 del roadmap: Corporation activation"
+GATES:
+  - "GATE_L20_PASS: Simbiosis operativa con autoridad humana preservada"
+EVIDENCE_REQUIRED:
+  - "Collaborative session logs"
+  - "Decision records (human + ARKI)"
+  - "Learning feedback loops"
+  - "Project outcomes"
+CURRENT_STATUS: "FUTURE (Fase 10)"

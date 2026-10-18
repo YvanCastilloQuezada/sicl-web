@@ -1,0 +1,433 @@
+SUPLEMENTO OBLIGATORIO 97A-06F-S1
+GLOBAL MEGAPROJECT + DESIGN-BUILD + RAPID BID INTELLIGENCE
+
+Añadir íntegramente a la orden 97A-06F antes de ejecutarla:
+
+06F-S1.01 — EXTENDED OPPORTUNITY UNIVERSE
+
+OPBI SHALL NOT ASSUME:
+
+PUBLIC PROCUREMENT = SEACE ONLY.
+
+Incorporar arquitectura de descubrimiento para fuentes oficiales y legítimas de:
+
+national public procurement
+ProInversión
+ministries
+infrastructure agencies
+regional governments
+PPP
+asset projects
+G2G-related opportunities where externally procurable
+multilateral development banks
+international procurement
+international design tenders
+EPC
+design-build
+turnkey
+consortium opportunities
+specialist subconsultancies
+
+No implementar conectores no autorizados durante esta prueba.
+
+06F-S1.02 — MEGAPROJECT OPPORTUNITY
+
+Crear/reutilizar:
+
+MegaprojectOpportunity
+
+capaz de representar:
+
+project
+country
+jurisdiction
+owner
+promoter
+procurement authority
+investment model
+estimated investment
+stage
+procurement model
+design responsibility
+packages
+lots
+disciplines
+eligibility
+sources
+timeline
+partners
+unknowns
+06F-S1.03 — OPPORTUNITY DECOMPOSITION
+
+ARKI SHALL NOT evaluate only:
+
+CAN WE WIN THE WHOLE PROJECT?
+
+Deberá descomponer:
+
+PRIME CONTRACT
+JV / CONSORTIUM
+DESIGN LEAD
+ARCHITECTURAL DESIGN
+ENGINEERING DESIGN
+BIM
+SPECIALIST DESIGN
+TECHNICAL STUDIES
+DIGITAL TWIN
+VISUALIZATION
+DOCUMENTATION
+SUBCONSULTANCY
+OTHER PACKAGE
+06F-S1.04 — PARTICIPATION PATH
+
+Cada oportunidad deberá poder producir:
+
+DIRECT_BID
+CONSORTIUM
+JOINT_VENTURE
+SUBCONSULTANT
+DESIGN_PARTNER
+SPECIALIST_PARTNER
+NOT_ELIGIBLE
+UNKNOWN
+
+sin comprometer jurídicamente a ninguna parte.
+
+06F-S1.05 — GLOBAL ELIGIBILITY GATE
+
+Para oportunidades internacionales evaluar:
+
+jurisdiction
+bidder nationality
+local registration
+professional licensing
+company requirements
+financial capacity
+relevant experience
+local partner
+insurance
+guarantees
+language
+currency
+tax
+sanctions/exclusions
+submission rules
+professional responsibility
+data/IP
+AI rules
+
+Resultado:
+
+ELIGIBLE
+CONDITIONALLY_ELIGIBLE
+LOCAL_PARTNER_REQUIRED
+JV_REQUIRED
+SPECIALIST_REQUIRED
+NOT_ELIGIBLE
+UNKNOWN
+06F-S1.06 — PROJECT/DESIGN OPPORTUNITY FILTER
+
+El Product Owner prioriza inicialmente oportunidades donde ARKI pueda participar en:
+
+DESIGN
+PROJECT DEVELOPMENT
+TECHNICAL FILE
+ARCHITECTURE
+BIM
+COORDINATION
+TECHNICAL DOCUMENTATION
+DESIGN COMPETITION
+DESIGN-BUILD PROPOSAL
+
+No asumir intención de ejecutar físicamente la obra.
+
+06F-S1.07 — DELIVERY MODEL INTELLIGENCE
+
+ARKI deberá distinguir:
+
+DESIGN ONLY
+FORMULATION + DESIGN
+DESIGN-BID-BUILD
+DESIGN-BUILD
+EPC
+TURNKEY
+PPP
+CONCESSION
+G2G
+PMO
+OTHER
+UNKNOWN
+
+La etiqueta nunca sustituye la lectura del contrato/bases.
+
+06F-S1.08 — TURNKEY SAFETY
+
+Formalizar:
+
+TURNKEY LABEL ≠ KNOWN DESIGN RESPONSIBILITY.
+
+DESIGN-BUILD LABEL ≠ IDENTICAL PROCUREMENT RULES ACROSS JURISDICTIONS.
+
+READ THE ACTUAL TENDER.
+
+06F-S1.09 — RAPID BID DESIGN
+
+Incorporar:
+
+RapidBidDesignCapability.
+
+Objetivo:
+
+demostrar cuánto tarda ARKI realmente en convertir:
+
+TENDER PACKAGE
+
+en:
+
+COMPLIANT DIGITAL DESIGN PROPOSAL
+06F-S1.10 — SPEED ≠ QUALITY
+
+Formalizar:
+
+FAST GENERATION ≠ COMPLIANT DESIGN.
+
+FAST DESIGN ≠ VERIFIED ENGINEERING.
+
+FAST DOCUMENTATION ≠ COMPLETE BID.
+
+06F-S1.11 — RAPID BID CLOCK
+
+Registrar automáticamente:
+
+T0 tender received
+
+T1 tender understood
+T2 requirements extracted
+T3 first design strategy
+T4 first geometry
+T5 first coherent design candidate
+T6 technical proposal
+T7 cost model
+T8 document package
+T9 Red Team completed
+T10 corrected package
+06F-S1.12 — PERFORMANCE EVIDENCE
+
+Para cada fase:
+
+elapsed time
+human interventions
+automated operations
+external dependencies
+errors
+rework
+unresolved UNKNOWN
+06F-S1.13 — 24-HOUR HYPOTHESIS
+
+Registrar como hipótesis:
+
+H-RBD-001:
+ARKI may be capable of producing a substantial
+first digital design-bid package within 24 hours
+for bounded project classes.
+
+Estado inicial:
+
+NOT_DEMONSTRATED.
+
+No convertirlo en claim de producto hasta probarlo.
+
+06F-S1.14 — 4-DAY CHALLENGE
+
+Crear prueba:
+
+RBD-E2E-001.
+
+Simular una convocatoria con:
+
+DEADLINE = 96 HOURS
+
+y medir si ARKI puede llegar desde documentación inicial hasta:
+
+RED-TEAMED DIGITAL PROPOSAL
+
+sin reducir los estándares de evidencia.
+
+06F-S1.15 — 24-HOUR CHECKPOINT
+
+A las 24 horas congelar:
+
+design state
+drawings
+model
+technical proposal
+cost state
+compliance state
+UNKNOWN
+
+y evaluar qué porcentaje trazable de entregables, no “porcentaje subjetivo de proyecto”, está realmente completo.
+
+06F-S1.16 — DESIGN QUALITY GATE
+
+La velocidad no permite saltar:
+
+program
+site
+regulations
+geometry
+circulation
+accessibility
+structure
+environment
+constructability
+cost
+coordination
+tender compliance
+
+según aplicabilidad.
+
+06F-S1.17 — ENGINEERING BOUNDARY
+
+Si la propuesta exige cálculo profesional que ARKI no tenga demostrado:
+
+PROFESSIONAL_VALIDATION_REQUIRED
+SPECIALIST_REQUIRED
+EXTERNAL_ORACLE_REQUIRED
+NOT_DEMONSTRATED
+
+según corresponda.
+
+Nunca ocultarlo para cumplir el plazo.
+
+06F-S1.18 — MULTIDISCIPLINARY BID
+
+Para Design-Build/Turnkey:
+
+ARCHITECTURE
+↔ STRUCTURE
+↔ MEP
+↔ CIVIL
+↔ COST
+↔ SCHEDULE
+↔ CONSTRUCTION
+
+deberán comprobar coherencia cuando sean parte de la oferta.
+
+06F-S1.19 — MEGAPROJECT PILOT
+
+Seleccionar un megaproyecto público real, nacional o internacional, únicamente como caso de análisis.
+
+Preferentemente:
+
+TRANSPORT
+INFRASTRUCTURE
+COMPLEX FACILITY
+
+ARKI deberá identificar:
+
+project structure
+procurement structure
+packages
+design opportunities
+possible participation paths
+eligibility gaps
+required partners
+ARKI knowledge readiness
+
+No preparar ni presentar oferta real.
+
+06F-S1.20 — PROINVERSIÓN PILOT
+
+Seleccionar una oportunidad histórica o pública de ProInversión con documentación suficiente.
+
+Demostrar:
+
+DISCOVER
+→ UNDERSTAND
+→ CLASSIFY
+→ DECOMPOSE
+→ IDENTIFY DESIGN OPPORTUNITY
+→ ELIGIBILITY
+→ PARTICIPATION PATH
+06F-S1.21 — INTERNATIONAL PILOT
+
+Seleccionar una oportunidad internacional histórica/cerrada con documentación pública suficiente.
+
+Demostrar:
+
+source
+jurisdiction
+eligibility
+local requirements
+design scope
+submission structure
+partner requirements
+barriers
+06F-S1.22 — NO CLAIM OF INTERNATIONAL ELIGIBILITY
+
+Formalizar:
+
+GLOBAL DISCOVERY ≠ GLOBAL ELIGIBILITY.
+
+06F-S1.23 — NO MEGAPROJECT OVERCLAIM
+
+Formalizar:
+
+UNDERSTANDING A MEGAPROJECT ≠ QUALIFYING AS PRIME CONTRACTOR.
+
+DESIGN CAPABILITY ≠ FINANCIAL CAPACITY.
+
+ARKI CAPABILITY ≠ BIDDER ACCREDITED EXPERIENCE.
+
+06F-S1.24 — STRATEGIC PARTNER GAP
+
+Cuando la oportunidad sea atractiva pero exceda nuestra acreditación:
+
+producir:
+
+PartnerCapabilityGap.
+
+Ejemplo:
+
+WE PROVIDE:
+architectural intelligence
+rapid design
+BIM
+technical proposal
+
+PARTNER MUST PROVIDE:
+accredited experience
+financial capacity
+specialized engineering
+local registration
+guarantees
+construction capability
+06F-S1.25 — FINAL EXTENDED EVIDENCE
+
+Agregar al paquete 97A-06F:
+
+MEGAPROJECT_OPPORTUNITY_REPORT
+PROINVERSION_PILOT
+INTERNATIONAL_PILOT
+DELIVERY_MODEL_MATRIX
+PARTICIPATION_PATH_MATRIX
+RAPID_BID_CLOCK
+RBD-E2E-001
+24_HOUR_CHECKPOINT
+96_HOUR_FINAL_CHECKPOINT
+PARTNER_GAP_REPORT
+06F-S1.26 — STOP
+
+Este suplemento NO autoriza:
+
+real international bid
+real ProInversión bid
+consortium commitment
+turnkey contract
+EPC contract
+construction commitment
+autonomous submission
+
+Mantener el STOP original de 97A-06F.
+
+FIN SUPLEMENTO 97A-06F-S1.

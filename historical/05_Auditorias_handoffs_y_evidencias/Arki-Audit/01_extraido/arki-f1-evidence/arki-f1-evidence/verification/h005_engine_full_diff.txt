@@ -1,0 +1,164 @@
+[1mdiff --git a/src/sicl/h005/engine.py b/src/sicl/h005/engine.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..35cc499[m
+[1m--- /dev/null[m
+[1m+++ b/src/sicl/h005/engine.py[m
+[36m@@ -0,0 +1,158 @@[m
+[32m+[m[32m"""H-005 selective recomputation engine.[m
+[32m+[m
+[32m+[m[32mThis module is the first executor downstream of H-004. It never modifies H-001[m
+[32m+[m[32mthrough H-004 and only persists a handler-produced DerivationRecord through the[m
+[32m+[m[32mofficial DerivationLedger.record interface.[m
+[32m+[m[32m"""[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mfrom dataclasses import replace[m
+[32m+[m[32mfrom typing import Mapping[m
+[32m+[m
+[32m+[m[32mfrom ..derivation import DerivationLedger, DerivationRecord, VersionedRef[m
+[32m+[m[32mfrom ..reaction import ActionStatus, ActionType, PlannedAction, ReactionPlan[m
+[32m+[m[32mfrom .contract import ([m
+[32m+[m[32m    ExecutionRecord,[m
+[32m+[m[32m    ExecutionStatus,[m
+[32m+[m[32m    H005ExecutionReport,[m
+[32m+[m[32m    RecomputationCandidate,[m
+[32m+[m[32m)[m
+[32m+[m[32mfrom .registry import AmbiguousHandlerError, HandlerNotRegisteredError, RecomputationRegistry[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass SelectiveRecomputationEngine:[m
+[32m+[m[32m    def __init__(self, ledger: DerivationLedger, registry: RecomputationRegistry) -> None:[m
+[32m+[m[32m        self.ledger = ledger[m
+[32m+[m[32m        self.registry = registry[m
+[32m+[m
+[32m+[m[32m    def execute([m
+[32m+[m[32m        self,[m
+[32m+[m[32m        project_id: str,[m
+[32m+[m[32m        reaction_plan: ReactionPlan,[m
+[32m+[m[32m        current_refs: Mapping[tuple[str, str], VersionedRef],[m
+[32m+[m[32m    ) -> H005ExecutionReport:[m
+[32m+[m[32m        if not isinstance(project_id, str) or not project_id.strip():[m
+[32m+[m[32m            raise ValueError("project_id must be non-empty")[m
+[32m+[m[32m        if not isinstance(reaction_plan, ReactionPlan) or reaction_plan.read_only is not True:[m
+[32m+[m[32m            raise ValueError("reaction_plan must be a read-only ReactionPlan")[m
+[32m+[m[32m        if not isinstance(current_refs, Mapping):[m
+[32m+[m[32m            raise ValueError("current_refs must be a mapping")[m
+[32m+[m
+[32m+[m[32m        records: list[ExecutionRecord] = [][m
+[32m+[m[32m        effective_refs = dict(current_refs)[m
+[32m+[m[32m        for action in reaction_plan.planned_actions:[m
+[32m+[m[32m            result = self._execute_action(project_id, reaction_plan, action, effective_refs)[m
+[32m+[m[32m            records.append(result)[m
+[32m+[m[32m            if result.status is ExecutionStatus.EXECUTED and result.new_output is not None:[m
+[32m+[m[32m                effective_refs[result.new_output.key()] = result.new_output[m
+[32m+[m[32m        return H005ExecutionReport(tuple(records), read_only=False)[m
+[32m+[m
+[32m+[m[32m    def _execute_action([m
+[32m+[m[32m        self,[m
+[32m+[m[32m        project_id: str,[m
+[32m+[m[32m        plan: ReactionPlan,[m
+[32m+[m[32m        action: PlannedAction,[m
+[32m+[m[32m        current_refs: Mapping[tuple[str, str], VersionedRef],[m
+[32m+[m[32m    ) -> ExecutionRecord:[m
+[32m+[m[32m        empty_inputs: tuple[VersionedRef, ...] = ()[m
+[32m+[m[32m        if not isinstance(action, PlannedAction):[m
+[32m+[m[32m            return self._blocked(project_id, action, "MALFORMED_PLAN", empty_inputs)[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            candidate = RecomputationCandidate.from_action(action, method="placeholder", method_version="placeholder")[m
+[32m+[m[32m        except Exception as exc:[m
+[32m+[m[32m            return self._rejected(project_id, action, f"ACTION_NOT_ELIGIBLE:{exc}", empty_inputs)[m
+[32m+[m
+[32m+[m[32m        artifact_validity = next([m
+[32m+[m[32m            (item for item in plan.validity_report.artifact_validities if item.artifact_ref.key() == action.artifact_ref.key()),[m
+[32m+[m[32m            None,[m
+[32m+[m[32m        )[m
+[32m+[m[32m        if artifact_validity is None:[m
+[32m+[m[32m            return self._blocked(project_id, action, "MALFORMED_PLAN", empty_inputs)[m
+[32m+[m[32m        if artifact_validity.state != "FULLY_STALE":[m
+[32m+[m[32m            return self._blocked(project_id, action, "STALE_OR_INVALID_PLAN", empty_inputs)[m
+[32m+[m
+[32m+[m[32m        project_records = self.ledger.list(project_id)[m
+[32m+[m[32m        matching = [[m
+[32m+[m[32m            item for item in project_records[m
+[32m+[m[32m            if item.output.key() == action.artifact_ref.key() and item.output.version == action.artifact_ref.version[m
+[32m+[m[32m        ][m
+[32m+[m[32m        if not matching:[m
+[32m+[m[32m            return self._blocked(project_id, action, "DERIVATION_NOT_FOUND", empty_inputs)[m
+[32m+[m[32m        if len(matching) != 1:[m
+[32m+[m[32m            return self._blocked(project_id, action, "AMBIGUOUS_DERIVATION", tuple(matching[0].inputs))[m
+[32m+[m[32m        previous = matching[0][m
+[32m+[m[32m        if any(item.output.key() == previous.output.key() and item.output.version > previous.output.version for item in project_records):[m
+[32m+[m[32m            return self._blocked(project_id, action, "STALE_PLAN", previous.inputs)[m
+[32m+[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            handler = self.registry.resolve(previous.method, previous.method_version)[m
+[32m+[m[32m        except HandlerNotRegisteredError:[m
+[32m+[m[32m            return self._blocked(project_id, action, "HANDLER_NOT_REGISTERED", previous.inputs, previous)[m
+[32m+[m[32m        except AmbiguousHandlerError:[m
+[32m+[m[32m            return self._blocked(project_id, action, "AMBIGUOUS_HANDLER", previous.inputs, previous)[m
+[32m+[m
+[32m+[m[32m        try:[m
+[32m+[m[32m            produced = handler(project_id, previous, current_refs)[m
+[32m+[m[32m        except Exception as exc:[m
+[32m+[m[32m            return self._blocked(project_id, action, f"HANDLER_EXCEPTION:{type(exc).__name__}", previous.inputs, previous)[m
+[32m+[m[32m        validation_error = self._validate_output(previous, produced, current_refs, project_records)[m
+[32m+[m[32m        if validation_error is not None:[m
+[32m+[m[32m            return self._blocked(project_id, action, validation_error, previous.inputs, previous)[m
+[32m+[m
+[32m+[m[32m        self.ledger.record(project_id, produced, actor="H005_SELECTIVE_RECOMPUTATION")[m
+[32m+[m[32m        return ExecutionRecord([m
+[32m+[m[32m            project_id=project_id,[m
+[32m+[m[32m            artifact_requested=action.artifact_ref,[m
+[32m+[m[32m            derivation_selected=previous.id,[m
+[32m+[m[32m            method=produced.method,[m
+[32m+[m[32m            method_version=produced.method_version,[m
+[32m+[m[32m            inputs=produced.inputs,[m
+[32m+[m[32m            previous_output=previous.output,[m
+[32m+[m[32m            new_output=produced.output,[m
+[32m+[m[32m            status=ExecutionStatus.EXECUTED,[m
+[32m+[m[32m            reason="RECOMPUTATION_EXECUTED",[m
+[32m+[m[32m        )[m
+[32m+[m
+[32m+[m[32m    @staticmethod[m
+[32m+[m[32m    def _validate_output([m
+[32m+[m[32m        previous: DerivationRecord,[m
+[32m+[m[32m        produced: object,[m
+[32m+[m[32m        current_refs: Mapping[tuple[str, str], VersionedRef],[m
+[32m+[m[32m        existing: list[DerivationRecord],[m
+[32m+[m[32m    ) -> str | None:[m
+[32m+[m[32m        if not isinstance(produced, DerivationRecord):[m
+[32m+[m[32m            return "MALFORMED_HANDLER_OUTPUT"[m
+[32m+[m[32m        if any(item.id == produced.id for item in existing):[m
+[32m+[m[32m            return "DUPLICATE_EXECUTION"[m
+[32m+[m[32m        if produced.output.key() != previous.output.key() or produced.output.version <= previous.output.version:[m
+[32m+[m[32m            return "INVALID_OUTPUT_IDENTITY_OR_VERSION"[m
+[32m+[m[32m        if produced.method != previous.method or produced.method_version != previous.method_version:[m
+[32m+[m[32m            return "PROVENANCE_METHOD_MISMATCH"[m
+[32m+[m[32m        if produced.assumptions != previous.assumptions or produced.project_context_version != previous.project_context_version:[m
+[32m+[m[32m            return "PROVENANCE_CONTEXT_MISMATCH"[m
+[32m+[m[32m        old_keys = {(item.entity_type, item.entity_id) for item in previous.inputs}[m
+[32m+[m[32m        new_keys = {(item.entity_type, item.entity_id) for item in produced.inputs}[m
+[32m+[m[32m        if old_keys != new_keys:[m
+[32m+[m[32m            return "PROVENANCE_INPUT_SET_MISMATCH"[m
+[32m+[m[32m        for item in produced.inputs:[m
+[32m+[m[32m            current = current_refs.get(item.key())[m
+[32m+[m[32m            if current is None:[m
+[32m+[m[32m                return "MISSING_CURRENT_DEPENDENCY"[m
+[32m+[m[32m            if item != current:[m
+[32m+[m[32m                return "INPUT_REF_NOT_CURRENT"[m
+[32m+[m[32m        relation_keys = {(relation.to_ref.entity_type, relation.to_ref.entity_id, relation.to_ref.version) for relation in produced.relations if relation.from_ref == produced.output}[m
+[32m+[m[32m        expected_keys = {(item.entity_type, item.entity_id, item.version) for item in produced.inputs}[m
+[32m+[m[32m        if relation_keys != expected_keys:[m
+[32m+[m[32m            return "PROVENANCE_RELATIONS_MISMATCH"[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    @staticmethod[m
+[32m+[m[32m    def _blocked(project_id: str, action: PlannedAction, reason: str, inputs: tuple[VersionedRef, ...], previous: DerivationRecord | None = None) -> ExecutionRecord:[m
+[32m+[m[32m        return ExecutionRecord(project_id, action.artifact_ref, previous.id if previous else None, previous.method if previous else None, previous.method_version if previous else None, inputs, previous.output if previous else None, None, ExecutionStatus.BLOCKED, reason)[m
+[32m+[m
+[32m+[m[32m    @staticmethod[m
+[32m+[m[32m    def _rejected(project_id: str, action: PlannedAction, reason: str, inputs: tuple[VersionedRef, ...]) -> ExecutionRecord:[m
+[32m+[m[32m        return ExecutionRecord(project_id, action.artifact_ref, None, None, None, inputs, None, None, ExecutionStatus.REJECTED, reason)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m__all__ = ["SelectiveRecomputationEngine"][m

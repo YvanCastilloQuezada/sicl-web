@@ -1,0 +1,145 @@
+{
+  "schema": "ARKI-CFMI-001-MANIFEST-1.0",
+  "status": "FOUNDATION IMPLEMENTED / BOUNDED PILOT / PENDING INDEPENDENT VERIFICATION",
+  "order": "97A-04",
+  "program": "ARKI-LKS-001",
+  "parent": "ACI-001 + HAI-001",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED",
+  "ingestionPolicy": "NO MASS INGESTION / SELECTIVE / GOVERNED / TRACEABLE",
+  "ownership": "ONE ARKI / ONE GOVERNED KNOWLEDGE SYSTEM",
+  "baselinePackage": "ARKI_HAI_EVIDENCE.zip",
+  "entries": [
+    {
+      "file": "ARKI_CFMI_ARCHITECTURE.md",
+      "size": 490,
+      "sha256": "b23c2315dcec579b29dfc97a6a292042bb3c69377431632460bbb9d75863bda9",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPLEX_FACILITY_TAXONOMY.md",
+      "size": 450,
+      "sha256": "b50ab147a5a2ae942a23e1cd07841b9ffd3f0cf9693743c67fb2f4406991f798",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_FIKM_SPEC.md",
+      "size": 495,
+      "sha256": "3724a0aa7b8b50e47ec47ab758b3d77030ef948ab7b89c6ed8daf7e932d4ad03",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_FACILITY_PROCESS_GRAPH_SPEC.md",
+      "size": 298,
+      "sha256": "6d36acb43134f481b9b75502ccae44d014fd749929f27f2a973f99336e464b80",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROCESS_SPACE_MODEL.md",
+      "size": 314,
+      "sha256": "17c9d8c4df358afe5c39e0139074cd6561f1ecbb8533c7d0aeeb059beeb66be0",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPLEX_FACILITY_REFERENCE_CORPUS_SPEC.md",
+      "size": 432,
+      "sha256": "df6e33e9d877dd4771c23f03e3d972ed403844324fc3fb66fda2d3fbdde8c12d",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_FACILITY_READINESS_GATE.md",
+      "size": 501,
+      "sha256": "6eafff941342ce9a7bcbedc1641f72d648145caebed2268ce4d01daad25e787e",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_SPECIALIST_ORACLE_BOUNDARY.md",
+      "size": 434,
+      "sha256": "843a5aed39e8d755a5c4cbb804500fc7000d03cc9f5e9bb8ffa0b2f1bfb002e8",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_MEGAPROJECT_MULTISCALE_MODEL.md",
+      "size": 364,
+      "sha256": "745ff58ede179e36368c7900d563dad5b7315ee1fda186c7c9eefd4f1bd7ff0d",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_FACILITY_INTERFACE_INTELLIGENCE.md",
+      "size": 280,
+      "sha256": "7874976785c3c8d26ff244b0ab772f32135c6eab4251d04342acfca783951c69",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_FACILITY_LIFECYCLE_MODEL.md",
+      "size": 373,
+      "sha256": "d486e46115728ba4c336dfe235f391a9385167b365f0e7512d62aac7014a247c",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPLEX_FACILITY_FAILURE_LEARNING.md",
+      "size": 479,
+      "sha256": "bd3f73e9a73f546bda29feb90518327d85e8219410b2f3168fda98ee98c31f09",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_ACADEMY_INTEGRATION.md",
+      "size": 234,
+      "sha256": "cb9f48920e1e233c604d1e3c23a6fe1e92ece53e7763a657db378a67756e9b09",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_KCF_INTEGRATION.md",
+      "size": 280,
+      "sha256": "da29891c5156d0bef34a7a1149b98d2a845e21fac615b499613a43fb2328af58",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_PILOT_SPEC.md",
+      "size": 427,
+      "sha256": "b379b4f61976ff1eb54f9b7254176cdd76789a2a3658e99b8bd5378d842ab15e",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_TEST_MATRIX.md",
+      "size": 824,
+      "sha256": "13d7194381521a9fa6f6a50223962c509cddc2feb8495f487f2e96c4dfa6b90d",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_SCOPE_LIMIT_REPORT.md",
+      "size": 636,
+      "sha256": "433e2ab8fa041ad1f3289b69f481d01fb5c9aa847fee4e378aeca6bb3d3c5dbd",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CFMI_OUTPUTS.txt",
+      "size": 4987,
+      "sha256": "50a59a97627caf8c21373d6433e8094fce0c1e10f494214ec5fea93408011103",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "pasted_content_108.txt",
+      "size": 24595,
+      "sha256": "e8f860abc3edd8f7625ef1a4bce3a12153877c1b3b1e5eb00a4fed3d20c72605",
+      "status": "BASELINE_OR_SOURCE"
+    },
+    {
+      "file": "scripts/test-arki-cfmi.ts",
+      "size": 3210,
+      "sha256": "f9bb4caf845058dcf64216286fd9a8fd6eec434687bd0c3bf89a694ba1c66ae2",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "size": 45179,
+      "sha256": "9bb1ee82a01a44b982e70b0f95ff5a96aca9a059b3811c611de2ebbff2d1051b",
+      "status": "CFMI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_HAI_EVIDENCE.zip",
+      "size": 194708,
+      "sha256": "ba238bdddfc1869d774b969645df692089a34435c667f9d100f241240fc7dad3",
+      "status": "BASELINE_OR_SOURCE"
+    }
+  ]
+}

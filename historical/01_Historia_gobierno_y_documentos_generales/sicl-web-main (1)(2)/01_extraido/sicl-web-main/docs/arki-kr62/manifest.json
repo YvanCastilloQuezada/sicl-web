@@ -1,0 +1,25 @@
+{
+  "master": "ARKI_Canonical_Knowledge_and_Reasoning_v6.2.xlsx",
+  "generated_at": "2026-09-21T04:16:39.139000+00:00",
+  "source_count": 253,
+  "knowledge_record_count": 4118,
+  "runtime_connection_count": 9,
+  "unknown_count": 5,
+  "lineage_count": 9,
+  "errors": [],
+  "sheets": [
+    "README",
+    "SOURCE_REGISTRY",
+    "FOUNDATION_KNOWLEDGE",
+    "CANONICAL_KNOWLEDGE",
+    "RUNTIME_CONNECTION_MAP",
+    "UNKNOWN_REGISTER",
+    "SYSTEM_MODELS",
+    "EPISTEMIC_RULES",
+    "DELTA_LINEAGE",
+    "R_PARTI_GUARDRAILS",
+    "GATES_AND_GAPS"
+  ],
+  "gate": "GATE_ARKI_KNOWLEDGE_REASONING_V6_2 = PASS",
+  "stop_after_gate": true
+}

@@ -1,0 +1,1042 @@
+{
+  "schema": "ARKI-D6.3-G-0.1",
+  "baseline": {
+    "projectId": "ARKICE-123-456",
+    "coreVersion": 4
+  },
+  "filesReused": [
+    "server/arkiD62ReasoningHarness.ts",
+    "server/siclCore.ts",
+    "client/src/components/UPAO001SpatialViewer.tsx"
+  ],
+  "input": {
+    "executionId": "D63G-MICRO-001",
+    "projectId": "ARKICE-123-456",
+    "brief": "A small public service with an orientation activity and a controlled staff intake activity.",
+    "typology": "CIVIC_SERVICE_MICROCASE",
+    "activities": [
+      {
+        "id": "public-orientation",
+        "label": "public orientation",
+        "subjects": [
+          "visitor"
+        ],
+        "capacity": 8,
+        "frequency": "daily",
+        "duration": "short",
+        "temporalOverlap": true,
+        "privacy": "shared"
+      },
+      {
+        "id": "staff-intake",
+        "label": "staff intake",
+        "subjects": [
+          "staff"
+        ],
+        "capacity": 3,
+        "frequency": "daily",
+        "duration": "medium",
+        "temporalOverlap": true,
+        "accessControl": "staff",
+        "privacy": "controlled"
+      }
+    ],
+    "subjects": [
+      "visitor",
+      "staff"
+    ],
+    "relationships": [
+      {
+        "id": "r1",
+        "from": "public-orientation",
+        "to": "staff-intake",
+        "relation": "controlled service interface",
+        "subjects": [
+          "visitor",
+          "staff"
+        ],
+        "state": "open",
+        "frequency": "daily",
+        "time": "business-hours",
+        "control": "staff-mediated"
+      }
+    ],
+    "conditions": [
+      "visitor and staff activities may overlap"
+    ],
+    "constraints": [
+      "No rooms, walls, doors or solution geometry are supplied."
+    ],
+    "unknowns": [
+      "exact service capacity after peak demand is unknown"
+    ],
+    "perturbation": {
+      "id": "p1",
+      "statement": "staff-mediated control is unavailable at peak",
+      "changes": {
+        "separationCondition": "stronger separation"
+      }
+    },
+    "envelope": {
+      "width": 18,
+      "height": 12,
+      "status": "EXPLICIT_PROJECT_DIMENSION"
+    },
+    "separationCondition": "staff-mediated control must remain legible and non-overlapping"
+  },
+  "coreKnowledgeRetrieved": [
+    {
+      "id": "KN-000001",
+      "kind": "INVARIANT",
+      "title": "Source is not knowledge",
+      "statement": "SOURCE ≠ KNOWLEDGE.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "ADAPT",
+      "rationale": "False attribution and false authority.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000002",
+      "kind": "INVARIANT",
+      "title": "Program is not a room list",
+      "statement": "PROGRAM ≠ ROOM LIST ≠ AREA TABLE ≠ DESIGN.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Template fixation and missing capabilities.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000003",
+      "kind": "INVARIANT",
+      "title": "Strategy is not realization",
+      "statement": "STRATEGY ≠ REALIZATION; many-to-many.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Premature geometry fixation.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000004",
+      "kind": "INVARIANT",
+      "title": "Unknown requires resolution path",
+      "statement": "UNKNOWN WITHOUT RESOLUTION PATH = INCOMPLETE DIAGNOSIS.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "False completeness.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000005",
+      "kind": "INVARIANT",
+      "title": "Role differs from necessity",
+      "statement": "SYSTEM ROLE ≠ FUNCTIONAL NECESSITY.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Support systems may be incorrectly treated as optional.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000006",
+      "kind": "INVARIANT",
+      "title": "Local deficit is not local solution scope",
+      "statement": "LOCAL DEFICIT ≠ LOCAL SOLUTION SCOPE.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Symptom treatment; unnecessary geometry growth.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000007",
+      "kind": "INVARIANT",
+      "title": "Graphical precision differs from epistemic precision",
+      "statement": "GRAPHICAL PRECISION ≠ EPISTEMIC PRECISION.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "False certainty from detailed geometry.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000009",
+      "kind": "INVARIANT",
+      "title": "Learn rationale, not configuration",
+      "statement": "LEARN THE REASON FOR THE CONFIGURATION, NOT THE CONFIGURATION ITSELF.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "TRANSFER",
+      "rationale": "Form copying and poor transfer.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "KN-000010",
+      "kind": "INVARIANT",
+      "title": "Capability depends on dependencies",
+      "statement": "ALL COMPONENTS PASS ≠ END-TO-END CAPABILITY PASS.",
+      "epistemicStatus": "FACT",
+      "promotionState": "K7_CANONICAL_HUMAN_CONFIRMED",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [
+        "SRC-WHITE-PROG",
+        "SRC-WHITE-FORM",
+        "SRC-NEUFERT",
+        "SRC-PLAZOLA-V01",
+        "SRC-PLAZOLA-V02",
+        "SRC-PLAZOLA-V03",
+        "SRC-PLAZOLA-V04",
+        "SRC-PLAZOLA-V05",
+        "SRC-PLAZOLA-V06",
+        "SRC-PLAZOLA-V07",
+        "SRC-PLAZOLA-V08",
+        "SRC-PLAZOLA-V09",
+        "SRC-PLAZOLA-V10"
+      ],
+      "evidenceIds": [],
+      "applicability": "APPLICABLE",
+      "transferability": "ADAPT",
+      "rationale": "False functional verification.",
+      "rightsStatus": "ABSTRACT_AND_REFERENCE_ONLY",
+      "version": 1
+    },
+    {
+      "id": "PR-ACTIVITY",
+      "kind": "DOMAIN_PRIMITIVE",
+      "title": "ACTIVITY",
+      "statement": "Action performed by a subject/resource under conditions.",
+      "epistemicStatus": "HYPOTHESIS",
+      "promotionState": "PROPOSED_CANONICAL",
+      "scopeId": "SCP-GENERAL",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "rationale": "Do not equate with room.",
+      "version": 1
+    },
+    {
+      "id": "TYP-HOSPITALITY",
+      "kind": "TYPOLOGY",
+      "title": "HOTEL",
+      "statement": "Accommodation/service/support",
+      "epistemicStatus": "UNKNOWN",
+      "promotionState": "PROVISIONAL",
+      "scopeId": "TYPOLOGY_PARTIAL",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "applicability": "PARTIAL",
+      "transferability": "UNKNOWN",
+      "unknown": "Capability systems, actors, processes and flows require further decomposition.",
+      "version": 1
+    },
+    {
+      "id": "TYP-TRANSPORT",
+      "kind": "TYPOLOGY",
+      "title": "TERMINAL",
+      "statement": "Transfer/transport/service",
+      "epistemicStatus": "UNKNOWN",
+      "promotionState": "PROVISIONAL",
+      "scopeId": "TYPOLOGY_PARTIAL",
+      "sourceIds": [],
+      "evidenceIds": [],
+      "applicability": "PARTIAL",
+      "transferability": "UNKNOWN",
+      "unknown": "Capability systems, actors, processes and flows require further decomposition.",
+      "version": 1
+    }
+  ],
+  "topology": {
+    "nodes": [
+      {
+        "id": "public-orientation",
+        "kind": "ACTIVITY",
+        "label": "public orientation",
+        "provenance": [
+          "PROJECT_INPUT:activity:public-orientation"
+        ]
+      },
+      {
+        "id": "staff-intake",
+        "kind": "ACTIVITY",
+        "label": "staff intake",
+        "provenance": [
+          "PROJECT_INPUT:activity:staff-intake"
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from": "public-orientation",
+        "to": "staff-intake",
+        "relationType": "CONTROLLED_ROUTE_REQUIRED",
+        "rationale": "Derived from functional relation controlled service interface; no geometry is implied.",
+        "sourceStrategy": "BR-STR-A-D63G-MICRO-001",
+        "requirementAddressed": "REQ-REL-r1",
+        "unknown": [],
+        "provenance": [
+          "PROJECT_INPUT:relationship:r1",
+          "STRATEGY:BR-STR-A-D63G-MICRO-001"
+        ]
+      }
+    ],
+    "activeConditions": [
+      "visitor and staff activities may overlap"
+    ],
+    "control": [
+      "staff-mediated"
+    ],
+    "flowRequirements": [
+      "REQ-REL-r1"
+    ],
+    "unknown": [
+      "UNK-PROJECT-1"
+    ],
+    "traceability": [
+      {
+        "derivedElement": "public-orientation->staff-intake",
+        "realization": "BR-REAL-1-A",
+        "strategy": "BR-STR-A-D63G-MICRO-001",
+        "deficit": "DEFICIT-INPUT-COMPLETENESS",
+        "cause": "CAUSE-INSUFFICIENT-PROJECT-DATA",
+        "requirement": "REQ-REL-r1",
+        "source": "PROJECT_INPUT:relationship:r1|STRATEGY:BR-STR-A-D63G-MICRO-001",
+        "why": "Derived from functional relation controlled service interface; no geometry is implied."
+      }
+    ]
+  },
+  "geometricRequirements": [
+    {
+      "id": "GREQ-INTERFACE-001",
+      "sourceTopologyRelation": "REQ-REL-r1",
+      "intent": "Preserve a controlled interface between public orientation and staff intake.",
+      "subjectsOrEntities": [
+        "public-orientation",
+        "staff-intake"
+      ],
+      "requiredRelation": "BUFFER_OR_CONTROLLED_INTERFACE",
+      "prohibitedRelation": [
+        "OVERLAP",
+        "UNCONTROLLED_DIRECT_ACCESS"
+      ],
+      "conditions": [
+        "visitor and staff activities may overlap",
+        "staff-mediated control must remain legible and non-overlapping"
+      ],
+      "toleranceIfKnown": "UNKNOWN",
+      "unknown": [
+        "exact operational buffer width is not verified"
+      ],
+      "provenance": [
+        "TOPOLOGY:REQ-REL-r1",
+        "PROJECT_INPUT:relationship:r1",
+        "STRATEGY:BR-STR-A-D63G-MICRO-001"
+      ]
+    }
+  ],
+  "designMoves": [
+    {
+      "moveId": "MOVE-D63G-A",
+      "sourceStrategy": "BR-STR-A-D63G-MICRO-001",
+      "sourceRealization": "BR-REAL-1-A",
+      "sourceTopology": [
+        "REQ-REL-r1"
+      ],
+      "intent": "Materialize a lateral controlled interface without assigning rooms.",
+      "targetEntities": [
+        "public-orientation",
+        "staff-intake",
+        "interface-buffer"
+      ],
+      "expectedBenefit": "Clear separation with short cross-interface distance.",
+      "expectedCost": "Consumes lateral envelope width.",
+      "risk": "Operational capacity and precise buffer dimensions remain unknown.",
+      "operator": "CREATE_BUFFER",
+      "reversible": true,
+      "provenance": [
+        "D6.2-M:strategy",
+        "D6.3-G:geometric-requirement"
+      ]
+    },
+    {
+      "moveId": "MOVE-D63G-B",
+      "sourceStrategy": "BR-STR-B-D63G-MICRO-001",
+      "sourceRealization": "BR-REAL-2-A",
+      "sourceTopology": [
+        "REQ-REL-r1"
+      ],
+      "intent": "Materialize a transverse controlled interface with a different spatial organization.",
+      "targetEntities": [
+        "public-orientation",
+        "staff-intake",
+        "interface-buffer"
+      ],
+      "expectedBenefit": "Preserves the same interface while changing the distribution of open areas.",
+      "expectedCost": "Longer interface frontage and different movement implications.",
+      "risk": "Functional performance remains unknown until activity fit is tested.",
+      "operator": "CREATE_BUFFER",
+      "reversible": true,
+      "provenance": [
+        "D6.2-M:strategy",
+        "D6.3-G:geometric-requirement"
+      ]
+    }
+  ],
+  "operatorsUsed": [
+    "CREATE_SPATIAL_ENTITY",
+    "CREATE_BUFFER",
+    "POSITION_RELATIVE"
+  ],
+  "mutationLineage": [
+    {
+      "mutationId": "MUT-D63G-A",
+      "parentGeometryId": "GEOMETRY-SEED-EMPTY",
+      "resultGeometryId": "D63G-CANONICAL-A",
+      "operator": "CREATE_BUFFER",
+      "parameters": {
+        "envelope": {
+          "width": 18,
+          "height": 12,
+          "status": "EXPLICIT_PROJECT_DIMENSION"
+        },
+        "arrangement": "LATERAL",
+        "bufferWidth": 2
+      },
+      "parameterStatus": "EXPLORATORY_PARAMETER",
+      "designMoveId": "MOVE-D63G-A",
+      "sourceTopology": [
+        "REQ-REL-r1"
+      ],
+      "expectedEffect": "Non-overlapping controlled interface",
+      "actualValidationResult": "PASS"
+    },
+    {
+      "mutationId": "MUT-D63G-B",
+      "parentGeometryId": "GEOMETRY-SEED-EMPTY",
+      "resultGeometryId": "D63G-CANONICAL-B",
+      "operator": "CREATE_BUFFER",
+      "parameters": {
+        "envelope": {
+          "width": 18,
+          "height": 12,
+          "status": "EXPLICIT_PROJECT_DIMENSION"
+        },
+        "arrangement": "TRANSVERSE",
+        "bufferDepth": 2
+      },
+      "parameterStatus": "EXPLORATORY_PARAMETER",
+      "designMoveId": "MOVE-D63G-B",
+      "sourceTopology": [
+        "REQ-REL-r1"
+      ],
+      "expectedEffect": "Non-overlapping controlled interface with distinct realization",
+      "actualValidationResult": "PASS"
+    }
+  ],
+  "candidateA": {
+    "id": "D63G-CANONICAL-A",
+    "alternative_id": "GEOMETRIC_CANDIDATE_A",
+    "spatial_scope": "D63G-MICROCASE-ENVELOPE",
+    "representation_version": "D6.3-G.1",
+    "generator_version": "D6.3-G@local",
+    "coordinate_system": "LOCAL_PROJECT_2D",
+    "units": "m",
+    "input_fingerprint": "9174807ac89062fe",
+    "north_degrees": 0,
+    "elements": [
+      {
+        "id": "site-A",
+        "element_type": "SiteBoundary",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                18,
+                0
+              ],
+              [
+                18,
+                12
+              ],
+              [
+                0,
+                12
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "abstract envelope"
+        },
+        "metadata": {
+          "source": "PROJECT_INPUT:envelope",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      },
+      {
+        "id": "public-A",
+        "element_type": "SpatialZone",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                1,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                8,
+                11
+              ],
+              [
+                1,
+                11
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "public orientation activity"
+        },
+        "metadata": {
+          "source": "MUTATION_LINEAGE:public",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      },
+      {
+        "id": "buffer-A",
+        "element_type": "CirculationElement",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                8,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                10,
+                11
+              ],
+              [
+                8,
+                11
+              ],
+              [
+                8,
+                1
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "controlled interface buffer"
+        },
+        "metadata": {
+          "source": "MUTATION_LINEAGE:buffer",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      },
+      {
+        "id": "staff-A",
+        "element_type": "SpatialZone",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                10,
+                1
+              ],
+              [
+                17,
+                1
+              ],
+              [
+                17,
+                11
+              ],
+              [
+                10,
+                11
+              ],
+              [
+                10,
+                1
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "staff intake activity"
+        },
+        "metadata": {
+          "source": "MUTATION_LINEAGE:staff",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      }
+    ]
+  },
+  "candidateB": {
+    "id": "D63G-CANONICAL-B",
+    "alternative_id": "GEOMETRIC_CANDIDATE_B",
+    "spatial_scope": "D63G-MICROCASE-ENVELOPE",
+    "representation_version": "D6.3-G.1",
+    "generator_version": "D6.3-G@local",
+    "coordinate_system": "LOCAL_PROJECT_2D",
+    "units": "m",
+    "input_fingerprint": "9174807ac89062fe",
+    "north_degrees": 0,
+    "elements": [
+      {
+        "id": "site-B",
+        "element_type": "SiteBoundary",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                0,
+                0
+              ],
+              [
+                18,
+                0
+              ],
+              [
+                18,
+                12
+              ],
+              [
+                0,
+                12
+              ],
+              [
+                0,
+                0
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "abstract envelope"
+        },
+        "metadata": {
+          "source": "PROJECT_INPUT:envelope",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      },
+      {
+        "id": "public-B",
+        "element_type": "SpatialZone",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                1,
+                1
+              ],
+              [
+                17,
+                1
+              ],
+              [
+                17,
+                5
+              ],
+              [
+                1,
+                5
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "public orientation activity"
+        },
+        "metadata": {
+          "source": "MUTATION_LINEAGE:public",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      },
+      {
+        "id": "buffer-B",
+        "element_type": "CirculationElement",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                1,
+                5
+              ],
+              [
+                17,
+                5
+              ],
+              [
+                17,
+                7
+              ],
+              [
+                1,
+                7
+              ],
+              [
+                1,
+                5
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "controlled interface buffer"
+        },
+        "metadata": {
+          "source": "MUTATION_LINEAGE:buffer",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      },
+      {
+        "id": "staff-B",
+        "element_type": "SpatialZone",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                1,
+                7
+              ],
+              [
+                17,
+                7
+              ],
+              [
+                17,
+                11
+              ],
+              [
+                1,
+                11
+              ],
+              [
+                1,
+                7
+              ]
+            ]
+          ]
+        },
+        "labels": {
+          "en": "staff intake activity"
+        },
+        "metadata": {
+          "source": "MUTATION_LINEAGE:staff",
+          "semanticStatus": "HYPOTHESIS",
+          "canonical": true
+        }
+      }
+    ]
+  },
+  "meaningfulDifference": {
+    "status": "PASS",
+    "explanation": "Candidate A uses a lateral interface; Candidate B uses a transverse interface. They are not translations, rotations or uniform scalings of one drawing."
+  },
+  "validationA": {
+    "geometricValidity": "PASS",
+    "topologicalValidity": "PASS",
+    "functionalValidity": "UNKNOWN",
+    "operationalValidity": "UNKNOWN",
+    "regulatoryValidity": "NOT_EVALUATED",
+    "architecturalQuality": "NOT_EVALUATED",
+    "hardConstraints": [
+      {
+        "id": "GEO-CONTAINMENT",
+        "status": "PASS",
+        "reason": "All generated entities remain inside the explicit project envelope."
+      },
+      {
+        "id": "GEO-NON_OVERLAP",
+        "status": "PASS",
+        "reason": "Activity zones do not overlap each other."
+      },
+      {
+        "id": "TOPO-BUFFER-RELATION",
+        "status": "PASS",
+        "reason": "The controlled interface is represented as a non-overlapping buffer, not silently as a wall or room."
+      }
+    ],
+    "whyTrace": [
+      "D63G-CANONICAL-A <- MUT-D63G-A <- CREATE_BUFFER <- MOVE-D63G-A <- BR-REAL-1-A <- BR-STR-A-D63G-MICRO-001 <- REQ-REL-r1 <- PROJECT_INPUT/RETRIEVED_KNOWLEDGE"
+    ]
+  },
+  "validationB": {
+    "geometricValidity": "PASS",
+    "topologicalValidity": "PASS",
+    "functionalValidity": "UNKNOWN",
+    "operationalValidity": "UNKNOWN",
+    "regulatoryValidity": "NOT_EVALUATED",
+    "architecturalQuality": "NOT_EVALUATED",
+    "hardConstraints": [
+      {
+        "id": "GEO-CONTAINMENT",
+        "status": "PASS",
+        "reason": "All generated entities remain inside the explicit project envelope."
+      },
+      {
+        "id": "GEO-NON_OVERLAP",
+        "status": "PASS",
+        "reason": "Activity zones do not overlap each other."
+      },
+      {
+        "id": "TOPO-BUFFER-RELATION",
+        "status": "PASS",
+        "reason": "The controlled interface is represented as a non-overlapping buffer, not silently as a wall or room."
+      }
+    ],
+    "whyTrace": [
+      "D63G-CANONICAL-A <- MUT-D63G-A <- CREATE_BUFFER <- MOVE-D63G-A <- BR-REAL-1-A <- BR-STR-A-D63G-MICRO-001 <- REQ-REL-r1 <- PROJECT_INPUT/RETRIEVED_KNOWLEDGE"
+    ]
+  },
+  "whyTraceExample": "D63G-CANONICAL-A <- MUT-D63G-A <- CREATE_BUFFER <- MOVE-D63G-A <- BR-REAL-1-A <- BR-STR-A-D63G-MICRO-001 <- REQ-REL-r1 <- PROJECT_INPUT/RETRIEVED_KNOWLEDGE",
+  "unknown": [
+    "exact operational buffer width is not verified"
+  ],
+  "perturbation": {
+    "changedInput": "staff-mediated control must remain legible and non-overlapping",
+    "affectedRequirement": "GREQ-INTERFACE-001",
+    "affectedStrategyOrRealization": [
+      "BR-STR-A-D63G-MICRO-001",
+      "BR-STR-B-D63G-MICRO-001"
+    ],
+    "affectedTopology": "REQ-REL-r1",
+    "affectedDesignMove": [
+      "MOVE-D63G-A",
+      "MOVE-D63G-B"
+    ],
+    "affectedGeometry": [
+      "D63G-CANONICAL-A",
+      "D63G-CANONICAL-B"
+    ],
+    "unaffectedDependencies": [
+      "PROJECT_INPUT:envelope",
+      "PROJECT_INPUT:activity-identities"
+    ],
+    "reevaluation": "BUFFER_PARAMETER_ONLY",
+    "lineagePreserved": true,
+    "status": "PASS"
+  },
+  "dependencyPropagation": "BUFFER_PARAMETER_ONLY",
+  "svgVisibility": {
+    "candidateA": "PASS",
+    "candidateB": "PASS"
+  },
+  "focusedTests": {
+    "d63g": "3/3 PASS",
+    "d62mRegression": "3/3 PASS"
+  },
+  "typecheckBuild": "PASS",
+  "acceptanceGates": {
+    "G1_CORE_REUSE": "PASS",
+    "G2_REASONING_BRIDGE_REUSE": "PASS",
+    "G3_TOPOLOGY_TO_GEOMETRIC_REQUIREMENT": "PASS",
+    "G4_DESIGN_MOVE_TRACEABILITY": "PASS",
+    "G5_OPERATOR_MUTATION_LINEAGE": "PASS",
+    "G6_TWO_MEANINGFULLY_DIFFERENT_GEOMETRIES": "PASS",
+    "G7_HARD_CONSTRAINT_VALIDATION": "PASS",
+    "G8_WHY_TRACE": "PASS",
+    "G9_UNKNOWN_PRESERVATION": "PASS",
+    "G10_CONTROLLED_PERTURBATION": "PASS",
+    "G11_HUMAN_AUTHORITY": "PASS",
+    "G12_NO_TEMPLATE_HARDCODING": "PASS"
+  },
+  "autonomyDemonstrated": "L7_DEMONSTRATED_IN_CONTROLLED_MICROCASE",
+  "humanAuthority": "FINAL",
+  "finalStatus": "PASS"
+}

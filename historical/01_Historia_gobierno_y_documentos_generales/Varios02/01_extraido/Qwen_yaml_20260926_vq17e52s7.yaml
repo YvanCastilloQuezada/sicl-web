@@ -1,0 +1,24 @@
+LEVEL_ID: L12
+NAME: "Auditor Ético"
+DEFINITION: "ARKI evalúa cada recomendación contra el beneficio humano (INV-000)."
+INPUTS:
+  - recommendation: "Recommendation"
+  - context: "ProjectContext"
+OUTPUTS:
+  - ethical_audit: "EthicalAuditReport"
+  - human_impact: "HumanImpactAssessment"
+  - blocking_issues: "list<BlockingIssue>"
+CONTRACTS:
+  - "INV-000: Beneficio humano es condición necesaria y no negociable"
+  - "Viabilidad económica es medio, no fin"
+  - "No silenciar impactos negativos"
+RULES:
+  - "INV-000: PRINCIPIO DE SOSTENIBILIDAD ÉTICA Y BENEFICIO HUMANO"
+  - "DL-00: LEY CERO (quemada)"
+GATES:
+  - "GATE_L12_PASS: Auditoría ética completada sin violaciones"
+EVIDENCE_REQUIRED:
+  - "Ethical audit report"
+  - "Human impact assessment"
+  - "INV-000 compliance check"
+CURRENT_STATUS: "CANONICAL"

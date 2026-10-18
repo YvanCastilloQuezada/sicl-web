@@ -1,0 +1,1080 @@
+ORDEN DEFINITIVA PARA MANUS
+============================================================
+ORDEN DEFINITIVA PARA MANUS
+IMPLEMENTACIÓN REAL DE MAPPER + THE EYE
++ AUDITORÍA GENERAL DEL ESTADO DEL PROYECTO
+============================================================
+
+PRIORIDAD: MÁXIMA
+
+ESTADO ACTUAL DECLARADO:
+TECHNICALLY_READY
+
+NUEVO OBJETIVO:
+VERIFICAR Y HACER REALMENTE OPERATIVAS LAS DOS INTERFACES
+FUNDAMENTALES DEL SISTEMA:
+
+1. MiLukita Mapper
+2. The Eye
+
+Y, simultáneamente, realizar una AUDITORÍA GENERAL DEL
+PROYECTO para determinar qué está realmente implementado,
+qué es parcial, qué es simulación y qué sigue pendiente.
+
+============================================================
+1. JUSTIFICACIÓN — POR QUÉ SE EJECUTA ESTA ORDEN
+============================================================
+
+El proyecto ha pasado por numerosas etapas de:
+
+- arquitectura
+- especificación
+- diseño
+- prototipado
+- backend
+- modelos de datos
+- sincronización
+- conflictos
+- evidencia
+- auditoría
+- Controller Lab
+- QR
+- preparación del Field Gate
+
+Sin embargo, la revisión actual demuestra una situación crítica:
+
+LAS MAQUETAS FUNCIONALES DE MAPPER Y THE EYE
+NO ESTÁN TODAVÍA IMPLEMENTADAS COMO INTERFACES
+OPERATIVAS PARA EL USUARIO.
+
+Por lo tanto:
+
+SIN MAPPER FUNCIONAL
+NO EXISTE HERRAMIENTA REAL DE CAPTURA.
+
+SIN THE EYE FUNCIONAL
+NO EXISTE HERRAMIENTA REAL DE VERIFICACIÓN.
+
+SIN AMBAS INTERFACES
+NO EXISTE FIELD GATE OPERATIVO.
+
+Por esta razón, NO se debe continuar declarando el sistema
+como listo para captura territorial real hasta completar
+esta orden.
+
+============================================================
+2. PRINCIPIO CENTRAL
+============================================================
+
+Esta orden NO solicita nuevas ideas.
+
+NO solicita nuevas funcionalidades experimentales.
+
+NO solicita ampliar el universo del proyecto.
+
+NO solicita otra maqueta conceptual.
+
+Solicita convertir las interfaces ya diseñadas en:
+
+INTERFACES FUNCIONALES REALES.
+
+La referencia visual proporcionada anteriormente debe utilizarse
+como referencia principal de diseño.
+
+Debe conservarse:
+
+- identidad visual
+- estructura conceptual
+- jerarquía
+- navegación
+- estética
+- componentes principales
+- relación entre pantallas
+
+Pero debe adaptarse técnicamente a:
+
+- móvil
+- tablet
+- escritorio
+- touch
+- cámara
+- GPS
+- conectividad variable
+
+La función tiene prioridad sobre la decoración.
+
+============================================================
+3. DEFINICIÓN DE "FUNCIONAL"
+============================================================
+
+Una pantalla NO se considerará implementada porque:
+
+- existe visualmente
+- contiene botones
+- muestra datos ficticios
+- tiene tarjetas estáticas
+- reproduce una maqueta
+- cambia de estado solamente en frontend
+
+Una funcionalidad será considerada:
+
+IMPLEMENTED
+
+solamente cuando:
+
+UI
+↓
+API / lógica
+↓
+persistencia real
+↓
+estado real
+↓
+auditoría cuando corresponda
+
+estén conectados.
+
+Los datos de demostración deberán estar claramente identificados
+como TEST DATA.
+
+============================================================
+4. MAPPER — IMPLEMENTACIÓN FUNCIONAL
+============================================================
+
+Implementar:
+
+MILUKITA MAPPER
+
+como herramienta de captura territorial.
+
+Ruta objetivo:
+
+/mapper
+
+o la ruta equivalente integrada en Controller Lab.
+
+------------------------------------------------------------
+4.1 VISTA DE SESIÓN
+------------------------------------------------------------
+
+Implementar funcionalmente:
+
+- lista de CaptureSessions
+- crear sesión
+- abrir sesión
+- estado de sesión
+- responsable
+- territorio
+- fecha/hora
+- contador de objetos
+- contador de evidencias
+- estado de conectividad
+
+Debe existir:
+
+CREATE SESSION
+
+y debe persistir realmente.
+
+Ejemplo:
+
+TRUJILLO - FIELD GATE 001
+
+------------------------------------------------------------
+4.2 VISTA DE CAPTURA
+------------------------------------------------------------
+
+Implementar acción:
+
+CAPTURE OBJECT
+
+Debe permitir:
+
+1. obtener GPS real
+2. registrar coordenadas
+3. registrar precisión
+4. registrar timestamp
+5. tomar fotografía
+6. registrar observación
+7. guardar objeto
+
+Debe crearse realmente el:
+
+WorldObject
+
+asociado a:
+
+CaptureSession
+
+------------------------------------------------------------
+4.3 VISTA DE OBJETO
+------------------------------------------------------------
+
+Implementar expediente funcional.
+
+Mostrar:
+
+- nombre
+- tipo
+- coordenadas
+- precisión
+- timestamp
+- fotografías
+- observaciones
+- claims
+- sources
+- evidence
+- estado
+- responsable
+- historial
+
+Los datos deben proceder del backend/persistencia real.
+
+------------------------------------------------------------
+4.4 EVIDENCIA
+------------------------------------------------------------
+
+Permitir:
+
+- agregar fotografía
+- agregar evidencia
+- asociar evidencia al WorldObject
+- visualizar evidencia
+- registrar metadata
+- mantener trazabilidad
+
+No crear una estructura paralela incompatible con la Evidence
+Matrix existente.
+
+------------------------------------------------------------
+4.5 SINCRONIZACIÓN
+------------------------------------------------------------
+
+Mantener la arquitectura existente:
+
+LOCAL_PENDING
+SYNCING
+SYNCED
+CONFLICT
+SYNC_ERROR
+
+Debe existir feedback visual claro.
+
+Si se pierde conectividad:
+
+NO perder la captura.
+
+------------------------------------------------------------
+4.6 ENVÍO A THE EYE
+------------------------------------------------------------
+
+Implementar botón:
+
+SEND TO THE EYE
+
+El botón debe ejecutar realmente la transición correspondiente.
+
+No debe ser solamente visual.
+
+============================================================
+5. THE EYE — IMPLEMENTACIÓN FUNCIONAL
+============================================================
+
+Implementar:
+
+THE EYE
+
+como herramienta real de verificación.
+
+Ruta objetivo:
+
+/the-eye
+
+o equivalente.
+
+------------------------------------------------------------
+5.1 COLA DE REVISIÓN
+------------------------------------------------------------
+
+Mostrar objetos realmente pendientes de revisión.
+
+Como mínimo:
+
+- WorldObject
+- CaptureSession
+- territorio
+- Mapper
+- fecha
+- estado
+- evidencia
+- prioridad/confianza cuando exista
+
+NO utilizar exclusivamente datos ficticios.
+
+------------------------------------------------------------
+5.2 EXPEDIENTE
+------------------------------------------------------------
+
+Al abrir un objeto mostrar:
+
+- identificación
+- ubicación
+- fotografía
+- observaciones
+- claims
+- sources
+- evidence
+- Evidence Matrix
+- historial
+- versiones
+- sincronización
+- conflictos
+
+------------------------------------------------------------
+5.3 DECISIÓN
+------------------------------------------------------------
+
+Implementar funcionalmente:
+
+VERIFY / APPROVE
+REJECT
+REQUEST EVIDENCE
+MARK DISPUTED
+
+Cada decisión debe:
+
+- persistir
+- registrar responsable
+- registrar fecha/hora
+- registrar versión revisada
+- registrar motivo
+
+------------------------------------------------------------
+5.4 CONFLICTOS
+------------------------------------------------------------
+
+Implementar comparación real:
+
+VERSION A
+VS
+VERSION B
+
+Mostrar:
+
+- diferencias
+- claims
+- evidencia
+- fuentes
+- timestamps
+- responsable
+
+Permitir las decisiones ya definidas por la arquitectura:
+
+KEEP LOCAL
+KEEP REMOTE
+COMBINE
+MARK DISPUTED
+
+No utilizar:
+
+LAST WRITE WINS.
+
+------------------------------------------------------------
+6. HUMAN AUTHORITY
+============================================================
+
+NO mezclar The Eye con Human Authority.
+
+The Eye:
+
+VERIFICA.
+
+Human Authority:
+
+AUTORIZA PUBLICACIÓN.
+
+Debe existir un gate explícito antes de:
+
+PUBLISHED
+
+No permitir que un usuario con rol THE_EYE publique
+automáticamente si no posee autorización de Human Authority.
+
+============================================================
+7. RUNTIME
+============================================================
+
+Verificar que Runtime solamente consuma:
+
+publicationStatus = PUBLISHED
+
+y la versión publicada correspondiente.
+
+Nunca consumir:
+
+- drafts
+- CAPTURED
+- UNDER_REVIEW
+- REJECTED
+- DISPUTED
+- LOCAL_PENDING
+- SYNC_ERROR
+
+============================================================
+8. REFERENCIA VISUAL
+============================================================
+
+Las maquetas proporcionadas anteriormente son la referencia
+visual del producto.
+
+Mantener la identidad:
+
+- negro mate
+- turquesa/neón
+- dorado L★
+- glassmorphism
+- tipografía moderna y legible
+- iconografía mínima
+- apariencia tecnológica
+
+NO convertir la interfaz en un dashboard administrativo genérico.
+
+Debe sentirse como:
+
+LUKA OS / MiLukita
+
+y no como una aplicación empresarial convencional.
+
+------------------------------------------------------------
+8.1 MAPPER
+------------------------------------------------------------
+
+Prioridad:
+
+CAMPO.
+
+El operador debe poder:
+
+abrir
+capturar
+fotografiar
+registrar
+guardar
+
+con mínima fricción.
+
+------------------------------------------------------------
+8.2 THE EYE
+------------------------------------------------------------
+
+Prioridad:
+
+CLARIDAD.
+
+El auditor debe poder comprender rápidamente:
+
+QUÉ SE AFIRMA
+QUÉ EVIDENCIA EXISTE
+QUÉ FUENTE EXISTE
+QUÉ CONFLICTOS EXISTEN
+QUÉ DECISIÓN CORRESPONDE
+
+============================================================
+9. MOBILE FIRST PARA MAPPER
+============================================================
+
+Mapper debe diseñarse primero para:
+
+Android
+iOS
+
+No asumir que la interfaz desktop será simplemente reducida.
+
+Optimizar:
+
+- botones táctiles
+- captura rápida
+- cámara
+- GPS
+- offline
+- sincronización
+- lectura bajo condiciones de campo
+
+============================================================
+10. CONTROLLER LAB
+============================================================
+
+Integrar Mapper y The Eye dentro de:
+
+CONTROLLER LAB
+
+La navegación debe permitir:
+
+CONTROLLER LAB
+├── MAPPER
+├── THE EYE
+├── DASHBOARD
+└── QR / ACCESS
+
+No crear aplicaciones independientes innecesarias.
+
+============================================================
+11. QR
+============================================================
+
+Una vez implementadas las interfaces:
+
+generar/verificar:
+
+QR MAPPER
+QR THE EYE
+
+Y, si está implementado:
+
+QR FIELD SESSION
+
+Los QR NO deben contener:
+
+- contraseñas
+- credenciales
+- tokens permanentes
+- información sensible
+
+La autenticación y autorización deben permanecer
+en el servidor.
+
+============================================================
+12. AUDITORÍA GENERAL DEL PROYECTO
+============================================================
+
+ESTA PARTE ES OBLIGATORIA.
+
+Antes de continuar desarrollando nuevas funcionalidades,
+realizar un INVENTARIO REAL DEL SISTEMA ACTUAL.
+
+No basarse en órdenes anteriores.
+
+No basarse en declaraciones anteriores de "READY".
+
+INSPECCIONAR EL CÓDIGO REAL.
+
+============================================================
+13. MATRIZ GENERAL DE ESTADO
+============================================================
+
+Crear una tabla maestra:
+
+COMPONENTE
+ESTADO
+IMPLEMENTACIÓN REAL
+UBICACIÓN
+DEPENDENCIAS
+TESTS
+LIMITACIONES
+PRÓXIMO PASO
+
+Utilizar exclusivamente estos estados:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+DEPRECATED
+
+No utilizar "READY" como sustituto de una auditoría.
+
+============================================================
+14. INVENTARIO OBLIGATORIO
+============================================================
+
+Auditar como mínimo:
+
+A. LUKA / MiLukita
+B. Controller Lab
+C. Mapper
+D. The Eye
+E. CaptureSession
+F. WorldObject
+G. Evidence
+H. Evidence Matrix
+I. GPS
+J. Camera
+K. Offline
+L. Synchronization
+M. Conflict Resolution
+N. Publication
+O. Runtime
+P. Dashboard
+Q. QR
+R. Voice Copilot
+S. AR/WebAR
+T. Spatial Intelligence
+U. LUKA CONNECT
+V. LUKA DISCOVERY
+W. LUKA PEOPLE
+X. LUKA EXPERIENCES
+Y. LUKA ECONOMY
+Z. Agent/AI layer
+AA. Governance
+AB. Security
+AC. Identity/RBAC
+AD. Audit
+AE. Analytics
+AF. Observability
+AG. MJP CORE
+
+============================================================
+15. PARA CADA COMPONENTE
+============================================================
+
+Indicar:
+
+1. ¿Existe código?
+
+2. ¿Existe UI?
+
+3. ¿Existe backend?
+
+4. ¿Existe persistencia?
+
+5. ¿Existe integración?
+
+6. ¿Existen tests?
+
+7. ¿Los tests realmente prueban la funcionalidad?
+
+8. ¿Está operativo?
+
+9. ¿Está solamente simulado?
+
+10. ¿Depende de hardware?
+
+11. ¿Depende de servicios externos?
+
+12. ¿Cuál es el siguiente paso?
+
+============================================================
+16. DIFERENCIAR CÓDIGO DE MAQUETA
+============================================================
+
+CRÍTICO:
+
+Si existe una pantalla visual pero no está conectada
+al backend:
+
+SIMULATED
+
+o:
+
+PARTIAL
+
+según corresponda.
+
+Si existe backend pero no existe interfaz:
+
+PARTIAL
+
+No declarar:
+
+IMPLEMENTED
+
+hasta comprobar la cadena completa.
+
+============================================================
+17. REPORTE DE DEPENDENCIAS
+============================================================
+
+Identificar:
+
+- APIs externas
+- API keys
+- servicios cloud
+- almacenamiento
+- mapas
+- cámara
+- GPS
+- speech recognition
+- speech synthesis
+- WebXR
+- servicios de autenticación
+- hosting
+- dominio
+- HTTPS
+- hardware
+
+Clasificar:
+
+AVAILABLE
+CONFIGURED
+NOT_CONFIGURED
+BLOCKED
+EXTERNAL_REQUIRED
+
+============================================================
+18. AUDITORÍA DE MJP CORE
+============================================================
+
+Realizar comprobación específica.
+
+Resultado obligatorio:
+
+MJP CORE INTACT
+
+o
+
+MJP CORE MODIFIED
+
+Comparar:
+
+- archivos
+- dependencias
+- rutas
+- configuración
+- lógica
+- tests
+
+Si hubo modificación:
+
+DETALLAR EXACTAMENTE QUÉ SE MODIFICÓ.
+
+No ocultar cambios indirectos.
+
+============================================================
+19. TESTS
+============================================================
+
+Ejecutar los tests disponibles.
+
+Pero NO utilizar:
+
+"todos los tests pasan"
+
+como prueba suficiente de implementación.
+
+Diferenciar:
+
+UNIT
+INTEGRATION
+E2E
+SECURITY
+MANUAL
+PHYSICAL
+
+============================================================
+20. VALIDACIÓN FÍSICA
+============================================================
+
+Reportar separadamente:
+
+TECHNICAL VALIDATION
+
+y:
+
+PHYSICAL VALIDATION
+
+Manus NO debe afirmar que:
+
+GPS real
+cámara real
+micrófono real
+Android
+iPhone
+QR físico
+offline móvil
+
+han sido validados físicamente si no se realizaron esas pruebas.
+
+En ese caso:
+
+EXTERNAL_REQUIRED
+
+============================================================
+21. FIELD GATE 001
+============================================================
+
+NO iniciar la captura real todavía.
+
+Primero completar:
+
+1. Mapper funcional
+2. The Eye funcional
+3. Auditoría general
+4. Corrección de bloqueos críticos
+5. QR funcional
+6. prueba E2E
+7. confirmación de integridad MJP CORE
+
+Después se podrá declarar:
+
+FIELD GATE 001 READY FOR PHYSICAL VALIDATION
+
+============================================================
+22. ENTREGABLES
+============================================================
+
+ENTREGABLE 1
+
+Mapper funcional:
+
+- Session
+- Capture
+- GPS
+- Camera
+- Object
+- Evidence
+- Offline
+- Sync
+- Send to Eye
+
+ENTREGABLE 2
+
+The Eye funcional:
+
+- Queue
+- Dossier
+- Evidence Matrix
+- Conflict
+- Decision
+- Audit
+- Human Authority gate
+
+ENTREGABLE 3
+
+QR:
+
+- Mapper
+- The Eye
+- Session si corresponde
+
+ENTREGABLE 4
+
+AUDITORÍA GENERAL DEL PROYECTO.
+
+ENTREGABLE 5
+
+MJP CORE INTEGRITY REPORT.
+
+ENTREGABLE 6
+
+E2E REPORT.
+
+============================================================
+23. REPORTE FINAL OBLIGATORIO
+============================================================
+
+Responder con esta estructura:
+
+============================================================
+A. RESUMEN EJECUTIVO
+============================================================
+
+Estado general real del proyecto.
+
+============================================================
+B. MATRIZ MAESTRA
+============================================================
+
+| COMPONENTE | ESTADO | REAL/SIMULADO | TESTS | LIMITACIÓN |
+|------------|--------|---------------|-------|------------|
+
+============================================================
+C. MAPPER
+============================================================
+
+Estado de cada función.
+
+============================================================
+D. THE EYE
+============================================================
+
+Estado de cada función.
+
+============================================================
+E. CONTROLLER LAB
+============================================================
+
+Estado.
+
+============================================================
+F. QR / URL
+============================================================
+
+URL:
+QR:
+Probado:
+Limitaciones:
+
+============================================================
+G. VOICE
+============================================================
+
+Estado real.
+
+============================================================
+H. AR / SPATIAL
+============================================================
+
+Estado real.
+
+============================================================
+I. SEGURIDAD / RBAC
+============================================================
+
+Estado real.
+
+============================================================
+J. MJP CORE
+============================================================
+
+INTEGRITY:
+
+============================================================
+K. TESTS
+============================================================
+
+Tests ejecutados:
+Tests pasados:
+Tests fallidos:
+Tests no ejecutables:
+
+============================================================
+L. BLOCKERS
+============================================================
+
+Lista priorizada.
+
+============================================================
+M. PRÓXIMOS PASOS
+============================================================
+
+Solamente los necesarios.
+
+NO agregar una lista interminable de nuevas ideas.
+
+============================================================
+24. REGLA DE HONESTIDAD DEL REPORTE
+============================================================
+
+No utilizar:
+
+"listo"
+
+"completo"
+
+"100%"
+
+"production ready"
+
+"field ready"
+
+si la evidencia técnica no lo demuestra.
+
+Cada afirmación debe poder relacionarse con:
+
+CÓDIGO
++
+PERSISTENCIA
++
+TEST
++
+VALIDACIÓN
+
+cuando corresponda.
+
+============================================================
+25. CRITERIO DE TERMINACIÓN
+============================================================
+
+Esta orden estará completa solamente cuando:
+
+[ ] Mapper UI implementada
+[ ] Mapper conectado a datos reales
+[ ] CaptureSession funcional
+[ ] WorldObject funcional
+[ ] GPS integrado
+[ ] Camera integrada
+[ ] Evidence funcional
+[ ] Offline conservado
+[ ] Sync funcional
+[ ] The Eye UI implementada
+[ ] Queue funcional
+[ ] Dossier funcional
+[ ] Evidence Matrix funcional
+[ ] Conflict workflow funcional
+[ ] Audit funcional
+[ ] Human Authority gate funcional
+[ ] Runtime consume PUBLISHED
+[ ] QR funcional
+[ ] E2E ejecutado
+[ ] MJP CORE auditado
+[ ] Inventario general completado
+[ ] Estado real de cada componente documentado
+
+============================================================
+26. DECISIÓN POSTERIOR
+============================================================
+
+Después del reporte NO comenzar automáticamente otra fase.
+
+Primero revisar:
+
+WHAT IS REAL
+WHAT IS PARTIAL
+WHAT IS SIMULATED
+WHAT IS MISSING
+WHAT IS BLOCKED
+
+Luego decidir conjuntamente el siguiente paso.
+
+============================================================
+FIN DE LA ORDEN
+============================================================
+Por qué esta orden es mejor
+
+Porque corrige un problema que ya empezaba a aparecer en el proyecto: estábamos construyendo capas encima de una base cuya situación real no estaba completamente comprobada.
+
+La secuencia correcta ahora es:
+
+                 ┌──────────────────┐
+                 │ AUDITORÍA REAL   │
+                 └────────┬─────────┘
+                          ↓
+                ┌─────────────────────┐
+                │ MAPPER FUNCIONAL    │
+                └──────────┬──────────┘
+                           ↓
+                  DATOS TERRITORIALES
+                           ↓
+                ┌─────────────────────┐
+                │ THE EYE FUNCIONAL   │
+                └──────────┬──────────┘
+                           ↓
+                   HUMAN AUTHORITY
+                           ↓
+                       PUBLISHED
+                           ↓
+                       RUNTIME
+                           ↓
+                  FIELD GATE 001
+
+Y hay una decisión que considero especialmente importante:
+
+No le pidas a Manus que vuelva a decirnos que LUKA está "lista".
+
+Pídele que nos diga qué está realmente construido.
+
+Si encuentra:
+
+Mapper: UI 80 %, backend 100 %, integración 30 %
+
+eso es muchísimo más útil que:
+
+Mapper: IMPLEMENTED — READY.
+
+Porque a partir de ese informe podremos hacer algo que hasta ahora nos ha faltado: cerrar el proyecto por capas, en lugar de seguir acumulando órdenes.
+
+Y una vez que Manus entregue ese reporte, yo no generaría inmediatamente otra orden. Primero auditaría contigo el inventario completo y estableceríamos el verdadero LUKA BASELINE v1.0. A partir de ahí sí podremos sacar a LUKA a la calle con una base objetiva.

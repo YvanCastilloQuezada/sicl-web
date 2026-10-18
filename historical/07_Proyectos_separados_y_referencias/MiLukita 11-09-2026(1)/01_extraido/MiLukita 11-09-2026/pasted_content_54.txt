@@ -1,0 +1,259 @@
+ORDEN 54 — THE EYE
+GENERACIÓN DE CÓDIGO BACKEND / DOMAIN / PERSISTENCIA
+
+OBJETIVO
+
+Implementar o completar exclusivamente el backend, dominio,
+persistencia, APIs y tests necesarios para The Eye.
+
+The Eye debe funcionar como sistema de revisión y verificación
+territorial.
+
+NO realizar trabajo frontend.
+
+============================================================
+1. PROHIBICIÓN DE FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX visual
+- CSS
+- layouts
+- componentes
+- páginas
+- navegación
+- estilos
+- UX.
+
+NO reconstruir The Eye visualmente.
+
+============================================================
+2. INSPECCIÓN
+============================================================
+
+Localizar:
+
+- territorial claims
+- sources
+- evidence
+- verification reviews
+- conflicts
+- versions
+- publicationStatus
+- Human Authority
+- RBAC
+- audit.
+
+Reutilizar lo existente.
+
+============================================================
+3. REVIEW DOMAIN
+============================================================
+
+Implementar/completar el dominio de revisión.
+
+Estados existentes deben conservarse cuando corresponda:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+PUBLISHED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED.
+
+No inventar estados paralelos.
+
+============================================================
+4. EVIDENCE MATRIX
+============================================================
+
+Implementar la lógica de evaluación de:
+
+CLAIM
+→ SOURCE
+→ EVIDENCE
+→ REVIEW.
+
+Debe poder determinar:
+
+- evidencia presente
+- evidencia faltante
+- fuente presente
+- consistencia
+- conflictos
+- estado de revisión.
+
+NO afirmar automáticamente que una afirmación es verdadera
+solo porque tenga evidencia.
+
+============================================================
+5. REVIEW DECISION
+============================================================
+
+Persistir decisiones de The Eye.
+
+Registrar:
+
+- reviewer
+- timestamp
+- claim
+- evidence
+- decision
+- rationale
+- confidence
+- previous state
+- resulting state.
+
+============================================================
+6. CONFLICT REVIEW
+============================================================
+
+Implementar comparación entre:
+
+LOCAL
+REMOTE
+HISTORICAL
+
+cuando corresponda.
+
+Permitir decisiones:
+
+KEEP_LOCAL
+KEEP_REMOTE
+COMBINE
+MARK_DISPUTED.
+
+NO resolver automáticamente conflictos sustantivos.
+
+============================================================
+7. VERIFICATION
+============================================================
+
+The Eye puede:
+
+- revisar
+- contrastar
+- solicitar evidencia
+- verificar según reglas definidas
+- marcar disputa
+- rechazar.
+
+NO debe publicar automáticamente.
+
+============================================================
+8. HUMAN AUTHORITY
+============================================================
+
+La publicación final requiere autoridad humana.
+
+Implementar/completar la validación backend correspondiente.
+
+Nunca permitir que:
+
+- Mapper
+- Copilot
+- IA
+- The Eye automáticamente
+
+publique directamente.
+
+============================================================
+9. PUBLICATION GATE
+============================================================
+
+Publicación solamente cuando se cumplan las reglas existentes.
+
+Como mínimo validar:
+
+- estado VERIFIED
+- confianza válida
+- fuente
+- evidencia
+- autorización humana.
+
+Usar las reglas reales del proyecto si ya existen.
+
+============================================================
+10. API
+============================================================
+
+Implementar/completar procedimientos equivalentes a:
+
+getReviewQueue()
+getClaimDossier()
+getEvidenceMatrix()
+createReview()
+updateReview()
+requestEvidence()
+markDisputed()
+verifyClaim()
+rejectClaim()
+requestHumanPublication()
+publishApprovedVersion()
+
+Adaptar a la arquitectura existente.
+
+============================================================
+11. AUDITORÍA
+============================================================
+
+Registrar todas las decisiones relevantes.
+
+NO crear otro sistema de auditoría.
+
+============================================================
+12. RBAC
+============================================================
+
+Verificación, resolución y publicación deben respetar capacidades
+y roles.
+
+Nunca confiar únicamente en frontend.
+
+============================================================
+13. TESTS
+============================================================
+
+Tests para:
+
+- review
+- evidence matrix
+- source validation
+- conflict
+- verification
+- rejection
+- dispute
+- publication gate
+- Human Authority
+- RBAC
+- audit.
+
+============================================================
+14. MJP CORE
+============================================================
+
+NO modificar MJP CORE.
+
+============================================================
+15. ENTREGA
+============================================================
+
+Informar exclusivamente:
+
+- código generado/modificado
+- persistencia
+- APIs
+- tests
+- TypeScript
+- build
+- limitaciones.
+
+NO frontend.
+
+FIN.

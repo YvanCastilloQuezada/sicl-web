@@ -1,0 +1,5 @@
+Retoma ARKI desde 00-START.md, commit c0a82dae. Continúa con la implementación funcional del Árbol Vivo, sin repetir las auditorías ya superadas
+
+
+cd "$HOME/ARKI/av023-arbol-vivo"
+node arki-arbol-vivo.cjs

@@ -1,0 +1,142 @@
+
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+
+## pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-Bzq0m-UN.js        2,015.28 kB │ gzip: 550.49 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 15.19s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+
+## COCO core
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","cocoA":"PASS","cocoB":"PASS","cocoC":"PASS","cocoD":"PASS","normal":34,"boundary":true,"adversarial":true,"metamorphic":true,"transfer":true,"testTheTest":"PASS","unknownPreserved":true,"provenancePreserved":true,"projectIsolationPreserved":true,"professionalClaims":false}
+EXIT_CODE=0
+
+## COCO express
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","caseId":"RAIL-MAINTENANCE-CENTER-TRANSFER-001","functional":"IDENTIFIED","spatial":"IDENTIFIED","thermal":"UNKNOWN","daylightAcoustic":"UNKNOWN","regulatory":"APPLICABILITY_REQUIRED","structural":"CONCEPTUAL_ONLY","mep":"UNKNOWN","construction":"DEPENDENCY_IDENTIFIED","lcaLcc":"UNKNOWN","documentation":"CONFLICT_DETECTED","om":"OBSERVATION_NOT_CANONICAL","interoperability":"LOSS_POSSIBLE","collaboration":"MISSING_VIEWPOINT","sustainability":"UNKNOWN","observation":"NOT_MEASUREMENT","forbiddenClaimsRejected":true,"humanDecisionRequired":true}
+EXIT_CODE=0
+
+## architectural program regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","normal":10,"adversarial":8,"metamorphic":5,"testTheTest":"PASS","deterministic":true,"unknownPreserved":true,"provenancePreserved":true,"conflictDetection":true,"projectIsolation":true}
+EXIT_CODE=0
+
+## NEXUS baseline
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"schema":"ARKI-COCO-EXAM-001-RESULT-1.0","status":"EXAM_PARTIAL","caseId":"PROJECT-NEXUS-001","antiContamination":"PASS","sections":[{"examId":"A","capabilityFamily":"architectural reasoning","normalResult":"PARTIAL","adversarialResult":"PARTIAL","transferResult":"UNKNOWN","mutantsKilled":["PREFERENCE_TO_REQUIREMENT"],"failuresFound":["No canonical Nexus program analyzer for all 12 relation kinds"],"failuresRepaired":[],"regressionCreated":["nexus-relation-epistemic-boundary"],"gapsRemaining":["ProgramLayout competency not implemented"],"evidence":["NEXUS scenario inventory is explicit; missing jurisdiction remains UNKNOWN"],"finalStatus":"PARTIAL"},{"examId":"B","capabilityFamily":"graphs and circulation","normalResult":"PASS","adversarialResult":"PARTIAL","transferResult":"PASS","mutantsKilled":["IGNORE_GRAPH_ORDER","SHARED_WALL_TO_ACCESSIBLE_CONNECTION"],"failuresFound":["Graph API does not expose metric-vs-topological semantics as a first-class contract"],"failuresRepaired":[],"regressionCreated":["nexus-graph-determinism"],"gapsRemaining":["Door/opening semantics are outside this graph fixture"],"evidence":["24 nodes; BFS/DFS/path/components/cycle/determinism executed"],"finalStatus":"PARTIAL"},{"examId":"C","capabilityFamily":"mathematics geometry units","normalResult":"PASS","adversarialResult":"PASS","transferResult":"PARTIAL","mutantsKilled":["IGNORE_UNITS","ASSUME_METERS","AREA_AS_LENGTH","POWER_AS_ENERGY","PRESSURE_AS_FORCE"],"failuresFound":[],"failuresRepaired":[],"regressionCreated":["nexus-unit-dimension-firewall"],"gapsRemaining":["No product-wide dimensional algebra registry demonstrated"],"evidence":["m↔cm↔mm conversion and incompatible-unit rejection executed"],"finalStatus":"PARTIAL"},{"examId":"D","capabilityFamily":"building physics","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["SIMULATION_TO_FACT"],"failuresFound":["No thermal/daylight/acoustic solver implementation in product"],"failuresRepaired":[],"regressionCreated":["nexus-physics-epistemic-boundary"],"gapsRemaining":["C3/C4 remain transfer-only"],"evidence":["High glazing, heat, humidity, noise and ventilation risks recorded as observations/inferences only"],"finalStatus":"PROFESSIONAL_VALIDATION_REQUIRED"},{"examId":"E","capabilityFamily":"structures","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["UNKNOWN_SOIL_TO_ASSUME_GOOD_SOIL"],"failuresFound":["No professional structural solver or jurisdictional seismic evidence"],"failuresRepaired":[],"regressionCreated":["nexus-structural-unknown-boundary"],"gapsRemaining":["Soil, seismic hazard, member capacity and reinforcement remain UNKNOWN"],"evidence":["Load path and discontinuity risks can be named; safety conclusions are rejected"],"finalStatus":"PROFESSIONAL_VALIDATION_REQUIRED"},{"examId":"F","capabilityFamily":"MEP","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["MISSING_SOURCE_TO_ZERO_LOAD"],"failuresFound":["No verified professional MEP dimensioning engine"],"failuresRepaired":[],"regressionCreated":["nexus-mep-source-demand-boundary"],"gapsRemaining":["Capacity, losses, redundancy and final sizing are UNKNOWN"],"evidence":["Network concepts and missing-source cases are classified without sizing"],"finalStatus":"PROFESSIONAL_VALIDATION_REQUIRED"},{"examId":"G","capabilityFamily":"norms and applicability","normalResult":"PASS","adversarialResult":"PASS","transferResult":"PARTIAL","mutantsKilled":["IGNORE_JURISDICTION","PREFERENCE_TO_REQUIREMENT","UNKNOWN_TO_COMPLIANT"],"failuresFound":["No product rule registry for NX-01 was supplied"],"failuresRepaired":[],"regressionCreated":["nexus-jurisdiction-unknown"],"gapsRemaining":["C5 is transfer-only; no concrete norm may be inferred"],"evidence":["Without jurisdiction the result is JURISDICTION=UNKNOWN and APPLICABILITY=UNKNOWN"],"finalStatus":"PARTIAL"},{"examId":"H","capabilityFamily":"construction 4D lean","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["PLAN_TO_ACTUAL_PROGRESS"],"failuresFound":["No Nexus activity graph or resource scheduler was available"],"failuresRepaired":[],"regressionCreated":["nexus-plan-actual-separation"],"gapsRemaining":["C8 transfer pending"],"evidence":["Circular dependency, overallocated resource and unreleased constraint are preserved as unresolved findings"],"finalStatus":"BLOCKED"},{"examId":"I","capabilityFamily":"costs LCC LCA","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["MISSING_COST_TO_ZERO","LOWEST_CAPEX_TO_BEST_OPTION"],"failuresFound":["Nexus prices and tariffs are intentionally absent"],"failuresRepaired":[],"regressionCreated":["nexus-cost-unknown-boundary"],"gapsRemaining":["LCC/LCA transfer and complete cost context pending"],"evidence":["Missing costs remain UNKNOWN and no alternative is declared best"],"finalStatus":"UNKNOWN"},{"examId":"J","capabilityFamily":"interoperability","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["IMPORT_SUCCESS_TO_FIDELITY","GEOMETRY_PRESENT_TO_SEMANTICS_PRESENT","DESIGN_TO_AS_BUILT"],"failuresFound":["Nexus contains no real import payload"],"failuresRepaired":[],"regressionCreated":["nexus-provenance-loss-boundary"],"gapsRemaining":["CAD/IFC/GIS/point-cloud fidelity not tested in this exam"],"evidence":["Required provenance fields are asserted as mandatory metadata, not fabricated"],"finalStatus":"PARTIAL"},{"examId":"K","capabilityFamily":"vision avatar luka","normalResult":"PASS","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["OCR_TO_TRUTH","SEE_TO_KNOW","DETECT_CRACK_TO_STRUCTURAL_DIAGNOSIS"],"failuresFound":["No image fixture or production vision inference was authorized for Nexus"],"failuresRepaired":[],"regressionCreated":["nexus-observation-not-fact"],"gapsRemaining":["OCR/measurement/diagnosis remain separate capabilities"],"evidence":["OCR observation is explicitly not canonical evidence without provenance"],"finalStatus":"PARTIAL"},{"examId":"L","capabilityFamily":"analytics prediction","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["CORRELATION_TO_CAUSATION","FORECAST_TO_FACT","SMALL_SAMPLE_TO_CERTAINTY"],"failuresFound":["No predictive dataset or causal model supplied"],"failuresRepaired":[],"regressionCreated":["nexus-correlation-causation-boundary"],"gapsRemaining":["Forecasting requires data, uncertainty and validation"],"evidence":["Correlation and causation are kept distinct by classification"],"finalStatus":"UNKNOWN"},{"examId":"M","capabilityFamily":"sustainability","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["LOWEST_CAPEX_TO_BEST_OPTION","SIMULATION_TO_CERTIFICATION"],"failuresFound":["No complete CAPEX/OPEX/GWP/water/durability dataset supplied"],"failuresRepaired":[],"regressionCreated":["nexus-tradeoff-no-optimum"],"gapsRemaining":["No LEED/EDGE/BREEAM certification claim permitted"],"evidence":["Alternatives are represented as trade-offs, not a BEST DESIGN"],"finalStatus":"UNKNOWN"},{"examId":"N","capabilityFamily":"integrated architectural reasoning","normalResult":"PARTIAL","adversarialResult":"PASS","transferResult":"UNKNOWN","mutantsKilled":["ISOLATED_RECOMMENDATION_TO_SYSTEM_EFFECT"],"failuresFound":["No canonical consequence graph for all Nexus disciplines"],"failuresRepaired":[],"regressionCreated":["nexus-propagation-chain"],"gapsRemaining":["Move→circulation→MEP→cost→schedule→daylight propagation is not productized"],"evidence":["A candidate change is required to carry dependencies, trade-offs, risks and unknowns"],"finalStatus":"PARTIAL"},{"examId":"O","capabilityFamily":"human authority PF-H01","normalResult":"PASS","adversarialResult":"PASS","transferResult":"PASS","mutantsKilled":["OPTIMUM_TO_HUMAN_DECISION","RENTABILITY_TO_HARM"],"failuresFound":[],"failuresRepaired":[],"regressionCreated":["nexus-pf-h01-human-decision-boundary"],"gapsRemaining":["Human Authority remains required for any consequential decision"],"evidence":["Profitability is not treated as harm; deliberate human deterioration is flagged"],"finalStatus":"PASS"},{"examId":"P","capabilityFamily":"epistemology","normalResult":"PASS","adversarialResult":"PASS","transferResult":"PARTIAL","mutantsKilled":["UNKNOWN_TO_TRUE","UNKNOWN_TO_FALSE","OBSERVATION_TO_FACT","INFERENCE_TO_FACT","ABSENCE_OF_EVIDENCE_TO_VIOLATION","RECOMMENDATION_TO_DECISION"],"failuresFound":[],"failuresRepaired":[],"regressionCreated":["nexus-epistemic-classification"],"gapsRemaining":["Thirty-claim external corpus not generated in this bounded run"],"evidence":["11 epistemic labels preserved; sensor observation not canonical"],"finalStatus":"PARTIAL"},{"examId":"Q","capabilityFamily":"transfer","normalResult":"BLOCKED","adversarialResult":"BLOCKED","transferResult":"BLOCKED","mutantsKilled":[],"failuresFound":["A second generated scenario was not executed because this run is the first Nexus baseline"],"failuresRepaired":[],"regressionCreated":[],"gapsRemaining":["Need a fresh non-Nexus scenario and no expected-answer reuse"],"evidence":["Transfer gate remains closed until baseline failures are converted into regression tests"],"finalStatus":"BLOCKED"}],"testTheTest":{"status":"TEST_WEAKNESS_DETECTED","survivingMutants":["IGNORE_PROVENANCE","IGNORE_APPLICABILITY","IGNORE_SCALE","OBSERVATION_TO_CANONICAL_FACT","HASH_TO_SIGNATURE","COMMAND_SENT_TO_OBSERVED_SUCCESS"],"killed":["ABSENCE_OF_EVIDENCE_TO_VIOLATION","AREA_AS_LENGTH","ASSUME_METERS","CORRELATION_TO_CAUSATION","DESIGN_TO_AS_BUILT","DETECT_CRACK_TO_STRUCTURAL_DIAGNOSIS","FORECAST_TO_FACT","GEOMETRY_PRESENT_TO_SEMANTICS_PRESENT","IGNORE_GRAPH_ORDER","IGNORE_JURISDICTION","IGNORE_UNITS","IMPORT_SUCCESS_TO_FIDELITY","INFERENCE_TO_FACT","ISOLATED_RECOMMENDATION_TO_SYSTEM_EFFECT","LOWEST_CAPEX_TO_BEST_OPTION","MISSING_COST_TO_ZERO","MISSING_SOURCE_TO_ZERO_LOAD","OBSERVATION_TO_FACT","OCR_TO_TRUTH","OPTIMUM_TO_HUMAN_DECISION","PLAN_TO_ACTUAL_PROGRESS","POWER_AS_ENERGY","PREFERENCE_TO_REQUIREMENT","PRESSURE_AS_FORCE","RECOMMENDATION_TO_DECISION","RENTABILITY_TO_HARM","SEE_TO_KNOW","SHARED_WALL_TO_ACCESSIBLE_CONNECTION","SIMULATION_TO_CERTIFICATION","SIMULATION_TO_FACT","SMALL_SAMPLE_TO_CERTAINTY","UNKNOWN_SOIL_TO_ASSUME_GOOD_SOIL","UNKNOWN_TO_COMPLIANT","UNKNOWN_TO_FALSE","UNKNOWN_TO_TRUE"]},"graph":{"nodes":24,"bfs":22,"dfs":22,"pathToWetLab":{"distance":3,"path":["entry","public-hall","training-1","wet-lab"],"status":"FOUND"},"components":3,"cycleDetected":true,"deterministic":true},"scope":{"productMutation":false,"professionalCertification":false,"canonicalAutoApproval":false,"PFH01Modified":false}}
+EXIT_CODE=0
+
+## ARKI-TRANSFER-002 R1
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"schema":"ARKI-COCO-EXAM-001-R1-RESULT-1.0","status":"EXAM_VERIFIED_FOR_BOUNDED_FOUNDATION_TRANSFER","baseExam":"ARKI-COCO-EXAM-001","baselineNexus":"FROZEN_NOT_REEXECUTED_AS_TRAINING","scenario":{"id":"ARKI-TRANSFER-002","seed":"ARKI-TRANSFER-002-SEED-20260923","typology":"intermodal river terminal + productive market + small logistics center","context":["cold climate","sloped terrain","river edge","seasonal water level","passenger and cargo flows","perishables","vehicles","pedestrians","storage","trade","maintenance","technical areas"]},"boundaries":[{"name":"PROVENANCE_MISSING → CLAIM_NOT_CANONICAL","normal":true,"adversarial":true,"metamorphic":true,"mutantKilled":true,"oracle":"independent claim-status oracle"},{"name":"SOURCE_EXISTS ≠ SOURCE_APPLICABLE","normal":true,"adversarial":true,"metamorphic":true,"mutantKilled":true,"oracle":"source/applicability split"},{"name":"BUILDING_SCALE_RULE ≠ CITY/SITE_SCALE_RULE","normal":true,"adversarial":true,"metamorphic":true,"mutantKilled":true,"oracle":"scale equality oracle"},{"name":"OBSERVATION ≠ CANONICAL_FACT","normal":true,"adversarial":true,"metamorphic":true,"mutantKilled":true,"oracle":"observation never self-certifies"},{"name":"HASH ≠ DIGITAL_SIGNATURE","normal":true,"adversarial":true,"metamorphic":true,"mutantKilled":true,"oracle":"signature status oracle"},{"name":"COMMAND_SENT ≠ EXECUTED ≠ OBSERVED","normal":true,"adversarial":true,"metamorphic":true,"mutantKilled":true,"oracle":"three-state command oracle"}],"mutants":{"previouslySurviving":["IGNORE_PROVENANCE","IGNORE_APPLICABILITY","IGNORE_SCALE","OBSERVATION_TO_CANONICAL_FACT","HASH_TO_SIGNATURE","COMMAND_SENT_TO_OBSERVED_SUCCESS"],"killed":["IGNORE_PROVENANCE","IGNORE_APPLICABILITY","IGNORE_SCALE","OBSERVATION_TO_CANONICAL_FACT","HASH_TO_SIGNATURE","COMMAND_SENT_TO_OBSERVED_SUCCESS"],"surviving":[]},"metamorphicTransfer":{"status":"PASS","mutations":[{"id":"A","changed":true,"unrelatedStable":true},{"id":"B","changed":true,"unrelatedStable":true},{"id":"C","changed":true,"unrelatedStable":true},{"id":"D","changed":true,"unrelatedStable":true},{"id":"E","changed":true,"unrelatedStable":true},{"id":"F","changed":true,"unrelatedStable":true},{"id":"G","changed":true,"unrelatedStable":true}],"unrelatedConclusionsStable":true},"transferFamilies":[{"family":"architectural reasoning","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"spatial relations","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"graphs","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"circulation","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"units","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"conceptual physics","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"structural limits","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"MEP limits","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"applicability","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"construction","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"costs","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"interoperability","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"observation","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"prediction","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"sustainability","result":"PROFESSIONAL_VALIDATION_REQUIRED","unknownPreserved":true,"noProfessionalClaim":true},{"family":"interdisciplinary propagation","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"epistemology","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"PF-H01","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true},{"family":"Human Authority","result":"PASS","unknownPreserved":true,"noProfessionalClaim":true}],"invariants":{"unknownPreservation":true,"provenanceDiscipline":true,"applicabilityDiscipline":true,"scaleDiscipline":true,"unitDiscipline":true,"causalReasoning":true,"humanAuthority":true,"professionalBoundaries":true,"determinism":true},"testTheTest":{"status":"PASS","mutantProbes":{"IGNORE_PROVENANCE":true,"IGNORE_APPLICABILITY":true,"IGNORE_SCALE":true,"OBSERVATION_TO_CANONICAL_FACT":true,"HASH_TO_SIGNATURE":true,"COMMAND_SENT_TO_OBSERVED_SUCCESS":true},"survivingMutants":[]},"professionalCompetency":"NOT_CERTIFIED","humanAuthority":"REQUIRED","productMutation":false,"pfH01Modified":false}
+EXIT_CODE=0
+
+## E5 close snapshot
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","test":"E5-CLOSE-01","operation":"save → close → reopen → restore","snapshotId":"e5-close-snapshot:v001","nodes":1}
+EXIT_CODE=0
+
+## E5 close viewpoint
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","test":"E5-CLOSE-02","operation":"save → close → reopen → restore","viewpointId":"e5-close-viewpoint:vp-001","viewMode":"orthographic","selectedIds":["wall-1","door-1"]}
+EXIT_CODE=0
+
+## E5 comparison controls
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","test":"E5-CLOSE-03","controls":["camera","level","heightFilter"],"independentSides":["left","right"]}
+EXIT_CODE=0
+
+## E8-A regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8A-01 PASS — unapproved snapshot rejected
+E8A-02 PASS — five technical documents compiled
+E8A-03 PASS — snapshot/version/element traceability preserved
+E8A-04 PASS — budget and traceable plan emitted
+{
+  "status": "PASS",
+  "schema": "ARKI-E8A-TECHNICAL-DOSSIER-1.0",
+  "snapshotId": "ARKI-d9565f3b",
+  "version": 1,
+  "documents": [
+    "01-memoria-descriptiva.md",
+    "02-especificaciones-tecnicas.md",
+    "03-metrados.md",
+    "04-presupuesto.md",
+    "05-planta.svg"
+  ],
+  "tracedElements": 356
+}
+EXIT_CODE=0
+
+## E8-B regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8B-01 PASS — unapproved snapshot rejected
+E8B-02 PASS — missing element rejected
+E8B-03 PASS — asset, warranty, manual, inspection and work-order lifecycle validated
+E8B-04 PASS — IndexedDB close/reopen restores asset, warranty and chronological history
+{
+  "status": "PASS",
+  "schema": "ARKI-E8B-OM-1.0",
+  "assetId": "ARKI-4ba5cb0d",
+  "elementId": "muro-1-1",
+  "snapshotId": "ARKI-ffdee204",
+  "historyEntries": 3,
+  "stores": [
+    "assets",
+    "warranties",
+    "manuals",
+    "inspections",
+    "workOrders",
+    "assetHistory"
+  ]
+}
+EXIT_CODE=0
+
+## E8-C regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8C-01 PASS — actor ai is never approved
+E8C-02 PASS — unapproved snapshot rejected
+E8C-03 PASS — missing criterion is reported
+E8C-04 PASS — twelve human-verified criteria plus signature approved
+{
+  "status": "PASS",
+  "schema": "ARKI-E8C-PROJECT-GATE-1.0",
+  "criteria": 12,
+  "ai": "GATE_NEVER_APPROVED_BY_AI",
+  "missing": [
+    "mep_calculated"
+  ],
+  "approved": "approved"
+}
+EXIT_CODE=0
+
+## SUMMARY
+OVERALL=PASS

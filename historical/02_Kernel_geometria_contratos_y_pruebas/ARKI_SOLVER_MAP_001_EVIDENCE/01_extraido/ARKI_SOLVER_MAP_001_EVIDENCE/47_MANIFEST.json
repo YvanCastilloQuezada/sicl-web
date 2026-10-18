@@ -1,0 +1,398 @@
+{
+  "artifact": "ARKI-SOLVER-MAP-001",
+  "verdict": "SOLVER_MAP_PARTIAL",
+  "scope": "FORENSIC_MAPPING_ARCHITECTURE_TECHNICAL_EVALUATION_ONLY",
+  "accessDate": "2026-09-24",
+  "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "branch": "main",
+  "worktreeEntries": 1153,
+  "aurora": {
+    "executed": false,
+    "solutionsUsed": false
+  },
+  "solvers": {
+    "installed": false,
+    "executed": false,
+    "adaptersImplemented": false
+  },
+  "c1c80": {
+    "mapped": 80,
+    "implemented": 0,
+    "promoted": 0
+  },
+  "computationalFamilies": 23,
+  "requiredOutputs": 49,
+  "outputFiles": [
+    "ARKI_SOLVER_MAP_001_EVIDENCE/00_EXECUTIVE_REPORT.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/01_REPOSITORY_COMPUTATIONAL_INVENTORY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/02_REPOSITORY_COMPUTATIONAL_INVENTORY.json",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/03_COMPUTATIONAL_FAMILY_TAXONOMY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/04_C1_C80_SOLVER_REQUIREMENTS.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/05_C1_C80_SOLVER_REQUIREMENTS.json",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/06_INTERNAL_ARKI_METHODS.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/07_STRUCTURAL_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/08_GEOTECH_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/09_CFD_WIND_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/10_ENERGY_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/11_AIRFLOW_IAQ_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/12_LIGHTING_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/13_ACOUSTICS_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/14_FIRE_SMOKE_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/15_HYDRAULIC_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/16_ELECTRICAL_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/17_VERTICAL_TRANSPORT_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/18_EVACUATION_SOLVER_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/19_BIM_IFC_CAD_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/20_CONSTRUCTION_SCHEDULING_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/21_COST_FINANCE_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/22_LCA_CARBON_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/23_OPTIMIZATION_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/24_MCDA_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/25_RISK_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/26_DIGITAL_TWIN_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/27_GIS_ENGINE_STUDY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/28_SOLVER_CANDIDATE_SCORECARD.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/29_LICENSE_AUDIT.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/30_PLATFORM_COMPATIBILITY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/31_SOLVER_ARCHITECTURE.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/32_SOLVER_ADAPTER_CONTRACT.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/33_SOLVER_RUN_RECORD.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/34_SOLVER_VALIDATION_ARCHITECTURE.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/35_SOLVER_MUTATION_TEST_PLAN.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/36_HARDWARE_REQUIREMENTS.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/37_MINIMUM_VIABLE_SCIENTIFIC_STACK.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/38_INSTALLATION_PRIORITY.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/39_C1_C80_COVERAGE_MATRIX.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/40_SOLVER_CONSOLIDATION_REPORT.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/41_BUILD_VS_INTEGRATE_MATRIX.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/42_PROFESSIONAL_BOUNDARY_MATRIX.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/43_UNKNOWN_REGISTER.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/44_RISK_REGISTER.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/45_DECISION_REGISTER.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/46_EVIDENCE_MATRIX.md",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/48_RAW_OUTPUTS.txt",
+    "ARKI_SOLVER_MAP_001_EVIDENCE/47_MANIFEST.json"
+  ],
+  "files": [
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/00_EXECUTIVE_REPORT.md",
+      "sha256": "d6b2839585230fa657ea44a7c72b941616fa099f05038ab4f45d2e89d53fa502",
+      "bytes": 1970
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/01_REPOSITORY_COMPUTATIONAL_INVENTORY.md",
+      "sha256": "dfab8a0d16f17682b2ab4eea173bdb81455b672be708af8ab6354ed25bc676f2",
+      "bytes": 5781
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/02_REPOSITORY_COMPUTATIONAL_INVENTORY.json",
+      "sha256": "986ddc423b44e54bfdd36a82057e254646e71e2e3be4aea4aa232ddf1dce70ee",
+      "bytes": 9483
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/03_COMPUTATIONAL_FAMILY_TAXONOMY.md",
+      "sha256": "e66527a90eda6094d5b77c7ffc767b4ce310ed0a6a76748844618b1f941ad1f5",
+      "bytes": 2920
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/04_C1_C80_SOLVER_REQUIREMENTS.md",
+      "sha256": "75f4d9a990f9f8485a6992c802655b6fc404d17d9a571dd8e530d7f51f36bc90",
+      "bytes": 25229
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/05_C1_C80_SOLVER_REQUIREMENTS.json",
+      "sha256": "7321ac5b3aa36e388f2a51832cfa1f3904935a92d3e4f24858a2d8258360b09c",
+      "bytes": 119060
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/06_INTERNAL_ARKI_METHODS.md",
+      "sha256": "2b5adacaea2e6cd23d520890976d7e934d5b5022679f64463c1653a10f999e43",
+      "bytes": 676
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/07_STRUCTURAL_SOLVER_STUDY.md",
+      "sha256": "e621d5b25c5a97be790ecbf704153adddfe64eb6f2ee267935a65ab0fc74419f",
+      "bytes": 548
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/08_GEOTECH_SOLVER_STUDY.md",
+      "sha256": "a3ea93ef5b895aa20e144cdcd82fd09848c55a616ef9d38058967b715e310efc",
+      "bytes": 550
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/09_CFD_WIND_SOLVER_STUDY.md",
+      "sha256": "bc58a9b4c29478dfea629bded2d82aa06c3b528ac0c1c8ef092c29a7a2b37e53",
+      "bytes": 538
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/10_ENERGY_SOLVER_STUDY.md",
+      "sha256": "03634e340b7cbba0435e723d3ced564bc7f9febaa5133161616da1ae06bad6b7",
+      "bytes": 532
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/11_AIRFLOW_IAQ_SOLVER_STUDY.md",
+      "sha256": "d4d1e6b33f6cf060604e62dfb934f95da14e5f56c9169214f9fd9b47036c30eb",
+      "bytes": 545
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/12_LIGHTING_SOLVER_STUDY.md",
+      "sha256": "83048500cc801e18f68d04b5e8c1840ffbd79a08ca566ae7e296e3e94f13bc1a",
+      "bytes": 546
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/13_ACOUSTICS_SOLVER_STUDY.md",
+      "sha256": "3690472c0769432c81cf88a282da3742cf3c3213b903cb99af92fefb44e21f5d",
+      "bytes": 547
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/14_FIRE_SMOKE_SOLVER_STUDY.md",
+      "sha256": "528a96bffcd29312178c6e12bfcb66155ca7e5217fbc13fed2d124e5a2c815ad",
+      "bytes": 544
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/15_HYDRAULIC_SOLVER_STUDY.md",
+      "sha256": "8ac0433be07e00486bb52a8115947d95a17e44f634ecae4ceccefe5237a41ad7",
+      "bytes": 549
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/16_ELECTRICAL_SOLVER_STUDY.md",
+      "sha256": "3d4c1fafa618eb0cec13ab22a7cbc341df576534c73e54889432a5cb49593853",
+      "bytes": 550
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/17_VERTICAL_TRANSPORT_SOLVER_STUDY.md",
+      "sha256": "9a7c32349ceae37b1e48a8d7ade9b0ece90e1f3e21e0c7c63be0e59ba670d6bb",
+      "bytes": 558
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/18_EVACUATION_SOLVER_STUDY.md",
+      "sha256": "7816ec7f7a1957ec7de46e5aefd7afb2d9f8064567fe48b6f325d59824973de0",
+      "bytes": 550
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/19_BIM_IFC_CAD_ENGINE_STUDY.md",
+      "sha256": "7e46ac4f4916f65d1134f808e5ac7c14ae57b8183fb0a02f75ce918604819ce6",
+      "bytes": 546
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/20_CONSTRUCTION_SCHEDULING_ENGINE_STUDY.md",
+      "sha256": "0a4517cda5b5f25b38cbdeb7959ae5594fb3aca90da6210cc2764546e0160af8",
+      "bytes": 571
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/21_COST_FINANCE_ENGINE_STUDY.md",
+      "sha256": "1d4e4acdaccb597584cc35a5c11be093f85574a98827c448dc167965086dbca3",
+      "bytes": 551
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/22_LCA_CARBON_ENGINE_STUDY.md",
+      "sha256": "a92bd1bfcd7bf79126b4a3333b3a3a8fc93d70008e3aa54946c433d9ac7a0665",
+      "bytes": 560
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/23_OPTIMIZATION_ENGINE_STUDY.md",
+      "sha256": "6f6adb0859ac55cfff485fb985ac66e5eb40ec8e2720d71cb8e81f2f94cf679c",
+      "bytes": 549
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/24_MCDA_ENGINE_STUDY.md",
+      "sha256": "688dcd6f182354889456b7e605855907071c087cebcd78730b448c2164b4246f",
+      "bytes": 541
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/25_RISK_ENGINE_STUDY.md",
+      "sha256": "0c3a3623c60233c284254ec1e78f57e17c3a429e7fbd302f7a40d0549bf4033e",
+      "bytes": 541
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/26_DIGITAL_TWIN_ENGINE_STUDY.md",
+      "sha256": "fb4ef96682581d21ced79a584e59c81b6bb1c503c53ee0e8e72575c6cc823dfe",
+      "bytes": 560
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/27_GIS_ENGINE_STUDY.md",
+      "sha256": "900fdaaedd112b63329a76008168fed241c631393962eac365a22fb1edff307f",
+      "bytes": 534
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/28_SOLVER_CANDIDATE_SCORECARD.md",
+      "sha256": "9fb9321ce8d8acb2ba644edae2aa674b14ec91be169adb91d76061eb69da2301",
+      "bytes": 3702
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/29_LICENSE_AUDIT.md",
+      "sha256": "052a811c86112ecf6281bc50bfeedf6def5581b51365a52b407464f62465d9d5",
+      "bytes": 1000
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/30_PLATFORM_COMPATIBILITY.md",
+      "sha256": "d302c91af63324f61d4510db7343e1dd8ae8e0e8dbc175bc74ade14ce4f663c5",
+      "bytes": 912
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/31_SOLVER_ARCHITECTURE.md",
+      "sha256": "e310a0d78a98e736d6202600041344fce701a9c616a810173e9f80ac9635a40c",
+      "bytes": 611
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/32_SOLVER_ADAPTER_CONTRACT.md",
+      "sha256": "c5e15c62daba3274b23463e9138aac189056603f24e63e83b3ef41db4514fa89",
+      "bytes": 699
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/33_SOLVER_RUN_RECORD.md",
+      "sha256": "cb8bd1cfcbcb6f6e3ca23b891044d94f8a4f55e61302f8c95d2deea3b037b90c",
+      "bytes": 454
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/34_SOLVER_VALIDATION_ARCHITECTURE.md",
+      "sha256": "41fe160b6da247ea034c3529f882e9275fa9a111e3f7cbc366aefdc8afdc425b",
+      "bytes": 454
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/35_SOLVER_MUTATION_TEST_PLAN.md",
+      "sha256": "70202f27b6a8f5b13ef5a188933f16043db71a79fb486c40fe079a2180bd2036",
+      "bytes": 394
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/36_HARDWARE_REQUIREMENTS.md",
+      "sha256": "42403a266702383fc6e2bbe8a152233a8ba66776c6091a7623f8ab5a8f403f4e",
+      "bytes": 415
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/37_MINIMUM_VIABLE_SCIENTIFIC_STACK.md",
+      "sha256": "6ad7a571a3261d51d3fdfb012c7f6be7924d195a2d0ebdf346bacfedc07c8c6e",
+      "bytes": 657
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/38_INSTALLATION_PRIORITY.md",
+      "sha256": "d77b7d341891acc2ac5f7c84fc92663cd6dc6b5e47a06d302d288c28c11e233f",
+      "bytes": 481
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/39_C1_C80_COVERAGE_MATRIX.md",
+      "sha256": "bce29e81606e0b3e6d253d21b4b32a82d1101b9865d1b9ea1bb1d397ec282664",
+      "bytes": 21175
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/40_SOLVER_CONSOLIDATION_REPORT.md",
+      "sha256": "aea01e86b05a680dc924998900ffdbf6460a9c3ad7431eec0a60301982986aa2",
+      "bytes": 574
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/41_BUILD_VS_INTEGRATE_MATRIX.md",
+      "sha256": "af25fc97639422e2403fe8c164f885972d9b162937d14c704d267171a2091119",
+      "bytes": 3816
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/42_PROFESSIONAL_BOUNDARY_MATRIX.md",
+      "sha256": "87686984dd48bbee79bc9713d4f582ed75efd48ec1e6f9814c42ad77f1d26ea5",
+      "bytes": 407
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/43_UNKNOWN_REGISTER.md",
+      "sha256": "c58b5c8969e2b1a77cd9d9975b7e92ca0b583b961a088593cdf72ff3e0ace533",
+      "bytes": 778
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/44_RISK_REGISTER.md",
+      "sha256": "200e3a554758b07a3450c49b51871468b094f8f60ce19e1b7c47756fe3535c86",
+      "bytes": 756
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/45_DECISION_REGISTER.md",
+      "sha256": "f2f6fb68e19e66c840be486389438ce3189baec73c756684547e69a06a76b706",
+      "bytes": 699
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/46_EVIDENCE_MATRIX.md",
+      "sha256": "16103eb0b176dd059348ac3f4b691ff3319bbecfc585f8b285d074282a890110",
+      "bytes": 546
+    },
+    {
+      "path": "ARKI_SOLVER_MAP_001_EVIDENCE/48_RAW_OUTPUTS.txt",
+      "sha256": "6b2c52de4109871e1d0946e2fb5389c79026691e57f2036b7bf12d208bb0e085",
+      "bytes": 226
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/00-synthesis.md",
+      "sha256": "6c471aee5e502dd398ac6be4fb84a0fb24248858dbfc1d12f496ba362ad4c2db",
+      "bytes": 16002
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/airflow-fire.md",
+      "sha256": "10dcc793bc6336082b3e219ccc9bbb4adf452e2130973aec627755e5c2c5d436",
+      "bytes": 29895
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/cfd-wind.md",
+      "sha256": "d2d4cb57738c876eedd8f8f7c9570fb9b6d319ba53544aa947f7508e26f11fdd",
+      "bytes": 23734
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/energy.md",
+      "sha256": "f6140fdfe6c6dd9fc3b7dda6adf7e71e1fba3e14cfac537a350162082f755923",
+      "bytes": 25554
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/hydraulic-electrical.md",
+      "sha256": "d435425c2f34b9156d68b22b32021ebba4923d48fd3957f33ed35d7946e41a4a",
+      "bytes": 34316
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/lca-digitaltwin-construction.md",
+      "sha256": "0e9d0caf165c7df806495a181e3eec378a48b44e3c6061af40dc342e4eb439ba",
+      "bytes": 23640
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/lighting-acoustics.md",
+      "sha256": "28780fc7505acdd7e1ef96611820ac76249cd7c44d6e4a7d9f18dffe5d3c36e6",
+      "bytes": 28932
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/optimization-risk.md",
+      "sha256": "35e9fee6fd43b9966ec639d788b1bbc9dab4a8e5ccb438266463ca28c895978d",
+      "bytes": 17487
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/spatial-bim.md",
+      "sha256": "d6a1887439056e107c35e10595c2317cfc835944702eb65dbea4f793a7157e5f",
+      "bytes": 34465
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/structural-geotech.md",
+      "sha256": "617cb5f5586eb0d26883f5d552b7c724365f0fc519b64beba7a0db1fb98f5ba4",
+      "bytes": 32543
+    },
+    {
+      "path": "SOLVER_MAP_RESEARCH/transport-evacuation.md",
+      "sha256": "595eea644b1ed32749be2710fb1a3f8fefc19e94ec17e67b536ccc2cc0d9bd85",
+      "bytes": 18945
+    },
+    {
+      "path": "scripts/create-solver-map.py",
+      "sha256": "aa93544bf9e00c42c2efba9f354999d464a0ff324ff6213c731c93885ea7f4ef",
+      "bytes": 28163
+    },
+    {
+      "path": "scripts/create-solver-map-package.py",
+      "sha256": "b90ba8951e0fb0d867d84a3e4c99790d2ee079dc824ae2647e1967982b2d205a",
+      "bytes": 2590
+    },
+    {
+      "path": "scripts/test-solver-map-package.py",
+      "sha256": "67485927e3f094292ce9f81964f58200e6f15c9204f47fd84233e03eac0a7c79",
+      "bytes": 969
+    },
+    {
+      "path": "pasted_content_184.txt",
+      "sha256": "bdbaebd24e2e1955e3d8c0a574a799118f6eef9dd7729274375c7524a635d9d9",
+      "bytes": 30531
+    },
+    {
+      "path": "C1_C80_WAVE1_REGISTRY.json",
+      "sha256": "8c5af5dc33af9bafab917d832683486d31fab0ecc7bd10584393867903dd028e",
+      "bytes": 83837
+    }
+  ]
+}

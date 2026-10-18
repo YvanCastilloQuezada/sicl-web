@@ -1,0 +1,12 @@
+{
+  "capabilityId": "C38",
+  "lifecycle": "DOCUMENTED",
+  "readiness": "KNOWLEDGE_DEFICIT",
+  "implementedBounded": false,
+  "adversariallyTested": false,
+  "transferTested": false,
+  "verifiedBounded": false,
+  "professionalValidationRequired": true,
+  "blocked": true,
+  "evidenceHash": "sha256:v1:e8e8c037811b8c5d8a306c8a528f6173c992b7f67b182517f7c9120b1e307694"
+}

@@ -1,0 +1,674 @@
+# ORDEN ARKI-CAD-001C
+
+## CAD GATEWAY + ACIR IMPLEMENTATION READINESS & CONTROLLED MVP
+
+**Product Owner / Human Authority:** Yvan Castillo
+**Sistema:** ARKI
+**Predecesores:** ARKI-CAD-001A + ARKI-CAD-001B
+**Tipo:** preparación técnica + implementación controlada exclusivamente donde no exista bloqueo contractual/licenciamiento
+**Objetivo:** convertir la decisión CAD en una capacidad verificable sin contaminar el Core de ARKI.
+
+---
+
+# 0. DECISION LOCK — PRODUCT OWNER
+
+Quedan fijadas para esta fase las siguientes decisiones:
+
+### CAD-D01 — DEPLOYMENT
+
+`WINDOWS-FIRST / HEADLESS-CAPABLE`
+
+No se exige paridad Linux/macOS en esta fase.
+
+La arquitectura debe permitir adapters futuros sin modificar el Core.
+
+---
+
+### CAD-D02 — FIDELITY
+
+`STRICT / FORENSIC`
+
+Principio obligatorio:
+
+**NO SILENT LOSS.**
+
+Un archivo que pueda abrirse pero pierda información NO equivale a ingestión satisfactoria.
+
+Toda pérdida, entidad no soportada, conversión parcial o discrepancia debe producir evidencia y estado explícito.
+
+---
+
+### CAD-D03 — READER STRATEGY
+
+Arquitectura aprobada:
+
+```text
+PRIMARY
+ODA Drawings SDK
+        │
+        ▼
+CAD Adapter
+        │
+        ▼
+CAD Gateway
+        │
+        ▼
+ACIR
+        │
+        ▼
+ARKI
+```
+
+RealDWG queda como:
+
+`INDEPENDENT CROSS-CHECK / CRITICAL FILE VALIDATION`
+
+No será requisito para cada ingestión en el MVP.
+
+LibreDWG podrá utilizarse únicamente en el rol que la evidencia técnica y su cobertura permitan.
+
+ODA File Converter:
+
+`DIAGNOSTIC / CONVERSION TOOL`
+
+No sustituye al reader productivo.
+
+---
+
+### CAD-D04 — LICENSING
+
+`HARD GATE`
+
+No integrar, redistribuir ni desplegar SDK comercial hasta validar:
+
+* licencia;
+* derechos de desarrollo;
+* redistribución;
+* runtime;
+* server/headless;
+* cloud/SaaS cuando corresponda;
+* restricciones contractuales.
+
+Si falta evidencia:
+
+`LICENSE_GATE = BLOCKED`
+
+No inferir derechos contractuales.
+
+---
+
+### CAD-D05 — TEST CORPUS
+
+Se aprueba conceptualmente el corpus CAD-T01…CAD-T10 definido en CAD-001B.
+
+Su aprobación NO significa que los tests hayan pasado.
+
+---
+
+# 1. PRINCIPIO ARQUITECTÓNICO
+
+ARKI NO dependerá directamente de ODA, Autodesk, LibreDWG ni otro proveedor.
+
+Debe mantenerse:
+
+```text
+CAD FILE
+   ↓
+CAD GATEWAY
+   ↓
+PROVIDER ADAPTER
+   ↓
+ACIR
+   ↓
+ARKI
+```
+
+La dirección de dependencia debe impedir:
+
+```text
+ARKI CORE
+   ↓
+ODA API
+```
+
+o:
+
+```text
+ARKI CORE
+   ↓
+RealDWG API
+```
+
+Eso queda prohibido.
+
+---
+
+# 2. PRIMERA ACCIÓN — AUDITORÍA DEL REPOSITORIO
+
+Antes de crear código:
+
+buscar evidencia existente de:
+
+* CAD Gateway;
+* ACIR;
+* geometry ingestion;
+* DWG;
+* DXF;
+* drawing adapters;
+* import pipeline;
+* provenance;
+* file hashing;
+* unsupported entity handling;
+* geometry normalization;
+* coordinate systems;
+* unit normalization;
+* parser diagnostics.
+
+Clasificar cada hallazgo:
+
+`EXISTS`
+
+`PARTIAL`
+
+`DUPLICATE`
+
+`LEGACY`
+
+`NOT_FOUND`
+
+No crear componentes duplicados.
+
+---
+
+# 3. ACIR — REGLA FUNDAMENTAL
+
+ACIR será una:
+
+`DERIVED INTERMEDIATE REPRESENTATION`
+
+NO:
+
+`CANONICAL PROJECT STATE`
+
+NO:
+
+`BIM MODEL`
+
+NO:
+
+`SEMANTIC TRUTH`
+
+Por tanto:
+
+```text
+CAD ENTITY
+    ↓
+ACIR ENTITY
+```
+
+NO implica:
+
+```text
+ACIR ENTITY
+    ↓
+BIM SEMANTIC ENTITY
+```
+
+Ejemplos:
+
+`LINE ≠ WALL`
+
+`POLYLINE ≠ ROOM`
+
+`BLOCK ≠ DOOR`
+
+`TEXT ≠ FACT`
+
+`LAYER NAME ≠ SEMANTIC TRUTH`
+
+La interpretación arquitectónica pertenece a etapas posteriores gobernadas por evidencia.
+
+---
+
+# 4. ACIR MINIMUM CONTRACT
+
+Si el repositorio ya contiene ACIR, extender sólo donde sea necesario.
+
+Si no existe, implementar el mínimo contrato requerido.
+
+Debe soportar conceptualmente:
+
+### Document
+
+* sourceFile
+* sourceHash
+* sourceFormat
+* sourceVersion
+* units
+* coordinateSystem
+* extents
+* parser
+* parserVersion
+
+### Entity
+
+* id
+* sourceHandle
+* sourceType
+* layer
+* geometry
+* transform
+* properties
+* provenance
+* parseStatus
+
+### Structures
+
+* layer
+* blockDefinition
+* blockInstance
+* text
+* dimension
+* hatch
+* externalReference
+
+### Diagnostics
+
+* unsupportedEntity
+* warning
+* error
+* conversionLoss
+* parserFailure
+
+No añadir abstracciones innecesarias.
+
+---
+
+# 5. PARSE STATUS
+
+Estados mínimos:
+
+`PARSED`
+
+`PARTIALLY_PARSED`
+
+`UNSUPPORTED`
+
+`CORRUPTED`
+
+`UNKNOWN`
+
+`CONVERSION_LOSS_DETECTED`
+
+No convertir automáticamente estados degradados en éxito.
+
+---
+
+# 6. PROVENANCE
+
+Cada entidad ACIR debe conservar trazabilidad hasta la fuente.
+
+Mínimo:
+
+* source_file_hash;
+* source_format;
+* source_version;
+* source_entity_handle;
+* reader;
+* reader_version;
+* transformation_history.
+
+Reutilizar el sistema de provenance existente de ARKI.
+
+**NO crear un segundo provenance subsystem.**
+
+---
+
+# 7. PROVIDER ABSTRACTION
+
+Crear o verificar un contrato equivalente conceptualmente a:
+
+```text
+CadReaderAdapter
+
+canRead()
+inspect()
+parse()
+diagnostics()
+capabilities()
+```
+
+La nomenclatura concreta debe respetar las convenciones existentes del repositorio.
+
+No imponer estos nombres si ya existe arquitectura equivalente.
+
+---
+
+# 8. LICENSING FIREWALL
+
+Separar:
+
+```text
+OPEN IMPLEMENTATION WORK
+```
+
+de:
+
+```text
+COMMERCIAL SDK INTEGRATION
+```
+
+Se puede implementar sin licencia comercial, cuando sea técnicamente posible:
+
+* interfaces;
+* contracts;
+* ACIR;
+* diagnostics;
+* provenance;
+* test harness;
+* fixtures;
+* mocks;
+* adapter boundary;
+* validation logic.
+
+NO descargar ni integrar ODA/RealDWG si la autorización/licencia correspondiente no está demostrada.
+
+Si esto bloquea el reader real:
+
+registrar:
+
+`PRIMARY_READER_RUNTIME = BLOCKED_BY_LICENSE_OR_ACCESS`
+
+Esto NO bloquea la arquitectura del Gateway.
+
+---
+
+# 9. TEST HARNESS
+
+Preparar soporte para:
+
+`CAD-T01` DWG simple 2D
+`CAD-T02` layers complejos
+`CAD-T03` blocks + attributes
+`CAD-T04` dimensions + text
+`CAD-T05` xrefs
+`CAD-T06` splines/hatches/curves
+`CAD-T07` CAD 3D
+`CAD-T08` legacy DWG
+`CAD-T09` damaged/partial file
+`CAD-T10` professional authorized real file
+
+No fabricar archivos profesionales si no existen.
+
+Fixtures sintéticos deben identificarse:
+
+`SYNTHETIC_TEST_FIXTURE`
+
+Nunca:
+
+`REAL_PROJECT_EVIDENCE`.
+
+---
+
+# 10. VALIDATION METRICS
+
+Diseñar mediciones reproducibles:
+
+* entity count;
+* entity types;
+* layers;
+* blocks;
+* attributes;
+* xrefs;
+* extents;
+* bounding boxes;
+* units;
+* coordinates;
+* unsupported entities;
+* parse warnings;
+* parse errors;
+* conversion losses.
+
+Cuando exista cross-check independiente, comparar:
+
+```text
+PRIMARY RESULT
+        ↕
+CROSS-CHECK RESULT
+```
+
+y producir:
+
+`CAD_DISCREPANCY_REPORT`.
+
+---
+
+# 11. CAD_GEOMETRY_READY GATE
+
+NO cambiar:
+
+`CAD_GEOMETRY_READY = NO`
+
+hasta que exista evidencia de runtime suficiente.
+
+Para llegar a:
+
+`CAD_GEOMETRY_READY = YES`
+
+deben demostrarse como mínimo:
+
+1. reader real ejecutándose;
+2. archivo real autorizado leído;
+3. geometría extraída;
+4. unidades verificadas;
+5. coordenadas verificadas;
+6. layers preservados;
+7. blocks/instances verificables cuando existan;
+8. provenance hasta source entity;
+9. unsupported entities reportadas;
+10. no silent loss demostrado por diagnostics;
+11. resultados reproducibles;
+12. evidencia archivada.
+
+Además:
+
+`TECHNOLOGY_SELECTED ≠ IMPLEMENTED`
+
+`IMPLEMENTED ≠ VERIFIED`
+
+`FILE_OPENED ≠ GEOMETRY_VERIFIED`
+
+`GEOMETRY_VERIFIED ≠ BIM_VERIFIED`
+
+---
+
+# 12. ABB-001
+
+ABB-001 permanece:
+
+`BLOCKED`
+
+hasta superar `CAD_GEOMETRY_READY`.
+
+No modificar artificialmente el benchmark.
+
+Cuando el gate sea superado deberá emitirse evidencia explícita antes de reanudar F2.
+
+---
+
+# 13. NO TOCAR BKH
+
+Esta orden NO autoriza todavía modificaciones en:
+
+* BKH4;
+* canonical mutation;
+* Transaction Engine;
+* atomic commit;
+* rollback;
+* undo/redo;
+* crash recovery;
+* Constraint Engine.
+
+CAD y BKH deben permanecer como workstreams separados.
+
+---
+
+# 14. IMPLEMENTACIÓN
+
+Se autoriza exclusivamente código necesario para:
+
+* CAD Gateway boundary;
+* ACIR mínimo;
+* adapter contracts;
+* diagnostics;
+* provenance integration;
+* test harness;
+* mocks/fixtures permitidos;
+* validation infrastructure.
+
+Siempre después de auditar si ya existe capacidad equivalente.
+
+NO autoriza:
+
+* rediseño global;
+* agentes nuevos;
+* motores nuevos innecesarios;
+* refactors no relacionados;
+* cambio de arquitectura ARKI;
+* compra de licencias;
+* servicios cloud;
+* publicación;
+* despliegue productivo.
+
+---
+
+# 15. TESTS
+
+Ejecutar los tests existentes afectados.
+
+Añadir tests mínimos para nuevas capacidades.
+
+No modificar tests para ocultar fallos.
+
+Reportar:
+
+`PASS`
+
+`FAIL`
+
+`BLOCKED`
+
+`NOT_EXECUTED`
+
+No presentar `NOT_EXECUTED` como PASS.
+
+---
+
+# 16. GIT DISCIPLINE
+
+Antes:
+
+* branch;
+* HEAD;
+* worktree status.
+
+Después:
+
+* archivos modificados;
+* diff summary;
+* tests;
+* blockers.
+
+No realizar push remoto salvo que exista autorización previa aplicable.
+
+No mezclar cambios ajenos a CAD-001C.
+
+---
+
+# 17. ENTREGABLES
+
+Crear únicamente documentación necesaria:
+
+`ARKI_CAD_001C_IMPLEMENTATION_REPORT.md`
+
+`ARKI_CAD_001C_VALIDATION_REPORT.md`
+
+`ARKI_CAD_001C_GAPS.md`
+
+y:
+
+`ARKI_CAD_001C_MANIFEST.json`
+
+Evitar proliferación documental.
+
+---
+
+# 18. REPORTE FINAL
+
+Responder al Product Owner con:
+
+## ARKI-CAD-001C EXECUTION REPORT
+
+**Repository:**
+[...]
+
+**Branch:**
+[...]
+
+**Baseline HEAD:**
+[...]
+
+**Repository audit:**
+[...]
+
+**Existing CAD/ACIR capability found:**
+[...]
+
+**Implemented:**
+[...]
+
+**Not implemented:**
+[...]
+
+**Primary reader runtime:**
+[...]
+
+**License gate:**
+`PASS / BLOCKED / NOT_APPLICABLE`
+
+**Tests:**
+`PASS / FAIL / PARTIAL / BLOCKED`
+
+**CAD-T01..T10 status:**
+[...]
+
+**CAD_GEOMETRY_READY:**
+`YES / NO`
+
+**ABB-001:**
+`BLOCKED / READY_TO_RESUME`
+
+**Files changed:**
+[...]
+
+**Commit:**
+`NONE / <sha>`
+
+**Push:**
+`NO`
+
+**Blockers:**
+
+1. [...]
+2. [...]
+3. [...]
+
+**Evidence:**
+[...]
+
+**Recommended next action:**
+[...]
+
+Después detenerse.
+
+No continuar automáticamente con ABB-001 ni BKH.

@@ -1,0 +1,4044 @@
+{
+  "problem": "Find diverse compact-community massing alternatives under bounded program/circulation checks",
+  "scenario": {
+    "scenarioId": "scenario-compact-community",
+    "name": "Synthetic Compact Community",
+    "climate": "bounded-temperate",
+    "occupancy": "mixed-low-rise",
+    "operation": "day-evening",
+    "assumptions": [
+      "synthetic inputs only",
+      "no Aurora material",
+      "no DeepSeek exam fixture",
+      "cheap spatial checks only"
+    ],
+    "failureConditions": [
+      "floor area below program minimum",
+      "circulation below threshold",
+      "unknown structural discipline"
+    ],
+    "provenance": [
+      "synthetic fixture authored for ARKI-PREDICTIVE-ARCHITECTURE-001"
+    ],
+    "unknowns": [
+      "professional structural validation",
+      "fire engineering",
+      "real-world operations"
+    ]
+  },
+  "generation": {
+    "generationId": "generation-synthetic-001",
+    "objective": "16 diverse functionally eligible candidates",
+    "candidateCount": 40,
+    "parents": [],
+    "generationStrategy": "deterministic bounded variation",
+    "constraints": [
+      "floorArea>=900",
+      "circulation>=70"
+    ],
+    "mutationStrategy": "parameter variation",
+    "diversityStrategy": "signature clustering across massing/topology/orientation/circulation",
+    "createdAt": "2026-09-24T17:43:45.095Z",
+    "survivors": [
+      "candidate-48291a0ebc",
+      "candidate-e141e3df20",
+      "candidate-cfa1dab468",
+      "candidate-3c98e738b1",
+      "candidate-62f43394ce",
+      "candidate-387b7dd812",
+      "candidate-9899ce226c",
+      "candidate-82dea17aff",
+      "candidate-a221ad074a",
+      "candidate-51f85cba7c",
+      "candidate-347ae707a7",
+      "candidate-5f71f863fd",
+      "candidate-571f6613b0",
+      "candidate-1ff0bba83b",
+      "candidate-6c95d0e3ad",
+      "candidate-1385803967"
+    ],
+    "rejected": [
+      "candidate-cc8dec8f5c",
+      "candidate-03f74c4c75",
+      "candidate-5cf589440b",
+      "candidate-818e0eaa1b",
+      "candidate-d51a736414",
+      "candidate-fbf2efc504",
+      "candidate-77ab72d5f5",
+      "candidate-9fc4eaa6a3",
+      "candidate-cd368f4b4a",
+      "candidate-3296efbbf8",
+      "candidate-598c1805b1",
+      "candidate-d98425e4e7",
+      "candidate-b86d1f221e",
+      "candidate-745edd70ab",
+      "candidate-e1538127a5",
+      "candidate-bb57b938ea",
+      "candidate-6bc3754f01",
+      "candidate-22f73ee1fc",
+      "candidate-4eceea45ce",
+      "candidate-3684f1fd7d",
+      "candidate-ec48652d9e",
+      "candidate-ba2f52b461",
+      "candidate-89d4ca38fd"
+    ],
+    "unknown": [],
+    "evidence": [
+      "fixture synthetic",
+      "raw deterministic output"
+    ],
+    "seed": 192001
+  },
+  "candidates": [
+    {
+      "candidateId": "candidate-cc8dec8f5c",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 650,
+        "circulation": 45,
+        "orientation": 0
+      },
+      "geometryRef": "synthetic-massing:COURTYARD:0",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:0"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-cc8dec8f5c:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:0"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-cc8dec8f5c",
+          "candidateId": "candidate-cc8dec8f5c",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:0"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:0"
+      ],
+      "diversityFeatures": {
+        "massing": "COURTYARD",
+        "topology": "RING",
+        "orientation": 0,
+        "circulation": 45,
+        "energyProxy": 864
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-03f74c4c75",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 723,
+        "circulation": 62,
+        "orientation": 37
+      },
+      "geometryRef": "synthetic-massing:BAR:1",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:1"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-03f74c4c75:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:1"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-03f74c4c75",
+          "candidateId": "candidate-03f74c4c75",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:1"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:1"
+      ],
+      "diversityFeatures": {
+        "massing": "BAR",
+        "topology": "CROSS",
+        "orientation": 37,
+        "circulation": 62,
+        "energyProxy": 865
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-5cf589440b",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 796,
+        "circulation": 79,
+        "orientation": 74
+      },
+      "geometryRef": "synthetic-massing:PAVILION:2",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:2"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-5cf589440b:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:2"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-5cf589440b",
+          "candidateId": "candidate-5cf589440b",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:2"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:2"
+      ],
+      "diversityFeatures": {
+        "massing": "PAVILION",
+        "topology": "CENTRAL",
+        "orientation": 74,
+        "circulation": 79,
+        "energyProxy": 867
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-818e0eaa1b",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 869,
+        "circulation": 96,
+        "orientation": 111
+      },
+      "geometryRef": "synthetic-massing:PERIMETER:3",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:3"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-818e0eaa1b:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:3"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-818e0eaa1b",
+          "candidateId": "candidate-818e0eaa1b",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:3"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:3"
+      ],
+      "diversityFeatures": {
+        "massing": "PERIMETER",
+        "topology": "LINEAR",
+        "orientation": 111,
+        "circulation": 96,
+        "energyProxy": 869
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-48291a0ebc",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 942,
+        "circulation": 113,
+        "orientation": 148
+      },
+      "geometryRef": "synthetic-massing:TERRACED:4",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:4"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-48291a0ebc:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:4"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:4"
+      ],
+      "diversityFeatures": {
+        "massing": "TERRACED",
+        "topology": "STACKED",
+        "orientation": 148,
+        "circulation": 113,
+        "energyProxy": 870
+      },
+      "status": "SHORTLISTED",
+      "promotionHistory": [],
+      "pareto": true,
+      "selected": true
+    },
+    {
+      "candidateId": "candidate-d51a736414",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1015,
+        "circulation": 60,
+        "orientation": 185
+      },
+      "geometryRef": "synthetic-massing:SPINE:5",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:5"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-d51a736414:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:5"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-d51a736414",
+          "candidateId": "candidate-d51a736414",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:5"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:5"
+      ],
+      "diversityFeatures": {
+        "massing": "SPINE",
+        "topology": "MIXED",
+        "orientation": 185,
+        "circulation": 60,
+        "energyProxy": 787
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-e141e3df20",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1088,
+        "circulation": 77,
+        "orientation": 222
+      },
+      "geometryRef": "synthetic-massing:HYBRID:6",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:6"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-e141e3df20:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:6"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:6"
+      ],
+      "diversityFeatures": {
+        "massing": "HYBRID",
+        "topology": "CLUSTER",
+        "orientation": 222,
+        "circulation": 77,
+        "energyProxy": 789
+      },
+      "status": "SHORTLISTED",
+      "promotionHistory": [],
+      "pareto": false,
+      "selected": true
+    },
+    {
+      "candidateId": "candidate-cfa1dab468",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1161,
+        "circulation": 94,
+        "orientation": 259
+      },
+      "geometryRef": "synthetic-massing:TOWER_PODIUM:7",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:7"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-cfa1dab468:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:7"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:7"
+      ],
+      "diversityFeatures": {
+        "massing": "TOWER_PODIUM",
+        "topology": "POROUS",
+        "orientation": 259,
+        "circulation": 94,
+        "energyProxy": 790
+      },
+      "status": "SHORTLISTED",
+      "promotionHistory": [],
+      "pareto": false,
+      "selected": true
+    },
+    {
+      "candidateId": "candidate-3c98e738b1",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1234,
+        "circulation": 111,
+        "orientation": 296
+      },
+      "geometryRef": "synthetic-massing:COURTYARD:8",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:8"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-3c98e738b1:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:8"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:8"
+      ],
+      "diversityFeatures": {
+        "massing": "COURTYARD",
+        "topology": "RING",
+        "orientation": 296,
+        "circulation": 111,
+        "energyProxy": 792
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": true
+    },
+    {
+      "candidateId": "candidate-fbf2efc504",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1307,
+        "circulation": 58,
+        "orientation": 333
+      },
+      "geometryRef": "synthetic-massing:BAR:9",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:9"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-fbf2efc504:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:9"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-fbf2efc504",
+          "candidateId": "candidate-fbf2efc504",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:9"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:9"
+      ],
+      "diversityFeatures": {
+        "massing": "BAR",
+        "topology": "CROSS",
+        "orientation": 333,
+        "circulation": 58,
+        "energyProxy": 794
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-62f43394ce",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1380,
+        "circulation": 75,
+        "orientation": 10
+      },
+      "geometryRef": "synthetic-massing:PAVILION:10",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:10"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-62f43394ce:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:10"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:10"
+      ],
+      "diversityFeatures": {
+        "massing": "PAVILION",
+        "topology": "CENTRAL",
+        "orientation": 10,
+        "circulation": 75,
+        "energyProxy": 710
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-387b7dd812",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1453,
+        "circulation": 92,
+        "orientation": 47
+      },
+      "geometryRef": "synthetic-massing:PERIMETER:11",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:11"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-387b7dd812:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:11"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:11"
+      ],
+      "diversityFeatures": {
+        "massing": "PERIMETER",
+        "topology": "LINEAR",
+        "orientation": 47,
+        "circulation": 92,
+        "energyProxy": 712
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": true
+    },
+    {
+      "candidateId": "candidate-9899ce226c",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1526,
+        "circulation": 109,
+        "orientation": 84
+      },
+      "geometryRef": "synthetic-massing:TERRACED:12",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:12"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-9899ce226c:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:12"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:12"
+      ],
+      "diversityFeatures": {
+        "massing": "TERRACED",
+        "topology": "STACKED",
+        "orientation": 84,
+        "circulation": 109,
+        "energyProxy": 714
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": true
+    },
+    {
+      "candidateId": "candidate-77ab72d5f5",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 699,
+        "circulation": 56,
+        "orientation": 121
+      },
+      "geometryRef": "synthetic-massing:SPINE:13",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:13"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-77ab72d5f5:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:13"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-77ab72d5f5",
+          "candidateId": "candidate-77ab72d5f5",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:13"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:13"
+      ],
+      "diversityFeatures": {
+        "massing": "SPINE",
+        "topology": "MIXED",
+        "orientation": 121,
+        "circulation": 56,
+        "energyProxy": 904
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-9fc4eaa6a3",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 772,
+        "circulation": 73,
+        "orientation": 158
+      },
+      "geometryRef": "synthetic-massing:HYBRID:14",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:14"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-9fc4eaa6a3:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:14"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-9fc4eaa6a3",
+          "candidateId": "candidate-9fc4eaa6a3",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:14"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:14"
+      ],
+      "diversityFeatures": {
+        "massing": "HYBRID",
+        "topology": "CLUSTER",
+        "orientation": 158,
+        "circulation": 73,
+        "energyProxy": 906
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-cd368f4b4a",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 845,
+        "circulation": 90,
+        "orientation": 195
+      },
+      "geometryRef": "synthetic-massing:TOWER_PODIUM:15",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:15"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-cd368f4b4a:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:15"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-cd368f4b4a",
+          "candidateId": "candidate-cd368f4b4a",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:15"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:15"
+      ],
+      "diversityFeatures": {
+        "massing": "TOWER_PODIUM",
+        "topology": "POROUS",
+        "orientation": 195,
+        "circulation": 90,
+        "energyProxy": 823
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-82dea17aff",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 918,
+        "circulation": 107,
+        "orientation": 232
+      },
+      "geometryRef": "synthetic-massing:COURTYARD:16",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:16"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-82dea17aff:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:16"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:16"
+      ],
+      "diversityFeatures": {
+        "massing": "COURTYARD",
+        "topology": "RING",
+        "orientation": 232,
+        "circulation": 107,
+        "energyProxy": 824
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-3296efbbf8",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 991,
+        "circulation": 54,
+        "orientation": 269
+      },
+      "geometryRef": "synthetic-massing:BAR:17",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:17"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-3296efbbf8:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:17"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-3296efbbf8",
+          "candidateId": "candidate-3296efbbf8",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:17"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:17"
+      ],
+      "diversityFeatures": {
+        "massing": "BAR",
+        "topology": "CROSS",
+        "orientation": 269,
+        "circulation": 54,
+        "energyProxy": 826
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-a221ad074a",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1064,
+        "circulation": 71,
+        "orientation": 306
+      },
+      "geometryRef": "synthetic-massing:PAVILION:18",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:18"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-a221ad074a:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:18"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:18"
+      ],
+      "diversityFeatures": {
+        "massing": "PAVILION",
+        "topology": "CENTRAL",
+        "orientation": 306,
+        "circulation": 71,
+        "energyProxy": 828
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-51f85cba7c",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1137,
+        "circulation": 88,
+        "orientation": 343
+      },
+      "geometryRef": "synthetic-massing:PERIMETER:19",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:19"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-51f85cba7c:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:19"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:19"
+      ],
+      "diversityFeatures": {
+        "massing": "PERIMETER",
+        "topology": "LINEAR",
+        "orientation": 343,
+        "circulation": 88,
+        "energyProxy": 829
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-347ae707a7",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1210,
+        "circulation": 105,
+        "orientation": 20
+      },
+      "geometryRef": "synthetic-massing:TERRACED:20",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:20"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-347ae707a7:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:20"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:20"
+      ],
+      "diversityFeatures": {
+        "massing": "TERRACED",
+        "topology": "STACKED",
+        "orientation": 20,
+        "circulation": 105,
+        "energyProxy": 746
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-598c1805b1",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1283,
+        "circulation": 52,
+        "orientation": 57
+      },
+      "geometryRef": "synthetic-massing:SPINE:21",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:21"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-598c1805b1:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:21"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-598c1805b1",
+          "candidateId": "candidate-598c1805b1",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:21"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:21"
+      ],
+      "diversityFeatures": {
+        "massing": "SPINE",
+        "topology": "MIXED",
+        "orientation": 57,
+        "circulation": 52,
+        "energyProxy": 748
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-d98425e4e7",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1356,
+        "circulation": 69,
+        "orientation": 94
+      },
+      "geometryRef": "synthetic-massing:HYBRID:22",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:22"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-d98425e4e7:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:22"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-d98425e4e7",
+          "candidateId": "candidate-d98425e4e7",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:22"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:22"
+      ],
+      "diversityFeatures": {
+        "massing": "HYBRID",
+        "topology": "CLUSTER",
+        "orientation": 94,
+        "circulation": 69,
+        "energyProxy": 749
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-5f71f863fd",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1429,
+        "circulation": 86,
+        "orientation": 131
+      },
+      "geometryRef": "synthetic-massing:TOWER_PODIUM:23",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:23"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-5f71f863fd:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:23"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:23"
+      ],
+      "diversityFeatures": {
+        "massing": "TOWER_PODIUM",
+        "topology": "POROUS",
+        "orientation": 131,
+        "circulation": 86,
+        "energyProxy": 751
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-571f6613b0",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1502,
+        "circulation": 103,
+        "orientation": 168
+      },
+      "geometryRef": "synthetic-massing:COURTYARD:24",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:24"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-571f6613b0:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:24"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:24"
+      ],
+      "diversityFeatures": {
+        "massing": "COURTYARD",
+        "topology": "RING",
+        "orientation": 168,
+        "circulation": 103,
+        "energyProxy": 753
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-b86d1f221e",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 675,
+        "circulation": 50,
+        "orientation": 205
+      },
+      "geometryRef": "synthetic-massing:BAR:25",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:25"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-b86d1f221e:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:25"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-b86d1f221e",
+          "candidateId": "candidate-b86d1f221e",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:25"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:25"
+      ],
+      "diversityFeatures": {
+        "massing": "BAR",
+        "topology": "CROSS",
+        "orientation": 205,
+        "circulation": 50,
+        "energyProxy": 858
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-745edd70ab",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 748,
+        "circulation": 67,
+        "orientation": 242
+      },
+      "geometryRef": "synthetic-massing:PAVILION:26",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:26"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-745edd70ab:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:26"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-745edd70ab",
+          "candidateId": "candidate-745edd70ab",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:26"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:26"
+      ],
+      "diversityFeatures": {
+        "massing": "PAVILION",
+        "topology": "CENTRAL",
+        "orientation": 242,
+        "circulation": 67,
+        "energyProxy": 860
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-e1538127a5",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 821,
+        "circulation": 84,
+        "orientation": 279
+      },
+      "geometryRef": "synthetic-massing:PERIMETER:27",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:27"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-e1538127a5:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:27"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-e1538127a5",
+          "candidateId": "candidate-e1538127a5",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:27"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:27"
+      ],
+      "diversityFeatures": {
+        "massing": "PERIMETER",
+        "topology": "LINEAR",
+        "orientation": 279,
+        "circulation": 84,
+        "energyProxy": 862
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-bb57b938ea",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 894,
+        "circulation": 101,
+        "orientation": 316
+      },
+      "geometryRef": "synthetic-massing:TERRACED:28",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:28"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-bb57b938ea:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:28"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-bb57b938ea",
+          "candidateId": "candidate-bb57b938ea",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:28"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:28"
+      ],
+      "diversityFeatures": {
+        "massing": "TERRACED",
+        "topology": "STACKED",
+        "orientation": 316,
+        "circulation": 101,
+        "energyProxy": 863
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-6bc3754f01",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 967,
+        "circulation": 48,
+        "orientation": 353
+      },
+      "geometryRef": "synthetic-massing:SPINE:29",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:29"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-6bc3754f01:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:29"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-6bc3754f01",
+          "candidateId": "candidate-6bc3754f01",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:29"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:29"
+      ],
+      "diversityFeatures": {
+        "massing": "SPINE",
+        "topology": "MIXED",
+        "orientation": 353,
+        "circulation": 48,
+        "energyProxy": 865
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-22f73ee1fc",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1040,
+        "circulation": 65,
+        "orientation": 30
+      },
+      "geometryRef": "synthetic-massing:HYBRID:30",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:30"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-22f73ee1fc:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:30"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-22f73ee1fc",
+          "candidateId": "candidate-22f73ee1fc",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:30"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:30"
+      ],
+      "diversityFeatures": {
+        "massing": "HYBRID",
+        "topology": "CLUSTER",
+        "orientation": 30,
+        "circulation": 65,
+        "energyProxy": 782
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-1ff0bba83b",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1113,
+        "circulation": 82,
+        "orientation": 67
+      },
+      "geometryRef": "synthetic-massing:TOWER_PODIUM:31",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:31"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-1ff0bba83b:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:31"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:31"
+      ],
+      "diversityFeatures": {
+        "massing": "TOWER_PODIUM",
+        "topology": "POROUS",
+        "orientation": 67,
+        "circulation": 82,
+        "energyProxy": 783
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-6c95d0e3ad",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1186,
+        "circulation": 99,
+        "orientation": 104
+      },
+      "geometryRef": "synthetic-massing:COURTYARD:32",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:32"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-6c95d0e3ad:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:32"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:32"
+      ],
+      "diversityFeatures": {
+        "massing": "COURTYARD",
+        "topology": "RING",
+        "orientation": 104,
+        "circulation": 99,
+        "energyProxy": 785
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": false
+    },
+    {
+      "candidateId": "candidate-4eceea45ce",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1259,
+        "circulation": 46,
+        "orientation": 141
+      },
+      "geometryRef": "synthetic-massing:BAR:33",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:33"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-4eceea45ce:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:33"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-4eceea45ce",
+          "candidateId": "candidate-4eceea45ce",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:33"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:33"
+      ],
+      "diversityFeatures": {
+        "massing": "BAR",
+        "topology": "CROSS",
+        "orientation": 141,
+        "circulation": 46,
+        "energyProxy": 787
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-3684f1fd7d",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1332,
+        "circulation": 63,
+        "orientation": 178
+      },
+      "geometryRef": "synthetic-massing:PAVILION:34",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:34"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-3684f1fd7d:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:34"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-3684f1fd7d",
+          "candidateId": "candidate-3684f1fd7d",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "circulation",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:34"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:34"
+      ],
+      "diversityFeatures": {
+        "massing": "PAVILION",
+        "topology": "CENTRAL",
+        "orientation": 178,
+        "circulation": 63,
+        "energyProxy": 788
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-1385803967",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 1405,
+        "circulation": 80,
+        "orientation": 215
+      },
+      "geometryRef": "synthetic-massing:PERIMETER:35",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:35"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-1385803967:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:35"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:35"
+      ],
+      "diversityFeatures": {
+        "massing": "PERIMETER",
+        "topology": "LINEAR",
+        "orientation": 215,
+        "circulation": 80,
+        "energyProxy": 705
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": [],
+      "pareto": true
+    },
+    {
+      "candidateId": "candidate-2f0469ca81",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 1478,
+        "circulation": 97,
+        "orientation": 252
+      },
+      "geometryRef": "synthetic-massing:TERRACED:36",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:36"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-2f0469ca81:program",
+          "dimension": "functional-eligibility",
+          "value": 1,
+          "state": "PASS_BOUNDED",
+          "evidenceRefs": [
+            "fixture:candidate:36"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:36"
+      ],
+      "diversityFeatures": {
+        "massing": "TERRACED",
+        "topology": "STACKED",
+        "orientation": 252,
+        "circulation": 97,
+        "energyProxy": 707
+      },
+      "status": "FUNCTIONALLY_ELIGIBLE",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-ec48652d9e",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 651,
+        "circulation": 114,
+        "orientation": 289
+      },
+      "geometryRef": "synthetic-massing:SPINE:37",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:37"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-ec48652d9e:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:37"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-ec48652d9e",
+          "candidateId": "candidate-ec48652d9e",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:37"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:37"
+      ],
+      "diversityFeatures": {
+        "massing": "SPINE",
+        "topology": "MIXED",
+        "orientation": 289,
+        "circulation": 114,
+        "energyProxy": 897
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-ba2f52b461",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "bounded-mutation",
+      "parameters": {
+        "floorArea": 724,
+        "circulation": 61,
+        "orientation": 326
+      },
+      "geometryRef": "synthetic-massing:HYBRID:38",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:38"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-ba2f52b461:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:38"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-ba2f52b461",
+          "candidateId": "candidate-ba2f52b461",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:38"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:38"
+      ],
+      "diversityFeatures": {
+        "massing": "HYBRID",
+        "topology": "CLUSTER",
+        "orientation": 326,
+        "circulation": 61,
+        "energyProxy": 899
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    },
+    {
+      "candidateId": "candidate-89d4ca38fd",
+      "projectId": "synthetic-project-001",
+      "generationId": "generation-synthetic-001",
+      "parentIds": [],
+      "strategy": "seed-variation",
+      "parameters": {
+        "floorArea": 797,
+        "circulation": 78,
+        "orientation": 3
+      },
+      "geometryRef": "synthetic-massing:TOWER_PODIUM:39",
+      "programRef": "program:compact-community-v1",
+      "scenarioRefs": [
+        "scenario-compact-community"
+      ],
+      "fidelityLevel": "L2_VISUAL_PREVIEW",
+      "epistemicState": "MODELED",
+      "validationEnvelope": {
+        "evaluatedDimensions": [
+          "program",
+          "spatial",
+          "circulation"
+        ],
+        "unevaluatedDimensions": [
+          "structure",
+          "fire",
+          "professional certification"
+        ],
+        "modelsUsed": [
+          "bounded-spatial-check-v1"
+        ],
+        "solverToolsUsed": [
+          "internal-deterministic-check"
+        ],
+        "assumptions": [
+          "synthetic inputs only",
+          "no Aurora material",
+          "no DeepSeek exam fixture",
+          "cheap spatial checks only"
+        ],
+        "unknowns": [
+          "professional structural validation",
+          "fire engineering",
+          "real-world operations"
+        ],
+        "evidence": [
+          "fixture:candidate:39"
+        ],
+        "fidelityLevel": "L2_VISUAL_PREVIEW",
+        "professionalValidationRequired": true
+      },
+      "evaluations": [
+        {
+          "evaluationId": "eval:candidate-89d4ca38fd:program",
+          "dimension": "functional-eligibility",
+          "value": 0,
+          "state": "FAIL",
+          "evidenceRefs": [
+            "fixture:candidate:39"
+          ],
+          "modelVersion": "bounded-spatial-check-v1"
+        }
+      ],
+      "simulationRuns": [],
+      "failures": [
+        {
+          "failureId": "failure:candidate-89d4ca38fd",
+          "candidateId": "candidate-89d4ca38fd",
+          "scenarioId": "scenario-compact-community",
+          "failureClass": "CONSTRAINT",
+          "failedConstraint": "minimum-program-and-circulation",
+          "failedMetric": "floorArea",
+          "rootCauseStatus": "IDENTIFIED",
+          "evidence": [
+            "fixture:candidate:39"
+          ],
+          "context": "synthetic compact community",
+          "scale": "L1_SPATIAL",
+          "applicability": [
+            "synthetic-project-001"
+          ],
+          "rejectionDecision": "COMPUTATIONAL_REJECTION",
+          "reusabilityOfLearning": "CANDIDATE"
+        }
+      ],
+      "unknowns": [
+        "professional structural validation",
+        "fire engineering",
+        "real-world operations"
+      ],
+      "evidenceRefs": [
+        "fixture:candidate:39"
+      ],
+      "diversityFeatures": {
+        "massing": "TOWER_PODIUM",
+        "topology": "POROUS",
+        "orientation": 3,
+        "circulation": 78,
+        "energyProxy": 901
+      },
+      "status": "REJECTED",
+      "rejectionReason": "hard constraint: floor area/circulation",
+      "promotionHistory": []
+    }
+  ],
+  "learning": [
+    {
+      "learningId": "learning:failure-001",
+      "sourceFailureIds": [
+        "failure:candidate-cc8dec8f5c",
+        "failure:candidate-03f74c4c75",
+        "failure:candidate-5cf589440b"
+      ],
+      "strategy": "raise early spatial checks before preview promotion",
+      "lesson": "candidates failing minimum program/circulation should not reach visual shortlist",
+      "context": "synthetic compact community",
+      "scale": "L1_SPATIAL",
+      "scenario": "scenario-compact-community",
+      "evidence": [
+        "failure records",
+        "16-survivor gate"
+      ],
+      "applicability": [
+        "synthetic fixture only"
+      ],
+      "epistemicState": "CANDIDATE",
+      "transferTests": [
+        "pending variant/inverse/boundary/transfer tests"
+      ],
+      "regressions": [
+        "do not apply as universal architectural law"
+      ]
+    }
+  ],
+  "opportunity": {
+    "opportunityId": "opportunity:predictive-explorer-001",
+    "type": "ARCHITECTURAL",
+    "baseline": "single-candidate ARKI workflow",
+    "discovery": "bounded exploration can preserve diverse eligible alternatives before deeper analysis",
+    "evidence": [
+      "generation synthetic-001",
+      "survivors=16",
+      "diversity signatures",
+      "pareto calculation"
+    ],
+    "whyNow": "CCF integration and bounded fixture are available",
+    "affectedAreas": [
+      "design-exploration",
+      "simulation",
+      "autopilot",
+      "evidence"
+    ],
+    "dependencies": [
+      "CCF",
+      "Autopilot",
+      "units/epistemic foundations"
+    ],
+    "options": {
+      "continue": "retain current bounded workflow",
+      "localAdaptation": "add project-specific generation strategies",
+      "architecturalChange": "defer broad predictive architecture until PO review"
+    },
+    "unknowns": [
+      "professional domain validity",
+      "real project transfer"
+    ],
+    "risks": [
+      "overfitting synthetic fixture",
+      "false confidence"
+    ],
+    "reversibility": "fully reversible sandbox-only",
+    "workAtRisk": "none canonical",
+    "futureDebt": "full domain solver integration",
+    "technicalRecommendation": "continue bounded sandbox research and require human gate before promotion",
+    "status": "PRESENTED"
+  },
+  "pipelineEvents": [
+    "PROBLEM_DEFINED",
+    "CANDIDATES_GENERATED:40",
+    "HARD_CONSTRAINT_FILTER:24_REJECTED",
+    "DIVERSITY_CLUSTERING",
+    "SURVIVORS:16",
+    "VISUAL_BOARD_READY",
+    "HUMAN_SELECTION:3",
+    "PARETO_TRADEOFF_COMPUTED",
+    "DEEPER_EVALUATION_ON_DEMAND",
+    "LEARNING_RECORD_CREATED",
+    "OPPORTUNITY_GATE_PRESENTED"
+  ],
+  "evidenceRefs": [
+    "PREDICTIVE_ARCHITECTURE_001_EVIDENCE/raw/fixture-result.json"
+  ],
+  "status": "COMPLETED_BOUNDED"
+}

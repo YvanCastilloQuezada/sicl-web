@@ -1,0 +1,45 @@
+src/sicl/a002/model.py:139:        """Return the level guaranteed by construction.
+tests/test_archi_model.py:15:def test_archielement_properties_cannot_mutate_after_construction():
+tests/test_a002_adversarial.py:70:    other = req(knowledge, evidence, operation="construction documents")
+tests/test_a002_adversarial.py:155:def test_malformed_evidence_hash_fails_closed_at_construction():
+src/sicl/design_knowledge.py:199:    DesignKnowledgeSource("BOOK-ALEXANDER-PATTERN-LANGUAGE", "A Pattern Language: Towns, Buildings, Construction", ["Christopher Alexander", "Sara Ishikawa", "Murray Silverstein"], SourceClass.THEORETICAL, "BOOK", "en", 1977, "Oxford University Press", edition_or_version="1st edition", license_status=LicenseStatus.NO_REPRODUCTION, bibliographic_reference="Alexander et al. (1977), A Pattern Language."),
+src/sicl/cli.py:1149:        proposals = [item for item in proposals if not target_objectives or any(item_key in target_objectives for item_key in ("ENERGY_SAVINGS", "CONSTRUCTION_COST", "ESTIMATED_COST"))]
+tests/test_optimization_phase5.py:34:    result = cli.execute("/GENERATE CONVENCIONAL_A ENERGY_SAVINGS,CONSTRUCTION_COST")
+tests/test_optimization_phase5.py:61:    cli.execute("/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 100")
+tests/test_optimization_phase5.py:65:    cli.execute("/EVALUATE A CONSTRUCTION_COST 100")
+tests/test_optimization_phase5.py:67:    cli.execute("/EVALUATE B CONSTRUCTION_COST 115")
+tests/test_optimization_phase5.py:68:    text = cli.execute("/TRADEOFF_MATRIX ENERGY_SAVINGS CONSTRUCTION_COST")["data"]["text"]
+tests/test_multiobjective.py:17:    objective_b = cli.execute('/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 80')["data"]["objective_id"]
+tests/test_multiobjective.py:21:    cli.execute('/EVALUATE ALPHA CONSTRUCTION_COST 80 USD 1 USER_INPUT')
+tests/test_multiobjective.py:23:    cli.execute('/EVALUATE BETA CONSTRUCTION_COST 100 USD 1 USER_INPUT')
+tests/test_multiobjective.py:31:        result = cli.execute(f'/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:40:        assert record["objectives"] == ["ENERGY_SAVINGS", "CONSTRUCTION_COST"]
+tests/test_multiobjective.py:49:        result = cli.execute('/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:66:        cli.execute('/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 80')
+tests/test_multiobjective.py:68:        result = cli.execute('/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:73:        assert cli.execute('/MULTIOBJECTIVE PARETO UNKNOWN CONSTRUCTION_COST')["code"] == "OBJECTIVE_NOT_FOUND"
+tests/test_multiobjective.py:84:        cli.execute('/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 80')
+tests/test_multiobjective.py:87:        result = cli.execute('/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:97:    result = cli.execute('/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST')
+tests/test_multiobjective.py:125:        created = TestClient(app).post('/v1/projects/P-MOBJ/multiobjective/pareto', json={"objectives": ["ENERGY_SAVINGS", "CONSTRUCTION_COST"]})
+tests/test_multiobjective.py:130:        tradeoffs = TestClient(app).post('/v1/projects/P-MOBJ/multiobjective/tradeoffs', json={"objectives": ["ENERGY_SAVINGS", "CONSTRUCTION_COST"]})
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:5:The Ministry of Housing, Construction and Sanitation RNE portal identifies the RNE as the national technical framework and links the component PDFs:
+docs/COMMANDS_REFERENCE.md:516:/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:530:/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:630:/GENERATE evolutionary_v1 ENERGY_SAVINGS,CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:644:/PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/COMMANDS_REFERENCE.md:658:/TRADEOFF_MATRIX ENERGY_SAVINGS CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:449:/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:465:/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:739:/MULTIOBJECTIVE PARETO CLIMATE CONSTRUCTION_COST
+docs/OPERATIONS_MANUAL.md:740:/MULTIOBJECTIVE TRADEOFFS CLIMATE CONSTRUCTION_COST
+docs/USER_MANUAL.md:91:/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 60 USD_M2
+docs/USER_MANUAL.md:208:/PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/USER_MANUAL.md:209:/MULTIOBJECTIVE PARETO ENERGY_SAVINGS CONSTRUCTION_COST
+docs/USER_MANUAL.md:210:/MULTIOBJECTIVE TRADEOFFS ENERGY_SAVINGS CONSTRUCTION_COST
+docs/USER_MANUAL.md:606:/OBJECTIVE SET CONSTRUCTION_COST MINIMIZE 60
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:445:Feasible Pareto for UPAO-001, energy savings, construction cost, automatic recommendation, and automatic Decision remain outside the approved pilot scope.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:107:3. A knowledge view does not depend on a ConstructionModel 3D object.
+docs/architecture/MV_P1_0_RUNTIME_VARIABLE_ARCHITECTURE_LOCK.md:55:The structures are frozen, serializable, and validated at construction. Duplicate definition IDs, duplicate definition/profile versions, invalid scopes, and invalid requirement or applicability states are rejected deterministically.
+docs/architecture/MV_P1_0_RUNTIME_VARIABLE_ARCHITECTURE_LOCK.md:59:`SuggestedVariable` is extended only with optional catalogue references: `canonical_variable_id`, `catalog_version`, and `definition_version`. Existing positional construction remains compatible because the fields have defaults.
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:45:- Canonical view-family taxonomy and validation before scene construction.

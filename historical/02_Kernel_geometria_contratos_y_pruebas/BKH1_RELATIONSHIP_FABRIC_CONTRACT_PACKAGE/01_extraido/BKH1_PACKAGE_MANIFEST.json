@@ -1,0 +1,14 @@
+{
+  "schema": "ARKI-BKH1-CONTRACT-PACKAGE-1.0",
+  "status": "IN_REVIEW",
+  "implementation": "BLOCKED",
+  "files": [
+    {"path":"BKH1_RELATIONSHIP_FABRIC_CONTRACT.md","bytes":4239,"sha256":"330b62c19235bc385b63708f378d0202658a280d7821bdb3e18d98fcd4412446"},
+    {"path":"BKH1_RELATION_MIGRATION_MATRIX.md","bytes":3381,"sha256":"3712b987b7b9b9e19a1eb96dcf9e5b4f6b686f79b2f70c9a057c9fa4ebb15534"},
+    {"path":"BKH1_RELATIONSHIP_SCHEMA.md","bytes":2679,"sha256":"d978e9b2890aace206f6882ca884091cf228cd21cda963cb4a8110313905ffe7"},
+    {"path":"BKH1_TEST_PLAN.md","bytes":2824,"sha256":"fae9b91a5383b3111a2c45391abcdd15135e4d98ef625b6f79b40de1cb7920c5"},
+    {"path":"BKH1_SCOPE_LIMITS.md","bytes":1448,"sha256":"bd1d07e0872a984b465412e37e663620bdcd30ce62ac0368567a6d9a96c7a276"},
+    {"path":"BKH1_IMPLEMENTATION_SEQUENCE.md","bytes":2814,"sha256":"a26fd556dfb4f5f6a12829b9adbea2c17edca2bb5f801e2638a6081bc0b85b75"},
+    {"path":"BKH1_PACKAGE_README.md","bytes":1796,"sha256":"763eff5556188ef6e35c950a79803c80434a5e4222ecff6f80a59aac35b35948"}
+  ]
+}

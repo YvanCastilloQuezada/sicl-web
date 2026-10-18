@@ -1,0 +1,37 @@
+{
+  "schema": "ARKI-E8-MANIFEST-1.0",
+  "status": "OPEN / DAY-1 SCAFFOLD / IMPLEMENTATION_NOT_STARTED",
+  "authority": "Product Owner / Human Authority",
+  "baseline": "c62183a",
+  "cycleLimit": 1,
+  "implementationAuthorized": true,
+  "verificationStatus": "PENDING",
+  "blocks": [
+    "E8-A",
+    "E8-B",
+    "E8-C"
+  ],
+  "capturesRequiredAtClosure": 6,
+  "testsRequiredAtClosure": 12,
+  "sourceEvidence": [
+    {
+      "path": "E8_CONTRATO_PROPUESTO_V1.md",
+      "sha256": "PENDING_RECOMPUTE_AT_CLOSURE"
+    },
+    {
+      "path": "E8_SCOPE_LIMITS.md",
+      "sha256": "PENDING_RECOMPUTE_AT_CLOSURE"
+    },
+    {
+      "path": "E8_PREFLIGHT_OUTPUTS.txt",
+      "sha256": "PENDING_RECOMPUTE_AT_CLOSURE"
+    }
+  ],
+  "captures": [],
+  "outputs": [],
+  "notes": [
+    "This is a day-1 scaffold, not a VERIFIED manifest.",
+    "Hashes for the scaffold and final evidence must be regenerated at closure.",
+    "E5/E6/E7 remain frozen and are not reopened by E8."
+  ]
+}

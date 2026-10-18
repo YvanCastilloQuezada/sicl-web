@@ -1,0 +1,634 @@
+ORDEN 35 PARA MANUS
+VALIDACIÓN REAL EN CAMPO — PRUEBA DE VERDAD MAPPER → THE EYE → RUNTIME
+
+ESTA ORDEN NO ES UNA ORDEN DE NUEVAS FUNCIONALIDADES.
+
+Su objetivo es validar en hardware y condiciones reales que la arquitectura ya implementada funciona como sistema completo.
+
+No agregar funcionalidades nuevas salvo que una falla observada durante las pruebas las haga estrictamente necesarias.
+
+MJP CORE permanece absolutamente intacto.
+
+0. OBJETIVO DE LA ORDEN
+
+El sistema Mapper + The Eye ya cuenta en sandbox con:
+
+CaptureSession persistente.
+WorldObjects versionados.
+Claims.
+Sources.
+Evidence.
+Snapshots históricos inmutables.
+Restauración como nueva versión.
+Modo offline.
+Cola de sincronización.
+Sincronización idempotente.
+Detección de conflictos.
+Resolución manual.
+Comparación local/remota.
+Audit Log.
+Evidence Matrix.
+Confidence Score explicable.
+publicationStatus separado.
+Runtime restringido a la versión publicada.
+RBAC.
+Protección de MJP CORE.
+
+La siguiente etapa no debe ser otra ronda de desarrollo especulativo.
+
+Debe responder una pregunta concreta:
+
+¿El sistema funciona realmente en la calle, con teléfonos reales, GPS real, cámara real, pérdida de conectividad y dos usuarios independientes?
+
+1. REGLA DE NO REGRESIÓN
+
+Antes de comenzar las pruebas:
+
+1.1 Crear checkpoint
+
+Registrar:
+
+commit/hash;
+versión de aplicación;
+versión de base de datos;
+configuración utilizada;
+número de pruebas;
+resultado de TypeScript;
+resultado de build;
+resultado de tests.
+1.2 MJP CORE
+
+Verificar explícitamente:
+
+ningún archivo del MJP CORE modificado;
+ningún endpoint del MJP CORE modificado;
+ninguna dependencia funcional nueva sobre MJP CORE;
+ninguna modificación de lógica de sorteos;
+ninguna modificación de pagos;
+ninguna modificación de créditos;
+ninguna modificación del Runtime de MJP.
+
+Resultado obligatorio:
+
+MJP CORE = INTACT
+
+Si existe cualquier modificación, detener la ejecución y reportarla antes de continuar.
+
+2. PRUEBA REAL EN DOS DISPOSITIVOS
+Dispositivo A — Mapper
+
+Debe representar un usuario con rol:
+
+MAPPER
+
+Debe ejecutar:
+
+GPS;
+cámara;
+captura;
+fotografías;
+notas;
+creación de WorldObjects;
+funcionamiento offline;
+sincronización.
+Dispositivo B — The Eye
+
+Debe representar un usuario con rol:
+
+AUDITOR
+
+Debe ejecutar:
+
+recepción;
+revisión;
+Evidence Matrix;
+revisión de Claims;
+revisión de Sources;
+revisión de Evidence;
+comparación de versiones;
+resolución de conflictos;
+aprobación/rechazo;
+auditoría.
+
+Si Human Authority es un rol separado, deberá utilizarse un tercer dispositivo o una sesión independiente.
+
+3. PROTOCOLO A — CAPTURA ONLINE
+
+Crear una nueva:
+
+CaptureSession
+
+Ejemplo:
+
+TRUJILLO PILOTO 001
+
+Registrar:
+
+responsable;
+territorio;
+fecha;
+dispositivo;
+estado inicial.
+
+Capturar un objeto territorial real.
+
+Ejemplo:
+
+Objeto A — Plaza de Armas de Trujillo
+
+Registrar:
+
+nombre;
+tipo;
+coordenadas GPS;
+precisión;
+fotografía;
+nota;
+evidencia;
+sesión.
+
+Verificar que el objeto quede:
+
+CAPTURED
+
+y que exista:
+
+ID único;
+versión;
+timestamp;
+responsable;
+audit event.
+4. PROTOCOLO B — CAPTURA OFFLINE
+
+En el Dispositivo A:
+
+Establecer conexión.
+Confirmar estado ONLINE.
+Desactivar deliberadamente la conectividad.
+Confirmar estado OFFLINE.
+Crear nuevos WorldObjects.
+Tomar fotografías.
+Registrar GPS.
+Crear notas.
+Cerrar/reabrir la aplicación.
+Confirmar que los datos permanecen almacenados.
+
+Los objetos deben aparecer como:
+
+LOCAL_PENDING
+
+o el estado equivalente implementado.
+
+Resultado obligatorio
+
+Los datos capturados offline no deben perderse.
+
+5. PROTOCOLO C — RECONEXIÓN
+
+Restablecer conectividad.
+
+Verificar:
+
+LOCAL_PENDING → SYNCING → SYNCED
+
+Comprobar:
+
+que cada operación se sincronice una sola vez;
+que no se creen duplicados;
+que fotografías y evidencias lleguen correctamente;
+que la sesión conserve sus contadores;
+que la versión sea correcta;
+que el Audit Log registre la sincronización.
+
+Repetir la sincronización manualmente.
+
+Resultado esperado
+
+La segunda sincronización debe ser idempotente.
+
+No debe crear:
+
+WorldObjects duplicados;
+Claims duplicados;
+Evidence duplicada;
+versiones duplicadas.
+6. PROTOCOLO D — CONFLICTO REAL ENTRE DOS DISPOSITIVOS
+
+Esta prueba es obligatoria.
+
+Crear un WorldObject inicial.
+
+Después:
+
+Dispositivo A
+
+Modificar:
+
+Nombre / descripción / coordenada / evidencia
+
+sin sincronizar inmediatamente.
+
+Dispositivo B
+
+Modificar el mismo objeto de forma independiente.
+
+Sincronizar ambos dispositivos en momentos diferentes.
+
+Resultado esperado
+
+El sistema debe detectar:
+
+CONFLICT
+
+y no utilizar last-write-wins.
+
+Debe conservar las versiones involucradas.
+
+7. PROTOCOLO E — RESOLUCIÓN DEL CONFLICTO
+
+Abrir el conflicto desde The Eye.
+
+Comprobar que el auditor pueda identificar claramente:
+
+LOCAL
+versión;
+fecha;
+dispositivo;
+usuario;
+cambios.
+REMOTA
+versión;
+fecha;
+dispositivo;
+usuario;
+cambios.
+
+Ejecutar una resolución.
+
+Probar al menos una vez:
+
+mantener local;
+mantener remota;
+combinar;
+marcar como DISPUTED.
+
+Cada decisión debe generar:
+
+nueva versión cuando corresponda;
+snapshot;
+Audit Log;
+usuario responsable;
+fecha/hora;
+decisión tomada;
+versiones afectadas.
+8. PROTOCOLO F — GPS REAL
+
+Probar en dispositivo físico:
+
+GPS
+permiso concedido;
+permiso denegado;
+precisión alta;
+precisión baja;
+pérdida temporal;
+recuperación;
+ubicación inválida.
+
+Registrar para cada caso:
+
+resultado;
+comportamiento de UI;
+mensaje mostrado;
+estado almacenado;
+impacto sobre la captura.
+Regla
+
+Una coordenada de baja precisión no debe presentarse como una coordenada de alta confianza.
+
+9. PROTOCOLO G — CÁMARA REAL
+
+Probar:
+
+permiso concedido;
+permiso denegado;
+captura correcta;
+cancelación;
+fotografía de gran tamaño;
+pérdida de conexión después de capturar;
+almacenamiento offline;
+posterior sincronización.
+
+Verificar que la evidencia permanezca asociada al WorldObject correcto.
+
+10. PROTOCOLO H — THE EYE
+
+Desde el Dispositivo B:
+
+Recibir objeto.
+Abrir expediente.
+Revisar fotografías.
+Revisar coordenadas.
+Revisar Claims.
+Revisar Sources.
+Revisar Evidence.
+Revisar Evidence Matrix.
+Revisar Confidence Score.
+Revisar historial.
+Revisar snapshots.
+Revisar cambios entre versiones.
+
+El auditor debe poder responder:
+
+¿Por qué considero confiable este objeto?
+
+y:
+
+¿Qué evidencia respalda cada afirmación importante?
+
+Si la interfaz o el modelo no permiten responderlo, registrar el problema.
+
+11. PROTOCOLO I — PUBLICACIÓN
+
+Seleccionar una versión concreta.
+
+The Eye:
+
+UNDER_REVIEW → VERIFIED
+
+Posteriormente Human Authority:
+
+VERIFIED → PUBLISHED
+
+Comprobar que el Runtime consuma:
+
+exactamente la versión autorizada.
+
+12. PRUEBA CRÍTICA DE NO CONTAMINACIÓN
+
+Después de publicar una versión:
+
+Crear una nueva edición del WorldObject.
+Modificar información.
+Guardarla.
+Confirmar que se genere una nueva versión.
+Resultado obligatorio
+
+La modificación NO debe sustituir automáticamente la versión publicada.
+
+El Runtime debe continuar mostrando:
+
+publishedVersion = versión autorizada
+
+hasta que una nueva versión sea explícitamente autorizada para publicación.
+
+Esta prueba es crítica.
+
+13. PROTOCOLO J — RECHAZO
+
+Crear deliberadamente un objeto con información incorrecta.
+
+Enviar a The Eye.
+
+Rechazarlo.
+
+Verificar:
+
+UNDER_REVIEW → REJECTED
+
+Comprobar que:
+
+exista motivo;
+exista auditor;
+exista timestamp;
+exista Audit Log;
+no aparezca en Runtime.
+14. PROTOCOLO K — DISPUTA
+
+Crear dos Claims incompatibles.
+
+Ejemplo:
+
+Claim A: “Construido en 1920”.
+
+Claim B: “Construido en 1925”.
+
+Asociar fuentes diferentes.
+
+Marcar:
+
+DISPUTED
+
+Verificar que:
+
+ambos Claims permanezcan;
+no se elimine información histórica;
+el conflicto quede registrado;
+el Runtime no presente una afirmación como hecho confirmado mientras permanezca disputada, salvo que el modelo de publicación explícitamente permita presentar la disputa.
+15. PRIMER LEVANTAMIENTO REAL DE TRUJILLO
+
+Solo después de completar satisfactoriamente los protocolos anteriores.
+
+Crear:
+
+CaptureSession
+
+TRUJILLO — PILOTO TERRITORIAL 001
+
+Capturar inicialmente 5 WorldObjects, no 50 ni 100.
+
+La intención no es volumen.
+
+La intención es probar la cadena completa.
+
+Cada objeto deberá tener, como mínimo:
+
+coordenadas;
+precisión;
+fotografía;
+descripción;
+al menos un Claim cuando corresponda;
+Source;
+Evidence;
+versión;
+responsable;
+sesión de captura.
+Candidatos
+Plaza de Armas de Trujillo.
+Un edificio patrimonial.
+Un espacio público.
+Un equipamiento urbano.
+Un objeto adicional que permita probar una condición distinta.
+
+No asumir que los ejemplos anteriores son obligatorios. El criterio principal es que los cinco objetos permitan probar diferentes tipos de captura.
+
+16. CRITERIOS DE APROBACIÓN
+
+La Orden 35 solo se considera completada si se demuestra:
+
+Captura
+ GPS real funciona.
+ Cámara real funciona.
+ WorldObject real creado.
+ CaptureSession funciona.
+Offline
+ Captura sin conexión.
+ Persistencia local.
+ Reconexión.
+ Sincronización idempotente.
+Conflictos
+ Conflicto real generado.
+ Conflicto detectado.
+ Versiones conservadas.
+ Resolución humana.
+ Auditoría completa.
+The Eye
+ Expediente completo.
+ Claims.
+ Sources.
+ Evidence.
+ Evidence Matrix.
+ Confidence Score.
+ Decisión auditable.
+Publicación
+ Human Authority.
+ Versión específica publicada.
+ Runtime consume únicamente versión publicada.
+ Edición posterior no reemplaza automáticamente lo publicado.
+Seguridad
+ RBAC funciona.
+ Mapper no puede aprobar.
+ Auditor no puede alterar arbitrariamente una publicación sin autorización.
+ Acciones sensibles quedan auditadas.
+MJP
+ MJP CORE intacto.
+17. INFORME OBLIGATORIO
+
+No entregar únicamente:
+
+“Tests PASS”.
+
+Manus debe entregar un Informe de Validación de Campo con:
+
+A. Dispositivos
+fabricante;
+modelo;
+sistema operativo;
+versión;
+navegador/app;
+conexión utilizada.
+B. Pruebas
+ID	Prueba	Resultado	Evidencia	Incidencia
+A1	Captura online	PASS/FAIL	Sí/No	...
+A2	Captura offline	PASS/FAIL	Sí/No	...
+A3	Sincronización	PASS/FAIL	Sí/No	...
+A4	Conflicto	PASS/FAIL	Sí/No	...
+A5	Resolución	PASS/FAIL	Sí/No	...
+A6	GPS	PASS/FAIL	Sí/No	...
+A7	Cámara	PASS/FAIL	Sí/No	...
+A8	The Eye	PASS/FAIL	Sí/No	...
+A9	Publicación	PASS/FAIL	Sí/No	...
+A10	Runtime	PASS/FAIL	Sí/No	...
+C. Evidencia
+
+Cuando sea posible:
+
+capturas de pantalla;
+IDs de objetos;
+IDs de sesiones;
+versiones;
+timestamps;
+Audit Log;
+resultados de sincronización.
+D. Incidencias
+
+Clasificar cada problema:
+
+BLOCKER
+
+HIGH
+
+MEDIUM
+
+LOW
+
+No ocultar fallos menores.
+
+18. REGLA SOBRE NUEVAS SUGERENCIAS
+
+Al terminar esta orden, NO implementar automáticamente nuevas sugerencias.
+
+Toda nueva sugerencia deberá clasificarse:
+
+🔴 BLOCKER
+
+Impide demostrar que Mapper → The Eye → Runtime funciona.
+
+🟠 IMPORTANT
+
+No impide el piloto, pero debe resolverse antes de escalar.
+
+🟢 ENHANCEMENT
+
+Mejora futura.
+
+Solo los BLOCKER deben generar automáticamente una nueva orden técnica.
+
+19. CODE-SPLITTING
+
+No implementar code-splitting únicamente porque haya sido sugerido anteriormente.
+
+Solo hacerlo si las mediciones reales demuestran:
+
+carga inicial excesiva;
+impacto perceptible en dispositivos objetivo;
+chunks innecesariamente grandes.
+
+Si no existe evidencia cuantitativa, no modificar la arquitectura por esta razón.
+
+20. CRITERIO FINAL
+
+La pregunta que debe responder esta orden no es:
+
+“¿Tenemos buen código?”
+
+La pregunta es:
+
+“¿Podemos salir a la calle, capturar la realidad, perder internet, recuperar conexión, producir un conflicto, resolverlo humanamente, verificar la evidencia, autorizar una versión y demostrar que únicamente esa versión llegó al Mundo de MiLukita?”
+
+Si la respuesta es sí, se cierra la fase técnica.
+
+Si la respuesta es no, no se pasa a la siguiente fase hasta corregir el bloqueo concreto.
+
+ENTREGABLES DE LA ORDEN 35
+Informe de Validación de Campo.
+Evidencia de pruebas en dos dispositivos reales.
+Validación GPS.
+Validación cámara.
+Validación offline/online.
+Prueba de conflicto real.
+Prueba de resolución de conflicto.
+Prueba The Eye.
+Prueba Human Authority.
+Prueba de publicación.
+Prueba Runtime.
+Prueba de no contaminación de la versión publicada.
+Primer levantamiento piloto de 5 WorldObjects reales de Trujillo, si los protocolos anteriores pasan.
+Registro completo de incidencias.
+Estado final de MJP CORE.
+Resultado final:
+
+FIELD_VALIDATION = PASS / FAIL
+
+Una corrección estratégica importante
+
+Después de esta orden yo no seguiría creando órdenes 36, 37, 38... para “perfeccionar” Mapper y The Eye indefinidamente.
+
+Si la Orden 35 pasa, el siguiente paso debería ser:
+
+FASE UI DEFINITIVA → Mapper + The Eye → piloto territorial real.
+
+Y aquí hay una diferencia importante respecto a lo que venían haciendo: Gemini ya no debe diseñar una pantalla bonita desconectada del sistema. La UI debe diseñarse sobre los flujos que acabamos de demostrar en campo.
+
+Primero se prueba que el sistema merece existir. Luego se invierte en hacerlo rápido, claro y visualmente potente.
+
+Ese orden evita el error clásico de construir una interfaz espectacular para un proceso que todavía no funciona en el mundo real.

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "outputDir": "E8_A_OUTPUT",
+  "captures": [
+    "E8_CAPTURAS/01-expediente-compilado.svg",
+    "E8_CAPTURAS/02-trazabilidad-snapshot.svg"
+  ],
+  "documents": 5,
+  "snapshotId": "ARKI-d9565f3b",
+  "version": 1,
+  "tracedElements": 356,
+  "traceRows": "<tr><td>memoria</td><td>01-memoria-descriptiva.md</td><td>ARKI-d9565f3b</td><td>1</td><td>108</td></tr><tr><td>especificaciones</td><td>02-especificaciones-tecnicas.md</td><td>ARKI-d9565f3b</td><td>1</td><td>108</td></tr><tr><td>metrados</td><td>03-metrados.md</td><td>ARKI-d9565f3b</td><td>1</td><td>16</td></tr><tr><td>presupuesto</td><td>04-presupuesto.md</td><td>ARKI-d9565f3b</td><td>1</td><td>108</td></tr><tr><td>plano</td><td>05-planta.svg</td><td>ARKI-d9565f3b</td><td>1</td><td>16</td></tr>"
+}

@@ -1,0 +1,506 @@
+[
+  {
+    "at": "2026-09-24T17:05:31.123Z",
+    "type": "CAMPAIGN_STARTED",
+    "task": "ARKI-CAMPAIGN-SOLVER-LAB-001",
+    "reason": "Human mandate ARKI-AUTOPILOT-DEV-001",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:31.123Z:CAMPAIGN_STARTED:0",
+    "timestamp": "2026-09-24T17:05:31.123Z",
+    "areaId": "arki",
+    "eventType": "CAMPAIGN_STARTED",
+    "severity": "INFO",
+    "summary": "Human mandate ARKI-AUTOPILOT-DEV-001",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:31.123Z"
+  },
+  {
+    "at": "2026-09-24T17:05:31.124Z",
+    "type": "TASK_STARTED",
+    "task": "TypeScript policy preflight",
+    "reason": "TypeScript policy preflight",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:31.124Z:TASK_STARTED:1",
+    "timestamp": "2026-09-24T17:05:31.124Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "TypeScript policy preflight",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:31.124Z"
+  },
+  {
+    "at": "2026-09-24T17:05:37.212Z",
+    "type": "TASK_COMPLETED",
+    "task": "TypeScript policy preflight",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/autopilot-campaign/pnpm-check.txt"
+    ],
+    "eventId": "2026-09-24T17:05:37.212Z:TASK_COMPLETED:2",
+    "timestamp": "2026-09-24T17:05:37.212Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:05:37.212Z"
+  },
+  {
+    "at": "2026-09-24T17:05:37.212Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "TypeScript policy preflight",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/autopilot-campaign/pnpm-check.txt"
+    ],
+    "eventId": "2026-09-24T17:05:37.212Z:CHECKPOINT_CREATED:3",
+    "timestamp": "2026-09-24T17:05:37.212Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:37.212Z"
+  },
+  {
+    "at": "2026-09-24T17:05:37.215Z",
+    "type": "TASK_STARTED",
+    "task": "Autopilot governance suite",
+    "reason": "Autopilot governance suite",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:37.215Z:TASK_STARTED:4",
+    "timestamp": "2026-09-24T17:05:37.215Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "Autopilot governance suite",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:37.215Z"
+  },
+  {
+    "at": "2026-09-24T17:05:38.476Z",
+    "type": "TASK_COMPLETED",
+    "task": "Autopilot governance suite",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/autopilot-campaign/test-autopilot.txt"
+    ],
+    "eventId": "2026-09-24T17:05:38.476Z:TASK_COMPLETED:5",
+    "timestamp": "2026-09-24T17:05:38.476Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:05:38.476Z"
+  },
+  {
+    "at": "2026-09-24T17:05:38.476Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "Autopilot governance suite",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/autopilot-campaign/test-autopilot.txt"
+    ],
+    "eventId": "2026-09-24T17:05:38.476Z:CHECKPOINT_CREATED:6",
+    "timestamp": "2026-09-24T17:05:38.476Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:38.476Z"
+  },
+  {
+    "at": "2026-09-24T17:05:38.477Z",
+    "type": "TASK_STARTED",
+    "task": "Pilot A SciPy fixture",
+    "reason": "Pilot A SciPy fixture",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:38.477Z:TASK_STARTED:7",
+    "timestamp": "2026-09-24T17:05:38.477Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "Pilot A SciPy fixture",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:38.477Z"
+  },
+  {
+    "at": "2026-09-24T17:05:40.971Z",
+    "type": "TASK_COMPLETED",
+    "task": "Pilot A SciPy fixture",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/pilot-a/scipy-run-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:40.971Z:TASK_COMPLETED:8",
+    "timestamp": "2026-09-24T17:05:40.971Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:05:40.971Z"
+  },
+  {
+    "at": "2026-09-24T17:05:40.971Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "Pilot A SciPy fixture",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/pilot-a/scipy-run-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:40.971Z:CHECKPOINT_CREATED:9",
+    "timestamp": "2026-09-24T17:05:40.971Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:40.971Z"
+  },
+  {
+    "at": "2026-09-24T17:05:40.973Z",
+    "type": "TASK_STARTED",
+    "task": "Pilot B EPANET fixture",
+    "reason": "Pilot B EPANET fixture",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:40.973Z:TASK_STARTED:10",
+    "timestamp": "2026-09-24T17:05:40.973Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "Pilot B EPANET fixture",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:40.973Z"
+  },
+  {
+    "at": "2026-09-24T17:05:41.062Z",
+    "type": "TASK_COMPLETED",
+    "task": "Pilot B EPANET fixture",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/pilot-b/test-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:41.062Z:TASK_COMPLETED:11",
+    "timestamp": "2026-09-24T17:05:41.062Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:05:41.062Z"
+  },
+  {
+    "at": "2026-09-24T17:05:41.062Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "Pilot B EPANET fixture",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/pilot-b/test-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:41.062Z:CHECKPOINT_CREATED:12",
+    "timestamp": "2026-09-24T17:05:41.062Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:41.062Z"
+  },
+  {
+    "at": "2026-09-24T17:05:41.064Z",
+    "type": "TASK_STARTED",
+    "task": "Pilot C EnergyPlus fixture",
+    "reason": "Pilot C EnergyPlus fixture",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:41.064Z:TASK_STARTED:13",
+    "timestamp": "2026-09-24T17:05:41.064Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "Pilot C EnergyPlus fixture",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:41.064Z"
+  },
+  {
+    "at": "2026-09-24T17:05:41.607Z",
+    "type": "TASK_COMPLETED",
+    "task": "Pilot C EnergyPlus fixture",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/pilot-c/test-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:41.607Z:TASK_COMPLETED:14",
+    "timestamp": "2026-09-24T17:05:41.607Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:05:41.607Z"
+  },
+  {
+    "at": "2026-09-24T17:05:41.607Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "Pilot C EnergyPlus fixture",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/pilot-c/test-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:41.607Z:CHECKPOINT_CREATED:15",
+    "timestamp": "2026-09-24T17:05:41.607Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:41.607Z"
+  },
+  {
+    "at": "2026-09-24T17:05:41.609Z",
+    "type": "TASK_STARTED",
+    "task": "Solver Lab adversarial suite",
+    "reason": "Solver Lab adversarial suite",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:41.609Z:TASK_STARTED:16",
+    "timestamp": "2026-09-24T17:05:41.609Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "Solver Lab adversarial suite",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:41.609Z"
+  },
+  {
+    "at": "2026-09-24T17:05:42.619Z",
+    "type": "TASK_COMPLETED",
+    "task": "Solver Lab adversarial suite",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/pilot-a/test-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:42.619Z:TASK_COMPLETED:17",
+    "timestamp": "2026-09-24T17:05:42.619Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:05:42.619Z"
+  },
+  {
+    "at": "2026-09-24T17:05:42.619Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "Solver Lab adversarial suite",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/pilot-a/test-output.txt"
+    ],
+    "eventId": "2026-09-24T17:05:42.619Z:CHECKPOINT_CREATED:18",
+    "timestamp": "2026-09-24T17:05:42.619Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:42.619Z"
+  },
+  {
+    "at": "2026-09-24T17:05:42.620Z",
+    "type": "TASK_STARTED",
+    "task": "Production build",
+    "reason": "Production build",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:05:42.620Z:TASK_STARTED:19",
+    "timestamp": "2026-09-24T17:05:42.620Z",
+    "areaId": "arki",
+    "eventType": "TASK_STARTED",
+    "severity": "INFO",
+    "summary": "Production build",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:05:42.620Z"
+  },
+  {
+    "at": "2026-09-24T17:06:07.443Z",
+    "type": "TASK_COMPLETED",
+    "task": "Production build",
+    "reason": "bounded action passed",
+    "evidenceRefs": [
+      "raw/autopilot-campaign/pnpm-build.txt"
+    ],
+    "eventId": "2026-09-24T17:06:07.443Z:TASK_COMPLETED:20",
+    "timestamp": "2026-09-24T17:06:07.443Z",
+    "areaId": "arki",
+    "eventType": "TASK_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded action passed",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:06:07.443Z"
+  },
+  {
+    "at": "2026-09-24T17:06:07.443Z",
+    "type": "CHECKPOINT_CREATED",
+    "task": "Production build",
+    "reason": "retry-safe checkpoint",
+    "evidenceRefs": [
+      "raw/autopilot-campaign/pnpm-build.txt"
+    ],
+    "eventId": "2026-09-24T17:06:07.443Z:CHECKPOINT_CREATED:21",
+    "timestamp": "2026-09-24T17:06:07.443Z",
+    "areaId": "arki",
+    "eventType": "CHECKPOINT_CREATED",
+    "severity": "INFO",
+    "summary": "retry-safe checkpoint",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:06:07.443Z"
+  },
+  {
+    "at": "2026-09-24T17:06:07.446Z",
+    "type": "CAMPAIGN_COMPLETED",
+    "task": "ARKI-CAMPAIGN-SOLVER-LAB-001",
+    "reason": "bounded acceptance work completed; waiting for Product Owner review",
+    "evidenceRefs": [],
+    "eventId": "2026-09-24T17:06:07.446Z:CAMPAIGN_COMPLETED:22",
+    "timestamp": "2026-09-24T17:06:07.446Z",
+    "areaId": "arki",
+    "eventType": "CAMPAIGN_COMPLETED",
+    "severity": "INFO",
+    "summary": "bounded acceptance work completed; waiting for Product Owner review",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:06:07.446Z"
+  },
+  {
+    "at": "2026-09-24T17:19:40.993120Z",
+    "type": "ACCEPTANCE_TASK_STARTED",
+    "task": "EnergyPlus validation observability cycle",
+    "subtask": "run bounded fixture",
+    "tool": "EnergyPlus 26.1.0 CLI",
+    "sourceArea": "ENERGY",
+    "reason": "S2 acceptance cycle; real fixture and approved solver",
+    "result": "execution started",
+    "evidenceRefs": [
+      "raw/pilot-c/command-center-acceptance-cycle/01-test-failure.exit-code.txt"
+    ],
+    "eventId": "2026-09-24T17:19:40.993120Z:ACCEPTANCE_TASK_STARTED:23",
+    "timestamp": "2026-09-24T17:19:40.993120Z",
+    "areaId": "energy",
+    "eventType": "ACCEPTANCE_TASK_STARTED",
+    "severity": "INFO",
+    "summary": "S2 acceptance cycle; real fixture and approved solver",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:19:40.993120Z"
+  },
+  {
+    "at": "2026-09-24T17:19:40.993157Z",
+    "type": "ACCEPTANCE_TEST_FAIL",
+    "task": "EnergyPlus validation observability cycle",
+    "subtask": "invalid weather input",
+    "tool": "EnergyPlus 26.1.0 CLI",
+    "sourceArea": "ENERGY",
+    "reason": "input path deliberately invalid for negative test",
+    "result": "exitCode=1; no silent success",
+    "rootCause": "INVALID_INPUT / missing-weather.epw",
+    "nextAction": "classify root cause and create governed correction",
+    "evidenceRefs": [
+      "raw/pilot-c/command-center-acceptance-cycle/01-test-failure.stderr.txt"
+    ],
+    "eventId": "2026-09-24T17:19:40.993157Z:ACCEPTANCE_TEST_FAIL:24",
+    "timestamp": "2026-09-24T17:19:40.993157Z",
+    "areaId": "energy",
+    "eventType": "ACCEPTANCE_TEST_FAIL",
+    "severity": "ERROR",
+    "summary": "input path deliberately invalid for negative test",
+    "status": "FAIL",
+    "correlationId": "ccf:2026-09-24T17:19:40.993157Z"
+  },
+  {
+    "at": "2026-09-24T17:19:40.993164Z",
+    "type": "ACCEPTANCE_ROOT_CAUSE",
+    "task": "EnergyPlus validation observability cycle",
+    "subtask": "root-cause classification",
+    "tool": "Autopilot evidence runner",
+    "sourceArea": "AUTOPILOT",
+    "reason": "failure output inspected",
+    "result": "root cause confirmed as invalid weather input path",
+    "nextAction": "replan command with in.epw fixture",
+    "evidenceRefs": [
+      "raw/pilot-c/command-center-acceptance-cycle/01-test-failure.stderr.txt"
+    ],
+    "eventId": "2026-09-24T17:19:40.993164Z:ACCEPTANCE_ROOT_CAUSE:25",
+    "timestamp": "2026-09-24T17:19:40.993164Z",
+    "areaId": "autopilot",
+    "eventType": "ACCEPTANCE_ROOT_CAUSE",
+    "severity": "INFO",
+    "summary": "failure output inspected",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:19:40.993164Z"
+  },
+  {
+    "at": "2026-09-24T17:19:40.993168Z",
+    "type": "ACCEPTANCE_REPLAN",
+    "task": "EnergyPlus validation observability cycle",
+    "subtask": "corrected execution plan",
+    "tool": "Autopilot evidence runner",
+    "sourceArea": "AUTOPILOT",
+    "reason": "replace invalid weather reference with governed fixture input",
+    "result": "one command prerequisite corrected; canonical state unchanged",
+    "nextAction": "retest with explicit weather file",
+    "evidenceRefs": [
+      "raw/pilot-c/command-center-acceptance-cycle/04-retest-pass.exit-code.txt"
+    ],
+    "eventId": "2026-09-24T17:19:40.993168Z:ACCEPTANCE_REPLAN:26",
+    "timestamp": "2026-09-24T17:19:40.993168Z",
+    "areaId": "autopilot",
+    "eventType": "ACCEPTANCE_REPLAN",
+    "severity": "INFO",
+    "summary": "replace invalid weather reference with governed fixture input",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:19:40.993168Z"
+  },
+  {
+    "at": "2026-09-24T17:19:40.993172Z",
+    "type": "ACCEPTANCE_RETEST_PASS",
+    "task": "EnergyPlus validation observability cycle",
+    "subtask": "retest corrected input",
+    "tool": "EnergyPlus 26.1.0 CLI",
+    "sourceArea": "ENERGY",
+    "reason": "corrected fixture and documented CLI invocation",
+    "result": "EnergyPlus Completed Successfully; 0 Severe Errors",
+    "evidenceRefs": [
+      "raw/pilot-c/run-modern/acceptance-pass-output/eplusout.end"
+    ],
+    "eventId": "2026-09-24T17:19:40.993172Z:ACCEPTANCE_RETEST_PASS:27",
+    "timestamp": "2026-09-24T17:19:40.993172Z",
+    "areaId": "energy",
+    "eventType": "ACCEPTANCE_RETEST_PASS",
+    "severity": "INFO",
+    "summary": "corrected fixture and documented CLI invocation",
+    "status": "PASS",
+    "correlationId": "ccf:2026-09-24T17:19:40.993172Z"
+  },
+  {
+    "at": "2026-09-24T17:19:40.993175Z",
+    "type": "ACCEPTANCE_EVIDENCE_GENERATED",
+    "task": "EnergyPlus validation observability cycle",
+    "subtask": "evidence closure",
+    "tool": "sha256 / raw output recorder",
+    "sourceArea": "EVIDENCE",
+    "reason": "failure, correction and retest outputs preserved",
+    "result": "cycle reconstructable from persistent event stream",
+    "evidenceRefs": [
+      "raw/pilot-c/command-center-acceptance-cycle",
+      "raw/pilot-c/run-modern/acceptance-pass-output/eplusout.end"
+    ],
+    "eventId": "2026-09-24T17:19:40.993175Z:ACCEPTANCE_EVIDENCE_GENERATED:28",
+    "timestamp": "2026-09-24T17:19:40.993175Z",
+    "areaId": "evidence",
+    "eventType": "ACCEPTANCE_EVIDENCE_GENERATED",
+    "severity": "INFO",
+    "summary": "failure, correction and retest outputs preserved",
+    "status": "RUNNING",
+    "correlationId": "ccf:2026-09-24T17:19:40.993175Z"
+  }
+]

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1188" height="936" viewBox="0 0 1188 936">
+<rect width="100%" height="100%" fill="#0b1d35"/>
+<text x="90" y="42" fill="#f3f7fb" font-family="Arial" font-size="28" font-weight="700">ARKI · N2 · HOUSE-A21-S1</text>
+<text x="90" y="68" fill="#a9bfd4" font-family="Arial" font-size="15">Conceptual floor plan — HYPOTHESIS — construction documentation NOT CLAIMED</text>
+<rect x="90" y="90" width="1008" height="756" fill="#f7f4ed" stroke="#dce8f4" stroke-width="3"/>
+<polygon points="237,39066 531,39066 531,38982 237,38982 237,39066" fill="#d9f5e5" fill-opacity="0.9" stroke="#182536" stroke-width="3"/>
+<text x="384" y="39024" fill="#15263b" font-family="Arial" font-size="13" text-anchor="middle" font-weight="700">UPPER CIRCULATION</text>
+<text x="384" y="39041" fill="#3b4c60" font-family="Arial" font-size="11" text-anchor="middle">14.0 m²</text>
+<polygon points="237,39318 447,39318 447,39108 237,39108 237,39318" fill="#e8ddff" fill-opacity="0.9" stroke="#182536" stroke-width="3"/>
+<text x="342" y="39213" fill="#15263b" font-family="Arial" font-size="13" text-anchor="middle" font-weight="700">MAIN BEDROOM</text>
+<text x="342" y="39230" fill="#3b4c60" font-family="Arial" font-size="11" text-anchor="middle">25.0 m²</text>
+<polygon points="447,39318 657,39318 657,39108 447,39108 447,39318" fill="#e8ddff" fill-opacity="0.9" stroke="#182536" stroke-width="3"/>
+<text x="552" y="39213" fill="#15263b" font-family="Arial" font-size="13" text-anchor="middle" font-weight="700">BEDROOM 2</text>
+<text x="552" y="39230" fill="#3b4c60" font-family="Arial" font-size="11" text-anchor="middle">25.0 m²</text>
+<polygon points="678,39318 783,39318 783,39213 678,39213 678,39318" fill="#ffe4c4" fill-opacity="0.9" stroke="#182536" stroke-width="3"/>
+<text x="730.5" y="39265.5" fill="#15263b" font-family="Arial" font-size="13" text-anchor="middle" font-weight="700">PRIVATE BATH</text>
+<text x="730.5" y="39282.5" fill="#3b4c60" font-family="Arial" font-size="11" text-anchor="middle">6.3 m²</text>
+<polygon points="394.5,39066 478.5,39066 478.5,38940 394.5,38940 394.5,39066" fill="#c9ccd2" stroke="#111827" stroke-width="3"/>
+<text x="436.5" y="39015.6" fill="#111827" font-family="Arial" font-size="12" text-anchor="middle" font-weight="700">STAIR ↓</text>
+<line x1="342" y1="39066" x2="373.5" y2="39066" stroke="#b91c1c" stroke-width="7"/>
+<line x1="447" y1="39045" x2="478.5" y2="39045" stroke="#b91c1c" stroke-width="7"/>
+<line x1="657" y1="39276" x2="678" y2="39276" stroke="#b91c1c" stroke-width="7"/>
+<line x1="237" y1="39234" x2="237" y2="39192" stroke="#075985" stroke-width="7"/>
+<line x1="657" y1="39234" x2="657" y2="39192" stroke="#075985" stroke-width="7"/>
+<polyline points="436.5,39003 342,39024 342,39066" fill="none" stroke="#15803d" stroke-width="4" stroke-dasharray="10 7"/>
+<g font-family="Arial" font-size="13" fill="#e5eef7"><text x="90" y="888">Blue fill: public · Orange: service · Purple: private · Green dashed: conceptual accessible route · Red: door · Cyan: window</text><text x="90" y="911">Source: existing ARKI constructive spatial generator; compliance and permit readiness are not claimed.</text></g>
+</svg>

@@ -1,0 +1,195 @@
+# BKH-1 Change List
+
+## BKH-1 product files created
+shared/arkiRelationshipFabric.ts
+shared/arkiRelationshipAdapters.ts
+scripts/test-bkh1-relationship-fabric.ts
+
+## BKH-1 documents/evidence created or updated
+BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+BKH1_RELATIONSHIP_SCHEMA.md
+BKH1_RELATION_MIGRATION_MATRIX.md
+BKH1_TEST_PLAN.md
+BKH1_SCOPE_LIMITS.md
+BKH1_IMPLEMENTATION_SEQUENCE.md
+BKH1_REPORT.md
+BKH1_GATE1_BASELINE.txt
+BKH1_GATE1_BASELINE_RAW.txt
+BKH1_IMPLEMENTATION_OUTPUTS.txt
+AKI001_CURRICULUM_DELTA_BKH1.md
+ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md
+
+## Pre-existing worktree
+ [31mD[m client/src/components/ArkiNavigator.tsx
+ [31mM[m client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m client/src/contexts/ProjectContext.tsx
+ [31mM[m client/src/index.css
+ [31mM[m client/src/modules/GeneratorModule.tsx
+ [31mM[m package.json
+ [31mM[m pnpm-lock.yaml
+ [31mM[m scripts/test-navigator-layout.ts
+ [31mM[m scripts/test-no-inherited-cleanup.ts
+[31m??[m AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md
+[31m??[m AKI001_COMPETENCY_MATRIX.md
+[31m??[m AKI001_CURRICULUM_DELTA_BKH1.md
+[31m??[m AKI001_EVIDENCE_INDEX.md
+[31m??[m AKI001_EXECUTIVE_SUMMARY.md
+[31m??[m AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+[31m??[m AKI001_HISTORICAL_CURRICULUM.md
+[31m??[m AKI001_KNOWLEDGE_GAPS.md
+[31m??[m AKI001_KNOWLEDGE_INVENTORY.md
+[31m??[m AKI001_LOCAL_INVENTORY_RAW.txt
+[31m??[m AKI001_MANIFEST.json
+[31m??[m AKI001_MULTISCALE_KNOWLEDGE_MAP.md
+[31m??[m AKI001_REPORT.md
+[31m??[m ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md
+[31m??[m ARKI_ADDENDA_SEPARACION_INTELIGENCIA_Y_BIM_KERNEL_V1.md
+[31m??[m ARKI_ADDENDUM_E_COD_LUKA.md
+[31m??[m ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip.sha256
+[31m??[m ARKI_COMPUTATIONAL_FABRIC_V1.md
+[31m??[m ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_SELECCION.md
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT.zip
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT/
+[31m??[m ARKI_FLUJO_TRABAJO_Y_PANELES.md
+[31m??[m ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md
+[31m??[m ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md
+[31m??[m ARKI_ROADMAP_CORPORATIVO_V1.md
+[31m??[m ARKI_VEREDICTO_CONTRATO_UI3A_V2.md
+[31m??[m ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md
+[31m??[m ARKI_VEREDICTO_REVISION_UI3A.md
+[31m??[m BKH0_BASELINE.txt
+[31m??[m BKH0_CANONICAL_OWNERSHIP_MAP.md
+[31m??[m BKH0_CURRENT_PRODUCT_DIFF.txt
+[31m??[m BKH0_DEPENDENCY_MAP.md
+[31m??[m BKH0_DUPLICATION_RAW.txt
+[31m??[m BKH0_DUPLICATION_REPORT.md
+[31m??[m BKH0_ENTITY_REGISTRY.md
+[31m??[m BKH0_FORENSIC_MAP.md
+[31m??[m BKH0_IMPLEMENTATION_GAPS.md
+[31m??[m BKH0_INSPECTION_RAW.txt
+[31m??[m BKH0_INVARIANT_REGISTRY.md
+[31m??[m BKH0_MANIFEST.json
+[31m??[m BKH0_MUTATION_PATH_MAP.md
+[31m??[m BKH0_OUTPUTS.txt
+[31m??[m BKH0_RELATIONSHIP_INVENTORY.md
+[31m??[m BKH0_REPORT.md
+[31m??[m BKH0_TEST_RUN_RAW.txt
+[31m??[m BKH1_GATE1_BASELINE.txt
+[31m??[m BKH1_GATE1_BASELINE_RAW.txt
+[31m??[m BKH1_IMPLEMENTATION_OUTPUTS.txt
+[31m??[m BKH1_IMPLEMENTATION_SEQUENCE.md
+[31m??[m BKH1_PACKAGE_MANIFEST.json
+[31m??[m BKH1_PACKAGE_README.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip.sha256
+[31m??[m BKH1_RELATIONSHIP_SCHEMA.md
+[31m??[m BKH1_RELATION_MIGRATION_MATRIX.md
+[31m??[m BKH1_REPORT.md
+[31m??[m BKH1_SCOPE_LIMITS.md
+[31m??[m BKH1_TEST_PLAN.md
+[31m??[m BKH1_WORKTREE_AFTER.txt
+[31m??[m BKH_CONTRATO_CHATGPT_V1.md
+[31m??[m CHATGPT_HANDOFF_FILELIST.txt
+[31m??[m CHATGPT_HANDOFF_README.md
+[31m??[m CHATGPT_HANDOFF_SHA256SUMS.txt
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip.sha256
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22/
+[31m??[m DEEPSEEK_MD_SEPARADOS_2026_09_22/
+[31m??[m E1_CONTRATO_PRODUCTO_ADRS/
+[31m??[m E2_WIREFLOWS_CONTROLES_PRUEBAS/
+[31m??[m E3_CATALOGO_CORPORATIVO_P2/
+[31m??[m E4_CONTRATOS_ESPECIALIZADOS/
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.md
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.txt
+[31m??[m E5_SCENE_MODEL_3D_OUTPUTS.txt
+[31m??[m E5_SCENE_MODEL_3D_REPORT.md
+[31m??[m E6_BASELINE_OUTPUTS.txt
+[31m??[m E6_DEBT_INHERITED.md
+[31m??[m E6_MANIFEST.json
+[31m??[m E6_OUTPUTS.txt
+[31m??[m E6_PO_APPROVAL.md
+[31m??[m E6_REPORT.md
+[31m??[m E6_SCOPE_LIMITS.md
+[31m??[m E7_CONTRATO_PROPUESTO_V1.md
+[31m??[m E7_DEBT_INHERITED.md
+[31m??[m E7_MANIFEST.json
+[31m??[m E7_OPENING.md
+[31m??[m E7_OUTPUTS.txt
+[31m??[m E7_PO_APPROVAL.md
+[31m??[m E7_REPORT.md
+[31m??[m E7_SCOPE_LIMITS.md
+[31m??[m E7_VERDICT_CYCLE1.md
+[31m??[m E8_CONTRATO_PROPUESTO_V1.md
+[31m??[m FASE_0_ADRS_RECLASIFICADOS.md
+[31m??[m FASE_0_AUDITORIA_REAL_2026-09-23.md
+[31m??[m FASE_0_BASELINE_HASHES.txt
+[31m??[m FASE_0_BLOQUEO_CONFIRMADO.md
+[31m??[m FASE_0_CAPTURAS_MANIFEST.md
+[31m??[m FASE_0_CLASIFICACION_ARCHIVOS.md
+[31m??[m FASE_0_FIRMA_PO_CONFIRMADA.md
+[31m??[m RESUMEN_IMPLEMENTACION_ARKI_2026-09-23.md
+[31m??[m REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+[31m??[m REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+[31m??[m UI3A_DIFF.patch
+[31m??[m UI3A_EVIDENCE.zip
+[31m??[m UI3A_EVIDENCE.zip.sha256
+[31m??[m UI3A_MANIFEST.json
+[31m??[m UI3A_VERIFICATION_REPORT.md
+[31m??[m client/src/canvas/
+[31m??[m client/src/comparison/
+[31m??[m client/src/ifc4/
+[31m??[m client/src/modules/E7DomainModule.tsx
+[31m??[m client/src/modules/SceneModelModule.tsx
+[31m??[m client/src/persistence/
+[31m??[m contracts/
+[31m??[m evidence/
+[31m??[m fixtures/
+[31m??[m scripts/create-e6-manifest.sh
+[31m??[m scripts/create-e7-manifest.sh
+[31m??[m scripts/create-ui3a-manifest.sh
+[31m??[m scripts/generate-ifc-fixtures.ts
+[31m??[m scripts/run-fase0-audit.sh
+[31m??[m scripts/test-bim-selection.ts
+[31m??[m scripts/test-bkh1-relationship-fabric.ts
+[31m??[m scripts/test-camera-modes.ts
+[31m??[m scripts/test-canvas-mount.ts
+[31m??[m scripts/test-clipping-section.ts
+[31m??[m scripts/test-comparison-side-by-side.ts
+[31m??[m scripts/test-context-panel.ts
+[31m??[m scripts/test-e7.ts
+[31m??[m scripts/test-ifc4-exporter.ts
+[31m??[m scripts/test-ifc4-fixtures.ts
+[31m??[m scripts/test-ifc4-globalid.ts
+[31m??[m scripts/test-ifc4-web-ifc.ts
+[31m??[m scripts/test-isolate-freeze.ts
+[31m??[m scripts/test-measure-snap.ts
+[31m??[m scripts/test-persistence-formal.ts
+[31m??[m scripts/test-persistence-idb.ts
+[31m??[m scripts/test-plan-3d-sync.ts
+[31m??[m scripts/test-scene-comparison.ts
+[31m??[m scripts/test-scene-model-mount.ts
+[31m??[m scripts/test-scene-model.ts
+[31m??[m scripts/test-selection-info.ts
+[31m??[m scripts/test-viewpoints.ts
+[31m??[m scripts/test-wall-door-canvas.ts
+[31m??[m shared/arki4d/
+[31m??[m shared/arki5d/
+[31m??[m shared/arkiBimSelection.ts
+[31m??[m shared/arkiContextPanel.ts
+[31m??[m shared/arkiImpacts/
+[31m??[m shared/arkiRelationshipAdapters.ts
+[31m??[m shared/arkiRelationshipFabric.ts
+[31m??[m shared/arkiSceneComparison.ts
+[31m??[m shared/arkiSceneModel.ts
+[31m??[m shared/coordination/
+[31m??[m shared/identity/
+[31m??[m shared/ifc4/
+[31m??[m shared/mep/
+[31m??[m shared/persistence/
+[31m??[m shared/structural/

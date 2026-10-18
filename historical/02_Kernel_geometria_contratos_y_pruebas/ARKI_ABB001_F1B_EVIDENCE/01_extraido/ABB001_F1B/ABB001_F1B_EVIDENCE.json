@@ -1,0 +1,109 @@
+{
+  "schema": "ARKI-ABB001-F1B-EVIDENCE-1.0",
+  "order": "ABB-001-F1B",
+  "status": "DOCUMENTARY-UNDERSTANDING-CLOSURE",
+  "verdict": "CUSTOMER_INFORMATION_REQUIRED",
+  "sourceFreeze": "ARKI_ABB001_SOURCE_FREEZE_V1",
+  "scopeGuard": [
+    "NO_F2",
+    "NO_PRODUCT_CHANGES",
+    "NO_BIM_GENERATION",
+    "NO_3D_GENERATION",
+    "NO_CANONICAL_MUTATION"
+  ],
+  "analyses": [
+    "version forensics",
+    "drawing relationship graph",
+    "dimensional register",
+    "discipline matrix",
+    "conflict register",
+    "unknown register",
+    "missing information",
+    "BIM readiness"
+  ],
+  "epistemicRule": "PDF visual evidence is documentary and is not silently promoted to exact CAD geometry",
+  "governingVersion": "UNKNOWN / CUSTOMER INFORMATION REQUIRED",
+  "files": [
+    {
+      "path": "ABB001_VERSION_FORENSICS.md",
+      "size": 3644,
+      "sha256": "367e8cb2402f6709aabd7fb501bd667c234432c7ad5b2889ec59e8664418c14e"
+    },
+    {
+      "path": "ABB001_DRAWING_RELATIONSHIP_GRAPH.json",
+      "size": 3827,
+      "sha256": "10ac9195cc4c3b147ab5839643c7a2649fd278b29afc3dc529715ea1a5383512"
+    },
+    {
+      "path": "ABB001_DIMENSIONAL_REGISTER.json",
+      "size": 3329,
+      "sha256": "0cfc1f80b291f9735f233bc355ab162047340b914377cb04589e5ff5e55770dc"
+    },
+    {
+      "path": "ABB001_DISCIPLINE_MATRIX.json",
+      "size": 2014,
+      "sha256": "9a153022c03c22dfa8955650fcfc562c26597b0a5884c44bd011a77424b0e452"
+    },
+    {
+      "path": "ABB001_CONFLICT_REGISTER.json",
+      "size": 1690,
+      "sha256": "7e69e8780e294479a6337d9f705e769e082b18f8fbf2277113b4d11f7e1f42f6"
+    },
+    {
+      "path": "ABB001_UNKNOWN_REGISTER.json",
+      "size": 2030,
+      "sha256": "13bafc88228f56bb410e6d65053100997a6f895b0eb7b2942c26dbff55a13b0c"
+    },
+    {
+      "path": "ABB001_MISSING_INFORMATION.json",
+      "size": 1477,
+      "sha256": "569cdfff35edbb9b1dad989566f19faf5eda53a8556e88387494c9dfa2f0284f"
+    },
+    {
+      "path": "ABB001_BIM_READINESS.md",
+      "size": 2217,
+      "sha256": "f5b0aaec88f5a5641edae30ba57c7d378f29c2d2225075802134c1315e80b759"
+    },
+    {
+      "path": "ABB001_F1_SOURCE_QUALIFICATION.md",
+      "size": 5642,
+      "sha256": "dc371be6a0d766ea93c4677faeaf705a3772757d0eddcff314646852f713ae3d"
+    },
+    {
+      "path": "ABB001_F1_SEMANTIC_INVENTORY.md",
+      "size": 2876,
+      "sha256": "52f9f57195a5d34b7c27b0353c03974d94d550376437e861d616d7bd0aad4138"
+    },
+    {
+      "path": "ABB001_F1_PROVENANCE_MAP.md",
+      "size": 1783,
+      "sha256": "b69fbd4baf387c5b85fc293eb710b2304047a84f03a13cbd6639fa5976c7b9a2"
+    },
+    {
+      "path": "ABB001_F1_OUTPUTS.txt",
+      "size": 1379,
+      "sha256": "1cefd31cb8c8351b24b9d4a2aaf79e1c0af93280b39e6bb18866f4b3edef77a9"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/SOURCE_INTEGRITY_RAW.txt",
+      "size": 2080,
+      "sha256": "6e881d36fed62e69b5531b302e8cae7d0f94d90d0b7f97c36d0bdb46402b0620"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/PDF_FORENSIC_SUMMARY.json",
+      "size": 14452,
+      "sha256": "ee078d43c1177d875984321d9555811ce6179e63326b9d2697e93a88c51f4ddb"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/PAGE_HEADINGS.txt",
+      "size": 9568,
+      "sha256": "3a9e85c362843ca60c7158580362e283170974f2b9bb92c037f2d99ae63ef045"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/EXPEDIENTECOMPLETORossmary.zip",
+      "size": 10087153,
+      "sha256": "2b9f15324d541df51d33af107a686d37ca571c374ff98e19f91ebe42be161032"
+    }
+  ],
+  "manifestSemantics": "Hashes describe the files listed below; manifest is packaged separately."
+}

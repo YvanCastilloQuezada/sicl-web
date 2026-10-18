@@ -1,0 +1,633 @@
+ORDEN 36 PARA MANUS
+INTEGRACIÓN CARTOGRÁFICA REAL + PREPARACIÓN DEL GATE DE CAMPO
+
+ORDEN 36 — CIERRE DE INFRAESTRUCTURA TERRITORIAL Y PREPARACIÓN DE PRUEBA DE CAMPO
+
+MOTIVO Y PROPÓSITO
+
+El sistema MiLukita Mapper + The Eye ha alcanzado un nivel funcional suficiente en sandbox:
+
+CaptureSession persistente.
+WorldObjects versionados.
+Claims, Sources y Evidence.
+Snapshots históricos inmutables.
+Funcionamiento offline.
+Sincronización idempotente.
+Detección de conflictos.
+Resolución manual de conflictos.
+Comparación local/remota.
+Matriz de evidencia.
+Confidence Score explicable.
+PublicationStatus separado.
+Runtime restringido a la versión publicada.
+Auditoría.
+RBAC.
+Gestor de permisos GPS/cámara.
+Historial de sincronización.
+Mapa territorial interactivo.
+
+El siguiente objetivo NO es seguir agregando funcionalidades indefinidamente.
+
+El objetivo de esta orden es cerrar la infraestructura necesaria para salir del sandbox y ejecutar la primera prueba real de territorio.
+
+1. REGLA FUNDAMENTAL
+
+NO MODIFICAR MJP CORE.
+
+Mapper, The Eye, World Engine y Runtime deben permanecer desacoplados de MJP CORE.
+
+Ninguna funcionalidad territorial puede alterar:
+
+lógica de juegos;
+sorteos;
+pagos;
+créditos;
+resultados;
+reglas de MJP CORE.
+
+Si alguna modificación fuese técnicamente inevitable, detenerse y reportarla antes de realizarla.
+
+2. INTEGRACIÓN DE MAPA CARTOGRÁFICO REAL
+
+El mapa actualmente implementado no debe permanecer como simulación para la prueba de campo.
+
+Implementar un Map Provider Adapter, de forma que la aplicación trabaje contra una interfaz cartográfica independiente del proveedor.
+
+Conceptualmente:
+
+Mapper
+   ↓
+Map Provider Adapter
+   ↓
+┌───────────────┐
+│ Map Provider  │
+└───────────────┘
+
+El proveedor concreto podrá ser Google Maps, Mapbox u otro proveedor compatible, pero no acoplar la lógica territorial directamente al proveedor.
+
+Funciones mínimas:
+mapa cartográfico real;
+zoom;
+desplazamiento;
+selección de ubicación;
+geocodificación;
+búsqueda de lugares;
+coordenadas;
+marcador de WorldObject;
+marcador de posición actual;
+círculo de precisión GPS;
+radio de activación;
+visualización de WorldObjects cercanos;
+diferenciación visual por estado;
+actualización de posición;
+manejo de error del proveedor;
+manejo de ausencia de conexión.
+Importante
+
+Las claves/API credentials deben permanecer fuera del código fuente.
+
+Utilizar configuración mediante variables de entorno/secret management según la arquitectura existente.
+
+No exponer claves privadas en cliente ni en repositorio.
+
+Si el proveedor requiere atribución, respetarla.
+
+3. MODELO CARTOGRÁFICO Y GEOESPACIAL
+
+Verificar que todos los WorldObjects utilicen una representación geoespacial coherente.
+
+Como mínimo:
+
+latitude
+longitude
+accuracy
+altitude (si está disponible)
+heading (si está disponible)
+timestamp
+coordinate_source
+
+Diferenciar:
+
+coordenada capturada por GPS;
+coordenada introducida manualmente;
+coordenada obtenida por geocodificación;
+coordenada corregida posteriormente;
+precisión conocida/desconocida.
+
+No tratar todas las coordenadas como igualmente confiables.
+
+La procedencia de la coordenada debe formar parte del expediente territorial.
+
+4. GPS Y PRECISIÓN
+
+El Mapper debe mostrar claramente:
+
+GPS
+● ACTIVO
+Precisión: ±4 m
+
+Estados mínimos:
+
+GPS no disponible;
+solicitando permiso;
+permiso concedido;
+permiso denegado;
+señal insuficiente;
+precisión baja;
+precisión aceptable;
+precisión alta;
+señal perdida;
+señal recuperada.
+
+El sistema no debe fingir precisión.
+
+Si el dispositivo reporta una precisión deficiente, conservar el valor real y advertir al Mapper.
+
+5. CAPTURA FOTOGRÁFICA
+
+Preparar el Mapper para captura real desde dispositivo.
+
+Registrar junto con cada evidencia fotográfica, cuando el dispositivo/browser lo permita:
+
+fecha/hora;
+WorldObject asociado;
+sesión;
+operador;
+estado de sincronización;
+identificador único;
+origen de captura.
+
+Validar:
+
+permiso concedido;
+permiso denegado;
+cancelación;
+archivo inválido;
+archivo demasiado grande;
+pérdida de conexión;
+recuperación.
+
+No eliminar automáticamente una evidencia fallida sin dejar trazabilidad suficiente para diagnosticar el problema.
+
+6. MODO OFFLINE REAL
+
+Verificar que el flujo de campo pueda ejecutarse sin conexión:
+
+ONLINE
+  ↓
+OFFLINE
+  ↓
+CAPTURA
+  ↓
+LOCAL_PENDING
+  ↓
+ONLINE
+  ↓
+SYNCING
+  ↓
+SYNCED
+
+Si ocurre conflicto:
+
+CONFLICT
+    ↓
+THE EYE / HUMAN AUTHORITY
+
+Prohibido utilizar:
+
+last-write-wins
+
+como mecanismo automático de resolución de datos territoriales.
+
+7. INSTRUMENTACIÓN DE LA PRUEBA DE CAMPO
+
+Crear dentro del sistema o del entorno de QA un mecanismo para registrar el resultado de las pruebas.
+
+Cada prueba debe poder registrar:
+
+dispositivo;
+sistema operativo;
+navegador;
+versión de aplicación;
+conexión;
+GPS;
+precisión;
+cámara;
+permisos;
+sincronización;
+conflictos;
+errores;
+resultado;
+observaciones.
+
+Clasificar cada incidencia:
+
+BLOCKER
+CRITICAL
+MAJOR
+MINOR
+OBSERVATION
+8. PROTOCOLO DE PRUEBA EN DOS DISPOSITIVOS
+
+Preparar un protocolo reproducible para:
+
+DISPOSITIVO A
+
+Rol:
+
+MAPPER
+
+Debe poder:
+
+iniciar sesión;
+activar GPS;
+capturar fotografía;
+crear WorldObject;
+registrar coordenadas;
+trabajar offline;
+sincronizar.
+DISPOSITIVO B
+
+Rol:
+
+THE EYE / HUMAN AUTHORITY
+
+Debe poder:
+
+recibir objeto;
+revisar expediente;
+revisar evidencia;
+verificar coordenadas;
+revisar confidence score;
+aprobar/rechazar;
+solicitar evidencia;
+resolver conflictos;
+autorizar publicación.
+9. PRUEBA E2E OBLIGATORIA
+
+Mantener una prueba automatizada que compruebe:
+
+WORLDOBJECT
+     ↓
+MAPPER
+     ↓
+CAPTURED
+     ↓
+UNDER_REVIEW
+     ↓
+THE EYE
+     ↓
+VERIFIED
+     ↓
+HUMAN AUTHORITY
+     ↓
+PUBLISHED
+     ↓
+RUNTIME
+
+La prueba debe verificar específicamente que:
+
+A.
+
+Un objeto CAPTURED NO aparece en Runtime.
+
+B.
+
+Un objeto UNDER_REVIEW NO aparece en Runtime.
+
+C.
+
+Un objeto VERIFIED pero no publicado NO aparece en Runtime.
+
+D.
+
+Una versión nueva editada NO sustituye automáticamente la versión publicada.
+
+E.
+
+Solo la versión expresamente autorizada aparece en Runtime.
+
+F.
+
+Si una versión publicada es posteriormente modificada, la versión publicada permanece identificable.
+
+Este punto es crítico.
+
+10. PRUEBA DE CONFLICTO
+
+Preparar un escenario reproducible:
+
+DISPOSITIVO A
+     ↓
+versión A
+
+DISPOSITIVO B
+     ↓
+versión B
+
+      ↓
+CONFLICT
+      ↓
+THE EYE
+
+Verificar que:
+
+ambas versiones sobreviven;
+ninguna es destruida;
+ninguna gana automáticamente;
+el conflicto queda registrado;
+Human Authority puede decidir;
+la decisión queda auditada;
+se genera snapshot cuando corresponda;
+la versión resultante queda identificada.
+11. SEGURIDAD
+
+Revisar específicamente los endpoints territoriales.
+
+Implementar rate limiting configurable donde corresponda.
+
+Como mínimo revisar:
+
+WorldObjects
+CaptureSessions
+Claims
+Sources
+Evidence
+Sync
+Conflict Resolution
+Publication
+
+La autorización debe validarse server-side.
+
+No confiar exclusivamente en ocultar botones en la interfaz.
+
+12. PROTECCIÓN DE PUBLICACIÓN
+
+Esta regla es absoluta:
+
+EDITAR WORLDOBJECT
+      ≠
+MODIFICAR PUBLICACIÓN
+
+Toda modificación debe generar una nueva versión cuando corresponda.
+
+La versión publicada debe permanecer congelada e identificable.
+
+Cualquier nueva modificación debe iniciar un nuevo ciclo de revisión si afecta contenido verificable.
+
+No permitir que un Mapper pueda alterar directamente un objeto publicado en Runtime.
+
+13. THE EYE: PRINCIPIO DE INDEPENDENCIA
+
+Mantener separación de responsabilidades:
+
+MAPPER
+Captura
+    ↓
+THE EYE
+Verifica
+    ↓
+HUMAN AUTHORITY
+Autoriza
+    ↓
+RUNTIME
+Publica
+
+Un Mapper no puede aprobar su propio objeto.
+
+Un Auditor no debe poder modificar silenciosamente la evidencia original.
+
+Una decisión debe ser trazable.
+
+14. PREPARACIÓN DEL PRIMER LEVANTAMIENTO DE TRUJILLO
+
+Manus NO debe inventar ni simular este levantamiento.
+
+Debe dejar preparado el sistema para que un operador humano pueda ejecutarlo físicamente.
+
+Crear una sesión de prueba denominada:
+
+TRUJILLO — PILOTO 001
+
+y dejar preparada la estructura para registrar WorldObjects reales.
+
+El primer levantamiento físico será ejecutado posteriormente por el equipo utilizando dispositivos reales.
+
+15. WORLDOBJECTS DEL PILOTO
+
+El sistema debe poder registrar, como mínimo:
+
+monumentos;
+edificios;
+espacios públicos;
+instituciones;
+hitos urbanos;
+lugares históricos;
+objetos georreferenciados.
+
+No limitar el modelo a tres objetos concretos.
+
+El modelo debe ser generalizable al territorio.
+
+16. NO AGREGAR FUNCIONALIDADES POR "PERFECCIONISMO"
+
+Esta orden tiene una condición importante:
+
+No incorporar nuevas funcionalidades que no sean necesarias para el gate de campo.
+
+Si durante la implementación se detectan mejoras adicionales, clasificarlas:
+
+🔴 BLOCKER — impide la prueba de campo.
+
+🟠 IMPORTANT — debe resolverse antes del lanzamiento público.
+
+🟢 OPTIONAL — puede esperar.
+
+No implementar automáticamente elementos OPTIONAL.
+
+El objetivo es llegar a territorio real, no continuar indefinidamente en sandbox.
+
+17. CRITERIOS DE ACEPTACIÓN
+
+La Orden 36 se considera correctamente ejecutada cuando:
+
+CARTOGRAFÍA
+ Existe mapa cartográfico real.
+ Existe abstracción Map Provider.
+ Se pueden visualizar WorldObjects.
+ Se pueden seleccionar coordenadas.
+ Se visualiza precisión GPS.
+ Se visualizan radios de activación.
+MAPPER
+ GPS preparado.
+ Cámara preparada.
+ Permisos controlados.
+ Captura offline funcional.
+ Sincronización funcional.
+ Estados visibles.
+THE EYE
+ Expediente completo.
+ Evidencia visible.
+ Claims verificables.
+ Sources verificables.
+ Confidence Score explicable.
+ Conflictos resolubles.
+ Decisiones auditables.
+PUBLICACIÓN
+ Runtime consume únicamente versiones PUBLISHED.
+ La versión publicada queda congelada e identificable.
+ Las modificaciones posteriores no sustituyen automáticamente la publicación.
+SEGURIDAD
+ RBAC funcionando.
+ Autorización server-side.
+ Rate limiting revisado.
+ Evidencias protegidas.
+ Audit Log funcionando.
+INTEGRIDAD
+ TypeScript PASS.
+ Tests PASS.
+ Build PASS.
+ E2E PASS.
+ MJP CORE intacto.
+18. ENTREGABLES
+
+Entregar:
+
+Integración de mapa cartográfico real.
+Map Provider Adapter.
+Integración GPS preparada para dispositivo real.
+Integración de cámara preparada para dispositivo real.
+Protocolo de prueba de dos dispositivos.
+Instrumentación de QA.
+Pruebas E2E.
+Pruebas de conflicto.
+Revisión de seguridad de endpoints territoriales.
+Informe de estado del sistema.
+Lista explícita de cualquier BLOQUEANTE restante.
+Confirmación de que MJP CORE no fue modificado.
+19. INFORME FINAL OBLIGATORIO
+
+Al terminar, no responder solamente:
+
+"Orden ejecutada correctamente".
+
+Entregar un informe estructurado:
+
+ORDEN 36 — RESULTADO
+
+1. IMPLEMENTADO
+2. MODIFICADO
+3. NO IMPLEMENTADO
+4. BLOCKERS
+5. TESTS
+6. BUILD
+7. E2E
+8. SEGURIDAD
+9. MJP CORE
+10. PRUEBA DE CAMPO PENDIENTE
+11. RECOMENDACIONES
+
+Separar claramente:
+
+LO QUE FUE PROBADO EN SANDBOX
+
+de
+
+LO QUE TODAVÍA REQUIERE HARDWARE REAL.
+
+No presentar una simulación como prueba física.
+
+20. DECISIÓN DE CIERRE
+
+Si todos los criterios de aceptación técnicos pasan:
+
+NO continuar agregando funcionalidades territoriales automáticamente.
+
+Declarar el sistema:
+
+READY FOR FIELD GATE
+
+y detener la expansión técnica hasta ejecutar la prueba física.
+
+La siguiente etapa será:
+
+SANDBOX CERRADO
+       ↓
+FIELD GATE
+       ↓
+DISPOSITIVO REAL
+       ↓
+TRUJILLO
+       ↓
+CAPTURE
+       ↓
+VERIFY
+       ↓
+AUTHORIZE
+       ↓
+PUBLISH
+       ↓
+RUNTIME
+
+MJP CORE permanece absolutamente intacto.
+
+Mi evaluación estratégica
+
+Esta orden es mejor que la anterior por una razón: separa claramente software de realidad física.
+
+Hasta ahora hemos estado haciendo algo que puede convertirse en una trampa: cada vez que Manus termina una orden aparecen tres nuevas mejoras y seguimos construyendo. Eso puede durar meses. El sistema ya tiene suficiente estructura para que el próximo aprendizaje importante no venga de otra feature, sino de ponerlo delante de una persona, un teléfono, un GPS, una cámara y un territorio real.
+
+Y hay otra corrección importante respecto a lo que veníamos diciendo:
+
+No diría todavía "sistema 100 % robusto"
+
+Eso es demasiado fuerte.
+
+Lo correcto ahora es:
+
+"La arquitectura y el flujo están suficientemente implementados para pasar al gate de validación física."
+
+Son cosas distintas.
+
+Porque todavía no sabemos, en condiciones reales:
+
+qué tan buena es la precisión GPS;
+qué ocurre con mala conectividad;
+cuánto pesan realmente las fotografías;
+cómo se comporta el almacenamiento local;
+cuánto tarda la sincronización;
+cómo se comporta la interfaz en una pantalla pequeña;
+si los permisos del navegador se comportan como esperamos;
+qué pasa cuando el usuario está caminando y capturando;
+si el flujo es suficientemente rápido para trabajo de campo.
+
+Y hay una consecuencia importante:
+
+Después de la Orden 36 yo NO haría otra orden grande de backend.
+
+Si Manus devuelve:
+
+"Orden 36 completada. Sugerencias: X, Y, Z..."
+
+las clasificamos. Pero no seguimos automáticamente.
+
+El siguiente movimiento debería ser:
+
+1. Manus → READY FOR FIELD GATE
+2. Tú + teléfono A → Mapper
+3. Teléfono B → The Eye
+4. Salir físicamente a Trujillo
+5. Capturar 5–10 objetos
+6. Intentar romper el sistema deliberadamente
+7. Corregir únicamente los fallos encontrados
+8. Recién entonces diseñar la UI definitiva.
+
+Y aquí haría una modificación respecto a nuestro plan anterior: no esperaría a tener la UI "bonita" para hacer el primer levantamiento. Primero necesitamos comprobar que el flujo es usable. Una UI espectacular construida antes de observar el comportamiento real del Mapper puede obligarnos a rediseñarla.
+
+La primera prueba de MiLukita no debería demostrar que "tenemos una aplicación".
+
+Debería demostrar algo mucho más difícil:
+
+que podemos convertir una porción de territorio real en conocimiento digital trazable, verificable y publicable sin perder la cadena de confianza.
+
+Ese es el verdadero producto que estamos construyendo.

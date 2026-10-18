@@ -1,0 +1,11 @@
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+[33m8b1b6c2[m feat(A-002): implement input sufficiency engine and gate
+[33m2bafbc5[m feat: add explainable architectural design distance
+[33mad935ad[m feat: derive hierarchical spatial design state
+[33m63213ab[m feat: add bounded diverse design exploration
+[33m9ab4417[m feat: add gdi generative design ladder
+[33m9aea57b[m feat: add multi-actor model
+[33m12ed526[m feat: add deterministic alternative generation and tradeoff matrix
+[33mb648c95[m feat: add structural economic agents and multi-agent debate
+[33mbf4a1e1[m chore: backup SICL Core v1.2 + API Layer + Export features

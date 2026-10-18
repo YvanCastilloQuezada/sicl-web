@@ -1,0 +1,132 @@
+## pnpm check
+COMMAND: pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+## COCO-A/B/C/D suite
+COMMAND: pnpm tsx scripts/test-coco.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","cocoA":"PASS","cocoB":"PASS","cocoC":"PASS","cocoD":"PASS","normal":34,"boundary":true,"adversarial":true,"metamorphic":true,"transfer":true,"testTheTest":"PASS","unknownPreserved":true,"provenancePreserved":true,"projectIsolationPreserved":true,"professionalClaims":false}
+EXIT_CODE=0
+## PA-001 regression
+COMMAND: pnpm tsx scripts/test-architectural-program.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","normal":10,"adversarial":8,"metamorphic":5,"testTheTest":"PASS","deterministic":true,"unknownPreserved":true,"provenancePreserved":true,"conflictDetection":true,"projectIsolation":true}
+EXIT_CODE=0
+## E8-A regression
+COMMAND: pnpm tsx scripts/test-e8a-dossier.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8A-01 PASS — unapproved snapshot rejected
+E8A-02 PASS — five technical documents compiled
+E8A-03 PASS — snapshot/version/element traceability preserved
+E8A-04 PASS — budget and traceable plan emitted
+{
+  "status": "PASS",
+  "schema": "ARKI-E8A-TECHNICAL-DOSSIER-1.0",
+  "snapshotId": "ARKI-d9565f3b",
+  "version": 1,
+  "documents": [
+    "01-memoria-descriptiva.md",
+    "02-especificaciones-tecnicas.md",
+    "03-metrados.md",
+    "04-presupuesto.md",
+    "05-planta.svg"
+  ],
+  "tracedElements": 356
+}
+EXIT_CODE=0
+## E8-B regression
+COMMAND: pnpm tsx scripts/test-e8b-assets.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8B-01 PASS — unapproved snapshot rejected
+E8B-02 PASS — missing element rejected
+E8B-03 PASS — asset, warranty, manual, inspection and work-order lifecycle validated
+E8B-04 PASS — IndexedDB close/reopen restores asset, warranty and chronological history
+{
+  "status": "PASS",
+  "schema": "ARKI-E8B-OM-1.0",
+  "assetId": "ARKI-4ba5cb0d",
+  "elementId": "muro-1-1",
+  "snapshotId": "ARKI-ffdee204",
+  "historyEntries": 3,
+  "stores": [
+    "assets",
+    "warranties",
+    "manuals",
+    "inspections",
+    "workOrders",
+    "assetHistory"
+  ]
+}
+EXIT_CODE=0
+## E8-C regression
+COMMAND: pnpm tsx scripts/test-e8c-gate.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8C-01 PASS — actor ai is never approved
+E8C-02 PASS — unapproved snapshot rejected
+E8C-03 PASS — missing criterion is reported
+E8C-04 PASS — twelve human-verified criteria plus signature approved
+{
+  "status": "PASS",
+  "schema": "ARKI-E8C-PROJECT-GATE-1.0",
+  "criteria": 12,
+  "ai": "GATE_NEVER_APPROVED_BY_AI",
+  "missing": [
+    "mep_calculated"
+  ],
+  "approved": "approved"
+}
+EXIT_CODE=0
+## BKH4 foundation regression
+COMMAND: pnpm tsx scripts/test-bkh4-foundation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","revisionStatusRestricted":true,"stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"operationInvariants":7,"arbitraryCodeRejectedStructurally":true,"malformedMutationRejected":true,"deterministicSerialization":true,"duplicateRevisionRejected":true,"provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+## E5 closure regressions
+COMMAND: bash -c pnpm tsx scripts/test-e5-close-snapshot.ts && pnpm tsx scripts/test-e5-close-viewpoint.ts && pnpm tsx scripts/test-e5-close-comparison-controls.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","test":"E5-CLOSE-01","operation":"save → close → reopen → restore","snapshotId":"e5-close-snapshot:v001","nodes":1}
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","test":"E5-CLOSE-02","operation":"save → close → reopen → restore","viewpointId":"e5-close-viewpoint:vp-001","viewMode":"orthographic","selectedIds":["wall-1","door-1"]}
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","test":"E5-CLOSE-03","controls":["camera","level","heightFilter"],"independentSides":["left","right"]}
+EXIT_CODE=0
+## E7 regression
+COMMAND: pnpm tsx scripts/test-e7.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checks":23,"budget":4650,"scheduleDays":7,"clashes":1,"structural":"NOT_DEMONSTRATED","mep":"VERIFIED","impacts":2}
+EXIT_CODE=0
+## pnpm build
+COMMAND: pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-Bzq0m-UN.js        2,015.28 kB │ gzip: 550.49 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 16.89s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+## SUMMARY
+PASS_COMMANDS=10
+FAIL_COMMANDS=0
+OVERALL=PASS

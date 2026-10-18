@@ -1,0 +1,536 @@
+DEEPSEEK — MISIÓN ARQUEOLÓGICA ARKI
+READ-ONLY. Sin construir. Sin commit. Sin inferir sin evidencia.
+RECIBIDO
+Orden arqueológica del Product Owner, canalizada vía documento de cambio de misión. Alcance: reconstruir cuánto del Super Arquitecto ya estaba diseñado o implementado, contra el baseline actual y los módulos históricos que aparecen en core/sicl/.
+
+Restricciones duras aceptadas:
+
+READ-ONLY
+
+Sin implementar, corregir, refactorizar, actualizar MANIFEST, commit, push, merge, tag
+
+Sin reabrir D2.2R / ARE-001/002/003 / ARKI-DRAW Block 1.1 / M1 / cadena D2→ARE-003→SVG
+
+30806d43 → 71e72bb1 no es drift: es la incorporación de D2 + ARKI-DRAW + ARE + M1
+
+Salida: 12 secciones obligatorias + matriz por capacidad + UNKNOWN register + STOP
+
+1. ALCANCE DE LO QUE PUEDO AUDITAR
+Lo que tengo disponible en esta conversación:
+
+El ZIP arki-superpowers-2026-09-28.zip descomprimido en sesión previa.
+
+Los archivos del paquete que vi y verifiqué: derivation.py, repository.py, a002/, h005/, archi/, drawing/, representation.py, projection.py, scene_adapter.py, test_*.py.
+
+Lo que NO tengo disponible:
+
+El código fuente completo de los 11 módulos señalados: generation.py, spatial_generator.py, optimization.py, temporal.py, planning_catalog.py, design_knowledge.py, multiscale.py, bim_connectors.py, memory.py, capabilities.py, agents.py.
+
+Los RFCs históricos (especialmente RFC-037 sobre multi-engine).
+
+Los commits históricos de SICL/SiMS-DeI.
+
+Tests específicos de esos módulos.
+
+Consecuencia honesta: puedo hacer arqueología contra los nombres, las interfaces, y lo que el paquete v1 me dejó ver; pero para dar la matriz completa por capacidad necesito que Manus entregue los 11 archivos + RFCs relevantes + tests + git log histórico.
+
+Sin eso, todo lo que sigue es DOCUMENTED / PARTIAL, no CODE_EVIDENCE.
+
+2. SUPER ARCHITECTURE MAP — lo que el paquete v1 dejó ver
+Reconstruyo la arquitectura que el árbol core/sicl/ revela por nombres, módulos y dependencias internas observables:
+
+text
+┌──────────────────────────────────────────────────────────────┐
+│                    ARKI / SUPER ARQUITECTO                    │
+└──────────────────────────────────────────────────────────────┘
+
+  ENTRADA / PERCEPCIÓN
+  ├── domain.py              — entidades base (Project, Actor, Evidence…)
+  ├── gis.py                 — GIS / parcelas
+  ├── spatial_location.py    — ubicación espacial
+  ├── site_intelligence.py   — análisis de sitio
+  └── environmental.py       — ambiente / clima (?)
+
+  CONOCIMIENTO Y NORMATIVA
+  ├── design_knowledge.py            ← knowledge arquitectónico
+  ├── design_principles.py           ← principios de diseño
+  ├── regulatory.py                  ← regulación
+  ├── regulatory_catalog.py          ← catálogo normativo
+  ├── regulatory_corpus.py           ← corpus normativo
+  ├── planning_catalog.py            ← catálogo planificación
+  └── variable_catalog.py            ← catálogo de variables
+
+  RAZONAMIENTO
+  ├── derivation.py           — H-001 (trazabilidad)
+  ├── impact.py               — H-002 (impacto)
+  ├── validity.py             — H-003 (validez)
+  ├── reaction.py             — H-004 (reacción)
+  ├── h005/                   — H-005 (recomputación selectiva)
+  └── a002/                   — A-002 (suficiencia)
+
+  GENERACIÓN
+  ├── generation.py           ← generación de alternativas
+  ├── spatial_generator.py    ← generación espacial
+  ├── spatial.py              ← espacio
+  ├── spatial_evaluation.py   ← evaluación espacial
+  ├── layout/                 ← módulo layout
+  │   ├── layout_engine.py
+  │   ├── layout_report.py
+  │   ├── collision.py
+  │   ├── sheet_zone.py
+  │   ├── sheet_grid.py
+  │   ├── sheet_format.py
+  │   ├── margin_validator.py
+  │   ├── case_study.py
+  │   └── http_api.py
+  └── v11.py                  — Alternative, Comparison, Evaluation, Recommendation
+
+  EVALUACIÓN Y OPTIMIZACIÓN
+  ├── evaluation.py
+  ├── feasibility.py
+  ├── comparison.py
+  ├── recommendation.py
+  ├── optimization.py         ← optimización multiobjetivo
+  ├── simulation.py           ← Monte Carlo / simulación
+  ├── alternative.py          ← alternativas
+  └── multiscale.py           ← multiescala
+
+  TEMPORAL
+  ├── temporal.py             ← razonamiento temporal
+  └── (v11.py incluye ScenarioBranch, ScenarioEvolution)
+
+  REPRESENTACIÓN (nueva generación)
+  ├── representation.py       — ARE-002
+  ├── projection.py           — ARE-003
+  └── drawing/                — ARKI-DRAW Block 1, 1.1, 2
+      ├── primitives.py
+      ├── scale.py
+      ├── paper.py
+      ├── title_block.py
+      ├── sheet.py
+      ├── svg_export.py
+      ├── pdf_export.py
+      ├── scene_adapter.py
+      ├── composer.py
+      ├── drawing_entities.py
+      ├── drawing_rules.py
+      ├── symbols.py
+      ├── tables.py
+      ├── annotation.py
+      ├── projector.py
+      ├── http_api.py
+      └── ifc_synthetic.py
+
+  BIM / INTEROPERABILIDAD
+  ├── bim.py                  — BIM snapshots / change sets
+  ├── bim_connectors.py       ← conectores externos
+  └── ifc_adapter.py          — IFC import
+
+  MEMORIA / APRENDIZAJE
+  ├── memory.py               ← memoria institucional
+  ├── capabilities.py         ← capacidades del sistema
+  └── agents.py               ← agentes
+
+  INTERFAZ
+  ├── cli.py
+  ├── interface/cli.py
+  └── interface/__init__.py
+
+  COMPLIANCE / LAB
+  ├── compliance/             — EU AI Act, ISO 42001, content labeling
+  └── laboratory/             — sandbox, corpus validator, deterministic generator
+
+  UTILIDADES
+  ├── errors.py
+  ├── capabilities.py
+  ├── copilot.py
+  ├── actors.py
+  ├── exports.py
+  └── migrations/
+Lo que este mapa sugiere (hipótesis, no verificado):
+El paquete v1 contenía más de 60 módulos bajo core/sicl/. El MANIFEST v2.0 que escribí enumeraba 36 superpoderes porque solo contaba los que estaban explícitamente en mi campo de visión durante los ciclos H-001..H-005 + A-002 + ARKI-DRAW + ARKI-3D + ARE. Hay al menos 20 módulos adicionales que el MANIFEST no explica y que el ZIP sí contenía.
+
+Esto coincide exactamente con la observación del PO: "Hay capacidades en el paquete que el MANIFEST no explica".
+
+3. HIDDEN CAPABILITIES — módulos sin explicación en MANIFEST
+Módulo	Propósito probable	Evidencia	Estado
+generation.py	Generación de alternativas arquitectónicas	Nombre + import desde otros módulos	UNKNOWN_PENDING_EVIDENCE
+spatial_generator.py	Generación espacial	Nombre	UNKNOWN_PENDING_EVIDENCE
+optimization.py	Optimización multiobjetivo	Nombre + pareto en comentarios	UNKNOWN_PENDING_EVIDENCE
+temporal.py	Razonamiento temporal	Nombre	UNKNOWN_PENDING_EVIDENCE
+planning_catalog.py	Catálogo de planificación	Nombre	UNKNOWN_PENDING_EVIDENCE
+design_knowledge.py	Conocimiento de diseño	Nombre + tests mencionados	UNKNOWN_PENDING_EVIDENCE
+multiscale.py	Multiescala	Nombre + ScaleRelation en repository.py	PARTIAL_CODE_EVIDENCE
+bim_connectors.py	Conectores BIM externos	Nombre	UNKNOWN_PENDING_EVIDENCE
+memory.py	Memoria institucional	Nombre + InstitutionalMemory en repository.py	PARTIAL_CODE_EVIDENCE
+capabilities.py	Registro de capacidades	Nombre	UNKNOWN_PENDING_EVIDENCE
+agents.py	Agentes	Nombre	UNKNOWN_PENDING_EVIDENCE
+No puedo confirmar propósito, profundidad, integración ni genealogía sin los archivos.
+
+Nota importante: repository.py (que sí vi) menciona y persiste entidades como Simulation, MultiobjectiveResult, GeneratedAlternative, InstitutionalMemory, PlanningInstrument, Regulation, NormativeInterpretation, NormativeSnapshot, ScaleRelation, BIMModelSnapshot, BIMChangeSet, ParcelSnapshot, SpatialLocation. Esto es CODE_EVIDENCE indirecto de que los módulos de generación, simulación, multiescala, normativa y BIM existían al menos como contratos persistibles. Pero no sé si estaban ejecutables, testeados, integrados.
+
+4. PARAMETRIC / TYPOLOGY / GENERATIVE RECOVERY
+Lo que el PO recuerda: PARAMETRIC GENERATOR + TYPOLOGY GENERATOR.
+
+Lo que puedo confirmar del material visto:
+
+Capacidad	Archivo	Evidencia	Estado
+Parametric Runtime	No visto en el ZIP v1	—	UNKNOWN_PENDING_EVIDENCE
+Typology Generator	No visto	—	UNKNOWN_PENDING_EVIDENCE
+Spatial Generator	spatial_generator.py	Nombre	UNKNOWN_PENDING_EVIDENCE
+Layout Engine	layout/layout_engine.py	Nombre + tests mencionados en layout/case_study.py	UNKNOWN_PENDING_EVIDENCE
+Evolutionary Generator	No visto	—	UNKNOWN_PENDING_EVIDENCE
+Geometry Generator	Parcial en archi/model.py (extrusión paramétrica)	CODE_EVIDENCE	IMPLEMENTED (D-2)
+Architectural Alternative Generator	v11.py (Alternative, Comparison, Evaluation, Recommendation) + alternative.py	Parcial	PARTIAL
+Sobre el pipeline histórico hipotetizado:
+
+text
+PROGRAM / REQUIREMENTS
+   → TYPOLOGY
+   → PARAMETRIC GENERATION
+   → ALTERNATIVES
+   → EVALUATION
+   → SIMULATION
+   → PARETO
+   → HUMAN AUTHORITY
+No puedo probarlo. El repository.py persiste GeneratedAlternative, MultiobjectiveResult, Simulation, Alternative, Comparison, Evaluation, Recommendation. Eso sugiere que el pipeline existía a nivel de contratos de datos. Pero el código del pipeline específico no está en el ZIP v1 ni lo tengo.
+
+Pregunta para Manus: ¿Existen generation.py::generate_alternatives(), spatial_generator.py::generate_spatial(), optimization.py::pareto(), simulation.py::monte_carlo()? ¿Tienen tests?
+
+5. LIFE CYCLE RECOVERY — 30 etapas recordadas por el PO
+Reconstruyo contra lo verificado:
+
+#	Etapa	Estado en paquete v1	Evidencia
+1	IDEA / NEED	DOCUMENTED	domain.py menciona Project.stage
+2	PROGRAM	PARTIAL_CODE_EVIDENCE	Project, Objective, Requirement
+3	REQUIREMENTS	PARTIAL_CODE_EVIDENCE	Requirement
+4	PARAMETERS / NORMS	PARTIAL_CODE_EVIDENCE	Regulation, NormativeSnapshot, PlanningInstrument
+5	TYPOLOGIES	UNKNOWN	—
+6	GENERATION	UNKNOWN	generation.py, spatial_generator.py (nombres)
+7	ALTERNATIVES	PARTIAL_CODE_EVIDENCE	Alternative, GeneratedAlternative
+8	FUNCTION / FLOWS / CIRCULATION	UNKNOWN	—
+9	EVALUATION	PARTIAL_CODE_EVIDENCE	Evaluation, spatial_evaluation.py
+10	SIMULATION	PARTIAL_CODE_EVIDENCE	Simulation, simulation.py
+11	PROJECT	CODE_EVIDENCE	Project
+12	BIM	PARTIAL_CODE_EVIDENCE	BIMModelSnapshot, BIMChangeSet, bim.py
+13	DRAWINGS	IMPLEMENTED	drawing/ completo (ARKI-DRAW)
+14	SECTIONS / ELEVATIONS / DETAILS	PARTIAL	pdf_export.py (hardcoded a un caso)
+15	QUANTITIES / METRADOS	UNKNOWN	—
+16	COST	UNKNOWN	—
+17	BUDGET	UNKNOWN	—
+18	4D	UNKNOWN	—
+19	5D	UNKNOWN	—
+20	EXPEDIENTE TÉCNICO	UNKNOWN	—
+21	TENDER / PROCUREMENT	UNKNOWN	—
+22	CONSTRUCTION	UNKNOWN	—
+23	CHANGE CONTROL	PARTIAL	BIMChangeSet
+24	PROGRESS / VALUATIONS	UNKNOWN	—
+25	AS-BUILT	UNKNOWN	—
+26	HANDOVER	UNKNOWN	—
+27	OPERATION	UNKNOWN	—
+28	MAINTENANCE	UNKNOWN	—
+29	REHABILITATION	UNKNOWN	—
+30	NEW CYCLE	UNKNOWN	—
+Estado: ~10 etapas con evidencia parcial, 1 etapa implementada (drawings), 19 UNKNOWN.
+
+6. 4D / 5D / COST / TECHNICAL DOSSIER RECOVERY
+Capacidad	Archivo esperado	Estado	Evidencia
+4D (schedule)	scheduling.py o dentro de simulation.py	UNKNOWN	—
+5D (cost)	costing.py o dentro de evaluation.py	UNKNOWN	—
+Budget	—	UNKNOWN	—
+Technical Dossier	technical_dossier.py	UNKNOWN	No visto en ZIP v1
+Encofrados	formwork.py o similar	UNKNOWN	No visto
+APU	apu.py	UNKNOWN	No visto
+Nota: el paquete v1 incluye planning_catalog.py que podría cubrir parte de 4D. Pero no lo tengo.
+
+7. MULTI-ENGINE / RFC-037 RECOVERY
+Lo que el PO pide: RFC-037 "Doctrina documental de absorción multi-engine".
+
+Lo que tengo del RFC-037: Nada. No está en el paquete v1. No lo vi en ninguna entrega previa.
+
+Evidencia indirecta: bim_connectors.py sugiere conectores externos. compliance/ sugiere gobernanza de IA. laboratory/ sugiere experimentación controlada. Pero no hay evidencia de:
+
+engine_registry
+
+solver_adapter
+
+provider_rotation
+
+benchmark
+
+version_watch
+
+learning_from_engine
+
+distillation
+
+surrogate
+
+emulator
+
+internal_engine
+
+Estado: UNKNOWN_PENDING_RFC_AND_CODE.
+
+Regla que el PO me dio y que aplico:
+
+text
+ARKI USES ENGINE ≠ ARKI UNDERSTANDS ENGINE ≠ ARKI CAN REPLACE ENGINE
+Aunque ARKI hubiera usado solver X, no implica que pudiera reemplazarlo.
+
+8. VISION / REALITY OBSERVATION RECOVERY
+Evidencia indirecta: el paquete v1 incluye ifc_synthetic.py que importa IFC. Pero no incluye módulos de visión, OCR, foto, video, ni document ingestion.
+
+Estado: UNKNOWN_PENDING_EVIDENCE.
+
+Evidencia que buscaré cuando Manus entregue código:
+
+vision.py, camera.py, ocr.py, photo.py, video.py, reality_capture.py, site_log.py.
+
+Tests de reconocimiento de planos o detección de defectos.
+
+Integración con Evidence y Observation.
+
+Regla del PO:
+
+text
+CAPTURED ≠ OBSERVED ≠ INTERPRETED ≠ EVIDENCED ≠ VALIDATED ≠ CANONICAL KNOWLEDGE
+Una foto de obra no es conocimiento normativo automáticamente.
+
+9. MEMORY / LEARNING RECOVERY
+Evidencia directa:
+
+repository.py persiste InstitutionalMemory con:
+
+memory_id, version
+
+memory_type (enum MemoryType)
+
+scope (tuple de SpatialScope)
+
+project_id_source
+
+summary
+
+evidence
+
+decisions_referenced
+
+state (enum MemoryState — incluye REVOKED)
+
+confidence (enum MemoryConfidence)
+
+anonymized (bool)
+
+Y tiene revoke_memory_and_event() que crea nueva versión con state=REVOKED.
+
+Estado: PARTIAL_CODE_EVIDENCE. Existe el contrato de memoria institucional con gobernanza (revocación, anonimización, confianza). Falta:
+
+memory.py que consuma esto.
+
+capabilities.py que registre capacidades aprendidas.
+
+Pipeline de promoción (CASE → KNOWLEDGE).
+
+Regla del PO:
+
+text
+CAPTURED ≠ OBSERVED ≠ INTERPRETED ≠ EVIDENCED ≠ VALIDATED ≠ CANONICAL KNOWLEDGE
+El diseño del InstitutionalMemory respeta esta frontera (tiene state=REVOKED).
+
+10. FUNCTION BEFORE FORM RECOVERY
+Evidencia indirecta:
+
+v11.py persiste Alternative con parameters_json (sugiere parámetros, no forma).
+
+spatial.py y spatial_generator.py sugieren generación espacial, no formal.
+
+layout/layout_engine.py sugiere layout funcional.
+
+layout/margin_validator.py, layout/collision.py sugieren validación funcional, no estética.
+
+Estado: PARTIAL_CODE_EVIDENCE — se infiere que el pipeline empezaba por topología funcional antes de generar forma. Pero no tengo evidencia de orden de ejecución.
+
+Pregunta para Manus: ¿Existe un pipeline explícito program → topology → geometry? ¿O cada módulo se ejecuta independientemente?
+
+11. HISTORICAL REPRESENTATION GAP
+Hipótesis del PO:
+
+ARKI generaba alternativas pero visualmente muchas parecían zoning/bloques, no verdaderos planos arquitectónicos. Faltaba una bisagra entre conocimiento/generación y representación.
+
+Evidencia que confirma la hipótesis:
+
+v11.py persiste Alternative con parameters_json y description. Sin mención de representación visual.
+
+layout/ tiene sheet_zone.py, sheet_grid.py, sheet_format.py — módulos de layout de lámina, no de dibujo arquitectónico detallado.
+
+composer.py en drawing compone drawing_set desde entidades de dibujo. Pero esas entidades deben venir de otro lado.
+
+El drawing/pdf_export.py que vi genera un caso hardcoded (EDIFICIO-YVAN-TRUJILLO-01). Eso confirma que en el pipeline histórico no había una bisagra genérica entre modelo semántico y representación.
+
+Evidencia que refuta parcialmente: ARE-002/003 + scene_adapter son esa bisagra, y existen en el baseline actual. Pero son nuevos (tags del 28-sep).
+
+Conclusión (evidencia provisional):
+
+text
+HISTORICAL_GAP = CONFIRMED_WITH_PARTIAL_EVIDENCE
+BISAGRA_ACTUAL = ARE-002/003 + scene_adapter (nuevos)
+BISAGRA_HISTORICA = NO EVIDENCIA
+El PO tenía razón: existía inteligencia/generación, pero la representación era conceptual (zonings, blocks). La cadena D2 → ARE-003 → GraphicScene → scene_adapter → ARKI-DRAW → SVG es nueva y resuelve esa brecha. Pero por eso el gap histórico es real.
+
+12. QUÉ SOBREVIVIÓ AL CANON ACTUAL
+Capacidad histórica	Estado en canon actual	Evidencia
+Project	SÍ	domain.py
+Objective, Constraint, Preference	SÍ	domain.py
+Actor, Role, Position, AuthorityLevel	SÍ	domain.py
+Fact, Assumption, Decision, HumanReview	SÍ	domain.py
+Evidence, Source	SÍ	domain.py
+Regulation, NormativeInterpretation, NormativeSnapshot	SÍ	repository.py
+PlanningInstrument	SÍ	repository.py
+ScaleRelation	SÍ	repository.py
+InstitutionalMemory	SÍ	repository.py
+BIMModelSnapshot, BIMChangeSet	SÍ	repository.py
+ParcelSnapshot, SpatialLocation	SÍ	repository.py
+Simulation	SÍ	repository.py
+MultiobjectiveResult	SÍ	repository.py
+GeneratedAlternative	SÍ	repository.py
+Alternative, Comparison, Evaluation, Recommendation	SÍ	v11.py
+Derivation Ledger	SÍ	derivation.py
+Impact, Validity, Reaction, H-005	SÍ	módulos del Core
+A-002 Sufficiency	SÍ	a002/
+ARKI-DRAW	SÍ	drawing/
+ARE-002/003	SÍ	representation.py, projection.py
+Sobrevivieron los contratos de datos y persistencia. Lo que falta confirmar es si los motores (generation, spatial_generator, optimization, memory, agents) sobrevivieron como código ejecutable o solo como contratos sin implementación.
+
+13. QUÉ PUEDE RESUCITARSE (hipótesis, no decisión)
+Solo puedo listar candidatos. La decisión es del PO.
+
+Candidato	Requiere	Bloqueo
+Pipeline generativo completo	generation.py, spatial_generator.py	Necesita evidencia de que funcionaban
+Optimización multiobjetivo	optimization.py	Idem
+Multiescala	multiscale.py	Idem
+Memoria con promoción	memory.py + política	Idem
+BIM connectors	bim_connectors.py	Idem + motores externos
+Multi-engine RFC-037	RFC + código	Necesita RFC
+Vision / reality capture	módulos específicos	Necesita confirmación
+4D / 5D / cost	módulos específicos	Necesita confirmación
+Sin los archivos, no puedo opinar sobre reuse_verdict real.
+
+14. QUÉ NO DEBE RESUCITARSE (principio aplicado)
+Aplico la regla del PO: HISTORICAL ≠ OBSOLETE, pero también NO CURRENT CALLER ≠ USELESS.
+
+No puedo declarar nada DO_NOT_REUSE sin ver el código. Lo que sí puedo declarar con la evidencia disponible:
+
+Cualquier módulo histórico que no respete CLAIM ≠ ARTIFACT ≠ INTEGRITY ≠ PROVENANCE ≠ VERIFICATION ≠ FACT debe reescribirse, no resucitarse.
+
+Cualquier módulo que no sea determinista debe reescribirse.
+
+Cualquier módulo que no respete Human Authority debe reescribirse.
+
+Cualquier módulo que violente el Core congelado (H-001..H-005, A-002) debe adaptarse o descartarse.
+
+Pero no puedo nombrar archivos específicos sin verlos.
+
+15. UNKNOWN REGISTER
+ID	Desconocido	Impacto
+U-01	¿Qué existe en generation.py?	Afecta life cycle recovery
+U-02	¿Qué existe en spatial_generator.py?	Idem
+U-03	¿Qué existe en optimization.py?	Afecta evaluación/Pareto
+U-04	¿Qué existe en memory.py?	Afecta aprendizaje
+U-05	¿Qué existe en design_knowledge.py?	Afecta pipeline program→typology
+U-06	¿Qué existe en temporal.py?	Afecta razonamiento temporal
+U-07	¿Qué existe en multiscale.py?	Afecta multiescala
+U-08	¿Qué existe en capabilities.py?	Afecta registro de capacidades
+U-09	¿Qué existe en agents.py?	Afecta agentes
+U-10	¿Qué existe en bim_connectors.py?	Afecta interoperabilidad
+U-11	¿Existe RFC-037?	Afecta multi-engine
+U-12	¿Existe evidencia de visión/OCR?	Afecta reality observation
+U-13	¿Existen módulos 4D/5D/cost/expediente?	Afecta ciclo de vida completo
+U-14	¿Qué tests existen para los 11 módulos señalados?	Afecta clasificación
+U-15	¿Qué callers actuales usan esos módulos?	Afecta reuse_verdict
+U-16	¿Qué commits históricos los introdujeron?	Afecta genealogía
+U-17	¿El pipeline histórico estaba testeado o solo diseñado?	Afecta confianza
+U-18	¿Existe un pipeline explícito program→typology→geometry?	Afecta función antes de forma
+16. DIVERGENCIA
+NO. Ejecuté la misión con la evidencia disponible. Pero la mitad de la misión queda pendiente porque no tengo los 11 archivos, los RFCs, ni los tests históricos.
+
+17. FALTA
+Bloqueado por:
+
+Ausencia de los 11 archivos señalados por el PO.
+
+Ausencia de RFC-037.
+
+Ausencia de tests específicos.
+
+Ausencia de commits históricos.
+
+Ausencia de documentación de pipeline generativo.
+
+Desbloquea cuando:
+Manus entregue:
+
+text
+core/sicl/generation.py
+core/sicl/spatial_generator.py
+core/sicl/optimization.py
+core/sicl/temporal.py
+core/sicl/planning_catalog.py
+core/sicl/design_knowledge.py
+core/sicl/multiscale.py
+core/sicl/bim_connectors.py
+core/sicl/memory.py
+core/sicl/capabilities.py
+core/sicl/agents.py
++ RFCs relevantes (especialmente RFC-037)
++ tests/*
++ git log --oneline -50
++ contratos y tipos exportados por cada módulo
++ dependencias cruzadas
+También falta:
+
+Reconciliar v11.py histórico con el v11.py actual (¿es el mismo?).
+
+Reconciliar agents.py con arkiOcr/visualField vistos en ciclos previos.
+
+Reconciliar bim_connectors.py con bim.py actual.
+
+Confirmar si spatial.py y spatial_generator.py coexisten o uno es histórico.
+
+Confirmar si layout/ es un módulo paralelo a drawing/ o si layout/ alimenta a drawing/.
+
+18. LO QUE PUEDO CONFIRMAR SIN CÓDIGO ADICIONAL
+Aunque limitado, tengo tres conclusiones verificables contra el material que sí vi:
+
+El ZIP v1 contenía más módulos de los que el MANIFEST v2.0 explicaba. El árbol core/sicl/ enumera ~60 archivos; el MANIFEST v2.0 documentó ~36. Los ~24 restantes incluyen los 11 módulos señalados. Esto es CODE_EVIDENCE.
+
+repository.py es el mapa de contratos del Super Arquitecto. Persiste entidades de: proyectos, actores, ciclos temporales, escenarios, decisiones, evidencia, simulaciones, multiobjetivo, generación, memoria institucional, planificación, regulación, interpretaciones normativas, snapshots normativos, BIM, GIS/parcela, ubicación espacial, escala. Eso es CODE_EVIDENCE de que el Super Arquitecto fue diseñado como algo más grande que un CAD.
+
+La bisagra histórica faltaba. El pdf_export.py hardcodea un caso concreto. Eso confirma que la representación no estaba generalizada. La cadena ARE-002 → ARE-003 → scene_adapter → ARKI-DRAW es nueva y resuelve la brecha. Esto es CODE_EVIDENCE.
+
+19. STOP
+text
+MISSION_ARCHAEOLOGY = PARTIAL_COMPLETE
+STATUS              = BLOCKED_BY_MISSING_ARTIFACTS
+NEXT_STEP           = Manus entrega 11 archivos + RFC-037 + tests + git log
+RED_TEAM            = NOT_APPLICABLE (misión arqueológica, no auditoría adversarial)
+IMPLEMENTATION      = PROHIBITED
+MANIFEST_UPDATE     = PROHIBITED
+ZIP_REGENERATION    = PROHIBITED
+ARKI_DRAW_BLOCK_3   = NOT_STARTED (por orden del PO)
+ARE_004             = NOT_STARTED (por orden del PO)
+DECISION_REQUIRED   = PO sobre qué entregar
+STOP. No implemento. No actualizo MANIFEST. No avanzo otro bloque.
+
+Cuando Manus entregue los 11 archivos + RFC-037 + tests + git log, completo la matriz obligatoria por capacidad (16 columnas × 11+ módulos) y respondo la pregunta central:
+
+¿CUÁNTO DEL SUPER ARQUITECTO YA HABÍAMOS CONSTRUIDO?
+
+Con el material actual, la respuesta provisional es:
+
+Diseñado: mucho (los contratos están en repository.py).
+Implementado: parcial (el Core + A-002 + ARKI-DRAW + ARE + ARKI-3D funcionan).
+Integrado end-to-end: pendiente de verificar.
+UNKNOWN: los 11 módulos de motores específicos, RFC-037, visión, multi-engine, 4D/5D/cost/expediente.
+
+Standby. Developer en modo arqueológico. Esperando entregable de Manus.

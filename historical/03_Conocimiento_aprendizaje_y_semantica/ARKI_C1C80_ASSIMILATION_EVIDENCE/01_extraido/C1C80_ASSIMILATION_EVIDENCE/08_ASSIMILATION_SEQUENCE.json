@@ -1,0 +1,1382 @@
+[
+  {
+    "rank": 1,
+    "capabilityId": "C23",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 2,
+    "capabilityId": "C24",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 3,
+    "capabilityId": "C25",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 4,
+    "capabilityId": "C26",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 5,
+    "capabilityId": "C27",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 6,
+    "capabilityId": "C28",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 7,
+    "capabilityId": "C29",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 8,
+    "capabilityId": "C44",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 9,
+    "capabilityId": "C45",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 10,
+    "capabilityId": "C46",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 11,
+    "capabilityId": "C47",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 12,
+    "capabilityId": "C54",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 13,
+    "capabilityId": "C55",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 14,
+    "capabilityId": "C56",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 15,
+    "capabilityId": "C57",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 16,
+    "capabilityId": "C58",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 17,
+    "capabilityId": "C59",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 18,
+    "capabilityId": "C11",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 19,
+    "capabilityId": "C12",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 20,
+    "capabilityId": "C13",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 21,
+    "capabilityId": "C14",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 22,
+    "capabilityId": "C15",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 23,
+    "capabilityId": "C16",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 24,
+    "capabilityId": "C17",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 25,
+    "capabilityId": "C18",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 26,
+    "capabilityId": "C20",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 27,
+    "capabilityId": "C21",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 28,
+    "capabilityId": "C22",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 29,
+    "capabilityId": "C48",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 30,
+    "capabilityId": "C49",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 31,
+    "capabilityId": "C50",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 32,
+    "capabilityId": "C51",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 33,
+    "capabilityId": "C52",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 34,
+    "capabilityId": "C53",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 35,
+    "capabilityId": "C60",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 36,
+    "capabilityId": "C61",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 37,
+    "capabilityId": "C62",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 38,
+    "capabilityId": "C63",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 39,
+    "capabilityId": "C66",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 40,
+    "capabilityId": "C68",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 41,
+    "capabilityId": "C69",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 42,
+    "capabilityId": "C70",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 43,
+    "capabilityId": "C71",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 44,
+    "capabilityId": "C73",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 45,
+    "capabilityId": "C34",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 46,
+    "capabilityId": "C35",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 47,
+    "capabilityId": "C36",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 48,
+    "capabilityId": "C37",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 49,
+    "capabilityId": "C38",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 50,
+    "capabilityId": "C39",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 51,
+    "capabilityId": "C40",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 52,
+    "capabilityId": "C41",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 53,
+    "capabilityId": "C42",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 54,
+    "capabilityId": "C43",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 55,
+    "capabilityId": "C64",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 56,
+    "capabilityId": "C67",
+    "cluster": "BIM_CAD_IFC_DIGITAL",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 57,
+    "capabilityId": "C19",
+    "cluster": "MEP_BUILDING_PHYSICS",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 58,
+    "capabilityId": "C72",
+    "cluster": "SIMULATION_OPTIMIZATION_RISK",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 59,
+    "capabilityId": "C30",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 60,
+    "capabilityId": "C31",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 61,
+    "capabilityId": "C32",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 62,
+    "capabilityId": "C33",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 63,
+    "capabilityId": "C65",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 64,
+    "capabilityId": "C74",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 65,
+    "capabilityId": "C76",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 66,
+    "capabilityId": "C77",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 67,
+    "capabilityId": "C79",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 68,
+    "capabilityId": "C80",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 69,
+    "capabilityId": "C75",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 70,
+    "capabilityId": "C78",
+    "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 71,
+    "capabilityId": "C01",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 72,
+    "capabilityId": "C02",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 73,
+    "capabilityId": "C03",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 74,
+    "capabilityId": "C04",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 75,
+    "capabilityId": "C05",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 76,
+    "capabilityId": "C06",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 77,
+    "capabilityId": "C08",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 78,
+    "capabilityId": "C09",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 79,
+    "capabilityId": "C10",
+    "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  },
+  {
+    "rank": 80,
+    "capabilityId": "C07",
+    "cluster": "MEP_BUILDING_PHYSICS",
+    "prerequisites": [
+      "MATHEMATICS",
+      "GEOMETRY",
+      "DOMAIN_KNOWLEDGE",
+      "DATA",
+      "REPRESENTATION",
+      "PHYSICS",
+      "COMPUTATIONAL_METHODS",
+      "ORACLE",
+      "PROFESSIONAL_VALIDATION",
+      "UNITS"
+    ],
+    "readiness": "KNOWLEDGE_DEFICIT",
+    "action": "REUSE_OR_FORMALIZE_BEFORE_NEW_BUILD",
+    "authorization": "BOUNDED_ASSIMILATION_ONLY"
+  }
+]

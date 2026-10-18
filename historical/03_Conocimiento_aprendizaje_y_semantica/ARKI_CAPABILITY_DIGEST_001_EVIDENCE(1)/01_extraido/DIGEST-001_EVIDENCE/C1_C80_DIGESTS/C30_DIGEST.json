@@ -1,0 +1,186 @@
+{
+  "schema": "ARKI-CAPABILITY-DIGEST-1.0",
+  "capabilityId": "C30",
+  "source": {
+    "uri": "registry://C30",
+    "version": "C1C80-W1",
+    "hash": "sha256:v1:91837af8a2d34219e8edbf3f60d53074b5a7ee8e34273281b899f71ffe1f3048",
+    "trust": "TRANSFER_PACKAGE"
+  },
+  "sourceVersion": "C1C80-W1",
+  "sourceHash": "sha256:v1:91837af8a2d34219e8edbf3f60d53074b5a7ee8e34273281b899f71ffe1f3048",
+  "semanticClassification": "Experience:Avatar ARKI",
+  "domains": [
+    "Experience"
+  ],
+  "scales": [],
+  "jurisdictions": [],
+  "dependencies": [
+    "W1:identity",
+    "W1:epistemic",
+    "W9:human-authority"
+  ],
+  "existingCapabilities": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C21",
+    "C22",
+    "C23",
+    "C24",
+    "C25",
+    "C26",
+    "C27",
+    "C28",
+    "C29",
+    "C31",
+    "C32",
+    "C33",
+    "C34",
+    "C35",
+    "C36",
+    "C37",
+    "C38",
+    "C39",
+    "C40",
+    "C41",
+    "C42",
+    "C43",
+    "C44",
+    "C45",
+    "C46",
+    "C47",
+    "C48",
+    "C49",
+    "C50",
+    "C51",
+    "C52",
+    "C53",
+    "C54",
+    "C55",
+    "C56",
+    "C57",
+    "C58",
+    "C59",
+    "C60",
+    "C61",
+    "C62",
+    "C63",
+    "C64",
+    "C65",
+    "C66",
+    "C67",
+    "C68",
+    "C69",
+    "C70",
+    "C71",
+    "C72",
+    "C73",
+    "C74",
+    "C75",
+    "C76",
+    "C77",
+    "C78",
+    "C79",
+    "C80"
+  ],
+  "existingCode": [],
+  "sharedEngines": [
+    "W1:identity",
+    "W1:epistemic"
+  ],
+  "overlaps": [],
+  "contradictions": [],
+  "identityRequirements": [
+    "stable semantic capability identity",
+    "source/version/hash provenance"
+  ],
+  "epistemicState": "INFERRED",
+  "evidenceAvailable": [
+    "registry-evidence:C30"
+  ],
+  "evidenceMissing": [],
+  "provenance": [
+    {
+      "provenanceId": "prov:C30",
+      "source": "registry://C30",
+      "sourceType": "SYSTEM",
+      "actor": "DIGEST-001",
+      "observedAt": "1970-01-01T00:00:00.000Z",
+      "action": "READ_ONLY_REGISTRY_DIGEST",
+      "evidenceIds": []
+    }
+  ],
+  "units": [],
+  "toolsRequired": [],
+  "toolsAvailable": [],
+  "oracles": [
+    "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED"
+  ],
+  "professionalValidation": [
+    "BOUNDED_OR_NOT_APPLICABLE"
+  ],
+  "unknowns": [
+    {
+      "what": "SCALE",
+      "why": "The registry does not establish a safe applicability scale for this capability",
+      "affectedCapability": "C30",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W9:human-authority"
+      ],
+      "severity": "HIGH",
+      "blocking": true,
+      "requiredEvidence": [
+        "explicit scale applicability"
+      ],
+      "resolutionPath": "Supply a governed applicability context"
+    }
+  ],
+  "risks": [
+    "readiness is not implementation authorization",
+    "registry evidence does not prove runtime capability"
+  ],
+  "reuseStrategy": "EXTERNAL_TOOL_REQUIRED",
+  "implementationReadiness": "KNOWLEDGE_DEFICIT",
+  "implementationStatus": "DOCUMENTED_OR_BLOCKED",
+  "testPlan": [
+    "normal",
+    "boundary",
+    "property",
+    "mutant",
+    "adversarial",
+    "transfer",
+    "regression"
+  ],
+  "adversarialPlan": [
+    "duplicate identity",
+    "wrong unit",
+    "wrong scale",
+    "missing provenance",
+    "malicious executable payload",
+    "fake VERIFIED claim"
+  ],
+  "transferPlan": [
+    "process cold synthetic capability outside C1-C80"
+  ],
+  "humanDecisionsRequired": []
+}

@@ -1,0 +1,21 @@
+=== 07-test-wall-coherence ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallsChecked": 16,
+  "checks": [
+    "capas con espesor > 0",
+    "capas con función válida",
+    "aberturas dentro del muro",
+    "aberturas con tipo válido",
+    "áreas no negativas",
+    "área neta == max(0, bruta - aberturas)",
+    "volumen no negativo",
+    "peso no negativo",
+    "metrado.m2_muro == area neta redondeada",
+    "metrado.m3_muro == volumen redondeado",
+    "peso_total_kg == suma de capas",
+    "metrado.peso_total_kg == peso_total_kg()",
+    "coherencia DTO ↔ dominio"
+  ]
+}

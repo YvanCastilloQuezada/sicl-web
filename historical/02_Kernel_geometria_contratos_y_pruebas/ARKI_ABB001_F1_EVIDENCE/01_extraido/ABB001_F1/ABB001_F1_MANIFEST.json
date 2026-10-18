@@ -1,0 +1,61 @@
+{
+  "schema": "ARKI-ABB001-F1-EVIDENCE-1.0",
+  "order": "ABB-001-F1",
+  "status": "APPROVE WITH BOUNDED LIMITS",
+  "maximumState": "F1 QUALIFIED FOR BOUNDED EXTRACTION / MODEL RECONSTRUCTION NOT YET VERIFIED",
+  "sourceFreeze": "ARKI_ABB001_SOURCE_FREEZE_V1",
+  "sourceZipSha256": "2b9f15324d541df51d33af107a686d37ca571c374ff98e19f91ebe42be161032",
+  "scopeGuard": [
+    "NO_PRODUCT_MUTATION",
+    "NO_KERNEL_MUTATION",
+    "NO_BKH_MUTATION",
+    "NO_F2_EXECUTION"
+  ],
+  "files": [
+    {
+      "path": "ABB001_F1_SOURCE_QUALIFICATION.md",
+      "size": 5642,
+      "sha256": "dc371be6a0d766ea93c4677faeaf705a3772757d0eddcff314646852f713ae3d"
+    },
+    {
+      "path": "ABB001_F1_SEMANTIC_INVENTORY.md",
+      "size": 2876,
+      "sha256": "52f9f57195a5d34b7c27b0353c03974d94d550376437e861d616d7bd0aad4138"
+    },
+    {
+      "path": "ABB001_F1_PROVENANCE_MAP.md",
+      "size": 1783,
+      "sha256": "b69fbd4baf387c5b85fc293eb710b2304047a84f03a13cbd6639fa5976c7b9a2"
+    },
+    {
+      "path": "ABB001_F1_OUTPUTS.txt",
+      "size": 1379,
+      "sha256": "1cefd31cb8c8351b24b9d4a2aaf79e1c0af93280b39e6bb18866f4b3edef77a9"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/EXPEDIENTECOMPLETORossmary.zip",
+      "size": 10087153,
+      "sha256": "2b9f15324d541df51d33af107a686d37ca571c374ff98e19f91ebe42be161032"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/SOURCE_INTEGRITY_RAW.txt",
+      "size": 2080,
+      "sha256": "6e881d36fed62e69b5531b302e8cae7d0f94d90d0b7f97c36d0bdb46402b0620"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/ZIP_CONTENTS.txt",
+      "size": 1096,
+      "sha256": "ecac21995b3b512e8686e30247250ae37f3ba951f91616970f0d93acaf1e8816"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/PDF_FORENSIC_SUMMARY.json",
+      "size": 14452,
+      "sha256": "ee078d43c1177d875984321d9555811ce6179e63326b9d2697e93a88c51f4ddb"
+    },
+    {
+      "path": "ARKI_ABB001_SOURCE_FREEZE_V1/PAGE_HEADINGS.txt",
+      "size": 9568,
+      "sha256": "3a9e85c362843ca60c7158580362e283170974f2b9bb92c037f2d99ae63ef045"
+    }
+  ]
+}

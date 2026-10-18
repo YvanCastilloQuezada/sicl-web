@@ -1,0 +1,632 @@
+{
+  "run": 9,
+  "label": "PAÍS (PAIS-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "PAIS-001",
+  "status": "PASS",
+  "commands_total": 23,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0337,
+  "failures": [],
+  "snapshot": {
+    "project_id": "PAIS-001",
+    "name": "Perú al 2050",
+    "spatial_scope": "pais",
+    "temporal_scope": "escenario_2050",
+    "stage": "DRAFT",
+    "version": 22,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 2,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 4,
+    "comparisons": 1,
+    "simulations": 0,
+    "multiobjectives": 1,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 22
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE PAIS-001 \"Perú al 2050\" pais escenario_2050",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "PAIS-001",
+          "name": "Perú al 2050",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "pais",
+          "temporal_scope": "escenario_2050",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001218
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN PAIS-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "PAIS-001",
+          "name": "Perú al 2050",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "pais",
+          "temporal_scope": "escenario_2050",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000978
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El Perú tiene 34000000 habitantes\" INEI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-23c8d37022",
+          "project_id": "PAIS-001",
+          "statement": "El Perú tiene 34000000 habitantes",
+          "source": "INEI",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001737
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-P001 \"PBI per cápita actual 7000 USD\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-P001",
+          "project_id": "PAIS-001",
+          "source_id": null,
+          "statement": "PBI per cápita actual 7000 USD",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.834731+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "d192e8fcbb0711176b1d6b88973828f3b468c5108e21eebc50736ca1b67fa023",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001671
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET DESARROLLO_HUMANO MAXIMIZE 95",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-504ea1d37f",
+          "project_id": "PAIS-001",
+          "key": "DESARROLLO_HUMANO",
+          "direction": "MAXIMIZE",
+          "value": "95",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.00165
+    },
+    {
+      "sequence": 6,
+      "command": "/OBJECTIVE SET GINI MINIMIZE 0.30",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-afda1ed13a",
+          "project_id": "PAIS-001",
+          "key": "GINI",
+          "direction": "MINIMIZE",
+          "value": "0.30",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001611
+    },
+    {
+      "sequence": 7,
+      "command": "/CONSTRAINT SET DEUDA_PUBLICA <= 40 PERCENT_PBI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-7fed816215",
+          "project_id": "PAIS-001",
+          "key": "DEUDA_PUBLICA",
+          "operator": "<=",
+          "value": "40",
+          "unit": "PERCENT_PBI",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001626
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE CREATE PAIS-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a242f00094",
+          "project_id": "PAIS-001",
+          "name": "PAIS-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001673
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET PAIS-A pbi_per_capita 15000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a242f00094",
+          "project_id": "PAIS-001",
+          "name": "PAIS-A",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "15000"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001813
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET PAIS-A idh 0.72",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a242f00094",
+          "project_id": "PAIS-001",
+          "name": "PAIS-A",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "15000",
+            "idh": "0.72"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001621
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE SET PAIS-A gini 0.40",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-a242f00094",
+          "project_id": "PAIS-001",
+          "name": "PAIS-A",
+          "description": "",
+          "parameters": {
+            "idh": "0.72",
+            "pbi_per_capita": "15000",
+            "gini": "0.40"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001631
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE CREATE PAIS-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-fe6be8f331",
+          "project_id": "PAIS-001",
+          "name": "PAIS-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001321
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET PAIS-B pbi_per_capita 18000",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-fe6be8f331",
+          "project_id": "PAIS-001",
+          "name": "PAIS-B",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "18000"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001314
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET PAIS-B idh 0.85",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-fe6be8f331",
+          "project_id": "PAIS-001",
+          "name": "PAIS-B",
+          "description": "",
+          "parameters": {
+            "pbi_per_capita": "18000",
+            "idh": "0.85"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001266
+    },
+    {
+      "sequence": 15,
+      "command": "/ALTERNATIVE SET PAIS-B gini 0.30",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-fe6be8f331",
+          "project_id": "PAIS-001",
+          "name": "PAIS-B",
+          "description": "",
+          "parameters": {
+            "idh": "0.85",
+            "pbi_per_capita": "18000",
+            "gini": "0.30"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001258
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE PAIS-A DESARROLLO_HUMANO 72 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-302b163e51",
+          "alternative_id": "ALT-a242f00094",
+          "objective_id": "OBJ-504ea1d37f",
+          "value": 72.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001215
+    },
+    {
+      "sequence": 17,
+      "command": "/EVALUATE PAIS-A GINI 0.40 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-5686dc1de7",
+          "alternative_id": "ALT-a242f00094",
+          "objective_id": "OBJ-afda1ed13a",
+          "value": 0.4,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001466
+    },
+    {
+      "sequence": 18,
+      "command": "/EVALUATE PAIS-B DESARROLLO_HUMANO 85 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-cc7243e2f8",
+          "alternative_id": "ALT-fe6be8f331",
+          "objective_id": "OBJ-504ea1d37f",
+          "value": 85.0,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001364
+    },
+    {
+      "sequence": 19,
+      "command": "/EVALUATE PAIS-B GINI 0.30 SCORE 0.7 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-bdedeea771",
+          "alternative_id": "ALT-fe6be8f331",
+          "objective_id": "OBJ-afda1ed13a",
+          "value": 0.3,
+          "unit": "SCORE",
+          "confidence": 0.7,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001299
+    },
+    {
+      "sequence": 20,
+      "command": "/COMPARE PAIS-A PAIS-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-6cd41a93ba",
+          "project_id": "PAIS-001",
+          "alternative_ids": [
+            "ALT-a242f00094",
+            "ALT-fe6be8f331"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-302b163e51",
+              "alternative_id": "ALT-a242f00094",
+              "objective_id": "OBJ-504ea1d37f",
+              "value": 72.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-5686dc1de7",
+              "alternative_id": "ALT-a242f00094",
+              "objective_id": "OBJ-afda1ed13a",
+              "value": 0.4,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-cc7243e2f8",
+              "alternative_id": "ALT-fe6be8f331",
+              "objective_id": "OBJ-504ea1d37f",
+              "value": 85.0,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-bdedeea771",
+              "alternative_id": "ALT-fe6be8f331",
+              "objective_id": "OBJ-afda1ed13a",
+              "value": 0.3,
+              "unit": "SCORE",
+              "confidence": 0.7,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001191
+    },
+    {
+      "sequence": 21,
+      "command": "/MULTIOBJECTIVE PARETO DESARROLLO_HUMANO GINI",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "multiobjective": {
+            "multiobjective_id": "MOBJ-5477a3a2f7",
+            "project_id": "PAIS-001",
+            "method": "pareto_front_v1",
+            "method_version": "1.0",
+            "objectives": [
+              "DESARROLLO_HUMANO",
+              "GINI"
+            ],
+            "alternatives": [
+              "ALT-a242f00094",
+              "ALT-fe6be8f331"
+            ],
+            "pareto_front": [
+              "ALT-fe6be8f331"
+            ],
+            "dominated": [
+              "ALT-a242f00094"
+            ],
+            "incomplete": [],
+            "tradeoffs": {
+              "matrix": {
+                "ALT-a242f00094": {
+                  "DESARROLLO_HUMANO": 72.0,
+                  "GINI": 0.4
+                },
+                "ALT-fe6be8f331": {
+                  "DESARROLLO_HUMANO": 85.0,
+                  "GINI": 0.3
+                }
+              }
+            },
+            "state": "EXECUTED",
+            "inputs_hash": "96fbfd0def6d6c38c37896257528a5f4528baf4bfd213af53d26e52fe9e321aa",
+            "created_at": "2026-09-16T18:06:10.859833+00:00",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001511
+    },
+    {
+      "sequence": 22,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión nacional\" \"País validado\" \"National planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-67a4eb65fd",
+          "project_id": "PAIS-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión nacional",
+          "reason": "País validado",
+          "authority": "National planner",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001251
+    },
+    {
+      "sequence": 23,
+      "command": "/DECISION RECORD \"Adoptar PAIS-B\" architect-yvan \"National planner\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-8e0475f5c6",
+          "project_id": "PAIS-001",
+          "statement": "Adoptar PAIS-B",
+          "actor": "architect-yvan",
+          "authority": "National planner",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001291
+    }
+  ]
+}

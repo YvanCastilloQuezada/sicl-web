@@ -1,0 +1,177 @@
+src/sicl/projection.py:3:The engine derives renderer-neutral ``GraphicScene`` objects from the D2 model.
+src/sicl/archi/transaction.py:13:from ..a002 import SufficiencyEngine
+src/sicl/archi/transaction.py:18:from ..h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+src/sicl/archi/transaction.py:45:    def __init__(self, elements: tuple[ArchiElement,...] = (), sufficiency_engine: SufficiencyEngine | None = None):
+src/sicl/archi/transaction.py:46:        self._canonical=tuple(elements); self._engine=sufficiency_engine or SufficiencyEngine(); self._applied=set()
+src/sicl/archi/transaction.py:125:        snap=snapshot_for(mutation,target,self._engine)
+src/sicl/archi/transaction.py:152:        h005=SelectiveRecomputationEngine(temp, registry).execute(mutation.project_id, reaction, changed_refs)
+src/sicl/archi/sufficiency.py:6:from ..a002 import (EvidenceRef, KnowledgeItem, KnowledgeState, OperationRequirement, SufficiencyEngine, SufficiencyRequest, SufficiencyResult)
+src/sicl/archi/sufficiency.py:16:def snapshot_for(mutation: ArchiMutation, target: ArchiElement | None, engine: SufficiencyEngine | None = None) -> ArchiSufficiencySnapshot:
+src/sicl/archi/sufficiency.py:17:    operation=_OPERATIONS[mutation.mutation_kind]; engine=engine or SufficiencyEngine()
+src/sicl/archi/sufficiency.py:37:    return ArchiSufficiencySnapshot(operation, engine.evaluate(req))
+src/sicl/a002/model.py:5:- The *effective* state (post-validation) is produced by the engine and
+src/sicl/a002/model.py:63:    state — the engine produces the effective state separately.
+src/sicl/a002/engine.py:1:"""Deterministic A-002 sufficiency engine (v1.4.1).
+src/sicl/a002/engine.py:56:class SufficiencyEngine:
+src/sicl/a002/__init__.py:2:from .engine import SufficiencyEngine
+src/sicl/a002/__init__.py:41:    "SufficiencyEngine",
+docs/ARKI_DRAW_B1_1_REALITY_AUDIT.md:46:- ARE, automatic projection and render engines.
+tests/test_a002_v1_4_injections.py:17:    SufficiencyEngine,
+tests/test_a002_v1_4_injections.py:43:    result = SufficiencyEngine().evaluate(
+tests/test_a002_v1_4_injections.py:57:    result = SufficiencyEngine().evaluate(
+tests/test_a002_v1_4_injections.py:67:    result = SufficiencyEngine().evaluate(
+tests/test_a002_v1_4_injections.py:82:    r = SufficiencyEngine().evaluate(request(item, [evidence]))
+tests/test_a002_v1_4_injections.py:97:    r = SufficiencyEngine().evaluate(request(item, [evidence], require_human_authority=True))
+tests/test_a002_v1_4_injections.py:101:    r2 = SufficiencyEngine().evaluate(
+tests/test_a002_v1_4_injections.py:115:    r = SufficiencyEngine().evaluate(
+tests/test_a002_v1_4_injections.py:130:    r = SufficiencyEngine().evaluate(
+tests/test_a002_v1_4_injections.py:146:    r = SufficiencyEngine().evaluate(request(item, [evidence]))
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:251:RUNTIME_PRUNING_ENGINE = NOT_IMPLEMENTED
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:252:COMPUTE_BUDGET_ENGINE = NOT_IMPLEMENTED
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:291:PRUNING_ENGINE = NOT_IMPLEMENTED
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:292:SURVIVAL_ENGINE = NOT_IMPLEMENTED
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:293:COMPUTE_BUDGET_ENGINE = NOT_IMPLEMENTED
+tests/test_a002_v1_4_3_fixes.py:10:    SufficiencyEngine,
+tests/test_a002_v1_4_3_fixes.py:29:    result = SufficiencyEngine().evaluate(request)
+tests/test_a002_v1_4_3_fixes.py:45:    result = SufficiencyEngine().evaluate(request)
+tests/test_a002_v1_4_3_fixes.py:63:    result = SufficiencyEngine().evaluate(request)
+tests/test_a002_v1_4_3_fixes.py:82:    result = SufficiencyEngine().evaluate(request)
+src/sicl/h005/engine.py:1:"""H-005 selective recomputation engine.
+src/sicl/h005/engine.py:23:class SelectiveRecomputationEngine:
+src/sicl/h005/engine.py:159:__all__ = ["SelectiveRecomputationEngine"]
+tests/test_a002_sufficiency.py:11:    SufficiencyEngine,
+tests/test_a002_sufficiency.py:19:from sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+tests/test_a002_sufficiency.py:67:    result = SufficiencyEngine().evaluate(request(base_knowledge(evidence), evidence))
+tests/test_a002_sufficiency.py:76:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:84:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:94:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:104:    result = SufficiencyEngine().evaluate(request(knowledge, wrong))
+tests/test_a002_sufficiency.py:113:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:122:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:131:    result = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:139:    first = SufficiencyEngine().evaluate(request(knowledge, evidence))
+tests/test_a002_sufficiency.py:140:    second = SufficiencyEngine().evaluate(request(tuple(reversed(knowledge)), tuple(reversed(evidence))))
+tests/test_a002_sufficiency.py:149:    result = SufficiencyEngine().evaluate(SufficiencyRequest("A002-P", "multiscale audit", knowledge, requirements, evidence, None, "audit", None))
+tests/test_a002_sufficiency.py:157:    result = SufficiencyEngine().evaluate(req)
+tests/test_a002_sufficiency.py:167:    result = SufficiencyEngine().evaluate(req)
+tests/test_a002_sufficiency.py:175:    a002_result = SufficiencyEngine().evaluate(req)
+tests/test_a002_sufficiency.py:185:    h005 = SelectiveRecomputationEngine(ledger, registry)
+tests/test_a002_sufficiency.py:194:    result = SufficiencyEngine().evaluate(req)
+tests/test_a002_sufficiency.py:203:    engine = SufficiencyEngine()
+tests/test_a002_sufficiency.py:204:    t0 = engine.evaluate(request(base_knowledge(evidence), evidence))
+tests/test_a002_sufficiency.py:205:    t1 = engine.evaluate(request(base_knowledge(evidence, height=KnowledgeState.KNOWN), evidence))
+src/sicl/h005/__init__.py:5:from .engine import SelectiveRecomputationEngine
+src/sicl/h005/__init__.py:10:    "SelectiveRecomputationEngine",
+tests/test_a002_adversarial.py:5:from sicl.a002 import A002H005Gate, EvidenceRef, KnowledgeItem, KnowledgeState, SufficiencyEngine, SufficiencyRequest, SufficiencyStatus, requirements_for
+tests/test_a002_adversarial.py:45:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:53:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:63:    result = SufficiencyEngine().evaluate(req(bad, stale))
+tests/test_a002_adversarial.py:69:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:76:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:83:    result = SufficiencyEngine().evaluate(req(knowledge, evidence, project="P"))
+tests/test_a002_adversarial.py:91:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:100:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:108:    result = SufficiencyEngine().evaluate(req(knowledge, partial))
+tests/test_a002_adversarial.py:117:    first = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_a002_adversarial.py:118:    second = SufficiencyEngine().evaluate(req(list(reversed(knowledge)), list(reversed(evidence))))
+tests/test_a002_adversarial.py:128:    result = SufficiencyEngine().evaluate(no_policy)
+tests/test_a002_adversarial.py:132:    result2 = SufficiencyEngine().evaluate(with_policy)
+tests/test_a002_adversarial.py:140:    result = SufficiencyEngine().evaluate(req(bad, evidence))
+tests/test_a002_adversarial.py:150:    result = SufficiencyEngine().evaluate(req(knowledge, evidence))
+tests/test_h005_propagation.py:4:from sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+tests/test_h005_propagation.py:42:    report = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, current)
+tests/test_h005_propagation.py:59:    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {})
+tests/test_h005_propagation.py:70:    engine = SelectiveRecomputationEngine(ledger, registry)
+tests/test_h005_propagation.py:71:    first = engine.execute("P", plan, {("Geometry", "G"): current_input})
+tests/test_h005_propagation.py:72:    second = engine.execute("P", plan, {("Geometry", "G"): current_input})
+src/sicl/domain.py:54:    ENGINEER = "ENGINEER"
+tests/test_h005_fail_closed.py:6:from sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+tests/test_h005_fail_closed.py:41:    result = SelectiveRecomputationEngine(DerivationLedger(Store()), RecomputationRegistry()).execute("P", plan, {})
+tests/test_h005_fail_closed.py:52:    result = SelectiveRecomputationEngine(ledger, RecomputationRegistry()).execute("P", forged, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_fail_closed.py:73:    missing = SelectiveRecomputationEngine(ledger, RecomputationRegistry()).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_fail_closed.py:76:    ambiguous = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_fail_closed.py:84:    malformed = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_fail_closed.py:87:    race = SelectiveRecomputationEngine(ledger, registry2).execute("P", plan, {})
+tests/test_h005_fail_closed.py:94:    result = SelectiveRecomputationEngine(ledger, RecomputationRegistry()).execute("P2", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_engine.py:6:from sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+tests/test_h005_engine.py:29:    result = SelectiveRecomputationEngine(DerivationLedger(Store()), RecomputationRegistry()).execute("P1", plan, {})
+tests/test_h005_engine.py:36:def test_engine_executes_only_full_stale_recompute_and_records_new_derivation():
+tests/test_h005_engine.py:49:    report = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): current_input})
+tests/test_h005_engine.py:59:def test_engine_ignores_fully_valid_artifact():
+tests/test_h005_engine.py:66:    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): input_ref})
+tests/test_h005_engine.py:70:def test_engine_blocks_missing_handler_without_mutating_ledger():
+tests/test_h005_engine.py:76:    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_engine.py:82:def test_engine_blocks_human_authority_and_forged_review_plan():
+tests/test_h005_engine.py:87:    result = SelectiveRecomputationEngine(DerivationLedger(Store()), RecomputationRegistry()).execute("P", plan, {})
+tests/test_h005_engine.py:92:def test_engine_blocks_handler_exception_and_malformed_output():
+tests/test_h005_engine.py:98:    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, {("Geometry", "G"): VersionedRef("Geometry", "G", 2)})
+tests/test_h005_e2e_persistence.py:7:from sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+tests/test_h005_e2e_persistence.py:38:    execution = SelectiveRecomputationEngine(ledger, registry).execute(project, plan, current_refs)
+tests/test_h005_adversarial.py:6:from sicl.h005 import ExecutionStatus, RecomputationRegistry, SelectiveRecomputationEngine
+tests/test_h005_adversarial.py:27:    result = SelectiveRecomputationEngine(DerivationLedger(Store()), RecomputationRegistry()).execute("P", plan, {})
+tests/test_h005_adversarial.py:53:    result = SelectiveRecomputationEngine(ledger, registry).execute("P", plan, current)
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:119:docs/learning/engines/
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:237:  "source": "fixture_or_engine_observation",
+src/sicl/drawing/__init__.py:1:"""H-DRAW: ARKI architectural drawing engine, downstream of H-005.
+tests/test_multi_actor.py:38:    cli.execute('/ACTOR ADD A-2 ENGINEER Engineer CONTRIBUTORY')
+src/sicl/layout/case_study.py:3:from .layout_engine import SheetLayout, calculate_layout, create_layout, declare_zones, validate_layout
+src/sicl/layout/case_study.py:59:        "engine": "RFC-034.1 Sheet Composition & Layout Engine",
+src/sicl/layout/http_api.py:7:from .layout_engine import calculate_layout, create_layout, declare_zones, export_layout_json, validate_layout
+src/sicl/layout/__init__.py:1:from .layout_engine import SheetLayout, calculate_layout, create_layout, declare_zones, export_layout_json, validate_layout
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:7:**Fuentes revisadas:** Engineering Reset & Controlled Implementation, SICL Frontend Specification v1.0, Core Contract v1.0 — Final Proposed, Semantic Consolidation + Core Contract v1.0, Architecture Consolidation Review v2 e Implementation Specification v1.0.
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:37:| Evaluation Engine | FUTURO | Capacidad posterior; el MVP CLI no debe implementarlo implícitamente. |
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:38:| Feasibility Engine | FUTURO | Requiere contrato matemático y datos definidos. |
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:39:| Generative Engine | FUTURO | Fuera del MVP. |
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:56:2. El documento de Engineering Reset exige un MVP CLI reducido, mientras que los documentos semánticos incluyen Alternative, Evaluation, Conflict, Uncertainty, Recommendation y Decision. La frontera exacta requiere decisión.
+docs/SICL_V1_1_SCOPE.md:7:SICL v1.1 agrega exclusivamente `Alternative`, `Evaluation`, `Comparison` y `Recommendation` al Core CLI v1.0. No agrega Agents, Optimization/Pareto, Site Intelligence, lenguaje natural, Conflict Engine avanzado, GIS, BIM ni UI.
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:7:**Dependencia de composición:** RFC-034.1 — Sheet Composition & Layout Engine
+docs/RFC-012_MULTI_ACTOR_MODEL.md:13:Roles: `CLIENT`, `ARCHITECT`, `ENGINEER`, `REGULATOR`, `COMMUNITY`, `DEVELOPER`, `OTHER`. Niveles: `ADVISORY`, `CONTRIBUTORY`, `DECISIONAL`, `VETO`. Estados: `ACTIVE`, `INACTIVE`. Posiciones: `SUPPORT`, `OPPOSE`, `NEUTRAL`, `CONDITIONAL`.
+docs/rfc/RFC-037-RAMAS-Y-MOTORES.md:3:**Documento asociado:** `RFC-037-MULTI-ENGINE-ABSORPTION-DOCTRINE.md`
+docs/learning/engines/ifcopenshell-draw.md:28:docs/learning/engines/ifcopenshell_draw_probe.svg
+docs/rfc/RFC-037-MULTI-ENGINE-ABSORPTION-DOCTRINE.md:159:EXTERNAL_ENGINE_RUNTIME_DEPENDENCY = NO
+docs/rfc/RFC-037-MULTI-ENGINE-ABSORPTION-DOCTRINE.md:161:UNSUPPORTED_ENGINE_CLAIMS = FORBIDDEN
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:1:# RFC-034.1 — Sheet Composition & Layout Engine
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:18:- `layout_engine.py`: `SheetLayout`, cálculo y validación.
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:68:`src/sicl/layout/test_layout_engine.py` contiene los 16 tests requeridos: ocho estructurales, seis de validación y dos constitucionales.
+docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md:75:PDF_GENERATED_BY_LAYOUT_ENGINE = NO
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:29:| FFO-12 | Interoperability — GIS / BIM / IFC / External Engines | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | IFC read-only foundation, parcel snapshot/GIS boundary concepts, and adapter architecture | Full GIS/BIM exchange, mapping, round-trip, conflict resolution, and external-result ingestion | RFC-027/RFC-028; adapter boundary locks | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:71:FFO-01 relates to FFO-02 location, FFO-04 variables, FFO-05 missing data, FFO-09 spatial alternatives, and FFO-10 evaluation. Open-Meteo remains a source of environmental data, not a building simulation engine.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:105:A real geographic basemap, replaceable map engine, MapLibre or equivalent, map-provider abstraction, tile source, place search, geocoder, reverse geocoding, administrative and jurisdiction resolution, polygon and line geometry, territorial boundaries, multi-area geometry, geometry editing, GIS layers, cadastral sources, authoritative boundary sources, accuracy metadata, and spatial-resolution metadata remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:121:A Product Owner order must name the map engine, data-provider boundary, geographic data source, and permitted location authority.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:125:`MAP_ENGINE != MAP_DATA_PROVIDER != TILE_PROVIDER != GEOCODER != GIS_SOURCE != AUTHORITATIVE_PROJECT_LOCATION != CADASTRAL_CERTIFICATION`.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:151:No new adaptive workspace engine, scale-specific agent system, or new user workflow is authorized.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:509:## 14. FFO-12 — Interoperability: GIS / BIM / IFC / External Engines
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:512:**TITLE:** Interoperability — GIS / BIM / IFC / External Engines
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:525:IFC import/export completion, native BIM adapters, GIS adapters, simulation-engine adapters, model mapping, identity mapping, provenance preservation, round-trip rules, conflict resolution, and external-result ingestion remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:529:No Revit add-in, Archicad plugin, export-applied workflow, cadastral integration, automatic BIM conflict resolution, or external engine authority is authorized.
+docs/learning/PHASE1_REPORT.md:54:docs/learning/engines/ifcopenshell_draw_probe.svg
+docs/learning/PHASE1_REPORT.md:117:EXTERNAL_ENGINE_RUNTIME_DEPENDENCY = NO
+docs/reference/RFC0341_CASA_NIDO_LAYOUT_REPORT.json:3:  "engine": "RFC-034.1 Sheet Composition & Layout Engine",
+docs/reference/PHASE1_COMPARISON.md:10:| IfcOpenShell Draw 0.8.5 | Disponible y probado | `docs/learning/engines/ifcopenshell_draw_probe.svg` |
+docs/reference/PHASE1_MASTERS/README.md:12:docs/learning/engines/ifcopenshell_draw_probe.svg
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:25:- Plan direction is explicit: `view_direction="TOP"` is required by the initial engine.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:42:- `EXTRUDED_CIRCLE`: supported by the engine when a radius is present.
+docs/architecture/ARKI_ARE_003_REALITY_AUDIT.md:49:- Dimensions, labels, professional symbols, door swing, and window conventions: no semantic evidence/policy in this engine.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:10:> This document defines the contract between canonical architectural knowledge and future representations. It does **not** implement ARE runtime, a Projection Engine, ARKI-DRAW Block 2, exporters, renderers, APIs, schemas, or dependencies.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:43:ARKI is not a wrapper around an external engine. Future capability follows **learn → replicate → improve**: observe useful external conventions, reproduce the validated semantics internally, then improve the autonomous ARKI contract. External tools may be explicit adapters or evidence sources; they are never the canonical authority or an implicit production dependency.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:50:- a Projection Engine or View Engine;
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:53:- DXF/DWG/PDF runtime exporters or a render engine;
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:74:| Layout | `src/sicl/layout/layout_engine.py`, zones, margins, collision/truncation validation | Existing sheet-layout calculation/validation; does not render or mutate BIM |
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:77:| Rendering | No canonical ARE render engine | Declared future/deferred; no silent fallback |
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:476:GEOMETRIC PROJECTION ENGINE
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:1:# ARKI-ARE-000 — Future Representation Engine
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:16:The provisional name **ARKI Representation Engine (ARE)** is reserved for a future representation architecture. The name may be revised by Human Authority before activation.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:122:ARKI REPRESENTATION ENGINE
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:143:`ARKI-DRAW ⊂ ARKI REPRESENTATION ENGINE`. This is a future architectural relationship, not an implementation instruction.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:279:- a `Projection Engine` or `View Engine`;
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:281:- new exporters, DXF runtime, or render engine;
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:31:| SheetDefinition contract | `PARTIAL` | ARKI-DRAW Sheet/Viewport and layout engine exist | one or more views/scenes, viewports, title block, layout | no ARE composition contract | bind existing lower layer without changing it | ARE Core Types / Sheet Composition |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:39:| Architectural plan | `PARTIAL` | RFC-030 projector/composer generates technical plan evidence | geometry, view, profile, ARKI-DRAW | not a generalized ARE pipeline | ARE integration authorization and tests | Projection Engine / ARKI-DRAW |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:40:| Section | `PARTIAL` | RFC-030 section projection exists | geometry, cut plane, annotations | no generalized ARE pipeline | cut-plane contract + projection authorization | Projection Engine |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:41:| Elevation | `PARTIAL` | RFC-030 elevation projection exists | geometry, orientation, annotations | no generalized ARE pipeline | elevation contract + projection authorization | Projection Engine |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:47:| Plan generation | `PARTIAL` | RFC-030 technical plan path exists | IFC/D2 snapshot, projector, rules | not ARE-generalized | ARE pipeline contract + integration gate | Projection Engine |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:48:| Section generation | `PARTIAL` | RFC-030 technical section path exists | cut plane, geometry, rules | not ARE-generalized | ARE pipeline contract + integration gate | Projection Engine |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:49:| Elevation generation | `PARTIAL` | RFC-030 technical elevation path exists | orientation, geometry, rules | not ARE-generalized | ARE pipeline contract + integration gate | Projection Engine |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:56:| Conceptual render | `DECLARED_NOT_IMPLEMENTED` | no ARE render engine | scene, materials/context | renderer not authorized | render contract and backend decision | Visualization |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:123:5. Geometric Projection Engine
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:134:This registry is documentary. It does not authorize any item above `IMPLEMENTED` or `PARTIAL` to be expanded in this branch. ARE runtime, Projection Engine, Block 2, render, DXF, and frontend remain unauthorized.

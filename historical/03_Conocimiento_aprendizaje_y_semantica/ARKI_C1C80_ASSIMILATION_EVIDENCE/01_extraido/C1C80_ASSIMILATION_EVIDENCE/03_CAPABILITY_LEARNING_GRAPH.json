@@ -1,0 +1,176 @@
+{
+  "schema": "ARKI-CAPABILITY-LEARNING-GRAPH-1.0",
+  "clusters": [
+    {
+      "cluster": "ARCHITECTURAL_SPATIAL_REASONING",
+      "capabilityIds": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C08",
+        "C09",
+        "C10",
+        "C11",
+        "C12",
+        "C13",
+        "C14",
+        "C15",
+        "C16",
+        "C17",
+        "C18",
+        "C20",
+        "C21",
+        "C22",
+        "C23",
+        "C24",
+        "C25",
+        "C26",
+        "C27",
+        "C28",
+        "C29",
+        "C44",
+        "C45",
+        "C46",
+        "C47",
+        "C48",
+        "C49",
+        "C50",
+        "C51",
+        "C52",
+        "C53",
+        "C54",
+        "C55",
+        "C56",
+        "C57",
+        "C58",
+        "C59",
+        "C60",
+        "C61",
+        "C62",
+        "C63",
+        "C66",
+        "C68",
+        "C69",
+        "C70",
+        "C71",
+        "C73",
+        "C76",
+        "C77",
+        "C79",
+        "C80"
+      ],
+      "capabilityCount": 57,
+      "promoted": 0,
+      "blocked": 57,
+      "gates": {
+        "prerequisites": "BLOCKED_OR_UNPROVEN",
+        "implementation": "NOT_EXECUTED",
+        "normal": "NOT_EXECUTED",
+        "adversarial": "NOT_EXECUTED",
+        "mutants": "NOT_EXECUTED",
+        "transfer": "NOT_EXECUTED",
+        "regression": "PASS_AT_PROGRAM_LEVEL",
+        "evidence": "PARTIAL"
+      }
+    },
+    {
+      "cluster": "BIM_CAD_IFC_DIGITAL",
+      "capabilityIds": [
+        "C34",
+        "C35",
+        "C36",
+        "C37",
+        "C38",
+        "C39",
+        "C40",
+        "C41",
+        "C42",
+        "C43",
+        "C64",
+        "C67"
+      ],
+      "capabilityCount": 12,
+      "promoted": 0,
+      "blocked": 12,
+      "gates": {
+        "prerequisites": "BLOCKED_OR_UNPROVEN",
+        "implementation": "NOT_EXECUTED",
+        "normal": "NOT_EXECUTED",
+        "adversarial": "NOT_EXECUTED",
+        "mutants": "NOT_EXECUTED",
+        "transfer": "NOT_EXECUTED",
+        "regression": "PASS_AT_PROGRAM_LEVEL",
+        "evidence": "PARTIAL"
+      }
+    },
+    {
+      "cluster": "MEP_BUILDING_PHYSICS",
+      "capabilityIds": [
+        "C07",
+        "C19"
+      ],
+      "capabilityCount": 2,
+      "promoted": 0,
+      "blocked": 2,
+      "gates": {
+        "prerequisites": "BLOCKED_OR_UNPROVEN",
+        "implementation": "NOT_EXECUTED",
+        "normal": "NOT_EXECUTED",
+        "adversarial": "NOT_EXECUTED",
+        "mutants": "NOT_EXECUTED",
+        "transfer": "NOT_EXECUTED",
+        "regression": "PASS_AT_PROGRAM_LEVEL",
+        "evidence": "PARTIAL"
+      }
+    },
+    {
+      "cluster": "SIMULATION_OPTIMIZATION_RISK",
+      "capabilityIds": [
+        "C72"
+      ],
+      "capabilityCount": 1,
+      "promoted": 0,
+      "blocked": 1,
+      "gates": {
+        "prerequisites": "BLOCKED_OR_UNPROVEN",
+        "implementation": "NOT_EXECUTED",
+        "normal": "NOT_EXECUTED",
+        "adversarial": "NOT_EXECUTED",
+        "mutants": "NOT_EXECUTED",
+        "transfer": "NOT_EXECUTED",
+        "regression": "PASS_AT_PROGRAM_LEVEL",
+        "evidence": "PARTIAL"
+      }
+    },
+    {
+      "cluster": "SPECIALIZED_BUILDINGS_HUMAN_EXPERIENCE",
+      "capabilityIds": [
+        "C30",
+        "C31",
+        "C32",
+        "C33",
+        "C65",
+        "C74",
+        "C75",
+        "C78"
+      ],
+      "capabilityCount": 8,
+      "promoted": 0,
+      "blocked": 8,
+      "gates": {
+        "prerequisites": "BLOCKED_OR_UNPROVEN",
+        "implementation": "NOT_EXECUTED",
+        "normal": "NOT_EXECUTED",
+        "adversarial": "NOT_EXECUTED",
+        "mutants": "NOT_EXECUTED",
+        "transfer": "NOT_EXECUTED",
+        "regression": "PASS_AT_PROGRAM_LEVEL",
+        "evidence": "PARTIAL"
+      }
+    }
+  ],
+  "nodeCount": 80
+}

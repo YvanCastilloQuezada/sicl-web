@@ -1,0 +1,24 @@
+{
+  "exampleId": "EJEMPLO-032",
+  "title": "Ejemplo 032 · /GENERATE LIST",
+  "commandName": "/GENERATE LIST",
+  "category": "generate",
+  "syntax": "/GENERATE LIST",
+  "command": "/GENERATE LIST",
+  "arguments": [],
+  "mode": "EXPLORE",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Produces or describes a bounded proposal; native host execution is not claimed.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /GENERATE LIST.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

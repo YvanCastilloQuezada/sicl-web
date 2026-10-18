@@ -1,0 +1,82 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/ubuntu/sicl-core
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collected 441 items
+
+tests/test_agents_debate.py .........                                    [  2%]
+tests/test_api.py ..........                                             [  4%]
+tests/test_api_v1.py .........                                           [  6%]
+tests/test_capabilities_s7p05.py .....                                   [  7%]
+tests/test_core.py ...........                                           [  9%]
+tests/test_derivation.py ....................                            [ 14%]
+tests/test_design_generation.py .........                                [ 16%]
+tests/test_design_generation_extended.py ..........                      [ 18%]
+tests/test_design_intelligence.py ......                                 [ 20%]
+tests/test_e2e_ollama_sicl.py ..                                         [ 20%]
+tests/test_environmental_s7.py ......                                    [ 21%]
+tests/test_evidence.py ..........                                        [ 24%]
+tests/test_feasibility.py ..                                             [ 24%]
+tests/test_feasibility_http.py .                                         [ 24%]
+tests/test_ifc_adapter.py ..                                             [ 25%]
+tests/test_ifc_import_http.py .                                          [ 25%]
+tests/test_impact.py ....................                                [ 30%]
+tests/test_impact_adversarial.py ...............                         [ 33%]
+tests/test_institutional_memory.py .........                             [ 35%]
+tests/test_monte_carlo.py .........                                      [ 37%]
+tests/test_multi_actor.py .......                                        [ 39%]
+tests/test_multiobjective.py ......                                      [ 40%]
+tests/test_multiscale.py .............                                   [ 43%]
+tests/test_multiscale_relations.py ..........                            [ 45%]
+tests/test_multiscale_wall_move_e2e.py .                                 [ 46%]
+tests/test_mv_p1_location_missing_data.py ....                           [ 46%]
+tests/test_optimization_phase5.py ......                                 [ 48%]
+tests/test_planning_instruments.py ......                                [ 49%]
+tests/test_reaction.py ...........                                       [ 52%]
+tests/test_regulatory_corpus.py ........                                 [ 53%]
+tests/test_remaining_phases.py ...                                       [ 54%]
+tests/test_rfc025_corpus.py ....                                         [ 55%]
+tests/test_rfc026_design_knowledge.py .....                              [ 56%]
+tests/test_rfc027_bim.py ..                                              [ 57%]
+tests/test_rfc028_029.py ....                                            [ 58%]
+tests/test_rfc030_content.py .                                           [ 58%]
+tests/test_rfc030_drawing.py .........................................   [ 67%]
+tests/test_rfc0341_layout.py ................                            [ 71%]
+tests/test_simulation.py ...........                                     [ 73%]
+tests/test_site_intelligence.py ....                                     [ 74%]
+tests/test_source_http.py ..........                                     [ 76%]
+tests/test_spatial.py ..............                                     [ 80%]
+tests/test_spatial_evaluation.py .........                               [ 82%]
+tests/test_spatial_generator.py ..............                           [ 85%]
+tests/test_spatial_pareto_transport.py .....                             [ 86%]
+tests/test_spatial_transport.py ...                                      [ 87%]
+tests/test_temporal_cycles.py ......                                     [ 88%]
+tests/test_temporal_evolution.py .....                                   [ 89%]
+tests/test_v11.py ......                                                 [ 90%]
+tests/test_v12.py ......                                                 [ 92%]
+tests/test_v1_evaluations_comparisons.py .........                       [ 94%]
+tests/test_v2.py ..........                                              [ 96%]
+tests/test_validity.py .........                                         [ 98%]
+tests/test_variable_catalog.py ......                                    [100%]
+
+=============================== warnings summary ===============================
+../../../usr/local/lib/python3.12/dist-packages/fastapi/testclient.py:1
+  /usr/local/lib/python3.12/dist-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+tests/test_rfc030_drawing.py::test_ifc_invalid_rejected
+  /home/ubuntu/.local/lib/python3.12/site-packages/_pytest/unraisableexception.py:67: PytestUnraisableExceptionWarning: Exception ignored in: <function file.__del__ at 0x7f0ae8484040>
+  
+  Traceback (most recent call last):
+    File "/home/ubuntu/.local/lib/python3.12/site-packages/ifcopenshell/file.py", line 649, in __del__
+      del file_dict[self.file_pointer()]
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  KeyError: 1101567856
+  
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+    warnings.warn(pytest.PytestUnraisableExceptionWarning(msg))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 441 passed, 2 warnings in 52.01s =======================

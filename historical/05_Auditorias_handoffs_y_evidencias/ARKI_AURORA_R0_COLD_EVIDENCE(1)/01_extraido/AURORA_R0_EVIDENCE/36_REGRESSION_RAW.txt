@@ -1,0 +1,118 @@
+
+## pnpm check
+COMMAND=pnpm COMMAND=check 
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+
+## pnpm build
+COMMAND=pnpm COMMAND=build 
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-Bzq0m-UN.js        2,015.28 kB │ gzip: 550.49 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 19.01s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+
+## WAVE1 foundation and DAG
+COMMAND=pnpm COMMAND=tsx COMMAND=scripts/test-wave1-foundation.ts 
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","capabilityCount":80,"uniqueIds":true,"uniqueNames":true,"cycles":0,"orphanCapabilities":0,"sharedEngineReferences":18,"unitMutants":10,"inputOutputContracts":"PASS"}
+EXIT_CODE=0
+
+## WAVE0 registry regression
+COMMAND=python3 COMMAND=scripts/test-c1c80-wave0.py 
+WAVE0_REGISTRY_TEST=PASS
+CAPABILITY_COUNT=80
+UNIQUE_IDS=80
+UNIQUE_NAMES=80
+DAG_PRESENT=True
+MANIFEST_ENTRIES=22
+ZIP_SHA256=ae49b10178efecd25c8552156d718d40174d831ff069edb593b973d4c49e7b4d
+EXIT_CODE=0
+
+## CAD gateway regression
+COMMAND=pnpm COMMAND=tsx COMMAND=scripts/test-arki-cad-gateway.ts 
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","cases":10,"syntheticFixture":true,"commercialProviderLoaded":false,"deterministicSerialization":true,"provenancePreserved":true,"semanticPromotionBlocked":true,"emptySourceRejected":true,"noSilentLoss":true,"cadGeometryReady":"NO","abb001":"BLOCKED"}
+EXIT_CODE=0
+
+## E8-A regression
+COMMAND=pnpm COMMAND=tsx COMMAND=scripts/test-e8a-dossier.ts 
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8A-01 PASS — unapproved snapshot rejected
+E8A-02 PASS — five technical documents compiled
+E8A-03 PASS — snapshot/version/element traceability preserved
+E8A-04 PASS — budget and traceable plan emitted
+{
+  "status": "PASS",
+  "schema": "ARKI-E8A-TECHNICAL-DOSSIER-1.0",
+  "snapshotId": "ARKI-d9565f3b",
+  "version": 1,
+  "documents": [
+    "01-memoria-descriptiva.md",
+    "02-especificaciones-tecnicas.md",
+    "03-metrados.md",
+    "04-presupuesto.md",
+    "05-planta.svg"
+  ],
+  "tracedElements": 356
+}
+EXIT_CODE=0
+
+## E8-B regression
+COMMAND=pnpm COMMAND=tsx COMMAND=scripts/test-e8b-assets.ts 
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8B-01 PASS — unapproved snapshot rejected
+E8B-02 PASS — missing element rejected
+E8B-03 PASS — asset, warranty, manual, inspection and work-order lifecycle validated
+E8B-04 PASS — IndexedDB close/reopen restores asset, warranty and chronological history
+{
+  "status": "PASS",
+  "schema": "ARKI-E8B-OM-1.0",
+  "assetId": "ARKI-4ba5cb0d",
+  "elementId": "muro-1-1",
+  "snapshotId": "ARKI-ffdee204",
+  "historyEntries": 3,
+  "stores": [
+    "assets",
+    "warranties",
+    "manuals",
+    "inspections",
+    "workOrders",
+    "assetHistory"
+  ]
+}
+EXIT_CODE=0
+
+## SCOPE GUARD
+TX005=NOT_EXECUTED
+LEGACY_WRITER_MIGRATION=NOT_EXECUTED
+WAVE2=NOT_EXECUTED
+SOLVERS=NOT_INSTALLED
+ENTERPRISE=NOT_IMPLEMENTED
+DEPLOY=NOT_EXECUTED
+PRODUCT_CANONICAL_MUTATION=NOT_EXECUTED
+WAVE1_OVERALL=PASS

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071310" />
+    <title>Sin conexión · Multi Juegos Perú</title>
+    <style>
+      :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+      body { min-height: 100vh; margin: 0; display: grid; place-items: center; background: radial-gradient(circle at 70% 20%, #164c37, transparent 38%), #071310; color: #f4f1e8; }
+      main { width: min(88vw, 520px); padding: 2rem; border: 1px solid rgba(140,240,192,.25); border-radius: 1.5rem; background: rgba(5,20,14,.76); box-shadow: 0 20px 70px rgba(0,0,0,.4); }
+      .seal { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(135deg, #ffe2a0, #b77d2b); color: #102217; font-weight: 900; }
+      h1 { margin: 1.2rem 0 .7rem; font-family: Georgia, serif; font-size: clamp(2rem, 8vw, 3rem); }
+      p { color: #c5d5cc; line-height: 1.65; }
+      button { margin-top: 1rem; border: 0; border-radius: .8rem; padding: .85rem 1rem; background: linear-gradient(135deg, #ffe2a0, #d49a3f); color: #102217; font-weight: 800; cursor: pointer; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="seal">MJ</div>
+      <h1>Estás sin conexión.</h1>
+      <p>La información oficial de rondas, créditos y comprobantes requiere internet y no se mostrará desactualizada. Cuando recuperes la conexión, podrás volver al piloto y verificar datos en tiempo real.</p>
+      <button type="button" onclick="location.reload()">Reintentar conexión</button>
+    </main>
+  </body>
+</html>

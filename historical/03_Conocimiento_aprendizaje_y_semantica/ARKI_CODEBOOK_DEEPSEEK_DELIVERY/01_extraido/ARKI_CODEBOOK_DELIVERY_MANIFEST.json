@@ -1,0 +1,75 @@
+{
+  "schema": "ARKI-CODEBOOK-DEEPSEEK-DELIVERY-1.0",
+  "packageStatus": "FORENSIC DRAFT / PENDING HUMAN & INDEPENDENT REVIEW",
+  "deliveryTarget": "DeepSeek",
+  "order": "ARKI-CODEBOOK-001",
+  "documentationOnly": true,
+  "productCodeChanges": false,
+  "kernelChanges": false,
+  "physicalFilesTotal": 13,
+  "manifestEntries": 12,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "ARKI_CODEBOOK_EVIDENCE_INDEX.md",
+      "sha256": "ffebdfee296da9b65288e8ab9b51dd0395409f72e051a8491c4077d7ce92b2f1",
+      "bytes": 2863
+    },
+    {
+      "path": "ARKI_CODEBOOK_FORENSIC_SOURCES_FINAL.txt",
+      "sha256": "1696e525aa98842970a603039079da094badeb87cfbb2104320a83001eef4aa1",
+      "bytes": 23360
+    },
+    {
+      "path": "ARKI_CODEBOOK_FOR_ARCHITECT.md",
+      "sha256": "ed202a2d092aac0a267c638535a61ef8a78edf9030c7eb7c32edceaf4b1b2684",
+      "bytes": 3104
+    },
+    {
+      "path": "ARKI_CODEBOOK_MANIFEST.json",
+      "sha256": "84c6819713d276deda3d033da5ee8dedf874564adb37fcf488f55e6ff4b8c8c8",
+      "bytes": 870
+    },
+    {
+      "path": "ARKI_CODEBOOK_OPEN_ITEMS.md",
+      "sha256": "2c01180d243bdec746a6fd588cfd5bd771d15f35240f6d43e2d71842980635e4",
+      "bytes": 1647
+    },
+    {
+      "path": "ARKI_CODEBOOK_PACKAGE_BUILD_FINAL.json",
+      "sha256": "430a33465444e47995f3ea91e053fb817b71e8066bd22c560cd8bc1e93411314",
+      "bytes": 843
+    },
+    {
+      "path": "ARKI_CODEBOOK_QC.json",
+      "sha256": "441cda26fcb8c79e9abaf2426d831b2d1b520f61aa69e6d874a571d006ebff1b",
+      "bytes": 581
+    },
+    {
+      "path": "ARKI_CODE_CROSSWALK.md",
+      "sha256": "655bbf3668587f6e00884462a7dd530c9dfdec3983a8375fc977549d579ad402",
+      "bytes": 3446
+    },
+    {
+      "path": "ARKI_MASTER_CODEBOOK.md",
+      "sha256": "d85472985d697888bd2a901c9728b8350f2bc804e83ef08aeb0ba1ffaa819586",
+      "bytes": 7633
+    },
+    {
+      "path": "ARKI_MASTER_PROJECT_MAP.md",
+      "sha256": "33a3e4fa1931d6f94293049e18d4dbd1cbd2b37c054f889fceef963c314b9927",
+      "bytes": 2657
+    },
+    {
+      "path": "ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md",
+      "sha256": "b204c9dd18fbe16854fec6a2066cb566ca5f97e739f2a0c6abade3d10a497f47",
+      "bytes": 4951
+    },
+    {
+      "path": "ORDEN_ARKI_CODEBOOK_001_SOURCE.txt",
+      "sha256": "bd271a503ad4a94e33b4973feb68550a32f6ea16bbfb4cd9f6eaaeca69adbdbf",
+      "bytes": 8979
+    }
+  ]
+}

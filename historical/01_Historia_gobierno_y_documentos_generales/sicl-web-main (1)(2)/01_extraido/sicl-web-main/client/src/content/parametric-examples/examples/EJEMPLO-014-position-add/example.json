@@ -1,0 +1,55 @@
+{
+  "exampleId": "EJEMPLO-014",
+  "title": "Ejemplo 014 · /POSITION ADD",
+  "commandName": "/POSITION ADD",
+  "category": "position",
+  "syntax": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
+  "command": "/POSITION ADD ACTOR-001 ALTERNATIVE ALT-001 SUPPORT La alternativa conserva circulación clara",
+  "arguments": [
+    {
+      "name": "actor_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ACTOR-001"
+    },
+    {
+      "name": "subject_type",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ALTERNATIVE"
+    },
+    {
+      "name": "subject_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "ALT-001"
+    },
+    {
+      "name": "stance",
+      "required": true,
+      "type": "string",
+      "exampleValue": "SUPPORT"
+    },
+    {
+      "name": "statement",
+      "required": true,
+      "type": "string",
+      "exampleValue": "La alternativa conserva circulación clara"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /POSITION ADD.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

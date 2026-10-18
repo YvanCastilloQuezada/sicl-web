@@ -1,0 +1,10 @@
+{
+  "schema":"ARKI-CAD-ADAPTER-CANDIDATES-1.0",
+  "status":"FORENSIC_SELECTION_ONLY",
+  "candidates":[
+    {"id":"ODA_DRAWINGS_SDK","role":"primary_candidate","technicalDisposition":"RECOMMENDED_FOR_BENCHMARK","commercialDisposition":"APPROVAL_REQUIRED","strengths":["native DWG/DXF","handles/layers/blocks/layouts/units APIs","Linux and Windows paths","cloud/web product family"],"risks":["Sustaining/Founding likely required for Web/SaaS","specialized objects may require extensions","release-specific validation required"],"source":"https://www.opendesign.com/products/drawings"},
+    {"id":"AUTODESK_REALDWG","role":"high-fidelity_reference_or_windows_worker","technicalDisposition":"VALIDATION_ORACLE_CANDIDATE","commercialDisposition":"APPROVAL_REQUIRED","strengths":["native Autodesk DWG/DXF","C++/.NET","read/write since Release 14","64-bit Windows"],"risks":["current published requirements Windows 11 for 2027","not a Linux server component","annual partner licensing","server hosting restrictions require confirmation"],"source":"https://aps.autodesk.com/developer/overview/realdwg-api"},
+    {"id":"GNU_LIBREDWG","role":"open_baseline_reader","technicalDisposition":"BASELINE_ONLY","commercialDisposition":"LEGAL_REVIEW_REQUIRED","strengths":["Linux/Windows build paths","GPLv3+","broad R2018 read coverage","source available"],"risks":["modern write/round-trip incomplete","unstable/undertested entities","GPL obligations","parser security advisories"],"source":"https://www.gnu.org/software/libredwg/manual/LibreDWG.pdf"},
+    {"id":"ODA_FILE_CONVERTER","role":"diagnostic_black_box","technicalDisposition":"DIAGNOSTIC_ONLY","commercialDisposition":"NOT_APPROVED_FOR_COMMERCIAL_SERVICE","strengths":["DWG/DXF version conversion","GUI and CLI","Linux/Windows/macOS availability"],"risks":["example project","non-commercial for non-members","no public lossless guarantee","not an SDK/product for redistribution"],"source":"https://www.opendesign.com/faq/question/what-are-oda-viewer-and-oda-file-converter"}
+  ]
+}

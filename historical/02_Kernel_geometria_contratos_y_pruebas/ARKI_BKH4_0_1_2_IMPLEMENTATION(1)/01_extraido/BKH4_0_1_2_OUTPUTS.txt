@@ -1,0 +1,58 @@
+# ORDER 95 BKH4-0/1/2 OUTPUTS
+2026-09-23T14:39:01Z
+## check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+## build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.85s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+## BKH4 foundation
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"malformedMutationRejected":true,"arbitraryCodeRejected":true,"deterministicSerialization":true,"duplicateRevisionPolicy":"identity+revision fields preserved","provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}
+## BKH1 regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH-1 relationship fabric PASS: 130 migrated relationships, registry=14
+## BKH2 regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","requiredCases":28,"registryTypes":13,"statuses":["SATISFIED","VIOLATED","UNKNOWN","NOT_APPLICABLE","CONFLICTING","ERROR"],"reasons":["NOT_DEMONSTRATED","EXTERNAL_ORACLE_REQUIRED","INSUFFICIENT_EVIDENCE","INSUFFICIENT_EPISTEMIC_STATE","MISSING_DEPENDENCY","INVALID_INPUT"],"currencySafety":"PEN_USD_INCOMPATIBLE","arbitraryExecution":"PROHIBITED","mutation":"UNCHANGED"}
+## BKH3 regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","planStatus":"BLOCKED","executionStatus":"BLOCKED","regenerated":2,"blocked":1,"traceEvents":5,"noCanonicalMutation":true}
+## 92A regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","freshnessE2E":true,"conditionalPropagation":["TRUE","FALSE","UNKNOWN"],"minimalDirtySet":["cost","geometry","quantity"],"aggregation":["COMPLETED","PARTIAL","BLOCKED","FAILED","UNKNOWN"],"bkh2Statuses":["SATISFIED","VIOLATED","UNKNOWN"],"selfCertification":"REJECTED","torture":"PARAMETER→GEOMETRY→RELATIONSHIP→QUANTITY→COST","noCanonicalMutation":true}
+## 93C idempotence regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","run1":"COMPLETED","run2":"COMPLETED","outputHashEqual":true,"semanticEqual":true,"validityEqual":true,"provenanceEqual":true,"sourceUnchanged":true,"artificialRevision":false,"silentMutation":false,"regenerator":"geometry","version":"1.0.0"}
+final_exit=0
+## BKH4 foundation final duplicate-revision closure
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+{"status":"PASS","stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"malformedMutationRejected":true,"arbitraryCodeRejected":true,"deterministicSerialization":true,"duplicateRevisionPolicy":"identity+revision fields preserved","provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}

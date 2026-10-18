@@ -1,0 +1,53 @@
+{
+  "runtime": "https://4005-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer",
+  "items": [
+    {
+      "surface": "control-center",
+      "kind": "before",
+      "file": "/home/ubuntu/arki-f0-evidence/before/control-center.webp",
+      "sha256": "0241a30bfc2445a7af2076c98bdae3c9a90660e1b8ad716fab5e01b7269135d9"
+    },
+    {
+      "surface": "design-funnel",
+      "kind": "before",
+      "file": "/home/ubuntu/arki-f0-evidence/before/design-funnel.webp",
+      "sha256": "fe352a6f03f5cadaca5a606f6aaad3b47b466d540dfa3b89b252f2aec2d19005"
+    },
+    {
+      "surface": "bim-visor",
+      "kind": "before",
+      "file": "/home/ubuntu/arki-f0-evidence/before/bim-visor.webp",
+      "sha256": "264132f2ffb0b470aa8ad800de1a3202b9ccdff86597044706bd5390a268d6e3"
+    },
+    {
+      "surface": "generator",
+      "kind": "before",
+      "file": "/home/ubuntu/arki-f0-evidence/before/generator.webp",
+      "sha256": "0241a30bfc2445a7af2076c98bdae3c9a90660e1b8ad716fab5e01b7269135d9"
+    },
+    {
+      "surface": "control-center",
+      "kind": "after",
+      "file": "/home/ubuntu/arki-f0-evidence/after/control-center.webp",
+      "sha256": "b7f4f621505c9e779b63be8bd7cc10d2ceeef59e89c2e21dbfda3ec6e0354b35"
+    },
+    {
+      "surface": "design-funnel",
+      "kind": "after",
+      "file": "/home/ubuntu/arki-f0-evidence/after/design-funnel.webp",
+      "sha256": "f7ff993653d74e9d348e1a7a1bc0a195fa85132a65584f6547a89992786c4acd"
+    },
+    {
+      "surface": "bim-visor",
+      "kind": "after",
+      "file": "/home/ubuntu/arki-f0-evidence/after/bim-visor.webp",
+      "sha256": "f9587d53e1d6992ea7f71478b03a243b226d8c4a2b68d7f984d53425a03d6324"
+    },
+    {
+      "surface": "generator",
+      "kind": "after",
+      "file": "/home/ubuntu/arki-f0-evidence/after/generator.webp",
+      "sha256": "a4799d48c30a377b06b40fceff67ded3eb49d5f8407e409ea8e31d29a8669c55"
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+ARKI-BRIDGE-R4-REAL-ARKI-DISCOVERY-001
+A. BRIDGE ARCHITECTURE FOUND
+Entrada HTTP y rutas
+Archivo: /home/ubuntu/arki-agent-bridge-alpha8/bridge-v0.2a/src/server.mjs
+createServer(...): líneas 11–24.
+GET /health: línea 15.
+POST /webhooks/manus: línea 16.
+POST /decisions: línea 18.
+POST /decisions/:id/dispatch: línea 19.
+POST /tasks/:id/messages: línea 20.
+GET /tasks/:id: línea 21.
+Servidor local: línea 26.
+El Bridge expone rutas fijas y explícitas. No acepta comandos arbitrarios del modelo.
+Autenticación interna
+Archivo: src/security.mjs
+requireBridgeAuth(...): líneas 4–8.
+Consume process.env.BRIDGE_INTERNAL_SECRET.
+Lee el header x-bridge-auth.
+Utiliza comparación constante mediante crypto.timingSafeEqual.
+Si el secreto no está configurado, devuelve BRIDGE_AUTH_NOT_CONFIGURED.
+La ruta /health se evalúa antes de requireBridgeAuth, por lo que el health local no requiere BRIDGE_INTERNAL_SECRET.
+Providers
+Manus
+Archivo: src/manus.mjs
+Clase: ManusAdapter, líneas 7–49.
+Consume la API externa de Manus mediante fetch.
+Operaciones: crear tarea, enviar mensaje, consultar detalle, listar mensajes y webhooks.
+OpenAI
+Archivo: src/openai-real-adapter.mjs
+Clase: OpenAIRealAdapter, líneas 15–28.
+Consume https://api.openai.com/v1/responses.
+Requiere PROVIDER_MODE=real y credenciales válidas mediante requireRealProvider.
+Configuración de providers
+Archivo: src/provider-config.mjs
+providerMode(... ): líneas 3–4.
+requireRealProvider(...): líneas 5–8.
+Por defecto, el modo es mock.
+Persistencia y provenance
+Archivo: src/store.mjs
+BridgeStore: línea 17.
+Crea y migra SQLite: líneas 18–34.
+Recupera estados después de reinicio: líneas 37–42.
+Persiste decisiones, tareas, eventos, mensajes, efectos externos, evidencias, auditoría y correlaciones.
+Usa filesystem local para la base de datos y migraciones.
+Procesos y filesystem
+No se encontró:
+text
+child_process
+spawn
+exec
+execFile
+El Bridge usa node:fs en src/store.mjs y src/autonomy-control.mjs para su propia persistencia y kill switch. No existe un camino genérico exec(command_from_model).
+Contexto externo
+El Bridge puede recibir:
+decisiones HTTP;
+mensajes;
+eventos webhook firmados de Manus;
+resultados y evidencias asociadas a tareas.
+No existe un mecanismo específico para recibir un contexto o consulta desde sicl-core.
+B. ARKI QUERY SURFACE FOUND
+H-001 — Derivation Integrity
+Archivo: /home/ubuntu/sicl-core/src/sicl/derivation.py
+Clase: DerivationLedger, línea 203.
+Interfaces read-only:
+text
+list(project_id)              línea 210
+why(project_id, output)       línea 244
+explain(project_id, output)   línea 270
+dependency_checks(...)        línea 276
+integrity_checks(...)         línea 297
+DerivationLedger.record(...), línea 232, es mutante y no debe ser expuesto por un adaptador read-only.
+El ledger obtiene sus datos mediante el protocolo EventStore:
+text
+EventStore.events(project_id)
+H-002 — Impact Analysis
+Archivo: /home/ubuntu/sicl-core/src/sicl/impact.py
+Clase: ImpactAnalyzer, línea 144.
+Interfaces:
+text
+analyze_change(project_id, change)       línea 151
+analyze_dependency(project_id, source)   línea 161
+El método analyze_dependency(...) es especialmente adecuado para una consulta estática read-only. El resultado contiene:
+artefactos impactados;
+profundidad;
+confianza;
+rutas;
+derivation records;
+ciclos;
+coverage_warning;
+estado partial;
+razón fail-closed.
+H-003 — Validity
+Archivo: /home/ubuntu/sicl-core/src/sicl/validity.py
+Clase: ValidityAnalyzer, línea 136.
+Método: evaluate_validity(...), línea 158.
+El método:
+llama a ledger.list(...);
+llama a ledger.integrity_checks(...);
+no registra derivaciones;
+no invalida;
+no recomputa;
+devuelve ValidityReport(read_only=True) en las líneas 261–268.
+H-004 — Reaction Planning
+Aunque el canario solicitado menciona H-001, H-002 y H-003, también existe H-004:
+Archivo: /home/ubuntu/sicl-core/src/sicl/reaction.py
+Clase: ReactionPlanner, línea 76.
+Método: plan_reaction(...), línea 84.
+Devuelve un plan read-only y contiene la propagación RT-88 de BLOCKED_DEPENDENCY en las líneas 225–304.
+API y CLI actuales
+Existe una API FastAPI general:
+Archivo: /home/ubuntu/sicl-core/api/main.py
+create_app(): línea 20.
+GET /health: líneas 35–37.
+Routers generales: líneas 14–18.
+La API no expone actualmente una ruta específica para:
+text
+DerivationLedger.list / explain / integrity_checks
+ImpactAnalyzer.analyze_dependency / analyze_change
+ValidityAnalyzer.evaluate_validity
+ReactionPlanner.plan_reaction
+Existe una CLI general:
+Archivo: /home/ubuntu/sicl-core/src/sicl/cli.py
+Clase CLI: línea 30.
+execute(command): línea 49.
+Pero la CLI no registra comandos públicos específicos para H-001, H-002, H-003 o H-004.
+C. CONNECTION CAPABILITY
+text
+BRIDGE_CAN_READ_ARKI_NOW=NO
+BRIDGE_HAS_ARKI_ADAPTER=NO
+BRIDGE_HAS_GENERIC_READONLY_EXECUTION_PATH=NO
+ARKI_HAS_QUERY_ENTRYPOINT=YES
+Justificación de ARKI_HAS_QUERY_ENTRYPOINT=YES
+El Core tiene interfaces Python públicas y directamente invocables:
+Área
+Archivo
+Símbolo
+Invocación
+Derivation Integrity
+src/sicl/derivation.py
+DerivationLedger.list()
+Crear un DerivationLedger con un EventStore y consultar list(project_id)
+Derivation Integrity
+src/sicl/derivation.py
+DerivationLedger.explain()
+Consultar la explicación de un VersionedRef
+Derivation Integrity
+src/sicl/derivation.py
+DerivationLedger.integrity_checks()
+Comparar referencias actuales sin mutar
+Impact Analysis
+src/sicl/impact.py
+ImpactAnalyzer.analyze_dependency()
+Consultar dependencias estáticas
+Impact Analysis
+src/sicl/impact.py
+ImpactAnalyzer.analyze_change()
+Analizar un ImpactChange
+Validity
+src/sicl/validity.py
+ValidityAnalyzer.evaluate_validity()
+Evaluar validez contra current_refs
+Reaction
+src/sicl/reaction.py
+ReactionPlanner.plan_reaction()
+Planificar sin ejecutar
+Esta afirmación no significa que exista ya una ruta HTTP o un adaptador para el Bridge. Significa que existe una superficie Python pública de consulta.
+Por qué BRIDGE_CAN_READ_ARKI_NOW=NO
+Alpha8 no contiene:
+import de módulos sicl;
+import de módulos arki;
+ARKIAdapter;
+ARKIReadOnlyAdapter;
+cliente HTTP hacia sicl-core;
+socket o RPC hacia el Core;
+proceso permitido y específico para invocar el Core;
+construcción de un EventStore de ARKI;
+rutas Bridge que consulten derivation, impact o validity.
+Por tanto, el Bridge actualmente no puede leer el Core real.
+D. SECRET REQUIREMENT
+text
+BRIDGE_INTERNAL_SECRET_REQUIRED_FOR_HEALTH=NO
+BRIDGE_INTERNAL_SECRET_REQUIRED_FOR_ARKI_QUERY=UNKNOWN
+Health
+El health local puede ejecutarse sin secreto:
+Archivo: src/server.mjs, línea 15.
+text
+GET /health
+Respuesta obtenida:
+JSON
+{
+  "ok": true,
+  "bridge": "ARKI Agent Bridge",
+  "version": "0.2a"
+}
+El health fue levantado con una base SQLite temporal en /tmp, sin providers reales y sin tocar sicl-core.
+Rutas protegidas
+El secreto sí es necesario para las rutas protegidas porque requireBridgeAuth(...) se ejecuta en src/server.mjs, línea 17.
+Consulta ARKI
+Actualmente no existe una ruta de consulta ARKI, por lo que no puede afirmarse que el secreto sea requerido para una consulta inexistente.
+Si el futuro adaptador se expone como una ruta Bridge protegida, deberá requerir BRIDGE_INTERNAL_SECRET. Si se diseña como una interfaz interna aislada sin HTTP, el requisito dependerá del transporte elegido.
+Estado actual:
+text
+BRIDGE_INTERNAL_SECRET=UNSET
+No se generó ningún secreto.
+E. HEALTH
+text
+HEALTH_EXECUTED=YES
+HEALTH_REQUEST=GET /health
+HEALTH_RETURN_CODE=0
+Respuesta completa:
+JSON
+{"ok":true,"bridge":"ARKI Agent Bridge","version":"0.2a"}
+No se ejecutaron:
+text
+Manus real
+OpenAI real
+webhooks externos
+provider real
+El health demuestra disponibilidad del runtime del Bridge, pero no conexión con ARKI.
+F. MISSING CONNECTOR
+Falta un conector explícito:
+text
+ARKIReadOnlyAdapter
+Contrato propuesto
+text
+get_repository_identity()
+get_capability_status()
+query_derivation_integrity(request)
+query_impact_analysis(request)
+query_validity(request)
+Respuesta estructurada mínima
+JSON
+{
+  "repository": "/home/ubuntu/sicl-core",
+  "branch": "feat/h001-examen-11-rt-a-rt-d",
+  "head": "5533bd8eb1e3b81c37d089bd30b424f2a4c1e231",
+  "query": {
+    "kind": "derivation_integrity|impact_analysis|validity",
+    "project_id": "...",
+    "parameters": {}
+  },
+  "result": {},
+  "timestamp": "...",
+  "correlation_id": "...",
+  "provenance": {
+    "source": "sicl-core",
+    "module": "...",
+    "symbol": "...",
+    "read_only": true
+  },
+  "unknown": [],
+  "errors": []
+}
+Restricciones obligatorias
+El adaptador no debe permitir:
+text
+write files
+record derivations
+modify Git
+commit
+push
+merge
+BIM writes
+publish
+approve
+decide
+shell arbitrario
+No se implementó este contrato.
+G. SECURITY MODEL
+Estado actual del Bridge
+Alpha8 ya cuenta con:
+rutas HTTP allowlisted;
+autenticación interna fail-closed;
+comparación constante del secreto;
+validación de payloads;
+límites de tamaño;
+idempotencia;
+persistencia de provenance y audit;
+kill switch;
+budget enforcement;
+protección contra redispatch ciego;
+clasificación de resultados externos como no confiables;
+ausencia de child_process, spawn, exec y execFile;
+ausencia de rutas ARKI en el código del Bridge.
+Riesgo de integrar mediante shell
+No debe implementarse algo como:
+text
+exec(command_from_model)
+Eso permitiría:
+path traversal;
+shell injection;
+escritura del repositorio;
+mutaciones Git;
+acceso a archivos fuera del alcance;
+conversión de una consulta en una operación de escritura.
+La integración correcta debe ser un adaptador tipado, con métodos allowlisted y sin shell genérico.
+H. TEST PLAN
+Se deben crear, cuando se autorice la implementación, como mínimo estos tests:
+Identidad correcta del repositorio.
+HEAD correcto.
+Enforcement read-only.
+Bloqueo de path traversal.
+Imposibilidad de shell injection.
+Ausencia de escritura filesystem.
+Ausencia de mutación Git.
+Preservación de UNKNOWN.
+Core fail-closed ante error.
+Fail-closed ante timeout.
+Validación del schema estructurado.
+Preservación de provenance y correlation ID.
+Consulta real de Derivation Integrity.
+Consulta real de Impact Analysis.
+Consulta real de Validity.
+Reinicio/recuperación sin convertir UNKNOWN en PASS.
+Preservación de Human Authority.
+Ajuste adicional recomendado:
+repository, branch y HEAD deben provenir de una fuente verificable del checkout, no de texto proporcionado por el modelo.
+La respuesta debe distinguir:
+text
+IMPLEMENTED
+VERIFIED
+PARTIAL
+ABSENT
+UNKNOWN
+Debe rechazarse cualquier operación diferente de las cinco operaciones allowlisted.
+I. FILES THAT WOULD NEED MODIFICATION
+No se modifican ahora.
+En el Bridge
+Archivos que probablemente habría que crear o modificar:
+text
+/home/ubuntu/arki-agent-bridge-alpha8/bridge-v0.2a/src/arki-readonly-adapter.mjs
+/home/ubuntu/arki-agent-bridge-alpha8/bridge-v0.2a/src/server.mjs
+/home/ubuntu/arki-agent-bridge-alpha8/bridge-v0.2a/src/schemas.mjs
+/home/ubuntu/arki-agent-bridge-alpha8/bridge-v0.2a/tests/arki-readonly-adapter.test.mjs
+En ARKI Core
+Como el Core no tiene una API específica para H-001/H-002/H-003, una integración limpia requeriría probablemente:
+text
+/home/ubuntu/sicl-core/src/sicl/readonly_query.py
+/home/ubuntu/sicl-core/api/routes/arki_readonly.py
+/home/ubuntu/sicl-core/api/main.py
+/home/ubuntu/sicl-core/tests/test_arki_readonly_query.py
+Esto es una propuesta de diseño, no una modificación realizada.
+El contrato debería invocar directamente:
+text
+DerivationLedger.list()
+DerivationLedger.explain()
+DerivationLedger.integrity_checks()
+ImpactAnalyzer.analyze_dependency()
+ImpactAnalyzer.analyze_change()
+ValidityAnalyzer.evaluate_validity()
+No debería invocar un shell arbitrario.
+J. ARKI INTEGRITY
+Verificación final ejecutada:
+Bash
+cd /home/ubuntu/sicl-core
+git rev-parse HEAD
+git status --short
+Resultado:
+text
+HEAD=5533bd8eb1e3b81c37d089bd30b424f2a4c1e231
+STATUS:
+?? docs/orders/
+El checkout ARKI permanece sin modificaciones por esta orden.
+K. VERDICT
+text
+ARKI_READONLY_ADAPTER_REQUIRED

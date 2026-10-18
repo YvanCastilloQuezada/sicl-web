@@ -1,0 +1,1 @@
+ALTER TABLE `missions` ADD `badgeLabel` varchar(96) NOT NULL;

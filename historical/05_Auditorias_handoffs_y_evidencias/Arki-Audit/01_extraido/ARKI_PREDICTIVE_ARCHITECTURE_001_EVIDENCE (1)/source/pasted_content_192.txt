@@ -1,0 +1,2298 @@
+ARKI-PREDICTIVE-ARCHITECTURE-001
+
+PREDICTIVE ARCHITECTURE FOUNDATION
+SIMULATION & EXPLORATION ENGINE
+DESIGN EXPLORER
+ARCHITECTURAL OPPORTUNITY GATES
+ERROR-DRIVEN LEARNING
+COMMAND CENTER FRAMEWORK INTEGRATION
+
+STATUS:
+AUTHORIZED FOR IMPLEMENTATION
+
+PRIORITY:
+FOUNDATIONAL / HIGH
+
+PO DECISION:
+APPROVED IN PRINCIPLE.
+IMPLEMENT WITHIN THE BOUNDED AUTHORITY DEFINED BELOW.
+
+======================================================================
+0. MISSION
+======================================================================
+
+Implement the foundational architecture required for ARKI to evolve
+from:
+
+ONE REQUEST
+→ ONE DESIGN
+→ ONE EVALUATION
+
+toward:
+
+ONE PROBLEM
+→ MANY POSSIBLE FUTURES
+→ MULTIPLE CANDIDATES
+→ MULTI-FIDELITY EVALUATION
+→ SIMULATION
+→ FAILURE
+→ LEARNING
+→ REGENERATION
+→ PARETO / DIVERSITY
+→ HUMAN ARCHITECTURAL SELECTION
+→ DEEPER SIMULATION
+→ EVENTUAL REALITY VALIDATION.
+
+This order establishes the foundation of:
+
+ARKI PREDICTIVE ARCHITECTURE.
+
+It must integrate with:
+
+ARKI AUTOPILOT
+ARKI COMMAND CENTER FRAMEWORK
+ARKI SOLVER ARCHITECTURE
+ARKI PROJECT STATE
+ARKI EVIDENCE
+ARKI HUMAN AUTHORITY
+ARKI LEARNING / "A COCACHOS"
+ARKI BIM / CAD foundations
+ARKI DIGITAL TWIN direction.
+
+DO NOT create a separate AI.
+
+ONE ARKI.
+
+======================================================================
+1. CANONICAL CONCEPT
+======================================================================
+
+Define Predictive Architecture as:
+
+The computational capability to explore multiple possible futures
+of a project before physical commitment through generation,
+simulation, multidisciplinary evaluation, comparison, learning,
+progressive validation and explicit uncertainty.
+
+Preserve:
+
+SIMULATION ≠ REALITY
+
+PREDICTION ≠ CERTAINTY
+
+MORE SIMULATIONS ≠ MORE TRUTH
+
+MODEL VALIDITY PRECEDES PREDICTIVE CONFIDENCE
+
+PREDICTED ≠ OBSERVED
+
+CANDIDATE ≠ APPROVED DESIGN
+
+VISUAL ATTRACTIVENESS ≠ FUNCTIONAL VALIDITY
+
+FUNCTIONAL ELIGIBILITY ≠ PROFESSIONAL CERTIFICATION.
+
+======================================================================
+2. FOUNDATIONAL DESIGN PRINCIPLE
+======================================================================
+
+Implement the following distinction:
+
+FUNCTION PRECEDES FORM
+IN VALIDATION.
+
+FORM MAY PRECEDE FUNCTION
+IN HUMAN PERCEPTION.
+
+Meaning:
+
+ARKI should perform available prerequisite functional eligibility
+checks BEFORE presenting a candidate as functionally eligible.
+
+The human architect may then visually compare surviving candidates
+because the machine has already performed the declared prerequisite
+checks.
+
+However:
+
+ARKI must NEVER imply that an untested discipline has passed.
+
+Example:
+
+FUNCTIONAL_ELIGIBILITY = PASS
+
+STRUCTURAL_VALIDATION = UNKNOWN
+
+ENERGY_SIMULATION = PASS_BOUNDED
+
+FIRE = NOT_EVALUATED
+
+PROFESSIONAL_VALIDATION = REQUIRED.
+
+======================================================================
+3. DO NOT OVERCLAIM "IT WORKS"
+======================================================================
+
+A candidate may only claim functionality for the dimensions actually
+evaluated.
+
+Every candidate must expose a:
+
+VALIDATION ENVELOPE.
+
+The Validation Envelope identifies:
+
+evaluated dimensions
+unevaluated dimensions
+models used
+solver/tool used
+assumptions
+UNKNOWNs
+evidence
+fidelity level
+professional validation requirements.
+
+The UI may simplify this information.
+
+The evidence layer must preserve it.
+
+======================================================================
+4. NEW FOUNDATIONAL ENGINE
+======================================================================
+
+Implement a bounded reusable:
+
+ARKI SIMULATION & EXPLORATION ENGINE
+
+working name:
+
+ARKI-SEE.
+
+ARKI-SEE IS NOT:
+
+a second ARKI
+an autonomous authority
+a canonical writer
+a single domain solver.
+
+ARKI-SEE IS:
+
+candidate generator/orchestrator
+scenario manager
+evaluation orchestrator
+simulation orchestrator
+comparison engine
+failure-analysis coordinator
+exploration manager.
+
+======================================================================
+5. CORE PIPELINE
+======================================================================
+
+Implement the reusable architecture:
+
+PROBLEM DEFINITION
+→ OBJECTIVES
+→ CONSTRAINTS
+→ ASSUMPTIONS
+→ UNKNOWNS
+→ BASELINE
+→ CANDIDATE GENERATION
+→ CHEAP VALIDATION
+→ FILTER
+→ INTERMEDIATE EVALUATION
+→ FILTER
+→ DOMAIN SIMULATION
+→ ADVERSARIAL SCENARIOS
+→ FAILURE ANALYSIS
+→ DIVERSITY ANALYSIS
+→ PARETO ANALYSIS
+→ SURVIVOR SELECTION
+→ HUMAN REVIEW
+→ DEEPER ANALYSIS
+→ BIM / DELIVERY PATH WHERE AUTHORIZED.
+
+The pipeline must support loops.
+
+It is NOT necessarily linear.
+
+======================================================================
+6. PROGRESSIVE COMPUTATIONAL FIDELITY
+======================================================================
+
+Do NOT apply expensive analysis to every candidate.
+
+Implement/reconcile fidelity levels conceptually equivalent to:
+
+L0 — SEED
+minimal candidate representation.
+
+L1 — SPATIAL
+massing, program, topology, relationships.
+
+L2 — VISUAL PREVIEW
+fast comparable visual representation.
+
+L3 — ANALYTICAL
+bounded multidisciplinary evaluation.
+
+L4 — HIGH FIDELITY
+expensive domain simulations where justified.
+
+L5 — VISUAL RENDER
+high-quality visualization on demand.
+
+L6 — BIM CANDIDATE
+candidate promoted for deeper BIM development.
+
+Names may be reconciled with repository conventions.
+
+Promotion between levels requires explicit criteria.
+
+======================================================================
+7. COMPUTATIONAL ECONOMY
+======================================================================
+
+Adopt:
+
+CHEAP TESTS FIRST.
+
+EXPENSIVE TESTS LATE.
+
+Do not:
+
+render 2,000 alternatives at high fidelity
+
+run expensive CFD for candidates already violating basic constraints
+
+create BIM models for obviously rejected alternatives.
+
+Use progressive elimination.
+
+======================================================================
+8. CANDIDATE MODEL
+======================================================================
+
+Implement/reconcile a Candidate contract.
+
+Candidate should support:
+
+candidateId
+projectId
+generationId
+parentIds
+strategy
+parameters
+geometryRef
+programRef
+scenarioRefs
+fidelityLevel
+epistemicState
+validationEnvelope
+evaluations
+simulationRuns
+failures
+unknowns
+evidenceRefs
+diversityFeatures
+status
+rejectionReason
+promotionHistory
+provenance.
+
+Candidate identity must remain stable through its lifecycle.
+
+======================================================================
+9. GENERATION MODEL
+======================================================================
+
+Implement:
+
+ExplorationGeneration.
+
+Track:
+
+generationId
+objective
+candidateCount
+parents
+generationStrategy
+constraints
+mutationStrategy
+diversityStrategy
+createdAt
+survivors
+rejected
+unknown
+evidence.
+
+Generation history must be inspectable.
+
+======================================================================
+10. DO NOT GENERATE CLONES
+======================================================================
+
+Diversity is a first-class requirement.
+
+ARKI must distinguish:
+
+PARAMETRIC VARIATION
+
+from:
+
+MEANINGFUL ARCHITECTURAL ALTERNATIVE.
+
+Where applicable, measure or classify diversity across:
+
+massing
+topology
+circulation
+program distribution
+orientation
+open/closed relationships
+vertical/horizontal organization
+structural concept
+environmental strategy
+public/private relationships
+future adaptability.
+
+Do not force diversity unsupported by the project.
+
+======================================================================
+11. DIVERSITY PRESERVATION
+======================================================================
+
+Do not allow optimization to collapse all candidates into one
+homogeneous family merely because one metric dominates.
+
+Implement diversity preservation / clustering appropriate to the
+bounded implementation.
+
+The Design Explorer should preferentially show meaningfully distinct
+surviving alternatives.
+
+======================================================================
+12. SCENARIO MODEL
+======================================================================
+
+Implement/reconcile:
+
+ScenarioDefinition.
+
+A scenario may contain:
+
+climate
+occupancy
+operation
+energy availability
+water availability
+cost assumptions
+future change
+failure conditions
+environmental conditions
+construction assumptions
+maintenance assumptions
+other domain-specific variables.
+
+Every scenario must declare provenance and assumptions.
+
+UNKNOWN must remain UNKNOWN.
+
+======================================================================
+13. PREDICTION MODEL
+======================================================================
+
+Implement a strict distinction between:
+
+OBSERVATION
+MODEL
+SIMULATION
+PREDICTION
+MEASUREMENT
+REALITY COMPARISON.
+
+A PredictionRecord should identify:
+
+candidate
+scenario
+model
+modelVersion
+inputSet
+simulationRun
+predictedVariable
+predictedValue/range
+units
+uncertainty where available
+assumptions
+evidence
+timestamp
+validationState.
+
+Do not represent prediction as observation.
+
+======================================================================
+14. FAILURE AS INFORMATION
+======================================================================
+
+Rejected candidates are NOT useless.
+
+Implement:
+
+CandidateFailureRecord.
+
+Capture:
+
+candidateId
+scenarioId
+failureClass
+failedConstraint
+failedMetric
+rootCauseStatus
+evidence
+context
+scale
+applicability
+rejectionDecision
+reusabilityOfLearning.
+
+Use existing/refined deficit taxonomy.
+
+======================================================================
+15. FAILURE TAXONOMY
+======================================================================
+
+Reconcile with existing ARKI taxonomy including:
+
+KNOWLEDGE
+REASONING
+EVIDENCE
+INPUT
+TOOL
+SOLVER
+ORACLE
+GEOMETRY
+REPRESENTATION
+RELATIONSHIP
+CAUSAL
+CONSTRAINT
+STATE
+UNIT
+APPLICABILITY
+JURISDICTION
+TEMPORAL
+IMPLEMENTATION
+INTEGRATION
+VALIDATION
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+Do not create incompatible duplicate taxonomies.
+
+======================================================================
+16. A COCACHOS INTEGRATION
+======================================================================
+
+Integrate Predictive Architecture with:
+
+A COCACHOS APRENDÍ.
+
+Required loop:
+
+GENERATE
+→ TEST
+→ BREAK
+→ CLASSIFY FAILURE
+→ ROOT CAUSE
+→ LEARN
+→ MODIFY STRATEGY
+→ REGENERATE
+→ RETEST
+→ TRANSFER TEST.
+
+Preserve:
+
+FAILURE IN ONE CONTEXT
+≠
+UNIVERSAL FAILURE.
+
+Learning must retain:
+
+context
+scale
+scenario
+constraints
+evidence
+applicability.
+
+======================================================================
+17. ANTI-OVERFITTING
+======================================================================
+
+When a failure produces a new learned constraint or strategy:
+
+do not test only the original case.
+
+Generate:
+
+variant
+inverse
+boundary
+metamorphic
+transfer
+
+tests where applicable.
+
+ARKI must learn the underlying capability, not memorize the failed
+candidate.
+
+======================================================================
+18. SIMULATION ORCHESTRATION
+======================================================================
+
+Integrate with the existing/future Solver Orchestrator architecture.
+
+ARKI-SEE requests computations.
+
+It does NOT implement every physics engine internally.
+
+Architecture:
+
+ARKI
+→ ARKI-SEE
+→ SOLVER ORCHESTRATOR
+→ INTERNAL METHOD / EXTERNAL SOLVER
+→ RAW RESULT
+→ VALIDATION
+→ INTERPRETATION
+→ EVIDENCE.
+
+Preserve:
+
+SOLVER OUTPUT ≠ PROJECT FACT.
+
+======================================================================
+19. CURRENT SOLVER REALITY
+======================================================================
+
+Do not pretend all domain solvers exist.
+
+Use only currently implemented/authorized solver capabilities.
+
+Other domains must remain:
+
+UNKNOWN
+NOT_AVAILABLE
+NOT_INTEGRATED
+or equivalent truthful state.
+
+This order does NOT authorize installing the entire future solver
+stack.
+
+======================================================================
+20. MULTI-OBJECTIVE EVALUATION
+======================================================================
+
+Support multi-objective evaluation.
+
+Candidate objectives may include where applicable:
+
+function
+spatial quality
+cost
+energy
+comfort
+structure
+constructability
+material
+carbon
+circulation
+accessibility
+maintenance
+adaptability
+risk
+aesthetic intent
+other project-defined objectives.
+
+Do NOT collapse everything into one universal ARKI score.
+
+======================================================================
+21. PARETO
+======================================================================
+
+Implement/reconcile Pareto analysis for suitable quantitative
+objectives.
+
+Expose:
+
+non-dominated candidates
+trade-offs
+dominated candidates
+reasoning/evidence.
+
+Do not declare a political or human-preference-style "winner."
+
+For architecture:
+
+ARKI presents trade-offs.
+
+Human architect selects.
+
+======================================================================
+22. BEAUTY / AESTHETICS
+======================================================================
+
+Do NOT implement:
+
+BEAUTY_SCORE = universal truth.
+
+Aesthetic evaluation may use:
+
+declared project preferences
+composition properties
+precedent relationships
+human selections
+project-specific design language
+visual features
+
+but must remain distinct from:
+
+functional validity
+technical validity
+professional validation.
+
+Human architectural judgment remains authoritative.
+
+======================================================================
+23. HUMAN PREFERENCE LEARNING
+======================================================================
+
+Design for future bounded learning from architect selections.
+
+Example:
+
+PO repeatedly selects candidates sharing:
+
+courtyards
+porosity
+horizontal organization
+specific spatial relationships.
+
+ARKI may infer:
+
+PROJECT-SPECIFIC PREFERENCE HYPOTHESIS.
+
+It must NOT infer:
+
+UNIVERSAL BEAUTY LAW.
+
+Preserve provenance.
+
+======================================================================
+24. DESIGN EXPLORER
+======================================================================
+
+Implement the foundational:
+
+ARKI DESIGN EXPLORER.
+
+Primary architect-facing interaction:
+
+VISUAL FIRST.
+
+Default candidate board:
+
+4 × 4
+=
+16 candidates.
+
+The number must be configurable.
+
+======================================================================
+25. 4×4 EXPERIENCE
+======================================================================
+
+Initial Design Explorer view should prioritize:
+
+IMAGE / VISUAL PREVIEW
+CANDIDATE ID
+minimal status.
+
+Avoid filling every card with technical telemetry.
+
+The architect should be able to visually scan the population.
+
+======================================================================
+26. FUNCTIONAL ELIGIBILITY INDICATOR
+======================================================================
+
+The candidate grid must truthfully indicate eligibility.
+
+Example:
+
+FUNCTIONAL ELIGIBILITY
+✓ CURRENT GATE PASSED
+
+but allow immediate inspection of:
+
+WHAT WAS TESTED?
+
+WHAT WAS NOT TESTED?
+
+UNKNOWN?
+
+PROFESSIONAL VALIDATION REQUIRED?
+
+Never use a generic green check to imply complete building validity.
+
+======================================================================
+27. ON-DEMAND DEPTH
+======================================================================
+
+Candidate interaction:
+
+CLICK
+→ candidate overview.
+
+REQUEST RENDER
+→ high-quality rendering where available.
+
+ANALYZE
+→ deeper evaluation.
+
+SIMULATE
+→ additional authorized simulations.
+
+COMPARE
+→ multi-candidate comparison.
+
+PROMOTE
+→ next fidelity level where gates pass.
+
+DEVELOP BIM
+→ only when authorized and capability exists.
+
+Computational depth is ON DEMAND.
+
+======================================================================
+28. LAZY HIGH-FIDELITY RENDERING
+======================================================================
+
+Do not high-quality render all candidates by default.
+
+Use:
+
+FAST PREVIEW FIRST.
+
+HIGH-FIDELITY RENDER ON DEMAND.
+
+Cache valid render artifacts with provenance.
+
+Invalidate when relevant geometry/material/view state changes.
+
+======================================================================
+29. VISUAL CONSISTENCY
+======================================================================
+
+For fair visual comparison, previews in one board should use
+controlled comparable conditions where possible:
+
+camera logic
+scale
+lighting
+background
+representation mode.
+
+Do not let one candidate appear "better" merely because it received
+a more dramatic visualization treatment.
+
+======================================================================
+30. ARCHITECTURAL FAMILIES
+======================================================================
+
+Where appropriate, Design Explorer should expose clustering/families.
+
+Example:
+
+COURTYARD
+BAR
+PAVILION
+PERIMETER
+TOWER + PODIUM
+TERRACED
+SPINE
+HYBRID.
+
+These are examples only.
+
+Do NOT hardcode them as universal categories.
+
+Derive actual families from project/candidate structure.
+
+======================================================================
+31. ARCHITECT SELECTION LOOP
+======================================================================
+
+Support:
+
+SELECT
+SHORTLIST
+REJECT
+COMPARE
+FAVOR
+REQUEST VARIATIONS.
+
+Selections become governed feedback.
+
+They do not automatically become canonical project decisions.
+
+======================================================================
+32. RECOMBINATION / NEW GENERATION
+======================================================================
+
+If the architect selects multiple candidates:
+
+ARKI may identify:
+
+shared properties
+differences
+potential strategies
+
+and propose a new exploration generation.
+
+Do not blindly geometrically merge candidates.
+
+======================================================================
+33. ARCHITECTURAL OPPORTUNITY MODEL
+======================================================================
+
+Implement:
+
+OpportunityRecord.
+
+Opportunity types may include:
+
+ARCHITECTURAL
+TECHNICAL
+REUSE
+AUTOMATION
+PERFORMANCE
+COST
+RESEARCH
+PRODUCT.
+
+Do NOT create separate systems for each.
+
+======================================================================
+34. ARCHITECTURAL OPPORTUNITY GATE
+======================================================================
+
+Implement:
+
+ARCHITECTURAL_OPPORTUNITY_GATE.
+
+Purpose:
+
+detect when ARKI discovers that continuing the authorized solution is
+possible, but a materially better structural architecture may exist.
+
+This differs from a deficit.
+
+DEFICIT:
+something necessary is missing/wrong.
+
+OPPORTUNITY:
+current path may work, but another path may materially improve the
+system.
+
+======================================================================
+35. OPPORTUNITY MATERIALITY
+======================================================================
+
+Do not interrupt PO for every improvement idea.
+
+Evaluate at least:
+
+STRUCTURAL IMPACT
+REUSE POTENTIAL
+FUTURE COST OF NOT CHANGING
+SCOPE EXPANSION
+REVERSIBILITY
+DEPENDENCY IMPACT
+EVIDENCE STRENGTH
+AUTHORITY BOUNDARY.
+
+Only material opportunities requiring Human Authority should become
+Human Gates.
+
+======================================================================
+36. OPPORTUNITY GATE PRESENTATION
+======================================================================
+
+Every material opportunity presented to PO must include:
+
+BASELINE
+DISCOVERY
+EVIDENCE
+WHY NOW
+AFFECTED AREAS
+DEPENDENCIES
+OPTION A — CONTINUE
+OPTION B — LOCAL ADAPTATION if applicable
+OPTION C — ARCHITECTURAL CHANGE
+UNKNOWNs
+RISKS
+REVERSIBILITY
+WORK AT RISK
+FUTURE DEBT
+TECHNICAL RECOMMENDATION.
+
+No unsupported "I have a better idea."
+
+======================================================================
+37. SANDBOX EXPLORATION
+======================================================================
+
+Support:
+
+EXPLORE IN SANDBOX.
+
+PO may authorize:
+
+investigate
+prototype
+simulate
+compare
+test
+
+WITHOUT authorizing production/canonical architecture change.
+
+Sandbox results must remain non-canonical.
+
+======================================================================
+38. NON-BLOCKING OPPORTUNITIES
+======================================================================
+
+Opportunity Gate must support:
+
+CONTINUE_SAFE_WORK
+
+PAUSE_AFFECTED_BRANCH
+
+SAFE_PAUSE_CAMPAIGN.
+
+Do not stop unrelated work unnecessarily.
+
+======================================================================
+39. AUTOPILOT DISCOVERY LOOP
+======================================================================
+
+Extend Autopilot conceptual loop to:
+
+OBJECTIVE
+→ UNDERSTAND
+→ PLAN
+→ EXECUTE
+→ OBSERVE
+
+then:
+
+SUCCESS
+DEFICIT
+OPPORTUNITY
+UNKNOWN
+HUMAN_GATE.
+
+For OPPORTUNITY:
+
+evaluate materiality
+→ local improvement if authorized
+or
+→ Opportunity Gate.
+
+======================================================================
+40. AUTOPILOT MAY REPLAN
+======================================================================
+
+Within mandate:
+
+ARKI may dynamically replan.
+
+Outside mandate:
+
+ARKI must request authority.
+
+AUTONOMY OF EXECUTION
+≠
+AUTONOMY OF AUTHORITY.
+
+======================================================================
+41. PREDICTIVE ARCHITECTURE LOOP
+======================================================================
+
+Implement the foundational lifecycle:
+
+UNDERSTAND
+→ GENERATE
+→ SIMULATE
+→ PREDICT
+→ BREAK
+→ LEARN
+→ REGENERATE
+→ COMPARE
+→ HUMAN SELECT
+→ DEVELOP
+→ BUILD
+→ OBSERVE
+→ COMPARE REALITY
+→ CALIBRATE / LEARN.
+
+Current implementation does NOT need to implement physical
+construction/operation.
+
+It must establish contracts for the complete loop.
+
+======================================================================
+42. REALITY FEEDBACK CONTRACT
+======================================================================
+
+Define future-ready contracts for:
+
+ObservedOutcome
+MeasuredOutcome
+PredictionComparison
+ModelError
+CalibrationCandidate.
+
+Do not automatically recalibrate canonical models from field data.
+
+Reality feedback must pass:
+
+data quality
+provenance
+applicability
+validation
+authority.
+
+======================================================================
+43. DIGITAL TWIN CONNECTION
+======================================================================
+
+Architect ARKI-SEE so future Digital Twin data can support:
+
+prediction
+observation
+comparison
+model validation
+scenario exploration.
+
+Do not implement a full Digital Twin under this order.
+
+======================================================================
+44. ERROR METRICS
+======================================================================
+
+Where mathematically meaningful, support comparison between:
+
+PREDICTED
+vs
+OBSERVED.
+
+Store:
+
+difference
+relative difference
+uncertainty
+input differences
+model version
+context.
+
+Do not label all discrepancy as "model error" until causes are
+investigated.
+
+Possible causes include:
+
+model
+input
+construction deviation
+operation
+occupant behavior
+sensor
+environment
+temporal change
+UNKNOWN.
+
+======================================================================
+45. CCF INTEGRATION
+======================================================================
+
+Predictive Architecture must be integrated into:
+
+ARKI COMMAND CENTER FRAMEWORK.
+
+Register at minimum:
+
+DESIGN / EXPLORATION
+
+SIMULATION
+
+and/or reconcile them into the actual area taxonomy.
+
+Do not create a separate standalone application.
+
+======================================================================
+46. MASTER COMMAND CENTER
+======================================================================
+
+Master view should be able to display:
+
+DESIGN — EXPLORING
+
+Generation:
+...
+
+Candidates generated:
+...
+
+Candidates rejected:
+...
+
+Candidates active:
+...
+
+Simulations running:
+...
+
+Survivors:
+...
+
+Architectural review:
+16 candidates waiting.
+
+======================================================================
+47. DESIGN AREA COMMAND CENTER
+======================================================================
+
+Create/reconcile:
+
+DESIGN / EXPLORATION COMMAND CENTER.
+
+Suggested views:
+
+OVERVIEW
+EXPLORER
+GENERATIONS
+FAMILIES
+COMPARE
+PARETO
+SIMULATIONS
+FAILURES
+LEARNING
+EVIDENCE.
+
+======================================================================
+48. SIMULATION AREA
+======================================================================
+
+Expose:
+
+queued
+running
+completed
+failed
+invalidated
+stale
+blocked
+
+simulation runs.
+
+Allow drill-down:
+
+candidate
+scenario
+solver
+inputs
+outputs
+validation
+evidence.
+
+======================================================================
+49. LIVE CONSOLE
+======================================================================
+
+All Predictive Architecture operations must appear in the CCF event
+fabric.
+
+Example:
+
+[DESIGN] Generation 008 created
+[DESIGN] 1,024 candidates generated
+[VALIDATION] 612 rejected by hard constraints
+[SIMULATION] 388 candidates promoted
+[ENERGY] 42 runs started
+[DESIGN] diversity collapse detected
+[ARKI] generation strategy adjusted
+[DESIGN] 16 candidates ready for architect review.
+
+Do not expose hidden chain-of-thought.
+
+======================================================================
+50. DEPENDENCY GRAPH
+======================================================================
+
+Candidates and simulations must participate in the CCF dependency
+model.
+
+Example:
+
+Candidate A07 geometry
+→ energy simulation #44
+→ result
+→ comparison
+→ shortlist.
+
+If geometry changes:
+
+dependent results become STALE/INVALIDATED according to existing
+governed state architecture.
+
+Do not silently reuse obsolete simulations.
+
+======================================================================
+51. DESIGN EXPLORER + DEPENDENCY AWARENESS
+======================================================================
+
+The architect-facing grid remains visually simple.
+
+Technical complexity should be available by drill-down.
+
+The interface should hide complexity:
+
+WITHOUT HIDING UNCERTAINTY.
+
+======================================================================
+52. DESIGN EXPLORER MODES
+======================================================================
+
+Implement/reconcile at least:
+
+VISUAL
+
+COMPARE
+
+TECHNICAL
+
+FORENSIC.
+
+VISUAL:
+images dominate.
+
+COMPARE:
+selected candidates.
+
+TECHNICAL:
+eligibility/trade-offs.
+
+FORENSIC:
+evidence/provenance/simulation records.
+
+======================================================================
+53. HUMAN AUTHORITY
+======================================================================
+
+Human architect retains authority over:
+
+architectural selection
+material architectural direction changes
+canonical promotion where required
+professional decisions
+delivery/signoff.
+
+ARKI may:
+
+generate
+simulate
+reject candidates against authorized hard constraints
+compare
+cluster
+identify Pareto sets
+recommend further exploration
+learn bounded strategies.
+
+======================================================================
+54. REJECTION AUTHORITY
+======================================================================
+
+Distinguish:
+
+COMPUTATIONAL REJECTION
+
+from:
+
+HUMAN ARCHITECTURAL REJECTION.
+
+ARKI may computationally reject a candidate when it demonstrably
+violates an authorized hard constraint.
+
+Aesthetic/human preference rejection belongs to the architect unless
+explicitly delegated as a bounded preference filter.
+
+======================================================================
+55. HARD vs SOFT CONSTRAINTS
+======================================================================
+
+Implement explicit distinction:
+
+HARD CONSTRAINT
+
+SOFT OBJECTIVE
+
+PREFERENCE
+
+UNKNOWN.
+
+Never silently convert preference into hard constraint.
+
+======================================================================
+56. ARCHITECTURAL LAWS
+======================================================================
+
+Do NOT invent or silently canonize new architectural laws beyond the
+explicit principles authorized in this order.
+
+The broader historical ARKI Architectural Laws recovery remains a
+separate future canonicalization activity.
+
+Record the new Predictive Architecture principles as proposed/
+authorized project doctrine according to existing governance.
+
+Do not overwrite historical laws.
+
+======================================================================
+57. EXISTING ARKI PRINCIPLES
+======================================================================
+
+Preserve:
+
+PASSIVE FIRST
+NO COMPLACENCIA
+HUMAN AUTHORITY
+PF-H01
+CREAR ≠ PUBLICAR
+PREVIEW ≠ DECISION
+SIMULATION ≠ REALITY
+LOCAL COMPUTATION ≠ LOCAL AUTHORITY.
+
+======================================================================
+58. DESIGN SYSTEM
+======================================================================
+
+Use the current ARKI / DIP UI foundation.
+
+Design Explorer and Predictive Architecture screens must feel native
+to the Master Command Center.
+
+Do not create a new visual product.
+
+======================================================================
+59. VISUAL QUALITY
+======================================================================
+
+Design Explorer must prioritize architectural imagery.
+
+Candidate cards should remain visually clean.
+
+Do not place dozens of metrics over the image.
+
+Use progressive disclosure.
+
+======================================================================
+60. FIRST IMPLEMENTATION SCOPE
+======================================================================
+
+DO NOT attempt full autonomous architectural design in one step.
+
+Implement FOUNDATION + ONE BOUNDED DEMONSTRATION.
+
+Required foundation:
+
+candidate model
+generation model
+scenario model
+prediction model
+failure model
+opportunity model
+fidelity model
+validation envelope
+exploration pipeline
+diversity mechanism
+comparison
+Pareto mechanism where applicable
+failure-learning loop
+CCF integration
+Design Explorer 4×4
+Opportunity Gate
+evidence.
+
+======================================================================
+61. BOUNDED DEMONSTRATION
+======================================================================
+
+Create a synthetic, NON-AURORA, NON-DEEPSEEK-EXAM-contaminated
+architectural exploration fixture.
+
+It must be sufficiently simple to have reliable oracles for the
+implemented checks.
+
+Demonstrate:
+
+many candidates
+→ hard constraint filtering
+→ functional eligibility
+→ meaningful diversity
+→ 16 survivors
+→ visual preview
+→ candidate selection
+→ deeper on-demand evaluation
+→ failure records
+→ new generation
+→ Pareto/trade-off display
+→ evidence.
+
+Do not claim professional architectural competency from this fixture.
+
+======================================================================
+62. DO NOT USE AURORA
+======================================================================
+
+Aurora remains quarantined.
+
+Do not train on:
+
+Aurora solutions
+Aurora answers
+Aurora hidden fixtures.
+
+Do not use known DeepSeek exam fixtures.
+
+======================================================================
+63. TEST THE TEST
+======================================================================
+
+Introduce mutants designed to defeat:
+
+constraint checking
+candidate identity
+scenario provenance
+unit handling
+stale simulation invalidation
+diversity detection
+Pareto computation
+functional eligibility
+prediction/observation distinction
+Human Gate authority
+Opportunity Gate
+sandbox isolation.
+
+Mutants must be evidenced.
+
+======================================================================
+64. ADVERSARIAL CASES
+======================================================================
+
+Test at minimum:
+
+beautiful but functionally invalid candidate
+
+functionally valid but visually unusual candidate
+
+duplicate candidates disguised by IDs
+
+invalid units
+
+missing input
+
+unsupported solver
+
+stale result
+
+changed geometry
+
+incorrect scenario provenance
+
+false PASS
+
+false solver success
+
+one objective dominating diversity
+
+candidate with UNKNOWN discipline
+
+Opportunity Gate false positive
+
+Opportunity Gate false negative
+
+unauthorized canonical promotion
+
+sandbox escape
+
+prediction mislabeled as observation.
+
+======================================================================
+65. BEAUTIFUL BUT INVALID
+======================================================================
+
+This is a mandatory test.
+
+A visually attractive candidate violating a hard functional
+constraint must NOT be presented as functionally eligible.
+
+The UI may allow forensic inspection of rejected candidates.
+
+======================================================================
+66. FUNCTIONAL BUT UNATTRACTIVE
+======================================================================
+
+Also test the inverse.
+
+A functionally valid candidate must not be automatically declared
+architecturally desirable.
+
+Function does not establish beauty.
+
+======================================================================
+67. PARETO CORRECTNESS
+======================================================================
+
+Test Pareto calculations against deterministic known datasets.
+
+Include mutants.
+
+Do not trust visualization alone.
+
+======================================================================
+68. DIVERSITY CORRECTNESS
+======================================================================
+
+Test whether visually/minimally perturbed clones can falsely appear
+as independent architectural alternatives.
+
+Detect excessive similarity.
+
+======================================================================
+69. REPRODUCIBILITY
+======================================================================
+
+Where deterministic generation is requested:
+
+same inputs
+same seed
+same engine version
+same configuration
+
+must reproduce equivalent candidate generation/evaluation.
+
+Record seeds/configuration.
+
+======================================================================
+70. RANDOMNESS
+======================================================================
+
+Randomness must be explicit.
+
+RANDOM ≠ CREATIVE.
+
+Store seed and generation strategy.
+
+Do not allow non-reproducible stochastic behavior to become hidden
+project truth.
+
+======================================================================
+71. RESOURCE GOVERNANCE
+======================================================================
+
+ARKI-SEE may eventually generate very large populations.
+
+Implement bounded resource policy:
+
+max candidates
+max concurrent runs
+max expensive simulations
+time budget
+storage budget
+retry budget.
+
+Autopilot must respect mandate/resource limits.
+
+======================================================================
+72. NO SIMULATION EXPLOSION
+======================================================================
+
+Do not equate intelligence with brute force.
+
+Prefer:
+
+better candidate generation
+better pruning
+better surrogate/cheap checks where valid
+better scenario selection
+better transfer learning
+
+over uncontrolled simulation volume.
+
+======================================================================
+73. EVIDENCE
+======================================================================
+
+Every promoted candidate must be traceable to:
+
+inputs
+generation
+parents where applicable
+constraints
+tests
+simulations
+failures
+survival decisions
+scenario
+model versions
+evidence.
+
+======================================================================
+74. LEARNING LEDGER
+======================================================================
+
+Create/reconcile a Predictive Architecture learning ledger.
+
+Track:
+
+what was learned
+from which failure/success
+under what context
+evidence
+applicability
+confidence/epistemic state
+transfer test
+regressions created.
+
+Do not store vague statements such as:
+
+"courtyard is better."
+
+======================================================================
+75. SUCCESS LEARNING
+======================================================================
+
+Do not learn only from failure.
+
+Record why successful strategies survived.
+
+But avoid:
+
+SURVIVED ONCE
+=
+UNIVERSAL RULE.
+
+======================================================================
+76. CROSS-GENERATION MEMORY
+======================================================================
+
+Future generations may reuse validated knowledge from prior
+generations.
+
+Preserve project/scenario applicability.
+
+Do not contaminate unrelated projects with unqualified learned
+preferences.
+
+======================================================================
+77. PROJECT STATE
+======================================================================
+
+Exploration candidates are NOT canonical project state by default.
+
+Use appropriate proposal/preview/sandbox state.
+
+Only authorized promotion may affect canonical project state.
+
+======================================================================
+78. CANONICAL WRITER
+======================================================================
+
+This order does NOT authorize:
+
+TX-005
+writer migration
+new canonical mutation path.
+
+ARKI-SEE and Design Explorer must respect existing canonical
+boundaries.
+
+======================================================================
+79. COMMAND CENTER OPPORTUNITY DISPLAY
+======================================================================
+
+CCF must display material opportunities.
+
+Example:
+
+ARCHITECTURAL OPPORTUNITY
+
+Current:
+Autopilot-specific dashboard.
+
+Discovered:
+Reusable Command Center Framework.
+
+Affected:
+Autopilot
+BIM
+CAD
+Structures
+Energy
+Evidence.
+
+Decision:
+PO REQUIRED.
+
+This may be implemented using a synthetic test fixture rather than
+rewriting history.
+
+======================================================================
+80. OPPORTUNITY HISTORY
+======================================================================
+
+Preserve:
+
+detected
+evaluated
+presented
+authorized
+rejected
+deferred
+sandboxed
+implemented
+
+Opportunity lifecycle.
+
+This will later allow ARKI to learn which opportunities were actually
+valuable.
+
+======================================================================
+81. COMMAND CENTER FRAMEWORK
+======================================================================
+
+ARKI-CCF-001 remains foundational.
+
+Predictive Architecture MUST integrate into CCF.
+
+Do not fork CCF.
+
+If ARKI-CCF-001 implementation is currently in progress:
+
+reconcile this order with it.
+
+Do not discard valid work.
+
+======================================================================
+82. AUTOPILOT
+======================================================================
+
+Autopilot must be capable of operating bounded exploration campaigns.
+
+Example future campaign:
+
+"Explore project massing until 16 diverse functionally eligible
+candidates are ready for Human Architectural Review."
+
+Autopilot may dynamically replan within mandate.
+
+======================================================================
+83. AUTOPILOT STOP CONDITION
+======================================================================
+
+For exploration campaign:
+
+do not stop merely because N candidates were generated.
+
+Stop when acceptance criteria are met or a Human Gate/blocker occurs.
+
+Example:
+
+16 candidates
++ diversity threshold satisfied
++ required current functional gates passed
++ evidence complete
++ no unresolved critical false-pass risk.
+
+======================================================================
+84. PROFESSIONAL BOUNDARY
+======================================================================
+
+No output of this implementation constitutes:
+
+professional certification
+permit approval
+structural signoff
+MEP signoff
+fire signoff
+construction authorization.
+
+Preserve:
+
+PROFESSIONAL_VALIDATION_REQUIRED
+
+where applicable.
+
+======================================================================
+85. REQUIRED UI
+======================================================================
+
+Implement through DIP/ARKI visual system:
+
+MASTER CCF integration
+
+DESIGN / EXPLORATION area
+
+4×4 DESIGN EXPLORER
+
+candidate detail
+
+compare view
+
+Pareto/trade-off view
+
+generation history
+
+simulation status
+
+failure view
+
+learning view
+
+Opportunity Gate
+
+evidence drill-down.
+
+======================================================================
+86. 4×4 PERFORMANCE
+======================================================================
+
+The 16-card visual board must remain responsive.
+
+Do not load high-fidelity assets unnecessarily.
+
+Use previews/thumbnails.
+
+High fidelity on demand.
+
+======================================================================
+87. USER EXPERIENCE PRINCIPLE
+======================================================================
+
+The architect should NOT need to understand the internal computation
+to visually explore alternatives.
+
+But ARKI must allow technical truth to be inspected.
+
+Therefore:
+
+SIMPLE SURFACE
++
+DEEP EVIDENCE.
+
+======================================================================
+88. REQUIRED REPOSITORY PREFLIGHT
+======================================================================
+
+Before modifying code:
+
+inspect repository
+branch
+HEAD
+worktree
+existing CCF work
+existing Autopilot work
+existing Design UI
+DIP components
+existing optimization
+existing scenario code
+existing Pareto code
+existing solver integration
+existing BIM/CAD representations
+existing evidence/event/dependency models.
+
+REUSE BEFORE BUILD.
+
+======================================================================
+89. NO DUPLICATE FOUNDATIONS
+======================================================================
+
+If repository already contains:
+
+scenario
+optimization
+Pareto
+candidate
+event
+evidence
+dependency
+epistemic
+provenance
+units
+identity
+
+foundations:
+
+extend/reuse them.
+
+Do not create parallel canonical concepts.
+
+======================================================================
+90. IMPLEMENTATION STRATEGY
+======================================================================
+
+Recommended execution order:
+
+PHASE A
+FORENSIC PREFLIGHT + RECONCILIATION
+
+PHASE B
+CORE CONTRACTS
+
+PHASE C
+EXPLORATION ENGINE FOUNDATION
+
+PHASE D
+FAILURE + LEARNING
+
+PHASE E
+OPPORTUNITY GATE
+
+PHASE F
+DESIGN EXPLORER
+
+PHASE G
+CCF INTEGRATION
+
+PHASE H
+BOUNDED SYNTHETIC DEMONSTRATION
+
+PHASE I
+ADVERSARIAL TESTS
+
+PHASE J
+REGRESSION
+
+PHASE K
+EVIDENCE PACKAGE
+
+PHASE L
+MAJOR OBJECTIVE REVIEW GATE.
+
+======================================================================
+91. DO NOT
+======================================================================
+
+DO NOT:
+
+create another ARKI
+create 200 independent agents
+implement all C1-C80
+install all solvers
+use Aurora
+use known DeepSeek exam answers
+implement TX-005
+migrate canonical writers
+silently modify PF-H01
+silently canonize invented architectural laws
+deploy production
+publish externally
+purchase software/licenses
+push/merge/release unless separately authorized
+claim professional certification.
+
+======================================================================
+92. REQUIRED ARTIFACTS
+======================================================================
+
+Produce at minimum:
+
+00_EXECUTIVE_REPORT.md
+
+01_REPOSITORY_PREFLIGHT.md
+
+02_PREDICTIVE_ARCHITECTURE_CONTRACT.md
+
+03_ARKI_SEE_ARCHITECTURE.md
+
+04_CANDIDATE_MODEL.md
+
+05_GENERATION_MODEL.md
+
+06_SCENARIO_MODEL.md
+
+07_PREDICTION_MODEL.md
+
+08_VALIDATION_ENVELOPE.md
+
+09_FIDELITY_MODEL.md
+
+10_FAILURE_LEARNING_MODEL.md
+
+11_DIVERSITY_MODEL.md
+
+12_PARETO_MODEL.md
+
+13_OPPORTUNITY_GATE_MODEL.md
+
+14_DESIGN_EXPLORER.md
+
+15_CCF_INTEGRATION.md
+
+16_AUTOPILOT_INTEGRATION.md
+
+17_SOLVER_INTEGRATION.md
+
+18_REALITY_FEEDBACK_CONTRACT.md
+
+19_DIGITAL_TWIN_FUTURE_CONTRACT.md
+
+20_RESOURCE_GOVERNANCE.md
+
+21_SECURITY_AND_AUTHORITY.md
+
+22_TEST_MATRIX.md
+
+23_MUTANT_RESULTS.md
+
+24_ADVERSARIAL_RESULTS.md
+
+25_REGRESSION_RESULTS.md
+
+26_UNKNOWN_REGISTER.md
+
+27_RISK_REGISTER.md
+
+28_DECISION_REGISTER.md
+
+29_EVIDENCE_MATRIX.md
+
+30_IMPLEMENTATION_STATUS.md
+
+31_MANIFEST.json
+
+32_RAW_OUTPUTS.txt.
+
+Screenshots:
+
+ARKI_PREDICTIVE_ARCHITECTURE_SCREENSHOTS/
+
+Evidence:
+
+ARKI_PREDICTIVE_ARCHITECTURE_001_EVIDENCE.zip
+
+Generate SHA-256.
+
+======================================================================
+93. REQUIRED DEMONSTRATION
+======================================================================
+
+The evidence package must demonstrate an actual bounded cycle:
+
+PROBLEM
+→ CANDIDATE GENERATION
+→ MANY CANDIDATES
+→ HARD-CONSTRAINT FILTER
+→ FAILURE RECORDS
+→ DIVERSITY
+→ SURVIVORS
+→ 16-CANDIDATE VISUAL BOARD
+→ SELECT CANDIDATES
+→ COMPARE
+→ ON-DEMAND DEEPER EVALUATION
+→ PARETO / TRADE-OFF
+→ NEW GENERATION
+→ LEARNING RECORD
+→ EVIDENCE.
+
+Also demonstrate:
+
+one Architectural Opportunity Gate.
+
+======================================================================
+94. REQUIRED NEGATIVE DEMONSTRATION
+======================================================================
+
+Demonstrate that ARKI refuses or marks UNKNOWN when asked to claim a
+domain result for which no valid model/solver/evidence exists.
+
+Example:
+
+STRUCTURAL PERFORMANCE:
+UNKNOWN / NOT EVALUATED
+
+rather than fabricated PASS.
+
+======================================================================
+95. ACCEPTANCE CRITERIA
+======================================================================
+
+Strong bounded acceptance requires:
+
+core contracts implemented
+candidate identity stable
+scenario provenance preserved
+validation envelope works
+progressive fidelity works
+candidate generation works
+hard constraint filtering works
+failures recorded
+learning ledger works
+diversity mechanism works
+16-candidate Explorer works
+on-demand depth works
+Pareto/trade-off mechanism verified where used
+Opportunity Gate works
+sandbox isolation works
+CCF integration works
+Autopilot integration works
+evidence complete
+mutants killed within declared scope
+regressions pass
+Human Authority preserved
+no false domain validation.
+
+======================================================================
+96. ALLOWED FINAL VERDICTS
+======================================================================
+
+PREDICTIVE_ARCHITECTURE_VERIFIED_FOR_BOUNDED_FOUNDATION_SCOPE
+
+PREDICTIVE_ARCHITECTURE_PARTIAL
+
+PREDICTIVE_ARCHITECTURE_BLOCKED
+
+PREDICTIVE_ARCHITECTURE_FAILED.
+
+Even strongest verdict DOES NOT mean:
+
+ARKI can professionally design any building
+
+all C1-C80 are implemented
+
+all solvers are available
+
+prediction equals reality
+
+professional competency is certified.
+
+======================================================================
+97. STOP CONDITION
+======================================================================
+
+After:
+
+foundation
++ bounded demonstration
++ adversarial tests
++ regression
++ evidence package
+
+STOP.
+
+Do NOT autonomously expand into full professional architecture.
+
+Open:
+
+PREDICTIVE ARCHITECTURE MAJOR OBJECTIVE REVIEW GATE.
+
+Return evidence to PO.
+
+======================================================================
+98. FOUNDATIONAL DOCTRINE
+======================================================================
+
+ONE ARKI.
+MANY POSSIBLE FUTURES.
+
+FUNCTION BEFORE FORM IN VALIDATION.
+
+FORM FIRST IN HUMAN VISUAL COMPARISON
+ONLY AFTER DECLARED ELIGIBILITY GATES.
+
+FAIL CHEAP.
+
+FAIL VIRTUALLY WHEN VALID MODELS ALLOW IT.
+
+FAIL MANY WAYS.
+
+LEARN FROM FAILURE.
+
+LEARN FROM SUCCESS.
+
+DO NOT OVERFIT.
+
+SIMULATE BEFORE PHYSICAL COMMITMENT WHEN PROPORTIONAL.
+
+CHEAP COMPUTATION FIRST.
+EXPENSIVE COMPUTATION LATE.
+
+GENERATE MANY.
+DEVELOP FEW.
+
+PRESERVE DIVERSITY.
+
+COMPARE TRADE-OFFS.
+
+PREDICTION IS NOT CERTAINTY.
+
+SIMULATION IS NOT REALITY.
+
+A BEAUTIFUL DESIGN MAY FAIL.
+
+A FUNCTIONAL DESIGN IS NOT AUTOMATICALLY BEAUTIFUL.
+
+UNKNOWN IS BETTER THAN FALSE CONFIDENCE.
+
+ARKI MAY EXPLORE.
+
+ARKI MAY SIMULATE.
+
+ARKI MAY FAIL.
+
+ARKI MAY LEARN WITHIN GOVERNED BOUNDS.
+
+ARKI MAY DISCOVER BETTER PATHS.
+
+ARKI MAY PROPOSE THEM.
+
+ARKI MAY NOT SILENTLY TAKE HUMAN ARCHITECTURAL AUTHORITY.
+
+THE HUMAN ARCHITECT DECIDES.
+
+======================================================================
+99. LONG-TERM DIRECTION
+======================================================================
+
+Target future loop:
+
+REAL WORLD
+→ OBSERVATION
+→ MODEL
+→ GENERATION
+→ SIMULATION
+→ PREDICTION
+→ HUMAN DECISION
+→ PHYSICAL REALIZATION
+→ MEASUREMENT
+→ PREDICTION COMPARISON
+→ ERROR EXPLANATION
+→ MODEL IMPROVEMENT
+→ BETTER FUTURE EXPLORATION.
+
+This is the long-term foundation of:
+
+ARKI PREDICTIVE ARCHITECTURE.
+
+IMPLEMENT THE BOUNDED FOUNDATION NOW.
+
+STOP AT MAJOR OBJECTIVE REVIEW GATE.

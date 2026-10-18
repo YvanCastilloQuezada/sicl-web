@@ -1,0 +1,668 @@
+Sí. La auditoría de Manus es útil, pero hay un problema: está auditando bastante bien lo que construyó, pero todavía no está imponiendo con suficiente fuerza cuál debe ser el producto final.
+
+Mi lectura es esta:
+
+La arquitectura ya tiene una base razonable. Ahora no debemos seguir agregando capacidades. Debemos cerrar la experiencia nuclear de LUKA.
+
+Y aquí tu idea anterior cambia algo importante: LUKA no debe arrancar como una app con menú de modos. Debe arrancar como una presencia.
+
+1. Cómo vamos realmente
+Estado actual
+Área	Mi evaluación
+LUKA OS	🟢 Base arquitectónica correcta
+Universal Entry	🟢 Existe, pero debe rediseñarse alrededor de tu nuevo flujo
+AR	🟢 Existe como superficie inicial
+LUKA TV	🟢 Existe en sandbox
+Control remoto	🟢 Existe
+Intent Engine	🟢 Base correcta
+Capability Registry	🟢 Correcto como mecanismo
+Progressive Disclosure	🟢 Conceptualmente correcto
+Hardware real	🔴 Todavía no
+Voz real	🟠 Todavía simulada/preparada
+Detector real de dispositivos	🔴 Todavía simulado
+Integraciones TV reales	🔴 Todavía no
+MJP CORE	🟢 Debe permanecer intocable
+UX definitiva	🟠 Todavía no cerrada
+
+El punto crítico es este:
+
+No necesitamos ahora más agentes, más paneles, más módulos ni más "OS".
+
+Eso sería volver a caer en el error de construir infraestructura alrededor de una experiencia que todavía no hemos congelado.
+
+2. El orden que yo impondría
+
+Yo cambiaría el orden de trabajo de Manus a este:
+
+FASE 0 — CONSTITUCIÓN DE PRODUCTO
+
+Definir definitivamente:
+
+MiLukita / LUKA / LUKA OS / LUKITA
+
+y quién es cada cosa.
+
+Mi propuesta:
+
+MI LUKITA
+│
+└── LUKA
+    │
+    ├── LUKA OS
+    │
+    ├── LUKA AR
+    │
+    ├── LUKA TV
+    │
+    ├── LUKA HOME
+    │
+    ├── LUKA AUDIO
+    │
+    ├── LUKA GAMEPAD
+    │
+    ├── LUKA VEHICLE
+    │
+    └── LUKA WEARABLES
+
+Y Lukita sería el personaje/presencia de LUKA, no otro sistema operativo paralelo.
+
+Esto evita que terminemos con:
+
+MiLukita → LUKALLPA → LUKA → LUKITA → LUKA OS → Entertainment OS → MJP OS...
+
+Eso es inflación conceptual.
+
+3. FASE 1 — CERRAR LA EXPERIENCIA DE ENTRADA
+
+Esta es ahora la prioridad absoluta.
+
+El flujo debe ser:
+
+QR / instalación
+       ↓
+   CÁMARA / AR
+       ↓
+   aparece LUKA
+       ↓
+ "Hola. Soy LUKA."
+       ↓
+ "¿Quieres entrar a mi mundo
+  o quieres ver TV?"
+       ↓
+ ┌───────────────┬───────────────┐
+ │ MI MUNDO      │      TV       │
+ │     AR        │               │
+ └───────────────┴───────────────┘
+
+AR es el estado inicial.
+
+No una pantalla de inicio tradicional.
+
+No un dashboard.
+
+No una lista de aplicaciones.
+
+No configuración.
+
+4. FASE 2 — LUKA TV COMO "SUPERFICIE", NO COMO APP
+
+Cuando el usuario diga:
+
+"Quiero ver TV"
+
+LUKA cambia de contexto.
+
+Aparece el control remoto que mostraste.
+
+Pero aquí está la decisión importante:
+
+No mostrar simultáneamente todo.
+
+El usuario ve únicamente el control correspondiente al contexto.
+
+Por ejemplo:
+
+                 LUKA
+                  ●
+
+       [ TV ] [ Netflix ] [ YouTube ]
+       [ Prime ] [ Disney+ ]
+
+       [◀◀] [◀] [▶Ⅱ] [▶] [▶▶]
+
+          ┌────┬────┬────┐
+          │ 1  │ 2  │ 3  │
+          ├────┼────┼────┤
+          │ 4  │ 5  │ 6  │
+          ├────┼────┼────┤
+          │ 7  │ 8  │ 9  │
+          ├────┼────┼────┤
+          │TV  │ 0  │MENU│
+          └────┴────┴────┘
+
+        [ teclado ] [ inicio ] [ trackpad ]
+
+              [ mute ] [POWER] [back]
+
+Pero los modos deben ser contextuales y mutuamente transformables.
+
+5. Tu idea del teclado/gamepad/trackpad es muy buena
+
+Aquí hay algo que Manus debería implementar con precisión.
+
+No quiero:
+
+TV
+TRACKPAD
+KEYBOARD
+GAMEPAD
+AR
+
+como cinco aplicaciones independientes.
+
+Quiero:
+
+un único LUKA Controller que cambia de forma.
+
+Por ejemplo:
+
+Estado TV
+TV CONTROLLER
+
+Tiene:
+
+navegación
+volumen
+canales
+números
+reproducción
+menú
+back
+power
+Pulsas teclado
+
+El controlador se transforma:
+
+KEYBOARD
+
+y el botón que antes era teclado ahora se convierte en GAMEPAD.
+
+Pulsas GAMEPAD
+
+Se transforma:
+
+GAMEPAD
+
+y el botón vuelve a ofrecer:
+
+KEYBOARD
+Pulsas TRACKPAD
+
+Se transforma:
+
+TRACKPAD
+
+y aparece el botón:
+
+AR VISOR
+
+Ese botón permite volver al mundo AR.
+
+Esto es exactamente Progressive Interface Disclosure llevado a la interfaz física.
+
+No hay cinco botones permanentes.
+
+Hay un espacio de interfaz que cambia según el estado.
+
+6. Y hay una segunda capa todavía más importante
+
+El usuario no debería tener que tocar esos botones siempre.
+
+Puede decir:
+
+"LUKA, quiero teclado."
+
+LUKA responde:
+
+"Claro."
+
+Y cambia.
+
+O:
+
+"LUKA, quiero jugar."
+
+→ Gamepad.
+
+"LUKA, quiero controlar la TV."
+
+→ TV Controller.
+
+"LUKA, quiero volver a mi mundo."
+
+→ AR.
+
+Eso convierte a LUKA en agente de transición entre superficies.
+
+No simplemente en un asistente de voz.
+
+7. Lo que NO debe hacer Manus ahora
+
+Esto es importante.
+
+No quiero que Manus responda a esta auditoría haciendo otra ronda de:
+
+agentes
+dashboards
+paneles administrativos
+nuevas bases de datos
+nuevos OS
+nuevas capacidades
+monedas
+wallets
+nuevos juegos
+nuevas interfaces
+más documentación abstracta.
+
+Eso sería productividad falsa.
+
+La auditoría ya demuestra que existe suficiente infraestructura para continuar.
+
+Ahora toca producto.
+
+8. El orden definitivo
+
+Yo le daría a Manus exactamente este orden:
+
+0. CONGELAR CONSTITUCIÓN
+        ↓
+1. CONGELAR IDENTIDAD LUKA
+        ↓
+2. CONGELAR UNIVERSAL ENTRY
+        ↓
+3. CONGELAR AR COMO ESTADO INICIAL
+        ↓
+4. CONGELAR LUKA TV
+        ↓
+5. CONSTRUIR CONTROLLER STATE MACHINE
+        ↓
+6. KEYBOARD ↔ GAMEPAD
+        ↓
+7. TRACKPAD ↔ AR VISOR
+        ↓
+8. VOICE → MODE SWITCH
+        ↓
+9. CAPABILITY REGISTRY
+        ↓
+10. QA UX COMPLETO
+        ↓
+11. RECIÉN DESPUÉS HARDWARE REAL
+        ↓
+12. RECIÉN DESPUÉS INTEGRACIONES
+
+Y MJP CORE queda fuera de todo esto.
+
+9. Esta es la orden que yo le enviaría a Manus
+
+Cópiala íntegramente:
+
+ORDEN DE PRODUCTO LUKA — REALINEAMIENTO POST AUDITORÍA FASE 0
+
+La auditoría técnica presentada queda aceptada como diagnóstico de infraestructura, pero NO como definición final de producto.
+
+A partir de este momento queda congelada una nueva prioridad:
+
+LUKA debe consolidar primero su EXPERIENCIA NUCLEAR antes de continuar expandiendo capacidades, agentes, paneles o integraciones.
+
+OBJETIVO PRINCIPAL
+
+Construir LUKA como una presencia contextual inteligente y no como una aplicación con menú de funcionalidades.
+
+PRINCIPIO CONSTITUCIONAL DE UX:
+
+"El usuario no debe seleccionar aplicaciones. LUKA debe interpretar el contexto y transformar la superficie de interacción."
+
+==================================================
+ORDEN 0 — CONSTITUCIÓN
+==================================================
+
+Congelar temporalmente la arquitectura conceptual.
+
+No crear nuevos OS, agentes, capacidades, monedas, wallets, juegos ni dashboards.
+
+Definir y documentar la nomenclatura:
+
+MI LUKITA = proyecto/producto propietario.
+
+LUKA = identidad/presencia inteligente del sistema.
+
+LUKA OS = sistema de orquestación contextual y presentación.
+
+LUKITA = personaje/avatar/presencia visual de LUKA.
+
+LUKA AR = experiencia territorial AR.
+
+LUKA TV = experiencia de control y entretenimiento televisivo.
+
+Las demás capacidades quedan como extensiones de LUKA y no como sistemas independientes.
+
+No modificar MJP CORE.
+
+==================================================
+ORDEN 1 — UNIVERSAL ENTRY
+==================================================
+
+Rediseñar LukaUniversalEntry para que el primer ingreso mediante instalación, PWA o QR tenga como estado inicial:
+
+AR.
+
+El usuario debe entrar directamente al visor AR.
+
+LUKA/LUKITA debe aparecer como presencia inicial.
+
+Flujo:
+
+USUARIO
+→ abre app / lee QR
+→ permiso contextual mínimo
+→ cámara / AR
+→ aparece LUKA
+→ saludo
+→ pregunta:
+
+"¿Quieres entrar a mi mundo o quieres ver TV?"
+
+Las dos opciones iniciales serán:
+
+[ MI MUNDO ]
+[ VER TV ]
+
+MI MUNDO:
+→ activa LUKA AR.
+
+VER TV:
+→ activa LUKA TV.
+
+No presentar dashboard general.
+
+No presentar lista de capacidades.
+
+No presentar configuración inicial.
+
+==================================================
+ORDEN 2 — LUKA COMO ORQUESTADOR
+==================================================
+
+LUKA OS debe interpretar comandos de transición.
+
+Ejemplos:
+
+"Quiero ver TV."
+→ LUKA TV.
+
+"Quiero volver a AR."
+→ LUKA AR.
+
+"Quiero usar el teclado."
+→ Keyboard.
+
+"Quiero jugar."
+→ Gamepad.
+
+"Quiero usar el mouse/trackpad."
+→ Trackpad.
+
+"Quiero subir el volumen."
+→ permanece en contexto TV y ejecuta volumen.
+
+La voz debe ser una vía equivalente al toque.
+
+==================================================
+ORDEN 3 — UN SOLO LUKA CONTROLLER
+==================================================
+
+No implementar TV, Keyboard, Gamepad y Trackpad como aplicaciones visualmente independientes.
+
+Implementar una única máquina de estados:
+
+LUKA_CONTROLLER_STATE
+
+Estados mínimos:
+
+TV
+KEYBOARD
+GAMEPAD
+TRACKPAD
+
+Estado adicional:
+
+AR
+
+El cambio de estado debe transformar la interfaz existente.
+
+==================================================
+ORDEN 4 — REGLA DE INTERFAZ MUTABLE
+==================================================
+
+Implementar navegación contextual:
+
+Cuando el estado sea TV:
+
+mostrar botón KEYBOARD.
+
+Cuando el usuario active KEYBOARD:
+
+la interfaz cambia a teclado y el botón de transición pasa a ser GAMEPAD.
+
+Cuando el usuario active GAMEPAD:
+
+la interfaz cambia a gamepad y el botón de transición pasa a ser KEYBOARD.
+
+Cuando el usuario active TRACKPAD:
+
+la interfaz cambia a trackpad y debe aparecer un botón explícito:
+
+AR VISOR
+
+Ese botón permite regresar directamente a LUKA AR.
+
+No mostrar simultáneamente todos los modos.
+
+La interfaz debe minimizar carga visual.
+
+==================================================
+ORDEN 5 — VOZ COMO CONTROL DE ESTADO
+==================================================
+
+La voz debe poder ejecutar los mismos cambios de estado.
+
+Ejemplos:
+
+"LUKA, teclado."
+"LUKA, gamepad."
+"LUKA, trackpad."
+"LUKA, vuelve a AR."
+"LUKA, quiero ver TV."
+
+La intención debe cambiar el estado de la máquina sin exigir navegación manual.
+
+Mantener confirmación únicamente para acciones que realmente necesiten confirmación.
+
+No crear un diálogo innecesario para cada cambio de modo.
+
+==================================================
+ORDEN 6 — CAPABILITY REGISTRY
+==================================================
+
+Revisar Capability Registry para que las capacidades no sean tratadas como menús.
+
+El Registry debe responder:
+
+1. qué capacidad existe;
+2. qué capacidad está disponible;
+3. qué capacidad corresponde al contexto actual;
+4. qué superficie debe mostrarse;
+5. qué transición está permitida.
+
+Las capacidades HIDDEN no deben aparecer como opciones normales.
+
+No convertir capacidades futuras en botones visibles.
+
+==================================================
+ORDEN 7 — PROGRESSIVE INTERFACE DISCLOSURE
+==================================================
+
+Aplicar esta regla a toda la experiencia:
+
+El sistema solo muestra controles relevantes al estado actual.
+
+AR:
+mostrar controles AR mínimos.
+
+TV:
+mostrar controles TV.
+
+KEYBOARD:
+mostrar teclado.
+
+GAMEPAD:
+mostrar gamepad.
+
+TRACKPAD:
+mostrar trackpad + acceso AR.
+
+No mostrar un dashboard global permanente.
+
+==================================================
+ORDEN 8 — LUKA PRESENCE
+==================================================
+
+LUKA/LUKITA debe permanecer disponible como presencia contextual.
+
+No debe ocupar permanentemente gran parte de la pantalla.
+
+Debe aparecer, hablar, escuchar o intervenir cuando el contexto lo requiera.
+
+La interfaz debe comunicar:
+
+"Estoy interactuando con LUKA"
+
+y no:
+
+"Estoy navegando dentro de una aplicación."
+
+==================================================
+ORDEN 9 — QA DE EXPERIENCIA
+==================================================
+
+Antes de integrar hardware real ejecutar pruebas completas de:
+
+A. Primera instalación.
+B. Primer QR.
+C. Entrada AR.
+D. Pregunta inicial.
+E. AR → TV.
+F. TV → Keyboard.
+G. Keyboard → Gamepad.
+H. Gamepad → Keyboard.
+I. TV → Trackpad.
+J. Trackpad → AR.
+K. Todos los cambios mediante voz.
+L. Todos los cambios mediante toque.
+M. Recuperación ante permisos rechazados.
+N. Recuperación ante pérdida de conexión.
+O. Persistencia del contexto cuando corresponda.
+
+Validar especialmente:
+
+- ausencia de configuración innecesaria;
+- ausencia de menús redundantes;
+- ausencia de capacidades futuras visibles;
+- baja carga visual;
+- transiciones claras;
+- respuesta inmediata;
+- consistencia entre voz y toque.
+
+==================================================
+ORDEN 10 — NO TOCAR MJP CORE
+==================================================
+
+MJP CORE permanece completamente protegido.
+
+No modificar:
+
+RNG
+RTP
+LEDGER
+WALLET
+SETTLEMENT
+GAME RULES
+RESULTS
+MJP TV MANIFEST
+GAME TRUTH
+
+LUKA OS solamente puede interactuar mediante contratos autorizados de presentación, lectura y comandos permitidos.
+
+==================================================
+ORDEN 11 — NO HARDWARE TODAVÍA
+==================================================
+
+No iniciar todavía integración productiva de:
+
+Google Cast
+Tizen
+webOS
+Roku
+DLNA/UPnP
+Matter
+Bluetooth
+Wi-Fi discovery
+hubs IoT
+
+Primero cerrar la experiencia y la máquina de estados en sandbox.
+
+Después seleccionar UNA integración TV real para staging.
+
+==================================================
+ORDEN 12 — ENTREGABLE
+==================================================
+
+Entregar:
+
+1. Diagrama definitivo de arquitectura UX de LUKA.
+2. Máquina de estados LUKA_CONTROLLER_STATE.
+3. Flujo Universal Entry.
+4. Flujo AR → TV.
+5. Flujo TV → Keyboard/Gamepad/Trackpad.
+6. Flujo Trackpad → AR.
+7. Matriz de comandos de voz.
+8. Capability Registry actualizado.
+9. Componentes modificados.
+10. Tests.
+11. Resultado del build.
+12. Evidencia de que MJP CORE no fue modificado.
+
+NO expandir el alcance hasta completar estos 12 puntos.
+
+CRITERIO DE ACEPTACIÓN PRINCIPAL:
+
+Un usuario nuevo debe poder instalar/abrir/leer QR, entrar directamente a AR, encontrarse con LUKA, elegir "mi mundo" o "TV", y posteriormente cambiar entre TV, Keyboard, Gamepad, Trackpad y AR mediante toque o voz, sin abrir un menú general de configuración.
+
+Esta es la prioridad actual de LUKA.
+10. Mi juicio sobre la auditoría de Manus
+
+No la rechazaría. La usaría como punto de congelamiento.
+
+El proyecto está en una posición interesante: ya hay suficiente código para demostrar que la arquitectura puede funcionar, pero precisamente por eso aparece el peligro de seguir construyendo porque ya hay infraestructura.
+
+Ahora hay que hacer lo contrario.
+
+Cerrar el núcleo de experiencia.
+
+Y hay una decisión que considero especialmente importante: no intentaría convertir LUKA en "Alexa + control remoto + Google Maps + AR + IoT + juegos" desde el principio. Eso produciría una navaja suiza tecnológica difícil de usar.
+
+La ventaja competitiva de LUKA está en otra parte:
+
+una sola presencia que cambia de superficie según lo que la persona quiere hacer.
+
+Ese es el concepto que debemos hacer funcionar impecablemente primero.

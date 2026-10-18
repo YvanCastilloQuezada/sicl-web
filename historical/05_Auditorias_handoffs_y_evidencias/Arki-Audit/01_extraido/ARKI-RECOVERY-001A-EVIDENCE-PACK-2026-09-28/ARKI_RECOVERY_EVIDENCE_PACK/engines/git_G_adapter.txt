@@ -1,0 +1,18 @@
+[33m944dd52[m fix(arkidraw): enforce graphic trace integrity
+[33mc13c0ea[m fix(arkidraw): enforce semantic role gate
+[33m580b77e[m fix(arkidraw): harden M1 graphic scene boundary
+[33m8a0863a[m feat(arkidraw): adapt graphic scene to vector svg
+[33m27ff812[m feat(arkidraw): adapt graphic scene to vector svg
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m33ce390[m feat: add bounded real spatial context
+[33m6dd35d3[m fix: normalize spatial synthesis candidates for GDI
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33md6aabb6[m feat: add canonical UPAO001 spatial evaluations
+[33mfc44b1a[m feat: complete GIS persistence and BIM review contracts
+[33mdb7b9ec[m feat: add physical IFC adapter and GIS RFC-028
+[33md1ef50d[m feat: implement RFC-027 BIM IFC exchange contract
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis
+[33mbf4a1e1[m chore: backup SICL Core v1.2 + API Layer + Export features

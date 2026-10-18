@@ -1,0 +1,71 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="6"></o:idmap>
+ </o:shapelayout><v:shapetype id="_x0000_t201" coordsize="21600,21600" o:spt="201" path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"></v:stroke>
+  <v:path shadowok="f" o:extrusionok="f" strokeok="f" fillok="f" o:connecttype="rect"></v:path>
+  <o:lock v:ext="edit" shapetype="t"></o:lock>
+ </v:shapetype><v:shape id="_x0000_s6145" type="#_x0000_t201" style="position:absolute;   margin-left:426pt;margin-top:243.75pt;width:185.25pt;height:32.25pt;   z-index:1;mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Jackpot</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>7,8,16,5,10,15,18,8</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!AbrirUserFormJackpot</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s6146" type="#_x0000_t201" style="position:absolute;   margin-left:426.75pt;margin-top:290.25pt;width:185.25pt;height:32.25pt;   z-index:2;mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Pagar</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>7,9,19,7,10,16,21,10</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!AbrirUserFormNuevaCartilla</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s6147" type="#_x0000_t201" style="position:absolute;   margin-left:428.25pt;margin-top:195pt;width:185.25pt;height:32.25pt;   z-index:3;mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Ruleta</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>7,11,13,0,10,18,15,3</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!AbrirUserFormJugar38</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="Image1" o:spid="_x0000_s6148" type="#_x0000_t201" style="position:absolute;margin-left:25.5pt;margin-top:18pt;width:303pt;   height:103.5pt;z-index:4;mso-wrap-style:tight" stroked="f" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:imagedata o:relid="rId1" o:title=""></v:imagedata>
+  <x:ClientData ObjectType="Pict">
+   <x:SizeWithCells></x:SizeWithCells>
+   <x:Anchor>0,34,1,4,5,38,8,2</x:Anchor>
+   <x:Locked>False</x:Locked>
+   <x:AutoLine>False</x:AutoLine>
+   <x:CF>Pict</x:CF>
+   <x:MapOCX></x:MapOCX>
+  </x:ClientData>
+ </v:shape><v:shape id="Image2" o:spid="_x0000_s6149" type="#_x0000_t201" style="position:absolute;margin-left:769.5pt;margin-top:29.25pt;width:303pt;   height:103.5pt;z-index:5;mso-wrap-style:tight" stroked="f" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:imagedata o:relid="rId1" o:title=""></v:imagedata>
+  <x:ClientData ObjectType="Pict">
+   <x:SizeWithCells></x:SizeWithCells>
+   <x:Anchor>12,66,1,19,17,70,8,17</x:Anchor>
+   <x:Locked>False</x:Locked>
+   <x:AutoLine>False</x:AutoLine>
+   <x:CF>Pict</x:CF>
+   <x:AutoPict></x:AutoPict>
+   <x:MapOCX></x:MapOCX>
+  </x:ClientData>
+ </v:shape></xml>

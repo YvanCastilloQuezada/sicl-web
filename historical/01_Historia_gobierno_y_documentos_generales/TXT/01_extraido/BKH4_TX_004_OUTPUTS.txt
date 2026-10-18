@@ -1,0 +1,190 @@
+
+## pnpm check
+COMMAND: pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+
+## pnpm build
+COMMAND: pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-gp070iNZ.js        2,009.93 kB │ gzip: 549.91 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.81s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+
+## BKH-1
+COMMAND: pnpm tsx scripts/test-bkh1-relationship-fabric.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH-1 relationship fabric PASS: 130 migrated relationships, registry=14
+EXIT_CODE=0
+
+## BKH-2
+COMMAND: pnpm tsx scripts/test-bkh2-constraint-engine.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","requiredCases":28,"registryTypes":13,"statuses":["SATISFIED","VIOLATED","UNKNOWN","NOT_APPLICABLE","CONFLICTING","ERROR"],"reasons":["NOT_DEMONSTRATED","EXTERNAL_ORACLE_REQUIRED","INSUFFICIENT_EVIDENCE","INSUFFICIENT_EPISTEMIC_STATE","MISSING_DEPENDENCY","INVALID_INPUT"],"currencySafety":"PEN_USD_INCOMPATIBLE","arbitraryExecution":"PROHIBITED","mutation":"UNCHANGED"}
+EXIT_CODE=0
+
+## BKH-3
+COMMAND: pnpm tsx scripts/test-bkh3-regeneration-engine.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","planStatus":"BLOCKED","executionStatus":"BLOCKED","regenerated":2,"blocked":1,"traceEvents":5,"noCanonicalMutation":true}
+EXIT_CODE=0
+
+## BKH-3 corrective
+COMMAND: pnpm tsx scripts/test-bkh3-corrective.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","freshnessE2E":true,"conditionalPropagation":["TRUE","FALSE","UNKNOWN"],"minimalDirtySet":["cost","geometry","quantity"],"aggregation":["COMPLETED","PARTIAL","BLOCKED","FAILED","UNKNOWN"],"bkh2Statuses":["SATISFIED","VIOLATED","UNKNOWN"],"selfCertification":"REJECTED","torture":"PARAMETER→GEOMETRY→RELATIONSHIP→QUANTITY→COST","noCanonicalMutation":true}
+EXIT_CODE=0
+
+## BKH4 foundation
+COMMAND: pnpm tsx scripts/test-bkh4-foundation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","revisionStatusRestricted":true,"stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"operationInvariants":7,"arbitraryCodeRejectedStructurally":true,"malformedMutationRejected":true,"deterministicSerialization":true,"duplicateRevisionRejected":true,"provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+
+## BKH4-3
+COMMAND: pnpm tsx scripts/test-bkh4-3-simulation.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BKH4-3 SIMULATION TESTS: PASS
+CANONICAL_STATE_UNCHANGED: PASS
+CANONICAL_SNAPSHOT_FINGERPRINT: PASS
+CANONICAL_ALIASING_DEFENSE: PASS
+SIMULATION_DETERMINISM: PASS
+STALE_BASE_VERSION: PASS
+CONSTRAINT_VIOLATION: PASS
+CONSTRAINT_UNKNOWN: PASS
+MISSING_DEPENDENCY: PASS
+REGENERATION_BLOCKED: PASS
+REGENERATION_FAILED: PASS
+STATUS_PRECEDENCE_FAILED_OVER_UNKNOWN: PASS
+STATUS_PRECEDENCE_BLOCKED_OVER_UNKNOWN: PASS
+MALFORMED_TRANSACTION: PASS
+NO_COMMIT_PATH_CREATED: PASS
+EXIT_CODE=0
+
+## persistence formal
+COMMAND: pnpm tsx scripts/test-persistence-formal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+EXIT_CODE=0
+
+## persistence IndexedDB
+COMMAND: pnpm tsx scripts/test-persistence-idb.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+EXIT_CODE=0
+
+## TX-003A
+COMMAND: pnpm tsx scripts/test-bkh4-tx-003a-repository.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"VERIFIED","adversarialCases":25,"identityInvariants":true,"projectIsolation":true,"immutablePayloadIsolation":true,"deepFreeze":true,"lineageIntegrity":true,"currentRevisionUnambiguous":true,"deterministicFingerprint":true,"corruptionDetected":true,"provenancePreserved":true,"unknownNotPromoted":true,"selfCertificationRejected":true,"tortureRevisions":1001,"fuzzCases":200,"fuzzRejected":200,"atomicCommit":"NOT_IMPLEMENTED","atomicCommitPersistence":"NOT_VERIFIED","casIdempotency":"NOT_IMPLEMENTED","crashRecovery":"NOT_IMPLEMENTED","writerMigration":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+
+## TX-003B
+COMMAND: pnpm tsx scripts/test-bkh4-tx-003b-persistence.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PARTIAL_EMULATED_EVIDENCE","indexedDbMechanism":"fake-indexeddb","realBrowserIndexedDb":"NOT_TESTED","oneMultiStoreTransaction":true,"allOrNothing":true,"failureInjection":"8/8","zeroPartialDurableState":true,"durabilityAfterReopen":true,"fingerprintAlgorithm":"sha256:v1","fingerprintAfterReopen":true,"historicalOverwriteDefense":true,"projectIsolation":true,"schemaMigration":true,"legacyDataPreserved":true,"tx003aRegressionRequired":true,"cas":"NOT_IMPLEMENTED","durableIdempotency":"NOT_IMPLEMENTED","crashRecovery":"NOT_IMPLEMENTED","undoRedo":"NOT_IMPLEMENTED","stores":["snapshots","sessions","projects","versions","audit","assets","warranties","manuals","inspections","workOrders","assetHistory","canonicalRevisions","transactions","commitMetadata","idempotency"]}
+EXIT_CODE=0
+
+## TX-003C
+COMMAND: pnpm tsx scripts/test-bkh4-tx-003c-cas-idempotency.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"VERIFIED","cas":true,"durableIdempotency":true,"sameRequestReplay":true,"conflictReuseRejected":true,"twoWriterRace":"one_winner_one_stale","retryStorm":"100_requests_one_effect","reopenRetry":true,"failureInjection":"7/7","multiProjectIsolation":true,"independentOracle":true,"generatedCases":200,"seeds":20,"crashRecovery":"NOT_IMPLEMENTED","writerMigration":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+
+## TX-003D recovery
+COMMAND: pnpm tsx scripts/test-bkh4-tx-003d-recovery.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","independentOracle":true,"oracleSeeds":20,"oracleCases":140,"noRecords":"NOT_COMMITTED","cleanCommit":"COMMITTED","inverseAttacks":9,"corruptionFailClosed":true,"silentRepair":false,"timestampNotAuthority":true}
+EXIT_CODE=0
+
+## TX-004 reversal
+COMMAND: pnpm tsx scripts/test-bkh4-tx-004-reversal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","undo":true,"redo":true,"compensatingTransaction":true,"historyImmutable":true,"stateEquivalenceWithoutIdentityReuse":true,"retryIdempotent":true,"staleRejected":true,"concurrentUndoOneWinner":true,"crossProjectRejected":true,"nonReversibleRejected":true,"pfH01Excluded":true,"generatedSeeds":10,"cases":29}
+EXIT_CODE=0
+
+## TX-004 test-the-test
+COMMAND: pnpm tsx scripts/test-bkh4-tx-004-test-the-test.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","testTheTest":true,"defectiveImplementationsDetected":6,"killed":["delete_previous_revision","last_write_wins","duplicate_undo_retry","blind_redo","ignore_current_revision","cross_project_reversal"]}
+EXIT_CODE=0
+
+## TX-004 real-browser crash/restart
+COMMAND: env PORT=4204 CDP_PORT=9324 node scripts/run-bkh4-tx-004-real-browser.mjs
+{"status":"PASS","realProcessKill":true,"freshProcessRecovery":true,"persistentProfile":true,"cases":2,"passed":2,"failed":0,"results":[{"point":"after-idempotency-write","processKill":"SIGKILL","freshProcess":true,"persistentProfile":true,"reached":true,"recovery":{"transactionId":"TX004-CRASH-0","projectId":"tx004-project-0","classification":"COMMITTED","evidence":{"revision":true,"currentPointer":true,"transaction":true,"commitMetadata":true,"audit":true,"idempotency":true},"reason":"All durable commit records and current pointer are coherent","checkedAt":"2026-09-24T03:18:31.695Z"},"expected":["NOT_COMMITTED","COMMITTED"],"pass":true},{"point":"after-current-write","processKill":"SIGKILL","freshProcess":true,"persistentProfile":true,"reached":true,"recovery":{"transactionId":"TX004-CRASH-1","projectId":"tx004-project-1","classification":"COMMITTED","evidence":{"revision":true,"currentPointer":true,"transaction":true,"commitMetadata":true,"audit":true,"idempotency":true},"reason":"All durable commit records and current pointer are coherent","checkedAt":"2026-09-24T03:18:34.537Z"},"expected":["NOT_COMMITTED","COMMITTED"],"pass":true}]}
+EXIT_CODE=0
+
+## SUMMARY
+## pnpm check
+EXIT_CODE=0
+## pnpm build
+EXIT_CODE=0
+## BKH-1
+EXIT_CODE=0
+## BKH-2
+{"status":"PASS","requiredCases":28,"registryTypes":13,"statuses":["SATISFIED","VIOLATED","UNKNOWN","NOT_APPLICABLE","CONFLICTING","ERROR"],"reasons":["NOT_DEMONSTRATED","EXTERNAL_ORACLE_REQUIRED","INSUFFICIENT_EVIDENCE","INSUFFICIENT_EPISTEMIC_STATE","MISSING_DEPENDENCY","INVALID_INPUT"],"currencySafety":"PEN_USD_INCOMPATIBLE","arbitraryExecution":"PROHIBITED","mutation":"UNCHANGED"}
+EXIT_CODE=0
+## BKH-3
+{"status":"PASS","planStatus":"BLOCKED","executionStatus":"BLOCKED","regenerated":2,"blocked":1,"traceEvents":5,"noCanonicalMutation":true}
+EXIT_CODE=0
+## BKH-3 corrective
+{"status":"PASS","freshnessE2E":true,"conditionalPropagation":["TRUE","FALSE","UNKNOWN"],"minimalDirtySet":["cost","geometry","quantity"],"aggregation":["COMPLETED","PARTIAL","BLOCKED","FAILED","UNKNOWN"],"bkh2Statuses":["SATISFIED","VIOLATED","UNKNOWN"],"selfCertification":"REJECTED","torture":"PARAMETER→GEOMETRY→RELATIONSHIP→QUANTITY→COST","noCanonicalMutation":true}
+EXIT_CODE=0
+## BKH4 foundation
+{"status":"PASS","revisionStatusRestricted":true,"stableIdentity":true,"revisionDistinct":true,"baseVersionRequired":true,"legalTransitions":5,"illegalTransitionRejected":true,"serializationRoundTrip":true,"operationInvariants":7,"arbitraryCodeRejectedStructurally":true,"malformedMutationRejected":true,"deterministicSerialization":true,"duplicateRevisionRejected":true,"provenancePreserved":true,"canonicalMutation":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+## BKH4-3
+EXIT_CODE=0
+## persistence formal
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+EXIT_CODE=0
+## persistence IndexedDB
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+EXIT_CODE=0
+## TX-003A
+{"status":"VERIFIED","adversarialCases":25,"identityInvariants":true,"projectIsolation":true,"immutablePayloadIsolation":true,"deepFreeze":true,"lineageIntegrity":true,"currentRevisionUnambiguous":true,"deterministicFingerprint":true,"corruptionDetected":true,"provenancePreserved":true,"unknownNotPromoted":true,"selfCertificationRejected":true,"tortureRevisions":1001,"fuzzCases":200,"fuzzRejected":200,"atomicCommit":"NOT_IMPLEMENTED","atomicCommitPersistence":"NOT_VERIFIED","casIdempotency":"NOT_IMPLEMENTED","crashRecovery":"NOT_IMPLEMENTED","writerMigration":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+## TX-003B
+{"status":"PARTIAL_EMULATED_EVIDENCE","indexedDbMechanism":"fake-indexeddb","realBrowserIndexedDb":"NOT_TESTED","oneMultiStoreTransaction":true,"allOrNothing":true,"failureInjection":"8/8","zeroPartialDurableState":true,"durabilityAfterReopen":true,"fingerprintAlgorithm":"sha256:v1","fingerprintAfterReopen":true,"historicalOverwriteDefense":true,"projectIsolation":true,"schemaMigration":true,"legacyDataPreserved":true,"tx003aRegressionRequired":true,"cas":"NOT_IMPLEMENTED","durableIdempotency":"NOT_IMPLEMENTED","crashRecovery":"NOT_IMPLEMENTED","undoRedo":"NOT_IMPLEMENTED","stores":["snapshots","sessions","projects","versions","audit","assets","warranties","manuals","inspections","workOrders","assetHistory","canonicalRevisions","transactions","commitMetadata","idempotency"]}
+EXIT_CODE=0
+## TX-003C
+{"status":"VERIFIED","cas":true,"durableIdempotency":true,"sameRequestReplay":true,"conflictReuseRejected":true,"twoWriterRace":"one_winner_one_stale","retryStorm":"100_requests_one_effect","reopenRetry":true,"failureInjection":"7/7","multiProjectIsolation":true,"independentOracle":true,"generatedCases":200,"seeds":20,"crashRecovery":"NOT_IMPLEMENTED","writerMigration":"NOT_IMPLEMENTED"}
+EXIT_CODE=0
+## TX-003D recovery
+{"status":"PASS","independentOracle":true,"oracleSeeds":20,"oracleCases":140,"noRecords":"NOT_COMMITTED","cleanCommit":"COMMITTED","inverseAttacks":9,"corruptionFailClosed":true,"silentRepair":false,"timestampNotAuthority":true}
+EXIT_CODE=0
+## TX-004 reversal
+{"status":"PASS","undo":true,"redo":true,"compensatingTransaction":true,"historyImmutable":true,"stateEquivalenceWithoutIdentityReuse":true,"retryIdempotent":true,"staleRejected":true,"concurrentUndoOneWinner":true,"crossProjectRejected":true,"nonReversibleRejected":true,"pfH01Excluded":true,"generatedSeeds":10,"cases":29}
+EXIT_CODE=0
+## TX-004 test-the-test
+{"status":"PASS","testTheTest":true,"defectiveImplementationsDetected":6,"killed":["delete_previous_revision","last_write_wins","duplicate_undo_retry","blind_redo","ignore_current_revision","cross_project_reversal"]}
+EXIT_CODE=0
+## TX-004 real-browser crash/restart
+{"status":"PASS","realProcessKill":true,"freshProcessRecovery":true,"persistentProfile":true,"cases":2,"passed":2,"failed":0,"results":[{"point":"after-idempotency-write","processKill":"SIGKILL","freshProcess":true,"persistentProfile":true,"reached":true,"recovery":{"transactionId":"TX004-CRASH-0","projectId":"tx004-project-0","classification":"COMMITTED","evidence":{"revision":true,"currentPointer":true,"transaction":true,"commitMetadata":true,"audit":true,"idempotency":true},"reason":"All durable commit records and current pointer are coherent","checkedAt":"2026-09-24T03:18:31.695Z"},"expected":["NOT_COMMITTED","COMMITTED"],"pass":true},{"point":"after-current-write","processKill":"SIGKILL","freshProcess":true,"persistentProfile":true,"reached":true,"recovery":{"transactionId":"TX004-CRASH-1","projectId":"tx004-project-1","classification":"COMMITTED","evidence":{"revision":true,"currentPointer":true,"transaction":true,"commitMetadata":true,"audit":true,"idempotency":true},"reason":"All durable commit records and current pointer are coherent","checkedAt":"2026-09-24T03:18:34.537Z"},"expected":["NOT_COMMITTED","COMMITTED"],"pass":true}]}
+EXIT_CODE=0
+## SUMMARY

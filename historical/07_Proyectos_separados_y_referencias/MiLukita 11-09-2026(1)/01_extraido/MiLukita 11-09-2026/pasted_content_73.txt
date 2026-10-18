@@ -1,0 +1,202 @@
+MICRO-ORDEN — IDENTIFICACIÓN DE AGENTES FALTANTES
+Documento: ORDEN MAESTRA 001 — MICRO-ORDEN DE IDENTIFICACIÓN DE AGENTES
+Versión: 1.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+Alcance: Exclusivamente identificación. No autoriza implementación.
+
+0. PROPÓSITO
+Identificar qué agentes existen realmente en el proyecto, cuáles están conectados, cuáles están desconectados, cuáles están planificados y cuáles no existen.
+
+Esta micro-orden NO autoriza:
+
+❌ Crear agentes nuevos
+
+❌ Activar agentes deshabilitados
+
+❌ Modificar agentes existentes
+
+❌ Modificar MJP CORE
+
+❌ Modificar Orden 60
+
+❌ Iniciar Fase G
+
+❌ Crear pantallas nuevas
+
+❌ Rediseñar visualmente
+
+Esta micro-orden SÍ autoriza:
+
+✅ Buscar agentes en el código
+
+✅ Identificar su estado real
+
+✅ Mapear sus capacidades
+
+✅ Documentar hallazgos
+
+✅ Reportar estado
+
+1. CONTEXTO
+Según la respuesta de Manus en Fase E.1, se identificaron 6 agentes:
+
+#	Agente	Estado
+1	Auditor	🟢 IMPLEMENTED / CONNECTED
+2	Experience Director	🟢 IMPLEMENTED / CONNECTED
+3	Financial Intelligence	🟢 IMPLEMENTED / CONNECTED
+4	Distribution	🟢 IMPLEMENTED / CONNECTED
+5	Legal & Compliance	🟡 PLANNED / DISABLED
+6	Watchdog	🟢 IMPLEMENTED / CONNECTED
+Pero el Canon sugiere que deberían existir más agentes.
+
+Esta micro-orden busca verificar si existen agentes adicionales que no fueron reportados en E.1.
+
+2. AGENTES A BUSCAR
+Manus deberá buscar si existen los siguientes agentes o equivalentes:
+
+2.1. Agentes de Seguridad y Gobernanza
+#	Agente	Área	¿Existe?	Estado
+1	Security Agent	Seguridad	❓	❓
+2	Governance Agent	Gobernanza	❓	❓
+3	Compliance Agent	Cumplimiento	❓	❓
+2.2. Agentes de World Engine y Territorio
+#	Agente	Área	¿Existe?	Estado
+4	World Agent	World Engine	❓	❓
+5	Territorial Agent	Territorio	❓	❓
+6	Mapper Agent	Captura	❓	❓
+7	The Eye Agent	Revisión	❓	❓
+2.3. Agentes de Interacción
+#	Agente	Área	¿Existe?	Estado
+8	Gesture Agent	Gestos	❓	❓
+9	Intent Agent	Intención	❓	❓
+10	UI Agent	Interfaz	❓	❓
+11	Voice Agent	Voz	❓	❓
+2.4. Agentes de Experiencia
+#	Agente	Área	¿Existe?	Estado
+12	Discovery Agent	Descubrimiento	❓	❓
+13	AR Agent	AR	❓	❓
+14	TV Agent	TV	❓	❓
+15	Games Agent	Games	❓	❓
+3. INFORMACIÓN A REPORTAR POR CADA AGENTE
+Para cada agente encontrado, Manus deberá reportar:
+
+Campo	Descripción
+Nombre	Nombre del agente
+Ubicación	Archivo/ruta donde está definido
+Estado	IMPLEMENTED / CONNECTED / PLANNED / DISABLED / NOT_FOUND
+Modo de operación	READ_ONLY / ALERT_ONLY / PROPOSE_ONLY / PROJECTION_ONLY / (no definido)
+Función	Qué hace
+Conexión	¿Está conectado al Agent Router?
+Autoridad	¿Tiene autoridad de ejecución? (debe ser none)
+Dependencias	De qué depende
+Pendientes	Qué falta
+4. REGLAS DE IDENTIFICACIÓN
+Regla	Descripción
+No crear agentes	Solo identificar los existentes
+No activar agentes	Solo reportar estado
+No modificar agentes	Solo documentar
+No modificar MJP CORE	Bloqueo explícito
+No iniciar Fase G	Detención obligatoria
+Reportar honestamente	Si no existe, reportar NOT_FOUND
+No inventar agentes	Si no se encuentra, no crear
+5. FORMATO DE REPORTE
+Manus deberá entregar un reporte con la siguiente estructura:
+
+text
+### 1. Estado final de la Micro-Orden
+🟢 COMPLETADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de Agentes Identificados
+
+| # | Agente | Ubicación | Estado | Modo | Función | Conectado | Autoridad | Pendientes |
+|---|--------|-----------|--------|------|---------|-----------|-----------|------------|
+| 1 | | | | | | | | |
+| 2 | | | | | | | | |
+| ... | | | | | | | | |
+
+### 3. Tabla de Agentes NO Encontrados
+
+| # | Agente buscado | Estado | Nota |
+|---|----------------|--------|------|
+| 1 | Security Agent | NOT_FOUND | |
+| 2 | Governance Agent | NOT_FOUND | |
+| ... | | | |
+
+### 4. Resumen
+- Total de agentes identificados:
+- Total de agentes activos:
+- Total de agentes deshabilitados:
+- Total de agentes no encontrados:
+- Total de agentes con autoridad de ejecución: (debe ser 0)
+
+### 5. Capacidades por Agente
+(Para cada agente, listar qué puede y qué no puede hacer)
+
+### 6. Límites de Autoridad
+- ¿Algún agente tiene autoridad de ejecución? (debe ser NO)
+- ¿Algún agente puede modificar MJP CORE? (debe ser NO)
+- ¿Algún agente puede publicar sin autorización? (debe ser NO)
+
+### 7. Pendientes
+Separar claramente:
+- Pendientes de esta micro-orden;
+- Pendientes de E.1;
+- Pendientes de Fase F;
+- Pendientes de Orden 60;
+- Pendientes futuras.
+
+### 8. MJP CORE
+Confirmar: SIN MODIFICACIÓN
+
+### 9. Estado de Fase F
+Declarar expresamente:
+FASE F — ESTADO ACTUAL (en ejecución / cerrada / no iniciada)
+FASE G — NO INICIADA
+6. CRITERIOS DE ACEPTACIÓN
+La micro-orden se considerará completada cuando:
+
+Criterio	Descripción
+Búsqueda realizada	Se buscaron todos los agentes listados
+Reporte completo	Se reportó el estado de cada agente
+Honestidad	Se reportó NOT_FOUND cuando no existe
+Límites verificados	Se confirmó que ningún agente tiene autoridad
+MJP CORE intacto	Se confirmó protección
+No expansión	No se creó ningún agente nuevo
+7. DETENCIÓN OBLIGATORIA
+Al completar esta micro-orden:
+
+text
+DETENER LA EJECUCIÓN.
+NO CREAR AGENTES.
+NO ACTIVAR AGENTES.
+NO INICIAR FASE G.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+8. PRINCIPIO DE ESTA MICRO-ORDEN
+text
+IDENTIFICAR, NO CREAR.
+REPORTAR, NO MODIFICAR.
+DOCUMENTAR, NO ACTIVAR.
+NO EXPANDIR EL ALCANCE.
+NO INICIAR LA SIGUIENTE FASE SIN AUTORIZACIÓN.
+
+MANUS IDENTIFICA.
+MANUS REPORTA.
+HUMAN AUTHORITY DECIDE.
+9. CIERRE
+Objetivo: Identificar qué agentes existen realmente.
+
+Alcance: Solo identificación.
+
+No autoriza: Crear, activar, modificar.
+
+Entregable: Reporte con tabla de agentes identificados y no encontrados.
+
+Próximo paso: Ejecutar micro-orden. Detenerse. Reportar. Esperar autorización.
+
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Orden Maestra 001 — Micro-Orden de Identificación de Agentes
+Estado: Listo para envío a Manus

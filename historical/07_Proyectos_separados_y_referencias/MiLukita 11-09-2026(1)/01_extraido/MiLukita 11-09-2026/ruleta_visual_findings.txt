@@ -1,0 +1,5 @@
+Hallazgos de inspección visual del PDF exportado:
+
+1. La primera página muestra una portada casi completamente morada con un logotipo grande “MEGA JACKPOT” en la parte superior. En la exportación a PDF no aparecen los botones de navegación de la hoja Inicio, lo que confirma que la portada interactiva depende de objetos/controles de Excel y macros, no de celdas imprimibles.
+2. Una página posterior de la hoja Jugadas presenta una tabla de cuatro columnas, con encabezados legibles, pero el identificador “Rul1-…-09:00-” aparece truncado/incompleto y las fechas del identificador no coinciden con la columna Horario; por ejemplo, el primer identificador lleva 24/05/2024 mientras que la secuencia Horario comienza el 24/05/2024 09:00 y luego continúa por horas del mismo día. Esto sugiere un problema de concatenación/formato o de diseño de identificadores.
+3. El libro exporta 391 páginas A4, una señal de que las hojas BaseDeDatos/Registro se imprimen en grandes volúmenes y no están optimizadas como reporte ejecutivo. La lectura tabular es posible, pero no es una experiencia de operación compacta ni un dashboard.

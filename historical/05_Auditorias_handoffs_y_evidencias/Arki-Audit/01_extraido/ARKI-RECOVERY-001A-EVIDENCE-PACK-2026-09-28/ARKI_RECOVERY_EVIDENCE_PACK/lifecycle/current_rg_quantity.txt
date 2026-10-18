@@ -1,0 +1,27 @@
+tests/test_h005_propagation.py:22:    a1, q1, c1 = VersionedRef("Area", "A", 1), VersionedRef("Quantity", "Q", 1), VersionedRef("Cost", "C", 1)
+tests/test_h005_propagation.py:24:    ledger.record("P", rec("D-Q1", q1, a1, "quantity"))
+tests/test_h005_propagation.py:37:    registry.register("quantity", "1.0", handler("quantity", q1))
+tests/test_h005_propagation.py:39:    current = {("Geometry", "G"): g2, ("Area", "A"): VersionedRef("Area", "A", 2), ("Quantity", "Q"): VersionedRef("Quantity", "Q", 2)}
+tests/test_h005_propagation.py:46:    assert [method for method, _ in calls] == ["area", "quantity", "cost"]
+tests/test_h005_propagation.py:48:    assert calls[2][1][("Quantity", "Q")].version == 2
+tests/test_h005_propagation.py:53:    area, quantity = VersionedRef("Area", "A", 1), VersionedRef("Quantity", "Q", 1)
+tests/test_h005_propagation.py:54:    dv_a = DerivationValidity("D-A", area, "STALE", discrepancies=({"reference": quantity.to_dict(), "code": "VERSION_MISMATCH"},), source_checks=("integrity_checks_D-A",))
+tests/test_h005_propagation.py:55:    dv_q = DerivationValidity("D-Q", quantity, "STALE", discrepancies=({"reference": area.to_dict(), "code": "VERSION_MISMATCH"},), source_checks=("integrity_checks_D-Q",))
+tests/test_h005_propagation.py:56:    report = ValidityReport(artifact_validities=(ArtifactValidity(area, "FULLY_STALE", (dv_a,), {}, {}), ArtifactValidity(quantity, "FULLY_STALE", (dv_q,), {}, {})))
+tests/test_reaction.py:156:            id="R2", output=VersionedRef("Quantity", "Q1", 1),
+tests/test_reaction.py:158:            relations=(TypedRelation(from_ref=VersionedRef("Quantity", "Q1", 1), to_ref=VersionedRef("Area", "A1", 1), relation_type="COMPUTED_FROM", relation_domain="COMPUTATIONAL"),)
+tests/test_reaction.py:227:    quantity = VersionedRef("Quantity", "Q1", 1)
+tests/test_reaction.py:230:        discrepancies=({"reference": quantity.to_dict(), "code": "VERSION_MISMATCH"},),
+tests/test_reaction.py:233:        "RQ", quantity, "FULLY_STALE",
+tests/test_reaction.py:238:        ArtifactValidity(quantity, "FULLY_STALE", (q_derivation,), {}, {"action": "RECOMPUTE"}),
+tests/test_reaction.py:304:        cycle = VersionedRef("Quantity", "C", 1)
+tests/test_multiscale_wall_move_e2e.py:98:    piso_h07_v1 = ref("Quantity", "PISO-H07", 1, "1" * 64)
+tests/test_multiscale_wall_move_e2e.py:99:    piso_p03_v1 = ref("Quantity", "PISO-P03", 1, "2" * 64)
+tests/test_multiscale_wall_move_e2e.py:100:    pintura_v1 = ref("Quantity", "PINTURA", 1, "3" * 64)
+tests/test_multiscale_wall_move_e2e.py:206:            ("Quantity", "PISO-H07"): ref("Quantity", "PISO-H07", 2, "9" * 64),
+tests/test_multiscale_wall_move_e2e.py:207:            ("Quantity", "PISO-P03"): ref("Quantity", "PISO-P03", 2, "a" * 64),
+tests/test_multiscale_wall_move_e2e.py:208:            ("Quantity", "PINTURA"): ref("Quantity", "PINTURA", 2, "b" * 64),
+tests/test_impact.py:21:    a=ref("Area","A1",1,H("b")); q=ref("Quantity","Q1",2,H("c")); c=ref("Cost","C1",4,H("d"))
+tests/test_derivation.py:26:    a,g,q=ref("Area","A1",1),ref("Geometry","G1",3),ref("Quantity","Q1",1)
+tests/test_derivation.py:36:    s=MemoryStore(); l=DerivationLedger(s); g=ref("Geometry","G1",3); a=ref("RoomArea","A1",1); q=ref("Quantity","Q1",2); c=ref("Cost","C1",4)
+tests/test_derivation.py:46:    s=MemoryStore(); l=DerivationLedger(s); a=ref("Area","A",1); q=ref("Quantity","Q",1); l.record("P",record("DA",a,[q])); l.record("P",record("DQ",q,[a])); assert len(l.why("P",a))==2; assert len(s.items)==2

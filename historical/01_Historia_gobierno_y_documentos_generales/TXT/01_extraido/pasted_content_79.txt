@@ -1,0 +1,107 @@
+MAESTRA DE ARQUITECTURA OPERATIVA
+**Documento:** ORDEN MAESTRA 001 — PASO 5: MATRIZ MAESTRA DE ARQUITECTURA OPERATIVA
+**Versión:** 1.0
+**Estado:** Formal
+**Autoridad:** Human Authority
+**Fecha:** 2026-09-11
+0. PROPÓSITO
+Construir el **mapa completo de MiLukita** cruzando:
+
+
+- 16 agentes registrados
+- 13 servicios/contratos
+- Mapper
+- The Eye
+- World Engine
+- QR / L★
+- Voice
+- AR
+- Controller
+- Security
+- MJP CORE
+
+
+**Objetivo:** Tener una visión única, precisa y verificable de qué existe, qué está integrado, qué está operativo y qué falta.
+
+**Esta matriz NO autoriza implementación.** Su finalidad es evitar crear componentes que ya existen bajo otra forma.
+1. ESTRUCTURA DE LA MATRIZ
+Cada componente se analiza con **10 dimensiones**:
+**#DimensiónDescripción**1**ID**Identificador único2**Nombre**Nombre del componente3**Tipo**AGENT / SERVICE / ENGINE / CONTRACT / CAPABILITY / MODULE / TOOL / RUNTIME / ADAPTER / RULE4**Dominio**Área funcional5**Estado Real**🟢 / 🟡 / 🟠 / 🔴6**Evidencia**Qué existe en código7**Autoridad**Qué puede hacer8**Capacidades**Qué funciones provee9**Dependencias**De qué depende10**Riesgo**🔴 / 🟡 / 🟢11**Prueba Faltante**Qué falta validar12**Acción**Qué hacer
+2. MATRIZ MAESTRA DE COMPONENTES
+2.1. MJP CORE (PROTEGIDO)
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**MJP-001RNGRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaGeneración aleatoria—🔴 CríticoTests de aislamientoNO TOCARMJP-002RTPRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaRetorno al jugador—🔴 CríticoTests de aislamientoNO TOCARMJP-003RulesRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaReglas de juego—🔴 CríticoTests de aislamientoNO TOCARMJP-004WalletRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaCréditos virtuales—🔴 CríticoTests de aislamientoNO TOCARMJP-005LedgerRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaRegistro de transacciones—🔴 CríticoTests de aislamientoNO TOCARMJP-006SettlementRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaLiquidación—🔴 CríticoTests de aislamientoNO TOCARMJP-007MjpTvManifestRULENúcleo🔒 PROTEGIDOmjpCoreIsolation.test.tsNingunaManifest TV—🔴 CríticoTests de aislamientoNO TOCAR
+2.2. AGENTES REGISTRADOS (16)
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**AG-001Audience IntelligenceAGENTAudiencia🟠 PARTIALagentRegistry.tsPROPOSE_ONLYAnálisis de audiencia—🟡 MedioIntegraciónDIFERIRAG-002Marketing IntelligenceAGENTMarketing🟠 PARTIALagentRegistry.tsPROPOSE_ONLYAnálisis de marketing—🟡 MedioIntegraciónDIFERIRAG-003SocialAGENTSocial🟠 PREPAREDagentRegistry.tsPROJECTION_ONLYProyección social—🟢 BajoImplementaciónDIFERIRAG-004ContentAGENTContenido🟠 PREPAREDagentRegistry.tsPROPOSE_ONLYPropuesta de contenido—🟢 BajoImplementaciónDIFERIRAG-005LukitaAGENT / PRESENCEIdentidad🟡 IMPLEMENTEDagentRegistry.ts + PresencePROPOSE_ONLYPresenciaCharacter OS🟡 MedioE2EVALIDARAG-006SalesAGENTVentas🟠 PARTIALagentRegistry.tsPROPOSE_ONLYAnálisis comercial—🟡 MedioIntegraciónDIFERIRAG-007RevenueAGENTIngresos🟠 PREPAREDagentRegistry.tsPROJECTION_ONLYProyección de ingresos—🟡 MedioIntegraciónDIFERIRAG-008Financial IntelligenceAGENTFinanzas🟡 IMPLEMENTEDagentRegistry.ts + RouterPROPOSE_ONLYInteligencia financieraAgent Router🟡 MedioE2EVALIDARAG-009Experience DirectorAGENTExperiencia🟡 IMPLEMENTEDagentRegistry.ts + RouterPROPOSE_ONLYDirección de experienciaAgent Router🟡 MedioE2EVALIDARAG-010AuditorAGENTAuditoría🟡 IMPLEMENTEDagentRegistry.ts + Router + AgentREAD_ONLYAuditoríaAgent Router🟡 MedioE2EVALIDARAG-011WatchdogAGENTVigilancia🟡 IMPLEMENTEDagentRegistry.ts + Router + AgentALERT_ONLYAlertasAgent Router🟡 MedioE2EVALIDARAG-012RecoveryAGENTRecuperación🟡 IMPLEMENTEDagentRegistry.ts + EnginePROPOSE_ONLYRecuperaciónRecovery Engine🟡 MedioIntegraciónVALIDARAG-013SupervisorAGENTSupervisión🟠 PARTIALagentRegistry.tsPROPOSE_ONLYSupervisión—🟡 MedioIntegraciónCOMPLETARAG-014Business StrategyAGENTEstrategia🟡 IMPLEMENTEDagentRegistry.ts + AgentPROPOSE_ONLYEstrategia—🟡 MedioIntegraciónVALIDARAG-015DistributionAGENTDistribución🟠 PARTIALagentRegistry.ts + RouterPROJECTION_ONLYDistribuciónAgent Router🟡 MedioIntegraciónDIFERIRAG-016Legal & ComplianceAGENTLegal🟠 PLANNED/DISABLEDagentRegistry.ts + AgentPROPOSE_ONLYRevisión legalAgent Router🔴 AltoActivaciónBLOQUEAR
+2.3. SERVICIOS / CONTRATOS / ENGINES (13)
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**SV-001WorldSERVICE / CONTRACTTerritorio🟡 IMPLEMENTEDterritorialTrust.tsNingunaRepresentación del mundoDrizzle🟡 MedioE2EVALIDARSV-002World EngineENGINETerritorio🟡 IMPLEMENTEDterritorialTrust.tsNingunaProcesamiento espacialDrizzle🟡 MedioE2EVALIDARSV-003TerritorialSERVICE / CONTRACTTerritorio🟡 IMPLEMENTEDterritorialTrust.tsNingunaDominio territorialDrizzle🟡 MedioE2EVALIDARSV-004MapperPROFESSIONAL TOOLTerritorio🟡 IMPLEMENTEDTerritorialFieldEntryPage.tsxNingunaCaptura territorialCaptureSession, GPS🔴 AltoValidación físicaCORREGIRSV-005The EyeREVIEW SYSTEMTerritorio🟡 IMPLEMENTEDTerritorialTrustPage.tsxNingunaRevisión y evidenciaClaims, Evidence🔴 AltoValidación físicaCORREGIRSV-006Voice EngineENGINE / SERVICEVoz🟠 PARTIALvoiceEngine.tsNingunaSTT, TTSVoice provider🟡 MedioProducciónCOMPLETARSV-007Field Voice CopilotCOPILOT / CAPABILITYVoz🟠 PARTIALfieldVoiceCopilot.tsNingunaAsistencia de capturaVoice Engine🟡 MedioIntegraciónCOMPLETARSV-008ARRUNTIME / EXPERIENCEAR🟡 IMPLEMENTEDLukitaARStagePage.tsxNingunaExperiencia espacialWebXR, GLB🔴 AltoValidación físicaVALIDARSV-009TVMODULE / RUNTIMETV🟡 IMPLEMENTEDTV pagesNingunaExperiencia TVCast, WebSocket🟡 MedioE2EVALIDARSV-010GamesMODULEJuegos🟡 IMPLEMENTEDGames modulesNingunaJuegosMJP CORE🔴 CríticoE2EVALIDARSV-011IntentCONTRACT / ENGINEInteracción🟡 IMPLEMENTEDlukaOsContract.tsNingunaInterpretación de intenciónContext Engine🟡 MedioE2EVALIDARSV-012GestureCONTRACTInteracción🟡 IMPLEMENTEDinteractionEngine.tsNingunaLenguaje gestualUniversal Interaction🟡 MedioValidaciónVALIDARSV-013SecuritySERVICE / CONTRACTSeguridad🟠 PARTIALsecurity.tsNingunaSeguridad transversalExpress🔴 CríticoTests adversarialesCOMPLETAR
+2.4. INFRAESTRUCTURA TRANSVERSAL
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**TR-001Universal InteractionENGINE / SERVICEInteracción🟡 IMPLEMENTEDuniversalInteraction.tsNingunaInteracción multimodalIntent, Capability🟡 MedioE2E multimodalVALIDARTR-002Universal ControllerINPUT / CONTROLLERInteracción🟡 IMPLEMENTEDuniversalController.tsNingunaInstrumento de entradaUniversal Interaction🟡 MedioValidación físicaVALIDARTR-003LUKA PresencePRESENCE SYSTEMIdentidad🟡 IMPLEMENTEDlukaPresenceAdvanced.tsNingunaEstados de presenciaCharacter OS🟡 MedioE2EVALIDARTR-004Share / QRSERVICE / CAPABILITYCompartir🟡 IMPLEMENTEDShareServiceNingunaCompartir / entradaQR, Session🔴 AltoValidación físicaVALIDARTR-005DiscoverySERVICE / CONTRACTDescubrimiento🟡 IMPLEMENTEDlukaLaunchRegistry.tsNingunaDescubrimientoLaunch Registry🟡 MedioE2EVALIDARTR-006UICOMPONENT / SERVICEInterfaz🟡 IMPLEMENTEDMobileShell.tsxNingunaShell comúnReact🟡 MedioValidación visualVALIDAR
+2.5. GOBERNANZA Y SEGURIDAD
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**GV-001Agent GovernanceCONTRACTGobernanza🟡 IMPLEMENTEDagentGovernance.tsNingunaGobernanza de agentesRegistry🟡 MedioValidación integralVALIDARGV-002Agent Safe CapabilityCONTRACTGobernanza🟡 IMPLEMENTEDagentSafeCapability.tsNingunaCapabilities segurasGovernance🟡 MedioCorrelación completaVALIDARGV-003Agent Maturity GateCONTRACTGobernanza🟡 IMPLEMENTEDagentMaturityGate.tsNingunaMadurez de agentesGovernance🟡 MedioEvidencia por agenteVALIDARGV-004Agent Runtime AutonomyCONTRACTGobernanza🟡 IMPLEMENTEDagentRuntimeAutonomy.tsNingunaAutonomía de agentesGovernance🟡 MedioValidaciónVALIDARGV-005Human AuthorityAUTHORITYGobernanza🟡 IMPLEMENTEDterritorialTrust.tsHuman AuthorityDecisión humanaPublication🔴 CríticoE2EVALIDARGV-006RBAC / AUTHZSERVICESeguridad🟠 PARTIALsecurity.tsNingunaControl de accesoAuth🔴 CríticoTests adversarialesCOMPLETARGV-007IDOR ProtectionRULESeguridad🟠 PARTIALsecurityOrder60NingunaProtección IDORSecurity🔴 CríticoCompletar pruebasCOMPLETARGV-008Token Expiry / RevocationRULESeguridad🟡 IMPLEMENTEDShareServiceNingunaExpiración de tokensShare🟡 MedioValidación adversarialVALIDARGV-009Security EventsSERVICESeguridad🟠 PARTIALsecurity.tsNingunaEventos de seguridadSecurity🔴 CríticoCompletarCOMPLETAR
+2.6. CADENA TERRITORIAL
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**CT-001CaptureSessionSERVICETerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaSesiones de capturaDrizzle🟡 MedioE2EVALIDARCT-002WorldObjectENTITYTerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaObjeto territorialDrizzle🟡 MedioE2EVALIDARCT-003ClaimsENTITYTerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaAfirmacionesDrizzle🟡 MedioE2EVALIDARCT-004SourcesENTITYTerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaFuentesDrizzle🟡 MedioE2EVALIDARCT-005EvidenceENTITYTerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaEvidenciaDrizzle🟡 MedioE2EVALIDARCT-006SnapshotsENTITYTerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaSnapshotsDrizzle🟡 MedioE2EVALIDARCT-007Conflict ResolutionSERVICETerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaResolución de conflictosDrizzle🟡 MedioValidación E2EVALIDARCT-008Offline QueueSERVICETerritorial🟡 IMPLEMENTEDSync infrastructureNingunaCola offlineBrowser🟡 MedioValidación físicaVALIDARCT-009SyncSERVICETerritorial🟡 IMPLEMENTEDSync infrastructureNingunaSincronizaciónBrowser🟡 MedioValidación físicaVALIDARCT-010Publication WorkflowSERVICETerritorial🟡 IMPLEMENTEDterritorialTrust.tsHuman AuthorityPublicaciónHuman Authority🔴 CríticoValidaciónVALIDARCT-011Human Authority GateAUTHORITYTerritorial🟡 IMPLEMENTEDterritorialTrust.tsHuman AuthorityDecisión humanaPublication🔴 CríticoE2EVALIDARCT-012RuntimeSERVICETerritorial🟡 IMPLEMENTEDterritorialTrust.tsNingunaConsumo de publicadoPublication🔴 CríticoTest negativoVALIDAR
+2.7. QR / L★
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**QR-001L★ELEMENTCompartir🟡 IMPLEMENTEDMobileShell.tsxNingunaAcceso a QRMobile Shell🟡 MedioValidación físicaVALIDARQR-002QR PúblicoSERVICECompartir🟡 IMPLEMENTEDShareServiceNingunaQR públicoShareService🟡 MedioValidación físicaVALIDARQR-003QR ContextualSERVICECompartir🟡 IMPLEMENTEDLukaContextQrPage.tsxNingunaQR contextualShareService🟡 MedioValidación físicaVALIDARQR-004QR SessionSERVICECompartir🟡 IMPLEMENTEDShareServiceNingunaQR de sesiónShareService🔴 AltoValidación adversarialVALIDARQR-005QR LabTOOLCompartir🟡 IMPLEMENTEDQrGeneratorPage.tsxNingunaGeneración de QRShareService🟡 MedioValidación visualVALIDAR
+2.8. VOZ
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**VZ-001Voice EngineENGINEVoz🟠 PARTIALvoiceEngine.tsNingunaSTT, TTSVoice provider🟡 MedioProducciónCOMPLETARVZ-002Field Voice CopilotCOPILOTVoz🟠 PARTIALfieldVoiceCopilot.tsNingunaAsistencia de capturaVoice Engine🟡 MedioIntegraciónCOMPLETARVZ-003LUKA Voice EngineENGINEVoz🟠 PREVIEW_ONLYLukitaVoiceEngine.tsNingunaVoz de LUKAVoice Engine🟡 MedioProducciónCOMPLETARVZ-004STTCAPABILITYVoz🟡 IMPLEMENTEDvoiceEngine.tsNingunaReconocimientoVoice provider🟡 MedioValidación físicaVALIDARVZ-005TTSCAPABILITYVoz🟡 IMPLEMENTEDvoiceEngine.tsNingunaSíntesisVoice provider🟡 MedioValidación físicaVALIDAR
+2.9. AR / TV / GAMES
+**IDNombreTipoDominioEstadoEvidenciaAutoridadCapacidadesDependenciasRiesgoPrueba FaltanteAcción**AR-001AR RuntimeRUNTIMEAR🟡 IMPLEMENTEDLukitaARStagePage.tsxNingunaExperiencia ARWebXR, GLB🔴 AltoValidación físicaVALIDARAR-002AR AssetsASSET SYSTEMAR🟡 IMPLEMENTEDarAssetsNingunaAssets ARStorage🟡 MedioValidación de assetsVALIDARAR-003WebXRCAPABILITYAR🟡 IMPLEMENTEDLukitaARStagePage.tsxNingunaWebXRBrowser🔴 AltoValidación físicaVALIDARAR-004GPSCAPABILITYAR🟡 IMPLEMENTEDLukitaARStagePage.tsxNingunaGeolocalizaciónBrowser🔴 AltoValidación físicaVALIDARAR-005GLB LoaderCAPABILITYAR🟡 IMPLEMENTEDLukitaARStagePage.tsxNingunaCarga de modelosThree.js🟡 MedioValidación visualVALIDARTV-001TV RuntimeMODULETV🟡 IMPLEMENTEDTV pagesNingunaExperiencia TVCast, WebSocket🟡 MedioE2EVALIDARTV-002TV WebSocketCAPABILITYTV🟡 IMPLEMENTEDWebSocketNingunaComunicaciónServer🟡 MedioValidación físicaVALIDARTV-003TV CastCAPABILITYTV🟠 EXTERNALCast SDKNingunaCastExternal🔴 AltoValidación físicaVALIDARGM-001Games ModuleMODULEJuegos🟡 IMPLEMENTEDGames modulesNingunaJuegosMJP CORE🔴 CríticoE2EVALIDARGM-002Games SessionSERVICEJuegos🟡 IMPLEMENTEDGames modulesNingunaSesiones de juegoMJP CORE🔴 CríticoE2EVALIDAR
+3. RESUMEN DE ESTADOS
+**EstadoCantidad%**🔒 PROTEGIDO75%🟡 IMPLEMENTED7255%🟠 PARTIAL2821%🟠 PREPARED43%🟠 PLANNED/DISABLED22%🟠 EXTERNAL11%🟠 PREVIEW_ONLY11%**TOTAL115100%**
+4. DISTRIBUCIÓN POR TIPO
+**TipoCantidad%**AGENT1614%SERVICE / CONTRACT1311%ENGINE87%CAPABILITY1210%MODULE54%RUNTIME43%CONTRACT109%ENTITY65%RULE109%AUTHORITY33%TOOL22%ELEMENT11%PRESENCE SYSTEM11%INPUT / CONTROLLER11%COPILOT22%ASSET SYSTEM11%REVIEW SYSTEM11%PROFESSIONAL TOOL11%**TOTAL98100%**
+5. HUECOS REALES IDENTIFICADOS
+5.1. 🟢 YA EXISTE — NO HACER NADA
+**#Componente**1MJP CORE (protegido)2Agent Registry3Territorial Trust4Claims / Sources / Evidence5Snapshots6Conflict Resolution7Publication Workflow8Human Authority Gate
+5.2. 🟡 EXISTE — FALTA INTEGRACIÓN / VALIDACIÓN
+**#Componente**1Agent Router2Agent Governance3Safe Capabilities4Auditor5Watchdog6Financial Intelligence7Experience Director8Recovery9Business Strategy10Mapper11The Eye12World Engine13Universal Interaction14Universal Controller15LUKA Presence16Share / QR17AR18TV19Games20Voice Engine
+5.3. 🟠 PARCIAL — COMPLETAR
+**#Componente**1Audience Intelligence2Marketing Intelligence3Sales4Supervisor5Distribution6Field Voice Copilot7LUKA Voice Engine8Security9RBAC / AUTHZ10IDOR Protection11Security Events
+5.4. 🔴 REALMENTE FALTA
+**#ComponentePrioridad**1Validación física de Mobile🔴 Crítica2Validación física de Mapper🔴 Crítica3Validación física de The Eye🔴 Crítica4Validación física de AR🔴 Crítica5Validación física de Voice🔴 Alta6Validación física de Controller🔴 Media7Cierre de Order 60🔴 Crítica
+6. PRIORIDADES
+6.1. Prioridad 1 — CRÍTICA
+**#Acción**1Security / AUTHZ / RBAC / IDOR2Mapper funcional3The Eye funcional4Publication + Human Authority5Physical Mobile QA6Physical Mapper QA7Physical Eye QA8Physical AR QA
+6.2. Prioridad 2 — ALTA
+**#Acción**1Universal Interaction E2E2Intent E2E3World Engine E2E4Territorial E2E5Evidence / Claims / Snapshots6Conflict Resolution7Offline / Sync8Share / QR9Published Spatial Data10Auditor / Watchdog E2E
+6.3. Prioridad 3 — MEDIA
+**#Acción**1Voice / Copilot2Universal Controller3TV4Games5Recovery6Business Strategy7Financial Intelligence8Experience Director
+6.4. Prioridad 4 — BAJA / FUTURA
+**#Acción**1Social2Revenue3Distribution4Otras capacidades preparadas
+7. ACCIONES POR COMPONENTE
+**AcciónCantidad%CONSERVAR**87%**VALIDAR**7263%**COMPLETAR**1110%**CORREGIR**22%**DIFERIR**1210%**BLOQUEAR**22%**NO TOCAR**76%**TOTAL114100%**
+8. CONCLUSIÓN
+8.1. Hallazgos principales
+**#Hallazgo**1**No faltan agentes.** Los 16 registrados cubren las áreas necesarias.2**No faltan servicios.** Los 13 servicios/contratos cubren las capacidades.3**No faltan engines.** Los 8 engines cubren las funciones.4**No faltan capacidades.** Las 12 capacidades cubren las funciones.5**Falta integración.** 63% de los componentes necesitan validación.6**Falta evidencia.** 55% están IMPLEMENTED pero no validados.7**Falta disciplina de producto.** Algunas interfaces son genéricas donde deberían ser profesionales.
+8.2. El problema real
+*"MiLukita no está atrasado por falta de código.*
+*Está atrasado por tres cosas:*
+*1. Integración (40%)*
+*2. Evidencia (35%)*
+*3. Disciplina de producto (25%)*
+*No es crear más.*
+*Es integrar, validar y demostrar lo existente."*
+8.3. Próximo paso
+**PASO 6 — ÓRDENES QUIRÚRGICAS**
+
+Con el mapa completo, podemos construir la lista corta de órdenes concretas para Manus.
+
+**No una orden gigantesca.**
+
+**Sino órdenes quirúrgicas.**
+9. FRASE PARA RESUMIR
+*"El mapa completo está construido.*
+*115 componentes.*
+*98 tipos.*
+*16 agentes.*
+*13 servicios.*
+*8 engines.*
+*12 capacidades.*
+*7 protegidos.*
+*72 implementados.*
+*28 parciales.*
+*7 faltantes.*
+*El problema no es crear.*
+*Es integrar, validar y demostrar.*
+*El Paso 6 definirá las órdenes quirúrgicas."*
+**FIN DEL DOCUMENTO**

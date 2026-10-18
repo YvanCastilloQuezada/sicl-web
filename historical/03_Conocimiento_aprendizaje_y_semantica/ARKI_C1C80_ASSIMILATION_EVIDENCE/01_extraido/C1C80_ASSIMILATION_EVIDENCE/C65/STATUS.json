@@ -1,0 +1,12 @@
+{
+  "capabilityId": "C65",
+  "lifecycle": "DOCUMENTED",
+  "readiness": "KNOWLEDGE_DEFICIT",
+  "implementedBounded": false,
+  "adversariallyTested": false,
+  "transferTested": false,
+  "verifiedBounded": false,
+  "professionalValidationRequired": true,
+  "blocked": true,
+  "evidenceHash": "sha256:v1:a62d7f22b904947886e4b36935476d129360fca8ac01a52db2bec9ee98c2991a"
+}

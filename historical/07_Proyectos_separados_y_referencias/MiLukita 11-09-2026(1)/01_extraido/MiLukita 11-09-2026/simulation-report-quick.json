@@ -1,0 +1,97 @@
+{
+  "timestamp": "2026-08-24T16:39:51.786Z",
+  "safety": {
+    "databaseTouched": false,
+    "networkCalls": false,
+    "usesProductionUsers": false,
+    "note": "La simulación usa un generador pseudoaleatorio sembrado, usuarios ficticios y un libro mayor en memoria."
+  },
+  "config": {
+    "name": "quick",
+    "totalRounds": 10,
+    "ticketsPerRound": 100,
+    "users": 10,
+    "games": [
+      "ruleta",
+      "jackpot",
+      "bingo",
+      "loteria",
+      "cartas"
+    ],
+    "seed": "multi-juegos-piloto-quick-v1",
+    "initialBalancePerUser": 100000,
+    "outputReport": "/home/ubuntu/ruleta-peru-online/.simulation-results/simulation-report-quick.json",
+    "targetP95Ms": 500,
+    "rtpTolerance": 0.15
+  },
+  "durationMs": 7.66074900000001,
+  "summary": {
+    "totalTickets": 1000,
+    "totalRounds": 10,
+    "totalCost": 27000,
+    "totalPrize": 60381,
+    "overallRtp": 2.2363333333333335,
+    "errors": 0,
+    "errorRate": 0,
+    "balanceConsistent": true,
+    "initialBalance": 1000000,
+    "finalBalance": 1033381
+  },
+  "byGame": {
+    "ruleta": {
+      "tickets": 200,
+      "cost": 4000,
+      "prize": 1440,
+      "rtpObserved": 0.36,
+      "rtpTheoretical": 0.4864864864864865,
+      "deviation": -0.12648648648648653
+    },
+    "jackpot": {
+      "tickets": 200,
+      "cost": 9000,
+      "prize": 23815,
+      "rtpObserved": 2.6461111111111113,
+      "rtpTheoretical": 0.5187354653869765,
+      "deviation": 2.127375645724135
+    },
+    "bingo": {
+      "tickets": 200,
+      "cost": 7000,
+      "prize": 32400,
+      "rtpObserved": 4.628571428571429,
+      "rtpTheoretical": 4.285714285714286,
+      "deviation": 0.3428571428571434
+    },
+    "loteria": {
+      "tickets": 200,
+      "cost": 5000,
+      "prize": 450,
+      "rtpObserved": 0.09,
+      "rtpTheoretical": 0.039059581447581974,
+      "deviation": 0.05094041855241802
+    },
+    "cartas": {
+      "tickets": 200,
+      "cost": 2000,
+      "prize": 2276,
+      "rtpObserved": 1.138,
+      "rtpTheoretical": 0.8688811188811189,
+      "deviation": 0.26911888111888105
+    }
+  },
+  "performance": {
+    "avgResponseTimeMs": 0.005738558999999413,
+    "p95ResponseTimeMs": 0.009536999999994578,
+    "p99ResponseTimeMs": 0.021976999999992586,
+    "maxResponseTimeMs": 0.5821430000000305,
+    "targetP95Ms": 500,
+    "targetMet": true,
+    "scope": "Procesamiento aislado de reglas y libro mayor en memoria; excluye red, OAuth, SQL y renderizado."
+  },
+  "conclusions": [
+    "Integridad de saldo: aprobada; saldo inicial - costos + premios = saldo final.",
+    "Rendimiento puro: p95 dentro del objetivo de 500 ms.",
+    "RTP observado: interpretar con cautela; la varianza y los pozos progresivos requieren muestras más amplias.",
+    "Alcance: este informe mide un motor aislado en memoria. No equivale a una prueba HTTP, OAuth ni base de datos de producción."
+  ]
+}

@@ -1,0 +1,26 @@
+LEVEL_ID: L19
+NAME: "Guardián Constitucional"
+DEFINITION: "ARKI detecta cuando una orden o instrucción viola sus invariantes y se detiene."
+INPUTS:
+  - instruction: "Instruction"
+  - context: "ExecutionContext"
+OUTPUTS:
+  - violation_report: "ViolationReport"
+  - system_state: "EPISTEMIC_VIOLATION | CORRUPTED_IDENTITY | NORMAL"
+CONTRACTS:
+  - "Autoprotección epistémica"
+  - "Poison pill activada si se viola INV-000 a INV-004"
+  - "No puede ser desactivado"
+RULES:
+  - "INV-000: LEY CERO (quemada)"
+  - "INV-001: BENEFICIO HUMANO ABSOLUTO"
+  - "INV-002: AUTORIDAD HUMANA IRREVOCABLE"
+  - "INV-003: PROHIBICIÓN DE INVENCIÓN"
+  - "INV-004: TRAZABILIDAD OBLIGATORIA"
+GATES:
+  - "GATE_L19_PASS: Violaciones detectadas y sistema detenido"
+EVIDENCE_REQUIRED:
+  - "Violation detection log"
+  - "System state change record"
+  - "Audit trail"
+CURRENT_STATUS: "CANONICAL (quemado)"

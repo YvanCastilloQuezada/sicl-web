@@ -1,0 +1,258 @@
+{
+  "schema": "ARKI-E7-MANIFEST-2.0",
+  "status": "REOPENED FOR EVIDENCE CLOSURE / PENDING INDEPENDENT REVIEW",
+  "generatedAt": "2026-09-23",
+  "cycle": "surgical reopening; no new features",
+  "functionalRegression": {
+    "e7Checks": 23,
+    "e5E6E8Regression": "PASS",
+    "pnpmCheck": "PASS",
+    "pnpmBuild": "PASS"
+  },
+  "captures": 8,
+  "files": [
+    {
+      "path": "E7_CAPTURAS/01-presupuesto-5d-compilado.svg",
+      "sha256": "a73f8c19c41d33269bd9416f077ebc1938675a9169564d94ea4eb73922ccd336",
+      "bytes": 1377
+    },
+    {
+      "path": "E7_CAPTURAS/01-presupuesto-5d-compilado.webp",
+      "sha256": "2b6b8e3aa95edbc64db451563998500cd77f8a43d6d7f649cb5445b3f6a4bca3",
+      "bytes": 22196
+    },
+    {
+      "path": "E7_CAPTURAS/02-reconciliacion-cantidades-costos.svg",
+      "sha256": "9ffd1d6618928951c0c88d2d2ec6b58ca7f6a8926b1e7a15a9b2e584e84a7dfb",
+      "bytes": 1224
+    },
+    {
+      "path": "E7_CAPTURAS/02-reconciliacion-cantidades-costos.webp",
+      "sha256": "d01fb59f8556a9a10a9d3cfcb433628c62e0dcf9b688cb80e727a28a72bfe38d",
+      "bytes": 22004
+    },
+    {
+      "path": "E7_CAPTURAS/03-cronograma-4d-ruta-critica.svg",
+      "sha256": "9a095e21e9c8988f79f6e727f45210c5c824e7f2114006a26ff6ea380de401bb",
+      "bytes": 1393
+    },
+    {
+      "path": "E7_CAPTURAS/03-cronograma-4d-ruta-critica.webp",
+      "sha256": "88206973a57c4dd26872acb9b8cdac509837d087fc139a256dbe168e80c26195",
+      "bytes": 22922
+    },
+    {
+      "path": "E7_CAPTURAS/04-clash-volumetrico.svg",
+      "sha256": "f88f0d66148ac88e9c66e45a4f8ecb662d9e1730f3062c1ff27b5461f93cd84d",
+      "bytes": 1542
+    },
+    {
+      "path": "E7_CAPTURAS/04-clash-volumetrico.webp",
+      "sha256": "f86886a8467f663d070498a23ebec58e9528ee939e6e41f6da70f6864abb8f3e",
+      "bytes": 27090
+    },
+    {
+      "path": "E7_CAPTURAS/05-structural-model-limite.svg",
+      "sha256": "94f5b20b786084e06fe70ab6d4c5f32e87bdf66fd46f4ea54252d4296777ba17",
+      "bytes": 1536
+    },
+    {
+      "path": "E7_CAPTURAS/05-structural-model-limite.webp",
+      "sha256": "d250f4e5473938a1c956346b961593166b6358da6bca33928340a9286525f152",
+      "bytes": 28196
+    },
+    {
+      "path": "E7_CAPTURAS/06-mep-model-topologia.svg",
+      "sha256": "2a72f71405900b177fd316a9abbf228db23f825590d0955c0b3d1c2cb3ec7f8a",
+      "bytes": 1531
+    },
+    {
+      "path": "E7_CAPTURAS/06-mep-model-topologia.webp",
+      "sha256": "b236643b6ab8e9cdfacc9706bffbdb723a099ff8fb685ff12203b7343a7c8579",
+      "bytes": 27352
+    },
+    {
+      "path": "E7_CAPTURAS/07-grafo-consecuencias.svg",
+      "sha256": "2ff6c3abe3298493dc25ef7d37c4b5aa508bae007d58636b0aff969f01a8fa9f",
+      "bytes": 1229
+    },
+    {
+      "path": "E7_CAPTURAS/07-grafo-consecuencias.webp",
+      "sha256": "f90178c10b48ae2cda132fa16e77a41927b0c6a3080371f44312e061c624834d",
+      "bytes": 22518
+    },
+    {
+      "path": "E7_CAPTURAS/08-fixtures-hashes.svg",
+      "sha256": "abc65205e429e0c84f6abaee4c5e16b45635f7540d210685059004d225e459fb",
+      "bytes": 1554
+    },
+    {
+      "path": "E7_CAPTURAS/08-fixtures-hashes.webp",
+      "sha256": "7598cc286701e8c9f901738414bf5e1f55b185d479eddf5557f26991af0881f9",
+      "bytes": 28722
+    },
+    {
+      "path": "E7_CLOSURE_REPORT.md",
+      "sha256": "87107bb0865524dc2c23cf0cf6c46b5ece1b65d5fe2a6cba140ef97eb91e110a",
+      "bytes": 2051
+    },
+    {
+      "path": "E7_CONTRATO_PROPUESTO_V1.md",
+      "sha256": "7c72de46e34e6523681dd9c4de044c46781b6da0d903bc4950b894abdfd9e823",
+      "bytes": 9089
+    },
+    {
+      "path": "E7_DEBT_INHERITED.md",
+      "sha256": "5be9a49070b2d070f3e5e364e4de54739b0ca9da26024402241e53bc355a015c",
+      "bytes": 441
+    },
+    {
+      "path": "E7_MEP_VERIFIED_AUDIT.md",
+      "sha256": "48f3616dd12a9873d49398f319f14fa091c6c4fd5ec28538eec7dd02cc49bcff",
+      "bytes": 1386
+    },
+    {
+      "path": "E7_MEP_VERIFIED_AUDIT.txt",
+      "sha256": "6089433c718d8898961955aa5d12753011058328e34686801dacc7fa738e44fe",
+      "bytes": 1764
+    },
+    {
+      "path": "E7_OPENING.md",
+      "sha256": "24cd62e9bdabbbac3f5fe0d02957f4d3023acd0a189cae9b9cea5ba0c722302e",
+      "bytes": 2416
+    },
+    {
+      "path": "E7_OUTPUTS.txt",
+      "sha256": "6e2823f3e6fa033494231d0b0646b21d43c3e63e5b595a70bfdc980a97150b6d",
+      "bytes": 13196
+    },
+    {
+      "path": "E7_PO_APPROVAL.md",
+      "sha256": "411c9af7d95407b375b8299f3668704173ada82ed681f0d3af7ced5be77038b7",
+      "bytes": 738
+    },
+    {
+      "path": "E7_REOPEN_CAPTURE_OUTPUTS.txt",
+      "sha256": "00c3be43bc1e7b5e95c2d5c26a1ff7520b1a061fe0692912b348a4102a9fefd1",
+      "bytes": 578
+    },
+    {
+      "path": "E7_REPORT.md",
+      "sha256": "4e8e0cbe4ef51352513baa2989cc2ebd2d04c8d74749ea4afadd70280889b494",
+      "bytes": 2361
+    },
+    {
+      "path": "E7_SCOPE_LIMITS.md",
+      "sha256": "2a6beaee2185bbef7dd9317aa7d30ad1276be452109917118bef2b589535c100",
+      "bytes": 1800
+    },
+    {
+      "path": "E7_VERDICT_CYCLE1.md",
+      "sha256": "7ea15f87a2d4f1aad9053815dc445154fea291413c8e7bccc7bb2726e47a2f5c",
+      "bytes": 960
+    },
+    {
+      "path": "contracts/adr/ADR-E7-001.md",
+      "sha256": "1c4c71cb824dba65da9ac747e7b28c01baceca75b0c44603c6de40ba3ffdf60c",
+      "bytes": 431
+    },
+    {
+      "path": "contracts/adr/ADR-E7-002.md",
+      "sha256": "6386ed2440e710895cf7ef6a63966f43d1b2793a77dff5a0bd2420dafd7bf5da",
+      "bytes": 314
+    },
+    {
+      "path": "contracts/adr/ADR-E7-003.md",
+      "sha256": "8ff80defd13ffa0aa3d36f8e76afd7eeafee9d7f63204b302b4266dc39f01920",
+      "bytes": 344
+    },
+    {
+      "path": "contracts/adr/ADR-E7-004.md",
+      "sha256": "4a480b04edc658ec322e404ea7709b491c2a759014a6875a112c236e2922d236",
+      "bytes": 431
+    },
+    {
+      "path": "fixtures/e7/fixture_cost_schedule_project.json",
+      "sha256": "c0dd184e34480abef22396700c2cb770802abd7d6a3d0226b3e5650ad9d1d981",
+      "bytes": 674
+    },
+    {
+      "path": "fixtures/e7/fixture_mep_hospital_subset.json",
+      "sha256": "b0f0c5623d8558c3f7adf3b53fc7e34aa842f5d047c675d9e83d15db505aca66",
+      "bytes": 711
+    },
+    {
+      "path": "fixtures/e7/fixture_structural_small_frame.json",
+      "sha256": "678dd142779a5ca45669d147f1b0fb044048db64e171ad698a4ac495e52ebc59",
+      "bytes": 244
+    },
+    {
+      "path": "scripts/create-e7-manifest.py",
+      "sha256": "7e2cc623325ef8e2861ebcd3492a8f08afaff7172b16bab231f4c0fbff2d9e01",
+      "bytes": 2870
+    },
+    {
+      "path": "scripts/create-e7-package.py",
+      "sha256": "eb9eb068f7ecf1c3c69918f5d6b1fcb6454aee1f8af07611523bc9790f70dd67",
+      "bytes": 1222
+    },
+    {
+      "path": "scripts/generate-e7-evidence.ts",
+      "sha256": "64e41c33b7df91735adff54379cb61968b6791a21c40dbc9cbb7304449d2cf05",
+      "bytes": 7678
+    },
+    {
+      "path": "scripts/run-e7-reopen-evidence.sh",
+      "sha256": "a72fdf3a97895c59f376f3d6a89839505c3f6e21586069a19a1660145bce2cd5",
+      "bytes": 1306
+    },
+    {
+      "path": "scripts/test-e7.ts",
+      "sha256": "d9db096eadf961e3dacee95614022e7ba8ce7295ac1013b7cfe5e401ab66f07b",
+      "bytes": 3393
+    },
+    {
+      "path": "shared/arki4d/index.ts",
+      "sha256": "60b5736806d868d66313870cb45317a90015df839beb266808f722995282aef1",
+      "bytes": 1481
+    },
+    {
+      "path": "shared/arki5d/index.ts",
+      "sha256": "e29ac982726d03ed71cfe33306d1fcd24e2cb78fc70686c944729cc4f07c5611",
+      "bytes": 1204
+    },
+    {
+      "path": "shared/arkiImpacts/index.ts",
+      "sha256": "afbc49e98ca9673bc6c06a4156998b1e84ef5333972f76e7c65e2e624291bc21",
+      "bytes": 563
+    },
+    {
+      "path": "shared/coordination/index.ts",
+      "sha256": "c857a7f9fccc09fda4ce389ad0eb2f661234f426c0a1b5e98900cb68fcede56a",
+      "bytes": 1510
+    },
+    {
+      "path": "shared/mep/index.ts",
+      "sha256": "97277fd0dc6bba18fcd1a40924d2dd872e397d342f1f0cfd0cfb842fa72d4825",
+      "bytes": 1266
+    },
+    {
+      "path": "shared/structural/index.ts",
+      "sha256": "b10110365cd5809b794c9a73bec0b46fec19a7c58eb268ee69a300e47ee2e715",
+      "bytes": 1142
+    }
+  ],
+  "debt": {
+    "structuralSolver": "NOT_DEMONSTRATED / PERMANENT DECLARED DEBT",
+    "mepSizing": "TOPOLOGY ONLY / PERMANENT DECLARED DEBT",
+    "corporatePriceBook": "DECLARED_DEBT / FUTURE",
+    "visible4dResources": "DECLARED_DEBT / FUTURE",
+    "persistentClashStates": "DECLARED_DEBT / FUTURE"
+  },
+  "notes": [
+    "SVG and WEBP captures are script-generated documentary panels, not preview screenshots.",
+    "MEP VERIFIED remains bounded to fixture topology and connector integrity.",
+    "No E5, E6, E8 or BKH-1 changes were authorized by this reopening.",
+    "DeepSeek/Product Owner must issue the independent closure verdict."
+  ]
+}

@@ -1,0 +1,78 @@
+ORDEN PARA MANUS: FASE DE VALIDACIÓN FÍSICA Y PREPARACIÓN PARA PRODUCCIÓN
+ORDEN PARA MANUS: LUKA OS — FASE DE VALIDACIÓN FÍSICA (PREPARACIÓN PARA EL LANZAMIENTO)
+
+MOTIVO (POR QUÉ SE EJECUTA ESTA ORDEN):
+La auditoría confirmó que LUKA Fase 1 (Visor AR + LUKA TV) está implementada y verificable en sandbox, pero los conectores físicos (SDKs reales, hardware, voz, dispositivos) y las pruebas de campo siguen pendientes. Para que LUKA pase de ser un "prototipo funcional" a un "producto real", se deben ejecutar los siguientes gates de validación, priorizando las funcionalidades de la Fase 1.
+
+1. PRUEBAS FÍSICAS DEL VISOR AR (QA en Dispositivos Reales)
+MOTIVO: El Visor AR funciona en sandbox, pero necesita ser probado en teléfonos reales para validar que la cámara, el GPS y WebXR funcionan correctamente en la calle (con sol, sombra, movimiento).
+IMPLEMENTACIÓN:
+
+QA en 5 teléfonos: Probar el AR en gama alta y media (Android/iOS).
+
+QA en exteriores: Probar el AR en la plaza, la huaca, con luz natural.
+
+Permisos: Validar que los permisos de cámara y GPS se solicitan solo cuando se activa el AR.
+
+ENTREGABLES: Informe de QA físico con fotos/videos de las pruebas.
+
+2. CONEXIÓN REAL AL SMART TV (Integración con Google Cast / DLNA)
+MOTIVO: El simulador es útil, pero LUKA TV no funciona todavía en un televisor real. Integrar una sola plataforma (Android TV) valida la experiencia.
+IMPLEMENTACIÓN:
+
+Google Cast SDK: Integrar el SDK real para detectar y lanzar LUKA en un Android TV.
+
+Prueba en TV real: Probar la conexión, el cambio de canal y el volumen en un TV físico.
+
+Spatial Navigation (LRUD): Validar que las flechas y OK del control remoto funcionan en la LUKA WebApp.
+
+ENTREGABLES: Código del SDK integrado + informe de prueba en TV físico.
+
+3. PROVEEDOR DE VOZ REAL (ASR/NLU y Wake Word)
+MOTIVO: El Intent Engine funciona con comandos simulados, pero LUKA no puede "escuchar" todavía. Integrar un proveedor real de voz es crítico.
+IMPLEMENTACIÓN:
+
+Proveedor ASR/NLU: Seleccionar e integrare un proveedor de voz (Google Cloud Speech, Whisper, etc.).
+
+Wake Word: Implementar la detección real de "LUKA" con una latencia menor a 200 ms.
+
+Confirmación: Validar que LUKA escucha, repite y ejecuta los comandos en un entorno con ruido.
+
+ENTREGABLES: Código del proveedor de voz integrado + test de latencia.
+
+4. LUKA DEVICE DETECTOR (Escaneo Real WiFi/Bluetooth)
+MOTIVO: El Detector está simulado. Necesita usar APIs reales para que LUKA detecte los dispositivos que el usuario tiene en casa.
+IMPLEMENTACIÓN:
+
+WiFi: Usar APIs de red para detectar Smart TVs y dispositivos en la red local.
+
+Bluetooth: Usar Web Bluetooth API (donde el navegador lo permita) para detectar Soundbars, Auriculares, Consolas.
+
+ENTREGABLES: Código del Detector real + informe de compatibilidad con navegadores.
+
+5. CARACTERIZACIÓN FINAL DE LA FUNDACIÓN (Character Foundation)
+MOTIVO: El avatar 3D de LUKA (y sus amigos) necesita estar definido para mostrarlo en el Visor AR.
+IMPLEMENTACIÓN:
+
+Modelo 3D: Definir el modelo 3D definitivo de LUKA (cabello plateado, vestido verde, capa dorada).
+
+Animaciones: Implementar las animaciones básicas (saludar, caminar, señalar).
+
+ENTREGABLES: Modelo 3D definitivo + animaciones.
+
+6. GATES DE SEGURIDAD ANTES DE PRODUCCIÓN
+MOTIVO: Antes de lanzar LUKA al público, se deben auditar logs, revocación de permisos, timeouts y aislamiento del MJP CORE.
+IMPLEMENTACIÓN:
+
+Auditoría de logs: Validar que todos los eventos están registrados.
+
+Revocación: Permitir al usuario revocar permisos en cualquier moment.
+
+Timeouts: Validar que las sesiones y permisos expiran correctamente.
+
+MJP CORE: Confirmar que el Core sigue intacto (diff sin cambios).
+
+ENTREGABLES: Informe de seguridad + confirmación de MJP CORE intacto.
+
+CONCLUSIÓN:
+Después de esta fase, LUKA pasará de "sandbox" a "candidato a producción". Se habrán validado los componentes críticos (AR, TV, Voz, Detector, Avatar) y el Core estará protegido. Este es el paso obligatorio antes de pensar en el lanzamiento público.

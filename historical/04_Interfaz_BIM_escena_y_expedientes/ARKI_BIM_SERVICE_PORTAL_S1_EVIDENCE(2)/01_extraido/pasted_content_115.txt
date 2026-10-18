@@ -1,0 +1,522 @@
+ADENDA OPERATIVA 97A-07-S1 — ARKI BIM SERVICE PORTAL
+S1.01 — MISSION
+
+Diseñar la infraestructura necesaria para transformar las capacidades BIM verificadas de ARKI en servicios digitales transaccionales:
+
+DISCOVER SERVICE
+→ SELECT
+→ UPLOAD
+→ PREFLIGHT
+→ SCOPE
+→ QUOTE
+→ PAY
+→ PROCESS
+→ QA
+→ DELIVER
+→ RETAIN/DELETE
+S1.02 — SELF-SERVICE FIRST
+
+El servicio deberá diseñarse bajo:
+
+SELF-SERVICE BY DEFAULT
+HUMAN INTERVENTION BY EXCEPTION
+HUMAN AUTHORITY WHERE REQUIRED
+
+No asumir contacto presencial.
+
+S1.03 — SERVICE CATALOG
+
+Implementar modelo:
+
+BIMServiceDefinition
+
+con:
+
+serviceId
+serviceType
+description
+acceptedInputs
+requiredInputs
+optionalInputs
+maximumScope
+outputs
+exclusions
+professionalBoundary
+processingClass
+pricingModel
+expectedTurnaround
+capabilityRequirement
+publicationState
+S1.04 — SERVICE PUBLICATION GATE
+
+Ningún servicio podrá venderse solamente porque su arquitectura exista.
+
+Estados:
+
+CONCEPT
+IMPLEMENTED
+INTERNAL_TESTING
+BENCHMARKED
+HUMAN_REVIEWED
+APPROVED_FOR_SERVICE
+SUSPENDED
+
+Solo:
+
+APPROVED_FOR_SERVICE
+
+podrá aceptar trabajo comercial.
+
+S1.05 — CUSTOMER PROJECT
+
+Cada solicitud deberá crear un contenedor aislado:
+
+BIMServiceJob.
+
+Nunca mezclar archivos/evidencia/conocimiento entre clientes.
+
+S1.06 — SECURE UPLOAD
+
+Diseñar carga directa segura para archivos grandes.
+
+Soportar progresivamente:
+
+PDF
+DWG/DXF
+IFC
+BIM native formats when supported
+ZIP
+images
+spreadsheets
+specifications
+schedules
+other approved formats
+
+La aplicación no deberá requerir que grandes archivos atraviesen innecesariamente el servidor principal.
+
+S1.07 — UPLOAD SECURITY
+
+Antes de procesamiento:
+
+file type validation
+extension/content validation
+size limits
+integrity hash
+malware/security screening
+archive inspection
+project isolation
+provenance
+upload completion verification
+
+Un archivo cargado:
+
+UPLOADED ≠ TRUSTED.
+
+S1.08 — UPLOAD MANIFEST
+
+Crear:
+
+ProjectInputManifest.
+
+ARKI deberá saber exactamente:
+
+what was uploaded
+by whom
+when
+file hash
+file version
+discipline
+document type
+processing status
+S1.09 — AUTOMATIC PREFLIGHT
+
+Antes del pago final/procesamiento completo, cuando técnicamente sea posible:
+
+inventory files
+classify
+identify disciplines
+count drawings/models
+detect obvious corruption
+determine project scale
+identify missing required inputs
+estimate processing complexity
+identify unsupported formats
+identify UNKNOWN
+S1.10 — PREFLIGHT ≠ FULL SERVICE
+
+No ejecutar gratuitamente la totalidad del trabajo durante la cotización.
+
+El preflight deberá producir únicamente información suficiente para:
+
+ACCEPT
+REQUEST_MISSING_INFORMATION
+REQUIRE_MANUAL_REVIEW
+REJECT_UNSUPPORTED_SCOPE
+QUOTE
+S1.11 — BLACK-BOX PROCESSING
+
+Desde la perspectiva del cliente:
+
+INPUT
+→ PROCESSING
+→ RESULT
+
+Desde la perspectiva interna:
+
+NO BLACK BOX.
+
+Cada resultado deberá conservar:
+
+provenance
+transformations
+evidence
+versions
+findings
+UNKNOWN
+validation
+human interventions
+
+Formalizar:
+
+BLACK BOX FOR CUSTOMER SIMPLICITY; GLASS BOX FOR ARKI AUDITABILITY.
+
+S1.12 — QUOTATION
+
+ARKI podrá calcular:
+
+project size
+file volume
+discipline count
+complexity
+expected computational effort
+expected professional review
+urgency
+requested deliverables
+
+y producir una cotización conforme a política comercial aprobada.
+
+S1.13 — PRICING POLICY
+
+No permitir pricing arbitrario generado por IA.
+
+Utilizar:
+
+APPROVED_PRICE_RULES
+
+o:
+
+HUMAN_QUOTE_REQUIRED
+
+según servicio.
+
+S1.14 — PAYMENT GATE
+
+Formalizar:
+
+NO PAID PROCESSING BEFORE PAYMENT CONFIRMATION, EXCEPT AUTHORIZED TEST/PROMOTIONAL JOBS.
+
+Estados:
+
+QUOTE_PENDING
+PAYMENT_PENDING
+PAYMENT_CONFIRMED
+PROCESSING_AUTHORIZED
+
+No confiar únicamente en el navegador del cliente como prueba de pago.
+
+S1.15 — PAYMENT PROVIDER ABSTRACTION
+
+No acoplar ARKI permanentemente a un único proveedor de pagos.
+
+Crear:
+
+PaymentProviderPort.
+
+Estados de pago deberán derivarse de evidencia verificable del proveedor.
+
+S1.16 — JOB STATE MACHINE
+CREATED
+→ UPLOADING
+→ PREFLIGHT
+→ MISSING_INFORMATION
+→ QUOTED
+→ PAYMENT_PENDING
+→ PAID
+→ QUEUED
+→ PROCESSING
+→ QA
+→ HUMAN_REVIEW_IF_REQUIRED
+→ READY
+→ DELIVERED
+→ CLOSED
+
+con estados adicionales:
+
+FAILED
+CANCELLED
+REFUND_REVIEW
+UNSUPPORTED
+SECURITY_HOLD
+S1.17 — PROCESSING ISOLATION
+
+Cada job deberá procesarse de manera aislada.
+
+El fallo del proyecto A no deberá:
+
+expose project B
+contaminate project B
+modify project B
+disclose project B
+S1.18 — OUTPUT CONTRACT
+
+Antes de pagar, el cliente deberá conocer:
+
+WHAT ARKI WILL DELIVER
+WHAT ARKI WILL NOT DELIVER
+EXPECTED FORMAT
+PROFESSIONAL BOUNDARIES
+TURNAROUND
+RETENTION
+S1.19 — DELIVERY PACKAGE
+
+Según servicio:
+
+/DELIVERY/
+  00_README/
+  01_MODEL/
+  02_DRAWINGS/
+  03_REPORT/
+  04_FINDINGS/
+  05_EVIDENCE/
+  06_BEFORE_AFTER/
+  07_UNKNOWN/
+  08_VALIDATION/
+
+Solo crear contenido aplicable.
+
+S1.20 — CUSTOMER DASHBOARD
+
+El cliente deberá poder ver:
+
+PROJECT
+SERVICE
+UPLOAD STATUS
+PAYMENT
+PROCESSING STATUS
+REQUESTS FOR INFORMATION
+DELIVERY
+RETENTION/DELETION STATUS
+
+No necesita ver razonamiento interno confidencial de ARKI.
+
+S1.21 — EXCEPTION ROUTING
+
+Si ARKI encuentra:
+
+contradictory drawings
+insufficient dimensions
+unsupported file
+professional decision
+security issue
+scope materially larger than quoted
+
+el job deberá detenerse/controlarse:
+
+CUSTOMER_INFORMATION_REQUIRED
+HUMAN_REVIEW_REQUIRED
+PROFESSIONAL_REVIEW_REQUIRED
+REQUOTE_REQUIRED
+
+No improvisar silenciosamente.
+
+S1.22 — CUSTOMER COMMUNICATION
+
+Automatizar mensajes estructurados:
+
+upload received
+missing information
+quote ready
+payment confirmed
+processing started
+clarification required
+delivery ready
+
+No inventar compromisos contractuales.
+
+S1.23 — DATA OWNERSHIP / AUTHORIZATION
+
+Antes de procesar:
+
+el cliente deberá declarar que posee autorización suficiente para proporcionar los archivos y solicitar el servicio.
+
+Esto NO convierte automáticamente esa declaración en un hecho verificado.
+
+S1.24 — CONFIDENTIALITY
+
+Los documentos de cliente deberán tratarse como:
+
+PRIVATE_PROJECT_DATA.
+
+No incorporarlos automáticamente al LKS, Academy, benchmarks o entrenamiento.
+
+S1.25 — BENCHMARK CONSENT
+
+Si se desea utilizar un proyecto posteriormente como benchmark:
+
+requerir autorización separada.
+
+SERVICE CONSENT
+≠
+BENCHMARK CONSENT
+S1.26 — RETENTION
+
+Definir políticas configurables:
+
+INPUT RETENTION
+OUTPUT RETENTION
+BACKUP RETENTION
+DELETION
+LEGAL HOLD
+
+y comunicarlas al cliente.
+
+S1.27 — PROFESSIONAL REVIEW
+
+Algunos productos podrán ser altamente automatizados.
+
+Otros deberán contener:
+
+HUMAN_REVIEW_REQUIRED
+
+o:
+
+PROFESSIONAL_VALIDATION_REQUIRED
+
+antes de entrega.
+
+S1.28 — SERVICE SLA
+
+No prometer:
+
+1 hour
+6 hours
+24 hours
+
+hasta tener evidencia.
+
+Crear:
+
+ServicePerformanceEvidence.
+
+S1.29 — EXPRESS SERVICE
+
+Una vez demostrada capacidad:
+
+permitir:
+
+STANDARD
+PRIORITY
+EXPRESS
+
+con precio y SLA diferenciados.
+
+S1.30 — PAYMENT ≠ ACCEPTANCE OF BAD INPUT
+
+Si después del pago el material resulta técnicamente inutilizable:
+
+seguir política explícita:
+
+REQUEST_REPLACEMENT
+PARTIAL_SERVICE
+REQUOTE
+REFUND_REVIEW
+
+No fabricar resultados.
+
+S1.31 — NO SILENT SCOPE CREEP
+
+Ejemplo:
+
+cliente compra:
+
+DRAWING_TO_BIM.
+
+ARKI descubre que además hace falta rediseño estructural.
+
+No ejecutar automáticamente.
+
+ORIGINAL_SCOPE
++
+ADDITIONAL_SERVICE_CANDIDATE
+
+requiere aceptación.
+
+S1.32 — COMMERCIAL AUDIT TRAIL
+
+Preservar:
+
+quote version
+price
+accepted scope
+payment evidence
+input manifest
+processing version
+output manifest
+delivery timestamp
+human interventions
+S1.33 — TEST MODE
+
+Los proyectos que proporcione el Product Owner para validar las modalidades deberán ejecutarse como:
+
+BENCHMARK / NON_COMMERCIAL.
+
+No pago real.
+
+S1.34 — SERVICE BENCHMARK MATRIX
+
+Crear:
+
+SERVICE          DATASET       RESULT
+
+BIM X-Ray        ABB-001       ...
+BIM Audit        ABB-002       ...
+Drawing-to-BIM   ABB-003       ...
+BIM Rescue       ABB-004       ...
+Coordination     ABB-005       ...
+Construction BIM ABB-006       ...
+Assurance        ABB-007       ...
+S1.35 — COMMERCIALIZATION RULE
+
+Formalizar:
+
+NO BENCHMARK → NO CLAIM.
+
+NO VERIFIED CAPABILITY → NO AUTOMATED SALE.
+
+NO PAYMENT CONFIRMATION → NO PAID JOB.
+
+NO TRACEABILITY → NO PROFESSIONAL DELIVERY.
+
+S1.36 — STOP
+
+Esta adenda autoriza:
+
+portal architecture
+service contracts
+upload architecture
+job state model
+payment boundary
+delivery architecture
+benchmark framework
+
+NO autoriza todavía:
+
+public production launch
+real payment collection
+uncontrolled customer uploads
+autonomous professional certification
+mass commercial processing
+
+Integrar con 97A-07 y sus pruebas.
+
+FIN ADENDA 97A-07-S1.

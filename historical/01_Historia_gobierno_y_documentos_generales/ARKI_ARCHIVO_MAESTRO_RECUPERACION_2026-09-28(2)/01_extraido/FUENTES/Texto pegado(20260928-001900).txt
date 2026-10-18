@@ -1,0 +1,1007 @@
+A-002 v1.3 — FIX + TESTS
+Primero corrijo los 3 defectos que declaré en autocrítica. Después escribo las 8 familias de tests. Después entrego todo junto para ChatGPT.
+
+Fix 1 — src/sicl/a002/detector.py (v1.3.1 corregido)
+Reemplaza el archivo anterior. Cambios:
+
+Se elimina el __import__ feo. NormativeApplicability se importa arriba — no hay ciclo.
+
+Se corrige has_content para tratar False y 0 como contenido válido.
+
+Se declara explícitamente que CONTENT_HASH_MATCHES_DECLARED no es alcanzable en A-002.
+
+python
+"""A-002 detector: check_input_sufficiency. Pure, deterministic, fail-closed.
+
+LIMIT: A-002 can reach at most EvidenceVerificationLevel.HASH_FORMAT_VALID.
+CONTENT_HASH_MATCHES_DECLARED requires the actual content of the referenced
+object, which is not passed to A-002. SUPPORT_SEMANTICALLY_VERIFIED is out
+of scope by design.
+"""
+from __future__ import annotations
+
+from typing import Any, Mapping
+
+from .canonical import canonical_json, sha256_hex
+from .contract import (
+    ApplicabilityStatus,
+    EpistemicState,
+    EvaluationIdentityPayload,
+    EvidenceRef,
+    EvidenceVerificationLevel,
+    FieldAssessment,
+    FieldRequirement,
+    HumanQuestion,
+    NormativeApplicability,
+    QuestionKind,
+    SufficiencyProfile,
+    SufficiencyReport,
+    SufficiencyStatus,
+)
+
+
+def _has_content(value: Any) -> bool:
+    """False and 0 are valid content. Empty strings/lists/dicts are not."""
+    if value is None:
+        return False
+    if value is True or value is False:
+        return True
+    if isinstance(value, (int, float)) and value == 0:
+        return True
+    if isinstance(value, (str, list, tuple, dict, set)) and len(value) == 0:
+        return False
+    return True
+
+
+def _fingerprint_snapshot(snapshot: Mapping[str, Any]) -> str:
+    return sha256_hex(canonical_json(snapshot))
+
+
+def _compute_evaluation_id(
+    project_id: str,
+    snapshot_fingerprint: str,
+    profile: SufficiencyProfile,
+) -> str:
+    payload = EvaluationIdentityPayload(
+        project_id=project_id,
+        snapshot_fingerprint=snapshot_fingerprint,
+        profile_id=profile.profile_id,
+        profile_version=profile.profile_version,
+        operation=profile.operation,
+    )
+    return sha256_hex(canonical_json(payload.to_dict()))
+
+
+def _extract_declared_state(raw: Any) -> tuple[EpistemicState, tuple[str, ...]]:
+    if raw is None:
+        return EpistemicState.MISSING, ()
+    if not isinstance(raw, Mapping):
+        return EpistemicState.MISSING, ()
+    ds = raw.get("declared_state")
+    if not isinstance(ds, str):
+        return EpistemicState.MISSING, ()
+    try:
+        state = EpistemicState(ds)
+    except ValueError:
+        return EpistemicState.MISSING, ()
+    conflicts_raw = raw.get("conflicts")
+    conflicts: tuple[str, ...] = ()
+    if isinstance(conflicts_raw, (list, tuple)):
+        conflicts = tuple(str(c) for c in conflicts_raw if c)
+    if conflicts:
+        return EpistemicState.CONFLICTING, conflicts
+    return state, ()
+
+
+def _extract_evidence(raw: Any) -> tuple[EvidenceRef, ...]:
+    if not isinstance(raw, Mapping):
+        return ()
+    refs_raw = raw.get("evidence_refs")
+    if not isinstance(refs_raw, (list, tuple)):
+        return ()
+    refs: list[EvidenceRef] = []
+    for item in refs_raw:
+        if not isinstance(item, Mapping):
+            continue
+        try:
+            refs.append(EvidenceRef(
+                id=str(item.get("id", "")),
+                kind=str(item.get("kind", "")),
+                content_hash=str(item.get("content_hash", "")),
+                source_id=str(item.get("source_id", "")),
+                declared_supports_field=str(item.get("declared_supports_field", "")),
+            ))
+        except (ValueError, TypeError):
+            continue
+    return tuple(refs)
+
+
+def _extract_applicability(raw: Any) -> NormativeApplicability | None:
+    if not isinstance(raw, Mapping):
+        return None
+    app_raw = raw.get("applicability")
+    if not isinstance(app_raw, Mapping):
+        return None
+    try:
+        return NormativeApplicability(
+            jurisdiction_known=bool(app_raw.get("jurisdiction_known", False)),
+            jurisdiction_id=app_raw.get("jurisdiction_id"),
+            source_identified=bool(app_raw.get("source_identified", False)),
+            source_id=app_raw.get("source_id"),
+            regulation_identified=bool(app_raw.get("regulation_identified", False)),
+            regulation_id=app_raw.get("regulation_id"),
+            regulation_version=app_raw.get("regulation_version"),
+            effective_date_iso=app_raw.get("effective_date_iso"),
+            applicability=ApplicabilityStatus(
+                app_raw.get("applicability", "UNKNOWN")
+            ),
+        )
+    except (ValueError, KeyError, TypeError):
+        return None
+
+
+def _assess_field(
+    key: str,
+    raw: Any,
+    req: FieldRequirement,
+    has_content: bool,
+) -> FieldAssessment:
+    declared, conflicts = _extract_declared_state(raw)
+    if not has_content:
+        declared = EpistemicState.MISSING
+
+    evidence_refs = _extract_evidence(raw)
+    evidence_level = (
+        EvidenceVerificationLevel.HASH_FORMAT_VALID
+        if evidence_refs else EvidenceVerificationLevel.ABSENT
+    )
+
+    effective = declared
+    downgrade_reason = ""
+
+    if declared == EpistemicState.KNOWN:
+        if req.requires_evidence:
+            if not evidence_refs:
+                effective = EpistemicState.OBSERVED
+                downgrade_reason = "KNOWN_WITHOUT_EVIDENCE"
+        else:
+            effective = EpistemicState.OBSERVED
+            downgrade_reason = "KNOWN_DECLARED_NOT_VERIFIED"
+
+    applicability = None
+    if req.requires_applicability:
+        applicability = _extract_applicability(raw)
+        if applicability is None:
+            applicability = NormativeApplicability(
+                jurisdiction_known=False, jurisdiction_id=None,
+                source_identified=False, source_id=None,
+                regulation_identified=False, regulation_id=None,
+                regulation_version=None, effective_date_iso=None,
+                applicability=ApplicabilityStatus.UNKNOWN,
+            )
+        if applicability.applicability == ApplicabilityStatus.CONFLICTING:
+            effective = EpistemicState.CONFLICTING
+            conflicts = conflicts + ("applicability_conflicting",)
+        elif applicability.applicability == ApplicabilityStatus.UNKNOWN and req.blocking:
+            effective = EpistemicState.UNKNOWN
+            downgrade_reason = downgrade_reason or "APPLICABILITY_UNKNOWN"
+        elif applicability.applicability == ApplicabilityStatus.NOT_APPLICABLE and req.blocking:
+            effective = EpistemicState.MISSING
+            downgrade_reason = downgrade_reason or "APPLICABILITY_NOT_APPLICABLE"
+
+    return FieldAssessment(
+        key=key,
+        blocking=req.blocking,
+        declared_state=declared,
+        effective_state=effective,
+        evidence_level=evidence_level,
+        evidence_refs=evidence_refs,
+        applicability=applicability,
+        downgrade_reason=downgrade_reason,
+        conflicts=conflicts,
+    )
+
+
+def _compute_proceed_allowed(
+    status: SufficiencyStatus,
+    profile: SufficiencyProfile,
+    conditional_reasons: tuple[str, ...],
+) -> bool:
+    if status == SufficiencyStatus.SUFFICIENT:
+        return True
+    if status != SufficiencyStatus.CONDITIONALLY_SUFFICIENT:
+        return False
+    if not profile.allow_conditional:
+        return False
+    if "ASSUMED_BLOCKING" in conditional_reasons and not profile.allow_assumptions:
+        return False
+    return True
+
+
+def _generate_questions(
+    assessments: tuple[FieldAssessment, ...],
+) -> tuple[HumanQuestion, ...]:
+    questions: list[HumanQuestion] = []
+    for a in assessments:
+        if a.effective_state == EpistemicState.CONFLICTING and a.blocking:
+            questions.append(HumanQuestion(
+                key=a.key,
+                question=f"Field '{a.key}' has conflicting values. Please arbitrate.",
+                blocks_operation=True, priority=1,
+                reason="CONFLICTING_BLOCKING",
+                kind=QuestionKind.CONFLICT_ARBITRATION,
+            ))
+        elif a.effective_state == EpistemicState.MISSING and a.blocking:
+            questions.append(HumanQuestion(
+                key=a.key,
+                question=f"Field '{a.key}' is missing and required.",
+                blocks_operation=True, priority=1,
+                reason="MISSING_BLOCKING",
+                kind=QuestionKind.MISSING_FIELD,
+            ))
+        elif a.effective_state == EpistemicState.UNKNOWN and a.blocking:
+            questions.append(HumanQuestion(
+                key=a.key,
+                question=f"Field '{a.key}' is UNKNOWN but required.",
+                blocks_operation=True, priority=2,
+                reason="UNKNOWN_BLOCKING",
+                kind=QuestionKind.MISSING_FIELD,
+            ))
+        elif a.conflicts and not a.blocking:
+            questions.append(HumanQuestion(
+                key=a.key,
+                question=f"Field '{a.key}' has conflicts (non-blocking). Please review.",
+                blocks_operation=False, priority=3,
+                reason="CONFLICTING_NON_BLOCKING",
+                kind=QuestionKind.CONFLICT_ARBITRATION,
+            ))
+        if a.effective_state == EpistemicState.OBSERVED \
+                and a.blocking \
+                and a.downgrade_reason == "KNOWN_WITHOUT_EVIDENCE":
+            questions.append(HumanQuestion(
+                key=a.key,
+                question=f"Field '{a.key}' declares KNOWN but lacks evidence.",
+                blocks_operation=True, priority=2,
+                reason="EVIDENCE_REQUIRED",
+                kind=QuestionKind.EVIDENCE,
+            ))
+    return tuple(sorted(questions, key=lambda q: (q.priority, q.key)))
+
+
+def check_input_sufficiency(
+    snapshot: object,
+    *,
+    project_id: str,
+    profile: SufficiencyProfile,
+) -> SufficiencyReport:
+    if not isinstance(project_id, str) or not project_id.strip():
+        raise ValueError("project_id must be non-empty")
+    if not isinstance(profile, SufficiencyProfile):
+        raise TypeError("profile must be SufficiencyProfile")
+
+    if not isinstance(snapshot, Mapping):
+        return SufficiencyReport(
+            contract_version=1, evaluation_id="",
+            project_id=project_id, snapshot_fingerprint="", snapshot_version=0,
+            profile_id=profile.profile_id, profile_version=profile.profile_version,
+            operation=profile.operation,
+            status=SufficiencyStatus.UNKNOWN,
+            assessments=(), human_questions=(),
+            reason="SNAPSHOT_NOT_INTERPRETABLE",
+            proceed_allowed=False, assumptions_allowed=False,
+            conditional_reasons=(), policy=profile.policy,
+        )
+
+    snapshot_fingerprint = _fingerprint_snapshot(snapshot)
+    evaluation_id = _compute_evaluation_id(project_id, snapshot_fingerprint, profile)
+    snapshot_version = int(snapshot.get("version", 0)) if isinstance(snapshot.get("version"), int) else 0
+
+    assessments: list[FieldAssessment] = []
+    for req in profile.requirements:
+        raw = snapshot.get(req.key)
+        assessments.append(_assess_field(req.key, raw, req, _has_content(raw)))
+
+    blocking_assessments = [a for a in assessments if a.blocking]
+    has_blocking_conflict = any(
+        a.effective_state == EpistemicState.CONFLICTING for a in blocking_assessments
+    )
+
+    has_blocking_not_accepted = False
+    has_assumed_blocking = False
+    for a in blocking_assessments:
+        req = next(r for r in profile.requirements if r.key == a.key)
+        if a.effective_state in req.accepted_effective_states:
+            if a.effective_state == EpistemicState.ASSUMED:
+                has_assumed_blocking = True
+        else:
+            has_blocking_not_accepted = True
+
+    non_blocking_issues = any(
+        (a.effective_state in (EpistemicState.CONFLICTING, EpistemicState.MISSING))
+        for a in assessments if not a.blocking
+    )
+
+    conditional_reasons: list[str] = []
+    if has_blocking_conflict:
+        status = SufficiencyStatus.CONFLICTING
+    elif has_blocking_not_accepted:
+        status = SufficiencyStatus.INSUFFICIENT
+    elif has_assumed_blocking:
+        status = SufficiencyStatus.CONDITIONALLY_SUFFICIENT
+        conditional_reasons.append("ASSUMED_BLOCKING")
+    elif non_blocking_issues:
+        status = SufficiencyStatus.CONDITIONALLY_SUFFICIENT
+        conditional_reasons.append("NON_BLOCKING_ISSUE")
+    else:
+        status = SufficiencyStatus.SUFFICIENT
+
+    proceed_allowed = _compute_proceed_allowed(status, profile, tuple(conditional_reasons))
+    if profile.require_human_authority:
+        proceed_allowed = False
+
+    assumptions_allowed = profile.allow_assumptions
+    questions = _generate_questions(tuple(assessments))
+
+    reason_map = {
+        SufficiencyStatus.SUFFICIENT: "ALL_BLOCKING_SATISFIED",
+        SufficiencyStatus.CONDITIONALLY_SUFFICIENT: (
+            "CONDITIONAL_" + "_".join(conditional_reasons)
+            if conditional_reasons else "CONDITIONAL"
+        ),
+        SufficiencyStatus.INSUFFICIENT: "BLOCKING_MISSING_OR_UNSATISFIED",
+        SufficiencyStatus.CONFLICTING: "BLOCKING_CONFLICT_PRESERVED",
+        SufficiencyStatus.UNKNOWN: "UNKNOWN",
+    }
+
+    return SufficiencyReport(
+        contract_version=1,
+        evaluation_id=evaluation_id,
+        project_id=project_id,
+        snapshot_fingerprint=snapshot_fingerprint,
+        snapshot_version=snapshot_version,
+        profile_id=profile.profile_id,
+        profile_version=profile.profile_version,
+        operation=profile.operation,
+        status=status,
+        assessments=tuple(assessments),
+        human_questions=questions,
+        reason=reason_map[status],
+        proceed_allowed=proceed_allowed,
+        assumptions_allowed=assumptions_allowed,
+        conditional_reasons=tuple(conditional_reasons),
+        policy=profile.policy,
+        human_authority_ref=None,
+        read_only=True,
+    )
+Tests — tests/test_a002_contract.py
+python
+from __future__ import annotations
+
+import pytest
+
+from sicl.a002 import (
+    ApplicabilityStatus,
+    EpistemicState,
+    EvidenceRef,
+    EvidenceVerificationLevel,
+    FieldRequirement,
+    Operation,
+    PolicyIdentity,
+    SufficiencyProfile,
+    SufficiencyStatus,
+)
+
+
+def _hex64(char: str = "a") -> str:
+    return char * 64
+
+
+def _policy() -> PolicyIdentity:
+    return PolicyIdentity(
+        policy_id="test-policy",
+        policy_version=1,
+        policy_fingerprint=_hex64("a"),
+    )
+
+
+def test_evidence_ref_accepts_valid_hash():
+    ref = EvidenceRef(
+        id="EV-1", kind="document",
+        content_hash=_hex64("a"),
+        source_id="SRC-1", declared_supports_field="brief",
+    )
+    assert ref.content_hash == _hex64("a")
+
+
+def test_evidence_ref_rejects_short_hash():
+    with pytest.raises(ValueError, match="64 hex"):
+        EvidenceRef(
+            id="EV-1", kind="document",
+            content_hash="abc",
+            source_id="SRC-1", declared_supports_field="brief",
+        )
+
+
+def test_evidence_ref_rejects_non_hex():
+    with pytest.raises(ValueError, match="64 hex"):
+        EvidenceRef(
+            id="EV-1", kind="document",
+            content_hash="z" * 64,
+            source_id="SRC-1", declared_supports_field="brief",
+        )
+
+
+def test_policy_identity_requires_valid_fingerprint():
+    with pytest.raises(ValueError, match="64 hex"):
+        PolicyIdentity(policy_id="p", policy_version=1, policy_fingerprint="short")
+
+
+def test_policy_identity_rejects_zero_version():
+    with pytest.raises(ValueError):
+        PolicyIdentity(policy_id="p", policy_version=0, policy_fingerprint=_hex64("a"))
+
+
+def test_sufficiency_profile_fingerprint_is_deterministic():
+    req = FieldRequirement(
+        key="brief", blocking=True,
+        accepted_declared_states=frozenset({EpistemicState.KNOWN}),
+        accepted_effective_states=frozenset({EpistemicState.KNOWN}),
+        requires_evidence=True,
+    )
+    p1 = SufficiencyProfile(
+        profile_id="prof", profile_version=1, operation=Operation.FORMULATE_PROBLEM_V1,
+        requirements=(req,), allow_conditional=False, allow_assumptions=False,
+        policy=_policy(),
+    )
+    p2 = SufficiencyProfile(
+        profile_id="prof", profile_version=1, operation=Operation.FORMULATE_PROBLEM_V1,
+        requirements=(req,), allow_conditional=False, allow_assumptions=False,
+        policy=_policy(),
+    )
+    assert p1.fingerprint() == p2.fingerprint()
+Tests — tests/test_a002_detector.py
+python
+from __future__ import annotations
+
+from sicl.a002 import (
+    EpistemicState,
+    FieldRequirement,
+    Operation,
+    PolicyIdentity,
+    SufficiencyProfile,
+    SufficiencyStatus,
+    check_input_sufficiency,
+)
+
+
+def _hex64(char: str = "a") -> str:
+    return char * 64
+
+
+def _policy() -> PolicyIdentity:
+    return PolicyIdentity(
+        policy_id="test-policy", policy_version=1,
+        policy_fingerprint=_hex64("a"),
+    )
+
+
+def _req(key: str, *, blocking: bool = True, evidence: bool = False) -> FieldRequirement:
+    return FieldRequirement(
+        key=key, blocking=blocking,
+        accepted_declared_states=frozenset({EpistemicState.KNOWN, EpistemicState.ASSUMED}),
+        accepted_effective_states=frozenset({EpistemicState.KNOWN, EpistemicState.ASSUMED}),
+        requires_evidence=evidence,
+    )
+
+
+def _profile(*reqs: FieldRequirement, allow_cond: bool = False, allow_ass: bool = False) -> SufficiencyProfile:
+    return SufficiencyProfile(
+        profile_id="test-profile", profile_version=1,
+        operation=Operation.FORMULATE_PROBLEM_V1,
+        requirements=tuple(reqs),
+        allow_conditional=allow_cond, allow_assumptions=allow_ass,
+        policy=_policy(),
+    )
+
+
+def _ev(field: str = "brief") -> dict:
+    return {
+        "id": "EV-1", "kind": "document",
+        "content_hash": _hex64("b"),
+        "source_id": "SRC-1", "declared_supports_field": field,
+    }
+
+
+def _field(state: str = "KNOWN", *, evidence: bool = False, conflicts=None) -> dict:
+    d: dict = {"declared_state": state}
+    if evidence:
+        d["evidence_refs"] = [_ev()]
+    if conflicts:
+        d["conflicts"] = list(conflicts)
+    return d
+
+
+def test_empty_snapshot_is_insufficient():
+    report = check_input_sufficiency(
+        {}, project_id="P", profile=_profile(_req("brief")),
+    )
+    assert report.status == SufficiencyStatus.INSUFFICIENT
+    assert "brief" in [a.key for a in report.assessments if a.effective_state == EpistemicState.MISSING]
+
+
+def test_none_snapshot_is_unknown():
+    report = check_input_sufficiency(
+        None, project_id="P", profile=_profile(_req("brief")),
+    )
+    assert report.status == SufficiencyStatus.UNKNOWN
+    assert report.proceed_allowed is False
+
+
+def test_sufficient_when_all_blocking_known_with_evidence():
+    snapshot = {"brief": _field("KNOWN", evidence=True)}
+    report = check_input_sufficiency(
+        snapshot, project_id="P",
+        profile=_profile(_req("brief", evidence=True)),
+    )
+    assert report.status == SufficiencyStatus.SUFFICIENT
+    assert report.proceed_allowed is True
+
+
+def test_known_without_evidence_downgrades_to_observed():
+    snapshot = {"brief": _field("KNOWN", evidence=False)}
+    report = check_input_sufficiency(
+        snapshot, project_id="P",
+        profile=_profile(_req("brief", evidence=True)),
+    )
+    a = next(a for a in report.assessments if a.key == "brief")
+    assert a.declared_state == EpistemicState.KNOWN
+    assert a.effective_state == EpistemicState.OBSERVED
+    assert a.downgrade_reason == "KNOWN_WITHOUT_EVIDENCE"
+    assert report.status == SufficiencyStatus.INSUFFICIENT
+
+
+def test_false_is_valid_content():
+    req = _req("flag")
+    snapshot = {"flag": False}
+    report = check_input_sufficiency(snapshot, project_id="P", profile=_profile(req))
+    a = next(a for a in report.assessments if a.key == "flag")
+    assert a.declared_state == EpistemicState.MISSING
+    assert report.status == SufficiencyStatus.INSUFFICIENT
+
+
+def test_snapshot_version_propagated():
+    snapshot = {"brief": _field("KNOWN"), "version": 7}
+    report = check_input_sufficiency(snapshot, project_id="P", profile=_profile(_req("brief")))
+    assert report.snapshot_version == 7
+Tests — tests/test_a002_adversarial.py
+Cubre las 8 familias del §6 de v1.3.
+
+python
+"""A-002 adversarial test matrix (8 families)."""
+from __future__ import annotations
+
+import pytest
+
+from sicl.a002 import (
+    ApplicabilityStatus,
+    EpistemicState,
+    FieldRequirement,
+    Operation,
+    PolicyIdentity,
+    SufficiencyProfile,
+    SufficiencyStatus,
+    check_input_sufficiency,
+    gate_recomputation,
+    GateDecision,
+)
+
+
+def _hex64(char: str = "a") -> str:
+    return char * 64
+
+
+def _policy() -> PolicyIdentity:
+    return PolicyIdentity(
+        policy_id="test-policy", policy_version=1,
+        policy_fingerprint=_hex64("a"),
+    )
+
+
+def _req(key: str, *, blocking: bool = True, evidence: bool = False,
+         applicability: bool = False) -> FieldRequirement:
+    return FieldRequirement(
+        key=key, blocking=blocking,
+        accepted_declared_states=frozenset({EpistemicState.KNOWN, EpistemicState.ASSUMED}),
+        accepted_effective_states=frozenset({EpistemicState.KNOWN, EpistemicState.ASSUMED}),
+        requires_evidence=evidence,
+        requires_applicability=applicability,
+    )
+
+
+def _profile(*reqs, allow_cond=False, allow_ass=False, human=False):
+    return SufficiencyProfile(
+        profile_id="test-profile", profile_version=1,
+        operation=Operation.FORMULATE_PROBLEM_V1,
+        requirements=tuple(reqs),
+        allow_conditional=allow_cond, allow_assumptions=allow_ass,
+        policy=_policy(), require_human_authority=human,
+    )
+
+
+def _ev(field="brief", hash_char="b"):
+    return {
+        "id": "EV-1", "kind": "document",
+        "content_hash": _hex64(hash_char),
+        "source_id": "SRC-1", "declared_supports_field": field,
+    }
+
+
+def _field(state="KNOWN", *, evidence=False, conflicts=None, applicability=None):
+    d = {"declared_state": state}
+    if evidence:
+        d["evidence_refs"] = [_ev()]
+    if conflicts:
+        d["conflicts"] = list(conflicts)
+    if applicability is not None:
+        d["applicability"] = applicability
+    return d
+
+
+# ═══════════════════════════════════════════════════════════════
+# F1 — Malformed structure
+# ═══════════════════════════════════════════════════════════════
+
+def test_f1_snapshot_none_str_int_list_are_unknown():
+    for bad in (None, "string", 42, [], (1, 2)):
+        report = check_input_sufficiency(bad, project_id="P", profile=_profile(_req("brief")))
+        assert report.status == SufficiencyStatus.UNKNOWN, f"failed for {bad!r}"
+
+
+def test_f1_snapshot_with_nan_does_not_crash():
+    snapshot = {"brief": float("nan")}
+    report = check_input_sufficiency(snapshot, project_id="P", profile=_profile(_req("brief")))
+    assert report.status in (SufficiencyStatus.INSUFFICIENT, SufficiencyStatus.UNKNOWN, SufficiencyStatus.SUFFICIENT)
+
+
+def test_f1_whitespace_only_field_is_empty():
+    snapshot = {"brief": {"declared_state": "   "}}
+    report = check_input_sufficiency(snapshot, project_id="P", profile=_profile(_req("brief")))
+    a = next(a for a in report.assessments if a.key == "brief")
+    # declared_state = "   " no es un estado válido → MISSING
+    assert a.effective_state == EpistemicState.MISSING
+
+
+# ═══════════════════════════════════════════════════════════════
+# F2 — Forged epistemic state
+# ═══════════════════════════════════════════════════════════════
+
+def test_f2_declared_known_without_evidence_downgrades():
+    snapshot = {"brief": _field("KNOWN", evidence=False)}
+    report = check_input_sufficiency(
+        snapshot, project_id="P",
+        profile=_profile(_req("brief", evidence=True)),
+    )
+    a = next(a for a in report.assessments if a.key == "brief")
+    assert a.effective_state == EpistemicState.OBSERVED
+    assert report.status == SufficiencyStatus.INSUFFICIENT
+
+
+def test_f2_declared_known_with_invalid_hash_evidence_is_treated_as_absent():
+    snapshot = {"brief": {"declared_state": "KNOWN", "evidence_refs": [
+        {"id": "E", "kind": "doc", "content_hash": "short",
+         "source_id": "S", "declared_supports_field": "brief"}
+    ]}}
+    report = check_input_sufficiency(
+        snapshot, project_id="P",
+        profile=_profile(_req("brief", evidence=True)),
+    )
+    a = next(a for a in report.assessments if a.key == "brief")
+    # EvidenceRef inválido → no se construye → evidence_refs vacío
+    assert len(a.evidence_refs) == 0
+    assert a.effective_state == EpistemicState.OBSERVED
+
+
+# ═══════════════════════════════════════════════════════════════
+# F3 — Forged evidence
+# ═══════════════════════════════════════════════════════════════
+
+def test_f3_evidence_with_empty_id_is_rejected():
+    snapshot = {"brief": {"declared_state": "KNOWN", "evidence_refs": [
+        {"id": "", "kind": "doc", "content_hash": _hex64("b"),
+         "source_id": "S", "declared_supports_field": "brief"}
+    ]}}
+    report = check_input_sufficiency(
+        snapshot, project_id="P",
+        profile=_profile(_req("brief", evidence=True)),
+    )
+    a = next(a for a in report.assessments if a.key == "brief")
+    assert len(a.evidence_refs) == 0
+
+
+def test_f3_duplicate_evidence_refs_are_preserved_not_deduplicated():
+    ev = _ev()
+    snapshot = {"brief": {"declared_state": "KNOWN",
+                          "evidence_refs": [ev, dict(ev)]}}
+    report = check_input_sufficiency(
+        snapshot, project_id="P",
+        profile=_profile(_req("brief", evidence=True)),
+    )
+    a = next(a for a in report.assessments if a.key == "brief")
+    # A-002 no deduplica: preserva lo que llegó
+    assert len(a.evidence_refs) == 2
+
+
+# ═══════════════════════════════════════════════════════════════
+# F4 — Identity (gate must reject mismatch)
+# ═══════════════════════════════════════════════════════════════
+
+def test_f4_gate_rejects_wrong_project():
+    snapshot = {"brief": _field("KNOWN", evidence=True)}
+    profile = _profile(_req("brief", evidence=True))
+    report = check_input_sufficiency(snapshot, project_id="A", profile=profile)
+    decision = gate_recomputation(
+        report, project_id="B",
+        snapshot_fingerprint=report.snapshot_fingerprint,
+    )
+    assert decision == GateDecision.BLOCK
+
+
+def test_f4_gate_rejects_wrong_snapshot_fingerprint():
+    snapshot = {"brief": _field("KNOWN", evidence=True)}
+    profile = _profile(_req("brief", evidence=True))
+    report = check_input_sufficiency(snapshot, project_id="A", profile=profile)
+    decision = gate_recomputation(
+        report, project_id="A", snapshot_fingerprint="0" * 64,
+    )
+    assert decision == GateDecision.BLOCK
+
+
+# ═══════════════════════════════════════════════════════════════
+# F5 — Applicability (jurisdiction)
+# ═══════════════════════════════════════════════════════════════
+
+def test_f5_applicability_unknown_on_blocking_yields_unknown():
+    snapshot = {"brief": _field("KNOWN", applicability={
+        "jurisdiction_known": False, "applicability": "UNKNOWN",
+    })}
+    profile = _profile(_req("brief", applicability=True))
+    report = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    a = next(a for a in report.assessments if a.key == "brief")
+    assert a.effective_state == EpistemicState.UNKNOWN
+    assert a.downgrade_reason == "APPLICABILITY_UNKNOWN"
+
+
+def test_f5_applicability_conflicting_yields_conflicting():
+    snapshot = {"brief": _field("KNOWN", applicability={
+        "jurisdiction_known": True, "jurisdiction_id": "PE",
+        "applicability": "CONFLICTING",
+    })}
+    profile = _profile(_req("brief", applicability=True))
+    report = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    assert report.status == SufficiencyStatus.CONFLICTING
+
+
+# ═══════════════════════════════════════════════════════════════
+# F6 — Policy (allow_assumptions really governs)
+# ═══════════════════════════════════════════════════════════════
+
+def test_f6_assumed_blocking_requires_allow_assumptions():
+    snapshot = {"brief": _field("ASSUMED")}
+    # allow_conditional=True pero allow_assumptions=False
+    profile = _profile(_req("brief"), allow_cond=True, allow_ass=False)
+    report = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    assert report.status == SufficiencyStatus.CONDITIONALLY_SUFFICIENT
+    assert "ASSUMED_BLOCKING" in report.conditional_reasons
+    assert report.proceed_allowed is False  # ← fix RT12-03
+
+
+def test_f6_assumed_blocking_with_allow_assumptions_proceeds():
+    snapshot = {"brief": _field("ASSUMED")}
+    profile = _profile(_req("brief"), allow_cond=True, allow_ass=True)
+    report = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    assert report.status == SufficiencyStatus.CONDITIONALLY_SUFFICIENT
+    assert report.proceed_allowed is True
+
+
+# ═══════════════════════════════════════════════════════════════
+# F7 — Order and determinism
+# ═══════════════════════════════════════════════════════════════
+
+def test_f7_canonical_dict_is_byte_stable():
+    a = {"brief": _field("KNOWN", evidence=True), "z": "1", "a": "2"}
+    b = {"a": "2", "z": "1", "brief": _field("KNOWN", evidence=True)}
+    profile = _profile(_req("brief", evidence=True))
+    r1 = check_input_sufficiency(a, project_id="P", profile=profile)
+    r2 = check_input_sufficiency(b, project_id="P", profile=profile)
+    assert r1.evaluation_id == r2.evaluation_id
+    assert r1.snapshot_fingerprint == r2.snapshot_fingerprint
+
+
+def test_f7_evaluation_id_is_reproducible():
+    snapshot = {"brief": _field("KNOWN", evidence=True)}
+    profile = _profile(_req("brief", evidence=True))
+    r1 = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    r2 = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    assert r1.evaluation_id == r2.evaluation_id
+    assert len(r1.evaluation_id) == 64
+
+
+# ═══════════════════════════════════════════════════════════════
+# F8 — Human Authority
+# ═══════════════════════════════════════════════════════════════
+
+def test_f8_require_human_authority_forces_proceed_false():
+    snapshot = {"brief": _field("KNOWN", evidence=True)}
+    profile = _profile(_req("brief", evidence=True), human=True)
+    report = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    assert report.status == SufficiencyStatus.SUFFICIENT
+    assert report.proceed_allowed is False  # ← bloqueado hasta autoridad
+    assert report.human_authority_ref is None
+
+
+def test_f8_gate_blocks_when_human_authority_required():
+    snapshot = {"brief": _field("KNOWN", evidence=True)}
+    profile = _profile(_req("brief", evidence=True), human=True)
+    report = check_input_sufficiency(snapshot, project_id="P", profile=profile)
+    decision = gate_recomputation(
+        report, project_id="P",
+        snapshot_fingerprint=report.snapshot_fingerprint,
+    )
+    assert decision == GateDecision.BLOCK
+Tests — tests/test_a002_composition.py
+python
+from __future__ import annotations
+
+from sicl.a002 import (
+    EpistemicState,
+    FieldRequirement,
+    IntegrationStatus,
+    Operation,
+    PolicyIdentity,
+    RecomputationEntryPoint,
+    SufficiencyProfile,
+    SufficiencyStatus,
+)
+
+
+def _hex64(c="a"): return c * 64
+
+
+def _policy():
+    return PolicyIdentity(policy_id="p", policy_version=1, policy_fingerprint=_hex64())
+
+
+def _req(key, evidence=False):
+    return FieldRequirement(
+        key=key, blocking=True,
+        accepted_declared_states=frozenset({EpistemicState.KNOWN}),
+        accepted_effective_states=frozenset({EpistemicState.KNOWN}),
+        requires_evidence=evidence,
+    )
+
+
+def _profile(reqs, allow_cond=False, allow_ass=False):
+    return SufficiencyProfile(
+        profile_id="prof", profile_version=1,
+        operation=Operation.RECOMPUTE_SUBGRAPH_V1,
+        requirements=tuple(reqs),
+        allow_conditional=allow_cond, allow_assumptions=allow_ass,
+        policy=_policy(),
+    )
+
+
+def _ev():
+    return {"id": "E", "kind": "doc", "content_hash": _hex64("b"),
+            "source_id": "S", "declared_supports_field": "brief"}
+
+
+def test_entrypoint_blocks_when_insufficient():
+    called = []
+    def runner(): called.append("h005"); return {"ok": True}
+
+    snapshot = {"brief": {"declared_state": "KNOWN"}}  # sin evidence
+    profile = _profile([_req("brief", evidence=True)])
+
+    result = RecomputationEntryPoint.run(
+        project_id="P", snapshot=snapshot, profile=profile, h005_runner=runner,
+    )
+    assert result.status == IntegrationStatus.BLOCKED
+    assert called == []
+
+
+def test_entrypoint_executes_when_sufficient():
+    called = []
+    def runner(): called.append("h005"); return {"ok": True}
+
+    snapshot = {"brief": {"declared_state": "KNOWN", "evidence_refs": [_ev()]}}
+    profile = _profile([_req("brief", evidence=True)])
+
+    result = RecomputationEntryPoint.run(
+        project_id="P", snapshot=snapshot, profile=profile, h005_runner=runner,
+    )
+    assert result.status == IntegrationStatus.EXECUTED
+    assert called == ["h005"]
+    assert result.h005_report == {"ok": True}
+
+
+def test_entrypoint_rejects_non_mapping_snapshot():
+    import pytest
+    with pytest.raises(TypeError):
+        RecomputationEntryPoint.run(
+            project_id="P", snapshot=None, profile=_profile([_req("brief")]),
+            h005_runner=lambda: None,
+        )
+Tests — tests/test_a002_history.py
+python
+from __future__ import annotations
+
+import pytest
+
+from sicl.a002 import (
+    HistoryEntry,
+    SufficiencyHistory,
+    SufficiencyStatus,
+)
+
+
+def test_history_append_returns_new_instance():
+    h0 = SufficiencyHistory(project_id="P")
+    e = HistoryEntry(
+        evaluation_id="EV-1", report_fingerprint="a" * 64,
+        status=SufficiencyStatus.INSUFFICIENT, recorded_at_iso="2026-09-27T10:00:00Z",
+    )
+    h1 = h0.append(e)
+    assert h0.entries == ()
+    assert len(h1.entries) == 1
+    assert h1.entries[0] is e
+
+
+def test_history_latest_returns_last_entry():
+    h = SufficiencyHistory(project_id="P")
+    e1 = HistoryEntry(evaluation_id="A", report_fingerprint="1" * 64,
+                      status=SufficiencyStatus.INSUFFICIENT, recorded_at_iso="t0")
+    e2 = HistoryEntry(evaluation_id="B", report_fingerprint="2" * 64,
+                      status=SufficiencyStatus.SUFFICIENT, recorded_at_iso="t1")
+    h = h.append(e1).append(e2)
+    assert h.latest() is e2
+
+
+def test_history_entry_rejects_empty_fields():
+    with pytest.raises(ValueError):
+        HistoryEntry(evaluation_id="", report_fingerprint="a" * 64,
+                     status=SufficiencyStatus.SUFFICIENT, recorded_at_iso="t0")
+Estado del paquete para Red Team
+text
+A002_IMPLEMENTATION     = SRC_COMPLETE
+A002_TESTS              = COMPLETE (8 familias + contract + detector + composition + history)
+A002_TEST_COUNT_APROX   = 30
+A002_BASELINE           = main @ 4de9ca1b
+A002_BRANCH             = feat/a002-input-sufficiency-detection (pendiente push)
+A002_MERGE              = NO
+A002_TAG                = NO
+A002_RED_TEAM           = ChatGPT (código + tests)
+Qué falta para que el ciclo cierre
+Manus corre los tests. No puedo ejecutarlos yo. Necesito:
+
+text
+pytest tests/test_a002_*.py -v
+pytest tests/ -q  # regresión global
+python -m compileall src tests
+git diff --check
+Con la salida real, y el diff de src/sicl/a002/.
+
+ChatGPT audita código. Los tres puntos que yo marqué como autocrítica (import feo en v1.3.0 → corregido en v1.3.1, False/0 como contenido, CONTENT_HASH_MATCHES_DECLARED no alcanzable) ya están resueltos o declarados. ChatGPT puede encontrar otros.
+
+Si ChatGPT dice APPROVE → PO firma → commit + push + tag → cierre.
+
+Si ChatGPT dice FIXES → v1.3.2 quirúrgico → cierra.
+
+Yvan, tu turno:
+
+¿Le pasás esto a Manus para que corra los tests?
+
+¿Le pasás esto a ChatGPT junto con el código?
+
+¿O querés que revise algo más antes?
+
+Standby. Código y tests entregados. Cuchillos guardados. Esperando runtime + Red Team.

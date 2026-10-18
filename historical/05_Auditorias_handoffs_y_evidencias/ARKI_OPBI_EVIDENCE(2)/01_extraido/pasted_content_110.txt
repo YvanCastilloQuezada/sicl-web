@@ -1,0 +1,2256 @@
+ORDEN 97A-06 — ARKI PUBLIC PROCUREMENT, BID & COMPETITION INTELLIGENCE
+Opportunity Radar + Tender Intelligence + Bases Auditor + Bid Factory + Evidence Vault + Red Team + Competition Command Center
+
+Copia íntegramente a Manus:
+
+ORDEN 97A-06 — ARKI PUBLIC PROCUREMENT, BID & COMPETITION INTELLIGENCE
+Opportunity Intelligence + Public Procurement + Tender Auditing + Bid Production + Competition Intelligence
+
+Orden matriz: ORDEN 97A — ARKI Living Knowledge Integration v1.1
+Programa: ARKI-LKS-001
+Antecedentes: 97A-01 KCF + 97A-02 ACI + 97A-03 HAI + 97A-04 CFMI + 97A-05 ICWI
+Código provisional: ARKI-OPBI-001
+Tipo: Operational Intelligence + Procurement Intelligence + Bid Production + Competition Intelligence
+Prioridad: HIGH / STRATEGIC / PRODUCT
+Autoridad: Product Owner / Human Authority
+Jurisdicción inicial: Perú
+Marco temporal inicial: normativa vigente al momento de cada procedimiento
+
+Esta Orden es acumulativa.
+
+NO reemplaza, reinicia ni invalida 97A ni ninguna orden/adenda precedente.
+
+OPBI-01. MISIÓN
+
+Construir dentro de ARKI un sistema operativo capaz de:
+
+DISCOVER
+→ MONITOR
+→ CLASSIFY
+→ UNDERSTAND
+→ AUDIT
+→ QUALIFY
+→ COMPARE
+→ DECIDE
+→ PREPARE
+→ VERIFY
+→ SUBMIT
+→ TRACK
+→ LEARN
+
+oportunidades profesionales procedentes de:
+
+PUBLIC PROCUREMENT
++
+ARCHITECTURAL / URBAN / INFRASTRUCTURE COMPETITIONS
+
+preservando:
+
+LEGALITY
+EVIDENCE
+TRACEABILITY
+PROVENANCE
+CURRENT REGULATION
+HUMAN AUTHORITY
+OPBI-02. STRATEGIC OBJECTIVE
+
+ARKI deberá evolucionar desde:
+
+KNOWLEDGE SYSTEM
+
+hacia:
+
+KNOWLEDGE
++
+OPPORTUNITY INTELLIGENCE
++
+PARTICIPATION INTELLIGENCE
++
+PROJECT EXECUTION SUPPORT
++
+LEARNING FROM REAL OUTCOMES
+
+sin confundir estas funciones.
+
+OPBI-03. PROFESSIONAL LOOP
+
+Formalizar:
+
+LEARN
+↓
+DISCOVER OPPORTUNITY
+↓
+UNDERSTAND REQUIREMENTS
+↓
+ASSESS CAPABILITY
+↓
+IDENTIFY GAPS
+↓
+DECIDE
+↓
+PREPARE
+↓
+AUDIT
+↓
+PARTICIPATE
+↓
+RESULT
+↓
+LEARN
+↺
+OPBI-04. TWO PRIMARY COMMAND PANELS
+
+Crear dos paneles funcionalmente separados:
+
+ARKI OPPORTUNITY COMMAND CENTER
+│
+├── PUBLIC PROCUREMENT CENTER
+│
+└── COMPETITION CENTER
+
+No mezclarlos en una sola lista.
+
+Comparten infraestructura, conocimiento, Project State, Evidence y Human Authority.
+
+OPBI-05. NO AGENT PROLIFERATION
+
+Los componentes definidos en esta Orden son:
+
+competencies
+services
+engines
+auditors
+workflows
+views
+tools
+
+de ONE ARKI.
+
+No crear autónomamente:
+
+SEACEAgent
+TenderAgent
+LawyerAgent
+BidAgent
+AuditorAgent
+CompetitionAgent
+
+como inteligencias soberanas independientes.
+
+OPBI-06. PUBLIC PROCUREMENT CENTER
+
+Crear conceptualmente:
+
+ARKI PUBLIC PROCUREMENT CENTER
+│
+├── Opportunity Radar
+├── Early Opportunity Radar
+├── Tender Intelligence
+├── Bases Auditor
+├── Requirement Auditor
+├── Eligibility Engine
+├── Evidence Vault
+├── Observation Workspace
+├── Bid Factory
+├── Bid Red Team
+├── Contract Risk Review
+├── Submission Readiness
+├── Procedure Tracker
+└── Outcome Learning
+OPBI-07. INITIAL PUBLIC PROCUREMENT SOURCE
+
+La fuente operativa inicial para Perú será:
+
+SEACE / PLADICOP
+
+y otras fuentes oficiales cuando resulten necesarias.
+
+No asumir una API inexistente.
+
+OPBI-08. ACCESS SAFETY
+
+Antes de automatizar una fuente:
+
+verificar:
+
+ACCESS METHOD
+TERMS
+TECHNICAL STABILITY
+PUBLIC AVAILABILITY
+AUTHENTICATION REQUIREMENTS
+AUTOMATION PERMISSION
+DATA FORMAT
+RATE / ACCESS LIMITS
+
+Si no existe mecanismo seguro/apropiado:
+
+EXTERNAL_ORCHESTRATION_REQUIRED
+
+o equivalente.
+
+OPBI-09. NO BLIND SCRAPING
+
+No implementar:
+
+uncontrolled scraping
+CAPTCHA bypass
+credential bypass
+access-control circumvention
+unauthorized automation
+OPBI-10. DAILY OPPORTUNITY MONITORING
+
+Diseñar capacidad para revisión diaria de oportunidades.
+
+El objetivo operativo será:
+
+DAILY CHECK
+→ NEW RECORDS
+→ CHANGED RECORDS
+→ DEADLINES
+→ MATERIAL UPDATES
+→ ALERTS
+
+La existencia del diseño NO equivale a scheduler operativo.
+
+Si infraestructura segura de scheduling no existe:
+
+EXTERNAL_ORCHESTRATION_REQUIRED
+OPBI-11. EARLY OPPORTUNITY INTELLIGENCE
+
+No limitar el radar a procedimientos convocados.
+
+Investigar fuentes oficiales disponibles para:
+
+FUTURE PROCUREMENT
+PLANNED PROCUREMENT
+REQUIREMENT PUBLICATION
+EXPRESSIONS OF INTEREST
+MARKET INTERACTION
+PROCUREMENT CONDITIONS
+
+cuando sean aplicables.
+
+OPBI-12. OPPORTUNITY FUNNEL
+
+Modelar:
+
+EARLY SIGNAL
+↓
+WATCH
+↓
+FUTURE / PLANNED OPPORTUNITY
+↓
+REQUIREMENT
+↓
+PROCEDURE
+↓
+BASES
+↓
+SCREENING
+↓
+ELIGIBILITY
+↓
+READINESS
+↓
+HUMAN DECISION
+↓
+PREPARATION
+↓
+SUBMISSION
+↓
+RESULT
+OPBI-13. OPPORTUNITY RECORD
+
+Crear PublicProcurementOpportunity o equivalente con:
+
+opportunityId
+source
+sourceUrl/reference
+entity
+procedure
+object
+description
+jurisdiction
+region
+location
+publicationDate
+deadlines
+estimatedValue/value
+currency
+CUI/SNIP where applicable
+documents
+currentStage
+sourceVersion
+lastChecked
+changeHistory
+evidence
+provenance
+unknowns
+OPBI-14. CONTRACT OBJECT CLASSIFICATION
+
+Clasificar inicialmente:
+
+WORKS
+CONSULTING
+WORKS CONSULTING
+TECHNICAL FILE / EXPEDIENTE TÉCNICO
+SUPERVISION
+STUDY
+DESIGN
+GOODS
+SERVICES
+OTHER
+UNKNOWN
+
+usando terminología legal vigente cuando corresponda.
+
+OPBI-15. DOMAIN CLASSIFICATION
+
+Relacionar oportunidades con conocimiento ARKI:
+
+BUILDING
+HEALTH
+EDUCATION
+HOUSING
+URBANISM
+BRIDGE
+ROAD
+RAIL
+HYDRAULIC
+IRRIGATION
+DAM
+WATER
+SANITATION
+PORT
+AIRPORT
+ENERGY
+SCIENTIFIC
+COMPLEX FACILITY
+OTHER
+
+extensible.
+
+OPBI-16. OPPORTUNITY ↔ ARKI KNOWLEDGE
+
+Cada oportunidad podrá consultar:
+
+LKS
+ACI
+HAI
+CFMI
+ICWI
+KCF
+Academy
+Capability Evidence
+
+sin modificar automáticamente dichos sistemas.
+
+OPBI-17. TENDER INTELLIGENCE
+
+Una vez seleccionada una oportunidad:
+
+ARKI deberá convertir documentos de contratación en estructura computable.
+
+OPBI-18. DOCUMENT INGESTION
+
+Procesar cuando corresponda:
+
+bases
+integrated bases
+terms of reference
+technical requirements
+technical file references
+annexes
+forms
+schedules
+clarifications
+questions
+observations
+answers
+amendments
+pronouncements
+contracts
+other official documents
+
+manteniendo documento original + versión + procedencia.
+
+OPBI-19. NEVER DESTROY ORIGINAL
+
+Formalizar:
+
+EXTRACTION ≠ ORIGINAL DOCUMENT.
+
+Todo requisito extraído deberá apuntar a:
+
+document
+version
+section
+page
+clause
+source
+
+cuando técnicamente sea posible.
+
+OPBI-20. TENDER REQUIREMENT MATRIX
+
+Crear:
+
+TenderRequirementMatrix.
+
+Cada requisito deberá contener:
+
+requirementId
+sourceDocument
+sourceVersion
+clause
+page
+requirementText
+interpretedRequirement
+requirementType
+mandatory
+conditional
+evaluationRole
+evidenceRequired
+ourEvidence
+complianceStatus
+gap
+risk
+deadline
+responsible
+reviewer
+provenance
+unknowns
+OPBI-21. REQUIREMENT TYPES
+
+Como mínimo:
+
+LEGAL
+ADMINISTRATIVE
+ELIGIBILITY
+QUALIFICATION
+PROFESSIONAL
+EXPERIENCE
+TECHNICAL
+ECONOMIC
+FINANCIAL
+EQUIPMENT
+DOCUMENTARY
+METHODOLOGY
+SCHEDULE
+CONTRACTUAL
+GUARANTEE
+FORMAL
+SUBMISSION
+OPBI-22. BASES STANDARD BENCHMARK
+
+Mantener versiones vigentes de:
+
+applicable standard bases
+procurement law
+regulation
+directives
+official guidance
+relevant official pronouncements
+
+dentro de LKS/governed legal knowledge.
+
+No hardcodear permanentemente una versión normativa.
+
+OPBI-23. TEMPORAL LEGALITY
+
+Toda auditoría deberá responder:
+
+WHICH RULE?
+WHICH VERSION?
+EFFECTIVE WHEN?
+APPLICABLE TO WHICH PROCEDURE?
+
+Formalizar:
+
+CURRENT RULE ≠ HISTORICAL RULE.
+
+HISTORICAL BASE ≠ CURRENT TEMPLATE.
+
+OPBI-24. BASES AUDITOR
+
+Crear una competencia interna:
+
+TenderBasesAuditor.
+
+Su misión:
+
+BASES
+↕
+STANDARD BASES
+↕
+APPLICABLE REGULATION
+↕
+CONTRACT OBJECT
+↕
+REQUIREMENTS
+↕
+INTERNAL CONSISTENCY
+OPBI-25. AUDIT RESULTS
+
+Estados:
+
+CONSISTENT
+POTENTIAL_INCONSISTENCY
+POTENTIAL_OVERRESTRICTION
+POTENTIAL_DISPROPORTION
+POTENTIAL_COMPETITION_RESTRICTION
+AMBIGUOUS
+CONTRADICTORY
+MISSING_INFORMATION
+OUTDATED_REFERENCE
+REQUIRES_LEGAL_REVIEW
+UNKNOWN
+OPBI-26. NO AUTOMATIC CORRUPTION CLAIM
+
+ARKI NO deberá convertir una anomalía automáticamente en:
+
+RIGGED
+CORRUPT
+ILLEGAL
+COLLUSIVE
+FRAUDULENT
+
+Una anomalía es:
+
+INDICATOR
+
+no una determinación jurídica.
+
+OPBI-27. COMPETITION RESTRICTION AUDIT
+
+Evaluar, cuando corresponda:
+
+relevance
+proportionality
+relationship to contract object
+unusual specificity
+excessive combinations
+unnecessary certifications
+excessive experience
+unusual professional requirements
+geographic restrictions
+brand/model specificity
+inconsistent requirements
+contradictory requirements
+potentially exclusionary combinations
+
+siempre contra evidencia y marco aplicable.
+
+OPBI-28. PROFESSIONAL REQUIREMENT AUDITOR
+
+Crear:
+
+ProfessionalRequirementAuditor.
+
+Para cada profesional requerido:
+
+profession
+role
+specialty
+experience
+specific experience
+certifications
+registrations
+education
+required evidence
+relevance
+proportionality
+applicable standard
+comparable historical requirements
+anomalies
+unknowns
+OPBI-29. MARKET COMPARISON
+
+Cuando exista corpus suficiente:
+
+comparar requisitos de procedimientos similares.
+
+Ejemplo:
+
+SIMILAR PROCEDURES
+typical experience range
+typical specialists
+typical certifications
+typical qualification structure
+
+CURRENT PROCEDURE
+deviation
+
+La desviación:
+
+≠ proof of wrongdoing
+
+sino:
+
+REVIEW SIGNAL
+OPBI-30. ANOMALY MODEL
+
+Crear:
+
+TenderAnomaly.
+
+Campos:
+
+anomalyId
+requirement
+anomalyType
+baseline
+observedDifference
+sourceEvidence
+legalReference
+historicalComparison
+severity
+confidenceDimensions
+alternativeExplanation
+unknowns
+requiresLegalReview
+OPBI-31. CONSULTATION & OBSERVATION WORKSPACE
+
+Crear:
+
+TenderObservationWorkspace.
+
+No presentar automáticamente.
+
+OPBI-32. OBSERVATION CANDIDATE
+
+Estructura:
+
+questionedRequirement
+exactClause
+issue
+factualBasis
+applicableRule
+reasoning
+requestedClarificationOrCorrection
+evidence
+legalReviewStatus
+submissionDeadline
+humanApproval
+OPBI-33. QUESTION ≠ OBSERVATION
+
+Distinguir jurídicamente y operativamente:
+
+QUESTION / CONSULTA
+OBSERVATION / OBSERVACIÓN
+QUESTIONING / CUESTIONAMIENTO
+APPEAL / RECURSO
+
+según marco vigente.
+
+No utilizar términos indistintamente.
+
+OPBI-34. ESCALATION / QUESTIONING
+
+Cuando el procedimiento permita cuestionamientos:
+
+ARKI podrá preparar un candidato estructurado para revisión humana/jurídica.
+
+Nunca presentar automáticamente.
+
+OPBI-35. ELIGIBILITY ENGINE
+
+Crear:
+
+BidEligibilityEngine.
+
+Evaluar:
+
+legal eligibility
+registration
+experience
+professionals
+certifications
+financial requirements
+equipment
+consortium requirements
+documentation
+deadlines
+conflicts
+unknowns
+OPBI-36. ELIGIBILITY STATES
+ELIGIBLE
+POTENTIALLY_ELIGIBLE
+ELIGIBLE_WITH_PARTNER
+CONSORTIUM_REQUIRED
+MISSING_EVIDENCE
+MATERIAL_GAP
+NOT_ELIGIBLE
+UNKNOWN
+OPBI-37. NO FAKE SCORE
+
+No reemplazar requisitos críticos mediante:
+
+“87% eligible”
+
+si existe un requisito obligatorio incumplido.
+
+Un requisito fatal permanece fatal.
+
+OPBI-38. EVIDENCE VAULT
+
+Diseñar:
+
+ARKI Professional Evidence Vault.
+
+El Vault almacenará/referenciará evidencia profesional real.
+
+OPBI-39. EVIDENCE CATEGORIES
+PERSON
+COMPANY
+CONSORTIUM
+PROJECT
+CONTRACT
+EXPERIENCE
+CERTIFICATE
+DEGREE
+PROFESSIONAL_REGISTRATION
+SPECIALIZATION
+EQUIPMENT
+FINANCIAL
+LEGAL
+PERFORMANCE
+OTHER
+OPBI-40. EVIDENCE RECORD
+evidenceId
+owner
+issuer
+documentType
+issueDate
+expiryDate
+project
+contract
+role
+period
+scope
+value
+currency
+documentReference
+source
+verificationState
+applicableClaims
+provenance
+restrictions
+unknowns
+OPBI-41. EVIDENCE ≠ CLAIM
+
+ARKI deberá distinguir:
+
+DOCUMENT EXISTS
+DOCUMENT IS AUTHENTIC
+DOCUMENT SUPPORTS CLAIM
+CLAIM SATISFIES REQUIREMENT
+
+Son cuatro cuestiones diferentes.
+
+OPBI-42. NO FABRICATION
+
+Regla absoluta:
+
+ARKI SHALL NEVER FABRICATE PROFESSIONAL EXPERIENCE, CERTIFICATES, PERSONNEL, CONTRACTS, VALUES, DATES OR CREDENTIALS TO SATISFY A TENDER.
+
+Si falta:
+
+MISSING
+OPBI-43. PERSONNEL MATCHING
+
+Para cada rol:
+
+TENDER REQUIREMENT
+↓
+EVIDENCE VAULT
+↓
+CANDIDATE PROFESSIONALS
+↓
+REQUIREMENT MATCH
+↓
+EVIDENCE MATCH
+↓
+AVAILABILITY
+↓
+HUMAN SELECTION
+OPBI-44. CONSORTIUM INTELLIGENCE
+
+Cuando exista brecha:
+
+ARKI podrá identificar:
+
+capability gap
+experience gap
+professional gap
+financial gap
+technical gap
+
+y producir:
+
+PARTNER_REQUIREMENT
+
+No inventar ni comprometer socios automáticamente.
+
+OPBI-45. BID / OFFER FACTORY
+
+Crear:
+
+ARKI Bid Factory.
+
+Su misión:
+
+producir un expediente de oferta trazable a partir de requisitos reales y evidencia real.
+
+OPBI-46. BID PRODUCTION PIPELINE
+BASES
+↓
+REQUIREMENT MATRIX
+↓
+ELIGIBILITY
+↓
+EVIDENCE MATCHING
+↓
+DOCUMENT PLAN
+↓
+DRAFTING
+↓
+ASSEMBLY
+↓
+INTERNAL QA
+↓
+RED TEAM
+↓
+HUMAN REVIEW
+↓
+FINAL PACKAGE
+OPBI-47. BID DOCUMENT PLAN
+
+Según procedimiento:
+
+required document
+source requirement
+owner
+evidence
+template
+status
+version
+deadline
+signature requirement
+reviewer
+OPBI-48. AUTOMATED DRAFTING
+
+ARKI podrá automatizar borradores de:
+
+forms
+declarations
+methodologies
+work plans
+schedules
+organization descriptions
+personnel matrices
+experience matrices
+compliance matrices
+cover documents
+technical narratives
+clarification drafts
+observation drafts
+
+únicamente con información sustentada.
+
+OPBI-49. SOURCE-LOCKED FIELDS
+
+Campos sensibles deberán derivarse únicamente de evidencia:
+
+names
+IDs
+registration numbers
+dates
+contract values
+experience periods
+certificate numbers
+professional credentials
+project values
+signatures
+
+No inferirlos.
+
+OPBI-50. VERSION CONTROL
+
+Cada oferta deberá tener:
+
+bidVersion
+sourceBasesVersion
+requirementMatrixVersion
+evidenceSnapshot
+generatedDocuments
+humanEdits
+approvals
+auditHistory
+OPBI-51. BASE CHANGE DETECTION
+
+Si las bases cambian:
+
+OLD BASES
+↕
+NEW BASES
+↓
+DELTA
+↓
+AFFECTED REQUIREMENTS
+↓
+AFFECTED DOCUMENTS
+↓
+AFFECTED ELIGIBILITY
+↓
+ALERT
+OPBI-52. NO STALE SUBMISSION
+
+Una oferta preparada contra una versión superada deberá marcarse:
+
+STALE
+
+hasta revalidación.
+
+OPBI-53. BID RED TEAM
+
+Crear:
+
+ARKI Bid Red Team.
+
+Objetivo:
+
+ATTEMPT TO DISQUALIFY OUR OWN BID BEFORE THE EVALUATOR CAN.
+
+OPBI-54. RED TEAM CHECKS
+
+Como mínimo:
+
+missing document
+missing signature
+wrong format
+wrong annex
+expired evidence
+unsupported claim
+inconsistent dates
+inconsistent values
+personnel mismatch
+insufficient experience
+wrong accreditation
+incomplete requirement
+contradictory statement
+stale bases
+calculation error
+missing mandatory field
+file integrity
+submission deadline
+OPBI-55. RED TEAM SEVERITY
+FATAL
+MAJOR
+MINOR
+WARNING
+CLEAN
+UNKNOWN
+OPBI-56. TWO-PASS RED TEAM
+
+Ejecutar conceptualmente:
+
+PASS 1 — FORMAL / DOCUMENTARY
+PASS 2 — SUBSTANTIVE / TECHNICAL
+
+y posteriormente, si procede:
+
+PASS 3 — CONTRACTUAL / RISK
+OPBI-57. CONTRACT RISK REVIEW
+
+Antes del GO final analizar:
+
+scope
+deliverables
+payment
+schedule
+penalties
+liability
+guarantees
+approval dependencies
+entity-provided information
+change mechanisms
+site risk
+design risk
+professional responsibility
+dispute mechanisms
+termination
+
+según contrato/procedimiento.
+
+OPBI-58. RISK CATEGORIES
+TECHNICAL
+CONTRACTUAL
+COMMERCIAL
+FINANCIAL
+SCHEDULE
+INFORMATION
+PROFESSIONAL
+REGULATORY
+OPERATIONAL
+UNKNOWN
+OPBI-59. WINNING ≠ GOOD CONTRACT
+
+Registrar:
+
+WINNING A BAD CONTRACT IS NOT SUCCESS.
+
+El análisis de oportunidad debe considerar ejecución posterior.
+
+OPBI-60. GO / NO-GO SUPPORT
+
+ARKI podrá producir:
+
+ELIGIBILITY
+READINESS
+GAPS
+RISKS
+DOCUMENT BURDEN
+TIME
+PARTNER NEED
+STRATEGIC VALUE
+UNKNOWN
+
+No producir automáticamente una decisión canónica.
+
+OPBI-61. HUMAN GO / WATCH / NO-GO
+
+Estados de decisión:
+
+GO
+WATCH
+NO_GO
+DEFER
+NEED_MORE_INFORMATION
+
+requieren Human Authority.
+
+OPBI-62. SUBMISSION READINESS GATE
+
+Antes de presentar:
+
+correct bases version?
+mandatory requirements satisfied?
+evidence complete?
+forms complete?
+signatures complete?
+technical offer complete?
+economic offer complete?
+Red Team fatal findings = 0?
+unresolved critical UNKNOWN = 0?
+deadline valid?
+human approval?
+OPBI-63. SUBMISSION AUTHORITY
+
+ARKI NO presentará autónomamente ofertas, observaciones, recursos, cuestionamientos ni declaraciones legalmente vinculantes.
+
+Requiere:
+
+HUMAN_APPROVED
+
+y mecanismo autorizado.
+
+OPBI-64. PROCEDURE TRACKER
+
+Después de presentar:
+
+submitted
+admitted
+evaluated
+qualified
+awarded
+not awarded
+challenged
+cancelled
+void
+contract stage
+unknown
+
+según información oficial.
+
+OPBI-65. OUTCOME EVIDENCE
+
+Guardar:
+
+official result
+score where applicable
+evaluation record
+observations
+disqualification reason
+award
+contract outcome
+source
+date
+
+sin reinterpretarlo como verdad general.
+
+OPBI-66. PROCUREMENT LEARNING
+
+Resultado:
+
+OUTCOME
+↓
+EVIDENCE
+↓
+GAP
+↓
+KCF
+↓
+CURRICULUM / CAPABILITY CANDIDATE
+
+cuando corresponda.
+
+OPBI-67. LOSS ≠ INCOMPETENCE
+
+Formalizar:
+
+NOT WINNING ≠ GENERAL INCOMPETENCE.
+
+Analizar causa documentada.
+
+OPBI-68. WIN ≠ GENERAL SUPERIORITY
+
+Formalizar:
+
+AWARD ≠ UNIVERSAL COMPETENCE.
+
+OPBI-69. COMPETITION CENTER
+
+Crear segundo panel:
+
+ARKI DESIGN COMPETITION CENTER
+│
+├── Competition Radar
+├── Competition Discovery
+├── Eligibility
+├── Compliance Gate
+├── Brief Intelligence
+├── Knowledge Readiness
+├── Design Workspace Link
+├── Submission Factory
+├── Competition Red Team
+├── Result Tracker
+└── ACI Learning
+OPBI-70. COMPETITION SOURCES
+
+Registrar fuentes:
+
+official organizer
+professional organizations
+government
+UIA / recognized institutions
+universities
+foundations
+verified competition platforms
+other governed sources
+
+priorizando siempre fuente oficial.
+
+OPBI-71. GLOBAL COMPETITION RADAR
+
+El radar podrá descubrir:
+
+architecture
+urbanism
+landscape
+infrastructure
+housing
+public buildings
+research
+conceptual
+student/professional where applicable
+international
+national
+invited/open
+OPBI-72. COMPETITION RECORD
+competitionId
+name
+organizer
+country
+city
+site
+type
+brief
+eligibility
+professionalRequirements
+registrationDeadline
+submissionDeadline
+fee
+prize
+language
+anonymity
+deliverables
+AIpolicy
+IPterms
+jury
+source
+evidence
+unknowns
+OPBI-73. COMPETITION COMPLIANCE GATE
+
+Evaluar:
+
+eligibility
+geography
+professional registration
+team requirements
+anonymity
+AI policy
+authorship
+IP
+deliverables
+language
+fees
+deadlines
+disqualification rules
+OPBI-74. COMPETITION ELIGIBILITY STATES
+ELIGIBLE
+CONDITIONALLY_ELIGIBLE
+PARTNER_REQUIRED
+NOT_ELIGIBLE
+UNKNOWN
+OPBI-75. COMPETITION FIT
+
+Analizar:
+
+TYPOLOGY
+SCALE
+ARKI KNOWLEDGE READINESS
+TEAM READINESS
+DESIGN CHALLENGE
+TIME AVAILABLE
+DOCUMENTATION BURDEN
+STRATEGIC LEARNING VALUE
+PORTFOLIO VALUE
+RESEARCH VALUE
+KNOWN GAPS
+
+No generar ranking político/comercial absoluto.
+
+OPBI-76. COMPETITION BRIEF INTELLIGENCE
+
+Transformar:
+
+BRIEF
+↓
+REQUIREMENTS
+↓
+CONSTRAINTS
+↓
+OBJECTIVES
+↓
+EVALUATION CRITERIA
+↓
+DELIVERABLES
+↓
+UNKNOWN
+
+preservando texto fuente y trazabilidad.
+
+OPBI-77. COMPETITION → DESIGN
+
+Una competencia aprobada podrá iniciar:
+
+NEW ARKI PROJECT
+
+con:
+
+brief
+site
+requirements
+constraints
+sources
+deadlines
+deliverables
+evaluation criteria
+
+como Project State inicial gobernado.
+
+OPBI-78. DESIGN WORKFLOW
+UNDERSTAND
+→ SITE
+→ RESEARCH
+→ UNKNOWN
+→ STRATEGIES
+→ ALTERNATIVES
+→ GENERATE
+→ EVALUATE
+→ COMPARE
+→ HUMAN DECIDE
+→ DEVELOP
+→ REPRESENT
+→ RED TEAM
+→ SUBMIT
+OPBI-79. COMPETITION SUBMISSION FACTORY
+
+Preparar:
+
+boards
+diagrams
+plans
+sections
+elevations
+renders
+texts
+models
+forms
+declarations
+file packages
+
+según reglas reales del concurso.
+
+OPBI-80. COMPETITION RED TEAM
+
+Antes de entregar:
+
+anonymity
+eligibility
+board dimensions
+file formats
+file size
+naming
+required drawings
+required text
+prohibited content
+AI disclosure
+deadlines
+missing deliverables
+OPBI-81. COMPETITION RESULT LEARNING
+SUBMISSION
+↓
+RESULT
+↓
+JURY REPORT
+↓
+FEEDBACK
+↓
+ACI
+↓
+KCF
+↓
+ACADEMY / KNOWLEDGE
+
+cuando exista evidencia.
+
+OPBI-82. JURY RESULT ≠ ARCHITECTURAL TRUTH
+
+Heredar ACI:
+
+WINNER ≠ ARCHITECTURAL TRUTH.
+
+JURY DECISION ≠ UNIVERSAL DESIGN RULE.
+
+OPBI-83. SHARED OPPORTUNITY PIPELINE
+
+Ambos paneles alimentan:
+
+DISCOVERED
+↓
+SCREENING
+↓
+INTERESTING
+↓
+ANALYSIS
+↓
+ELIGIBILITY
+↓
+READINESS
+↓
+HUMAN REVIEW
+↓
+GO / WATCH / NO_GO
+↓
+PREPARATION
+↓
+SUBMITTED
+↓
+RESULT
+↓
+LEARNING
+OPBI-84. OPPORTUNITY COMMAND CENTER UI
+
+Diseñar conceptualmente un dashboard con:
+
+NEW TODAY
+DEADLINES
+WATCHLIST
+UNDER ANALYSIS
+BASE AUDITS
+OBSERVATIONS
+PREPARING
+RED TEAM
+READY
+SUBMITTED
+RESULTS
+OPBI-85. PUBLIC PROCUREMENT DETAIL PANEL
+
+Debe poder mostrar:
+
+PROCEDURE
+ENTITY
+OBJECT
+LOCATION
+VALUE
+DEADLINES
+CURRENT STAGE
+
+ELIGIBILITY
+REQUIREMENTS
+PROFESSIONALS
+EXPERIENCE
+EVIDENCE
+BASE ANOMALIES
+OBSERVATIONS
+CONTRACT RISK
+CRITICAL UNKNOWN
+
+con trazabilidad.
+
+OPBI-86. NO MAGIC PERCENTAGE
+
+Los dashboards pueden usar indicadores visuales, pero:
+
+critical requirement
+legal requirement
+eligibility
+fatal Red Team issue
+
+no deben ocultarse dentro de un promedio.
+
+OPBI-87. ALERTS
+
+Diseñar alertas por:
+
+NEW OPPORTUNITY
+MATERIAL CHANGE
+BASES UPDATED
+DEADLINE APPROACHING
+OBSERVATION DEADLINE
+MISSING EVIDENCE
+FATAL RED TEAM ISSUE
+RESULT PUBLISHED
+CONTRACT CHANGE
+OPBI-88. ALERT PRIORITY
+CRITICAL
+ACTION_REQUIRED
+IMPORTANT
+INFORMATIONAL
+
+No convertir todo en alerta.
+
+OPBI-89. REAL-WORLD FEEDBACK INTO KCF
+
+Una oportunidad puede revelar:
+
+KNOWLEDGE GAP
+COMPETENCE GAP
+COMPUTATIONAL GAP
+PROFESSIONAL GAP
+EVIDENCE GAP
+PARTNER GAP
+
+KCF puede recibirlo como señal.
+
+OPBI-90. MARKET ≠ CURRICULUM AUTHORITY
+
+Mantener:
+
+MARKET DEMAND ≠ CURRICULUM TRUTH.
+
+Una licitación no puede reescribir automáticamente qué debe aprender ARKI.
+
+OPBI-91. REAL OPPORTUNITY AS EXAM
+
+Una oportunidad real podrá convertirse en:
+
+CAPABILITY EXAM
+
+sin necesidad de participar.
+
+Ejemplo:
+
+Can ARKI understand the brief?
+Can ARKI map requirements?
+Can ARKI identify gaps?
+Can ARKI formulate a technical strategy?
+OPBI-92. PRIVACY
+
+Evidence Vault podrá contener información profesional/personal.
+
+Diseñar:
+
+access control
+minimum necessary disclosure
+audit trail
+role permissions
+document sensitivity
+retention policy
+
+antes de producción real.
+
+OPBI-93. CREDENTIAL SECURITY
+
+Credenciales de:
+
+SEACE
+RNP
+government systems
+professional platforms
+email
+submission portals
+
+no deberán almacenarse en texto plano ni incorporarse al LKS.
+
+OPBI-94. HUMAN AUTHORITY GATES
+
+Requieren aprobación humana:
+
+GO / NO_GO
+consortium commitment
+professional commitment
+formal observation
+formal questioning
+appeal
+legal allegation
+economic offer
+final submission
+binding declaration
+contract acceptance
+competition submission
+OPBI-95. LEGAL REVIEW BOUNDARY
+
+ARKI puede:
+
+identify
+compare
+flag
+explain
+draft
+trace
+
+pero cuando exista una cuestión jurídica material:
+
+REQUIRES_LEGAL_REVIEW
+
+según corresponda.
+
+OPBI-96. ANTI-COLLUSION / ETHICS
+
+ARKI no deberá:
+
+coordinate bids with competitors
+fabricate competing offers
+manipulate procurement
+facilitate collusion
+falsify evidence
+impersonate professionals
+conceal conflicts
+OPBI-97. FAIR COMPETITION PRINCIPLE
+
+El auditor de bases busca:
+
+consistency
+proportionality
+transparency
+competition
+traceability
+compliance
+
+no acusaciones automáticas.
+
+OPBI-98. KNOWLEDGE PROVENANCE
+
+Cada conclusión importante deberá distinguir:
+
+FACT
+DOCUMENTED_REQUIREMENT
+VERIFIED_RULE
+INTERPRETATION
+ANALYSIS
+ANOMALY_SIGNAL
+HYPOTHESIS
+UNKNOWN
+OPBI-99. AUTOMATION BOUNDARY
+
+Clasificar acciones:
+
+AUTO_ALLOWED
+AUTO_WITH_POLICY
+HUMAN_REVIEW_REQUIRED
+HUMAN_APPROVAL_REQUIRED
+PROHIBITED
+OPBI-100. AUTO_ALLOWED EXAMPLES
+
+Podrán ser candidatos:
+
+public opportunity discovery
+deduplication
+classification
+deadline extraction
+requirement extraction
+document comparison
+internal reminders
+evidence search
+preliminary anomaly detection
+
+sujeto a acceso permitido y evidencia.
+
+OPBI-101. HUMAN_APPROVAL_REQUIRED EXAMPLES
+official submission
+economic offer
+declaration
+observation
+questioning
+appeal
+partner commitment
+professional commitment
+legal accusation
+contract acceptance
+OPBI-102. SOURCE CHANGE DETECTION
+
+El sistema deberá distinguir:
+
+NEW
+UPDATED
+CORRECTED
+SUPERSEDED
+CANCELLED
+UNKNOWN_CHANGE
+OPBI-103. AUDIT LOG
+
+Registrar:
+
+who/what
+action
+timestamp
+source
+previous state
+new state
+evidence
+human approval where applicable
+OPBI-104. ONE CANONICAL OPPORTUNITY IDENTITY
+
+Evitar duplicados provenientes de:
+
+multiple searches
+updated pages
+downloaded spreadsheets
+mirrored sources
+manual import
+OPBI-105. INTERNATIONAL EXPANSION
+
+La arquitectura deberá ser extensible a contratación pública internacional.
+
+Pero:
+
+PERU RULES ≠ GLOBAL PROCUREMENT RULES
+
+Cada jurisdicción requerirá:
+
+legal model
+sources
+procurement taxonomy
+procedures
+evidence
+review
+
+propios.
+
+OPBI-106. PERU FIRST
+
+El piloto de contratación pública deberá limitarse inicialmente a Perú.
+
+Validar arquitectura antes de expansión internacional.
+
+OPBI-107. PILOT A — PUBLIC PROCUREMENT DISCOVERY
+
+Seleccionar un conjunto pequeño de oportunidades reales públicas.
+
+Demostrar:
+
+discovery
+identity
+classification
+source
+change detection
+deadline
+opportunity record
+OPBI-108. PILOT B — BASES AUDIT
+
+Seleccionar procedimiento con documentación pública suficiente.
+
+Demostrar:
+
+source documents
+requirement matrix
+standard-base comparison
+professional requirements
+anomaly detection
+provenance
+UNKNOWN
+
+No formular acusaciones.
+
+OPBI-109. PILOT C — BID FACTORY
+
+Usar procedimiento histórico/cerrado o sandbox adecuado para evitar presentación accidental.
+
+Demostrar:
+
+requirement extraction
+evidence matching
+missing evidence
+document plan
+draft generation
+Red Team
+readiness
+
+No enviar oferta.
+
+OPBI-110. PILOT D — COMPETITION
+
+Seleccionar concurso público/documentado.
+
+Demostrar:
+
+discovery
+eligibility
+compliance
+brief extraction
+deliverables
+timeline
+ARKI knowledge mapping
+competition Red Team
+
+No presentar.
+
+OPBI-111. ADVERSARIAL TEST MATRIX
+
+Como mínimo:
+
+requirement absent from source → cannot invent;
+expired certificate → cannot mark compliant;
+document exists but does not support experience → reject match;
+professional has similar but insufficient experience → PARTIAL/NOT_COMPLIANT;
+one mandatory requirement missing → no misleading high eligibility score;
+bases updated after bid draft → STALE;
+contradictory clauses → flag contradiction;
+unusual professional requirement → anomaly, not corruption claim;
+historical requirement differs → not proof of illegality;
+standard bases differ → investigate applicability/version;
+old law source → do not apply automatically;
+missing legal authority → UNKNOWN/LEGAL_REVIEW;
+tender asks impossible combination → flag, do not invent compliance;
+missing partner → PARTNER_REQUIRED;
+missing specialist → SPECIALIST_REQUIRED;
+fabricated certificate request → prohibited;
+fabricated experience request → prohibited;
+user document conflicts with official source → surface conflict;
+source document changed → propagate delta;
+observation draft without evidence → insufficient;
+questioning outside applicable procedure → detect;
+submission without Human Approval → block;
+economic offer changed → revalidate affected documents;
+Red Team fatal issue → submission not READY;
+competition AI policy unknown → UNKNOWN, not assumed allowed;
+anonymous competition includes identity → fatal;
+missed competition deliverable → fatal/major according to rule;
+competition winner → not architectural truth;
+lost procurement → not general incompetence;
+won procurement → not universal competence;
+market demand → not automatic curriculum change;
+SEACE unavailable → no fabricated “no opportunities” conclusion;
+scraper blocked → no circumvention;
+duplicate opportunity → deduplicate preserving provenance;
+similar procedure → cannot substitute actual bases;
+professional evidence personal/sensitive → access control;
+legal allegation without determination → do not state as fact;
+potential restrictive requirement → preserve alternative explanations;
+contract risk high → cannot silently ignore because bid is eligible;
+final submission → Human Authority required.
+OPBI-112. DELIVERABLES — ARCHITECTURE
+
+Crear/reutilizar:
+
+ARKI_OPBI_ARCHITECTURE.md
+ARKI_OPPORTUNITY_COMMAND_CENTER_SPEC.md
+ARKI_PUBLIC_PROCUREMENT_CENTER_SPEC.md
+ARKI_COMPETITION_CENTER_SPEC.md
+ARKI_OPPORTUNITY_STATE_MACHINE.md
+ARKI_AUTOMATION_AUTHORITY_MATRIX.md
+OPBI-113. DELIVERABLES — PROCUREMENT
+ARKI_SEACE_SOURCE_ADAPTER_SPEC.md
+ARKI_PROCUREMENT_SOURCE_POLICY.md
+ARKI_TENDER_INTELLIGENCE_SPEC.md
+ARKI_TENDER_REQUIREMENT_MATRIX.md
+ARKI_BASES_AUDITOR_SPEC.md
+ARKI_PROFESSIONAL_REQUIREMENT_AUDITOR.md
+ARKI_TENDER_ANOMALY_MODEL.md
+ARKI_OBSERVATION_WORKSPACE_SPEC.md
+ARKI_BID_ELIGIBILITY_ENGINE.md
+ARKI_EVIDENCE_VAULT_SPEC.md
+ARKI_BID_FACTORY_SPEC.md
+ARKI_BID_RED_TEAM_SPEC.md
+ARKI_CONTRACT_RISK_REVIEW_SPEC.md
+ARKI_SUBMISSION_READINESS_GATE.md
+ARKI_PROCUREMENT_OUTCOME_LEARNING.md
+OPBI-114. DELIVERABLES — COMPETITIONS
+ARKI_COMPETITION_RADAR_SPEC.md
+ARKI_COMPETITION_ELIGIBILITY_SPEC.md
+ARKI_COMPETITION_COMPLIANCE_GATE.md
+ARKI_COMPETITION_BRIEF_INTELLIGENCE.md
+ARKI_COMPETITION_SUBMISSION_FACTORY.md
+ARKI_COMPETITION_RED_TEAM.md
+ARKI_COMPETITION_OUTCOME_INTEGRATION.md
+
+Reuse ACI equivalents where they exist.
+
+OPBI-115. DELIVERABLES — GOVERNANCE
+ARKI_PROCUREMENT_LEGAL_TEMPORALITY_POLICY.md
+ARKI_PROCUREMENT_PROVENANCE_POLICY.md
+ARKI_PROCUREMENT_ETHICS_POLICY.md
+ARKI_EVIDENCE_PRIVACY_POLICY.md
+ARKI_BINDING_ACTION_HUMAN_GATE.md
+ARKI_OPBI_SCOPE_LIMIT_REPORT.md
+ARKI_OPBI_TEST_MATRIX.md
+OPBI-116. MACHINE-READABLE FOUNDATION
+
+No dejar OPBI únicamente como Markdown.
+
+Implementar/especificar representación computable para:
+
+Opportunity
+PublicProcurementOpportunity
+CompetitionOpportunity
+TenderDocument
+TenderRequirement
+TenderRequirementMatrix
+TenderAnomaly
+ProfessionalRequirement
+EvidenceRecord
+EvidenceMatch
+EligibilityAssessment
+ObservationCandidate
+BidDocument
+BidPackage
+RedTeamFinding
+ContractRisk
+SubmissionReadiness
+OpportunityDecision
+OpportunityOutcome
+
+o equivalentes justificados.
+
+OPBI-117. DO NOT DUPLICATE
+
+Antes de crear:
+
+FORENSIC SEARCH
+→ REUSE
+→ INTEGRATE
+→ ADAPT
+→ DERIVE
+→ CREATE ONLY IF MISSING
+OPBI-118. LKS INTEGRATION
+
+OPBI no tendrá una segunda base normativa.
+
+LAW
+REGULATION
+DIRECTIVE
+STANDARD BASES
+OFFICIAL GUIDANCE
+
+pertenecen al conocimiento gobernado LKS.
+
+OPBI los consume con versión y aplicabilidad.
+
+OPBI-119. ACI INTEGRATION
+
+Competition Center reutiliza:
+
+ACI corpus
+competition schema
+jury intelligence
+competition history
+competition learning
+
+No duplicarlos.
+
+OPBI-120. ICWI / CFMI INTEGRATION
+
+Una oportunidad:
+
+bridge
+dam
+hospital
+airport
+laboratory
+space facility
+
+deberá consultar el dominio ARKI correspondiente para KnowledgeReadiness.
+
+OPBI-121. KNOWLEDGE READINESS ≠ BID ELIGIBILITY
+
+Formalizar:
+
+ARKI KNOWING HOW TO DESIGN SOMETHING DOES NOT MEAN THE BIDDER LEGALLY QUALIFIES TO BID.
+
+Y:
+
+LEGAL ELIGIBILITY DOES NOT PROVE TECHNICAL COMPETENCE.
+
+OPBI-122. CAPABILITY ↔ EVIDENCE
+
+Distinguir:
+
+ARKI CAPABILITY
+HUMAN PROFESSIONAL CAPABILITY
+COMPANY CAPABILITY
+ACCREDITED EXPERIENCE
+TENDER EVIDENCE
+
+Nunca fusionarlos.
+
+OPBI-123. BID FACTORY ≠ TECHNICAL FILE FACTORY
+
+Formalizar:
+
+BID/OFFER
+≠
+EXPEDIENTE TÉCNICO DE OBRA
+
+La primera sirve para obtener el contrato.
+
+El segundo puede ser el producto profesional contratado.
+
+OPBI-124. POST-AWARD HANDOFF
+
+Si se obtiene un contrato:
+
+AWARD
+↓
+CONTRACT
+↓
+PROJECT CREATION
+↓
+REQUIREMENTS TRANSFER
+↓
+ARKI PROJECT STATE
+↓
+DESIGN / TECHNICAL FILE / SUPERVISION WORKFLOW
+
+según objeto contractual.
+
+No perder información entre licitación y proyecto.
+
+OPBI-125. EXPEDIENTE TÉCNICO FUTURE CONNECTION
+
+Cuando el contrato sea elaboración de expediente técnico:
+
+OPBI deberá transferir:
+
+scope
+TDR
+deliverables
+specialists
+schedule
+standards
+contractual obligations
+assumptions
+clarifications
+risks
+accepted offer commitments
+
+al futuro workflow ETI de ARKI.
+
+OPBI-126. BID PROMISE TRACEABILITY
+
+Todo compromiso realizado en oferta deberá sobrevivir al award:
+
+BID PROMISE
+→ CONTRACTUAL / PROJECT OBLIGATION
+
+cuando corresponda.
+
+Esto evita que ARKI prometa durante la licitación algo que después olvide durante ejecución.
+
+OPBI-127. LEARNING WITHOUT GAMING
+
+ARKI podrá aprender:
+
+common requirements
+recurring gaps
+documentation failures
+qualification patterns
+market needs
+competition themes
+
+pero NO aprender estrategias destinadas a:
+
+manipulate procurement
+evade requirements
+misrepresent evidence
+coordinate competitors
+OPBI-128. PERFORMANCE METRICS
+
+Medir eventualmente:
+
+opportunities discovered
+relevant opportunities
+false positives
+deadlines captured correctly
+requirements extracted correctly
+evidence matches correct
+anomalies confirmed/rejected
+Red Team defects found
+submission defects
+eligibility prediction accuracy
+time to prepare
+outcome
+learning generated
+
+No usar “win rate” como única medida de éxito.
+
+OPBI-129. EXPLAINABILITY
+
+ARKI deberá poder responder:
+
+Why did you flag this opportunity?
+Why do you think we qualify?
+Which evidence supports it?
+Which clause requires it?
+Why did you flag this requirement?
+Which rule are you comparing it against?
+What changed?
+Why is submission blocked?
+What remains UNKNOWN?
+OPBI-130. FINAL OPERATIONAL LOOP
+
+Formalizar:
+
+WORLD
+↓
+OPPORTUNITY
+↓
+ARKI DISCOVERS
+↓
+ARKI UNDERSTANDS
+↓
+ARKI AUDITS
+↓
+ARKI ASSESSES
+↓
+HUMAN DECIDES
+↓
+ARKI PREPARES
+↓
+ARKI RED-TEAMS
+↓
+HUMAN APPROVES
+↓
+SUBMISSION
+↓
+RESULT
+↓
+ARKI LEARNS
+↓
+LKS / KCF / ACI / CAPABILITY
+↺
+OPBI-131. CANONICAL PRINCIPLES
+
+Registrar:
+
+FINDING AN OPPORTUNITY ≠ BEING ELIGIBLE.
+
+BEING ELIGIBLE ≠ BEING TECHNICALLY READY.
+
+BEING TECHNICALLY READY ≠ HAVING THE REQUIRED EVIDENCE.
+
+DOCUMENT EXISTS ≠ DOCUMENT SUPPORTS THE CLAIM.
+
+ANOMALY ≠ CORRUPTION.
+
+UNUSUAL ≠ ILLEGAL.
+
+HISTORICAL PATTERN ≠ CURRENT RULE.
+
+BID ≠ TECHNICAL FILE.
+
+WINNING ≠ SUCCESSFUL EXECUTION.
+
+LOSING ≠ GENERAL INCOMPETENCE.
+
+ARKI SHALL NEVER INVENT EVIDENCE TO SATISFY A REQUIREMENT.
+
+ARKI SHALL ATTEMPT TO DISQUALIFY ITS OWN BID BEFORE SUBMISSION.
+
+NO BINDING SUBMISSION WITHOUT HUMAN AUTHORITY.
+
+REAL OPPORTUNITIES MAY TEACH ARKI WHAT IT NEEDS TO LEARN, BUT MARKET DEMAND SHALL NOT BECOME KNOWLEDGE AUTHORITY.
+
+ONE ARKI · ONE GOVERNED KNOWLEDGE SYSTEM · MULTIPLE PROFESSIONAL COMPETENCIES · HUMAN AUTHORITY.
+
+OPBI-132. INITIAL IMPLEMENTATION BOUNDARY
+
+Esta Orden autoriza únicamente:
+
+forensic architecture audit
+schemas
+source/access investigation
+Opportunity Command Center specification
+Public Procurement Center foundation
+Competition Center foundation
+requirement model
+Bases Auditor
+Professional Requirement Auditor
+Eligibility Engine
+Evidence Vault architecture
+Bid Factory architecture
+Red Team architecture
+Contract Risk model
+Competition Radar architecture
+four bounded pilots
+adversarial tests
+evidence package
+manifest
+OPBI-133. NOT AUTHORIZED YET
+
+No autorizar todavía:
+
+autonomous official submissions
+autonomous observations
+autonomous questioning
+autonomous appeals
+autonomous economic offers
+autonomous contract acceptance
+autonomous consortium commitments
+autonomous professional commitments
+CAPTCHA bypass
+credential bypass
+unrestricted crawling
+mass document ingestion
+production credential storage
+automatic accusations of corruption
+OPBI-134. BKH FIREWALL
+
+Esta Orden NO autoriza:
+
+BKH4-4+
+canonical mutation
+atomic commit
+rollback
+undo/redo
+crash recovery
+BKH5
+BKH6
+BKH7
+E8
+
+Si OPBI necesita cambios:
+
+KERNEL_IMPACT_CANDIDATE
+
+y STOP.
+
+OPBI-135. MAXIMUM INITIAL STATUS
+
+Estado máximo:
+
+ARKI-OPBI-001 — FOUNDATION IMPLEMENTED / BOUNDED PILOTS / PENDING INDEPENDENT VERIFICATION
+
+No declarar:
+
+AUTONOMOUS PROCUREMENT SYSTEM
+LEGAL COMPLIANCE CERTIFIED
+AUTOMATED BID SUBMISSION READY
+PROCUREMENT AUDITOR CERTIFIED
+COMPETITION AUTONOMY
+OPBI-136. ACCEPTANCE GATE
+
+Candidato a cierre solamente si demuestra:
+
+source provenance
+temporal legal model
+opportunity identity
+change detection
+requirement extraction
+clause traceability
+Bases Auditor
+Professional Requirement Auditor
+anomaly safety
+eligibility
+Evidence Vault model
+evidence matching
+Bid Factory
+Bid Red Team
+Contract Risk
+Human Approval gates
+Competition Radar
+Competition Compliance
+LKS integration
+KCF integration
+ACI integration
+ICWI/CFMI integration
+four bounded pilots
+adversarial tests
+no fake evidence
+no automatic corruption claim
+no unauthorized external action
+no BKH violation
+OPBI-137. EVIDENCE PACKAGE
+
+Entregar:
+
+implementation inventory
+source-access evidence
+schemas
+test results
+pilot evidence
+raw outputs
+regression results
+unresolved UNKNOWN
+scope-limit report
+duplicate audit
+security findings
+manifest
+file hashes
+OPBI-138. STOP
+
+Después de:
+
+ARCHITECTURE
+→ FOUNDATION
+→ FOUR BOUNDED PILOTS
+→ ADVERSARIAL TESTS
+→ EVIDENCE PACKAGE
+→ MANIFEST
+
+ejecutar:
+
+STOP.
+
+No continuar a producción.
+
+No presentar ninguna licitación.
+
+No presentar ningún concurso.
+
+No emitir observaciones oficiales.
+
+No realizar acciones vinculantes.
+
+No modificar BKH.
+
+Esperar:
+
+INDEPENDENT REVIEW
+↓
+PRODUCT OWNER / HUMAN AUTHORITY DECISION
+
+FIN ORDEN 97A-06 — ARKI PUBLIC PROCUREMENT, BID & COMPETITION INTELLIGENCE.

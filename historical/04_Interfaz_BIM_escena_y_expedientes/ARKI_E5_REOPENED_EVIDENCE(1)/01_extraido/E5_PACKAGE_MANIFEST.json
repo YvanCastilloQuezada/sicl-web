@@ -1,0 +1,231 @@
+{
+  "schema": "ARKI-E5-REOPENED-EVIDENCE-PACKAGE-1.0",
+  "status": "REOPENED FOR EVIDENCE CLOSURE / PENDING INDEPENDENT REVIEW",
+  "files": [
+    {
+      "path": "E5_CAPTURAS/01-visor-3d-general-edificio.svg",
+      "sha256": "54be8dc9202a1c0c2dd0569718ee452dc813eb8b2c0e4940df2996c2ece45ba3",
+      "bytes": 1416
+    },
+    {
+      "path": "E5_CAPTURAS/01-visor-3d-general-edificio.webp",
+      "sha256": "b917dbfa4fa5f0d85b6603df007b58937e38810ee9db113c9bcc407e30e4b5fe",
+      "bytes": 24996
+    },
+    {
+      "path": "E5_CAPTURAS/02-seleccion-infobox.svg",
+      "sha256": "07e677f1cd261cc02a656866df85231c28a468cec6356b732549aeb7d1124b64",
+      "bytes": 1502
+    },
+    {
+      "path": "E5_CAPTURAS/02-seleccion-infobox.webp",
+      "sha256": "c0984221655ceddae26cad40e7481b544ff8b835de9d48a4d25b821fecaac395",
+      "bytes": 25110
+    },
+    {
+      "path": "E5_CAPTURAS/03-comparacion-controles-independientes.svg",
+      "sha256": "6e9c3d139d00651e626d60517c673eae00952770eccb709a7f88eaf2ae53e27b",
+      "bytes": 1490
+    },
+    {
+      "path": "E5_CAPTURAS/03-comparacion-controles-independientes.webp",
+      "sha256": "cd5c4e770848cb14ba3b291e3215053fc1add86638c8861f3c45ce37cb513a28",
+      "bytes": 28244
+    },
+    {
+      "path": "E5_CAPTURAS/04-sincronizacion-2d-3d.svg",
+      "sha256": "c422d8ffd819fd52b3dd013766f58be1f39c762bef2aeaba9c794f54d2d23358",
+      "bytes": 1521
+    },
+    {
+      "path": "E5_CAPTURAS/04-sincronizacion-2d-3d.webp",
+      "sha256": "b087d15ed376172753095b272ea6427ea3ccba3d21b1d667f0ecd3eb3e72c7b2",
+      "bytes": 26426
+    },
+    {
+      "path": "E5_CAPTURAS/05-filtro-por-altura.svg",
+      "sha256": "724fff67b395162dc550d2afc20f8dd2dc4f0be6d6ab73babe71d40be3b4a179",
+      "bytes": 1413
+    },
+    {
+      "path": "E5_CAPTURAS/05-filtro-por-altura.webp",
+      "sha256": "551f8a49613561979b66937f50ab3359f5141ba5f4917562317f1bcf0b3b20f4",
+      "bytes": 24096
+    },
+    {
+      "path": "E5_CAPTURAS/06-camara-ortografica-axonometria.svg",
+      "sha256": "a82456849152f0f8cab00511cb5b104e0c31382854c513d248644d35aaefd7b3",
+      "bytes": 1439
+    },
+    {
+      "path": "E5_CAPTURAS/06-camara-ortografica-axonometria.webp",
+      "sha256": "36d78922283d4d1d061e1ce3aaab0cc31024bec5e23be4a502723add0071b1ad",
+      "bytes": 27718
+    },
+    {
+      "path": "E5_CAPTURAS/07-medicion-entre-centroides.svg",
+      "sha256": "f125173ac3887d58cf6cfe3a267e75c187b6a0443855a432ecb8c373b5b83c9f",
+      "bytes": 1514
+    },
+    {
+      "path": "E5_CAPTURAS/07-medicion-entre-centroides.webp",
+      "sha256": "c2e6106c04f41eed95a233c9a15580bdfc8d4c56d281893c072d22fa0c2e3976",
+      "bytes": 26058
+    },
+    {
+      "path": "E5_CAPTURAS/08-arbol-disciplina-nivel-categoria.svg",
+      "sha256": "a1fc0f7c7c70735458f650465d6516561a566446009a093c0a5e7aa23d0e6b68",
+      "bytes": 1617
+    },
+    {
+      "path": "E5_CAPTURAS/08-arbol-disciplina-nivel-categoria.webp",
+      "sha256": "a16399d82d36f14ae125a9142e2de5ebb4ded66de2eb4fd4044d206d61481e7c",
+      "bytes": 31346
+    },
+    {
+      "path": "E5_CAPTURE_OUTPUTS.txt",
+      "sha256": "15f65f8904534b4ad98bd3f20f4da0f187c06514a5247228bee4ed505605f0fa",
+      "bytes": 671
+    },
+    {
+      "path": "E5_CLOSURE_HANDOFF_TO_DEEPSEEK.md",
+      "sha256": "6c79b2a0b5d151b86e0915e76061f145ada8800a7e24283663b6986eb9e51d20",
+      "bytes": 3313
+    },
+    {
+      "path": "E5_CLOSURE_REPORT.md",
+      "sha256": "20bdf5e84874caa6028294d339e209f816e98bf820b4401ba00f01169ab3c84d",
+      "bytes": 1953
+    },
+    {
+      "path": "E5_CONTRATO_REVISADO_V1_APROBADO.md",
+      "sha256": "cec8aeb885ab573adb2cd16b8f8a104e85a5f4a7fa136042fcf38a934b78c29c",
+      "bytes": 15265
+    },
+    {
+      "path": "E5_MANIFEST.json",
+      "sha256": "95aaa18100c99376aa144ffb150882323f09468c395a13ebad2dcb980a36ef16",
+      "bytes": 8815
+    },
+    {
+      "path": "E5_OUTPUTS.txt",
+      "sha256": "f24d22774cda2180d73d65afe08423bdeb5fa7ff908534abecdf52b483246135",
+      "bytes": 17969
+    },
+    {
+      "path": "E5_SCENE_MODEL_3D_OUTPUTS.txt",
+      "sha256": "73a68ba4b572bfc64429d022505e15948f0f54185c2665156016759661f062e0",
+      "bytes": 3734
+    },
+    {
+      "path": "E5_SCENE_MODEL_3D_REPORT.md",
+      "sha256": "873aeede143ac2cddf55f44ddc983ac7feeacab9016a0f2a32e66e310e4e02f9",
+      "bytes": 3242
+    },
+    {
+      "path": "E5_SCOPE_LIMITS.md",
+      "sha256": "64b514a8417c6cc9eaff5339ac27955ef8f936b61e0372c4a32e722f672aae32",
+      "bytes": 1662
+    },
+    {
+      "path": "client/src/canvas/SceneModel3D.tsx",
+      "sha256": "454f1829bac6e70ac2f44ad3fd8a5239c668c9e7cfa239d9bd8e47173c075993",
+      "bytes": 14629
+    },
+    {
+      "path": "client/src/comparison/SceneComparisonSideBySide.tsx",
+      "sha256": "c14cf5d266ab1a85acfb9c65660c19123b1390d4267169178e85f35c5ac2e862",
+      "bytes": 4433
+    },
+    {
+      "path": "client/src/persistence/arkiIndexedDb.ts",
+      "sha256": "41974621b046afa1fabc2cf944baf82499ff9650ac9e5c87a94dc7b3fbd09082",
+      "bytes": 5349
+    },
+    {
+      "path": "scripts/create-e5-manifest.py",
+      "sha256": "52c0a133443d3c6218fb08640d4ba3269a7364e650270907c6145b711c358a0f",
+      "bytes": 3184
+    },
+    {
+      "path": "scripts/create-e5-package.py",
+      "sha256": "27a31d3be3465c82439d09e9dad19630a21d5ef64bc154c3736c359b18adc82e",
+      "bytes": 1208
+    },
+    {
+      "path": "scripts/generate-e5-evidence.ts",
+      "sha256": "856a7387bf85bcc5bfe4a4c2faf795cda97b5ee3c815fea83b0ef217531c7995",
+      "bytes": 6586
+    },
+    {
+      "path": "scripts/run-e5-reopen-evidence.sh",
+      "sha256": "5ca3371eb6f772c595cd84afb1fb1ec17c4ea2832b60129fd27c0a245e65b81d",
+      "bytes": 1856
+    },
+    {
+      "path": "scripts/test-camera-modes.ts",
+      "sha256": "fd1c7cc76190c65150f0a80bf3bf21ab629b1dc0bd0828b12bf9b8da44394182",
+      "bytes": 590
+    },
+    {
+      "path": "scripts/test-clipping-section.ts",
+      "sha256": "b3590271cd9df45e28f662a838dd3473861842b86ffa29ed23c2dba9402d833a",
+      "bytes": 485
+    },
+    {
+      "path": "scripts/test-e5-close-comparison-controls.ts",
+      "sha256": "d1ecc847a5932d180c808038f5290b828f5c5d78c940dc8c539dcdd9e63c2b9a",
+      "bytes": 826
+    },
+    {
+      "path": "scripts/test-e5-close-snapshot.ts",
+      "sha256": "62d5e51f2427aabf317a97a194986d8d953b53861aa4810e477a985c151c45c7",
+      "bytes": 1253
+    },
+    {
+      "path": "scripts/test-e5-close-viewpoint.ts",
+      "sha256": "38efeede2228c0f1cffe46209331c68ed8dffb87afe4803afe2c698b2076a3cc",
+      "bytes": 950
+    },
+    {
+      "path": "scripts/test-isolate-freeze.ts",
+      "sha256": "00c52d0b2bf71ba2d3f4b1bb8f2e5f9cd04fbec4bae63cc51ade2eed84d5defd",
+      "bytes": 521
+    },
+    {
+      "path": "scripts/test-measure-snap.ts",
+      "sha256": "89914f295f0152e99fc70767952bb064615e89ea847f6095851fc3d7b6bdad98",
+      "bytes": 440
+    },
+    {
+      "path": "scripts/test-plan-3d-sync.ts",
+      "sha256": "5e9754591301b73ae41a5877822a95d697de6852b91c6817226aadf9f9ab1c7a",
+      "bytes": 605
+    },
+    {
+      "path": "scripts/test-scene-comparison.ts",
+      "sha256": "ab616ec29f09aead7377bbb6545c4e0dabe14d9159b171fc81a4c2d627bc0d9e",
+      "bytes": 963
+    },
+    {
+      "path": "scripts/test-scene-model-mount.ts",
+      "sha256": "d02afacec882b2161cc8ea6d4b402ee1330b1201cbb735106f9b0a4fa49200f7",
+      "bytes": 899
+    },
+    {
+      "path": "scripts/test-scene-model.ts",
+      "sha256": "636e37e3af576e9f100b713294208c4279971c743fee46da769cfce4838e1861",
+      "bytes": 1505
+    },
+    {
+      "path": "scripts/test-viewpoints.ts",
+      "sha256": "e398c2499f79d0d0749af408f02ebb898c54010b9d246f640327608ccf223291",
+      "bytes": 581
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "sha256": "e4df67d28327b41208f1c67b43160671b8de54b5f8a9280712a677c2aa1c37ea",
+      "bytes": 4734
+    }
+  ]
+}

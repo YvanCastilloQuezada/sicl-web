@@ -1,0 +1,15 @@
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:83:UNKNOWN                    → ESPERA / RESOLVER
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:192:UNKNOWN      → NO PROMOVER HASTA RESOLVER
+docs/learning/engines/ifcopenshell-draw.md:70:4. La oclusión debe resolverse antes de aplicar estilo.
+docs/learning/engines/comparison-matrix.md:20:| Resolver cortes antes del estilo | Permite distinguir cortado, visto y oculto |
+docs/SICL_CORE_CONTRACT_v1.0.md:348:   NO → UNKNOWN → RESOLVER INFORMACIÓN → REEVALUAR
+docs/SICL_CORE_CONTRACT_v1.0.md:365:`UNKNOWN` no equivale a cumplimiento ni a incumplimiento. La falta de datos (`MISSING DATA`) no equivale a no conformidad (`NON-COMPLIANCE`). La información indispensable debe resolverse antes de avanzar.
+docs/COMMANDS_REFERENCE.md:1455:| Código | Significado | Cómo resolver |
+docs/USER_MANUAL.md:63:Para utilizar el CLI, instale las dependencias del proyecto y ejecute el intérprete desde la raíz del repositorio. La variable `PYTHONPATH=.:src` permite resolver el paquete local.
+docs/rfc/RFC-037-MULTI-ENGINE-ABSORPTION-DOCTRINE.md:24:Cada motor puede resolver mejor una parte del problema. Las limitaciones de un motor no justifican descartar su conocimiento útil. ARKI debe separar capacidades, medir resultados y conservar lo que aporte valor.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:66:| Source conflict detection | `BLOCKED_BY_CONTRACT` | no ARE conflict resolver | source precedence and correspondence | silent conflict resolution forbidden | approve fail-closed conflict contract | Governance |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:20:| FFO-03 | Adaptive Multiscale Workspace | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | Eleven SpatialScopes, capability states, shared workspace direction, and initial capability resolver | Dynamic scale-aware composition, adaptive agents, visualization, and jurisdiction-aware UI | DL-MULTISCALE-ADAPTIVE-01..15 | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:143:The Core exposes the exact eleven SpatialScope values. The capability resolver exposes `AVAILABLE`, `REQUIRES_DATA`, `NOT_AVAILABLE`, and `NOT_APPLICABLE`. The Web has a shared ProjectWorkspace direction and initial capability UI.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:155:FFO-03 depends on FFO-04 variables, FFO-05 missing data, and the capability resolver. It relates to FFO-01, FFO-06, FFO-07, FFO-08, FFO-09, and FFO-10.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:557:| FFO-03 | FFO-04, FFO-05, Capability Resolver | Workspace composition depends on variables, missing data, and controlled capability states. |
+docs/reference/PHASE1_COMPARISON.md:38:IfcOpenShell Draw confirma que la proyección debe partir de geometría IFC 3D y que el motor debe resolver hidden lines, celdas y serialización vectorial. Los demás aportes quedan pendientes de prueba; no se inventan resultados.

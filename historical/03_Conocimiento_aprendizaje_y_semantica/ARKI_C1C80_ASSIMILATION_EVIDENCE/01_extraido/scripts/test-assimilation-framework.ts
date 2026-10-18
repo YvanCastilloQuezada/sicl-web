@@ -1,0 +1,12 @@
+import { strict as assert } from "node:assert";
+import { canPromote, deriveCluster, makeDeficits, makeTrainingUnit, prerequisiteKinds, quarantinePath } from "../shared/arkiCapabilityAssimilation";
+const item = { id: "C01", name: "Spatial Syntax", domain: "Architecture", dependencies: ["W1:identity", "W1:units"], requiredTools: [], professionalValidationRequirement: "BOUNDED_OR_NOT_APPLICABLE", implementationStatus: "DOCUMENTED" } as const;
+assert.equal(deriveCluster(item), "ARCHITECTURAL_SPATIAL_REASONING");
+assert.ok(prerequisiteKinds(item).includes("UNITS"));
+assert.ok(makeDeficits(item).some((deficit) => deficit.kind === "IMPLEMENTATION_DEFICIT"));
+const unit = makeTrainingUnit(item, "KNOWLEDGE_DEFICIT");
+assert.equal(unit.lifecycle, "DOCUMENTED");
+assert.equal(canPromote(unit, { PREREQUISITES: true, IMPLEMENT: true, NORMAL: true, ADVERSARIAL: true, MUTANTS: true, TRANSFER: true, REGRESSION: true, EVIDENCE: true }), false);
+assert.equal(quarantinePath("ARKI_RASCACIELOS_150_PISOS/VERTICAL_AURORA_DISTRIBUCION_ESTRUCTURA.md"), true);
+assert.equal(quarantinePath("synthetic/irregular-school.json"), false);
+console.log(JSON.stringify({ status: "PASS", cluster: "PASS", prerequisites: "PASS", deficitModel: "PASS", lifecycle: "PASS", promotionGate: "PASS", quarantine: "PASS" }));

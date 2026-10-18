@@ -1,0 +1,7 @@
+ARKI / ARQUI — ARCHIVO MAESTRO DE RECUPERACIÓN
+Fecha de empaquetado: 2026-09-28
+Propósito: resguardo íntegro de los materiales fuente disponibles en esta conversación/tanda.
+Regla: este ZIP NO declara que el contenido sea canónico, vigente, implementado o verificado.
+Los archivos se conservan con su nombre original.
+Se incluye INVENTARIO.csv con tamaño y SHA-256 de cada fuente.
+Cantidad de archivos fuente: 72

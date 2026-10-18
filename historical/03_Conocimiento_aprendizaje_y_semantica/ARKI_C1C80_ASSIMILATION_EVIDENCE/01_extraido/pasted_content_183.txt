@@ -1,0 +1,1058 @@
+ARKI-C1C80-ASSIMILATE-001
+GOVERNED CAPABILITY ASSIMILATION + ADVERSARIAL TRAINING PROGRAM
+
+PHASE:
+POST-AURORA-R0
+PRE-AURORA-R1
+
+AUTHORIZATION:
+BEGIN GOVERNED ASSIMILATION OF C1–C80.
+
+IMPORTANT:
+THIS IS NOT AURORA TRAINING.
+
+AURORA R0 IS FROZEN BENCHMARK EVIDENCE.
+AURORA-SPECIFIC SOLUTIONS MUST NOT BE USED AS TRAINING MATERIAL.
+
+======================================================================
+0. ACCEPTED BASELINE
+======================================================================
+
+Preserve:
+
+WAVE 0:
+VERIFIED FOR REGISTRY AND PLAN SCOPE.
+
+WAVE 1:
+VERIFIED FOR BOUNDED FOUNDATION SCOPE.
+
+DIGEST-001:
+existing capability digestion infrastructure.
+
+AURORA R0:
+frozen baseline.
+
+C1–C80:
+REGISTERED / DOCUMENTED.
+Do not silently promote to IMPLEMENTED or VERIFIED.
+
+======================================================================
+1. MISSION
+======================================================================
+
+Transform C1–C80 progressively from transferred/documented knowledge
+into demonstrated ARKI capabilities.
+
+The objective is NOT:
+
+"write code for 80 features."
+
+The objective is:
+
+KNOW
+→ UNDERSTAND
+→ FORMALIZE
+→ COMPUTE/REASON
+→ TEST
+→ BREAK
+→ CORRECT
+→ RETEST
+→ TRANSFER
+→ EVIDENCE
+→ PROMOTE IF JUSTIFIED.
+
+======================================================================
+2. AURORA QUARANTINE
+======================================================================
+
+Create and enforce:
+
+AURORA_BENCHMARK_QUARANTINE.
+
+The following MUST NOT be used as training examples:
+
+AURORA R0 answers
+historical Aurora solutions
+Aurora geometry solutions
+Aurora structural solutions
+Aurora-specific calculations
+Aurora-specific system selections
+Aurora R1 expected answers.
+
+The training program MAY use the generic deficit categories discovered
+by R0.
+
+Example:
+
+ALLOWED:
+"ARKI lacks demonstrated structural calculation."
+
+NOT ALLOWED:
+"Here is the structural solution Aurora requires."
+
+======================================================================
+3. CORE DOCTRINE
+======================================================================
+
+TRAIN CAPABILITY
+≠
+MEMORIZE BENCHMARK.
+
+KNOWLEDGE
+≠
+CAPABILITY.
+
+CAPABILITY
+≠
+IMPLEMENTATION.
+
+IMPLEMENTATION
+≠
+VERIFICATION.
+
+VERIFICATION
+≠
+PROFESSIONAL CERTIFICATION.
+
+======================================================================
+4. DO NOT PROCESS C1–C80 AS 80 ISOLATED BRAINS
+======================================================================
+
+ONE ARKI.
+
+Group capabilities by shared foundations and dependency relationships.
+
+Build:
+
+CAPABILITY LEARNING GRAPH.
+
+Use existing C1–C80 DAG.
+
+Discover clusters based on:
+
+shared mathematics
+shared physics
+shared geometry
+shared semantics
+shared data
+shared solvers
+shared oracles
+shared representation
+shared evidence
+shared validation.
+
+Do NOT create independent agents for every capability.
+
+======================================================================
+5. LEARNING CLUSTERS
+======================================================================
+
+Derive clusters from repository evidence and DAG.
+
+Do not hardcode this exact grouping if evidence disagrees, but expect
+families approximately around:
+
+ARCHITECTURAL / SPATIAL REASONING
+
+ENVIRONMENTAL / BUILDING PHYSICS
+
+STRUCTURES / GEOTECHNICS
+
+MEP / BUILDING SYSTEMS
+
+BIM / CAD / IFC / DIGITAL REPRESENTATION
+
+CONSTRUCTION / PLANNING / COST
+
+SIMULATION / OPTIMIZATION
+
+OPERATIONS / DIGITAL TWIN
+
+RISK / FINANCIAL / DECISION
+
+META-REASONING / EXPLANATION / ADVERSARIAL
+
+SPECIALIZED BUILDINGS / HUMAN EXPERIENCE.
+
+Produce actual dependency-derived clusters.
+
+======================================================================
+6. PREREQUISITE GRAPH
+======================================================================
+
+For every Cxx determine prerequisites:
+
+MATHEMATICS
+PHYSICS
+GEOMETRY
+COMPUTATIONAL METHODS
+DOMAIN KNOWLEDGE
+REGULATION
+DATA
+TOOLS
+SOLVERS
+REPRESENTATION
+ORACLE
+PROFESSIONAL VALIDATION.
+
+A capability may not advance if a critical prerequisite is absent.
+
+======================================================================
+7. DEFICIT REFINEMENT
+======================================================================
+
+Replace coarse diagnosis where possible.
+
+Do NOT allow:
+
+KNOWLEDGE_DEFICIT
+
+to become a universal catch-all.
+
+Implement a causal deficit model.
+
+At minimum distinguish:
+
+KNOWLEDGE_DEFICIT
+REASONING_DEFICIT
+EVIDENCE_DEFICIT
+INPUT_DEFICIT
+TOOL_DEFICIT
+SOLVER_DEFICIT
+ORACLE_DEFICIT
+GEOMETRY_DEFICIT
+REPRESENTATION_DEFICIT
+RELATIONSHIP_DEFICIT
+CAUSAL_DEFICIT
+CONSTRAINT_DEFICIT
+STATE_DEFICIT
+UNIT_DEFICIT
+APPLICABILITY_DEFICIT
+JURISDICTION_DEFICIT
+TEMPORAL_DEFICIT
+IMPLEMENTATION_DEFICIT
+INTEGRATION_DEFICIT
+VALIDATION_DEFICIT
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+Every deficit should state:
+
+WHAT IS MISSING
+WHY
+EVIDENCE
+BLOCKING?
+DEPENDENCIES
+RESOLUTION PATH.
+
+======================================================================
+8. CAPABILITY LIFECYCLE
+======================================================================
+
+Create explicit lifecycle separate from readiness.
+
+Suggested model:
+
+TRANSFERRED
+DOCUMENTED
+DIGESTED
+PREREQUISITES_READY
+FORMALIZED
+IMPLEMENTED_BOUNDED
+TESTED
+ADVERSARIALLY_TESTED
+TRANSFER_TESTED
+INTEGRATED
+VERIFIED_BOUNDED
+
+and where applicable:
+
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+Do not use one status field to represent all dimensions.
+
+======================================================================
+9. FIRST PASS — RECONCILE EXISTING CAPABILITY
+======================================================================
+
+Before implementing any Cxx:
+
+search existing repository.
+
+Determine:
+
+existing code
+existing contracts
+existing tests
+existing algorithms
+existing adapters
+existing knowledge
+existing representation
+existing evidence.
+
+Classify:
+
+REUSE
+EXTEND
+ADAPT
+NEW
+EXTERNAL_TOOL_REQUIRED.
+
+REUSE BEFORE BUILD.
+
+======================================================================
+10. TRAINING UNIT
+======================================================================
+
+For each capability create a CAPABILITY TRAINING UNIT.
+
+Each unit must contain:
+
+A. FOUNDATION
+B. FORMAL MODEL
+C. INPUT CONTRACT
+D. OUTPUT CONTRACT
+E. ALGORITHM/METHOD
+F. UNITS
+G. ASSUMPTIONS
+H. APPLICABILITY
+I. UNKNOWN HANDLING
+J. NORMAL EXERCISE
+K. BOUNDARY EXERCISE
+L. ADVERSARIAL EXERCISE
+M. MUTANTS
+N. TRANSFER EXERCISE
+O. ORACLE
+P. REGRESSION
+Q. EVIDENCE.
+
+======================================================================
+11. SYNTHETIC TRAINING PROJECTS
+======================================================================
+
+Use projects NOT derived from Aurora.
+
+Generate multiple synthetic or controlled exercises.
+
+Vary:
+
+scale
+geometry
+program
+climate
+loads
+materials
+constraints
+jurisdiction assumptions
+inputs
+missing data.
+
+Do not let ARKI learn a single fixture.
+
+======================================================================
+12. TRANSFER TESTING
+======================================================================
+
+After training a capability on scenario A:
+
+test on unseen scenario B.
+
+Scenario B must change important characteristics.
+
+Example principle:
+
+TRAIN:
+small rectangular office.
+
+TRANSFER:
+irregular educational building.
+
+The exact scenarios depend on capability.
+
+Success requires generalized behavior, not memorized output.
+
+======================================================================
+13. MATHEMATICAL ORACLES
+======================================================================
+
+Whenever an answer is objectively computable:
+
+use deterministic oracle.
+
+Examples:
+
+geometry
+areas
+distances
+angles
+unit conversion
+graph properties
+basic mechanics
+thermal equations
+hydraulic relations
+electrical relations
+financial equations.
+
+Do NOT use LLM judgment as the primary oracle when deterministic
+calculation is possible.
+
+======================================================================
+14. PHYSICS ORACLES
+======================================================================
+
+For bounded physical problems:
+
+compare against:
+
+analytical solutions
+trusted numerical references
+independent implementations
+validated libraries
+
+where appropriate.
+
+Record tolerances.
+
+No self-grading.
+
+======================================================================
+15. TOOL POLICY
+======================================================================
+
+Do not install all professional solvers immediately.
+
+For each capability determine:
+
+CAN ARKI IMPLEMENT BOUNDED INTERNAL METHOD?
+
+DOES PROFESSIONAL WORK REQUIRE EXTERNAL SOLVER?
+
+IS SOLVER INTEGRATION JUSTIFIED NOW?
+
+IS LICENSING REQUIRED?
+
+IS VALIDATION AVAILABLE?
+
+A solver is an instrument.
+
+It is NOT ARKI's brain.
+
+======================================================================
+16. TOOL ADAPTER CONTRACT
+======================================================================
+
+For external solvers/tools define:
+
+INPUT
+OUTPUT
+VERSION
+UNITS
+PROVENANCE
+CONFIGURATION
+HASH
+EXECUTION ENVIRONMENT
+ERRORS
+WARNINGS
+VALIDATION STATUS.
+
+External output:
+
+≠ FACT automatically.
+
+======================================================================
+17. ARCHITECTURAL REASONING
+======================================================================
+
+ARKI must not become only an engineering calculator.
+
+Training must include:
+
+spatial organization
+program
+adjacency
+circulation
+hierarchy
+proportion
+human scale
+orientation
+access
+public/private
+flexibility
+wayfinding
+universal design
+site relationships
+urban relationships.
+
+Architecture remains integrative.
+
+======================================================================
+18. ENGINEERING
+======================================================================
+
+Where capabilities concern engineering, require distinction:
+
+KNOW CONCEPT
+CAN FORMULATE
+CAN CALCULATE
+CAN MODEL
+CAN INTERPRET
+CAN VERIFY BOUNDED
+PROFESSIONAL VALIDATION REQUIRED.
+
+Never collapse them.
+
+======================================================================
+19. CROSS-DISCIPLINE TRAINING
+======================================================================
+
+After individual bounded capability training, test relationships.
+
+Examples:
+
+ARCHITECTURE ↔ STRUCTURE
+STRUCTURE ↔ FOUNDATION
+STRUCTURE ↔ FAÇADE
+FAÇADE ↔ ENERGY
+PROGRAM ↔ CIRCULATION
+OCCUPANCY ↔ EGRESS
+MEP ↔ SPACE
+MEP ↔ STRUCTURE
+CLIMATE ↔ FORM
+COST ↔ DESIGN
+CONSTRUCTION ↔ DESIGN
+OPERATIONS ↔ DESIGN.
+
+Train dependency propagation.
+
+======================================================================
+20. CHANGE PROPAGATION TEST
+======================================================================
+
+For selected synthetic project:
+
+change one upstream fact.
+
+Examples:
+
+occupancy
+floor height
+structural grid
+orientation
+material
+climate input.
+
+ARKI must identify downstream invalidations.
+
+Test:
+
+WHAT CHANGED?
+WHAT BECAME STALE?
+WHAT MUST BE RECALCULATED?
+WHAT REMAINS VALID?
+
+======================================================================
+21. ADVERSARIAL DOCTRINE
+======================================================================
+
+For each capability:
+
+BUILD
+→ TEST
+→ BREAK
+→ EXPLAIN
+→ CORRECT
+→ RETEST
+→ TRANSFER
+→ ATTACK DIFFERENTLY.
+
+Do not stop because normal tests pass.
+
+======================================================================
+22. MUTANTS
+======================================================================
+
+Generate mutants such as:
+
+wrong units
+swapped values
+wrong sign
+wrong coordinate
+stale revision
+missing evidence
+false provenance
+invalid scale
+wrong jurisdiction
+boundary violation
+impossible geometry
+contradictory constraints
+fake solver output
+unsupported certainty.
+
+A capable system must reject or detect them.
+
+======================================================================
+23. ANTI-OVERFITTING
+======================================================================
+
+When a failure is corrected:
+
+add regression.
+
+Then create variants.
+
+Do not teach only the failed exact example.
+
+Test family generalization.
+
+======================================================================
+24. TEST-THE-TEST
+======================================================================
+
+Mutate deliberately incorrect implementations.
+
+Ensure tests kill them.
+
+If obviously wrong implementation passes:
+
+TEST_DEFICIT.
+
+Do not promote capability.
+
+======================================================================
+25. EPISTEMIC TRANSITIONS
+======================================================================
+
+Use WAVE 1 epistemic foundation.
+
+No silent transitions:
+
+UNKNOWN → FACT
+ASSUMPTION → FACT
+PROPOSAL → VERIFIED
+INFERRED → PROFESSIONALLY_VALIDATED.
+
+Every promotion must have:
+
+evidence
+validation
+provenance
+authority
+reason.
+
+======================================================================
+26. C1–C80 EXECUTION STRATEGY
+======================================================================
+
+Do not blindly execute numerical order C1→C80.
+
+Compute an assimilation sequence using:
+
+dependency DAG
+prerequisite readiness
+reuse
+shared foundations
+testability
+tool availability
+downstream leverage
+risk.
+
+Generate:
+
+C1_C80_ASSIMILATION_SEQUENCE.md
+C1_C80_ASSIMILATION_SEQUENCE.json.
+
+======================================================================
+27. EXECUTION AUTHORIZATION BOUNDARY
+======================================================================
+
+This order authorizes implementation/training of C1–C80 within
+bounded non-production scope.
+
+However:
+
+DO NOT automatically install licensed/professional solvers.
+
+DO NOT perform professional certification.
+
+DO NOT mutate canonical project state outside authorized transaction
+boundary.
+
+DO NOT execute TX-005.
+
+DO NOT migrate legacy writers.
+
+DO NOT deploy.
+
+======================================================================
+28. ITERATIVE GATES
+======================================================================
+
+Do not run 80 capabilities blindly and return at the end.
+
+Use internal gates.
+
+For every capability/cluster:
+
+PREREQUISITES
+→ IMPLEMENT
+→ NORMAL TEST
+→ ADVERSARIAL
+→ MUTANTS
+→ TRANSFER
+→ REGRESSION
+→ EVIDENCE
+→ STATUS.
+
+If gate fails:
+
+STOP THAT CAPABILITY.
+
+Do not necessarily stop unrelated independent capabilities.
+
+Record blocker.
+
+======================================================================
+29. NO FALSE COMPLETION
+======================================================================
+
+If 37/80 become demonstrated:
+
+report 37/80.
+
+Do not force 80/80.
+
+If 0/80:
+
+report 0/80.
+
+Evidence determines status.
+
+======================================================================
+30. AURORA MUST REMAIN UNSEEN
+======================================================================
+
+During entire assimilation:
+
+do not open Aurora solution artifacts for training.
+
+The training process may know only that R0 exposed broad deficit
+families.
+
+Do not optimize specifically for Aurora R1.
+
+======================================================================
+31. PROFESSIONAL BOUNDARY
+======================================================================
+
+Even a technically verified bounded capability does not imply:
+
+licensed design
+permit approval
+construction approval
+professional certification.
+
+Preserve:
+
+PROFESSIONAL_VALIDATION_REQUIRED
+
+where applicable.
+
+======================================================================
+32. PF-H01
+======================================================================
+
+Preserve PF-H01 and Human Authority.
+
+PF-H01 must not be converted into a scalar optimization score.
+
+Human safety and wellbeing are constraints/objectives with evidence,
+not rhetorical claims.
+
+======================================================================
+33. PERIODIC EVIDENCE CHECKPOINTS
+======================================================================
+
+Generate checkpoint after each meaningful cluster.
+
+Each checkpoint must contain:
+
+HEAD
+worktree
+capabilities attempted
+capabilities promoted
+capabilities blocked
+tests
+mutants
+transfer tests
+regressions
+new unknowns
+new risks
+files changed
+evidence hashes.
+
+======================================================================
+34. LEARNING LEDGER
+======================================================================
+
+Create:
+
+ARKI_LEARNING_LEDGER.
+
+For every learned item:
+
+capability
+initial deficit
+training evidence
+failure encountered
+root cause
+correction
+adversarial retest
+transfer result
+regression created
+current status
+limitations.
+
+This is ARKI's auditable learning history.
+
+======================================================================
+35. FAILURE MEMORY
+======================================================================
+
+A failure should become reusable knowledge only after:
+
+EVIDENCE
+→ ROOT CAUSE
+→ CORRECTION
+→ RETEST
+→ TRANSFER.
+
+Do not learn unsupported explanations.
+
+======================================================================
+36. CAPABILITY COVERAGE
+======================================================================
+
+For each Cxx report independently:
+
+KNOWLEDGE
+REASONING
+CALCULATION
+MODELING
+INTEGRATION
+TESTING
+ADVERSARIAL
+TRANSFER
+EVIDENCE
+PROFESSIONAL_BOUNDARY.
+
+Do not reduce all dimensions to one percentage.
+
+======================================================================
+37. REQUIRED GLOBAL ARTIFACTS
+======================================================================
+
+At minimum:
+
+00_BASELINE.md
+01_AURORA_QUARANTINE.md
+02_CAPABILITY_LEARNING_GRAPH.md
+03_CAPABILITY_LEARNING_GRAPH.json
+04_PREREQUISITE_MATRIX.md
+05_DEFICIT_MODEL.md
+06_CAPABILITY_LIFECYCLE.md
+07_ASSIMILATION_SEQUENCE.md
+08_ASSIMILATION_SEQUENCE.json
+09_SHARED_ENGINE_MAP.md
+10_TOOL_REQUIREMENT_MAP.md
+11_ORACLE_MAP.md
+12_TRAINING_SCENARIOS.md
+13_ADVERSARIAL_PROGRAM.md
+14_MUTATION_PROGRAM.md
+15_TRANSFER_PROGRAM.md
+16_CROSS_DISCIPLINE_TESTS.md
+17_DEPENDENCY_PROPAGATION_RESULTS.md
+18_C1_C80_STATUS_MATRIX.md
+19_C1_C80_STATUS_MATRIX.json
+20_ARKI_LEARNING_LEDGER.md
+21_UNKNOWN_REGISTER.md
+22_RISK_REGISTER.md
+23_DECISION_REGISTER.md
+24_REGRESSION_RESULTS.md
+25_EVIDENCE_MATRIX.md
+26_IMPLEMENTATION_JOURNAL.md
+27_RAW_OUTPUTS.txt
+28_MANIFEST.json.
+
+Plus per-capability evidence:
+
+Cxx/
+  FOUNDATION
+  IMPLEMENTATION
+  TESTS
+  ADVERSARIAL
+  MUTANTS
+  TRANSFER
+  EVIDENCE
+  STATUS.
+
+======================================================================
+38. REGRESSIONS
+======================================================================
+
+Preserve and run where applicable:
+
+pnpm check
+pnpm build
+WAVE0
+WAVE1
+DIGEST-001
+CAD Gateway
+BKH/TX
+E5
+E6
+E7
+E8-A
+E8-B
+E8-C where available.
+
+No regression may be hidden.
+
+======================================================================
+39. VALID CAPABILITY PROMOTION
+======================================================================
+
+A capability may reach:
+
+VERIFIED_BOUNDED
+
+only if:
+
+implementation exists
+normal tests pass
+adversarial tests pass
+required mutants are killed
+transfer test passes
+regressions pass
+evidence exists
+scope is explicit
+professional boundary is preserved.
+
+Otherwise use lower truthful state.
+
+======================================================================
+40. PROGRAM VERDICTS
+======================================================================
+
+Use only:
+
+ASSIMILATION_PROGRAM_VERIFIED
+ASSIMILATION_PROGRAM_PARTIAL
+ASSIMILATION_PROGRAM_BLOCKED
+ASSIMILATION_PROGRAM_FAILED.
+
+Also report:
+
+C1_C80_DOCUMENTED = X/80
+C1_C80_DIGESTED = X/80
+C1_C80_IMPLEMENTED_BOUNDED = X/80
+C1_C80_ADVERSARIALLY_TESTED = X/80
+C1_C80_TRANSFER_TESTED = X/80
+C1_C80_VERIFIED_BOUNDED = X/80.
+
+======================================================================
+41. STOP CONDITIONS
+======================================================================
+
+STOP immediately and report if:
+
+Aurora quarantine is violated
+canonical writer boundary is violated
+TX-005 becomes required
+uncontrolled product mutation occurs
+professional result is falsely certified
+test evidence becomes non-reproducible
+training contaminates held-out benchmark.
+
+======================================================================
+42. FINAL STOP
+======================================================================
+
+After authorized assimilation cycle:
+
+STOP.
+
+DO NOT EXECUTE:
+
+AURORA R1
+TX-005
+legacy writer migration
+enterprise implementation
+C81–C92
+deployment
+push
+PR
+merge.
+
+Return:
+
+VERDICT
+HEAD
+WORKTREE
+AURORA QUARANTINE STATUS
+CAPABILITIES ATTEMPTED
+CAPABILITIES IMPLEMENTED_BOUNDED
+CAPABILITIES ADVERSARIALLY_TESTED
+CAPABILITIES TRANSFER_TESTED
+CAPABILITIES VERIFIED_BOUNDED
+BLOCKED CAPABILITIES
+DEFICIT DISTRIBUTION
+TOOLS REQUIRED
+TOOLS ACTUALLY USED
+MUTANTS GENERATED/KILLED/SURVIVED
+TRANSFER RESULTS
+REGRESSION RESULTS
+NEW KNOWLEDGE
+NEW UNKNOWNS
+RISKS
+DECISIONS REQUIRED
+EVIDENCE PACKAGE PATH
+SHA-256
+STOP CONFIRMATION.
+
+======================================================================
+FINAL DOCTRINE
+======================================================================
+
+A ARKI NO LE VAMOS A SOPLAR.
+
+DO NOT TRAIN THE EXAM.
+TRAIN THE CAPABILITY.
+
+DO NOT TEACH THE ANSWER.
+TEACH THE METHOD.
+
+DO NOT ACCEPT A PASS BECAUSE ARKI SOUNDS CORRECT.
+DEMAND AN ORACLE WHEN AN ORACLE IS POSSIBLE.
+
+EVERY FAILURE:
+EVIDENCE
+→ ROOT CAUSE
+→ CORRECTION
+→ ADVERSARIAL RETEST
+→ REGRESSION
+→ TRANSFER.
+
+AFTER ARKI LEARNS ONE TEST:
+CHANGE THE TEST.
+
+AURORA REMAINS HELD OUT.
+
+WHEN THIS PROGRAM STOPS,
+AURORA R1 WILL DETERMINE WHETHER ARKI ACTUALLY LEARNED.
+
+ONE ARKI.
+MANY COMPETENCIES.
+ONE PROJECT STATE.
+ONE CANONICAL TRUTH.
+HUMAN AUTHORITY.
+
+STOP.

@@ -1,0 +1,331 @@
+# ORDEN 93 CONTRACT INVENTORY
+BKH0_BASELINE.txt
+BKH0_CANONICAL_OWNERSHIP_MAP.md
+BKH0_CURRENT_PRODUCT_DIFF.txt
+BKH0_DEPENDENCY_MAP.md
+BKH0_DUPLICATION_RAW.txt
+BKH0_DUPLICATION_REPORT.md
+BKH0_ENTITY_REGISTRY.md
+BKH0_FORENSIC_MAP.md
+BKH0_IMPLEMENTATION_GAPS.md
+BKH0_INSPECTION_RAW.txt
+BKH0_INVARIANT_REGISTRY.md
+BKH0_MANIFEST.json
+BKH0_MUTATION_PATH_MAP.md
+BKH0_OUTPUTS.txt
+BKH0_RELATIONSHIP_INVENTORY.md
+BKH0_REPORT.md
+BKH0_TEST_RUN_RAW.txt
+BKH1_CHANGE_LIST.md
+BKH1_DIFF.patch
+BKH1_EVIDENCE.zip
+BKH1_EVIDENCE.zip.sha256
+BKH1_EVIDENCE_MANIFEST.json
+BKH1_GATE1_BASELINE.txt
+BKH1_GATE1_BASELINE_RAW.txt
+BKH1_IMPLEMENTATION_OUTPUTS.txt
+BKH1_IMPLEMENTATION_SEQUENCE.md
+BKH1_PACKAGE_MANIFEST.json
+BKH1_PACKAGE_README.md
+BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip
+BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip.sha256
+BKH1_RELATIONSHIP_SCHEMA.md
+BKH1_RELATION_MIGRATION_MATRIX.md
+BKH1_REPORT.md
+BKH1_SCOPE_LIMITS.md
+BKH1_TEST_PLAN.md
+BKH1_TRACKED_DIFF_AFTER.txt
+BKH1_VERDICT_VERIFIED.md
+BKH1_WORKTREE_AFTER.txt
+BKH2_CONTRACT_DESIGN.zip
+BKH2_CONTRACT_DESIGN.zip.sha256
+BKH2_CONTRACT_DESIGN/BKH2_BOUNDARY_MATRIX.md
+BKH2_CONTRACT_DESIGN/BKH2_CONSTRAINT_ENGINE_CONTRACT.md
+BKH2_CONTRACT_DESIGN/BKH2_CONSTRAINT_MIGRATION_MATRIX.md
+BKH2_CONTRACT_DESIGN/BKH2_CONSTRAINT_OWNERSHIP_MAP.md
+BKH2_CONTRACT_DESIGN/BKH2_CONSTRAINT_SCHEMA.md
+BKH2_CONTRACT_DESIGN/BKH2_CONSTRAINT_TYPE_REGISTRY_CONTRACT.md
+BKH2_CONTRACT_DESIGN/BKH2_FORENSIC_FINDINGS.md
+BKH2_CONTRACT_DESIGN/BKH2_IMPLEMENTATION_SEQUENCE.md
+BKH2_CONTRACT_DESIGN/BKH2_INVARIANT_REGISTRY.md
+BKH2_CONTRACT_DESIGN/BKH2_MANIFEST.json
+BKH2_CONTRACT_DESIGN/BKH2_SCOPE_LIMITS.md
+BKH2_CONTRACT_DESIGN/BKH2_TEST_PLAN.md
+BKH2_CONTRACT_DESIGN/README.md
+BKH2_EVIDENCE.zip
+BKH2_EVIDENCE.zip.sha256
+BKH2_EVIDENCE_MANIFEST.json
+BKH2_GATE1_BASELINE.txt
+BKH2_IMPLEMENTATION_OUTPUTS.txt
+BKH2_REPORT.md
+BKH2_SCOPE_LIMITS.md
+BKH3_92A_OUTPUTS.txt
+BKH3_CONTRACT_DESIGN.zip
+BKH3_CONTRACT_DESIGN.zip.sha256
+BKH3_CONTRACT_DESIGN/BKH3_BKH1_BKH2_INTEGRATION.md
+BKH3_CONTRACT_DESIGN/BKH3_DEPENDENCY_INVALIDATION_CONTRACT.md
+BKH3_CONTRACT_DESIGN/BKH3_DOCUMENT_91A_FIXES.md
+BKH3_CONTRACT_DESIGN/BKH3_FAILURE_SEMANTICS.md
+BKH3_CONTRACT_DESIGN/BKH3_FORENSIC_FINDINGS.md
+BKH3_CONTRACT_DESIGN/BKH3_IMPLEMENTATION_SEQUENCE.md
+BKH3_CONTRACT_DESIGN/BKH3_INVARIANT_REGISTRY.md
+BKH3_CONTRACT_DESIGN/BKH3_MANIFEST.json
+BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_ENGINE_CONTRACT.md
+BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_OWNERSHIP_MAP.md
+BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_SCHEMA.md
+BKH3_CONTRACT_DESIGN/BKH3_REGENERATOR_REGISTRY_CONTRACT.md
+BKH3_CONTRACT_DESIGN/BKH3_SCOPE_LIMITS.md
+BKH3_CONTRACT_DESIGN/BKH3_SOURCE_DERIVED_STATE_MAP.md
+BKH3_CONTRACT_DESIGN/BKH3_TEST_PLAN.md
+BKH3_CONTRACT_DESIGN/BKH3_TORTURE_SCENARIO.md
+BKH3_CONTRACT_DESIGN/README_BKH3_REVIEW.md
+BKH3_EVIDENCE.zip
+BKH3_EVIDENCE.zip.sha256
+BKH3_EVIDENCE_CONTENT/BKH3_92A_OUTPUTS.txt
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_BKH1_BKH2_INTEGRATION.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_DEPENDENCY_INVALIDATION_CONTRACT.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_DOCUMENT_91A_FIXES.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_FAILURE_SEMANTICS.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_FORENSIC_FINDINGS.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_IMPLEMENTATION_SEQUENCE.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_INVARIANT_REGISTRY.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_ENGINE_CONTRACT.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_OWNERSHIP_MAP.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_SCHEMA.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATOR_REGISTRY_CONTRACT.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_SCOPE_LIMITS.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_SOURCE_DERIVED_STATE_MAP.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_TEST_PLAN.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/BKH3_TORTURE_SCENARIO.md
+BKH3_EVIDENCE_CONTENT/BKH3_CONTRACT_DESIGN/README_BKH3_REVIEW.md
+BKH3_EVIDENCE_CONTENT/BKH3_EVIDENCE_MANIFEST.json
+BKH3_EVIDENCE_CONTENT/BKH3_GATE1_BASELINE.txt
+BKH3_EVIDENCE_CONTENT/BKH3_REPORT.md
+BKH3_EVIDENCE_CONTENT/scripts/test-bkh3-corrective.ts
+BKH3_EVIDENCE_CONTENT/scripts/test-bkh3-regeneration-engine.ts
+BKH3_EVIDENCE_CONTENT/shared/arkiRegenerationEngine.ts
+BKH3_EVIDENCE_MANIFEST.json
+BKH3_FORENSIC_SCAN_RAW.txt
+BKH3_GATE1_BASELINE.txt
+BKH3_IMPLEMENTATION_OUTPUTS.txt
+BKH3_REPORT.md
+BKH3_VERIFY_EXTRACT/BKH3_92A_OUTPUTS.txt
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_BKH1_BKH2_INTEGRATION.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_DEPENDENCY_INVALIDATION_CONTRACT.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_DOCUMENT_91A_FIXES.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_FAILURE_SEMANTICS.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_FORENSIC_FINDINGS.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_IMPLEMENTATION_SEQUENCE.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_INVARIANT_REGISTRY.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_ENGINE_CONTRACT.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_OWNERSHIP_MAP.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATION_SCHEMA.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_REGENERATOR_REGISTRY_CONTRACT.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_SCOPE_LIMITS.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_SOURCE_DERIVED_STATE_MAP.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_TEST_PLAN.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/BKH3_TORTURE_SCENARIO.md
+BKH3_VERIFY_EXTRACT/BKH3_CONTRACT_DESIGN/README_BKH3_REVIEW.md
+BKH3_VERIFY_EXTRACT/BKH3_EVIDENCE_MANIFEST.json
+BKH3_VERIFY_EXTRACT/BKH3_GATE1_BASELINE.txt
+BKH3_VERIFY_EXTRACT/BKH3_REPORT.md
+BKH3_VERIFY_EXTRACT/scripts/test-bkh3-corrective.ts
+BKH3_VERIFY_EXTRACT/scripts/test-bkh3-regeneration-engine.ts
+BKH3_VERIFY_EXTRACT/shared/arkiRegenerationEngine.ts
+BKH3_ZIP_LIST.txt
+scripts/apply-bkh3-contract-fixes.py
+scripts/create-bkh3-contract-docs.py
+scripts/create-e6-manifest.sh
+scripts/create-e7-manifest.sh
+scripts/create-ui3a-manifest.sh
+scripts/generate-ifc-fixtures.ts
+scripts/run-fase0-audit.sh
+scripts/test-access-matrix.ts
+scripts/test-bim-selection.ts
+scripts/test-bkh1-relationship-fabric.ts
+scripts/test-bkh2-constraint-engine.ts
+scripts/test-bkh3-corrective.ts
+scripts/test-bkh3-regeneration-engine.ts
+scripts/test-budget-reconciliation.ts
+scripts/test-camera-modes.ts
+scripts/test-canvas-mount.ts
+scripts/test-clipping-section.ts
+scripts/test-comparison-side-by-side.ts
+scripts/test-constructive.ts
+scripts/test-context-panel.ts
+scripts/test-dossier-mount.ts
+scripts/test-e7.ts
+scripts/test-i18n-catalog.ts
+scripts/test-ifc4-exporter.ts
+scripts/test-ifc4-fixtures.ts
+scripts/test-ifc4-globalid.ts
+scripts/test-ifc4-web-ifc.ts
+scripts/test-isolate-freeze.ts
+scripts/test-measure-snap.ts
+scripts/test-module-states.ts
+scripts/test-modules-mount.ts
+scripts/test-navigator-layout.ts
+scripts/test-no-inherited-cleanup.ts
+scripts/test-persistence-formal.ts
+scripts/test-persistence-idb.ts
+scripts/test-plan-3d-sync.ts
+scripts/test-professional.ts
+scripts/test-recalculation.ts
+scripts/test-scene-comparison.ts
+scripts/test-scene-model-mount.ts
+scripts/test-scene-model.ts
+scripts/test-selection-info.ts
+scripts/test-serialization.ts
+scripts/test-technical-dossier.ts
+scripts/test-viewpoints.ts
+scripts/test-wall-coherence.ts
+scripts/test-wall-door-canvas.ts
+shared/arki4d/index.ts
+shared/arki5d/index.ts
+shared/arkiBimSelection.ts
+shared/arkiConstraintEngine.ts
+shared/arkiConstructionDTOs.ts
+shared/arkiConstructionElements.ts
+shared/arkiConstructionOntology.ts
+shared/arkiContextPanel.ts
+shared/arkiDynamicFamilies.ts
+shared/arkiFamilyComparison.ts
+shared/arkiImpacts/index.ts
+shared/arkiMamparaFamily.ts
+shared/arkiParametricFamilies.ts
+shared/arkiPriceBook.ts
+shared/arkiProfessionalModules.ts
+shared/arkiRecalculation.ts
+shared/arkiRegenerationEngine.ts
+shared/arkiRelationshipAdapters.ts
+shared/arkiRelationshipFabric.ts
+shared/arkiSceneComparison.ts
+shared/arkiSceneModel.ts
+shared/arkiSnapshotExports.ts
+shared/arkiTechnicalDossier.ts
+shared/const.ts
+shared/coordination/index.ts
+shared/identity/arkiGlobalId.ts
+shared/ifc4/arkiIfc4.ts
+shared/ifc4/webIfcAdapter.ts
+shared/mep/index.ts
+shared/persistence/arkiPersistence.ts
+shared/structural/index.ts
+## relationship tests
+4:import { RelationshipFabric, RelationshipTypeRegistry, createRelationship, inverseRelationship, type RelationshipRecord } from "../shared/arkiRelationshipFabric";
+21:const crossScale = createRelationship({ relationshipType: "SUPPORTS", sourceEntityId: "site-structure", targetEntityId: "building-1", direction: "DIRECTED", sourceScale: "SITE", targetScale: "BUILDING", applicabilityScale: "SITE", sourceDiscipline: "architecture", targetDiscipline: "estructuras", relationshipDiscipline: "coordination", origin: "CANONICAL", evidence: [{ kind: "fixture", reference: "RF-T00" }], epistemicStatus: "OBSERVED", projectVersion: "v1", provenance: { source: "fixture", transformations: [] } });
+28:assert.equal(sameSemanticsNewVersion.relationshipId, crossScale.relationshipId, "project revision must not change semantic identity");
+29:assert.notEqual(sameSemanticsNewVersion.relationshipRevisionId, crossScale.relationshipRevisionId, "project revision must change revision identity");
+30:const revisionFabric = new RelationshipFabric();
+31:revisionFabric.add(crossScale);
+32:revisionFabric.add(sameSemanticsNewVersion);
+33:assert.equal(revisionFabric.history(crossScale.relationshipId).length, 2, "same semantic identity must retain both revisions");
+34:assert.equal(revisionFabric.get(crossScale.relationshipId)?.projectVersion, "v2", "latest revision must be readable");
+35:const reopenedRevisionFabric = RelationshipFabric.fromJSON(JSON.parse(JSON.stringify(revisionFabric.toJSON())) as RelationshipRecord[]);
+36:assert.equal(reopenedRevisionFabric.history(crossScale.relationshipId).length, 2, "save/reopen must preserve revision history");
+38:const inverse = inverseRelationship(crossScale);
+39:assert.ok(inverse);
+40:assert.equal(inverse?.sourceEntityId, crossScale.targetEntityId);
+41:assert.equal(inverse?.targetEntityId, crossScale.sourceEntityId);
+42:assert.equal(inverse?.sourceScale, crossScale.targetScale);
+43:assert.equal(inverse?.targetScale, crossScale.sourceScale);
+44:assert.equal(inverse?.sourceDiscipline, crossScale.targetDiscipline);
+45:assert.equal(inverse?.targetDiscipline, crossScale.sourceDiscipline);
+46:assert.equal(inverse?.relationshipDiscipline, crossScale.relationshipDiscipline);
+50:assert.throws(() => createRelationship({ ...crossScale, epistemicStatus: "VERIFIED", evidence: [] }), /minimum evidence: reproducible/);
+51:assert.throws(() => createRelationship({ ...crossScale, evidence: [{ kind: "source", reference: "not-reproducible" }] }), /minimum evidence: reproducible/);
+52:assert.throws(() => createRelationship({ ...crossScale, relationshipType: "APPLIES_TO", evidence: [] }), /minimum evidence: reference/);
+53:assert.throws(() => createRelationship({ ...crossScale, relationshipType: "IMPACTS", epistemicStatus: "PROPOSED", evidence: [{ kind: "fixture", reference: "no-human-review" }] }), /minimum evidence: human_review/);
+54:assert.equal(RelationshipTypeRegistry.OPENS_TO.inverseType, "OPENED_BY");
+55:assert.equal(RelationshipTypeRegistry.SUPPORTS.cyclePolicy, "REJECT");
+## constraint tests
+9:  evaluateConstraint,
+23:  jurisdictions: [],
+24:  phaseIds: [],
+25:  projectTypes: [],
+30:  projectVersion: "V1",
+33:  jurisdiction: "PE",
+34:  phaseId: "design",
+35:  projectType: "residential",
+58:  evidence: [],
+60:  projectVersion: "V1",
+66:const scopedRecord = makeRecord({ applicability: { ...baseApplicability, jurisdictions: ["PE"], phaseIds: ["design"], projectTypes: ["residential"] } });
+67:assert.equal(evaluateConstraint(record, context).status, "SATISFIED");
+68:assert.equal(evaluateConstraint(record, context).hardness, "HARD");
+69:assert.equal(evaluateConstraint(record, context).severity, "WARNING");
+70:assert.equal(evaluateConstraint(record, { ...context, scale: "BUILDING" }).status, "NOT_APPLICABLE");
+71:assert.equal(evaluateConstraint(record, { ...context, discipline: "estructuras" }).status, "NOT_APPLICABLE");
+72:assert.equal(evaluateConstraint(scopedRecord, { ...context, jurisdiction: "US" }).status, "NOT_APPLICABLE");
+73:assert.equal(evaluateConstraint(scopedRecord, { ...context, phaseId: "construction" }).status, "NOT_APPLICABLE");
+74:assert.equal(evaluateConstraint(scopedRecord, { ...context, projectType: "hospital" }).status, "NOT_APPLICABLE");
+75:assert.equal(evaluateConstraint(record, { ...context, entities: { "door-1": { width: 0.5 } } }).status, "VIOLATED");
+77:const revised = makeRecord({ projectVersion: "V2", constraintRevisionId: undefined });
+90:  projectVersion: "V1", constraintId: undefined, constraintRevisionId: undefined,
+100:assert.equal(evaluateConstraint(unitConstraint, context).status, "SATISFIED");
+101:const currencyMismatch = makeRecord({
+105:assert.equal(evaluateConstraint(currencyMismatch, context).status, "ERROR");
+106:assert.equal(evaluateConstraint(currencyMismatch, context).resolutionReason, "INVALID_INPUT");
+108:const solverResult = evaluateConstraint(makeRecord({ constraintType: "STRUCTURAL_SOLVER", hardness: "SOFT", evidence: [{ kind: "calculation", reference: "fixture-structural" }] }), context);
+109:assert.equal(solverResult.status, "UNKNOWN");
+111:const undemonstrated = evaluateConstraint(makeRecord({ constraintType: "UNDEMONSTRATED_RULE" }), context);
+112:assert.deepEqual([undemonstrated.status, undemonstrated.resolutionReason], ["UNKNOWN", "NOT_DEMONSTRATED"]);
+113:const regulatoryNoEvidence = evaluateConstraint(makeRecord({ constraintType: "REGULATORY_RULE", applicability: { ...baseApplicability, jurisdictions: ["PE"] } }), context);
+114:assert.deepEqual([regulatoryNoEvidence.status, regulatoryNoEvidence.resolutionReason], ["UNKNOWN", "INSUFFICIENT_EVIDENCE"]);
+115:const epistemicallyWeak = evaluateConstraint(makeRecord({ epistemicStatus: "UNKNOWN" }), context);
+116:assert.deepEqual([epistemicallyWeak.status, epistemicallyWeak.resolutionReason], ["UNKNOWN", "INSUFFICIENT_EPISTEMIC_STATE"]);
+118:const missingDependency = evaluateConstraint(makeRecord({ predicate: { kind: "reference", reference: "derived.missing", valueType: "number" } }), context);
+119:assert.deepEqual([missingDependency.status, missingDependency.resolutionReason], ["UNKNOWN", "MISSING_DEPENDENCY"]);
+120:const missingRelationship = evaluateConstraint(makeRecord({ relationIds: ["rel-missing"] }), context);
+121:assert.deepEqual([missingRelationship.status, missingRelationship.resolutionReason], ["UNKNOWN", "MISSING_DEPENDENCY"]);
+125:const wrongType = evaluateConstraint(makeRecord({ predicate: { kind: "unary", operator: "NOT", operand: { kind: "literal", value: 2, valueType: "number" } } }), context);
+126:assert.deepEqual([wrongType.status, wrongType.resolutionReason], ["ERROR", "INVALID_INPUT"]);
+129:const arbitraryCall = { kind: "call", functionId: "eval", arguments: [{ kind: "literal", value: "process.exit()", valueType: "string" }] } as unknown as PredicateNode;
+131:const executableString = evaluateConstraint(makeRecord({ predicate: { kind: "literal", value: "eval('process.exit()')", valueType: "string" } }), context);
+132:assert.deepEqual([executableString.status, executableString.resolutionReason], ["ERROR", "INVALID_INPUT"]);
+133:const fakeFunction = { kind: "call", functionId: "Function", arguments: [{ kind: "literal", value: "return 1", valueType: "string" }] } as unknown as PredicateNode;
+134:assert.throws(() => validatePredicate(fakeFunction), ConstraintValidationError);
+137:assert.equal(evaluateConstraint(soft, context).hardness, "SOFT");
+141:assert.deepEqual(evaluateConstraint(record, context), evaluateConstraint(record, context));
+142:evaluateConstraint(record, context);
+150:assert.equal(/\beval\s*\(|\bFunction\s*\(/.test(source), false);
+152:console.log(JSON.stringify({ status: "PASS", requiredCases: 28, registryTypes: Object.keys(ConstraintTypeRegistry).length, statuses: ["SATISFIED", "VIOLATED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING", "ERROR"], reasons: ["NOT_DEMONSTRATED", "EXTERNAL_ORACLE_REQUIRED", "INSUFFICIENT_EVIDENCE", "INSUFFICIENT_EPISTEMIC_STATE", "MISSING_DEPENDENCY", "INVALID_INPUT"], currencySafety: "PEN_USD_INCOMPATIBLE", arbitraryExecution: "PROHIBITED", mutation: "UNCHANGED" }));
+## regeneration tests
+scripts/test-bkh3-regeneration-engine.ts:6:  fingerprintsEqual,
+scripts/test-bkh3-regeneration-engine.ts:29:const regenerator: RegeneratorDefinition = { regeneratorId: "quantity-regenerator", domain: "quantities", acceptedInputs: ["wall", "door"], producedOutputs: ["quantity"], dependencies: [], version: "1.0", deterministic: true, idempotent: true, relevantContextKeys: ["unitPolicyRevision"], preconditions: ["source exists"], postconditions: ["output hash exists"], constraintChecks: ["BKH2"] , provenance, run: ({ inputFingerprint }) => ({ outputHash: "quantity-output:" + inputFingerprint.value, constraintResults: ["SATISFIED"], provenance }) };
+scripts/test-bkh3-regeneration-engine.ts:31:assert.equal(plan.status, "BLOCKED");
+scripts/test-bkh3-regeneration-engine.ts:32:assert.deepEqual(plan.dirtyNodeIds, ["door-quantity", "unsupported", "wall-quantity"]);
+scripts/test-bkh3-regeneration-engine.ts:37:const fingerprint = computeFreshnessFingerprint({ sourceRevisions: [{ id: "wall-1", revision: "r2", hash: "h1" }], dependencyRevisions: [], regenerator, context });
+scripts/test-bkh3-regeneration-engine.ts:38:assert.equal(fingerprintsEqual(fingerprint, { ...fingerprint }), true);
+scripts/test-bkh3-regeneration-engine.ts:39:assert.equal(fingerprintsEqual(fingerprint, { ...fingerprint, contextHash: "different" }), false);
+scripts/test-bkh3-regeneration-engine.ts:42:assert.equal(execution.result.status, "BLOCKED");
+scripts/test-bkh3-corrective.ts:9:  fingerprintsEqual,
+scripts/test-bkh3-corrective.ts:22:const conditionalRule: PropagationRule = { ...rule, ruleId: "conditional", conditionId: "phase-approved" };
+scripts/test-bkh3-corrective.ts:23:assert.equal(propagationTarget(conditionalRule, relationship, "wall-1", () => "TRUE"), "door-1");
+scripts/test-bkh3-corrective.ts:24:assert.equal(propagationTarget(conditionalRule, relationship, "wall-1", () => "FALSE"), undefined);
+scripts/test-bkh3-corrective.ts:25:assert.equal(propagationTarget(conditionalRule, relationship, "wall-1", () => "UNKNOWN"), undefined);
+scripts/test-bkh3-corrective.ts:30:const makeRegenerator = (version = "1.0", contextKeys = ["unitPolicyRevision"]): RegeneratorDefinition => ({ regeneratorId: "geometry-regenerator", domain: "geometry", acceptedInputs: ["wall"], producedOutputs: ["geometry"], dependencies: [], version, deterministic: true, idempotent: true, relevantContextKeys: contextKeys, preconditions: ["BKH2 precondition"], postconditions: ["BKH2 postcondition"], constraintChecks: ["constraint-1"], provenance, run: ({ inputFingerprint }) => ({ outputHash: "out-" + inputFingerprint.value, constraintResults: ["SATISFIED"], provenance }) });
+scripts/test-bkh3-corrective.ts:34:assert.equal(fingerprintsEqual(current, fp()), true);
+scripts/test-bkh3-corrective.ts:35:assert.equal(fingerprintsEqual(current, fp("r2")), false, "source revision changes freshness");
+scripts/test-bkh3-corrective.ts:36:assert.equal(fingerprintsEqual(current, fp("r1", "d2")), false, "dependency revision changes freshness");
+scripts/test-bkh3-corrective.ts:37:assert.equal(fingerprintsEqual(current, computeFreshnessFingerprint({ sourceRevisions: sources("r1"), dependencyRevisions: deps("d1"), regenerator: { regeneratorId: regenerator.regeneratorId, version: "2.0", relevantContextKeys: regenerator.relevantContextKeys }, context: baseContext })), false, "regenerator version changes freshness");
+scripts/test-bkh3-corrective.ts:38:assert.equal(fingerprintsEqual(current, fp("r1", "d1", "1.0", { ...baseContext, unitPolicyRevision: "u2" })), false, "relevant context changes freshness");
+scripts/test-bkh3-corrective.ts:39:assert.equal(fingerprintsEqual(current, fp("r1", "d1", "1.0", { ...baseContext, tolerancePolicyRevision: "unrelated" })), true, "irrelevant context does not change freshness");
+scripts/test-bkh3-corrective.ts:46:  { nodeId: "unknown", entityId: "unknown-1", outputDomain: "geometry", sourceIds: ["unknown-1"], dependencyIds: [], validityState: "UNKNOWN", executionState: "PENDING", currentFingerprint: current },
+scripts/test-bkh3-corrective.ts:50:assert.deepEqual(plan.dirtyNodeIds, ["cost", "geometry", "quantity"]);
+scripts/test-bkh3-corrective.ts:51:assert.equal(plan.dirtyNodeIds.includes("unrelated"), false);
+scripts/test-bkh3-corrective.ts:52:assert.equal(plan.dirtyNodeIds.includes("unknown"), false);
+scripts/test-bkh3-corrective.ts:55:assert.equal(execution.result.status, "BLOCKED", "unsupported cost remains visible and blocks global success");
+scripts/test-bkh3-corrective.ts:62:assert.equal(aggregateRegenerationStatus(["COMPLETED", "PENDING"]), "UNKNOWN");
+scripts/test-bkh3-corrective.ts:63:assert.equal(aggregateRegenerationStatus(["COMPLETED", "BLOCKED"]), "BLOCKED");
+scripts/test-bkh3-corrective.ts:64:assert.equal(aggregateRegenerationStatus(["COMPLETED", "FAILED"]), "FAILED");
+scripts/test-bkh3-corrective.ts:65:assert.equal(aggregateRegenerationStatus(["COMPLETED"], true), "PARTIAL");
+scripts/test-bkh3-corrective.ts:67:const constraintBase = { constraintType: "DIMENSION_RANGE", subjectEntityIds: ["wall-1"], relationIds: [], applicability: { scales: ["OBJECT"], disciplines: ["architecture"], entityIds: ["wall-1"], entityKinds: ["wall"], jurisdictions: [], phaseIds: [], projectTypes: [] }, predicate: { kind: "binary", operator: "GTE", left: { kind: "reference", reference: "entity.wall-1.height", valueType: "number" }, right: { kind: "literal", value: 3, valueType: "number" } } as const, operands: {}, hardness: "HARD" as const, applicabilityMode: "UNCONDITIONAL" as const, severity: "ERROR" as const, enforcement: "BLOCK_HYPOTHETICAL" as const, epistemicStatus: "COMPUTED" as const, evidence: [], provenance: { source: "fixture", transformations: [] }, projectVersion: "v1", status: "ACTIVE" as const };
+scripts/test-bkh3-corrective.ts:68:const constraint = createConstraint(constraintBase as Omit<ConstraintRecord, "constraintId" | "constraintRevisionId" | "family">);
+scripts/test-bkh3-corrective.ts:70:const satisfied = evaluateConstraint(constraint, context);
+scripts/test-bkh3-corrective.ts:71:const violated = evaluateConstraint(constraint, { ...context, entities: { "wall-1": { height: 2 } } });
+scripts/test-bkh3-corrective.ts:72:const unknown = evaluateConstraint(constraint, { ...context, entities: {} });
+scripts/test-bkh3-corrective.ts:75:assert.equal(unknown.status, "UNKNOWN");
+scripts/test-bkh3-corrective.ts:81:assert.equal(gatedExecution.result.nodes[0].constraintResults.includes("SATISFIED"), true);
+scripts/test-bkh3-corrective.ts:85:assert.equal(violatedExecution.result.status, "FAILED");
+scripts/test-bkh3-corrective.ts:88:console.log(JSON.stringify({ status: "PASS", freshnessE2E: true, conditionalPropagation: ["TRUE", "FALSE", "UNKNOWN"], minimalDirtySet: plan.dirtyNodeIds, aggregation: ["COMPLETED", "PARTIAL", "BLOCKED", "FAILED", "UNKNOWN"], bkh2Statuses: [satisfied.status, violated.status, unknown.status], torture: "PARAMETER→GEOMETRY→RELATIONSHIP→QUANTITY→COST", noCanonicalMutation: true }));

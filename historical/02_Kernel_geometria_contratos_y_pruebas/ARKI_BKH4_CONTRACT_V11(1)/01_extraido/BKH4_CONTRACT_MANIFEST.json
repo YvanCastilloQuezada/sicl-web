@@ -1,0 +1,47 @@
+{
+  "schema": "ARKI-BKH4-CONTRACT-1.1",
+  "status": "COMPLETED / PENDING INDEPENDENT REVIEW",
+  "implementation": "BLOCKED",
+  "physicalFilesTotal": 8,
+  "manifestEntries": 7,
+  "manifestFiles": 1,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "BKH4_INVARIANT_REGISTRY.md",
+      "sha256": "13e183d116d3fa30e58e580b202c463a6e8e7e9a09d226cded6abebf286a495f",
+      "bytes": 2522
+    },
+    {
+      "path": "BKH4_LEGACY_MUTATION_MIGRATION_MATRIX.md",
+      "sha256": "9fe27f31f3b75ea8ee14bfe3d8921be6c01b216268ec5ba3b7d48225c33e2f34",
+      "bytes": 2086
+    },
+    {
+      "path": "BKH4_OPEN_QUESTIONS.md",
+      "sha256": "ff4cd36b78a13e1a1abac4b2a39d258fb0591ef56406d565799c57e9f31521ee",
+      "bytes": 1934
+    },
+    {
+      "path": "BKH4_TEST_PLAN.md",
+      "sha256": "ac48465e91cfb5fbd792a07050228dac89b14fbf53a8ce0ca7a532c9b722a1e5",
+      "bytes": 4581
+    },
+    {
+      "path": "BKH4_TORTURE_SCENARIOS.md",
+      "sha256": "d25b43b3130dd4b822d54ab7634df1301b2c3534a2ff475e129829590dc838b1",
+      "bytes": 2081
+    },
+    {
+      "path": "BKH4_TRANSACTION_ENGINE_CONTRACT_V1_1.md",
+      "sha256": "2a58213e0c36e62fcbdec222d280e063d705546c60fa8cb2d6d3df929ce4d8a3",
+      "bytes": 28213
+    },
+    {
+      "path": "BKH4_TRANSACTION_OWNERSHIP_MATRIX.md",
+      "sha256": "a5ecd2ca60fde40bb4599ec4517fbc3fbee4ca5331986534299c01c8338f66ab",
+      "bytes": 1847
+    }
+  ]
+}

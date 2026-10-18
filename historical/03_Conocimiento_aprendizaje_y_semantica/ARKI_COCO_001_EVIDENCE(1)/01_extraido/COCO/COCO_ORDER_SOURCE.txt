@@ -1,0 +1,1103 @@
+# ARKI-COCO-001
+## PAQUETE INTEGRAL DE CAPACITACIÓN PREVIA
+## 4 CAPACIDADES — SINTAXIS ESPACIAL + EXPEDIENTE TÉCNICO + AVATAR + O&M
+
+AUTORIDAD:
+Product Owner / Human Authority
+
+EJECUTOR:
+Manus
+
+NOMBRE OPERATIVO:
+COCO
+
+TIPO:
+Capacitación preventiva integral de ARKI.
+
+OBJETIVO:
+Preparar a ARKI ANTES de las futuras transferencias y exámenes de DeepSeek/Lipsic.
+
+Esta orden NO pretende implementar por adelantado las capacidades avanzadas que DeepSeek posteriormente transferirá.
+
+Pretende construir los conocimientos, contratos, razonamiento, fundamentos computacionales y capacidad de resolución necesarios para que ARKI pueda enfrentarse a los futuros exámenes SIN memorizar respuestas.
+
+==================================================
+0. PRINCIPIO DE COCO
+==================================================
+
+La estrategia es:
+
+PRERREQUISITO
+→ APRENDIZAJE
+→ COMPRENSIÓN
+→ IMPLEMENTACIÓN FUNDAMENTAL
+→ PRUEBA
+→ ADVERSARIAL
+→ TRANSFERENCIA A CASO NUEVO
+→ ARKI PREPARADO
+→ EXAMEN DE DEEPSEEK
+→ TRANSFERENCIA AVANZADA DE DEEPSEEK
+
+NO:
+
+EXAMEN CONOCIDO
+→ MEMORIZAR RESPUESTAS
+→ PASS ARTIFICIAL
+
+Regla central:
+
+TRAIN CAPABILITY ≠ MEMORIZE ANSWER
+
+ARKI debe desarrollar el organismo intelectual previo necesario para resolver problemas nuevos.
+
+==================================================
+1. LOS CUATRO FRENTES
+==================================================
+
+COCO debe preparar simultáneamente cuatro capacidades:
+
+COCO-A
+FUNDAMENTOS PARA SINTAXIS ESPACIAL
+
+COCO-B
+FUNDAMENTOS PARA EXPEDIENTE TÉCNICO
+
+COCO-C
+FUNDAMENTOS PARA AVATAR
+
+COCO-D
+FUNDAMENTOS PARA OPERACIÓN Y MANTENIMIENTO — O&M
+
+No crear cuatro sistemas aislados.
+
+Buscar componentes compartidos y reutilizables.
+
+==================================================
+2. PASO CERO OBLIGATORIO — AUDITAR ARKI
+==================================================
+
+ANTES DE CREAR CÓDIGO:
+
+Inspeccionar el repositorio completo relacionado con estos cuatro dominios.
+
+Determinar para cada capacidad:
+
+EXISTS
+PARTIAL
+REUSABLE
+EXTENDABLE
+MISSING
+CONFLICT
+UNKNOWN
+
+Buscar especialmente:
+
+ConstructionModel
+Project State
+SceneModel
+3D
+GLB
+glTF
+geometry
+spaces
+relations
+graphs
+documents
+BIM
+IFC
+cost
+schedule
+clashes
+evidence
+provenance
+revision
+snapshots
+assets
+components
+systems
+maintenance
+lifecycle
+camera
+vision
+OCR
+AR
+gestures
+animation
+runtime
+Human Authority
+
+No duplicar arquitectura existente.
+
+No crear una segunda fuente canónica.
+
+REUSE > EXTEND > CREATE.
+
+==================================================
+3. COCO-A
+## FUNDAMENTOS PARA SINTAXIS ESPACIAL
+==================================================
+
+IMPORTANTE:
+
+DeepSeek ya tiene preparada una transferencia avanzada de Sintaxis Espacial.
+
+NO implementar su examen.
+
+NO copiar sus respuestas.
+
+NO utilizar sus casos anunciados como entrenamiento.
+
+NO implementar todavía su capacidad final como sustituto de la transferencia.
+
+Preparar los fundamentos que ARKI necesita para comprenderla.
+
+### A1. Teoría de grafos
+
+ARKI debe comprender operacionalmente:
+
+NODE
+EDGE
+DIRECTED EDGE
+UNDIRECTED EDGE
+WEIGHTED EDGE
+PATH
+SHORTEST PATH
+DEGREE
+CONNECTED COMPONENT
+DISCONNECTED GRAPH
+CYCLE
+TREE
+GRAPH DISTANCE
+CENTRALITY
+BETWEENNESS
+REACHABILITY
+
+### A2. Algoritmos fundamentales
+
+Implementar/comprobar conocimiento de:
+
+BFS
+DFS
+Dijkstra
+connected components
+shortest path
+cycle detection
+basic centrality
+graph traversal
+
+No hardcodear arquitectura dentro de estos algoritmos.
+
+Deben ser fundamentos reutilizables.
+
+### A3. Matemática necesaria
+
+Preparar:
+
+distancias
+promedios
+normalización
+percentiles
+correlación
+Pearson
+R²
+Infinity handling
+nullability
+determinismo
+tolerancias numéricas
+
+### A4. Programa + relaciones espaciales
+
+ARKI debe comprender:
+
+SPACE
+ACTIVITY
+USER
+CAPACITY
+ACCESS
+ADJACENCY
+PROXIMITY
+SEPARATION
+PRIVACY
+DEPENDENCY
+VISUAL RELATION
+FLOW
+RESTRICTION
+
+Relaciones mínimas:
+
+ADJACENT_TO
+NEAR
+SEPARATED_FROM
+DIRECT_ACCESS_TO
+CONTROLLED_ACCESS_TO
+VISUAL_CONNECTION_TO
+VISUAL_SEPARATION_FROM
+FUNCTIONALLY_DEPENDS_ON
+FLOW_CONNECTED_TO
+MUST_NOT_CROSS_WITH
+
+### A5. Estados
+
+Distinguir:
+
+REQUIRED
+PREFERRED
+PROHIBITED
+OBSERVED
+INFERRED
+SATISFIED
+VIOLATED
+UNKNOWN
+NOT_APPLICABLE
+
+AUSENCIA DE EVIDENCIA ≠ INCUMPLIMIENTO.
+
+### A6. Prohibición anticontaminación
+
+NO usar como entrenamiento los casos específicos anunciados por DeepSeek para su examen de Sintaxis Espacial.
+
+Especialmente no construir soluciones hardcoded para:
+
+hospital/UCI/quirófanos
+museo
+colegio
+
+ARKI debe poder resolver tipologías nuevas por transferencia.
+
+==================================================
+4. COCO-B
+## FUNDAMENTOS PARA EXPEDIENTE TÉCNICO
+==================================================
+
+NO generar todavía un Expediente Técnico profesional final.
+
+Preparar la arquitectura cognitiva/documental necesaria.
+
+ARKI debe comprender que un expediente técnico NO es una colección de PDFs.
+
+Debe modelar:
+
+PROJECT STATE
+→ DISCIPLINES
+→ REQUIREMENTS
+→ DESIGN
+→ CALCULATIONS
+→ DRAWINGS
+→ SPECIFICATIONS
+→ QUANTITIES
+→ COST
+→ SCHEDULE
+→ REVISION
+→ APPROVAL
+→ EVIDENCE
+→ PROFESSIONAL RESPONSIBILITY
+
+### B1. Tipos documentales
+
+Preparar contratos para representar:
+
+DESIGN_BRIEF
+DESCRIPTIVE_REPORT
+CALCULATION_REPORT
+DRAWING
+TECHNICAL_SPECIFICATION
+QUANTITY_TAKEOFF
+COST_ITEM
+UNIT_PRICE_ANALYSIS
+BUDGET
+SCHEDULE
+REVISION
+OBSERVATION
+RESPONSE
+APPROVAL
+SIGNATURE_REQUIREMENT
+SUPPORTING_EVIDENCE
+
+### B2. Trazabilidad
+
+Debe poder preguntarse:
+
+¿De qué elemento BIM proviene esta cantidad?
+
+¿Qué plano representa este elemento?
+
+¿Qué especificación lo gobierna?
+
+¿Qué cálculo lo sustenta?
+
+¿Qué presupuesto lo contiene?
+
+¿Qué versión está vigente?
+
+¿Qué cambió?
+
+¿Qué documentos fueron afectados?
+
+### B3. Consistencia cruzada
+
+Preparar razonamiento para detectar:
+
+DRAWING ≠ MODEL
+MODEL ≠ QUANTITY
+QUANTITY ≠ BUDGET
+SPECIFICATION ≠ MODEL
+SCHEDULE ≠ SCOPE
+REVISION A ≠ REVISION B
+
+No resolver todavía todos esos casos profesionalmente.
+
+Preparar representación y detección.
+
+### B4. Revisión
+
+Modelar:
+
+DRAFT
+UNDER_REVIEW
+OBSERVED
+CORRECTED
+REVALIDATION_REQUIRED
+APPROVED
+SUPERSEDED
+UNKNOWN
+
+APPROVED ≠ PROFESSIONALLY_SIGNED
+
+### B5. Responsabilidad
+
+Distinguir:
+
+COMPUTED
+GENERATED
+CHECKED
+PROFESSIONALLY_REVIEWED
+SIGNED
+ISSUED
+
+ARKI nunca debe inventar firma profesional.
+
+==================================================
+5. COCO-C
+## FUNDAMENTOS PARA AVATAR
+==================================================
+
+NO construir todavía el Avatar final de Lipsic.
+
+Preparar fundamentos.
+
+### C1. Representación 3D
+
+ARKI debe comprender:
+
+SCENE
+NODE
+MESH
+MATERIAL
+TEXTURE
+CAMERA
+LIGHT
+TRANSFORM
+LOCAL COORDINATES
+WORLD COORDINATES
+PARENT
+CHILD
+HIERARCHY
+
+### C2. glTF / GLB
+
+Preparar comprensión operacional de:
+
+glTF
+GLB
+scene graph
+buffers
+meshes
+materials
+textures
+nodes
+transforms
+animations
+
+No afirmar compatibilidad completa sin prueba.
+
+### C3. Rigging
+
+Preparar:
+
+SKELETON
+BONE
+JOINT
+SKIN
+WEIGHT
+POSE
+REST POSE
+HIERARCHY
+
+### C4. Animación
+
+Preparar:
+
+ANIMATION CLIP
+KEYFRAME
+INTERPOLATION
+TIMELINE
+STATE
+TRANSITION
+ANIMATION STATE MACHINE
+
+Ejemplos abstractos:
+
+IDLE
+WALK
+POINT
+GESTURE
+LISTEN
+SPEAK
+
+No crear comportamiento humano autónomo sin autoridad.
+
+### C5. Gestos
+
+Preparar modelo:
+
+INTENT
+→ GESTURE
+→ ANIMATION
+→ DEVICE OUTPUT
+→ OBSERVED RESULT
+
+COMMAND SENT ≠ OBSERVED DEVICE STATE.
+
+### C6. Percepción
+
+Preparar conceptos:
+
+CAMERA FRAME
+IMAGE
+OCR
+OBJECT DETECTION
+POSE
+DEPTH
+CONFIDENCE
+TIMESTAMP
+SOURCE
+PROVENANCE
+
+Reglas:
+
+VER ≠ COMPRENDER
+
+OBSERVAR ≠ MEDIR
+
+IMAGEN ≠ EVIDENCIA MÉTRICA
+
+DETECTAR ≠ DIAGNOSTICAR
+
+### C7. AR / mundo físico
+
+Preparar:
+
+WORLD FRAME
+DEVICE FRAME
+ANCHOR
+POSE
+TRACKING
+LOCALIZATION
+COORDINATE TRANSFORM
+
+No construir todavía AR productivo.
+
+### C8. Autoridad
+
+AVATAR ≠ AUTORIDAD
+
+El Avatar puede:
+
+representar
+comunicar
+observar
+solicitar
+mostrar
+
+No adquiere por ello autoridad canónica.
+
+==================================================
+6. COCO-D
+## FUNDAMENTOS PARA OPERACIÓN Y MANTENIMIENTO
+==================================================
+
+ARKI debe empezar a comprender que el edificio continúa existiendo después de la entrega.
+
+Modelo:
+
+DESIGN
+→ CONSTRUCTION
+→ COMMISSIONING
+→ AS-BUILT
+→ HANDOVER
+→ OPERATION
+→ INSPECTION
+→ MAINTENANCE
+→ FAILURE
+→ REPAIR
+→ REPLACEMENT
+→ RENOVATION
+→ END OF LIFE
+
+### D1. Asset
+
+Preparar:
+
+Asset
+AssetType
+Component
+System
+Location
+Manufacturer
+Model
+SerialNumber
+InstallationDate
+CommissioningDate
+Warranty
+ExpectedLife
+Condition
+Criticality
+
+No inventar información inexistente.
+
+### D2. Sistemas
+
+Relaciones:
+
+ASSET PART_OF SYSTEM
+SYSTEM SERVES SPACE
+ASSET LOCATED_IN SPACE
+ASSET DEPENDS_ON ASSET
+ASSET REQUIRES MAINTENANCE
+FAILURE AFFECTS SYSTEM
+
+### D3. Mantenimiento
+
+Preparar:
+
+PREVENTIVE
+CORRECTIVE
+PREDICTIVE
+CONDITION_BASED
+INSPECTION
+REPLACEMENT
+
+### D4. Work Order conceptual
+
+Representar:
+
+asset
+problem
+priority
+reportedAt
+inspection
+diagnosis
+action
+responsible
+status
+evidence
+completion
+verification
+
+### D5. Historial
+
+No sobrescribir simplemente:
+
+“equipo bueno”
+por
+“equipo malo”.
+
+Conservar evolución:
+
+STATE(t0)
+→ EVENT
+→ STATE(t1)
+
+### D6. As-built
+
+DESIGN MODEL ≠ AS-BUILT MODEL.
+
+ARKI debe poder mantener ambos conceptos separados.
+
+### D7. Sensor/BMS futuro
+
+Preparar contrato conceptual:
+
+SENSOR
+OBSERVATION
+VALUE
+UNIT
+TIMESTAMP
+QUALITY
+SOURCE
+
+SENSOR VALUE ≠ CANONICAL FACT AUTOMÁTICAMENTE.
+
+### D8. Vida útil
+
+Preparar:
+
+EXPECTED LIFE
+OBSERVED CONDITION
+MAINTENANCE HISTORY
+FAILURE HISTORY
+REPLACEMENT
+UNKNOWN
+
+No implementar mantenimiento predictivo profesional todavía.
+
+==================================================
+7. FUNDAMENTOS TRANSVERSALES
+==================================================
+
+Los cuatro COCO deben compartir:
+
+PROVENANCE
+EVIDENCE
+UNKNOWN
+APPLICABILITY
+SCALE
+TIME
+SCENARIO
+PROJECT ID
+REVISION
+DETERMINISM
+HUMAN AUTHORITY
+
+No construir cuatro implementaciones distintas de estos conceptos si ARKI ya tiene infraestructura común.
+
+==================================================
+8. KNOWLEDGE ≠ PROJECT STATE
+==================================================
+
+Mantener separación:
+
+KNOWLEDGE
+≠
+PROJECT STATE
+≠
+EVIDENCE
+≠
+MEMORY
+≠
+STRATEGY
+
+Ejemplo:
+
+“Una puerta puede conectar dos espacios”
+
+es conocimiento.
+
+“Door-017 conecta Space-A y Space-B”
+
+es Project State/evidencia del proyecto.
+
+No mezclar.
+
+==================================================
+9. TESTS
+==================================================
+
+Cada COCO debe tener:
+
+NORMAL TESTS
+BOUNDARY TESTS
+ADVERSARIAL TESTS
+METAMORPHIC TESTS
+TRANSFER TESTS
+
+No utilizar tests de mera presencia de strings para demostrar comportamiento.
+
+SOURCE PRESENCE ≠ RUNTIME BEHAVIOR.
+
+Si se afirma comportamiento:
+
+ejecutarlo.
+
+==================================================
+10. TEST-THE-TEST
+==================================================
+
+Para cada COCO introducir mutantes controlados.
+
+Ejemplos:
+
+A:
+romper shortest path
+ignorar disconnected graph
+UNKNOWN → SATISFIED
+
+B:
+ignorar revisión
+romper trazabilidad
+tratar SUPERSEDED como vigente
+
+C:
+confundir local/world transform
+ignorar parent transform
+COMMAND_SENT → SUCCESS
+
+D:
+confundir design/as-built
+sobrescribir historial
+sensor observation → canonical truth
+
+Los tests deben matar los mutantes.
+
+Registrar evidencia.
+
+Restaurar implementación correcta.
+
+==================================================
+11. EXÁMENES INTERNOS COCO
+==================================================
+
+Crear nuestros propios exámenes.
+
+NO utilizar los futuros exámenes conocidos de DeepSeek.
+
+COCO-A:
+casos espaciales abstractos no pertenecientes a hospital, museo o colegio.
+
+COCO-B:
+proyecto ficticio pequeño con documentos inconsistentes.
+
+COCO-C:
+avatar/scene fixture sintético con jerarquía, transforms y animación básica.
+
+COCO-D:
+edificio ficticio con activos, avería, mantenimiento y cambio de estado.
+
+Cada examen debe tener:
+
+NORMAL
+ADVERSARIAL
+TRANSFER
+
+El TRANSFER debe cambiar el contexto.
+
+==================================================
+12. NO SOBREENTRENAR
+==================================================
+
+Después de que ARKI pase un fixture:
+
+NO repetir simplemente el mismo.
+
+Cambiar:
+
+nombres
+topología
+orden
+cantidad
+contexto
+combinación
+datos faltantes
+contradicciones
+
+Queremos capacidad generalizable.
+
+==================================================
+13. QUÉ NO IMPLEMENTAR
+==================================================
+
+COCO NO debe convertirse en:
+
+Space Syntax final de DeepSeek
+Expediente Técnico emitible
+Avatar productivo
+sistema O&M productivo
+
+Tampoco:
+
+solver estructural profesional
+MEP profesional
+motor normativo completo
+EnergyPlus
+Radiance
+CFD
+FDS
+BMS productivo
+computer vision productiva
+
+Esto es preparación.
+
+No sustitución de las futuras transferencias.
+
+==================================================
+14. REGLA DE VERDAD
+==================================================
+
+Utilizar estados explícitos:
+
+DOCUMENTED
+IMPLEMENTED
+TESTED
+VERIFIED_FOR_BOUNDED_SCOPE
+PARTIAL
+NOT_IMPLEMENTED
+NOT_TESTED
+UNKNOWN
+PROFESSIONAL_VALIDATION_REQUIRED
+
+Nunca:
+
+NOT_TESTED → PASS
+
+Nunca:
+
+UNKNOWN → TRUE
+
+Nunca:
+
+DOCUMENTED → IMPLEMENTED
+
+Nunca:
+
+IMPLEMENTED → PROFESSIONALLY_VALIDATED
+
+==================================================
+15. HUMAN AUTHORITY
+==================================================
+
+Mantener Human Authority en las cuatro capacidades.
+
+COCO no autoriza:
+
+publicación
+firma
+emisión profesional
+commit canónico no autorizado
+decisión profesional autónoma
+control autónomo del mundo físico
+
+LOCAL COMPUTATION ≠ LOCAL AUTHORITY.
+
+==================================================
+16. PF-H01
+==================================================
+
+No modificar, reinterpretar, desactivar ni crear excepciones a PF-H01.
+
+COCO debe ser compatible con los principios fundacionales existentes de ARKI.
+
+No crear master override.
+
+No crear recovery key.
+
+No crear bypass.
+
+==================================================
+17. REGRESIÓN
+==================================================
+
+COCO no debe romper:
+
+E5
+E6
+E7
+E8
+BKH
+TX
+PF-H01
+Project State
+Canonical persistence
+
+Ejecutar únicamente las suites necesarias y suficientes según dependencias reales del repositorio.
+
+No modificar fases cerradas para hacer pasar COCO.
+
+==================================================
+18. ARTEFACTOS
+==================================================
+
+Crear un paquete:
+
+ARKI_COCO_001_EVIDENCE.zip
+
+Estructura lógica:
+
+COCO/
+  AUDIT/
+  A_SPATIAL_PREREQUISITES/
+  B_EXPEDIENTE_PREREQUISITES/
+  C_AVATAR_PREREQUISITES/
+  D_OM_PREREQUISITES/
+  TESTS/
+  MUTANTS/
+  TRANSFER/
+  OUTPUTS/
+  MANIFEST/
+
+Incluir:
+
+COCO_AUDIT.md
+COCO_CAPABILITY_MATRIX.md
+COCO_TEST_MATRIX.csv
+COCO_OUTPUTS.txt
+COCO_SCOPE_LIMITS.md
+COCO_REPORT.md
+COCO_MANIFEST.json
+
+y código/tests realmente creados.
+
+Todos los artefactos relevantes:
+
+SHA-256.
+
+==================================================
+19. MATRIZ OBLIGATORIA
+==================================================
+
+Para cada capacidad:
+
+PREREQUISITE
+→ EXISTING ARKI CAPABILITY
+→ GAP
+→ IMPLEMENTATION
+→ TEST
+→ ADVERSARIAL
+→ TRANSFER TEST
+→ RESULT
+→ EVIDENCE
+
+Queremos saber qué aprendió ARKI y qué sigue faltando.
+
+==================================================
+20. NO AUTO-CERTIFICACIÓN
+==================================================
+
+Manus NO declarará:
+
+SPATIAL_SYNTAX_COMPETENCY_VERIFIED
+
+EXPEDIENTE_TECNICO_COMPETENCY_VERIFIED
+
+AVATAR_COMPETENCY_VERIFIED
+
+OM_COMPETENCY_VERIFIED
+
+Esas capacidades todavía NO son el objetivo de COCO.
+
+Puede declarar:
+
+COCO-A PREREQUISITES TESTED
+COCO-B PREREQUISITES TESTED
+COCO-C PREREQUISITES TESTED
+COCO-D PREREQUISITES TESTED
+
+si la evidencia lo permite.
+
+==================================================
+21. GATE FINAL
+==================================================
+
+COCO-001 sólo termina cuando:
+
+check PASS
+build PASS
+
+COCO-A tests PASS
+COCO-B tests PASS
+COCO-C tests PASS
+COCO-D tests PASS
+
+adversariales ejecutados
+metamórficos ejecutados
+transfer tests ejecutados
+test-the-test demostrado
+
+UNKNOWN preservado
+provenance preservado
+project isolation preservado
+determinismo demostrado donde corresponda
+
+regresiones relevantes PASS
+
+sin contaminación del examen de DeepSeek
+
+sin falsos claims profesionales.
+
+Si algo falla:
+
+REPARAR
+→ RETEST
+→ REGRESSION TEST
+
+Si requiere una capacidad avanzada fuera del alcance:
+
+DECLARED_GAP
+
+No esconderla.
+
+==================================================
+22. REPORTE FINAL
+==================================================
+
+Manus entregará:
+
+1. estado inicial encontrado;
+2. capacidades reutilizadas;
+3. gaps;
+4. implementación realizada;
+5. archivos creados;
+6. archivos modificados;
+7. tests;
+8. adversariales;
+9. metamórficos;
+10. transfer tests;
+11. mutantes;
+12. regresiones;
+13. deuda/gaps restantes;
+14. límites;
+15. worktree status;
+16. commit SHA solamente si hubo autorización;
+17. ZIP de evidencia;
+18. recomendación técnica para la siguiente capacitación.
+
+Reporte conciso.
+
+Evidencia primero.
+
+==================================================
+23. REGLA FINAL
+==================================================
+
+No estamos intentando adelantarnos a DeepSeek copiando lo que posteriormente nos entregará.
+
+Estamos preparando a ARKI para que cuando DeepSeek pregunte:
+
+“¿Sabes esto?”
+
+ARKI pueda demostrar:
+
+“SÍ, TENGO LOS FUNDAMENTOS Y PUEDO RAZONAR SOBRE EL PROBLEMA.”
+
+Entonces DeepSeek podrá subir el nivel y transferir la siguiente capa.
+
+La meta de COCO es:
+
+NO MEMORIZAR.
+
+NO SIMULAR COMPETENCIA.
+
+NO PREDECIR EL EXAMEN.
+
+CONSTRUIR FUNDAMENTOS.
+
+PROBARLOS.
+
+ROMPERLOS.
+
+REPARARLOS.
+
+TRANSFERIRLOS A PROBLEMAS NUEVOS.
+
+Y DEJAR A ARKI PREPARADO PARA APRENDER MÁS.
+
+PROCEDE CON ARKI-COCO-001.

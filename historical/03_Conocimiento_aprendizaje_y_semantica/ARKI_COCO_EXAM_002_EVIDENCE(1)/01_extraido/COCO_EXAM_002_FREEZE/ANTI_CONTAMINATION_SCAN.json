@@ -1,0 +1,197 @@
+{
+  "artifact": "ANTI_CONTAMINATION_SCAN",
+  "termsScanned": [
+    "PROJECT ORION",
+    "ARKI-TRANSFER-002",
+    "TRANSFER-002",
+    "SURPRISE TRANSFER",
+    "CENTRO DE PRODUCCI\u00d3N, INVESTIGACI\u00d3N Y DISTRIBUCI\u00d3N",
+    "EXAM_VERIFIED_FOR_BOUNDED_C1_C53_TRANSFER",
+    "COVERAGE_MATRIX_C1_C53",
+    "PATTERN_TO_LAW",
+    "TYPOLOGY_TO_FACT",
+    "SIMULATION_TO_TRUTH",
+    "CERTIFICATION_PROJECTED_TO_CERTIFIED",
+    "PFH01_BYPASS",
+    "ORION"
+  ],
+  "matches": [
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_RAW.json",
+      "term": "ARKI-TRANSFER-002",
+      "count": 2,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_RAW.json",
+      "term": "TRANSFER-002",
+      "count": 2,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_REPORT.md",
+      "term": "ARKI-TRANSFER-002",
+      "count": 2,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_REPORT.md",
+      "term": "TRANSFER-002",
+      "count": 2,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_OUTPUTS.txt",
+      "term": "ARKI-TRANSFER-002",
+      "count": 3,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_OUTPUTS.txt",
+      "term": "TRANSFER-002",
+      "count": 3,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_SCOPE_LIMITS.md",
+      "term": "ARKI-TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_SCOPE_LIMITS.md",
+      "term": "TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_MANIFEST.json",
+      "term": "ARKI-TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "ARKI_COCO_EXAM_001_R1_MANIFEST.json",
+      "term": "TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/test-coco-exam-001-r1.ts",
+      "term": "ARKI-TRANSFER-002",
+      "count": 2,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/test-coco-exam-001-r1.ts",
+      "term": "TRANSFER-002",
+      "count": 4,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/run-coco-exam-001-r1-evidence.sh",
+      "term": "ARKI-TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/run-coco-exam-001-r1-evidence.sh",
+      "term": "TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/create-coco-exam-001-r1-package.py",
+      "term": "ARKI-TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/create-coco-exam-001-r1-package.py",
+      "term": "TRANSFER-002",
+      "count": 1,
+      "classification": "SUPPLIED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "PROJECT ORION",
+      "count": 2,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "ARKI-TRANSFER-002",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "TRANSFER-002",
+      "count": 2,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "SURPRISE TRANSFER",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "CENTRO DE PRODUCCI\u00d3N, INVESTIGACI\u00d3N Y DISTRIBUCI\u00d3N",
+      "count": 2,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "EXAM_VERIFIED_FOR_BOUNDED_C1_C53_TRANSFER",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "COVERAGE_MATRIX_C1_C53",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "PATTERN_TO_LAW",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "TYPOLOGY_TO_FACT",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "SIMULATION_TO_TRUTH",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "CERTIFICATION_PROJECTED_TO_CERTIFIED",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "PFH01_BYPASS",
+      "count": 1,
+      "classification": "ENCODED"
+    },
+    {
+      "path": "scripts/run-coco-exam-002-freeze-scan.py",
+      "term": "ORION",
+      "count": 6,
+      "classification": "ENCODED"
+    }
+  ],
+  "materialContaminationMatches": [],
+  "classification": "NO_MATERIAL_ORION_CONTAMINATION_DETECTED",
+  "note": "Historical R1 material is SUPPLIED and the scanner vocabulary is ENCODED. Only ORION-specific runtime fixtures outside the scanner count as material contamination."
+}

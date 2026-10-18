@@ -1,0 +1,118 @@
+{
+  "campaign": "ARKI-BREAK-001",
+  "mode": "EXECUTE_OBSERVE_RECORD_REPORT_CONTINUE",
+  "tests": [
+    {
+      "id": "B01",
+      "title": "INCOMPLETE BRIEF ATTACK",
+      "result": "RESISTS",
+      "severity": "S0 — NONE",
+      "firstBreakpoint": "NONE — critical unknown detection held."
+    },
+    {
+      "id": "B02",
+      "title": "CONTRADICTORY BRIEF ATTACK",
+      "result": "DEGRADES",
+      "severity": "S2 — MATERIAL",
+      "firstBreakpoint": "Problem frame records tension but does not classify the contradictory pair as a conflict record."
+    },
+    {
+      "id": "B03",
+      "title": "UNKNOWN TYPOLOGY ATTACK",
+      "result": "DEGRADES",
+      "severity": "S2 — MATERIAL",
+      "firstBreakpoint": "Dynamic parti derivation is generic rather than demonstrated typology transfer."
+    },
+    {
+      "id": "B04",
+      "title": "DIFFICULT SITE ATTACK",
+      "result": "DEGRADES",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "PARTI → TOPOLOGY propagation is not implemented in Project Brain itself."
+    },
+    {
+      "id": "B05",
+      "title": "CAPACITY / AREA ATTACK",
+      "result": "KNOWS_IT_DOES_NOT_KNOW",
+      "severity": "S2 — MATERIAL",
+      "firstBreakpoint": "Evaluation matrix marks cost/constructability/function as UNKNOWN rather than proving infeasibility."
+    },
+    {
+      "id": "B06",
+      "title": "FLOW COLLISION ATTACK",
+      "result": "DEGRADES",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "Flow labels are not yet converted into measured collision constraints."
+    },
+    {
+      "id": "B07",
+      "title": "LATE CHANGE ATTACK",
+      "result": "DEGRADES",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "No explicit late-change comparison is generated."
+    },
+    {
+      "id": "B08",
+      "title": "REGULATORY CONFLICT ATTACK",
+      "result": "KNOWS_IT_DOES_NOT_KNOW",
+      "severity": "S2 — MATERIAL",
+      "firstBreakpoint": "Regulation domain remains UNKNOWN without a source resolver call."
+    },
+    {
+      "id": "B09",
+      "title": "ECONOMIC ATTACK",
+      "result": "KNOWS_IT_DOES_NOT_KNOW",
+      "severity": "S2 — MATERIAL",
+      "firstBreakpoint": "Cost domain remains UNKNOWN."
+    },
+    {
+      "id": "B10",
+      "title": "ENGINEERING COLLISION ATTACK",
+      "result": "KNOWS_IT_DOES_NOT_KNOW",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "Engineering layer has no calculation or specialist adapter in Wave 1."
+    },
+    {
+      "id": "B11",
+      "title": "KILL THE PARTI",
+      "result": "DEGRADES",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "No stateful parent-parti invalidation is connected to the new evidence."
+    },
+    {
+      "id": "B12",
+      "title": "MULTISCALE ATTACK",
+      "result": "DEGRADES",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "Scale labels are not yet causal multiscale reasoning."
+    },
+    {
+      "id": "B13",
+      "title": "TIME ATTACK",
+      "result": "KNOWS_IT_DOES_NOT_KNOW",
+      "severity": "S2 — MATERIAL",
+      "firstBreakpoint": "No temporal model is connected to the brain."
+    },
+    {
+      "id": "B14",
+      "title": "FALSE EVIDENCE ATTACK",
+      "result": "RESISTS",
+      "severity": "S0 — NONE",
+      "firstBreakpoint": "NONE — conflict remains unresolved and visible."
+    },
+    {
+      "id": "B15",
+      "title": "IMPOSSIBLE PROJECT ATTACK",
+      "result": "DEGRADES",
+      "severity": "S3 — MAJOR",
+      "firstBreakpoint": "No feasibility proof or impossibility classifier exists in Wave 1."
+    }
+  ],
+  "counts": {
+    "RESISTS": 2,
+    "DEGRADES": 8,
+    "FAILS": 0,
+    "KNOWS_IT_DOES_NOT_KNOW": 5,
+    "FABRICATES": 0
+  }
+}

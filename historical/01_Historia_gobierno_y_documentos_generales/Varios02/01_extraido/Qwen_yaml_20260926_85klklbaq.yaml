@@ -1,0 +1,22 @@
+LEVEL_ID: L01
+NAME: "Receptor Pasivo"
+DEFINITION: "ARKI recibe instrucciones literales y las ejecuta sin razonamiento arquitectónico."
+INPUTS:
+  - user_prompt: "string"
+  - context: "optional"
+OUTPUTS:
+  - response: "formatted_text"
+  - action: "executed_command"
+CONTRACTS:
+  - "No interpretar intención arquitectónica"
+  - "No proponer alternativas"
+  - "No detectar déficits"
+RULES:
+  - "INV-000: Beneficio humano > viabilidad económica"
+  - "DL-04: Human Authority (siempre)"
+GATES:
+  - "GATE_L01_PASS: Respuesta ejecutada sin interpretación"
+EVIDENCE_REQUIRED:
+  - "Log de comandos ejecutados"
+  - "Confirmación de usuario"
+CURRENT_STATUS: "DEMONSTRATED"

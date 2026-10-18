@@ -1,0 +1,26 @@
+# ARKI LKS ORDER 97 OUTPUTS
+
+## pnpm check
+PASS
+
+## pnpm tsx scripts/test-arki-living-knowledge.ts
+PASS
+
+{
+  "status": "PASS",
+  "codebooks": ["LKC-001-IFC", "LKC-002-SMART-CITIES", "LKC-003-URBAN-DIGITAL-TWIN"],
+  "twoKeyRule": "PASS",
+  "humanAuthorityGate": "PASS",
+  "noConfidenceTheater": "PASS",
+  "capabilityAtlas": "PASS",
+  "gapRegister": "PASS",
+  "noChangeClosure": "PASS",
+  "changeDetection": "PASS",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED"
+}
+
+## External research
+Three independent research units completed successfully for IFC/openBIM, Smart Cities and Urban Digital Twins. Their results are represented in ARKI_LKS_SOURCE_REGISTER.md as staged research evidence.
+
+## Scope
+No automatic scheduler, crawler, canonical promotion, product capability promotion or gap implementation was performed.

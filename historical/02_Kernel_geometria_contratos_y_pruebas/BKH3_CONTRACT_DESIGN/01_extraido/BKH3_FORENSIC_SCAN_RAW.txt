@@ -1,0 +1,404 @@
+# repo
+/home/ubuntu/generador-familias
+main
+c62183a5904f02aa0a935572454a5a35f9d167aa
+ [31mD[m client/src/components/ArkiNavigator.tsx
+ [31mM[m client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m client/src/contexts/ProjectContext.tsx
+ [31mM[m client/src/index.css
+ [31mM[m client/src/modules/GeneratorModule.tsx
+ [31mM[m package.json
+ [31mM[m pnpm-lock.yaml
+ [31mM[m scripts/test-navigator-layout.ts
+ [31mM[m scripts/test-no-inherited-cleanup.ts
+[31m??[m AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md
+[31m??[m AKI001_COMPETENCY_MATRIX.md
+[31m??[m AKI001_CURRICULUM_DELTA_BKH1.md
+[31m??[m AKI001_EVIDENCE_INDEX.md
+[31m??[m AKI001_EXECUTIVE_SUMMARY.md
+[31m??[m AKI001_FUTURE_CURRICULUM_PROPOSAL.md
+[31m??[m AKI001_HISTORICAL_CURRICULUM.md
+[31m??[m AKI001_KNOWLEDGE_GAPS.md
+[31m??[m AKI001_KNOWLEDGE_INVENTORY.md
+[31m??[m AKI001_LOCAL_INVENTORY_RAW.txt
+[31m??[m AKI001_MANIFEST.json
+[31m??[m AKI001_MULTISCALE_KNOWLEDGE_MAP.md
+[31m??[m AKI001_REPORT.md
+[31m??[m ARCHI_CONTROLES_FUNCIONALES_16_MODULOS.md
+[31m??[m ARKI_ADDENDA_SEPARACION_INTELIGENCIA_Y_BIM_KERNEL_V1.md
+[31m??[m ARKI_ADDENDUM_E_COD_LUKA.md
+[31m??[m ARKI_AUDITORIA_ACTUAL_DEEPSEEK.md
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip
+[31m??[m ARKI_CHATGPT_HANDOFF_2026-09-23.zip.sha256
+[31m??[m ARKI_COMPUTATIONAL_FABRIC_V1.md
+[31m??[m ARKI_COMPUTATIONAL_INTELLIGENCE_ADDENDUM_V1.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_CONTEXT_PANEL_V2.md
+[31m??[m ARKI_CONTRATO_UI3A_CANVAS_SELECCION.md
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT.zip
+[31m??[m ARKI_DEEPSEEK_CURRENT_AUDIT/
+[31m??[m ARKI_FLUJO_TRABAJO_Y_PANELES.md
+[31m??[m ARKI_KNOWLEDGE_BOOK_DELTA_BKH1.md
+[31m??[m ARKI_PROTOCOLO_DESBLOQUEO_TEMPORAL_Y_REBLOQUEO.md
+[31m??[m ARKI_ROADMAP_CORPORATIVO_V1.md
+[31m??[m ARKI_VEREDICTO_CONTRATO_UI3A_V2.md
+[31m??[m ARKI_VEREDICTO_RESPUESTA_E5_DEEPSEEK.md
+[31m??[m ARKI_VEREDICTO_REVISION_UI3A.md
+[31m??[m BKH0_BASELINE.txt
+[31m??[m BKH0_CANONICAL_OWNERSHIP_MAP.md
+[31m??[m BKH0_CURRENT_PRODUCT_DIFF.txt
+[31m??[m BKH0_DEPENDENCY_MAP.md
+[31m??[m BKH0_DUPLICATION_RAW.txt
+[31m??[m BKH0_DUPLICATION_REPORT.md
+[31m??[m BKH0_ENTITY_REGISTRY.md
+[31m??[m BKH0_FORENSIC_MAP.md
+[31m??[m BKH0_IMPLEMENTATION_GAPS.md
+[31m??[m BKH0_INSPECTION_RAW.txt
+[31m??[m BKH0_INVARIANT_REGISTRY.md
+[31m??[m BKH0_MANIFEST.json
+[31m??[m BKH0_MUTATION_PATH_MAP.md
+[31m??[m BKH0_OUTPUTS.txt
+[31m??[m BKH0_RELATIONSHIP_INVENTORY.md
+[31m??[m BKH0_REPORT.md
+[31m??[m BKH0_TEST_RUN_RAW.txt
+[31m??[m BKH1_CHANGE_LIST.md
+[31m??[m BKH1_DIFF.patch
+[31m??[m BKH1_EVIDENCE.zip
+[31m??[m BKH1_EVIDENCE.zip.sha256
+[31m??[m BKH1_EVIDENCE_MANIFEST.json
+[31m??[m BKH1_GATE1_BASELINE.txt
+[31m??[m BKH1_GATE1_BASELINE_RAW.txt
+[31m??[m BKH1_IMPLEMENTATION_OUTPUTS.txt
+[31m??[m BKH1_IMPLEMENTATION_SEQUENCE.md
+[31m??[m BKH1_PACKAGE_MANIFEST.json
+[31m??[m BKH1_PACKAGE_README.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT.md
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip
+[31m??[m BKH1_RELATIONSHIP_FABRIC_CONTRACT_PACKAGE.zip.sha256
+[31m??[m BKH1_RELATIONSHIP_SCHEMA.md
+[31m??[m BKH1_RELATION_MIGRATION_MATRIX.md
+[31m??[m BKH1_REPORT.md
+[31m??[m BKH1_SCOPE_LIMITS.md
+[31m??[m BKH1_TEST_PLAN.md
+[31m??[m BKH1_TRACKED_DIFF_AFTER.txt
+[31m??[m BKH1_VERDICT_VERIFIED.md
+[31m??[m BKH1_WORKTREE_AFTER.txt
+[31m??[m BKH2_CONTRACT_DESIGN.zip
+[31m??[m BKH2_CONTRACT_DESIGN.zip.sha256
+[31m??[m BKH2_CONTRACT_DESIGN/
+[31m??[m BKH2_EVIDENCE.zip
+[31m??[m BKH2_EVIDENCE.zip.sha256
+[31m??[m BKH2_EVIDENCE_MANIFEST.json
+[31m??[m BKH2_GATE1_BASELINE.txt
+[31m??[m BKH2_IMPLEMENTATION_OUTPUTS.txt
+[31m??[m BKH2_REPORT.md
+[31m??[m BKH2_SCOPE_LIMITS.md
+[31m??[m BKH3_FORENSIC_SCAN_RAW.txt
+[31m??[m BKH_CONTRATO_CHATGPT_V1.md
+[31m??[m CHATGPT_HANDOFF_FILELIST.txt
+[31m??[m CHATGPT_HANDOFF_README.md
+[31m??[m CHATGPT_HANDOFF_SHA256SUMS.txt
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22.zip.sha256
+[31m??[m DEEPSEEK_HANDOFF_2026_09_22/
+[31m??[m DEEPSEEK_MD_SEPARADOS_2026_09_22/
+[31m??[m E1_CONTRATO_PRODUCTO_ADRS/
+[31m??[m E2_WIREFLOWS_CONTROLES_PRUEBAS/
+[31m??[m E3_CATALOGO_CORPORATIVO_P2/
+[31m??[m E4_CONTRATOS_ESPECIALIZADOS/
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.md
+[31m??[m E5_CONTRATO_REVISADO_V1_APROBADO.txt
+[31m??[m E5_SCENE_MODEL_3D_OUTPUTS.txt
+[31m??[m E5_SCENE_MODEL_3D_REPORT.md
+[31m??[m E6_BASELINE_OUTPUTS.txt
+[31m??[m E6_DEBT_INHERITED.md
+[31m??[m E6_MANIFEST.json
+[31m??[m E6_OUTPUTS.txt
+[31m??[m E6_PO_APPROVAL.md
+[31m??[m E6_REPORT.md
+[31m??[m E6_SCOPE_LIMITS.md
+[31m??[m E7_CONTRATO_PROPUESTO_V1.md
+[31m??[m E7_DEBT_INHERITED.md
+[31m??[m E7_MANIFEST.json
+[31m??[m E7_OPENING.md
+[31m??[m E7_OUTPUTS.txt
+[31m??[m E7_PO_APPROVAL.md
+[31m??[m E7_REPORT.md
+[31m??[m E7_SCOPE_LIMITS.md
+[31m??[m E7_VERDICT_CYCLE1.md
+[31m??[m E8_CONTRATO_PROPUESTO_V1.md
+[31m??[m FASE_0_ADRS_RECLASIFICADOS.md
+[31m??[m FASE_0_AUDITORIA_REAL_2026-09-23.md
+[31m??[m FASE_0_BASELINE_HASHES.txt
+[31m??[m FASE_0_BLOQUEO_CONFIRMADO.md
+[31m??[m FASE_0_CAPTURAS_MANIFEST.md
+[31m??[m FASE_0_CLASIFICACION_ARCHIVOS.md
+[31m??[m FASE_0_FIRMA_PO_CONFIRMADA.md
+[31m??[m RESUMEN_IMPLEMENTACION_ARKI_2026-09-23.md
+[31m??[m REVISION_CUIDADOSA_TUTOR_Y_E5_2026-09-23.md
+[31m??[m REVISION_DOCUMENTO_71_ARKI_ACADEMY_ADVISORY.md
+[31m??[m UI3A_DIFF.patch
+[31m??[m UI3A_EVIDENCE.zip
+[31m??[m UI3A_EVIDENCE.zip.sha256
+[31m??[m UI3A_MANIFEST.json
+[31m??[m UI3A_VERIFICATION_REPORT.md
+[31m??[m client/src/canvas/
+[31m??[m client/src/comparison/
+[31m??[m client/src/ifc4/
+[31m??[m client/src/modules/E7DomainModule.tsx
+[31m??[m client/src/modules/SceneModelModule.tsx
+[31m??[m client/src/persistence/
+[31m??[m contracts/
+[31m??[m evidence/
+[31m??[m fixtures/
+[31m??[m scripts/create-e6-manifest.sh
+[31m??[m scripts/create-e7-manifest.sh
+[31m??[m scripts/create-ui3a-manifest.sh
+[31m??[m scripts/generate-ifc-fixtures.ts
+[31m??[m scripts/run-fase0-audit.sh
+[31m??[m scripts/test-bim-selection.ts
+[31m??[m scripts/test-bkh1-relationship-fabric.ts
+[31m??[m scripts/test-bkh2-constraint-engine.ts
+[31m??[m scripts/test-camera-modes.ts
+[31m??[m scripts/test-canvas-mount.ts
+[31m??[m scripts/test-clipping-section.ts
+[31m??[m scripts/test-comparison-side-by-side.ts
+[31m??[m scripts/test-context-panel.ts
+[31m??[m scripts/test-e7.ts
+[31m??[m scripts/test-ifc4-exporter.ts
+[31m??[m scripts/test-ifc4-fixtures.ts
+[31m??[m scripts/test-ifc4-globalid.ts
+[31m??[m scripts/test-ifc4-web-ifc.ts
+[31m??[m scripts/test-isolate-freeze.ts
+[31m??[m scripts/test-measure-snap.ts
+[31m??[m scripts/test-persistence-formal.ts
+[31m??[m scripts/test-persistence-idb.ts
+[31m??[m scripts/test-plan-3d-sync.ts
+[31m??[m scripts/test-scene-comparison.ts
+[31m??[m scripts/test-scene-model-mount.ts
+[31m??[m scripts/test-scene-model.ts
+[31m??[m scripts/test-selection-info.ts
+[31m??[m scripts/test-viewpoints.ts
+[31m??[m scripts/test-wall-door-canvas.ts
+[31m??[m shared/arki4d/
+[31m??[m shared/arki5d/
+[31m??[m shared/arkiBimSelection.ts
+[31m??[m shared/arkiConstraintEngine.ts
+[31m??[m shared/arkiContextPanel.ts
+[31m??[m shared/arkiImpacts/
+[31m??[m shared/arkiRelationshipAdapters.ts
+[31m??[m shared/arkiRelationshipFabric.ts
+[31m??[m shared/arkiSceneComparison.ts
+[31m??[m shared/arkiSceneModel.ts
+[31m??[m shared/coordination/
+[31m??[m shared/identity/
+[31m??[m shared/ifc4/
+[31m??[m shared/mep/
+[31m??[m shared/persistence/
+[31m??[m shared/structural/
+# candidate files
+client/src/canvas/CanvasPlanView.tsx
+client/src/canvas/ContextPanel.tsx
+client/src/canvas/InfoBoxPanel.tsx
+client/src/canvas/SceneModel3D.tsx
+client/src/canvas/SelectionProvider.tsx
+client/src/comparison/SceneComparisonSideBySide.tsx
+client/src/components/ArkiWorkspaceShell.tsx
+client/src/components/ErrorBoundary.tsx
+client/src/components/ui/chart.tsx
+client/src/components/ui/dialog.tsx
+client/src/components/ui/field.tsx
+client/src/components/ui/sidebar.tsx
+client/src/components/ui/slider.tsx
+client/src/contexts/ProjectContext.tsx
+client/src/i18n/catalog.ts
+client/src/ifc4/Ifc4Panel.tsx
+client/src/modules/BimModule.tsx
+client/src/modules/DossierModule.tsx
+client/src/modules/E7DomainModule.tsx
+client/src/modules/GeneratorModule.tsx
+client/src/modules/SceneModelModule.tsx
+client/src/persistence/arkiIndexedDb.ts
+scripts/generate-ifc-fixtures.ts
+scripts/test-bim-selection.ts
+scripts/test-bkh1-relationship-fabric.ts
+scripts/test-bkh2-constraint-engine.ts
+scripts/test-budget-reconciliation.ts
+scripts/test-camera-modes.ts
+scripts/test-canvas-mount.ts
+scripts/test-clipping-section.ts
+scripts/test-comparison-side-by-side.ts
+scripts/test-constructive.ts
+scripts/test-e7.ts
+scripts/test-i18n-catalog.ts
+scripts/test-ifc4-exporter.ts
+scripts/test-ifc4-globalid.ts
+scripts/test-isolate-freeze.ts
+scripts/test-measure-snap.ts
+scripts/test-persistence-formal.ts
+scripts/test-persistence-idb.ts
+scripts/test-plan-3d-sync.ts
+scripts/test-professional.ts
+scripts/test-recalculation.ts
+scripts/test-scene-comparison.ts
+scripts/test-scene-model-mount.ts
+scripts/test-scene-model.ts
+scripts/test-serialization.ts
+scripts/test-technical-dossier.ts
+scripts/test-viewpoints.ts
+scripts/test-wall-coherence.ts
+scripts/test-wall-door-canvas.ts
+shared/arki4d/index.ts
+shared/arki5d/index.ts
+shared/arkiBimSelection.ts
+shared/arkiConstraintEngine.ts
+shared/arkiConstructionDTOs.ts
+shared/arkiConstructionElements.ts
+shared/arkiConstructionOntology.ts
+shared/arkiDynamicFamilies.ts
+shared/arkiFamilyComparison.ts
+shared/arkiImpacts/index.ts
+shared/arkiMamparaFamily.ts
+shared/arkiParametricFamilies.ts
+shared/arkiProfessionalModules.ts
+shared/arkiRecalculation.ts
+shared/arkiRelationshipAdapters.ts
+shared/arkiRelationshipFabric.ts
+shared/arkiSceneComparison.ts
+shared/arkiSceneModel.ts
+shared/arkiSnapshotExports.ts
+shared/arkiTechnicalDossier.ts
+shared/identity/arkiGlobalId.ts
+shared/ifc4/arkiIfc4.ts
+shared/persistence/arkiPersistence.ts
+# key symbols
+scripts/test-bkh1-relationship-fabric.ts:2:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-bkh1-relationship-fabric.ts:6:const model = generateConstructionModel({ projectId: "bkh1-fixture", name: "BKH-1 fixture", widthM: 8, depthM: 6, floors: 2 });
+scripts/test-e7.ts:3:import { calculateBudget5D } from "../shared/arki5d";
+scripts/test-e7.ts:4:import { calculateSchedule4D } from "../shared/arki4d";
+scripts/test-e7.ts:5:import { detectClashes } from "../shared/coordination";
+scripts/test-e7.ts:13:const budget = calculateBudget5D(cost.priceBook, cost.quantities);
+scripts/test-e7.ts:14:const schedule = calculateSchedule4D(cost.activities);
+scripts/test-e7.ts:15:const clashes = detectClashes([{ id: "wall-01", discipline: "architecture", position: [0, 0, 0], dimensions: [4, 0.2, 3] }, { id: "pipe-01", discipline: "sanitary", position: [0, 0, 0], dimensions: [1, 0.1, 1] }, { id: "pipe-02", discipline: "sanitary", position: [10, 10, 10], dimensions: [1, 1, 1] }]);
+client/src/persistence/arkiIndexedDb.ts:6:    const request = indexedDB.open(ARKI_PERSISTENCE_DB, ARKI_PERSISTENCE_VERSION);
+client/src/persistence/arkiIndexedDb.ts:14:    request.onerror = () => reject(request.error ?? new Error("IndexedDB no disponible"));
+client/src/persistence/arkiIndexedDb.ts:70:    const request = indexedDB.deleteDatabase(ARKI_PERSISTENCE_DB);
+client/src/persistence/arkiIndexedDb.ts:72:    request.onerror = () => reject(request.error ?? new Error("No se pudo limpiar IndexedDB"));
+shared/arkiRecalculation.ts:138:export function recalculateProject(input: {
+scripts/generate-ifc-fixtures.ts:2:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/generate-ifc-fixtures.ts:3:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/generate-ifc-fixtures.ts:13:  const scene = sceneModelFromConstruction(generateConstructionModel(input));
+shared/coordination/index.ts:5:export function detectClashes(nodes: CoordinationNode[], tolerance = 0.001): Clash[] {
+scripts/test-ifc4-exporter.ts:2:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-ifc4-exporter.ts:3:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/test-ifc4-exporter.ts:6:const model = generateConstructionModel({ projectId: "ifc-export", name: "IFC export", widthM: 6, depthM: 5, floors: 1 });
+scripts/test-ifc4-exporter.ts:7:const scene = sceneModelFromConstruction(model);
+scripts/test-ifc4-globalid.ts:2:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-ifc4-globalid.ts:3:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/test-ifc4-globalid.ts:6:const model = generateConstructionModel({ projectId: "ifc-identity", name: "IFC identity", widthM: 6, depthM: 5, floors: 1 });
+scripts/test-ifc4-globalid.ts:7:const scene = sceneModelFromConstruction(model);
+shared/arki4d/index.ts:4:export function calculateSchedule4D(activities: Activity4D[]): Schedule4D {
+client/src/canvas/SceneModel3D.tsx:1:import { useEffect, useMemo, useRef, useState } from "react";
+client/src/canvas/SceneModel3D.tsx:6:import { sceneModelFromConstruction, type SceneNode } from "@shared/arkiSceneModel";
+client/src/canvas/SceneModel3D.tsx:9:import { approveArkiSnapshot, listArkiSnapshots, saveArkiSnapshot } from "../persistence/arkiIndexedDb";
+client/src/canvas/SceneModel3D.tsx:46:  const scene = useMemo(() => model ? sceneModelFromConstruction(model) : null, [model]);
+client/src/canvas/SceneModel3D.tsx:62:  const sources = useMemo(() => {
+client/src/canvas/SceneModel3D.tsx:71:  useEffect(() => { void listArkiSnapshots("active-project").then(setSnapshots).catch(() => setCaptureMessage("IndexedDB no disponible")); }, [scene]);
+client/src/canvas/SceneModel3D.tsx:131:    {snapshots.length > 0 && <div className="scene-model-comparison"><strong>Snapshots IndexedDB</strong>{snapshots.map((snapshot) => <span key={snapshot.id}>{snapshot.version} · {snapshot.gateStatus.toUpperCase()}</span>)}</div>}
+shared/arki5d/index.ts:6:export function calculateBudget5D(items: PriceBookItem[], quantities: QuantityItem[]): Budget5D {
+client/src/canvas/CanvasPlanView.tsx:1:import { useEffect, useMemo, useRef, useState } from "react";
+client/src/canvas/CanvasPlanView.tsx:16:  useEffect(() => { const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") clear(); }; window.addEventListener("keydown", onKeyDown); return () => window.removeEventListener("keydown", onKeyDown); }, [clear]);
+client/src/canvas/CanvasPlanView.tsx:17:  const elements = useMemo<PlanElement[]>(() => model ? kinds.flatMap(([key, kind]) => (model[key] as Array<{ id: string; level?: number; nivel_piso?: number; specialty?: string; especialidad_principal?: string; status?: string; estado?: string }>).map((element) => ({ element, kind, id: element.id, level: element.level ?? element.nivel_piso ?? 0 })).filter((item) => {
+scripts/test-comparison-side-by-side.ts:2:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-comparison-side-by-side.ts:3:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/test-comparison-side-by-side.ts:7:const first = sceneModelFromConstruction(generateConstructionModel({ familyId: "family-health", variantId: "hospital-general", projectId: "comparison", levels: 1 }));
+client/src/canvas/ContextPanel.tsx:1:import { useMemo } from "react";
+client/src/canvas/ContextPanel.tsx:36:  const tree = useMemo(() => treeForModel(model, view.level), [model, view.level]);
+client/src/canvas/ContextPanel.tsx:37:  const flatElements = useMemo(() => model ? kinds.flatMap(([key, kind]) => (model[key] as Array<unknown>).map((element) => ({ element, kind }))) : [], [model]);
+scripts/test-persistence-idb.ts:3:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-persistence-idb.ts:4:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/test-persistence-idb.ts:6:const construction = generateConstructionModel({ familyId: "family-health", variantId: "hospital-general", projectId: "persistence-fixture", levels: 1 });
+scripts/test-persistence-idb.ts:7:const scene = sceneModelFromConstruction(construction);
+client/src/canvas/SelectionProvider.tsx:1:import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+client/src/canvas/SelectionProvider.tsx:18:  const value = useMemo(() => ({ selection, select, clear }), [selection, select, clear]);
+shared/arkiSceneModel.ts:105:export function sceneModelFromConstruction(model: ConstructionModel): SceneModel {
+scripts/test-scene-comparison.ts:1:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-scene-comparison.ts:3:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/test-scene-comparison.ts:5:const reference = sceneModelFromConstruction(generateConstructionModel({ projectId: "compare", name: "Reference", widthM: 10, depthM: 8, floors: 1 }));
+scripts/test-scene-comparison.ts:6:const current = sceneModelFromConstruction(generateConstructionModel({ projectId: "compare", name: "Current", widthM: 12, depthM: 8, floors: 1 }));
+scripts/test-scene-model-mount.ts:9:  ["contract", contract, ["ARKI-SCENE-MODEL-1.0", "sceneModelFromConstruction", "dimensions", "relatedIds"]],
+scripts/test-scene-model.ts:1:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-scene-model.ts:2:import { sceneModelFromConstruction } from "../shared/arkiSceneModel";
+scripts/test-scene-model.ts:4:const construction = generateConstructionModel({ projectId: "scene-test", name: "Scene test", widthM: 12, depthM: 9, floors: 2 });
+scripts/test-scene-model.ts:5:const scene = sceneModelFromConstruction(construction);
+scripts/test-wall-door-canvas.ts:2:import { generateConstructionModel } from "../shared/arkiConstructionOntology";
+scripts/test-wall-door-canvas.ts:8:const model = generateConstructionModel({ projectId: "demo-wall-door", name: "Demo muro y puerta", widthM: 12, depthM: 8, floors: 1, familyCategory: "RESIDENTIAL" });
+client/src/App.tsx:17:    const saved = localStorage.getItem(ACCESS_STORAGE_KEY);
+client/src/App.tsx:21:  const enter = (next: ArkiAccess) => { localStorage.setItem(ACCESS_STORAGE_KEY, next); setAccess(next); };
+client/src/App.tsx:22:  const exit = () => { localStorage.removeItem(ACCESS_STORAGE_KEY); setAccess(null); };
+client/src/modules/E7DomainModule.tsx:1:import { useMemo } from "react";
+client/src/modules/E7DomainModule.tsx:2:import { calculateBudget5D } from "@shared/arki5d";
+client/src/modules/E7DomainModule.tsx:3:import { calculateSchedule4D } from "@shared/arki4d";
+client/src/modules/E7DomainModule.tsx:4:import { detectClashes } from "@shared/coordination";
+client/src/modules/E7DomainModule.tsx:8:  const data = useMemo(() => {
+client/src/modules/E7DomainModule.tsx:10:    const budget = calculateBudget5D([{ id: "wall-m2", code: "W-001", description: "Muro acabado", unit: "m2", unitPrice: 185, currency: "PEN", source: "E7 fixture", version: "E7.1" }], [{ elementId: "model-walls", itemId: "wall-m2", quantity: wallCount * 5, unit: "m2" }]);
+client/src/modules/E7DomainModule.tsx:11:    const schedule = calculateSchedule4D([{ id: "A1", name: "Muros", durationDays: 5, elementIds: ["model-walls"], predecessors: [] }, { id: "A2", name: "Acabados", durationDays: 2, elementIds: ["model-walls"], predecessors: ["A1"] }]);
+client/src/modules/E7DomainModule.tsx:12:    const clashes = detectClashes([{ id: "wall-01", discipline: "architecture", position: [0, 0, 0], dimensions: [4, 0.2, 3] }, { id: "pipe-01", discipline: "sanitary", position: [0, 0, 0], dimensions: [1, 0.1, 1] }]);
+client/src/components/ManusDialog.tsx:1:import { useEffect, useState } from "react";
+client/src/components/ManusDialog.tsx:31:  useEffect(() => {
+client/src/hooks/useMobile.tsx:10:  React.useEffect(() => {
+client/src/components/Map.tsx:79:import { useEffect, useRef } from "react";
+client/src/components/Map.tsx:148:  useEffect(() => {
+client/src/modules/DossierModule.tsx:1:import { useMemo, useState } from "react";
+client/src/modules/DossierModule.tsx:13:  const saveDraft = () => { localStorage.setItem("arki-technical-dossier-draft", JSON.stringify({ specifications: specs, formwork })); setEditing(false); toast.success("Borrador guardado", { description: "Cambios guardados en este dispositivo." }); };
+client/src/modules/DossierModule.tsx:25:export default function DossierModule({ building }: { building: GeneratedBuilding | null }) { const dossier = useMemo(() => building?.constructionModel ? generateTechnicalDossier(building.constructionModel, building.context.city || "La Libertad", 1.04) : null, [building]); const [tab, setTab] = useState<"summary" | "specs" | "formwork" | "costs" | "normative" | "file">("summary"); if (!dossier) return <div className="arki-module-body"><div className="arki-empty-module"><strong>Expediente</strong><p>Genera una propuesta para mostrar el expediente.</p></div></div>; return <div className="arki-module-body"><DossierWorkspace dossier={dossier} tab={tab} onTab={setTab} /></div>; }
+shared/arkiConstructionOntology.ts:97:export function generateConstructionModel(input: { projectId: string; name: string; widthM: number; depthM: number; floors: number; familyCategory?: string }): ConstructionModel {
+client/src/modules/BimModule.tsx:1:import { useMemo, useState } from "react";
+client/src/modules/BimModule.tsx:9:  const professional = useMemo(() => model ? professionalSummary(model) : null, [model]);
+client/src/contexts/ProjectContext.tsx:1:import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
+client/src/contexts/ProjectContext.tsx:4:const ProjectContext = createContext<{ building: GeneratedBuilding | null; constructionModel: ConstructionModel | null; setBuilding: (building: GeneratedBuilding | null) => void } | null>(null);
+client/src/contexts/ProjectContext.tsx:5:export function ProjectContextProvider({ children }: { children: ReactNode }) { const [building, setBuilding] = useState<GeneratedBuilding | null>(null); const constructionModel = building?.constructionModel ?? null; const value = useMemo(() => ({ building, constructionModel, setBuilding }), [building, constructionModel]); return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>; }
+client/src/i18n/useTranslation.ts:8:function browserLanguage(): LanguageCode { return typeof localStorage === "undefined" ? defaultLanguage : readPersistedLanguage(localStorage); }
+client/src/i18n/useTranslation.ts:9:export function useTranslation() { const [language, setLanguageState] = useState<LanguageCode>(() => browserLanguage()); const setLanguage = useCallback((next: LanguageCode) => { if (typeof localStorage !== "undefined") persistLanguage(localStorage, next); setLanguageState(next); }, []); const t = useCallback((key: TranslationKey) => translate(key, language), [language]); return { language, setLanguage, t, supportedLanguages }; }
+client/src/contexts/ThemeContext.tsx:1:import React, { createContext, useContext, useEffect, useState } from "react";
+client/src/contexts/ThemeContext.tsx:26:      const stored = localStorage.getItem("theme");
+client/src/contexts/ThemeContext.tsx:32:  useEffect(() => {
+client/src/contexts/ThemeContext.tsx:41:      localStorage.setItem("theme", theme);
+scripts/test-recalculation.ts:17:  recalculateProject,
+scripts/test-recalculation.ts:125:const snapshot1 = recalculateProject({
+scripts/test-recalculation.ts:191:const snapshot2 = recalculateProject({
+scripts/test-recalculation.ts:212:const snapshot1b = recalculateProject({
+scripts/test-recalculation.ts:232:assert(hashA === hashB, "recalculateProject es determinista");
+scripts/test-recalculation.ts:237:    recalculateProject({
+scripts/test-recalculation.ts:255:    recalculateProject({
+scripts/test-recalculation.ts:284:    recalculateProject({
+scripts/test-recalculation.ts:302:    recalculateProject({
+scripts/test-recalculation.ts:384:        "recalculateProject es determinista",
+client/src/modules/GeneratorModule.tsx:1:import { useEffect, useMemo, useState } from "react";
+client/src/modules/GeneratorModule.tsx:23:  const { setBuilding: setProjectBuilding, constructionModel } = useProjectContext();
+client/src/modules/GeneratorModule.tsx:33:  const [building, setBuilding] = useState<GeneratedBuilding | null>(null);
+client/src/modules/GeneratorModule.tsx:34:  const [versions, setVersions] = useState<SavedVersion[]>(() => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]") as SavedVersion[]; } catch { return []; } });
+client/src/modules/GeneratorModule.tsx:42:  const visibleFamilies = useMemo(() => { const q = search.trim().toLowerCase(); if (!q) return DYNAMIC_BUILDING_FAMILIES; return DYNAMIC_BUILDING_FAMILIES.filter((item) => [item.name, item.description, item.category, ...item.tags].join(" ").toLowerCase().includes(q)); }, [search]);
+client/src/modules/GeneratorModule.tsx:46:  useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(versions.slice(-4))); }, [versions]);
+client/src/modules/GeneratorModule.tsx:47:  useEffect(() => { const modifiers = variant.modifiers; setAreaM2(String(modifiers.areaM2 ?? 10000)); setCapacity(String(modifiers.capacity ?? 300)); setFloors(String(modifiers.floors ?? 2)); }, [variantId, familyId]);
+client/src/modules/GeneratorModule.tsx:50:  const generate = () => { const next = generateDynamicBuilding({ familyId, variantId, context: { country: "PE", city, jurisdiction: "RNE-PE" }, parameters: { areaM2: Number(areaM2), capacity: Number(capacity), floors: Number(floors) } }); setBuilding(next); setProjectBuilding(next); setComparison(null); toast.success("Propuesta generada", { description: `${next.name} · ${next.context.city}` }); };
+client/src/modules/GeneratorModule.tsx:53:  const restoreVersion = (saved: SavedVersion) => { setBuilding(saved.building); setProjectBuilding(saved.building); setFamilyId(saved.building.familyId); setVariantId(saved.building.variantId); setCity(saved.building.context.city ?? ""); setAreaM2(String(saved.building.parameters.areaM2)); setCapacity(String(saved.building.parameters.capacity)); setFloors(String(saved.building.parameters.floors)); toast.success("Versión restaurada"); };
+client/src/modules/GeneratorModule.tsx:55:  const professional = useMemo(() => building?.constructionModel ? professionalSummary(building.constructionModel) : null, [building]);
+client/src/modules/GeneratorModule.tsx:56:  const dossier = useMemo(() => building?.constructionModel ? generateTechnicalDossier(building.constructionModel, city || "La Libertad", 1.04) : null, [building, city]);
+client/src/modules/GeneratorModule.tsx:115:  const saveDraft = () => { localStorage.setItem("arki-technical-dossier-draft", JSON.stringify({ specifications: specs, formwork })); setEditing(false); toast.success("Borrador guardado", { description: "Cambios guardados en este dispositivo." }); };
+client/src/components/ArkiWorkspaceShell.tsx:1:import { useEffect, useMemo, useState } from "react";
+client/src/components/ArkiWorkspaceShell.tsx:54:  const availableModules = useMemo(() => MODULE_DEFINITIONS.filter(({ name }) => isAccessAllowed(access, name)), [access]);
+client/src/components/ArkiWorkspaceShell.tsx:57:  useEffect(() => { if (constructionModel) setView((current) => ({ ...current, level: Math.min(current.level, Math.max(0, constructionModel.summary.floorCount - 1)) })); }, [constructionModel]);
+client/src/components/ArkiWorkspaceShell.tsx:58:  useEffect(() => { const onKeyDown = (event: KeyboardEvent) => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); toast.info(t("searchCommands"), { description: t("commandHint") }); } if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") { event.preventDefault(); toast.success(t("localDraft"), { description: t("backendLater") }); } }; window.addEventListener("keydown", onKeyDown); return () => window.removeEventListener("keydown", onKeyDown); }, [t]);
+shared/arkiDynamicFamilies.ts:1:import { generateConstructionModel, type ConstructionModel } from "./arkiConstructionOntology";
+shared/arkiDynamicFamilies.ts:173:    constructionModel: generateConstructionModel({ projectId: id, name: `${selectedFamily.name} · ${selectedVariant.name}`, widthM, depthM, floors, familyCategory: selectedFamily.category }),
+client/src/components/ui/slider.tsx:14:  const _values = React.useMemo(
+client/src/components/ui/sidebar.tsx:96:  React.useEffect(() => {
+client/src/components/ui/sidebar.tsx:115:  const contextValue = React.useMemo<SidebarContextProps>(
+client/src/components/ui/sidebar.tsx:617:  const width = React.useMemo(() => {
+client/src/components/ui/field.tsx:1:import { useMemo } from "react";
+client/src/components/ui/field.tsx:192:  const content = useMemo(() => {
+client/src/components/ui/dialog.tsx:29:  const contextValue = React.useMemo(
+client/src/components/ui/chart.tsx:129:  const tooltipLabel = React.useMemo(() => {
+client/src/components/ui/carousel.tsx:89:  React.useEffect(() => {
+client/src/components/ui/carousel.tsx:94:  React.useEffect(() => {
+client/src/components/ui/calendar.tsx:182:  React.useEffect(() => {

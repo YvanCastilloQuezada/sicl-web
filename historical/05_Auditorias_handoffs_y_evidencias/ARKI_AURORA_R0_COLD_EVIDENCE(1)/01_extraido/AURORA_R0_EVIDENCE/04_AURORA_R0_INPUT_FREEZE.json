@@ -1,0 +1,34 @@
+{
+  "schema": "ARKI-AURORA-R0-INPUT-FREEZE-1.0",
+  "project": {
+    "name": "VERTICAL AURORA",
+    "storeys": 150
+  },
+  "order": {
+    "path": "pasted_content_182.txt",
+    "sha256": "sha256:v1:62bc38612346e336624802c8b569ab0f427fc4a277e4203d72eaa6a593d49231"
+  },
+  "admissibleProjectFacts": [
+    "project name",
+    "150 storeys"
+  ],
+  "excludedHistoricalAuroraMaterial": [
+    "ARKI_RASCACIELOS_150_PISOS/VERTICAL_AURORA_DISTRIBUCION_ESTRUCTURA.md",
+    "ARKI_RASCACIELOS_150_PISOS/PLANO_PISO_100_ESCALA_1_100.svg",
+    "scripts/create-arki-be-x01-package.py",
+    "C1_C80_WAVE0/ORDER_SOURCE_178.txt",
+    "pasted_content_181.txt"
+  ],
+  "unknownByDefault": [
+    "jurisdiction",
+    "site",
+    "climate",
+    "soil",
+    "program",
+    "structure",
+    "MEP",
+    "fire",
+    "cost",
+    "schedule"
+  ]
+}

@@ -1,0 +1,15 @@
+src/sicl/representation.py:70:    PHOTOREALISTIC_RENDER = "PHOTOREALISTIC_RENDER"
+src/sicl/representation.py:116:    ViewType.PHOTOREALISTIC_RENDER: ViewFamily.VISUALIZATION,
+tests/test_representation.py:220:    visualization = (ViewType.CONCEPTUAL_RENDER, ViewType.MATERIAL_RENDER, ViewType.INTERIOR_RENDER, ViewType.EXTERIOR_RENDER, ViewType.AERIAL_RENDER, ViewType.NIGHT_RENDER, ViewType.PHOTOREALISTIC_RENDER)
+tests/test_representation.py:236:        ViewDefinition("BAD", ViewType.PHOTOREALISTIC_RENDER, ViewFamily.GEOMETRIC, "PROJECT-1")
+docs/reference/README_REFERENCE.md:17:- `../rfc/RFC-035-PHOTOREALISTIC-RENDERS.md` — Renders fotorrealistas futuros.
+docs/rfc/RFC-035-PHOTOREALISTIC-RENDERS.md:1:# RFC-035 — Photorealistic Renders
+docs/rfc/RFC-030-ARCHITECTURAL-DRAWING-GENERATION-FOUNDATION.md:152:| Output | `TECHNICAL` | `PRESENTATION` | `PHOTOREALISTIC` |
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:57:| Photorealistic render | `FUTURE` | RFC-035 is a separate future namespace | 3D scene, materials, renderer | no ARE/render authorization | separate RFC/runtime gate | Visualization / RFC-035 |
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:140:    └── photorealistic
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:212:- **Raster:** PNG, JPEG, WEBP for renders, photorealism, image composition, textures, and photographic content.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:255:PHOTOREALISM ≠ VALIDATION
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:326:PHOTOREALISTIC PIPELINE
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:346:PHOTOREALISM                   ≠ ARCHITECTURAL_VALIDATION
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:143:- `PHOTOREALISTIC_RENDER`
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:145:A visualization is not validation. Photorealism is not architectural correctness.

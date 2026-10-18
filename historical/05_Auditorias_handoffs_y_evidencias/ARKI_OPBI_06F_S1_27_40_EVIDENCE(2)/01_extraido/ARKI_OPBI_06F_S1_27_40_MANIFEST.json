@@ -1,0 +1,32 @@
+{
+  "schema": "ARKI-OPBI-06F-S1-27-40-MANIFEST-1.0",
+  "status": "IMPLEMENTED FOR BOUNDED CLASSIFICATION / OPERATIONAL VALIDATION REQUIRED / PILOTS NOT_DEMONSTRATED",
+  "parent": "ARKI_OPBI_06F_S1_EVIDENCE.zip",
+  "entries": [
+    {
+      "file": "pasted_content_113.txt",
+      "size": 5508,
+      "sha256": "8acce86fb1062b992af0fb347ee0ef6d843ec8816ca55d201a8fc6179c3ee7de"
+    },
+    {
+      "file": "ARKI_OPBI_06F_S1_27_40_REPORT.md",
+      "size": 1433,
+      "sha256": "643653c691588d1e3c812adae7f034b107aee1ebdf9f7180301591f3d341991d"
+    },
+    {
+      "file": "ARKI_OPBI_06F_S1_27_40_OUTPUTS.txt",
+      "size": 3020,
+      "sha256": "d9eb60f58c7d2b29e4a7eb00fe2b1d62d73c8d7e5e570b3a2eabeb9e2aa4c6e7"
+    },
+    {
+      "file": "scripts/test-opbi-s1-rapid-screen.ts",
+      "size": 2267,
+      "sha256": "ecbc3aa24ea0f20dccbe4808c0e3425f1723857c665ddd1b8609362d5e7adb64"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "size": 62535,
+      "sha256": "b6a51ff854f37824539803a42e2256b85d32fe7240cf36fcddf7c91d4e7c4f69"
+    }
+  ]
+}

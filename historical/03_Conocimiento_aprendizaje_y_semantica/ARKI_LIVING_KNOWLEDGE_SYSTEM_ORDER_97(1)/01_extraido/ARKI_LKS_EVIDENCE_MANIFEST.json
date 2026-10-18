@@ -1,0 +1,66 @@
+{
+  "schema": "ARKI-LKS-EVIDENCE-1.0",
+  "order": "97",
+  "status": "IMPLEMENTED / PENDING EVIDENCE REVIEW",
+  "sourceRegisterStatus": "STAGED / NOT CANONICAL",
+  "scheduler": "NOT DEMONSTRATED / EXTERNAL ORCHESTRATION REQUIRED",
+  "canonicalPromotion": false,
+  "codebookCount": 3,
+  "entries": [
+    {
+      "path": "shared/arkiLivingKnowledge.ts",
+      "sha256": "3224ca1f31062ea82d07cc15fce7b5e08ac831d3281ab72a1b92632a3d28041b",
+      "bytes": 12458
+    },
+    {
+      "path": "scripts/test-arki-living-knowledge.ts",
+      "sha256": "6044749a8f0640c2360897592357efd2c90df27658e379cf257aa4d4865b9ee9",
+      "bytes": 4452
+    },
+    {
+      "path": "ARKI_LKS_CONTRACT_V1.md",
+      "sha256": "07518e4c383e9f5c32dbf429c12696915c03b67d8c3a1dae84d54ada8b729fd6",
+      "bytes": 1748
+    },
+    {
+      "path": "ARKI_LKS_SOURCE_REGISTER.md",
+      "sha256": "f50869b666d15ac37120876811f7758c9f57503fe245c28549645406e6fb9d3c",
+      "bytes": 4242
+    },
+    {
+      "path": "ARKI_LKS_CAPABILITY_ATLAS.md",
+      "sha256": "6516b2e872f055c035307c5bfacb819d0d088eef6d2b8ef5a04b88879344a7b0",
+      "bytes": 2010
+    },
+    {
+      "path": "ARKI_LKS_IMPLEMENTATION_REPORT.md",
+      "sha256": "086eeb4346abf7484b6a5152747c487396ab8b9bbd634a9c54b45863b5052edf",
+      "bytes": 1861
+    },
+    {
+      "path": "ARKI_LKS_OUTPUTS.txt",
+      "sha256": "1178a57fa1f9ee0fd774899b122505b8ba435475353add4464af6d23c4f208fa",
+      "bytes": 837
+    },
+    {
+      "path": "ARKI_KNOWLEDGE_BOOK_DELTA_LKS_001.md",
+      "sha256": "352b792d7d1eb3a33071eaeafbc65e1b1d28f3d9fed60f9ce8e0aa7bbbf9d63c",
+      "bytes": 915
+    },
+    {
+      "path": "ARKI_MASTER_CODEBOOK.md",
+      "sha256": "dc9ec15f709f84cb3fa03a5d92aa1e5582e963b5999f76c36230bf1ab16eb2c8",
+      "bytes": 9133
+    },
+    {
+      "path": "ARKI_CODEBOOK_FOR_ARCHITECT.md",
+      "sha256": "059e0459e0ab1aa5f41fdeecab94ed492562421e2adbad9b35ca424c91d3eb51",
+      "bytes": 3628
+    },
+    {
+      "path": "ARKI_CODEBOOK_MANIFEST.json",
+      "sha256": "517a35d4106c1300e50cb016d1b0b17d62f28c400c47744d4a1fad67d90773e0",
+      "bytes": 1336
+    }
+  ]
+}

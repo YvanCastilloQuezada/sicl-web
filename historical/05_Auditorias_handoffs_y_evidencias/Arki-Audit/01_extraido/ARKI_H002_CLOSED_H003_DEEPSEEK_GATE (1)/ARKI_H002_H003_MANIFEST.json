@@ -1,0 +1,17 @@
+{
+  "package_status": "NO_GIT_COMMIT",
+  "h002_runtime": "340 passed / 0 failed",
+  "h003": "PRE_IMPLEMENTATION_RED_TEAM_GATE",
+  "files": {
+    "src/sicl/derivation.py": "50db5bcaf2274393befb80251c8dfd324122d03dc0b34e33fef5bbc77d30c450",
+    "src/sicl/impact.py": "eab9f801ac5bf3af31397f3d1257355b75605c4109486482dfdee000662b6a8d",
+    "tests/test_derivation.py": "4a903f8152e29fe92915b7c801c39619d5e1a1d58ec0ca6a19885db78bdb9cb8",
+    "tests/test_impact.py": "f4695508d94c6efff54a49efe3e9cf8325b23ae26d71495a9bbd6f1f97b28365",
+    "tests/test_impact_adversarial.py": "ab0f1158c3e627798617d036492504428fe4699b0d8c3f2800c9498176b1fef9",
+    "H003_PREIMPLEMENTATION_CONTRACT.md": "4ed404eda45c68d1e3157559e3e8229a33c92bd5e081bf2c785bc20abe0d86ab",
+    "tests/test_validity_h003.py": "73997422abc66f7da1fbe39548877e1f22c2ec07bcb20440364dd4229f219e62",
+    "ARKI_H002_RECONCILED_FINAL_REPORT.md": "bdeb5062da5041858a248b1faa5ae262038f096c84cf7ec79369fb8655f217eb",
+    "ARKI_H003_DEEPSEEK_PREIMPLEMENTATION_PROMPT.md": "0eff5fdac591c0419be107ac12cf2783080c731815d7e370819baa26fcaacd01",
+    "ARKI_H002_RECONCILED.patch": "e235231a92f4f60abc0a525472d2cc4832d54f42ee9ed8abf6682c1ab616f1b2"
+  }
+}

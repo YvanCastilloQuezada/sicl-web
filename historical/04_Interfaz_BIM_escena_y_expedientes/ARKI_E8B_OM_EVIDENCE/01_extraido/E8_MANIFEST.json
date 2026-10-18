@@ -1,0 +1,175 @@
+{
+  "schema": "ARKI-E8-MANIFEST-1.0",
+  "status": "E8-A IMPLEMENTED / PENDING INDEPENDENT REVIEW",
+  "authority": "Product Owner / Human Authority",
+  "baseline": "c62183a",
+  "cycleLimit": 1,
+  "implementationAuthorized": true,
+  "verificationStatus": "E8-A VERIFIED / E8-B PENDING INDEPENDENT REVIEW",
+  "blocks": {
+    "E8-A": "IMPLEMENTED / PENDING REVIEW",
+    "E8-B": "IMPLEMENTED / PENDING REVIEW",
+    "E8-C": "NOT_STARTED"
+  },
+  "capturesRequiredAtClosure": 6,
+  "capturesProducedThisBlock": 2,
+  "testsRequiredAtClosure": 12,
+  "testsProducedThisBlock": 4,
+  "sourceEvidence": [
+    {
+      "path": "E8_CONTRATO_PROPUESTO_V1.md",
+      "sha256": "dba7c7f71afab3e1324675d3f2e08c48a5004b956a4ad960123008e75a21520d"
+    },
+    {
+      "path": "E8_SCOPE_LIMITS.md",
+      "sha256": "e319dd1d8acc0f817ea1a71a68bea98c6ee163ebb15982bd61585b12ad482efe"
+    },
+    {
+      "path": "E8_PREFLIGHT_OUTPUTS.txt",
+      "sha256": "1cdb08e9de9a3fda37dc389a446626789aa5b763a4c3b22726f8ea7570563c93"
+    },
+    {
+      "path": "E8-A_REPORT.md",
+      "sha256": "47e0fd792d71f81b5ce6dca8e1e8f17baec1a42d2cbe0b7ecf75b11ef4f648d1"
+    },
+    {
+      "path": "E8A_GENERATION_OUTPUTS.txt",
+      "sha256": "bccb52302008797f8acb556adc1edace1f1bdfe19fa7a26fd630d5498c52b84a"
+    },
+    {
+      "path": "E8A_TEST_OUTPUTS.txt",
+      "sha256": "0be8bb0c0d3f2c54aadc953c2cd41d2b69a3e9c7169d962741ca3a62a61a0a78"
+    },
+    {
+      "path": "E8-A_OUTPUTS.txt",
+      "sha256": "0be8bb0c0d3f2c54aadc953c2cd41d2b69a3e9c7169d962741ca3a62a61a0a78"
+    },
+    {
+      "path": "shared/arkiTechnicalDossierCompiler.ts",
+      "sha256": "3f3db625d96269f7c9badd02bff41e485020d6beb82e326023ce2e2abca0b748"
+    },
+    {
+      "path": "scripts/test-e8a-dossier.ts",
+      "sha256": "b748a76cc6290d3178c7862321620521f22a8112ee5669abf74c4f7c7545d125"
+    },
+    {
+      "path": "scripts/generate-e8a-evidence.ts",
+      "sha256": "6c4a32d88de43e3eb966520fb57830b4590c068d6cdffebe64497be74234ab91"
+    },
+    {
+      "path": "E8-B_REPORT.md",
+      "sha256": "e5f982f232863d69be96aa59510938b936a0ddb0bea327ab214f1a016e1f87e0"
+    },
+    {
+      "path": "E8-B_OUTPUTS.txt",
+      "sha256": "ba71ac393830d484fa5bde29663cc886563e44207053505542beb47215d7395c"
+    },
+    {
+      "path": "shared/arkiOperationMaintenance.ts",
+      "sha256": "9c2b356b59466ea389d723e7974a00640b029cfdf485b49adf22632886bf7030"
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "sha256": "b54007e62f54c64259adff0955b78c57a82ce9ace886023b4170d66acca5a5c0"
+    },
+    {
+      "path": "client/src/persistence/arkiIndexedDb.ts",
+      "sha256": "4457522fbb0718600dd04e52e73ebcf8aa6636859f424761ac499a5d4bf13e02"
+    },
+    {
+      "path": "scripts/test-e8b-assets.ts",
+      "sha256": "c6c11a6606978dde5e47b2ae4e983148476f5ccb3161ccda0ad5af18480df3c9"
+    },
+    {
+      "path": "scripts/generate-e8b-evidence.ts",
+      "sha256": "6a65331afdc59df189635d86416624c42d45a0e01b8561440ef0ea82e268b7d5"
+    },
+    {
+      "path": "package.json",
+      "sha256": "70b3a1930e9759fc09c436257aaf154e624d74c728855c60a2ff7c3452ff6a31"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "0996bf126740db846f47831298b67261fdbcf3a5c9fd3c5eccf215560a6aa32c"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "E8_A_OUTPUT/01-memoria-descriptiva.md",
+      "sha256": "8d0ccbdd2cedc6af1f9f42b93167e06cd301671c602ca226d8100cccf853905a"
+    },
+    {
+      "path": "E8_A_OUTPUT/02-especificaciones-tecnicas.md",
+      "sha256": "c9694db7ae67f27d06293c356e5c207c935b2d7fbb81fbe23b2b32cb7b838c39"
+    },
+    {
+      "path": "E8_A_OUTPUT/03-metrados.md",
+      "sha256": "d16270e49f7af384b38cc1f5f42c4a38ca4005e08f3d82920145124f1aae07c7"
+    },
+    {
+      "path": "E8_A_OUTPUT/04-presupuesto.md",
+      "sha256": "ff8e426646c310640e7567eb1cf4c67738440d2dd2576b584d1bfef9bedafc94"
+    },
+    {
+      "path": "E8_A_OUTPUT/05-planta.svg",
+      "sha256": "132cfb870a8847e475bda6973ed207878a93b4bd636634e012852235b3527fd3"
+    },
+    {
+      "path": "E8_A_OUTPUT/dossier-compilation.json",
+      "sha256": "be746a8788eab193791a5688a7ea367318779d9221301c3ca6c053cfe94ea95f"
+    },
+    {
+      "path": "E8_CAPTURAS/01-expediente-compilado.svg",
+      "sha256": "964b2d28684e69b9aca5112e0153698d652fbe751a9f304b7e20ada65697e93d"
+    },
+    {
+      "path": "E8_CAPTURAS/02-trazabilidad-snapshot.svg",
+      "sha256": "7f11648f63e3db2d21828042c6a3d3700ef37ca86879878c26a2c55b302fa0cc"
+    },
+    {
+      "path": "E8_B_CAPTURAS/01-activo-garantia-manual-inspeccion.svg",
+      "sha256": "859d676391ccd7588be6b0deeac98eb95a401df3d735567ac9f4b2a23b8f0156"
+    },
+    {
+      "path": "E8_B_CAPTURAS/02-orden-trabajo-trazable.svg",
+      "sha256": "85c27c964ad6bfc50bb392f563fdc4e5a4c49db66c2ebf52fdf87d34f1acbcac"
+    },
+    {
+      "path": "E8-B_OUTPUTS.txt",
+      "sha256": "ba71ac393830d484fa5bde29663cc886563e44207053505542beb47215d7395c"
+    }
+  ],
+  "captures": [
+    {
+      "path": "E8_CAPTURAS/01-expediente-compilado.webp",
+      "sha256": "90aa2e30e3fe6604a6b6325cf6f8514942b24cfd8928b29f8177ac15201a0521",
+      "format": "WEBP",
+      "block": "E8-A"
+    },
+    {
+      "path": "E8_CAPTURAS/02-trazabilidad-snapshot.webp",
+      "sha256": "a626f9468846fd5a73b6eb83009e4780f6c92e48ca18a4e9ab3cdef7360d486e",
+      "format": "WEBP",
+      "block": "E8-A"
+    },
+    {
+      "path": "E8_B_CAPTURAS/01-activo-garantia-manual-inspeccion.webp",
+      "sha256": "4181ee83c60f6be31293df7fe68b37d900c91b306fb5bf9950f2a95f09192cf5",
+      "format": "WEBP",
+      "block": "E8-B"
+    },
+    {
+      "path": "E8_B_CAPTURAS/02-orden-trabajo-trazable.webp",
+      "sha256": "1aa52842f7323d1576ed8936faa2d95ec3c836f5144a587ee9439f43e5a0de48",
+      "format": "WEBP",
+      "block": "E8-B"
+    }
+  ],
+  "notes": [
+    "E8-A is independently bounded and does not imply E8-B or E8-C completion.",
+    "The compiled dossier is derived from an approved snapshot and remains subject to specialist review.",
+    "E5/E6/E7 remain frozen and were not modified.",
+    "Final E8 manifest must be regenerated at cycle closure.",
+    "E8-B uses local-first IndexedDB stores and remains bounded to O-M; external CMMS, alerts and backend are excluded."
+  ]
+}

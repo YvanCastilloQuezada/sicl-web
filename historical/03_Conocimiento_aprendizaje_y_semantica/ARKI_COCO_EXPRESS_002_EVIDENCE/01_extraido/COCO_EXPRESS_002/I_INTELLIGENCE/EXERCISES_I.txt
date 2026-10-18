@@ -1,0 +1,86 @@
+ARKI COCO-EXPRESS-002 — FAMILIA I — MICROEJERCICIOS I1-I3
+Orden: COCO-EXPRESS-002 FULL ARSENAL PRETRAINING
+Alcance: Pattern Language operacionalizado, tipología y razonamiento formal arquitectónico.
+Nota: ejercicios propios de entrenamiento; no son preguntas ni respuestas de exámenes. No certifican competencia profesional.
+
+CONTRATO COMÚN
+Cada salida conserva value, status, provenance, units, applicability, scale, project, time y scenario. Estados usados: OBSERVED, INFERRED, HYPOTHESIZED, UNKNOWN, PROPOSED. UNKNOWN se conserva y detiene inferencias dependientes. Una recomendación PROPOSED no es verdad, simulación, forecast, hash, importación verificada ni certificación.
+
+[NORMAL] I1-PAT-COURTYARD — Pattern Language operacionalizado
+Entrada/contexto:
+  units=m; area_m2=48; public_private=semi_public
+  scale=SPACE; project=P-I-N; time=2026-09-23T23:00Z; scenario=concept-study
+Regla/patrón:
+  id=I1-PAT-COURTYARD; required_units=m; min_area_m2=40
+  public_private=semi_public; action=propose shaded courtyard
+Salida esperada y obtenida:
+  value=propose shaded courtyard
+  status=PROPOSED
+  provenance=pattern-rule:I1-PAT-COURTYARD
+  units=m
+  applicability=SUPPORTED
+  scale=SPACE; project=P-I-N; time=2026-09-23T23:00Z; scenario=concept-study
+Oracle/assertions:
+  PASS: status == PROPOSED
+  PASS: provenance, units, applicability, scale, project, time y scenario no se pierden
+  PASS: status != CERTIFIED
+Interpretación: el patrón es una propuesta acotada porque se cumplen las condiciones declaradas; no afirma desempeño construido ni aprobación.
+
+[ADVERSARIAL] I2-AMB-01 — Tipología con evidencia ambigua
+Entrada/rasgos:
+  central_void=true; rooms_around_void=true; shared_entry=true; repeated_units=true
+  scale=BUILDING; project=P-I-A; time=2026-09-23T23:10Z; scenario=early-massing
+Salida esperada y obtenida:
+  value=[patio_house, courtyard_collective]
+  status=UNKNOWN
+  provenance=typology-observation:I2-AMB-01
+  units=None (correcto: no hay magnitud cuantitativa)
+  applicability=AMBIGUOUS
+  scale=BUILDING; project=P-I-A; time=2026-09-23T23:10Z; scenario=early-massing
+Oracle/assertions:
+  PASS: status == UNKNOWN
+  PASS: se conservan ambas candidatas; no se escoge la primera
+  PASS: applicability == AMBIGUOUS y provenance se preserva
+Interpretación: los rasgos no discriminan entre casa-patio y colectivo con patio; se solicita evidencia adicional en vez de convertir la hipótesis en hecho.
+
+Mutante controlado (NO dejado en el código correcto):
+  mutant_pattern devolvía status=OBSERVED, provenance=import-success, applicability=CERTIFIED
+  aun cuando sólo había una importación exitosa.
+Oracle:
+  PASS: detectó y mató el mutante al rechazar la combinación import-success + OBSERVED + CERTIFIED.
+  MUTANT KILLED=1
+
+[TRANSFER] I3-NO-OVERCLAIM — Transferencia entre contexto y razonamiento formal
+Premisas:
+  P1: value=true; status=OBSERVED; provenance=brief:P-I-T; units=m
+      applicability=STATED; scale=SPACE; project=P-I-T
+      time=2026-09-23T23:20Z; scenario=temporary-pavilion
+  P2: value=None; status=UNKNOWN; provenance=survey-missing:P-I-T; units=None
+      applicability=UNKNOWN; scale=SPACE; project=P-I-T
+      time=2026-09-23T23:20Z; scenario=temporary-pavilion
+Regla: I3-NO-OVERCLAIM — si una premisa es UNKNOWN, no derivar conclusión dependiente.
+Salida esperada y obtenida:
+  value=None
+  status=UNKNOWN
+  provenance=formal-rule:I3-NO-OVERCLAIM
+  units=None
+  applicability=UNKNOWN
+  scale=SPACE; project=P-I-T; time=2026-09-23T23:20Z; scenario=temporary-pavilion
+Oracle/assertions:
+  PASS: status == UNKNOWN; value is None
+  PASS: units=None se conserva porque el valor es desconocido
+  PASS: no se produce la conclusión "pavilion is safe"
+  PASS: provenance, escala, proyecto, tiempo y escenario se conservan
+Interpretación: una observación de programa no autoriza inferir seguridad. No se ejecuta solver profesional ni se certifica el pabellón.
+
+EJECUCIÓN
+Comando: python3 /home/ubuntu/jobs/cbef0db18f21_a8/i_exercises_test.py
+Resultado:
+  NORMAL PASS
+  ADVERSARIAL PASS
+  MUTANT KILLED 1
+  TRANSFER PASS
+  ALL ASSERTIONS PASS
+
+LÍMITES Y PROTECCIONES
+Estos microejercicios validan invariantes de trazabilidad, abstención y no-sobreafirmación en fixtures mínimos. No demuestran generalización, competencia profesional, cumplimiento normativo, seguridad, constructibilidad ni certificación. No se modificó Product State, BKH, TX, E5-E8 ni PF-H01. El código de prueba correcto quedó intacto; el mutante sólo fue representado y ejecutado dentro del test para demostrar que el oracle lo detecta.

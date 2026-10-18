@@ -1,0 +1,32 @@
+REPOSITORY=YvanCastilloQuezada/sicl-web
+BRANCH=main
+HEAD_SHA=447b23b7988d5f912ac6f2c473f0cfc86d6cdf7f
+ORIGIN_HEAD=447b23b7988d5f912ac6f2c473f0cfc86d6cdf7f
+WORKTREE_STATUS
+ M client/src/pages/ArkiControlCenterPage.tsx
+ M docs/arki-knowledge/README.md
+ M docs/arki-visual-intelligence/ARKI_PHOTOREALISTIC_VISUAL_AND_EVIDENCE_PROTOCOL.md
+ M server/arkiVisualIntelligence.test.ts
+ M server/arkiVisualIntelligence.ts
+ M server/routers.ts
+?? docs/arki-break-baseline.txt
+?? docs/arki-corporation/
+?? server/arkiProjectBrain.test.ts
+?? server/arkiProjectBrain.ts
+UNIFIED_MOTOR=ARKI-UNIFIED-MOTOR-1.0
+ACTIVE_CAPABILITIES
+D6.1
+D6.2-M
+D6.3-G
+D6.4
+PARTI-CONTRACT-1.0
+ARKI-INTEGRATED-ARCHITECT-1.0
+ARKI-PROJECT-BRAIN-WAVE-1
+FROZEN_OR_REFERENCE
+MC-02
+MC-03
+FKCG-02
+DS-EVAL-001
+BLOCKED_OR_NOT_DEMONSTRATED
+DG-01B
+BIM-DWG-REVIT-GIS

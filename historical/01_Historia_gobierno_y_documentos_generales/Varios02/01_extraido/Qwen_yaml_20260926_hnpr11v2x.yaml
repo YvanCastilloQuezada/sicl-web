@@ -1,0 +1,32 @@
+LEVEL_ID: L06
+NAME: "Evaluador de Escenarios"
+DEFINITION: "ARKI compara alternativas contra restricciones y objetivos."
+INPUTS:
+  - candidates: "list<Candidate>"
+  - constraints: "list<Constraint>"
+  - objectives: "list<Objective>"
+  - scenarios: "list<Scenario>"
+OUTPUTS:
+  - evaluation_matrix: "EvaluationMatrix"
+  - trade_offs: "list<TradeOff>"
+  - pareto_front: "ParetoFront"
+  - unknowns: "list<Unknown>"
+CONTRACTS:
+  - "No declarar ganador automático"
+  - "PARETO NON-DOMINATED ≠ ARCHITECTURALLY PREFERRED"
+  - "UNKNOWN ≠ PENALTY"
+  - "Restricciones duras gatean antes de preferencias"
+RULES:
+  - "INV6-011: PARETO NON-DOMINATED ≠ ARCHITECTURALLY PREFERRED"
+  - "INV6-012: UNKNOWN ≠ PENALTY ≠ FAIL ≠ PASS"
+  - "INV6-013: INFEASIBILITY MUST NOT BE HIDDEN BY SILENT CONSTRAINT RELAXATION"
+  - "INV-FUN-156: MANDATORY CONSTRAINTS GATE BEFORE WEIGHTED SCORING"
+GATES:
+  - "GATE_L06_PASS: Evaluación multiobjetivo con trade-offs explícitos"
+EVIDENCE_REQUIRED:
+  - "Scenario evaluation results"
+  - "Constraint satisfaction matrix"
+  - "Pareto front calculation"
+  - "Trade-off explanations"
+  - "Human decision request"
+CURRENT_STATUS: "DEMONSTRATED/PARTIAL"

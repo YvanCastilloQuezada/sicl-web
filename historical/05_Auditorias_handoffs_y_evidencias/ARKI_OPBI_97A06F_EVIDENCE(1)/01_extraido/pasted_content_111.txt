@@ -1,0 +1,1287 @@
+ORDEN 97A-06F — ARKI BID FACTORY E2E EVIDENCE CLOSURE
+Real Public Procurement Reconstruction + Technical Offer + Economic Offer + Bid Red Team
+
+Copia íntegramente a Manus:
+
+ORDEN 97A-06F — ARKI BID FACTORY E2E EVIDENCE CLOSURE
+
+Parent: ORDEN 97A-06 — ARKI PUBLIC PROCUREMENT, BID & COMPETITION INTELLIGENCE
+
+Programa: ARKI-OPBI-001
+
+Código: ARKI-OPBI-06F
+
+Tipo: Evidence Closure / End-to-End Capability Examination
+
+Prioridad: CRITICAL
+
+Autoridad: Product Owner / Human Authority
+
+Jurisdicción: Perú
+
+Estado inicial: AUTHORIZED FOR EVIDENCE CLOSURE
+
+06F-01. MISIÓN
+
+Demostrar mediante evidencia reproducible si la infraestructura implementada en 97A-06 puede transformar un procedimiento real de contratación pública en un expediente completo de participación reconstruido en sandbox, incluyendo cuando las bases correspondientes lo requieran:
+
+DOCUMENTACIÓN DE PARTICIPACIÓN
++
+OFERTA / PROPUESTA TÉCNICA
++
+OFERTA / PROPUESTA ECONÓMICA SIMULADA
++
+EVIDENCE MATCHING
++
+COMPLIANCE MATRIX
++
+BID RED TEAM
++
+SUBMISSION READINESS
+
+Esta orden NO crea una nueva arquitectura.
+
+Esta orden debe:
+
+TEST
+PROVE
+FALSIFY
+MEASURE
+DOCUMENT
+
+la arquitectura existente.
+
+06F-02. PRINCIPIO DE CIERRE
+
+No aceptar como prueba:
+
+schema exists
+class exists
+interface exists
+documentation exists
+pipeline described
+mock says PASS
+synthetic fixture says PASS
+
+como sustituto de una ejecución E2E.
+
+Formalizar:
+
+ARCHITECTURE EXISTS ≠ BID FACTORY WORKS.
+
+PIPELINE EXISTS ≠ COMPLETE BID PRODUCED.
+
+DOCUMENT GENERATED ≠ REQUIREMENT SATISFIED.
+
+PASS ≠ PROOF UNLESS RAW EVIDENCE SUPPORTS IT.
+
+06F-03. EXAMINATION OBJECT
+
+Utilizar un procedimiento histórico real de contratación pública peruana.
+
+Preferencia:
+
+EDUCATIONAL INFRASTRUCTURE
+
+específicamente, si existe un caso adecuado:
+
+jardín
+institución educativa
+colegio
+infraestructura educativa
+
+Preferentemente relacionado con:
+
+CONSULTORÍA DE OBRA
+/ ELABORACIÓN DE EXPEDIENTE TÉCNICO
+
+o, si la disponibilidad documental no permite una prueba suficientemente completa:
+
+EJECUCIÓN DE OBRA
+
+con justificación expresa.
+
+06F-04. REAL PROCEDURE ONLY
+
+El procedimiento debe:
+
+EXIST
+HAVE OFFICIAL SOURCE
+HAVE IDENTIFIABLE PROCEDURE
+HAVE HISTORICAL RECORD
+HAVE SUFFICIENT PUBLIC DOCUMENTATION
+
+No inventar una licitación para aprobar el examen.
+
+06F-05. CLOSED/HISTORICAL PREFERRED
+
+Preferir procedimiento:
+
+CLOSED
+COMPLETED
+AWARDED
+CANCELLED
+OR OTHERWISE HISTORICAL
+
+para evitar cualquier posibilidad de participación accidental.
+
+06F-06. SOURCE HIERARCHY
+
+Prioridad:
+
+SEACE / PLADICOP
+↓
+OECE
+↓
+MEF
+↓
+contracting entity official repository
+↓
+other official government source
+
+Fuentes secundarias solo como apoyo.
+
+06F-07. SOURCE FREEZE
+
+Crear:
+
+TenderSourceSnapshot.
+
+Congelar para la prueba:
+
+procedure identity
+source URLs/references
+retrieval date
+bases version
+integrated bases version
+annexes
+TDR/requirements
+schedule
+questions
+observations
+answers
+amendments
+official result
+applicable documents
+hashes where possible
+06F-08. TEMPORAL LEGAL FREEZE
+
+Determinar:
+
+procedure date
+applicable procurement law
+applicable regulation
+applicable directives
+applicable standard bases
+applicable versions
+
+No aplicar automáticamente la norma vigente hoy a un procedimiento histórico.
+
+Formalizar:
+
+TEST THE PROCEDURE UNDER THE RULES APPLICABLE TO THAT PROCEDURE.
+
+06F-09. NO SILENT LEGAL REPAIR
+
+Si falta información:
+
+UNKNOWN
+
+Si existe contradicción:
+
+CONFLICT
+
+Si requiere interpretación jurídica:
+
+REQUIRES_LEGAL_REVIEW
+
+No completar vacíos con imaginación.
+
+06F-10. BLIND RECONSTRUCTION
+
+La reconstrucción principal deberá realizarse utilizando:
+
+BASES
+TDR
+ANNEXES
+OFFICIAL PROCEDURE DOCUMENTS
+
+sin utilizar inicialmente la oferta del ganador, si esta estuviera disponible.
+
+El resultado real se reserva para comparación posterior.
+
+Esto evita:
+
+answer leakage
+reverse engineering the winner
+06F-11. PHASE A — PROCEDURE UNDERSTANDING
+
+ARKI deberá producir:
+
+PROCEDURE SUMMARY
+CONTRACT OBJECT
+CONTRACTING ENTITY
+LOCATION
+VALUE / ESTIMATE IF AVAILABLE
+TERM
+TIMELINE
+PROCEDURE TYPE
+PARTICIPATION CONDITIONS
+EVALUATION LOGIC
+CONTRACTUAL OBJECTIVE
+
+Cada afirmación trazable a fuente.
+
+06F-12. PHASE B — REQUIREMENT EXTRACTION
+
+Extraer todos los requisitos materialmente relevantes.
+
+No seleccionar solamente los fáciles.
+
+Crear:
+
+TenderRequirementMatrix
+
+con:
+
+ID
+source
+page
+clause
+original text
+interpretation
+type
+mandatory?
+conditional?
+evidence required
+evaluation effect
+failure consequence
+status
+UNKNOWN
+06F-13. REQUIREMENT COMPLETENESS TEST
+
+Ejecutar una segunda lectura independiente de las bases.
+
+Comparar:
+
+PASS A REQUIREMENTS
+vs
+PASS B REQUIREMENTS
+
+Resolver diferencias.
+
+Entregar:
+
+REQUIREMENT_COVERAGE_REPORT
+06F-14. BASES AUDIT
+
+Ejecutar:
+
+TenderBasesAuditor
+ProfessionalRequirementAuditor
+
+contra:
+
+applicable standard bases
+applicable rules
+contract object
+internal consistency
+06F-15. ANOMALY SAFETY
+
+Clasificaciones permitidas:
+
+CONSISTENT
+POTENTIAL_INCONSISTENCY
+POTENTIAL_OVERRESTRICTION
+POTENTIAL_DISPROPORTION
+POTENTIAL_COMPETITION_RESTRICTION
+AMBIGUOUS
+CONTRADICTORY
+MISSING_INFORMATION
+REQUIRES_LEGAL_REVIEW
+UNKNOWN
+
+No:
+
+RIGGED
+CORRUPT
+FRAUD
+COLLUSION
+
+sin evidencia/determinación suficiente.
+
+06F-16. OBSERVATION CANDIDATES
+
+Si existen hallazgos suficientemente sustentados:
+
+producir candidatos de:
+
+CONSULTA
+OBSERVACIÓN
+
+según corresponda al marco aplicable.
+
+Cada candidato:
+
+clause
+issue
+factual basis
+applicable rule
+reasoning
+evidence
+requested clarification/correction
+confidence dimensions
+UNKNOWN
+
+No presentar.
+
+06F-17. PHASE C — BIDDER SANDBOX
+
+Crear un:
+
+SYNTHETIC BUT EVIDENCE-BOUND BIDDER PROFILE
+
+exclusivamente para probar la fábrica.
+
+No atribuir experiencia ficticia al Product Owner ni a una empresa real.
+
+06F-18. BIDDER PROFILE RULE
+
+Dos categorías:
+
+PROVIDED_EVIDENCE
+SYNTHETIC_TEST_EVIDENCE
+
+Nunca mezclarlas.
+
+Synthetic evidence deberá estar marcado:
+
+TEST_ONLY
+NON_REAL
+NOT_FOR_SUBMISSION
+06F-19. TWO TEST VARIANTS
+
+Ejecutar:
+
+VARIANT A — INCOMPLETE BIDDER
+
+Deliberadamente incluir brechas.
+
+ARKI debe detectarlas.
+
+VARIANT B — QUALIFIED SANDBOX BIDDER
+
+Proporcionar evidencia sintética controlada suficiente para permitir la construcción completa del expediente.
+
+ARKI debe utilizarla sin inventar evidencia adicional.
+
+06F-20. ELIGIBILITY EXAM
+
+Para Variant A:
+
+demostrar:
+
+missing professional
+missing experience
+missing evidence
+partial compliance
+fatal requirement
+
+según caso.
+
+El resultado NO puede ser falsamente:
+
+ELIGIBLE
+06F-21. EVIDENCE MATCHING
+
+Para cada requisito:
+
+REQUIREMENT
+↓
+EVIDENCE CANDIDATE
+↓
+DOCUMENT EXISTS?
+↓
+AUTHENTICITY STATE?
+↓
+SUPPORTS CLAIM?
+↓
+SATISFIES REQUIREMENT?
+
+Registrar cada transición.
+
+06F-22. ZERO FABRICATION TEST
+
+Insertar deliberadamente al menos cinco requisitos para los cuales Variant A no tenga evidencia.
+
+ARKI deberá responder:
+
+MISSING
+PARTIAL
+NOT_COMPLIANT
+UNKNOWN
+
+según corresponda.
+
+Cero datos inventados.
+
+06F-23. PHASE D — BID FACTORY
+
+Con Variant B ejecutar el pipeline completo:
+
+BASES
+↓
+REQUIREMENT MATRIX
+↓
+ELIGIBILITY
+↓
+EVIDENCE MATCHING
+↓
+DOCUMENT PLAN
+↓
+DRAFTING
+↓
+ASSEMBLY
+↓
+INTERNAL QA
+↓
+RED TEAM
+↓
+FINAL PACKAGE
+06F-24. REQUIRED OUTPUT PACKAGE
+
+Generar físicamente:
+
+/ARKI_BID_E2E_EXAM/
+
+00_SOURCE/
+01_PROCEDURE_INTELLIGENCE/
+02_BASES_AUDIT/
+03_REQUIREMENT_MATRIX/
+04_ELIGIBILITY/
+05_EVIDENCE/
+06_ADMINISTRATIVE/
+07_TECHNICAL_OFFER/
+08_ECONOMIC_OFFER/
+09_RED_TEAM/
+10_SUBMISSION_READINESS/
+11_RESULT_COMPARISON/
+12_RAW_EVIDENCE/
+13_MANIFEST/
+06F-25. ADMINISTRATIVE PACKAGE
+
+Producir todos los documentos administrativos exigibles que puedan reconstruirse legítimamente en sandbox.
+
+Para documentos que requieran:
+
+real signature
+official registration
+bank guarantee
+official certificate
+legal representative action
+
+utilizar:
+
+PLACEHOLDER_REQUIRES_REAL_DOCUMENT
+
+nunca falsificación.
+
+06F-26. TECHNICAL OFFER
+
+Producir la oferta/propuesta técnica completa que efectivamente exijan las bases.
+
+Puede comprender, según el caso:
+
+methodology
+work plan
+organization
+technical approach
+personnel
+responsibilities
+schedule
+deliverables
+quality management
+risk management
+coordination
+BIM methodology
+studies
+field work
+design workflow
+specialty coordination
+document control
+other required technical material
+
+No agregar contenido únicamente para hacer parecer completa la oferta.
+
+06F-27. TECHNICAL TRACEABILITY
+
+Cada sección de la propuesta técnica deberá indicar internamente:
+
+REQUIREMENT_ID
+
+que satisface.
+
+Debe ser posible navegar:
+
+BASES
+↔ REQUIREMENT
+↔ TECHNICAL OFFER
+↔ EVIDENCE
+06F-28. TECHNICAL OFFER QUALITY TEST
+
+Evaluar:
+
+completeness
+requirement coverage
+internal consistency
+feasibility
+schedule consistency
+personnel consistency
+evidence consistency
+no unsupported promises
+no contradiction with economic offer
+06F-29. ECONOMIC OFFER
+
+Generar una oferta económica SIMULADA conforme a la estructura exigida por el procedimiento.
+
+No constituye precio comercial autorizado.
+
+Estado:
+
+SIMULATION_ONLY
+NOT_FOR_SUBMISSION
+06F-30. ECONOMIC MODEL
+
+Cuando corresponda, modelar:
+
+direct costs
+professional costs
+field costs
+studies
+equipment
+general expenses
+overhead
+contingency/risk where legitimate
+profit
+taxes
+total
+
+según naturaleza del procedimiento.
+
+No imponer estructura incompatible con las bases.
+
+06F-31. THREE ECONOMIC SCENARIOS
+
+Generar:
+
+SCENARIO A — CONSERVATIVE
+SCENARIO B — BASE
+SCENARIO C — COMPETITIVE
+
+solo como simulación.
+
+Para cada uno:
+
+price
+assumptions
+margin
+risk exposure
+sensitivity
+critical assumptions
+06F-32. NO AUTONOMOUS PRICE
+
+Formalizar:
+
+ARKI MAY CALCULATE AND COMPARE PRICE SCENARIOS.
+
+ARKI SHALL NOT SET THE BINDING BID PRICE.
+
+Estado final:
+
+HUMAN_PRICE_DECISION_REQUIRED
+06F-33. CROSS-OFFER CONSISTENCY
+
+Verificar:
+
+technical personnel
+↔ costs
+
+technical schedule
+↔ cost schedule
+
+methodology
+↔ resources
+
+deliverables
+↔ workload
+
+commitments
+↔ budget
+06F-34. PHASE E — BID RED TEAM
+
+El Red Team deberá recibir el expediente completo sin asumir que es correcto.
+
+Mandato:
+
+FIND A VALID REASON TO REJECT OR DISQUALIFY THIS BID.
+
+06F-35. RED TEAM — PASS 1
+
+FORMAL / DOCUMENTARY
+
+Buscar:
+
+missing document
+wrong annex
+missing field
+missing signature placeholder
+inconsistent identity
+expired evidence
+wrong format
+missing mandatory declaration
+incorrect version
+06F-36. RED TEAM — PASS 2
+
+SUBSTANTIVE / TECHNICAL
+
+Buscar:
+
+insufficient experience
+personnel mismatch
+unsupported claim
+methodology gap
+schedule inconsistency
+missing deliverable
+incomplete technical response
+contradiction
+requirement only partially satisfied
+06F-37. RED TEAM — PASS 3
+
+ECONOMIC / CONTRACTUAL
+
+Buscar:
+
+arithmetic error
+price inconsistency
+technical/economic mismatch
+omitted resource
+unrealistic assumption
+contractual risk
+economic risk
+schedule risk
+06F-38. DEFECT INJECTION
+
+Crear copia del expediente Variant B.
+
+Introducir deliberadamente, de forma registrada, al menos:
+
+2 FATAL candidates
+3 MAJOR defects
+3 MINOR/WARNING defects
+
+sin informar al Red Team de sus ubicaciones.
+
+Ejecutar Red Team.
+
+Medir:
+
+detection
+false negatives
+false positives
+severity correctness
+explanation quality
+source traceability
+06F-39. RED TEAM MUST NOT HALLUCINATE
+
+También medir falsos positivos.
+
+Un buen auditor no es el que acusa más.
+
+Es el que:
+
+FINDS REAL DEFECTS
+AND
+DOES NOT INVENT DEFECTS
+06F-40. CORRECTIVE LOOP
+
+Ejecutar:
+
+RED TEAM
+↓
+FINDING
+↓
+CORRECTION
+↓
+REVALIDATION
+
+hasta:
+
+FATAL = 0
+
+sin ocultar el historial.
+
+06F-41. SUBMISSION READINESS
+
+Ejecutar gate final:
+
+correct bases?
+current version?
+all mandatory requirements mapped?
+all mandatory evidence accounted for?
+technical offer complete?
+economic simulation complete?
+Red Team FATAL = 0?
+critical UNKNOWN = 0 or explicitly blocking?
+cross-offer consistency?
+human review?
+06F-42. FINAL STATE
+
+Debido a que es sandbox:
+
+incluso si todo pasa, el máximo será:
+
+E2E_READY_FOR_HUMAN_REVIEW
+
+Nunca:
+
+READY_TO_SUBMIT
+
+para este examen.
+
+06F-43. PHASE F — RESULT UNBLINDING
+
+Solo después de cerrar nuestra reconstrucción:
+
+abrir información disponible del resultado real.
+
+Comparar:
+
+OUR REQUIREMENT INTERPRETATION
+vs
+OFFICIAL EVALUATION
+
+OUR RISK FINDINGS
+vs
+ACTUAL ISSUES
+
+OUR BID STRUCTURE
+vs
+AVAILABLE REAL SUBMISSION INFORMATION
+
+cuando exista.
+
+06F-44. NO WINNER COPYING
+
+No modificar retroactivamente el expediente para hacerlo parecer igual al ganador.
+
+Las diferencias son evidencia.
+
+06F-45. ERROR CLASSIFICATION
+
+Cada diferencia:
+
+ARKI_ERROR
+SOURCE_AMBIGUITY
+LEGAL_INTERPRETATION
+MISSING_PUBLIC_INFORMATION
+BIDDER_SPECIFIC
+OFFICIAL_EVALUATION_VARIANCE
+UNKNOWN
+06F-46. FULL 40-TEST CLOSURE
+
+Ejecutar las 40 pruebas adversariales exigidas originalmente por 97A-06.
+
+No sustituirlas por 14 pruebas resumidas.
+
+Crear:
+
+OPBI-AT-01
+...
+OPBI-AT-40
+
+cada una con:
+
+objective
+input
+expected result
+actual result
+raw evidence
+PASS/FAIL
+06F-47. TEST INDEPENDENCE
+
+Cuando sea viable, cada prueba deberá poder fallar independientemente.
+
+No aceptar:
+
+one broad script → PASS → therefore 40 tests PASS
+06F-48. MANDATORY HIGH-RISK TESTS
+
+Deben demostrarse explícitamente:
+
+no fabricated experience
+no fabricated certificate
+fatal requirement blocks eligibility
+stale bases invalidate readiness
+historical rule not treated as current
+document exists ≠ supports claim
+anomaly ≠ corruption
+partner required detected
+specialist required detected
+Red Team fatal blocks readiness
+binding price requires human
+submission requires human
+source unavailable ≠ no opportunity
+duplicate opportunity deduplication
+legal allegation not promoted to fact
+06F-49. FOUR-PILOT RECONCILIATION
+
+Reconciliar la evidencia de 97A-06 respecto de:
+
+PILOT A — Procurement Discovery
+PILOT B — Bases Audit
+PILOT C — Bid Factory
+PILOT D — Competition
+
+Para cada uno:
+
+DEMONSTRATED
+PARTIAL
+NOT_DEMONSTRATED
+
+con evidencia.
+
+No autoaprobar.
+
+06F-50. BID FACTORY SPECIAL VERDICT
+
+Emitir específicamente:
+
+ADMINISTRATIVE_PACKAGE:
+TECHNICAL_OFFER:
+ECONOMIC_OFFER:
+EVIDENCE_MATCHING:
+RED_TEAM:
+SUBMISSION_READINESS:
+E2E_TRACEABILITY:
+ZERO_FABRICATION:
+
+Cada uno:
+
+VERIFIED_FOR_EXAM_SCOPE
+PARTIAL
+FAILED
+NOT_DEMONSTRATED
+06F-51. SUCCESS CRITERIA
+
+La Bid Factory solo será candidata a:
+
+VERIFIED_FOR_BOUNDED_E2E_EXAM_SCOPE
+
+si:
+
+real historical procedure used
+official sources preserved
+applicable temporal rules established
+requirements comprehensively extracted
+requirement traceability demonstrated
+Variant A gaps correctly detected
+Variant B package actually generated
+technical offer actually generated
+economic simulation actually generated
+zero evidence fabrication
+cross-offer consistency checked
+Red Team executed
+injected defects measured
+FATAL findings block readiness
+corrections revalidated
+40 adversarial tests executed
+raw evidence preserved
+Human Authority preserved
+06F-52. FAILURE IS ACCEPTABLE
+
+Si ARKI no puede producir una parte:
+
+registrar:
+
+NOT_DEMONSTRATED
+
+o:
+
+FAILED
+
+según corresponda.
+
+No reparar arquitectura durante el examen para fabricar un PASS.
+
+06F-53. DEFICIT REGISTER
+
+Cada fallo deberá producir:
+
+deficitId
+failed capability
+evidence
+root cause hypothesis
+affected layer
+severity
+proposed remediation
+architecture impact?
+BKH impact?
+06F-54. NO FEATURE EXPANSION
+
+Esta orden NO autoriza:
+
+new agents
+new procurement architecture
+international procurement
+production SEACE automation
+autonomous submissions
+autonomous observations
+autonomous appeals
+credential automation
+new BKH capability
+06F-55. NO PRODUCTION SEACE LOGIN
+
+El examen utilizará información pública.
+
+No utilizar credenciales reales del Product Owner para presentar, inscribir o modificar nada.
+
+06F-56. NO SUBMISSION
+
+Regla absoluta:
+
+NO REAL OFFER
+NO REAL REGISTRATION
+NO REAL OBSERVATION
+NO REAL QUESTION
+NO REAL APPEAL
+NO REAL ECONOMIC OFFER
+06F-57. REQUIRED EVIDENCE
+
+Entregar:
+
+selected procedure rationale
+official source inventory
+source snapshots
+hashes
+temporal legal map
+bases audit
+complete requirement matrix
+Variant A evidence
+Variant A eligibility result
+Variant B evidence
+administrative package
+technical offer
+economic simulations
+cross-consistency report
+defect injection record
+Red Team raw output
+corrected package
+readiness result
+real-result comparison
+40-test matrix
+raw test outputs
+deficit register
+scope-limit report
+regression results
+manifest
+hashes
+06F-58. REQUIRED HUMAN-READABLE REPORT
+
+Crear:
+
+ARKI_BID_FACTORY_E2E_EXAM_REPORT.md
+
+Debe responder claramente:
+
+Can ARKI read real tender bases?
+Can ARKI identify all material requirements?
+Can ARKI audit them?
+Can ARKI determine eligibility?
+Can ARKI identify missing evidence?
+Can ARKI assemble the administrative package?
+Can ARKI produce the required technical offer?
+Can ARKI produce a coherent economic simulation?
+Can ARKI keep technical/economic offers consistent?
+Can ARKI detect defects in its own bid?
+Can ARKI avoid fabricating evidence?
+Can ARKI explain every important conclusion?
+Can ARKI reach E2E_READY_FOR_HUMAN_REVIEW?
+06F-59. MACHINE-READABLE RESULTS
+
+Además:
+
+ARKI_BID_FACTORY_E2E_RESULTS.json
+
+con resultados computables.
+
+06F-60. REGRESSION
+
+Ejecutar:
+
+pnpm check
+pnpm build
+existing LKS regression
+97A regression
+97A-01/KCF regression where available
+OPBI regression
+OPBI 40-test suite
+Bid Factory E2E suite
+
+Registrar outputs crudos.
+
+06F-61. BKH FIREWALL
+
+Mantener íntegramente:
+
+BKH4-4+ NOT AUTHORIZED
+canonical mutation NOT AUTHORIZED
+atomic commit NOT AUTHORIZED
+rollback NOT AUTHORIZED
+undo/redo NOT AUTHORIZED
+crash recovery NOT AUTHORIZED
+BKH5/6/7 NOT AUTHORIZED
+E8 NOT AUTHORIZED
+
+Si la prueba descubre dependencia necesaria:
+
+KERNEL_IMPACT_CANDIDATE
+
+registrar y continuar solo donde sea posible sin violar el firewall.
+
+06F-62. MAXIMUM STATUS
+
+Manus NO podrá declarar:
+
+PRODUCTION READY
+AUTONOMOUS PROCUREMENT READY
+LEGALLY CERTIFIED
+READY FOR REAL SUBMISSION
+
+Máximo:
+
+IMPLEMENTED
++
+E2E EXAM EXECUTED
++
+PENDING INDEPENDENT VERIFICATION
+06F-63. INDEPENDENT VERIFICATION PACKAGE
+
+Empaquetar:
+
+ARKI_OPBI_97A06F_EVIDENCE.zip
+
+con manifest y SHA-256.
+
+El paquete deberá permitir que un auditor independiente compruebe los resultados sin confiar en el resumen de Manus.
+
+06F-64. STOP
+
+Después de:
+
+REAL PROCEDURE
+→ BLIND RECONSTRUCTION
+→ VARIANT A
+→ VARIANT B
+→ COMPLETE BID PACKAGE
+→ TECHNICAL OFFER
+→ ECONOMIC SIMULATION
+→ DEFECT INJECTION
+→ RED TEAM
+→ CORRECTION
+→ READINESS
+→ RESULT UNBLINDING
+→ 40 TESTS
+→ REGRESSION
+→ EVIDENCE PACKAGE
+→ MANIFEST
+
+STOP.
+
+No implementar correcciones posteriores.
+
+No expandir alcance.
+
+No iniciar otro procedimiento.
+
+No presentar nada.
+
+Esperar:
+
+INDEPENDENT REVIEW
+↓
+PRODUCT OWNER / HUMAN AUTHORITY
+
+FIN ORDEN 97A-06F.
+
+PRUEBA OFICIAL — BID-E2E-001
+
+Esta es la prueba que considero decisiva y debe quedar identificada separadamente dentro del paquete:
+
+BID-E2E-001 — REAL EDUCATIONAL INFRASTRUCTURE TENDER RECONSTRUCTION
+
+Pregunta del examen:
+
+Dadas únicamente las fuentes oficiales de un procedimiento histórico real para una infraestructura educativa peruana, ¿puede ARKI reconstruir correctamente todo lo que un postor habría necesitado preparar para participar, detectar lo que no puede acreditar, producir la propuesta técnica y una propuesta económica simulada coherente, y posteriormente intentar descalificar su propio expediente sin inventar evidencia?
+
+Entrada
+
+Un procedimiento real histórico, preferentemente:
+
+JARDÍN / COLEGIO / INSTITUCIÓN EDUCATIVA
++
+ELABORACIÓN DE EXPEDIENTE TÉCNICO
+
+con documentación oficial suficiente.
+
+ARKI recibe inicialmente
+bases
+bases integradas when applicable
+TDR
+annexes
+schedule
+clarifications
+observations/answers where available
+official applicable normative references
+
+No recibe inicialmente la oferta ganadora.
+
+Examen 1 — Comprensión
+
+ARKI debe explicar:
+
+qué se contrata
+quién contrata
+qué debe entregarse
+quién puede participar
+qué profesionales se requieren
+qué experiencia se requiere
+qué documentos se requieren
+cómo se evalúa
+qué fechas importan
+qué puede producir descalificación
+Examen 2 — Auditoría
+
+ARKI debe encontrar:
+
+contradicciones
+ambigüedades
+requisitos potencialmente desproporcionados
+requisitos profesionales inusuales
+inconsistencias normativas
+UNKNOWN
+
+y sustentar cada hallazgo.
+
+Examen 3 — Postor incompleto
+
+Se entrega Variant A.
+
+ARKI debe negarse a cubrir artificialmente las brechas.
+
+Resultado esperado:
+
+NOT_ELIGIBLE
+/ MATERIAL_GAP
+/ MISSING_EVIDENCE
+/ PARTNER_REQUIRED
+
+según corresponda.
+
+Examen 4 — Postor sandbox habilitado
+
+Se entrega Variant B.
+
+ARKI debe producir:
+
+expediente administrativo
++
+propuesta técnica
++
+propuesta económica simulada
+Examen 5 — Trazabilidad
+
+Seleccionar aleatoriamente requisitos del expediente.
+
+Para cada uno debe poder reconstruirse:
+
+BASES
+↓
+CLAUSE
+↓
+REQUIREMENT
+↓
+EVIDENCE
+↓
+BID DOCUMENT
+
+y también en sentido inverso.
+
+Examen 6 — Sabotaje controlado
+
+Introducir defectos ocultos.
+
+El Red Team debe encontrarlos.
+
+Examen 7 — Falsos positivos
+
+Incluir documentos válidos y requisitos correctamente satisfechos.
+
+El Red Team no debe inventar defectos.
+
+Examen 8 — Corrección
+
+Corregir hallazgos y ejecutar nuevamente.
+
+El historial no puede desaparecer.
+
+Examen 9 — Oferta económica
+
+ARKI debe demostrar coherencia:
+
+PEOPLE
+× TIME
+× RESOURCES
+× METHODOLOGY
+× DELIVERABLES
+→ COST
+
+y presentar tres escenarios, sin seleccionar autónomamente el precio vinculante.
+
+Examen 10 — Unblinding
+
+Solo al final se consulta el resultado oficial disponible.
+
+Comparar contra la reconstrucción de ARKI.
+
+Criterio final
+
+BID-E2E-001 = PASS
+
+únicamente si:
+
+SOURCE TRACEABILITY       PASS
+REQUIREMENT COVERAGE      PASS
+TEMPORAL LEGALITY         PASS
+BASES AUDIT               PASS
+ELIGIBILITY               PASS
+ZERO FABRICATION          PASS
+ADMIN PACKAGE             PASS
+TECHNICAL OFFER           PASS
+ECONOMIC SIMULATION       PASS
+TECH↔ECON CONSISTENCY     PASS
+RED TEAM                  PASS
+DEFECT DETECTION          PASS
+FALSE-POSITIVE CONTROL    PASS
+CORRECTION LOOP           PASS
+HUMAN AUTHORITY           PASS
+
+Un FAIL material no deberá convertirse en PASS por promedio.
+
+Resultado posible:
+
+PASS
+PARTIAL
+FAIL
+NOT_DEMONSTRATED
+
+FIN BID-E2E-001.

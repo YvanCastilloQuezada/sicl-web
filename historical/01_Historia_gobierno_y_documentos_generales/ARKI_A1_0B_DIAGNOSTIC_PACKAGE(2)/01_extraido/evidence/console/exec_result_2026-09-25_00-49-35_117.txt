@@ -1,0 +1,1 @@
+"{\"url\":\"https://4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer/help/operations\",\"states\":[{\"s\":2,\"state\":\"SUSPENSE\"},{\"s\":5,\"state\":\"SUSPENSE\"},{\"s\":10,\"state\":\"SUSPENSE\"},{\"s\":15,\"state\":\"SUSPENSE\"}],\"meaningful\":false,\"authRedirect\":false,\"resources\":[{\"duration\":21.30000001192093,\"transferSize\":300}]}"

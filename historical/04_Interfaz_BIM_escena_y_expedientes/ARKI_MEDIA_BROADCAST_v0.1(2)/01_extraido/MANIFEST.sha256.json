@@ -1,0 +1,14 @@
+{
+  "MANUS_ORDER.md": "4d7e46c448d016880196a9f1ab82423fcab9a2585db7a587584278de3f9177a0",
+  "README.md": "7aff2cb118739eeb7ff5d5fb8f020486291b7b3957a8296ece99b876e74f2892",
+  "docs/ORGANIGRAMA.md": "54cf3c0a9a6f7c3a7c01bf33c162e50faee4e49c65d86585508c3b4ce13f9b31",
+  "scripts/test-media-broadcast.ts": "793789dfdb5d9f1753aa6fb3027983a9f9b9500d4b4777b0c6290fa36b2f4e28",
+  "shared/avatar/performancePlanner.ts": "a9f661917363a9be882affc531abdc69d089e3d5ae13e301c53d15e76b6d56c8",
+  "shared/avatar/types.ts": "e133cbd8089302ee288c87483589f8e0733c178e306ff9338e22d76aadeccc50",
+  "shared/broadcast/channelPlan.ts": "086896af1b98cc84f56991a4c74faa63d37deffb82a8720482a20e90ac92c157",
+  "shared/broadcast/gate.ts": "8c20f60953dd063a80176327e973cfe7afcc1938c7d89e2398170b29c9243e23",
+  "shared/broadcast/types.ts": "e0ee2e9866e50878b53874298e6a4b79462c374be469b16540bc9dec73323838",
+  "shared/index.ts": "a9a14d76e9bf7a9969bd2ef53801299874d600a0b5c2e0452851583a02cf5f69",
+  "shared/media/pipeline.ts": "21ae1d3816250d471b328976be306871737ebf66bca0c122c061323f1e097cd6",
+  "shared/media/types.ts": "77ad7294129c4ff943a687f28f183aed311f9099442cfe2399a89d83cdf12cc0"
+}

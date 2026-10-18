@@ -1,0 +1,538 @@
+{
+  "run": 1,
+  "label": "OBJETO (LAMP-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "LAMP-001",
+  "status": "PASS",
+  "commands_total": 20,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.0343,
+  "failures": [],
+  "snapshot": {
+    "project_id": "LAMP-001",
+    "name": "Lámpara de escritorio articulada",
+    "spatial_scope": "objeto",
+    "temporal_scope": "proyecto",
+    "stage": "DRAFT",
+    "version": 19,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 1,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 2,
+    "comparisons": 1,
+    "simulations": 1,
+    "multiobjectives": 0,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 19
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE LAMP-001 \"Lámpara de escritorio articulada\" objeto proyecto",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "LAMP-001",
+          "name": "Lámpara de escritorio articulada",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "objeto",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001161
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN LAMP-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "LAMP-001",
+          "name": "Lámpara de escritorio articulada",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "objeto",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.001597
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"La altura de escritorio estándar es 75 cm\" ERGONOMIA",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-198293fd80",
+          "project_id": "LAMP-001",
+          "statement": "La altura de escritorio estándar es 75 cm",
+          "source": "ERGONOMIA",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001239
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-L001 \"El brazo debe cubrir 60 cm de radio\" OBSERVATION",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-L001",
+          "project_id": "LAMP-001",
+          "source_id": null,
+          "statement": "El brazo debe cubrir 60 cm de radio",
+          "evidence_type": "OBSERVATION",
+          "captured_at": "2026-09-16 18:06:10.566666+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "0b0c249fea7839e273863044f25e2144b65a7b3ed0c6ef4920ec81c686cfefe2",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001303
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET ERGONOMIA MAXIMIZE 90",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-81afc39596",
+          "project_id": "LAMP-001",
+          "key": "ERGONOMIA",
+          "direction": "MAXIMIZE",
+          "value": "90",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.001058
+    },
+    {
+      "sequence": 6,
+      "command": "/CONSTRAINT SET PESO <= 2 KG",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-26ad4592a0",
+          "project_id": "LAMP-001",
+          "key": "PESO",
+          "operator": "<=",
+          "value": "2",
+          "unit": "KG",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001055
+    },
+    {
+      "sequence": 7,
+      "command": "/ALTERNATIVE CREATE LAMP-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-52308b59c6",
+          "project_id": "LAMP-001",
+          "name": "LAMP-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001101
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE SET LAMP-A material aluminio",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-52308b59c6",
+          "project_id": "LAMP-001",
+          "name": "LAMP-A",
+          "description": "",
+          "parameters": {
+            "material": "aluminio"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001076
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET LAMP-A joints 2",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-52308b59c6",
+          "project_id": "LAMP-001",
+          "name": "LAMP-A",
+          "description": "",
+          "parameters": {
+            "material": "aluminio",
+            "joints": "2"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001011
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET LAMP-A weight 1.8",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-52308b59c6",
+          "project_id": "LAMP-001",
+          "name": "LAMP-A",
+          "description": "",
+          "parameters": {
+            "joints": "2",
+            "material": "aluminio",
+            "weight": "1.8"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001006
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE CREATE LAMP-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-8683afb8dd",
+          "project_id": "LAMP-001",
+          "name": "LAMP-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001116
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE SET LAMP-B material aluminio",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-8683afb8dd",
+          "project_id": "LAMP-001",
+          "name": "LAMP-B",
+          "description": "",
+          "parameters": {
+            "material": "aluminio"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001035
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET LAMP-B joints 3",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-8683afb8dd",
+          "project_id": "LAMP-001",
+          "name": "LAMP-B",
+          "description": "",
+          "parameters": {
+            "material": "aluminio",
+            "joints": "3"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001127
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET LAMP-B weight 1.6",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-8683afb8dd",
+          "project_id": "LAMP-001",
+          "name": "LAMP-B",
+          "description": "",
+          "parameters": {
+            "joints": "3",
+            "material": "aluminio",
+            "weight": "1.6"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001027
+    },
+    {
+      "sequence": 15,
+      "command": "/EVALUATE LAMP-A ERGONOMIA 70 SCORE 0.9 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-6cd361bfa9",
+          "alternative_id": "ALT-52308b59c6",
+          "objective_id": "OBJ-81afc39596",
+          "value": 70.0,
+          "unit": "SCORE",
+          "confidence": 0.9,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001211
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE LAMP-B ERGONOMIA 85 SCORE 0.9 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-ee13868978",
+          "alternative_id": "ALT-8683afb8dd",
+          "objective_id": "OBJ-81afc39596",
+          "value": 85.0,
+          "unit": "SCORE",
+          "confidence": 0.9,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001205
+    },
+    {
+      "sequence": 17,
+      "command": "/COMPARE LAMP-A LAMP-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-9353317bd2",
+          "project_id": "LAMP-001",
+          "alternative_ids": [
+            "ALT-52308b59c6",
+            "ALT-8683afb8dd"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-6cd361bfa9",
+              "alternative_id": "ALT-52308b59c6",
+              "objective_id": "OBJ-81afc39596",
+              "value": 70.0,
+              "unit": "SCORE",
+              "confidence": 0.9,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-ee13868978",
+              "alternative_id": "ALT-8683afb8dd",
+              "objective_id": "OBJ-81afc39596",
+              "value": 85.0,
+              "unit": "SCORE",
+              "confidence": 0.9,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001381
+    },
+    {
+      "sequence": 18,
+      "command": "/SIMULATE RUN DETERMINISTIC deterministic_basic_v1 '{\"alternative_id\":\"LAMP-B\",\"objective_id\":\"ERGONOMIA\",\"parameter_value\":85}'",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "simulation": {
+            "simulation_id": "SIM-8fc3a81371",
+            "project_id": "LAMP-001",
+            "simulation_type": "DETERMINISTIC",
+            "method": "deterministic_basic_v1",
+            "method_version": "1.0",
+            "inputs": {
+              "alternative_id": "LAMP-B",
+              "objective_id": "ERGONOMIA",
+              "parameter_value": 85
+            },
+            "outputs": {
+              "missing_inputs": [
+                "alternative_id"
+              ]
+            },
+            "state": "INSUFFICIENT",
+            "started_at": "2026-09-16T18:06:10.582523+00:00",
+            "finished_at": "2026-09-16T18:06:10.582546+00:00",
+            "evidence_hash": "3e2acf811a918a7bdfabc784b108b9258933e35f41bd062c7c5b11082a9582c7",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001723
+    },
+    {
+      "sequence": 19,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión del análisis\" \"Diseño validado\" \"Product designer\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-47eed220b4",
+          "project_id": "LAMP-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión del análisis",
+          "reason": "Diseño validado",
+          "authority": "Product designer",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001348
+    },
+    {
+      "sequence": 20,
+      "command": "/DECISION RECORD \"Adoptar LAMP-B\" architect-yvan \"Product designer\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-03a9988cc5",
+          "project_id": "LAMP-001",
+          "statement": "Adoptar LAMP-B",
+          "actor": "architect-yvan",
+          "authority": "Product designer",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.010527
+    }
+  ]
+}

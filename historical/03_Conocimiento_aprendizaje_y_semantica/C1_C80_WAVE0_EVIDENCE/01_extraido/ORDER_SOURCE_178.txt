@@ -1,0 +1,1139 @@
+ORDEN A MANUS
+
+ARKI-C1C80-INTEGRATE-001
+FULL CAPABILITY ACTIVATION & INTEGRATION PROGRAM
+
+MISIÓN:
+ABRIR, RECONCILIAR E INTEGRAR TODAS LAS CAPACIDADES C1–C80
+EN EL ÚNICO ARKI.
+
+AUTORIZACIÓN:
+SE AUTORIZA IMPLEMENTACIÓN DE CÓDIGO EN EL REPOSITORIO LOCAL,
+BAJO LOS GATES, TESTS Y RESTRICCIONES DE ESTA ORDEN.
+
+NO PUSH.
+NO PR.
+NO MERGE.
+NO DEPLOY.
+NO PUBLICACIÓN EXTERNA.
+NO TX-005 IMPLÍCITO.
+NO BYPASS DE HUMAN AUTHORITY.
+
+======================================================================
+0. DECISIÓN DEL PRODUCT OWNER
+======================================================================
+
+El Product Owner autoriza iniciar el programa de integración de:
+
+C1 → C80.
+
+Objetivo:
+
+que las capacidades transferidas dejen de ser únicamente
+DOCUMENTED / CONTRACT_READY
+y comiencen a convertirse sistemáticamente en capacidades
+REALES, EJECUTABLES, INTEGRADAS Y VERIFICABLES de ARKI.
+
+IMPORTANTE:
+
+"INTEGRAR TODAS"
+NO significa:
+
+- declarar todas IMPLEMENTED;
+- escribir 80 stubs;
+- crear 80 módulos vacíos;
+- crear 80 agentes;
+- instalar indiscriminadamente herramientas;
+- implementar todo simultáneamente sin dependencias;
+- simular capacidades mediante respuestas lingüísticas.
+
+Significa:
+
+ABRIR TODO EL ARSENAL
++
+RECONCILIARLO
++
+CREAR SU ESTRUCTURA DE INTEGRACIÓN
++
+IMPLEMENTAR POR DEPENDENCIAS
++
+PROBAR
++
+HABILITAR PROGRESIVAMENTE.
+
+======================================================================
+1. PRINCIPIO CENTRAL
+======================================================================
+
+ONE ARKI.
+
+No crear:
+
+80 cerebros
+80 canonical states
+80 reasoning engines
+80 project states
+80 identity systems
+80 persistence systems
+80 learning authorities.
+
+Las capacidades deben convertirse en competencias,
+instrumentos y subsistemas del MISMO ARKI.
+
+Principio:
+
+ONE ARCHITECT
+MANY COMPETENCIES
+MANY TOOLS
+ONE PROJECT STATE
+ONE CANONICAL TRUTH
+HUMAN AUTHORITY.
+
+======================================================================
+2. ABRIR C1–C80 COMPLETAMENTE
+======================================================================
+
+El programa debe incluir TODAS:
+
+C1  Spatial Syntax
+C2  Programa Arquitectónico + Circulación
+C3  Física Térmica
+C4  Daylight + Acústica
+C5  Normativa como Código
+C6  Estructuras Profesionales
+C7  MEP Profesional
+C8  Construcción + Lean + LOB + Takt
+C9  LCA / LCC
+C10 Expediente Técnico Real
+
+C11 Shape Grammars
+C12 Optimización Topológica
+C13 NSGA-II Multiobjetivo
+C14 Monte Carlo
+C15 Algoritmos Genéticos de Layout
+C16 Simulated Annealing
+
+C17 CFD
+C18 FDS
+C19 EnergyPlus
+C20 Radiance
+C21 WUFI
+C22 OpenFOAM Avanzado
+
+C23 As-Built + Comisionamiento
+C24 O&M Predictivo
+C25 Descarbonización / Net Zero
+C26 Economía Circular / Renovación
+
+C27 Pattern Language
+C28 Reconocimiento de Tipología
+C29 Razonamiento Formal Arquitectónico
+
+C30 Avatar ARKI
+C31 Luka
+C32 Guía Contextual
+C33 AR / WebXR
+
+C34 Revit RVT/RFA
+C35 DWG/DXF Gobernado
+C36 Point Cloud
+C37 IFC4x3
+C38 gbXML
+
+C39 Multiusuario + Concurrencia
+C40 BCF
+C41 CDE / ISO 19650
+C42 PKI
+C43 Auditoría Inmutable
+
+C44 Dashboards
+C45 Predicción de Desviaciones
+C46 Benchmark de Proyectos
+C47 Machine Learning
+
+C48 LEED
+C49 EDGE
+C50 BREEAM
+C51 WELL
+C52 Passive House
+C53 Net Zero Carbon Certifications
+
+C54 Benchmark vs Arquitectos
+C55 Generación Adversarial
+C56 Meta-Learning
+C57 Transfer Learning
+C58 Explicabilidad Avanzada
+C59 Auto-Evaluación
+
+C60 Isovist y Visibilidad
+C61 Acústica Ray-Tracing
+C62 Estructuras No Lineales + Performance-Based
+C63 Real Estate / Factibilidad
+C64 Digital Twin + IoT
+
+C65 Post-Occupancy Evaluation
+C66 Diseño Biofílico / Neuroarquitectura
+C67 Fabricación Digital
+C68 Construcción Industrializada
+C69 Value Engineering
+C70 MCDA
+C71 Real Options Analysis
+C72 Risk Management Cuantitativo
+C73 Contratos y Procurement
+C74 Edificios Especializados
+
+C75 ARKI Self-Hosting
+C76 Debugging Asistido
+C77 Auto-Explicación de Decisiones
+C78 Simulación de Roles Especialistas
+C79 Diseño Universal
+C80 Wayfinding y Señalética.
+
+Ninguna debe desaparecer silenciosamente.
+
+======================================================================
+3. PRIMERA REGLA: REUSE BEFORE BUILD
+======================================================================
+
+Antes de implementar cualquier Cn:
+
+SEARCH REPOSITORY
+→ IDENTIFY EXISTING CAPABILITY
+→ RECONCILE
+→ REUSE
+→ EXTEND
+→ ONLY THEN BUILD MISSING PART.
+
+Clasificación:
+
+REUSE
+EXTEND
+ADAPT
+REFACTOR_REQUIRED
+NEW
+BLOCKED
+EXTERNAL_TOOL_REQUIRED
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+No crear duplicados.
+
+======================================================================
+4. NO IMPLEMENTAR POR NÚMERO
+======================================================================
+
+NO:
+
+C1 → terminar
+C2 → terminar
+...
+C80.
+
+Construye el DAG real.
+
+Implementa primero los fundamentos compartidos.
+
+Ejemplo:
+
+Epistemic State
+Identity
+Provenance
+Evidence
+Units
+Geometry
+Relationships
+Transactions
+Semantic Registry
+Solver Interface
+Simulation Interface
+Evaluation Interface
+Explanation
+Optimization
+Learning
+Tool Adapter Framework.
+
+Después conecta capacidades de dominio.
+
+======================================================================
+5. CAPABILITY REGISTRY
+======================================================================
+
+Crear un registro operativo único:
+
+ARKI_CAPABILITY_REGISTRY.
+
+Cada C1–C80 debe registrar:
+
+id
+name
+domain
+dependencies
+implementation status
+runtime status
+verification status
+required tools
+available tools
+input contract
+output contract
+oracle
+tests
+professional validation requirement
+frontend exposure
+version.
+
+Estados mínimos:
+
+DOCUMENTED
+SCAFFOLDED
+PARTIAL
+IMPLEMENTED
+RUNTIME_VERIFIED
+VERIFIED_BOUNDED_SCOPE
+E2E_VERIFIED
+BLOCKED
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+El Registry NO determina verdad por sí solo.
+
+Debe derivarse de evidencia verificable.
+
+======================================================================
+6. SHARED ENGINES
+======================================================================
+
+No duplicar motores.
+
+Reconciliar al menos:
+
+C11/C12/C13/C15/C16
+→ GENERATIVE / SEARCH FRAMEWORK.
+
+C29/C58/C77
+→ EXPLANATION FRAMEWORK.
+
+C47/C56/C57
+→ LEARNING FRAMEWORK.
+
+C14/C55/C59/C72
+→ STOCHASTIC / ADVERSARIAL FRAMEWORK cuando corresponda.
+
+C3/C19
+→ thermal model + different fidelity engines.
+
+C4/C61
+→ acoustic model + different fidelity engines.
+
+C6/C62
+→ common structural model + linear/nonlinear analysis.
+
+C24/C64
+→ lifecycle/digital-twin relationship.
+
+C9/C25/C26/C53
+→ common environmental/lifecycle quantities where semantically valid.
+
+No fusionar capacidades que solo parezcan similares
+pero tengan distinta autoridad o significado.
+
+======================================================================
+7. ENGINEERING CORE
+======================================================================
+
+ARKI debe dejar de limitarse a describir ingeniería.
+
+Crear progresivamente capacidad ejecutable para:
+
+STRUCTURES
+FOUNDATIONS
+WATER
+SANITARY/DRAINAGE
+ELECTRICAL
+HVAC
+FIRE/LIFE SAFETY
+VERTICAL TRANSPORT
+FAÇADE.
+
+Cadena mínima:
+
+KNOW
+→ FORMULATE
+→ CALCULATE
+→ SOLVE
+→ VERIFY
+→ BIND TO ENGINEERING OBJECT
+→ BIM
+→ IFC
+→ VALIDATE.
+
+SABER CALCULAR
+≠
+SABER MODELAR.
+
+ARKI necesita ambos.
+
+======================================================================
+8. SOLVER ARCHITECTURE
+======================================================================
+
+Crear interfaces provider-neutral.
+
+Ejemplos de candidatos externos:
+
+OpenSees
+EnergyPlus
+Radiance
+OpenFOAM
+FDS
+WUFI
+IfcOpenShell
+web-ifc.
+
+NO acoplar la inteligencia de ARKI a un proveedor.
+
+Patrón:
+
+ARKI ENGINEERING MODEL
+        ↓
+SOLVER ADAPTER
+        ↓
+EXTERNAL/NATIVE SOLVER
+        ↓
+RAW RESULT
+        ↓
+VALIDATION
+        ↓
+ARKI RESULT
+        ↓
+PROVENANCE + EVIDENCE.
+
+Antes de instalar herramientas pesadas:
+
+hacer capability probe.
+
+Si no están disponibles:
+
+TOOL_DEFICIT.
+
+No fingir ejecución.
+
+======================================================================
+9. BIM / IFC 4.3
+======================================================================
+
+IFC 4.3 será baseline principal de interoperabilidad BIM
+donde exista cobertura.
+
+Pero:
+
+ARKI ≠ IFC.
+
+ARKI mantiene identidad y semántica internas.
+
+Objetivo:
+
+ARKI WORLD MODEL
+→ ENGINEERING MODEL
+→ IFC4.3
+→ VALIDATE
+→ REIMPORT
+→ COMPARE.
+
+Implementar progresivamente:
+
+entities
+relationships
+properties
+quantities
+classification
+systems
+geometry
+provenance mappings
+identity mappings.
+
+ROUND-TRIP obligatorio para elevar estados.
+
+======================================================================
+10. CAD
+======================================================================
+
+Preservar lo ya demostrado.
+
+No romper:
+
+DWG → LibreDWG → SVG/ACIR bounded path
+source handles
+provenance
+semantic firewall.
+
+No declarar:
+
+CAD_GEOMETRY_READY
+
+hasta que corresponda por evidencia.
+
+CAD ≠ BIM.
+
+======================================================================
+11. SEMANTIC FOUNDATION
+======================================================================
+
+Integrar conceptualmente todas las capacidades sobre una
+semántica común.
+
+Pero antes de integrar el Semantic Curator starter:
+
+reconciliarlo con los owners reales.
+
+Semantic Curator:
+
+MAY PROPOSE
+MAY VALIDATE
+MAY MAP
+MAY DETECT CONFLICTS
+
+MUST NOT
+write canonical project state directly.
+
+No crear segundo canonical writer.
+
+======================================================================
+12. EPISTEMIC STATE
+======================================================================
+
+Unificar progresivamente estados como:
+
+FACT
+OBSERVED
+INFERRED
+ASSUMPTION
+UNKNOWN
+PROPOSAL
+VERIFIED
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+No promover automáticamente:
+
+UNKNOWN → FACT
+ASSUMPTION → VERIFIED
+PROPOSAL → CANONICAL.
+
+======================================================================
+13. DEPENDENCY PROPAGATION
+======================================================================
+
+Las capacidades no deben vivir aisladas.
+
+Ejemplo:
+
+MOVE COLUMN
+
+debe poder invalidar o afectar:
+
+STRUCTURE
+FOUNDATION
+MEP
+GEOMETRY
+QUANTITIES
+COST
+SCHEDULE
+CARBON
+COMPLIANCE
+DOCUMENTATION.
+
+Patrón:
+
+CHANGE
+→ DEPENDENCY GRAPH
+→ INVALIDATION
+→ RECALCULATION REQUIRED
+→ PREVIEW
+→ HUMAN DECISION
+→ TRANSACTION
+→ CANONICAL REVISION.
+
+======================================================================
+14. FRONTEND: ABRIR CAPACIDADES SIN MENTIR
+======================================================================
+
+Se autoriza preparar/exponer progresivamente C1–C80
+en la interfaz.
+
+Pero:
+
+UI TRUTH = SYSTEM TRUTH.
+
+Cada capacidad debe mostrar su estado real.
+
+AVAILABLE
+PARTIAL
+EXPERIMENTAL
+BLOCKED
+COMING_LATER
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+No crear botones que simulen funcionamiento.
+
+Professional Workspace:
+
+PROJECT TREE
++
+DIGITAL WORLD
++
+ARKI INTELLIGENCE
++
+PROPERTIES
++
+RELATIONSHIPS
++
+EVIDENCE
++
+SCENARIOS
++
+TIME
++
+COST
++
+ENERGY
++
+CARBON.
+
+======================================================================
+15. "ABRIR TODAS"
+======================================================================
+
+El Product Owner quiere que TODAS las capacidades estén visibles
+para el sistema desde el inicio del programa.
+
+Por tanto:
+
+ninguna C1–C80 debe quedar olvidada.
+
+Pero "OPEN" significa:
+
+REGISTERED
+DEPENDENCY-MAPPED
+CONTRACT-KNOWN
+STATUS-KNOWN
+TEST-PLAN-KNOWN
+
+antes de significar:
+
+IMPLEMENTED.
+
+Crear:
+
+C1_C80_ACTIVATION_BOARD.
+
+Debe mostrar en tiempo real:
+
+DOCUMENTED
+READY
+IN_PROGRESS
+BLOCKED
+IMPLEMENTED
+VERIFIED.
+
+======================================================================
+16. ADVERSARIAL TESTING
+======================================================================
+
+Cada capacidad implementada debe ser atacada.
+
+Proceso:
+
+IMPLEMENT
+→ NORMAL TEST
+→ ADVERSARIAL TEST
+→ MUTANT TEST
+→ DIFFERENT RETEST
+→ TRANSFER TEST.
+
+No enseñar el examen.
+
+No reutilizar fixture hasta obtener PASS.
+
+======================================================================
+17. ORACLES
+======================================================================
+
+Cuando exista resultado computable:
+
+LLM JUDGMENT IS NOT ORACLE.
+
+Usar:
+
+analytical oracle
+numerical oracle
+trusted solver
+cross-solver
+invariant
+property test
+round-trip
+reference implementation.
+
+======================================================================
+18. LEARNING
+======================================================================
+
+ARKI debe aprender de fallos sin auto-modificar producción.
+
+FAIL
+→ EVIDENCE
+→ ROOT CAUSE
+→ CORRECTION
+→ RETEST
+→ REGRESSION
+→ KNOWLEDGE CANDIDATE
+→ GOVERNANCE.
+
+No:
+
+FAIL
+→ autonomous production rewrite.
+
+======================================================================
+19. VERTICAL AURORA
+======================================================================
+
+NO entrenar contra Aurora.
+
+Mantener:
+
+HELD-OUT BENCHMARK.
+
+No modificar fixture.
+No implementar respuestas específicas.
+No preparar hardcodes.
+
+Aurora volverá después de demostrar transferencia
+sobre edificios diferentes.
+
+======================================================================
+20. PROFESSIONAL BOUNDARY
+======================================================================
+
+ARKI puede:
+
+calculate
+model
+simulate
+compare
+detect
+recommend
+generate
+coordinate.
+
+Pero donde corresponda legal/profesionalmente:
+
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+No declarar a ARKI:
+
+licensed architect
+licensed engineer
+certifier
+authority having jurisdiction.
+
+======================================================================
+21. BKH4 / WRITERS
+======================================================================
+
+NO permitir que C1–C80 creen nuevos caminos canónicos.
+
+Toda capacidad debe consumir el mecanismo transaccional autorizado.
+
+Si la reconciliación demuestra writers legacy:
+
+NO migrarlos silenciosamente.
+
+Generar gate:
+
+CANONICAL_WRITER_MIGRATION_REQUIRED.
+
+TX-005 continúa siendo una operación explícita
+que requiere autorización separada.
+
+Esta orden NO autoriza TX-005 por inferencia.
+
+======================================================================
+22. INTEGRATION WAVES
+======================================================================
+
+Ejecutar por WAVES basadas en dependencias.
+
+WAVE 0
+Capability Registry
+dependency graph
+shared contracts
+test harness integration.
+
+WAVE 1
+semantic/epistemic/identity/evidence/provenance foundations.
+
+WAVE 2
+architectural intelligence core:
+C1–C5 + related capabilities.
+
+WAVE 3
+engineering core:
+C6/C7 + foundations + discipline calculations.
+
+WAVE 4
+BIM/IFC/CAD/interoperability.
+
+WAVE 5
+simulation + optimization + generative capabilities.
+
+WAVE 6
+construction/lifecycle/cost/O&M.
+
+WAVE 7
+analytics/learning/explanation/adversarial/self-evaluation.
+
+WAVE 8
+collaboration/certifications/specialized methodologies.
+
+WAVE 9
+avatar/Luka/WebXR/interface exposure.
+
+Estas waves son punto de partida.
+
+RECALCULAR EL DAG REAL antes de ejecutar.
+
+======================================================================
+23. GATE POR WAVE
+======================================================================
+
+No continuar automáticamente porque una wave terminó.
+
+Cada wave debe producir:
+
+CODE
+TESTS
+RUNTIME EVIDENCE
+ADVERSARIAL RESULTS
+REGRESSION RESULTS
+CAPABILITY MATRIX UPDATE
+UNKNOWN UPDATE
+RISK UPDATE
+EVIDENCE PACKAGE.
+
+Resultado:
+
+WAVE_VERIFIED
+WAVE_PARTIAL
+WAVE_BLOCKED
+WAVE_FAILED.
+
+Si BLOCKED:
+
+NO fingir avance.
+
+Resolver dependencia o escalar al PO.
+
+======================================================================
+24. EVITAR IMPLEMENTACIÓN DE CARTÓN
+======================================================================
+
+Se prohíbe considerar implementación:
+
+empty class
+empty interface
+TODO
+mock-only path
+hardcoded PASS
+static JSON pretending runtime
+LLM text pretending calculation
+button without backend
+fake solver
+fake IFC
+fake BIM
+fake certification.
+
+SCAFFOLD ≠ IMPLEMENTATION.
+
+======================================================================
+25. C81–C92
+======================================================================
+
+NO forman parte automática de esta autorización.
+
+Mantenerlos como:
+
+PROPOSED_CAPABILITY_CANDIDATE.
+
+Sin embargo, la arquitectura C1–C80 no debe impedir
+su futura incorporación.
+
+No implementar C81–C92 salvo dependencia técnica indispensable
+y autorización expresa.
+
+======================================================================
+26. EXISTING PRODUCT PROTECTION
+======================================================================
+
+Antes de cada wave:
+
+baseline
+tests
+build
+existing regression suite.
+
+Después:
+
+same regression suite.
+
+No degradar:
+
+BKH
+CAD
+IFC bounded behavior
+E5/E6/E7/E8
+existing frontend
+existing project data.
+
+======================================================================
+27. WORKTREE
+======================================================================
+
+El worktree ha sido reportado como DIRTY.
+
+ANTES DE MODIFICAR:
+
+NO CLEAN
+NO RESET
+NO DISCARD.
+
+Debes identificar con precisión:
+
+HEAD
+TRACKED MODIFICATIONS
+UNTRACKED FILES
+GENERATED EVIDENCE.
+
+No sobrescribas trabajo existente.
+
+Si no puedes aislar de forma segura el trabajo nuevo:
+
+BLOCK
+y solicita decisión.
+
+Preferir rama/worktree aislado si la política actual del repositorio
+lo permite y puede hacerse sin alterar trabajo existente.
+
+======================================================================
+28. IMPLEMENTATION JOURNAL
+======================================================================
+
+Mantener:
+
+C1_C80_IMPLEMENTATION_JOURNAL.md
+
+Por cada cambio:
+
+timestamp
+capability
+reason
+files
+tests
+evidence
+dependencies
+regressions
+decision
+status.
+
+Nada importante debe quedar solamente en chat.
+
+======================================================================
+29. EVIDENCE
+======================================================================
+
+Cada capacidad elevada de estado debe tener:
+
+source commit/worktree
+files
+symbols
+tests
+commands
+runtime outputs
+oracle result
+adversarial result
+SHA-256 evidence.
+
+Sin evidencia:
+
+NO PROMOTION.
+
+======================================================================
+30. PRIMERA EJECUCIÓN
+======================================================================
+
+NO intentes completar C1–C80 en una sola corrida.
+
+En esta ejecución:
+
+A. terminar reconciliación necesaria;
+B. crear el Capability Registry;
+C. construir DAG ejecutable;
+D. crear Activation Board C1–C80;
+E. identificar shared foundations;
+F. diseñar wave plan definitivo;
+G. implementar únicamente WAVE 0;
+H. ejecutar tests;
+I. generar evidence package;
+J. STOP.
+
+WAVE 1 requiere revisión del resultado de WAVE 0.
+
+======================================================================
+31. ENTREGABLES WAVE 0
+======================================================================
+
+Como mínimo:
+
+00_BASELINE.md
+01_C1_C80_CAPABILITY_REGISTRY.json
+02_C1_C80_CAPABILITY_MATRIX.md
+03_C1_C80_DEPENDENCY_DAG.md
+04_C1_C80_ACTIVATION_BOARD.md
+05_SHARED_ENGINE_MAP.md
+06_EXISTING_REUSE_MAP.md
+07_CANONICAL_BOUNDARY_MAP.md
+08_WAVE_IMPLEMENTATION_PLAN.md
+09_TEST_ORACLE_MATRIX.md
+10_TOOL_REQUIREMENT_MATRIX.md
+11_PROFESSIONAL_VALIDATION_MATRIX.md
+12_IMPLEMENTATION_JOURNAL.md
+13_WAVE0_TEST_RESULTS.md
+14_WAVE0_REGRESSION_RESULTS.md
+15_UNKNOWN_REGISTER.md
+16_RISK_REGISTER.md
+17_DECISION_REQUIRED.md
+18_EVIDENCE_MATRIX.md
+19_MANIFEST.json
+20_RAW_COMMAND_OUTPUTS.txt
+
+======================================================================
+32. RESULTADO QUE QUIERO
+======================================================================
+
+No quiero dentro de unos meses descubrir:
+
+"teníamos C43 pero nadie la conectó".
+
+Quiero que desde WAVE 0:
+
+LAS 80 CAPACIDADES EXISTAN EN EL MAPA OPERATIVO DE ARKI.
+
+Aunque una capacidad esté:
+
+BLOCKED
+DOCUMENTED
+PARTIAL
+NOT_YET_IMPLEMENTED,
+
+ARKI debe saber:
+
+qué es,
+qué necesita,
+con qué se relaciona,
+qué motor utiliza,
+qué evidencia requiere,
+cómo se verifica,
+qué la bloquea,
+qué impacto tendrá cuando se active.
+
+======================================================================
+33. OBJETIVO FINAL DEL PROGRAMA
+======================================================================
+
+Al completar futuras waves autorizadas:
+
+C1–C80 no deben ser una biblioteca de documentos.
+
+Deben formar:
+
+UN SOLO SISTEMA OPERATIVO.
+
+Arquitectura
++
+Ingeniería
++
+BIM
++
+Simulación
++
+Construcción
++
+Lifecycle
++
+Conocimiento
++
+Razonamiento
++
+Evaluación
++
+Aprendizaje
++
+Interoperabilidad
++
+Colaboración
++
+Experiencia.
+
+Todo gobernado por:
+
+CANONICAL PROJECT STATE
+TRANSACTIONS
+SEMANTICS
+EVIDENCE
+PROVENANCE
+EPISTEMIC DISCIPLINE
+HUMAN AUTHORITY.
+
+======================================================================
+34. STOP CONDITION
+======================================================================
+
+EN ESTA EJECUCIÓN:
+
+IMPLEMENTA WAVE 0 SOLAMENTE.
+
+NO iniciar WAVE 1 automáticamente.
+
+NO TX-005.
+NO C81–C92.
+NO producción.
+NO deploy.
+NO publicación.
+NO push.
+NO PR.
+NO merge.
+
+Al terminar devuelve:
+
+WAVE 0 VERDICT
+HEAD / WORKTREE
+CAPABILITY REGISTRY
+ACTIVATION BOARD
+DAG
+REUSE MAP
+WAVE PLAN
+TEST RESULTS
+REGRESSIONS
+UNKNOWN
+RISKS
+DECISIONS REQUIRED
+EVIDENCE PACKAGE PATH
+SHA-256.
+
+Después:
+
+STOP
+y esperar autorización del Product Owner.
+
+ONE ARKI.
+OPEN ALL CAPABILITIES.
+IMPLEMENT BY DEPENDENCY.
+NO FAKE CAPABILITY.
+EVIDENCE BEFORE PROMOTION.
+HUMAN AUTHORITY.

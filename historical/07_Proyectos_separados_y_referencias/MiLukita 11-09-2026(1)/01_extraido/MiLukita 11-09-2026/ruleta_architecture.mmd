@@ -1,0 +1,16 @@
+flowchart LR
+    U[Jugador / operador] --> W[Web responsive]
+    W --> API[API backend autoritativa]
+    API --> AUTH[Identidad y roles]
+    API --> DB[(Base relacional)]
+    API --> RNG[Motor de sorteo verificable]
+    RNG --> AUD[Registro de auditoría inmutable]
+    API --> PAY[Proveedor de pagos]
+    PAY -->|webhook firmado| API
+    API --> REP[Verificador público de resultados]
+    API --> ADM[Panel de administración]
+    ADM --> CFG[Reglas versionadas]
+    CFG --> RNG
+    DB --> BAK[Respaldos cifrados]
+    W -.-> ANIM[Animación cosmética]
+    RNG -.-> ANIM

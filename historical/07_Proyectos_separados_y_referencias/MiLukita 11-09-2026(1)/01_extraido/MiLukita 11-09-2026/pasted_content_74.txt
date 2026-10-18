@@ -1,0 +1,356 @@
+CIERRE DE FASE F Y AUTORIZACIÓN DE FASE G
+Documento: ORDEN MAESTRA 001 — ACTA DE CIERRE FASE F Y AUTORIZACIÓN FASE G
+Versión: 10.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+
+PARTE I — ACTA DE CIERRE DE FASE F
+1. ESTADO FINAL DE FASE F
+🟢 FASE F — CERRADA CON OBSERVACIONES.
+
+2. VERIFICACIÓN DE PUNTOS
+Punto	Estado	Evidencia
+Mapper profesional	🟢 IMPLEMENTED / INTEGRATED	Superficie profesional de /mapper sin DashboardLayout en campo, administración separada
+CaptureSession	🟢 IMPLEMENTED / INTEGRATED	Integrado
+GPS de alta precisión	🟢 IMPLEMENTED / TESTED	GPS de alta precisión con fallback manual
+Captura territorial	🟢 IMPLEMENTED / TESTED	Captura territorial no publicable
+Evidencia	🟢 IMPLEMENTED / INTEGRATED	Evidencia controlada
+Cola offline	🟢 IMPLEMENTED / TESTED	Cola offline
+Sincronización	🟢 IMPLEMENTED / TESTED	Sincronización manual
+Resolución de conflictos	🟢 IMPLEMENTED / INTEGRATED	Resolución humana de conflictos
+The Eye	🟢 IMPLEMENTED / INTEGRATED	Claims, Sources, Evidence Matrix, snapshots y gates de publicación
+MJP CORE	🟢 INTACT / TESTED	Sin modificaciones
+WorldObjects	🟢 INTACT / TESTED	Sin modificaciones
+Orden 60	🟢 ABIERTA	Correctamente mantenida como ABIERTA — PENDIENTES
+Fase G	🟢 NO INICIADA	Correctamente detenida
+3. VALIDACIÓN TÉCNICA
+Aspecto	Resultado
+Suites territoriales	✅ 9 PASS
+Tests	✅ 25 PASS
+TypeScript	✅ PASS
+Build	✅ PASS
+4. COMPONENTES RESCATADOS
+Componente	Estado previo	Intervención	Estado posterior
+/mapper	Existente	Consolidado como herramienta profesional	🟢 IMPLEMENTED / INTEGRATED
+/the-eye	Existente	Consolidado	🟢 IMPLEMENTED / INTEGRATED
+CaptureSession	Existente	Integrado	🟢 IMPLEMENTED / INTEGRATED
+GPS	Parcial	Alta precisión + fallback	🟢 IMPLEMENTED / TESTED
+Cola offline	Parcial	Implementada	🟢 IMPLEMENTED / TESTED
+Sincronización	Parcial	Manual	🟢 IMPLEMENTED / TESTED
+Resolución de conflictos	Parcial	Humana	🟢 IMPLEMENTED / INTEGRATED
+5. COMPONENTES NUEVOS
+Ninguno.
+
+Manus no creó componentes nuevos. Rescató, consolidó y conectó lo existente. ✅
+
+6. OBSERVACIONES REGISTRADAS
+Observación	Estado	Acción
+Probar permisos GPS/cámara en Android/iOS reales	🟡 PENDIENTE	Fase H
+Probar sincronización en Android/iOS reales	🟡 PENDIENTE	Fase H
+Ejecutar salida Field Gate 001	🟡 PENDIENTE	Fase H
+Micro-orden de identificación de agentes	🟡 PENDIENTE	Micro-orden
+Legal & Compliance	🟡 PLANNED / DISABLED	Pendiente de activación
+SecurityHealth	🟡 PENDIENTE	Micro-orden independiente
+ShareTarget real	🟡 PENDIENTE	Micro-orden futura
+Orden 60	🟢 ABIERTA	Mantener ABIERTA — PENDIENTES
+Ninguna de las observaciones bloquea la continuación.
+
+7. DECLARACIÓN DE CIERRE
+FASE F: 🟢 CERRADA CON OBSERVACIONES.
+
+Razón: Los criterios de Fase F están implementados, integrados y verificados. Las observaciones restantes (validación física de GPS/cámara, sincronización, Field Gate 001) no bloquean la continuación.
+
+PARTE II — AUTORIZACIÓN DE FASE G
+8. OBJETIVO DE FASE G
+FASE G — THE EYE.
+
+Objetivo: Consolidar The Eye como herramienta profesional independiente de revisión, contraste y auditoría.
+
+Pregunta central:
+
+"¿Puede el revisor profesional evaluar evidencia, comparar versiones, resolver conflictos y solicitar publicación sin publicar automáticamente?"
+
+9. ALCANCE DE FASE G
+Área	Qué se trabaja
+Review Queue	Cola de revisión
+Claim Dossier	Dossier de claims
+Evidence Matrix	Matriz de evidencia
+Conflict Review	Revisión de conflictos
+Version Comparison	Comparación de versiones
+Audit	Auditoría
+Publication Request	Solicitud de publicación (NO publicación automática)
+Human Authority Gate	Gate de autoridad humana
+Interfaz profesional	Herramienta, no landing page
+Integración con Mapper	Conexión con Fase F
+10. LO QUE NO INCLUYE FASE G
+NO autoriza:
+
+❌ Publicación automática
+
+❌ Modificar WorldObjects sin autorización
+
+❌ Modificar MJP CORE
+
+❌ Nuevas funciones comerciales
+
+❌ Cambios en Orden 60
+
+❌ Creación de nuevas pantallas (solo rescatar, conectar, integrar, corregir)
+
+❌ Rediseño visual
+
+❌ Confundir The Eye con landing page
+
+❌ Saltarse Human Authority
+
+11. DISTINCIONES OBLIGATORIAS
+Manus deberá mantener claramente diferenciados:
+
+Distinción	Descripción
+The Eye ≠ Landing page	The Eye es herramienta profesional
+Verified ≠ Published	Verificar no es publicar
+Review ≠ Publication	Revisar no es publicar
+Evidence ≠ Truth	La evidencia no es verdad verificada
+Intención ≠ Autorización	Detectar una intención no autoriza la acción
+The Eye ≠ Authority	The Eye no tiene autoridad de publicación
+12. PRINCIPIOS RECTORES DE FASE G
+Principio	Descripción
+The Eye es herramienta profesional.	No landing page. No dashboard decorativo.
+No publicación automática.	The Eye solicita publicación; Human Authority decide.
+Human Authority Gate.	La publicación requiere autorización humana.
+No modificar WorldObjects sin autorización.	Gobernanza territorial.
+Capability Gate siempre activo.	Toda acción sensible pasa por verificación.
+Estado real.	No mostrar como real lo que el sistema no ha confirmado.
+Recuperación manual.	El usuario siempre puede recuperar el control.
+No reconstruir por defecto.	Rescatar lo existente antes de crear.
+Integración con Mapper.	The Eye recibe datos de Mapper.
+13. CRITERIOS DE ACEPTACIÓN DE FASE G
+Fase G se considerará completada cuando:
+
+Criterio	Descripción
+Review Queue	Funcional
+Claim Dossier	Funcional
+Evidence Matrix	Funcional
+Conflict Review	Funcional
+Version Comparison	Funcional
+Audit	Funcional
+Publication Request	Funcional (NO publicación automática)
+Human Authority Gate	Activo
+Interfaz profesional	Herramienta, no landing page
+Integración con Mapper	Funcional
+Capability Gate	Activo
+Tests	TypeScript PASS, tests PASS, build PASS
+Evidencia	Documentada en RESCUE_AUDIT_001.md
+14. FORMATO DE REPORTE DE FASE G
+Manus deberá reportar, al finalizar Fase G:
+
+Campo	Contenido
+1. Estado final	🟢 / 🟡 / 🔴
+2. Componentes rescatados	Qué ya existía y fue reutilizado
+3. Componentes modificados	Qué se corrigió
+4. Componentes nuevos	Qué fue realmente necesario crear
+5. Review Queue	Estado real
+6. Claim Dossier	Estado real
+7. Evidence Matrix	Estado real
+8. Conflict Review	Estado real
+9. Version Comparison	Estado real
+10. Audit	Estado real
+11. Publication Request	Estado real
+12. Human Authority Gate	Estado real
+13. Interfaz profesional	Estado real
+14. Integración con Mapper	Estado real
+15. Capability Gate	Estado real
+16. Tests	Solo los relacionados con Fase G
+17. Limitaciones	Qué no se puede declarar
+18. MJP CORE	Confirmación de protección
+19. Orden 60	Estado
+20. Fase H	NO INICIADA
+15. DETENCIÓN OBLIGATORIA
+Al completar Fase G:
+
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR FASE H.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+16. REGLAS DE FASE G
+Regla	Descripción
+No expandir alcance	Solo lo autorizado en Fase G
+No reconstruir	Rescatar lo existente antes de crear
+No crear nuevas pantallas	Solo rescatar, conectar, integrar, corregir
+No modificar MJP CORE	Bloqueo explícito
+No modificar WorldObjects sin autorización	Gobernanza territorial
+No publicación automática	Human Authority decide
+No iniciar Fase H	Detención obligatoria
+Reportar evidencia	No declarar sin pruebas
+The Eye es herramienta	No landing page
+17. PENDIENTES REGISTRADOS
+Pendiente	Origen	Acción futura
+Validación física de GPS/cámara	Fase F	Fase H
+Validación física de sincronización	Fase F	Fase H
+Field Gate 001	Fase F	Fase H
+Micro-orden de identificación de agentes	Micro-orden	Micro-orden
+Legal & Compliance	E.1	Pendiente de activación
+SecurityHealth	Fase A	Micro-orden independiente
+ShareTarget real	Fase A	Micro-orden futura
+Orden 60	Orden anterior	Mantener ABIERTA — PENDIENTES
+Ninguno bloquea Fase G.
+
+18. ESTADO DE LAS FASES
+text
+🟢 FASE A — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE B — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE C — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE D — CERRADA CON OBSERVACIONES
+        ↓
+🟢 FASE E — COMPLETA (E.1–E.5 CERRADAS CON OBSERVACIONES)
+        ↓
+🟢 FASE F — MAPPER (CERRADA CON OBSERVACIONES)
+        ↓
+🟡 FASE G — THE EYE (AUTORIZADA)
+        ↓
+🔵 FASE H — VALIDACIÓN FÍSICA (NO INICIADA)
+19. ORDEN DE EJECUCIÓN INMEDIATA
+MANUS AI:
+
+Ejecutar únicamente:
+
+text
+FASE G — THE EYE
+Antes de modificar:
+
+Localizar componentes existentes de The Eye
+
+Identificar qué puede rescatarse
+
+Identificar conexiones faltantes
+
+Identificar duplicaciones
+
+Durante Fase G:
+
+Consolidar Review Queue
+
+Consolidar Claim Dossier
+
+Consolidar Evidence Matrix
+
+Consolidar Conflict Review
+
+Consolidar Version Comparison
+
+Consolidar Audit
+
+Consolidar Publication Request
+
+Consolidar Human Authority Gate
+
+Consolidar interfaz profesional
+
+Consolidar integración con Mapper
+
+Verificar Capability Gate
+
+Mantener The Eye NO es landing page
+
+Mantener NO publicación automática
+
+No modificar WorldObjects sin autorización
+
+Al finalizar Fase G:
+
+Ejecutar pruebas focalizadas
+
+Documentar evidencia
+
+Actualizar RESCUE_AUDIT_001.md
+
+Reportar estado final
+
+DETENERSE.
+
+NO ejecutar Fase H ni posteriores sin autorización.
+
+20. FORMATO DE RESPUESTA OBLIGATORIA
+Manus deberá entregar una respuesta breve y verificable con esta estructura:
+
+text
+### 1. Estado final de Fase G
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla
+
+| Punto | Estado | Evidencia |
+|-------|--------|-----------|
+| Review Queue | | |
+| Claim Dossier | | |
+| Evidence Matrix | | |
+| Conflict Review | | |
+| Version Comparison | | |
+| Audit | | |
+| Publication Request | | |
+| Human Authority Gate | | |
+| Interfaz profesional | | |
+| Integración con Mapper | | |
+| Capability Gate | | |
+| MJP CORE | | |
+| Orden 60 | | |
+
+### 3. Tests
+Indicar únicamente los tests ejecutados para esta fase y su resultado.
+
+### 4. RESCUE_AUDIT_001.md
+Indicar si fue actualizado y qué información contiene.
+
+### 5. Pendientes
+Separar claramente:
+- pendientes de Fase G;
+- pendientes de Fase F;
+- pendientes de Fase E;
+- pendientes de Fase D;
+- pendientes de Fase C;
+- pendientes de Fase B;
+- pendientes de Fase A;
+- pendientes de Orden 60;
+- pendientes futuras.
+
+### 6. Estado de las fases siguientes
+Declarar expresamente:
+FASE H — NO INICIADA.
+21. PRINCIPIO DE ESTA ORDEN
+text
+VERIFICAR LO NECESARIO.
+NO AUDITAR TODO.
+NO EXPANDIR EL ALCANCE.
+NO CREAR NUEVAS PANTALLAS.
+NO OCULTAR PENDIENTES.
+NO INICIAR LA SIGUIENTE FASE SIN AUTORIZACIÓN.
+
+THE EYE ES HERRAMIENTA, NO LANDING PAGE.
+NO PUBLICACIÓN AUTOMÁTICA.
+HUMAN AUTHORITY DECIDE.
+NO MODIFICAR WORLDOBJECTS SIN AUTORIZACIÓN.
+CAPABILITY GATE SIEMPRE ACTIVO.
+
+MANUS IMPLEMENTA.
+MANUS DEMUESTRA.
+HUMAN AUTHORITY DECIDE.
+22. CIERRE
+FASE F: 🟢 CERRADA CON OBSERVACIONES.
+
+FASE G: 🟡 AUTORIZADA.
+
+Fase autorizada: G — The Eye.
+
+Pendientes registrados: Validación física de GPS/cámara · Validación física de sincronización · Field Gate 001 · Micro-orden de identificación de agentes · Legal & Compliance · SecurityHealth · ShareTarget real · Orden 60.
+
+Próximo paso: Ejecutar Fase G. Detenerse. Reportar. Esperar autorización.
+
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Orden Maestra 001 — Acta de Cierre Fase F y Autorización Fase G
+Estado: Listo para envío a Manus

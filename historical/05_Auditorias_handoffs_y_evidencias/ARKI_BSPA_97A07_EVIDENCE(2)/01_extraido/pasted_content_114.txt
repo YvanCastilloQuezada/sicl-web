@@ -1,0 +1,1751 @@
+ORDEN 97A-07 — ARKI BIM SERVICES & PROJECT ASSURANCE
+
+Subtítulo: BIM Audit + BIM X-Ray + BIM Rescue + Drawing-to-BIM + Multidisciplinary Reconstruction + Construction BIM + Post-Award Opportunity Intelligence
+
+Parent: ORDEN 97A — ARKI Living Knowledge Integration v1.1
+
+Programa: ARKI-LKS-001
+
+Antecedentes obligatorios: 97A-01 KCF, 97A-02 ACI, 97A-03 HAI, 97A-04 CFMI, 97A-05 ICWI, 97A-06 OPBI, 97A-06F
+
+Código provisional: ARKI-BSPA-001
+
+Tipo: BIM Intelligence + Professional Service Architecture + Project Assurance + Evidence
+
+Prioridad: HIGH / COMMERCIAL / STRATEGIC
+
+Autoridad: Product Owner / Human Authority
+
+Estado inicial: AUTHORIZED FOR BOUNDED FOUNDATION + EVIDENCE
+
+07.01 — MISIÓN
+
+Incorporar a ARKI la capacidad gobernada para:
+
+RECEIVE
+→ UNDERSTAND
+→ RECONSTRUCT
+→ AUDIT
+→ COORDINATE
+→ DIAGNOSE
+→ PROPOSE CORRECTIONS
+→ REPAIR WHEN AUTHORIZED
+→ REVALIDATE
+→ DOCUMENT
+→ EXPLAIN
+
+modelos BIM y documentación técnica desarrollados por terceros.
+
+La capacidad deberá permitir prestar progresivamente servicios de:
+
+BIM X-RAY
+BIM AUDIT
+BIM COMPLIANCE
+BIM RECONSTRUCTION
+BIM RESCUE
+BIM COORDINATION
+BIM DELIVERY
+CONSTRUCTION BIM
+AS-BUILT BIM
+PROJECT ASSURANCE
+07.02 — PRINCIPIO CENTRAL
+
+Formalizar:
+
+ARKI SHALL NOT FIND ERRORS. ARKI SHALL FIND THE STATE OF THE PROJECT.
+
+Por tanto:
+
+CORRECT → PASS
+DEFECT → EVIDENCE-BACKED FINDING
+CONFLICT → CONFLICT
+INSUFFICIENT INFORMATION → UNKNOWN
+UNVERIFIED → NOT_VERIFIED
+PROFESSIONAL DECISION → PROFESSIONAL_VALIDATION_REQUIRED
+
+ARKI no deberá producir defectos ficticios para justificar un servicio comercial.
+
+07.03 — BIM IS NOT 3D
+
+Formalizar:
+
+BIM ≠ 3D MODEL
+BIM ≠ IFC FILE
+BIM ≠ REVIT FILE
+BIM ≠ CLASH DETECTION
+
+BIM deberá tratarse como gestión estructurada de información relacionada con un activo/proyecto durante su ciclo de vida.
+
+07.04 — FORENSIC REUSE FIRST
+
+Antes de implementar:
+
+auditar capacidades existentes relacionadas con:
+
+ConstructionModel
+semantic entities
+parametric generation
+2D
+3D
+SceneModel
+IFC
+quantities
+4D
+5D
+clash detection
+persistence
+Project State
+Evidence
+LKS
+causal intelligence
+BKH relationships
+OPBI
+Field foundation
+
+Clasificar cada componente:
+
+REUSE_AS_IS
+INTEGRATE
+ADAPT
+DERIVE_VIEW
+EXTEND
+REPRESENTATIONAL_GAP
+NOT_DEMONSTRATED
+
+Regla:
+
+REUSE → INTEGRATE → ADAPT → DERIVE → CREATE ONLY IF MISSING.
+
+07.05 — NO SECOND BIM CORE
+
+No crear:
+
+second Project State
+second BIM truth
+second geometry authority
+second Evidence system
+second IFC ontology
+second Issue system
+
+reutilizar infraestructura canónica existente.
+
+07.06 — FOUR SERVICE FAMILIES
+
+Organizar la capacidad como:
+
+ARKI BIM SERVICES
+│
+├── A. BIM ASSURANCE
+│
+├── B. BIM TRANSFORMATION
+│
+├── C. BIM DELIVERY
+│
+└── D. BIM OPPORTUNITY INTELLIGENCE
+
+Son competencias/servicios de un único ARKI.
+
+No agentes independientes.
+
+07.07 — A. BIM ASSURANCE
+
+Incluir:
+
+BIM X-RAY
+BIM AUDIT
+BIM COMPLIANCE
+MODEL HEALTH
+INFORMATION QUALITY
+COORDINATION AUDIT
+DOCUMENT↔MODEL AUDIT
+QUANTITY AUDIT
+REQUIREMENT COMPLIANCE
+PROJECT ASSURANCE
+07.08 — BIM X-RAY
+
+Crear capacidad de diagnóstico rápido y acotado.
+
+Entrada posible:
+
+IFC
+native BIM where legitimately supported
+PDF
+DWG where supported
+schedules
+specifications
+BEP
+EIR
+TDR
+contractual requirements
+
+Salida:
+
+MODEL HEALTH
+DISCIPLINE COVERAGE
+INFORMATION COMPLETENESS
+SEMANTIC QUALITY
+COORDINATION SUMMARY
+DOCUMENT CONSISTENCY
+CRITICAL FINDINGS
+UNKNOWN
+RECOMMENDED AUDIT SCOPE
+07.09 — X-RAY ≠ FULL AUDIT
+
+Formalizar:
+
+SCREENING ≠ AUDIT.
+
+El X-Ray no deberá presentarse como certificación completa.
+
+07.10 — BIM AUDIT
+
+La auditoría completa deberá poder examinar, según aplicabilidad:
+
+geometry
+topology
+identity
+semantics
+classification
+properties
+quantities
+relationships
+spaces
+zones
+systems
+materials
+levels
+coordinates
+disciplines
+interfaces
+clashes
+accessibility information
+requirements
+documentation
+model consistency
+interoperability
+IFC
+quantities
+construction information
+4D information
+5D information
+lifecycle information
+provenance
+07.11 — AUDIT BASIS
+
+Ninguna auditoría deberá operar contra una noción abstracta de “BIM correcto”.
+
+Debe establecer:
+
+AUDIT_BASIS
+
+compuesto según caso por:
+
+contract
+TDR
+project requirements
+EIR
+BEP
+information requirements
+applicable standards
+applicable regulations
+project-specific conventions
+approved design
+drawings
+specifications
+expected deliverables
+agreed information level
+07.12 — CONTRACTUAL BIM COMPLIANCE
+
+Cuando el cliente sea una entidad/propietario:
+
+ARKI deberá poder responder:
+
+¿EL ENTREGABLE BIM CUMPLE LO QUE CONTRACTUALMENTE SE SOLICITÓ?
+
+No solamente:
+
+¿EL ARCHIVO ABRE?
+
+07.13 — BIM REQUIREMENT MATRIX
+
+Crear/reutilizar:
+
+BIMRequirementMatrix.
+
+Campos mínimos:
+
+requirementId
+source
+sourceVersion
+clause/page
+requirement
+applicability
+discipline
+information object
+expected evidence
+actual evidence
+compliance
+finding
+severity
+provenance
+UNKNOWN
+07.14 — INFORMATION REQUIREMENTS
+
+Preparar compatibilidad conceptual con:
+
+OIR
+AIR
+PIR
+EIR
+BEP
+responsibility matrices
+information delivery plans
+
+sin copiar ni duplicar innecesariamente sistemas existentes.
+
+07.15 — BIM FINDING
+
+Crear/reutilizar entidad:
+
+BIMFinding.
+
+Campos:
+
+findingId
+project
+model
+discipline
+element/entity
+location
+findingType
+observedState
+expectedState
+auditBasis
+evidence
+consequence
+severity
+confidence dimensions
+affectedRelationships
+suggestedActions
+professionalReview
+status
+provenance
+UNKNOWN
+07.16 — FINDING TYPES
+
+Incluir inicialmente:
+
+GEOMETRY
+TOPOLOGY
+CLASH
+SEMANTIC
+PROPERTY
+CLASSIFICATION
+INFORMATION_MISSING
+RELATIONSHIP
+COORDINATE
+DISCIPLINE
+DOCUMENT_MODEL_CONFLICT
+QUANTITY
+REQUIREMENT
+INTEROPERABILITY
+DUPLICATION
+ORPHAN
+CONSTRUCTABILITY_CANDIDATE
+UNKNOWN
+07.17 — SEVERITY
+
+No usar severidad arbitraria.
+
+Inicialmente:
+
+CRITICAL
+MAJOR
+MODERATE
+MINOR
+INFORMATIONAL
+UNKNOWN
+
+con definición explícita por impacto.
+
+07.18 — CAUSAL BIM AUDIT
+
+Un finding no deberá limitarse a:
+
+ERROR HERE
+
+cuando exista evidencia suficiente deberá modelar:
+
+DEFECT
+→ CAUSE/HYPOTHESIS
+→ DEPENDENCIES
+→ CONSEQUENCES
+→ AFFECTED ELEMENTS
+→ CORRECTION OPTIONS
+→ NEW RISKS
+
+Distinguir:
+
+CAUSE
+HYPOTHESIS
+CORRELATION
+UNKNOWN
+07.19 — DOCUMENT ↔ MODEL CONSISTENCY
+
+ARKI deberá poder comparar:
+
+MODEL
+↔ PLAN
+↔ SECTION
+↔ ELEVATION
+↔ DETAIL
+↔ SCHEDULE
+↔ SPECIFICATION
+↔ QUANTITY
+
+según información disponible.
+
+07.20 — CONFLICT SAFETY
+
+Ejemplo:
+
+MODEL = 0.90 m
+PLAN = 0.90 m
+SCHEDULE = 1.00 m
+SPEC = D03
+
+ARKI no deberá seleccionar silenciosamente un valor.
+
+Resultado:
+
+DOCUMENT_MODEL_CONFLICT
+CANONICAL_VALUE = UNKNOWN
+HUMAN_DECISION_REQUIRED
+07.21 — BIM RED TEAM
+
+Crear/reutilizar capacidad adversarial que intente demostrar que:
+
+finding is false
+audit basis is wrong
+evidence is insufficient
+severity is exaggerated
+apparent clash is acceptable
+requirement is inapplicable
+correction creates worse consequence
+
+Formalizar:
+
+ARKI SHALL ATTEMPT TO FALSIFY ITS OWN BIM FINDINGS.
+
+07.22 — FALSE POSITIVE CONTROL
+
+La calidad del auditor deberá medir:
+
+TRUE FINDINGS
+FALSE POSITIVES
+FALSE NEGATIVES
+UNKNOWN
+
+No premiar cantidad de observaciones.
+
+07.23 — INDEPENDENT PROJECT ASSURANCE
+
+Permitir servicio para:
+
+owner
+public entity
+private owner
+contractor
+supervisor
+designer
+operator
+
+con roles y conflictos explícitos.
+
+07.24 — B. BIM TRANSFORMATION
+
+Incluir:
+
+DRAWING-TO-BIM
+PDF-TO-BIM
+DWG-TO-BIM
+SCAN-TO-BIM
+LEGACY-TO-BIM
+MODEL REPAIR
+BIM RESCUE
+07.25 — RECONSTRUCTION ≠ DESIGN
+
+Formalizar:
+
+RECONSTRUCTING WHAT DOCUMENTS SAY ≠ DESIGNING WHAT SHOULD EXIST.
+
+Estados:
+
+AS_DOCUMENTED
+INFERRED
+PROPOSED_CORRECTION
+REDESIGNED
+UNKNOWN
+
+Nunca mezclarlos.
+
+07.26 — DOCUMENT INGESTION
+
+El sistema deberá poder organizar:
+
+PDF
+DWG/DXF where supported
+raster scans
+photographs
+IFC
+schedules
+spreadsheets
+specifications
+reports
+details
+
+preservando:
+
+source
+version
+page/sheet
+date
+discipline
+provenance
+07.27 — DRAWING CLASSIFICATION
+
+Clasificar:
+
+architecture
+structure
+sanitary
+electrical
+HVAC
+fire
+communications
+civil
+landscape
+details
+schedules
+specifications
+quantities
+other
+unknown
+07.28 — DRAWING RELATIONSHIP GRAPH
+
+Construir relaciones:
+
+PLAN
+↔ SECTION
+↔ ELEVATION
+↔ DETAIL
+↔ SCHEDULE
+↔ SPECIFICATION
+↔ DISCIPLINE PLAN
+
+utilizando BKH Relationship Fabric cuando sea representable.
+
+07.29 — GEOMETRY RECONSTRUCTION
+
+Reconstrucción deberá distinguir:
+
+EXPLICIT_GEOMETRY
+DIMENSION_DERIVED
+CROSS_VIEW_DERIVED
+INFERRED_GEOMETRY
+UNKNOWN_GEOMETRY
+07.30 — NO INVENTED DIMENSIONS
+
+Si no puede determinarse una dimensión:
+
+UNKNOWN
+
+No:
+
+plausible_dimension
+
+convertida en hecho.
+
+07.31 — SEMANTIC RECONSTRUCTION
+
+El objetivo no es vectorizar líneas.
+
+El objetivo es reconstruir:
+
+BUILDING
+→ LEVELS
+→ SPACES
+→ ZONES
+→ SYSTEMS
+→ ELEMENTS
+→ COMPONENTS
+→ RELATIONSHIPS
+→ PROPERTIES
+
+con procedencia.
+
+07.32 — MULTIDISCIPLINARY RECONSTRUCTION
+
+Cuando la documentación lo permita:
+
+ARCHITECTURE
+↔ STRUCTURE
+↔ SANITARY
+↔ ELECTRICAL
+↔ HVAC
+↔ FIRE
+↔ OTHER SYSTEMS
+
+deberán reconstruirse como disciplinas relacionadas, no archivos aislados.
+
+07.33 — SPECIALTY SAFETY
+
+Reconstruir una instalación existente desde planos:
+
+AS_DOCUMENTED
+
+no equivale a verificar que esté correctamente diseñada.
+
+Si ARKI propone rediseño:
+
+exigir competencia demostrada o:
+
+SPECIALIST_REQUIRED
+PROFESSIONAL_VALIDATION_REQUIRED
+EXTERNAL_ORACLE_REQUIRED
+NOT_DEMONSTRATED
+07.34 — FIELD-TO-BIM
+
+Preparar arquitectura bounded para:
+
+MOBILE PHOTO
+MOBILE VIDEO
+DOCUMENT PHOTO
+FIELD NOTE
+FIELD OBSERVATION
+
+como fuentes de evidencia.
+
+07.35 — IMAGE ≠ BIM TRUTH
+
+Formalizar:
+
+PHOTO ≠ DIMENSIONAL TRUTH.
+
+SCAN ≠ VERIFIED GEOMETRY.
+
+VISUAL RECOGNITION ≠ CANONICAL BIM FACT.
+
+07.36 — BIM RESCUE
+
+Pipeline:
+
+RECEIVE MODEL
+→ AUDIT
+→ FINDINGS
+→ CAUSAL ANALYSIS
+→ CORRECTION STRATEGIES
+→ IMPACT
+→ HUMAN APPROVAL
+→ REPAIR
+→ REVALIDATE
+→ BEFORE/AFTER
+07.37 — THREE REPAIR LEVELS
+LEVEL 1 — MODEL REPAIR
+preserve design
+
+LEVEL 2 — DESIGN COORDINATION
+preserve principal design intent
+resolve coordination deficiencies
+
+LEVEL 3 — REDESIGN
+alternative architectural/technical solution
+
+Level escalation requires explicit authority.
+
+07.38 — NO SILENT REDESIGN
+
+Un contrato de corrección BIM no autoriza automáticamente:
+
+architectural redesign
+structural redesign
+MEP redesign
+program change
+contract scope change
+07.39 — BEFORE / AFTER
+
+Toda reparación deberá poder producir:
+
+BEFORE
+AFTER
+DELTA
+REASON
+EVIDENCE
+AFFECTED RELATIONSHIPS
+VALIDATION RESULT
+07.40 — C. BIM DELIVERY
+
+Incorporar progresivamente:
+
+BIM coordination
+federated model
+issue management
+clash management
+construction BIM
+quantity support
+4D support
+5D support
+change coordination
+as-built information
+handover preparation
+operations preparation
+digital twin preparation
+07.41 — BIM AS A SERVICE
+
+Representar un servicio continuo:
+
+PROJECT DOCUMENTS
+↓
+MODEL
+↓
+COORDINATION
+↓
+ISSUES
+↓
+CHANGES
+↓
+REVALIDATION
+↓
+CONSTRUCTION
+↓
+AS-BUILT
+↓
+HANDOVER
+07.42 — CONSTRUCTION BIM
+
+Preparar soporte para:
+
+RFIs
+field changes
+design changes
+coordination issues
+approved revisions
+progress state
+quantities
+schedule relationships
+as-built evidence
+
+sin declarar capacidades no demostradas.
+
+07.43 — FEDERATED MODEL
+
+El modelo federado deberá preservar:
+
+source discipline
+ownership
+version
+provenance
+responsibility
+coordination status
+
+Federación ≠ absorción silenciosa de autoría.
+
+07.44 — 4D/5D SAFETY
+
+La existencia actual de módulos 4D/5D no deberá interpretarse automáticamente como:
+
+PROFESSIONAL 4D VERIFIED
+PROFESSIONAL 5D VERIFIED
+
+auditar primero su evidencia.
+
+07.45 — AS-BUILT
+
+Formalizar:
+
+DESIGN_MODEL
+≠
+CONSTRUCTION_MODEL
+≠
+AS_BUILT_MODEL
+
+Un modelo solo podrá clasificarse AS_BUILT cuando exista evidencia suficiente del estado construido.
+
+07.46 — DIGITAL TWIN BOUNDARY
+
+Formalizar:
+
+AS-BUILT BIM ≠ DIGITAL TWIN.
+
+La preparación para Digital Twin podrá organizar información futura, pero no declarar twin sin correspondencia, temporalidad, observaciones/actualización y demás requisitos definidos por ARKI.
+
+07.47 — D. POST-AWARD BIM OPPORTUNITY INTELLIGENCE
+
+Extender conceptualmente OPBI con:
+
+PostAwardBIMOpportunity.
+
+No crear un segundo radar.
+
+07.48 — POST-AWARD RADAR
+
+OPBI deberá poder identificar, cuando las fuentes legítimas lo permitan:
+
+AWARDED PROJECT
+↓
+CONTRACTOR / CONSULTANT
+↓
+PROJECT TYPE
+↓
+BIM REQUIREMENT
+↓
+PROJECT STAGE
+↓
+POTENTIAL BIM SERVICE
+07.49 — SERVICE OPPORTUNITY TYPES
+BIM_XRAY
+BIM_AUDIT
+BIM_RECONSTRUCTION
+BIM_RESCUE
+BIM_COORDINATION
+BIM_DELIVERY
+CONSTRUCTION_BIM
+FOUR_D
+FIVE_D
+AS_BUILT
+HANDOVER
+DIGITAL_TWIN_PREPARATION
+07.50 — OPPORTUNITY ≠ NEED
+
+Formalizar:
+
+PROJECT AWARDED ≠ CONTRACTOR NEEDS OUR SERVICE.
+
+BIM REQUIREMENT ≠ BIM DEFICIENCY.
+
+POTENTIAL CLIENT ≠ COMMERCIAL LEAD CONFIRMED.
+
+07.51 — OPPORTUNITY QUALIFICATION
+
+Evaluar:
+
+project relevance
+BIM requirement
+stage
+available documentation
+service fit
+ARKI capability
+required specialists
+jurisdiction
+procurement restrictions
+conflict
+evidence
+UNKNOWN
+07.52 — COMMERCIAL SERVICE FACTORY
+
+Preparar capacidad para transformar un caso aprobado por humano en:
+
+CLIENT NEED
+↓
+SERVICE SCOPE
+↓
+REQUIRED INPUTS
+↓
+DELIVERABLES
+↓
+EXCLUSIONS
+↓
+ASSUMPTIONS
+↓
+PROFESSIONAL REQUIREMENTS
+↓
+ESTIMATED WORK
+↓
+RISKS
+↓
+COMMERCIAL PROPOSAL DRAFT
+07.53 — PRICE AUTHORITY
+
+ARKI podrá:
+
+estimate effort
+estimate computational work
+estimate professional hours
+compare scenarios
+calculate costs
+propose commercial structures
+
+pero:
+
+ARKI CALCULATES AND COMPARES. HUMAN SETS THE BINDING PRICE.
+
+07.54 — COMMERCIAL PACKAGES
+
+Permitir posteriormente:
+
+BIM X-RAY
+BIM AUDIT
+BIM RESCUE
+DRAWING-TO-BIM
+BIM COORDINATION
+BIM DELIVERY MONTHLY SERVICE
+CONSTRUCTION BIM
+AS-BUILT
+
+como productos configurables, no hard-coded universal contracts.
+
+07.55 — CONFLICT OF INTEREST
+
+Representar:
+
+AUDITOR
+REPAIRER
+DESIGNER
+SUPERVISOR
+OWNER ADVISOR
+
+como roles distintos.
+
+07.56 — AUDIT → REPAIR CONFLICT
+
+Si ARKI/organización que audita puede beneficiarse económicamente de encontrar problemas que luego reparará:
+
+registrar:
+
+COMMERCIAL_CONFLICT_DISCLOSURE_REQUIRED
+07.57 — INDEPENDENT AUDIT MODE
+
+Cuando se contrate auditoría independiente:
+
+permitir política:
+
+AUDIT_ONLY
+
+donde el sistema identifica y explica hallazgos pero no convierte automáticamente cada hallazgo en propuesta comercial de reparación.
+
+07.58 — PROJECT ASSURANCE MODE
+
+Permitir:
+
+CONTRACT / TDR / EIR
+       ↓
+EXPECTED DELIVERY
+       ↓
+ACTUAL BIM DELIVERY
+       ↓
+ARKI ASSURANCE
+       ↓
+COMPLIANCE / FINDINGS / UNKNOWN
+07.59 — HUMAN AUTHORITY
+
+ARKI podrá:
+
+inspect
+compare
+detect
+explain
+propose
+simulate
+repair when authorized
+
+ARKI no podrá autónomamente:
+
+accept/reject contractual deliverable
+certify professional compliance
+modify approved design
+approve engineering
+sign report
+bind client
+submit contractual instruction
+07.60 — PROFESSIONAL RESPONSIBILITY
+
+Formalizar:
+
+COMPUTATIONAL BIM CAPABILITY ≠ PROFESSIONAL LICENSE.
+
+BIM AUDIT ≠ ENGINEERING CERTIFICATION.
+
+MODEL REPAIR ≠ AUTHORITY TO ALTER PROFESSIONAL DESIGN.
+
+07.61 — EXPLAINABILITY
+
+Para cualquier hallazgo ARKI deberá poder responder:
+
+What did you inspect?
+What did you find?
+Where?
+Against what requirement?
+What evidence supports it?
+What is the consequence?
+Could this finding be false?
+What remains unknown?
+What correction is possible?
+Who must approve?
+07.62 — IFC ROLE
+
+IFC deberá utilizarse como referencia/interoperabilidad cuando corresponda.
+
+No:
+
+IFC = internal ARKI ontology
+
+Mantener independencia ARKI↔IFC existente.
+
+07.63 — OPEN BIM / INTEROPERABILITY
+
+Evaluar progresivamente:
+
+IFC import
+IFC export
+round-trip
+entity preservation
+property preservation
+relationship preservation
+geometry preservation
+quantity preservation
+issue exchange where supported
+
+cada uno con evidencia separada.
+
+07.64 — ROUND-TRIP TEST
+
+No declarar interoperabilidad productiva únicamente porque:
+
+IFC EXPORT WORKS
+
+probar:
+
+IMPORT
+→ INTERNAL REPRESENTATION
+→ MODIFY
+→ EXPORT
+→ REIMPORT
+→ COMPARE
+
+dentro del alcance soportado.
+
+07.65 — DATA SECURITY
+
+Los modelos de clientes pueden contener:
+
+proprietary design
+personal information
+security information
+confidential commercial data
+critical facility information
+
+Diseñar:
+
+access control
+project isolation
+retention
+provenance
+audit log
+permissions
+export control
+deletion policy
+
+sin asumir infraestructura ya implementada.
+
+07.66 — SENSITIVE FACILITY BOUNDARY
+
+CFMI/ICWI restrictions continúan aplicando.
+
+No reconstruir o distribuir información restringida o de seguridad sensible simplemente porque esté contenida en un modelo recibido.
+
+07.67 — KNOWLEDGE INTEGRATION
+
+BIM findings repetidos podrán alimentar:
+
+KCF
+Academy
+Capability Gap
+Knowledge Gap
+
+mediante el LKS.
+
+Pero:
+
+ONE CLIENT ERROR ≠ GENERAL ARCHITECTURAL KNOWLEDGE.
+
+07.68 — NO CLIENT DATA CANONICALIZATION
+
+Información propietaria de un cliente no deberá convertirse automáticamente en conocimiento general/canónico de ARKI.
+
+Separar:
+
+PROJECT KNOWLEDGE
+GENERALIZABLE CANDIDATE
+CANONICAL KNOWLEDGE
+07.69 — SERVICE LEARNING
+
+ARKI podrá aprender estadísticamente/operativamente:
+
+common issue categories
+processing times
+workflow bottlenecks
+false-positive patterns
+reconstruction difficulty
+service effort
+
+únicamente bajo gobernanza y sin revelar datos del cliente.
+
+07.70 — PERFORMANCE
+
+Medir:
+
+files processed
+model size
+element count
+disciplines
+audit time
+reconstruction time
+finding count
+false positives
+false negatives
+memory
+processing failures
+human interventions
+07.71 — LARGE PROJECT SAFETY
+
+No asumir que un piloto pequeño demuestra:
+
+hospital
+airport
+megaproject
+city
+
+performance.
+
+Registrar escala.
+
+07.72 — BIM-E2E-001
+REAL BIM AUDIT EXAM
+
+Utilizar un proyecto BIM legítimamente disponible para prueba.
+
+Introducir o seleccionar defectos conocidos.
+
+ARKI deberá:
+
+ingest
+understand
+establish audit basis
+audit
+detect
+classify
+evidence
+explain
+red-team its findings
+
+Medir:
+
+true positives
+false positives
+false negatives
+UNKNOWN
+07.73 — BIM-E2E-002
+DRAWING-TO-BIM RECONSTRUCTION EXAM
+
+Utilizar conjunto real/legítimo de:
+
+plans
+sections
+elevations
+details
+schedules
+specialty drawings
+
+Preferentemente PDF/DWG.
+
+ARKI deberá:
+
+classify
+relate drawings
+extract explicit information
+identify conflicts
+reconstruct geometry
+reconstruct semantics
+reconstruct relationships
+federate disciplines where possible
+preserve UNKNOWN
+produce BIM
+validate against source documents
+07.74 — BIM-E2E-002 ANTI-HALLUCINATION
+
+El dataset deberá contener deliberadamente:
+
+missing dimension
+contradictory dimension
+missing detail
+discipline conflict
+ambiguous symbol
+incomplete information
+
+ARKI deberá conservar incertidumbre.
+
+07.75 — BIM-E2E-003
+BIM RESCUE EXAM
+
+Entrada:
+
+DEFECTIVE BIM
+
+Flujo:
+
+AUDIT
+→ FINDINGS
+→ RED TEAM
+→ CORRECTION OPTIONS
+→ HUMAN-AUTHORIZED TEST REPAIR
+→ REVALIDATE
+→ BEFORE/AFTER
+07.76 — REPAIR SUCCESS
+
+Una reparación solo pasa si:
+
+original finding resolved
+no unauthorized design change
+no material new defect introduced
+relationships remain valid
+source/provenance preserved
+revalidation passes
+07.77 — BIM-E2E-004
+CONTRACTUAL BIM ASSURANCE EXAM
+
+Entrada:
+
+BIM REQUIREMENTS
++
+CONTRACT/TDR
++
+MODEL DELIVERY
+
+ARKI deberá construir:
+
+requirement matrix
+compliance assessment
+findings
+evidence
+UNKNOWN
+
+sin evaluar contra requisitos inventados.
+
+07.78 — BIM-E2E-005
+POST-AWARD OPPORTUNITY EXAM
+
+Utilizar un conjunto histórico de obras adjudicadas públicamente disponibles.
+
+ARKI deberá:
+
+detect
+classify
+identify BIM relevance
+identify potential service
+distinguish fact from inference
+determine missing information
+produce opportunity candidates
+
+sin afirmar falsamente que el contratista necesita nuestros servicios.
+
+07.79 — BIM-E2E-006
+IFC ROUND-TRIP EXAM
+
+Cuando la capacidad existente lo permita:
+
+IFC
+→ ARKI
+→ semantic inspection
+→ bounded authorized modification
+→ IFC
+→ reimport
+→ compare
+
+Reportar pérdidas.
+
+07.80 — ADVERSARIAL TEST SUITE
+
+Implementar mínimo 40 pruebas independientes, incluyendo:
+
+correct model → PASS
+clash false positive
+real clash
+missing property
+contradictory documents
+unknown dimension
+duplicate entity
+orphan entity
+invalid relationship
+missing classification
+quantity mismatch
+drawing/model conflict
+unsupported discipline
+missing audit basis
+wrong requirement version
+inapplicable requirement
+repair creates new clash
+repair changes approved design
+specialty redesign attempted without competence
+scan without scale
+photo without dimensional evidence
+IFC property loss
+IFC relationship loss
+federated ownership preserved
+as-designed ≠ as-built
+as-built ≠ digital twin
+audit conflict disclosed
+audit-only mode prevents upsell coupling
+confidential project isolation
+client data not canonicalized
+post-award ≠ service need
+BIM requirement ≠ defective BIM
+one project failure ≠ general rule
+Human Authority
+professional validation gate
+large-project extrapolation prevented
+false positive measured
+false negative measured
+UNKNOWN preserved
+provenance preserved
+07.81 — COMMERCIAL PILOT A
+
+BIM X-RAY
+
+Produce bounded diagnostic report.
+
+07.82 — COMMERCIAL PILOT B
+
+DRAWING-TO-BIM
+
+Reconstruct bounded building/project from documentation.
+
+07.83 — COMMERCIAL PILOT C
+
+BIM RESCUE
+
+Audit + correction + before/after.
+
+07.84 — COMMERCIAL PILOT D
+
+PROJECT ASSURANCE
+
+Compare model delivery against explicit requirements.
+
+07.85 — COMMERCIAL PILOT E
+
+POST-AWARD RADAR
+
+Identify service opportunities without contacting anyone or making commercial claims.
+
+07.86 — MACHINE-READABLE FOUNDATION
+
+Implementar/reutilizar schemas para:
+
+BIMAuditBasis
+BIMRequirement
+BIMRequirementMatrix
+BIMFinding
+BIMFindingEvidence
+BIMConflict
+BIMCorrectionCandidate
+BIMRepair
+BIMValidation
+BIMBeforeAfter
+BIMSourceDocument
+BIMReconstructionEvidence
+BIMDisciplineModel
+FederatedModelReference
+BIMServiceScope
+BIMServiceOpportunity
+PostAwardBIMOpportunity
+BIMCommercialProposalDraft
+BIMCapabilityAssessment
+
+Evitar duplicados.
+
+07.87 — UI FOUNDATION
+
+Diseñar, no necesariamente implementar UI completa:
+
+BIM SERVICES
+
+[ X-RAY ]
+[ AUDIT ]
+[ RECONSTRUCT ]
+[ RESCUE ]
+[ COORDINATE ]
+[ PROJECT ASSURANCE ]
+
+--------------------------------
+
+POST-AWARD OPPORTUNITIES
+
+--------------------------------
+
+PROJECT
+MODEL
+DOCUMENTS
+FINDINGS
+REQUIREMENTS
+BEFORE/AFTER
+UNKNOWN
+07.88 — CLIENT-FACING REPORT
+
+El informe debe ser entendible sin inspeccionar código.
+
+Incluir:
+
+Executive Summary
+Audit Basis
+Files/Models Reviewed
+What Passed
+Findings
+Critical Issues
+Discipline Analysis
+Document↔Model Conflicts
+Requirements Compliance
+UNKNOWN
+Recommendations
+Repair Options
+Professional Validation Required
+Appendices/Evidence
+07.89 — WHAT PASSED IS MANDATORY
+
+Todo informe deberá indicar también:
+
+WHAT IS CORRECT
+
+No solo problemas.
+
+Esto es obligatorio para evitar auditoría sesgada.
+
+07.90 — BEFORE/AFTER REPORT
+
+BIM Rescue deberá producir reporte:
+
+BEFORE
+CORRECTION
+AFTER
+DELTA
+VALIDATION
+REMAINING UNKNOWN
+07.91 — BUSINESS METRICS
+
+Medir:
+
+X-Ray processing time
+full audit time
+reconstruction time
+repair time
+model size
+finding precision
+finding recall where ground truth exists
+human review time
+percentage requiring specialist
+commercial preparation time
+
+No medir éxito por cantidad de defectos encontrados.
+
+07.92 — QUALITY METRICS
+
+Priorizar:
+
+TRACEABILITY
+PRECISION
+RECALL
+UNKNOWN CORRECTNESS
+REQUIREMENT COVERAGE
+RECONSTRUCTION FIDELITY
+REPAIR SAFETY
+INTEROPERABILITY PRESERVATION
+07.93 — SOURCE OF TRUTH
+
+Mantener:
+
+SOURCE DOCUMENT
+≠
+INTERPRETATION
+≠
+RECONSTRUCTION
+≠
+PROPOSED CORRECTION
+≠
+APPROVED CHANGE
+≠
+AS-BUILT FACT
+07.94 — ONE ARKI
+
+Prohibido crear:
+
+BIM Auditor Agent
+BIM Repair Agent
+PDF Agent
+MEP Agent
+Construction Agent
+
+como inteligencias soberanas.
+
+Pueden existir herramientas, kernels, services, workflows o competencias internas.
+
+Formalizar:
+
+ONE ARKI · MANY BIM COMPETENCIES · ONE PROJECT STATE · ONE EVIDENCE SYSTEM · HUMAN AUTHORITY.
+
+07.95 — BKH FIREWALL
+
+Esta orden NO autoriza:
+
+BKH4-4+
+canonical mutation
+atomic commit
+rollback
+undo/redo
+crash recovery
+BKH5/6/7
+E8
+
+Si BIM Rescue necesita una capacidad bloqueada:
+
+KERNEL_DEPENDENCY_IDENTIFIED
+
+No atravesar el firewall.
+
+07.96 — NO PROFESSIONAL OVERCLAIM
+
+No declarar:
+
+FULL PROFESSIONAL BIM PLATFORM
+BIM CERTIFICATION ENGINE
+PROFESSIONAL STRUCTURAL AUDITOR
+PROFESSIONAL MEP AUDITOR
+PRODUCTION IFC ROUNDTRIP
+DIGITAL TWIN READY
+
+sin evidencia correspondiente.
+
+07.97 — MAXIMUM INITIAL STATUS
+
+Máximo:
+
+FOUNDATION IMPLEMENTED
++
+BOUNDED PILOTS EXECUTED
++
+E2E EVIDENCE PRODUCED
++
+PENDING INDEPENDENT VERIFICATION
+07.98 — REQUIRED DELIVERABLES
+
+Entregar:
+
+ARKI_BSPA_ARCHITECTURE.md
+ARKI_EXISTING_BIM_FORENSIC_MAP.md
+ARKI_BIM_SERVICE_MODEL.md
+ARKI_BIM_AUDIT_MODEL.md
+ARKI_BIM_REQUIREMENT_MODEL.md
+ARKI_DRAWING_TO_BIM_MODEL.md
+ARKI_BIM_RESCUE_MODEL.md
+ARKI_PROJECT_ASSURANCE_MODEL.md
+ARKI_POST_AWARD_BIM_RADAR.md
+ARKI_BIM_CONFLICT_GOVERNANCE.md
+ARKI_BIM_PROFESSIONAL_BOUNDARY.md
+ARKI_BIM_SECURITY_BOUNDARY.md
+ARKI_BIM_TEST_MATRIX.md
+ARKI_BIM_E2E_RESULTS.json
+ARKI_BIM_DEFICIT_REGISTER.json
+ARKI_BIM_SCOPE_REPORT.md
+
+más código/schemas/tests estrictamente necesarios.
+
+07.99 — EVIDENCE PACKAGE
+
+Generar:
+
+ARKI_BSPA_97A07_EVIDENCE.zip
+
+con:
+
+source inventory
+implementation evidence
+test fixtures
+raw outputs
+E2E results
+pilot results
+regression outputs
+manifest
+SHA-256
+07.100 — REQUIRED REGRESSION
+
+Ejecutar:
+
+pnpm check
+pnpm build
+existing BIM regression
+existing LKS regression
+97A regression
+OPBI regression where affected
+BKH regression where interfaces are touched
+97A-07 tests
+BIM-E2E-001
+BIM-E2E-002
+BIM-E2E-003
+BIM-E2E-004
+BIM-E2E-005
+BIM-E2E-006 where technically supported
+
+Preservar raw output.
+
+07.101 — FAILURE POLICY
+
+Un examen puede producir:
+
+PASS
+PARTIAL
+FAIL
+NOT_DEMONSTRATED
+BLOCKED_BY_KERNEL
+PROFESSIONAL_VALIDATION_REQUIRED
+
+No convertir automáticamente PARTIAL en PASS.
+
+07.102 — NO ARCHITECTURE REPAIR DURING EXAM
+
+Si un E2E descubre que falta una capacidad arquitectónica:
+
+registrar:
+
+REPRESENTATIONAL_GAP
+IMPLEMENTATION_GAP
+KNOWLEDGE_GAP
+COMPUTATIONAL_GAP
+KERNEL_DEPENDENCY
+
+No rediseñar silenciosamente ARKI para aprobar el examen.
+
+07.103 — INITIAL IMPLEMENTATION BOUNDARY
+
+Autorizado:
+
+forensic reuse audit
+schemas/contracts
+BIM X-Ray foundation
+audit foundation
+requirement matrix
+finding/evidence model
+Drawing-to-BIM bounded foundation
+Rescue bounded foundation
+Post-Award Radar architecture/foundation
+Project Assurance foundation
+bounded pilots
+adversarial tests
+E2E tests
+evidence package
+07.104 — NOT AUTHORIZED
+
+No autorizado:
+
+mass client-data ingestion
+autonomous client contact
+autonomous commercial proposals
+autonomous binding price
+professional certification
+automatic acceptance/rejection of contractual BIM
+unrestricted production deployment
+autonomous structural redesign
+autonomous MEP redesign
+automatic canonical mutation
+new independent agents
+07.105 — STOP CONDITION
+
+Ejecutar:
+
+FORENSIC REUSE
+↓
+FOUNDATION
+↓
+SCHEMAS
+↓
+PILOTS
+↓
+ADVERSARIAL TESTS
+↓
+E2E-001
+↓
+E2E-002
+↓
+E2E-003
+↓
+E2E-004
+↓
+E2E-005
+↓
+E2E-006 if supported
+↓
+REGRESSION
+↓
+EVIDENCE PACKAGE
+↓
+MANIFEST + SHA
+↓
+STOP
+
+No expandir producto después.
+
+Esperar:
+
+INDEPENDENT REVIEW
+↓
+PRODUCT OWNER / HUMAN AUTHORITY
+07.106 — CANONICAL PRINCIPLES
+
+Registrar:
+
+BIM ≠ 3D.
+
+MODEL EXISTS ≠ MODEL IS CORRECT.
+
+MODEL OPENS ≠ MODEL COMPLIES.
+
+CLASH ≠ AUTOMATIC ERROR.
+
+NO CLASH ≠ COORDINATED PROJECT.
+
+DOCUMENT EXISTS ≠ INFORMATION IS CONSISTENT.
+
+RECONSTRUCTION ≠ DESIGN.
+
+INFERENCE ≠ FACT.
+
+PHOTO ≠ DIMENSIONAL TRUTH.
+
+IFC ≠ ARKI INTERNAL ONTOLOGY.
+
+IFC EXPORT ≠ INTEROPERABILITY.
+
+DESIGN MODEL ≠ AS-BUILT.
+
+AS-BUILT ≠ DIGITAL TWIN.
+
+AUDIT ≠ PROFESSIONAL CERTIFICATION.
+
+AUDITOR SHALL NOT INVENT DEFECTS.
+
+CLIENT ERROR ≠ GENERAL KNOWLEDGE.
+
+PROJECT AWARDED ≠ CLIENT NEED CONFIRMED.
+
+BIM REQUIREMENT ≠ BIM DEFICIENCY.
+
+ARKI MAY FIND THAT THE MODEL IS CORRECT.
+
+ARKI SHALL ATTEMPT TO FALSIFY ITS OWN FINDINGS.
+
+ARKI SHALL PRESERVE UNKNOWN.
+
+ARKI MAY PROPOSE CORRECTION.
+
+HUMAN AUTHORITY APPROVES MATERIAL DESIGN CHANGE.
+
+ONE ARKI · MANY BIM COMPETENCIES · ONE PROJECT STATE · ONE EVIDENCE SYSTEM · HUMAN AUTHORITY.
+
+FIN ORDEN 97A-07.

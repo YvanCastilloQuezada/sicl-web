@@ -1,0 +1,97 @@
+{
+  "schema": "ARKI-ANEXO-I-0.1",
+  "packageId": "ARKI-M0K-FOUNDATION-2026-09-20",
+  "experimentType": "COMPATIBILITY_AUDIT_AND_INCREMENTAL_FOUNDATION",
+  "status": "PARTIALLY_IMPLEMENTED",
+  "baseline": {
+    "repository": "SICL Command Center / ARKI",
+    "branch": "main",
+    "head": "ec279e29caee44e1953ddd4dfa6b6690b5fb028c",
+    "worktreeBefore": "clean"
+  },
+  "input": {
+    "workbook": "ARKI_Architectural_Knowledge_Corpus_v0.1.xlsx",
+    "classification": "RESEARCH_BASELINE / NOT_CANONICAL_IMPLEMENTATION",
+    "sourceOrder": "pasted_content_496.txt"
+  },
+  "implemented": [
+    "shared/arkiKnowledgeCorpusFoundation.ts",
+    "client/src/arkiKnowledgeCorpusFoundation.test.ts",
+    "docs/ARKI-M0K-COMPATIBILITY-AUDIT.md"
+  ],
+  "reused": [
+    "SourceInput",
+    "EvidenceInput",
+    "KnowledgeState",
+    "event and audit records",
+    "P9.4/P10 learning contracts",
+    "R-PARTI artifacts",
+    "existing typology catalogues",
+    "existing canonical spatial/building pipeline"
+  ],
+  "fixture": "createGenericSemanticFixture",
+  "tests": {
+    "contractTests": [
+      "T1",
+      "T2",
+      "T3",
+      "T4",
+      "T5",
+      "T6",
+      "T7",
+      "T8",
+      "T9",
+      "T10",
+      "T11"
+    ],
+    "contractResult": "PASS",
+    "fullRegressionResult": "6_PRE_EXISTING_PHASE_A_THEME_FAILURES_UNRELATED_TO_M0K",
+    "typecheck": "PASS",
+    "build": "PASS",
+    "diffCheck": "PASS"
+  },
+  "epistemicGuards": [
+    "SOURCE != KNOWLEDGE",
+    "EVIDENCE != KNOWLEDGE",
+    "STRATEGY != REALIZATION",
+    "UNKNOWN requires resolution path",
+    "AVAILABLE != INGESTION_ALLOWED",
+    "HAZARD not silently canonized",
+    "HUMAN_ARCHITECT remains final authority"
+  ],
+  "notImplemented": [
+    "complete Manual of Forms database",
+    "new UI",
+    "new 3D/BIM/IFC/DWG work",
+    "destructive migrations",
+    "automatic architectural or regulatory approval",
+    "remote SICL Core persistence until connector is configured"
+  ],
+  "humanDecisionsRequired": [
+    "HAZARD canonicalization",
+    "rights sufficient for future source ingestion",
+    "future additive persistence in SICL Core",
+    "jurisdictional promotion to project requirements"
+  ],
+  "corpusIngestion": {
+    "bundle": "docs/arki-m0k/corpus-ingestion.json",
+    "humanPromotionReview": "docs/arki-m0k/human-promotion-review.json",
+    "status": "LOCAL_BUNDLE_COMPLETE_CORE_PERSISTENCE_BLOCKED",
+    "counts": {
+      "sources": 13,
+      "knowledgeTotal": 10,
+      "knowledgePromotedToFact": 9,
+      "knowledgeRetainedNonCanonical": 1,
+      "domainPrimitives": 15,
+      "typologies": 4,
+      "strategies": 1
+    },
+    "humanValidationAuthority": "HUMAN_ARCHITECT_USER_AUTHORIZATION_2026-09-20",
+    "siclCore": {
+      "urlConfigured": false,
+      "tokenConfigured": false,
+      "writePerformed": false,
+      "blocker": "MISSING_SICL_CORE_CONNECTOR"
+    }
+  }
+}

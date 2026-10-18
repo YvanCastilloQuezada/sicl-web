@@ -1,0 +1,12 @@
+ [31mD[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/README.md
+ [31mM[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/client/src/components/ArkiGateway.tsx
+ [31mM[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/client/src/i18n/catalog.ts
+ [31mM[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/12-command-outputs.txt
+ [31mM[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/full_diff.patch
+ [31mM[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/git_status.txt
+ [31mD[m ARKI_UI1_I18N_VERIFICATION_PACKAGE/evidence/manifest.txt
+ [31mM[m client/src/components/ArkiGateway.tsx
+ [31mM[m client/src/components/ArkiWorkspaceShell.tsx
+ [31mM[m client/src/i18n/catalog.ts
+ [31mD[m scripts/test-language-options.ts

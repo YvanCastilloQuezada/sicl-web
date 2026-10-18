@@ -1,0 +1,14 @@
+[33m82500b3[m feat: add scale-aware generative capabilities
+[33m7df46b3[m docs: normalize gdi future backlog
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mea43eca[m docs: define territorial variable matrices
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33ma8cb566[m docs: audit current multiscale variable architecture
+[33m4c20179[m feat: add multiscale capability applicability foundation
+[33m9483246[m docs: add RFC-026 persistence plan and demo v3
+[33md53912b[m feat: implement RFC-026 design knowledge agent

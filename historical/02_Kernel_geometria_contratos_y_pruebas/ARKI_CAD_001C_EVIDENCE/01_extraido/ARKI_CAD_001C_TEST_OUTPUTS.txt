@@ -1,0 +1,11 @@
+# CAD-001C TEST OUTPUTS
+2026-09-24T00:20:29Z
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+## CAD Gateway test
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","cases":10,"syntheticFixture":true,"commercialProviderLoaded":false,"deterministicSerialization":true,"provenancePreserved":true,"semanticPromotionBlocked":true,"emptySourceRejected":true,"noSilentLoss":true,"cadGeometryReady":"NO","abb001":"BLOCKED"}

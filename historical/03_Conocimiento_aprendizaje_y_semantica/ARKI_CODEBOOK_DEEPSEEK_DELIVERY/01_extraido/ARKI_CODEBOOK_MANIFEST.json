@@ -1,0 +1,27 @@
+{
+  "schema": "ARKI-MASTER-CODEBOOK-0.1",
+  "status": "FORENSIC DRAFT / PENDING HUMAN & INDEPENDENT REVIEW",
+  "order": "ARKI-CODEBOOK-001",
+  "scope": "DOCUMENTATION_ONLY",
+  "baseline": {
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+    "worktree": "dirty_before_codebook"
+  },
+  "productCodeChanges": false,
+  "kernelChanges": false,
+  "unknownMeaningPolicy": "preserve UNKNOWN; do not infer",
+  "deliverables": [
+    "ARKI_MASTER_CODEBOOK.md",
+    "ARKI_MASTER_PROJECT_MAP.md",
+    "ARKI_CODEBOOK_FOR_ARCHITECT.md",
+    "ARKI_CODE_CROSSWALK.md",
+    "ARKI_TECHNICAL_GLOSSARY_FOR_ARCHITECT.md",
+    "ARKI_CODEBOOK_OPEN_ITEMS.md",
+    "ARKI_CODEBOOK_EVIDENCE_INDEX.md",
+    "ARKI_CODEBOOK_MANIFEST.json"
+  ],
+  "hashesGeneratedAfterFinalization": true,
+  "canonical": false,
+  "stopCondition": "PENDING_HUMAN_AND_INDEPENDENT_REVIEW"
+}

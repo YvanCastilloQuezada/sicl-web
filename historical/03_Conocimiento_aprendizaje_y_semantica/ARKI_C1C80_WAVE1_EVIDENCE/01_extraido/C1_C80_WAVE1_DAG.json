@@ -1,0 +1,1726 @@
+{
+  "schema": "ARKI-C1C80-DAG-1.0",
+  "capabilityCount": 80,
+  "nodes": [
+    {
+      "id": "C01",
+      "name": "Spatial Syntax",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C02",
+      "name": "Programa Arquitectónico + Circulación",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C03",
+      "name": "Física Térmica",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C04",
+      "name": "Daylight + Acústica",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C05",
+      "name": "Normativa como Código",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C06",
+      "name": "Estructuras Profesionales",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C07",
+      "name": "MEP Profesional",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C08",
+      "name": "Construcción + Lean + LOB + Takt",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C09",
+      "name": "LCA / LCC",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C10",
+      "name": "Expediente Técnico Real",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C11",
+      "name": "Shape Grammars",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C12",
+      "name": "Optimización Topológica",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C13",
+      "name": "NSGA-II Multiobjetivo",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C14",
+      "name": "Monte Carlo",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C15",
+      "name": "Algoritmos Genéticos de Layout",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C16",
+      "name": "Simulated Annealing",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C17",
+      "name": "CFD",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C18",
+      "name": "FDS",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C19",
+      "name": "EnergyPlus",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C20",
+      "name": "Radiance",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C21",
+      "name": "WUFI",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C22",
+      "name": "OpenFOAM Avanzado",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C23",
+      "name": "As-Built + Comisionamiento",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C24",
+      "name": "O&M Predictivo",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C25",
+      "name": "Descarbonización / Net Zero",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C26",
+      "name": "Economía Circular / Renovación",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C27",
+      "name": "Pattern Language",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C28",
+      "name": "Reconocimiento de Tipología",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C29",
+      "name": "Razonamiento Formal Arquitectónico",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C30",
+      "name": "Avatar ARKI",
+      "domain": "Experience"
+    },
+    {
+      "id": "C31",
+      "name": "Luka",
+      "domain": "Experience"
+    },
+    {
+      "id": "C32",
+      "name": "Guía Contextual",
+      "domain": "Experience"
+    },
+    {
+      "id": "C33",
+      "name": "AR / WebXR",
+      "domain": "Experience"
+    },
+    {
+      "id": "C34",
+      "name": "Revit RVT/RFA",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C35",
+      "name": "DWG/DXF Gobernado",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C36",
+      "name": "Point Cloud",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C37",
+      "name": "IFC4x3",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C38",
+      "name": "gbXML",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C39",
+      "name": "Multiusuario + Concurrencia",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C40",
+      "name": "BCF",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C41",
+      "name": "CDE / ISO 19650",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C42",
+      "name": "PKI",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C43",
+      "name": "Auditoría Inmutable",
+      "domain": "Interoperability"
+    },
+    {
+      "id": "C44",
+      "name": "Dashboards",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C45",
+      "name": "Predicción de Desviaciones",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C46",
+      "name": "Benchmark de Proyectos",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C47",
+      "name": "Machine Learning",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C48",
+      "name": "LEED",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C49",
+      "name": "EDGE",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C50",
+      "name": "BREEAM",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C51",
+      "name": "WELL",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C52",
+      "name": "Passive House",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C53",
+      "name": "Net Zero Carbon Certifications",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C54",
+      "name": "Benchmark vs Arquitectos",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C55",
+      "name": "Generación Adversarial",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C56",
+      "name": "Meta-Learning",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C57",
+      "name": "Transfer Learning",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C58",
+      "name": "Explicabilidad Avanzada",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C59",
+      "name": "Auto-Evaluación",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C60",
+      "name": "Isovist y Visibilidad",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C61",
+      "name": "Acústica Ray-Tracing",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C62",
+      "name": "Estructuras No Lineales + Performance-Based",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C63",
+      "name": "Real Estate / Factibilidad",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C64",
+      "name": "Digital Twin + IoT",
+      "domain": "Experience"
+    },
+    {
+      "id": "C65",
+      "name": "Post-Occupancy Evaluation",
+      "domain": "Experience"
+    },
+    {
+      "id": "C66",
+      "name": "Diseño Biofílico / Neuroarquitectura",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C67",
+      "name": "Fabricación Digital",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C68",
+      "name": "Construcción Industrializada",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C69",
+      "name": "Value Engineering",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C70",
+      "name": "MCDA",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C71",
+      "name": "Real Options Analysis",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C72",
+      "name": "Risk Management Cuantitativo",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C73",
+      "name": "Contratos y Procurement",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C74",
+      "name": "Edificios Especializados",
+      "domain": "Engineering"
+    },
+    {
+      "id": "C75",
+      "name": "ARKI Self-Hosting",
+      "domain": "Experience"
+    },
+    {
+      "id": "C76",
+      "name": "Debugging Asistido",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C77",
+      "name": "Auto-Explicación de Decisiones",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C78",
+      "name": "Simulación de Roles Especialistas",
+      "domain": "Learning and evaluation"
+    },
+    {
+      "id": "C79",
+      "name": "Diseño Universal",
+      "domain": "Architecture"
+    },
+    {
+      "id": "C80",
+      "name": "Wayfinding y Señalética",
+      "domain": "Architecture"
+    }
+  ],
+  "edges": [
+    {
+      "from": "W1:identity",
+      "to": "C01",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C01",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C01",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C01",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C01",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C01",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C02",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C02",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C02",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C02",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C02",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C02",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C03",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C03",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C03",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C03",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C03",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C03",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C04",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C04",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C04",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C04",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C04",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C04",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C05",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C05",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C05",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C05",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C05",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C05",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C06",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C06",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C06",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C06",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C06",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C06",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C07",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C07",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C07",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C07",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C07",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C07",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C08",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C08",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C08",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C08",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C08",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C08",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C09",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C09",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C09",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C09",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C09",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C09",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C10",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C10",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C10",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C10",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C10",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:relationships",
+      "to": "C10",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C11",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C11",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C11",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C12",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C12",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C12",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C13",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C13",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C13",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C14",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C14",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C14",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C15",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C15",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C15",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C16",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C16",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C16",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C17",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C17",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:solver-interface",
+      "to": "C17",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C18",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C18",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:solver-interface",
+      "to": "C18",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C19",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C19",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:solver-interface",
+      "to": "C19",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C20",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C20",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:solver-interface",
+      "to": "C20",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C21",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C21",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:solver-interface",
+      "to": "C21",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:units",
+      "to": "C22",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C22",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:solver-interface",
+      "to": "C22",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C23",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C23",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C24",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C24",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C25",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C25",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C26",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C26",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:semantic-registry",
+      "to": "C27",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C27",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:semantic-registry",
+      "to": "C28",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C28",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:semantic-registry",
+      "to": "C29",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W2:architectural-core",
+      "to": "C29",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C30",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C30",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C30",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C31",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C31",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C31",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C32",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C32",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C32",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C33",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C33",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C33",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C34",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C34",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C34",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C35",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C35",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C35",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C36",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C36",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C36",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C37",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C37",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C37",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C38",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C38",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C38",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C39",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C39",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C39",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C40",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C40",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C40",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C41",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C41",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C41",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C42",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C42",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C42",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C43",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C43",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W4:interoperability",
+      "to": "C43",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C44",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C44",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C45",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C45",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C46",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C46",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:evidence",
+      "to": "C47",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C47",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C48",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C48",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C48",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C49",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C49",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C49",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C50",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C50",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C50",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C51",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C51",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C51",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C52",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C52",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C52",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C53",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C53",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:evaluation-framework",
+      "to": "C53",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C54",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:learning-framework",
+      "to": "C54",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C55",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:learning-framework",
+      "to": "C55",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C56",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:learning-framework",
+      "to": "C56",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C57",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:learning-framework",
+      "to": "C57",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C58",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:learning-framework",
+      "to": "C58",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C59",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:learning-framework",
+      "to": "C59",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C60",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C60",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W5:simulation",
+      "to": "C60",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C61",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C61",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W5:simulation",
+      "to": "C61",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C62",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C62",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W5:simulation",
+      "to": "C62",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C63",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C63",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W5:simulation",
+      "to": "C63",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:geometry",
+      "to": "C64",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C64",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W5:simulation",
+      "to": "C64",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C65",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C65",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C65",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C66",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C66",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C66",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C67",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C67",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C67",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C68",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C68",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C68",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C69",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C69",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C69",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C70",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C70",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C70",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C71",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C71",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C71",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C72",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C72",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C72",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C73",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C73",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C73",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:provenance",
+      "to": "C74",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W3:engineering-model",
+      "to": "C74",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W6:lifecycle",
+      "to": "C74",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C75",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C75",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:explanation",
+      "to": "C75",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C75",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C76",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C76",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:explanation",
+      "to": "C76",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C76",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C77",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C77",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:explanation",
+      "to": "C77",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C77",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C78",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C78",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:explanation",
+      "to": "C78",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C78",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C79",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C79",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:explanation",
+      "to": "C79",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C79",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:identity",
+      "to": "C80",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W1:epistemic",
+      "to": "C80",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W7:explanation",
+      "to": "C80",
+      "kind": "SHARED_ENGINE"
+    },
+    {
+      "from": "W9:human-authority",
+      "to": "C80",
+      "kind": "SHARED_ENGINE"
+    }
+  ],
+  "sharedEngineReferences": [
+    "W1:epistemic",
+    "W1:evidence",
+    "W1:geometry",
+    "W1:identity",
+    "W1:provenance",
+    "W1:relationships",
+    "W1:semantic-registry",
+    "W1:units",
+    "W2:architectural-core",
+    "W3:engineering-model",
+    "W3:solver-interface",
+    "W4:interoperability",
+    "W5:simulation",
+    "W6:lifecycle",
+    "W7:evaluation-framework",
+    "W7:explanation",
+    "W7:learning-framework",
+    "W9:human-authority"
+  ],
+  "orphanCapabilities": [],
+  "prohibitedCycles": true,
+  "generatedAt": "2026-09-24T00:00:00Z"
+}

@@ -1,0 +1,10 @@
+live-event-update=PASS
+persistent-refresh-source=PASS
+event-ordering=PASS
+campaign-recovery=PASS
+human-gate-panel=PASS
+pause-safe-stop-controls=PASS
+responsive-mobile-status=PASS
+evidence-drilldown-reference=PASS
+no-private-chain-of-thought=PASS
+AUTOPILOT_COMMAND_CENTER_TESTS=PASS

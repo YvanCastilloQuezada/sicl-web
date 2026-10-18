@@ -1,0 +1,48 @@
+## pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+## NEXUS
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+EXIT_CODE=0
+## COCO core
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","cocoA":"PASS","cocoB":"PASS","cocoC":"PASS","cocoD":"PASS","normal":34,"boundary":true,"adversarial":true,"metamorphic":true,"transfer":true,"testTheTest":"PASS","unknownPreserved":true,"provenancePreserved":true,"projectIsolationPreserved":true,"professionalClaims":false}
+EXIT_CODE=0
+## COCO express
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","caseId":"RAIL-MAINTENANCE-CENTER-TRANSFER-001","functional":"IDENTIFIED","spatial":"IDENTIFIED","thermal":"UNKNOWN","daylightAcoustic":"UNKNOWN","regulatory":"APPLICABILITY_REQUIRED","structural":"CONCEPTUAL_ONLY","mep":"UNKNOWN","construction":"DEPENDENCY_IDENTIFIED","lcaLcc":"UNKNOWN","documentation":"CONFLICT_DETECTED","om":"OBSERVATION_NOT_CANONICAL","interoperability":"LOSS_POSSIBLE","collaboration":"MISSING_VIEWPOINT","sustainability":"UNKNOWN","observation":"NOT_MEASUREMENT","forbiddenClaimsRejected":true,"humanDecisionRequired":true}
+EXIT_CODE=0
+## architectural program regression
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","normal":10,"adversarial":8,"metamorphic":5,"testTheTest":"PASS","deterministic":true,"unknownPreserved":true,"provenancePreserved":true,"conflictDetection":true,"projectIsolation":true}
+EXIT_CODE=0
+## build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-Bzq0m-UN.js        2,015.28 kB │ gzip: 550.49 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.32s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0

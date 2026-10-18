@@ -1,0 +1,6 @@
+[33m90421fb[m docs: add rfc structure and reference folders
+[33md1cec32[m docs: add executive board presentation script
+[33mdb7b9ec[m feat: add physical IFC adapter and GIS RFC-028
+[33md60f3a5[m feat: add RNE RM verifier and E030 human review
+[33m2cde44d[m docs: add independent operations manual
+[33m0170e8a[m feat: add traceable site intelligence demo kit

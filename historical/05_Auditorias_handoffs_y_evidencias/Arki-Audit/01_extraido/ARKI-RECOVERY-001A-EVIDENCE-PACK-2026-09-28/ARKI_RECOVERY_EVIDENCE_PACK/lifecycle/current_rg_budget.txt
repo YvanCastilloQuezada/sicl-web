@@ -1,0 +1,25 @@
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:252:COMPUTE_BUDGET_ENGINE = NOT_IMPLEMENTED
+docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md:293:COMPUTE_BUDGET_ENGINE = NOT_IMPLEMENTED
+src/sicl/a002/requirements.py:60:            "budget",
+src/sicl/a002/requirements.py:64:            reason="budget affects feasibility but does not block conceptual massing",
+tests/test_a002_sufficiency.py:44:        item("budget", KnowledgeState.MISSING, None),
+tests/test_a002_adversarial.py:31:        k("height_limit", KnowledgeState.KNOWN, 12, ("height",)), k("budget", KnowledgeState.MISSING, None),
+src/sicl/agents.py:76:        budget = next((_number(item.value, "BUDGET") for item in project.constraints.values() if item.key.upper() == "BUDGET"), None)
+src/sicl/agents.py:77:        if budget is None:
+src/sicl/agents.py:78:            budget = next((float(item.value) for item in project.constraints.values() if item.key.upper() == "BUDGET" and item.value.replace('.', '', 1).isdigit()), None)
+src/sicl/agents.py:80:        value = -1.0 if budget is not None and estimated > budget else estimated
+src/sicl/optimization.py:26:        over_budget = any(item.value < 0 and item.source == "EXPERT_SYSTEM" for item in evaluations)
+src/sicl/optimization.py:28:        if over_budget:
+src/sicl/optimization.py:35:            proposals.append(Alternative(f"ALT-{uuid4().hex[:10]}", alternative.project_id, f"{alternative.name}_OPT_1", "Budget-reduced proposal", parameters, "PROPOSED", 1, self.source))
+tests/test_multi_actor.py:96:        position = client.post('/v1/projects/HTTP-ACT/positions', json={"actor_id": "A-1", "subject_type": "ALTERNATIVE", "subject_id": "ALT-1", "stance": "SUPPORT", "reason": "Good fit", "conditions": ["budget"]})
+tests/test_optimization_phase5.py:9:def test_optimizer_reduces_floors_for_over_budget():
+tests/test_core.py:154:    assert cli.execute('/CONSTRAINT SET budget "<=" 500000 PEN SOFT')["code"] == "INVALID_ARGUMENT"
+tests/test_core.py:155:    assert cli.execute('/CONSTRAINT SET budget "<=" 500000 PEN')["code"] == "OK"
+tests/test_agents_debate.py:35:def test_economic_agent_marks_over_budget_negative():
+tests/test_agents_debate.py:39:    project.constraints["B"] = Constraint("B", "P", "BUDGET", "<=", "500000", "USD")
+tests/test_agents_debate.py:46:def test_economic_agent_calculates_cost_under_budget():
+tests/test_agents_debate.py:50:    project.constraints["B"] = Constraint("B", "P", "BUDGET", "<=", "500000", "USD")
+tests/test_agents_debate.py:65:    cli.execute("/CONSTRAINT SET BUDGET <= 500000 USD")
+docs/USER_MANUAL.md:147:/CONSTRAINT SET BUDGET <= 500000 USD
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:386:`SURVIVAL_STAGE` is not a mandatory view type. It informs recommended fidelity and compute budget:
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:223:SURVIVAL STAGE → RECOMMENDED FIDELITY → APPROPRIATE COMPUTE BUDGET

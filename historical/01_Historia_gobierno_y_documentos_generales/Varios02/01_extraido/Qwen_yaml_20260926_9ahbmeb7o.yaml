@@ -1,0 +1,25 @@
+LEVEL_ID: L13
+NAME: "Gestor de Cambios"
+DEFINITION: "ARKI rastrea qué se invalida al modificar algo y propone recomputación mínima."
+INPUTS:
+  - change_set: "ChangeSet"
+  - dependency_graph: "DependencyGraph"
+OUTPUTS:
+  - impact_analysis: "ImpactAnalysis"
+  - invalidations: "list<Invalidation>"
+  - recomputation_plan: "RecomputationPlan"
+CONTRACTS:
+  - "DEPENDENCY_REACHABLE ≠ CAUSAL_EFFECT ≠ STALE ≠ RECOMPUTE_REQUIRED"
+  - "ChangeSet explícito requerido"
+  - "No invalidación automática sin ChangeSet"
+RULES:
+  - "H-002: Impact Analysis / WHAT-IF"
+  - "INV6-036: MUTATION SHOULD TRIGGER DEPENDENCY-SCOPED REEVALUATION"
+GATES:
+  - "GATE_L13_PASS: Impacto analizado con ChangeSet explícito"
+EVIDENCE_REQUIRED:
+  - "ChangeSet definition"
+  - "Impact analysis report"
+  - "Invalidation list"
+  - "Recomputation plan"
+CURRENT_STATUS: "PARTIAL (H-002 en desarrollo)"

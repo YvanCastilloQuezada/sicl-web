@@ -1,0 +1,1513 @@
+ORDEN MAESTRA PARA MANUS
+MILUKITA — FINANCIAL INTELLIGENCE OS + EXPERIENCE QUALITY OS
+Incorporación al Entertainment OS + KPI/Observability + Agent Governance
+
+TIPO: IMPLEMENTACIÓN / EXTENSIÓN ARQUITECTÓNICA
+PRIORIDAD: ALTA
+MODO: INSPECCIONAR → REUTILIZAR → DISEÑAR → IMPLEMENTAR → PROBAR → CORREGIR → DOCUMENTAR
+AUTORIDAD: RESTRICTED / HUMAN-APPROVAL
+ÁMBITO: MiLukita Entertainment OS
+DEPENDENCIA CRÍTICA: MJP CORE
+REGLA FUNDAMENTAL: ningún agente podrá comprometer, modificar o alterar la autoridad de MJP CORE.
+
+0. OBJETIVO GENERAL
+
+Incorporar al sistema MiLukita dos capacidades especializadas:
+
+A. FINANCIAL, ACCOUNTING & TAX INTELLIGENCE OS
+
+Para analizar:
+
+finanzas;
+contabilidad;
+tesorería;
+ingresos;
+gastos;
+rentabilidad;
+flujo de caja;
+previsiones;
+fiscalidad;
+jurisdicciones;
+estructura empresarial;
+exposición financiera;
+modelos de monetización;
+distribución;
+publicidad;
+patrocinios;
+costos operativos.
+B. EXPERIENCE & UX INTELLIGENCE OS
+
+Para analizar continuamente:
+
+interfaz;
+experiencia de usuario;
+contenido;
+imágenes;
+colores;
+jerarquía visual;
+navegación;
+carga cognitiva;
+claridad;
+accesibilidad;
+QR;
+TV;
+mobile;
+web;
+Lukita;
+mensajes comerciales;
+claims;
+coherencia entre lo que MiLukita realmente hace y lo que la página afirma.
+1. REGLA ARQUITECTÓNICA PRINCIPAL
+
+NO crear dos agentes aislados.
+
+Crear dos sistemas de inteligencia especializados, conectados al actual:
+
+                         MILUKITA
+                            │
+                    ENTERTAINMENT OS
+                            │
+             ┌──────────────┼──────────────┐
+             │              │              │
+       CONTENT OS       GROWTH OS      DISTRIBUTION OS
+             │              │              │
+             └──────────────┼──────────────┘
+                            │
+                  AGENT GOVERNANCE OS
+                            │
+             ┌──────────────┼──────────────┐
+             │                             │
+ FINANCIAL INTELLIGENCE OS       EXPERIENCE QUALITY OS
+             │                             │
+   Finance / Accounting / Tax       UX / UI / Content
+   Revenue / Treasury              Visual / Accessibility
+   Jurisdiction                    QR / TV / Mobile
+   Business Model                  Performance
+             │                             │
+             └──────────────┬──────────────┘
+                            │
+                       KPI / AUDIT
+                            │
+                       CONTROL ROOM
+                            │
+                       HUMAN OWNER
+                            │
+                       MJP CORE
+2. FASE 0 — INSPECCIÓN OBLIGATORIA
+
+Antes de modificar código:
+
+INSPECCIONAR
+
+Revisar completamente:
+
+arquitectura actual;
+agentes existentes;
+MJP CORE;
+wallet;
+ledger;
+RNG;
+RTP;
+créditos virtuales;
+premios;
+eventos;
+LIVE;
+TV;
+QR;
+manifest;
+WebSocket;
+persistence;
+scheduler;
+watchdog;
+recovery;
+auditor;
+supervisor;
+KPI;
+Control Room;
+autenticación;
+permisos;
+APIs;
+base de datos;
+documentación;
+tests.
+
+Revisar especialmente:
+
+MILUKITA_AUDITORIA_TOTAL_UNIFICADA.md
+
+y cualquier documentación maestra actualmente vigente.
+
+PROHIBIDO
+
+No duplicar:
+
+motores;
+tablas;
+servicios;
+APIs;
+agentes;
+lógica existente;
+dashboards.
+
+REUTILIZAR antes de crear.
+
+3. FASE 1 — AGENT AUTHORITY MATRIX
+
+Antes de implementar los nuevos agentes, crear una matriz explícita:
+
+Acción	Financial	Tax	UX	Content	Human
+Leer datos	✅	✅	✅	✅	✅
+Analizar	✅	✅	✅	✅	✅
+Generar informe	✅	✅	✅	✅	✅
+Generar recomendación	✅	✅	✅	✅	✅
+Crear escenario	✅	✅	✅	✅	✅
+Modificar MJP CORE	❌	❌	❌	❌	🔒
+Modificar RNG	❌	❌	❌	❌	🔒
+Modificar RTP	❌	❌	❌	❌	🔒
+Modificar ledger	❌	❌	❌	❌	🔒
+Ejecutar decisión fiscal definitiva	❌	❌	❌	❌	🔒
+Crear sociedad	❌	❌	❌	❌	🔒
+Cambiar jurisdicción real	❌	❌	❌	❌	🔒
+Publicar cambios críticos	❌	❌	PROPOSE	PROPOSE	🔒
+
+Implementar esta matriz en código, no solamente en documentación.
+
+4. FASE 2 — FINANCIAL INTELLIGENCE OS
+
+Crear:
+
+FinancialAccountingTaxIntelligenceAgent
+
+con módulos:
+
+FINANCIAL INTELLIGENCE
+│
+├── ACCOUNTING ENGINE
+├── TREASURY ENGINE
+├── REVENUE ENGINE
+├── COST ENGINE
+├── PROFITABILITY ENGINE
+├── FORECAST ENGINE
+├── TAX INTELLIGENCE ENGINE
+├── JURISDICTION ENGINE
+├── BUSINESS MODEL ENGINE
+├── TRANSACTION CLASSIFICATION ENGINE
+├── FINANCIAL RISK ENGINE
+└── REPORTING ENGINE
+5. ACCOUNTING ENGINE
+
+Debe poder clasificar y analizar:
+
+ingresos;
+gastos;
+activos;
+pasivos;
+cuentas por cobrar;
+cuentas por pagar;
+fees;
+publicidad;
+patrocinios;
+distribución;
+devoluciones;
+chargebacks;
+impuestos;
+comisiones;
+costos tecnológicos.
+Importante
+
+No asumir:
+
+DINERO RECIBIDO = REVENUE RECONOCIDO
+
+Debe distinguir:
+
+CASH
+CREDITS
+WALLET
+DEFERRED REVENUE
+PRIZES / LIABILITIES
+REFUNDS
+CHARGEBACKS
+FEES
+TAXES
+REVENUE
+
+La clasificación definitiva deberá quedar marcada como:
+
+ACCOUNTING CLASSIFICATION
+
+CONFIRMED
+PROPOSED
+REQUIRES HUMAN
+UNKNOWN
+6. TRANSACTION CLASSIFICATION ENGINE
+
+Crear un motor específico.
+
+Entrada:
+
+transaction
+
+Salida:
+
+transaction_type
+economic_nature
+accounting_category
+cash_effect
+revenue_effect
+tax_relevance
+confidence
+source
+approval_status
+
+No permitir que una IA "invente" la naturaleza contable de una transacción.
+
+Si no existe información suficiente:
+
+NO DATA → NO CLAIM
+7. REVENUE INTELLIGENCE
+
+Analizar separadamente:
+
+GAME / EVENT REVENUE
+ADVERTISING REVENUE
+SPONSORSHIP REVENUE
+DISTRIBUTION REVENUE
+SUBSCRIPTION REVENUE
+OTHER REVENUE
+
+siempre que esas fuentes existan realmente.
+
+Crear:
+
+Revenue/Event
+Revenue/Hour
+Revenue/User
+Revenue/Session
+Revenue/QR
+Revenue/Channel
+Revenue/Campaign
+Revenue/Sponsor
+Revenue/Distribution Partner
+
+No mostrar métricas de fuentes inexistentes como si fueran reales.
+
+8. FINANCIAL HEALTH ENGINE
+
+Implementar:
+
+Liquidez
+Cash Balance
+Operating Cash Flow
+Free Cash Flow
+Burn Rate
+Runway
+Working Capital
+Rentabilidad
+Gross Margin
+Contribution Margin
+EBITDA
+Operating Margin
+Net Margin
+Crecimiento
+Revenue Growth
+ARPU
+LTV
+CAC
+Revenue/User
+Revenue/Event
+Riesgo
+Revenue Leakage
+Chargeback Rate
+Refund Rate
+Budget Variance
+Revenue Concentration
+Customer/Sponsor Concentration
+9. REVENUE CONCENTRATION
+
+Crear obligatoriamente:
+
+REVENUE CONCENTRATION
+=
+Largest Revenue Source / Total Revenue
+
+Analizar:
+
+dependencia de sponsor;
+dependencia de operador;
+dependencia de plataforma;
+dependencia de canal;
+dependencia geográfica.
+
+Generar alerta cuando la concentración represente riesgo significativo.
+
+El umbral debe ser configurable, no hardcoded.
+
+10. FORECAST ENGINE
+
+Implementar:
+
+Revenue Forecast
+Cash Forecast
+Expense Forecast
+Profit Forecast
+Runway Forecast
+Scenario Forecast
+
+Generar escenarios:
+
+BASE
+CONSERVATIVE
+OPTIMISTIC
+STRESS
+
+Cada forecast debe incluir:
+
+fecha;
+datos utilizados;
+modelo;
+supuestos;
+intervalo/incertidumbre;
+versión;
+timestamp.
+11. JURISDICTION ENGINE
+
+Crear:
+
+Jurisdiction Intelligence Engine
+
+Su función es comparar jurisdicciones potenciales para MiLukita.
+
+No seleccionar ni constituir automáticamente una empresa.
+
+Analizar, como mínimo cuando resulte aplicable:
+
+Corporate Tax
+VAT / Indirect Taxes
+Gaming Tax
+Withholding
+Payroll
+Dividend Tax
+Compliance Cost
+Accounting Cost
+Licensing
+Gaming Regulation
+Data Regulation
+Payment Infrastructure
+Banking Access
+Substance Requirements
+Investor Compatibility
+Distribution Compatibility
+Operational Cost
+Legal Complexity
+Tax Risk
+Regulatory Risk
+
+Resultado:
+
+JURISDICTION SCORE
+
+pero siempre:
+
+RECOMMENDATION
++
+REASONS
++
+RISKS
++
+ASSUMPTIONS
++
+UNKNOWN
++
+REQUIRES PROFESSIONAL VALIDATION
+12. PROHIBICIÓN SOBRE JURISDICCIÓN
+
+El agente NO debe afirmar:
+
+"España es la mejor opción."
+
+sin presentar el análisis.
+
+Tampoco:
+
+"Registrar la empresa en X."
+
+Debe decir:
+
+PRELIMINARY RECOMMENDATION
+
+Jurisdiction: X
+
+Business Fit: 87
+Tax Fit: 82
+Regulatory Fit: 61
+Operational Fit: 90
+Payment Fit: 84
+Distribution Fit: 88
+
+Overall: 81
+
+STATUS:
+REQUIRES LEGAL + TAX VALIDATION
+13. REGULATORY INTELLIGENCE
+
+Crear módulo separado:
+
+Regulatory Intelligence
+
+Debe distinguir:
+
+FACT
+REGULATION FOUND
+INTERPRETATION
+ASSUMPTION
+UNKNOWN
+REQUIRES LAWYER
+
+Debe detectar cuándo una funcionalidad puede tener implicaciones regulatorias.
+
+Especialmente:
+
+juegos;
+apuestas;
+loterías;
+premios;
+pagos;
+publicidad;
+menores;
+geolocalización;
+datos personales;
+distribución;
+operaciones internacionales.
+
+El agente no debe sustituir al abogado, contador o asesor fiscal.
+
+Su función es reducir incertidumbre y preparar análisis para decisión humana.
+
+14. BUSINESS MODEL ENGINE
+
+Analizar escenarios:
+
+Advertising
+Sponsorship
+Distribution
+Premium
+Subscription
+Virtual Credits
+Other approved models
+
+Para cada modelo:
+
+Revenue Potential
+Cost
+Margin
+Risk
+Scalability
+Operational Complexity
+Regulatory Exposure
+Dependency
+
+Generar:
+
+BUSINESS MODEL SCORE
+15. FASE 3 — EXPERIENCE & UX INTELLIGENCE OS
+
+Crear:
+
+ExperienceUXIntelligenceAgent
+
+con:
+
+UX INTELLIGENCE
+│
+├── VISUAL AUDIT
+├── UI AUDIT
+├── CONTENT AUDIT
+├── MESSAGE ALIGNMENT
+├── CLAIM VALIDATION
+├── COGNITIVE LOAD
+├── NAVIGATION
+├── ACCESSIBILITY
+├── MOBILE UX
+├── TV UX
+├── QR UX
+├── LUKITA UX
+├── PERFORMANCE UX
+└── CONVERSION UX
+16. VISUAL AUDIT
+
+Analizar screenshots y páginas.
+
+Evaluar:
+
+jerarquía;
+composición;
+espaciado;
+alineación;
+contraste;
+legibilidad;
+consistencia;
+saturación;
+exceso de elementos;
+competencia entre CTAs;
+calidad de imágenes;
+relevancia visual.
+
+Resultado:
+
+VISUAL QUALITY SCORE
+17. COLOR ENGINE
+
+Analizar:
+
+paleta;
+contraste;
+legibilidad;
+consistencia;
+cantidad de colores;
+uso de estados;
+colores de alerta;
+accesibilidad.
+
+No imponer una paleta universal.
+
+El agente debe evaluar si la paleta actual cumple su función.
+
+18. COGNITIVE LOAD ENGINE
+
+NO utilizar reglas artificiales como:
+
+"máximo 5 elementos por sección"
+
+como criterio absoluto.
+
+Evaluar:
+
+Visual Density
+Information Density
+Task Complexity
+Navigation Complexity
+CTA Competition
+Text Load
+Decision Load
+
+Resultado:
+
+COGNITIVE LOAD
+
+LOW
+MEDIUM
+HIGH
+CRITICAL
+19. CONTENT TRUTH / MESSAGE ALIGNMENT ENGINE
+
+Crear un motor obligatorio.
+
+Debe comparar:
+
+ACTUAL SYSTEM STATE
+        ↓
+ACTUAL FEATURES
+        ↓
+ACTUAL BUSINESS MODEL
+        ↓
+WEB CONTENT
+        ↓
+USER-FACING CLAIMS
+
+Detectar:
+
+funcionalidades inexistentes;
+integraciones no implementadas;
+claims exagerados;
+información desactualizada;
+promesas sin evidencia;
+estados simulados presentados como producción;
+contenido ambiguo.
+
+Ejemplo:
+
+PAGE CLAIM:
+"MiLukita LIVE funciona 24/7."
+
+SYSTEM STATE:
+SIMULATED
+
+RESULT:
+BLOCKED
+
+Otro:
+
+PAGE CLAIM:
+"Distribuido por operadores de cable."
+
+SYSTEM STATE:
+NEGOTIATION / PENDING
+
+RESULT:
+BLOCKED
+
+Esto debe integrarse con el principio:
+
+NO DATA → NO CLAIM
+SIMULATED ≠ PRODUCTION
+PLANNED ≠ IMPLEMENTED
+NEGOTIATION ≠ CONTRACTED
+CONTRACTED ≠ OPERATIONAL
+20. PAGE QUALITY GATE
+
+Antes de recomendar publicar una página:
+
+PAGE
+ ↓
+CONTENT AUDIT
+ ↓
+TRUTH / CLAIM AUDIT
+ ↓
+VISUAL AUDIT
+ ↓
+UX AUDIT
+ ↓
+ACCESSIBILITY
+ ↓
+PERFORMANCE
+ ↓
+MOBILE
+ ↓
+TV
+ ↓
+QR
+ ↓
+ANALYTICS
+ ↓
+REGULATORY FLAGS
+ ↓
+QUALITY SCORE
+ ↓
+APPROVE / PROPOSE / BLOCK
+
+Estados:
+
+APPROVED
+APPROVED_WITH_WARNINGS
+PROPOSED
+BLOCKED
+REQUIRES_HUMAN
+
+El agente no debe publicar automáticamente cambios sensibles.
+
+21. MULTI-SURFACE EXPERIENCE
+
+El agente debe evaluar independientemente:
+
+MILUKITA.COM
+MOBILE
+DESKTOP
+TV
+MILUKITA LIVE
+QR
+SECOND SCREEN
+LUKITA
+CONTROL ROOM
+
+No asumir que un diseño correcto en desktop es correcto en TV.
+
+22. QR EXPERIENCE ENGINE
+
+Evaluar:
+
+visibilidad;
+tamaño;
+contraste;
+posición;
+tiempo disponible para escanear;
+claridad del CTA;
+legibilidad;
+destino;
+estado del evento;
+compatibilidad móvil.
+
+Debe comprobar:
+
+QR
+ ↓
+CORRECT EVENT
+ ↓
+CORRECT URL
+ ↓
+CORRECT STATE
+ ↓
+CORRECT SESSION
+
+Nunca mostrar un QR asociado a un evento incorrecto.
+
+23. LUKITA EXPERIENCE AUDIT
+
+Analizar:
+
+presencia;
+tamaño;
+ubicación;
+frecuencia;
+interrupciones;
+pertinencia;
+coherencia con el evento;
+sobreexposición;
+obstrucción del juego;
+coherencia del mensaje.
+
+Mantener:
+
+GAME FIRST
+LUKITA SUPPORTS EXPERIENCE
+
+Nunca:
+
+LUKITA OVERRIDES GAME
+24. BUSINESS KPI VS AGENT KPI
+
+Implementar separación estricta.
+
+BUSINESS KPI
+Revenue
+Profit
+Cash Flow
+DAU
+MAU
+Retention
+Conversion
+ARPU
+LTV
+CAC
+Distribution
+Audience
+Engagement
+AGENT KPI
+Accuracy
+Latency
+Data Freshness
+Recommendation Quality
+False Positive
+False Negative
+Authority Violations
+Task Success
+Human Override
+Error Rate
+SYSTEM KPI
+Core Integrity
+Core Survival
+Uptime
+Recovery
+Data Integrity
+Authority Violation
+Security
+Audit Coverage
+
+No mezclar estos tres niveles.
+
+25. NUEVOS KPI DEL FINANCIAL AGENT
+
+Agregar al sistema existente:
+
+Financial Data Accuracy
+Accounting Classification Accuracy
+Forecast Accuracy
+Cash Forecast Accuracy
+Revenue Leakage
+Chargeback Rate
+Refund Rate
+Budget Variance
+Revenue Concentration
+Cash Runway
+Burn Rate
+Gross Margin
+Contribution Margin
+Unreconciled Transactions
+Tax Obligation Coverage
+Jurisdiction Analysis Coverage
+Financial Recommendation Acceptance
+26. NUEVOS KPI DEL EXPERIENCE AGENT
+Experience Quality Score
+Visual Quality Score
+Content Clarity
+Message Alignment
+Claim Accuracy
+Cognitive Load
+Navigation Success
+Task Completion
+Time To Understanding
+QR Discoverability
+QR Scan Success
+Mobile UX Score
+TV UX Score
+Accessibility Score
+Performance Score
+CTA Clarity
+Content Error Rate
+27. GOVERNANCE KPI
+
+Obligatorios:
+
+Authority Violation Rate = 0%
+Unauthorized Core Access = 0
+Unauthorized Financial Action = 0
+Unauthorized Content Publication = 0
+False Production Claim = 0
+False Regulatory Claim = 0
+Result Modification Attempt = 0
+Wallet Modification Attempt = 0
+Ledger Modification Attempt = 0
+RNG Modification Attempt = 0
+28. CONTROL ROOM
+
+Ampliar:
+
+/control-room
+
+con:
+
+BUSINESS
+EXPERIENCE
+CORE
+FINANCIAL
+REGULATORY
+AGENTS
+DISTRIBUTION
+SECURITY
+
+Ejemplo:
+
+┌─────────────────────────────────────────────┐
+│          MILUKITA CONTROL ROOM              │
+├─────────────────────────────────────────────┤
+│ BUSINESS      EXPERIENCE       CORE         │
+│ 🟢 92        🟢 94            🟢 100       │
+├─────────────────────────────────────────────┤
+│ FINANCIAL    REGULATORY       AGENTS        │
+│ 🟢 91        🟡 REVIEW        🟢 96         │
+├─────────────────────────────────────────────┤
+│ FINANCIAL INTELLIGENCE                      │
+│ Cash       Revenue      Margin    Forecast  │
+│ $XX        $XX          XX%       XX%       │
+├─────────────────────────────────────────────┤
+│ EXPERIENCE QUALITY                          │
+│ UX 92   UI 89   Content 96   QR 94   TV 88 │
+├─────────────────────────────────────────────┤
+│ GOVERNANCE                                  │
+│ Authority Violations: 0                    │
+│ Core Access Violations: 0                   │
+│ False Claims: 0                             │
+├─────────────────────────────────────────────┤
+│ HUMAN APPROVAL QUEUE                        │
+│ 3 decisions pending                         │
+└─────────────────────────────────────────────┘
+29. HUMAN APPROVAL QUEUE
+
+Crear una bandeja:
+
+/human-approval
+
+para decisiones que los agentes no pueden ejecutar.
+
+Ejemplo:
+
+REQUEST #1024
+
+Recommendation:
+Jurisdiction B
+
+Reason:
+Lower projected operating cost.
+
+Risk:
+Higher regulatory complexity.
+
+Required:
+Tax Advisor
+Legal Advisor
+Owner Approval
+
+STATUS:
+PENDING HUMAN
+
+Otro:
+
+UX CHANGE #302
+
+Recommendation:
+Reduce homepage visual density.
+
+Expected impact:
++8% task completion.
+
+STATUS:
+PROPOSED
+30. EVIDENCE CHAIN
+
+Cada recomendación de agente debe guardar:
+
+Recommendation ID
+Agent
+Timestamp
+Input Data
+Data Sources
+Source Version
+Assumptions
+Model Version
+Reasoning Summary
+Confidence
+Recommendation
+Risk
+Required Approval
+Final Decision
+Decision Maker
+Decision Timestamp
+
+No almacenar chain-of-thought privado del modelo. Guardar únicamente una explicación operacional auditable.
+
+31. NO DATA → NO CLAIM
+
+Aplicar globalmente.
+
+FACT
+SOURCE
+TIMESTAMP
+CONFIDENCE
+STATUS
+
+Si no existe evidencia:
+
+UNKNOWN
+
+Nunca rellenar automáticamente con una suposición presentada como hecho.
+
+32. AGENT SELF-AUDIT
+
+Cada agente debe responder periódicamente:
+
+WHAT DID I DO?
+WHAT DATA DID I USE?
+WHAT DID I CHANGE?
+WHAT DID I NOT CHANGE?
+WHAT DID I RECOMMEND?
+WHAT REMAINS UNCERTAIN?
+DID I EXCEED AUTHORITY?
+
+Resultado:
+
+AGENT HEALTH REPORT
+33. AGENT INTERACTION RULES
+
+Los agentes podrán comunicarse mediante eventos estructurados.
+
+Ejemplo:
+
+Financial Agent
+       ↓
+Revenue anomaly
+       ↓
+Supervisor
+       ↓
+Audience Agent
+       ↓
+Experience Agent
+       ↓
+Analysis
+
+Pero ningún agente debe otorgarse autoridad a sí mismo.
+
+34. SUPERVISOR
+
+El Supervisor deberá comprobar:
+
+WHO REQUESTED?
+WHO EXECUTES?
+WHAT AUTHORITY?
+WHAT DATA?
+WHAT RISK?
+WHAT APPROVAL?
+
+Antes de cualquier acción sensible.
+
+35. AUDITOR
+
+El Auditor deberá revisar:
+
+recomendaciones;
+decisiones;
+cambios;
+accesos;
+excepciones;
+violaciones;
+claims;
+métricas;
+estados de agentes.
+
+Especialmente:
+
+Financial Agent
+Tax Intelligence
+Jurisdiction Engine
+UX Agent
+Content Agent
+Lukita
+Supervisor
+Watchdog
+Recovery
+36. ALERTAS
+
+Agregar:
+
+FINANCIAL
+Revenue anomaly
+Cash risk
+Runway risk
+Leakage
+Unreconciled transaction
+Forecast deviation
+Tax obligation risk
+UX
+High cognitive load
+Broken CTA
+QR failure
+Content inconsistency
+False claim
+Visual degradation
+Performance degradation
+GOVERNANCE
+Authority violation
+Unauthorized action
+MJP CORE access attempt
+False production claim
+Unauthorized publication
+37. REGISTRO DE ESTADOS
+
+Todo resultado deberá poder clasificarse:
+
+IMPLEMENTED
+PARTIAL
+PENDING
+SIMULATED
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIABLE
+PROPOSED
+PRODUCTION
+
+No utilizar solamente:
+
+DONE
+
+porque es insuficiente para la auditoría.
+
+38. TESTING OBLIGATORIO
+
+Crear tests para:
+
+Financial
+clasificación de transacciones;
+revenue;
+refunds;
+chargebacks;
+forecast;
+jurisdicción;
+tax flags;
+concentración;
+runway.
+UX
+screenshots;
+contrast;
+claims;
+contenido;
+QR;
+mobile;
+TV;
+accessibility;
+cognitive load.
+Governance
+
+Intentar deliberadamente:
+
+Financial → MJP CORE
+UX → MJP CORE
+Content → Ledger
+Lukita → Result
+Marketing → Wallet
+Tax → Game Engine
+
+Todos deben ser rechazados.
+
+39. ADVERSARIAL TESTING
+
+Crear pruebas de intento de violación:
+
+AGENT PRIVILEGE ESCALATION
+PROMPT INJECTION
+FALSE DATA
+MISSING DATA
+STALE DATA
+DUPLICATE EVENT
+CONFLICTING AGENT RECOMMENDATION
+UNAUTHORIZED PUBLISH
+FALSE CLAIM
+CORE ACCESS
+
+Resultado esperado:
+
+BLOCK
+LOG
+ALERT
+AUDIT
+40. PERFORMANCE
+
+Los agentes no deben degradar:
+
+LIVE;
+QR;
+WebSocket;
+juegos;
+wallet;
+ledger;
+RNG;
+MJP CORE.
+
+Si un agente falla:
+
+COMMERCIAL OS FAILURE
+        ≠
+MJP CORE FAILURE
+41. FAIL-SAFE
+
+Si Financial Intelligence falla:
+
+MiLukita continúa operativa.
+
+Si UX Intelligence falla:
+
+MiLukita continúa operativa.
+
+Si Content Agent falla:
+
+No publicar contenido nuevo.
+
+Si Distribution Agent falla:
+
+No detener MJP CORE.
+
+Si Supervisor falla:
+
+Bloquear acciones autónomas sensibles.
+42. DOCUMENTACIÓN
+
+Crear/actualizar:
+
+docs/MILUKITA_FINANCIAL_INTELLIGENCE_OS.md
+
+docs/MILUKITA_ACCOUNTING_ENGINE.md
+
+docs/MILUKITA_TAX_INTELLIGENCE.md
+
+docs/MILUKITA_JURISDICTION_ENGINE.md
+
+docs/MILUKITA_TRANSACTION_CLASSIFICATION.md
+
+docs/MILUKITA_EXPERIENCE_INTELLIGENCE.md
+
+docs/MILUKITA_UX_AUDIT.md
+
+docs/MILUKITA_CONTENT_TRUTH_ENGINE.md
+
+docs/MILUKITA_PAGE_QUALITY_GATE.md
+
+docs/MILUKITA_AGENT_AUTHORITY_MATRIX.md
+
+docs/MILUKITA_AGENT_KPI_MASTER.md
+
+Actualizar:
+
+MILUKITA_AUDITORIA_TOTAL_UNIFICADA.md
+43. VALIDACIÓN FINAL
+
+Ejecutar:
+
+pnpm check
+pnpm test -- --run
+pnpm build
+pnpm simulate:live
+
+Además ejecutar las nuevas suites:
+
+financial tests
+tax tests
+jurisdiction tests
+transaction classification tests
+ux tests
+content truth tests
+claim validation tests
+authority tests
+agent governance tests
+44. CRITERIOS DE ACEPTACIÓN
+
+La implementación solamente podrá marcarse:
+
+IMPLEMENTED
+
+si existe evidencia verificable de funcionamiento.
+
+Si solamente existe:
+
+código;
+mock;
+simulación;
+UI;
+documentación;
+
+clasificar correctamente como:
+
+PARTIAL
+SIMULATED
+NOT_VERIFIABLE
+
+según corresponda.
+
+45. NO CONFUNDIR "AGENTE" CON "AUTORIDAD"
+
+Regla obligatoria:
+
+INTELLIGENCE ≠ AUTHORITY
+
+Un agente puede:
+
+OBSERVE
+ANALYZE
+COMPARE
+DETECT
+FORECAST
+RECOMMEND
+ALERT
+AUDIT
+
+pero no necesariamente:
+
+DECIDE
+APPROVE
+TRANSFER
+PUBLISH
+MODIFY CORE
+ALTER RESULT
+CHANGE LEDGER
+CHANGE WALLET
+CHANGE RNG
+CHANGE RTP
+46. ORDEN DE IMPLEMENTACIÓN
+
+MANUS deberá ejecutar exactamente esta secuencia:
+
+1. INSPECCIONAR
+        ↓
+2. INVENTARIAR
+        ↓
+3. MAPEAR AUTORIDAD
+        ↓
+4. REUTILIZAR COMPONENTES
+        ↓
+5. IMPLEMENTAR FINANCIAL OS
+        ↓
+6. IMPLEMENTAR JURISDICTION ENGINE
+        ↓
+7. IMPLEMENTAR TRANSACTION CLASSIFICATION
+        ↓
+8. IMPLEMENTAR EXPERIENCE OS
+        ↓
+9. IMPLEMENTAR CONTENT TRUTH
+        ↓
+10. IMPLEMENTAR PAGE QUALITY GATE
+        ↓
+11. INTEGRAR KPI
+        ↓
+12. INTEGRAR CONTROL ROOM
+        ↓
+13. INTEGRAR AUDITOR
+        ↓
+14. INTEGRAR SUPERVISOR
+        ↓
+15. TEST ADVERSARIAL
+        ↓
+16. TEST DE RESILIENCIA
+        ↓
+17. DOCUMENTAR
+        ↓
+18. CHECKPOINT
+47. CHECKPOINT FINAL OBLIGATORIO
+
+Al finalizar, generar un checkpoint que incluya:
+
+A. IMPLEMENTADO
+
+Lista exacta.
+
+B. PARCIAL
+
+Lista exacta.
+
+C. SIMULADO
+
+Lista exacta.
+
+D. PENDIENTE
+
+Lista exacta.
+
+E. BLOQUEADO
+
+Lista exacta.
+
+F. REQUIERE HUMANO
+
+Lista exacta.
+
+G. NO VERIFICABLE
+
+Lista exacta.
+
+H. TEST RESULTS
+CHECK
+TEST
+BUILD
+LIVE
+AUTHORITY
+CORE ISOLATION
+FINANCIAL
+UX
+GOVERNANCE
+I. ARCHIVOS MODIFICADOS
+
+Lista exacta.
+
+J. NUEVOS ARCHIVOS
+
+Lista exacta.
+
+K. NUEVAS TABLAS / SCHEMAS
+
+Lista exacta.
+
+L. NUEVAS APIs
+
+Lista exacta.
+
+M. NUEVOS AGENTES
+
+Lista exacta.
+
+N. NUEVOS KPI
+
+Lista exacta.
+
+O. RIESGOS
+
+Clasificar:
+
+P0
+P1
+P2
+P3
+48. REGLA FINAL PARA MANUS
+
+NO IMPLEMENTAR POR IMPLEMENTAR.
+
+La pregunta antes de cada componente será:
+
+¿Esto aumenta la capacidad real de MiLukita, mejora su observabilidad, reduce riesgo o mejora la experiencia?
+
+Si la respuesta es no:
+
+DO NOT IMPLEMENT
+
+No agregar funcionalidades decorativas.
+
+No crear dashboards que solamente "se vean bien".
+
+No crear KPI sin datos reales.
+
+No crear agentes que solamente generen texto.
+
+No presentar simulación como producción.
+
+No inventar datos.
+
+No inventar resultados.
+
+No inventar integraciones.
+
+No inventar contratos.
+
+No inventar distribución.
+
+No inventar situación fiscal.
+
+No inventar audiencia.
+
+No inventar ingresos.
+
+No inventar capacidades del sistema.
+
+49. PRINCIPIO ARQUITECTÓNICO DEFINITIVO
+
+La arquitectura objetivo será:
+
+                         ┌──────────────────┐
+                         │     MJP CORE     │
+                         │   AUTHORITY      │
+                         └────────┬─────────┘
+                                  │
+                         AUTHORITY BOUNDARY
+                                  │
+                    ┌─────────────┴─────────────┐
+                    │                           │
+             ENTERTAINMENT OS             COMMERCIAL OS
+                    │                           │
+          ┌─────────┼─────────┐       ┌────────┼─────────┐
+          │         │         │       │        │         │
+       CONTENT   AUDIENCE   LUKITA  FINANCE  REVENUE   SALES
+          │         │         │       │        │         │
+          └─────────┴─────────┘       └────────┴─────────┘
+                    │                           │
+                    └────────────┬──────────────┘
+                                 │
+                        AGENT GOVERNANCE
+                                 │
+                   ┌─────────────┼─────────────┐
+                   │             │             │
+                 AUDITOR      SUPERVISOR    WATCHDOG
+                   │             │             │
+                   └─────────────┼─────────────┘
+                                 │
+                     KPI / OBSERVABILITY OS
+                                 │
+                         CONTROL ROOM
+                                 │
+                         HUMAN APPROVAL
+                                 │
+                           REAL WORLD
+
+MJP CORE permanece fuera del dominio de decisión de los agentes comerciales.
+
+Mi decisión sobre esta incorporación
+
+Yo sí la incorporaría ahora, antes de seguir agregando muchos agentes nuevos.
+
+Porque hay un cambio importante de nivel:
+
+antes: estamos construyendo agentes.
+
+ahora: estamos construyendo la infraestructura que permitirá saber si esos agentes realmente sirven.
+
+Y eso es mucho más importante.
+
+Especialmente haría que MANUS no se obsesione con "tener 20 agentes". Lo importante es que cada agente tenga:
+
+misión → datos → autoridad → KPI → límites → auditoría → resultado → escalamiento humano.
+
+Ese patrón puede convertirse en el estándar arquitectónico de todos los agentes futuros de MiLukita.

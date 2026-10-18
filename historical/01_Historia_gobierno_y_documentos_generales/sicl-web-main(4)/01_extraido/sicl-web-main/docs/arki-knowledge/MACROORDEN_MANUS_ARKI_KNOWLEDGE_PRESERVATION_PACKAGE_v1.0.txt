@@ -1,0 +1,80 @@
+MACROORDEN — ARKI KNOWLEDGE PRESERVATION PACKAGE v1.0
+
+STATUS: AUTHORIZED FOR DOCUMENTARY INTEGRATION ONLY
+PRIORITY: P0
+PRINCIPLE: CREAR ≠ PUBLICAR
+SCOPE: STORE + INDEX + READ-ONLY CONTROL CENTER REGISTRATION
+NO PRODUCT CAPABILITY ACTIVATION
+
+MISSION
+Integrate the attached ARKI Knowledge Preservation Package v1.0 as a versioned documentary preservation layer inside the existing ARKI repository and expose it through the existing read-only Control Center without changing ARKI runtime behavior, canonical engines, FFO state, or professional-authority claims.
+
+INPUT PACKAGE
+Use 00_ARKI_Indice_Paquete_Preservacion_v1.0.xlsx as the package manifest.
+The package contains 13 knowledge workbooks:
+01 Decisiones y Constitución
+02 Investigación y Hallazgos
+03 Historia y Evolución
+04 Experimentos y Evidencia
+05 Capacidades y Madurez
+06 UNKNOWN / Gaps / Preguntas Abiertas
+07 Frozen / Future Architecture
+08 Casos y Precedentes Arquitectónicos
+09 Fuentes y Biblioteca Arquitectónica
+10 Tipologías Arquitectónicas
+11 Ideas No Implementadas
+12 Libro de Arquitectura — Conocimiento Maestro
+13 Formato de Investigación para IA Externa
+
+MANDATORY ACTIONS
+1. Verify all 13 files are present and readable. If any file is missing, STOP and report MISSING_INPUT; do not reconstruct it.
+2. Create or reuse the repository documentary path:
+   docs/arki-knowledge/preserved/
+   Do not create a parallel knowledge engine, database, service, agent, or runtime.
+3. Store the 13 Excel files there preserving filenames and version numbers.
+4. Create/update docs/arki-knowledge/README.md as a concise index containing:
+   filename, domain, purpose, version, status, repository path, and rule/boundary.
+5. Register the package in the existing ARKI Control Center as READ-ONLY navigation:
+   - Knowledge > Preserved Registers
+   - Documents
+   Each item must expose only metadata and a link/path to the source workbook.
+6. Preserve the following distinctions:
+   RESEARCH ≠ CANONICAL KNOWLEDGE ≠ IMPLEMENTATION
+   HISTORICAL ≠ CURRENT
+   DOCUMENTED ≠ AUTHORIZED ≠ IMPLEMENTED ≠ INTEGRATED ≠ DEPLOYED
+   CURRENT ≠ PRODUCTION ≠ PROFESSIONAL AUTHORITY
+   IDEA ≠ ROADMAP
+   PRECEDENT ≠ TEMPLATE
+   SOURCE ≠ KNOWLEDGE
+   UNKNOWN BEFORE INVENTING
+7. The Frozen workbook must remain documentary/frozen. Registering it MUST NOT activate any FFO or V1–V24 item.
+8. The External AI Research Format is a template only. Do not execute research from it in this macroorder.
+9. The Book workbook is editorial/knowledge preservation. Do not auto-publish or convert it into a public book.
+10. Do not ingest these spreadsheets automatically into the canonical runtime knowledge corpus. Any future ingestion requires a separate explicit order with provenance/rights/epistemic controls.
+11. Add a package manifest with hashes if this can be done locally without external research.
+12. Perform only focused validation: file presence, workbook readability, index links/paths, Control Center registration, and no unintended runtime activation.
+
+PROHIBITIONS
+- NO general audit.
+- NO external research.
+- NO rewriting the workbook contents.
+- NO automatic canonicalization.
+- NO new knowledge/reasoning/generative engine.
+- NO FFO activation.
+- NO roadmap activation.
+- NO changes to authentication.
+- NO deployment/publication unless separately authorized.
+- NO automatic follow-on order.
+
+DELIVERABLES
+A. Repository path containing the 13 preserved Excel files.
+B. docs/arki-knowledge/README.md.
+C. Package manifest with filenames and hashes where feasible.
+D. Read-only Control Center registration.
+E. Short report listing files stored, paths, any missing/conflict/UNKNOWN, tests/checks performed, and exact commit SHA if committed.
+
+GATE
+GATE_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_V1 = PASS
+
+STOP CONDITION
+After the gate result, STOP. Do not start research, ingestion, implementation, roadmap, FFO, or any other macroorder. Wait for Product Owner review.

@@ -1,0 +1,10 @@
+import fs from "node:fs";
+const path = "/home/ubuntu/ruleta-peru-online/client/src/pages/TerritorialTrustPage.tsx";
+const lines = fs.readFileSync(path, "utf8").split("\n");
+const queueIndex = lines.findIndex((line) => line.includes("{surface === \"the-eye\" ? <ReviewQueuePanel"));
+if (queueIndex < 0) throw new Error("queue line not found");
+lines[queueIndex] = "  {surface === \"the-eye\" ? <section className=\"mt-5 border border-amber-200/20 bg-amber-200/[.04] p-4\"><div className=\"flex flex-wrap items-center justify-between gap-3\"><div><p className=\"text-xs font-bold uppercase tracking-[.14em] text-amber-200\">Review Queue</p><p className=\"mt-1 text-sm text-slate-300\">Expedientes que requieren contraste humano antes de solicitar publicación.</p></div><Input aria-label=\"Buscar en Review Queue\" value={eyeFilter} onChange={event => setEyeFilter(event.target.value)} placeholder=\"Buscar objeto o estado\" className=\"w-56\" /></div><div className=\"mt-4 space-y-2\">{reviewQueue.isLoading ? <p className=\"text-sm text-slate-400\">Cargando expedientes…</p> : (reviewQueue.data ?? []).filter((item): item is NonNullable<typeof item> => Boolean(item)).filter(item => !eyeFilter.trim() || `${item.objectPublicId} ${item.objectStatus}`.toLowerCase().includes(eyeFilter.trim().toLowerCase())).map(item => <button key={item.objectPublicId} type=\"button\" onClick={() => { setSelectedId(item.objectPublicId); setSelectedSessionId(null); }} className={`w-full border p-3 text-left ${selectedId === item.objectPublicId ? \"border-amber-200/50 bg-amber-200/10\" : \"border-white/10 bg-black/20 hover:border-white/25\"}`}><div className=\"flex items-center justify-between gap-3\"><span className=\"font-mono text-xs text-amber-100\">{item.objectPublicId}</span><Badge className=\"border-amber-200/30 bg-amber-200/10 text-amber-100\">{item.objectStatus}</Badge></div></button>)}</div></section> : null}";
+const networkIndex = lines.findIndex((line) => line.includes("NetworkStatusPanel"));
+if (networkIndex < 0) throw new Error("network line not found");
+lines[networkIndex] = "";
+fs.writeFileSync(path, lines.join("\n"));

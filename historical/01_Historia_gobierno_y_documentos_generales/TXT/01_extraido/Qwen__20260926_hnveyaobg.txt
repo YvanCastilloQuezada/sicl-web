@@ -1,0 +1,80 @@
+ARKI-HARDENING-H002 — RED TEAM FINAL (10 ATAQUES)
+
+CONTEXTO:
+H-002 es un analizador de impacto WHAT-IF read-only construido sobre H-001 
+(Derivation Integrity, 322 PASS). H-002 detecta dependencias transitivas 
+cuando cambia una referencia versionada. NO ejecuta cambios, NO invalida, 
+NO recomputa.
+
+CONTRATOS A ATACAR:
+- ImpactChange(before, after)
+- ImpactPath[] (caminos explícitos)
+- ImpactedArtifact (con identityStatus: VERIFIED | UNCERTAIN)
+- ImpactReport (con identityUncertainArtifacts, cycles, failClosed)
+- ImpactAnalyzer.analyze_dependency()
+- ImpactAnalyzer.analyze_change()
+
+INVARIANTES QUE NO DEBEN ROMPERSE:
+- IMPACT DETECTED ≠ CHANGE EXECUTED
+- PATH DISCOVERED ≠ CAUSAL EFFECT VERIFIED
+- H-002 es read-only (ningún método de acción)
+- Fail-closed, no truncamiento silencioso
+- contractVersion = 1
+
+TU MISIÓN:
+Ejecutar los 10 ataques siguientes. Para cada uno:
+1. Describir el escenario de ataque
+2. Ejecutar contra el código real
+3. Reportar: PASS (comportamiento esperado) o FAIL (vulnerabilidad encontrada)
+4. Si FAIL: clasificar severidad (CRITICAL/HIGH/MEDIUM/LOW) y aportar contraejemplo reproducible
+5. NO implementar correcciones. Solo atacar y reportar.
+
+LOS 10 ATAQUES:
+
+RT-01: Grafo con 10,000 nodos y ciclos anidados
+  → Buscar: path explosion, canonicalización incorrecta, hang/crash
+  → Esperado: fail-closed limpio
+
+RT-02: Cambio G1@1(hashA) → G1@1(hashB) sin consumidores con hash
+  → Buscar: gap F-1 (consumidores sin hash no encontrados)
+  → Esperado: identityUncertainArtifacts poblado
+
+RT-03: Output con 3 justificaciones independientes (epistémico + computacional + normativo)
+  → Buscar: confusión entre justificaciones y paths causales
+  → Esperado: paths separados por dominio relacional
+
+RT-04: Consulta WHAT-IF sobre proyecto inexistente
+  → Buscar: contaminación cross-proyecto o crash
+  → Esperado: reporte vacío, sin error
+
+RT-05: Cambio en nodo raíz con 50 niveles de profundidad
+  → Buscar: stack overflow, timeout, truncamiento silencioso
+  → Esperado: resultado completo o fail-closed explícito
+
+RT-06: Dos cambios simultáneos before1→after1 + before2→after2
+  → Buscar: composición incorrecta de impactos
+  → Esperado: impactos separados o composición explícita
+
+RT-07: Ciclo con aristas de dominios mixtos (computacional + epistémico)
+  → Buscar: colapso semántico, fingerprint incorrecto
+  → Esperado: dominios preservados en cycle.relationDomains
+
+RT-08: content_hash ausente en productor pero presente en consumidor
+  → Buscar: asimetría de identidad no manejada
+  → Esperado: UNCERTAIN con razón explícita
+
+RT-09: Replay determinista — misma consulta 100 veces
+  → Buscar: no-determinismo en fingerprint o orden de artefactos
+  → Esperado: 100 resultados idénticos
+
+RT-10: Combinación — ciclo + cambio externo + path explosion simultáneos
+  → Buscar: interacción de debilidades
+  → Esperado: fail-closed o reporte completo sin truncamiento
+
+FORMATO DE REPORTE:
+| Ataque | Resultado | Severidad | Evidencia | Contraejemplo |
+|--------|-----------|-----------|-----------|---------------|
+| RT-01  | PASS/FAIL | ...       | ...       | ...           |
+| ...    | ...       | ...       | ...       | ...           |
+
+REGLA: No implementar. No corregir. Solo atacar y reportar.

@@ -1,0 +1,43 @@
+{
+  "schema": "ARKI-E5-CLOSURE-HANDOFF-1.0",
+  "status": "TECHNICAL_REGRESSION_PASS_CONTRACT_CLOSURE_NOT_CLOSED",
+  "baseline": "c62183a",
+  "implementationModified": false,
+  "documents": [
+    {
+      "path": "E5_CLOSURE_HANDOFF_TO_DEEPSEEK.md",
+      "bytes": 3313,
+      "sha256": "6c79b2a0b5d151b86e0915e76061f145ada8800a7e24283663b6986eb9e51d20"
+    },
+    {
+      "path": "E5_CLOSURE_REVERIFICATION_OUTPUTS.txt",
+      "bytes": 25551,
+      "sha256": "9e053ea7d47df1b4d18ad176efdce8d12b3a336d5194ddbd0870fc7d751df007"
+    },
+    {
+      "path": "E5_CONTRATO_REVISADO_V1_APROBADO.md",
+      "bytes": 15265,
+      "sha256": "cec8aeb885ab573adb2cd16b8f8a104e85a5f4a7fa136042fcf38a934b78c29c"
+    },
+    {
+      "path": "E5_SCENE_MODEL_3D_REPORT.md",
+      "bytes": 3242,
+      "sha256": "873aeede143ac2cddf55f44ddc983ac7feeacab9016a0f2a32e66e310e4e02f9"
+    },
+    {
+      "path": "E5_SCENE_MODEL_3D_OUTPUTS.txt",
+      "bytes": 3734,
+      "sha256": "73a68ba4b572bfc64429d022505e15948f0f54185c2665156016759661f062e0"
+    },
+    {
+      "path": "evidence/E5_CAPTURAS/arki-scene-general.png",
+      "bytes": 121133,
+      "sha256": "4e603cc4764377bdf92b9de3375c49f3b3fcd1d299ed66f69370fed7ec9b5798"
+    },
+    {
+      "path": "evidence/E5_CAPTURAS/arki-scene-general.json",
+      "bytes": 299,
+      "sha256": "b038800ec1aac8644fd7650e2ee24d8deab235ea484a835ef078c4e2b7cfaa0b"
+    }
+  ]
+}

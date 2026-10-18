@@ -1,0 +1,302 @@
+ARKI — CONTRATO A-002
+Input Sufficiency Detection
+Versión: 1.0 (borrador para firma del PO)
+Autor: DeepSeek (rol developer)
+Destinatarios: Product Owner + ChatGPT (Red Team asignado)
+Fecha: 2026-09-27
+
+0. Estado y origen
+text
+Predecesor:          A-001 (FROM_PROBLEM_TO_PARTI)
+                     Resultado: FAILED_EARLY_HONESTLY
+                     Causa: ARKI no detecta que el input es insuficiente
+A-002 objetivo:      Añadir esa detección como capacidad explícita
+Rol del documento:   CONTRATO, no implementación
+Firma requerida:     Product Owner
+Red Team asignado:   ChatGPT (rotación desde Qwen)
+1. Objetivo
+Permitir que ARKI declare, de forma determinista y trazable, si el snapshot de un proyecto contiene información suficiente para formular un problema arquitectónico.
+
+ARKI debe poder responder cinco preguntas antes de intentar razonar:
+
+¿Qué campos están presentes?
+
+¿Qué campos están ausentes?
+
+¿Cuáles de los ausentes son críticos y cuáles opcionales?
+
+¿El input es SUFFICIENT, INSUFFICIENT o UNKNOWN?
+
+¿Cuál es la razón concreta de esa clasificación?
+
+A-002 no formula el problema arquitectónico. Solo detecta si es posible intentarlo.
+
+2. Baseline y branch
+text
+Baseline:   main @ 5333c1f45c980c62e3f8540ff73544014ed002b6
+Branch:     feat/a002-input-sufficiency-detection
+Merge:      NO hasta aprobación explícita
+Tag:        sicl-a002-input-sufficiency-v1 (al cierre, si se firma)
+3. Alcance
+3.1 Dentro del alcance
+Módulo nuevo src/sicl/a002/ (namespace independiente).
+
+Contrato de datos SufficiencyReport.
+
+Función check_input_sufficiency(snapshot) determinista y pura.
+
+Catálogo explícito de campos críticos y opcionales.
+
+Tests adversariales: casos normales, límite y patológicos.
+
+Regresión: no tocar H-001 a H-005.
+
+3.2 Fuera del alcance
+No formula el problema arquitectónico (eso es A-003).
+
+No detecta tensiones arquitectónicas.
+
+No propone PARTI.
+
+No infiere campos ausentes.
+
+No consulta fuentes externas.
+
+No llama a providers.
+
+No escribe en el ledger.
+
+No modifica el Core.
+
+No decide por autoridad humana.
+
+No corrige snapshots insuficientes.
+
+4. Contratos de datos
+4.1 FieldDescriptor
+python
+@dataclass(frozen=True)
+class FieldDescriptor:
+    key: str                    # "brief" | "activities" | "subjects" | ...
+    criticality: Criticality    # CRITICAL | OPTIONAL
+    description: str            # qué significa este campo
+    accepted_types: tuple[type, ...]  # tipos válidos para considerarlo presente
+4.2 SufficiencyReport
+python
+@dataclass(frozen=True)
+class SufficiencyReport:
+    contract_version: int               # = 1
+    sufficiency: SufficiencyStatus      # SUFFICIENT | INSUFFICIENT | UNKNOWN
+    present_fields: tuple[str, ...]
+    missing_critical: tuple[str, ...]
+    missing_optional: tuple[str, ...]
+    empty_critical: tuple[str, ...]     # presentes pero vacíos
+    reason: str                         # explicación legible
+    read_only: bool = True
+
+    def to_dict(self) -> dict[str, Any]: ...
+    def canonical_dict(self) -> dict[str, Any]: ...
+4.3 SufficiencyStatus
+python
+class SufficiencyStatus(str, Enum):
+    SUFFICIENT   = "SUFFICIENT"
+    INSUFFICIENT = "INSUFFICIENT"
+    UNKNOWN      = "UNKNOWN"
+Regla semántica de UNKNOWN: el reporte es UNKNOWN cuando el snapshot mismo no es interpretable (tipo incorrecto, dict malformado, etc.). No es lo mismo que INSUFFICIENT — donde el snapshot está bien formado pero le faltan campos.
+
+4.4 Catálogo v1 de campos (propuesta base)
+Campos críticos para formular un problema arquitectónico:
+
+text
+brief              — descripción del encargo
+activities         — actividades previstas
+subjects           — actores/usuarios
+relationships      — relaciones funcionales entre actividades
+conditions         — restricciones del sitio o del cliente
+constraints        — restricciones normativas o dimensionales
+site              — contexto físico mínimo
+objectives         — objetivos declarados
+Campos opcionales:
+
+text
+preferences        — preferencias no vinculantes
+knowledge          — conocimiento recuperado
+unknowns           — UNKNOWNs explícitos
+typology          — tipología declarada
+Este catálogo requiere firma del PO antes de implementarse. No es universal. Es v1 y es revisable.
+
+5. Reglas de comportamiento
+5.1 Determinismo
+Mismo input → mismo output.
+
+Sin Math.random, sin Date.now, sin red, sin providers.
+
+canonical_dict() reproducible byte-a-byte.
+
+5.2 Fail-closed
+Snapshot None, no-dict, o con tipo incorrecto → UNKNOWN, nunca SUFFICIENT.
+
+Si un campo crítico aparece con valor None, "", [], {} → cuenta como vacío → INSUFFICIENT.
+
+Ningún camino retorna SUFFICIENT si falta algún campo crítico.
+
+5.3 No invención
+El reporte no sugiere valores para campos faltantes.
+
+El reporte no infiere campos por proximidad semántica.
+
+El reporte no propone default values.
+
+5.4 Read-only
+El módulo no modifica el snapshot.
+
+No escribe al ledger.
+
+No genera eventos.
+
+No llama a H-001..H-005.
+
+5.5 Human Authority
+A-002 no decide. Solo informa.
+
+El reporte es una observación, no una decisión.
+
+La interpretación de "qué hacer con INSUFFICIENT" queda para el humano.
+
+6. API pública
+python
+# src/sicl/a002/__init__.py
+from .contract import (
+    Criticality,
+    FieldDescriptor,
+    SufficiencyReport,
+    SufficiencyStatus,
+)
+from .catalog import DEFAULT_FIELD_CATALOG
+from .detector import check_input_sufficiency
+
+__all__ = [
+    "Criticality", "FieldDescriptor",
+    "SufficiencyReport", "SufficiencyStatus",
+    "DEFAULT_FIELD_CATALOG",
+    "check_input_sufficiency",
+]
+Firma:
+
+python
+def check_input_sufficiency(
+    snapshot: object,
+    *,
+    catalog: tuple[FieldDescriptor, ...] = DEFAULT_FIELD_CATALOG,
+) -> SufficiencyReport:
+    ...
+7. Tests obligatorios (mínimo 8)
+7.1 Casos base
+#	Nombre	Input	Resultado esperado
+T1	test_empty_snapshot_is_insufficient_with_all_critical_missing	{}	INSUFFICIENT, missing_critical = todos los críticos
+T2	test_none_snapshot_is_unknown	None	UNKNOWN
+T3	test_non_dict_snapshot_is_unknown	"string"	UNKNOWN
+T4	test_complete_snapshot_is_sufficient	dict con todos los críticos no vacíos	SUFFICIENT
+T5	test_missing_one_critical_is_insufficient	dict con todos menos uno	INSUFFICIENT, missing_critical == (el que falta,)
+T6	test_empty_critical_field_counts_as_missing	campo crítico = []	INSUFFICIENT, aparece en empty_critical
+7.2 Casos UPAO-001
+#	Nombre	Input	Resultado esperado
+T7	test_upao_001_fixture_is_insufficient	fixture UPAO-001 sintético	INSUFFICIENT con lista concreta de faltantes
+Nota: A-002 no rediseña UPAO-001. Lo usa tal cual está en el repo. Si UPAO-001 cambia, el test cambia.
+
+7.3 Casos adversariales
+#	Nombre	Input	Resultado esperado
+T8	test_optional_missing_does_not_break_sufficiency	críticos completos + opcionales faltantes	SUFFICIENT, missing_optional no vacío
+T9	test_unknown_in_optional_does_not_break_sufficiency	críticos completos + unknowns=()	SUFFICIENT
+T10	test_report_is_deterministic	mismo input dos veces	canonical_dict() idéntico
+T11	test_report_does_not_infer_values	ningún campo sugerido en el reporte	verificar estructura
+Mínimo 8, propuesto 11. El PO puede ajustar.
+
+8. Criterios de cierre
+text
+CIERRE_A002 requiere simultáneamente:
+
+  [ ] 8+ tests propios PASS.
+  [ ] Regresión H-001..H-005 sin cambios: 90 focales PASS.
+  [ ] Regresión global sin FAIL (warnings existentes permitidos).
+  [ ] compileall PASS.
+  [ ] git diff --check PASS.
+  [ ] Sin providers externos.
+  [ ] Sin side effects en archivos rastreados.
+  [ ] H-001..H-005 sin modificar (git diff vacío).
+  [ ] Snapshot UPAO-001 usado tal cual, sin edición.
+  [ ] Commit atómico en feat/a002-input-sufficiency-detection.
+  [ ] Red Team (ChatGPT) emite APPROVE / FIXES / REJECT.
+  [ ] Product Owner firma cierre.
+9. Restricciones y prohibiciones
+No eval, exec, __import__, subprocess, socket, requests, urllib, httpx.
+
+No dependencias externas más allá de stdlib.
+
+No any implícito en tipos de dominio.
+
+No modificar src/sicl/derivation.py, impact.py, validity.py, reaction.py.
+
+No modificar src/sicl/h005/.
+
+No tocar docs/orders/ ni evidencia forense.
+
+No push a main.
+
+No merge.
+
+No tag sin firma del PO.
+
+10. Riesgos
+Riesgo	Severidad	Mitigación
+Catálogo de campos mal calibrado	Alta	v1 revisable; firma PO antes de implementar
+Falsos SUFFICIENT por tipos laxos	Alta	accepted_types explícitos y tests adversariales
+Falsos INSUFFICIENT por validación estricta	Media	Tests con campos opcionales vacíos
+UNKNOWN vs INSUFFICIENT mezclados	Media	Enum separado + test específico
+UPAO-001 como caso canónico cuando es sintético	Baja	Documentar en el reporte que es fixture sintético
+Acoplamiento a H-002/H-003	Media	A-002 no importa esos módulos
+11. Formato de entrega (al cierre)
+Cuando A-002 termine y el PO firme:
+
+text
+1. Commit en feat/a002-input-sufficiency-detection.
+2. Reporte A002_REPORT.md con:
+     - baseline y head
+     - lista de archivos creados
+     - tests PASS/total
+     - cifras de regresión
+     - riesgos diferidos
+     - veredicto Red Team (ChatGPT)
+3. Push a origin/feat/a002-input-sufficiency-detection.
+4. NO merge a main.
+5. NO tag hasta cierre verificado.
+12. Fuera de este contrato
+A-003 (Problem Framing) no está definido aquí.
+
+A-002 no consume resultados de A-003.
+
+A-002 no alimenta el Superarchitect directamente.
+
+A-002 no conecta con ARKI-DRAW Bloque 2.
+
+Si el PO quiere encadenar A-002 → A-003 → Superarchitect, ese es un plan posterior y no entra en este contrato.
+
+13. Firma requerida del Product Owner
+Para arrancar implementación, el PO debe confirmar:
+
+text
+[ ] Baseline 5333c1f aceptado como punto de partida.
+[ ] Branch feat/a002-input-sufficiency-detection autorizado.
+[ ] Catálogo v1 de campos críticos/opcionales aceptado (o modificado).
+[ ] Alcance §3 respetado (no se sale de detección).
+[ ] Red Team asignado a ChatGPT aceptado.
+[ ] Criterios de cierre §8 aceptados.
+[ ] Reglas §5.1–5.5 aceptadas sin reservas.
+14. Estado de este documento
+text
+A002_CONTRACT_STATUS = DRAFT_PENDING_PO_SIGNATURE
+A002_IMPLEMENTATION  = NOT_STARTED
+A002_RED_TEAM        = ChatGPT (pendiente de activación al cierre)
+Cuando firmes los siete ítems de §13, arranco la implementación. Si quieres modificar el catálogo (§4.4) o los criterios de cierre (§8), dímelo antes y ajusto el contrato antes de escribir código.
+
+Developer standby. Cuchillos guardados. Esperando tu firma o tus modificaciones. 🗡️📐

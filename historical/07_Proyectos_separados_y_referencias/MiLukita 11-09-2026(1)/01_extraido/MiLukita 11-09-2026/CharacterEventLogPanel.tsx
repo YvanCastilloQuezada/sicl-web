@@ -1,0 +1,34 @@
+import { useMemo, useState } from "react";
+import { Download, ListFilter, X } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { createCharacterAuditEvent, type CharacterAuditEvent } from "../../../shared/characterOs";
+
+type EventRow = CharacterAuditEvent & { displayCharacter: string };
+
+const seedEvents = (): EventRow[] => [
+  { ...createCharacterAuditEvent({ type: "CASTING_DECISION", eventId: "TRIVIA_DEMO", characterId: "lukita-main", decisionSource: "POLICY", policyVersion: "1.0", reason: "Canal TV autorizado" }), displayCharacter: "Lukita" },
+  { ...createCharacterAuditEvent({ type: "FALLBACK_ACTIVATION", eventId: "TRIVIA_DEMO", characterId: "lukita-main", decisionSource: "SYSTEM", policyVersion: "1.0", reason: "Fallback visual disponible" }), displayCharacter: "Lukita" },
+  { ...createCharacterAuditEvent({ type: "STATE_CHANGE", eventId: "TRIVIA_DEMO", characterId: null, decisionSource: "SYSTEM", policyVersion: "1.0", reason: "Estado de revisión local" }), displayCharacter: "Sin personaje" },
+];
+
+function downloadRows(rows: EventRow[]) {
+  const header = ["timestamp", "type", "eventId", "characterId", "decisionSource", "policyVersion", "reason"];
+  const body = rows.map((row) => [row.timestamp, row.type, row.eventId, row.characterId ?? "NONE", row.decisionSource, row.policyVersion, row.reason].map((value) => `"${String(value).replaceAll('"', '""')}"`).join(","));
+  const blob = new Blob([`\uFEFF${[header.join(","), ...body].join("\n")}`], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = "milukita-character-event-log.csv";
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
+export default function CharacterEventLogPanel() {
+  const [events] = useState<EventRow[]>(seedEvents);
+  const [selectedEvent, setSelectedEvent] = useState<EventRow | null>(null);
+  const [type, setType] = useState("ALL");
+  const [character, setCharacter] = useState("ALL");
+  const filtered = useMemo(() => events.filter((event) => (type === "ALL" || event.type === type) && (character === "ALL" || (event.characterId ?? "NONE") === character)), [events, type, character]);
+  return <section className="relative mt-6 border border-orange-200/15 bg-orange-200/[.04] p-5" aria-labelledby="character-event-log-title"><div className="flex flex-col justify-between gap-4 md:flex-row md:items-start"><div className="flex items-start gap-3"><ListFilter className="mt-1 h-5 w-5 text-orange-200" /><div><p className="text-xs font-bold uppercase tracking-[.14em] text-orange-200">Character OS · observabilidad</p><h2 id="character-event-log-title" className="mt-1 text-2xl font-black text-white">Registro de eventos y fallbacks</h2><p className="mt-2 text-sm text-slate-400">Registro local de revisión. No representa eventos productivos ni altera el resultado del juego.</p></div></div><div className="flex flex-wrap items-center gap-2"><Badge className="border border-orange-200/25 bg-orange-200/10 text-orange-100">SIMULACIÓN LOCAL</Badge><Button size="sm" onClick={() => downloadRows(filtered)} className="bg-orange-200 text-[#21150b] hover:bg-orange-100"><Download className="mr-2 h-3.5 w-3.5" />Exportar CSV</Button></div></div><div className="mt-5 grid gap-2 sm:grid-cols-2"><select aria-label="Filtrar eventos por tipo" value={type} onChange={(event) => setType(event.target.value)} className="border border-white/10 bg-black/20 px-3 py-2 text-xs text-white"><option value="ALL">Todos los tipos</option>{["CASTING_DECISION", "FALLBACK_ACTIVATION", "STATE_CHANGE", "LUKITA_KILL", "LUKITA_RESTORE"].map((value) => <option key={value} value={value}>{value}</option>)}</select><select aria-label="Filtrar eventos por personaje" value={character} onChange={(event) => setCharacter(event.target.value)} className="border border-white/10 bg-black/20 px-3 py-2 text-xs text-white"><option value="ALL">Todos los personajes</option><option value="lukita-main">Lukita</option><option value="ruli">Ruli</option><option value="mascota">Mascota</option><option value="tematico-demo">Temático</option><option value="NONE">Sin personaje</option></select></div><div className="mt-5 divide-y divide-white/10">{filtered.map((event) => <button type="button" key={`${event.timestamp}-${event.type}`} onClick={() => setSelectedEvent(event)} className="grid w-full gap-2 py-3 text-left text-xs hover:bg-white/[.03] md:grid-cols-[150px_1fr_1fr_auto]"><span className="text-slate-500">{new Date(event.timestamp).toLocaleString()}</span><span className="font-bold text-orange-100">{event.type}</span><span className="text-slate-400">{event.reason}</span><span className="text-slate-500">{event.displayCharacter}</span></button>)}{!filtered.length ? <p className="py-5 text-sm text-slate-500">No hay eventos para los filtros seleccionados.</p> : null}</div>{selectedEvent ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4" role="presentation" onClick={() => setSelectedEvent(null)}><div role="dialog" aria-modal="true" aria-labelledby="event-detail-title" className="w-full max-w-xl border border-orange-200/25 bg-[#101b17] p-6" onClick={(event) => event.stopPropagation()}><div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-orange-200">Contexto de decisión</p><h3 id="event-detail-title" className="mt-2 text-2xl font-black text-white">{selectedEvent.type}</h3></div><Button size="icon" variant="ghost" aria-label="Cerrar detalle" onClick={() => setSelectedEvent(null)}><X className="h-4 w-4" /></Button></div><dl className="mt-6 grid gap-4 sm:grid-cols-2"><div><dt className="text-xs text-slate-500">Marca de tiempo</dt><dd className="text-sm text-white">{new Date(selectedEvent.timestamp).toLocaleString()}</dd></div><div><dt className="text-xs text-slate-500">Evento</dt><dd className="text-sm text-white">{selectedEvent.eventId}</dd></div><div><dt className="text-xs text-slate-500">Personaje</dt><dd className="text-sm text-white">{selectedEvent.displayCharacter}</dd></div><div><dt className="text-xs text-slate-500">Origen de decisión</dt><dd className="text-sm text-white">{selectedEvent.decisionSource}</dd></div><div><dt className="text-xs text-slate-500">Versión de policy</dt><dd className="text-sm text-white">{selectedEvent.policyVersion}</dd></div><div><dt className="text-xs text-slate-500">Identificador</dt><dd className="break-all text-sm text-white">{selectedEvent.characterId ?? "NONE"}</dd></div></dl><div className="mt-6 border-t border-white/10 pt-4"><p className="text-xs uppercase tracking-[.14em] text-slate-500">Razón</p><p className="mt-2 text-sm leading-6 text-slate-300">{selectedEvent.reason}</p></div></div></div> : null}</section>;
+}

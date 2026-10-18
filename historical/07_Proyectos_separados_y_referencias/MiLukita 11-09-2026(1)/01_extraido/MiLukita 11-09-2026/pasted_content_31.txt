@@ -1,0 +1,857 @@
+ORDEN MAESTRA PARA MANUS
+IMPLEMENTACIÓN DE MILUKITA MAPPER + THE EYE
+SISTEMA DE CAPTURA, VERIFICACIÓN Y CONFIANZA TERRITORIAL
+0. PROPÓSITO
+
+Implementar el sistema administrativo que permitirá construir, verificar, mantener y publicar el conocimiento territorial utilizado por El Mundo de MiLukita.
+
+El sistema estará compuesto por dos superficies separadas:
+
+MiLukita Mapper
+CAPTURA + ESTRUCTURACIÓN
+
+        ↓
+
+The Eye
+VERIFICACIÓN + AUDITORÍA
+
+        ↓
+
+Human Authority
+AUTORIZACIÓN FINAL
+
+        ↓
+
+MiLukita Runtime
+PUBLICACIÓN
+
+La regla fundamental será:
+
+NINGÚN DATO CAPTURADO POR MAPPER PODRÁ CONSIDERARSE VERIFICADO NI SER CONSUMIDO POR EL RUNTIME PÚBLICO SIN PASAR POR EL WORKFLOW DE VERIFICACIÓN.
+
+1. REGLA ARQUITECTÓNICA
+
+Implementar Mapper y The Eye como módulos administrativos independientes, conectados mediante servicios y modelos de dominio.
+
+No deben convertirse en autoridades del MJP CORE.
+
+PROHIBIDO
+
+Modificar:
+
+lógica de juegos;
+sorteos;
+resultados;
+créditos;
+pagos;
+autoridades del MJP CORE;
+mecanismos de integridad del MJP CORE.
+
+Antes de modificar cualquier componente compartido, identificar dependencias y documentarlas.
+
+2. MILUKITA MAPPER
+2.1 OBJETIVO
+
+Permitir que un operador autorizado capture elementos reales del territorio y construya un expediente digital estructurado.
+
+2.2 MODO SESIÓN DE CAMPO
+
+Implementar:
+
+Crear sesión.
+Nombre de sesión.
+Territorio.
+Fecha/hora.
+Mapper responsable.
+Estado de sincronización.
+GPS.
+Precisión GPS.
+Captura fotográfica.
+Captura de vídeo.
+Audio.
+Notas.
+Creación rápida de WorldObject.
+Lista de objetos capturados.
+Contador de evidencias.
+Estado offline/online.
+
+Ejemplo:
+
+SESIÓN
+Trujillo Centro — 01/09/2026
+
+OBJETOS       18
+EVIDENCIAS    47
+GPS           ±4 m
+SINCRONIZADO  ✓
+3. CAPTURA RÁPIDA
+
+Debe existir un flujo de mínima fricción:
+
+GPS
+ ↓
+FOTO
+ ↓
+NOTA
+ ↓
+CREAR WORLD OBJECT
+
+El operador NO debe estar obligado a completar todo el expediente en campo.
+
+El sistema deberá permitir guardar un objeto incompleto como:
+
+CAPTURED
+
+y completar posteriormente sus datos.
+
+4. WORLD OBJECT
+
+Implementar como entidad independiente.
+
+Campos mínimos:
+
+id
+type
+name
+description
+geometry
+latitude
+longitude
+altitude
+gps_accuracy
+created_at
+updated_at
+created_by
+current_version
+status
+temporal_validity
+assets
+claims
+sources
+evidence
+verification
+
+La geometría debe permitir futura evolución hacia:
+
+POINT
+LINE
+POLYGON
+MULTI-GEOMETRY
+
+No diseñar el sistema exclusivamente para puntos.
+
+5. CLAIM
+
+Implementar Claim como entidad independiente.
+
+Ejemplo:
+
+WorldObject:
+Huaca del Sol
+
+Claims:
+
+C001
+"La Huaca del Sol pertenece a la cultura Moche."
+
+C002
+"Está ubicada en el distrito de Moche."
+
+C003
+"Es un complejo arqueológico."
+
+Cada Claim debe poder tener:
+
+text
+type
+source_ids
+evidence_ids
+created_at
+author
+verification_status
+confidence_score
+valid_from
+valid_until
+last_verified
+version
+notes
+6. SOURCE
+
+Registrar:
+
+institution/person
+source_type
+title
+url/reference
+document
+author
+publication_date
+authority_level
+access_date
+notes
+
+Las fuentes deberán poder clasificarse.
+
+Ejemplo:
+
+INSTITUTIONAL
+ACADEMIC
+GOVERNMENT
+FIELD_OBSERVATION
+MEDIA
+USER_GENERATED
+OTHER
+7. EVIDENCE
+
+Registrar:
+
+photo
+video
+audio
+document
+measurement
+coordinate
+field_observation
+external_reference
+
+Toda evidencia deberá tener:
+
+id
+type
+created_at
+creator
+location
+timestamp
+metadata
+hash
+related_claim
+related_object
+
+Cuando corresponda, conservar metadatos originales.
+
+8. VERSIONADO
+
+Un WorldObject no debe ser simplemente sobrescrito.
+
+Implementar:
+
+WorldObject
+ ├── Version 1
+ ├── Version 2
+ ├── Version 3
+ └── Version N
+
+Cada versión debe conservar:
+
+cambios;
+usuario;
+fecha;
+motivo;
+claims asociados;
+evidence asociada;
+estado de verificación.
+
+La aprobación de The Eye debe corresponder a una versión concreta.
+
+9. THE EYE
+
+Implementar como superficie administrativa independiente.
+
+Objetivo:
+
+Determinar si una representación digital del mundo tiene evidencia suficiente para ser considerada confiable y publicada.
+
+10. COLA DE VERIFICACIÓN
+
+Mostrar:
+
+TOTAL PENDIENTES
+ALTA PRIORIDAD
+EVIDENCIA FALTANTE
+CONFLICTOS
+DESACTUALIZADOS
+REVISIÓN VENCIDA
+
+Filtros:
+
+territorio;
+categoría;
+prioridad;
+confianza;
+antigüedad;
+Mapper;
+fecha;
+tipo de conflicto;
+estado.
+11. MOTOR DE VERIFICACIÓN
+
+Evaluar como mínimo:
+
+EXISTENCIA
+UBICACIÓN
+IDENTIDAD
+CONTENIDO
+FUENTE
+ACTUALIDAD
+EVIDENCIA
+CONSISTENCIA
+
+Cada dimensión tendrá:
+
+status
+score
+reason
+evidence
+auditor
+timestamp
+12. EXPLICABILIDAD
+
+The Eye debe responder:
+
+¿Por qué este dato tiene esta confianza?
+
+Implementar un panel:
+
+"EXPLICACIÓN DE CONFIANZA"
+
+Debe mostrar los factores que incrementaron o redujeron el score.
+
+No crear una puntuación arbitraria e inexplicable.
+
+El algoritmo de scoring debe quedar separado de la decisión humana.
+
+13. CONFLICTOS
+
+Detectar y registrar:
+
+CLAIM A
+vs
+CLAIM B
+
+Mostrar:
+
+texto;
+fuentes;
+evidencia;
+fechas;
+nivel de autoridad;
+confianza.
+
+Acciones:
+
+ACCEPT CLAIM A
+ACCEPT CLAIM B
+KEEP BOTH
+MARK DISPUTED
+REQUEST EVIDENCE
+REJECT CLAIM
+
+KEEP BOTH es obligatorio.
+
+El sistema no debe forzar una falsa certeza cuando las fuentes legítimas discrepan.
+
+14. ESTADOS
+
+Implementar estados separados para objetos y claims:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+VERIFIED
+PUBLISHED
+DISPUTED
+OUTDATED
+REJECTED
+ARCHIVED
+
+No permitir transiciones arbitrarias.
+
+Implementar una máquina de estados controlada.
+
+15. TEMPORALIDAD
+
+Implementar:
+
+valid_from
+valid_until
+last_verified
+next_review
+
+Un objeto verificado puede posteriormente convertirse en:
+
+OUTDATED
+
+sin eliminar su historial.
+
+16. REVISIÓN PERIÓDICA
+
+The Eye debe generar tareas de revisión.
+
+Ejemplo:
+
+Restaurante
+→ revisar cada 90 días
+
+Horario comercial
+→ revisar cada 30 días
+
+Monumento
+→ revisar cada 365 días
+
+Información histórica
+→ revisión según naturaleza
+
+La frecuencia deberá ser configurable.
+
+17. HUMAN AUTHORITY
+
+La automatización puede:
+
+detectar;
+comparar;
+puntuar;
+alertar;
+sugerir.
+
+Pero:
+
+La autorización final de publicación corresponde a HUMAN AUTHORITY.
+
+No permitir que un algoritmo publique automáticamente información territorial crítica.
+
+18. PUBLICACIÓN
+
+El Runtime público solamente podrá consultar:
+
+PUBLISHED
+
+y la versión exacta autorizada.
+
+Debe ser imposible que:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+DISPUTED
+REJECTED
+
+aparezca accidentalmente en el Runtime público.
+
+19. AUDIT LOG
+
+Registrar de forma inmutable:
+
+CREATE
+EDIT
+DELETE/ARCHIVE
+SUBMIT
+VERIFY
+REJECT
+REQUEST_EVIDENCE
+MARK_DISPUTED
+APPROVE
+PUBLISH
+UNPUBLISH
+RESTORE_VERSION
+
+Registrar:
+
+who
+when
+what
+previous_value
+new_value
+reason
+object_id
+claim_id
+version_id
+20. RBAC
+
+Implementar como mínimo:
+
+Rol	Mapper	The Eye	Publicación
+Mapper	✅	❌	❌
+Auditor	❌	✅	❌
+Admin	✅	✅	Según autorización
+Human Authority	Según configuración	Según configuración	✅
+
+La autorización debe verificarse server-side, no solamente ocultando botones en frontend.
+
+21. SEGURIDAD
+
+Implementar:
+
+autenticación robusta;
+RBAC;
+validación server-side;
+rate limiting;
+protección de uploads;
+MIME validation;
+límite de tamaño;
+sanitización;
+control de acceso a archivos;
+logs de seguridad;
+protección contra IDOR;
+protección contra manipulación de parámetros;
+sesiones seguras;
+CSRF cuando corresponda;
+XSS prevention;
+validación de URLs;
+control de archivos potencialmente maliciosos.
+22. MODO OFFLINE DEL MAPPER
+
+Prioridad alta.
+
+El Mapper es una herramienta de campo.
+
+Por lo tanto, debe tolerar:
+
+SIN INTERNET
+
+Debe poder:
+
+crear objetos;
+tomar fotos;
+registrar GPS;
+registrar notas;
+guardar evidencia;
+
+y posteriormente:
+
+SINCRONIZAR
+
+cuando exista conexión.
+
+La sincronización debe manejar conflictos sin sobrescribir silenciosamente información.
+
+23. MAPA
+
+El Mapper deberá soportar:
+
+mapa;
+búsqueda;
+geocodificación;
+GPS;
+precisión GPS;
+coordenadas manuales;
+selección manual;
+radio de activación;
+orientación;
+visualización de objetos;
+detección de proximidad;
+duplicados espaciales.
+
+Preparar arquitectura para:
+
+POINT
+LINE
+POLYGON
+
+aunque el MVP inicialmente pueda utilizar principalmente POINT.
+
+24. VISTA DE CONFIANZA TERRITORIAL
+
+Implementar una vista administrativa futura dentro de The Eye:
+
+MAPA DE CONFIANZA
+
+Visualizar:
+
+objetos verificados;
+objetos pendientes;
+conflictos;
+evidencia insuficiente;
+objetos desactualizados.
+
+Esto no necesita bloquear el MVP, pero la arquitectura debe permitirlo.
+
+25. UI
+
+Construir dos módulos administrativos, no cuatro aplicaciones.
+
+MiLukita Mapper
+Vista 1
+
+Sesión de captura
+
+Vista 2
+
+Expediente territorial
+
+The Eye
+Vista 1
+
+Cola de verificación + expediente
+
+Vista 2
+
+Modo de conflicto
+
+Las cuatro vistas deberán compartir:
+
+navegación;
+componentes;
+sistema de diseño;
+tipografía;
+iconografía;
+estados;
+botones;
+tablas;
+modales;
+sistema de notificaciones.
+26. ESTÉTICA
+
+Utilizar como dirección visual:
+
+NEGRO MATE
+TURQUESA NEÓN
+DORADO L★
+
+Pero existe una condición:
+
+La estética nunca debe perjudicar la legibilidad ni la productividad administrativa.
+
+No convertir el panel en una interfaz "cyberpunk" bonita pero incómoda.
+
+Prioridad:
+
+CLARIDAD
+→ VELOCIDAD
+→ PRECISIÓN
+→ ESTÉTICA
+27. RESPONSIVE
+
+Mapper debe estar optimizado para:
+
+MÓVIL
+TABLET
+DESKTOP
+
+The Eye debe priorizar:
+
+DESKTOP
+TABLET
+
+porque requiere comparación y auditoría de información.
+
+28. ENTREGABLES
+
+Manus deberá entregar:
+
+MiLukita Mapper.
+Modo Sesión de Campo.
+Expediente Territorial.
+The Eye.
+Cola de Verificación.
+Expediente de Auditoría.
+Modo de Conflictos.
+WorldObject.
+Claim.
+Source.
+Evidence.
+Versionado.
+Workflow.
+Confidence System.
+RBAC.
+Audit Log.
+Sistema de revisión temporal.
+Sincronización offline del Mapper.
+API.
+Tests.
+Seed de datos de prueba.
+Documentación técnica.
+Confirmación de que MJP CORE permanece intacto.
+29. CRITERIO DE ACEPTACIÓN PRINCIPAL
+
+Manus deberá demostrar mediante una prueba completa:
+
+REALIDAD
+   ↓
+MAPPER
+   ↓
+WORLD OBJECT
+   ↓
+CLAIMS
+   ↓
+SOURCES
+   ↓
+EVIDENCE
+   ↓
+VERSION
+   ↓
+THE EYE
+   ↓
+VERIFICACIÓN
+   ↓
+DECISIÓN HUMANA
+   ↓
+APPROVED VERSION
+   ↓
+PUBLISHED
+   ↓
+RUNTIME
+
+Y después demostrar:
+
+VERSION 1 = PUBLICADA
+
+VERSION 2 = MODIFICADA
+
+VERSION 2 = UNDER_REVIEW
+
+
+El Runtime debe continuar mostrando exclusivamente la versión 1 hasta que la versión 2 sea aprobada.
+
+Esta prueba es obligatoria.
+
+30. PRUEBA DE CONFLICTO
+
+Crear artificialmente:
+
+Claim A
+"Construido en 1920"
+
+Claim B
+"Construido en 1925"
+
+con fuentes distintas.
+
+Demostrar que The Eye puede:
+
+detectar el conflicto;
+mostrar ambas fuentes;
+mostrar ambas evidencias;
+mantener ambos claims;
+marcar DISPUTED;
+solicitar evidencia;
+aceptar uno;
+registrar la decisión en Audit Log.
+31. REGLA DE NO REGRESIÓN
+
+Antes y después de la implementación:
+
+MJP CORE debe continuar funcionando exactamente igual.
+
+Manus deberá informar:
+
+archivos modificados;
+módulos afectados;
+migraciones;
+nuevas tablas;
+nuevas APIs;
+dependencias;
+pruebas ejecutadas;
+confirmación de no afectación del MJP CORE.
+32. ORDEN DE IMPLEMENTACIÓN
+
+No implementar todo indiscriminadamente.
+
+Seguir este orden:
+
+Fase 1
+
+Modelo de datos.
+
+Fase 2
+
+Workflow y máquina de estados.
+
+Fase 3
+
+API y servicios.
+
+Fase 4
+
+RBAC + Audit.
+
+Fase 5
+
+Mapper funcional.
+
+Fase 6
+
+The Eye funcional.
+
+Fase 7
+
+Versionado + temporalidad.
+
+Fase 8
+
+Offline/sincronización.
+
+Fase 9
+
+UI premium.
+
+Fase 10
+
+Integración con Runtime.
+
+Fase 11
+
+Tests end-to-end.
+
+Fase 12
+
+Demo completa con territorio real.
+
+33. REGLA FINAL
+
+No construir Mapper y The Eye como simples CRUD.
+
+El sistema debe construirse alrededor del principio:
+
+CAPTURAR LA REALIDAD ≠ CONOCER LA REALIDAD.
+
+Mapper captura.
+
+The Eye verifica.
+
+Human Authority autoriza.
+
+Runtime publica.
+
+Y el historial permanece.
+
+Mi decisión sobre Gemini
+
+Aquí también cambiaría ligeramente tu estrategia.
+
+No necesitas que Gemini sea quien diseñe obligatoriamente la UI final.
+
+Puedes usar Gemini para generar las referencias visuales, pero Manus debe tener libertad para convertirlas en una interfaz funcional.
+
+Porque una imagen generada puede sugerir algo visualmente espectacular que sea una pésima interfaz administrativa.
+
+Yo le daría a Manus esta prioridad:
+
+Funcionalidad > ergonomía > claridad > consistencia > estética.
+
+Y las cuatro maquetas de Gemini deben tratarse como referencia visual, no como especificación funcional.
+
+Y hay una decisión estratégica todavía más importante
+
+No lanzaría inmediatamente a un equipo a llenar Trujillo con cientos de puntos.
+
+Primero haría una prueba de verdad con 5–10 WorldObjects complejos.
+
+No simples lugares.
+
+Escogería objetos que obliguen al sistema a enfrentarse a problemas reales:
+
+una plaza;
+un monumento;
+un establecimiento comercial;
+un sitio histórico;
+una institución;
+un objeto con información contradictoria;
+un lugar cuya información cambie con el tiempo.
+
+Si Mapper + The Eye sobreviven esa prueba sin hacer trampas ni simplificar artificialmente la realidad, entonces tienes una arquitectura que vale la pena escalar.
+
+Si no, descubrirás el problema con 10 objetos en lugar de descubrirlo después de haber cargado 10,000.
+
+Ese es el siguiente paso que yo tomaría.

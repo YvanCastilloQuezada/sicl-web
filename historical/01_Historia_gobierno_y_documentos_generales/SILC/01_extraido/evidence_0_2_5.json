@@ -1,0 +1,588 @@
+{
+  "contract": "SICL 0.2.5",
+  "catalog": [
+    {
+      "name": "TOTAL_COST",
+      "inputs": [
+        "area",
+        "unit_cost"
+      ],
+      "output": "total_cost",
+      "unit": "currency",
+      "directions": [
+        "MAXIMIZE",
+        "MINIMIZE"
+      ],
+      "version": "1"
+    },
+    {
+      "name": "COST_PER_AREA",
+      "inputs": [
+        "total_cost",
+        "area"
+      ],
+      "output": "cost_per_area",
+      "unit": "currency/area",
+      "directions": [
+        "MAXIMIZE",
+        "MINIMIZE"
+      ],
+      "version": "1"
+    },
+    {
+      "name": "RATIO",
+      "inputs": [
+        "numerator",
+        "denominator"
+      ],
+      "output": "ratio",
+      "unit": "dimensionless",
+      "directions": [
+        "MAXIMIZE",
+        "MINIMIZE"
+      ],
+      "version": "1"
+    },
+    {
+      "name": "DECLARED_RESULT",
+      "inputs": [
+        "value"
+      ],
+      "output": "declared_value",
+      "unit": "declared",
+      "directions": [
+        "MAXIMIZE",
+        "MINIMIZE"
+      ],
+      "version": "1"
+    }
+  ],
+  "pressure_status": "TRADE_OFF",
+  "pressure_non_dominated": [
+    "A",
+    "B",
+    "C"
+  ],
+  "recommendation_source": "ANALYTICAL",
+  "decision_type": "HUMAN",
+  "missing_direction_status": "INSUFFICIENT_DATA",
+  "missing_direction_criteria": [
+    "SCORE"
+  ],
+  "traceability": {
+    "project_id": "INT-004",
+    "evaluations": [
+      {
+        "evaluation_id": "EVAL-e0d35878",
+        "project_id": "INT-004",
+        "alternative_id": "X",
+        "criterion": "SCORE",
+        "method": "DECLARED_RESULT",
+        "inputs": {
+          "value": 1.0
+        },
+        "result": 1.0,
+        "version": "0.2.5",
+        "evaluation_version": 1,
+        "contract_version": "0.2.5",
+        "direction": null,
+        "output_unit": "declared",
+        "feasibility_status": "UNKNOWN",
+        "evidence": []
+      },
+      {
+        "evaluation_id": "EVAL-913ebc49",
+        "project_id": "INT-004",
+        "alternative_id": "Y",
+        "criterion": "SCORE",
+        "method": "DECLARED_RESULT",
+        "inputs": {
+          "value": 2.0
+        },
+        "result": 2.0,
+        "version": "0.2.5",
+        "evaluation_version": 1,
+        "contract_version": "0.2.5",
+        "direction": null,
+        "output_unit": "declared",
+        "feasibility_status": "UNKNOWN",
+        "evidence": []
+      }
+    ],
+    "comparisons": [],
+    "multi_comparisons": [],
+    "tradeoffs": [],
+    "recommendations": [],
+    "decisions": [],
+    "event_count": 5,
+    "events": 5
+  },
+  "results": [
+    {
+      "command": "/PROJECT CREATE UPAO-001 \"UPAO PLAZA CENTER\"",
+      "response": {
+        "status": "OK",
+        "code": "PROJECT_CREATED",
+        "message": "project created",
+        "data": {
+          "project_id": "UPAO-001"
+        }
+      }
+    },
+    {
+      "command": "/OBJECTIVE SET COST MINIMIZE",
+      "response": {
+        "status": "OK",
+        "code": "OBJECTIVE_SET",
+        "message": "operation completed",
+        "data": {
+          "key": "COST",
+          "direction": "MINIMIZE",
+          "target": null
+        }
+      }
+    },
+    {
+      "command": "/OBJECTIVE SET PROFITABILITY MAXIMIZE",
+      "response": {
+        "status": "OK",
+        "code": "OBJECTIVE_SET",
+        "message": "operation completed",
+        "data": {
+          "key": "PROFITABILITY",
+          "direction": "MAXIMIZE",
+          "target": null
+        }
+      }
+    },
+    {
+      "command": "/OBJECTIVE SET ATTRACTIVENESS MAXIMIZE",
+      "response": {
+        "status": "OK",
+        "code": "OBJECTIVE_SET",
+        "message": "operation completed",
+        "data": {
+          "key": "ATTRACTIVENESS",
+          "direction": "MAXIMIZE",
+          "target": null
+        }
+      }
+    },
+    {
+      "command": "/ALTERNATIVE CREATE A \"A\"",
+      "response": {
+        "status": "OK",
+        "code": "ALTERNATIVE_CREATE",
+        "message": "operation completed",
+        "data": {
+          "id": "A",
+          "data": {}
+        }
+      }
+    },
+    {
+      "command": "/ALTERNATIVE CREATE B \"B\"",
+      "response": {
+        "status": "OK",
+        "code": "ALTERNATIVE_CREATE",
+        "message": "operation completed",
+        "data": {
+          "id": "B",
+          "data": {}
+        }
+      }
+    },
+    {
+      "command": "/ALTERNATIVE CREATE C \"C\"",
+      "response": {
+        "status": "OK",
+        "code": "ALTERNATIVE_CREATE",
+        "message": "operation completed",
+        "data": {
+          "id": "C",
+          "data": {}
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD A COST 80",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-baaa337e",
+          "result": 80.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 80.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD A PROFITABILITY 70",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-0ecd2f9f",
+          "result": 70.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 70.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD A ATTRACTIVENESS 95",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-a11c4925",
+          "result": 95.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 95.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD B COST 65",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-2565fe87",
+          "result": 65.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 65.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD B PROFITABILITY 95",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-c339e69c",
+          "result": 95.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 95.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD B ATTRACTIVENESS 70",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-3d724b63",
+          "result": 70.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 70.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD C COST 90",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-195de0c0",
+          "result": 90.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 90.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD C PROFITABILITY 75",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-2ca9440b",
+          "result": 75.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 75.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD C ATTRACTIVENESS 85",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-ece6ed24",
+          "result": 85.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 85.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/COMPARE MULTI A B C -- COST PROFITABILITY ATTRACTIVENESS",
+      "response": {
+        "status": "OK",
+        "code": "COMPARE_MULTI",
+        "message": "operation completed",
+        "data": {
+          "comparison_id": "MCMP-e3794c66",
+          "alternative_ids": [
+            "A",
+            "B",
+            "C"
+          ],
+          "criteria": [
+            "COST",
+            "PROFITABILITY",
+            "ATTRACTIVENESS"
+          ],
+          "values": {
+            "COST": {
+              "A": 80.0,
+              "B": 65.0,
+              "C": 90.0
+            },
+            "PROFITABILITY": {
+              "A": 70.0,
+              "B": 95.0,
+              "C": 75.0
+            },
+            "ATTRACTIVENESS": {
+              "A": 95.0,
+              "B": 70.0,
+              "C": 85.0
+            }
+          },
+          "non_dominated": [
+            "A",
+            "B",
+            "C"
+          ],
+          "status": "TRADE_OFF",
+          "method": "PARETO_DOMINANCE",
+          "tradeoff_id": "TRADEOFF-8c25614e",
+          "gains": {
+            "A": [
+              "COST",
+              "ATTRACTIVENESS"
+            ],
+            "B": [
+              "COST",
+              "PROFITABILITY"
+            ],
+            "C": [
+              "PROFITABILITY",
+              "ATTRACTIVENESS"
+            ]
+          },
+          "sacrifices": {
+            "A": [
+              "COST",
+              "PROFITABILITY"
+            ],
+            "B": [
+              "ATTRACTIVENESS"
+            ],
+            "C": [
+              "COST",
+              "PROFITABILITY",
+              "ATTRACTIVENESS"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "command": "/RECOMMEND A \"analytical result requires human judgment\" BASED_ON MCMP-e3794c66",
+      "response": {
+        "status": "OK",
+        "code": "RECOMMENDATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "recommendation_id": "REC-a6ef98a2",
+          "based_on": "MCMP-e3794c66",
+          "source": "ANALYTICAL"
+        }
+      }
+    },
+    {
+      "command": "/DECISION RECORD B ARCHITECT \"professional priority differs\"",
+      "response": {
+        "status": "OK",
+        "code": "DECISION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "decision_id": "DEC-5d47f97a",
+          "decision_type": "HUMAN",
+          "decision_maker": "ARCHITECT"
+        }
+      }
+    },
+    {
+      "command": "/PROJECT CREATE INT-004 \"Direction Guard\"",
+      "response": {
+        "status": "OK",
+        "code": "PROJECT_CREATED",
+        "message": "project created",
+        "data": {
+          "project_id": "INT-004"
+        }
+      }
+    },
+    {
+      "command": "/ALTERNATIVE CREATE X \"X\"",
+      "response": {
+        "status": "OK",
+        "code": "ALTERNATIVE_CREATE",
+        "message": "operation completed",
+        "data": {
+          "id": "X",
+          "data": {}
+        }
+      }
+    },
+    {
+      "command": "/ALTERNATIVE CREATE Y \"Y\"",
+      "response": {
+        "status": "OK",
+        "code": "ALTERNATIVE_CREATE",
+        "message": "operation completed",
+        "data": {
+          "id": "Y",
+          "data": {}
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD X SCORE 1",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-e0d35878",
+          "result": 1.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 1.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/EVALUATION RECORD Y SCORE 2",
+      "response": {
+        "status": "OK",
+        "code": "EVALUATION_RECORD",
+        "message": "operation completed",
+        "data": {
+          "evaluation_id": "EVAL-913ebc49",
+          "result": 2.0,
+          "method": "DECLARED_RESULT",
+          "inputs": {
+            "value": 2.0
+          }
+        }
+      }
+    },
+    {
+      "command": "/COMPARE X Y SCORE",
+      "response": {
+        "status": "INSUFFICIENT_DATA",
+        "code": "MISSING_DIRECTION",
+        "message": "comparison not performed: criterion direction is not explicitly specified",
+        "data": {
+          "missing": [
+            "SCORE"
+          ]
+        }
+      }
+    },
+    {
+      "command": "/TRACEABILITY SHOW",
+      "response": {
+        "status": "OK",
+        "code": "TRACEABILITY",
+        "message": "traceability chain",
+        "data": {
+          "project_id": "INT-004",
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-e0d35878",
+              "project_id": "INT-004",
+              "alternative_id": "X",
+              "criterion": "SCORE",
+              "method": "DECLARED_RESULT",
+              "inputs": {
+                "value": 1.0
+              },
+              "result": 1.0,
+              "version": "0.2.5",
+              "evaluation_version": 1,
+              "contract_version": "0.2.5",
+              "direction": null,
+              "output_unit": "declared",
+              "feasibility_status": "UNKNOWN",
+              "evidence": []
+            },
+            {
+              "evaluation_id": "EVAL-913ebc49",
+              "project_id": "INT-004",
+              "alternative_id": "Y",
+              "criterion": "SCORE",
+              "method": "DECLARED_RESULT",
+              "inputs": {
+                "value": 2.0
+              },
+              "result": 2.0,
+              "version": "0.2.5",
+              "evaluation_version": 1,
+              "contract_version": "0.2.5",
+              "direction": null,
+              "output_unit": "declared",
+              "feasibility_status": "UNKNOWN",
+              "evidence": []
+            }
+          ],
+          "comparisons": [],
+          "multi_comparisons": [],
+          "tradeoffs": [],
+          "recommendations": [],
+          "decisions": [],
+          "event_count": 5,
+          "events": 5
+        }
+      }
+    }
+  ]
+}

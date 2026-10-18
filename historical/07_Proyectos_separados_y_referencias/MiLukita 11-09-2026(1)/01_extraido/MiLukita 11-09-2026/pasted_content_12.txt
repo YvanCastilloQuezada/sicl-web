@@ -1,0 +1,144 @@
+ORDEN MAESTRA PARA MANUS: FASES 3 A 8 (IMPLEMENTACIÓN COMPLETA)
+
+MOTIVO GLOBAL: LUKA OS debe ser un Sistema Operativo Inteligente (contexto e intención), y no una "app con menús". Después de implementar los "puentes" hacia Android TV y Samsung Tizen, se deben implementar los módulos que convierten LUKA en un agente conversacional inteligente, con revelación progresiva de la interfaz, control de la domótica y la experiencia principal: el Visor AR (Realidad Aumentada).
+
+REGLA DE ORO: El núcleo (MJP CORE) NO será modificado en esta fase. Las implementaciones se ejecutarán en paralelo con la arquitectura existente.
+
+PHASE 3: LG webOS + ROKU (COMPLETAR EL "RUNTIME" UNIVERSAL)
+
+MOTIVO: Para que LUKA pueda ejecutarse auf allen Smart TVs, einschließlich der Plattformen LG und Roku, die in Lateinamerika und Europa eine große Marktanteil haben.
+
+3.1 LG (webOS):
+
+Protokoll: Implementieren Sie den webOS SDK (Developer Mode) zur Entdeckung und zum Start der LUKA WebApp.
+
+Navigation: Implementieren Sie die Spatial Navigation (LRUD) für webOS-Bildschirme.
+
+Status: Bei Erfolg "Conectado a Smart TV", bei Fehler "No he encontrado tu TV".
+
+3.2 Roku:
+
+Protokoll: Implementieren Sie die Cloud Connector (wie Senza), um die UI der LUKA-WebApp in der Cloud zu rendern und als Stream auf den Roku-Bildschirm zu übertragen.
+
+Navigation: Implementieren Sie die Spatial Navigation (LRUD) für Roku.
+
+Status: Bei Erfolg "Conectado a Smart TV".
+
+PHASE 4: LUKA INTENT ENGINE (MOTOR DE INTENCIONES)
+
+MOTIVO: LUKA wird als Agent konzipiert, nicht als App mit Knöpfen. Der LUKA INTENT ENGINE ist das Gehirn, das die Worte des Nutzers in konkrete Aktionen umwandelt, ohne dass der Nutzer Befehle auswendig lernen muss.
+
+4.1 DATENBANK DER INTENTIONEN:
+
+"LUKA, ich möchte fernsehen" → TV
+
+"LUKA, ich möchte schreiben" → TECLADO
+
+"LUKA, ich möchte spielen" → GAMEPAD
+
+"LUKA, ich möchte in die Stadt" → VISOR AR
+
+"LUKA, ich möchte die Lautstärke erhöhen" → AUDIO
+
+"LUKA, ich möchte das Licht dimmen" → LIGHTS & CLIMATE
+
+"LUKA, Konfiguration" → CONFIG
+
+4.2 VERIFIKATIONSPROZESS:
+
+LUKA wiederholt die Anweisung, bevor sie ausgeführt wird: "Ich erhöhe die Lautstärke um 20%".
+
+Der Nutzer bestätigt: "Ja" oder "Nein".
+
+PHASE 5: LUKA DEVICE DETECTOR (DETEKTOR VON GERÄTEN)
+
+MOTIVO: LUKA muss automatisch erkennen, welches Gerät verbunden ist und welcher Modus aktiviert werden soll. Ohne diesen Detektor weiß LUKA nicht, ob sie den Trackpad (für einen PC) oder den Gamepad (für eine Konsole) zeigen muss.
+
+5.1 WIFI-SCANNER:
+
+Automatische Erkennung von Smart TVs, TV-Boxen und Audio-Geräten.
+
+5.2 BLUETOOTH-SCANNER:
+
+Automatische Erkennung von Soundbars, Kopfhörern und Konsolen.
+
+5.3 MODUS-AKTIVIERUNG:
+
+Wenn LUKA eine Soundbar erkennt, aktiviert sie automatisch den Modus LUKA AUDIO.
+
+Wenn LUKA einen TV erkennt, aktiviert sie LUKA TV.
+
+Wenn LUKA eine Konsole erkennt, aktiviert sie LUKA GAMEPAD.
+
+PHASE 6: PROGRESSIVE INTERFACE DISCLOSURE (REVELACIÓN PROGRESIVA DER SCHNITTSTELLE)
+
+MOTIVO: Dies ist die goldene Regel von LUKA OS. Die Schnittstelle darf nie mehr Optionen zeigen als nötig. Der Nutzer muss das Gefühl haben, mit einer intelligenten Präsenz zu sprechen, nicht in einem Menü zu navigieren.
+
+6.1 KONTEXTUELLE SCHNITTSTELLE:
+
+Zeigt nur, was der Kontext erfordert.
+
+CONFIG bleibt ein verstecktes Menü, das nur über die Stimme aktiviert wird ("LUKA, Konfiguration").
+
+6.2 REGEL:
+
+Jede Funktion, die technisch nicht aktiv ist, bleibt verborgen.
+
+Jede Funktion muss sich per Stimme aktivieren lassen, wenn der Kontext es erlaubt.
+
+PHASE 7: LUKA AT HOME (HAUSAUTOMATISIERUNG)
+
+MOTIVO: Da wir Lichter, Klimaanlagen, Ventilatoren usw. steuern, müssen wir die Verbindung zu den Haushaltsgeräten implementieren, damit LUKA sagen kann: "LUKA, dimme das Licht im Wohnzimmer" und die Aktion ausführt.
+
+7.1 WIFI-/BLUETOOTH-VERBINDUNG:
+
+Steuerung von Smart Bulbs, Klimaanlagen, Ventilatoren, Steckdosen.
+
+Steuerung von Vorhängen, Thermostaten, Luftreinigern, Luftbefeuchtern, Saugrobotern und intelligenten Betten.
+
+7.2 MODUS LIGHTS & CLIMATE:
+
+Schieberegler für Helligkeit, Temperatur, Geschwindigkeit.
+
+Schalter für Ein/Aus.
+
+PHASE 8: LUKA VISOR AR (REALIDAD AUMENTADA)
+
+MOTIVO: Dies ist das Produkt der Einführung und das Hauptprodukt. LUKA tritt aus dem Boden des Hauses in AR hervor, zeigt dem Nutzer das Haus und führt ihn dann mit Hologrammen durch die Stadt.
+
+8.1 WEBXR:
+
+Erkennung von Ebenen (Boden, Wände) und Projektion von Hologrammen.
+
+8.2 GPS:
+
+Geokodierung für die Navigation im Gebiet.
+
+8.3 LUKA IN AR:
+
+LUKA erscheint und dialogt mit dem Nutzer.
+
+Der Nutzer kann sagen: "LUKA, was ist das?" und LUKA projiziert die Information.
+
+REGELN UND ANWEISUNGEN:
+
+REGEL 1: Das MJP CORE bleibt unverändert.
+REGEL 2: Jede Funktion, die nicht aktiv ist, bleibt verborgen.
+REGEL 3: Jede Funktion muss sich per Stimme aktivieren lassen.
+
+ENTREGABLES FINALES:
+
+LUKA INTENT ENGINE (Datenbank der Intentionen + Verifikationsprozess).
+
+LUKA DEVICE DETECTOR (WiFi/Bluetooth Scanner).
+
+PROGRESSIVE INTERFACE DISCLOSURE (Logik der Kontextualität).
+
+LUKA AT HOME (Hausautomation mit Verbindungen).
+
+LUKA VISOR AR (WebXR + GPS + Realidad Aumentada).
+
+Manual de Referencia für die zukünftige Implementierung.
+
+CONCLUSION:
+Diese Anweisung vervollständigt das LUKA-Ökosystem: LG + Roku (Phase 3), Intent Engine (Phase 4), Device Detector (Phase 5), Progressive Interface (Phase 6), LUKA AT HOME (Phase 7) und LUKA VISOR AR (Phase 8). Alle Module werden in parallelen Ebenen implementiert und nutzen die bestehende Architektur (MJP CORE) als Fundament. Die Module sind flexibel, sicher und skalierbar, um LUKA zum intelligenten territorialen System zu machen, das wir uns vorstellen.

@@ -1,0 +1,147 @@
+{
+  "schema": "ARKI-BIM-SERVICE-WORKSPACES-S2-MANIFEST-1.0",
+  "status": "PROFESSIONAL SERVICE WORKSPACE FOUNDATION IMPLEMENTED / 40 ADVERSARIAL TESTS PASS / E2E HARNESSES NOT EXECUTED WITHOUT ABB DATA / PENDING INDEPENDENT VERIFICATION",
+  "firewall": [
+    "NO_PUBLIC_COMMERCIAL_LAUNCH",
+    "NO_REAL_PAYMENTS",
+    "NO_UNCONTROLLED_UPLOADS",
+    "NO_AUTONOMOUS_PROFESSIONAL_DELIVERY",
+    "NO_FAKE_SIGNATURE",
+    "NO_CONTRACTUAL_ACCEPTANCE",
+    "NO_AUTONOMOUS_STRUCTURAL_MEP_APPROVAL",
+    "NO_BKH4_4_PLUS",
+    "NO_E8"
+  ],
+  "entries": [
+    {
+      "file": "pasted_content_116.txt",
+      "size": 25477,
+      "sha256": "53788b983f007bf65c1e9118419109c786aee40cb29b77b8fc90469b1536176f"
+    },
+    {
+      "file": "shared/arkiProfessionalServiceWorkspaces.ts",
+      "size": 17911,
+      "sha256": "d8b6544ea70d834cd2820e9e622e0f54a9c95f0fa600c183485eaa89a628b097"
+    },
+    {
+      "file": "scripts/test-arki-s2-workspaces.ts",
+      "size": 7969,
+      "sha256": "c27f279ae7c1b80d36ae34f787cec15df7607cc21b4b948e9e3b347e0372b42e"
+    },
+    {
+      "file": "ARKI_SERVICE_PAGE_ARCHITECTURE.md",
+      "size": 1054,
+      "sha256": "d43f809b391dcf1c1b9d2ad1c4dd14e7f92955881c8d043e68bad57013432a9f"
+    },
+    {
+      "file": "ARKI_UNIVERSAL_PROFESSIONAL_WORKFLOW.md",
+      "size": 1048,
+      "sha256": "7ef8bcec66085cdc308ce6090342537229045fe1294ab63ee3b72ad58f03a41c"
+    },
+    {
+      "file": "ARKI_REVIEW_DESK_SPEC.md",
+      "size": 260,
+      "sha256": "957d6a353be0eae71926220ff1e62c773be4f99f40cd0fcc2713f5e6ccf7e5d1"
+    },
+    {
+      "file": "ARKI_JOB_EVIDENCE_LEDGER_SPEC.md",
+      "size": 277,
+      "sha256": "e1ac8ad97286d39362c04a0db775300c66e75cf405fa6fce274e8ee388239da0"
+    },
+    {
+      "file": "ARKI_SOURCE_RESULT_TRACEABILITY_SPEC.md",
+      "size": 214,
+      "sha256": "77705832cf07cda603b242cb259c028d2dc6da3d953a2c1cf35dbc87937dd7d1"
+    },
+    {
+      "file": "ARKI_IMPROVEMENT_MODEL.md",
+      "size": 235,
+      "sha256": "b0f964b96bc287ac376be048ae452e9b777a03d57cae7e509d8065b319697fd7"
+    },
+    {
+      "file": "ARKI_REVIEW_ASSIGNMENT_MODEL.md",
+      "size": 221,
+      "sha256": "3d55f5b66fb8368b01c661104fb31fe5decaf19de84eb796ae57de86a8cd7ba3"
+    },
+    {
+      "file": "ARKI_SERVICE_ACCEPTANCE_GATES.md",
+      "size": 291,
+      "sha256": "19c2a0693b4392e173b4c553774e103aa05cfc194246ff1833cd6f1771880ee9"
+    },
+    {
+      "file": "ARKI_BIM_XRAY_WORKSPACE.md",
+      "size": 202,
+      "sha256": "71cd4806046b3d332387b9f40dd1bc472f0fccbce870dfbb6c721a618a1e93d7"
+    },
+    {
+      "file": "ARKI_BIM_AUDIT_WORKSPACE.md",
+      "size": 214,
+      "sha256": "2d68bfdf386c5b16ac84753435a1a31973e4e66bf973cd291ecd2892ed261af5"
+    },
+    {
+      "file": "ARKI_DRAWING_TO_BIM_WORKSPACE.md",
+      "size": 266,
+      "sha256": "480016cad1f4b5f5d89350366034fb249f53a08a8621d18050c5424d94859c1b"
+    },
+    {
+      "file": "ARKI_BIM_RESCUE_WORKSPACE.md",
+      "size": 238,
+      "sha256": "b72a2fd20482c2ad69242275f15cf1675be263d32dfe3d2d4786d23ab7b53d04"
+    },
+    {
+      "file": "ARKI_BIM_COORDINATION_WORKSPACE.md",
+      "size": 268,
+      "sha256": "c261c319652edbf0adab22645f2ae2f8cb90c40150e74904b2b37f46bd816a00"
+    },
+    {
+      "file": "ARKI_CONSTRUCTION_BIM_WORKSPACE.md",
+      "size": 172,
+      "sha256": "fc477e6fe8a78c8938d175ae1337d2b302d7d59ece83205794e2e77082b20468"
+    },
+    {
+      "file": "ARKI_PROJECT_ASSURANCE_WORKSPACE.md",
+      "size": 303,
+      "sha256": "97336e7c1a687832a2faea6c3898a0d499ca823c78f6290bc21e366fbe4c45ae"
+    },
+    {
+      "file": "ARKI_CLIENT_WORKSPACE.md",
+      "size": 178,
+      "sha256": "d67f538b04879b99197e956c2b32ffeb9eb96d3f40b7af8531d2adb9d6df36e3"
+    },
+    {
+      "file": "ARKI_PROFESSIONAL_WORKSPACE.md",
+      "size": 212,
+      "sha256": "9f37372f314a8fa3e9f23f42ef31066627d36205a2b94978b125433eaaedaabf"
+    },
+    {
+      "file": "ARKI_ADMIN_WORKSPACE.md",
+      "size": 182,
+      "sha256": "d3e54c14be3a662d94764bba033c9f8ebb40b5f92ab8352487ee562363959de5"
+    },
+    {
+      "file": "ARKI_S2_TEST_MATRIX.md",
+      "size": 994,
+      "sha256": "43db0c27624dabaea7e1e081e5306d783bf88d07ea09dbf3a89cd75872b89b58"
+    },
+    {
+      "file": "ARKI_S2_E2E_RESULTS.json",
+      "size": 413,
+      "sha256": "043224b379f89b476d410b7e446035aa6833fd967fef62696584d69b10a6260c"
+    },
+    {
+      "file": "ARKI_S2_DEFICIT_REGISTER.json",
+      "size": 621,
+      "sha256": "86a03696b36877904a4f1e686f63bed8b91eea7a1c03c9cafce4871a29669ced"
+    },
+    {
+      "file": "ARKI_S2_SCOPE_REPORT.md",
+      "size": 378,
+      "sha256": "044b66413fc80f870e836d00e094c8398ba3321a0db4b170596bcc8a5b1bce1b"
+    },
+    {
+      "file": "ARKI_S2_OUTPUTS.txt",
+      "size": 8000,
+      "sha256": "acf89afd001a0eeb316b1ba9d968c7eecd0cdaec9fe28292a0ff9a99cba2c8e0"
+    }
+  ]
+}

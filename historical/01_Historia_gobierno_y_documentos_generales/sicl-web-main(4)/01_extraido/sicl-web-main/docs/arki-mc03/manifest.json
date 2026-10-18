@@ -1,0 +1,12 @@
+{
+  "master": "ARKI_COMPLETE_ASSEMBLY_REGISTER.xlsx",
+  "generated_at": "2026-09-21T04:24:06.816469+00:00",
+  "prereq_count": 6,
+  "layer_connection_count": 15,
+  "flow_steps": 8,
+  "gap_count": 5,
+  "gate": "GATE_ARKI_ASSEMBLED = PASS",
+  "parallel_engines_created": false,
+  "auto_decision_created": false,
+  "ffo_activated": false
+}

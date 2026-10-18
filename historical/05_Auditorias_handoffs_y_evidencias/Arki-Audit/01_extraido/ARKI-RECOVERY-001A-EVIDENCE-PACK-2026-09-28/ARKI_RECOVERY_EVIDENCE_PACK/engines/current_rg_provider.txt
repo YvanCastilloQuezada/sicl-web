@@ -1,0 +1,11 @@
+src/sicl/representation.py:5:external providers.
+tests/test_h005_adversarial.py:57:def test_h005_source_has_no_forbidden_execution_or_external_provider_primitives():
+docs/ARKI_CORE_PATCHED_BASELINE_v1.0.md:26:- Providers externos: 0.
+src/sicl/drawing/__init__.py:4:modifying H-001 through H-005 or executing external providers.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:105:A real geographic basemap, replaceable map engine, MapLibre or equivalent, map-provider abstraction, tile source, place search, geocoder, reverse geocoding, administrative and jurisdiction resolution, polygon and line geometry, territorial boundaries, multi-area geometry, geometry editing, GIS layers, cadastral sources, authoritative boundary sources, accuracy metadata, and spatial-resolution metadata remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:121:A Product Owner order must name the map engine, data-provider boundary, geographic data source, and permitted location authority.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:125:`MAP_ENGINE != MAP_DATA_PROVIDER != TILE_PROVIDER != GEOCODER != GIS_SOURCE != AUTHORITATIVE_PROJECT_LOCATION != CADASTRAL_CERTIFICATION`.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:545:`SiMS-DeI / SICL canonical state <-> adapter boundary <-> external system`. External providers must not silently become the canonical project model.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:54:- new schemas, dependencies, frontend work, or external provider calls;
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:4:**Scope:** executable representation foundation only; no projection, drawing, rendering, persistence, or external providers.
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:32:| External renderers/providers | ARE is autonomous and renderer-neutral; no wrapper or provider dependency. |

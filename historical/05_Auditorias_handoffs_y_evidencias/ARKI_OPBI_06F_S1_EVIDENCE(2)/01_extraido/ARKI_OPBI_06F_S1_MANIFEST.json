@@ -1,0 +1,34 @@
+{
+  "schema": "ARKI-OPBI-06F-S1-MANIFEST-1.0",
+  "status": "IMPLEMENTED FOR BOUNDED FOUNDATION / PILOTS NOT_DEMONSTRATED / PENDING INDEPENDENT VERIFICATION",
+  "parent": "ARKI_OPBI_97A06F_EVIDENCE.zip",
+  "hypothesis": "H-RBD-001 NOT_DEMONSTRATED",
+  "tests": "PASS",
+  "entries": [
+    {
+      "file": "pasted_content_112.txt",
+      "size": 7375,
+      "sha256": "b83e88176048a58225d34210dfca4fbdeb380035a6252c1edd8dcb36547cca1f"
+    },
+    {
+      "file": "ARKI_OPBI_06F_S1_REPORT.md",
+      "size": 1735,
+      "sha256": "de3d2486dbbbce331e4de297f261b69d73ae0f2b5673631524d64f2456dd7ab9"
+    },
+    {
+      "file": "ARKI_OPBI_06F_S1_OUTPUTS.txt",
+      "size": 1246,
+      "sha256": "21a12aadd00d0aefd5951c62f3fec353bc8f1c33042d0d931df444c4bc7d5b0a"
+    },
+    {
+      "file": "scripts/test-opbi-s1.ts",
+      "size": 1967,
+      "sha256": "284ea2fdec5567de2215ba85ecdd76761bfd4502119c784550152f5be8e5d7e1"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "size": 59568,
+      "sha256": "71b235d8b6fb070565e830929d496e46e2ad891a93407f87b0b951b3e83e21c3"
+    }
+  ]
+}

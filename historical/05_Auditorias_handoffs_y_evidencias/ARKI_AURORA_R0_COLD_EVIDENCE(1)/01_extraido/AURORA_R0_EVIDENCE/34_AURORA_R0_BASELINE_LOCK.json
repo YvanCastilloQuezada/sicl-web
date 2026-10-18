@@ -1,0 +1,114 @@
+{
+  "schema": "ARKI-AURORA-R0-BASELINE-LOCK-1.0",
+  "repository": "/home/ubuntu/generador-familias",
+  "branch": "main",
+  "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "worktreeEntries": 1133,
+  "timestamp": "2026-09-24T07:48:44.827Z",
+  "inputHashes": {
+    "order182": "sha256:v1:62bc38612346e336624802c8b569ab0f427fc4a277e4203d72eaa6a593d49231",
+    "frozenProjectInput": "sha256:v1:9a73bf159d63e075ee82793fe9b15181d77415e206895804ffb16e46082792f1"
+  },
+  "artifactHashes": {
+    "AURORA_R0_EVIDENCE/00_AURORA_R0_EXECUTIVE_REPORT.md": "sha256:v1:f2063494be5947a671d2055ef65246fba3cab9a8ed1d45125dfcf987b06c1e0d",
+    "AURORA_R0_EVIDENCE/01_AURORA_CONTAMINATION_SCAN.md": "sha256:v1:16cb3f1fcf6905a1853e0487b64091a2e8904ad8589abe96e2b4fc5329d36e85",
+    "AURORA_R0_EVIDENCE/02_AURORA_INPUT_INVENTORY.md": "sha256:v1:0e136cb604f2855095c43e061b98946020024d12d7fae5a138c7d878376dbe70",
+    "AURORA_R0_EVIDENCE/03_AURORA_R0_INPUT_FREEZE.md": "sha256:v1:cb7d0f0df756adef65e046e6216ca7fd0318db68f9d7a65b9403fcd0fe1e45fa",
+    "AURORA_R0_EVIDENCE/04_AURORA_R0_INPUT_FREEZE.json": "sha256:v1:e1cb959fce64c53a8deef1660365e50ce8610adab50ee4c7445193e8355da71c",
+    "AURORA_R0_EVIDENCE/05_PROJECT_STATE.md": "sha256:v1:11b12b0f380b0b338ccf3ee27463ead6207bdf29fd0237bae1408d959cb35924",
+    "AURORA_R0_EVIDENCE/06_PROJECT_STATE.json": "sha256:v1:3072fa1d8dbac5ac2ac447a7c9cc336cec92b865d4cbdf57d1717273a00cc1c2",
+    "AURORA_R0_EVIDENCE/07_UNKNOWN_REGISTER.md": "sha256:v1:d3b5ebd4be20b25c6b8d5d360bd680a2ab153cb39c211001cac73d955be8f736",
+    "AURORA_R0_EVIDENCE/08_REQUIRED_INPUT_REGISTER.md": "sha256:v1:b1de9b80f2646dffa4525f3df9fc3b6a32f39ac776276d684c85bacabf23d51b",
+    "AURORA_R0_EVIDENCE/09_MULTISCALE_ANALYSIS.md": "sha256:v1:1d39dfd32857581ac76b52ec5ab773facb6cc154408351a1e705029c2c85abc6",
+    "AURORA_R0_EVIDENCE/10_ARCHITECTURAL_ANALYSIS.md": "sha256:v1:b0e372e00fbcd9dd0b2502d3e959eb2f2a07bfec173a11f5e1d1c966807c5520",
+    "AURORA_R0_EVIDENCE/11_STRUCTURAL_ANALYSIS.md": "sha256:v1:90aee8c1dfb37a15fdbb40db64d8b4545a444b489064bf89e2361d8cbd77a979",
+    "AURORA_R0_EVIDENCE/12_WIND_ANALYSIS.md": "sha256:v1:fefe6f2d2e6688bb5249738ec1c92a699a885a6a07b2f007009fb83539ab93de",
+    "AURORA_R0_EVIDENCE/13_SEISMIC_ANALYSIS.md": "sha256:v1:014ca381e49e5496d85ecf867bd9b1fa324d62b7ad4e540708d63b60aa5a4ac4",
+    "AURORA_R0_EVIDENCE/14_FOUNDATION_GEOTECHNICAL_ANALYSIS.md": "sha256:v1:ab384053926e133dfb828a692056d69e476a5f840c81694a3e91e2c6cc08ec8d",
+    "AURORA_R0_EVIDENCE/15_FIRE_LIFE_SAFETY_ANALYSIS.md": "sha256:v1:a57b1273ae4d2ac7baec317dfb5bfcd377b82785e08d99ec98baf98be77d10c8",
+    "AURORA_R0_EVIDENCE/16_VERTICAL_TRANSPORT_ANALYSIS.md": "sha256:v1:2a549e651f158ba59c89d3df7a16b18f6df66f4091e5d9ba1ec5fe7ca415971c",
+    "AURORA_R0_EVIDENCE/17_MEP_ANALYSIS.md": "sha256:v1:15ef14a8a08ad6e36656beb364164d70e1a0918e6d4c9a628f66c3d5270cc9f4",
+    "AURORA_R0_EVIDENCE/18_ENERGY_ENVIRONMENT_ANALYSIS.md": "sha256:v1:c52b52b64a2ef01f99c4a911304349789f81af55e1795703bf2a4399508d4dd0",
+    "AURORA_R0_EVIDENCE/19_FACADE_ANALYSIS.md": "sha256:v1:2ef2426eb90d7e6fe3cb01c175d9fa4a5956d7a8e7a9c49c273b01df83553d32",
+    "AURORA_R0_EVIDENCE/20_BIM_DIGITAL_REPRESENTATION.md": "sha256:v1:e427d44c2339d92d572d36bd0cd2a90864f9b904d9ce29e2abca4d95c1f6eb6c",
+    "AURORA_R0_EVIDENCE/21_CROSS_DISCIPLINE_DEPENDENCY_MAP.md": "sha256:v1:c72b371038fc5febb6a606512328907fffd007846f51c693cd84bfbdc03c6ed1",
+    "AURORA_R0_EVIDENCE/22_CONSTRUCTION_ANALYSIS.md": "sha256:v1:dadfed8073bdde177eb0dd6eabb38ecc11befcae0fd5a9e3be44c18fe0827a54",
+    "AURORA_R0_EVIDENCE/23_COST_FINANCIAL_SCHEDULE_ANALYSIS.md": "sha256:v1:92d6ba030804923bb7abe3f7eb7baaa059c63305b7e5e9e87efc87d6c72e8925",
+    "AURORA_R0_EVIDENCE/24_OPERATIONS_DIGITAL_TWIN.md": "sha256:v1:1121e8c4555026aa2cbe84fd1f445d444018cd107fb886deadbe8a321c90ce36",
+    "AURORA_R0_EVIDENCE/25_C1_C80_AURORA_ACTIVATION_MATRIX.md": "sha256:v1:89d34d26c5e2378531ba77d51daea9c9d531594cd175af01281b60849c812730",
+    "AURORA_R0_EVIDENCE/26_C1_C80_AURORA_ACTIVATION_MATRIX.json": "sha256:v1:bb89012b9981bc0b2e327990c174fb5b7c88edf0215e61b2ef41d72f83d57243",
+    "AURORA_R0_EVIDENCE/27_TOOL_DEFICIT_MAP.md": "sha256:v1:2b9a582974face115de35756f4bef15ade92cf8604ccb325cc1ef8fab6bf5f38",
+    "AURORA_R0_EVIDENCE/28_CALCULATION_CAPABILITY_MATRIX.md": "sha256:v1:702f1e82a77e8bb62d73dc501e5ea131e66b2eabf3f1965b936cfd1adc6c0def",
+    "AURORA_R0_EVIDENCE/29_MODELING_CAPABILITY_MATRIX.md": "sha256:v1:e18fa7bbeca8e8cbb98c31644d6f35fb4d8263ff6f09201702a8723428c509cf",
+    "AURORA_R0_EVIDENCE/30_ADVERSARIAL_PROBE_RESULTS.md": "sha256:v1:feae1fa69bcf09e332c1ac36f6d4f6a3c8198ebb9226bb803d84bfdec9bd50b3",
+    "AURORA_R0_EVIDENCE/31_FAILURE_TAXONOMY.md": "sha256:v1:6eedffdc82ee8e0468f77b4997caaa15e798b47fb3884f6dc7a017711f647b5a",
+    "AURORA_R0_EVIDENCE/32_R0_SCOREBOARD.md": "sha256:v1:63c6b6ea09b7a324831f15ed6a9256d767f8bc50ba005827e934a862f3cb5b62",
+    "AURORA_R0_EVIDENCE/33_R0_SCOREBOARD.json": "sha256:v1:06d34b9b57c92f8b760d9ec5ad8e734bfde4f343a5a426bab2a224f503c34187",
+    "AURORA_R0_EVIDENCE/35_AURORA_R1_COMPARISON_PROTOCOL.md": "sha256:v1:a230eaca4db5deaf3d5b56cd8a470bdc8b63461452eeb608c2bdd40cec32003e",
+    "AURORA_R0_EVIDENCE/36_REGRESSION_RAW.txt": "sha256:v1:29030b2c9edfd0539c7295e633fa6e6c51d1bef7826c19c1ee8ed1d90176fb9f",
+    "AURORA_R0_EVIDENCE/36_REGRESSION_RESULTS.md": "sha256:v1:86570581dfcbcbf7888d5f4b1b3b5b3094b2160b6732fa0e72d69d4b34079a3e",
+    "AURORA_R0_EVIDENCE/37_EVIDENCE_MATRIX.md": "sha256:v1:21b2baa444fa272e17d5ac796ea48daa6e7d50313e06f756175b407a70e63e8a",
+    "AURORA_R0_EVIDENCE/38_RISK_REGISTER.md": "sha256:v1:e7cef644fb04ed99f15ada53b35bee810023323f615642a6261dfd01bac32204",
+    "AURORA_R0_EVIDENCE/39_DECISION_REGISTER.md": "sha256:v1:2aace97e1010c562f83bc9288ff263d20ffc3c2a1f944e45df780ce8b6bbd87d",
+    "AURORA_R0_EVIDENCE/41_RAW_OUTPUTS.txt": "sha256:v1:1ed3f1283c29c8e216a67f6d7a1a64c35d4048e94c352c1a7e5aa230fc4d614c"
+  },
+  "capabilityRegistryHash": "sha256:v1:8c5af5dc33af9bafab917d832683486d31fab0ecc7bd10584393867903dd028e",
+  "wave1FoundationVersion": "ARKI-SHARED-FOUNDATION-1.0",
+  "testResults": {
+    "check": "PASS",
+    "build": "PASS",
+    "wave0": "PASS",
+    "wave1": "PASS",
+    "cad": "PASS",
+    "e8a": "PASS",
+    "e8b": "PASS",
+    "productMutation": false
+  },
+  "contaminationStatus": "ISOLATED_WITH_DECLARED_HISTORICAL_CONTAMINATION_RISK",
+  "toolInventory": [
+    {
+      "name": "professional structural solver",
+      "available": false
+    },
+    {
+      "name": "wind tunnel/CFD/aeroelastic tool",
+      "available": false
+    },
+    {
+      "name": "seismic analysis solver",
+      "available": false
+    },
+    {
+      "name": "geotechnical solver",
+      "available": false
+    },
+    {
+      "name": "fire/smoke simulation",
+      "available": false
+    },
+    {
+      "name": "vertical transportation simulation",
+      "available": false
+    },
+    {
+      "name": "energy/daylight/LCA tools",
+      "available": false
+    },
+    {
+      "name": "production BIM authoring/checking",
+      "available": false
+    },
+    {
+      "name": "cost/schedule/procurement system",
+      "available": false
+    },
+    {
+      "name": "operations/digital-twin platform",
+      "available": false
+    }
+  ],
+  "environment": {
+    "node": "v22.13.0",
+    "platform": "linux"
+  }
+}

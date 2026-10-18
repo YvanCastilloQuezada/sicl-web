@@ -1,0 +1,701 @@
+ÓRDENES QUIRÚRGICAS 001–009 — COMPLETAS
+Documento: ORDEN MAESTRA 001 — ÓRDENES QUIRÚRGICAS
+Versión: 1.0
+Estado: Formal
+Autoridad: Human Authority
+Fecha: 2026-09-11
+
+ORDEN-001 — SEGURIDAD CRÍTICA
+1. OBJETIVO
+Cerrar los huecos de seguridad críticos identificados en Order 60, estableciendo una base sólida de autenticación, autorización y protección antes de avanzar con otras órdenes.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+RBAC / AUTHZ	Completar control de acceso basado en roles	🟠 PARCIAL
+IDOR Protection	Completar protección contra acceso directo a objetos	🟠 PARCIAL
+Security Events	Completar eventos de seguridad	🟠 PARCIAL
+Token Expiry / Revocation	Validar adversarialmente	🟡 IMPLEMENTED
+Tests adversariales	Añadir tests negativos	🟠 PARCIAL
+Documentación de seguridad	Documentar arquitectura de seguridad	🟠 PARCIAL
+3. LO QUE NO INCLUYE
+❌ Nuevas funcionalidades
+
+❌ Modificar MJP CORE
+
+❌ Modificar Territorial Trust
+
+❌ Modificar QR
+
+❌ Crear agentes nuevos
+
+❌ Modificar Mapper
+
+❌ Modificar The Eye
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	RBAC completo	Tests de roles y permisos
+2	IDOR protection completa	Tests de acceso directo
+3	Security events completos	Logs de eventos
+4	Token expiry/revocation validados	Tests adversariales
+5	Tests adversariales PASS	Suite de tests negativos
+6	Order 60 cerrada con evidencia	Documento de cierre
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-001
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| RBAC | | |
+| IDOR | | |
+| Security Events | | |
+| Token Expiry | | |
+| Tests adversariales | | |
+| Order 60 | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-002.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+No expandir alcance	Solo seguridad
+No modificar MJP CORE	Bloqueo explícito
+No crear funcionalidades	Solo cerrar huecos
+Reportar evidencia	No declarar sin pruebas
+Order 60 abierta	Hasta cierre con evidencia
+ORDEN-002 — MAPPER PROFESIONAL
+1. OBJETIVO
+Reconstruir Mapper como herramienta profesional de campo, con flujo completo de captura, evidencia, almacenamiento local, sincronización y conexión con The Eye.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+Superficie profesional	Herramienta, no landing page	🟡 IMPLEMENTED
+CaptureSession	Flujo completo	🟡 IMPLEMENTED
+GPS	Alta precisión + fallback	🟡 IMPLEMENTED
+Captura	Fotografía, audio, texto	🟡 IMPLEMENTED
+Observación	Notas de campo	🟡 IMPLEMENTED
+Evidencia	Claims, Sources, Evidence	🟡 IMPLEMENTED
+Almacenamiento local	IndexedDB / Cache	🟡 IMPLEMENTED
+Cola offline	Sincronización diferida	🟡 IMPLEMENTED
+Sincronización	Manual	🟡 IMPLEMENTED
+Resolución de conflictos	Merge, disputed	🟡 IMPLEMENTED
+Interfaz profesional	Herramienta, no dashboard	🟠 PARCIAL
+3. LO QUE NO INCLUYE
+❌ The Eye
+
+❌ Modificar MJP CORE
+
+❌ Publicar POIs
+
+❌ Crear pantallas nuevas fuera de Mapper
+
+❌ Rediseñar otras superficies
+
+❌ Modificar WorldObjects sin autorización
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	Superficie profesional	Validación visual
+2	Flujo completo	Sesión → Captura → Evidencia → Guardar → Sincronizar → The Eye
+3	GPS de alta precisión	Validación física
+4	Captura funcional	Validación física
+5	Evidencia funcional	Tests
+6	Cola offline funcional	Tests
+7	Sincronización manual funcional	Tests
+8	Resolución de conflictos funcional	Tests
+9	Tests PASS	TypeScript + tests
+10	Validación visual	Capturas
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-002
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| Superficie profesional | | |
+| CaptureSession | | |
+| GPS | | |
+| Captura | | |
+| Observación | | |
+| Evidencia | | |
+| Almacenamiento local | | |
+| Cola offline | | |
+| Sincronización | | |
+| Resolución de conflictos | | |
+| Interfaz profesional | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-003.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+Mapper es herramienta	No landing page
+No publicar sin autorización	Human Authority decide
+No modificar WorldObjects	Gobernanza territorial
+Capability Gate siempre activo	Toda acción sensible
+Fallback offline disponible	Guardar localmente
+No reconstruir por defecto	Rescatar lo existente
+ORDEN-003 — THE EYE PROFESIONAL
+1. OBJETIVO
+Reconstruir The Eye como herramienta profesional independiente de revisión, contraste y auditoría, con flujo completo de revisión, evidencia y solicitud de publicación.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+Superficie profesional	Herramienta, no landing page	🟡 IMPLEMENTED
+Review Queue	Cola de revisión	🟡 IMPLEMENTED
+Claim Dossier	Dossier de claims	🟡 IMPLEMENTED
+Evidence Matrix	Matriz de evidencia	🟡 IMPLEMENTED
+Conflict Review	Revisión de conflictos	🟡 IMPLEMENTED
+Version Comparison	Comparación de versiones	🟡 IMPLEMENTED
+Audit	Auditoría	🟡 IMPLEMENTED
+Publication Request	Solicitud de publicación (NO automática)	🟡 IMPLEMENTED
+Human Authority Gate	Gate de autoridad humana	🟡 IMPLEMENTED
+Integración con Mapper	Conexión con ORDEN-002	🟡 IMPLEMENTED
+Interfaz profesional	Herramienta, no dashboard	🟠 PARCIAL
+3. LO QUE NO INCLUYE
+❌ Publicación automática
+
+❌ Modificar MJP CORE
+
+❌ Modificar WorldObjects sin autorización
+
+❌ Crear pantallas nuevas fuera de The Eye
+
+❌ Rediseñar otras superficies
+
+❌ Saltarse Human Authority
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	Superficie profesional	Validación visual
+2	Review Queue funcional	Tests
+3	Claim Dossier funcional	Tests
+4	Evidence Matrix funcional	Tests
+5	Conflict Review funcional	Tests
+6	Version Comparison funcional	Tests
+7	Audit funcional	Tests
+8	Publication Request funcional	Tests
+9	Human Authority Gate activo	Tests
+10	Integración con Mapper	Tests
+11	Tests PASS	TypeScript + tests
+12	Validación visual	Capturas
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-003
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| Superficie profesional | | |
+| Review Queue | | |
+| Claim Dossier | | |
+| Evidence Matrix | | |
+| Conflict Review | | |
+| Version Comparison | | |
+| Audit | | |
+| Publication Request | | |
+| Human Authority Gate | | |
+| Integración con Mapper | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-004.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+The Eye es herramienta	No landing page
+No publicación automática	Human Authority decide
+Human Authority Gate	Requerido para publicación
+No modificar WorldObjects	Gobernanza territorial
+VERIFIED ≠ PUBLISHED	Estados separados
+No reconstruir por defecto	Rescatar lo existente
+ORDEN-004 — CADENA TERRITORIAL E2E
+1. OBJETIVO
+Validar la cadena completa: Mapper → The Eye → Human Authority → Published → Runtime → LUKA AR.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+CaptureSession → WorldObject	E2E	🟡 IMPLEMENTED
+WorldObject → Claims	E2E	🟡 IMPLEMENTED
+Claims → Sources	E2E	🟡 IMPLEMENTED
+Sources → Evidence	E2E	🟡 IMPLEMENTED
+Evidence → The Eye	E2E	🟡 IMPLEMENTED
+The Eye → Human Authority	E2E	🟡 IMPLEMENTED
+Human Authority → Published	E2E	🟡 IMPLEMENTED
+Published → Runtime	E2E	🟡 IMPLEMENTED
+Runtime → LUKA AR	E2E	🟡 IMPLEMENTED
+3. LO QUE NO INCLUYE
+❌ Publicación automática
+
+❌ Modificar MJP CORE
+
+❌ Modificar WorldObjects sin autorización
+
+❌ Crear nuevas funcionalidades
+
+❌ Saltarse Human Authority
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	E2E completo	Test de flujo completo
+2	Runtime consume solo PUBLISHED	Test negativo
+3	Human Authority decide	Test de decisión
+4	No publicación automática	Test negativo
+5	Tests PASS	TypeScript + tests
+6	Evidencia documentada	Capturas + logs
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-004
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| CaptureSession → WorldObject | | |
+| WorldObject → Claims | | |
+| Claims → Sources | | |
+| Sources → Evidence | | |
+| Evidence → The Eye | | |
+| The Eye → Human Authority | | |
+| Human Authority → Published | | |
+| Published → Runtime | | |
+| Runtime → LUKA AR | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-005.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+Cadena completa	Mapper → The Eye → Human Authority → Published → Runtime
+VERIFIED ≠ PUBLISHED	Estados separados
+Human Authority decide	No automatización
+Runtime consume solo PUBLISHED	Restricción explícita
+No publicación automática	Bloqueo explícito
+ORDEN-005 — QR / L★ FINAL UX
+1. OBJETIVO
+Cerrar la UX de QR / L★ con la calidad esperada, asegurando que el QR sea un mecanismo de entrada/compartir y no de autorización.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+L★	Elemento global del Mobile Shell	🟡 IMPLEMENTED
+QR Público	Generación y visualización	🟡 IMPLEMENTED
+QR Contextual	Resolución contextual	🟡 IMPLEMENTED
+QR Session	Sesión con expiración	🟡 IMPLEMENTED
+QR Lab	Herramienta de generación	🟡 IMPLEMENTED
+ShareService	Compartir	🟡 IMPLEMENTED
+Validación física	Escaneo real	🔴 PENDIENTE
+3. LO QUE NO INCLUYE
+❌ QR como autorización
+
+❌ Modificar MJP CORE
+
+❌ Crear nuevas funcionalidades fuera de QR
+
+❌ Modificar Mapper o The Eye
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	L★ en Mobile Shell	Tests + visual
+2	QR Público funcional	Tests
+3	QR Contextual funcional	Tests
+4	QR Session con expiración	Tests adversariales
+5	QR Lab funcional	Tests + visual
+6	ShareService funcional	Tests
+7	QR NO autoriza	Test negativo
+8	Tests PASS	TypeScript + tests
+9	Validación visual	Capturas
+10	Validación física	Escaneo real
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-005
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| L★ | | |
+| QR Público | | |
+| QR Contextual | | |
+| QR Session | | |
+| QR Lab | | |
+| ShareService | | |
+| QR NO autoriza | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-006.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+QR no es autorización	Solo entrada/compartir
+L★ en Mobile Shell	Elemento global
+Token expiry	Seguridad en QR Session
+No conceder permisos	QR no otorga roles
+No modificar MJP CORE	Bloqueo explícito
+ORDEN-006 — AR E2E
+1. OBJETIVO
+Validar AR de extremo a extremo, asegurando que la experiencia espacial funcione correctamente con POIs publicados y fallback 2D.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+AR Runtime	Experiencia completa	🟡 IMPLEMENTED
+WebXR	Validación	🟡 IMPLEMENTED
+GPS	Validación	🟡 IMPLEMENTED
+GLB Loader	Validación	🟡 IMPLEMENTED
+POIs publicados	Consumo de Runtime	🟡 IMPLEMENTED
+Fallback 2D	Validación	🟡 IMPLEMENTED
+Validación física	Android/iOS	🔴 PENDIENTE
+3. LO QUE NO INCLUYE
+❌ Modificar MJP CORE
+
+❌ Modificar WorldObjects sin autorización
+
+❌ Publicar POIs sin autorización
+
+❌ Crear nuevas funcionalidades fuera de AR
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	AR Runtime funcional	Tests
+2	WebXR validado	Tests + física
+3	GPS validado	Tests + física
+4	GLB Loader validado	Tests + visual
+5	POIs publicados consumidos	Tests
+6	Fallback 2D validado	Tests
+7	Tests PASS	TypeScript + tests
+8	Validación física	Android/iOS
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-006
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| AR Runtime | | |
+| WebXR | | |
+| GPS | | |
+| GLB Loader | | |
+| POIs publicados | | |
+| Fallback 2D | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-007.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+AR es superficie	No es autoridad
+POIs publicados	Solo consume publicado
+Fallback 2D	Siempre disponible
+No publicar sin autorización	Human Authority decide
+No modificar WorldObjects	Gobernanza territorial
+ORDEN-007 — FIELD VOICE COPILOT
+1. OBJETIVO
+Integrar Field Voice Copilot en Mapper, asegurando que la voz sea una modalidad de captura y no una autoridad.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+Field Voice Copilot	Integración con Mapper	🟠 PARCIAL
+STT	Validación	🟡 IMPLEMENTED
+TTS	Validación	🟡 IMPLEMENTED
+Fallback	Touch disponible	🟡 IMPLEMENTED
+Preservación de original	Texto original + AI_ASSISTED	🟡 IMPLEMENTED
+Validación física	Micrófono real	🔴 PENDIENTE
+3. LO QUE NO INCLUYE
+❌ Voz como autoridad
+
+❌ Voz que publique directamente
+
+❌ Voz que verifique verdad
+
+❌ Modificar MJP CORE
+
+❌ Crear nuevas funcionalidades fuera de Voice
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	Field Voice Copilot integrado	Tests
+2	STT funcional	Tests + física
+3	TTS funcional	Tests + física
+4	Fallback disponible	Tests
+5	Texto original preservado	Tests
+6	Tests PASS	TypeScript + tests
+7	Validación física	Micrófono real
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-007
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| Field Voice Copilot | | |
+| STT | | |
+| TTS | | |
+| Fallback | | |
+| Preservación de original | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-008.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+Voz no es autoridad	Expresa intención
+Fallback siempre	Touch disponible
+Texto original preservado	No alterar
+No verificar verdad	Solo captura/propuesta
+No publicar	Human Authority decide
+ORDEN-008 — UNIVERSAL INTERACTION E2E
+1. OBJETIVO
+Validar Universal Interaction de extremo a extremo, asegurando que una misma intención pueda expresarse mediante diferentes modalidades y obtener el mismo resultado.
+
+2. ALCANCE
+Área	Qué se trabaja	Estado actual
+Universal Interaction	E2E multimodal	🟡 IMPLEMENTED
+Intent	E2E	🟡 IMPLEMENTED
+Capability	E2E	🟡 IMPLEMENTED
+Universal Controller	Validación	🟡 IMPLEMENTED
+Convergencia	Voz, touch, gesto → misma intención	🟡 IMPLEMENTED
+Validación física	Dispositivos reales	🔴 PENDIENTE
+3. LO QUE NO INCLUYE
+❌ Modificar MJP CORE
+
+❌ Crear nuevos agentes
+
+❌ Duplicar lógica
+
+❌ Crear nuevas funcionalidades fuera de Universal Interaction
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	E2E multimodal	Tests
+2	Intent E2E	Tests
+3	Capability E2E	Tests
+4	Universal Controller validado	Tests + física
+5	Convergencia verificada	Tests
+6	Tests PASS	TypeScript + tests
+7	Validación física	Dispositivos reales
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-008
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| Universal Interaction | | |
+| Intent | | |
+| Capability | | |
+| Universal Controller | | |
+| Convergencia | | |
+
+### 3. Tests ejecutados
+### 4. Limitaciones
+### 5. MJP CORE
+### 6. Estado de las órdenes siguientes
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+NO INICIAR ORDEN-009.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+Una intención, múltiples formas	Núcleo de Universal Interaction
+No duplicar lógica	Todas las modalidades convergen
+Capability Gate	Siempre activo
+Modalidad ≠ Autoridad	Cambiar modalidad no cambia permisos
+No super-agente	LUKA no tiene acceso indiscriminado
+ORDEN-009 — VALIDACIÓN FÍSICA (FASE H)
+1. OBJETIVO
+Validar en dispositivos reales todas las capacidades implementadas en las órdenes 001–008, asegurando que funcionen en el mundo físico.
+
+2. ALCANCE
+Área	Qué se valida	Estado actual
+Dispositivos	Android, iOS, tablet, Smart TV	🔴 PENDIENTE
+GPS	Posicionamiento real	🔴 PENDIENTE
+Cámara	Captura real	🔴 PENDIENTE
+Micrófono	Voz real	🔴 PENDIENTE
+WebXR / AR	Realidad aumentada real	🔴 PENDIENTE
+Voz (STT/TTS)	Reconocimiento y síntesis real	🔴 PENDIENTE
+QR	Escaneo real	🔴 PENDIENTE
+TV	Conectividad real	🔴 PENDIENTE
+WebSocket	Comunicación real	🔴 PENDIENTE
+Sensores	Giroscopio, acelerómetro	🔴 PENDIENTE
+Offline	Comportamiento sin conexión	🔴 PENDIENTE
+Sincronización	Sincronización real	🔴 PENDIENTE
+Recuperación	Errores reales	🔴 PENDIENTE
+Rendimiento	Rendimiento real	🔴 PENDIENTE
+Accesibilidad	Accesibilidad real	🔴 PENDIENTE
+3. LO QUE NO INCLUYE
+❌ Crear nuevas funcionalidades
+
+❌ Modificar código
+
+❌ Modificar MJP CORE
+
+❌ Modificar Orden 60
+
+4. CRITERIOS DE ACEPTACIÓN
+#	Criterio	Evidencia requerida
+1	GPS validado	Capturas + logs
+2	Cámara validada	Capturas + logs
+3	Micrófono validado	Capturas + logs
+4	WebXR / AR validado	Capturas + logs
+5	Voz validada	Capturas + logs
+6	QR validado	Capturas + logs
+7	TV validada	Capturas + logs
+8	WebSocket validado	Capturas + logs
+9	Sensores validados	Capturas + logs
+10	Offline validado	Capturas + logs
+11	Sincronización validada	Capturas + logs
+12	Recuperación validada	Capturas + logs
+13	Rendimiento validado	Capturas + logs
+14	Accesibilidad validada	Capturas + logs
+15	Evidencia documentada	Documento completo
+5. FORMATO DE REPORTE
+text
+### 1. Estado final de ORDEN-009
+🟢 CERRADA / 🟡 PARCIAL / 🔴 BLOQUEADA
+
+### 2. Dispositivos probados
+
+| Dispositivo | Modelo | OS | Navegador | Estado |
+|-------------|--------|----|-----------|--------|
+| Android | | | | |
+| iOS | | | | |
+| Tablet | | | | |
+| Smart TV | | | | |
+
+### 3. Tabla de validación
+
+| Área | Estado | Evidencia |
+|------|--------|-----------|
+| GPS | | |
+| Cámara | | |
+| Micrófono | | |
+| WebXR / AR | | |
+| Voz (STT/TTS) | | |
+| QR | | |
+| TV | | |
+| WebSocket | | |
+| Sensores | | |
+| Offline | | |
+| Sincronización | | |
+| Recuperación | | |
+| Rendimiento | | |
+| Accesibilidad | | |
+
+### 4. Tests ejecutados
+### 5. Limitaciones
+### 6. MJP CORE
+### 7. Estado final del proyecto
+6. DETENCIÓN OBLIGATORIA
+text
+DETENER LA EJECUCIÓN.
+ESPERAR AUTORIZACIÓN DE HUMAN AUTHORITY.
+7. PRINCIPIOS RECTORES
+Principio	Descripción
+Evidencia física o no vale	Solo pruebas reales
+Estado real o no vale	No simulaciones
+No modificar código	Solo validar
+No MJP CORE	Bloqueo explícito
+Documentar todo	Con capturas y logs
+RESUMEN DE ÓRDENES
+Orden	Nombre	Tipo	Prioridad	Duración	Dependencias
+001	Seguridad Crítica	🔴 Crítica	1	1-2 sem	—
+002	Mapper Profesional	🔴 Crítica	2	2-3 sem	001
+003	The Eye Profesional	🔴 Crítica	3	2-3 sem	002
+004	Cadena Territorial E2E	🔴 Crítica	4	1-2 sem	003
+005	QR / L★ Final UX	🟡 Alta	5	1-2 sem	001
+006	AR E2E	🟡 Alta	6	2-3 sem	004
+007	Field Voice Copilot	🟡 Alta	7	1-2 sem	002
+008	Universal Interaction E2E	🟡 Alta	8	1-2 sem	002, 003
+009	Validación Física (Fase H)	🔴 Crítica	9	2-4 sem	Todas
+Duración total estimada: 14-24 semanas.
+
+ORDEN DE EJECUCIÓN
+text
+ORDEN-001 — SEGURIDAD CRÍTICA
+        ↓
+ORDEN-002 — MAPPER PROFESIONAL
+        ↓
+ORDEN-003 — THE EYE PROFESIONAL
+        ↓
+ORDEN-004 — CADENA TERRITORIAL E2E
+        ↓
+ORDEN-005 — QR / L★ FINAL UX
+        ↓
+ORDEN-006 — AR E2E
+        ↓
+ORDEN-007 — FIELD VOICE COPILOT
+        ↓
+ORDEN-008 — UNIVERSAL INTERACTION E2E
+        ↓
+ORDEN-009 — VALIDACIÓN FÍSICA (FASE H)
+PRINCIPIOS GENERALES
+Principio	Descripción
+Una orden = un objetivo	No mezclar múltiples objetivos
+Alcance limitado	Solo lo autorizado, nada más
+Verificable	Evidencia clara de éxito
+Detención obligatoria	Reportar y esperar autorización
+No expansión	No crear nuevas funcionalidades
+No reconstrucción	Rescatar lo existente antes de crear
+No MJP CORE	Bloqueo explícito
+No Orden 60	Mantener abierta hasta ORDEN-001
+FIN DEL DOCUMENTO
+
+MiLukita / LUKA
+Órdenes Quirúrgicas 001–009
+Estado: Listas para envío a Manus

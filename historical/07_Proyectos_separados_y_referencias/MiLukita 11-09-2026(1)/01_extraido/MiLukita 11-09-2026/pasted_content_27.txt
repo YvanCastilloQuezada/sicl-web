@@ -1,0 +1,690 @@
+# ORDEN MAESTRA — CONGELACIÓN DE IDENTIDAD Y REALINEAMIENTO DEFINITIVO
+## Proyecto: MiLukita / El Mundo de MiLukita
+## Código: MILUKITA-BRAND-FREEZE-001
+## Prioridad: P0
+## Estado: AUTORIZADO
+## Alcance: producto + código + documentación + UX + arquitectura conceptual
+
+====================================================================
+1. DECISIÓN DEFINITIVA DE HUMAN AUTHORITY
+====================================================================
+
+La identidad del proyecto queda DEFINITIVAMENTE CONGELADA.
+
+No se volverá a discutir ni modificar esta estructura durante la
+ejecución del MVP ni en las siguientes fases, salvo una nueva orden
+explícita de HUMAN AUTHORITY.
+
+La razón de esta congelación es evitar deuda estructural producida por
+la coexistencia de varias denominaciones para funciones diferentes.
+
+La nomenclatura definitiva es:
+
+MI LUKITA / MiLukita
+        ↓
+MARCA Y ECOSISTEMA MATRIZ
+
+EL MUNDO DE MiLukita
+        ↓
+UNIVERSO / EXPERIENCIA PÚBLICA
+
+LUKA
+        ↓
+PRESENCIA INTELIGENTE / PERSONAJE / AGENTE DE INTERACCIÓN
+
+LUKA OS
+        ↓
+SISTEMA DE ORQUESTACIÓN E INTERACCIÓN
+
+LUKA AR
+        ↓
+EXPERIENCIA DE REALIDAD AUMENTADA
+
+LUKA TV
+        ↓
+EXPERIENCIA DE CONTROL Y TELEVISIÓN
+
+====================================================================
+2. POR QUÉ SE REALIZA ESTE CAMBIO
+====================================================================
+
+El proyecto había utilizado históricamente:
+
+- MiLukita
+- LUKA
+- Lukallpa
+- LUKITA
+
+con diferentes grados de superposición.
+
+Esto es perjudicial porque mezcla:
+
+MARCA
+PERSONAJE
+UNIVERSO
+PRODUCTO
+SISTEMA
+TERRITORIO.
+
+La nueva arquitectura elimina esa ambigüedad.
+
+MiLukita no compite con LUKA.
+
+LUKA no reemplaza a MiLukita.
+
+El Mundo de MiLukita no reemplaza a LUKA.
+
+Cada nombre tiene una función distinta.
+
+====================================================================
+3. MiLukita
+====================================================================
+
+"MiLukita" queda como denominación oficial de la marca/ecosistema
+matriz.
+
+Utilizar:
+
+MiLukita
+
+como nombre principal de:
+
+- proyecto;
+- ecosistema;
+- identidad corporativa;
+- marca matriz;
+- universo de productos;
+- documentación estratégica cuando corresponda.
+
+HUMAN AUTHORITY informa que MiLukita ya fue registrada ante
+INDECOPI.
+
+NO afirmar que dicho registro protege automáticamente todas las
+funcionalidades, software o invenciones del proyecto.
+
+====================================================================
+4. EL MUNDO DE MiLukita
+====================================================================
+
+"El Mundo de MiLukita" queda como denominación oficial de la
+experiencia/universo público.
+
+Concepto:
+
+EL USUARIO NO "ABRE UNA APP".
+
+EL USUARIO ENTRA AL MUNDO DE MiLukita.
+
+La experiencia inicial deberá reflejar esta filosofía.
+
+Flujo:
+
+QR / URL
+   ↓
+LUKA aparece en AR
+   ↓
+LUKA recibe al usuario
+   ↓
+"¿Quieres entrar al Mundo de MiLukita
+o quieres ver TV?"
+   ↓
+MUNDO DE MiLukita
+        o
+LUKA TV
+
+====================================================================
+5. LUKA
+====================================================================
+
+"LUKA" queda reservado para:
+
+- personaje;
+- presencia inteligente;
+- agente conversacional;
+- guía;
+- anfitrión;
+- interfaz humana del sistema.
+
+LUKA es quien:
+
+- escucha;
+- entiende;
+- pregunta;
+- confirma;
+- guía;
+- ejecuta;
+- presenta.
+
+Ejemplo:
+
+Usuario:
+"LUKA, quiero ver televisión."
+
+Usuario:
+"LUKA, quiero volver al mundo."
+
+Usuario:
+"LUKA, quiero usar el teclado."
+
+Usuario:
+"LUKA, ¿qué puedo conocer cerca?"
+
+No sustituir automáticamente LUKA por MiLukita.
+
+Son conceptos diferentes.
+
+====================================================================
+6. LUKA OS
+====================================================================
+
+"LUKA OS" permanece como denominación técnica del sistema operativo
+de interacción.
+
+Responsabilidades:
+
+- contexto;
+- intención;
+- progressive disclosure;
+- permisos;
+- superficies;
+- capacidades;
+- interacción;
+- orquestación.
+
+LUKA OS es interno/técnico.
+
+No presentarlo al usuario como si fuera necesariamente el nombre de
+la aplicación.
+
+====================================================================
+7. LUKA AR
+====================================================================
+
+"LUKA AR" queda como denominación de la experiencia de realidad
+aumentada cuando sea necesario diferenciarla técnicamente.
+
+La experiencia pública preferida es:
+
+EL MUNDO DE MiLukita
+
+con LUKA como presencia.
+
+Por tanto:
+
+No crear una pantalla inicial que diga simplemente:
+
+"LUKA AR APP"
+
+Preferir:
+
+"El Mundo de MiLukita"
+
+y LUKA aparece dentro de él.
+
+====================================================================
+8. LUKA TV
+====================================================================
+
+"LUKA TV" queda como denominación oficial de la experiencia de
+televisión.
+
+Incluye:
+
+- TV control;
+- navegación;
+- trackpad;
+- keyboard;
+- gamepad;
+- voz;
+- QR;
+- interacción contextual.
+
+No cambiar esta denominación salvo orden explícita.
+
+====================================================================
+9. LUKALLPA
+====================================================================
+
+"Lukallpa" deja de ser denominación principal del producto.
+
+NO debe utilizarse para:
+
+- nombre principal de la aplicación;
+- marca principal;
+- entrada pública;
+- título principal del universo;
+- navegación principal;
+- nuevas funcionalidades.
+
+NO borrar referencias históricas automáticamente.
+
+Si "Lukallpa" aparece en:
+
+- documentos históricos;
+- auditorías;
+- decisiones anteriores;
+- logs;
+- snapshots;
+- expedientes;
+
+conservarlas cuando su eliminación pueda destruir trazabilidad.
+
+En código activo, documentación activa y UI activa:
+
+marcar/reemplazar únicamente cuando corresponda.
+
+Si existe una referencia cuya función sea ambigua:
+
+NO realizar reemplazo automático.
+
+Registrar para revisión.
+
+====================================================================
+10. REGLA CONTRA "SEARCH AND REPLACE"
+====================================================================
+
+NO ejecutar un reemplazo global ciego.
+
+Realizar primero:
+
+AUDITORÍA DE NOMENCLATURA.
+
+Clasificar cada aparición de:
+
+MiLukita
+LUKA
+LUKITA
+Lukallpa
+Luka OS
+Lukita
+
+según:
+
+A. marca
+B. personaje
+C. universo
+D. producto
+E. sistema
+F. código interno
+G. documentación histórica
+H. asset
+I. ruta técnica
+J. dato persistente
+K. test
+L. log/auditoría.
+
+Después ejecutar modificaciones solamente cuando la clasificación
+lo permita.
+
+====================================================================
+11. INVENTARIO DE IMPACTO
+====================================================================
+
+Buscar en:
+
+client/
+server/
+shared/
+docs/
+scripts/
+public/
+configuración
+metadata
+manifest
+tests
+assets.
+
+Generar:
+
+docs/MILUKITA_NAMING_MIGRATION_AUDIT.md
+
+Debe contener:
+
+archivo
+línea/referencia
+término encontrado
+clasificación
+acción
+razón
+riesgo.
+
+====================================================================
+12. UI
+====================================================================
+
+Revisar toda la experiencia pública.
+
+Eliminar inconsistencias como:
+
+"Bienvenido a LUKA"
+"Bienvenido a MiLukita"
+"Lukallpa"
+"Mi Lukita"
+"LUKITA"
+
+cuando estén utilizados como nombres del mismo nivel.
+
+La jerarquía debe quedar conceptualmente:
+
+EL MUNDO DE MiLukita
+
+LUKA te recibe.
+
+LUKA te guía.
+
+LUKA controla TV.
+
+LUKA te lleva al territorio.
+
+====================================================================
+13. ENTRY EXPERIENCE DEFINITIVO
+====================================================================
+
+La entrada pública debe evolucionar a:
+
+--------------------------------------------------
+EL MUNDO DE MiLukita
+--------------------------------------------------
+
+LUKA aparece en AR.
+
+LUKA:
+
+"Hola. Soy LUKA."
+
+Después:
+
+"¿Quieres entrar al Mundo de MiLukita
+o quieres ver TV?"
+
+Opciones:
+
+[ ENTRAR AL MUNDO ]
+
+[ VER TV ]
+
+No introducir un menú inicial con diez capacidades.
+
+====================================================================
+14. PRODUCT ARCHITECTURE
+====================================================================
+
+La estructura conceptual definitiva será:
+
+MiLukita
+│
+└── El Mundo de MiLukita
+     │
+     ├── LUKA
+     │
+     ├── Mundo / Territorio
+     │    ├── AR
+     │    ├── lugares
+     │    ├── POIs
+     │    ├── cultura
+     │    ├── educación
+     │    └── experiencias
+     │
+     └── LUKA TV
+          ├── TV Remote
+          ├── Trackpad
+          ├── Keyboard
+          └── Gamepad
+
+LUKA OS
+│
+├── Context Engine
+├── Intent Engine
+├── Progressive Disclosure
+├── Capability Registry
+├── Permission Layer
+└── Device Interaction
+
+====================================================================
+15. WORLD LUKA / WORLD ENGINE
+====================================================================
+
+No utilizar "Lukallpa" como nombre principal para esta infraestructura.
+
+Usar internamente:
+
+WORLD ENGINE
+
+o
+
+MiLukita World Engine
+
+según contexto técnico.
+
+El World Engine será la infraestructura que permitirá construir
+progresivamente el Mundo de MiLukita.
+
+====================================================================
+16. DOCUMENTACIÓN
+====================================================================
+
+Actualizar documentos ACTIVOS donde corresponda.
+
+Prioridad:
+
+docs/LUKA_OS_SPEC_V1_IMPLEMENTATION.md
+docs/LUKA_OS_PHASES_3_8_SANDBOX_AUDIT.md
+docs/LUKITA_MASTER_CHARACTER_GUIDE.md
+docs/MILUKITA_MASTER_CONSTITUTION.md
+docs/MILUKITA_CHARACTER_SYSTEM.md
+docs/MILUKITA_CHARACTER_EXPERIENCE_SYSTEM.md
+docs/MILUKITA_CONTROLLER_PRODUCT_CONCEPT.md
+docs/MILUKITA_ENTERTAINMENT_OS.md
+docs/MILUKITA_UX_MASTER_AUDIT.md
+docs/MILUKITA_P0_TV_CELULAR_UX_PROPOSAL.md
+
+y cualquier otro documento activo afectado por la nomenclatura.
+
+NO modificar documentos históricos únicamente para eliminar evidencia
+de decisiones anteriores.
+
+====================================================================
+17. CÓDIGO
+====================================================================
+
+Revisar especialmente:
+
+LukaUniversalEntry.tsx
+LukaRuntimeLab.tsx
+LukitaAvatar.tsx
+LukitaBlockoutViewer.tsx
+LukitaGeoPlacementPanel.tsx
+LukitaScriptsPanel.tsx
+
+y contratos:
+
+lukaOsContract
+lukaLaunchRegistry
+lukaControlPacks
+lukaRuntimeContract
+lukitaCharacterFoundation
+lukitaGeoGovernance
+lukitaGeoPlacement
+lukitaLiveArchitecture.
+
+No cambiar nombres técnicos innecesariamente si hacerlo genera riesgo.
+
+La prioridad es coherencia semántica y estabilidad.
+
+====================================================================
+18. TESTS
+====================================================================
+
+Después de la migración ejecutar:
+
+TypeScript
+Vitest
+Build
+E2E disponible
+Accessibility tests
+Brand tests
+LUKA contracts
+Character contracts
+TV contracts
+AR contracts.
+
+Confirmar:
+
+NO REGRESSION.
+
+====================================================================
+19. COMPATIBILIDAD
+====================================================================
+
+Si existen datos persistentes, rutas o contratos antiguos que dependan
+de nombres históricos:
+
+NO romperlos.
+
+Implementar alias/migración cuando sea técnicamente necesario.
+
+Documentar cualquier alias.
+
+====================================================================
+20. MJP CORE
+====================================================================
+
+NO modificar MJP CORE por esta orden.
+
+No modificar:
+
+RNG
+RTP
+Ledger
+Settlement
+Wallet
+Game Rules
+Resultados
+Manifestos protegidos.
+
+Esta orden es exclusivamente de identidad, producto, UX,
+documentación y nomenclatura.
+
+====================================================================
+21. PROPIEDAD INTELECTUAL
+====================================================================
+
+Actualizar:
+
+docs/LUKA_IP_ASSET_REGISTER.md
+
+y reflejar:
+
+MiLukita = marca/ecosistema.
+
+LUKA = personaje/presencia.
+
+El Mundo de MiLukita = experiencia/universo.
+
+LUKA OS = arquitectura/software.
+
+LUKA TV = producto/superficie.
+
+No asumir protección jurídica automática por la mera utilización de
+los nombres.
+
+Registrar qué activos requieren evaluación jurídica adicional.
+
+====================================================================
+22. NO HACER
+====================================================================
+
+NO:
+
+- volver a proponer Lukallpa como marca principal;
+- crear otra variante del nombre;
+- renombrar LUKA a MiLukita;
+- renombrar MiLukita a LUKA;
+- mezclar personaje con marca;
+- cambiar MJP CORE;
+- borrar historial;
+- hacer search-and-replace indiscriminado;
+- rediseñar todo el producto;
+- añadir nuevas capacidades por esta orden.
+
+====================================================================
+23. CRITERIO DE ACEPTACIÓN
+====================================================================
+
+La auditoría será PASS cuando:
+
+[ ] MiLukita sea la marca/ecosistema matriz.
+[ ] El Mundo de MiLukita sea el universo público.
+[ ] LUKA sea la presencia inteligente.
+[ ] LUKA OS sea el sistema de interacción.
+[ ] LUKA AR sea la experiencia AR.
+[ ] LUKA TV sea la experiencia TV.
+[ ] Lukallpa no aparezca como marca activa principal.
+[ ] No existan contradicciones graves en la UI.
+[ ] No se hayan roto contratos.
+[ ] Tests PASS.
+[ ] Build PASS.
+[ ] Documentación activa coherente.
+[ ] Historial preservado.
+[ ] MJP CORE sin cambios.
+
+====================================================================
+24. CONGELACIÓN
+====================================================================
+
+Al finalizar esta orden:
+
+ESTA NOMENCLATURA QUEDA CONGELADA.
+
+Manus NO deberá volver a proponer cambios de:
+
+MiLukita
+LUKA
+El Mundo de MiLukita
+LUKA OS
+LUKA AR
+LUKA TV
+
+como parte de futuras tareas técnicas.
+
+Cualquier nueva propuesta deberá ser tratada como un cambio de producto
+y requerirá autorización explícita de HUMAN AUTHORITY.
+
+====================================================================
+25. SIGUIENTE PASO
+====================================================================
+
+Una vez PASS:
+
+NO continuar discutiendo naming.
+
+Continuar inmediatamente con:
+
+LUKA MVP PRODUCTION
++
+WORLD ENGINE FOUNDATION
++
+EL MUNDO DE MiLukita.
+
+La prioridad pasa de:
+
+"¿Cómo se llama?"
+
+a:
+
+"¿Cómo hacemos que la gente entre y quiera volver?"
+
+FIN DE ORDEN.
+Esta es la decisión que yo congelaría
+
+La frase que debe gobernar el producto es:
+
+MiLukita es el universo. LUKA es quien te recibe.
+
+Y la experiencia:
+
+Entra al Mundo de MiLukita.
+
+Eso resuelve la contradicción que teníamos antes. No estamos eliminando LUKA para usar MiLukita. Estamos dándole a cada nombre un nivel distinto.
+
+Y desde ahora, efectivamente, no volvería a gastar una sola iteración en discutir el nombre. El siguiente problema ya no es branding. Es conseguir que la primera persona que escanee el QR entienda LUKA en menos de un minuto y quiera volver a entrar.

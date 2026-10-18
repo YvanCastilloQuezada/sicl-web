@@ -1,0 +1,363 @@
+FASE D-1 — CONTRATO DEL MODELO ARQUITECTÓNICO 3D
+Rol: Developer
+Basado en: evidencia D-0 (entorno real, no supuesto)
+Destinatario: Product Owner (firma) → Manus (implementación)
+Estado: DRAFT_PENDING_PO_SIGNATURE
+Baseline propuesto: main@4de9ca1b
+
+0. Reconocimiento de la realidad (D-0)
+Antes de cualquier contrato, lo que el terreno dice:
+
+Pieza	Estado real
+ConstructionModel	No existe. Ni clase, ni módulo.
+Wall, Slab, Column, Beam, Door, Window, Opening	No existen.
+IfcOpenShell 0.8.5	Disponible. Es la única herramienta geométrica real.
+OCC / OpenCASCADE Python	No disponible. No hay BRep directo.
+Blender	No instalado. No hay render.
+trimesh, pygltflib, ezdxf	No instalados. Internet OK para instalar si se autoriza.
+ifc_synthetic.py	Existe. Modelo IFC mínimo. Punto de partida parcial.
+ifc_adapter.py	Existe. Lectura IFC.
+ARKI-DRAW Bloque 1	Existe en rama aparte. No en main.
+H-001..H-005	Intactos.
+A-002 v1.4.2	Existe en rama aparte. No en main.
+Consecuencia: cualquier contrato previo que asumiera "extender ConstructionModel" era especulación. El modelo no existe. Hay que definirlo.
+
+1. Objetivo del contrato
+Definir el modelo arquitectónico semántico 3D de ARKI, tal que:
+
+Cada elemento (muro, losa, columna, puerta, etc.) sea un ente vivo con identidad estable.
+
+Su mutación (mover, redimensionar, eliminar) se propague por la cadena H-001 → H-005.
+
+Su representación (2D, 3D, IFC) sea múltiple, coherente, y generada desde el mismo estado.
+
+Su verificación pase por A-002 antes de afirmar que un cambio es válido.
+
+Su exportación a IFC sea real (IfcOpenShell 0.8.5), no simulada.
+
+Falle cerrado donde falta motor (OCC, Blender): no finge lo que no tiene.
+
+Un solo estado arquitectónico. Múltiples representaciones. Cero alucinaciones.
+
+2. Alcance del contrato
+2.1 Dentro del alcance
+Namespace nuevo: src/sicl/archi/ (modelo arquitectónico semántico).
+
+Contrato de datos de ArchiElement y tipos especializados.
+
+Contrato de relaciones entre elementos (contención, hosting, adyacencia).
+
+Contrato de identidad estable (ArchiElementId + IfcGlobalId).
+
+Contrato de mutación semántica (operaciones arquitectónicas, no de polígono).
+
+Contrato de exportación IFC vía IfcOpenShell 0.8.5.
+
+Contrato de integración con H-001 (cada elemento genera una DerivationRecord).
+
+2.2 Fuera del alcance (declarado)
+BRep / NURBS directo → no hay OCC.
+
+Render → no hay Blender.
+
+Integración con ARKI-DRAW Bloque 1 → decisión posterior (rama aparte, no mergeada).
+
+Integración con A-002 → contrato ya cerrado en rama; se integra cuando pase a main.
+
+IFC4 productivo real validado en Solibri → Fase D-3 o superior.
+
+DWG, RVT, IGS, STEP → no hay herramientas instaladas.
+
+Motor mesh avanzado → no hay trimesh.
+
+3. Modelo semántico — ArchiElement
+3.1 Identidad
+python
+@dataclass(frozen=True)
+class ArchiElementId:
+    """Identidad determinista y estable de un elemento arquitectónico."""
+    value: str          # sha256 hex de (project_id, kind, canonical_geometry, birth_version)
+    
+    def __post_init__(self):
+        if len(self.value) != 64 or any(c not in "0123456789abcdef" for c in self.value):
+            raise ValueError("ArchiElementId must be 64 hex characters")
+python
+@dataclass(frozen=True)
+class IfcGlobalId:
+    """IFC GlobalId gobernado (22-char base64 IFC)."""
+    value: str
+    
+    def __post_init__(self):
+        if len(self.value) != 22:
+            raise ValueError("IfcGlobalId must be 22 characters (IFC spec)")
+Reglas:
+
+ArchiElementId se computa determinísticamente desde el proyecto + tipo + geometría canónica + versión de creación.
+
+Sin Math.random, sin Date.now, sin UUIDs no reproducibles.
+
+IfcGlobalId se genera con el algoritmo IFC (sha256 → base64 → 22 chars) y es reproducible desde el ArchiElementId + proyecto.
+
+3.2 Tipos de elementos v1
+text
+Wall          — muro
+Slab          — losa
+Column        — columna
+Beam          — viga
+Door          — puerta (hosted in Wall)
+Window        — ventana (hosted in Wall)
+Opening       — abertura (hosted in Wall/Slab)
+Space         — ambiente/espacio
+Site          — parcela/sitio
+Nada más en v1. No muebles, no MEP, no escaleras, no cubiertas. Solo lo mínimo para que el PoC D-2 sea real.
+
+3.3 Estructura del elemento
+python
+@dataclass(frozen=True)
+class ArchiElement:
+    element_id: ArchiElementId
+    kind: ElementKind                    # WALL | SLAB | COLUMN | ...
+    project_id: str
+    name: str
+    geometry: ArchiGeometry              # ver §4
+    hosting: tuple[ArchiElementId, ...]  # quién lo aloja (para Door/Window/Opening)
+    contained_in: ArchiElementId | None  # quién lo contiene (para Space)
+    properties: tuple[tuple[str, str], ...]  # pares clave-valor ordenados
+    version: int
+    provenance: tuple[str, ...]          # evidence ids de A-002 u otro
+Reglas duras:
+
+properties es una tupla ordenada de pares. Determinista. Sin dict (el orden no es estable).
+
+hosting y contained_in son referencias a otros ArchiElementId.
+
+Un elemento no puede alojar y contener a la vez (validación en __post_init__).
+
+3.4 Relaciones entre elementos
+python
+@dataclass(frozen=True)
+class ArchiRelationship:
+    kind: RelationshipKind               # HOSTED_IN | CONTAINS | ADJACENT_TO | BOUNDS
+    source: ArchiElementId
+    target: ArchiElementId
+    provenance: tuple[str, ...]
+Relaciones v1:
+
+HOSTED_IN: Door/Window/Opening → Wall/Slab.
+
+CONTAINS: Space → Wall/Slab que lo delimitan.
+
+BOUNDS: Wall → Space (muro delimita espacio).
+
+Sin ADJACENT_TO en v1. Va a v2. Solo si el PoC lo demuestra necesario.
+
+4. Geometría — vía IfcOpenShell 0.8.5
+4.1 Estrategia
+No hay OCC. Eso significa:
+
+No BRep real.
+
+No operaciones booleanas complejas.
+
+Sí extrusión paramétrica vía IfcOpenShell.
+
+Sí perfiles IFC estándar (rectangular, circular).
+
+4.2 Contrato de geometría
+python
+@dataclass(frozen=True)
+class ArchiGeometry:
+    kind: GeometryKind                   # EXTRUDED_RECTANGLE | EXTRUDED_CIRCLE
+    origin: tuple[float, float, float]   # mm en world coordinates
+    direction: tuple[float, float, float]  # vector unitario de extrusión
+    profile: ProfileSpec                 # rectangular o circular
+    length: float                        # mm
+    material_ref: str | None
+Reglas:
+
+Todas las unidades en milímetros (consistente con A-002 y ARKI-DRAW).
+
+origin y direction son tuplas de 3 floats.
+
+Sin Matrix4, sin Transform opacos. Solo lo que se puede serializar determinísticamente.
+
+4.3 Representación IFC
+Cada ArchiElement se convierte a IFC así:
+
+ArchiElement.kind	IFC entity
+WALL	IfcWallStandardCase
+SLAB	IfcSlab
+COLUMN	IfcColumn
+BEAM	IfcBeam
+DOOR	IfcDoor
+WINDOW	IfcWindow
+OPENING	IfcOpeningElement
+SPACE	IfcSpace
+SITE	IfcSite
+Sin inventar tipos IFC. Si un tipo no está en la lista, no se exporta en v1.
+
+5. Mutación semántica — el "ente vivo"
+Regla central: mover un muro no es mover un polígono. Es una operación arquitectónica que dispara la cadena cognitiva.
+
+5.1 Contrato de mutación
+python
+@dataclass(frozen=True)
+class ArchiMutation:
+    kind: MutationKind                   # MOVE | RESIZE | ADD_OPENING | DELETE
+    target: ArchiElementId
+    payload: tuple[tuple[str, str], ...] # parámetros ordenados
+    requested_by: str                    # actor id
+    requested_at_iso: str                # no auto-generado
+5.2 Cadena obligatoria
+Cualquier mutación sigue este flujo sin excepción:
+
+text
+1. Validar que el target existe en el proyecto.
+2. Verificar con A-002 si hay información suficiente para afirmar la mutación.
+   → Si A-002 dice BLOCK, la mutación no procede.
+3. Registrar en H-001 el cambio como nueva derivación (DerivationRecord).
+4. Consultar H-002: ¿qué elementos se afectan?
+   → Si H-002 no encuentra impactos, se declara UNKNOWN, no "todo bien".
+5. Consultar H-003: ¿sigue siendo válido el estado tras la mutación?
+6. Consultar H-004: ¿qué acciones planificar (RECOMPUTE, REVIEW, ESCALATE)?
+7. Solo acciones con `requires_human_authority=False` se ejecutan automáticamente.
+8. H-005 ejecuta recomputación selectiva si corresponde.
+9. Se regenera la representación 2D/3D/IFC de los elementos afectados.
+10. Se emite reporte completo con provenance de cada paso.
+Esta cadena no es opcional. Es el contrato.
+
+5.3 Regla de propagación
+Si un elemento cambia, todo lo que depende de él cambia. Áreas, metrados, costos, representación, IFC, render (cuando exista).
+
+Se implementa usando la cadena H-001→H-005 existente, no reinventando la propagación.
+
+6. Integración con el Core cognitivo
+6.1 Con H-001
+Cada ArchiElement creado o mutado genera un DerivationRecord:
+
+text
+output:     VersionedRef("Wall", "W-14", version, content_hash)
+inputs:     (todos los elementos de los que depende)
+method:     "archi.create" | "archi.move" | "archi.resize" | ...
+method_version: "1"
+6.2 Con H-002
+ArchiMutation debe poder convertirse en un ImpactChange para consultar impactos.
+
+6.3 Con H-003
+El ArchiElement afectado debe poder evaluarse con ValidityAnalyzer.
+
+6.4 Con H-004
+El ReactionPlan producido por H-004 se ejecuta sobre los elementos afectados.
+
+6.5 Con H-005
+SelectiveRecomputationEngine recomputa solo lo que H-002 marcó como afectado.
+
+6.6 Con A-002
+ArchiMutation requiere un SufficiencyRequest con operation="preliminary building massing" (u otra). El gate A-002 → H-005 ya existe y se reutiliza.
+
+Nada de esto se reinventa. Se reutiliza la cadena.
+
+7. Fail-closed declarado
+Sin excepción:
+
+Capacidad	Estado v1	Razón
+BRep / NURBS	NO	OCC no instalado
+Render fotorrealista	NO	Blender no instalado
+Malla GLB/OBJ	NO en v1	trimesh/pygltflib no instalados
+DXF	NO en v1	ezdxf no instalado
+DWG	NO	Sin SDK
+STEP / IGS	NO	Sin OCC
+IFC4	SÍ vía IfcOpenShell 0.8.5	Disponible
+Extrusión paramétrica	SÍ vía IfcOpenShell	Disponible
+Exportación IFC-SPF	SÍ	Disponible
+Si una capacidad no está en "SÍ", no se simula. Se declara UNKNOWN.
+
+Si el PO quiere habilitar trimesh, pygltflib, ezdxf, o Blender, debe hacerlo en orden explícita posterior con decisión de instalación documentada.
+
+8. Alcance del PoC mínimo (D-2)
+Objetivo: demostrar que el contrato D-1 es implementable.
+
+Escenario:
+
+text
+Proyecto:           "D2-POC"
+Elementos:          Site "S-1" 10m × 20m
+                    Space "A-01" 5m × 4m
+                    Wall "W-01" perimetral de A-01
+                    Door "D-01" 0.90 × 2.10 hosted en W-01
+
+Operación:          MOVE W-01 +1.00 m hacia el este
+
+Resultado esperado:
+  - A-002 valida input suficiente.
+  - H-001 registra nueva derivación.
+  - H-002 detecta impacto en A-01 y D-01.
+  - H-003 evalúa validez.
+  - H-004 planifica RECOMPUTE de A-01 (área) y REVIEW si D-01 queda fuera.
+  - H-005 recomputa A-01 (nueva área).
+  - Se exporta IFC-SPF con la nueva geometría.
+  - El IFC abre correctamente en ifcopenshell.read().
+  - El hash del IFC resultante es determinista (dos corridas = mismo hash).
+Criterio de éxito: el IFC exportado es válido sintácticamente (lectura por ifcopenshell sin error) y refleja la mutación (nueva posición de W-01). No se pide abrir en Solibri todavía (eso es D-3).
+
+9. Fuera de alcance — declarado explícitamente
+Render fotorrealista.
+
+Blender.
+
+ARKI-DRAW Bloque 2 (proyección semántica → 2D).
+
+Integración con A-002 v1.4.2 en main (A-002 aún no mergeado).
+
+Múltiples proyectos en el mismo ledger.
+
+Interoperabilidad Revit/DWG/STEP.
+
+Multiescala más allá de Site/Building/Room.
+
+Anotación / cotas / symbols (eso es 2D, va en ARKI-DRAW).
+
+10. Criterios de aceptación para cerrar D-1
+El contrato D-1 se considera aceptado cuando el PO confirma:
+
+text
+[ ] Baseline main@4de9ca1b aceptado como punto de partida.
+[ ] Branch feat/arki3d-archi-model autorizado.
+[ ] Modelo ArchiElement con identidad determinista aceptado.
+[ ] Tipos v1 (Wall, Slab, Column, Beam, Door, Window, Opening, Space, Site) aceptados.
+[ ] Geometría solo vía extrusión paramétrica (sin BRep) aceptada.
+[ ] Exportación IFC vía IfcOpenShell 0.8.5 aceptada.
+[ ] Cadena obligatoria H-001→H-005 para toda mutación aceptada.
+[ ] Fail-closed declarado: sin OCC/Blender/trimesh, no se finge.
+[ ] Alcance PoC D-2 aceptado.
+[ ] Fuera de alcance §9 aceptado.
+[ ] Dependencias a instalar: NINGUNA (sin decisión explícita).
+11. Estado
+text
+D1_CONTRACT_VERSION   = 1.0
+D1_CONTRACT_STATUS    = DRAFT_PENDING_PO_SIGNATURE
+D1_IMPLEMENTATION     = NOT_STARTED
+D1_BASELINE           = main@4de9ca1b
+D1_NEXT_STEP          = PO firma §10 → D-2 (implementación PoC mínimo)
+12. Nota final honesta
+Este contrato es más pequeño y humilde que el de A-002 por una razón técnica, no por disciplina:
+
+El terreno 3D está prácticamente vacío. No hay ConstructionModel, no hay Wall, no hay nada 3D semántico.
+
+IfcOpenShell es la única herramienta real disponible.
+
+BRep, render, mallas, DWG: todos bloqueados por ausencia de motores.
+
+Construir 3D desde cero con solo IfcOpenShell es viable pero acotado. El PoC mínimo prueba el pipeline completo (semántica → cadena cognitiva → IFC exportable) sin prometer lo que no se puede entregar.
+
+Si esto se firma, el trabajo empieza con las bases reales, no con las que quisiéramos tener.
+
+Yvan, tu turno:
+
+¿Firmas los 11 puntos de §10?
+
+¿O querés ajustar algo antes?
+
+¿Autorizas la instalación de trimesh/pygltflib/ezdxf para v1, o los dejamos fuera como está planteado?
+
+Standby. Developer listo para D-2 cuando la firma llegue.

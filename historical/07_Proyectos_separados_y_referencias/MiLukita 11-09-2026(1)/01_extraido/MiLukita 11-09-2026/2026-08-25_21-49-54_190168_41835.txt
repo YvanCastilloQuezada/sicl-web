@@ -1,0 +1,95 @@
+# Terminal Full Output
+# Terminal: master-audit-inventory
+# Command: cd /home/ubuntu/ruleta-peru-online && printf '%s\n' '--- GIT ---' && git branch --show-current && git rev-parse HEAD && git status --short && git log -5 --oneline && printf '%s\n' '--- RUNTIME ---' && node --version && pnpm --version && printf '%s\n' '--- RELEVANT DEPS ---' && node -e "const p=require('./package.json'); const d={...p.dependencies,...p.devDependencies}; for(const k of Object.keys(d).sort()) if(/react|express|trpc|drizzle|mysql|vitest|vite|tailwind|qrcode|zod|wouter|three|youtube|websocket|socket|pwa|time|cron|tsx/.test(k)) console.log(k+' '+d[k])" && printf '%s\n' '--- MODIFIED/UNTRACKED ---' && git status --short --untracked-files=all
+# PID: 41835
+# Timestamp: 2026-08-25_21-49-54.190168
+# Original Length: 6835 characters
+# ----------------------------------------
+
+[32mubuntu@sandbox:~$ [0mcd /home/ubuntu/ruleta-peru-online && printf '%s\n' '--- GIT ---' && git branch --show-current && git rev-parse HEAD && git status --short && git log -5 --oneline && printf '%s\n' '--- RUNTIME ---' && node --version && pnpm --version && printf '%s\n' '--- RELEVANT DEPS ---' && node -e "const p=require('./package.json'); const d={...p.dependencies,...p.devDependencies}; for(const k of Object.keys(d).sort()) if(/react|express|trpc|drizzle|mysql|vitest|vite|tailwind|qrcode|zod|wouter|three|youtube|websocket|socket|pwa|time|cron|tsx/.test(k)) console.log(k+' '+d[k])" && printf '%s\n' '--- MODIFIED/UNTRACKED ---' && git status --short --untracked-files=all
+{
+source /home/ubuntu/.user_env && source /opt/.manus/webdev.sh.env && cd . && cd /home/ubuntu/ruleta-peru-online && printf '%s\n' '--- GIT ---' && git branch --show-current && git rev-parse HEAD && git status --short && git log -5 --oneline && printf '%s\n' '--- RUNTIME ---' && node --version && pnpm --version && printf '%s\n' '--- RELEVANT DEPS ---' && node -e "const p=require('./package.json'); const d={...p.dependencies,...p.devDependencies}; for(const k of Object.keys(d).sort()) if(/react|exp
+ress|trpc|drizzle|mysql|vitest|vite|tailwind|qrcode|zod|wouter|three|youtube|websocket|socket|pwa|time|cron|tsx/.test(k)) console.log(k+' '+d[k])" && printf '%s\n' '--- MODIFIED/UNTRACKED ---' && git status --short --untracked-files=all
+}
+--- GIT ---
+main
+3490c90b4b34fb6d83d76eac5adfef010772803f
+ [31mM[m todo.md
+[33m3490c90[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Checkpoint: Añade en /tv el selector explícito Jugar en vivo/Jugar en línea y una tabla responsive de acceso e interacción para Smart TV, computadora, tablet y celular. Amplía Operaciones con indicador de señal monitorizada mediante latido local entre /tv y el panel, filtro por estado y exportación CSV del historial de rondas. El modo de contingencia muestra mensaje personalizado y reconexión automática cada diez segundos. Se mantienen créditos vi
+rtuales gratuitos y no se activan pagos ni retiros. Validado con pnpm check, pnpm test -- --run (22 archivos, 67 pruebas), pnpm build y revisión visual de /tv en escritorio.
+[33mf140134[m Checkpoint: Añade al panel operativo la configuración local del ID de YouTube, el procedimiento guiado de emisión y el historial de hasta diez rondas con selección de QR y overlay. Mejora /tv con alertas de estado, detección de ausencia de video o falta de actualización, modo de contingencia con verificación e historial preservados y botón de reintento; mantiene el servidor como autoridad y el piloto sin pagos ni retiros. Actualiza GamePage/Verify y documentación. Validado con pnpm check
+, pnpm test -- --run (22 archivos, 67 pruebas), pnpm build y revisión visual móvil de /tv?signal=down.
+[33me247541[m Checkpoint: Implementa la primera capa segura de canal virtual YouTube + PWA + web: servicio de QR por ronda firmado con HMAC-SHA-256 derivado del secreto gestionado, validación canónica y expiración; estado público de rondas con participantes y resultado; procedimientos tRPC broadcast; ruta /tv configurable por ID de video; overlay /overlay/:roundId para OBS/navegador; cuenta regresiva reutilizable; contexto de ronda TV en GamePage; precarga de verificación desde QR; panel de transmisió
+n dentro de Operaciones; navegación visible y documentación de alcance/límites. Mantiene créditos gratuitos virtuales, sin pagos, retiros ni dinero real. Validado con pnpm check, pnpm test -- --run (22 archivos, 67 pruebas), pnpm build y revisión visual de /tv en escritorio y móvil.
+[33mdeb111f[m Checkpoint: Añade el documento de nomenclatura oficial unificada y el flujo técnico exacto TV–QR–PWA. Incluye correcciones de discrepancias entre nombres televisivos y claves técnicas, distinción explícita de Lotería 39 MJP 6/39, Lotería 39 5/39 y Lotería 39 Extra, precios como créditos virtuales, RTP vigentes, estados y hoja de ruta conceptual. Se generó y presentó la presentación ejecutiva de estrategia TV y canal digital. No se modificó código ni se activó ninguna funcionalidad de TV,
+ QR o PWA.
+[33m41f7ff3[m Checkpoint: Implementación y auditoría del archivo 18: añade prueba dedicada de Lotería 39 5/39, integra simulación de carga de 50 000 jugadas por modalidad y reporte parametrizable de ingresos/egresos, actualiza el informe integral con discrepancias, evidencias y límites, y sincroniza transparencia. Validado con pnpm check, pnpm test (21 archivos/63 pruebas) y pnpm build. Las métricas empíricas de juegos cuyo simulador aislado aún no modela todas las reglas quedan marcadas como diagnóst
+icas; no se activan pagos ni dinero real.
+--- RUNTIME ---
+v22.13.0
+[43m[33m[[39m[49m[43m[30mWARN[39m[49m[43m[33m][39m[49m The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+10.4.1
+--- RELEVANT DEPS ---
+@builder.io/vite-plugin-jsx-loc ^0.1.1
+@radix-ui/react-accordion ^1.2.12
+@radix-ui/react-alert-dialog ^1.1.15
+@radix-ui/react-aspect-ratio ^1.1.7
+@radix-ui/react-avatar ^1.1.10
+@radix-ui/react-checkbox ^1.3.3
+@radix-ui/react-collapsible ^1.1.12
+@radix-ui/react-context-menu ^2.2.16
+@radix-ui/react-dialog ^1.1.15
+@radix-ui/react-dropdown-menu ^2.1.16
+@radix-ui/react-hover-card ^1.1.15
+@radix-ui/react-label ^2.1.7
+@radix-ui/react-menubar ^1.1.16
+@radix-ui/react-navigation-menu ^1.2.14
+@radix-ui/react-popover ^1.1.15
+@radix-ui/react-progress ^1.1.7
+@radix-ui/react-radio-group ^1.3.8
+@radix-ui/react-scroll-area ^1.2.10
+@radix-ui/react-select ^2.2.6
+@radix-ui/react-separator ^1.1.7
+@radix-ui/react-slider ^1.3.6
+@radix-ui/react-slot ^1.2.3
+@radix-ui/react-switch ^1.2.6
+@radix-ui/react-tabs ^1.1.13
+@radix-ui/react-toggle ^1.1.10
+@radix-ui/react-toggle-group ^1.1.11
+@radix-ui/react-tooltip ^1.2.8
+@tailwindcss/typography ^0.5.15
+@tailwindcss/vite ^4.1.3
+@tanstack/react-query ^5.90.2
+@trpc/client ^11.6.0
+@trpc/react-query ^11.6.0
+@trpc/server ^11.6.0
+@types/express 4.17.21
+@types/qrcode ^1.5.6
+@types/react ^19.2.1
+@types/react-dom ^19.2.1
+@vitejs/plugin-react ^5.0.4
+drizzle-kit ^0.31.4
+drizzle-orm ^0.44.5
+embla-carousel-react ^8.6.0
+express ^4.21.2
+express-rate-limit ^8.6.2
+lucide-react ^0.453.0
+mysql2 ^3.15.0
+qrcode ^1.5.4
+react ^19.2.1
+react-day-picker ^9.11.1
+react-dom ^19.2.1
+react-hook-form ^7.64.0
+react-resizable-panels ^3.0.6
+tailwind-merge ^3.3.1
+tailwindcss ^4.1.14
+tailwindcss-animate ^1.0.7
+tsx ^4.19.1
+vite ^7.1.7
+vite-plugin-manus-runtime 0.0.59
+vitest ^2.1.4
+wouter ^3.3.5
+zod ^4.1.12
+--- MODIFIED/UNTRACKED ---
+ [31mM[m todo.md
+[32mubuntu@sandbox:~/ruleta-peru-online$ [0m

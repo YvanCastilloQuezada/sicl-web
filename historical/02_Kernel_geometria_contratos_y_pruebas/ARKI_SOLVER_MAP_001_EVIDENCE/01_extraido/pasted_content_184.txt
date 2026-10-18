@@ -1,0 +1,1447 @@
+ARKI-SOLVER-MAP-001
+SCIENTIFIC SOLVER, SIMULATION ENGINE & PROFESSIONAL TOOL ARCHITECTURE
+
+PHASE:
+POST-AURORA-R0
+POST-DIGEST-001
+POST-ASSIMILATION-INFRASTRUCTURE
+PRE-C1-C80 DOMAIN IMPLEMENTATION
+
+AUTHORIZATION:
+FORENSIC MAPPING + ARCHITECTURE + TECHNICAL EVALUATION ONLY.
+
+DO NOT INSTALL SOLVERS YET.
+
+======================================================================
+0. PURPOSE
+======================================================================
+
+Determine the computational/scientific instrument architecture
+required for ARKI to transform architectural and engineering
+knowledge into real calculations, simulations, models and
+verifiable outputs.
+
+We need to answer:
+
+WHAT SHOULD ARKI CALCULATE INTERNALLY?
+
+WHAT REQUIRES A SCIENTIFIC SOLVER?
+
+WHAT REQUIRES A PROFESSIONAL EXTERNAL TOOL?
+
+WHICH SOLVERS CAN SERVE MULTIPLE C1-C80 CAPABILITIES?
+
+WHICH TOOLS ARE OPEN SOURCE?
+
+WHICH REQUIRE COMMERCIAL LICENSES?
+
+WHICH HAVE AUTOMATION/API/CLI/PYTHON ACCESS?
+
+WHICH CAN BE REPRODUCIBLY TESTED?
+
+WHICH REQUIRE PROFESSIONAL VALIDATION?
+
+WHAT IS THE MINIMUM SCIENTIFIC STACK ARKI ACTUALLY NEEDS?
+
+======================================================================
+1. CURRENT STATE
+======================================================================
+
+Preserve actual repository truth.
+
+Expected known state:
+
+WAVE 0:
+VERIFIED FOR REGISTRY AND PLAN SCOPE.
+
+WAVE 1:
+VERIFIED FOR BOUNDED FOUNDATION SCOPE.
+
+DIGEST-001:
+executed.
+
+AURORA R0:
+frozen benchmark.
+
+ASSIMILATION PROGRAM:
+infrastructure/preparation exists.
+
+C1-C80:
+80 documented/digested.
+
+Do not assume implementation merely from documentation.
+
+Current known reported values must be independently verified:
+
+IMPLEMENTED_BOUNDED = 0/80
+ADVERSARIALLY_TESTED = 0/80
+TRANSFER_TESTED = 0/80
+VERIFIED_BOUNDED = 0/80.
+
+If repository evidence differs, report it.
+
+======================================================================
+2. CRITICAL RULE
+======================================================================
+
+Cxx ≠ SOLVER.
+
+A capability may:
+
+use no solver,
+use an internal ARKI algorithm,
+use one shared solver,
+use several solvers,
+or require a professional external platform.
+
+Likewise:
+
+ONE SOLVER MAY SUPPORT MANY Cxx.
+
+We are designing a COMPUTATIONAL ARSENAL,
+not an application-per-capability architecture.
+
+======================================================================
+3. ONE ARKI
+======================================================================
+
+Preserve:
+
+ONE ARKI
+MANY COMPETENCIES
+MANY INSTRUMENTS
+ONE PROJECT STATE
+ONE CANONICAL TRUTH
+HUMAN AUTHORITY.
+
+Solvers are instruments.
+
+They are NOT:
+
+independent ARKI brains,
+canonical authorities,
+project-state owners,
+professional authorities.
+
+======================================================================
+4. SOLVER OUTPUT RULE
+======================================================================
+
+Adopt as architectural rule for this study:
+
+SOLVER OUTPUT ≠ PROJECT FACT.
+
+A solver result may become usable evidence only when its context is
+traceable.
+
+At minimum:
+
+INPUT
+INPUT HASH
+UNITS
+METHOD
+SOLVER
+SOLVER VERSION
+CONFIGURATION
+EXECUTION ENVIRONMENT
+OUTPUT
+OUTPUT HASH
+WARNINGS
+ERRORS
+ASSUMPTIONS
+UNCERTAINTY
+VALIDATION
+PROVENANCE
+APPLICABILITY.
+
+No naked number becomes canonical truth.
+
+======================================================================
+5. FIRST TASK — REPOSITORY FORENSICS
+======================================================================
+
+Before researching new tools, inspect the actual repository.
+
+Find existing:
+
+mathematical engines
+geometry engines
+graph engines
+optimization libraries
+CAD tools
+BIM tools
+IFC tools
+simulation adapters
+solver references
+CLI wrappers
+Python bridges
+WASM modules
+native binaries
+external APIs
+engineering calculations
+energy code
+hydraulic code
+electrical code
+structural code
+environmental code
+cost/schedule code.
+
+Produce:
+
+EXISTING_COMPUTATIONAL_ASSET_INVENTORY.md
+EXISTING_COMPUTATIONAL_ASSET_INVENTORY.json
+
+Classify:
+
+ACTIVE
+BOUNDED
+EXPERIMENTAL
+LEGACY
+DOCUMENT_ONLY
+UNUSED_DEPENDENCY
+UNKNOWN.
+
+======================================================================
+6. REBUILD COMPUTATIONAL FAMILIES
+======================================================================
+
+Do NOT blindly reuse the current coarse learning clusters.
+
+Build a solver-oriented computational taxonomy.
+
+At minimum investigate:
+
+01 SPATIAL / GEOMETRY / GRAPH
+02 STRUCTURAL / FEM
+03 GEOTECHNICAL
+04 WIND / CFD / AERODYNAMICS
+05 SEISMIC / DYNAMICS
+06 THERMAL / ENERGY
+07 HVAC / AIRFLOW / IAQ
+08 DAYLIGHT / SOLAR / LIGHTING
+09 ACOUSTICS
+10 FIRE / SMOKE
+11 HYDRAULICS / WATER
+12 ELECTRICAL / POWER
+13 VERTICAL TRANSPORTATION
+14 EVACUATION / CROWD
+15 BIM / IFC / CAD
+16 CONSTRUCTION / LOGISTICS / SCHEDULING
+17 COST / FINANCIAL / LCC
+18 LCA / CARBON
+19 OPTIMIZATION / OPERATIONS RESEARCH
+20 MCDA / DECISION
+21 RISK / UNCERTAINTY
+22 DIGITAL TWIN / CONTROL / IoT
+23 GIS / TERRITORIAL
+24 FABRICATION / INDUSTRIALIZATION
+25 SPECIALIZED BUILDING ANALYSIS.
+
+Add/remove/split families if evidence justifies it.
+
+======================================================================
+7. MAP C1-C80
+======================================================================
+
+For EVERY C1-C80 produce:
+
+CAPABILITY_ID
+CAPABILITY_NAME
+COMPUTATIONAL_FAMILY
+SECONDARY_FAMILIES
+PROBLEM_TYPE
+MATHEMATICAL_MODEL
+PHYSICAL_MODEL
+INTERNAL_METHOD_POSSIBLE?
+SOLVER_REQUIRED?
+SOLVER_OPTIONAL?
+PROFESSIONAL_TOOL_REQUIRED?
+CANDIDATE_SOLVERS
+SHARED_SOLVER_FAMILY
+INPUTS
+OUTPUTS
+UNITS
+ORACLE
+VALIDATION
+PROFESSIONAL_VALIDATION
+CURRENT_REPO_SUPPORT
+REUSE_DECISION
+BLOCKERS.
+
+No capability may be omitted.
+
+======================================================================
+8. INTERNAL ARKI METHODS
+======================================================================
+
+Identify calculations that should reasonably remain inside ARKI.
+
+Candidates may include:
+
+unit conversion
+coordinate transformations
+areas
+volumes
+distances
+angles
+topology
+graphs
+adjacency
+visibility basics
+circulation metrics
+basic spatial syntax
+simple solar geometry
+simple thermal equations
+simple hydraulic equations
+basic electrical equations
+financial equations
+NPV/IRR
+basic statistics
+basic optimization
+constraint evaluation.
+
+Do not assume these candidates automatically belong internally.
+
+Evaluate.
+
+======================================================================
+9. STRUCTURAL SOLVERS
+======================================================================
+
+Research candidates such as:
+
+OpenSees
+OpenSeesPy
+CalculiX
+Code_Aster
+
+and relevant professional/commercial alternatives where justified.
+
+Evaluate support for:
+
+linear analysis
+nonlinear analysis
+static
+dynamic
+modal
+time history
+pushover
+P-Delta
+material nonlinearities
+geometric nonlinearities
+soil-structure interaction
+progressive collapse where applicable
+structural fire where applicable.
+
+Determine whether one structural stack can cover:
+
+C06
+C62
+
+and other relevant capabilities.
+
+======================================================================
+10. GEOTECHNICAL
+======================================================================
+
+Evaluate:
+
+OpenSees geotechnical capability
+Code_Aster where applicable
+other credible open-source candidates
+PLAXIS or equivalent professional tools as comparison.
+
+Needs include:
+
+soil behavior
+foundation
+piles
+raft
+piled raft
+settlement
+excavation
+retaining systems
+groundwater interaction
+soil-structure interaction.
+
+Do not assume structural FEM automatically equals professional
+geotechnical capability.
+
+======================================================================
+11. WIND / CFD
+======================================================================
+
+Research:
+
+OpenFOAM
+SU2
+other credible CFD engines
+
+and commercial alternatives where relevant.
+
+Evaluate:
+
+external aerodynamics
+wind pressure
+pedestrian wind
+natural ventilation
+internal airflow
+turbulence models
+transient analysis
+mesh generation
+post-processing
+automation
+high-rise suitability.
+
+Distinguish:
+
+CFD simulation
+
+from:
+
+wind tunnel professional validation.
+
+======================================================================
+12. ENERGY
+======================================================================
+
+Evaluate EnergyPlus and alternatives.
+
+Needs:
+
+thermal loads
+building energy
+HVAC interaction
+weather data
+zones
+materials
+schedules
+controls
+annual simulation
+design days
+energy consumption.
+
+Determine relationship to:
+
+C03
+C19
+C25
+and other relevant Cxx.
+
+======================================================================
+13. AIRFLOW / IAQ
+======================================================================
+
+Evaluate CONTAM and alternatives.
+
+Needs:
+
+multizone airflow
+pressure
+infiltration
+ventilation
+contaminant transport
+IAQ
+stack effect.
+
+Evaluate possible coupling with EnergyPlus/CFD.
+
+======================================================================
+14. LIGHTING
+======================================================================
+
+Evaluate Radiance and relevant wrappers/toolchains.
+
+Needs:
+
+daylight
+illuminance
+glare
+solar interaction
+electric lighting where appropriate.
+
+Determine relationship to existing ARKI geometry and environmental
+capabilities.
+
+======================================================================
+15. FIRE / SMOKE
+======================================================================
+
+Evaluate:
+
+FDS
+Smokeview
+CONTAM coupling where applicable
+other credible engines.
+
+Needs:
+
+fire
+heat
+smoke
+tenability
+smoke movement.
+
+Distinguish:
+
+fire simulation
+from
+code compliance
+from
+professional fire engineering approval.
+
+======================================================================
+16. WATER / HYDRAULICS
+======================================================================
+
+Evaluate EPANET and alternatives.
+
+Determine coverage for:
+
+water distribution
+pressure
+flow
+pumps
+tanks
+networks.
+
+Also identify what EPANET does NOT cover adequately for complete
+building plumbing/sanitary design.
+
+Do not overclaim.
+
+======================================================================
+17. ELECTRICAL
+======================================================================
+
+Evaluate:
+
+OpenDSS
+pandapower
+other credible engines.
+
+Needs may include:
+
+load flow
+voltage
+network analysis
+short circuit where supported
+distributed generation
+storage
+microgrid
+reliability.
+
+Identify gaps for complete building electrical engineering.
+
+======================================================================
+18. ACOUSTICS
+======================================================================
+
+For C61 and related capabilities investigate:
+
+ray tracing
+image-source methods
+FEM
+BEM
+room acoustics engines
+environmental acoustics tools.
+
+Determine what can reasonably be internal vs external.
+
+Do not select a tool merely because it produces acoustic graphics.
+
+======================================================================
+19. VERTICAL TRANSPORTATION
+======================================================================
+
+Research whether credible programmable/open tools exist for:
+
+handling capacity
+waiting time
+destination control
+zoning
+traffic simulation
+evacuation elevator scenarios.
+
+Compare with commercial/professional alternatives.
+
+If no strong open engine exists:
+
+say so.
+
+Do not invent one.
+
+======================================================================
+20. EVACUATION / CROWD
+======================================================================
+
+Research credible engines for:
+
+pedestrian simulation
+egress
+crowd movement
+queueing
+congestion.
+
+Distinguish:
+
+analytical egress calculation
+agent simulation
+professional evacuation modeling.
+
+======================================================================
+21. BIM / IFC / CAD
+======================================================================
+
+Inventory actual current ARKI assets first.
+
+Evaluate:
+
+IfcOpenShell
+current CAD Gateway
+ACIR
+existing IFC support
+possible Bonsai/Blender integration
+other required libraries.
+
+IMPORTANT:
+
+BIM ENGINE ≠ PHYSICAL SOLVER.
+
+IFC ≠ ENGINEERING VALIDATION.
+
+CAD ≠ BIM.
+
+Representation must remain distinct from calculation.
+
+======================================================================
+22. CONSTRUCTION / SCHEDULING
+======================================================================
+
+Determine what ARKI can implement internally using:
+
+CPM
+PERT
+resource scheduling
+graph algorithms
+constraint programming
+optimization.
+
+Evaluate external engines/libraries only where useful.
+
+Potential general tools may include:
+
+OR-Tools
+optimization libraries
+scheduling libraries.
+
+======================================================================
+23. COST / FINANCE / REAL ESTATE
+======================================================================
+
+Determine which capabilities should use ARKI internal deterministic
+engines.
+
+Potential methods:
+
+quantity × unit price
+cash flow
+NPV
+IRR
+sensitivity
+Monte Carlo
+real options.
+
+External data source ≠ solver.
+
+Market data and cost databases require provenance.
+
+======================================================================
+24. LCA / CARBON
+======================================================================
+
+Evaluate engines/frameworks such as Brightway where appropriate.
+
+Separate:
+
+CALCULATION ENGINE
+from
+LCA DATABASE.
+
+No carbon number without source/version/geography/applicability.
+
+======================================================================
+25. OPTIMIZATION
+======================================================================
+
+Evaluate:
+
+SciPy
+OR-Tools
+pymoo
+other credible optimization libraries.
+
+Needs:
+
+continuous optimization
+discrete optimization
+constraint solving
+multiobjective optimization
+Pareto
+scheduling
+routing
+search.
+
+Determine shared use across C1-C80.
+
+======================================================================
+26. MCDA
+======================================================================
+
+For C70 determine whether ARKI should implement bounded deterministic
+methods internally:
+
+AHP
+TOPSIS
+PROMETHEE
+
+or rely on external libraries.
+
+Require testable mathematical oracles.
+
+======================================================================
+27. RISK
+======================================================================
+
+For C72 evaluate internal/library support for:
+
+Monte Carlo
+probability distributions
+sensitivity
+scenario analysis
+risk aggregation.
+
+Do not treat uncertainty as one scalar when model structure requires
+more.
+
+======================================================================
+28. DIGITAL TWIN
+======================================================================
+
+Do NOT search for one mythical "digital twin solver."
+
+Decompose:
+
+telemetry
+time series
+state estimation
+rules
+anomaly detection
+simulation
+prediction
+control
+asset graph
+BIM linkage
+IoT protocols.
+
+Determine which existing engines can be reused.
+
+======================================================================
+29. GIS / TERRITORIAL
+======================================================================
+
+Evaluate relevant geospatial computational stack.
+
+Possible categories:
+
+GDAL
+PROJ
+GEOS
+PostGIS
+network analysis
+raster processing.
+
+Preserve:
+
+CRS
+resolution
+accuracy
+date
+source
+scale
+provenance.
+
+======================================================================
+30. SOLVER CANDIDATE SCORECARD
+======================================================================
+
+Do NOT produce a simplistic winner score.
+
+For each candidate report factual dimensions:
+
+LICENSE
+COST MODEL
+OPEN SOURCE?
+COMMERCIAL?
+OS SUPPORT
+LANGUAGE
+PYTHON API
+CLI
+REST/API POSSIBILITY
+HEADLESS EXECUTION
+CONTAINERIZATION
+DETERMINISM
+INPUT FORMAT
+OUTPUT FORMAT
+ACTIVE DEVELOPMENT
+DOCUMENTATION
+TESTABILITY
+VALIDATION REFERENCES
+INDUSTRY USE
+AUTOMATION QUALITY
+ARKI INTEGRATION COMPLEXITY
+KNOWN LIMITATIONS
+PROFESSIONAL ACCEPTANCE
+Cxx COVERAGE.
+
+Do not collapse these into one arbitrary number.
+
+======================================================================
+31. LICENSE AUDIT
+======================================================================
+
+This is mandatory.
+
+For every proposed dependency determine:
+
+license
+redistribution restrictions
+commercial-use implications
+linking implications where relevant
+container/distribution implications
+cloud/SaaS implications where relevant.
+
+Classify:
+
+LOW_FRICTION
+REVIEW_REQUIRED
+COMMERCIAL_LICENSE_REQUIRED
+INCOMPATIBLE_OR_HIGH_RISK
+UNKNOWN.
+
+No legal conclusion beyond available evidence.
+
+Flag professional legal review where appropriate.
+
+======================================================================
+32. PLATFORM COMPATIBILITY
+======================================================================
+
+Evaluate against likely ARKI infrastructure:
+
+Windows
+Linux
+Docker/container
+Python
+Node
+CLI
+REST service
+local worker
+cloud worker
+GPU
+CPU
+RAM.
+
+Do not assume every solver belongs inside the web process.
+
+======================================================================
+33. EXECUTION ARCHITECTURE
+======================================================================
+
+Design a target architecture similar in principle to:
+
+ARKI
+  |
+  +-- Problem Definition
+  |
+  +-- Solver Selection
+  |
+  +-- Input Compiler
+  |
+  +-- Solver Adapter
+  |
+  +-- Execution Worker
+  |
+  +-- Output Parser
+  |
+  +-- Validation
+  |
+  +-- Evidence
+  |
+  +-- Interpretation
+  |
+  +-- Dependency Propagation
+
+But derive final architecture from evidence.
+
+======================================================================
+34. SOLVER ADAPTER CONTRACT
+======================================================================
+
+Define a generic SolverAdapter contract.
+
+At minimum:
+
+solverId
+solverFamily
+version
+capabilities
+inputSchema
+outputSchema
+units
+executionMode
+environment
+configuration
+timeout
+determinism
+provenance
+validationProfile
+professionalBoundary.
+
+Operations may include:
+
+canSolve()
+validateInput()
+compileInput()
+execute()
+parseOutput()
+validateOutput()
+collectEvidence()
+dispose().
+
+Do NOT implement production adapters in this order.
+
+======================================================================
+35. SOLVER RUN RECORD
+======================================================================
+
+Design:
+
+SolverRunRecord
+
+with at least:
+
+runId
+projectId
+scenarioId
+capabilityIds
+solverId
+solverVersion
+adapterVersion
+inputHash
+configurationHash
+environmentHash
+startedAt
+completedAt
+status
+warnings
+errors
+outputHash
+units
+evidenceRefs
+provenanceRefs
+validationStatus
+professionalValidationRequired.
+
+This is evidence architecture.
+
+It is NOT a new canonical writer.
+
+======================================================================
+36. FAIL CLOSED
+======================================================================
+
+Solver adapter must reject or quarantine:
+
+wrong units
+missing required inputs
+unsupported analysis type
+unknown solver version
+invalid configuration
+corrupted output
+NaN/Infinity
+non-convergence
+partial result presented as complete
+stale inputs
+hash mismatch
+missing provenance.
+
+======================================================================
+37. SOLVER OUTPUT EPISTEMIC STATE
+======================================================================
+
+A successful solver execution should NOT automatically produce FACT.
+
+Possible result state:
+
+COMPUTED_RESULT
+
+or equivalent compatible with existing epistemic architecture.
+
+Then require explicit validation/promotion path.
+
+Do not create conflicting epistemic systems.
+
+Reconcile with WAVE1.
+
+======================================================================
+38. CROSS-SOLVER VALIDATION
+======================================================================
+
+Identify where independent validation is feasible.
+
+Examples:
+
+analytical formula vs numerical solver
+solver A vs solver B
+coarse model vs refined model
+energy balance sanity check
+geometry invariant
+conservation law
+unit invariant.
+
+ARKI should distrust unexplained agreement and disagreement.
+
+======================================================================
+39. SOLVER MUTANTS
+======================================================================
+
+Design future tests for:
+
+wrong solver
+wrong version
+wrong unit
+wrong sign
+wrong boundary condition
+missing load
+duplicate load
+wrong material
+stale geometry
+corrupted result
+non-convergence ignored
+fake output
+fabricated success
+output from another project.
+
+Do not execute expensive solver tests yet unless already available.
+
+======================================================================
+40. HARDWARE REQUIREMENTS
+======================================================================
+
+For each solver family estimate factual requirements where evidence
+exists:
+
+CPU intensity
+RAM intensity
+GPU usefulness
+storage
+parallelization
+OS constraints.
+
+Map against existing ARKI infrastructure only where actual hardware
+inventory is known.
+
+Do not recommend purchases yet.
+
+Identify:
+
+CURRENT_HARDWARE_SUFFICIENT_FOR_PILOT
+UNKNOWN
+LIKELY_FUTURE_BOTTLENECK.
+
+======================================================================
+41. MINIMUM VIABLE SCIENTIFIC STACK
+======================================================================
+
+Derive:
+
+ARKI SCIENTIFIC STACK — TIER 0
+ARKI SCIENTIFIC STACK — TIER 1
+ARKI SCIENTIFIC STACK — TIER 2
+ARKI SCIENTIFIC STACK — PROFESSIONAL.
+
+Meaning:
+
+TIER 0:
+existing/internal deterministic computation.
+
+TIER 1:
+minimum open scientific stack for bounded training.
+
+TIER 2:
+advanced scientific simulation.
+
+PROFESSIONAL:
+commercial/specialist tools only when justified.
+
+Do not equate tier with authority.
+
+======================================================================
+42. INSTALLATION PRIORITY
+======================================================================
+
+Produce dependency-based proposed sequence.
+
+Consider:
+
+number of Cxx unlocked
+shared use
+open-source availability
+automation
+testability
+hardware requirements
+validation
+integration complexity
+risk.
+
+Do NOT install.
+
+======================================================================
+43. C1-C80 COVERAGE MATRIX
+======================================================================
+
+Produce a matrix:
+
+ROWS:
+C01-C80.
+
+COLUMNS:
+
+INTERNAL ARKI
+STRUCTURAL
+GEOTECH
+CFD
+ENERGY
+AIRFLOW
+LIGHTING
+ACOUSTICS
+FIRE
+HYDRAULICS
+ELECTRICAL
+VERTICAL TRANSPORT
+EVACUATION
+BIM/IFC/CAD
+SCHEDULING
+FINANCE
+LCA
+OPTIMIZATION
+MCDA
+RISK
+DIGITAL TWIN
+GIS
+OTHER.
+
+Cell values:
+
+PRIMARY
+SECONDARY
+OPTIONAL
+NOT_REQUIRED
+UNKNOWN.
+
+======================================================================
+44. SOLVER CONSOLIDATION
+======================================================================
+
+Calculate:
+
+NUMBER OF Cxx = 80
+NUMBER OF SOLVER FAMILIES
+NUMBER OF CANDIDATE TOOLS
+NUMBER OF TOOLS RECOMMENDED FOR PILOT
+NUMBER OF COMMERCIAL TOOLS DEFERRED.
+
+Identify consolidation opportunities.
+
+Example:
+
+one engine supporting multiple capabilities is preferable to redundant
+tools IF technical fitness is equivalent.
+
+Do not optimize tool count at expense of validity.
+
+======================================================================
+45. WHAT ARKI SHOULD BUILD
+======================================================================
+
+Produce:
+
+BUILD_VS_INTEGRATE_MATRIX.
+
+For every computational function classify:
+
+BUILD_INTERNAL
+INTEGRATE_OPEN_SOURCE
+INTEGRATE_COMMERCIAL_LATER
+HYBRID
+NO_SOLVER_REQUIRED
+PROFESSIONAL_SERVICE_REQUIRED
+UNKNOWN.
+
+Explain why.
+
+======================================================================
+46. PROFESSIONAL VALIDATION
+======================================================================
+
+For each family identify where:
+
+ARKI calculation may be useful for design exploration
+
+but
+
+licensed/specialist professional validation remains required.
+
+Do not conflate technical automation with legal/professional authority.
+
+======================================================================
+47. AURORA
+======================================================================
+
+DO NOT RUN AURORA.
+
+DO NOT READ AURORA SOLUTIONS FOR TOOL SELECTION.
+
+Aurora R0 may only contribute generic information such as:
+
+"structural solver deficit exists"
+"wind analysis tool deficit exists".
+
+Do not optimize solver selection to reproduce Aurora answers.
+
+======================================================================
+48. C1-C80
+======================================================================
+
+DO NOT IMPLEMENT C1-C80.
+
+This order maps the instruments required before domain implementation.
+
+No capability promotion from this study alone.
+
+======================================================================
+49. REQUIRED DELIVERABLES
+======================================================================
+
+At minimum:
+
+00_EXECUTIVE_REPORT.md
+01_REPOSITORY_COMPUTATIONAL_INVENTORY.md
+02_REPOSITORY_COMPUTATIONAL_INVENTORY.json
+03_COMPUTATIONAL_FAMILY_TAXONOMY.md
+04_C1_C80_SOLVER_REQUIREMENTS.md
+05_C1_C80_SOLVER_REQUIREMENTS.json
+06_INTERNAL_ARKI_METHODS.md
+07_STRUCTURAL_SOLVER_STUDY.md
+08_GEOTECH_SOLVER_STUDY.md
+09_CFD_WIND_SOLVER_STUDY.md
+10_ENERGY_SOLVER_STUDY.md
+11_AIRFLOW_IAQ_SOLVER_STUDY.md
+12_LIGHTING_SOLVER_STUDY.md
+13_ACOUSTICS_SOLVER_STUDY.md
+14_FIRE_SMOKE_SOLVER_STUDY.md
+15_HYDRAULIC_SOLVER_STUDY.md
+16_ELECTRICAL_SOLVER_STUDY.md
+17_VERTICAL_TRANSPORT_SOLVER_STUDY.md
+18_EVACUATION_SOLVER_STUDY.md
+19_BIM_IFC_CAD_ENGINE_STUDY.md
+20_CONSTRUCTION_SCHEDULING_ENGINE_STUDY.md
+21_COST_FINANCE_ENGINE_STUDY.md
+22_LCA_CARBON_ENGINE_STUDY.md
+23_OPTIMIZATION_ENGINE_STUDY.md
+24_MCDA_ENGINE_STUDY.md
+25_RISK_ENGINE_STUDY.md
+26_DIGITAL_TWIN_ENGINE_STUDY.md
+27_GIS_ENGINE_STUDY.md
+28_SOLVER_CANDIDATE_SCORECARD.md
+29_LICENSE_AUDIT.md
+30_PLATFORM_COMPATIBILITY.md
+31_SOLVER_ARCHITECTURE.md
+32_SOLVER_ADAPTER_CONTRACT.md
+33_SOLVER_RUN_RECORD.md
+34_SOLVER_VALIDATION_ARCHITECTURE.md
+35_SOLVER_MUTATION_TEST_PLAN.md
+36_HARDWARE_REQUIREMENTS.md
+37_MINIMUM_VIABLE_SCIENTIFIC_STACK.md
+38_INSTALLATION_PRIORITY.md
+39_C1_C80_COVERAGE_MATRIX.md
+40_SOLVER_CONSOLIDATION_REPORT.md
+41_BUILD_VS_INTEGRATE_MATRIX.md
+42_PROFESSIONAL_BOUNDARY_MATRIX.md
+43_UNKNOWN_REGISTER.md
+44_RISK_REGISTER.md
+45_DECISION_REGISTER.md
+46_EVIDENCE_MATRIX.md
+47_MANIFEST.json
+48_RAW_OUTPUTS.txt.
+
+Package:
+
+ARKI_SOLVER_MAP_001_EVIDENCE.zip
+
+and SHA-256.
+
+======================================================================
+50. WEB / EXTERNAL RESEARCH
+======================================================================
+
+Because tool versions, licensing, APIs and active development can
+change:
+
+verify current candidates against primary/official sources whenever
+external research is available.
+
+Record:
+
+URL
+access date
+version/date
+claim supported.
+
+Prefer:
+
+official documentation
+official repositories
+maintainer documentation
+peer-reviewed validation literature where applicable.
+
+Do not use marketing text as technical proof.
+
+======================================================================
+51. NO FAKE RESEARCH
+======================================================================
+
+If internet access is unavailable:
+
+mark:
+
+EXTERNAL_VERIFICATION_UNAVAILABLE.
+
+Do not invent:
+
+current version
+license
+API
+pricing
+OS support
+validation status.
+
+======================================================================
+52. VERDICT
+======================================================================
+
+Allowed:
+
+SOLVER_MAP_VERIFIED
+SOLVER_MAP_PARTIAL
+SOLVER_MAP_BLOCKED
+SOLVER_MAP_FAILED.
+
+VERIFIED means:
+
+all C1-C80 mapped,
+computational families established,
+candidate tools evidenced,
+licenses assessed,
+integration architecture defined,
+coverage gaps exposed,
+unknowns explicit.
+
+It DOES NOT mean:
+
+solvers installed,
+solvers integrated,
+C1-C80 implemented,
+professional engineering capability certified.
+
+======================================================================
+53. FINAL STOP
+======================================================================
+
+After the map:
+
+STOP.
+
+DO NOT:
+
+install solver
+implement production adapter
+implement C1-C80
+run Aurora
+run Aurora R1
+execute TX-005
+migrate legacy writers
+implement C81-C92
+deploy
+push
+PR
+merge.
+
+Return:
+
+VERDICT
+HEAD
+WORKTREE
+EXISTING COMPUTATIONAL ASSETS
+NUMBER OF COMPUTATIONAL FAMILIES
+C1-C80 MAPPED
+CANDIDATE TOOL COUNT
+OPEN-SOURCE CANDIDATES
+COMMERCIAL CANDIDATES
+INTERNAL METHOD COUNT
+EXTERNAL SOLVER COUNT
+UNKNOWN TOOL GAPS
+LICENSE RISKS
+MINIMUM PILOT STACK
+PROPOSED INSTALLATION ORDER
+HARDWARE OBSERVATIONS
+DECISIONS REQUIRED
+EVIDENCE PACKAGE PATH
+SHA-256
+STOP CONFIRMATION.
+
+======================================================================
+FINAL PRINCIPLES
+======================================================================
+
+SABER ≠ CALCULAR.
+
+CALCULAR ≠ MODELAR.
+
+MODELAR ≠ SIMULAR.
+
+SIMULAR ≠ VERIFICAR.
+
+VERIFICAR ≠ CERTIFICAR.
+
+SOLVER ≠ INTELLIGENCE.
+
+SOLVER OUTPUT ≠ PROJECT FACT.
+
+ARKI CHOOSES THE METHOD.
+THE SOLVER EXECUTES THE METHOD.
+ARKI INTERPRETS THE RESULT.
+EVIDENCE GOVERNS ITS ACCEPTANCE.
+HUMAN AUTHORITY GOVERNS THE DECISION.
+
+DO NOT BUILD WHAT A VALIDATED SCIENTIFIC ENGINE ALREADY DOES WELL.
+
+DO NOT INTEGRATE A TOOL THAT ARKI CANNOT VALIDATE.
+
+ONE ARKI.
+MANY INSTRUMENTS.
+ONE CANONICAL TRUTH.
+HUMAN AUTHORITY.
+
+STOP.

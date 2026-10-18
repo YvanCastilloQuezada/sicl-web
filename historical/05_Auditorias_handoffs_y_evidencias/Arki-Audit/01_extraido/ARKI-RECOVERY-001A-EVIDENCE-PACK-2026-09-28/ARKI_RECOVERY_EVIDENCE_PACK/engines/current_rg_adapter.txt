@@ -1,0 +1,101 @@
+tests/test_drawing_block2.py:8:    DrawingAdapterError,
+tests/test_drawing_block2.py:105:    with pytest.raises(DrawingAdapterError, match="UNSUPPORTED_GRAPHIC_ROLE:UNKNOWN_ROLE"):
+tests/test_drawing_block2.py:108:    with pytest.raises(DrawingAdapterError, match="STYLE_MAPPING_REQUIRED"):
+tests/test_drawing_block2.py:115:    with pytest.raises(DrawingAdapterError, match="EMPTY_GRAPHIC_SCENE"):
+tests/test_drawing_block2.py:122:    with pytest.raises(DrawingAdapterError, match="UNRESOLVED_VISIBILITY"):
+tests/test_drawing_block2.py:125:    with pytest.raises(DrawingAdapterError, match="UNRESOLVED_CUT_RELATION"):
+tests/test_drawing_block2.py:132:    with pytest.raises(DrawingAdapterError, match="MALFORMED_GRAPHIC_TRACE"):
+tests/test_drawing_block2.py:135:    with pytest.raises(DrawingAdapterError, match="NONFINITE_GEOMETRY"):
+tests/test_drawing_block2.py:138:    with pytest.raises(DrawingAdapterError, match="NONPOSITIVE_GEOMETRY"):
+tests/test_drawing_block2.py:146:    with pytest.raises(DrawingAdapterError, match="GRAPHIC_TRACE_ROLE_MISMATCH"):
+tests/test_drawing_block2.py:149:    with pytest.raises(DrawingAdapterError, match="GRAPHIC_TRACE_OPERATION_MISMATCH"):
+api/routes/v1.py:73:from sicl.ifc_adapter import parse_ifc_file
+api/__init__.py:1:"""FastAPI adapter for SICL Core v1.0."""
+tests/test_v2.py:12:def test_open_meteo_adapter_parses_geocoding_and_weather(monkeypatch):
+src/sicl/drawing/scene_adapter.py:1:"""ARKI-DRAW Block 2 adapter from ARE GraphicScene to vector primitives.
+src/sicl/drawing/scene_adapter.py:22:ADAPTER_VERSION = "arki-draw-scene-adapter-v1"
+src/sicl/drawing/scene_adapter.py:31:class DrawingAdapterError(ValueError):
+src/sicl/drawing/scene_adapter.py:52:            raise DrawingAdapterError("margin_mm must be finite and non-negative")
+src/sicl/drawing/scene_adapter.py:64:        raise DrawingAdapterError(f"STYLE_MAPPING_REQUIRED:{role}")
+src/sicl/drawing/scene_adapter.py:69:    raise DrawingAdapterError(f"INVALID_STYLE_LINEWEIGHT:{role}:{raw}")
+src/sicl/drawing/scene_adapter.py:90:            raise DrawingAdapterError(f"UNSUPPORTED_GRAPHIC_GEOMETRY:{kind}")
+src/sicl/drawing/scene_adapter.py:92:        raise DrawingAdapterError("EMPTY_GRAPHIC_SCENE")
+src/sicl/drawing/scene_adapter.py:100:        raise DrawingAdapterError(f"MALFORMED_GEOMETRY:{key}") from exc
+src/sicl/drawing/scene_adapter.py:102:        raise DrawingAdapterError(f"NONFINITE_GEOMETRY:{key}")
+src/sicl/drawing/scene_adapter.py:109:        raise DrawingAdapterError(f"NONPOSITIVE_GEOMETRY:{key}")
+src/sicl/drawing/scene_adapter.py:115:        raise DrawingAdapterError(f"UNSUPPORTED_GRAPHIC_ROLE:{entity.role}")
+src/sicl/drawing/scene_adapter.py:117:        raise DrawingAdapterError(f"MALFORMED_GRAPHIC_TRACE:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:119:        raise DrawingAdapterError(f"GRAPHIC_TRACE_ROLE_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:122:        raise DrawingAdapterError(f"UNRESOLVED_VISIBILITY:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:124:        raise DrawingAdapterError(f"UNRESOLVED_CUT_RELATION:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:128:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:130:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:132:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:134:        raise DrawingAdapterError(f"GRAPHIC_TRACE_OPERATION_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:136:        raise DrawingAdapterError(f"STYLE_REFERENCE_MISMATCH:{entity.entity_id}")
+src/sicl/drawing/scene_adapter.py:144:        "adapter_version": ADAPTER_VERSION,
+src/sicl/drawing/scene_adapter.py:186:    raise DrawingAdapterError(f"UNSUPPORTED_GRAPHIC_GEOMETRY:{kind}")
+src/sicl/drawing/scene_adapter.py:192:        raise DrawingAdapterError("GRAPHICSCENE_REQUIRED")
+src/sicl/drawing/scene_adapter.py:194:        raise DrawingAdapterError("margin_mm must be finite and non-negative")
+src/sicl/drawing/scene_adapter.py:199:        raise DrawingAdapterError("EMPTY_GRAPHIC_SCENE")
+src/sicl/drawing/scene_adapter.py:218:        raise DrawingAdapterError("ADAPTED_GRAPHIC_SCENE_REQUIRED")
+src/sicl/drawing/scene_adapter.py:235:            raise DrawingAdapterError(f"UNSUPPORTED_VECTOR_PRIMITIVE:{type(primitive).__name__}")
+src/sicl/drawing/scene_adapter.py:237:        raise DrawingAdapterError("EMPTY_GRAPHIC_SCENE")
+src/sicl/drawing/scene_adapter.py:242:    """Convenience E2E operation: GraphicScene → adapter → existing SVG backend."""
+src/sicl/drawing/scene_adapter.py:248:    "ADAPTER_VERSION",
+src/sicl/drawing/scene_adapter.py:250:    "DrawingAdapterError",
+src/sicl/bim_connectors.py:10:class NativeAdapterResult:
+src/sicl/bim_connectors.py:11:    adapter: str
+src/sicl/bim_connectors.py:19:class NativeBIMAdapter:
+src/sicl/bim_connectors.py:21:    adapter_name: str
+src/sicl/bim_connectors.py:23:    def inspect(self, source: str) -> NativeAdapterResult:
+src/sicl/bim_connectors.py:26:    def export_preview(self, snapshot: BIMModelSnapshot, output_path: str) -> NativeAdapterResult:
+src/sicl/bim_connectors.py:27:        return NativeAdapterResult(self.adapter_name, self.format, "PREVIEW_ONLY", True, "Native export requires HumanReview and the host application SDK", {"output_path": output_path, "applied": False})
+src/sicl/bim_connectors.py:30:class RevitAdapter(NativeBIMAdapter):
+src/sicl/bim_connectors.py:32:    adapter_name = "Revit .NET API adapter contract"
+src/sicl/bim_connectors.py:34:    def inspect(self, source: str) -> NativeAdapterResult:
+src/sicl/bim_connectors.py:35:        return NativeAdapterResult(self.adapter_name, self.format, "HOST_REQUIRED", True, "Run inside Revit with the approved .NET add-in; external .rvt parsing is intentionally not attempted", {"source": source})
+src/sicl/bim_connectors.py:38:class ArchicadAdapter(NativeBIMAdapter):
+src/sicl/bim_connectors.py:40:    adapter_name = "Archicad API adapter contract"
+src/sicl/bim_connectors.py:42:    def inspect(self, source: str) -> NativeAdapterResult:
+src/sicl/bim_connectors.py:43:        return NativeAdapterResult(self.adapter_name, self.format, "HOST_REQUIRED", True, "Run inside Archicad with the approved API add-on or export IFC; native .pln parsing is intentionally not attempted", {"source": source})
+src/sicl/spatial_evaluation.py:3:This module is intentionally an adapter over the existing S2 spatial generator
+tests/test_remaining_phases.py:6:from sicl.bim_connectors import ArchicadAdapter, RevitAdapter
+tests/test_remaining_phases.py:35:def test_bim_conflict_and_native_adapters_are_safe():
+tests/test_remaining_phases.py:41:    assert RevitAdapter().inspect("model.rvt").status == "HOST_REQUIRED"
+tests/test_remaining_phases.py:42:    assert ArchicadAdapter().inspect("model.pln").status == "HOST_REQUIRED"
+src/sicl/drawing/__init__.py:12:from .scene_adapter import ADAPTER_VERSION, AdaptedGraphicScene, DrawingAdapterError, adapt_graphic_scene, export_adapted_svg, graphic_scene_to_svg
+src/sicl/drawing/__init__.py:25:    "export_sheet_svg", "export_view_svg", "ADAPTER_VERSION", "AdaptedGraphicScene", "DrawingAdapterError", "adapt_graphic_scene", "export_adapted_svg", "graphic_scene_to_svg", "DrawingRule", "DrawingRuleSet", "load_rule_set", "validate_rule_set", "DrawingSet", "DrawingSheet",
+tests/test_ifc_adapter.py:6:from sicl.ifc_adapter import parse_ifc_file
+docs/SICL_V1_ARCHITECTURE_BASELINE.md:34:Adapters: SQLite/filesystem, only after approval
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:10:  subgraph ADAPTERS[Adaptadores controlados]
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:11:    BIMADAPTER[Adaptador BIM/IFC\nlectura de elementos, parámetros y unidades]
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:12:    GISADAPTER[Adaptador GIS\nGeoJSON, bbox, CRS y vigencia]
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:46:  REVIT --> BIMADAPTER
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:48:  IFC --> BIMADAPTER
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:49:  CADASTRE --> GISADAPTER
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:53:  BIMADAPTER --> SNAPSHOT
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:54:  BIMADAPTER --> MAPPING
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:55:  GISADAPTER --> PARCEL
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:79:  classDef adapter fill:#fff7ed,stroke:#ea580c,color:#111827
+docs/RFC-027_ARCHITECTURE_FLOW.mmd:83:  class BIMADAPTER,GISADAPTER,COPILOT adapter
+docs/RFC-027_BIM_IFC_EXCHANGE_CONTRACT.md:165:La implementación incluye `src/sicl/ifc_adapter.py`, basado en IfcOpenShell. El adaptador abre un archivo físico `.ifc` en modo solo lectura, extrae productos IFC con `GlobalId`, entidad, parámetros disponibles y procedencia, y calcula un hash SHA-256 del archivo original.
+docs/RFC-027_BIM_IFC_EXCHANGE_CONTRACT.md:182:Se añadieron contratos explícitos para `RevitAdapter` y `ArchicadAdapter`. Fuera del host nativo, ambos adaptadores responden `HOST_REQUIRED` y no intentan parsear archivos propietarios `.rvt` o `.pln`. Esto evita presentar un parser falso como integración real.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:29:| FFO-12 | Interoperability — GIS / BIM / IFC / External Engines | PARTIALLY_IMPLEMENTED / REMAINDER_FROZEN | IFC read-only foundation, parcel snapshot/GIS boundary concepts, and adapter architecture | Full GIS/BIM exchange, mapping, round-trip, conflict resolution, and external-result ingestion | RFC-027/RFC-028; adapter boundary locks | YES for remainder |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:517:SiMS-DeI may exchange data with specialized systems through explicit adapters without surrendering canonical project authority.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:521:The project has an IFC read-only adapter foundation, parcel snapshot/GIS concepts, and an adapter-boundary architecture. These foundations do not constitute complete BIM, GIS, or round-trip interoperability.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:525:IFC import/export completion, native BIM adapters, GIS adapters, simulation-engine adapters, model mapping, identity mapping, provenance preservation, round-trip rules, conflict resolution, and external-result ingestion remain frozen.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:537:RFC-027, RFC-028, and the canonical-state adapter boundary.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:545:`SiMS-DeI / SICL canonical state <-> adapter boundary <-> external system`. External providers must not silently become the canonical project model.
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:564:| FFO-10 | FFO-01, FFO-04, FFO-05, FFO-07, FFO-08, FFO-09, FFO-12 | Evaluation and optimization consume explicit inputs and may ingest adapter results only through provenance. |
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:566:| FFO-12 | FFO-01, FFO-02, FFO-07, FFO-09, FFO-10 | Adapters provide external exchange boundaries without replacing canonical state. |
+docs/architecture/M1_REALITY_AUDIT.md:8:For standalone SVG, the adapter owns the pretransformed local coordinate frame and uses neutral viewport origin `(0, 0)`. Sheet placement remains the authority of `export_sheet_svg`; standalone `export_view_svg` does not consume sheet origin.
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md:4:**Branch:** `feat/arkidraw-block2-scene-adapter`
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md:5:**Scope:** GraphicScene adapter, vector primitives, deterministic viewport, SVG E2E.
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md:20:- `scene_adapter.py` is an explicit boundary: `GraphicScene → ARKI-DRAW primitives → Viewport → export_view_svg`.
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md:23:- Primitive IDs derive from GraphicEntity ID, semantic role, ordinal, and adapter version.
+docs/architecture/ARKI_DRAW_BLOCK2_REALITY_AUDIT.md:25:- Coordinates remain in `PLAN_XY_MM` until an explicit adapter translation establishes a fixed viewport margin. The serializer then applies the declared `1:scale` and SVG Y-axis inversion.
+docs/architecture/ARKI_ARE_002_REALITY_AUDIT.md:14:| Vector payload primitives | `src/sicl/drawing/primitives.py` | Reuse only as an optional payload type in future adapters; ARE-002 stays renderer-neutral. |
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:43:ARKI is not a wrapper around an external engine. Future capability follows **learn → replicate → improve**: observe useful external conventions, reproduce the validated semantics internally, then improve the autonomous ARKI contract. External tools may be explicit adapters or evidence sources; they are never the canonical authority or an implicit production dependency.
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:444:This is not a wrapper architecture. Adapters may exist later, but the canonical model, reasoning, profiles, scenes, and decisions remain ARKI-owned.
+docs/architecture/ARKI_REPRESENTATION_CAPABILITY_BACKLOG.md:51:| Vector 2D / SVG | `IMPLEMENTED` | ARKI-DRAW deterministic SVG exporter | primitives, sheet, metadata | limited to existing Block 1.1 contract | maintain regression and future ARE adapter | ARKI-DRAW |

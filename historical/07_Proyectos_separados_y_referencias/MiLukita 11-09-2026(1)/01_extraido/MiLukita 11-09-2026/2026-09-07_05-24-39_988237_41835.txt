@@ -1,0 +1,74 @@
+# Terminal Full Output
+# Terminal: order55-migration
+# Command: cd /home/ubuntu/ruleta-peru-online && pnpm drizzle-kit generate
+# PID: 41835
+# Timestamp: 2026-09-07_05-24-39.988237
+# Original Length: 5150 characters
+# ----------------------------------------
+
+[32mubuntu@sandbox:~$ [0mcd /home/ubuntu/ruleta-peru-online && pnpm drizzle-kit generate
+[43m[33m[[39m[49m[43m[30mWARN[39m[49m[43m[33m][39m[49m The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+[90mNo config path provided, using default 'drizzle.config.ts'
+[39m[90mReading config file '/home/ubuntu/ruleta-peru-online/drizzle.config.ts'
+[39m[90mReading schema files:
+[39m[90m/home/ubuntu/ruleta-peru-online/drizzle/schema.ts
+[39m[90m[39m[1m57 tables
+[22m[1m[22m[1m[34madmin_qr_timer_palettes[39m[22m [90m8 columns 3 indexes 1 fks
+[39m[1m[34maudit_events[39m[22m [90m10 columns 2 indexes 1 fks
+[39m[1m[34maudit_report_artifacts[39m[22m [90m11 columns 2 indexes 1 fks
+[39m[1m[34mbroadcast_signal_metrics[39m[22m [90m11 columns 2 indexes 0 fks
+[39m[1m[34mcontroller_commands[39m[22m [90m9 columns 3 indexes 2 fks
+[39m[1m[34mcontroller_role_assignments[39m[22m [90m6 columns 1 indexes 2 fks
+[39m[1m[34mcontroller_sessions[39m[22m [90m12 columns 3 indexes 2 fks
+[39m[1m[34mcontroller_shared_profiles[39m[22m [90m6 columns 2 indexes 1 fks
+[39m[1m[34mgame_batch_previews[39m[22m [90m11 columns 2 indexes 2 fks
+[39m[1m[34mgame_rounds[39m[22m [90m20 columns 2 indexes 2 fks
+[39m[1m[34mgame_rulesets[39m[22m [90m9 columns 1 indexes 1 fks
+[39m[1m[34mgame_schedules[39m[22m [90m13 columns 3 indexes 1 fks
+[39m[1m[34mlrci_review_cases[39m[22m [90m17 columns 3 indexes 2 fks
+[39m[1m[34mlrci_review_notifications[39m[22m [90m10 columns 3 indexes 0 fks
+[39m[1m[34mlukita_script_versions[39m[22m [90m15 columns 2 indexes 1 fks
+[39m[1m[34mmarket_batch_previews[39m[22m [90m10 columns 2 indexes 2 fks
+[39m[1m[34mmarket_events[39m[22m [90m20 columns 2 indexes 1 fks
+[39m[1m[34mmarket_positions[39m[22m [90m13 columns 4 indexes 2 fks
+[39m[1m[34mmilukita_consents[39m[22m [90m8 columns 2 indexes 1 fks
+[39m[1m[34mmilukita_devices[39m[22m [90m9 columns 3 indexes 1 fks
+[39m[1m[34mmilukita_event_contexts[39m[22m [90m9 columns 2 indexes 0 fks
+[39m[1m[34mmilukita_identities[39m[22m [90m8 columns 2 indexes 1 fks
+[39m[1m[34mmilukita_participation_sessions[39m[22m [90m12 columns 2 indexes 4 fks
+[39m[1m[34mmilukita_sessions[39m[22m [90m8 columns 2 indexes 2 fks
+[39m[1m[34mmissions[39m[22m [90m9 columns 1 indexes 0 fks
+[39m[1m[34monline_tv_actions[39m[22m [90m9 columns 3 indexes 0 fks
+[39m[1m[34monline_tv_content_items[39m[22m [90m7 columns 1 indexes 0 fks
+[39m[1m[34monline_tv_sessions[39m[22m [90m15 columns 2 indexes 0 fks
+[39m[1m[34moperational_events[39m[22m [90m12 columns 4 indexes 1 fks
+[39m[1m[34mpayment_references[39m[22m [90m12 columns 2 indexes 1 fks
+[39m[1m[34mpilot_tickets[39m[22m [90m16 columns 3 indexes 2 fks
+[39m[1m[34mplayer_mission_progress[39m[22m [90m8 columns 1 indexes 2 fks
+[39m[1m[34mplayer_settings[39m[22m [90m8 columns 1 indexes 1 fks
+[39m[1m[34mproduct_analytics_events[39m[22m [90m11 columns 4 indexes 1 fks
+[39m[1m[34mpromotion_rules[39m[22m [90m9 columns 1 indexes 1 fks
+[39m[1m[34mshare_sessions[39m[22m [90m9 columns 3 indexes 2 fks
+[39m[1m[34mshare_targets[39m[22m [90m13 columns 3 indexes 1 fks
+[39m[1m[34msocial_impact_cycles[39m[22m [90m13 columns 1 indexes 0 fks
+[39m[1m[34msystem_control_state[39m[22m [90m5 columns 1 indexes 1 fks
+[39m[1m[34mterritorial_assets[39m[22m [90m15 columns 3 indexes 4 fks
+[39m[1m[34mterritorial_capture_sessions[39m[22m [90m14 columns 2 indexes 1 fks
+[39m[1m[34mterritorial_claims[39m[22m [90m12 columns 2 indexes 2 fks
+[39m[1m[34mterritorial_evidence[39m[22m [90m12 columns 2 indexes 3 fks
+[39m[1m[34mterritorial_field_reports[39m[22m [90m14 columns 3 indexes 1 fks
+[39m[1m[34mterritorial_offline_captures[39m[22m [90m12 columns 3 indexes 2 fks
+[39m[1m[34mterritorial_role_assignments[39m[22m [90m6 columns 2 indexes 2 fks
+[39m[1m[34mterritorial_sources[39m[22m [90m13 columns 2 indexes 2 fks
+[39m[1m[34mterritorial_verification_reviews[39m[22m [90m12 columns 2 indexes 2 fks
+[39m[1m[34mterritorial_world_object_snapshots[39m[22m [90m9 columns 3 indexes 3 fks
+[39m[1m[34muser_notification_preferences[39m[22m [90m8 columns 1 indexes 1 fks
+[39m[1m[34musers[39m[22m [90m11 columns 0 indexes 0 fks
+[39m[1m[34mvirtual_award_installments[39m[22m [90m13 columns 3 indexes 3 fks
+[39m[1m[34mvirtual_plan_enrollments[39m[22m [90m13 columns 2 indexes 1 fks
+[39m[1m[34mvirtual_reward_ledger[39m[22m [90m9 columns 3 indexes 1 fks
+[39m[1m[34mvirtual_wallets[39m[22m [90m7 columns 1 indexes 1 fks
+[39m[1m[34mwallet_transactions[39m[22m [90m10 columns 3 indexes 1 fks
+[39m[1m[34mworld_objects[39m[22m [90m23 columns 4 indexes 3 fks
+[39m[[32m✓[39m] Your SQL migration file ➜ [1m[4m[34mdrizzle/0048_flat_pretty_boy.sql[39m[24m[22m 🚀
+[32mubuntu@sandbox:~/ruleta-peru-online$ [0m

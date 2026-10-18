@@ -1,0 +1,26 @@
+ARKI / ARQUI — COMMIT 7 SOURCE PACKAGE (PLAIN TEXT)
+Repository: YvanCastilloQuezada/sicl-web
+Exact ref: 44a19eb49c024693c15d07e3a1b6d02cc402d3b3
+Commit 6 status at extraction: IMPLEMENTED; GitHub reports 0 statuses / 0 workflow runs.
+
+MANDATORY FILES — retrieve/read exactly at the ref above:
+1. shared/arkiDeveloperProposal.ts
+2. server/arkiD63GeometricBridge.ts
+3. server/arkiPartiContract.ts
+4. server/arkiIntegratedArchitectCycle.ts
+5. shared/arkiDesignFunnel.ts
+6. server/arkiFingerprint.ts
+7. server/arkiIntegratedArchitectCycle.test.ts
+8. server/arkiPartiContract.test.ts
+
+OPTIONAL FILES VERIFIED PRESENT AT THE SAME REF:
+9. shared/arkiProjectState.ts
+10. shared/arkiTypologyExecution.ts
+11. shared/arkiExecutionGovernance.ts
+
+IMPORTANT:
+- Source of truth is the exact GitHub ref above.
+- Do not reconstruct missing code.
+- Commit 7 must not modify the Commit 6 contract or frozen modules.
+- DeveloperProposal remains pre-D-2, non-canonical, reviewRequired:true.
+- Core/promotion is Commit 8, not Commit 7.

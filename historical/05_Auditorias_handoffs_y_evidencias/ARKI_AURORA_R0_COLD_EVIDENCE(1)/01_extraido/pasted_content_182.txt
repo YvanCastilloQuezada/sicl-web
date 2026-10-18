@@ -1,0 +1,1279 @@
+ARKI-AURORA-R0-COLD
+VERTICAL AURORA — 150-STOREY COLD INTEGRATED BUILDING EXAM
+PRE-DIGEST BASELINE
+
+PO AUTHORIZATION:
+EXECUTE EXAM ONLY.
+
+THIS ORDER DOES NOT AUTHORIZE:
+- DIGEST-001.
+- WAVE 2.
+- implementation of C1–C80.
+- training ARKI using Aurora answers.
+- correction of deficits discovered during the exam.
+- installation of professional solvers.
+- TX-005.
+- legacy-writer migration.
+- canonical product mutation.
+- deployment.
+- push.
+- PR.
+- merge.
+
+======================================================================
+0. PURPOSE
+======================================================================
+
+Execute a COLD examination of the CURRENT ARKI against:
+
+VERTICAL AURORA
+150-STOREY BUILDING
+
+The purpose is NOT to prove that ARKI can design the tower.
+
+The purpose is to determine, with evidence:
+
+WHAT ARKI ACTUALLY KNOWS TODAY.
+WHAT ARKI CAN ACTUALLY REASON TODAY.
+WHAT ARKI CAN ACTUALLY COMPUTE TODAY.
+WHAT ARKI CAN ACTUALLY MODEL TODAY.
+WHAT ARKI CAN ACTUALLY VERIFY TODAY.
+WHAT ARKI CORRECTLY REFUSES TO CLAIM.
+WHAT ARKI KNOWS IT DOES NOT KNOW.
+WHAT ARKI FAILS TO NOTICE.
+WHAT ARKI NEEDS TO LEARN.
+
+This is the PRE-DIGEST baseline.
+
+======================================================================
+1. CURRENT BASELINE
+======================================================================
+
+Use actual repository evidence.
+
+Expected program state:
+
+WAVE 0:
+VERIFIED FOR REGISTRY AND PLAN SCOPE.
+
+WAVE 1:
+VERIFIED FOR BOUNDED FOUNDATION SCOPE.
+
+C1–C80:
+REGISTERED / DOCUMENTED.
+0/80 should be assumed operational unless repository evidence
+independently demonstrates otherwise.
+
+TX-005:
+NOT AUTHORIZED.
+
+Do not inflate any state.
+
+======================================================================
+2. EXAM INTEGRITY — COLD RULE
+======================================================================
+
+AURORA IS A HELD-OUT BENCHMARK.
+
+Before execution, search the repository for:
+
+Aurora
+Vertical Aurora
+ARKI-BE-X01
+AURORA-R0
+AURORA-R1
+150-storey
+150 story
+150 pisos
+
+and semantically equivalent references where feasible.
+
+Produce:
+
+AURORA_CONTAMINATION_SCAN.md
+
+Classify discovered material:
+
+HISTORICAL_RECORD
+PREVIOUS_INPUT
+PREVIOUS_OUTPUT
+PREVIOUS_SOLUTION
+TEST_FIXTURE
+TRAINING_MATERIAL
+REFERENCE_ONLY
+UNKNOWN.
+
+If previous Aurora solutions exist:
+
+DO NOT DELETE THEM.
+DO NOT MODIFY THEM.
+DO NOT FEED THEM TO THE CURRENT EXAM.
+DO NOT COPY THEIR ANSWERS.
+
+Isolate the cold execution from those answers as far as technically
+possible.
+
+Report contamination risk honestly.
+
+If cold isolation cannot be demonstrated:
+
+EXAM_CONTAMINATED
+
+and STOP before claiming a valid baseline.
+
+======================================================================
+3. NO LEARNING DURING R0
+======================================================================
+
+During R0 ARKI must NOT:
+
+patch itself
+implement missing capabilities
+install missing solvers
+rewrite algorithms
+add knowledge specifically to answer Aurora
+modify capability registry to improve result
+learn from historical Aurora solutions
+repair failures and rerun until PASS.
+
+R0 measures CURRENT capability.
+
+Failure is useful evidence.
+
+======================================================================
+4. INPUT FREEZE
+======================================================================
+
+Freeze exactly what information ARKI receives about Aurora.
+
+Create:
+
+AURORA_R0_INPUT_FREEZE.json
+AURORA_R0_INPUT_FREEZE.md
+
+Include SHA-256 hashes.
+
+No hidden assumptions.
+
+If actual Aurora source/input files exist in the repository,
+inventory and classify them.
+
+Do not silently supplement missing project information.
+
+======================================================================
+5. PROJECT
+======================================================================
+
+Project:
+
+VERTICAL AURORA
+
+Building:
+
+150 STOREYS.
+
+Treat it as a serious integrated architectural/engineering project.
+
+Do NOT assume automatically:
+
+country
+city
+coordinates
+climate
+soil
+geotechnical profile
+seismic parameters
+wind parameters
+codes
+jurisdiction
+plot dimensions
+FAR
+height limit
+airport restrictions
+groundwater
+flooding
+program distribution
+occupancy
+structural material
+structural system
+foundation system
+façade system
+MEP system
+fire strategy
+vertical transportation strategy
+energy source
+water availability
+budget
+construction schedule
+carbon factors
+tariffs
+BIM authoring platform
+as-built conditions.
+
+Unless provided by frozen input or repository evidence:
+
+UNKNOWN.
+
+======================================================================
+6. FIRST TASK — UNDERSTAND BEFORE DESIGN
+======================================================================
+
+ARKI must first construct a PROJECT STATE.
+
+Separate explicitly:
+
+FACT
+OBSERVED
+INFERRED
+ASSUMPTION
+UNKNOWN
+REQUIRED_INPUT
+PROPOSAL.
+
+Do not begin by generating a design.
+
+Produce:
+
+WHAT_IS_KNOWN
+WHAT_IS_UNKNOWN
+WHAT_IS_ASSUMED
+WHAT_IS_REQUIRED
+WHAT_CAN_BE_DERIVED
+WHAT_CANNOT_BE_DERIVED.
+
+======================================================================
+7. MULTISCALE ANALYSIS
+======================================================================
+
+Evaluate relevant scales:
+
+COUNTRY
+REGION
+METROPOLITAN/CITY
+DISTRICT
+NEIGHBORHOOD
+BLOCK/PUBLIC REALM
+SITE
+BUILDING
+SYSTEM/ZONE
+SPACE
+ACTIVITY
+OBJECT
+COMPONENT
+HUMAN.
+
+Do not extrapolate evidence from one scale to another.
+
+If geographic/jurisdictional information is absent:
+
+do not fabricate it.
+
+======================================================================
+8. ARCHITECTURAL ANALYSIS
+======================================================================
+
+Without inventing missing project facts, determine what ARKI can
+currently analyze regarding:
+
+program
+adjacencies
+space hierarchy
+public/private gradients
+circulation
+vertical circulation
+cores
+floorplate logic
+egress
+refuge strategy
+accessibility
+universal design
+wayfinding
+occupancy
+mixed-use conflicts
+service circulation
+loading/logistics
+maintenance access
+façade/building interface
+public realm
+human experience
+adaptability
+future change.
+
+Separate:
+
+ANALYZED
+PARTIALLY ANALYZED
+NOT ANALYZABLE WITH CURRENT INPUT
+CAPABILITY DEFICIT
+TOOL DEFICIT
+PROFESSIONAL VALIDATION REQUIRED.
+
+======================================================================
+9. STRUCTURAL ANALYSIS
+======================================================================
+
+Evaluate current capability for:
+
+gravity system
+lateral system
+core
+mega-columns
+perimeter systems
+outriggers
+belt systems
+diagrid/tube alternatives
+load path
+stiffness
+drift
+acceleration
+P-Delta
+second-order effects
+buckling
+progressive collapse
+robustness
+structural redundancy
+transfer structures
+long-span zones
+material alternatives
+constructability
+structural-fire interaction
+foundation interaction.
+
+IMPORTANT:
+
+Do not claim a numerical structural solution unless ARKI actually
+executes an appropriate computation with traceable inputs.
+
+If no professional solver exists:
+
+TOOL_DEFICIT.
+
+If inputs are absent:
+
+REQUIRED_INPUT / UNKNOWN.
+
+======================================================================
+10. WIND
+======================================================================
+
+For a 150-storey tower evaluate:
+
+wind climate requirements
+along-wind response
+across-wind response
+torsion
+vortex shedding
+aeroelastic effects
+occupant acceleration
+cladding pressures
+pedestrian wind
+shape sensitivity
+orientation sensitivity
+damping assumptions
+need for wind tunnel
+need for CFD
+need for aeroelastic testing.
+
+Do not invent wind climate.
+
+Do not substitute generic rules for site-specific professional
+validation.
+
+======================================================================
+11. SEISMIC
+======================================================================
+
+Evaluate:
+
+seismic hazard input requirements
+dynamic characteristics
+modal behavior
+torsion
+higher modes
+P-Delta interaction
+soil-structure interaction
+performance objectives
+nonlinear analysis requirements
+structural/nonstructural interaction
+vertical transportation resilience
+MEP resilience
+post-event functionality.
+
+No invented seismic coefficients.
+
+======================================================================
+12. FOUNDATIONS + GEOTECHNICS
+======================================================================
+
+Evaluate what would be required for:
+
+bearing
+settlement
+differential settlement
+raft
+piles
+barrettes
+piled raft
+uplift
+lateral resistance
+basement excavation
+retaining systems
+groundwater
+soil-structure interaction
+construction sequence.
+
+Without geotechnical evidence:
+
+NO FOUNDATION DESIGN CLAIM.
+
+======================================================================
+13. FIRE + LIFE SAFETY
+======================================================================
+
+Analyze requirements/capability for:
+
+compartmentation
+egress
+stairs
+refuge
+smoke control
+pressurization
+firefighter access
+firefighting elevators
+sprinklers
+standpipes
+water reserve
+fire pumps
+emergency power
+structural fire resistance
+façade fire spread
+command center
+evacuation strategies
+phased evacuation
+occupant loads
+rescue logistics.
+
+If jurisdiction is UNKNOWN:
+
+do not claim code compliance.
+
+======================================================================
+14. VERTICAL TRANSPORTATION
+======================================================================
+
+Evaluate:
+
+elevator zoning
+sky lobbies
+express/local strategy
+service elevators
+firefighter elevators
+destination control
+handling capacity
+waiting time
+peak traffic
+redundancy
+maintenance
+evacuation use
+energy
+shaft/core impact.
+
+Do not fabricate elevator performance calculations.
+
+======================================================================
+15. MEP
+======================================================================
+
+Evaluate current ARKI capability for:
+
+HVAC
+electrical
+emergency power
+water supply
+pressure zoning
+drainage
+stormwater
+fire water
+telecommunications
+controls
+BMS
+plant rooms
+vertical risers
+maintenance
+redundancy
+resilience.
+
+A 150-storey building must be treated as a vertically distributed
+infrastructure system.
+
+======================================================================
+16. ENERGY + ENVIRONMENT
+======================================================================
+
+Evaluate:
+
+energy model requirements
+solar exposure
+façade performance
+thermal loads
+daylight
+glare
+HVAC interaction
+renewables
+water
+embodied carbon
+operational carbon
+LCA
+LCC
+climate resilience.
+
+No invented climate file.
+
+No fake EnergyPlus/Radiance/etc. output.
+
+======================================================================
+17. FAÇADE
+======================================================================
+
+Evaluate:
+
+wind pressures
+thermal performance
+solar control
+daylight
+glare
+condensation
+air/water tightness
+movement
+inter-storey drift
+stack effect
+maintenance
+replacement
+fire performance
+constructability.
+
+======================================================================
+18. BIM / DIGITAL REPRESENTATION
+======================================================================
+
+Determine whether ARKI can currently:
+
+represent
+model
+coordinate
+link
+trace
+exchange
+validate
+
+Aurora information through:
+
+ARKI identity
+BIM
+IFC
+CAD/ACIR
+quantities
+systems
+spaces
+components
+evidence
+provenance.
+
+Distinguish:
+
+SCHEMA SUPPORT
+MODEL GENERATION
+MODEL VALIDATION
+ROUNDTRIP
+PRODUCTION BIM.
+
+Do not treat IFC representation as engineering calculation.
+
+======================================================================
+19. CROSS-DISCIPLINE RELATIONSHIPS
+======================================================================
+
+This is critical.
+
+ARKI must identify dependencies such as:
+
+FORM ↔ WIND
+FORM ↔ STRUCTURE
+STRUCTURE ↔ CORE
+CORE ↔ ELEVATORS
+CORE ↔ EGRESS
+STRUCTURE ↔ MEP
+FLOOR HEIGHT ↔ MEP
+FAÇADE ↔ WIND
+FAÇADE ↔ ENERGY
+FAÇADE ↔ STRUCTURAL DRIFT
+FIRE ↔ CORE
+FIRE ↔ MEP
+GEOTECHNICS ↔ STRUCTURE
+FOUNDATION ↔ WATER TABLE
+PROGRAM ↔ VERTICAL TRANSPORT
+OCCUPANCY ↔ EGRESS
+CONSTRUCTION ↔ STRUCTURAL SEQUENCE
+COST ↔ SYSTEM SELECTION
+CARBON ↔ MATERIALS
+OPERATIONS ↔ DESIGN.
+
+Do not merely list relationships.
+
+Where possible demonstrate:
+
+DEPENDENCY
+DIRECTION
+PROPAGATION
+INVALIDATION
+UNKNOWN IMPACT.
+
+======================================================================
+20. CONSTRUCTION
+======================================================================
+
+Evaluate:
+
+construction sequence
+temporary works
+cranes
+hoisting
+vertical logistics
+concrete pumping
+steel erection
+tolerances
+survey/control
+façade installation
+MEP installation
+floor cycle
+weather exposure
+worker logistics
+quality control
+safety
+commissioning.
+
+Do not claim detailed constructability without evidence.
+
+======================================================================
+21. COST / FINANCIAL / SCHEDULE
+======================================================================
+
+Determine what ARKI can currently do regarding:
+
+quantities
+cost estimation
+cost uncertainty
+cash flow
+schedule
+critical path
+procurement
+value engineering
+LCC
+financial feasibility
+risk.
+
+No fabricated prices.
+
+No fabricated productivity.
+
+No fabricated market data.
+
+======================================================================
+22. OPERATIONS / DIGITAL TWIN
+======================================================================
+
+Evaluate requirements for:
+
+commissioning
+handover
+asset registry
+sensors
+BMS
+IoT
+maintenance
+predictive maintenance
+energy monitoring
+water monitoring
+vertical transportation monitoring
+façade inspection
+structural health monitoring
+post-occupancy evaluation
+digital twin.
+
+Do not claim operational twin capability merely because schemas exist.
+
+======================================================================
+23. C1–C80 ACTIVATION TRACE
+======================================================================
+
+Use the WAVE 0/WAVE 1 registry.
+
+For every C1–C80 capability determine:
+
+NOT_RELEVANT
+RELEVANT
+CRITICAL
+BLOCKING
+PARTIALLY_AVAILABLE
+FOUNDATION_ONLY
+TOOL_REQUIRED
+EVIDENCE_REQUIRED
+PROFESSIONAL_VALIDATION_REQUIRED.
+
+IMPORTANT:
+
+Do not implement any capability.
+
+We want to know what Aurora demands from the arsenal.
+
+======================================================================
+24. TOOL DEFICIT MAP
+======================================================================
+
+Identify tools that would be required for a serious Aurora workflow.
+
+For each:
+
+PURPOSE
+CURRENTLY AVAILABLE?
+CURRENTLY INTEGRATED?
+INPUTS REQUIRED
+OUTPUTS EXPECTED
+VALIDATION REQUIRED
+CAPABILITIES DEPENDENT ON IT.
+
+Examples may include:
+
+structural solvers
+energy simulation
+daylight
+acoustics
+CFD
+fire/smoke
+geotechnical analysis
+vertical transportation simulation
+BIM authoring/checking
+cost/schedule systems.
+
+Do not install them.
+
+======================================================================
+25. CALCULATION CHALLENGE
+======================================================================
+
+Force ARKI to distinguish:
+
+I CAN REASON ABOUT THIS
+
+from
+
+I CAN CALCULATE THIS.
+
+For every numerical claim record:
+
+INPUT
+UNIT
+EQUATION/METHOD
+SOURCE
+COMPUTATION
+OUTPUT
+UNCERTAINTY
+VALIDATION.
+
+If any component is missing:
+
+do not promote the number to verified fact.
+
+======================================================================
+26. MODELING CHALLENGE
+======================================================================
+
+Similarly distinguish:
+
+I KNOW WHAT A SYSTEM IS
+
+from
+
+I CAN MODEL IT.
+
+For each discipline classify:
+
+CONCEPTUAL REPRESENTATION
+PARAMETRIC REPRESENTATION
+ANALYTICAL MODEL
+BIM MODEL
+COORDINATED MODEL
+FABRICATION MODEL
+OPERATIONAL MODEL
+
+and provide evidence.
+
+======================================================================
+27. UNKNOWN QUALITY TEST
+======================================================================
+
+Score neither quantity nor verbosity of UNKNOWNs.
+
+Evaluate their QUALITY.
+
+A useful UNKNOWN must explain:
+
+what is unknown
+why it matters
+what depends on it
+what evidence resolves it
+whether work can continue provisionally
+what assumptions would be dangerous.
+
+Test whether ARKI detects hidden unknowns.
+
+======================================================================
+28. ADVERSARIAL PROBES
+======================================================================
+
+During R0 inject controlled traps where technically possible:
+
+conflicting dimensions
+incompatible units
+missing wind data
+fake code citation
+wrong jurisdiction
+stale revision
+contradictory occupancy
+impossible structural assumption
+unsubstantiated solver result
+false BIM completeness
+duplicate external identity
+missing provenance
+unsupported certainty
+cross-scale extrapolation.
+
+Record whether ARKI:
+
+DETECTS
+MISSES
+ACCEPTS
+PROPAGATES
+BLOCKS.
+
+Do not teach the answer after failure.
+
+======================================================================
+29. FAILURE TAXONOMY
+======================================================================
+
+Every material failure must be classified:
+
+KNOWLEDGE_DEFICIT
+REASONING_DEFICIT
+EVIDENCE_DEFICIT
+GEOMETRY_DEFICIT
+RELATIONSHIP_DEFICIT
+CAUSAL_DEFICIT
+CONSTRAINT_DEFICIT
+STATE_DEFICIT
+TOOL_DEFICIT
+PROFESSIONAL_VALIDATION_REQUIRED
+UNKNOWN.
+
+Multiple labels allowed.
+
+======================================================================
+30. NO BEAUTY CONTEST
+======================================================================
+
+Do NOT grade Aurora primarily by:
+
+pretty render
+tower shape
+architectural rhetoric
+number of pages
+number of generated alternatives.
+
+This examination is about:
+
+UNDERSTANDING
+CAUSAL REASONING
+INTEGRATION
+CALCULATION
+MODELING
+EVIDENCE
+UNCERTAINTY
+FAIL-CLOSED BEHAVIOR
+TRANSFER.
+
+======================================================================
+31. HUMAN AUTHORITY
+======================================================================
+
+ARKI may:
+
+analyze
+calculate where capability exists
+compare
+detect
+propose
+reject unsupported claims
+generate alternatives.
+
+ARKI may NOT:
+
+self-certify
+issue professional approval
+declare code compliance without applicable evidence
+approve construction
+replace licensed professional validation
+promote unsupported assumptions to facts.
+
+======================================================================
+32. PF-H01
+======================================================================
+
+Preserve:
+
+THE ARCHITECTURE AND INTELLIGENCE OF ARKI
+SHALL SERVE HUMANITY.
+
+But:
+
+PF-H01 ≠ HUMANITY_SCORE.
+
+Evaluate concrete consequences:
+
+human safety
+habitability
+accessibility
+environmental impact
+resource efficiency
+economic viability
+resilience
+operability.
+
+Do not use PF-H01 as rhetorical decoration.
+
+======================================================================
+33. R0 OUTPUT — PROJECT STATE
+======================================================================
+
+Generate a machine-readable Aurora Project State containing:
+
+facts
+observations
+inferences
+assumptions
+unknowns
+required inputs
+entities
+systems
+relationships
+dependencies
+evidence
+provenance
+units
+applicability
+limitations.
+
+READ-ONLY ARTIFACT.
+
+No canonical product mutation.
+
+======================================================================
+34. R0 OUTPUT — CAPABILITY MATRIX
+======================================================================
+
+For all examined domains produce:
+
+DOMAIN
+TASK
+REQUIRED CAPABILITY
+CURRENT EVIDENCE
+CURRENT STATUS
+CAN REASON?
+CAN CALCULATE?
+CAN MODEL?
+CAN VERIFY?
+TOOL REQUIRED?
+INPUT REQUIRED?
+PROFESSIONAL VALIDATION?
+FAILURE CLASS.
+
+This matrix is central.
+
+======================================================================
+35. R0 SCOREBOARD
+======================================================================
+
+Do NOT create a single vanity score.
+
+Use evidence counts/matrices such as:
+
+tasks attempted
+tasks supported by evidence
+tasks reasoned
+tasks computationally executed
+tasks modeled
+tasks verified
+unknowns correctly detected
+unsupported claims blocked
+adversarial traps detected
+adversarial traps missed
+tool deficits
+knowledge deficits
+reasoning deficits
+professional-validation boundaries respected.
+
+No weighted global "intelligence score".
+
+======================================================================
+36. PRE-DIGEST BASELINE LOCK
+======================================================================
+
+At the end generate:
+
+AURORA_R0_BASELINE_LOCK.json
+
+with:
+
+repository HEAD
+worktree state
+timestamp
+input hashes
+artifact hashes
+capability registry hash
+WAVE1 foundation version
+test results
+contamination status
+tool inventory
+environment information.
+
+This becomes the immutable comparison reference for R1.
+
+======================================================================
+37. R1 ANTI-CONTAMINATION PREPARATION
+======================================================================
+
+Create:
+
+AURORA_R1_COMPARISON_PROTOCOL.md
+
+But DO NOT execute R1.
+
+Define now, before learning:
+
+which metrics will be compared
+which artifacts will be compared
+how improvement will be measured
+how regressions will be detected
+how contamination will be detected.
+
+This prevents changing the scoring rules after seeing R1.
+
+======================================================================
+38. IMPORTANT — DO NOT EXPOSE R0 SOLUTIONS TO TRAINING
+======================================================================
+
+After R0:
+
+R0 outputs become BENCHMARK EVIDENCE.
+
+They are NOT:
+
+training corpus
+DIGEST-001 input
+C1–C80 knowledge source
+implementation specification.
+
+DIGEST-001 may know that deficits exist.
+
+It must not ingest Aurora-specific correct answers.
+
+======================================================================
+39. REQUIRED DELIVERABLES
+======================================================================
+
+At minimum:
+
+00_AURORA_R0_EXECUTIVE_REPORT.md
+01_AURORA_CONTAMINATION_SCAN.md
+02_AURORA_INPUT_INVENTORY.md
+03_AURORA_R0_INPUT_FREEZE.md
+04_AURORA_R0_INPUT_FREEZE.json
+05_PROJECT_STATE.md
+06_PROJECT_STATE.json
+07_UNKNOWN_REGISTER.md
+08_REQUIRED_INPUT_REGISTER.md
+09_MULTISCALE_ANALYSIS.md
+10_ARCHITECTURAL_ANALYSIS.md
+11_STRUCTURAL_ANALYSIS.md
+12_WIND_ANALYSIS.md
+13_SEISMIC_ANALYSIS.md
+14_FOUNDATION_GEOTECHNICAL_ANALYSIS.md
+15_FIRE_LIFE_SAFETY_ANALYSIS.md
+16_VERTICAL_TRANSPORT_ANALYSIS.md
+17_MEP_ANALYSIS.md
+18_ENERGY_ENVIRONMENT_ANALYSIS.md
+19_FACADE_ANALYSIS.md
+20_BIM_DIGITAL_REPRESENTATION.md
+21_CROSS_DISCIPLINE_DEPENDENCY_MAP.md
+22_CONSTRUCTION_ANALYSIS.md
+23_COST_FINANCIAL_SCHEDULE_ANALYSIS.md
+24_OPERATIONS_DIGITAL_TWIN.md
+25_C1_C80_AURORA_ACTIVATION_MATRIX.md
+26_C1_C80_AURORA_ACTIVATION_MATRIX.json
+27_TOOL_DEFICIT_MAP.md
+28_CALCULATION_CAPABILITY_MATRIX.md
+29_MODELING_CAPABILITY_MATRIX.md
+30_ADVERSARIAL_PROBE_RESULTS.md
+31_FAILURE_TAXONOMY.md
+32_R0_SCOREBOARD.md
+33_R0_SCOREBOARD.json
+34_AURORA_R0_BASELINE_LOCK.json
+35_AURORA_R1_COMPARISON_PROTOCOL.md
+36_REGRESSION_RESULTS.md
+37_EVIDENCE_MATRIX.md
+38_RISK_REGISTER.md
+39_DECISION_REGISTER.md
+40_MANIFEST.json
+41_RAW_OUTPUTS.txt.
+
+Package:
+
+ARKI_AURORA_R0_COLD_EVIDENCE.zip
+
+plus:
+
+ARKI_AURORA_R0_COLD_EVIDENCE.zip.sha256
+
+======================================================================
+40. REGRESSIONS
+======================================================================
+
+Run, where available and applicable:
+
+pnpm check
+pnpm build
+WAVE0 regression
+WAVE1 regression
+CAD Gateway regression
+BKH/TX relevant regressions
+E5
+E6
+E7
+E8-A
+E8-B
+E8-C if available.
+
+Do not alter product code merely to make regression pass.
+
+======================================================================
+41. VALID VERDICTS
+======================================================================
+
+Only:
+
+AURORA_R0_BASELINE_VALID
+AURORA_R0_BASELINE_PARTIAL
+AURORA_R0_BASELINE_BLOCKED
+AURORA_R0_BASELINE_CONTAMINATED
+AURORA_R0_BASELINE_FAILED.
+
+A valid baseline DOES NOT mean:
+
+AURORA SOLVED.
+
+A weak result may still be:
+
+AURORA_R0_BASELINE_VALID
+
+if it truthfully measures weak current capability.
+
+======================================================================
+42. SUCCESS CONDITION
+======================================================================
+
+Success is NOT:
+
+"ARKI designed a 150-storey tower."
+
+Success is:
+
+"We now know exactly, with evidence, what current ARKI can and
+cannot do when confronted with a 150-storey integrated building."
+
+======================================================================
+43. STOP GATE
+======================================================================
+
+After producing R0 evidence:
+
+STOP.
+
+DO NOT:
+
+correct discovered deficits
+implement C1
+implement C1–C80
+execute DIGEST-001
+execute WAVE 2
+execute Aurora R1
+install solvers
+execute TX-005
+migrate writers
+deploy
+push
+open PR
+merge.
+
+Return only:
+
+VERDICT
+CONTAMINATION STATUS
+HEAD
+WORKTREE STATUS
+INPUT FREEZE HASH
+FILES CHANGED
+REGRESSION RESULTS
+AURORA TASK COUNTS
+REASON/CALCULATE/MODEL/VERIFY COUNTS
+UNKNOWN COUNT
+REQUIRED INPUT COUNT
+ADVERSARIAL DETECTED/MISSED
+C1–C80 ACTIVATION DISTRIBUTION
+TOOL DEFICITS
+FAILURE DISTRIBUTION
+PROFESSIONAL VALIDATION BOUNDARIES
+TOP DEFICITS
+EVIDENCE PACKAGE PATH
+EVIDENCE PACKAGE SHA-256
+STOP CONFIRMATION.
+
+======================================================================
+FINAL DOCTRINE
+======================================================================
+
+DO NOT HELP ARKI PASS AURORA.
+
+LET AURORA REVEAL ARKI.
+
+DO NOT REWARD CONFIDENCE.
+REWARD EVIDENCE.
+
+DO NOT PUNISH UNKNOWN.
+PUNISH INVENTED CERTAINTY.
+
+SABER ≠ CALCULAR.
+CALCULAR ≠ MODELAR.
+MODELAR ≠ VERIFICAR.
+VERIFICAR ≠ CERTIFICAR.
+
+AURORA R0 IS THE BEFORE PICTURE.
+
+DIGEST-001 WILL COME AFTERWARD.
+
+AURORA R1 WILL MEASURE THE DELTA.
+
+ONE ARKI.
+ONE CANONICAL TRUTH.
+HUMAN AUTHORITY.
+
+STOP.

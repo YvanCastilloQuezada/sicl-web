@@ -1,0 +1,11 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
+rootdir: /home/ubuntu/sicl-core
+configfile: pyproject.toml
+plugins: anyio-4.14.2
+collected 40 items
+
+tests/test_derivation.py ....................                            [ 50%]
+tests/test_impact.py ....................                                [100%]
+
+============================== 40 passed in 0.20s ==============================

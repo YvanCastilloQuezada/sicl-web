@@ -1,0 +1,200 @@
+# MICRO-ORDEN — ACLARACIÓN Y CIERRE REAL DE LA ORDEN 60
+
+## 1. OBJETIVO
+
+Completar exclusivamente la determinación del estado final de la Orden 60.
+
+No realizar auditoría general del proyecto.
+
+No modificar otras órdenes.
+
+No iniciar nuevas funcionalidades.
+
+No realizar refactorizaciones ajenas a los pendientes de la Orden 60.
+
+## 2. PUNTO CRÍTICO
+
+El reporte anterior declara:
+
+**“Orden 60 cerrada en el alcance backend solicitado.”**
+
+Ese cierre no es suficiente para declarar cerrada la Orden 60 si existen pendientes originalmente comprendidos dentro de dicha orden.
+
+No redefinir unilateralmente el alcance de la Orden 60 para convertir pendientes en elementos “fuera de alcance”.
+
+## 3. TAREA
+
+Revisar únicamente los pendientes explícitos que quedaron asociados a la Orden 60 y clasificarlos individualmente como:
+
+* COMPLETADO
+* PARCIAL
+* NO COMPLETADO
+* NO VERIFICADO
+* EXTERNAL_REQUIRED
+* FUERA DE ALCANCE ORIGINAL
+
+Para cada pendiente indicar brevemente:
+
+1. qué se solicitó;
+2. qué se realizó;
+3. evidencia concreta;
+4. prueba ejecutada, si corresponde;
+5. estado final.
+
+## 4. NO REALIZAR AUDITORÍA GENERAL
+
+No revisar globalmente:
+
+* arquitectura completa;
+* frontend completo;
+* UX/UI;
+* Mapper salvo que exista un pendiente específico de Orden 60;
+* The Eye salvo que exista un pendiente específico de Orden 60;
+* LUKA;
+* L★;
+* Universal Interaction;
+* agentes;
+* AR;
+* TV;
+* MJP CORE;
+* otras órdenes.
+
+Solo revisar aquello que sea necesario para determinar el cierre de la Orden 60.
+
+## 5. SEGURIDAD FRONTEND
+
+Determinar específicamente si la seguridad frontend estaba incluida originalmente dentro de la Orden 60.
+
+### Si estaba incluida:
+
+No declararla “fuera de alcance”.
+
+Indicar qué parte está:
+
+* implementada;
+* probada;
+* pendiente;
+* no verificable.
+
+### Si NO estaba incluida:
+
+Indicar expresamente:
+
+**“No forma parte del alcance original de la Orden 60.”**
+
+No utilizar simplemente “queda fuera del alcance de este cierre” sin demostrar que efectivamente estaba fuera del alcance original.
+
+## 6. PRUEBAS
+
+Reportar únicamente las pruebas relacionadas con Orden 60.
+
+Para cada grupo indicar:
+
+* nombre de la suite;
+* cantidad de tests;
+* resultado;
+* qué riesgo o requisito de Orden 60 cubre.
+
+No presentar el número de tests como prueba de cierre si los tests no cubren el requisito correspondiente.
+
+## 7. PRUEBAS EXTERNAS Y VALIDACIÓN FÍSICA
+
+Determinar si las pruebas externas de abuso y la validación física:
+
+* formaban parte de los requisitos originales de Orden 60;
+* fueron expresamente marcadas como EXTERNAL_REQUIRED;
+* o nunca fueron parte de la orden.
+
+Si son EXTERNAL_REQUIRED, conservar ese estado.
+
+No convertir EXTERNAL_REQUIRED en COMPLETADO.
+
+## 8. INFRAESTRUCTURA EXTERNA
+
+Determinar únicamente si la Orden 60 exigía validación de infraestructura externa.
+
+Si no existe evidencia disponible para verificarla, utilizar:
+
+**NOT_VERIFIED**
+
+y no:
+
+**COMPLETADO**.
+
+## 9. REGLA DE CIERRE
+
+La Orden 60 solo podrá declararse:
+
+### CERRADA
+
+si todos los requisitos que pertenecen a su alcance original tienen un estado final aceptable y existe evidencia suficiente.
+
+Si queda algún requisito del alcance original sin completar o sin verificar, declarar:
+
+### ABIERTA — PENDIENTES
+
+indicando exactamente cuáles.
+
+Si algunos elementos requieren validación física o externa, declarar:
+
+### TÉCNICAMENTE COMPLETADA — VALIDACIÓN EXTERNA PENDIENTE
+
+solo si esa distinción corresponde al alcance real de la orden.
+
+## 10. NO MODIFICAR OTRAS ÓRDENES
+
+Esta micro-orden no autoriza:
+
+* Orden Maestra 001;
+* desarrollo de nuevas funcionalidades;
+* reconstrucción del frontend;
+* cambios en agentes;
+* cambios en LUKA;
+* cambios en MJP CORE;
+* modificación de cualquier otra orden.
+
+## 11. FORMATO OBLIGATORIO DE RESPUESTA
+
+Entregar únicamente estos cuatro apartados:
+
+### 1. TAREAS COMPLETADAS
+
+Lista concreta de tareas de Orden 60 realmente completadas.
+
+### 2. PRUEBAS EJECUTADAS RELACIONADAS CON ORDEN 60
+
+Lista concreta de suites/tests y resultados.
+
+### 3. PENDIENTES RESTANTES DE ORDEN 60
+
+Lista concreta. Si no existen, escribir:
+
+**NINGUNO IDENTIFICADO.**
+
+### 4. ESTADO FINAL DE ORDEN 60
+
+Elegir únicamente uno:
+
+**CERRADA**
+
+**ABIERTA — PENDIENTES**
+
+**TÉCNICAMENTE COMPLETADA — VALIDACIÓN EXTERNA PENDIENTE**
+
+No utilizar expresiones como “cerrada en el alcance backend” salvo que se explique previamente que ese era efectivamente el alcance original de la Orden 60.
+
+## REGLA FINAL
+
+No ampliar el proyecto.
+
+No iniciar otra orden.
+
+No auditar el proyecto.
+
+No modificar MJP CORE.
+
+No declarar cierre por ausencia de errores.
+
+**ORDEN 60 PRIMERO.**
+
+**UNA ORDEN → SUS PENDIENTES → SU EVIDENCIA → SU CIERRE REAL.**

@@ -1,0 +1,11 @@
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "assetId": "ARKI-4ba5cb0d",
+  "elementId": "muro-1-1",
+  "snapshotId": "ARKI-ffdee204",
+  "captures": [
+    "E8_B_CAPTURAS/01-activo-garantia-manual-inspeccion.svg",
+    "E8_B_CAPTURAS/02-orden-trabajo-trazable.svg"
+  ]
+}

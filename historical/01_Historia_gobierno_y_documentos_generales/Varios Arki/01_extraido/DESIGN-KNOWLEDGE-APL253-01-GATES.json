@@ -1,0 +1,1931 @@
+{
+  "aggregate": {
+    "inventory": 253,
+    "identity_verified": 253,
+    "structured_knowledge_complete_current_evidence": 0,
+    "metadata_only": 253,
+    "partial": 0,
+    "unknown": 0,
+    "scope_counts": {
+      "pais": 94,
+      "macro_region": 94,
+      "region": 94,
+      "provincia_metropoli": 94,
+      "distrito_ciudad": 94,
+      "zona_barrio_sector": 94,
+      "parcela_sitio": 110,
+      "edificacion": 159,
+      "sistema": 159,
+      "espacio": 159,
+      "objeto": 49
+    },
+    "relationships_total": 2265,
+    "source_derived_relationships": 2265,
+    "sims_dei_derived_relationships": 0,
+    "unknown_relationships": 0,
+    "connected_patterns": 253,
+    "isolated_patterns": 0,
+    "cross_scale_relationships": 629,
+    "retrieval_checks": 253,
+    "retrieval_with_expected_apl_link": 159,
+    "retrieval_decisions_created": 0
+  },
+  "sample": [
+    {
+      "number": 14,
+      "id": "ITEM-APL-014",
+      "title": "Identifiable Neighborhood",
+      "scope": "pais",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 8
+    },
+    {
+      "number": 31,
+      "id": "ITEM-APL-031",
+      "title": "Promenade",
+      "scope": "pais",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 10
+    },
+    {
+      "number": 61,
+      "id": "ITEM-APL-061",
+      "title": "Small Public Squares",
+      "scope": "pais",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 11
+    },
+    {
+      "number": 94,
+      "id": "ITEM-APL-094",
+      "title": "Sleeping in Public",
+      "scope": "pais",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 10
+    },
+    {
+      "number": 106,
+      "id": "ITEM-APL-106",
+      "title": "Positive Outdoor Space",
+      "scope": "parcela_sitio",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 13
+    },
+    {
+      "number": 108,
+      "id": "ITEM-APL-108",
+      "title": "Connected Buildings",
+      "scope": "parcela_sitio",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 6
+    },
+    {
+      "number": 127,
+      "id": "ITEM-APL-127",
+      "title": "Intimacy Gradient",
+      "scope": "parcela_sitio",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 10
+    },
+    {
+      "number": 162,
+      "id": "ITEM-APL-162",
+      "title": "North Face",
+      "scope": "parcela_sitio",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 9
+    },
+    {
+      "number": 205,
+      "id": "ITEM-APL-205",
+      "title": "Structure Follows Social Spaces",
+      "scope": "edificacion",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 5
+    },
+    {
+      "number": 249,
+      "id": "ITEM-APL-249",
+      "title": "Ornament",
+      "scope": "edificacion",
+      "mode": "APL253_METADATA_REFERENCE",
+      "source": "BOOK-ALEXANDER-PATTERN-LANGUAGE",
+      "related_count": 18
+    }
+  ],
+  "representative_proof": {
+    "intent": {
+      "suggestions": 2,
+      "decision_created": false
+    },
+    "human_confirmation": {
+      "adoption": "HUMAN_CONFIRMED",
+      "actor": "architect-review",
+      "decision_created": false
+    },
+    "knowledge": {
+      "apl253_metadata_links": 7,
+      "substantive_pilot_links": 2,
+      "decision_created": false
+    },
+    "p3": {
+      "derived_alternative_id": "UPAO-001-D-e29277d70e3a",
+      "parent_alternative_id": "UPAO-001-A",
+      "decision_created": false
+    },
+    "p6": {
+      "derived_alternative_id": "UPAO-001-D-e29277d70e3a-GDI-d7c6be72",
+      "parent_alternative_id": "UPAO-001-D-e29277d70e3a",
+      "decision_created": false
+    },
+    "p8": {
+      "alternative_id": "UPAO-001-D-e29277d70e3a",
+      "critic_automatic_decision": false,
+      "debate_human_review_required": true,
+      "decision_created": false
+    },
+    "visual_mode": "SUBSTANTIVE_DESIGN_KNOWLEDGE / UPAO-001 existing 2D-3D comparison surface; APL253 metadata references are not represented as geometry"
+  },
+  "retrieval_sample": [
+    {
+      "number": 1,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 2,
+      "scope": "pais",
+      "returned_count": 15,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 3,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 4,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 5,
+      "scope": "pais",
+      "returned_count": 8,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 6,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 7,
+      "scope": "pais",
+      "returned_count": 14,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 8,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 9,
+      "scope": "pais",
+      "returned_count": 6,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 10,
+      "scope": "pais",
+      "returned_count": 14,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 11,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 12,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 13,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 14,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 15,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 16,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 17,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 18,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 19,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 20,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 21,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 22,
+      "scope": "pais",
+      "returned_count": 9,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 23,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 24,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 25,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 26,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 27,
+      "scope": "pais",
+      "returned_count": 11,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 28,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 29,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 30,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 31,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 32,
+      "scope": "pais",
+      "returned_count": 6,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 33,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 34,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 35,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 36,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 37,
+      "scope": "pais",
+      "returned_count": 6,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 38,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 39,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 40,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 41,
+      "scope": "pais",
+      "returned_count": 6,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 42,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 43,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 44,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 45,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 46,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 47,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 48,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 49,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 50,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 51,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 52,
+      "scope": "pais",
+      "returned_count": 8,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 53,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 54,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 55,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 56,
+      "scope": "pais",
+      "returned_count": 9,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 57,
+      "scope": "pais",
+      "returned_count": 15,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 58,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 59,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 60,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 61,
+      "scope": "pais",
+      "returned_count": 6,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 62,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 63,
+      "scope": "pais",
+      "returned_count": 16,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 64,
+      "scope": "pais",
+      "returned_count": 9,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 65,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 66,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 67,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 68,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 69,
+      "scope": "pais",
+      "returned_count": 14,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 70,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 71,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 72,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 73,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 74,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 75,
+      "scope": "pais",
+      "returned_count": 15,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 76,
+      "scope": "pais",
+      "returned_count": 12,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 77,
+      "scope": "pais",
+      "returned_count": 8,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 78,
+      "scope": "pais",
+      "returned_count": 10,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 79,
+      "scope": "pais",
+      "returned_count": 5,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 80,
+      "scope": "pais",
+      "returned_count": 8,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 81,
+      "scope": "pais",
+      "returned_count": 8,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 82,
+      "scope": "pais",
+      "returned_count": 5,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 83,
+      "scope": "pais",
+      "returned_count": 8,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 84,
+      "scope": "pais",
+      "returned_count": 3,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 85,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 86,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 87,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 88,
+      "scope": "pais",
+      "returned_count": 6,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 89,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 90,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 91,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 92,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 93,
+      "scope": "pais",
+      "returned_count": 2,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 94,
+      "scope": "pais",
+      "returned_count": 4,
+      "has_apl_link": false,
+      "decision_created": false
+    },
+    {
+      "number": 95,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 96,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 97,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 98,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 99,
+      "scope": "parcela_sitio",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 100,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 101,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 102,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 103,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 104,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 105,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 106,
+      "scope": "parcela_sitio",
+      "returned_count": 12,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 107,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 108,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 109,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 110,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 111,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 112,
+      "scope": "parcela_sitio",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 113,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 114,
+      "scope": "parcela_sitio",
+      "returned_count": 15,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 115,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 116,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 117,
+      "scope": "parcela_sitio",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 118,
+      "scope": "parcela_sitio",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 119,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 120,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 121,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 122,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 123,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 124,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 125,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 126,
+      "scope": "parcela_sitio",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 127,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 128,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 129,
+      "scope": "parcela_sitio",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 130,
+      "scope": "parcela_sitio",
+      "returned_count": 15,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 131,
+      "scope": "parcela_sitio",
+      "returned_count": 19,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 132,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 133,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 134,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 135,
+      "scope": "parcela_sitio",
+      "returned_count": 13,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 136,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 137,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 138,
+      "scope": "parcela_sitio",
+      "returned_count": 15,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 139,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 140,
+      "scope": "parcela_sitio",
+      "returned_count": 18,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 141,
+      "scope": "parcela_sitio",
+      "returned_count": 12,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 142,
+      "scope": "parcela_sitio",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 143,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 144,
+      "scope": "parcela_sitio",
+      "returned_count": 12,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 145,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 146,
+      "scope": "parcela_sitio",
+      "returned_count": 11,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 147,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 148,
+      "scope": "parcela_sitio",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 149,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 150,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 151,
+      "scope": "parcela_sitio",
+      "returned_count": 10,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 152,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 153,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 154,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 155,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 156,
+      "scope": "parcela_sitio",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 157,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 158,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 159,
+      "scope": "parcela_sitio",
+      "returned_count": 17,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 160,
+      "scope": "parcela_sitio",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 161,
+      "scope": "parcela_sitio",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 162,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 163,
+      "scope": "parcela_sitio",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 164,
+      "scope": "parcela_sitio",
+      "returned_count": 11,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 165,
+      "scope": "parcela_sitio",
+      "returned_count": 16,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 166,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 167,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 168,
+      "scope": "parcela_sitio",
+      "returned_count": 16,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 169,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 170,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 171,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 172,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 173,
+      "scope": "parcela_sitio",
+      "returned_count": 15,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 174,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 175,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 176,
+      "scope": "parcela_sitio",
+      "returned_count": 11,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 177,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 178,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 179,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 180,
+      "scope": "parcela_sitio",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 181,
+      "scope": "parcela_sitio",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 182,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 183,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 184,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 185,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 186,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 187,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 188,
+      "scope": "parcela_sitio",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 189,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 190,
+      "scope": "parcela_sitio",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 191,
+      "scope": "parcela_sitio",
+      "returned_count": 23,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 192,
+      "scope": "parcela_sitio",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 193,
+      "scope": "parcela_sitio",
+      "returned_count": 10,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 194,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 195,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 196,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 197,
+      "scope": "parcela_sitio",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 198,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 199,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 200,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 201,
+      "scope": "parcela_sitio",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 202,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 203,
+      "scope": "parcela_sitio",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 204,
+      "scope": "parcela_sitio",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 205,
+      "scope": "edificacion",
+      "returned_count": 5,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 206,
+      "scope": "edificacion",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 207,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 208,
+      "scope": "edificacion",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 209,
+      "scope": "edificacion",
+      "returned_count": 11,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 210,
+      "scope": "edificacion",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 211,
+      "scope": "edificacion",
+      "returned_count": 17,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 212,
+      "scope": "edificacion",
+      "returned_count": 15,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 213,
+      "scope": "edificacion",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 214,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 215,
+      "scope": "edificacion",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 216,
+      "scope": "edificacion",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 217,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 218,
+      "scope": "edificacion",
+      "returned_count": 10,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 219,
+      "scope": "edificacion",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 220,
+      "scope": "edificacion",
+      "returned_count": 10,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 221,
+      "scope": "edificacion",
+      "returned_count": 16,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 222,
+      "scope": "edificacion",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 223,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 224,
+      "scope": "edificacion",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 225,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 226,
+      "scope": "edificacion",
+      "returned_count": 12,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 227,
+      "scope": "edificacion",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 228,
+      "scope": "edificacion",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 229,
+      "scope": "edificacion",
+      "returned_count": 10,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 230,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 231,
+      "scope": "edificacion",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 232,
+      "scope": "edificacion",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 233,
+      "scope": "edificacion",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 234,
+      "scope": "edificacion",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 235,
+      "scope": "edificacion",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 236,
+      "scope": "edificacion",
+      "returned_count": 14,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 237,
+      "scope": "edificacion",
+      "returned_count": 7,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 238,
+      "scope": "edificacion",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 239,
+      "scope": "edificacion",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 240,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 241,
+      "scope": "edificacion",
+      "returned_count": 6,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 242,
+      "scope": "edificacion",
+      "returned_count": 13,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 243,
+      "scope": "edificacion",
+      "returned_count": 12,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 244,
+      "scope": "edificacion",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 245,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 246,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 247,
+      "scope": "edificacion",
+      "returned_count": 16,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 248,
+      "scope": "edificacion",
+      "returned_count": 9,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 249,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 250,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 251,
+      "scope": "edificacion",
+      "returned_count": 3,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 252,
+      "scope": "edificacion",
+      "returned_count": 8,
+      "has_apl_link": true,
+      "decision_created": false
+    },
+    {
+      "number": 253,
+      "scope": "edificacion",
+      "returned_count": 4,
+      "has_apl_link": true,
+      "decision_created": false
+    }
+  ]
+}

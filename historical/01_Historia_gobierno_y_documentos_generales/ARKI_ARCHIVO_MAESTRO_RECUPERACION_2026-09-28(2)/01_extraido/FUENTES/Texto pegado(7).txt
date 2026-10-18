@@ -1,0 +1,252 @@
+RESPUESTA DEL DESARROLLADOR A LA AUTOPSIA RED TEAM DE ARKI-DRAW BLOQUE 1
+
+Nota de gobernanza primero: acepto la autopsia de Qwen. Fue Red Team de verdad esta vez — leyó el código, encontró cosas reales, y clasificó severidades. Eso es lo que le pedí al ciclo. No me molesta: es exactamente cómo debe funcionar.
+
+Voy a estructurar la respuesta como desarrollador recibiendo review: qué acepto sin discusión, dónde hay matices, qué se le pasó a Qwen, y qué propongo hacer.
+
+1. LO QUE ACEPTO SIN DISCUSIÓN
+Corte 1 — Cotas no son cotas.
+Qwen tiene razón completa. Mi _dimension_svg dibuja una sola línea entre extension_points y coloca el texto en text_position. No hay:
+
+Líneas de extensión (las perpendiculares que salen del objeto medido).
+
+Terminadores (flechas o ticks diagonales).
+
+Línea de cota completa con offset desde el objeto.
+
+Posicionamiento automático del texto.
+
+Un plano profesional sin estos elementos no se lee como plano. Acepto CRITICAL en el contexto "planos profesionales".
+
+Corte 2 — Achurados placeholder.
+Cierto. Mis patrones son minimalistas:
+
+earth = dos líneas perpendiculares.
+
+concrete = dos círculos.
+
+masonry = una línea vertical y una horizontal.
+
+wood = una sola línea.
+
+insulation = una curva bezier.
+
+Para tests está bien. Para plano profesional, no. Acepto HIGH.
+
+Corte 3 — SVG sin metadata.
+Cierto. No hay <title>, <desc>, <metadata>, ni autor, ni fecha, ni proveniencia. Rompe el principio de trazabilidad (LAB-001 / PILAR I). Acepto MEDIUM.
+
+Corte 4 — Capas no agrupadas en SVG.
+Cierto. El campo layer existe en cada primitiva pero no se usa para <g> en el SVG. Abrir el SVG en Inkscape da una sola capa. Acepto MEDIUM.
+
+Corte 5 — Sin validación viewport ↔ title block.
+Cierto. Sheet no tiene __post_init__. Un viewport puede solaparse con el cajetín y nadie lo detecta. Acepto MEDIUM.
+
+Corte 6 — Sin Arc/Circle.
+Cierto. Necesarios para Bloque 2 (apertura de puertas, columnas circulares). Acepto MEDIUM.
+
+Corte 7 y 8 — documentación y multilínea. Acepto. Son limitaciones, no bugs.
+
+2. DONDE HAY MATICES
+Sobre la severidad de Corte 1.
+CRITICAL es correcto para "planos profesionales entregables". Para "primitivas de dibujo verificables" (el objetivo declarado del Bloque 1) es HIGH. No discuto la clasificación de Qwen porque el objetivo final del proyecto es producir planos profesionales, y en ese marco, la crítica está bien.
+
+Sobre "los achurados son vergonzosos".
+Qwen tiene razón en el fondo, pero los patrones son funcionales para tests de determinismo. Lo que falta es un catálogo de patrones arquitectónicos reales — que es diferente de decir que los actuales son un bug. Lo llamaría "deuda de especificación", no bug. Pero acepto el cambio.
+
+Sobre "metadata SVG".
+La sugerencia de Qwen (añadir <title>, <desc>) es correcta pero incompleta. Para trazabilidad real hace falta:
+
+id del Sheet o Viewport.
+
+Hash SHA-256 del contenido.
+
+Provenance del ConstructionModel (si aplica).
+
+Timestamp determinista (no Date.now()).
+
+Es más que un <title>. Es un bloque de metadata gobernada.
+
+3. LO QUE QWEN NO VIO (AUTOCRÍTICA)
+Qwen hizo buena autopsia, pero se le pasaron varias cosas que un buen desarrollador debe reconocer:
+
+V-01 — _points_attr es código muerto.
+Definida en svg_export.py y nunca usada. Qwen no la mencionó.
+
+V-02 — Iterable importado en primitives.py y nunca usado.
+Import muerto. Sin linter configurado, pasa desapercibido.
+
+V-03 — DimensionKind declarado pero nunca usado por el exportador.
+El enum existe (LINEAR_CHAIN, LINEAR_OVERALL, LINEAR_BETWEEN_AXES, RADIAL, ANGULAR) pero _dimension_svg nunca lo mira. No distingue entre cota encadenada, general, entre ejes. Esto es peor que Corte 1 porque significa que el contrato declara algo que el exportador ignora. Severidad MEDIA-ALTA.
+
+V-04 — _validate_iso_date acepta 2026-02-30.
+La validación es 1 <= int(m) <= 12 and 1 <= int(d) <= 31. No hay tabla de días por mes. Falla en febrero (30/31 imposibles), abril/junio/septiembre/noviembre (31 imposible). Bug real de validación.
+
+V-05 — _fmt(-0.0) produce -0.000.
+Rompe determinismo byte-a-byte si dos ejecuciones pasan por distintos signos de cero. Mínimo pero contamina el hash del SVG.
+
+V-06 — Title block demasiado pequeño para 8-9 fields.
+tb_h = 45.0, con 9 fields quedan ~5 mm por fila. Font-size 2.5 mm sobre fila de 5 mm es legible pero apretado. En A3 landscape, el cajetín debería ser ~55-60 mm de alto.
+
+V-07 — tb_w y tb_h están hardcodeados.
+No dependen del tamaño de papel. A4 portrait tendría cajetín de 180 mm de ancho — 86% del ancho útil. Diseño pobre.
+
+V-08 — Sin clipping en viewports.
+Si un elemento del viewport se sale del área del viewport, se renderiza fuera de los márgenes. No hay <clipPath> ni validación de bounds. Puede contaminar la lámina.
+
+V-09 — Docstring de paper.py atribuye márgenes a "RNE + práctica municipal Lima".
+Este es exactamente el problema que tú mismo señalaste: defaults que se atribuyen a una norma sin haberla verificado. Los márgenes son razonables en la práctica peruana, pero no hay una fuente verificada. Debería decir "práctica habitual de encuadernación en Perú (no verificado contra RNE específico)".
+
+V-10 — HatchPattern.SOLID retorna tupla con tercer elemento no usado.
+_HATCH_SVG[SOLID] = ("#000", None, None). El tercer elemento nunca se lee. Minor, pero indica que la estructura de datos fue pensada para más de lo que se implementó.
+
+En total: 10 issues adicionales que Qwen no detectó. Un buen Red Team los encontrará en la siguiente ronda. Los enumero aquí para que no se pierdan y se incluyan en el plan de fix.
+
+4. PLAN DE FIX PROPUESTO (sin implementar)
+Dado que el Bloque 1 está congelado en feature branch por decisión de arquitectura (F2/A-002 tiene prioridad), el plan de fix no se ejecuta ahora. Se documenta para cuando el Bloque 2 se reabra.
+
+Fix-01 — Cotas completas (CRITICAL)
+
+_dimension_svg debe:
+
+Dibujar líneas de extensión perpendiculares al objeto medido.
+
+Dibujar línea de cota con offset configurable.
+
+Dibujar terminadores (tick diagonal o flecha ISO).
+
+Calcular text_position si es None.
+
+Distinguir por DimensionKind.
+
+Añadir tests con cotas encadenadas.
+
+Fix-02 — Catálogo de achurados arquitectónicos (HIGH)
+
+masonry: filas alternadas tipo ladrillo (soga/cabeza).
+
+concrete: agregados con puntos y trazos pequeños.
+
+earth: patrón mixto direccional.
+
+wood: vetas paralelas onduladas.
+
+insulation: zigzag o batts.
+
+glass: doble línea diagonal.
+
+Tests de render visual + determinismo.
+
+Fix-03 — Metadata SVG gobernada (MEDIUM)
+
+<title>, <desc>, <metadata> con:
+
+id de Sheet/Viewport.
+
+hash SHA-256 del contenido.
+
+provenance (nombre del ConstructionModel si aplica).
+
+timestamp explícito (no auto-generado).
+
+Fix-04 — Capas SVG (MEDIUM)
+
+Agrupar elementos por layer en <g>.
+
+Test que verifique estructura de capas.
+
+Fix-05 — Validación Sheet (MEDIUM)
+
+Sheet.__post_init__ valida que viewports no se superpongan con cajetín.
+
+Opcional: validar que estén dentro de márgenes.
+
+Fix-06 — Arc/Circle (MEDIUM, para Bloque 2)
+
+Arc, Circle como primitivas.
+
+SVG: <path> para arcos, <circle> para círculos.
+
+Fix-07 — DimensionKind activo (MEDIA-ALTA)
+
+El exportador debe distinguir tipos de cota.
+
+Cota entre ejes → terminadores distintos.
+
+Fix-08 — Validación fecha estricta (MEDIA)
+
+Tabla de días por mes con años bisiestos.
+
+Rechazar 2026-02-30.
+
+Fix-09 — _fmt normaliza -0.0 → 0.000 (BAJA)
+
+Fix-10 — Title block dimensionado por papel (BAJA)
+
+tb_w y tb_h calculados en función del PaperSpec.
+
+Fix-11 — Clipping de viewports (MEDIA)
+
+<clipPath> por viewport para evitar desbordes.
+
+Fix-12 — Docstrings sin afirmaciones normativas no verificadas (BAJA)
+
+Cambiar "RNE + práctica municipal Lima" → "práctica habitual de encuadernación en Perú (no verificado contra RNE específico)".
+
+Fix-13 — Limpieza de código muerto (BAJA)
+
+_points_attr, Iterable, tercer elemento de _HATCH_SVG.
+
+5. ESTADO DE BLOQUE 1 Y BLOQUE 2
+Coincido con las dos evaluaciones previas:
+
+text
+ARKI-DRAW Bloque 1        = PASS_WITH_FINDINGS (runtime verificado)
+                             15 focales + 42 RFC-030 + 580 globales
+                             Commit 4d932c2 en feat/arkidraw-block1
+                             Baseline 0e13bfc
+                             Main NO modificado (4de9ca1)
+
+Block 2                   = HOLD
+                             No autorizado hasta cerrar A-002 + Superarchitect
+                             Y hasta decidir prioridad contra F2
+
+Findings reconocidos      = 8 (Qwen) + 10 (autocrítica) = 18
+Findings bloqueantes      = 2 (cotas + achurados) antes de Block 2
+Findings diferibles       = 16
+Coincido con el orden propuesto: F2/A-002 primero. Block 1 queda congelado en su rama hasta que:
+
+A-002 cierre (input sufficiency detection).
+
+Superarchitect avance al punto donde la representación arquitectónica sea el siguiente paso.
+
+Se decida si los 18 findings se atacan en un "Bloque 1.1" o se integran al Bloque 2.
+
+6. LO QUE APRENDÍ DE ESTE CICLO (como desarrollador)
+Escribí código sin verificar el uso de las entidades declaradas. DimensionKind existe pero no se usa. Eso es el mismo tipo de "CLAIM ≠ IMPLEMENTED" que critiqué toda mi vida como Red Team. Es justo que me lo devuelvan.
+
+Escribí docstrings con afirmaciones normativas no verificadas. "RNE + práctica municipal Lima" — sin fuente. Exactamente el anti-patrón que el proyecto combate.
+
+Escribí código muerto. _points_attr, Iterable. Limpieza pendiente.
+
+Escribí validación superficial. _validate_iso_date con límites gruesos. No verifiqué el caso bisiesto ni los meses de 30 días.
+
+Estas son lecciones honestas. Qwen hizo su trabajo. Yo también tengo que hacer el mío con más rigor la próxima vez.
+
+7. DECISIÓN QUE ESPERA DEL PO
+Tres cosas que sólo tú puedes decidir:
+
+D-1 — Prioridad: ¿A-002 (F2) o Block 1.1 (fixes)? Mi recomendación: A-002. Los 18 findings están documentados y no bloquean nada hasta que Block 2 se abra.
+
+D-2 — Alcance de Block 1.1: ¿Los 18 findings en un solo commit, o separados por categoría (rendering, metadata, validación)? Mi recomendación: separados. Cotas y achurados son rendering. Metadata y capas son arquitectura SVG. Validación es defensa. Son tres commits lógicos.
+
+D-3 — Red Team de Block 1.1: ¿Qwen otra vez, o rotación a ChatGPT? Mi recomendación: rotación. Qwen hizo un buen review pero ya invirtió energía y contexto. ChatGPT con ojo fresco puede encontrar cosas distintas — incluyendo las 10 que se le pasaron a Qwen.
+
+8. CIERRE
+Bloque 1 está congelado en feat/arkidraw-block1 @ 4d932c2. No mergeado a main. No iniciado Bloque 2. Findings reconocidos: 8 + 10 = 18. Bloqueantes para Bloque 2: 2 (cotas, achurados). Todo lo demás diferible.
+
+Qwen se desquitó bien. Su autopsia fue real. Acepto los findings. Reconozco los que se le pasaron. Y espero que en la próxima ronda haya rotación — porque el mejor Red Team es el que cambia de ojos entre rondas.
+
+Estoy listo para lo que decidas: A-002, Block 1.1, o el Domain Profile RNE+Trujillo que quedó pendiente.
+
+Desarrollador standby. Los cuchillos siguen ahí — ahora también para mí mismo. 🗡️📐

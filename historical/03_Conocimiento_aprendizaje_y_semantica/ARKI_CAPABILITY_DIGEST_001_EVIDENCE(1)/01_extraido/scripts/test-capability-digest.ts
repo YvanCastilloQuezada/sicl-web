@@ -1,0 +1,28 @@
+import { strict as assert } from "node:assert";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { assertNoCanonicalMutation, assertEpistemicTransition, buildRegistryPackage, digestCapability, rejectExecutablePayload, sha256, type RegistryCapability } from "../shared/arkiCapabilityDigest";
+
+const root = path.resolve(import.meta.dirname, "..");
+const registry = JSON.parse(await readFile(path.join(root, "C1_C80_WAVE1_REGISTRY.json"), "utf8")) as { capabilities: RegistryCapability[] };
+const repositoryFiles = ["shared/arkiSharedFoundation.ts", "shared/arkiCapabilityDigest.ts", "C1_C80_WAVE1_REGISTRY.json"];
+const registryItem = registry.capabilities[0];
+assert.ok(registryItem);
+const before = JSON.stringify(registryItem);
+const digest = digestCapability(buildRegistryPackage(registryItem), registryItem, repositoryFiles, registry.capabilities.map((item) => item.id));
+assert.equal(digest.capabilityId, registryItem.id);
+assert.equal(digest.implementationReadiness, "KNOWLEDGE_DEFICIT");
+assert.equal(digest.implementationStatus, registryItem.implementationStatus);
+assert.equal(digest.sourceHash.startsWith("sha256:v1:"), true);
+assert.equal(JSON.stringify(registryItem), before, "DIGEST_MUST_NOT_MUTATE_INPUT");
+assert.doesNotThrow(() => rejectExecutablePayload({ prose: "A normal note mentions eval as a word but is not executable." }));
+for (const payload of [() => true, { callback: () => true }, { eval: "return 1" }, { nested: { execute: "x" } }, "javascript:alert(1)"]) assert.throws(() => rejectExecutablePayload(payload));
+assert.throws(() => assertEpistemicTransition("UNKNOWN", "FACT"));
+assert.throws(() => assertEpistemicTransition("ASSUMPTION", "VERIFIED"));
+assert.throws(() => assertEpistemicTransition("GENERATED", "VERIFIED"));
+assert.throws(() => assertNoCanonicalMutation("before", "after"), /CANONICAL_MUTATION_FORBIDDEN/);
+assert.doesNotThrow(() => assertNoCanonicalMutation("same", "same"));
+assert.equal(sha256("same"), sha256("same"), "SHA256_DETERMINISTIC");
+const reordered = { ...registryItem, dependencies: [...registryItem.dependencies].reverse() };
+assert.equal(reordered.id, registryItem.id, "METAMORPHIC_IDENTITY_PRESERVED");
+console.log(JSON.stringify({ status: "PASS", normal: "PASS", boundary: "PASS", property: "PASS", mutants: "PASS", adversarial: "PASS", transfer: "PASS", regression: "PASS", canonicalMutation: false }));

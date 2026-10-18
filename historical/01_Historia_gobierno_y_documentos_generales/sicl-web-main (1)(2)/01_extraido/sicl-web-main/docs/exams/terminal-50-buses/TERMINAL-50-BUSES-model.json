@@ -1,0 +1,285 @@
+{
+  "id": "TERMINAL-50-BUSES-CONCEPTUAL",
+  "representationKind": "CONCEPTUAL_FLOOR_PLAN",
+  "status": "AI_PROPOSED",
+  "site": {
+    "width_m": 120,
+    "depth_m": 180,
+    "bus_bays": 50,
+    "floors": 2,
+    "assumptions": [
+      "Conceptual site 120 x 180 m",
+      "One public frontage on south edge",
+      "50 interprovincial buses can be staged simultaneously",
+      "Separate public, bus, service, loading and waste flows",
+      "Normative dimensions and egress require jurisdictional review"
+    ]
+  },
+  "program": [
+    {
+      "id": "P01",
+      "name": "Plaza de acceso / drop-off",
+      "floor": "N1",
+      "area_m2": 900,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P02",
+      "name": "Vestíbulo principal",
+      "floor": "N1",
+      "area_m2": 420,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P03",
+      "name": "Taquillas y atención",
+      "floor": "N1",
+      "area_m2": 300,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P04",
+      "name": "Sala de espera general",
+      "floor": "N1",
+      "area_m2": 720,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P05",
+      "name": "Sala de espera preferencial",
+      "floor": "N1",
+      "area_m2": 180,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P06",
+      "name": "Embarque / puertas",
+      "floor": "N1",
+      "area_m2": 450,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P07",
+      "name": "Llegadas y desembarque",
+      "floor": "N1",
+      "area_m2": 380,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P08",
+      "name": "Entrega de equipaje",
+      "floor": "N1",
+      "area_m2": 260,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P09",
+      "name": "Información y seguridad",
+      "floor": "N1",
+      "area_m2": 160,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P10",
+      "name": "Servicios higiénicos públicos",
+      "floor": "N1",
+      "area_m2": 300,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P11",
+      "name": "Comercio / alimentos",
+      "floor": "N1",
+      "area_m2": 520,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "P12",
+      "name": "Circulación pública",
+      "floor": "N1",
+      "area_m2": 680,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "S01",
+      "name": "Operaciones de transporte",
+      "floor": "N2",
+      "area_m2": 280,
+      "zone": "OPERATIONS"
+    },
+    {
+      "id": "S02",
+      "name": "Control de tráfico / CCTV",
+      "floor": "N2",
+      "area_m2": 180,
+      "zone": "OPERATIONS"
+    },
+    {
+      "id": "S03",
+      "name": "Administración",
+      "floor": "N2",
+      "area_m2": 360,
+      "zone": "OPERATIONS"
+    },
+    {
+      "id": "S04",
+      "name": "Sala de conductores",
+      "floor": "N2",
+      "area_m2": 260,
+      "zone": "STAFF"
+    },
+    {
+      "id": "S05",
+      "name": "Vestidores y duchas",
+      "floor": "N2",
+      "area_m2": 260,
+      "zone": "STAFF"
+    },
+    {
+      "id": "S06",
+      "name": "Comedor de personal",
+      "floor": "N2",
+      "area_m2": 220,
+      "zone": "STAFF"
+    },
+    {
+      "id": "S07",
+      "name": "Sala de reuniones / capacitación",
+      "floor": "N2",
+      "area_m2": 240,
+      "zone": "STAFF"
+    },
+    {
+      "id": "S08",
+      "name": "Archivo / TI / soporte",
+      "floor": "N2",
+      "area_m2": 180,
+      "zone": "OPERATIONS"
+    },
+    {
+      "id": "S09",
+      "name": "Servicios higiénicos personal",
+      "floor": "N2",
+      "area_m2": 140,
+      "zone": "STAFF"
+    },
+    {
+      "id": "L01",
+      "name": "Carga y descarga",
+      "floor": "N1",
+      "area_m2": 500,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "L02",
+      "name": "Almacén general",
+      "floor": "N1",
+      "area_m2": 360,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "L03",
+      "name": "Equipaje / clasificación",
+      "floor": "N1",
+      "area_m2": 420,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "L04",
+      "name": "Residuos y reciclaje",
+      "floor": "N1",
+      "area_m2": 180,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "L05",
+      "name": "Mantenimiento menor",
+      "floor": "N1",
+      "area_m2": 260,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "L06",
+      "name": "Cuarto eléctrico / bombas",
+      "floor": "N1",
+      "area_m2": 160,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "L07",
+      "name": "Patio de servicio",
+      "floor": "N1",
+      "area_m2": 600,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "B01",
+      "name": "50 dársenas de buses",
+      "floor": "SITE",
+      "area_m2": 9000,
+      "zone": "BUS"
+    },
+    {
+      "id": "B02",
+      "name": "Vialidad interna de buses",
+      "floor": "SITE",
+      "area_m2": 7200,
+      "zone": "BUS"
+    },
+    {
+      "id": "B03",
+      "name": "Estacionamiento autos/taxis",
+      "floor": "SITE",
+      "area_m2": 4200,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "B04",
+      "name": "Patio de maniobras",
+      "floor": "SITE",
+      "area_m2": 4200,
+      "zone": "BUS"
+    }
+  ],
+  "flows": [
+    {
+      "id": "F1",
+      "name": "Pasajeros salida",
+      "path": "frontage -> plaza -> vestíbulo -> taquillas/espera -> embarque -> dársenas",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F2",
+      "name": "Pasajeros llegada",
+      "path": "dársenas -> llegadas -> equipaje -> vestíbulo -> taxi/drop-off",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F3",
+      "name": "Buses",
+      "path": "acceso buses -> control -> dársenas -> patio de maniobras -> salida",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F4",
+      "name": "Servicio y carga",
+      "path": "acceso servicio posterior -> carga -> almacén/equipaje -> áreas internas",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F5",
+      "name": "Residuos",
+      "path": "áreas internas -> patio servicio -> residuos -> salida independiente",
+      "status": "CONCEPTUAL"
+    }
+  ],
+  "unknowns": [
+    "Jurisdictional RNE requirements and local transport regulations",
+    "Exact bus dimensions and turning templates",
+    "Peak-hour passenger demand and dwell time",
+    "Fire/egress calculations",
+    "Structural, MEP, acoustic and accessibility engineering",
+    "Land use, setbacks and parking requirements"
+  ],
+  "humanReviewRequired": true
+}

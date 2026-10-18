@@ -1,0 +1,149 @@
+# ARKI-SOLVER-MAP-001 — Airflow IAQ, fire and smoke
+
+**Research status:** Current-source review completed **2026-09-24**. This report covers exactly one solver family: **CONTAM for multizone airflow/indoor-air-quality/smoke-management analysis, coupled where appropriate with FDS for fire-driven flow and Smokeview for visualization**. The coupling boundary is part of the family scope. Aurora and Aurora artifacts were not researched or used. No software was installed or executed.
+
+## Executive conclusion
+
+CONTAM and FDS/Smokeview are complementary rather than interchangeable tools. **CONTAM** is a whole-building multizone airflow and contaminant-transport model. It is strong for infiltration, inter-zone pressure and flow, mechanical ventilation, contaminant transport, exposure, and smoke-management system studies. **FDS** is a computational-fluid-dynamics fire model based on large-eddy simulation for low-speed, thermally driven flow, with emphasis on smoke and heat transport. **Smokeview** is a visualization program for FDS and CFAST output; it is not a fire or airflow solver. [1] [5] [10]
+
+The family is suitable for scripted, inspectable simulation workflows. CONTAM provides the ContamX command-line engine, test-input mode, socket/bridge communication, and new C libraries with Python, C#, and Java bindings described in a 2026 primary publication. FDS accepts text `.fds` input files and runs from a command prompt, including MPI execution. Smokeview has verification scripts and command-line-oriented utilities, but its principal role is post-processing and visualization rather than numerical prediction. [3] [4] [6] [7] [8]
+
+The principal limitation is scale and physical representation. CONTAM uses a multizone, generally well-mixed abstraction and is therefore not a replacement for resolving near-field fire plumes, local buoyant jets, flame-scale physics, or spatially nonuniform smoke in a large zone. NIST explicitly warns that CONTAM has limitations in capturing near-field smoke transport caused by fire-heating-driven buoyancy. FDS provides higher-resolution fire-driven flow prediction, but its applicability remains scenario-, grid-, model-, and validation-dependent. NIST’s fire-modeling program states that FDS excels where fire size is predefined; predicting fire growth and flame spread is a more difficult research frontier. [11] [12]
+
+A defensible professional boundary is therefore: use CONTAM for whole-building network and smoke-management questions, FDS for appropriate fire-driven CFD questions, and Smokeview to inspect and communicate simulation output. Require qualified fire-protection/building-physics professionals to define scenarios, select models, review mesh and convergence, check tenability assumptions, quantify uncertainty, and determine whether application-specific validation or authority-having-jurisdiction evidence is required. Neither the software license nor the presence of a verification/validation suite is a safety certification or a substitute for professional judgment. The FDS and Smokeview license files expressly state that the software is provided “AS IS” and is not intended for situations where failure could cause injury or property damage. [9]
+
+## Scope and C1–C80 relevance
+
+The requested C1–C80 control catalogue was not supplied, and no authoritative C1–C80 definition was found in the official sources reviewed. **Specific C1–C80 identifiers and per-control pass/fail assignments are therefore UNKNOWN and are not inferred.** The evidence below identifies the capability areas that can be mapped once the authoritative catalogue is available: command-line/headless operation, API/co-simulation, input/output traceability, automated regression, numerical verification, experimental validation, determinism, model-form limits, and professional review.
+
+The family is relevant to controls concerning indoor airflow and pressure, IAQ contaminant transport, smoke movement and smoke-control systems, fire-driven flow, visualization, batch execution, coupling, validation, and auditability. It is not evidence that any particular C1–C80 requirement is satisfied.
+
+## Candidate comparison
+
+| Candidate | License / openness | OS and language | Python API / CLI | Headless execution | Determinism | Inputs and outputs | Testability and validation | Professional boundary |
+|---|---|---|---|---|---|---|---|---|
+| **CONTAM / ContamX** | NIST states that the software is public domain under 17 U.S.C. §105, freely redistributable and modifiable with notices. The disclaimer calls the programs experimental and provides no warranty. The CONTAM source repository itself was not located in the official public sources reviewed. The 2026 API paper says related source code is maintained in a private GitLab repository. [3] [6] | ContamW is a 32-bit Windows GUI. The January 2026 official download page lists 64-bit ContamX, simread, simcomp, and prjup packages for Windows and Debian 12.12 Linux. The reviewed official documentation does not verify the implementation language of the ContamW/ContamX solver core. The API libraries are written in C, with Python, C#, and Java bindings. [3] [4] [6] | ContamX supports `--help`, version reporting, a PRJ input path, console mode, test-input mode, wind-pressure mode, volume-flow output via bridge, and bridge mode with optional IP/port. It also supports TCP/IP socket control and data transfer. The new `contamp-lib` and `contamx-lib` APIs expose model creation/modification and simulation control. [4] [6] | **Yes.** ContamX can run as a command-line program and inside scripts or batch files. GUI use is not required for simulation. [4] | **Bit-for-bit determinism: UNKNOWN.** The reviewed official sources describe regression tests and command-line execution but do not promise cross-platform, cross-compiler, or cross-version bitwise identity. Use pinned binaries, inputs, settings, and numerical tolerances. | PRJ project files describe zones, airflow paths, fans/ducts, contaminants, sources/sinks, filters, schedules, controls, and simulation settings. ContamX produces simulation files and can exchange runtime data through bridge/socket mechanisms. `simread` and `simcomp` support result inspection and comparison; `simcomp` was developed for regression testing. [4] | Strong software testability: the official guide documents `simcomp` for comparing SIM files, and the API paper reports automated regression tests covering analytical airflow and contaminant-transport cases. NIST documentation provides verification cases for network airflow and coupled multizone-CFD background. Empirical validation exists in the cited literature, but no universal validation claim for every model or scenario is established. [4] [6] | Appropriate for whole-building airflow, IAQ, exposure, pressurization, zoned smoke control, stairwell pressurization, and related smoke-management analysis. NIST says skilled fire-protection-engineer judgment remains necessary and warns about near-field smoke transport and fire-heating buoyancy. [11] |
+| **FDS (Fire Dynamics Simulator)** | FDS is free/open-source NIST-developed software in the public domain, with redistribution/modification conditions and an “AS IS” disclaimer in the official repository license. GitHub’s API labels the repository license as “Other/NOASSERTION”; the authoritative license text is `LICENSE.md`, not an SPDX license identifier. [5] [9] | Official documentation supports 64-bit Windows, Linux, and macOS distributions; the current bundle page says distributed binaries target x86-64. The repository is primarily Fortran, and its `Source` tree contains Fortran `.f90` files. [5] [7] | The verified official interface is a text `.fds` input file passed to the FDS executable from a command prompt. MPI launch is documented with `mpiexec`/`mpirun` patterns. A stable, supported general-purpose Python API was not verified. | **Yes.** Text-input execution from a command prompt and MPI execution support non-interactive batch and headless simulation. Smokeview is optional for the numerical run. [7] | **Bit-for-bit determinism: UNKNOWN.** Official materials provide verification, validation, configuration management, and continuous integration, but the reviewed sources do not promise identical results across compilers, MPI decompositions, processors, operating systems, or floating-point environments. Compare engineering quantities with declared tolerances. | A case normally has a text `.fds` input file. FDS writes time-dependent and diagnostic output consumed by Smokeview, together with other documented output formats. Meshes, obstructions, vents, fires, materials, species, HVAC, detectors, and output requests are controlled by input namelists. [7] | Very strong project-level testability. The official release includes FDS Verification and Validation Guides, and the repository contains organized verification cases and scripts such as `Run_FDS_Cases.sh`. NIST’s Technical Reference Guide describes verification, experimental validation, and configuration management as separate companion volumes. Verification and validation remain case/model specific. [5] [8] [10] | Appropriate for fire-driven low-speed CFD when mesh, submodels, boundary conditions, fire specification, and validation evidence are fit for purpose. It is not automatically a code-compliance result, a measurement, or a substitute for an application-specific professional fire-engineering review. NIST states that predefined-fire scenarios are a core strength and that fire growth/flame spread is a harder research frontier. [5] [12] |
+| **Smokeview (SMV)** | NIST-developed public-domain software under the official repository license, with redistribution/modification notices and an “AS IS” disclaimer. It is free/open-source, not a commercial-only product. [9] | The repository is primarily C with C++ components in the source tree. The official bundle supports the FDS-SMV desktop platforms; the current downloads page says distributed binaries target x86-64. [5] [7] | Smokeview displays FDS/CFAST output. A stable Python API was not verified. The repository contains command-line/build utilities and verification scripts, but the reviewed sources do not establish a single stable automation API. | **Partly.** Numerical analysis does not depend on Smokeview. Rendering and post-processing can be scripted through repository utilities and verification scripts, but fully headless rendering behavior for every platform/configuration is **UNKNOWN** from the reviewed official sources. | **UNKNOWN.** Visualization image identity can depend on graphics libraries, drivers, platform, camera/state files, and rendering settings. No official bitwise-render determinism guarantee was found. | Reads FDS and CFAST output, including `.smv` metadata and associated field/geometry/time-series files, and produces interactive views, images, movies, and derived visualizations. Exact output behavior depends on the selected files and rendering configuration. [5] [8] | The official repository contains `Verification` content and scripts such as `Run_SMV_Cases.sh`, `SMV_DIFF_Cases.sh`, and picture/movie generation scripts. This supports regression and visualization checks, not validation of the underlying fire physics. [8] | Visualization and communication aid only. Smokeview does not solve airflow, IAQ, combustion, or fire dynamics. A rendered view must not be treated as independent physical evidence; preserve the originating FDS/CFAST case, version, settings, and quantitative outputs. |
+| **CONTAM–CFD0 coupled analysis** | This is a capability within CONTAM rather than a separate commercial solver. CONTAM’s public-domain status and experimental disclaimer apply. CFD0 is the zero-order-turbulence CFD model integrated with CONTAM; the reviewed sources do not establish a separate license or a current standalone public repository for CFD0. [3] [4] | Multizone CONTAM plus an integrated CFD zone. Exact implementation-language and standalone-platform details for CFD0 are **UNKNOWN** in the reviewed sources. | Coupling is supported through CONTAM’s own coupled-analysis capability and, in newer workflows, APIs/socket or bridge mechanisms. An FDS-to-CONTAM production coupling API was not verified. | CONTAMX is headless-capable. Whether a complete coupled CFD0 workflow can be run without any GUI step depends on the exact case and release; the reviewed sources do not establish a universal headless guarantee. | **UNKNOWN.** Coupled iteration may be sensitive to boundary exchange, convergence criteria, starting values, and implementation/version. | CONTAM and CFD0 exchange interface quantities such as airflow rate, pressure, and contaminant concentration. Dynamic coupling is iterative and may include airflow and contaminant-transport stages. [4] [13] | Coupling can be tested with conservation checks, convergence criteria, analytical cases, and controlled regression. The 2010 primary coupling paper identifies necessary conditions and instability risks; it does not provide a blanket validation certificate. [13] | Use only where the CFD-zone abstraction, interface resistance, boundary data, and iterative exchange are physically and numerically justified. Do not imply that a CONTAM–CFD0 coupling resolves a full building at fire-CFD fidelity. FDS coupling was not verified as an official supported path. |
+
+## CONTAM findings
+
+NIST defines CONTAM as a multizone indoor-air-quality and ventilation program. It calculates infiltration and exfiltration, room-to-room airflow, and mechanical ventilation flows driven by fans, wind pressure, and buoyancy from temperature differences. It also transports contaminants with transformations, adsorption/desorption, filtration, deposition, and source mechanisms, and can estimate personal exposure. NIST identifies smoke-management design and analysis as an established use. [1] [2]
+
+The execution model is unusually useful for automation. The official user guide separates **ContamW**, the graphical model-authoring interface, from **ContamX**, the simulation engine. ContamX can be invoked as a command-line program or from scripts and batch files. The guide documents `--help`, a PRJ input file, `--TestInput`, `--Console`, `--Bridge`, `--Wind`, and `--volumeFlow`. It also documents TCP/IP socket communication for runtime execution control and data transfer. [4]
+
+The same guide documents `simcomp` as a utility for comparing two simulation-result SIM files and states that it was developed to support developer regression testing. This makes a practical test harness possible: pin a case, run ContamX, compare selected outputs with `simcomp`, and retain logs and hashes. This is evidence of testability, not a guarantee of physical accuracy or cross-platform identical output. [4]
+
+The 2026 primary API publication reports two libraries. `contamp-lib` works with CONTAM project models, while `contamx-lib` performs simulations, controls execution, and queries results. The libraries are written in C and were designed for Windows and Linux. The publication reports bindings for Python, C#, and Java, thread-safety work for multiple models, automated builds, and automated regression tests. It also explains that earlier integrations relied on sequential file exchange or a detailed socket-based messaging system. [6]
+
+The reviewed API paper states that related CONTAM source code is maintained in a private GitLab repository. Therefore, CONTAM should be classified as **public-domain software with public documentation and distributable binaries, but without a verified public official source repository in this review**. The APIs and binaries are not evidence of a conventional commercial license. No specific commercial support or vendor SLA was researched.
+
+## FDS findings
+
+NIST describes FDS as a computational fluid-dynamics model of fire-driven fluid flow that numerically solves a form of the Navier–Stokes equations appropriate for low-speed, thermally driven flow, emphasizing smoke and heat transport. The FDS-SMV manual page lists current release documentation for FDS User, Technical Reference, Verification, Validation, and Configuration Management Guides. The page reviewed on 2026-09-24 listed **FDS 6.11.1** and **SMV 6.11.2**. [5] [7]
+
+The FDS User Guide states that a simulation is usually controlled by one text-based `.fds` input file and can be started directly via a command prompt or a GUI. It documents multi-processing and MPI launch patterns such as `mpiexec -n 4 fds job_name.fds`. This is a direct, auditable interface for headless execution. [7]
+
+The FDS repository is actively developed rather than archived. Its source tree identifies Fortran as the primary repository language and includes organized verification cases and scripts. The repository’s `LICENSE.md` permits use, copying, distribution, improvement, modification, and derivative works subject to retaining the notice and identifying modifications. It also states that the software is provided “AS IS,” disclaims data-accuracy and fitness warranties, and says it is not intended for situations where failure could cause injury or property damage. [8] [9]
+
+NIST’s Technical Reference Guide describes a four-volume framework: theory, model verification, experimental validation, and configuration management. The separate guides are valuable primary evidence that the project distinguishes numerical implementation checks from comparisons with experiments and from release/configuration control. They do not establish that every FDS model, mesh, fire, material, geometry, or output quantity has been validated. [10]
+
+NIST’s Advanced Fire Modeling page gives an important applicability boundary. It says FDS and Smokeview are high-fidelity tools used in performance-based fire safety and that these models excel when fire size is predefined. It describes fire growth and flame spread as the more difficult research frontier because gas/solid coupling can amplify modeling errors. The page also places consequential use in an engineering and authority-having-jurisdiction context, not in unsupervised software output. [12]
+
+## Smokeview findings
+
+Smokeview is explicitly a visualization program for FDS and CFAST output. It does not calculate the fire, airflow, species transport, or pressure field. Its value is inspection, animation, image/movie generation, and communicating spatial and temporal results. [5] [8]
+
+The official Smokeview repository is active and identifies C as its main language, with C++ files in the visualization source. Its verification directory includes scripts for running cases, generating images and movies, restart cases, and comparing output. These support reproducible visualization checks when the source case, camera/state, version, graphics environment, and rendering options are controlled. The reviewed official sources do not establish a stable Python API or a universal headless-rendering guarantee. [8]
+
+A Smokeview picture is not a validation measurement. It is a rendering of solver output. Quantitative conclusions should be taken from the underlying FDS/CFAST output and documented post-processing, with the rendered artifact retained only as a traceable view.
+
+## Coupling limits and recommended boundary
+
+The CONTAM user guide explains why coupled multizone-CFD analysis exists: CONTAM is suited to macroscopic whole-building behavior, while CFD is suited to microscopic airflow and contaminant transport within a zone. Full-building CFD can be computationally prohibitive, so CONTAM integrates **CFD0**, a zero-order-turbulence CFD model, to represent a single CFD zone alongside the rest of a multizone building. [4]
+
+The primary coupling paper states that a CFD zone embedded in a CONTAM network exchanges airflow rate, air pressure, and contaminant concentration at interfaces. It identifies two necessary conditions for a successful coupled airflow calculation: multizone mass flow must equal the integral of CFD-cell mass flow at each interface path, and the resistance characteristic must be known for each multizone/CFD boundary cell. The paper warns that dynamic coupling can become unstable when boundary conditions are exchanged incorrectly. It reports that pressure-boundary exchange can yield an unconditionally stable solution in the studied formulation, while other exchanges such as mass-flow exchange may lead to divergence. [13]
+
+These facts impose a strict boundary. CONTAM–CFD0 is a specialized multiscale network/zone coupling, not a general bridge that turns CONTAM into an FDS fire simulation. An official production coupling path from FDS to CONTAM was not verified in the reviewed NIST documentation. If a project proposes CONTAM plus FDS, the interface variables, time synchronization, species definitions, pressure/flow conventions, conservation checks, convergence behavior, restart semantics, and independent validation plan must be specified. Otherwise the coupling claim is **UNKNOWN**, not assumed.
+
+## Determinism, reproducibility, and testability
+
+For all three tools, the evidence supports **controlled reproducibility**, not a blanket bitwise-determinism guarantee. A defensible automated workflow should pin the exact release or commit, operating system, compiler/runtime, MPI implementation and rank count where applicable, input files, weather/boundary data, mesh, numerical tolerances, output requests, and post-processing code. Regression should compare selected physical quantities with explicit tolerances rather than compare every byte of every output file.
+
+For CONTAM, `simcomp`, the official verification cases, and the API paper’s regression description provide direct testability evidence. For FDS, the official verification repository and Verification/Validation Guides provide a larger and more formal test ecosystem. For Smokeview, verification scripts can check case execution and visual artifacts, but visualization regression is not a substitute for model validation. [4] [8] [10]
+
+The reviewed official sources do **not** verify the following claims: a universal cross-platform deterministic result guarantee; a universal FDS-to-CONTAM coupling interface; a stable general-purpose Python API for FDS or Smokeview; a complete current CONTAM solver-core source repository; or a universal safety/compliance certification for any result. These are recorded as UNKNOWN rather than inferred.
+
+## Professional boundary and recommendation
+
+**Recommended role of each candidate:**
+
+1. **CONTAM / ContamX:** preferred for whole-building airflow, pressure, ventilation, IAQ contaminants, occupant exposure, and smoke-management scenarios where a multizone representation is appropriate.
+2. **FDS:** preferred for fire-driven CFD questions involving smoke and heat transport where the selected grid, submodels, fire specification, computational resources, and validation evidence are appropriate.
+3. **Smokeview:** use as the FDS/CFAST visualization and communication layer, not as an independent solver.
+4. **CONTAM–CFD0:** use only for justified multizone/single-CFD-zone coupling with explicit interface conservation and stability checks.
+5. **CONTAM–FDS coupling:** treat as **not verified by this review**. Do not claim a supported, validated, or production-ready coupling path without primary documentation for the exact release and adapter.
+
+A professional fire or IAQ conclusion should retain the project geometry and assumptions, solver/version identifiers, input and boundary-condition hashes, mesh and timestep information, model choices, convergence evidence, sensitivity/uncertainty analysis, validation comparisons, quantitative outputs, visualization provenance, and reviewer decisions. Software output alone is not a measurement and is not a substitute for fire-protection engineering judgment, commissioning evidence, or an authority-having-jurisdiction determination.
+
+## Unknowns and unresolved items
+
+- **C1–C80 mapping:** UNKNOWN because the authoritative C1–C80 catalogue was not supplied or found in the reviewed official sources.
+- **CONTAM solver-core implementation language:** UNKNOWN from the reviewed official documentation; the new API libraries are documented as C.
+- **Public CONTAM source repository:** UNKNOWN/not located; the 2026 API paper says related source code is maintained in a private GitLab repository.
+- **Bitwise determinism:** UNKNOWN for CONTAM, FDS, Smokeview, and coupled workflows across platforms, compilers, MPI layouts, and graphics stacks.
+- **Stable general-purpose Python API for FDS:** UNKNOWN/not verified.
+- **Stable general-purpose Python API for Smokeview:** UNKNOWN/not verified.
+- **Universal headless Smokeview rendering contract:** UNKNOWN.
+- **Official supported FDS-to-CONTAM production coupling:** UNKNOWN/not verified.
+- **Standalone CFD0 license and public repository:** UNKNOWN/not verified separately from CONTAM.
+- **Commercial support, paid SLA, or vendor certification for these NIST tools:** UNKNOWN; no specific commercial offering was researched.
+
+## References
+
+All URLs below were accessed **2026-09-24**.
+
+[1]: https://www.nist.gov/services-resources/software/contam "NIST CONTAM overview"
+[2]: https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34 "NIST CONTAM User Guide and Program Documentation, Version 3.4"
+[3]: https://www.nist.gov/el/beed/nist-multizone-modeling/software/contam/contam-software-disclaimer "NIST CONTAM software disclaimer and public-domain terms"
+[4]: https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.1887r1.pdf "CONTAM User Guide and Program Documentation, Version 3.4 Revision 1"
+[5]: https://pages.nist.gov/fds-smv/ "Official FDS-SMV website"
+[6]: https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=960160 "Development and Application of CONTAM APIs"
+[7]: https://github.com/firemodels/fds/releases/download/FDS-6.11.1/FDS_User_Guide.pdf "FDS User's Guide, FDS 6.11.1"
+[8]: https://github.com/firemodels/fds "Official FDS source repository"
+[9]: https://raw.githubusercontent.com/firemodels/fds/master/LICENSE.md "FDS official repository license file"
+[10]: https://www.nist.gov/publications/fire-dynamics-simulator-technical-reference-guide-sixth-edition "NIST FDS Technical Reference Guide and verification/validation framework"
+[11]: https://www.nist.gov/el/beed/nist-multizone-modeling/applications/smoke-management "NIST CONTAM smoke-management application and limitations"
+[12]: https://www.nist.gov/programs-projects/advanced-fire-modeling "NIST Advanced Fire Modeling project and professional context"
+[13]: https://www.nist.gov/system/files/documents/2018/03/16/wang-2010-hvacr.pdf "Using CFD Capabilities of CONTAM 3.0 for Simulating Airflow and Contaminant Transport in and around Buildings"
+[14]: https://github.com/firemodels/smv "Official Smokeview source repository"
+[15]: https://raw.githubusercontent.com/firemodels/smv/master/LICENSE.md "Smokeview official repository license file"
+[16]: https://pages.nist.gov/fds-smv/manuals.html "Official FDS-SMV manuals and current release versions"
+[17]: https://pages.nist.gov/fds-smv/downloads.html "Official FDS-SMV downloads and x86-64 note"
+
+> **Source discipline:** Claims in this report are limited to the official NIST pages, official NIST publications, official FDS/Smokeview repositories and license files, and the primary coupling/API publications listed above. No Aurora source or artifact was used.
+
+[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17]
+
+> Note: The final repeated reference list is intentional so that the report remains self-contained if sections are copied independently.
+
+[1]: https://www.nist.gov/services-resources/software/contam "NIST CONTAM overview"
+[2]: https://www.nist.gov/publications/contam-user-guide-and-program-documentation-version-34 "NIST CONTAM User Guide and Program Documentation, Version 3.4"
+[3]: https://www.nist.gov/el/beed/nist-multizone-modeling/software/contam/contam-software-disclaimer "NIST CONTAM software disclaimer and public-domain terms"
+[4]: https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.1887r1.pdf "CONTAM User Guide and Program Documentation, Version 3.4 Revision 1"
+[5]: https://pages.nist.gov/fds-smv/ "Official FDS-SMV website"
+[6]: https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=960160 "Development and Application of CONTAM APIs"
+[7]: https://github.com/firemodels/fds/releases/download/FDS-6.11.1/FDS_User_Guide.pdf "FDS User's Guide, FDS 6.11.1"
+[8]: https://github.com/firemodels/fds "Official FDS source repository"
+[9]: https://raw.githubusercontent.com/firemodels/fds/master/LICENSE.md "FDS official repository license file"
+[10]: https://www.nist.gov/publications/fire-dynamics-simulator-technical-reference-guide-sixth-edition "NIST FDS Technical Reference Guide and verification/validation framework"
+[11]: https://www.nist.gov/el/beed/nist-multizone-modeling/applications/smoke-management "NIST CONTAM smoke-management application and limitations"
+[12]: https://www.nist.gov/programs-projects/advanced-fire-modeling "NIST Advanced Fire Modeling project and professional context"
+[13]: https://www.nist.gov/system/files/documents/2018/03/16/wang-2010-hvacr.pdf "Using CFD Capabilities of CONTAM 3.0 for Simulating Airflow and Contaminant Transport in and around Buildings"
+[14]: https://github.com/firemodels/smv "Official Smokeview source repository"
+[15]: https://raw.githubusercontent.com/firemodels/smv/master/LICENSE.md "Smokeview official repository license file"
+[16]: https://pages.nist.gov/fds-smv/manuals.html "Official FDS-SMV manuals and current release versions"
+[17]: https://pages.nist.gov/fds-smv/downloads.html "Official FDS-SMV downloads and x86-64 note"
+
+> Note: The numeric definitions above are the authoritative reference definitions for the inline citations.

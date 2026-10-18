@@ -1,0 +1,26 @@
+LEVEL_ID: L17
+NAME: "Memoria Institucional"
+DEFINITION: "ARKI recuerda proyectos, decisiones, errores y aprendizajes entre sesiones."
+INPUTS:
+  - session_data: "SessionData"
+  - project_id: "ProjectID"
+OUTPUTS:
+  - memory_retrieval: "MemoryRetrieval"
+  - decision_history: "DecisionHistory"
+  - lessons_learned: "list<LessonLearned>"
+CONTRACTS:
+  - "Persistencia entre sesiones"
+  - "DECISION HISTORY ≠ DECISION CURRENT JUSTIFICATION"
+  - "No borrar historia"
+RULES:
+  - "D6.1: Corpus persistence / reload / retrieval"
+  - "H-001: Derivation Integrity Foundation"
+  - "Event Store append-only"
+GATES:
+  - "GATE_L17_PASS: Memoria persistente y recuperable"
+EVIDENCE_REQUIRED:
+  - "Persistence log"
+  - "Retrieval log"
+  - "Decision history"
+  - "Lessons learned registry"
+CURRENT_STATUS: "PARTIAL (local)"

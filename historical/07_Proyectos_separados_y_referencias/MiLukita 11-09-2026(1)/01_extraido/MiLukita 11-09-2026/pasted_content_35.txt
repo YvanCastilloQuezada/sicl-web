@@ -1,0 +1,467 @@
+ORDEN 34 — CIERRE DE CONFIABILIDAD OPERACIONAL DE MILUKITA MAPPER + THE EYE
+
+ORDEN PARA MANUS: QA EN CAMPO + COMPARACIÓN VISUAL DE VERSIONES + RATE LIMITING TERRITORIAL + CERTIFICACIÓN DE CIERRE
+
+0. PROPÓSITO DE LA ORDEN
+
+La infraestructura de MiLukita Mapper + The Eye ya dispone de captura territorial, sesiones, WorldObjects, versionado, snapshots, funcionamiento offline, sincronización idempotente, detección de conflictos, resolución manual, auditoría y separación de publicationStatus.
+
+La Orden 34 tiene un propósito específico:
+
+demostrar que esta infraestructura funciona correctamente en condiciones reales de operación y dejarla lista para recibir la UI definitiva.
+
+No se busca agregar nuevas funcionalidades de producto.
+
+No se busca ampliar el World Engine.
+
+No se busca modificar MJP CORE.
+
+Se busca cerrar técnicamente el ciclo de captura → sincronización → conflicto → verificación → autorización → publicación.
+
+1. REGLA FUNDAMENTAL
+
+Mantener estrictamente:
+
+REALIDAD
+   ↓
+MAPPER
+   ↓
+CAPTURED
+   ↓
+UNDER_REVIEW
+   ↓
+THE EYE
+   ↓
+VERIFIED
+   ↓
+HUMAN AUTHORITY
+   ↓
+PUBLISHED
+   ↓
+RUNTIME
+
+Ninguna prueba, sincronización, conflicto o edición debe permitir saltarse estas etapas.
+
+2. QA CON DATOS REALES EN DISPOSITIVOS REALES
+
+Realizar una prueba operacional utilizando dispositivos físicos y datos territoriales reales.
+
+Preferentemente utilizar un entorno de staging/QA, evitando contaminar el Runtime público.
+
+Prueba 2.1 — Captura online
+
+El Mapper deberá:
+
+Iniciar una CaptureSession.
+Obtener posición GPS.
+Registrar precisión GPS.
+Capturar fotografía.
+Crear un WorldObject.
+Registrar una nota.
+Asociar evidencia.
+Guardar.
+Editar el objeto.
+Generar una nueva versión.
+Enviar a The Eye.
+
+Verificar que toda la información llegue correctamente.
+
+Prueba 2.2 — Captura offline
+
+Con el dispositivo sin conexión:
+
+Crear una sesión.
+Crear varios WorldObjects.
+Capturar fotografías.
+Registrar GPS.
+Registrar notas.
+Editar objetos.
+Cerrar la aplicación.
+Volver a abrirla.
+Confirmar que la información continúa disponible.
+Recuperar conexión.
+Ejecutar sincronización.
+
+Verificar:
+
+ningún objeto perdido;
+ninguna fotografía perdida;
+ninguna evidencia perdida;
+ninguna versión sobrescrita;
+ninguna operación duplicada.
+3. PRUEBA DE CONFLICTO ENTRE DISPOSITIVOS
+
+Utilizar como mínimo dos dispositivos.
+
+DISPOSITIVO A
+      ↓
+modifica WorldObject
+
+DISPOSITIVO B
+      ↓
+modifica el mismo WorldObject
+
+      ↓
+sincronización
+
+      ↓
+CONFLICTO
+
+      ↓
+THE EYE
+
+Verificar que el sistema:
+
+detecte el conflicto;
+conserve ambas versiones;
+no aplique last-write-wins;
+preserve snapshots;
+mantenga trazabilidad;
+permita resolución humana;
+registre la resolución en Audit Log.
+4. COMPARACIÓN VISUAL DE VERSIONES
+
+Implementar en The Eye una herramienta denominada:
+
+COMPARAR VERSIONES
+
+No asumir que los conflictos siempre serán “local vs. remoto”.
+
+El sistema debe poder comparar:
+
+Versión A vs. Versión B
+
+indicando claramente:
+
+versión;
+origen;
+dispositivo;
+operador;
+fecha/hora;
+estado;
+sesión;
+versión de aplicación.
+Comparar visualmente:
+
+Identidad
+
+nombre;
+tipo;
+categoría.
+
+Geometría
+
+latitud;
+longitud;
+precisión;
+radio;
+orientación.
+
+Contenido
+
+descripción;
+claims.
+
+Evidence
+
+fotografías;
+documentos;
+enlaces;
+mediciones;
+observaciones.
+
+Sources
+
+fuentes agregadas;
+fuentes eliminadas;
+cambios de autoridad.
+
+Mostrar claramente:
+
+AÑADIDO
+ELIMINADO
+MODIFICADO
+SIN CAMBIOS
+
+Para fotografías y otros assets, mostrar comparación visual cuando sea posible.
+
+5. RESOLUCIÓN DEL CONFLICTO
+
+Desde la comparación de versiones, The Eye/Human Authority podrá:
+
+Mantener A
+Mantener B
+Combinar
+Marcar como DISPUTED
+Solicitar evidencia
+
+La operación Combinar debe generar una nueva versión, no modificar retroactivamente las versiones originales.
+
+Las versiones originales deben permanecer intactas.
+
+Toda resolución debe registrar:
+
+responsable;
+fecha/hora;
+versiones utilizadas;
+decisión;
+justificación;
+nueva versión resultante, cuando corresponda.
+6. RATE LIMITING TERRITORIAL
+
+Implementar protección específica para endpoints territoriales.
+
+No utilizar un único límite global arbitrario.
+
+Definir límites configurables por:
+
+endpoint;
+método;
+usuario/rol;
+IP cuando corresponda;
+tipo de operación.
+
+Diferenciar al menos:
+
+Lectura
+
+Consultas de WorldObjects y sesiones.
+
+Escritura
+
+Creación y modificación.
+
+Operaciones pesadas
+uploads;
+fotografías;
+evidencia;
+importaciones masivas;
+sincronización.
+
+Los límites deben estar centralizados en configuración y no dispersos en el código.
+
+Verificar que un usuario que exceda el límite reciba una respuesta controlada y registrada.
+
+7. SEGURIDAD DE RATE LIMITING
+
+Verificar que el rate limiting:
+
+no pueda ser evadido simplemente cambiando parámetros del cliente;
+sea aplicado server-side;
+no dependa exclusivamente de la interfaz;
+registre eventos relevantes;
+no bloquee injustificadamente a operadores legítimos.
+8. PRUEBA DE INTEGRIDAD DE PUBLICACIÓN
+
+Ejecutar pruebas intentando modificar un objeto que ya tenga una versión publicada.
+
+Debe cumplirse:
+
+VERSION PUBLICADA
+      ↓
+NUEVA EDICIÓN
+      ↓
+NUEVA VERSIÓN
+      ↓
+PUBLICATION STATUS NO CAMBIA AUTOMÁTICAMENTE
+
+La nueva edición no debe reemplazar silenciosamente la versión publicada.
+
+Solo una autorización explícita debe modificar qué versión consume Runtime.
+
+9. PRUEBA NEGATIVA DEL RUNTIME
+
+Intentar introducir en Runtime objetos/versions:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+DISPUTED
+REJECTED
+ARCHIVED
+
+Todos deben quedar fuera del Runtime.
+
+Probar también que una versión nueva, aunque esté correctamente creada, no sustituye automáticamente una versión publicada.
+
+10. PRUEBA COMPLETA E2E
+
+Ejecutar como mínimo un caso completo:
+
+WORLD OBJECT REAL
+      ↓
+MAPPER
+      ↓
+CAPTURE SESSION
+      ↓
+EVIDENCE
+      ↓
+VERSION
+      ↓
+THE EYE
+      ↓
+VERIFICATION
+      ↓
+HUMAN AUTHORITY
+      ↓
+PUBLISHED
+      ↓
+RUNTIME
+
+Verificar que la versión que aparece en Runtime sea exactamente la versión autorizada.
+
+11. AUDIT LOG
+
+Verificar que queden registrados como mínimo:
+
+creación;
+modificación;
+nueva versión;
+snapshot;
+sincronización;
+conflicto;
+resolución;
+verificación;
+rechazo;
+solicitud de evidencia;
+autorización;
+publicación;
+archivado.
+
+El registro debe permitir reconstruir la historia del WorldObject.
+
+12. MJP CORE
+
+NO MODIFICAR MJP CORE.
+
+Ejecutar las pruebas existentes y comprobar:
+
+TypeScript;
+tests;
+build;
+comportamiento.
+
+Informar explícitamente cualquier regresión.
+
+13. OPTIMIZACIÓN
+
+Revisar el tamaño de los bundles y chunks.
+
+Implementar code-splitting únicamente cuando exista evidencia de beneficio.
+
+Presentar:
+
+ANTES
+↓
+tamaño inicial
+↓
+DESPUÉS
+↓
+tamaño inicial
+
+No introducir complejidad únicamente para obtener una mejora marginal.
+
+14. INFORME FINAL OBLIGATORIO
+
+Al terminar, entregar un informe con:
+
+A. Pruebas automatizadas
+TypeScript.
+Tests.
+Build.
+B. Pruebas reales
+dispositivo;
+sistema operativo;
+navegador;
+conexión;
+GPS;
+cámara;
+offline;
+sincronización.
+C. Conflictos
+escenario;
+versiones;
+resolución;
+resultado.
+D. Seguridad
+rate limiting;
+autorización;
+uploads;
+endpoints territoriales.
+E. Runtime
+versión autorizada;
+pruebas negativas.
+F. MJP CORE
+
+Confirmación explícita de integridad.
+
+15. CRITERIO DE CIERRE
+
+La orden se considera completada cuando Manus pueda afirmar, con evidencia:
+
+1. Mapper funciona en dispositivo real.
+
+2. Mapper funciona offline.
+
+3. La sincronización no pierde información.
+
+4. Los conflictos no se resuelven automáticamente de forma destructiva.
+
+5. The Eye puede comparar versiones.
+
+6. The Eye puede resolver conflictos.
+
+7. Las decisiones quedan auditadas.
+
+8. Una edición nunca sustituye silenciosamente una publicación existente.
+
+9. Runtime solo consume versiones autorizadas.
+
+10. Los endpoints territoriales tienen protección server-side.
+
+11. MJP CORE permanece intacto.
+
+16. PUERTA HACIA LA SIGUIENTE FASE
+
+Si todos los criterios anteriores son PASS, declarar:
+
+TERRITORIAL TRUST INFRASTRUCTURE — READY FOR DEFINITIVE UI
+
+En ese momento detener la expansión de infraestructura, salvo defectos encontrados durante la implementación.
+
+La siguiente fase será:
+
+UI DEFINITIVA
+      ↓
+MILUKITA MAPPER
+      +
+THE EYE
+      ↓
+PRIMEROS WORLDOBJECTS REALES
+      ↓
+VERIFICACIÓN
+      ↓
+PUBLICACIÓN
+      ↓
+PRIMERA EXPERIENCIA PÚBLICA
+      ↓
+EL MUNDO DE MILUKITA
+
+No agregar nuevas capas arquitectónicas sin una necesidad demostrada por las pruebas.
+
+El objetivo ya no es seguir construyendo infraestructura. El objetivo es demostrar que podemos usarla para mapear el mundo real.
+
+Mi recomendación
+
+Esta sí la enviaría a Manus.
+
+Y después impondría una regla de proyecto: si Manus devuelve otra lista de “sugerencias” después de esta orden, no las implementamos automáticamente. Primero clasificamos cada sugerencia en:
+
+🔴 Bloqueante: impide capturar/verificar/publicar correctamente.
+🟠 Importante: debe resolverse antes del lanzamiento público.
+🟢 Mejora: entra al backlog posterior al MVP.
+
+Porque estamos llegando al punto donde el principal riesgo ya no es técnico. Es seguir perfeccionando el sistema y retrasar indefinidamente la prueba de mercado.
+
+Después de la Orden 34, si pasa, yo cambiaría radicalmente el foco: Gemini/UI → 10 WorldObjects reales de Trujillo → primera experiencia → usuarios reales. Ahí empezaremos a descubrir los problemas que ninguna prueba sintética puede revelar.

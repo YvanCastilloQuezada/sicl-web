@@ -1,0 +1,1905 @@
+                           Ministerio                Viceministerio de        Dirección General de Juegos
+                           de Comercio Exterior                               de Casino y Máquinas
+                                                     Turismo
+                           y Turismo                                          Tragamonedas
+
+
+                            “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+Firmado digitalmente por GUERRA
+PADILLA Yuri FAU 20504774288Año hard de la recuperación y consolidación de la economía peruana”
+Motivo:Documento Electrónico
+Fecha: 2025/04/07 08:45:45-0500
+
+
+
+
+                     FORMATOS DE CERTIFICADO DE
+
+                                 CUMPLIMIENTO PARA:
+
+
+
+        1. Plataforma Tecnológica (Juegos a Distancia/Apuestas
+           Deportivas a Distancia)
+
+        2. Programas de juegos, modalidades de juegos y/o
+           componentes relacionados con los juegos y/o apuestas
+           deportivas a distancia
+
+        3. Integraciones
+
+        4. Generador de Números Aleatorios – GNA
+
+        5. Evaluación   de                         Seguridad                 para               Plataformas
+           Tecnológicas
+
+
+
+
+                                                      2025
+
+
+
+                             Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio                 Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                                Turismo
+                     y Turismo                                           Tragamonedas
+
+
+                “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                 Año de la recuperación y consolidación de la economía peruana”
+
+
+                                             FORMATO N° 01
+
+
+                                                                            LOGO DEL LABORATORIO DE CERTIFICACIÓN
+
+
+                             CERTIFICADO DE CUMPLIMIENTO N° < >
+
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y
+   Máquinas Tragamonedas del MINCETUR de acuerdo al detalle siguiente:
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+                                              <FABRICANTE>
+Nombre y datos del Fabricante:
+                                              <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+                                              Certificado   de  Cumplimiento     para   Plataforma
+Tipo de certificación:                        Tecnológica (Juegos a Distancia/Apuestas Deportivas a
+                                              Distancia)
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+                                              sección A.1>
+                                              Ej.
+                                              Plataforma Tecnológica:
+                                              • Gestión de Cuenta de Jugador (PAM)
+Tipo de Producto:                             • Apuestas deportivas (Sportsbook)
+                                              • Plataforma de Juegos a distancia
+                                              • Agregador
+                                              • Servidor Remoto de Juego (SRJ -RGS)
+                                              • Terminal de Apuestas
+                                              • Etc.
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557           y   sus     normas        modificatorias   y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de       identificación         del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                                   Firma del representante autorizado
+                                                 Nombre
+                                        Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                    Ministerio               Viceministerio de        Dirección General de Juegos
+                    de Comercio Exterior                              de Casino y Máquinas
+                                             Turismo
+                    y Turismo                                         Tragamonedas
+
+
+               “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                Año de la recuperación y consolidación de la economía peruana”
+
+A. EVALUACIÓN DE LA PLATAFORMA TECNOLÓGICA
+ A.1. Alcance
+ <Nombre del fabricante> ha solicitado a <nombre del laboratorio de certificación> la
+ evaluación de la Plataforma Tecnológica con el siguiente detalle:
+
+    Tipo de producto                 Nombre de producto                              Versión
+ Ejemplo de tipos de               Nombre del producto de
+                                                                           Versión del producto
+ producto                            acuerdo al fabricante
+ Gestión de Cuenta de              Plataforma de Gestión de
+                                                                                      1.0.0.0
+ Jugador (PAM)                     Cuenta de Jugador (PAM)
+ Apuestas deportivas                Plataforma de Apuestas
+                                                                                      1.0.0.0
+ (Sportsbook)                              Deportivas
+                                    Plataforma de Juegos a
+ Juegos a distancia                                                                   1.0.0.0
+                                            distancia
+                                   Agregador de juegos y/o
+ Agregador                                                                            1.0.0.0
+                                   servicios
+ Servidor Remoto de
+                                   Plataforma de juegos                               1.0.0.0
+ Juego (SRJ -RGS)
+ etc.
+
+ Notas:
+ -   En caso de ser una actualización, indicar que es un certificado complementario y referenciar
+     el certificado base.
+
+ A.2. Características de la Plataforma
+
+  A.2.1. Descripción General
+
+  Descripción detallada de la Plataforma Tecnológica que incluya las bases de datos,
+  aplicaciones, servicios, recursos y/o componentes de software, entre otros, así como el
+  diagrama de la arquitectura de la Plataforma Tecnológica.
+
+  *Para el caso de la Plataforma Tecnológica de los Juegos a Distancia/Agregador/Servidor de
+  Juegos Remoto (SRJ - RGS)
+  En la siguiente tabla se detallan los tipos de juego soportados por la plataforma tecnológica:
+
+     Tipo de Juego Soportado                           Aplica                 Comentarios
+     Juegos de Línea                                   Sí/No                      -
+     Juegos de Naipes                                  Sí/No                      -
+     Juegos de Póker                                   Sí/No                      -
+     Juegos de Blackjack                               Sí/No                      -
+     Juegos de Ruleta                                  Sí/No                      -
+     Juegos de Dados                                   Sí/No                      -
+     Juegos de Deportes                                Sí/No                      -
+     Juegos de Carreras                                Sí/No                      -
+     Juegos de Extración de Bolas / Números            Sí/No                      -
+     Juegos de Keno                                    Sí/No                      -
+     Juegos de Bingo                                   Sí/No                      -
+     Juegos de premios inmediatos                      Sí/No                      -
+     Juegos Multijugador                               Sí/No                      -
+     …
+
+    Pasarela de Pagos
+    <Breve descripción. Se deben especificar los proveedores de la pasarela de pagos>
+
+
+
+                      Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                   Ministerio                 Viceministerio de          Dirección General de Juegos
+                   de Comercio Exterior                                  de Casino y Máquinas
+                                              Turismo
+                   y Turismo                                             Tragamonedas
+
+
+           “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+            Año de la recuperación y consolidación de la economía peruana”
+
+ APIs de Integración
+ <Listarlos junto a una breve descripción. Por ejemplo, Recargas, Integración con juegos,
+ etc.>
+ Otros
+ <N/A si no aplica>
+
+ Archivos críticos del sistema:
+
+        Archivo                                               Función
+  [nombre.extensión]               [breve descripción de su función]
+  [nombre.extensión]               [breve descripción de su función]
+
+ Huellas electrónicas de los archivos críticos:
+
+                                     Ruta [solo si  Tipo de Firma
+         Archivo                                                           Firma Digital
+                                       aplica]           Digital
+                                                        <SHA-1>           <Firma digital>
+                              [Indique la ruta           < MD5>           <Firma digital>
+  [nombre.extensión]
+                            lógica del archivo]
+                                                           Etc.           <Firma digital>
+                                                        <SHA-1>           <Firma digital>
+                              [Indique la ruta           < MD5>           <Firma digital>
+  [nombre.extensión]
+                            lógica del archivo]
+                                                           Etc.           <Firma digital>
+  Ubicación: [Indique el dispositivo o componente del sistema donde se ubican los archivos
+  críticos listados]
+
+*Para el caso de la Plataforma Tecnológica de Apuestas Deportivas a Distancia
+
+ Parrilla de Eventos
+ <Breve descripción. Se deben especificar los proveedores de los eventos o N/A de ser el
+ caso.>
+
+ Pasarela de Pagos
+ <Breve descripción. Se deben especificar los proveedores de la pasarela de pagos.>
+
+ APIs de Integración
+ <Listarlos junto a una breve descripción. Por ejemplo, Recargas, Integración con juegos,
+ etc.>
+
+ Otros
+ <N/A si no aplica>
+
+ Archivos críticos del sistema:
+
+        Archivo                                               Función
+  [nombre.extensión]               [breve descripción de su función]
+  [nombre.extensión]               [breve descripción de su función]
+
+ Huellas electrónicas de los archivos críticos:
+                            Ruta [solo si                         Tipo de Firma
+        Archivo                                                                               Firma Digital
+                               aplica]                                Digital
+                                                                     <SHA-1>                 <Firma digital>
+                                    [Indique la ruta
+  [nombre.extensión]                                                 < MD5>                  <Firma digital>
+                                  lógica del archivo]
+                                                                       Etc.                  <Firma digital>
+                                    [Indique la ruta                 <SHA-1>                 <Firma digital>
+  [nombre.extensión]
+                                  lógica del archivo]                < MD5>                  <Firma digital>
+
+
+
+                     Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio                 Viceministerio de          Dirección General de Juegos
+                      de Comercio Exterior                                  de Casino y Máquinas
+                                                 Turismo
+                      y Turismo                                             Tragamonedas
+
+
+               “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                Año de la recuperación y consolidación de la economía peruana”
+                                        Ruta [solo si   Tipo de Firma
+            Archivo                                                            Firma Digital
+                                          aplica]            Digital
+                                                               Etc.           <Firma digital>
+      Ubicación: [Indique el dispositivo o componente del sistema donde se ubican los archivos
+      críticos listados]
+
+   A.2.2. Información sobre la Verificación de la Firma Digital
+
+    Procedimiento de Verificación de las Firmas Digitales:
+
+    [Descripción paso a paso de cómo obtener las firmas digitales]
+
+    ▪ Paso 1
+    ▪ Paso 2
+    ▪ Etc.
+    NOTA: Indicar el algoritmo utilizado para la verificación de las firmas digitales, y
+    procedimiento detallado a seguir
+
+   A.2.3. Relación de Proveedores
+
+   N.A. Si no aplica.
+
+               Nombre del Proveedor                                     Tipo de producto
+         Proveedor 1: [Nombre de proveedor 1]                                Juegos
+         Proveedor 2: [Nombre de proveedor 2]                          Modalidad de juegos
+         Proveedor 3: [Nombre de proveedor 3]                           Pasarela de pagos
+         Proveedor 4: [Nombre de proveedor 4]                        Juegos de Casino en Vivo
+         Proveedor 5: [Nombre de proveedor 5]                          Sistema progresivos
+         Etc.
+
+   A.2.4. Integración
+
+Se realizaron ensayos de integración con los siguientes productos:
+N.A. Si no aplica.
+
+    Nombre del                                  Nombre de la
+                     Tipo de producto                                versión     Identificador*
+     Proveedor                            Plataforma tecnológica
+    Proveedor 01        SRJ (RGS)                SRJ “AAA”         Versión 1.1     PT000021
+    Proveedor 02        SRJ (RGS)                SRJ “BBB”         Versión 1.5     PT000031
+    Proveedor 03     Pasarela de pagos    Pasarela de Pagos “EEE”       N/A        PT000025
+    Proveedor 04     Pasarela de pagos    Pasarela de Pagos “FFF”       N/A        PSV0002*
+        Etc.                                                                       PSV0005*
+ * NOTA1: En el caso de pasarelas de pago o medios de pago, indicar el código de registro
+ asignado al Proveedor de Servicios Vinculado.
+ * NOTA2: En caso que la Plataforma Tecnológica se certifique conjuntamente con la
+ plataforma tecnológica del proveedor, constituyéndose en un solo producto o plataforma
+ tecnológica, no será aplicable el N° de Registro asignado por MINCETUR.
+
+DESCRIPCIÓN:
+
+    a) Se realizaron ensayos de integración entre la Plataforma Tecnológica Integradora
+       <nombre del producto> y los juegos que forman parte de la plataforma de juegos SRJ
+       “AAA” del fabricante <nombre del Proveedor de Servicios Vinculados>:
+
+
+
+
+                        Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio               Viceministerio de            Dirección General de Juegos
+                     de Comercio Exterior                                  de Casino y Máquinas
+                                              Turismo
+                     y Turismo                                             Tragamonedas
+
+
+               “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                Año de la recuperación y consolidación de la economía peruana”
+
+(Mínimo un juego por cada tipo*)
+                                                                  Laboratorio
+Tipo de       Nombre de        Número de       Fecha de
+                                                                        de         Escritorio            Móvil
+producto      producto         Certificado*    Emisión
+                                                                  certificación
+Programa de
+               Juego MMM     22-FFF-23-09      27-05-2024          LAB AAA               X                X
+Juego
+Modalidad de Modalidad
+                             22-FFF-23-10      04-06-2024          LAB AAA               X                X
+juego          GGG
+Modalidad de
+juego de       Modalidad LLL 22-FFF-23-50      04-06-2024          LAB AAA               X                X
+casino en vivo
+
+* NOTA: Los Certificados de Cumplimiento deben cumplir con los estándares técnicos
+establecidos en el Decreto Supremo Nº 005-2023-MINCETUR.
+
+    b) Se realizaron ensayos de integración entre la Plataforma Tecnológica Integradora
+       <nombre del producto> y los juegos que forman parte de la plataforma de juegos
+       SRJ “BBB” del fabricante <nombre del Proveedor de Servicios Vinculados>:
+
+        (Mínimo un juego por cada tipo*)
+                                                              Laboratorio
+Tipo de       Nombre de        Número de       Fecha de
+                                                                    de             Escritorio            Móvil
+producto      producto         Certificado     Emisión
+                                                              certificación
+Programa de
+               Juego MMM     22-FFF-23-09      27-05-2024          LAB AAA               X                X
+Juego
+Modalidad de Modalidad
+                             22-FFF-23-10      04-06-2024          LAB AAA               X                X
+juego          GGG
+Modalidad de
+juego de       Modalidad LLL 22-FFF-23-50      04-06-2024          LAB AAA               X                X
+casino en vivo
+* NOTA: Los Certificados de Cumplimiento deben cumplir con los estándares técnicos
+establecidos en el Decreto Supremo Nº 005-2023-MINCETUR.
+
+    c) Se realizaron ensayos de integración entre la Plataforma Tecnológica Integradora
+       <nombre del producto> y la Pasarela de Pagos “EEE” del fabricante <nombre del
+       Proveedor de Servicios Vinculados>:
+
+        Sumario informativo de los elementos sujetos de la integración.
+
+    d) Se realizaron ensayos de integración entre la <producto integrador> y la Pasarela
+       de Pagos “FFF” del fabricante <nombre del Proveedor de Servicios Vinculados>:
+
+        Sumario informativo de los elementos sujetos de la integración.
+
+ A.3 Evaluación Realizada
+
+ <nombre del laboratorio de certificación> ha probado y confirmado la conformidad de la
+ Plataforma con los requerimientos aplicables relevantes para operar en la jurisdicción peruana.
+
+ <nombre del laboratorio de certificación> evaluó el desempeño funcional, implementación
+ del código fuente y la documentación provista, según se detalla a continuación.
+
+Lista de elemento/características que se han evaluado. Ejemplo (los elementos evaluados
+variarán según la funcionalidad de la plataforma o elemento bajo evaluación, en la lista se
+incluyen algunos ejemplos potenciales):
+
+La evaluación de la plataforma de juegos incluyó una evaluación de las siguientes características
+implementadas en la plataforma de juegos:
+
+
+
+
+                       Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio                  Viceministerio de          Dirección General de Juegos
+                        de Comercio Exterior                                   de Casino y Máquinas
+                                                    Turismo
+                        y Turismo                                              Tragamonedas
+
+
+                “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                 Año de la recuperación y consolidación de la economía peruana”
+   ➢    Registro de cuenta,
+   ➢    Acceso a la cuenta (Nombre de usuario y contraseña),
+   ➢    Interfaz del jugador,
+   ➢    Interfaz del operador,
+   ➢    Reportes,
+   ➢    Protección al jugador / sistemas de exclusión,
+             ➢ Desactivación de cuenta.
+             ➢ Registro de datos
+             ➢ Aplicaciones (ejemplo: funcionalidad de una aplicación móvil)
+             ➢ Etc.
+
+ A.4 Características del Hardware /Terminales de Apuesta
+
+   N.A. Si no aplica.
+
+A.4 .1 Identificación del Terminal de Apuestas
+
+                         Nombre de Modelo del                           Nombre                 Versión            de
+ Fabricante
+                         Terminal                                       software               Software
+ Fabricante  del         Identificador único del tipo de
+ elemento                producto (asignado por el
+ hardware                fabricante)
+ Ejemplo:
+                                         90003452                            XXXX                        1.00.1
+ GamingTerminals
+
+A.4.2 Descripción del Terminal de Apuestas
+
+Debe incluir las características físicas del terminal, identificación del software utilizado y las
+plataformas tecnológicas compatibles (fabricante, modelo y versión). Adicionalmente, deberá
+describir los componentes del hardware del terminal de apuestas.
+
+B. DETALLES DE LA CERTIFICACIÓN
+N.A. Si no aplica.
+Descripción de algun detalle adicional de la certificación, por ejemplo, si es una actualización de
+un certificado previo o es complementario.
+
+
+C. ANEXOS (relación de documentos de certificación utilizados)
+N.A. Si no aplica.
+Relación de documentos de certificación utilizados para la evaluación, (por ejemplo, el listado de
+certificados de juegos, del laboratorio de certificación o de otros laboratorios de certificaciones)
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio                 Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                                Turismo
+                     y Turismo                                           Tragamonedas
+
+                “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                 Año de la recuperación y consolidación de la economía peruana”
+
+
+                                             FORMATO N° 02
+
+                                                                                         LOGO DEL LABORATORIO DE CERTIFICACIÓN
+
+
+
+                         CERTIFICADO DE CUMPLIMIENTO N° < >
+
+El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el presente
+Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y Máquinas
+Tragamonedas del MINCETUR de acuerdo al detalle siguiente:
+
+
+                                               <SOLICITANTE>
+Nombre y datos del solicitante:
+                                               <NACIONALIDAD>
+
+                                               <FABRICANTE>
+Nombre y datos del Fabricante:
+                                               <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                               <Nombre del representante/firmante>
+Certificación:
+
+                                               Certificado de Cumplimiento para programas de juegos,
+Tipo de certificación:                         modalidades de juegos y/o componentes relacionados
+                                               con los juegos y/o apuestas deportivas a distancia
+
+                                               <Indicar lo que aplique y referenciar al detalle en la
+                                               sección A.1.1>
+                                               Ej.
+Tipo de Producto:
+                                               Programas de juegos y GNA detallados en la sección
+                                               A.1.1
+                                               Programas de juegos del Proveedor “AA” (X juegos)
+
+Jurisdicción                                   Perú
+
+                                               Ley N° 31557          y   sus      normas         modificatorias   y
+Normatividad aplicada
+                                               reglamentarias.
+
+Conclusión:                                    <CUMPLE / NO CUMPLE>
+
+Fecha:                                         <dd/mm/aaaa>
+
+Código de       identificación         del
+                                               <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                                Firma del representante autorizado
+                                             Nombre
+                                     Número del documento
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                                  Ministerio                  Viceministerio de     Dirección General de Juegos
+                                  de Comercio Exterior                              de Casino y Máquinas
+                                                              Turismo
+                                  y Turismo                                         Tragamonedas
+
+                           “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                            Año de la recuperación y consolidación de la economía peruana”
+
+
+
+       A. EVALUACIÓN DE LOS PROGRAMAS DE JUEGOS, MODALIDADES DE
+          JUEGOS Y/O COMPONENTES
+
+         A.1. Características del Software
+
+           A.1.1. Resumen
+
+           Información de la Plataforma Tecnológica - Servidor Remoto de Juegos (SRJ)
+           Los juegos evaluados en el presente certificado de cumplimiento son compatibles con la plataforma
+           tecnológica denominada <nombre del servidor remoto de juego> versión <versión> del
+           fabricante <nombre del fabricante>.
+
+           En la siguiente tabla se muestran los programas de juegos, modalidades de juegos y/o componentes
+           evaluados.
+
+
+NOMBRE DEL         CÓDIGO          VERSIÓN
+                                                                TIPO DE JUEGO                                MEDIOS SOPORTADOS
+ PRODUCTO           ÚNICO
+
+                                                   •     Juego de Línea
+                                                   •     Juego de Naipes
+                                                   •     Juego de Póker
+                    <código                        •     Juego Blackjack
+                    único de                       •     Juego de Ruleta
+ <Nombre del
+                 identificación
+ programa de                                       •     Juego de Dados
+                 del programa                                                                      <HTML5 para computador con
+    juegos,                                        •     Juego de Deportes / Carreras
+                   de juegos,                                                                      Windows, computador con iOS,
+ modalidades
+                  modalidades                      •     Juego de Extracción de Bolas /            Flash, Tablet, Android, etc. >
+ de juegos y/o                      <1.0.0>
+                 de juegos y/o                           Números
+componentes>
+                 componentes                       •     Juego Keno o Bingo
+                        >                          •     Juego de Premio Inmediato
+                                                   •     Juego Multijugador
+                                                   •     Deportes virtuales
+                                                   •     Etc.
+     …
+
+
+       La plataforma tecnológica (SRJ) denominada <nombre del servidor remoto de juego> versión
+       <versión> del fabricante <nombre del fabricante>, fue autorizada por MINCETUR con N° de
+       Registro < Código de registro asignado por MINCETUR a la plataforma tecnológica -
+       SRJ (RGS)>.
+
+
+
+
+                                     Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                           Ministerio                   Viceministerio de         Dirección General de Juegos
+                           de Comercio Exterior                                   de Casino y Máquinas
+                                                        Turismo
+                           y Turismo                                              Tragamonedas
+
+                    “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                     Año de la recuperación y consolidación de la economía peruana”
+
+  A.1.2. Archivos Críticos
+
+  A continuación, se listan las firmas digitales de los archivos críticos de los programas de
+  juegos, modalidades de juegos y/o componentes (productos) listados anteriormente.
+  Diríjase a la sección A.2 para mayor detalle del procedimiento de verificación.
+
+  NOMBRE DEL PRODUCTO: <Nombre del programa de juegos, modalidades de juegos y/o componentes
+                                                               >
+ CÓDIGO ÚNICO: <código único de identificación del programa de juegos, modalidades de juegos y/o
+                                                       componentes>
+                                                                                 Tipo de
+ Nombre del Archivo        Versión        Ubicación          Función              Firma                   Firma Digital
+                                                                                 Digital
+                                                               <breve           <SHA-1>                  <Firma digital>
+                                           <servidor     descripción de
+                                                                                < MD5>                   <Firma digital>
+                                           de juego       la función del
+ <nombre del binario>     <versión>
+                                            remoto,         archivo. ej.
+                                              etc.>         “lógica del          < etc.>                 <Firma digital>
+                                                              juego”>
+          …                   …                   …                …                                            …
+
+
+  A.1.3. Porcentaje de Retorno Teórico al Jugador (PRT)
+
+                      VARIACIÓN                                              % PRT                          % PRT
+                                                     % PRT              PRESENTADO POR                   CALCULADO
+                           /                      EN EL JUEGO                 EL                     POR EL LABORATORIO
+  NOMBRE DEL
+   PRODUCTO
+                       ID DE LA                                           FABRICANTE                  DE CERTIFICACIÓN
+                      TABLA DE
+                        PAGOS                 MÍNIMO     MÁXIMO        MÍNIMO      MÁXIMO           MÍNIMO          MÁXIMO
+
+
+
+
+    En caso de Progresivos:
+    (indicar si es opcional u obligatorio)
+
+                                                             PRT                VALOR
+                                                                                                   % DE
+          NOMBRE DEL             TIPO DE                                         BASE
+                                                        %            %                         CONTRIBUCIÓN
+          PROGRESIVO           PROGRESIVO                                         (DE
+                                                      MÍNIMO       MÁXIMO                       DE APUESTA
+                                                                                INICIO)
+
+
+
+
+<Nombre del Laboratorio de Certificación> ha confirmado que los valores del PRT (Porcentaje
+de Retorno Teórico al jugador) descritos en la tabla han mostrado:
+
+  a) Estar dentro de los límites estadísticos o valores equivalentes esperados computados
+     de los datos de las pruebas de simulación, o
+  b) Coincidir los valores derivados analíticamente del modelo matemático del juego.
+
+
+                              Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio               Viceministerio de        Dirección General de Juegos
+                        de Comercio Exterior                              de Casino y Máquinas
+                                                 Turismo
+                        y Turismo                                         Tragamonedas
+
+                   “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                    Año de la recuperación y consolidación de la economía peruana”
+
+   A.1.4. Notas
+ Listar:
+     - Notas a tener en consideración y que se estimen oportunas, de haberlas.
+     - N/A de no haber notas.
+
+
+     A.1.5. Generador de Números Aleatorios (GNA)
+
+     <En esta sección, se debe detallar el tipo de GNA que es compatible con los programas de
+     juegos, modalidades de juegos y/o componentes evaluados y referenciar su
+     correspondiente Certificado de Cumplimiento.>
+
+     Ejemplo:
+     Los programas de juegos, modalidades de juegos y/o componentes evaluados son
+     compatibles con el siguiente generador de números aleatorios:
+
+     ▪    <nombre del GNA> versión vx.x, el cual cuenta con el Certificado de Cumplimiento N°
+          <    > emitido por <nombre del laboratorio de certificación> el DD de MMMM de
+          AAAA.>
+
+
+     A.1.6. Descripción de los Juegos
+
+      A.1.7.1. <Nombre y versión del juego 1>
+
+      <Descripción general del juego o los juegos: incluyendo el número de rieles, tipos de
+      apuestas, bonos >
+
+         a.   Descripción de los juegos incluidos en el componente de software evaluado
+              i.   Tipo de juego: Cartas, video rodillos, ruleta, etc.
+              ii.  Descripción de la temática y reglas de juego
+
+
+ A.2. Información sobre la Verificación de la Firma Digital
+
+ Procedimiento de Verificación de las Firmas Digitales:
+
+ ▪       Paso 1
+ ▪       Paso 2
+ ▪       Etc.
+
+NOTA: Indicar el algoritmo utilizado para la verificación de las firmas digitales, y
+procedimiento detallado a seguir
+
+B. DETALLES ADICIONALES
+
+N.A. Si no aplica.
+Descripción de algún detalle adicional de la certificación, por ejemplo, si es una actualización
+de un certificado previo o es complementario.
+
+
+
+                           Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                         Ministerio                    Viceministerio de     Dirección General de Juegos
+                         de Comercio Exterior                                de Casino y Máquinas
+                                                       Turismo
+                         y Turismo                                           Tragamonedas
+
+
+                    “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                     Año de la recuperación y consolidación de la economía peruana”
+
+
+                                                  FORMATO N° 03
+
+                                                                            LOGO DEL LABORATORIO DE CERTIFICACIÓN
+
+
+                                CERTIFICADO DE CUMPLIMIENTO N° < >
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino
+   y Máquinas Tragamonedas del MINCETUR de acuerdo al detalle siguiente:
+
+                                                   <SOLICITANTE> (TITULAR)
+Nombre y datos del solicitante:
+                                                   <NACIONALIDAD>
+                                                   <FABRICANTE 1>
+                                                   <NACIONALIDAD>
+                                                   <FABRICANTE 2>
+                                                   <NACIONALIDAD>
+Nombre y datos del Fabricante:
+                                                   <FABRICANTE 3>
+                                                   <NACIONALIDAD>
+
+                                                   …..
+
+Representante del Laboratorio de
+                                                   <Nombre del representante/firmante>
+Certificación:
+                                                   Integración de <tipo de producto integrador> con <tipo(s) de
+                                                   producto(s) integrado(s)>
+Tipo de certificación:                             Ejemplo:
+                                                   Integración de la Plataforma Tecnológica de juegos a
+                                                   distancia “XXXX” con otras Plataformas tecnológicas
+
+                                                   <Indicar lo que aplique y referenciar al detalle en la sección
+                                                   A.1>
+                                                   Ejemplo:
+
+                                                   -     PLATAFORMA TECNOLÓGICA PAM “AAA”
+                                                   -     AGREGADOR “BBB”
+Tipo de Producto:
+                                                   -     SERVIDOR DE JUEGO REMOTO – SRJ (RGS)
+                                                         “CCC”
+                                                   -     SERVIDOR DE JUEGO REMOTO - SRJ (RGS)
+                                                         “DDD”
+                                                   -     PASARELA DE PAGOS “EEE”
+                                                   -     PASARELA DE PAGOS “FFF”
+Jurisdicción                                       Perú
+
+Normatividad aplicada                              Ley N° 31557 y sus normas modificatorias y reglamentarias.
+
+Conclusión:                                        <CUMPLE / NO CUMPLE>
+
+Fecha:                                             <dd/mm/aaaa>
+
+Código de identificación del informe:              <Codificación propia de cada laboratorio>
+
+
+
+
+                                                Firma del representante
+                                                  autorizado Nombre
+                                                Número del documento
+
+
+                           Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio               Viceministerio de        Dirección General de Juegos
+                        de Comercio Exterior                              de Casino y Máquinas
+                                                 Turismo
+                        y Turismo                                         Tragamonedas
+
+
+                     “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                      Año de la recuperación y consolidación de la economía peruana”
+
+
+         A. EVALUACIÓN DE INTEGRACIÓN <TIPO PRODUCTO INTEGRADOR> CON <TIPO
+             PRODUCTO (S) INTEGRADO (S)>
+
+           A.1. Alcance
+           <Nombre del Titular> ha solicitado al <nombre del laboratorio de certificación> la evaluación
+           de la integración de Plataformas Tecnológicas / Pasarelas de Pago / Medios de Pago con el
+           siguiente detalle:
+
+Ejemplo:
+
+   IDENTIFICACIÓN DE LA PLATAFORMA            IDENTIFICACIÓN DE LA PLATAFORMA TECNOLÓGICA
+      TECNOLÓGICA INTEGRADORA                                   A INTEGRAR
+                                                                                      N° de
+                               N° de Registro                                       Registro
+    Nombre de                                                      Tipo de
+                     Versión    asignado por Nombre de producto            Versión  asignado
+     producto                                                    Producto
+                                 MINCETUR                                              por
+                                                                                   MINCETUR*
+                                                                 Agregado Versión
+                                              Agregador “BBB”                       PT000021
+                                                                      r      0.1
+                                              Servidor de Juego
+                                                                     SRJ   Versión
+                                              Remoto - SRJ (RGS)                    PT000031
+                                                                    (RGS)    1.1
+                                              “CCC”
+    Plataforma
+                                              Servidor de Juego
+   Tecnológica     Versión 1.17 PT0000006                            SRJ   Versión
+                                              Remoto - SRJ (RGS)                    PT000025
+   PAM “AAA”                                                        (RGS)    1.5
+                                              “DDD”
+                                              Pasarela de Pagos Pasarela
+                                                                             N/A    PSV0002*
+                                              “EEE”               de Pago
+                                              Pasarela de Pagos Pasarela
+                                                                             N/A    PSV0005*
+                                              “FFF”               de Pago
+
+ * NOTA: Solo en el caso de pasarelas de pago o medios de pago indicar el código de registro asignado
+ al Proveedor de Servicios Vinculado. Para pasarelas de pago o medios de pago no será necesario
+ su autorización y registro (homologación).
+
+A.2.     Características de los productos a integrar.
+
+A.2.1.   Descripción
+
+Sumario informativo de los elementos sujetos de la integración: Plataformas Tecnológicas [PAM,
+AGREGADOR, SRJ (RGS)], lista de juegos y entorno usado durante la integración.
+
+Nota: La descripción se realizará por cada integración
+
+A.2.1.1 INTEGRACIÓN: EJEMPLO (Una tabla por Producto):
+
+El [Nombre del producto y versión del Producto Integrador] del Titular <Nombre de Titular>, se ha
+integrado con las siguientes Plataformas Tecnológicas / Pasarelas de Pago / Medios de Pago.
+
+Se realizaron ensayos de integración entre la Plataforma Tecnológica Integradora <nombre del
+producto> y los siguientes productos (Plataformas Tecnológicas / Pasarelas de Pago / Medios
+de Pago):
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                             Ministerio                   Viceministerio de     Dirección General de Juegos
+                             de Comercio Exterior                               de Casino y Máquinas
+                                                          Turismo
+                             y Turismo                                          Tragamonedas
+
+
+                          “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                           Año de la recuperación y consolidación de la economía peruana”
+
+
+
+       Ejemplo: Del listado de productos a integrar
+
+                                                      Laboratorio              Entorno
+         Tipo de    Nombre de Número de                Fecha de                             Identificado
+Ítem                                                        de
+        producto     producto Certificado              Emisión        Escritorio      Móvil        r
+                                                      certificación
+        Ejemplo de Nombre del Número de Fecha de Laboratorio Indicar si la Mecanismo Código de
+         tipos de    producto certificado emisión del       de       integración de entrega    registro
+         producto               donde se Certificado certificación       se ha        móvil   asignado
+                                aprobó el      del     autorizado ensayado                       por
+                                 elemento  elemento que emitió         sobre la              MINCETUR
+                                  listado   listado          el       plataforma                   a
+                                                       certificado        de                      la
+                                                                      escritorio             Plataforma
+                                                                    (computado              Tecnológica
+                                                                          ra)
+       Plataforma Plataforma
+                               22-FFF-23-
+       Tecnológica Tecnológica            25-03-2024 LAB AAA               X            X    PT0000001
+                               01
+       Base        PAM “AAA”
+                   Agregador 22-FFF-23-
+ a)    Agregador                          02-04-2024 LAB BBB               X            X    PT0000021
+                   “BBB”       02
+                   SRJ (RGS) 22-FFF-23-
+ b)    SRJ (RGS)                          24-10-2023 LAB AAA               X            X    PT0000054
+                   “CCC”       03
+                   SRJ (RGS) 22-FFF-23-
+ c)    SRJ (RGS)                          01-07-2024 LAB AAA               X            X    PT0000015
+                   “DDD”       04
+       Pasarela de Pasarela de
+ d)                                                                        X            X     PSV0002
+       Pagos       Pagos “EEE”
+       Pasarela de Pasarela de
+ e)                                                                        X            X     PSV0005
+       Pagos       Pagos “FFF”
+       Etc.        Etc.             Etc.      Etc.         Etc.           Etc.         Etc.      Etc.
+
+       Ejemplo: Descripción de la integración de la Plataforma tecnológica y cada producto a integrar
+
+          a) Entre la Plataforma Tecnológica Integradora <nombre del producto> y la plataforma
+             Tecnológica Agregador “BBB” del fabricante <nombre del Proveedor de Servicios
+             Vinculados>:
+
+              Sumario informativo de los elementos sujetos de la integración.
+
+          b) Entre la Plataforma Tecnológica Integradora <nombre del producto> y los juegos que forman
+             parte de la plataforma de juegos SRJ (RGS) “CCC” del fabricante <nombre del Proveedor de
+             Servicios Vinculados>:
+
+              (En el caso de la plataforma de juegos deberá realizarse pruebas con al menos un juego por
+              cada tipo*)
+
+                                                                 Laboratorio
+  Tipo de        Nombre de Número de                Fecha de                                                   Identificado
+                                                                       de      Escritorio              Móvil
+  producto       producto  Certificado              Emisión                                                    r
+                                                                 certificación
+  Programa de                  22-FFF-23-
+              Juego MMM            09               27-05-2024      LAB AAA          X                    X    PJ00000002
+  Juego
+  Modalidad Modalidad          22-FFF-23-
+                                   10               04-06-2024      LAB AAA          X                    X    MJ00000021
+  de juego    GGG
+  Modalidad
+  de juego de Modalidad        22-FFF-23-
+                                                    04-06-2024      LAB AAA          X                    X    MJC000051
+  casino en   LLL                  50
+  vivo
+                               Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                           Ministerio                   Viceministerio de     Dirección General de Juegos
+                           de Comercio Exterior                               de Casino y Máquinas
+                                                        Turismo
+                           y Turismo                                          Tragamonedas
+
+
+                       “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                        Año de la recuperación y consolidación de la economía peruana”
+
+
+       c) Entre la Plataforma Tecnológica Integradora <nombre del producto> y los juegos que forman
+          parte de la plataforma de juegos SRJ (RGS) “DDD” del fabricante <nombre del Proveedor de
+          Servicios Vinculados>:
+
+           (En el caso de la plataforma de juegos deberá realizarse pruebas con al menos un juego por
+           cada tipo*)
+
+                                                               Laboratorio
+Tipo de      Nombre de Número de                  Fecha de
+                                                                     de      Escritorio             Móvil   Identificador
+producto     producto  Certificado                Emisión
+                                                               certificación
+Programa de                 22-FFF-23-
+            Juego MMM           09                27-05-2024      LAB AAA         X                    X    PJ00000002
+Juego
+Modalidad Modalidad         22-FFF-23-
+                                10                04-06-2024      LAB AAA         X                    X    MJ00000021
+de juego    GGG
+Modalidad
+de juego de Modalidad       22-FFF-23-
+                                                  04-06-2024      LAB AAA         X                    X    MJC000051
+casino en   LLL                 50
+vivo
+
+       d) Entre la Plataforma Tecnológica Integradora <nombre del producto> y la Pasarela de Pagos
+          “EEE” del fabricante <nombre del Proveedor de Servicios Vinculados>:
+
+           Sumario informativo de los elementos sujetos de la integración.
+
+       e) Entre la Plataforma Tecnológica Integradora < nombre del producto> y la Pasarela de Pagos
+          “FFF” del fabricante <nombre del Proveedor de Servicios Vinculados>:
+
+           Sumario informativo de los elementos sujetos de la integración.
+
+  A.2.1.2 ENTORNO USADO:
+
+  Ejemplo:
+
+  El software fue ensayado en un entorno con los siguientes componentes:
+
+                                        Detalles de la parte del cliente
+   Mecanismos de Entrega                Computadora/Móvil (Celular/Tableta)
+   Tipo de Mecanismo de Entrega:
+                                         HTML5
+   …                                     …
+                                                  Detalles de Ensayo
+   Plataforma y Versión Utilizada
+                                         Plataforma tecnológica PAM “AAA”
+   para las Pruebas:
+   Navegador y Versión Utilizada
+                                         Google Chrome v114.0.5735.90
+   para las Pruebas:
+   Sistema Operativo y Versión
+   Utilizado para las Pruebas:           Windows 10 Enterprise
+
+   …                                     …
+
+  B.    DETALLES DE LA CERTIFICACIÓN
+
+  N.A. Si no aplica.
+
+  Descripción de algún detalle adicional de la certificación, por ejemplo, si es una actualización de un
+  certificado previo o es complementario.
+
+
+                             Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                         Ministerio                 Viceministerio de      Dirección General de Juegos
+                         de Comercio Exterior                              de Casino y Máquinas
+                                                    Turismo
+                         y Turismo                                         Tragamonedas
+
+
+                      “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                       Año de la recuperación y consolidación de la economía peruana”
+
+
+C.      ANEXOS (relación de documentos de certificación utilizados)
+
+N.A. Si no aplica.
+
+Relación de documentos de certificación utilizados para la evaluación, (por ejemplo, el listado de
+certificados de juegos, del laboratorio de certificación o de otros laboratorios de certificaciones)
+
+*Nota: Se debe ensayar la integración con al menos un juego por cada tipo.
+
+Tipo de Producto                                Tipo de Juego*
+Programa de Juego                               Slots
+Programa de Juego                               Cartas
+Programa de Juego                               Póker
+Programa de Juego                               Black Jack
+Programa de Juego                               Ruleta
+Programa de Juego                               Dados
+Programa de Juego                               Crash/Juegos de Premio Inmediato
+Programa de Juego                               Juegos Multijugador
+Programa de Juego                               Keno o Bingo
+Programa de Juego                               Juego extracción de bolas
+                                                Juegos virtuales y todos los Juegos no incluidos dentro del
+Modalidad de Juego                              Tipo de Producto Programa, incluso aquellos juegos que
+                                                tiene un RTP inferior al mínimo de 85%.
+Modalidad de Juego                              Juegos de Casino en Vivo
+Apuestas Deportivas                             Deportes Virtuales
+Apuestas Deportivas                             Carreras de Caballos
+Apuestas Deportivas                             Carrera de Galgos
+Apuestas Deportivas                             Esports
+Apuestas Deportivas                             Fantasy
+Juego en Vivo                                   Juegos de deportes en Vivo
+Sistemas Progresivos                            Sistemas Progresivos
+.....
+
+
+
+
+                           Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio                Viceministerio de        Dirección General de Juegos
+                      de Comercio Exterior                               de Casino y Máquinas
+                                                Turismo
+                      y Turismo                                          Tragamonedas
+
+               “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                Año de la recuperación y consolidación de la economía peruana”
+
+
+
+                                              FORMATO N° 04
+
+                                                                                   LOGO DEL LABORATORIO DE CERTIFICACIÓN
+
+
+                             CERTIFICADO DE CUMPLIMIENTO N° < >
+
+
+El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el presente
+Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y Máquinas
+Tragamonedas de acuerdo al detalle siguiente:
+
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+                                              <FABRICANTE>
+Nombre y datos del Fabricante:
+                                              <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+Tipo de certificación:                        Generador de Números Aleatorios – GNA
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+Tipo de Producto:                             sección A.1.1>
+
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557           y   sus      normas         modificatorias   y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de        identificación         del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                                    Firma del representante autorizado
+                                                  Nombre
+                                         Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                         Ministerio               Viceministerio de        Dirección General de Juegos
+                         de Comercio Exterior                              de Casino y Máquinas
+                                                  Turismo
+                         y Turismo                                         Tragamonedas
+
+
+                  “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                   Año de la recuperación y consolidación de la economía peruana”
+
+
+
+A. EVALUACIÓN DEL GENERADOR DE NÚMEROS ALEATORIOS – GNA
+ A.1.     Características del Software
+
+  A.1.1. Resumen
+  Sumario del alcance de la evaluación realizada. Ejemplo:
+
+[Nombre de Proveedor] suministró los materiales necesarios a [nombre del laboratorio de
+certificación] con el fin de realizar el análisis de aleatoriedad del GNA [Nombre de GNA].
+
+El alcance de este análisis se limita a la verificación del software, revisión del código fuente y análisis
+de los datos.
+
+
+
+          NOMBRE DEL PRODUCTO                   VERSIÓN                      COMPONENTE
+
+
+         <Nombre del programa de GNA>            <1.0.0>              Generador de Números Aleatorios
+
+                       …
+
+El GNA [Nombre de GNA] fue evaluado aplicando los requerimientos de los estándares técnicos
+mencionados en la primera página de este reporte.
+
+  A.1.2. Archivos Críticos
+
+  A continuación, se listan las firmas digitales de los archivos críticos del componente GNA. Diríjase
+  a la sección A.2 para mayor detalle del procedimiento de verificación.
+
+                            NOMBRE DEL PRODUCTO: <Nombre del GNA >
+                                                                Tipo de
+ Nombre del Archivo         Versión  Ubicación    Función        Firma                             Firma Digital
+                                                                 Digital
+                                                    <breve     <SHA-1>                           <Firma digital>
+                                                descripción     < MD5>                            <Firma digital>
+                                     <servidor
+                                               de la función
+ <nombre del binario>      <versión> de juego,
+                                                del archivo.
+                                       etc.>                    < etc.>                           <Firma digital>
+                                               ej. “lógica del
+                                                   juego”>
+ …                            …          …            …                                                  …
+
+
+
+  A.1.3. Notas
+  Listar:
+    - Notas a tener en consideración y que se estimen oportunas, de haberlas.
+
+     -     N/A de no haber notas.
+
+  A.1.4. Descripción del Generador de Números Aleatorios
+           a. Descripción del GNA (descripción del algoritmo utilizado)
+           b. Detalles de la evaluación:
+
+
+                           Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio               Viceministerio de        Dirección General de Juegos
+                        de Comercio Exterior                              de Casino y Máquinas
+                                                 Turismo
+                        y Turismo                                         Tragamonedas
+
+
+                “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                 Año de la recuperación y consolidación de la economía peruana”
+
+                     i. Revisión de código fuente
+                        Las siguientes secciones describen la implementación del GNA en el código
+                        fuente:
+                            • Semillado
+                                Si lo hace por sí solo o requiere un algoritmo de siembra.
+                            • Ciclado
+                                Indicar si presenta o no ciclado
+                            • Escalado
+                                Indicar si hay un método de escalado
+                            • Seguridad
+                                Indicar el nivel de seguridad, por ejemplo, si es criptográficamente
+                                seguro.
+                            • (cualquier otra característica relevante)
+
+                     ii. Pruebas estadísticas
+                             • Pruebas empíricas
+                               Resultados de las pruebas
+                             • Pruebas Diehard
+                               Resultado de las pruebas
+                             • Pruebas NIST
+                               Resultado de las pruebas
+                             • (cualquier otra prueba relevante)
+
+
+   A.1.5. Resultado de la evaluación
+
+
+
+ A.2.   Información sobre la Verificación de la Firma Digital
+
+ Procedimiento de Verificación de las Firmas Digitales:
+ ▪ Paso 1
+ ▪ Paso 2
+ ▪ Etc.
+
+
+NOTA: Indicar la herramienta utilizada para la verificación de las firmas digitales, y
+procedimiento detallado a seguir:
+
+
+B. DETALLES ADICIONALES
+N.A. Si no aplica.
+Descripción de algún detalle adicional de la certificación, por ejemplo si es una actualización de un
+certificado previo o es complementario.
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio                Viceministerio de        Dirección General de Juegos
+                      de Comercio Exterior                               de Casino y Máquinas
+                                                Turismo
+                      y Turismo                                          Tragamonedas
+
+
+                “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                 Año de la recuperación y consolidación de la economía peruana”
+
+
+
+                                              FORMATO N° 05
+
+                                                                                   LOGO DEL LABORATORIO DE CERTIFICACIÓN
+
+
+
+                         CERTIFICADO DE CUMPLIMIENTO N° < >
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino
+   y Máquinas Tragamonedas de acuerdo al detalle siguiente:
+
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+Nombre y datos del Fabricante (si             <FABRICANTE>
+aplica):                                      <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+                                              Evaluación de Seguridad para Plataformas
+Tipo de certificación:                        Tecnológicas (Juegos a Distancia/Apuestas Deportivas
+                                              a Distancia)
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+Tipo de Producto:                             sección A>
+
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557 y sus normas modificatorias y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de identificación del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                                      Firma del representante autorizado
+                                                 Nombre
+                                         Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio                  Viceministerio de      Dirección General de Juegos
+                      de Comercio Exterior                               de Casino y Máquinas
+                                                  Turismo
+                      y Turismo                                          Tragamonedas
+
+
+                 “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                  Año de la recuperación y consolidación de la economía peruana”
+
+
+A. ALCANCE DE LA AUDITORÍA
+<nombre del solicitante> ha solicitado a <nombre del laboratorio de certificación> la Auditoría
+Operacional correspondiente a la <plataforma tecnológica> denominada <nombre y versión del
+sistema/plataforma> en cumplimiento de los siguientes apartados recogidos en los Estándares
+Técnicos III del Reglamento de la Ley N° 31557:
+
+ Apartado                                                              Dentro de Alcance
+                                                                            Si / No
+ A. Apartado A
+ B. Apartado B
+ C. Apartado C
+
+
+
+B. AUDITORÍA AL SISTEMA DE GESTIÓN DE LA SEGURIDAD DE LA
+   INFORMACIÓN
+B.1. Alcance
+ <nombre del laboratorio de certificación> realizó una auditoría al Sistema de Gestión de la
+ Seguridad de la Información (SGSI) que soporta las operaciones de la <plataforma tecnológica>
+ con respecto a los requisitos técnicos de seguridad de la regulación peruana. El alcance de
+ esta auditoría del SGSI incluyó la revisión de los registros y evidencias documentales de la
+ existencia de las prácticas y controles establecidos sobre los procesos de gestión y operación.
+
+ En la siguiente tabla se listan los Centros de Procesos de Datos (CPD) empleados por el
+ sistema evaluado.
+
+  #              Razón Social                    Ubicación / Región                        Función
+                                             <Indique la ubicación del
+                                                                             Por ejemplo:
+                                             CPD. En caso de entornos
+       <Razón social del                                                     CPD del sitio primario de la
+  1                                          cloud, indique la región
+       proveedor del alojamiento>                                            plataforma del
+                                             donde se despliega el
+                                                                             Operador/Proveedor
+                                             sistema>
+  2    ……
+
+
+ B.2. Método de la Auditoría
+ <nombre del laboratorio de certificación> utiliza los siguientes métodos y procedimientos
+ de auditoría:
+
+ Ejemplo:
+ • ISO/IEC 27007:2011 proporciona orientación sobre la gestión de un programa de auditoría
+    del sistema de gestión de la seguridad de la información (SGSI), sobre la realización de
+    auditorías y sobre la competencia de los auditores del SGSI, además de la orientación
+    contenida en la ISO 19011.
+
+
+ B.3. Resumen Ejecutivo
+
+ En la siguiente tabla se listan las secciones evaluadas y sus respectivos resultados.
+
+
+
+
+                        Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio               Viceministerio de        Dirección General de Juegos
+                      de Comercio Exterior                              de Casino y Máquinas
+                                               Turismo
+                      y Turismo                                         Tragamonedas
+
+
+                 “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                  Año de la recuperación y consolidación de la economía peruana”
+
+   Estándares Técnicos III Para Auditoría Operacional de las Plataformas Tecnológicas -
+                                        Apartado A
+
+                    Requisito                                  Resultado                         Notas
+                                                                                       <Justificar cualquier
+                                                                                               N.A.>
+Sección 11. Procedimientos y Prácticas                      Conforme/N.A.
+para una Auditoría Operacional
+11.1 Auditoría Independiente de                                                        <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+Procedimientos y Prácticas
+Sección 12. Procedimientos de controles                                                <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+internos
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+12.1 Procedimientos de controles internos.                                                     N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+12.2 Gestión de datos                                                                          N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+12.3 Gestión de riesgo                                                                         N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+12.4 Jugadores Restringidos                                                                    N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+12.5 Cuentas de Pruebas                                                                        N.A.>
+Sección 13. Controles de la cuenta del                                                 <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+juego
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.1 Registro y Verifi cación                                                                  N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.2 Cuentas fraudulentas                                                                      N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.3 Términos y condiciones                                                                    N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.4 Política de privacidad                                                                    N.A.>
+13.5 Seguridad de la información de                                                    <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+identificación personal
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.6 Mantenimiento de Fondos del Jugador                                                       N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.7 Limitaciones                                                                              N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+13.8 Exclusiones                                                                               N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+13.9 Cuentas inactivas                                                                         N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+13.10 Cierre de Cuenta                                                                         N.A.>
+Sección 14. Procedimiento de operación en                   Conforme/N.A.              <Justificar cualquier
+general                                                                                        N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+14.1 Reservas del Titular                                                                      N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+14.2 Protección de fondos del jugador                                                          N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+14.3 Impuestos                                                                                 N.A.>
+
+
+
+                        Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                    Ministerio                Viceministerio de        Dirección General de Juegos
+                    de Comercio Exterior                               de Casino y Máquinas
+                                              Turismo
+                    y Turismo                                          Tragamonedas
+
+
+               “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                Año de la recuperación y consolidación de la economía peruana”
+                   Requisito                                Resultado                           Notas
+                                                           Conforme/N.A.              <Justificar cualquier
+14.4 Proceso para reclamos/disputas                                                           N.A.>
+14.5 Información para la protección del                    Conforme/N.A.              <Justificar cualquier
+jugador                                                                                       N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+14.6 Juego Responsable                                                                        N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+14.7 Líneas de acción del juego responsable                                                   N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+14.8 Funciones del Chat                                                                       N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+Sección 15. Reglas de juego y contenido                                                       N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+15.1 Reglas de juego                                                                          N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+15.2 Contenido de las reglas de juego                                                         N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+15.3 Premios de Bonificaciones (promociones)                                                  N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+15.4 Competiciones/Torneos                                                                    N.A.>
+Sección 16. Procedimientos y Controles del                 Conforme/N.A.              <Justificar cualquier
+Juegos a Distancia                                                                            N.A.>
+16.1 Evaluación de los Porcentajes de                      Conforme/N.A.              <Justificar cualquier
+Retorno Teórico y Real para el Jugador                                                        N.A.>
+16.2 Monitoreo del Juego y Resultado del                   Conforme/N.A.              <Justificar cualquier
+GNA                                                                                           N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+16.3 Desactivación del Juego                                                                  N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+16.4 Manejo del Juego Suspendido                                                              N.A.>
+16.5 Procedimientos de Premio Mayor                        Conforme/N.A.              <Justificar cualquier
+Progresivo o Premio Mayor Progresivo                                                          N.A.>
+Incremental
+Sección 17. Procedimientos y Controles                     Conforme/N.A.              <Justificar cualquier
+para                                                                                          N.A.>
+sesiones de Juegos entre Pares (P2P)
+                                                           Conforme/N.A.              <Justificar cualquier
+17.1 Jugadores Asociados y Propuestas                                                         N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+17.2 Seguimiento de Sesión de Juego P2P                                                       N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+17.3 Reportando Jugadores Sospechosos                                                         N.A.>
+Sección 18. Procedimientos y Controles de                  Conforme/N.A.              <Justificar cualquier
+la Apuestas Deportiva a Distancia                                                             N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+18.1 Probabilidades/Pagos y Precios                                                           N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+18.2 Estadísticas/Datos de Línea                                                              N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+18.3 Suspender mercados o eventos                                                             N.A.>
+
+
+
+
+                       Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio               Viceministerio de        Dirección General de Juegos
+                      de Comercio Exterior                              de Casino y Máquinas
+                                               Turismo
+                      y Turismo                                         Tragamonedas
+
+
+                “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                 Año de la recuperación y consolidación de la economía peruana”
+                    Requisito                                Resultado                           Notas
+                                                            Conforme/N.A.              <Justificar cualquier
+18.4 Anulaciones de Apuestas                                                                   N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+18.5 Período de Apuesta                                                                        N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+18.6 Resultados                                                                                N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+Sección 19. Procedimientos de Monitoreo                                                        N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+19.1 Monitoreo de Colusión y Fraude                                                            N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+19.2 Monitoreo de Lavado de Activos (MLA)                                                      N.A.>
+Sección 20. Especificaciones de las salas                   Conforme/N.A.              <Justificar cualquier
+de juego de apuestas deportivas a                                                              N.A.>
+distancia
+20.1 Auditoría de verificación de la sala de                Conforme/N.A.              <Justificar cualquier
+juego de apuestas deportivas a distancia                                                       N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+20.2 Equipo de apuestas deportivas                                                             N.A.>
+20.3 Operaciones de apuestas deportivas en                  Conforme/N.A.              <Justificar cualquier
+salas de juego de apuestas deportivas a                                                        N.A.>
+distancia
+                                                            Conforme/N.A.              <Justificar cualquier
+20.4 Seguridad y grabación                                                                     N.A.>
+
+
+ NOTA: Es necesario comentar todos los resultados independientemente que sean conforme o No aplicable.
+
+   Estándares Técnicos III Para Auditoría Operacional de las Plataformas Tecnológicas -
+                                        Apartado B
+
+                    Requisito                                  Resultado                         Notas
+Sección 21. Auditoría de los controles                                                 <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+técnicos de seguridad
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+21.1 Evaluación de integridad y seguridad                                                      N.A.>
+Sección 22. Operación y seguridad de la                                                <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+plataforma tecnológica
+22.1 Procedimientos de la plataforma                                                   <Justificar cualquier
+                                                            Conforme/N.A.                      N.A.>
+tecnológica
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+22.2 Ubicación física de los servidores                                                        N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+22.3 Controles de acceso lógico                                                                N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+22.4 Autorización del usuario                                                                  N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+22.5 Programación del servidor                                                                 N.A.>
+                                                                                       <Justificar cualquier
+                                                            Conforme/N.A.
+22.6 Procedimientos de verificación                                                            N.A.>
+
+
+
+
+                        Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio               Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                              de Casino y Máquinas
+                                              Turismo
+                     y Turismo                                         Tragamonedas
+
+
+               “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                Año de la recuperación y consolidación de la economía peruana”
+                    Requisito                                 Resultado                         Notas
+22.7 Sistema de retención de documentos                                               <Justificar cualquier
+                                                           Conforme/N.A.
+electrónicos                                                                                  N.A.>
+                                                                                      <Justificar cualquier
+                                                           Conforme/N.A.
+22.8 Gestión del equipo                                                                       N.A.>
+                                                                                      <Justificar cualquier
+                                                           Conforme/N.A.
+22.9 Registro de activos críticos                                                             N.A.>
+22.10 Accesos físicos y lógicos a la plataforma                                       <Justificar cualquier
+                                                           Conforme/N.A.
+tecnológica                                                                                   N.A.>
+                                                                                      <Justificar cualquier
+                                                           Conforme/N.A.
+Sección 23. Integridad de datos                                                               N.A.>
+                                                                                      <Justificar cualquier
+                                                           Conforme/N.A.
+23.1 Seguridad de datos                                                                       N.A.>
+                                                                                      <Justificar cualquier
+                                                           Conforme/N.A.
+23.2 Alteración de los datos                                                                  N.A.>
+                                                                                      <Justificar cualquier
+                                                           Conforme/N.A.
+23.3 Frecuencia de respaldo                                                                   N.A.>
+23.4 Respaldo de los medios de                             Conforme/N.A.              <Justificar cualquier
+almacenamiento                                                                                N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+23.5 Fallo de la plataforma tecnológica                                                       N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+23.6 Contabilidad de reinicio maestro                                                         N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+23.7 Requisitos para la recuperación                                                          N.A.>
+23.8 Soporte de plataforma tecnológica de                  Conforme/N.A.              <Justificar cualquier
+alimentación ininterrumpida (UPS)                                                             N.A.>
+23.9 Plan de continuidad de operaciones y                  Conforme/N.A.              <Justificar cualquier
+recuperación en caso de desastre                                                              N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+Sección 24. Comunicaciones                                                                    N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+24.1 Conectividad                                                                             N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+24.2 Protocolo de comunicación                                                                N.A.>
+24.3 Comunicación sobre la Internet/redes                  Conforme/N.A.              <Justificar cualquier
+públicas                                                                                      N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+24.4 Gestión de seguridad de la red                                                           N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+24.5 Ataques activos y pasivos                                                                N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+24.6 Informática móvil y comunicaciones                                                       N.A.>
+Sección 25. Proveedores de servicios de                    Conforme/N.A.              <Justificar cualquier
+terceros                                                                                      N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+25.1 Comunicación de terceros                                                                 N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+25.2 Servicios de terceros                                                                    N.A.>
+                                                           Conforme/N.A.              <Justificar cualquier
+25.3 Procesamiento de datos de terceros                                                       N.A.>
+
+
+
+
+                       Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio               Viceministerio de        Dirección General de Juegos
+                      de Comercio Exterior                              de Casino y Máquinas
+                                               Turismo
+                      y Turismo                                         Tragamonedas
+
+
+                 “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                  Año de la recuperación y consolidación de la economía peruana”
+                    Requisito                                Resultado                           Notas
+                                                            Conforme/N.A.              <Justificar cualquier
+Sección 26. Controles técnicos                                                                 N.A.>
+26.1 Redireccionamiento de las plataformas                  Conforme/N.A.              <Justificar cualquier
+tecnológicas                                                                                   N.A.>
+26.2 Requisitos del sistema de nombres de                   Conforme/N.A.              <Justificar cualquier
+dominio (DNS)                                                                                  N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+26.3 Controles criptográficos                                                                  N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+26.4 Gestión de la clave de encriptación                                                       N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+26.5 Refuerzo de componentes críticos                                                          N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+26.6 Generación y almacenamiento de registro                                                   N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+Sección 27. Acceso remoto y firewalls                                                          N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+27.1 Seguridad de acceso remoto                                                                N.A.>
+27.2 Procedimientos de acceso remoto y                      Conforme/N.A.              <Justificar cualquier
+proveedores                                                                                    N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+27.3 Registro de actividad del acceso remoto                                                   N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+27.4 Firewalls                                                                                 N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+27.5 Registros de auditoría de firewaal                                                        N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+Sección 28. Gestión de cambio                                                                  N.A.>
+28.1 Criterios para la valoración de gestión de             Conforme/N.A.              <Justificar cualquier
+cambios sustanciales y no sustanciales                                                         N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+28.2 Cambio por emergencia extraordinaria                                                      N.A.>
+28.3 Procedimiento de control de cambios del                Conforme/N.A.              <Justificar cualquier
+programa                                                                                       N.A.>
+28.4 Ciclo de vida de desarrollo de la                      Conforme/N.A.              <Justificar cualquier
+plataforma                                                                                     N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+28.5 Parches de actualización                                                                  N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+Sección 29. Pruebas técnicas de seguridad                                                      N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+29.1 Pruebas periódicas de seguridad                                                           N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+29.2 Evaluación de vulnerabilidad                                                              N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+29.3 Pruebas de penetración                                                                    N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+29.4 Revisión de las reglas de firewall                                                        N.A.>
+                                                            Conforme/N.A.              <Justificar cualquier
+29.5 Escaneos trimestrales de vulnerabilidad                                                   N.A.>
+
+
+
+
+                        Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio               Viceministerio de          Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                              Turismo
+                     y Turismo                                           Tragamonedas
+
+
+                  “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                   Año de la recuperación y consolidación de la economía peruana”
+ NOTA 1: Breve descripción de cada punto señalado en los “Estándares Técnicos III Para Auditoría
+ Operacional de las Plataformas Tecnológicas - Apartado B”.
+
+ NOTA 2: Es necesario comentar todos los resultados independientemente que sean conforme o No
+ aplicable.
+
+   Estándares Técnicos III Para Auditoría Operacional de las Plataformas Tecnológicas -
+                                        Apartado C
+
+                   Requisito                                  Resultado                           Notas
+Sección 30. Auditoría para proveedores de                                                Artículo informativo
+                                                                  N.A.
+servicio
+                                                                                         <indicar si fue
+                                                                                      convalidado con ISO
+Sección 31. Servicios de seguridad de la                   Conforme/N.A.
+                                                                                         27001, NIST o
+información                                                                               equivalente>
+                                                                                         <indicar si fue
+                                                                                      convalidado con ISO
+31.1 Auditoría de la plataforma de gestión de              Conforme/N.A.
+                                                                                         27001, NIST o
+seguridad de la información                                                               equivalente>
+                                                                                         <indicar si fue
+                                                                                      convalidado con ISO
+                                                           Conforme/N.A.
+                                                                                         27001, NIST o
+31.2 Política de seguridad de la información                                              equivalente>
+                                                                                         <indicar si fue
+                                                                                      convalidado con ISO
+                                                           Conforme/N.A.
+                                                                                         27001, NIST o
+31.3 Política de control de acceso                                                        equivalente>
+                                                                                         <indicar si fue
+                                                                                      convalidado con ISO
+31.4 Asignación de responsabilidad de                      Conforme/N.A.
+                                                                                         27001, NIST o
+seguridad                                                                                 equivalente>
+                                                                                         <indicar si fue
+                                                                                      convalidado con ISO
+31.5 Gestión de ocurrencias de sistema de                  Conforme/N.A.
+                                                                                         27001, NIST o
+gestión de seguridad de la información                                                    equivalente>
+                                                                                         <indicar si fue
+                                                           Conforme/N.A.              convalidado con ISO
+Sección 32. Servicios en la nube                                                        27017 o 27018>
+                                                                                         <indicar si fue
+32.1 Auditoría de proveedores de servicios en              Conforme/N.A.              convalidado con ISO
+la nube                                                                                 27017 o 27018>
+                                                                                         <indicar si fue
+32.2 Relación de proveedor de servicios en la              Conforme/N.A.              convalidado con ISO
+nube                                                                                    27017 o 27018>
+                                                                                         <indicar si fue
+                                                           Conforme/N.A.            convalidado con PCI-DSS
+Sección 33. Servicios de pago                                                            o equivalente>
+                                                                                         <indicar si fue
+33.1 Auditoría del proveedor de servicios de               Conforme/N.A.            convalidado con PCI-DSS
+pago                                                                                     o equivalente>
+                                                                                         <indicar si fue
+                                                           Conforme/N.A.            convalidado con PCI-DSS
+33.2 Garantía de pagos                                                                   o equivalente>
+
+
+
+                       Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio               Viceministerio de        Dirección General de Juegos
+                        de Comercio Exterior                              de Casino y Máquinas
+                                                 Turismo
+                        y Turismo                                         Tragamonedas
+
+
+                   “Decenio de la Igualdad de Oportunidades para Mujeres y Hombres
+                    Año de la recuperación y consolidación de la economía peruana”
+                      Requisito                                Resultado                           Notas
+Sección 34. Servicios de juegos en vivo                       Conforme/N.A.
+34.1 Auditoría de proveedores de servicios de
+                                                              Conforme/N.A.
+juegos en vivo
+34.2 Seguridad del entorno de juego en vivo                   Conforme/N.A.
+
+ NOTA 1: Breve descripción de cada punto señalado en los “Estándares Técnicos III Para Auditoría
+ Operacional de las Plataformas Tecnológicas - Apartado C”.
+
+ NOTA 2: Es necesario comentar todos los resultados independientemente que sean conforme o No
+ aplicable.
+
+
+ C. Hallazgos y Análisis de Auditoría
+     A continuación, se listan los hallazgos detectados tras la auditoría al SGSI en mención.
+
+      C.1. No Conformidades Mayores
+      <No se encontraron no conformidades mayores.> o
+      <A continuación se listan las no conformidades mayores encontradas: >
+
+      C.2. No Conformidades Menores
+      <No se encontraron no conformidades menores.> o
+      <A continuación se listan las no conformidades menores encontradas: >
+
+      C.3. Oportunidades de Mejora
+      <No se encontraron oportunidades de mejora.> o
+      <A continuación se listan las oportunidades de mejora detectadas: >
+
+
+
+ D. DETALLES DE LA REVISIÓN
+ <Esta sección solo aplica cuando el documento sea una revisión de un reporte previo, caso
+ contrario colocar N.A.>
+
+ Este reporte es una actualización del expediente <código del expediente antecesor>. Esta revisión
+ incluye los siguientes cambios:
+
+ -     <Incluir los cambios que se evaluaron respecto al expediente anterior.>
+
+ E. INFORMACIÓN ADICIONAL
+ Si aplica
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+

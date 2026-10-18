@@ -1,0 +1,174 @@
+--- UTC ---
+2026-09-25T00:14:26Z
+--- branch/head/status ---
+feature/arki-native-generator-v1
+69ff2ad2f7537dd5b752ec8dce90f7c27d5ec3f6
+[31m??[m docs/arki-ui-governance-001/A0/06_UI_ACTION_REGISTRY.json
+[31m??[m docs/arki-ui-governance-001/A0/ARKI_UI_GOVERNANCE_A0_R2.zip
+[31m??[m docs/arki-ui-governance-001/A0/ARKI_UI_GOVERNANCE_A0_R3.zip
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/ARKI_COMPLETE_CONTACT_SHEET.pdf
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_20-45-42_7504.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_20-49-40_3180.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_20-49-48_1854.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_20-49-58_9580.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_20-50-06_4115.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-17-44_8256.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-17-52_6302.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-19-28_9366.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-19-37_5600.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-19-43_6903.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-19-50_2422.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-19-56_1634.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-19_9753.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-35_7792.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-39_3761.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-42_5752.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-46_1213.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-49_5046.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-53_4089.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-42-57_7079.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-00_1814.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-05_3660.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-08_8791.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-22_7247.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-25_7743.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-29_8922.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-33_6571.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-36_7277.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-51_4615.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-54_1146.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-43-58_1038.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-02_8196.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-32_9266.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-36_1364.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-39_2080.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-43_6406.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-47_7600.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-51_5869.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-54_1164.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-44-58_4381.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-14_9087.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-29_9734.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-34_4034.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-38_5436.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-41_4051.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-44_6525.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-47_7787.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-45-51_3923.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-28_5766.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-40_5897.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-43_9602.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-47_1079.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-51_2774.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-54_3037.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_2026-09-24_22-48-57_7197.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_20-45-43_5614.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_20-49-41_7888.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_20-49-49_5073.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_20-49-59_3783.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_20-50-07_7684.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-17-46_6543.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-17-53_4519.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-19-29_3765.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-19-38_4854.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-19-44_2490.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-19-52_6998.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-19-57_5439.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-20_3168.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-36_1378.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-40_4239.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-43_5333.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-47_3477.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-50_2285.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-54_5558.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-42-58_7431.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-01_8675.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-06_6115.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-09_3375.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-23_7892.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-26_4651.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-30_1571.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-34_8848.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-37_3469.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-52_3226.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-55_5307.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-43-59_6519.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-03_1621.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-33_7450.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-37_5779.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-41_4227.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-44_3701.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-48_7753.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-52_8652.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-55_2286.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-44-59_1963.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-15_4929.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-30_5241.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-35_7767.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-39_4516.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-42_9497.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-45_2061.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-48_4957.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-45-52_5782.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-29_8032.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-41_5981.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-44_5978.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-48_3137.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-51_5185.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-55_7353.webp
+[31m??[m docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_FINAL/screens/4001-ioq0m1fmtd5iqzz_marked_2026-09-24_22-48-58_7400.webp
+[31m??[m outputs/atril_colegio_biologos_doble_helice_unica.png
+[31m??[m outputs/atril_colegio_biologos_perspectiva.png
+[31m??[m outputs/atril_colegio_biologos_perspectiva_v2.png
+[31m??[m outputs/atril_colegio_biologos_vista_lateral.png
+[31m??[m outputs/atril_colegio_biologos_vista_lateral_v2.png
+[31m??[m outputs/colegio_biologos_implantacion_aerea.png
+[31m??[m outputs/colegio_biologos_parque_cientifico.png
+[31m??[m outputs/colegio_biologos_parque_con_escultura_adn.png
+[31m??[m outputs/colegio_biologos_perspectiva_institucional.png
+[31m??[m outputs/doble_helice_posmodernista_posfuturista_hd.png
+--- package scripts ---
+{
+  "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
+  "build": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+  "start": "NODE_ENV=production node dist/index.js",
+  "check": "tsc --noEmit",
+  "format": "prettier --write .",
+  "test": "vitest run",
+  "e2e:canonical": "tsx scripts/run-arki-canonical-e2e.ts",
+  "e2e:advanced": "tsx scripts/run-arki-advanced-e2e.ts",
+  "security:stress:local": "node scripts/arki-local-security-stress.mjs",
+  "db:push": "drizzle-kit generate && drizzle-kit migrate"
+}
+--- processes ---
+793586 node dist/index.js
+828478 node dist/index.js
+--- ports ---
+LISTEN 0      511                *:4001             *:*    users:(("node",pid=828478,fd=28))        
+--- route target derivation ---
+count 14
+R3-004 /arki HashWorkspaceRoute /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki.md
+R3-006 /arki-book ArkiBookPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-book.md
+R3-008 /arki-device-bridge ArkiDeviceInteroperabilityPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-device-bridge.md
+R3-013 /arki-operations ArkiOperationsPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-operations.md
+R3-014 /arki-parametric-runtime ArkiParametricRuntimePage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-parametric-runtime.md
+R3-015 /arki-research-review ArkiResearchReviewPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_arki-research-review.md
+R3-019 /audit AuditRoute /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_audit_audit.md
+R3-020 /comparisons ComparisonsPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_comparisons.md
+R3-022 /evaluations EvaluationsPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_evaluations.md
+R3-028 /help/operations HelpArticlePage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_operations.md
+R3-029 /help/user HelpArticlePage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_help_user.md
+R3-033 /security-events SecurityEventsPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_security-events.md
+R3-034 /sources SourceLibraryPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_sources.md
+R3-035 /spatial SpatialViewerPage /home/ubuntu/page_texts/4001-ioq0m1fmtd5iqzzxqbot1-a8ffe840.us1.manus.computer_spatial.md
+--- dist files ---
+502357	dist/index.js
+369558	dist/public/index.html
+12447	dist/public/arki-ui-reference.html
+2604	dist/public/arki-access-qr-permanent.png
+2209	dist/public/arki-access-qr.png
+1902	dist/public/sw.js
+941	dist/public/offline.html
+631	dist/public/manifest.webmanifest
+309	dist/public/arki-icon.svg
+0	dist/public/.gitkeep

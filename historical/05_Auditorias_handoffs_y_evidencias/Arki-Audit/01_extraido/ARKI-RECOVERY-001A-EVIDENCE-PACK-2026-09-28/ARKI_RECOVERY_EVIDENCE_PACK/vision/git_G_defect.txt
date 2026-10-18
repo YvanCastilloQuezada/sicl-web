@@ -1,0 +1,17 @@
+[33m15508dd[m docs(governance): record authorized F-02 freeze exception
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33md740892[m docs(rfc-037): add weekly master surveillance
+[33m499a397[m docs: lock project intelligence distinctions
+[33ma8cb566[m docs: audit current multiscale variable architecture
+[33m2cde44d[m docs: add independent operations manual
+[33mb26faaf[m docs: add Core Contract versioning policy
+[33m5edd01f[m feat: extend design generation methods
+[33m4adc443[m docs: update user manual and glossary for SiMS-DeI 2.2
+[33ma47ef17[m feat: implement RFC-006.1 Monte Carlo simulation
+[33m01ce186[m feat: implement RFC-006.1 Monte Carlo simulation
+[33m9b3ca67[m docs: define RFC-014 user copilot
+[33m6dda71f[m feat: add temporal cycles and scenario branches
+[33m2458070[m feat: add institutional memory projection
+[33me4ff742[m feat: implement canonical multiscale model scopes
+[33m384a454[m chore: add repository metadata and core CI
+[33mbf4a1e1[m chore: backup SICL Core v1.2 + API Layer + Export features

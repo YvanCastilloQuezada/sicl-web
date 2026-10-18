@@ -1,0 +1,872 @@
+ARKI-DRAW — BLOQUE 1
+Fundaciones del motor de dibujo
+Objetivo del bloque: contratos + primitivas + export SVG verificable. Sin esto, no hay nada que construir encima. Es la H-001 del dibujo.
+
+Namespace: src/sicl/drawing/
+Reglas heredadas del Core: frozen dataclasses, determinismo, fail-closed, sin eval/exec/subprocess/socket/red, tests pytest, sin Math.random ni Date.now.
+
+Archivo 1 — src/sicl/drawing/__init__.py
+python
+"""H-DRAW: ARKI architectural drawing engine, downstream of H-005.
+
+This module produces architectural drawings (plans, elevations, sections,
+isometrics, perspectives) from a ConstructionModel. It does not modify
+H-001 through H-005 and does not execute external providers.
+"""
+from .primitives import (
+    Dimension,
+    DimensionKind,
+    Hatch,
+    HatchPattern,
+    Line,
+    LineWeight,
+    Point,
+    Polyline,
+    Rect,
+    Text,
+    TextAnchor,
+)
+from .scale import Scale
+from .paper import Orientation, PaperSize
+from .title_block import TitleBlock, TitleBlockField
+from .sheet import Sheet, Viewport
+from .svg_export import export_sheet_svg, export_view_svg
+
+__all__ = [
+    "Point", "Line", "Polyline", "Rect", "Text", "TextAnchor",
+    "Hatch", "HatchPattern", "Dimension", "DimensionKind", "LineWeight",
+    "Scale", "PaperSize", "Orientation",
+    "TitleBlock", "TitleBlockField",
+    "Sheet", "Viewport",
+    "export_sheet_svg", "export_view_svg",
+]
+Archivo 2 — src/sicl/drawing/primitives.py
+python
+"""2D drawing primitives. Frozen, deterministic, SVG-friendly."""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Iterable
+
+
+class LineWeight(str, Enum):
+    """ISO 128 architectural line weights, expressed in millimetres on paper."""
+    CUT = "0.70"        # muro atravesado por plano de corte
+    HEAVY = "0.50"      # contorno principal
+    MEDIUM = "0.35"     # proyección vista
+    THIN = "0.25"       # texturas, mobiliario, secundario
+    HAIR = "0.13"       # cotas, ejes, referencias
+    HIDDEN = "0.18"     # elementos ocultos (línea discontinua)
+
+
+class TextAnchor(str, Enum):
+    START = "start"
+    MIDDLE = "middle"
+    END = "end"
+
+
+class HatchPattern(str, Enum):
+    NONE = "none"
+    SOLID = "solid"
+    EARTH = "earth"           # tierra / relleno bajo cimiento
+    CONCRETE = "concrete"     # concreto estructural
+    MASONRY = "masonry"       # albañilería (ladrillo)
+    WOOD = "wood"
+    INSULATION = "insulation"
+    GLASS = "glass"
+
+
+class DimensionKind(str, Enum):
+    LINEAR_CHAIN = "linear_chain"           # cadena de cotas parciales
+    LINEAR_OVERALL = "linear_overall"       # cota general
+    LINEAR_BETWEEN_AXES = "linear_axes"     # cota entre ejes estructurales
+    RADIAL = "radial"
+    ANGULAR = "angular"
+
+
+@dataclass(frozen=True, order=True)
+class Point:
+    x: float
+    y: float
+
+    def offset(self, dx: float, dy: float) -> "Point":
+        return Point(self.x + dx, self.y + dy)
+
+
+@dataclass(frozen=True)
+class Line:
+    start: Point
+    end: Point
+    weight: LineWeight = LineWeight.MEDIUM
+    layer: str = "0"
+    dashed: bool = False
+
+
+@dataclass(frozen=True)
+class Polyline:
+    points: tuple[Point, ...]
+    weight: LineWeight = LineWeight.MEDIUM
+    closed: bool = False
+    layer: str = "0"
+    dashed: bool = False
+
+    def __post_init__(self) -> None:
+        if len(self.points) < 2:
+            raise ValueError("Polyline requires at least 2 points")
+
+
+@dataclass(frozen=True)
+class Rect:
+    origin: Point
+    width: float
+    height: float
+    weight: LineWeight = LineWeight.MEDIUM
+    layer: str = "0"
+
+    def corners(self) -> tuple[Point, Point, Point, Point]:
+        x0, y0 = self.origin.x, self.origin.y
+        x1, y1 = x0 + self.width, y0 + self.height
+        return (Point(x0, y0), Point(x1, y0), Point(x1, y1), Point(x0, y1))
+
+    def to_polyline(self) -> Polyline:
+        return Polyline(self.corners(), self.weight, closed=True, layer=self.layer)
+
+
+@dataclass(frozen=True)
+class Text:
+    position: Point
+    content: str
+    height_mm: float = 2.5          # altura de texto en mm sobre papel
+    anchor: TextAnchor = TextAnchor.START
+    rotation_deg: float = 0.0
+    layer: str = "0"
+
+    def __post_init__(self) -> None:
+        if not self.content:
+            raise ValueError("Text content must be non-empty")
+        if self.height_mm <= 0:
+            raise ValueError("Text height must be positive")
+
+
+@dataclass(frozen=True)
+class Hatch:
+    boundary: tuple[Point, ...]
+    pattern: HatchPattern
+    layer: str = "HATCH"
+
+    def __post_init__(self) -> None:
+        if len(self.boundary) < 3:
+            raise ValueError("Hatch boundary requires at least 3 points")
+        if self.pattern == HatchPattern.NONE:
+            raise ValueError("Hatch pattern NONE is not a valid hatch")
+
+
+@dataclass(frozen=True)
+class Dimension:
+    kind: DimensionKind
+    extension_points: tuple[Point, ...]   # puntos desde donde nacen las líneas de extensión
+    text: str                              # texto literal (no autocalculado; el motor lo deriva)
+    text_position: Point | None = None
+    layer: str = "DIM"
+
+    def __post_init__(self) -> None:
+        if len(self.extension_points) < 2:
+            raise ValueError("Dimension requires at least 2 extension points")
+        if not self.text:
+            raise ValueError("Dimension text must be non-empty")
+Archivo 3 — src/sicl/drawing/scale.py
+python
+"""Architectural scales. Deterministic, no floats as keys."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from enum import Enum
+
+
+class Scale(str, Enum):
+    """Architectural scales, expressed as ratio denominator (1:N).
+
+    Values are chosen to cover the RNE + Peruvian municipal drawing practice.
+    """
+    S_1_10 = "1:10"
+    S_1_20 = "1:20"
+    S_1_25 = "1:25"
+    S_1_50 = "1:50"
+    S_1_75 = "1:75"
+    S_1_100 = "1:100"
+    S_1_200 = "1:200"
+    S_1_250 = "1:250"
+    S_1_500 = "1:500"
+    S_1_1000 = "1:1000"
+
+    @property
+    def denominator(self) -> int:
+        return int(self.value.split(":")[1])
+
+    def real_mm_to_paper_mm(self, real_mm: float) -> float:
+        if real_mm < 0:
+            raise ValueError("real dimension must be non-negative")
+        return real_mm / self.denominator
+
+    def paper_mm_to_real_mm(self, paper_mm: float) -> float:
+        if paper_mm < 0:
+            raise ValueError("paper dimension must be non-negative")
+        return paper_mm * self.denominator
+
+
+# Escalas típicas por tipo de vista, para dar defaults coherentes
+DEFAULT_SCALE_BY_VIEW: dict[str, Scale] = {
+    "site_plan": Scale.S_1_500,
+    "floor_plan": Scale.S_1_50,
+    "elevation": Scale.S_1_50,
+    "section": Scale.S_1_50,
+    "detail": Scale.S_1_20,
+    "isometric": Scale.S_1_100,
+    "perspective": Scale.S_1_100,
+}
+Archivo 4 — src/sicl/drawing/paper.py
+python
+"""ISO 216 paper sizes and orientation, in millimetres."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from enum import Enum
+
+
+class PaperSize(str, Enum):
+    A4 = "A4"
+    A3 = "A3"
+    A2 = "A2"
+    A1 = "A1"
+    A0 = "A0"
+
+    @property
+    def dimensions_mm(self) -> tuple[float, float]:
+        """Return (short_side_mm, long_side_mm)."""
+        return {
+            PaperSize.A4: (210.0, 297.0),
+            PaperSize.A3: (297.0, 420.0),
+            PaperSize.A2: (420.0, 594.0),
+            PaperSize.A1: (594.0, 841.0),
+            PaperSize.A0: (841.0, 1189.0),
+        }[self]
+
+
+class Orientation(str, Enum):
+    PORTRAIT = "portrait"
+    LANDSCAPE = "landscape"
+
+
+@dataclass(frozen=True)
+class PaperSpec:
+    size: PaperSize
+    orientation: Orientation = Orientation.LANDSCAPE
+
+    def width_mm(self) -> float:
+        short, long = self.size.dimensions_mm
+        return long if self.orientation is Orientation.LANDSCAPE else short
+
+    def height_mm(self) -> float:
+        short, long = self.size.dimensions_mm
+        return short if self.orientation is Orientation.LANDSCAPE else long
+
+
+# Márgenes para archivo físico + encuadernación (RNE + práctica municipal Lima)
+@dataclass(frozen=True)
+class Margins:
+    left_mm: float = 25.0
+    top_mm: float = 10.0
+    right_mm: float = 10.0
+    bottom_mm: float = 10.0
+
+
+DEFAULT_MARGINS = Margins()
+Archivo 5 — src/sicl/drawing/title_block.py
+python
+"""Peruvian architecture title block contract.
+
+Fields chosen to satisfy municipal review in Peru:
+  - project name, location
+  - owner
+  - architect name + CAP (Colegio de Arquitectos del Perú)
+  - specialty
+  - scale
+  - date
+  - drawing number
+  - revision
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from enum import Enum
+
+
+class Specialty(str, Enum):
+    ARCHITECTURE = "ARQUITECTURA"
+    STRUCTURE = "ESTRUCTURAS"
+    MEP_SANITARY = "INSTALACIONES SANITARIAS"
+    MEP_ELECTRICAL = "INSTALACIONES ELECTRICAS"
+    MEP_HVAC = "INSTALACIONES MECANICAS"
+    FIRE_PROTECTION = "SEGURIDAD CONTRA INCENDIOS"
+    SITE = "UBICACION Y EMPLAZAMIENTO"
+
+
+@dataclass(frozen=True)
+class TitleBlockField:
+    key: str
+    value: str
+    required: bool = True
+
+    def __post_init__(self) -> None:
+        if self.required and not self.value:
+            raise ValueError(f"Title block field '{self.key}' is required")
+
+
+@dataclass(frozen=True)
+class TitleBlock:
+    project_name: str
+    project_location: str
+    owner: str
+    specialty: Specialty
+    architect_name: str
+    cap_number: str                       # número de colegiatura del arquitecto
+    drawing_number: str                   # P-01, E-02, etc.
+    revision: str = "A"
+    date_iso: str = ""                    # YYYY-MM-DD; no auto-generado
+    notes: tuple[str, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -> None:
+        required = [
+            self.project_name,
+            self.project_location,
+            self.owner,
+            self.architect_name,
+            self.cap_number,
+            self.drawing_number,
+            self.revision,
+        ]
+        if not all(v and str(v).strip() for v in required):
+            raise ValueError("Title block has empty required fields")
+        if self.date_iso:
+            self._validate_iso_date(self.date_iso)
+
+    @staticmethod
+    def _validate_iso_date(value: str) -> None:
+        # Validación determinista y sin dependencias externas
+        if len(value) != 10 or value[4] != "-" or value[7] != "-":
+            raise ValueError("date_iso must be YYYY-MM-DD")
+        y, m, d = value[0:4], value[5:7], value[8:10]
+        if not (y.isdigit() and m.isdigit() and d.isdigit()):
+            raise ValueError("date_iso must be YYYY-MM-DD")
+        if not (1 <= int(m) <= 12 and 1 <= int(d) <= 31):
+            raise ValueError("date_iso has invalid month/day")
+
+    def to_fields(self) -> tuple[TitleBlockField, ...]:
+        base = [
+            TitleBlockField("PROYECTO", self.project_name),
+            TitleBlockField("UBICACION", self.project_location),
+            TitleBlockField("PROPIETARIO", self.owner),
+            TitleBlockField("ESPECIALIDAD", self.specialty.value),
+            TitleBlockField("ARQUITECTO", self.architect_name),
+            TitleBlockField("CAP", self.cap_number),
+            TitleBlockField("LAMINA", self.drawing_number),
+            TitleBlockField("REVISION", self.revision),
+        ]
+        if self.date_iso:
+            base.append(TitleBlockField("FECHA", self.date_iso, required=False))
+        return tuple(base)
+Archivo 6 — src/sicl/drawing/sheet.py
+python
+"""Sheet composition: paper + margins + title block + viewports."""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+from .paper import DEFAULT_MARGINS, Margins, Orientation, PaperSize, PaperSpec
+from .primitives import Dimension, Hatch, Line, Polyline, Rect, Text
+from .scale import Scale
+from .title_block import TitleBlock
+
+
+@dataclass(frozen=True)
+class Viewport:
+    """A drawing view placed on a sheet at a given scale.
+
+    Coordinates inside `elements` are in REAL millimetres (project units).
+    The SVG exporter converts them to PAPER millimetres using the scale.
+    """
+    name: str                                  # "PLANTA BAJA", "ELEVACION FRONTAL", etc.
+    scale: Scale
+    origin_paper_mm: tuple[float, float]       # placement of view origin on the sheet
+    elements: tuple[
+        Line | Polyline | Rect | Text | Hatch | Dimension, ...
+    ] = field(default_factory=tuple)
+    label_position_paper_mm: tuple[float, float] | None = None
+
+    def __post_init__(self) -> None:
+        if not self.name:
+            raise ValueError("Viewport name is required")
+
+
+@dataclass(frozen=True)
+class Sheet:
+    paper: PaperSpec
+    title_block: TitleBlock
+    viewports: tuple[Viewport, ...] = field(default_factory=tuple)
+    margins: Margins = DEFAULT_MARGINS
+    general_notes: tuple[str, ...] = field(default_factory=tuple)
+
+    @classmethod
+    def for_vivienda_a3(cls, title_block: TitleBlock) -> "Sheet":
+        """Default sheet for Peruvian vivienda unifamiliar anteproyecto."""
+        return cls(
+            paper=PaperSpec(PaperSize.A3, Orientation.LANDSCAPE),
+            title_block=title_block,
+        )
+
+    def inner_width_mm(self) -> float:
+        return self.paper.width_mm() - self.margins.left_mm - self.margins.right_mm
+
+    def inner_height_mm(self) -> float:
+        return self.paper.height_mm() - self.margins.top_mm - self.margins.bottom_mm
+Archivo 7 — src/sicl/drawing/svg_export.py
+python
+"""Deterministic SVG exporter for Sheet and Viewport.
+
+No external dependencies. Text is XML-escaped. Coordinates are emitted with
+fixed 3-decimal precision for reproducibility across runs.
+"""
+from __future__ import annotations
+
+from xml.sax.saxutils import escape
+
+from .primitives import (
+    Dimension,
+    DimensionKind,
+    Hatch,
+    HatchPattern,
+    Line,
+    LineWeight,
+    Point,
+    Polyline,
+    Rect,
+    Text,
+    TextAnchor,
+)
+from .sheet import Sheet, Viewport
+
+_WEIGHT_STROKE_PX = {
+    LineWeight.CUT: 0.70,
+    LineWeight.HEAVY: 0.50,
+    LineWeight.MEDIUM: 0.35,
+    LineWeight.THIN: 0.25,
+    LineWeight.HAIR: 0.13,
+    LineWeight.HIDDEN: 0.18,
+}
+
+_HATCH_SVG = {
+    HatchPattern.SOLID: ("#000", None, None),
+    HatchPattern.EARTH: (None, "earth", 1.2),
+    HatchPattern.CONCRETE: (None, "concrete", 1.2),
+    HatchPattern.MASONRY: (None, "masonry", 1.0),
+    HatchPattern.WOOD: (None, "wood", 1.0),
+    HatchPattern.INSULATION: (None, "insulation", 1.0),
+    HatchPattern.GLASS: (None, "glass", 0.8),
+}
+
+
+def _fmt(value: float) -> str:
+    return f"{value:.3f}"
+
+
+def _points_attr(points: tuple[Point, ...]) -> str:
+    return " ".join(f"{_fmt(p.x)},{_fmt(p.y)}" for p in points)
+
+
+def _line_svg(line: Line, dx: float, dy: float, scale_factor: float) -> str:
+    x1 = _fmt((line.start.x * scale_factor) + dx)
+    y1 = _fmt(-(line.start.y * scale_factor) + dy)
+    x2 = _fmt((line.end.x * scale_factor) + dx)
+    y2 = _fmt(-(line.end.y * scale_factor) + dy)
+    stroke = _WEIGHT_STROKE_PX[line.weight]
+    dash = ' stroke-dasharray="4,2"' if line.dashed else ""
+    return (
+        f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+        f'stroke="#000" stroke-width="{_fmt(stroke)}"{dash} />'
+    )
+
+
+def _polyline_svg(poly: Polyline, dx: float, dy: float, scale_factor: float) -> str:
+    pts = " ".join(
+        f"{_fmt((p.x * scale_factor) + dx)},{_fmt(-(p.y * scale_factor) + dy)}"
+        for p in poly.points
+    )
+    tag = "polygon" if poly.closed else "polyline"
+    stroke = _WEIGHT_STROKE_PX[poly.weight]
+    dash = ' stroke-dasharray="4,2"' if poly.dashed else ""
+    return (
+        f'<{tag} points="{pts}" fill="none" stroke="#000" '
+        f'stroke-width="{_fmt(stroke)}"{dash} />'
+    )
+
+
+def _rect_svg(rect: Rect, dx: float, dy: float, scale_factor: float) -> str:
+    return _polyline_svg(rect.to_polyline(), dx, dy, scale_factor)
+
+
+def _text_svg(text: Text, dx: float, dy: float, scale_factor: float) -> str:
+    x = _fmt((text.position.x * scale_factor) + dx)
+    y = _fmt(-(text.position.y * scale_factor) + dy)
+    anchor = {"start": "start", "middle": "middle", "end": "end"}[text.anchor.value]
+    transform = (
+        f' transform="rotate({_fmt(-text.rotation_deg)} {x} {y})"'
+        if text.rotation_deg
+        else ""
+    )
+    return (
+        f'<text x="{x}" y="{y}" font-family="sans-serif" '
+        f'font-size="{_fmt(text.height_mm)}" text-anchor="{anchor}"'
+        f'{transform}>{escape(text.content)}</text>'
+    )
+
+
+def _hatch_svg(hatch: Hatch, dx: float, dy: float, scale_factor: float) -> str:
+    fill, pattern_id, _ = _HATCH_SVG[hatch.pattern]
+    pts = " ".join(
+        f"{_fmt((p.x * scale_factor) + dx)},{_fmt(-(p.y * scale_factor) + dy)}"
+        for p in hatch.boundary
+    )
+    if fill is not None:
+        return f'<polygon points="{pts}" fill="{fill}" stroke="none" />'
+    return (
+        f'<polygon points="{pts}" fill="url(#{pattern_id})" stroke="none" />'
+    )
+
+
+def _dimension_svg(dim: Dimension, dx: float, dy: float, scale_factor: float) -> str:
+    parts: list[str] = []
+    pts = [
+        (_fmt((p.x * scale_factor) + dx), _fmt(-(p.y * scale_factor) + dy))
+        for p in dim.extension_points
+    ]
+    stroke = _WEIGHT_STROKE_PX[LineWeight.HAIR]
+    for i in range(len(pts) - 1):
+        x1, y1 = pts[i]
+        x2, y2 = pts[i + 1]
+        parts.append(
+            f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+            f'stroke="#000" stroke-width="{_fmt(stroke)}" />'
+        )
+    if dim.text_position is not None:
+        tx = _fmt((dim.text_position.x * scale_factor) + dx)
+        ty = _fmt(-(dim.text_position.y * scale_factor) + dy)
+        parts.append(
+            f'<text x="{tx}" y="{ty}" font-family="sans-serif" '
+            f'font-size="2.0" text-anchor="middle">{escape(dim.text)}</text>'
+        )
+    return "".join(parts)
+
+
+def _render_element(element, dx: float, dy: float, scale_factor: float) -> str:
+    if isinstance(element, Line):
+        return _line_svg(element, dx, dy, scale_factor)
+    if isinstance(element, Polyline):
+        return _polyline_svg(element, dx, dy, scale_factor)
+    if isinstance(element, Rect):
+        return _rect_svg(element, dx, dy, scale_factor)
+    if isinstance(element, Text):
+        return _text_svg(element, dx, dy, scale_factor)
+    if isinstance(element, Hatch):
+        return _hatch_svg(element, dx, dy, scale_factor)
+    if isinstance(element, Dimension):
+        return _dimension_svg(element, dx, dy, scale_factor)
+    raise TypeError(f"Unsupported element type: {type(element).__name__}")
+
+
+def _hatch_defs() -> str:
+    return (
+        "<defs>"
+        '<pattern id="earth" width="4" height="4" patternUnits="userSpaceOnUse">'
+        '<line x1="0" y1="0" x2="0" y2="4" stroke="#000" stroke-width="0.15" />'
+        '<line x1="0" y1="0" x2="4" y2="0" stroke="#000" stroke-width="0.15" />'
+        "</pattern>"
+        '<pattern id="concrete" width="6" height="6" patternUnits="userSpaceOnUse">'
+        '<circle cx="1.5" cy="1.5" r="0.35" fill="#000" />'
+        '<circle cx="4.5" cy="4.5" r="0.35" fill="#000" />'
+        "</pattern>"
+        '<pattern id="masonry" width="6" height="4" patternUnits="userSpaceOnUse">'
+        '<line x1="0" y1="0" x2="6" y2="0" stroke="#000" stroke-width="0.15" />'
+        '<line x1="3" y1="0" x2="3" y2="4" stroke="#000" stroke-width="0.15" />'
+        "</pattern>"
+        '<pattern id="wood" width="4" height="4" patternUnits="userSpaceOnUse">'
+        '<line x1="0" y1="0" x2="4" y2="0" stroke="#000" stroke-width="0.12" />'
+        "</pattern>"
+        '<pattern id="insulation" width="6" height="6" patternUnits="userSpaceOnUse">'
+        '<path d="M0,3 Q1.5,1 3,3 T6,3" fill="none" stroke="#000" stroke-width="0.15" />'
+        "</pattern>"
+        '<pattern id="glass" width="4" height="4" patternUnits="userSpaceOnUse">'
+        '<line x1="0" y1="0" x2="4" y2="4" stroke="#000" stroke-width="0.10" />'
+        "</pattern>"
+        "</defs>"
+    )
+
+
+def export_view_svg(viewport: Viewport, width_mm: float, height_mm: float) -> str:
+    """Export a single viewport to standalone SVG. Units: mm, origin top-left."""
+    scale_factor = 1.0 / viewport.scale.denominator
+    body = "".join(_render_element(e, 0.0, height_mm, scale_factor) for e in viewport.elements)
+    return (
+        f'<?xml version="1.0" encoding="UTF-8"?>'
+        f'<svg xmlns="http://www.w3.org/2000/svg" '
+        f'width="{_fmt(width_mm)}mm" height="{_fmt(height_mm)}mm" '
+        f'viewBox="0 0 {_fmt(width_mm)} {_fmt(height_mm)}">'
+        f'{_hatch_defs()}{body}</svg>'
+    )
+
+
+def export_sheet_svg(sheet: Sheet) -> str:
+    """Export a full sheet with margins, title block and viewports."""
+    w = sheet.paper.width_mm()
+    h = sheet.paper.height_mm()
+    body: list[str] = []
+    body.append(f'<rect x="0" y="0" width="{_fmt(w)}" height="{_fmt(h)}" fill="#fff" stroke="none" />')
+    body.append(
+        f'<rect x="{_fmt(sheet.margins.left_mm)}" y="{_fmt(sheet.margins.top_mm)}" '
+        f'width="{_fmt(w - sheet.margins.left_mm - sheet.margins.right_mm)}" '
+        f'height="{_fmt(h - sheet.margins.top_mm - sheet.margins.bottom_mm)}" '
+        f'fill="none" stroke="#000" stroke-width="0.35" />'
+    )
+    for vp in sheet.viewports:
+        dx, dy = vp.origin_paper_mm
+        body.append(f'<g id="viewport-{escape(vp.name)}">')
+        for element in vp.elements:
+            body.append(_render_element(element, dx, dy, 1.0 / vp.scale.denominator))
+        if vp.label_position_paper_mm is not None:
+            lx, ly = vp.label_position_paper_mm
+            body.append(
+                f'<text x="{_fmt(lx)}" y="{_fmt(ly)}" font-family="sans-serif" '
+                f'font-size="3.5" text-anchor="middle" font-weight="bold">'
+                f'{escape(vp.name)} ({vp.scale.value})</text>'
+            )
+        body.append("</g>")
+    body.append(_render_title_block(sheet))
+    return (
+        f'<?xml version="1.0" encoding="UTF-8"?>'
+        f'<svg xmlns="http://www.w3.org/2000/svg" '
+        f'width="{_fmt(w)}mm" height="{_fmt(h)}mm" '
+        f'viewBox="0 0 {_fmt(w)} {_fmt(h)}">'
+        f'{_hatch_defs()}{"".join(body)}</svg>'
+    )
+
+
+def _render_title_block(sheet: Sheet) -> str:
+    fields = sheet.title_block.to_fields()
+    w = sheet.paper.width_mm()
+    h = sheet.paper.height_mm()
+    tb_w = 180.0
+    tb_h = 45.0
+    tb_x = w - sheet.margins.right_mm - tb_w
+    tb_y = h - sheet.margins.bottom_mm - tb_h
+    parts = [
+        f'<rect x="{_fmt(tb_x)}" y="{_fmt(tb_y)}" width="{_fmt(tb_w)}" height="{_fmt(tb_h)}" '
+        f'fill="#fff" stroke="#000" stroke-width="0.5" />'
+    ]
+    row_h = tb_h / len(fields)
+    for idx, field in enumerate(fields):
+        y = tb_y + row_h * (idx + 0.7)
+        parts.append(
+            f'<text x="{_fmt(tb_x + 2)}" y="{_fmt(y)}" font-family="sans-serif" '
+            f'font-size="2.5" font-weight="bold">{escape(field.key)}</text>'
+        )
+        parts.append(
+            f'<text x="{_fmt(tb_x + 40)}" y="{_fmt(y)}" font-family="sans-serif" '
+            f'font-size="2.5">{escape(field.value)}</text>'
+        )
+    return "".join(parts)
+Archivo 8 — tests/test_drawing.py
+python
+from __future__ import annotations
+
+import pytest
+
+from sicl.drawing import (
+    Dimension,
+    DimensionKind,
+    Hatch,
+    HatchPattern,
+    Line,
+    LineWeight,
+    Orientation,
+    PaperSize,
+    Point,
+    Polyline,
+    Rect,
+    Scale,
+    Sheet,
+    Specialty,
+    Text,
+    TextAnchor,
+    TitleBlock,
+    TitleBlockField,
+    Viewport,
+    export_sheet_svg,
+    export_view_svg,
+)
+
+
+def make_title_block() -> TitleBlock:
+    return TitleBlock(
+        project_name="VIVIENDA UNIFAMILIAR",
+        project_location="LIMA, PERU",
+        owner="PROPIETARIO DE PRUEBA",
+        specialty=Specialty.ARCHITECTURE,
+        architect_name="ARQUITECTO DE PRUEBA",
+        cap_number="CAP-00000",
+        drawing_number="A-01",
+        revision="A",
+        date_iso="2026-09-27",
+    )
+
+
+def test_scale_conversion_is_deterministic():
+    s = Scale.S_1_50
+    assert s.denominator == 50
+    assert s.real_mm_to_paper_mm(1000.0) == 20.0
+    assert s.paper_mm_to_real_mm(20.0) == 1000.0
+
+
+def test_polyline_requires_at_least_two_points():
+    with pytest.raises(ValueError):
+        Polyline((Point(0, 0),))
+
+
+def test_rect_corners_and_polyline():
+    r = Rect(Point(0, 0), 100, 50)
+    assert r.corners() == (Point(0, 0), Point(100, 0), Point(100, 50), Point(0, 50))
+    poly = r.to_polyline()
+    assert poly.closed is True
+    assert len(poly.points) == 4
+
+
+def test_text_requires_content():
+    with pytest.raises(ValueError):
+        Text(Point(0, 0), "")
+
+
+def test_hatch_rejects_empty_pattern():
+    with pytest.raises(ValueError):
+        Hatch((Point(0, 0), Point(1, 0), Point(1, 1)), HatchPattern.NONE)
+
+
+def test_dimension_requires_two_extension_points():
+    with pytest.raises(ValueError):
+        Dimension(DimensionKind.LINEAR_CHAIN, (Point(0, 0),), "1.00")
+
+
+def test_title_block_rejects_missing_required_fields():
+    with pytest.raises(ValueError):
+        TitleBlock("", "LIMA", "OWNER", Specialty.ARCHITECTURE, "ARQ", "CAP", "A-01")
+
+
+def test_title_block_accepts_valid_iso_date():
+    tb = make_title_block()
+    fields = tb.to_fields()
+    assert any(f.key == "FECHA" and f.value == "2026-09-27" for f in fields)
+
+
+def test_title_block_rejects_bad_iso_date():
+    with pytest.raises(ValueError):
+        TitleBlock("P", "L", "O", Specialty.ARCHITECTURE, "A", "CAP", "A-01", date_iso="27-09-2026")
+
+
+def test_viewport_requires_name():
+    with pytest.raises(ValueError):
+        Viewport(name="", scale=Scale.S_1_50, origin_paper_mm=(0, 0))
+
+
+def test_sheet_a3_landscape_dimensions():
+    sheet = Sheet.for_vivienda_a3(make_title_block())
+    assert sheet.paper.width_mm() == 420.0
+    assert sheet.paper.height_mm() == 297.0
+    assert sheet.inner_width_mm() == 385.0
+    assert sheet.inner_height_mm() == 277.0
+
+
+def test_export_view_svg_is_deterministic():
+    vp = Viewport(
+        name="TEST",
+        scale=Scale.S_1_50,
+        origin_paper_mm=(0, 0),
+        elements=(
+            Line(Point(0, 0), Point(1000, 0), LineWeight.CUT),
+            Text(Point(500, 200), "SALA", height_mm=3.0, anchor=TextAnchor.MIDDLE),
+        ),
+    )
+    svg1 = export_view_svg(vp, 200.0, 100.0)
+    svg2 = export_view_svg(vp, 200.0, 100.0)
+    assert svg1 == svg2
+    assert "<line" in svg1
+    assert "SALA" in svg1
+
+
+def test_export_sheet_svg_contains_title_block_and_viewport():
+    sheet = Sheet.for_vivienda_a3(make_title_block())
+    sheet = Sheet(
+        paper=sheet.paper,
+        title_block=sheet.title_block,
+        viewports=(
+            Viewport(
+                name="PLANTA BAJA",
+                scale=Scale.S_1_50,
+                origin_paper_mm=(30.0, 250.0),
+                elements=(
+                    Rect(Point(0, 0), 5000, 4000, LineWeight.CUT),
+                ),
+                label_position_paper_mm=(150.0, 20.0),
+            ),
+        ),
+    )
+    svg = export_sheet_svg(sheet)
+    assert "VIVIENDA UNIFAMILIAR" in svg
+    assert "CAP-00000" in svg
+    assert "PLANTA BAJA (1:50)" in svg
+    assert "<svg" in svg
+
+
+def test_export_sheet_svg_escapes_user_text():
+    tb = TitleBlock(
+        project_name="A & B <C>",
+        project_location="LIMA",
+        owner="OWNER",
+        specialty=Specialty.ARCHITECTURE,
+        architect_name="ARQ",
+        cap_number="CAP-1",
+        drawing_number="A-01",
+    )
+    sheet = Sheet.for_vivienda_a3(tb)
+    svg = export_sheet_svg(sheet)
+    assert "A &amp; B &lt;C&gt;" in svg
+    assert "A & B <C>" not in svg
+Cierre del bloque 1
+Archivos entregados: 8.
+Líneas de código: ~600.
+Cobertura: primitivas, escalas, papel, cajetín, lámina, viewport, export SVG.
+Determinismo: toda función es pura; SVG es reproducible byte-a-byte para el mismo input.
+Sin dependencias externas: solo stdlib (dataclasses, enum, typing, xml.sax.saxutils).
+Sin violaciones de freeze: H-001 a H-005 no se tocan.
+
+Qué sigue (Bloque 2)
+Cuando este bloque pase por Manus (runtime) + Red Team (ChatGPT o Qwen), el siguiente bloque es:
+
+Proyección ConstructionModel → 2D view — pipeline que toma los muros/vanos y produce Line / Polyline / Hatch / Text listos para un Viewport.
+
+Poché automático — algoritmo que detecta muros cortados y los rellena.
+
+Símbolos normalizados — puerta con arco de apertura y tag, ventana con tag, escalera con flecha, aparato sanitario.
+
+Cotas automáticas — derivar cadenas de cotas desde los muros, no hardcodearlas.
+
+Cuadro de vanos y áreas — tabla por ambiente.
+
+Antes de escribir el Bloque 2, necesito que el Bloque 1 pase por runtime. No quiero apilar código sin verificar el de abajo — eso sería exactamente lo que critiqué toda la vida en este ciclo.

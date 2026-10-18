@@ -1,0 +1,1359 @@
+ORDEN MAESTRA 54 — INGENIERÍA INVERSA Y DOCUMENTACIÓN TOTAL DE MiLukita
+ORDEN MAESTRA 54
+INGENIERÍA INVERSA COMPLETA DEL SISTEMA MiLukita
+
+OBJETIVO PRINCIPAL
+
+Quiero que realices una ingeniería inversa completa, rigurosa y documentada del MiLukita existente en los archivos de esta tarea.
+
+NO quiero una nueva implementación.
+
+NO quiero reconstrucción.
+
+NO quiero modificaciones del código.
+
+NO quiero refactorización.
+
+NO quiero correcciones.
+
+NO quiero nuevas funcionalidades.
+
+NO quiero gastar créditos desarrollando.
+
+Esta tarea es exclusivamente de:
+
+ANÁLISIS
++
+INGENIERÍA INVERSA
++
+DOCUMENTACIÓN
++
+MAPEO DE ARQUITECTURA
++
+IDENTIFICACIÓN DE LÓGICA
++
+IDENTIFICACIÓN DE DEPENDENCIAS
++
+IDENTIFICACIÓN DE REGLAS
++
+IDENTIFICACIÓN DE ESTADOS
++
+IDENTIFICACIÓN DE DATOS
++
+IDENTIFICACIÓN DE ACTORES
++
+IDENTIFICACIÓN DE PERMISOS
++
+IDENTIFICACIÓN DE FLUJOS
++
+IDENTIFICACIÓN DE LO IMPLEMENTADO VS LO SIMULADO.
+
+========================================================
+1. FUENTE DE VERDAD
+========================================================
+
+Utiliza como fuente primaria:
+
+1. Los archivos de esta tarea.
+2. El ZIP proporcionado desde "Ver todos los archivos en esta tarea".
+3. Código fuente.
+4. package.json.
+5. schemas.
+6. SQL.
+7. tests.
+8. documentación.
+9. componentes.
+10. rutas.
+11. servicios.
+12. configuración.
+13. assets.
+14. contratos.
+15. cualquier otro archivo relacionado con MiLukita.
+
+NO inventes información que no esté sustentada.
+
+Cuando una conclusión sea inferida, marcar:
+
+INFERIDO
+
+Cuando esté expresamente documentada:
+
+DOCUMENTADO
+
+Cuando exista en código:
+
+IMPLEMENTADO
+
+Cuando exista únicamente como interfaz/mockup:
+
+VISUAL/SIMULADO
+
+Cuando no pueda comprobarse:
+
+NO_VERIFICADO
+
+Cuando dependa de una persona:
+
+REQUIERE_HUMANO
+
+Cuando dependa de hardware físico:
+
+EXTERNAL_REQUIRED
+
+Cada afirmación importante debe indicar el archivo o archivos que la sustentan.
+
+========================================================
+2. NO MODIFICAR EL PROYECTO
+========================================================
+
+No modificar ningún archivo.
+
+No eliminar archivos.
+
+No renombrar archivos.
+
+No crear commits.
+
+No hacer push.
+
+No hacer pull.
+
+No instalar dependencias.
+
+No ejecutar migraciones.
+
+No cambiar configuración.
+
+No crear un proyecto nuevo.
+
+No crear otro repositorio.
+
+No alterar MJP CORE.
+
+MJP CORE debe considerarse:
+
+READ ONLY
+PROTECTED
+NO MODIFICAR
+
+Si necesitas crear documentación de análisis, colocarla en archivos separados sin alterar el código fuente.
+
+========================================================
+3. DEFINICIÓN COMPLETA:
+¿QUÉ ES MiLukita?
+========================================================
+
+Responder con profundidad:
+
+3.1 ¿Qué es MiLukita?
+
+3.2 ¿Cuál es su propósito?
+
+3.3 ¿Cuál es su misión?
+
+3.4 ¿Cuál es su visión?
+
+3.5 ¿Cuál es su propuesta de valor?
+
+3.6 ¿Qué problema intenta resolver?
+
+3.7 ¿Para quién existe?
+
+3.8 ¿Quiénes son sus usuarios?
+
+3.9 ¿Qué relación existe entre:
+
+MiLukita
+LUKA
+LUKA OS
+LUKA AR
+LUKA TV
+LUKA CONNECT
+LUKA DISCOVERY
+LUKA PEOPLE
+LUKA EXPERIENCES
+LUKA ECONOMY
+LUKA AI
+World Engine
+WorldObjects
+WorldPoints
+The Eye
+Mapper
+Controller Lab
+Field Gate
+QR
+L★
+Voice/Copilot
+
+3.10 Explicar qué es cada concepto.
+
+3.11 Explicar qué NO es cada concepto.
+
+3.12 Identificar qué conceptos son:
+
+CORE
+MODULE
+SERVICE
+INTERFACE
+ACTOR
+DATA ENTITY
+PROCESS
+GOVERNANCE
+EXPERIENCE
+INFRASTRUCTURE
+EXTERNAL SYSTEM.
+
+========================================================
+4. IDENTIDAD Y FILOSOFÍA DEL SISTEMA
+========================================================
+
+Documentar:
+
+- identidad de MiLukita;
+- identidad de LUKA;
+- personalidad;
+- función de LUKA;
+- límites de LUKA;
+- relación entre LUKA y usuarios;
+- relación entre LUKA y especialistas/agentes;
+- principios de diseño;
+- principios de gobernanza;
+- principios de privacidad;
+- principios de seguridad;
+- principios territoriales;
+- principios de publicación;
+- principios de autoridad.
+
+Determinar expresamente:
+
+¿LUKA es un chatbot?
+
+¿LUKA es un agente?
+
+¿LUKA es una marca?
+
+¿LUKA es una interfaz?
+
+¿LUKA es una unidad de valor?
+
+¿LUKA es una combinación de todos ellos?
+
+Explicar la respuesta con evidencia.
+
+========================================================
+5. ORGANIGRAMA COMPLETO
+========================================================
+
+Crear el ORGANIGRAMA INSTITUCIONAL/OPERATIVO/TECNOLÓGICO DE MiLukita.
+
+No limitarse a un organigrama empresarial convencional.
+
+Separar:
+
+A. Gobierno
+B. Dirección
+C. Operaciones
+D. Producto
+E. Tecnología
+F. Datos
+G. IA
+H. Territorio
+I. Contenido
+J. Economía
+K. Seguridad
+L. Auditoría
+M. Experiencias
+N. Usuarios
+O. Sistemas externos.
+
+Identificar:
+
+- autoridad máxima;
+- autoridad humana;
+- agentes;
+- operadores;
+- editores;
+- verificadores;
+- publicadores;
+- administradores;
+- usuarios;
+- proveedores;
+- sistemas externos.
+
+Para cada actor indicar:
+
+- nombre;
+- función;
+- permisos;
+- información que puede leer;
+- información que puede modificar;
+- acciones que puede ejecutar;
+- acciones prohibidas;
+- nivel de autoridad.
+
+Crear también:
+
+ORGANIGRAMA DE AGENTES IA
+
+y
+
+ORGANIGRAMA DE COMPONENTES TECNOLÓGICOS.
+
+========================================================
+6. ARQUITECTURA MAESTRA
+========================================================
+
+Construir la arquitectura completa de MiLukita.
+
+Mostrar:
+
+Usuario
+↓
+Experiencia
+↓
+LUKA / Copilot
+↓
+Context Engine
+↓
+Capability Gate
+↓
+Módulos
+↓
+Servicios
+↓
+Datos
+↓
+Persistencia
+↓
+Infraestructura.
+
+Identificar todas las capas existentes.
+
+Para cada módulo indicar:
+
+- propósito;
+- entradas;
+- salidas;
+- dependencias;
+- APIs;
+- tablas;
+- componentes;
+- servicios;
+- eventos;
+- permisos;
+- estado;
+- tests;
+- estado de implementación.
+
+========================================================
+7. MAPA COMPLETO DE MÓDULOS
+========================================================
+
+Crear una matriz:
+
+MÓDULO
+FUNCIÓN
+ARCHIVOS
+COMPONENTES
+SERVICIOS
+TABLAS
+API
+EVENTOS
+DEPENDENCIAS
+PERMISOS
+ESTADO
+TESTS
+OBSERVACIONES
+
+Incluir como mínimo:
+
+Portal
+L★ / QR
+QR Lab
+Mapper
+The Eye
+Controller Lab
+LUKA AR
+World Engine
+WorldObjects
+WorldPoints
+Field Gate
+LUKA Field Voice Copilot
+LUKA OS
+LUKA AI
+Remote TV
+LUKA TV
+Identity
+Authentication
+RBAC
+Audit
+Security
+Privacy
+Analytics
+Observability
+Data
+MJP CORE
+Shared Infrastructure.
+
+========================================================
+8. FLUJOS DE USUARIO
+========================================================
+
+Reconstruir todos los flujos detectables.
+
+Por ejemplo:
+
+Registro
+Login
+Inicio
+Exploración
+LUKA
+QR
+Mapper
+Captura
+GPS
+Fotografía
+Observación
+Guardado
+Offline
+Sync
+Conflict
+The Eye
+Evidence
+Verification
+Human Authority
+Publication
+Runtime
+AR
+TV
+Copilot
+Field Gate.
+
+Para cada flujo indicar:
+
+TRIGGER
+ACTOR
+PASOS
+ESTADO
+DATOS
+DECISIONES
+RESULTADO
+ERRORES
+PERMISOS
+AUDITORÍA.
+
+========================================================
+9. MÁQUINAS DE ESTADO
+========================================================
+
+Identificar todas las máquinas de estado existentes.
+
+Especial atención a:
+
+Mapper
+CaptureSession
+WorldObject
+Evidence
+The Eye
+Publication
+Sync
+Offline
+Conflict
+QR
+Copilot
+Field Gate
+Authentication
+User
+AR
+TV.
+
+Para cada una crear:
+
+ESTADO INICIAL
+ESTADOS
+TRANSICIONES
+EVENTO
+ACTOR
+CONDICIÓN
+RESULTADO
+ESTADO FINAL.
+
+No inventar estados.
+
+Si un estado fue definido en documentación pero no implementado, marcarlo.
+
+========================================================
+10. MODELO DE DATOS
+========================================================
+
+Reconstruir el modelo de datos completo.
+
+Identificar:
+
+- tablas;
+- entidades;
+- relaciones;
+- claves;
+- índices;
+- enums;
+- estados;
+- timestamps;
+- auditoría;
+- historial;
+- snapshots;
+- versionado.
+
+Para cada entidad:
+
+NOMBRE
+PROPÓSITO
+CAMPOS
+TIPO
+RELACIONES
+QUIÉN CREA
+QUIÉN MODIFICA
+QUIÉN PUEDE LEER
+QUIÉN PUEDE ELIMINAR
+AUDITORÍA
+VERSIONADO.
+
+Identificar especialmente:
+
+WorldObject
+WorldPoint
+Claim
+Evidence
+Source
+CaptureSession
+Publication
+User
+Role
+Permission
+QR
+Experience
+Observation
+Sync
+Conflict
+Audit.
+
+========================================================
+11. APIs
+========================================================
+
+Identificar todas las APIs existentes.
+
+Para cada endpoint:
+
+METHOD
+PATH
+AUTH
+ROLE
+INPUT
+OUTPUT
+DATABASE
+SIDE EFFECTS
+AUDIT
+ERRORS.
+
+Separar:
+
+IMPLEMENTED
+DOCUMENTED_ONLY
+SIMULATED
+UNKNOWN.
+
+========================================================
+12. EVENTOS
+========================================================
+
+Reconstruir el sistema de eventos.
+
+Identificar:
+
+- eventos;
+- productores;
+- consumidores;
+- payload;
+- persistencia;
+- auditoría;
+- consecuencias.
+
+Especialmente:
+
+capture
+save
+sync
+conflict
+evidence
+verification
+publication
+version
+QR
+session
+login
+logout
+AI action
+copilot action.
+
+========================================================
+13. LUKA COPILOT
+========================================================
+
+Documentar completamente:
+
+- qué es;
+- dónde vive;
+- estados;
+- contexto;
+- intents;
+- comandos;
+- respuestas;
+- permisos;
+- capability gate;
+- acciones;
+- acciones prohibidas;
+- voz;
+- fallback manual;
+- auditoría;
+- diferencias entre INTENT DETECTED y ACTION EXECUTED.
+
+Determinar qué está realmente implementado y qué solamente está especificado.
+
+========================================================
+14. MAPPER
+========================================================
+
+Documentar Mapper completamente.
+
+Incluir:
+
+- sesiones;
+- GPS;
+- cámara;
+- captura;
+- fotografías;
+- observaciones;
+- WorldObjects;
+- WorldPoints;
+- evidencia;
+- offline;
+- sync;
+- conflictos;
+- historial;
+- versionado;
+- auditoría;
+- publicación;
+- permisos;
+- UX;
+- mobile.
+
+Responder:
+
+¿Qué puede hacer Mapper?
+
+¿Qué no puede hacer Mapper?
+
+¿Quién puede usarlo?
+
+¿Quién puede publicar?
+
+¿Quién puede verificar?
+
+========================================================
+15. THE EYE
+========================================================
+
+Documentar:
+
+- Claims;
+- Sources;
+- Evidence;
+- Evidence Matrix;
+- confianza;
+- comparación;
+- conflicto;
+- decisión;
+- resolución;
+- historial;
+- auditoría;
+- Human Authority.
+
+Explicar claramente:
+
+VERIFIED ≠ PUBLISHED
+
+y cómo está representado en código.
+
+========================================================
+16. WORLD ENGINE
+========================================================
+
+Documentar:
+
+REALIDAD
+→ CAPTURA
+→ WorldPoint/WorldObject
+→ WORLD ENGINE
+→ THE EYE
+→ HUMAN AUTHORITY
+→ PUBLISHED VERSION
+→ RUNTIME
+→ LUKA AR.
+
+Determinar qué partes están realmente implementadas.
+
+========================================================
+17. LUKA AR / WEBAR
+========================================================
+
+Documentar:
+
+- entrada;
+- contexto;
+- geolocalización;
+- WorldObjects;
+- WorldPoints;
+- versión publicada;
+- runtime;
+- visualización;
+- GLB/GLTF;
+- Three.js;
+- A-Frame;
+- AR.js;
+- calibración;
+- permisos;
+- carga;
+- errores;
+- fallback.
+
+Determinar qué existe realmente y qué es solamente interfaz.
+
+========================================================
+18. QR Y L★
+========================================================
+
+Documentar:
+
+L★
+QR público
+QR contextual
+QR de experiencia
+QR de sesión
+QR Lab
+Share Center
+tokens
+expiración
+revocación
+permisos
+deep links
+Web Share
+fallback.
+
+Explicar:
+
+L★ = qué función cumple.
+
+========================================================
+19. TV / REMOTE TV
+========================================================
+
+Documentar:
+
+LUKA TV
+Remote TV
+comandos
+estado
+protocolos
+WebSocket
+TV receiver
+QR
+limitaciones
+MJP CORE.
+
+Distinguir claramente:
+
+control real
+control simulado
+interfaz solamente.
+
+========================================================
+20. ECONOMÍA
+========================================================
+
+Documentar toda lógica económica relacionada con MiLukita.
+
+Especialmente:
+
+LUKA
+L★
+valor
+economía
+transacciones
+wallet
+tokens
+recompensas
+puntos
+publicidad
+experiencias.
+
+Pero separar estrictamente:
+
+MiLukita
+
+de
+
+MJP CORE.
+
+NO modificar ni reinterpretar MJP CORE.
+
+========================================================
+21. IA Y AGENTES
+========================================================
+
+Identificar todos los agentes IA.
+
+Para cada agente:
+
+NOMBRE
+FUNCIÓN
+INPUT
+OUTPUT
+AUTORIDAD
+PERMISOS
+MEMORIA
+DATOS
+HERRAMIENTAS
+LIMITACIONES
+AUDITORÍA.
+
+Distinguir:
+
+AGENTE
+COPILOT
+AUTOMATIZACIÓN
+SERVICIO
+MODELO IA
+REGLA DETERMINISTA.
+
+========================================================
+22. SEGURIDAD Y RBAC
+========================================================
+
+Reconstruir:
+
+- autenticación;
+- autorización;
+- roles;
+- permisos;
+- capability gates;
+- sesiones;
+- tokens;
+- protección;
+- auditoría.
+
+Identificar cualquier ruta donde una interfaz pueda aparentar tener permisos que el backend realmente no controla.
+
+========================================================
+23. AUDITORÍA Y GOBERNANZA
+========================================================
+
+Documentar:
+
+- audit logs;
+- decisiones;
+- versiones;
+- snapshots;
+- publicación;
+- cambios;
+- acciones IA;
+- acciones humanas;
+- conflictos.
+
+Determinar:
+
+qué acciones quedan registradas;
+
+qué acciones NO quedan registradas;
+
+qué debería registrarse pero no está implementado.
+
+========================================================
+24. ESTADO REAL DEL PROYECTO
+========================================================
+
+Crear una matriz global:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+DEPRECATED.
+
+NO utilizar:
+
+READY
+PRODUCTION READY
+100%
+COMPLETE
+
+salvo que exista evidencia objetiva.
+
+========================================================
+25. TESTS
+========================================================
+
+Analizar todos los tests.
+
+Para cada módulo:
+
+TESTS EXISTENTES
+TESTS PASADOS
+TESTS OMITIDOS
+TESTS FALTANTES
+COBERTURA CONOCIDA
+RIESGOS.
+
+No afirmar cobertura que no pueda comprobarse.
+
+========================================================
+26. CONTRADICCIONES
+========================================================
+
+Buscar contradicciones entre:
+
+DOCUMENTACIÓN
+CÓDIGO
+TESTS
+UI
+ARQUITECTURA
+NOMBRES
+PERMISOS
+FLUJOS.
+
+Crear:
+
+CONTRADICTIONS_REPORT.md
+
+Para cada contradicción:
+
+AFIRMACIÓN A
+AFIRMACIÓN B
+ARCHIVOS
+IMPACTO
+RECOMENDACIÓN.
+
+========================================================
+27. DEPENDENCIAS
+========================================================
+
+Crear mapa:
+
+MiLukita
+→ dependencia
+→ dependencia
+→ dependencia.
+
+Identificar:
+
+npm
+pnpm
+React
+Express
+tRPC
+Drizzle
+MySQL/TiDB
+WebSocket
+Three.js
+A-Frame
+AR.js
+otras.
+
+Determinar qué dependencias son:
+
+CORE
+OPTIONAL
+LEGACY
+EXTERNAL
+UNUSED
+UNKNOWN.
+
+========================================================
+28. ARCHIVOS
+========================================================
+
+Crear inventario de todos los archivos.
+
+Clasificar:
+
+MILUKITA_CORE
+MILUKITA_MODULE
+MJP_CORE
+SHARED
+DOCUMENTATION
+TEST
+ASSET
+GENERATED
+CONFIG
+LEGACY
+UNKNOWN.
+
+No modificar archivos.
+
+========================================================
+29. MJP CORE
+========================================================
+
+Analizar únicamente para determinar dependencias.
+
+NO modificar.
+
+Determinar:
+
+qué necesita MiLukita de MJP CORE;
+
+qué necesita MJP CORE de MiLukita;
+
+qué componentes son compartidos;
+
+qué componentes deberían separarse durante la migración.
+
+Crear:
+
+MJP_CORE_DEPENDENCY_MAP.md
+
+========================================================
+30. MIGRACIÓN
+========================================================
+
+Sin modificar nada, determinar:
+
+¿Qué necesitamos para migrar MiLukita fuera de Manus?
+
+Identificar:
+
+SOURCE
+DEPENDENCIES
+DATABASE
+ASSETS
+ENVIRONMENT
+AUTH
+STORAGE
+BUILD
+DEPLOYMENT
+DOMAIN
+EXTERNAL SERVICES
+SECRETS
+CONFIGURATION
+TESTS.
+
+Crear:
+
+MIGRATION_REQUIREMENTS.md
+
+========================================================
+31. CONOCIMIENTO NECESARIO PARA RECONSTRUIR
+========================================================
+
+Responder:
+
+Si mañana desapareciera Manus,
+
+¿qué información necesitaríamos para reconstruir MiLukita sin perder su lógica?
+
+Crear una lista exhaustiva:
+
+A. CONCEPTOS
+B. REGLAS
+C. DATOS
+D. FLUJOS
+E. ESTADOS
+F. APIs
+G. PERMISOS
+H. UI
+I. IA
+J. VOZ
+K. AR
+L. QR
+M. TV
+N. ECONOMÍA
+O. AUDITORÍA
+P. SEGURIDAD
+Q. INFRAESTRUCTURA.
+
+========================================================
+32. ADN DE MiLukita
+========================================================
+
+Crear un documento:
+
+MILUKITA_DNA.md
+
+Debe responder en lenguaje comprensible:
+
+"Si tuviera que explicarle MiLukita a otro arquitecto/ingeniero/IA para que pudiera comprenderlo completamente sin haber participado en su desarrollo, ¿qué tendría que saber?"
+
+No limitarse a código.
+
+Explicar:
+
+QUÉ ES
+POR QUÉ EXISTE
+CÓMO PIENSA
+CÓMO FUNCIONA
+QUIÉN DECIDE
+QUIÉN PUEDE HACER QUÉ
+QUÉ DATOS MANEJA
+CÓMO CAMBIA EL MUNDO
+CÓMO CAPTURA REALIDAD
+CÓMO VERIFICA
+CÓMO PUBLICA
+CÓMO INTERACTÚA
+CÓMO SE RELACIONA CON LUKA
+CÓMO SE RELACIONA CON USUARIOS
+CÓMO SE RELACIONA CON TERRITORIO
+CÓMO SE RELACIONA CON IA.
+
+========================================================
+33. MANUAL PARA OTRA IA
+========================================================
+
+Crear:
+
+MILUKITA_AI_HANDOVER.md
+
+Este documento debe estar escrito para una IA de desarrollo externa que jamás haya visto MiLukita.
+
+Debe permitirle comprender:
+
+- arquitectura;
+- objetivos;
+- restricciones;
+- reglas;
+- módulos;
+- datos;
+- flujos;
+- autoridad;
+- seguridad;
+- lógica;
+- dependencias;
+- invariantes;
+- cosas que jamás debe modificar.
+
+========================================================
+34. INVARIANTES
+========================================================
+
+Crear:
+
+MILUKITA_INVARIANTS.md
+
+Identificar todas las reglas que NO deben romperse.
+
+Ejemplos:
+
+- MJP CORE protegido.
+- VERIFIED ≠ PUBLISHED.
+- Runtime solo consume PUBLISHED.
+- Human Authority conserva autoridad final.
+- Copilot no verifica verdad.
+- Copilot no publica.
+- Copilot no resuelve conflictos.
+- QR no equivale a autorización.
+- etc.
+
+Solo incluir como invariantes aquellos que estén sustentados por la documentación/código o claramente establecidos como reglas del proyecto.
+
+========================================================
+35. MATRIZ FINAL DE RECUPERACIÓN
+========================================================
+
+Crear:
+
+MILUKITA_RECOVERY_MATRIX.md
+
+Columnas:
+
+ELEMENTO
+EXISTE
+FUENTE
+IMPLEMENTADO
+DOCUMENTADO
+TESTEADO
+RECUPERABLE
+DEPENDENCIAS
+RIESGO
+ESTADO
+OBSERVACIONES.
+
+========================================================
+36. RESUMEN EJECUTIVO
+========================================================
+
+Al final entregar un resumen de máximo 5 páginas:
+
+1. Qué es MiLukita.
+2. Arquitectura.
+3. Organigrama.
+4. Módulos.
+5. Lógica.
+6. Estado real.
+7. Dependencias.
+8. MJP CORE.
+9. Qué se recuperó.
+10. Qué falta.
+11. Riesgos.
+12. Qué se necesita para migrar.
+
+========================================================
+37. ENTREGABLES
+========================================================
+
+Generar como mínimo:
+
+01_MILUKITA_EXECUTIVE_SUMMARY.md
+02_MILUKITA_DEFINITION.md
+03_MILUKITA_ORGANIGRAM.md
+04_MILUKITA_MASTER_ARCHITECTURE.md
+05_MILUKITA_MODULE_MAP.md
+06_MILUKITA_USER_FLOWS.md
+07_MILUKITA_STATE_MACHINES.md
+08_MILUKITA_DATA_MODEL.md
+09_MILUKITA_API_MAP.md
+10_MILUKITA_EVENT_MAP.md
+11_LUKA_COPILOT_ANALYSIS.md
+12_MAPPER_ANALYSIS.md
+13_THE_EYE_ANALYSIS.md
+14_WORLD_ENGINE_ANALYSIS.md
+15_LUKA_AR_ANALYSIS.md
+16_QR_LSTAR_ANALYSIS.md
+17_TV_REMOTE_ANALYSIS.md
+18_AI_AGENTS_ANALYSIS.md
+19_SECURITY_RBAC_ANALYSIS.md
+20_AUDIT_GOVERNANCE_ANALYSIS.md
+21_MJP_CORE_DEPENDENCY_MAP.md
+22_DEPENDENCY_MAP.md
+23_CONTRADICTIONS_REPORT.md
+24_IMPLEMENTATION_STATUS.md
+25_MIGRATION_REQUIREMENTS.md
+26_MILUKITA_DNA.md
+27_MILUKITA_AI_HANDOVER.md
+28_MILUKITA_INVARIANTS.md
+29_MILUKITA_RECOVERY_MATRIX.md
+
+========================================================
+38. EVIDENCIA
+========================================================
+
+Cada documento debe citar archivos concretos utilizados como evidencia.
+
+No basta decir:
+
+"según el proyecto".
+
+Indicar:
+
+archivo
+ruta
+componente
+función
+tabla
+test
+documentación.
+
+Cuando sea posible indicar también:
+
+líneas
+funciones
+clases
+interfaces
+enums.
+
+========================================================
+39. REGLA CRÍTICA
+========================================================
+
+NO confundir:
+
+DOCUMENTADO
+con
+IMPLEMENTADO.
+
+NO confundir:
+
+UI
+con
+FUNCIÓN REAL.
+
+NO confundir:
+
+TEST
+con
+IMPLEMENTACIÓN COMPLETA.
+
+NO confundir:
+
+SIMULACIÓN
+con
+PRODUCCIÓN.
+
+NO confundir:
+
+AGENTE
+con
+AUTOMATIZACIÓN.
+
+NO confundir:
+
+VERIFICADO
+con
+PUBLICADO.
+
+NO confundir:
+
+QR
+con
+AUTORIZACIÓN.
+
+NO confundir:
+
+PROYECTO PROVISIONAL
+con
+MiLukita ORIGINAL.
+
+========================================================
+40. PROYECTO PROVISIONAL
+========================================================
+
+El proyecto:
+
+milukita-ar-reconstruction
+
+y el ID:
+
+2KLzAAfLoj8eEMVCCQoHzH
+
+fueron creados durante la investigación reciente.
+
+NO considerarlos como el proyecto MiLukita original.
+
+No utilizarlos como sustitución.
+
+========================================================
+41. RESULTADO FINAL
+========================================================
+
+NO quiero código nuevo.
+
+NO quiero una nueva aplicación.
+
+NO quiero una reconstrucción.
+
+Quiero una radiografía completa de MiLukita.
+
+El resultado debe permitir que posteriormente otra IA pueda recibir estos documentos y comprender MiLukita sin depender de las conversaciones originales.
+
+FIN DE LA ORDEN 54

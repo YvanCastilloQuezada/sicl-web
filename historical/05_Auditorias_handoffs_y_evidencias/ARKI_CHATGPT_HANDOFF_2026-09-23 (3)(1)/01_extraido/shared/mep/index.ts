@@ -1,0 +1,6 @@
+export type MepDiscipline = "medical-gas" | "security" | "sanitary";
+export type MepNode = { id: string; kind: "source" | "branch" | "device"; system: string; discipline: MepDiscipline; connectorIds: string[] };
+export type MepConnector = { id: string; nodeId: string; direction: "in" | "out"; nominalDiameterMm?: number };
+export type MepModel = { nodes: MepNode[]; connectors: MepConnector[] };
+export type MepValidation = { status: "NOT_DEMONSTRATED" | "VERIFIED"; missingConnections: string[]; warnings: string[] };
+export function validateMepModel(model: MepModel): MepValidation { const nodeIds = new Set(model.nodes.map((node) => node.id)); const connectorIds = new Set(model.connectors.map((connector) => connector.id)); const missingConnections: string[] = []; for (const connector of model.connectors) if (!nodeIds.has(connector.nodeId)) missingConnections.push(`connector ${connector.id} missing node`); for (const node of model.nodes) for (const connectorId of node.connectorIds) if (!connectorIds.has(connectorId)) missingConnections.push(`node ${node.id} missing connector ${connectorId}`); return { status: missingConnections.length ? "NOT_DEMONSTRATED" : "VERIFIED", missingConnections, warnings: ["Professional MEP sizing solver not executed"] }; }

@@ -1,0 +1,592 @@
+[1mdiff --git a/src/sicl/a002/__init__.py b/src/sicl/a002/__init__.py[m
+[1mindex 450535b..0f555e4 100644[m
+[1m--- a/src/sicl/a002/__init__.py[m
+[1m+++ b/src/sicl/a002/__init__.py[m
+[36m@@ -1,8 +1,10 @@[m
+ """A-002 Input Sufficiency: deterministic, operation-specific, fail-closed."""[m
+ from .engine import SufficiencyEngine[m
+ from .gate import A002H005Gate, GateDecision[m
+[31m-from .model import EvidenceRef, KnowledgeItem, KnowledgeState, OperationRequirement, SufficiencyRequest, SufficiencyResult, SufficiencyStatus[m
+[32m+[m[32mfrom .model import EvidenceRef, EvidenceVerificationLevel, KnowledgeItem, KnowledgeState, OperationRequirement, SufficiencyRequest, SufficiencyResult, SufficiencyStatus, ApplicabilityStatus[m
+[32m+[m[32mfrom .policy import PolicyIdentity[m
+[32m+[m[32mfrom .identity import EvaluationIdentityPayload, compute_evaluation_id[m
+[32m+[m[32mfrom .authority import HumanAuthorityRef[m
+ from .persistence import SufficiencyStateStore[m
+[31m-from .requirements import preliminary_building_massing_requirements, requirements_for[m
+[31m-[m
+[31m-__all__ = ["SufficiencyEngine", "A002H005Gate", "GateDecision", "SufficiencyStateStore", "EvidenceRef", "KnowledgeItem", "KnowledgeState", "OperationRequirement", "SufficiencyRequest", "SufficiencyResult", "SufficiencyStatus", "preliminary_building_massing_requirements", "requirements_for"][m
+[32m+[m[32mfrom .requirements import preliminary_building_massing_requirements, requirements_for, policy_for[m
+[32m+[m[32m__all__=["SufficiencyEngine","A002H005Gate","GateDecision","SufficiencyStateStore","EvidenceRef","EvidenceVerificationLevel","KnowledgeItem","KnowledgeState","ApplicabilityStatus","OperationRequirement","SufficiencyRequest","SufficiencyResult","SufficiencyStatus","PolicyIdentity","EvaluationIdentityPayload","compute_evaluation_id","HumanAuthorityRef","preliminary_building_massing_requirements","requirements_for","policy_for"][m
+[1mdiff --git a/src/sicl/a002/authority.py b/src/sicl/a002/authority.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..bc7554e[m
+[1m--- /dev/null[m
+[1m+++ b/src/sicl/a002/authority.py[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m"""Human authority reference; A-002 records a reference and does not sign."""[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m[32mfrom dataclasses import dataclass[m
+[32m+[m
+[32m+[m[32m@dataclass(frozen=True)[m
+[32m+[m[32mclass HumanAuthorityRef:[m
+[32m+[m[32m    actor_id: str[m
+[32m+[m[32m    decision_context: str[m
+[32m+[m[32m    recorded_at_iso: str[m
+[32m+[m[32m    reference: str[m
+[32m+[m[32m    def __post_init__(self) -> None:[m
+[32m+[m[32m        if not all(v and v.strip() for v in (self.actor_id, self.decision_context, self.recorded_at_iso, self.reference)):[m
+[32m+[m[32m            raise ValueError("all HumanAuthorityRef fields are required")[m
+[32m+[m[32m    def to_dict(self) -> dict[str, str]:[m
+[32m+[m[32m        return {"actorId": self.actor_id, "decisionContext": self.decision_context, "recordedAt": self.recorded_at_iso, "reference": self.reference}[m
+[1mdiff --git a/src/sicl/a002/engine.py b/src/sicl/a002/engine.py[m
+[1mindex 35f3029..825ee51 100644[m
+[1m--- a/src/sicl/a002/engine.py[m
+[1m+++ b/src/sicl/a002/engine.py[m
+[36m@@ -1,124 +1,71 @@[m
+[31m-"""Deterministic A-002 sufficiency engine."""[m
+[32m+[m[32m"""Deterministic A-002 sufficiency engine, v1.4 extensions."""[m
+ from __future__ import annotations[m
+ from collections import defaultdict[m
+[31m-from .model import KnowledgeState, SufficiencyRequest, SufficiencyResult, SufficiencyStatus[m
+[32m+[m[32mfrom .model import KnowledgeState, SufficiencyRequest, SufficiencyResult, SufficiencyStatus, ApplicabilityStatus, EvidenceVerificationLevel[m
+[32m+[m[32mfrom .identity import EvaluationIdentityPayload, compute_evaluation_id[m
+ [m
+[32m+[m[32mdef _valid_value(value): return not (value is None or (isinstance(value,str) and not value.strip()) or isinstance(value,(dict,list,set)))[m
+ [m
+ class SufficiencyEngine:[m
+     def evaluate(self, request: SufficiencyRequest) -> SufficiencyResult:[m
+[31m-        if not isinstance(request, SufficiencyRequest):[m
+[31m-            raise TypeError("request must be SufficiencyRequest")[m
+[31m-        by_field: dict[str, list] = defaultdict(list)[m
+[31m-        for item in request.knowledge:[m
+[31m-            by_field[item.field].append(item)[m
+[31m-        known: list[str] = [][m
+[31m-        observed: list[str] = [][m
+[31m-        assumed: list[str] = [][m
+[31m-        unknown: list[str] = [][m
+[31m-        missing: list[str] = [][m
+[31m-        conflicting: list[str] = [][m
+[31m-        blocking: list[str] = [][m
+[31m-        non_blocking: list[str] = [][m
+[31m-        questions: list[str] = [][m
+[31m-        assumptions: list[str] = [][m
+[31m-        evidence: set[str] = set()[m
+[31m-        reasons: list[str] = [][m
+[32m+[m[32m        if not isinstance(request, SufficiencyRequest): raise TypeError("request must be SufficiencyRequest")[m
+[32m+[m[32m        by_field: dict[str,list] = defaultdict(list)[m
+[32m+[m[32m        for item in request.knowledge: by_field[item.field].append(item)[m
+[32m+[m[32m        known=[]; observed=[]; assumed=[]; unknown=[]; missing=[]; conflicting=[]; blocking=[]; non_blocking=[]; questions=[]; assumptions=[]; evidence=set(); reasons=[]; conditional=[]; levels=[][m
+[32m+[m[32m        evidence_by_id={ref.evidence_id:ref for ref in request.evidence}[m
+         for requirement in request.requirements:[m
+[31m-            if not requirement.applies_to(request.scale, request.context, request.jurisdiction):[m
+[31m-                continue[m
+[31m-            allowed_scales = set(requirement.applicable_scales)[m
+[31m-            items = [[m
+[31m-                item for item in by_field.get(requirement.field, [])[m
+[31m-                if (not allowed_scales or item.scale in allowed_scales)[m
+[31m-                and (item.jurisdiction is None or request.jurisdiction is None or item.jurisdiction == request.jurisdiction)[m
+[31m-            ][m
+[31m-            for item in items:[m
+[31m-                evidence.update(item.evidence_refs)[m
+[32m+[m[32m            if not requirement.applies_to(request.scale,request.context,request.jurisdiction): continue[m
+[32m+[m[32m            allowed=set(requirement.applicable_scales)[m
+[32m+[m[32m            items=[item for item in by_field.get(requirement.field,[]) if (not allowed or item.scale in allowed) and (item.jurisdiction is None or request.jurisdiction is None or item.jurisdiction==request.jurisdiction)][m
+             if not items:[m
+[31m-                missing.append(requirement.field)[m
+[31m-                code = "MISSING_REQUIRED_INPUT" if requirement.blocking else "MISSING_OPTIONAL_INPUT"[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(requirement.field)[m
+[31m-                reasons.append(code)[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: {requirement.field}; WHY REQUIRED: {requirement.reason}; OPERATION: {request.operation}; WHY CANNOT CONTINUE: this blocking requirement has no evidence.")[m
+[31m-                continue[m
+[31m-            states = {item.state for item in items}[m
+[31m-            if len(states) > 1 and any(item.state is KnowledgeState.CONFLICTING for item in items):[m
+[31m-                conflicting.append(requirement.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(requirement.field)[m
+[31m-                reasons.append("CONFLICTING_EVIDENCE")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: authoritative resolution for {requirement.field}; WHY REQUIRED: evidence conflicts; OPERATION: {request.operation}; WHY CANNOT CONTINUE: arbitrary selection is unsafe.")[m
+[31m-                continue[m
+[31m-            if len(items) > 1 and len({repr(item.value) for item in items}) > 1:[m
+[31m-                conflicting.append(requirement.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(requirement.field)[m
+[31m-                reasons.append("CONFLICTING_VALUES")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: authoritative value for {requirement.field}; WHY REQUIRED: duplicate evidence disagrees; OPERATION: {request.operation}; WHY CANNOT CONTINUE: the engine cannot choose arbitrarily.")[m
+[32m+[m[32m                missing.append(requirement.field); (blocking if requirement.blocking else non_blocking).append(requirement.field); reasons.append("MISSING_REQUIRED_INPUT" if requirement.blocking else "MISSING_OPTIONAL_INPUT")[m
+[32m+[m[32m                if not requirement.blocking: conditional.append("NON_BLOCKING_MISSING")[m
+[32m+[m[32m                if requirement.blocking: questions.append(f"WHAT IS MISSING: {requirement.field}; WHY REQUIRED: {requirement.reason}; OPERATION: {request.operation}; WHY CANNOT CONTINUE: this blocking requirement has no evidence.")[m
+                 continue[m
+[31m-            item = sorted(items, key=lambda x: x.version)[-1][m
+[31m-            invalid_value = item.value is None or (isinstance(item.value, str) and not item.value.strip()) or isinstance(item.value, (dict, list, set))[m
+[31m-            if item.state in {KnowledgeState.KNOWN, KnowledgeState.OBSERVED} and invalid_value:[m
+[31m-                unknown.append(item.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[31m-                reasons.append("INVALID_INPUT_VALUE")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: a valid value for {item.field}; WHY REQUIRED: the supplied value has an invalid type or is empty; OPERATION: {request.operation}; WHY CANNOT CONTINUE: malformed input cannot establish sufficiency.")[m
+[32m+[m[32m            states={item.state for item in items}[m
+[32m+[m[32m            if len(states)>1 and KnowledgeState.CONFLICTING in states or len(items)>1 and len({repr(i.value) for i in items})>1:[m
+[32m+[m[32m                conflicting.append(requirement.field); (blocking if requirement.blocking else non_blocking).append(requirement.field); reasons.append("CONFLICTING_EVIDENCE" if KnowledgeState.CONFLICTING in states else "CONFLICTING_VALUES")[m
+[32m+[m[32m                if not requirement.blocking: conditional.append("NON_BLOCKING_CONFLICTING")[m
+[32m+[m[32m                if requirement.blocking: questions.append(f"WHAT IS MISSING: authoritative resolution for {requirement.field}; WHY REQUIRED: evidence conflicts; OPERATION: {request.operation}; WHY CANNOT CONTINUE: arbitrary selection is unsafe.")[m
+                 continue[m
+[31m-            evidence_by_id = {ref.evidence_id: ref for ref in request.evidence}[m
+[31m-            evidence_valid = bool(item.evidence_refs) and all([m
+[31m-                ref_id in evidence_by_id[m
+[31m-                and evidence_by_id[ref_id].project_id == request.project_id[m
+[31m-                and (not allowed_scales or evidence_by_id[ref_id].scale in allowed_scales)[m
+[31m-                and (evidence_by_id[ref_id].jurisdiction is None or request.jurisdiction is None or evidence_by_id[ref_id].jurisdiction == request.jurisdiction)[m
+[31m-                for ref_id in item.evidence_refs[m
+[31m-            )[m
+[31m-            if item.state in {KnowledgeState.KNOWN, KnowledgeState.OBSERVED} and not evidence_valid:[m
+[31m-                unknown.append(item.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[31m-                reasons.append("MISSING_OR_INVALID_PROVENANCE")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: valid provenance for {item.field}; WHY REQUIRED: the supplied evidence is absent, stale, cross-project, or out of scope; OPERATION: {request.operation}; WHY CANNOT CONTINUE: the state cannot be promoted to {item.state.value} without matching evidence.")[m
+[31m-            elif item.state is KnowledgeState.KNOWN:[m
+[31m-                known.append(item.field)[m
+[31m-            elif item.state is KnowledgeState.OBSERVED:[m
+[31m-                observed.append(item.field)[m
+[31m-            elif item.state is KnowledgeState.ASSUMED:[m
+[31m-                assumed.append(item.field)[m
+[31m-                assumptions.append(f"{item.field}: {item.reason}")[m
+[31m-                if not (request.policy_allow_assumptions and requirement.allow_assumed):[m
+[31m-                    (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[31m-                    reasons.append("ASSUMPTION_NOT_PERMITTED")[m
+[31m-                    if requirement.blocking:[m
+[31m-                        questions.append(f"WHAT IS MISSING: confirmed value for {item.field}; WHY REQUIRED: the current policy does not permit this assumption; OPERATION: {request.operation}; WHY CANNOT CONTINUE: an assumption cannot be treated as fact.")[m
+[31m-            elif item.state is KnowledgeState.UNKNOWN:[m
+[31m-                unknown.append(item.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[31m-                reasons.append("UNKNOWN_INPUT")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: verified {item.field}; WHY REQUIRED: {requirement.reason}; OPERATION: {request.operation}; WHY CANNOT CONTINUE: unknown input cannot be promoted to known.")[m
+[31m-            elif item.state is KnowledgeState.MISSING:[m
+[31m-                missing.append(item.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[31m-                reasons.append("MISSING_INPUT")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: {item.field}; WHY REQUIRED: {requirement.reason}; OPERATION: {request.operation}; WHY CANNOT CONTINUE: missing input blocks safe execution.")[m
+[31m-            elif item.state is KnowledgeState.CONFLICTING:[m
+[31m-                conflicting.append(item.field)[m
+[31m-                (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[31m-                reasons.append("CONFLICTING_INPUT")[m
+[31m-                if requirement.blocking:[m
+[31m-                    questions.append(f"WHAT IS MISSING: conflict resolution for {item.field}; WHY REQUIRED: {requirement.reason}; OPERATION: {request.operation}; WHY CANNOT CONTINUE: the engine cannot select an arbitrary source.")[m
+[31m-        if conflicting:[m
+[31m-            status = SufficiencyStatus.CONFLICTING[m
+[31m-        elif blocking:[m
+[31m-            status = SufficiencyStatus.INSUFFICIENT[m
+[31m-        elif unknown:[m
+[31m-            status = SufficiencyStatus.UNKNOWN[m
+[31m-        elif assumed:[m
+[31m-            status = SufficiencyStatus.CONDITIONALLY_SUFFICIENT[m
+[31m-        else:[m
+[31m-            status = SufficiencyStatus.SUFFICIENT[m
+[31m-        coverage = tuple(sorted({item.field for item in request.knowledge if item.field in {r.field for r in request.requirements}}))[m
+[31m-        return SufficiencyResult(request.project_id, request.operation, status, tuple(sorted(set(known))), tuple(sorted(set(observed))), tuple(sorted(set(assumed))), tuple(sorted(set(unknown))), tuple(sorted(set(missing))), tuple(sorted(set(conflicting))), tuple(sorted(set(blocking))), tuple(sorted(set(non_blocking))), tuple(questions), tuple(assumptions), tuple(sorted(evidence)), coverage, tuple(sorted(set(reasons))), request.fingerprint())[m
+[32m+[m[32m            item=sorted(items,key=lambda x:x.version)[-1][m
+[32m+[m[32m            refs=[evidence_by_id[r] for r in item.evidence_refs if r in evidence_by_id][m
+[32m+[m[32m            evidence.update(item.evidence_refs)[m
+[32m+[m[32m            for ref in refs: levels.append((ref.evidence_id,ref.verification_level().value))[m
+[32m+[m[32m            evidence_valid=bool(item.evidence_refs) and all(ref_id in evidence_by_id and evidence_by_id[ref_id].project_id==request.project_id and (not allowed or evidence_by_id[ref_id].scale in allowed) and (evidence_by_id[ref_id].jurisdiction is None or request.jurisdiction is None or evidence_by_id[ref_id].jurisdiction==request.jurisdiction) for ref_id in item.evidence_refs)[m
+[32m+[m[32m            effective=item.state; reason=""[m
+[32m+[m[32m            if item.state in {KnowledgeState.KNOWN, KnowledgeState.OBSERVED} and not _valid_value(item.value): effective=KnowledgeState.UNKNOWN; reason="INVALID_INPUT_VALUE"[m
+[32m+[m[32m            elif item.state is KnowledgeState.ASSUMED and not item.reason.strip(): effective=KnowledgeState.UNKNOWN; reason="ASSUMED_WITHOUT_REASON"[m
+[32m+[m[32m            elif item.state is KnowledgeState.KNOWN and not evidence_valid:[m
+[32m+[m[32m                effective=KnowledgeState.OBSERVED; reason="KNOWN_WITHOUT_EVIDENCE" if not item.evidence_refs else "EVIDENCE_INVALID"[m
+[32m+[m[32m            if requirement.applicability_required and item.applicability is ApplicabilityStatus.CONFLICTING:[m
+[32m+[m[32m                effective=KnowledgeState.CONFLICTING; conflicting.append(item.field); reasons.append("CONFLICTING_APPLICABILITY")[m
+[32m+[m[32m                if requirement.blocking: questions.append(f"WHAT IS MISSING: applicability arbitration for {item.field}; WHY REQUIRED: normative sources conflict; OPERATION: {request.operation}; WHY CANNOT CONTINUE: applicability is not safely established.")[m
+[32m+[m[32m            elif requirement.applicability_required and item.applicability is ApplicabilityStatus.UNKNOWN:[m
+[32m+[m[32m                effective=KnowledgeState.UNKNOWN; reason=reason or "APPLICABILITY_UNKNOWN"[m
+[32m+[m[32m            if effective is KnowledgeState.KNOWN: known.append(item.field)[m
+[32m+[m[32m            elif effective is KnowledgeState.OBSERVED: observed.append(item.field)[m
+[32m+[m[32m            elif effective is KnowledgeState.ASSUMED:[m
+[32m+[m[32m                assumed.append(item.field); assumptions.append(f"{item.field}: {item.reason}")[m
+[32m+[m[32m                if requirement.blocking: conditional.append("ASSUMED_BLOCKING")[m
+[32m+[m[32m                else: conditional.append("ASSUMED_NON_BLOCKING")[m
+[32m+[m[32m                if not (request.policy_allow_assumptions and requirement.allow_assumed): (blocking if requirement.blocking else non_blocking).append(item.field); reasons.append("ASSUMPTION_NOT_PERMITTED")[m
+[32m+[m[32m            elif effective is KnowledgeState.UNKNOWN: unknown.append(item.field); (blocking if requirement.blocking else non_blocking).append(item.field); reasons.append(reason or "UNKNOWN_INPUT")[m
+[32m+[m[32m            elif effective is KnowledgeState.MISSING: missing.append(item.field); (blocking if requirement.blocking else non_blocking).append(item.field); reasons.append(reason or "MISSING_INPUT")[m
+[32m+[m[32m            elif effective is KnowledgeState.CONFLICTING: conflicting.append(item.field); (blocking if requirement.blocking else non_blocking).append(item.field)[m
+[32m+[m[32m            if reason and effective is KnowledgeState.OBSERVED: unknown.append(item.field); (blocking if requirement.blocking else non_blocking).append(item.field); reasons.append(reason)[m
+[32m+[m[32m            if requirement.blocking and effective in {KnowledgeState.UNKNOWN, KnowledgeState.MISSING, KnowledgeState.OBSERVED}:[m
+[32m+[m[32m                questions.append(f"WHAT IS MISSING: verified {item.field}; WHY REQUIRED: {requirement.reason}; OPERATION: {request.operation}; WHY CANNOT CONTINUE: the supplied value or provenance cannot establish sufficiency.")[m
+[32m+[m[32m            if requirement.require_human_authority and request.human_authority_ref is None:[m
+[32m+[m[32m                (blocking if requirement.blocking else non_blocking).append(item.field); reasons.append("HUMAN_AUTHORITY_REQUIRED")[m
+[32m+[m[32m        if conflicting: status=SufficiencyStatus.CONFLICTING[m
+[32m+[m[32m        elif blocking: status=SufficiencyStatus.INSUFFICIENT[m
+[32m+[m[32m        elif unknown: status=SufficiencyStatus.UNKNOWN[m
+[32m+[m[32m        elif assumed: status=SufficiencyStatus.CONDITIONALLY_SUFFICIENT[m
+[32m+[m[32m        else: status=SufficiencyStatus.SUFFICIENT[m
+[32m+[m[32m        if any(r.require_human_authority for r in request.requirements if r.applies_to(request.scale,request.context,request.jurisdiction)) and request.human_authority_ref is None:[m
+[32m+[m[32m            status=SufficiencyStatus.INSUFFICIENT[m
+[32m+[m[32m        if assumed and not any(x.startswith("ASSUMED_") for x in conditional): conditional.append("ASSUMED_BLOCKING" if blocking else "ASSUMED_NON_BLOCKING")[m
+[32m+[m[32m        coverage=tuple(sorted({i.field for i in request.knowledge if i.field in {r.field for r in request.requirements}}))[m
+[32m+[m[32m        fingerprint=request.fingerprint(); payload=EvaluationIdentityPayload(request.project_id,fingerprint,request.operation,1,request.operation); evaluation_id=compute_evaluation_id(payload)[m
+[32m+[m[32m        return SufficiencyResult(request.project_id,request.operation,status,tuple(sorted(set(known))),tuple(sorted(set(observed))),tuple(sorted(set(assumed))),tuple(sorted(set(unknown))),tuple(sorted(set(missing))),tuple(sorted(set(conflicting))),tuple(sorted(set(blocking))),tuple(sorted(set(non_blocking))),tuple(questions),tuple(assumptions),tuple(sorted(evidence)),coverage,tuple(sorted(set(reasons))),fingerprint,request.policy,evaluation_id,payload.to_dict(),request.human_authority_ref,tuple(sorted(set(conditional))),tuple(sorted(set(levels))))[m
+[1mdiff --git a/src/sicl/a002/gate.py b/src/sicl/a002/gate.py[m
+[1mindex ac41ab9..cec8ce5 100644[m
+[1m--- a/src/sicl/a002/gate.py[m
+[1m+++ b/src/sicl/a002/gate.py[m
+[36m@@ -3,34 +3,24 @@[m [mfrom __future__ import annotations[m
+ from dataclasses import dataclass[m
+ from typing import Callable, TypeVar[m
+ from .model import SufficiencyRequest, SufficiencyResult, SufficiencyStatus[m
+[31m-[m
+[31m-T = TypeVar("T")[m
+[31m-[m
+[31m-[m
+[32m+[m[32mfrom .identity import EvaluationIdentityPayload, compute_evaluation_id[m
+[32m+[m[32mT=TypeVar("T")[m
+ @dataclass(frozen=True)[m
+ class GateDecision:[m
+     permitted: bool[m
+     reason: str[m
+[31m-[m
+[31m-[m
+ class A002H005Gate:[m
+[31m-    """Enforces A-002 before invoking an already-authorized H-005 executor."""[m
+[31m-[m
+     @staticmethod[m
+     def check(request: SufficiencyRequest, result: SufficiencyResult) -> GateDecision:[m
+[31m-        if result.project_id != request.project_id or result.operation != request.operation:[m
+[31m-            return GateDecision(False, "A002_RESULT_CONTEXT_MISMATCH")[m
+[31m-        if result.request_fingerprint != request.fingerprint():[m
+[31m-            return GateDecision(False, "A002_RESULT_STALE_OR_FORGED")[m
+[31m-        if result.overall_status is SufficiencyStatus.SUFFICIENT:[m
+[31m-            return GateDecision(True, "A002_SUFFICIENT")[m
+[31m-        if result.overall_status is SufficiencyStatus.CONDITIONALLY_SUFFICIENT and request.policy_allow_assumptions:[m
+[31m-            return GateDecision(True, "A002_CONDITIONALLY_SUFFICIENT_POLICY_PERMITS")[m
+[31m-        return GateDecision(False, f"A002_{result.overall_status.value}_BLOCKS_H005")[m
+[31m-[m
+[32m+[m[32m        if result.project_id != request.project_id or result.operation != request.operation: return GateDecision(False,"A002_RESULT_CONTEXT_MISMATCH")[m
+[32m+[m[32m        if result.request_fingerprint != request.fingerprint(): return GateDecision(False,"A002_RESULT_STALE_OR_FORGED")[m
+[32m+[m[32m        expected=compute_evaluation_id(EvaluationIdentityPayload(request.project_id,request.fingerprint(),request.operation,1,request.operation))[m
+[32m+[m[32m        if result.evaluation_id and result.evaluation_id != expected: return GateDecision(False,"A002_EVALUATION_ID_MISMATCH")[m
+[32m+[m[32m        if result.overall_status is SufficiencyStatus.SUFFICIENT: return GateDecision(True,"A002_SUFFICIENT")[m
+[32m+[m[32m        if result.overall_status is SufficiencyStatus.CONDITIONALLY_SUFFICIENT and request.policy_allow_assumptions and "ASSUMED_BLOCKING" not in result.conditional_reasons: return GateDecision(True,"A002_CONDITIONALLY_SUFFICIENT_POLICY_PERMITS")[m
+[32m+[m[32m        return GateDecision(False,f"A002_{result.overall_status.value}_BLOCKS_H005")[m
+     @classmethod[m
+[31m-    def execute_if_permitted(cls, request: SufficiencyRequest, result: SufficiencyResult, executor: Callable[[], T]) -> T:[m
+[31m-        decision = cls.check(request, result)[m
+[31m-        if not decision.permitted:[m
+[31m-            raise PermissionError(decision.reason)[m
+[32m+[m[32m    def execute_if_permitted(cls,request,result,executor:Callable[[],T])->T:[m
+[32m+[m[32m        decision=cls.check(request,result)[m
+[32m+[m[32m        if not decision.permitted: raise PermissionError(decision.reason)[m
+         return executor()[m
+[1mdiff --git a/src/sicl/a002/identity.py b/src/sicl/a002/identity.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a0fb9cc[m
+[1m--- /dev/null[m
+[1m+++ b/src/sicl/a002/identity.py[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32m"""Canonical evaluation identity for A-002 reports."""[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m[32mfrom dataclasses import dataclass[m
+[32m+[m[32mimport hashlib, json[m
+[32m+[m
+[32m+[m[32m@dataclass(frozen=True)[m
+[32m+[m[32mclass EvaluationIdentityPayload:[m
+[32m+[m[32m    project_id: str[m
+[32m+[m[32m    snapshot_fingerprint: str[m
+[32m+[m[32m    profile_id: str[m
+[32m+[m[32m    profile_version: int[m
+[32m+[m[32m    operation: str[m
+[32m+[m[32m    schema: str = "a002-evaluation-identity-v1"[m
+[32m+[m[32m    def to_dict(self) -> dict[str, object]:[m
+[32m+[m[32m        return {"schema": self.schema, "projectId": self.project_id, "snapshotFingerprint": self.snapshot_fingerprint, "profileId": self.profile_id, "profileVersion": self.profile_version, "operation": self.operation}[m
+[32m+[m
+[32m+[m[32mdef compute_evaluation_id(payload: EvaluationIdentityPayload) -> str:[m
+[32m+[m[32m    canonical = json.dumps(payload.to_dict(), sort_keys=True, separators=(",", ":"))[m
+[32m+[m[32m    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()[m
+[1mdiff --git a/src/sicl/a002/model.py b/src/sicl/a002/model.py[m
+[1mindex 8cd485a..f9151a6 100644[m
+[1m--- a/src/sicl/a002/model.py[m
+[1m+++ b/src/sicl/a002/model.py[m
+[36m@@ -1,187 +1,65 @@[m
+ """A-002 semantic model: explicit knowledge states and auditable evidence."""[m
+ from __future__ import annotations[m
+[31m-[m
+[31m-from dataclasses import dataclass, field[m
+[32m+[m[32mfrom dataclasses import dataclass[m
+ from enum import Enum[m
+[31m-from typing import Any, Mapping[m
+[31m-import hashlib[m
+[31m-import json[m
+[31m-[m
+[32m+[m[32mfrom typing import Any[m
+[32m+[m[32mimport hashlib, json, re[m
+ from ..domain import SpatialScope[m
+[31m-[m
+[32m+[m[32mfrom .policy import PolicyIdentity[m
+[32m+[m[32mfrom .authority import HumanAuthorityRef[m
+ [m
+ class KnowledgeState(str, Enum):[m
+[31m-    KNOWN = "KNOWN"[m
+[31m-    OBSERVED = "OBSERVED"[m
+[31m-    ASSUMED = "ASSUMED"[m
+[31m-    UNKNOWN = "UNKNOWN"[m
+[31m-    MISSING = "MISSING"[m
+[31m-    CONFLICTING = "CONFLICTING"[m
+[31m-[m
+[31m-[m
+[32m+[m[32m    KNOWN="KNOWN"; OBSERVED="OBSERVED"; ASSUMED="ASSUMED"; UNKNOWN="UNKNOWN"; MISSING="MISSING"; CONFLICTING="CONFLICTING"[m
+ class SufficiencyStatus(str, Enum):[m
+[31m-    SUFFICIENT = "SUFFICIENT"[m
+[31m-    CONDITIONALLY_SUFFICIENT = "CONDITIONALLY_SUFFICIENT"[m
+[31m-    INSUFFICIENT = "INSUFFICIENT"[m
+[31m-    CONFLICTING = "CONFLICTING"[m
+[31m-    UNKNOWN = "UNKNOWN"[m
+[31m-[m
+[32m+[m[32m    SUFFICIENT="SUFFICIENT"; CONDITIONALLY_SUFFICIENT="CONDITIONALLY_SUFFICIENT"; INSUFFICIENT="INSUFFICIENT"; CONFLICTING="CONFLICTING"; UNKNOWN="UNKNOWN"[m
+[32m+[m[32mclass ApplicabilityStatus(str, Enum):[m
+[32m+[m[32m    ESTABLISHED="ESTABLISHED"; NOT_APPLICABLE="NOT_APPLICABLE"; CONFLICTING="CONFLICTING"; UNKNOWN="UNKNOWN"[m
+[32m+[m[32mclass EvidenceVerificationLevel(str, Enum):[m
+[32m+[m[32m    ABSENT="ABSENT"; HASH_FORMAT_VALID="HASH_FORMAT_VALID"; CONTENT_HASH_MATCHES_DECLARED="CONTENT_HASH_MATCHES_DECLARED"; SUPPORT_SEMANTICALLY_VERIFIED="SUPPORT_SEMANTICALLY_VERIFIED"[m
+ [m
+ @dataclass(frozen=True)[m
+ class KnowledgeItem:[m
+[31m-    field: str[m
+[31m-    value: Any[m
+[31m-    state: KnowledgeState[m
+[31m-    evidence_refs: tuple[str, ...] = ()[m
+[31m-    scale: SpatialScope | None = None[m
+[31m-    jurisdiction: str | None = None[m
+[31m-    context: str | None = None[m
+[31m-    version: int = 1[m
+[31m-    reason: str = ""[m
+[31m-[m
+[31m-    def __post_init__(self) -> None:[m
+[31m-        if not self.field.strip():[m
+[31m-            raise ValueError("field must be non-empty")[m
+[31m-        if self.version < 1:[m
+[31m-            raise ValueError("version must be positive")[m
+[31m-        if self.state is KnowledgeState.ASSUMED and not self.reason.strip():[m
+[31m-            raise ValueError("ASSUMED items require an explicit reason")[m
+[31m-[m
+[31m-    def to_dict(self) -> dict[str, Any]:[m
+[31m-        return {[m
+[31m-            "field": self.field,[m
+[31m-            "value": self.value,[m
+[31m-            "state": self.state.value,[m
+[31m-            "evidenceRefs": list(self.evidence_refs),[m
+[31m-            "scale": self.scale.value if self.scale else None,[m
+[31m-            "jurisdiction": self.jurisdiction,[m
+[31m-            "context": self.context,[m
+[31m-            "version": self.version,[m
+[31m-            "reason": self.reason,[m
+[31m-        }[m
+[31m-[m
+[32m+[m[32m    field: str; value: Any; state: KnowledgeState; evidence_refs: tuple[str,...]=(); scale: SpatialScope|None=None; jurisdiction: str|None=None; context: str|None=None; version: int=1; reason: str=""; applicability: ApplicabilityStatus=ApplicabilityStatus.UNKNOWN[m
+[32m+[m[32m    def __post_init__(self):[m
+[32m+[m[32m        if not self.field.strip(): raise ValueError("field must be non-empty")[m
+[32m+[m[32m        if self.version < 1: raise ValueError("version must be positive")[m
+[32m+[m[32m        if self.state is KnowledgeState.ASSUMED and not self.reason.strip(): raise ValueError("ASSUMED items require an explicit reason")[m
+[32m+[m[32m    @property[m
+[32m+[m[32m    def declared_state(self) -> KnowledgeState: return self.state[m
+[32m+[m[32m    @property[m
+[32m+[m[32m    def effective_state(self) -> KnowledgeState: return self.state[m
+[32m+[m[32m    @property[m
+[32m+[m[32m    def downgrade_reason(self) -> str: return ""[m
+[32m+[m[32m    def to_dict(self): return {"field":self.field,"value":self.value,"state":self.state.value,"declaredState":self.declared_state.value,"effectiveState":self.effective_state.value,"downgradeReason":self.downgrade_reason,"evidenceRefs":list(self.evidence_refs),"scale":self.scale.value if self.scale else None,"jurisdiction":self.jurisdiction,"context":self.context,"version":self.version,"reason":self.reason,"applicability":self.applicability.value}[m
+ [m
+ @dataclass(frozen=True)[m
+ class EvidenceRef:[m
+[31m-    evidence_id: str[m
+[31m-    statement: str[m
+[31m-    source_type: str[m
+[31m-    hash: str[m
+[31m-    project_id: str[m
+[31m-    scale: SpatialScope | None = None[m
+[31m-    jurisdiction: str | None = None[m
+[31m-    version: int = 1[m
+[31m-[m
+[31m-    def __post_init__(self) -> None:[m
+[31m-        if not self.evidence_id.strip() or not self.statement.strip():[m
+[31m-            raise ValueError("evidence_id and statement are required")[m
+[31m-        if not self.hash.strip():[m
+[31m-            raise ValueError("evidence hash is required")[m
+[31m-        expected = hashlib.sha256(self.statement.encode("utf-8")).hexdigest()[m
+[31m-        if self.hash != expected:[m
+[31m-            raise ValueError("evidence hash does not match statement")[m
+[31m-        if self.version < 1:[m
+[31m-            raise ValueError("evidence version must be positive")[m
+[31m-[m
+[32m+[m[32m    evidence_id: str; statement: str; source_type: str; hash: str; project_id: str; scale: SpatialScope|None=None; jurisdiction: str|None=None; version: int=1[m
+[32m+[m[32m    def __post_init__(self):[m
+[32m+[m[32m        if not self.evidence_id.strip() or not self.statement.strip(): raise ValueError("evidence_id and statement are required")[m
+[32m+[m[32m        if not self.hash.strip(): raise ValueError("evidence hash is required")[m
+[32m+[m[32m        if self.hash != hashlib.sha256(self.statement.encode()).hexdigest(): raise ValueError("evidence hash does not match statement")[m
+[32m+[m[32m        if self.version < 1: raise ValueError("evidence version must be positive")[m
+     @classmethod[m
+[31m-    def from_statement(cls, evidence_id: str, statement: str, source_type: str, project_id: str, **kwargs: Any) -> "EvidenceRef":[m
+[31m-        digest = hashlib.sha256(statement.encode("utf-8")).hexdigest()[m
+[31m-        return cls(evidence_id, statement, source_type, digest, project_id, **kwargs)[m
+[31m-[m
+[31m-    def to_dict(self) -> dict[str, Any]:[m
+[31m-        return {[m
+[31m-            "evidenceId": self.evidence_id,[m
+[31m-            "statement": self.statement,[m
+[31m-            "sourceType": self.source_type,[m
+[31m-            "hash": self.hash,[m
+[31m-            "projectId": self.project_id,[m
+[31m-            "scale": self.scale.value if self.scale else None,[m
+[31m-            "jurisdiction": self.jurisdiction,[m
+[31m-            "version": self.version,[m
+[31m-        }[m
+[31m-[m
+[32m+[m[32m    def from_statement(cls,evidence_id,statement,source_type,project_id,**kwargs): return cls(evidence_id,statement,source_type,hashlib.sha256(statement.encode()).hexdigest(),project_id,**kwargs)[m
+[32m+[m[32m    def verification_level(self) -> EvidenceVerificationLevel: return EvidenceVerificationLevel.CONTENT_HASH_MATCHES_DECLARED[m
+[32m+[m[32m    def to_dict(self): return {"evidenceId":self.evidence_id,"statement":self.statement,"sourceType":self.source_type,"hash":self.hash,"projectId":self.project_id,"scale":self.scale.value if self.scale else None,"jurisdiction":self.jurisdiction,"version":self.version}[m
+ [m
+ @dataclass(frozen=True)[m
+ class OperationRequirement:[m
+[31m-    field: str[m
+[31m-    required_states: tuple[KnowledgeState, ...][m
+[31m-    blocking: bool[m
+[31m-    applicable_scales: tuple[SpatialScope, ...] = ()[m
+[31m-    applicable_context: str | None = None[m
+[31m-    jurisdiction_required: bool = False[m
+[31m-    reason: str = ""[m
+[31m-    allow_assumed: bool = False[m
+[31m-[m
+[31m-    def applies_to(self, scale: SpatialScope | None, context: str | None, jurisdiction: str | None) -> bool:[m
+[31m-        if self.applicable_context is not None and self.applicable_context != context:[m
+[31m-            return False[m
+[31m-        return not self.jurisdiction_required or bool(jurisdiction and jurisdiction.strip())[m
+[31m-[m
+[31m-    def to_dict(self) -> dict[str, Any]:[m
+[31m-        return {[m
+[31m-            "field": self.field,[m
+[31m-            "requiredStates": [item.value for item in self.required_states],[m
+[31m-            "blocking": self.blocking,[m
+[31m-            "applicableScales": [item.value for item in self.applicable_scales],[m
+[31m-            "applicableContext": self.applicable_context,[m
+[31m-            "jurisdictionRequired": self.jurisdiction_required,[m
+[31m-            "reason": self.reason,[m
+[31m-            "allowAssumed": self.allow_assumed,[m
+[31m-        }[m
+[31m-[m
+[32m+[m[32m    field: str; required_states: tuple[KnowledgeState,...]; blocking: bool; applicable_scales: tuple[SpatialScope,...]=(); applicable_context: str|None=None; jurisdiction_required: bool=False; reason: str=""; allow_assumed: bool=False; require_human_authority: bool=False; applicability_required: bool=False[m
+[32m+[m[32m    def applies_to(self,scale,context,jurisdiction): return (self.applicable_context is None or self.applicable_context==context) and (not self.jurisdiction_required or bool(jurisdiction and jurisdiction.strip()))[m
+[32m+[m[32m    def to_dict(self): return {"field":self.field,"requiredStates":[x.value for x in self.required_states],"blocking":self.blocking,"applicableScales":[x.value for x in self.applicable_scales],"applicableContext":self.applicable_context,"jurisdictionRequired":self.jurisdiction_required,"reason":self.reason,"allowAssumed":self.allow_assumed,"requireHumanAuthority":self.require_human_authority,"applicabilityRequired":self.applicability_required}[m
+ [m
+ @dataclass(frozen=True)[m
+ class SufficiencyRequest:[m
+[31m-    project_id: str[m
+[31m-    operation: str[m
+[31m-    knowledge: tuple[KnowledgeItem, ...][m
+[31m-    requirements: tuple[OperationRequirement, ...][m
+[31m-    evidence: tuple[EvidenceRef, ...] = ()[m
+[31m-    scale: SpatialScope | None = None[m
+[31m-    context: str | None = None[m
+[31m-    jurisdiction: str | None = None[m
+[31m-    policy_allow_assumptions: bool = False[m
+[31m-[m
+[31m-    def canonical(self) -> dict[str, Any]:[m
+[31m-        return {[m
+[31m-            "projectId": self.project_id,[m
+[31m-            "operation": self.operation,[m
+[31m-            "knowledge": [item.to_dict() for item in sorted(self.knowledge, key=lambda x: json.dumps(x.to_dict(), sort_keys=True, separators=(",", ":")))],[m
+[31m-            "requirements": [item.to_dict() for item in sorted(self.requirements, key=lambda x: x.field)],[m
+[31m-            "evidence": [item.to_dict() for item in sorted(self.evidence, key=lambda x: (x.evidence_id, x.version))],[m
+[31m-            "scale": self.scale.value if self.scale else None,[m
+[31m-            "context": self.context,[m
+[31m-            "jurisdiction": self.jurisdiction,[m
+[31m-            "policyAllowAssumptions": self.policy_allow_assumptions,[m
+[31m-        }[m
+[31m-[m
+[31m-    def fingerprint(self) -> str:[m
+[31m-        return hashlib.sha256(json.dumps(self.canonical(), sort_keys=True, separators=(",", ":")).encode()).hexdigest()[m
+[31m-[m
+[32m+[m[32m    project_id: str; operation: str; knowledge: tuple[KnowledgeItem,...]; requirements: tuple[OperationRequirement,...]; evidence: tuple[EvidenceRef,...]=(); scale: SpatialScope|None=None; context: str|None=None; jurisdiction: str|None=None; policy_allow_assumptions: bool=False; policy: PolicyIdentity|None=None; human_authority_ref: HumanAuthorityRef|None=None[m
+[32m+[m[32m    def canonical(self): return {"projectId":self.project_id,"operation":self.operation,"knowledge":[x.to_dict() for x in sorted(self.knowledge,key=lambda x:json.dumps(x.to_dict(),sort_keys=True,separators=(",",":")))],"requirements":[x.to_dict() for x in sorted(self.requirements,key=lambda x:x.field)],"evidence":[x.to_dict() for x in sorted(self.evidence,key=lambda x:(x.evidence_id,x.version))],"scale":self.scale.value if self.scale else None,"context":self.context,"jurisdiction":self.jurisdiction,"policyAllowAssumptions":self.policy_allow_assumptions,"policy":self.policy.to_dict() if self.policy else None,"humanAuthority":self.human_authority_ref.to_dict() if self.human_authority_ref else None}[m
+[32m+[m[32m    def fingerprint(self): return hashlib.sha256(json.dumps(self.canonical(),sort_keys=True,separators=(",",":")).encode()).hexdigest()[m
+ [m
+ @dataclass(frozen=True)[m
+ class SufficiencyResult:[m
+[31m-    project_id: str[m
+[31m-    operation: str[m
+[31m-    overall_status: SufficiencyStatus[m
+[31m-    known: tuple[str, ...][m
+[31m-    observed: tuple[str, ...][m
+[31m-    assumed: tuple[str, ...][m
+[31m-    unknown: tuple[str, ...][m
+[31m-    missing: tuple[str, ...][m
+[31m-    conflicting: tuple[str, ...][m
+[31m-    blocking_items: tuple[str, ...][m
+[31m-    non_blocking_items: tuple[str, ...][m
+[31m-    questions_for_human: tuple[str, ...][m
+[31m-    assumptions_used: tuple[str, ...][m
+[31m-    evidence_refs: tuple[str, ...][m
+[31m-    coverage: tuple[str, ...][m
+[31m-    reason_codes: tuple[str, ...][m
+[31m-    request_fingerprint: str[m
+[31m-[m
+[31m-    def to_dict(self) -> dict[str, Any]:[m
+[31m-        return {"projectId": self.project_id, "operation": self.operation, "overallStatus": self.overall_status.value, "known": list(self.known), "observed": list(self.observed), "assumed": list(self.assumed), "unknown": list(self.unknown), "missing": list(self.missing), "conflicting": list(self.conflicting), "blockingItems": list(self.blocking_items), "nonBlockingItems": list(self.non_blocking_items), "questionsForHuman": list(self.questions_for_human), "assumptionsUsed": list(self.assumptions_used), "evidenceRefs": list(self.evidence_refs), "coverage": list(self.coverage), "reasonCodes": list(self.reason_codes), "requestFingerprint": self.request_fingerprint}[m
+[31m-[m
+[32m+[m[32m    project_id: str; operation: str; overall_status: SufficiencyStatus; known: tuple[str,...]; observed: tuple[str,...]; assumed: tuple[str,...]; unknown: tuple[str,...]; missing: tuple[str,...]; conflicting: tuple[str,...]; blocking_items: tuple[str,...]; non_blocking_items: tuple[str,...]; questions_for_human: tuple[str,...]; assumptions_used: tuple[str,...]; evidence_refs: tuple[str,...]; coverage: tuple[str,...]; reason_codes: tuple[str,...]; request_fingerprint: str; policy: PolicyIdentity|None=None; evaluation_id: str=""; identity_payload: dict[str,Any]|None=None; human_authority_ref: HumanAuthorityRef|None=None; conditional_reasons: tuple[str,...]=(); evidence_levels: tuple[tuple[str,str],...]=()[m
+[32m+[m[32m    def to_dict(self): return {"projectId":self.project_id,"operation":self.operation,"overallStatus":self.overall_status.value,"known":list(self.known),"observed":list(self.observed),"assumed":list(self.assumed),"unknown":list(self.unknown),"missing":list(self.missing),"conflicting":list(self.conflicting),"blockingItems":list(self.blocking_items),"nonBlockingItems":list(self.non_blocking_items),"questionsForHuman":list(self.questions_for_human),"assumptionsUsed":list(self.assumptions_used),"evidenceRefs":list(self.evidence_refs),"evidenceLevels":[list(x) for x in self.evidence_levels],"coverage":list(self.coverage),"reasonCodes":list(self.reason_codes),"conditionalReasons":list(self.conditional_reasons),"requestFingerprint":self.request_fingerprint,"policy":self.policy.to_dict() if self.policy else None,"evaluationId":self.evaluation_id,"identityPayload":self.identity_payload,"humanAuthorityRef":self.human_authority_ref.to_dict() if self.human_authority_ref else None}[m
+     @property[m
+[31m-    def permits_h005(self) -> bool:[m
+[31m-        return self.overall_status is SufficiencyStatus.SUFFICIENT[m
+[32m+[m[32m    def permits_h005(self): return self.overall_status is SufficiencyStatus.SUFFICIENT[m
+[1mdiff --git a/src/sicl/a002/policy.py b/src/sicl/a002/policy.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8ebbd96[m
+[1m--- /dev/null[m
+[1m+++ b/src/sicl/a002/policy.py[m
+[36m@@ -0,0 +1,17 @@[m
+[32m+[m[32m"""Stable identity for the operation policy executed by A-002."""[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m[32mfrom dataclasses import dataclass[m
+[32m+[m[32mimport re[m
+[32m+[m
+[32m+[m[32m@dataclass(frozen=True)[m
+[32m+[m[32mclass PolicyIdentity:[m
+[32m+[m[32m    policy_id: str[m
+[32m+[m[32m    policy_version: int[m
+[32m+[m[32m    policy_fingerprint: str[m
+[32m+[m[32m    policy_text: str = ""[m
+[32m+[m[32m    def __post_init__(self) -> None:[m
+[32m+[m[32m        if not self.policy_id.strip(): raise ValueError("policy_id is required")[m
+[32m+[m[32m        if self.policy_version < 1: raise ValueError("policy_version must be positive")[m
+[32m+[m[32m        if not re.fullmatch(r"[0-9a-fA-F]{64}", self.policy_fingerprint): raise ValueError("policy_fingerprint must be 64 hex characters")[m
+[32m+[m[32m    def to_dict(self) -> dict[str, object]:[m
+[32m+[m[32m        return {"policyId": self.policy_id, "policyVersion": self.policy_version, "policyFingerprint": self.policy_fingerprint.lower(), "policyText": self.policy_text}[m
+[1mdiff --git a/src/sicl/a002/requirements.py b/src/sicl/a002/requirements.py[m
+[1mindex 5266254..1c9a96e 100644[m
+[1m--- a/src/sicl/a002/requirements.py[m
+[1m+++ b/src/sicl/a002/requirements.py[m
+[36m@@ -1,9 +1,10 @@[m
+ """Operation-specific A-002 requirement policies."""[m
+ from __future__ import annotations[m
+[32m+[m[32mimport hashlib, json[m
+ from .model import KnowledgeState, OperationRequirement[m
+[32m+[m[32mfrom .policy import PolicyIdentity[m
+ from ..domain import SpatialScope[m
+ [m
+[31m-[m
+ def preliminary_building_massing_requirements() -> tuple[OperationRequirement, ...]:[m
+     return ([m
+         OperationRequirement("site_geometry", (KnowledgeState.KNOWN, KnowledgeState.OBSERVED), True, (SpatialScope.PARCELA_SITIO,), reason="massing requires a bounded site"),[m
+[36m@@ -16,8 +17,11 @@[m [mdef preliminary_building_massing_requirements() -> tuple[OperationRequirement, .[m
+         OperationRequirement("client_preferences", (KnowledgeState.KNOWN, KnowledgeState.OBSERVED, KnowledgeState.ASSUMED), False, (SpatialScope.EDIFICACION,), reason="preferences refine the proposal", allow_assumed=True),[m
+     )[m
+ [m
+[32m+[m[32mdef policy_for(operation: str) -> PolicyIdentity:[m
+[32m+[m[32m    reqs = preliminary_building_massing_requirements() if operation == "preliminary building massing" else ()[m
+[32m+[m[32m    canonical = json.dumps([r.to_dict() for r in reqs], sort_keys=True, separators=(",", ":"))[m
+[32m+[m[32m    return PolicyIdentity("a002-" + operation.replace(" ", "-"), 1, hashlib.sha256(canonical.encode()).hexdigest(), operation)[m
+ [m
+ def requirements_for(operation: str) -> tuple[OperationRequirement, ...]:[m
+[31m-    if operation == "preliminary building massing":[m
+[31m-        return preliminary_building_massing_requirements()[m
+[32m+[m[32m    if operation == "preliminary building massing": return preliminary_building_massing_requirements()[m
+     raise KeyError(f"no A-002 policy registered for operation: {operation}")[m

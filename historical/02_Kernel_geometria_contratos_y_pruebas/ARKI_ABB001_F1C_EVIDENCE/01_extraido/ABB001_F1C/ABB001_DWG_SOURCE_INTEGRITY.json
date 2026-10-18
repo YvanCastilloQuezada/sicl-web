@@ -1,0 +1,13 @@
+{
+  "schema":"ARKI-ABB001-DWG-SOURCE-INTEGRITY-1.0",
+  "sourceFreeze":"ARKI_ABB001_SOURCE_FREEZE_V1",
+  "archiveSha256":"2b9f15324d541df51d33af107a686d37ca571c374ff98e19f91ebe42be161032",
+  "protection":"READ_ONLY_SOURCE; NO_REPAIR; NO_OVERWRITE; NO_DESTRUCTIVE_CONVERSION",
+  "sources":[
+    {"file":"ARQUITECTURA  MODIFICADA.dwg","sha256":"b3f3de25387371c736f7a2188f9f030349f8a84f00c8d99f3fe888da57a6e741","signature":"AC1032","format":"AutoCAD 2018","chain":"SOURCE_FROZEN_V1 → binary metadata audit → no derived file"},
+    {"file":"PROY. FERNANDEZ ROJAS - ARQUITECTURA.dwg","sha256":"e7e0f1bcaefe0b0cf7d845339e6d30178a0792b40d1500c67692485286acbbc9","signature":"AC1032","format":"AutoCAD 2018","chain":"SOURCE_FROZEN_V1 → binary metadata audit → no derived file"},
+    {"file":"PROY. FERNANDEZ ROJAS - ESTRUCTURAS.dwg","sha256":"8eedd1e65f42d5c36068635311764206faee8931c915a580c975dba0620b0a3b","signature":"AC1032","format":"AutoCAD 2018","chain":"SOURCE_FROZEN_V1 → binary metadata audit → no derived file"},
+    {"file":"PROY. FERNANDEZ ROJAS - SANITARIAS ELECTRICAS.dwg","sha256":"51b012375c037b01e59f838acdb44b69be778f9bdeade599156da40cfdffa18","signature":"AC1032","format":"AutoCAD 2018","chain":"SOURCE_FROZEN_V1 → binary metadata audit → no derived file"},
+    {"file":"PROY. FERNANDEZ ROJAS - UBICACION.dwg","sha256":"1bbd1527ca8d61bf3f7356a8e42708e2285c320a0772bf58ecf30efa220fecc5","signature":"AC1032","format":"AutoCAD 2018","chain":"SOURCE_FROZEN_V1 → binary metadata audit → no derived file"}
+  ]
+}

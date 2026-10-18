@@ -1,0 +1,12 @@
+{
+  "schema":"ARKI-ABB001-CONFLICT-REGISTER-1.0",
+  "status":"NO_AUTOMATIC_RESOLUTION",
+  "findings":[
+    {"id":"CF-001","classification":"VERSION_DIFFERENCE","statement":"Base architecture uses A-01/A-02; modified set uses A 01/A 02 and is separately titled modified.","sources":["PROY. FERNANDEZ ROJAS.pdf pp.2-3","ARQUITECTURA MODIFICADA.pdf pp.1-2"],"evidence":"title-block and sheet labels","materiality":"LOW until governing version is established"},
+    {"id":"CF-002","classification":"POSSIBLE_CONFLICT","statement":"Modified elevation extraction exposes +7.35 and +6.40 while base extraction exposes +7.15 and +6.15 in corresponding architectural elevation content.","sources":["PROY. FERNANDEZ ROJAS.pdf p.3","ARQUITECTURA MODIFICADA.pdf p.2"],"evidence":"N.P.T. labels","materiality":"HIGH if confirmed geometrically","resolution":"DWG overlay and project-authority clarification"},
+    {"id":"CF-003","classification":"INSUFFICIENT_EVIDENCE","statement":"Room label DORMITORIO 01 in base versus DORMITORIO in modified may be a naming change or extraction difference.","sources":["PROY. FERNANDEZ ROJAS.pdf p.2","ARQUITECTURA MODIFICADA.pdf p.1"],"evidence":"room-label text","materiality":"MEDIUM"},
+    {"id":"CF-004","classification":"INSUFFICIENT_EVIDENCE","statement":"Base extraction exposes JARDIN N.P.T.+0.10 while modified extraction does not expose the exact same label.","sources":["PROY. FERNANDEZ ROJAS.pdf p.2","ARQUITECTURA MODIFICADA.pdf p.1"],"evidence":"plan text","materiality":"MEDIUM"}
+  ],
+  "confirmedConflictCount":0,
+  "note":"Zero confirmed conflicts is not a finding of perfect consistency; unresolved possible/version differences remain visible."
+}

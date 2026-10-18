@@ -1,0 +1,169 @@
+{
+  "package": "ARKI-BKH4-TX-003C",
+  "status": "VERIFIED_FOR_CAS_AND_DURABLE_IDEMPOTENCY_BOUNDED_SCOPE",
+  "baseline": {
+    "repository": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "recorded_in_BKH4_TX_003C_INFRA_AUDIT.txt",
+    "worktree": "DIRTY_PREEXISTING_AND_ACTIVE_PROJECT_ARTIFACTS",
+    "browser": "Chromium 151.0.7922.71",
+    "nativeIndexedDb": true,
+    "fakeIndexedDbImported": false
+  },
+  "checks": {
+    "all_regression_exit_codes_zero": true,
+    "tx003c_emulated": "VERIFIED",
+    "tx003c_real_browser": "VERIFIED_REAL_BROWSER_SCOPE",
+    "tx003br_regression": "VERIFIED_REAL_BROWSER_SCOPE"
+  },
+  "result": {
+    "cas": "VERIFIED",
+    "durableIdempotency": "VERIFIED",
+    "twoWriterRace": "ONE_WINNER_ONE_STALE_BASE",
+    "retry20RealBrowser": "ONE_COMMIT_NINETEEN_REPLAYS",
+    "retry100Emulated": "ONE_COMMIT_NINETY_NINE_REPLAYS",
+    "failureInjection": "7/7",
+    "propertySeeds": 20,
+    "propertyCases": 200,
+    "multiProjectIsolation": "VERIFIED",
+    "crashRecovery": "NOT_IMPLEMENTED",
+    "writerMigration": "NOT_IMPLEMENTED",
+    "globalCanonicalOwner": "NOT_VERIFIED",
+    "bkh4_4_ready": "NO"
+  },
+  "scopeGuard": [
+    "No TX-003D",
+    "No rollback/reversal/undo/redo",
+    "No TX-005 writer migration",
+    "No ProjectContext migration",
+    "No ARKI-SEC/CAD/GEO/ABB-001/LUCA/knowledge ingestion",
+    "No Master Validation Harness"
+  ],
+  "files": [
+    {
+      "path": "ARKI_BKH4_TX_003C_RESULT.md",
+      "bytes": 1847,
+      "sha256": "8a436d090b164ce68372f4ceede1a579056f452f28e4fdd7efcde1d673c79444"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_IMPLEMENTATION_REPORT.md",
+      "bytes": 1661,
+      "sha256": "06e1013b219d1f9beaf112e2eea874b5274b43ef9d1e9b1bd31d3e0d4fb81fce"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_CAS_REPORT.md",
+      "bytes": 875,
+      "sha256": "04cdc45a91745f972153d8fc580668a2e27e80ab9c7f5c6f26aa36b84d4e5bb6"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_IDEMPOTENCY_REPORT.md",
+      "bytes": 885,
+      "sha256": "dee340df24509984b58811df16b41a0f3262eda8fd7d18b200521d963e465702"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_CONCURRENCY_REPORT.md",
+      "bytes": 1023,
+      "sha256": "f1f8fdd775dc6adaed1ecf89e28b71a5dc00c099e8c752fbd061c5741058b239"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_PROPERTY_MODEL_REPORT.md",
+      "bytes": 887,
+      "sha256": "01c98dea940fe594f8b883a7da300f7ab147feb768d9cbba02c8ea515effb5ea"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_INVARIANT_REPORT.md",
+      "bytes": 966,
+      "sha256": "dc0503eed867e8fd9f916845e85a864328879099c9e4c160e746904438198b63"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_GAPS.md",
+      "bytes": 925,
+      "sha256": "f59b0b8347def31f0de42c4ba68e6483e37e34c2b2a1c26d3ac4c521c989ee7a"
+    },
+    {
+      "path": "ARKI_BKH4_TX_003C_AUDIT_BEFORE_CODE.md",
+      "bytes": 2866,
+      "sha256": "c2125bf5c43807ae9149bfb4e3af0ad88515b9da8f87f39a065d99dca2bb7828"
+    },
+    {
+      "path": "BKH4_TX_003C_INFRA_AUDIT.txt",
+      "bytes": 39595,
+      "sha256": "40b7a75e91bb53baf60187388a094d44144f73515ffe09aff3e955d16d6acb33"
+    },
+    {
+      "path": "BKH4_TX_003C_OUTPUTS.txt",
+      "bytes": 16249,
+      "sha256": "8e0629e9a8627dc8c7dba064aca504417c81057846fbc0f8d59ce057530bf1fb"
+    },
+    {
+      "path": "BKH4_TX_003C_REAL_BROWSER_OUTPUT.txt",
+      "bytes": 784,
+      "sha256": "5e8ebf43633fe0e9fb49ad76529f224fae59d8ccc7390077dcd4376ecdef04bf"
+    },
+    {
+      "path": "BKH4_TX_003B_R_BROWSER_OUTPUT.txt",
+      "bytes": 747,
+      "sha256": "930f92029d7a634c012446d2965b45342c72c6ff31ef3e77d243496236bb9afb"
+    },
+    {
+      "path": "shared/arkiCanonicalPersistence.ts",
+      "bytes": 20080,
+      "sha256": "16dc7de1fe52675ec4151f7bb2aea566b84213d0cc122bc7a49d4adc9ac458e1"
+    },
+    {
+      "path": "shared/arkiCanonicalProjectRepository.ts",
+      "bytes": 13906,
+      "sha256": "fe2df1ff186b2dd93fb23b0c5d31873d8bb7a94cbaf562981d1ba31455dfdf8a"
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "bytes": 4474,
+      "sha256": "4019128307b9f90d479ef4884d54aa90704118be3f3d4335db0e0213aab5de4c"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003c-cas-idempotency.ts",
+      "bytes": 9460,
+      "sha256": "ab8ce1fa06022450dcd61b51283da3bd4852f21947146f41fc76dd794846fce7"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003c-browser.ts",
+      "bytes": 6311,
+      "sha256": "eef4977c59852157d591775657bcd65517eeba40c4150cc631e1e77ed96aa5d6"
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003c-evidence.sh",
+      "bytes": 1486,
+      "sha256": "0b3fcbcbf138fea38668cffa8671eaa30c92608527516ebd07cddf438b9222a8"
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003c-real-browser.sh",
+      "bytes": 1129,
+      "sha256": "563a3bbb2f10bd5095d2e304b547ee9d40c0934b1ff6194d9531c7f8bd00bb5e"
+    },
+    {
+      "path": "scripts/tx003b-cdp.mjs",
+      "bytes": 1344,
+      "sha256": "c585422a0bc60bf41292f6032cccfc10fb7ca165050ed9b4104c2a39db0da216"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003b-persistence.ts",
+      "bytes": 8889,
+      "sha256": "63d62458662cb1d7aeb6aecb64726bacac463a7f4d701bfeaa2302ba0697c21b"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003b-browser.ts",
+      "bytes": 9817,
+      "sha256": "f429f0355011f4617e7b12b01de2dd1520c0ccf60a88167cb4ef5ed4e78ae329"
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003b-real-browser.sh",
+      "bytes": 1041,
+      "sha256": "8a5f9317192c2b74a4254b7318f616513ce9b800fa8238ac5a5e24499a8431e9"
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003a-repository.ts",
+      "bytes": 9258,
+      "sha256": "997b04fec99ed4c1870a9fe26a648fb9071540994427f30486142e6b5022f4ad"
+    }
+  ]
+}

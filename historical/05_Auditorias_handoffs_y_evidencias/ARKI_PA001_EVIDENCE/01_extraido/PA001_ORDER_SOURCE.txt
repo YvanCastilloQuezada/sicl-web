@@ -1,0 +1,697 @@
+# ARKI — CAPACITACIÓN PREVIA 001
+## PROGRAMA ARQUITECTÓNICO + RELACIONES ESPACIALES
+
+AUTORIDAD:
+Product Owner / Human Authority
+
+EJECUTOR:
+Manus
+
+TIPO:
+Capacitación + implementación controlada
+
+OBJETIVO:
+Dotar a ARKI de una capacidad básica y reutilizable para comprender qué necesita un espacio arquitectónico y qué relaciones funcionales debe mantener con otros espacios.
+
+IMPORTANTE:
+
+ESTA ORDEN NO IMPLEMENTA SINTAXIS ESPACIAL.
+
+NO ejecutar, copiar, anticipar ni entrenar contra los exámenes A/B/C/D preparados por DeepSeek para la futura Capacidad 1 — Sintaxis Espacial.
+
+No usar como fixtures de entrenamiento los casos de hospital/UCI/quirófanos, museo o colegio anunciados por DeepSeek para esos exámenes.
+
+La finalidad es construir una capacidad complementaria y previa:
+
+PROGRAMA REQUERIDO
+        ↓
+NECESIDADES DEL ESPACIO
+        ↓
+RELACIONES ESPACIALES ESPERADAS
+        ↓
+PROYECTO OBSERVADO
+        ↓
+COMPARACIÓN
+        ↓
+DÉFICITS / CONFLICTOS / UNKNOWN
+
+No memorizar soluciones.
+
+No hardcodear respuestas arquitectónicas.
+
+--------------------------------------------------
+1. PRINCIPIO
+--------------------------------------------------
+
+Actualmente un espacio no debe ser entendido únicamente como:
+
+nombre + área + geometría.
+
+ARKI debe empezar a comprenderlo como una entidad funcional:
+
+ESPACIO
+→ ACTIVIDAD
+→ USUARIO
+→ CAPACIDAD
+→ MOBILIARIO/EQUIPO
+→ DIMENSIONES
+→ ACCESOS
+→ ADYACENCIAS
+→ PROXIMIDADES
+→ SEPARACIONES
+→ PRIVACIDAD
+→ FLUJOS
+→ RELACIONES VISUALES
+→ ILUMINACIÓN
+→ VENTILACIÓN
+→ ACÚSTICA
+→ ACCESIBILIDAD
+→ SEGURIDAD
+→ SERVICIOS
+→ RESTRICCIONES
+→ EVIDENCIA
+→ UNKNOWN
+
+Esta capacitación NO pretende resolver profesionalmente todas esas dimensiones.
+
+Pretende crear el modelo arquitectónico necesario para representarlas, razonarlas y detectar cuándo existe o falta evidencia.
+
+--------------------------------------------------
+2. REGLA EPISTÉMICA
+--------------------------------------------------
+
+No convertir conocimiento incompleto en hecho.
+
+Distinguir como mínimo:
+
+REQUIRED
+PREFERRED
+PROHIBITED
+OBSERVED
+INFERRED
+SATISFIED
+VIOLATED
+UNKNOWN
+NOT_APPLICABLE
+PROFESSIONAL_VALIDATION_REQUIRED
+
+Un requisito no demostrado NO puede convertirse automáticamente en incumplimiento.
+
+Ausencia de evidencia:
+
+≠ FALSE
+≠ VIOLATED
+
+Debe poder permanecer:
+
+UNKNOWN
+
+--------------------------------------------------
+3. PRIMER PASO OBLIGATORIO — AUDITORÍA
+--------------------------------------------------
+
+Antes de crear archivos:
+
+Inspeccionar el repositorio real.
+
+Buscar específicamente capacidades existentes relacionadas con:
+
+- espacios;
+- ConstructionSpace;
+- ConstructionModel;
+- relaciones;
+- adjacency;
+- circulation;
+- program;
+- requirements;
+- constraints;
+- activities;
+- occupants/users;
+- accessibility;
+- privacy;
+- zoning;
+- flows;
+- evidence;
+- provenance;
+- UNKNOWN;
+- Project State;
+- Knowledge;
+- diagnostics.
+
+Identificar:
+
+REUSE
+EXTEND
+ADAPT
+MISSING
+CONFLICT
+
+No crear un segundo modelo de espacios si ARKI ya tiene uno extensible.
+
+No crear una nueva fuente de verdad paralela.
+
+Si existe arquitectura adecuada, integrarse a ella.
+
+--------------------------------------------------
+4. CAPACIDAD MÍNIMA
+--------------------------------------------------
+
+ARKI debe poder representar un:
+
+ArchitecturalProgram
+
+compuesto por:
+
+ProgramSpaceRequirement[]
+
+Cada requisito debe poder expresar, cuando exista información:
+
+- id
+- name
+- spaceType
+- activities
+- userTypes
+- occupancy/capacity
+- area requirements
+- dimensional requirements
+- access requirements
+- privacy
+- environmental requirements
+- service requirements
+- accessibility requirements
+- relationships
+- evidence
+- provenance
+- epistemic state
+- applicability
+
+No inventar valores que no estén proporcionados.
+
+--------------------------------------------------
+5. RELACIONES ESPACIALES
+--------------------------------------------------
+
+Implementar un modelo explícito de relaciones.
+
+Como mínimo debe poder representar:
+
+ADJACENT_TO
+NEAR
+SEPARATED_FROM
+DIRECT_ACCESS_TO
+CONTROLLED_ACCESS_TO
+VISUAL_CONNECTION_TO
+VISUAL_SEPARATION_FROM
+SHARES_SERVICE_WITH
+FUNCTIONALLY_DEPENDS_ON
+FLOW_CONNECTED_TO
+MUST_NOT_CROSS_WITH
+
+Cada relación debe permitir:
+
+sourceSpace
+targetSpace
+relationType
+priority
+required/preferred/prohibited
+evidence
+provenance
+applicability
+epistemicState
+
+No reducir todas las relaciones a una simple arista booleana.
+
+--------------------------------------------------
+6. FUERZA / PRIORIDAD DE RELACIÓN
+--------------------------------------------------
+
+ARKI debe poder distinguir al menos:
+
+MANDATORY
+HIGH
+MEDIUM
+LOW
+PREFERENCE
+
+Pero:
+
+PRIORITY ≠ TRUTH
+
+y
+
+PREFERENCE ≠ REQUIREMENT
+
+No mezclar importancia de diseño con certeza epistemológica.
+
+--------------------------------------------------
+7. PROGRAMA ESPERADO VS PROYECTO OBSERVADO
+--------------------------------------------------
+
+Crear una capacidad que permita comparar:
+
+EXPECTED PROGRAM
+vs
+OBSERVED PROJECT STATE
+
+Ejemplo conceptual:
+
+Programa:
+A debe estar próximo a B.
+
+Proyecto:
+A y B no presentan evidencia suficiente para determinar proximidad.
+
+Resultado:
+
+UNKNOWN
+
+No:
+
+VIOLATED
+
+Otro ejemplo:
+
+Programa:
+A debe tener acceso directo a B.
+
+Proyecto:
+la relación observada demuestra que A solamente conecta con B pasando por C.
+
+Resultado:
+
+VIOLATED
+
+con evidencia trazable.
+
+--------------------------------------------------
+8. RESULTADO DE EVALUACIÓN
+--------------------------------------------------
+
+Definir un resultado similar conceptualmente a:
+
+ProgramEvaluationResult
+
+que pueda contener:
+
+satisfiedRelations
+violatedRelations
+unknownRelations
+notApplicableRelations
+missingRequirements
+conflicts
+diagnostics
+evidence
+provenance
+
+No crear un único “architectureScore”.
+
+No reducir calidad arquitectónica a un número.
+
+Puede haber métricas parciales, pero deben conservar significado.
+
+--------------------------------------------------
+9. CONFLICTOS
+--------------------------------------------------
+
+ARKI debe detectar contradicciones explícitas.
+
+Ejemplo:
+
+A MUST_BE_ADJACENT_TO B
+
+y simultáneamente:
+
+A MUST_BE_SEPARATED_FROM B
+
+Si ambas tienen igual aplicabilidad:
+
+CONFLICT
+
+No elegir silenciosamente una.
+
+Reportar:
+
+CONFLICT_DETECTED
+
+y conservar ambas reglas con su procedencia.
+
+--------------------------------------------------
+10. APLICABILIDAD
+--------------------------------------------------
+
+Preparar el modelo para que una regla pueda depender de:
+
+- building type
+- space type
+- jurisdiction
+- scale
+- user type
+- project phase
+- scenario
+- source
+- temporal validity
+
+NO construir ahora un motor normativo completo.
+
+Pero no diseñar un contrato que lo impida posteriormente.
+
+--------------------------------------------------
+11. PROVENANCE
+--------------------------------------------------
+
+Todo requisito importante debe poder responder:
+
+¿DE DÓNDE SALIÓ?
+
+Puede provenir de:
+
+CLIENT_REQUIREMENT
+REGULATION
+STANDARD
+DESIGN_BRIEF
+ARCHITECTURAL_KNOWLEDGE
+PROJECT_EVIDENCE
+PROFESSIONAL_JUDGMENT
+INFERENCE
+UNKNOWN_SOURCE
+
+No convertir automáticamente una preferencia del cliente en norma.
+
+No convertir una heurística arquitectónica en obligación legal.
+
+--------------------------------------------------
+12. NO HARDCODEAR TIPOLOGÍAS
+--------------------------------------------------
+
+No programar:
+
+if building === "house" ...
+if building === "hospital" ...
+if building === "school" ...
+
+como mecanismo principal de razonamiento.
+
+La capacidad debe funcionar mediante contratos y relaciones.
+
+Las tipologías futuras deben aportar conocimiento/datos, no requerir reescribir el motor.
+
+--------------------------------------------------
+13. TESTS BÁSICOS
+--------------------------------------------------
+
+Crear pruebas ejecutables.
+
+Como mínimo:
+
+PA-T01
+Dos espacios con relación ADJACENT_TO demostrada.
+Resultado:
+SATISFIED.
+
+PA-T02
+ADJACENT_TO requerido pero evidencia demuestra separación.
+Resultado:
+VIOLATED.
+
+PA-T03
+ADJACENT_TO requerido pero proyecto no contiene evidencia suficiente.
+Resultado:
+UNKNOWN.
+
+PA-T04
+Relación PREFERRED incumplida.
+No debe tratarse igual que MANDATORY.
+
+PA-T05
+Relaciones contradictorias.
+Resultado:
+CONFLICT_DETECTED.
+
+PA-T06
+Mismo programa evaluado dos veces.
+Resultado determinista.
+
+PA-T07
+Cambio de nombres/IDs preservando semántica.
+El resultado funcional no debe cambiar.
+
+PA-T08
+Espacio inexistente en Project State.
+No crash.
+Reportar missing/UNKNOWN según corresponda.
+
+PA-T09
+Regla NOT_APPLICABLE.
+No contabilizar como violación.
+
+PA-T10
+Dos proyectos diferentes.
+No contaminación cruzada.
+
+--------------------------------------------------
+14. ADVERSARIALES
+--------------------------------------------------
+
+Crear casos para intentar romper la capacidad.
+
+Como mínimo:
+
+PA-A01
+Relación circular:
+A depende de B,
+B depende de C,
+C depende de A.
+
+No crash.
+
+PA-A02
+Reglas duplicadas.
+
+Deduplicar o conservar conscientemente según provenance.
+
+PA-A03
+Dos fuentes contradictorias.
+
+No elegir silenciosamente.
+
+PA-A04
+Requirement sin provenance.
+
+Debe conservar UNKNOWN_SOURCE o equivalente.
+
+PA-A05
+Espacio sin geometría.
+
+Debe poder seguir existiendo como requisito programático.
+
+PA-A06
+Espacio observado sin requisito programático.
+
+No eliminarlo.
+
+PA-A07
+Programa con 500 espacios y múltiples relaciones.
+
+Prueba razonable de rendimiento.
+
+PA-A08
+Input malformado.
+
+Fail closed / error explícito.
+
+--------------------------------------------------
+15. TESTS METAMÓRFICOS
+--------------------------------------------------
+
+Como mínimo:
+
+PA-M01
+Reordenar requisitos no cambia el resultado.
+
+PA-M02
+Reordenar relaciones no cambia el resultado.
+
+PA-M03
+Renombrar IDs manteniendo referencias coherentes no cambia la semántica.
+
+PA-M04
+Duplicar una regla idéntica no debe producir dos violaciones artificiales.
+
+PA-M05
+Añadir un requisito independiente no debe alterar resultados no relacionados.
+
+--------------------------------------------------
+16. TEST THE TEST
+--------------------------------------------------
+
+No basta con que los tests estén verdes.
+
+Introducir temporalmente mutaciones controladas para comprobar que las pruebas fallan.
+
+Como mínimo intentar:
+
+- UNKNOWN → SATISFIED
+- UNKNOWN → VIOLATED
+- ignorar prioridad
+- ignorar contradicciones
+- considerar PREFERENCE como MANDATORY
+- eliminar provenance
+- compartir estado entre proyectos
+
+Registrar qué tests matan cada mutación.
+
+Después restaurar código correcto.
+
+--------------------------------------------------
+17. PROHIBICIONES
+--------------------------------------------------
+
+NO implementar todavía:
+
+- Space Syntax;
+- Hillier;
+- Integration;
+- Choice;
+- Mean Depth;
+- RA/RRA;
+- Intelligibility;
+- Brandes para sintaxis espacial;
+- los exámenes A/B/C/D de DeepSeek;
+- lógica específica para UCI/quirófanos;
+- museo;
+- colegio;
+- normativa completa;
+- optimización generativa;
+- solver estructural;
+- MEP;
+- física del edificio.
+
+Esta capacitación debe permanecer independiente de la futura evaluación de DeepSeek.
+
+--------------------------------------------------
+18. NO AUTO-CERTIFICACIÓN
+--------------------------------------------------
+
+Manus NO declarará:
+
+ARCHITECTURAL_PROGRAM_COMPETENCY_VERIFIED
+
+ni equivalentes.
+
+Manus podrá declarar únicamente evidencia como:
+
+IMPLEMENTED
+TESTED
+TESTS_PASS
+TESTS_FAIL
+PARTIAL
+BLOCKED
+UNKNOWN
+
+El veredicto de competencia vendrá después de revisión independiente.
+
+--------------------------------------------------
+19. ENTREGABLES
+--------------------------------------------------
+
+Crear, adaptando nombres/rutas a la arquitectura real del repositorio:
+
+1. contratos/tipos de programa arquitectónico;
+2. modelo de relaciones espaciales;
+3. evaluador programático;
+4. manejo explícito de UNKNOWN;
+5. detección de conflictos;
+6. provenance;
+7. tests normales;
+8. adversariales;
+9. metamórficos;
+10. test-the-test;
+11. reporte de implementación;
+12. outputs crudos;
+13. manifest con SHA-256;
+14. matriz:
+
+REQUIREMENT
+→ IMPLEMENTATION
+→ TEST
+→ RESULT
+→ EVIDENCE
+
+No crear capturas decorativas si no aportan evidencia.
+
+--------------------------------------------------
+20. GATE
+--------------------------------------------------
+
+Para considerar terminada esta CAPACITACIÓN PREVIA deben existir:
+
+check = PASS
+build = PASS
+tests = PASS
+adversariales = PASS
+metamórficos = PASS
+test-the-test = demostrado
+determinismo = demostrado
+UNKNOWN = preservado
+provenance = preservado
+conflict detection = demostrado
+project isolation = demostrado
+
+Si algo no está demostrado:
+
+NO promoverlo.
+
+--------------------------------------------------
+21. REPORTE FINAL DE MANUS
+--------------------------------------------------
+
+Entregar al Product Owner:
+
+A. Qué encontró antes de implementar.
+B. Qué reutilizó.
+C. Qué creó.
+D. Qué modificó.
+E. Qué deliberadamente NO implementó.
+F. Tests ejecutados.
+G. Mutantes ejecutados y cuáles fueron detectados.
+H. Resultados check/build.
+I. Deuda encontrada.
+J. Riesgos.
+K. Archivos modificados.
+L. Estado del worktree.
+M. Commit SHA si fue autorizado.
+N. Manifest/evidence package.
+
+Mantener el reporte corto pero verificable.
+
+--------------------------------------------------
+22. PRINCIPIO FINAL
+--------------------------------------------------
+
+El objetivo NO es que ARKI memorice:
+
+“cocina debe estar junto a comedor”.
+
+El objetivo es que ARKI aprenda:
+
+“existe una relación funcional requerida entre dos espacios; conozco su tipo, prioridad, procedencia y aplicabilidad; puedo comparar esa relación con el proyecto observado; puedo determinar si está satisfecha, violada o permanece desconocida; y puedo explicar por qué.”
+
+Eso es la capacidad que queremos construir.
+
+PROGRAMA ≠ GEOMETRÍA
+
+RELACIÓN ESPERADA ≠ RELACIÓN OBSERVADA
+
+AUSENCIA DE EVIDENCIA ≠ INCUMPLIMIENTO
+
+PREFERENCIA ≠ NORMA
+
+HEURÍSTICA ≠ VERDAD UNIVERSAL
+
+TEST VERDE ≠ COMPETENCIA PROFESIONAL
+
+IMPLEMENTACIÓN ≠ VERIFICACIÓN INDEPENDIENTE
+
+HUMAN AUTHORITY permanece vigente.
+
+Procede.

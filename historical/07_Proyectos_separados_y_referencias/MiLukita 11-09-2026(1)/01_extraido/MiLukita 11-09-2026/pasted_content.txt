@@ -1,0 +1,1631 @@
+# ORDEN MAESTRA PARA MANUS
+
+## MiLukita — Master Architecture & Lukita Spatial Experience v1.0
+
+### 0. INSTRUCCIÓN PRINCIPAL
+
+Implementa y estructura MiLukita bajo una arquitectura **Experience-First**, donde **Lukita es el personaje protagonista y la experiencia es la unidad fundamental del sistema**.
+
+No diseñes MiLukita como una aplicación AR.
+
+No diseñes MiLukita como una estatua virtual.
+
+No diseñes MiLukita como una simple mascota o presentadora.
+
+La concepción correcta es:
+
+> **MiLukita es una plataforma de experiencias físicas y digitales basada en el personaje Lukita, que conecta personas, lugares, contenido, eventos y negocios mediante experiencias interactivas.**
+
+La fórmula conceptual es:
+
+**LUKITA + PLACE + EXPERIENCE + AUDIENCE + CONTENT + COMMERCE**
+
+AR, WebXR, geolocalización, QR, NFC, audio y 3D son **capacidades tecnológicas al servicio de Experience**, no el centro de la arquitectura.
+
+---
+
+# 1. PRINCIPIO ARQUITECTÓNICO FUNDAMENTAL
+
+El piloto UPAO debe ser pequeño en alcance, pero **no especial en arquitectura**.
+
+NO construir:
+
+```text
+UPAO_CUSTOM_AR
+UPAO_CUSTOM_CODE
+UPAO_SPECIAL_EXPERIENCE
+```
+
+Construir:
+
+```text
+PLACE
++
+LUKITA_POINT
++
+EXPERIENCE
++
+CAMPAIGN
++
+CONTENT
++
+SPATIAL
++
+ANALYTICS
+```
+
+UPAO será simplemente:
+
+```text
+INSTANCE #001
+```
+
+El sistema deberá permitir posteriormente:
+
+```text
+UPAO
+HUANCHACO
+CHAN CHAN
+LIMA
+CUSCO
+HOTEL
+RESTAURANTE
+MUSEO
+CENTRO COMERCIAL
+EVENTO
+MARCA
+```
+
+sin rediseñar el núcleo.
+
+---
+
+# 2. MASTER ARCHITECTURE
+
+La arquitectura conceptual será:
+
+```text
+                         ┌─────────────────────┐
+                         │      MiLUKITA       │
+                         │  EXPERIENCE NETWORK │
+                         └──────────┬──────────┘
+                                    │
+             ┌──────────────────────┼──────────────────────┐
+             │                      │                      │
+             ▼                      ▼                      ▼
+        LUKITA IP              PLATFORM              EXPERIENCE
+             │                      │                      │
+       Character              Web / PWA             Experience Engine
+       Personality             Users                 Templates
+       Voice                   CMS                   Instances
+       Media                   Identity              Content
+       Brand                   Analytics             Events
+       Licensing               Notifications         Campaigns
+             │                      │                      │
+             └──────────────────────┼──────────────────────┘
+                                    │
+                                    ▼
+                          SPATIAL EXPERIENCE
+                                    │
+                   ┌────────────────┼────────────────┐
+                   ▼                ▼                ▼
+                LOCATION            AR             QR/NFC
+                   │                │                │
+                   └────────────────┼────────────────┘
+                                    ▼
+                            LUKITA LIVE POINT
+                                    │
+             ┌──────────────────────┼──────────────────────┐
+             ▼                      ▼                      ▼
+         PHYSICAL                DIGITAL              COMMERCIAL
+       Asset/Signal             AR Experience          Business
+       Signage                  Content                Offer
+       QR/NFC                   Game                   Sponsor
+                                Event                  Campaign
+             │                      │                      │
+             └──────────────────────┼──────────────────────┘
+                                    ▼
+                               COMMUNITY
+                                    │
+                         Users / Visits / Photos
+                         Shares / Passport / Hunt
+                                    │
+                                    ▼
+                              DISCOVERY
+                                    │
+                    Places / Routes / Tourism
+                                    │
+                                    ▼
+                               COMMERCE
+                                    │
+                       Leads / Visits / Conversion
+                                    │
+                                    ▼
+                              INTELLIGENCE
+```
+
+---
+
+# 3. CORE ENTITIES
+
+Las siguientes entidades deben existir conceptualmente desde NOW aunque algunas funcionalidades se implementen posteriormente:
+
+### LUKITA_IP
+
+Representa la identidad maestra del personaje.
+
+### PLACE
+
+Representa un lugar físico o espacial.
+
+### LUKITA_POINT
+
+Representa la presencia de Lukita asociada a un Place.
+
+### EXPERIENCE
+
+Representa una experiencia que una persona puede vivir.
+
+### CAMPAIGN
+
+Representa una activación temporal que puede conectar múltiples Places, Experiences, Content, sponsors y eventos.
+
+### CONTENT
+
+Representa los recursos multimedia y narrativos.
+
+### SPATIAL
+
+Representa posición, escala, orientación, anchors y contexto espacial.
+
+### BUSINESS
+
+Representa negocios, organizaciones o entidades participantes.
+
+### ANALYTICS
+
+Registra interacción, activación, engagement y conversión.
+
+---
+
+# 4. EXPERIENCE ES LA ENTIDAD CENTRAL
+
+Implementar Experience como entidad de primera clase.
+
+Conceptualmente:
+
+```text
+EXPERIENCE
+-------------------------
+experience_id
+name
+type
+place_id
+lukita_id
+content_id
+trigger
+location
+schedule
+campaign_id
+sponsor_id
+status
+version
+analytics_schema
+```
+
+Tipos iniciales:
+
+```text
+AR_CHARACTER
+PHOTO
+VIDEO
+STORY
+GAME
+TOURISM
+CULTURE
+EDUCATION
+FOOD
+HOTEL
+EVENT
+COMMERCE
+SPONSORED
+```
+
+Una experiencia debe ser configurable y reutilizable.
+
+Ejemplos:
+
+```text
+Lukita UPAO
+= Experience Instance
+
+Lukita Huanchaco
+= Experience Instance
+
+Lukita Chan Chan
+= Experience Instance
+
+Lukita Navidad
+= Experience Instance
+```
+
+No crear código especial para cada ubicación.
+
+---
+
+# 5. PLACE
+
+PLACE debe ser una entidad fundamental.
+
+```text
+PLACE
+│
+├── Coordinates
+├── Area
+├── Address
+├── Type
+├── Accessibility
+├── Experiences
+├── Businesses
+├── Events
+├── Content
+└── Lukita Points
+```
+
+Un Place puede contener múltiples Experiences.
+
+Ejemplo:
+
+```text
+UPAO
+│
+├── Lukita Experience
+├── Historia
+├── Eventos
+├── Promociones
+├── Contenido
+└── Future Experiences
+```
+
+---
+
+# 6. LUKITA POINT / LUKITA LIVE POINT
+
+No asumir una estatua física.
+
+Lukita Point debe ser una **presencia espacial de Lukita**.
+
+Conceptualmente:
+
+```text
+LUKITA LIVE POINT
+│
+├── Place
+├── Coordinates
+├── QR
+├── NFC
+├── Spatial
+├── AR
+├── Experiences
+├── Content
+└── Analytics
+```
+
+El término arquitectónico recomendado será:
+
+> **LUKITA LIVE POINT**
+
+porque el objetivo no es indicar dónde está una estatua, sino dónde **Lukita está viva digitalmente**.
+
+---
+
+# 7. LUKITA IP
+
+Lukita debe tratarse como una IP seria y consistente.
+
+```text
+LUKITA IP
+│
+├── Character Bible
+├── Personality
+├── Voice
+├── Visual Identity
+├── Behavior Rules
+├── Age Adaptations
+│
+├── Roles
+│   ├── Presenter
+│   ├── Star
+│   ├── Guide
+│   ├── Educator
+│   ├── Host
+│   └── Brand Ambassador
+│
+├── Formats
+│   ├── Live
+│   ├── AR
+│   ├── Physical
+│   ├── Video
+│   └── Social
+│
+└── IP Governance
+```
+
+Regla obligatoria:
+
+> **Toda representación de Lukita debe derivar de una Character Bible común.**
+
+El rostro, proporciones, identidad, elementos distintivos y lenguaje visual deben permanecer consistentes.
+
+---
+
+# 8. LUKITA: DISEÑO COMO ESTRELLA
+
+Lukita no debe parecer una presentadora parada ni una estatua.
+
+Debe ser:
+
+> **una estrella digital viva que aparece en el mundo físico.**
+
+Debe funcionar simultáneamente en:
+
+### 8 metros
+
+WOW / presencia monumental.
+
+### 2 metros
+
+Cercana, adorable, fotografiable e interactiva.
+
+### 10 cm
+
+Reconocible inmediatamente como Lukita.
+
+La silueta debe ser reconocible incluso sin color.
+
+---
+
+# 9. CUERPO Y VESTIMENTA
+
+La dirección de diseño conceptual será:
+
+**hero character + estrella + exploradora + personaje de animación + tecnología.**
+
+Evitar:
+
+* hiperrealismo humano;
+* apariencia institucional;
+* sexualización;
+* vestimenta de presentadora;
+* exceso de logos;
+* diseño dependiente de una sola campaña.
+
+Características:
+
+* cabeza ligeramente grande;
+* ojos expresivos;
+* sonrisa característica;
+* cuerpo estilizado;
+* piernas relativamente largas;
+* brazos y manos expresivos;
+* pies suficientemente grandes;
+* silueta única;
+* elemento estrella/núcleo distintivo.
+
+Vestimenta base:
+
+**blanco/perlado + identidad cromática propia + elementos tecnológicos discretos.**
+
+La ropa podrá variar digitalmente según Experience, pero:
+
+> **rostro + cuerpo + elementos principales = identidad constante.**
+
+---
+
+# 10. ELEMENTO ICÓNICO
+
+Lukita debe tener una firma visual.
+
+La propuesta base será:
+
+## ⭐ LUKITA STAR / STAR CORE
+
+La estrella no debe parecer simplemente un logo colocado encima.
+
+Debe formar parte del personaje.
+
+Puede funcionar como:
+
+* núcleo visual;
+* elemento luminoso;
+* símbolo de aparición;
+* elemento de transición;
+* firma gráfica;
+* lenguaje de partículas;
+* elemento de sonido.
+
+Debe aparecer coherentemente en:
+
+* personaje;
+* UI;
+* Experience;
+* merchandising;
+* mapas;
+* animaciones;
+* recompensas;
+* campañas.
+
+---
+
+# 11. MASCOTA
+
+Lukita debe tener un compañero, pero no un segundo protagonista.
+
+Jerarquía:
+
+```text
+LUKITA = STAR
+MASCOTA = COMPANION
+```
+
+Lukita:
+
+* segura;
+* curiosa;
+* aventurera;
+* inteligente;
+* protectora;
+* divertida.
+
+Mascota:
+
+* adorable;
+* curiosa;
+* juguetona;
+* traviesa;
+* impredecible.
+
+La mascota debe generar situaciones, humor y ternura.
+
+Debe pertenecer al universo Lukita y no competir visualmente con ella.
+
+---
+
+# 12. LUKITA NUNCA ESTÁ ESTÁTICA
+
+Regla obligatoria del Character Bible:
+
+> **Lukita nunca está simplemente parada mientras está activa.**
+
+Incluso en estado idle debe existir movimiento:
+
+* respiración;
+* postura;
+* cabello;
+* mirada;
+* manos;
+* balanceo;
+* microgestos.
+
+En estados activos:
+
+* caminar;
+* bailar;
+* saludar;
+* señalar;
+* volar;
+* saltar;
+* posar;
+* interactuar;
+* reaccionar;
+* jugar con la mascota.
+
+Objetivo perceptual:
+
+```text
+NO:
+"Estoy viendo un modelo 3D."
+
+SÍ:
+"Encontré a Lukita."
+```
+
+---
+
+# 13. BEHAVIOR ENGINE
+
+Implementar conceptualmente un:
+
+## LUKITA BEHAVIOR ENGINE
+
+Entradas:
+
+```text
+DISTANCE
+ORIENTATION
+USER STATE
+TIME
+EVENT
+CAMPAIGN
+PLACE
+EXPERIENCE
+```
+
+Salida:
+
+```text
+IDLE
+GREETING
+WALK
+DANCE
+POINT
+FLY
+PLAY
+TALK
+POSE
+CELEBRATE
+DISCOVER
+FOLLOW
+```
+
+Lukita debe tener comportamiento contextual, no solamente una secuencia de animaciones.
+
+---
+
+# 14. EXPERIENCE TIMELINE
+
+La experiencia debe considerar:
+
+```text
+DISCOVERY
+    ↓
+APPROACH
+    ↓
+RECOGNITION
+    ↓
+INTERACTION
+    ↓
+PHOTO / VIDEO
+    ↓
+SHARE
+    ↓
+DISCOVERY / ACTION
+```
+
+La distancia puede modificar simultáneamente:
+
+* escala;
+* comportamiento;
+* nivel de detalle;
+* audio;
+* interacción;
+* contenido.
+
+---
+
+# 15. LUKITA SCALE ENGINE
+
+Implementar una lógica continua de escala.
+
+Referencia conceptual:
+
+| Distancia al Lukita Point |               Altura objetivo | Estado    |
+| ------------------------- | ----------------------------: | --------- |
+| 0–5 m                     |                       1.8–2 m | PERSONAL  |
+| 5–10 m                    |              2–8 m progresivo | GROWING   |
+| 10–50 m                   |                          ~8 m | GIANT     |
+| 50–500 m                  | presencia monumental adaptada | BEACON    |
+| 500 m–1 km                |            discovery/approach | DISCOVERY |
+
+### Regla crítica
+
+La transición debe ser:
+
+> **CONTINUA + SUAVIZADA + CINEMATOGRÁFICA**
+
+Nunca debe existir un cambio brusco de escala.
+
+A menos de 5 m, Lukita debe sentirse cercana.
+
+Al alejarse, debe convertirse progresivamente en una presencia monumental.
+
+---
+
+# 16. LUKITA NO SE "ENCOGE": CAMBIA DE COMPORTAMIENTO
+
+Cuando el usuario se aproxima a 5 m, evitar una simple reducción matemática del modelo.
+
+El comportamiento puede hacer que Lukita:
+
+* se incline;
+* se agache;
+* se acerque;
+* salude;
+* se coloque a la altura del usuario.
+
+Objetivo:
+
+> **Lukita viene a encontrarse contigo.**
+
+La transformación de escala debe sentirse narrativa, no matemática.
+
+---
+
+# 17. DISTANCIA 500–1,000 METROS
+
+No prometer una AR espacial físicamente perfecta a 1 km.
+
+Esta zona debe denominarse:
+
+## SPATIAL DISCOVERY / LUKITA BEACON
+
+La geolocalización proporciona:
+
+* distancia aproximada;
+* dirección aproximada;
+* relación con el Lukita Point.
+
+La experiencia puede mostrar a Lukita como una presencia monumental/orientativa.
+
+Ejemplo:
+
+```text
+⭐ LUKITA ESTÁ A 780 m
+
+          ↓
+
+      ENCUÉNTRALA
+```
+
+El usuario puede iniciar el desplazamiento.
+
+---
+
+# 18. LUKITA BEACON
+
+La función de Beacon es:
+
+> **atraer y orientar al usuario hacia el Lukita Live Point.**
+
+Ejemplo:
+
+```text
+QR
+ ↓
+LUKITA DISCOVERY
+ ↓
+"ESTOY A 780 m"
+ ↓
+USER APPROACH
+ ↓
+500 m
+ ↓
+200 m
+ ↓
+50 m
+ ↓
+10 m
+ ↓
+5 m
+ ↓
+LUKITA PERSONAL
+```
+
+La estatua física no es requisito.
+
+La infraestructura física puede existir posteriormente como complemento.
+
+---
+
+# 19. LUKITA AR STAGE
+
+Crear un visor de presentación independiente denominado:
+
+# LUKITA AR STAGE
+
+Su función es proporcionar una entrada limpia y controlada a la experiencia espacial de Lukita.
+
+Debe estar:
+
+* separado del Controller Lab;
+* separado de herramientas internas;
+* separado de MJP CORE;
+* sin capacidad para modificar el modelo maestro de Lukita.
+
+La primera pantalla deberá mostrar:
+
+> **VER A LUKITA EN MI ESPACIO**
+
+y explicar claramente el permiso de cámara.
+
+Debe existir fallback a:
+
+> **VISOR 3D SIN AR**
+
+cuando el dispositivo no soporte la experiencia AR requerida.
+
+---
+
+# 20. AR STAGE — CAPACIDADES
+
+La primera versión debe soportar:
+
+* colocación en plano horizontal/vertical;
+* escala;
+* rotación;
+* zoom;
+* recentrado;
+* cuerpo completo;
+* busto;
+* rostro;
+* expresiones;
+* animaciones;
+* iluminación adaptable;
+* pausa;
+* ocultar;
+* salir.
+
+La interfaz debe ser minimalista.
+
+No saturar la pantalla con controles.
+
+---
+
+# 21. TECNOLOGÍA DEL VISOR
+
+Evaluar como base:
+
+**WebXR**, con fallback compatible según capacidades del dispositivo.
+
+Usar:
+
+* GLB/glTF;
+* compresión Draco y/o Meshopt;
+* texturas comprimidas;
+* carga progresiva;
+* LOD;
+* optimización de geometría;
+* optimización de memoria;
+* iluminación adaptable.
+
+La implementación debe priorizar:
+
+**iOS + Android + navegadores móviles modernos.**
+
+---
+
+# 22. PERFORMANCE
+
+Lukita debe tener diferentes niveles de representación:
+
+```text
+DISTANT LOD
+    ↓
+MEDIUM LOD
+    ↓
+FULL LOD
+```
+
+La optimización debe ser automática.
+
+La calidad visual aumenta cuando la interacción lo requiere, sin sacrificar rendimiento.
+
+Separar conceptualmente:
+
+### PERFORMANCE
+
+LOD, polígonos, texturas, carga, memoria.
+
+### INTERACTION
+
+comportamiento, escala, audio, expresiones, respuesta al usuario.
+
+No mezclar ambas responsabilidades.
+
+---
+
+# 23. AUDIO / LUKITA SOUND IDENTITY
+
+El audio debe ser parte de la identidad de Lukita.
+
+Crear:
+
+### LUKITA SOUND
+
+Firma sonora breve.
+
+### LUKITA THEME
+
+Tema principal.
+
+### LUKITA SONGS
+
+Pistas completas para experiencias, eventos y contenido.
+
+La identidad sonora debe ser reconocible incluso sin ver a Lukita.
+
+---
+
+# 24. ACTIVACIÓN DEL AUDIO
+
+Flujo:
+
+```text
+QR
+ ↓
+WEB / PWA
+ ↓
+ACTIVAR EXPERIENCIA
+ ↓
+CAMERA
+ ↓
+DETECCIÓN / ORIENTACIÓN HACIA LUKITA
+ ↓
+LUKITA SOUND
+ ↓
+ANIMATION
+ ↓
+EXPERIENCE
+```
+
+No asumir autoplay de audio sin interacción del usuario.
+
+El primer gesto del usuario debe habilitar el audio cuando sea requerido por las políticas del navegador.
+
+---
+
+# 25. AUDIO SEGÚN DISTANCIA
+
+El sistema podrá utilizar:
+
+```text
+500–1000 m
+ambient / discovery
+
+100 m
+approach
+
+30 m
+main rhythm
+
+5 m
+full experience
+```
+
+No hacer que la música simplemente aumente de volumen sin control.
+
+La transición debe sentirse narrativa.
+
+---
+
+# 26. MASCOTA + AUDIO
+
+La mascota puede tener una firma sonora propia.
+
+Ejemplo conceptual:
+
+```text
+LUKITA APPEARS
+→ LUKITA SOUND
+
+MASCOT APPEARS
+→ MASCOT SOUND
+
+MASCOT JUMPS
+→ EFFECT
+
+LUKITA REACTS
+→ RESPONSE
+```
+
+Esto permitirá desarrollar posteriormente un lenguaje audiovisual propio.
+
+---
+
+# 27. FOTO Y VIDEO
+
+La fotografía no es una funcionalidad secundaria.
+
+Debe ser parte del diseño de Experience.
+
+Crear:
+
+## LUKITA PHOTO SPOT
+
+Debe permitir:
+
+* selfie;
+* fotografía familiar;
+* video;
+* poses;
+* interacción con mascota;
+* poses especiales;
+* composición espacial.
+
+Diseñar la experiencia **desde la fotografía final hacia atrás**.
+
+---
+
+# 28. POSES
+
+Crear un sistema de poses:
+
+```text
+HUG
+SELFIE
+SUPERSTAR
+POP STAR
+HEART
+GREETING
+KIDS LEVEL
+CELEBRATION
+```
+
+La pose debe ser una acción del personaje, no solamente una transformación estática.
+
+---
+
+# 29. KIDS Y FAMILIAS
+
+Lukita debe ser:
+
+* atractiva para niños;
+* cool para jóvenes;
+* apropiada para familias;
+* suficientemente sofisticada para universidades y marcas.
+
+Evitar sexualización.
+
+Lukita debe poder interactuar físicamente de manera narrativa con niños mediante:
+
+> **KIDS LEVEL BEHAVIOR**
+
+Por ejemplo:
+
+```text
+Lukita 2 m
+    ↓
+detecta contexto infantil
+    ↓
+se agacha / baja su lenguaje corporal
+    ↓
+interactúa a escala infantil
+```
+
+---
+
+# 30. CAMPAIGN
+
+Crear Campaign como entidad de primera clase.
+
+```text
+CAMPAIGN
+│
+├── Experiences
+├── Places
+├── Content
+├── Sponsors
+├── Offers
+├── Schedule
+└── Analytics
+```
+
+Esto permite separar:
+
+**infraestructura permanente**
+
+de:
+
+**activaciones temporales.**
+
+Ejemplo:
+
+```text
+LUKITA VUELVE A CLASES
+LUKITA NAVIDAD
+LUKITA TURISMO
+LUKITA FESTIVAL
+```
+
+---
+
+# 31. BUSINESS
+
+No utilizar simplemente "Publicidad" como objetivo comercial.
+
+El modelo conceptual debe ser:
+
+# DISCOVERY → ACTION → CONVERSION
+
+Ejemplo:
+
+```text
+LUKITA
+ ↓
+EXPERIENCE
+ ↓
+DISCOVERY
+ ↓
+BUSINESS
+ ↓
+OFFER
+ ↓
+VISIT
+ ↓
+CONVERSION
+```
+
+Analytics deberá poder medir posteriormente:
+
+* impressions;
+* scans;
+* activations;
+* engagement;
+* clicks;
+* directions;
+* redemptions;
+* visits;
+* conversions.
+
+---
+
+# 32. COMMUNITY
+
+La experiencia podrá evolucionar posteriormente hacia:
+
+* usuarios;
+* visitas;
+* fotografías;
+* shares;
+* passport;
+* hunt;
+* rutas;
+* UGC.
+
+No implementar todo en el piloto.
+
+Preparar la arquitectura.
+
+---
+
+# 33. ANALYTICS
+
+Crear trazabilidad de:
+
+```text
+EXPOSURE
+ ↓
+SCAN
+ ↓
+ACTIVATION
+ ↓
+AR
+ ↓
+ENGAGEMENT
+ ↓
+PHOTO
+ ↓
+SHARE
+ ↓
+VISIT
+ ↓
+ACTION
+ ↓
+CONVERSION
+```
+
+Definir conceptualmente:
+
+## LUKITA MAGNETICITY
+
+Indicador de la capacidad de Lukita para:
+
+> atraer → activar → desplazar → involucrar → convertir.
+
+No es necesario implementar inicialmente un algoritmo complejo.
+
+Primero instrumentar correctamente los eventos.
+
+---
+
+# 34. IDENTIDAD DEL MODELO
+
+Crear:
+
+## IDENTITY LOCK TEST
+
+Debe verificar que:
+
+* rostro;
+* proporciones;
+* colores;
+* elementos icónicos;
+* vestimenta base;
+* estrella/núcleo;
+
+mantengan la identidad de Lukita.
+
+Este mecanismo es de validación.
+
+No debe permitir que una Experience modifique el modelo maestro.
+
+---
+
+# 35. GOBERNANCE
+
+Separar:
+
+```text
+MASTER LUKITA
+        │
+        ├── Character Bible
+        ├── Master 3D
+        ├── Identity
+        └── IP Rules
+                 │
+                 ▼
+          EXPERIENCE INSTANCE
+                 │
+                 ├── animation
+                 ├── costume variant
+                 ├── sound
+                 ├── context
+                 └── behavior
+```
+
+Una Experience nunca debe alterar irreversiblemente el Master.
+
+---
+
+# 36. VERSIONADO
+
+Todo elemento relevante debe poder versionarse:
+
+```text
+Lukita Master
+Experience
+Campaign
+Content
+Behavior
+Sound
+AR Asset
+```
+
+Las experiencias deben poder evolucionar sin romper experiencias anteriores.
+
+---
+
+# 37. UPAO — FIRST EXPERIENCE
+
+El primer caso de uso debe mantenerse extremadamente simple:
+
+```text
+UPAO
+  ↓
+LUKITA LIVE POINT #001
+  ↓
+QR
+  ↓
+MOBILE WEB
+  ↓
+ACTIVATE EXPERIENCE
+  ↓
+CAMERA
+  ↓
+DISCOVER LUKITA
+  ↓
+LUKITA AR
+  ↓
+SCALE + BEHAVIOR
+  ↓
+MUSIC
+  ↓
+MASCOT
+  ↓
+PHOTO / VIDEO
+  ↓
+SHARE
+  ↓
+ANALYTICS
+```
+
+No implementar inicialmente:
+
+* marketplace;
+* pagos;
+* rutas complejas;
+* red nacional;
+* multijugador;
+* voice AI avanzado;
+* lip-sync avanzado;
+* funcionalidades no necesarias para validar la experiencia.
+
+---
+
+# 38. SEPARACIÓN ABSOLUTA DE MJP CORE
+
+MiLukita debe mantenerse arquitectónicamente separada de:
+
+**MJP CORE**
+
+No permitir:
+
+```text
+MJP CORE
+    ↓
+LUKITA AR
+```
+
+ni:
+
+```text
+LUKITA
+    ↓
+MJP CORE
+```
+
+sin una interfaz explícitamente definida en una fase futura.
+
+El visor AR, Controller Lab, Experience Engine y Lukita IP deben operar dentro del dominio MiLukita.
+
+---
+
+# 39. ESTADOS DEL ROADMAP
+
+## 🟢 NOW
+
+Arquitectura + piloto:
+
+* Lukita IP
+* Character Bible
+* Master 3D
+* Web/PWA
+* Place
+* Experience
+* Lukita Live Point
+* Campaign base
+* Content
+* QR
+* WebAR/WebXR
+* Lukita AR Stage
+* AR Asset
+* Scale Engine
+* Behavior Engine base
+* Sound Identity
+* Mascot
+* Photo/Video
+* Analytics
+* Identity Lock Test
+* Audit
+* Feature Flags
+* Environment separation
+* MJP CORE isolation
+
+---
+
+## 🟡 NEXT
+
+* GeoExperience avanzado
+* geofencing
+* múltiples Lukita Live Points
+* mapa
+* Discovery
+* Business Profiles
+* Offers
+* Events
+* Passport
+* social integration
+* rutas
+* primer piloto físico
+
+---
+
+## 🟠 PLANNED
+
+* Lukita Hunt
+* Lukita Sky
+* Lukita Portal
+* Time Machine
+* Tourism Network
+* Partner Portal
+* Sponsored Experiences
+* Business Analytics
+* Commerce
+* UGC avanzado
+* personalization
+
+---
+
+## 🔴 FUTURE
+
+* red nacional de Lukita Points;
+* Partner Lukita Network;
+* spatial persistence avanzada;
+* computer vision;
+* VPS;
+* experiencias multiusuario;
+* wearables;
+* smart glasses;
+* marketplace;
+* inteligencia predictiva avanzada.
+
+---
+
+# 40. DISABLED
+
+Estas capacidades deben permanecer explícitamente deshabilitadas:
+
+```text
+REAL-MONEY AR
+AR WALLET
+AR PRIZE SETTLEMENT
+AR RESULT GENERATION
+AR RNG
+AUTONOMOUS AR ACTIVATION
+AUTONOMOUS PRODUCTION
+BACKGROUND LOCATION
+UNCONTROLLED TRACKING
+```
+
+No deben aparecer accidentalmente en el piloto.
+
+---
+
+# 41. PRINCIPIO DE ESCALABILIDAD
+
+No fabricar una nueva arquitectura para cada Lukita.
+
+El sistema debe permitir:
+
+```text
+LUKITA INSTANCE
+        +
+PLACE
+        +
+EXPERIENCE
+        +
+CAMPAIGN
+        +
+CONTENT
+        +
+SPATIAL
+```
+
+Esto permitirá posteriormente:
+
+```text
+Lukita UPAO
+Lukita Huanchaco
+Lukita Chan Chan
+Lukita Hotel
+Lukita Restaurant
+Lukita Museum
+Lukita Event
+Lukita Brand
+Lukita Tourism
+```
+
+Todos utilizando el mismo núcleo.
+
+---
+
+# 42. PRINCIPIO NARRATIVO
+
+No presentar:
+
+> "Escanea para ver un modelo 3D."
+
+Presentar:
+
+> **"Busca a Lukita."**
+
+Y conceptualmente:
+
+> **"No busques una estatua. Busca a Lukita."**
+
+Lukita puede viajar.
+
+Puede aparecer en distintos lugares.
+
+Puede tener distintas experiencias.
+
+Pero sigue siendo la misma Lukita.
+
+---
+
+# 43. PRINCIPIO FINAL DE PRODUCTO
+
+MiLukita no vende:
+
+* una estatua;
+* un QR;
+* AR;
+* una aplicación;
+* publicidad.
+
+MiLukita debe evolucionar hacia:
+
+> **una red de experiencias físicas y digitales que conecta personas con lugares, contenido y negocios mediante la presencia de Lukita.**
+
+La Lukita es el elemento emocional.
+
+La Experience es la unidad de producto.
+
+El Place es el contexto.
+
+Spatial/AR es la capa de presencia.
+
+Analytics es la medición.
+
+Business es la monetización.
+
+La IP es el activo estratégico.
+
+---
+
+# 44. ORDEN DE IMPLEMENTACIÓN PARA MANUS
+
+No construir todo simultáneamente.
+
+### FASE 1 — FOUNDATION
+
+Implementar y validar:
+
+```text
+Lukita IP
+Place
+Experience
+Lukita Live Point
+Campaign
+Content
+AR Asset
+```
+
+### FASE 2 — LUKITA AR STAGE
+
+Implementar:
+
+```text
+QR
+ ↓
+PWA
+ ↓
+Activate Experience
+ ↓
+Camera
+ ↓
+WebXR / fallback
+ ↓
+Lukita placement
+ ↓
+Scale
+ ↓
+Animation
+```
+
+### FASE 3 — LIVING LUKITA
+
+Implementar:
+
+```text
+Behavior Engine
+Distance
+Orientation
+Scale
+Expressions
+Mascot
+Sound
+```
+
+### FASE 4 — UPAO EXPERIENCE
+
+Integrar todo:
+
+```text
+UPAO
+ ↓
+Lukita Live Point #001
+ ↓
+QR
+ ↓
+Discovery
+ ↓
+Approach
+ ↓
+Lukita Giant
+ ↓
+Growing
+ ↓
+Personal
+ ↓
+Sound
+ ↓
+Mascot
+ ↓
+Photo
+ ↓
+Share
+ ↓
+Analytics
+```
+
+### FASE 5 — VALIDATION
+
+Validar:
+
+* identidad;
+* rendimiento;
+* escala;
+* estabilidad;
+* experiencia de usuario;
+* cámara;
+* audio;
+* comportamiento;
+* iOS;
+* Android;
+* fallback 3D;
+* analytics;
+* aislamiento de MJP CORE.
+
+---
+
+# 45. CRITERIO DE ÉXITO
+
+El piloto no debe evaluarse preguntando:
+
+> "¿Funciona el AR?"
+
+Debe evaluarse preguntando:
+
+> **"¿La persona siente que encontró a Lukita?"**
+
+Y medir:
+
+```text
+VER
+ ↓
+ACERCARSE
+ ↓
+ENCONTRAR
+ ↓
+INTERACTUAR
+ ↓
+FOTOGRAFIAR
+ ↓
+COMPARTIR
+ ↓
+VOLVER
+```
+
+El objetivo final del piloto es demostrar que:
+
+> **Lukita puede convertirse en una presencia digital viva capaz de atraer personas hacia una experiencia física/espacial y generar interacción medible.**
+
+---
+
+# 46. INSTRUCCIÓN FINAL A MANUS
+
+Antes de implementar funcionalidades adicionales:
+
+1. **No romper la arquitectura Experience-First.**
+2. **No convertir Lukita AR Stage en un producto aislado.**
+3. **No crear código específico innecesario para UPAO.**
+4. **No modificar el Master Lukita desde una Experience.**
+5. **No conectar directamente con MJP CORE.**
+6. **No implementar funcionalidades FUTURE/DISABLED.**
+7. **Mantener separación entre Foundation, Experience, Spatial, Behavior, Audio, Analytics y Governance.**
+8. **Priorizar la experiencia perceptual sobre la cantidad de funcionalidades.**
+9. **Toda nueva funcionalidad debe preguntarse primero: ¿es una capacidad del Experience Engine o una excepción específica?**
+10. **Si es una excepción específica de UPAO, no incorporarla al core salvo justificación arquitectónica explícita.**
+
+### PRINCIPIO MAESTRO
+
+> **Construir ahora una experiencia pequeña que tenga la arquitectura de una red global.**
+
+El objetivo no es demostrar que podemos poner una Lukita 3D en una pantalla.
+
+El objetivo es demostrar que:
+
+> **Lukita puede aparecer en el mundo, tener presencia, movimiento, personalidad, sonido, escala, comportamiento y capacidad de atraer a las personas hacia una experiencia.**
+
+Ese es el producto que debe validar UPAO.

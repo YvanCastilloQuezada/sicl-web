@@ -1,0 +1,20 @@
+{
+  "schema": "ARKI-AKI001-MANIFEST-1.0",
+  "status": "VERIFIED AS DIAGNOSTIC AUDIT",
+  "core_modified": false,
+  "bkh_modified": false,
+  "new_sources_consulted": false,
+  "files": [
+    {"path":"AKI001_EXECUTIVE_SUMMARY.md","bytes":3080,"sha256":"c9566027d9089b2205f37a223b4fef9d3aeef32ec9cca1acc631070df4d30c5a"},
+    {"path":"AKI001_HISTORICAL_CURRICULUM.md","bytes":3418,"sha256":"bd34817139e87535224c2040aee9ceeb22521a0df3cea42e973093da9064aa18"},
+    {"path":"AKI001_KNOWLEDGE_INVENTORY.md","bytes":3358,"sha256":"a2c97c27b02b5100c22f77fcbe902ef70b11a468baf7d620d7441e083d18206c"},
+    {"path":"AKI001_COMPETENCY_MATRIX.md","bytes":2470,"sha256":"41840a4960d954f425f9bfdf91d7869e0e9aad2051156100388ab1a7513129a1"},
+    {"path":"AKI001_MULTISCALE_KNOWLEDGE_MAP.md","bytes":2178,"sha256":"ef067b732a7403651d27cad53687ddf1df6a149753035c75d99eccc9829e4ddd"},
+    {"path":"AKI001_ARCHITECT_MENTOR_KNOWLEDGE.md","bytes":2946,"sha256":"888cea1135b2702c586f7ff06f705b6374beccce3f9f726452cb9feaa12867d6"},
+    {"path":"AKI001_KNOWLEDGE_GAPS.md","bytes":2080,"sha256":"19945811d2c0e7215b04681a116fbe280f49fb98c887d4984c24744032e35484"},
+    {"path":"AKI001_FUTURE_CURRICULUM_PROPOSAL.md","bytes":1978,"sha256":"bc17c45784057781e6557db7ac62d51e2a041b4dd41b24bb0b75940fff76fd4b"},
+    {"path":"AKI001_EVIDENCE_INDEX.md","bytes":2291,"sha256":"9db3f12814ad93590ed7b2a3a4ce108314cd7558fac3dcbadcd404fb271e11f8"},
+    {"path":"AKI001_REPORT.md","bytes":2108,"sha256":"c17621c46c44a511e0dc2bec8750089f97fdb65427c1a9f9198f064ac1bdae1a"},
+    {"path":"AKI001_LOCAL_INVENTORY_RAW.txt","bytes":57768,"sha256":"d3c8d69d20031eb5d8b85963091b9011079c5552c91b260c005950f65f6058a9"}
+  ]
+}

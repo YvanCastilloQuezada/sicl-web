@@ -1,0 +1,147 @@
+
+> arki-living-assembly@0.2.0 roadmap
+> npm run build && node dist/src/roadmapCli.js examples/roadmap.json
+
+
+> arki-living-assembly@0.2.0 build
+> tsc -p tsconfig.json
+
+{
+  "schema": "ARKI-CRITICAL-PATH-1",
+  "goal": {
+    "id": "ARKI_ASSEMBLY",
+    "statement": "Ensamblar capacidades existentes en el árbol de 10 fases, verificando dependencias y aprobación humana",
+    "acceptance": [
+      "Contratos respetados",
+      "Regresión fases 1-10",
+      "Aprobación humana"
+    ],
+    "targetActivities": [
+      "HUMAN_GATE"
+    ]
+  },
+  "duration": 14,
+  "criticalPath": [
+    "CONSTITUTION",
+    "INVENTORY",
+    "DEPENDENCIES",
+    "EXPERIMENT",
+    "OPTIONS",
+    "HUMAN_GATE"
+  ],
+  "activities": [
+    {
+      "id": "CONSTITUTION",
+      "phase": 1,
+      "predecessors": [],
+      "successors": [
+        "INVENTORY"
+      ],
+      "earliestStart": 0,
+      "earliestFinish": 2,
+      "latestStart": 0,
+      "latestFinish": 2,
+      "slack": 0,
+      "critical": true,
+      "ready": false,
+      "blockers": []
+    },
+    {
+      "id": "INVENTORY",
+      "phase": 2,
+      "predecessors": [
+        "CONSTITUTION"
+      ],
+      "successors": [
+        "DEPENDENCIES"
+      ],
+      "earliestStart": 2,
+      "earliestFinish": 5,
+      "latestStart": 2,
+      "latestFinish": 5,
+      "slack": 0,
+      "critical": true,
+      "ready": true,
+      "blockers": []
+    },
+    {
+      "id": "DEPENDENCIES",
+      "phase": 3,
+      "predecessors": [
+        "INVENTORY"
+      ],
+      "successors": [
+        "EXPERIMENT"
+      ],
+      "earliestStart": 5,
+      "earliestFinish": 7,
+      "latestStart": 5,
+      "latestFinish": 7,
+      "slack": 0,
+      "critical": true,
+      "ready": false,
+      "blockers": [
+        "PREDECESSOR_NOT_VERIFIED:INVENTORY"
+      ]
+    },
+    {
+      "id": "EXPERIMENT",
+      "phase": 4,
+      "predecessors": [
+        "DEPENDENCIES"
+      ],
+      "successors": [
+        "OPTIONS"
+      ],
+      "earliestStart": 7,
+      "earliestFinish": 11,
+      "latestStart": 7,
+      "latestFinish": 11,
+      "slack": 0,
+      "critical": true,
+      "ready": false,
+      "blockers": [
+        "PREDECESSOR_NOT_VERIFIED:DEPENDENCIES"
+      ]
+    },
+    {
+      "id": "OPTIONS",
+      "phase": 5,
+      "predecessors": [
+        "EXPERIMENT"
+      ],
+      "successors": [
+        "HUMAN_GATE"
+      ],
+      "earliestStart": 11,
+      "earliestFinish": 13,
+      "latestStart": 11,
+      "latestFinish": 13,
+      "slack": 0,
+      "critical": true,
+      "ready": false,
+      "blockers": [
+        "PREDECESSOR_NOT_VERIFIED:EXPERIMENT"
+      ]
+    },
+    {
+      "id": "HUMAN_GATE",
+      "phase": 6,
+      "predecessors": [
+        "OPTIONS"
+      ],
+      "successors": [],
+      "earliestStart": 13,
+      "earliestFinish": 14,
+      "latestStart": 13,
+      "latestFinish": 14,
+      "slack": 0,
+      "critical": true,
+      "ready": false,
+      "blockers": [
+        "PREDECESSOR_NOT_VERIFIED:OPTIONS"
+      ]
+    }
+  ],
+  "status": "BLOCKED"
+}

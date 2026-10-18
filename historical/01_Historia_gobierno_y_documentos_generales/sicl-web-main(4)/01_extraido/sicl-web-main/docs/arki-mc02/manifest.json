@@ -1,0 +1,21 @@
+{
+  "master": "ARKI_MASTER_FROZEN_FUTURE_ORDERS_REGISTER.xlsx",
+  "generated_at": "2026-09-21T04:21:10.305334+00:00",
+  "ffo_count": 13,
+  "additional_count": 3,
+  "map_count": 13,
+  "unknown_ffos": [
+    "FFO-01",
+    "FFO-04",
+    "FFO-05",
+    "FFO-06",
+    "FFO-07",
+    "FFO-08",
+    "FFO-09",
+    "FFO-10",
+    "FFO-11"
+  ],
+  "gate": "GATE_FROZEN_ARCHITECTURE_PRESERVED = PASS",
+  "executed_ffos": [],
+  "stop_after_mc02": true
+}

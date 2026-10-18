@@ -1,0 +1,193 @@
+ORDEN A MANUS — LOCALIZACIÓN Y ENTREGA DE LINKS DE MAPPER, THE EYE Y QR
+
+Necesito que me entregues los links/rutas exactas donde actualmente pueden visualizarse las interfaces existentes de:
+
+MAPPER
+THE EYE
+SISTEMA QR / L★
+1. No desarrolles nada todavía
+
+Esta orden es exclusivamente de localización, identificación y verificación técnica de las interfaces existentes.
+
+No modifiques código, arquitectura, base de datos, MJP CORE ni ninguna otra funcionalidad.
+
+2. Para cada interfaz necesito
+
+Indica:
+
+Nombre
+URL/ruta exacta
+Si requiere login
+Rol requerido
+Si funciona en navegador
+Si es responsive/mobile
+Si es una maqueta visual o una interfaz funcional
+Qué acciones realmente funcionan
+Qué acciones son solamente visuales/mock
+Qué datos son reales/persistentes
+Qué datos son simulados
+Qué backend/API utiliza
+Qué pantalla o componente la contiene
+Archivo(s) principales donde está implementada
+3. Entrega específicamente los links
+
+Quiero algo de este tipo:
+
+MAPPER
+URL: http://localhost:XXXX/mapper
+Ruta: /mapper
+Estado: ...
+Login: ...
+Rol: ...
+THE EYE
+URL: http://localhost:XXXX/the-eye
+Ruta: /the-eye
+Estado: ...
+Login: ...
+Rol: ...
+L★ / QR
+URL: http://localhost:XXXX/...
+Ruta: ...
+Estado: ...
+
+Si existen varias versiones, entrégamelas todas y señala cuál es la versión actualmente integrada.
+
+4. IMPORTANTE: distinguir MAQUETA de FUNCIONALIDAD REAL
+
+No utilices simplemente etiquetas como:
+
+READY
+COMPLETE
+IMPLEMENTED
+PRODUCTION READY
+
+sin comprobarlo.
+
+Para cada pantalla determina concretamente:
+
+A. VISUAL
+
+La pantalla existe.
+La navegación existe.
+Los botones aparecen.
+
+B. FUNCIONAL
+
+El botón ejecuta realmente una acción.
+La acción llega al backend cuando corresponde.
+Los datos se guardan realmente.
+La información reaparece después de recargar.
+Los estados cambian realmente.
+
+C. PERSISTENTE
+
+Confirmar si la información sobrevive a refresh/reinicio.
+Confirmar si existe persistencia en DB/local storage/cola offline, según corresponda.
+5. Para MAPPER
+
+Comprueba específicamente si existen y funcionan realmente:
+
+/mapper
+listado de sesiones
+crear sesión
+abrir sesión
+GPS
+captura de coordenadas
+captura/fotografía
+observación
+creación de WorldObject
+edición
+guardado
+evidencia
+estado de captura
+offline
+sincronización
+conflictos
+envío hacia The Eye
+QR de sesión, si existe
+6. Para THE EYE
+
+Comprueba específicamente:
+
+/the-eye
+cola de revisión
+apertura de expediente/dossier
+Claims
+Sources
+Evidence
+Evidence Matrix
+comparación local/remoto
+conflictos
+decisiones
+persistencia de decisiones
+auditoría
+separación VERIFIED / PUBLISHED
+Human Authority
+publicación
+restricciones RBAC
+7. Para L★ / QR
+
+Comprueba:
+
+presencia de L★ en el shell móvil
+ubicación
+pulsación corta
+pulsación larga
+generación del QR
+QR público
+QR contextual
+QR de sesión, si existe
+expiración/revocación
+restauración de pantalla después de cerrar QR
+Web Share, si existe
+comportamiento offline
+controles de autorización
+8. Entrega también un mapa de rutas
+
+Por ejemplo:
+
+ROUTES ACTUALES
+
+/mapper
+/the-eye
+/...
+/...
+
+Y señala cuáles son:
+
+🟢 FUNCIONALES
+🟡 PARCIALES
+🟠 MOCK / MAQUETA
+🔴 NO EXISTEN
+⚪ NO VERIFICADO
+
+9. Prueba mínima obligatoria
+
+No te limites a buscar nombres de archivos.
+
+Abre/ejecuta las rutas y verifica que efectivamente sean accesibles.
+
+Si alguna ruta solamente existe en código pero no puede abrirse, indícalo expresamente.
+
+Si existe una pantalla pero sus botones no tienen implementación real, clasifícala como MAQUETA/PARCIAL, no como funcional.
+
+10. Resultado final
+
+Entrega un informe breve con:
+
+1. LINKS EXACTOS
+2. ESTADO REAL DE CADA INTERFAZ
+3. QUÉ ES MAQUETA
+4. QUÉ ES FUNCIONAL
+5. QUÉ ES SIMULADO
+6. ARCHIVOS PRINCIPALES
+7. RUTAS
+8. BLOQUEADORES
+
+NO hagas todavía ninguna implementación nueva.
+
+El objetivo de esta orden es que ChatGPT pueda acceder posteriormente a las interfaces que me indiques y realizar una verificación independiente, comparando lo que afirmas con lo que realmente existe.
+
+MJP CORE permanece completamente intacto.
+
+Cuando Manus te entregue ese informe, pégamelo íntegro aquí. Yo revisaré los links/rutas y, si son accesibles desde mi entorno, comprobaré directamente Mapper, The Eye y QR, y te diré dónde Manus está describiendo una funcionalidad real y dónde todavía hay una maqueta.

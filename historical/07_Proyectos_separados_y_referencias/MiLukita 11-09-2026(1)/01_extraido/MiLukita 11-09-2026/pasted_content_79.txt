@@ -1,0 +1,1549 @@
+ORDEN MAESTRA PARA MANUS
+MILUKITA — REORIENTACIÓN ESTRATÉGICA, CONSOLIDACIÓN Y OPERACIÓN
+
+ID: MILUKITA-MASTER-DIRECTIVE-2026-08-27
+Prioridad: MÁXIMA
+Tipo: Arquitectura + Integración + Consolidación + Operación
+Estado: EJECUTAR
+Autoridad de diseño: Dirección técnica de MiLukita / ChatGPT
+Objetivo: Transformar el proyecto actual en un sistema coherente de Interactive Entertainment Network / Entertainment OS, pausando temporalmente toda expansión no esencial.
+
+0. DECLARACIÓN DE CAMBIO DE DIRECCIÓN
+
+A partir de esta orden queda modificada la prioridad del proyecto.
+
+ANTES
+
+La evolución podía interpretarse como:
+
+JUEGOS
++
+TV
++
+QR
++
+IA
++
+AVATAR
++
+AGENTES
++
+COMERCIAL
++
+DISTRIBUCIÓN
++
+OTRAS FUNCIONES
+
+Esto produjo capacidad tecnológica, pero también riesgo de dispersión.
+
+AHORA
+
+MiLukita debe desarrollarse como:
+
+MILUKITA
+Autonomous Interactive Entertainment Network
+
+con una arquitectura central:
+
+                    MILUKITA
+                        │
+                ENTERTAINMENT OS
+                        │
+       ┌────────────────┼────────────────┐
+       │                │                │
+ EXPERIENCE          BUSINESS          AGENT
+       OS               OS               OS
+       │                │                │
+       └────────────────┼────────────────┘
+                        │
+                 GOVERNANCE OS
+                        │
+                        ↓
+                   MJP CORE
+                 PROTECTED CORE
+
+La prioridad ya no es construir más módulos.
+
+La prioridad es:
+
+HACER QUE LO EXISTENTE FUNCIONE COMO UN SOLO SISTEMA COHERENTE, OBSERVABLE, RESILIENTE, MEDIBLE Y OPERABLE 24/7.
+
+1. NUEVA DEFINICIÓN OFICIAL DE MILUKITA
+
+MANUS deberá actualizar la documentación arquitectónica para utilizar esta definición:
+
+MiLukita es una plataforma de entretenimiento interactivo diseñada como un Entertainment OS, que integra contenido, eventos, juegos, televisión lineal, Web, móvil, QR, avatar digital, inteligencia artificial, analítica, monetización y distribución multiplataforma. Su operación se apoya en agentes especializados con autoridad limitada, gobernanza, auditoría y recuperación, mientras MJP CORE mantiene una frontera técnica independiente para proteger la integridad de los juegos y las transacciones.
+
+Nombre estratégico:
+
+MiLukita — Autonomous Interactive Entertainment Network
+
+No presentar esta denominación como prueba de autonomía productiva completa hasta que se supere la validación operacional correspondiente.
+
+2. ARQUITECTURA OFICIAL
+
+La arquitectura deberá quedar organizada así:
+
+                         MILUKITA
+                            │
+                 ┌──────────┴──────────┐
+                 │                     │
+              PRODUCTS             OPERATING OS
+                 │                     │
+        ┌────────┴────────┐      ENTERTAINMENT OS
+        │                 │             │
+MiLukita.com       MiLukita LIVE       │
+        │                 │             │
+ Interactive           Linear           │
+        │             24/7             │
+        └────────┬────────┘             │
+                 │                      │
+                QR                 AGENT OS
+                 │                      │
+              MOBILE              GOVERNANCE OS
+                                        │
+                                        ↓
+                                  MJP CORE
+3. LOS CINCO ELEMENTOS CENTRALES
+
+Quedan establecidos como núcleo conceptual:
+
+3.1 MiLukita.com
+
+Interactive Entertainment Platform
+
+Responsable de:
+
+Web;
+móvil;
+interacción;
+QR;
+eventos;
+cuentas;
+experiencia digital.
+3.2 MiLukita LIVE
+
+Interactive Linear Entertainment Network
+
+Responsable de:
+
+programación;
+señal lineal;
+eventos;
+segmentos;
+Lukita;
+publicidad;
+patrocinio;
+QR;
+conexión TV → móvil.
+3.3 Lukita
+
+Digital Host & Brand Interface
+
+Lukita:
+
+presenta;
+explica;
+guía;
+narra;
+promociona;
+interactúa;
+representa la identidad de marca.
+
+Lukita NO puede:
+
+generar resultados;
+modificar RNG;
+modificar RTP;
+modificar wallet;
+modificar ledger;
+modificar settlement;
+alterar resultados;
+declarar como hecho información no autorizada.
+3.4 Entertainment OS
+
+Es el sistema operativo de entretenimiento.
+
+Debe coordinar:
+
+contenidos;
+eventos;
+programación;
+experiencias;
+audiencia;
+QR;
+LIVE;
+Lukita;
+analítica;
+interacción;
+agentes.
+3.5 MJP CORE
+
+MJP CORE continúa como:
+
+TRUST & GAME INTEGRITY CORE
+
+Debe proteger:
+
+RNG;
+reglas;
+resultados;
+RTP;
+wallet;
+ledger;
+settlement;
+auditoría;
+integridad transaccional.
+4. REGLA CONSTITUCIONAL DE AUTORIDAD
+
+Implementar explícitamente:
+
+AGENT ≠ AUTHORITY
+
+Los agentes pueden:
+
+READ
+ANALYZE
+PROPOSE
+REQUEST
+MONITOR
+REPORT
+
+pero las operaciones críticas deberán estar sujetas a:
+
+POLICY
++
+AUTHORITY
++
+PERMISSION
++
+AUDIT
+
+Ningún agente podrá obtener autoridad implícita por el simple hecho de tener acceso técnico a una API.
+
+5. AISLAMIENTO ABSOLUTO DE MJP CORE
+
+Esta regla es P0.
+
+CONTENT
+EXPERIENCE
+BUSINESS
+DISTRIBUTION
+AGENTS
+       │
+       ↓
+AUTHORIZED APIs
+       │
+       ↓
+MJP CORE
+
+Nunca:
+
+AGENT
+ ↓
+DATABASE DIRECT ACCESS
+ ↓
+MJP CORE
+
+Ni:
+
+LLM
+ ↓
+CORE
+
+Ni:
+
+LUKITA
+ ↓
+RESULT
+6. REGLAS DE SUPERVIVENCIA
+
+Implementar y probar estas invariantes:
+
+Regla A
+COMMERCIAL FAILURE
+        ↓
+ENTERTAINMENT CONTINUES
+Regla B
+DISTRIBUTION FAILURE
+        ↓
+MASTER EXPERIENCE CONTINUES
+Regla C
+LUKITA FAILURE
+        ↓
+MILUKITA CONTINUES
+Regla D
+AI FAILURE
+        ↓
+DEGRADED EXPERIENCE
+        ↓
+NOT CORE FAILURE
+Regla E
+MJP CORE FAILURE
+        ↓
+CRITICAL
+        ↓
+NO FALSE SUCCESS
+7. NUEVA ORGANIZACIÓN DE AGENTES
+
+No crear agentes simplemente para aumentar el número de agentes.
+
+Los agentes deben existir porque tienen:
+
+función;
+entradas;
+salidas;
+autoridad;
+límites;
+KPI;
+auditoría;
+escalamiento.
+8. AGENT OS
+
+Consolidar los agentes existentes en categorías.
+
+EXPERIENCE
+Experience / UX Intelligence Agent
+Content Agent
+Lukita Agent
+Audience Intelligence Agent
+BUSINESS
+Financial, Accounting & Tax Intelligence Agent
+Revenue Agent
+Marketing Agent
+Sales Agent
+Distribution Agent
+GOVERNANCE
+Auditor Agent
+Watchdog
+Recovery Agent
+Supervisor Agent
+9. FINANCIAL, ACCOUNTING & TAX INTELLIGENCE AGENT
+
+Crear/consolidar:
+
+Financial, Accounting & Tax Intelligence Agent
+
+No utilizarlo simplemente como "agente contable".
+
+Debe separar:
+
+ACCOUNTING
+FINANCE
+TAX INTELLIGENCE
+JURISDICTION ANALYSIS
+9.1 Accounting
+
+Debe analizar:
+
+ingresos;
+gastos;
+activos;
+pasivos;
+cuentas por cobrar;
+cuentas por pagar;
+conciliaciones;
+cierres;
+estados financieros;
+excepciones.
+9.2 Finance
+
+Debe calcular:
+
+cash balance;
+operating cash flow;
+free cash flow;
+burn rate;
+runway;
+gross margin;
+contribution margin;
+EBITDA;
+working capital;
+CAC;
+LTV;
+ARPU;
+revenue/event;
+revenue/hour;
+revenue/channel.
+10. TRANSACTION CLASSIFICATION ENGINE
+
+Implementar una capa específica:
+
+TRANSACTION CLASSIFICATION ENGINE
+
+Debe diferenciar, cuando corresponda:
+
+dinero real;
+créditos virtuales;
+revenue;
+deferred revenue;
+premios;
+liabilities;
+refunds;
+chargebacks;
+advertising revenue;
+sponsorship revenue;
+distribution revenue;
+commissions;
+fees;
+taxes.
+REGLA
+
+No asumir:
+
+CREDIT PURCHASE = REVENUE
+
+La clasificación deberá estar respaldada por reglas contables y, cuando corresponda, validación profesional.
+
+11. JURISDICTION ENGINE
+
+Crear:
+
+Jurisdiction / Tax Analysis Engine
+
+Debe comparar jurisdicciones según:
+
+impuesto corporativo;
+impuestos indirectos;
+régimen específico de juego;
+retenciones;
+costes de cumplimiento;
+costes contables;
+licencias;
+regulación;
+requisitos de sustancia;
+banca;
+proveedores de pago;
+protección de datos;
+costes laborales;
+distribución;
+compatibilidad con inversión;
+riesgo regulatorio;
+coste total.
+
+Salida:
+
+JURISDICTION SCORE
++
+TAX SCORE
++
+REGULATORY SCORE
++
+OPERATIONAL SCORE
++
+BANKING SCORE
++
+TOTAL COST
++
+RISK
+IMPORTANTE
+
+El agente:
+
+ANALIZA Y RECOMIENDA.
+
+No:
+
+constituye empresas;
+selecciona definitivamente jurisdicción;
+presenta declaraciones;
+adopta posiciones fiscales;
+firma contratos;
+ejecuta decisiones regulatorias.
+
+Resultado final:
+
+RECOMMENDATION
++
+REASONS
++
+ASSUMPTIONS
++
+RISKS
++
+REQUIRES HUMAN / PROFESSIONAL VALIDATION
+12. NO FIJAR CNAE U OTRA CLASIFICACIÓN POR SUPOSICIÓN
+
+Eliminar de la arquitectura cualquier recomendación automática del tipo:
+
+MiLukita = CNAE 6920
+
+La clasificación empresarial debe derivarse de las actividades económicas reales y del asesoramiento correspondiente.
+
+El agente deberá detectar:
+
+UNKNOWN
+
+cuando no tenga evidencia suficiente.
+
+13. EXPERIENCE / UX INTELLIGENCE AGENT
+
+Crear/consolidar:
+
+Experience & UX Intelligence Agent
+
+No limitarlo a UX/UI.
+
+Debe evaluar:
+
+WEB
+MOBILE
+TV
+SECOND SCREEN
+QR
+LUKITA
+CONTROL ROOM
+COMMERCIAL EXPERIENCE
+14. EXPERIENCE QUALITY ENGINE
+
+Crear una evaluación compuesta:
+
+EXPERIENCE QUALITY SCORE
+
+con:
+
+Visual Quality;
+Content Clarity;
+Navigation;
+Mobile UX;
+TV UX;
+Accessibility;
+QR Discoverability;
+Cognitive Load;
+Performance;
+Conversion;
+Consistency.
+
+No imponer reglas artificiales como:
+
+"máximo 7 elementos por sección"
+
+ni:
+
+"H1 debe ser exactamente 200% del body".
+
+Utilizar evaluación contextual.
+
+15. VISUAL QA ENGINE
+
+El agente debe poder analizar screenshots/renders de MiLukita.
+
+Evaluar:
+
+IMAGEN
+relevancia;
+calidad;
+resolución;
+contraste;
+composición;
+competencia con CTA;
+branding;
+duplicación;
+adaptación TV/mobile.
+COLOR
+contraste;
+legibilidad;
+consistencia;
+saturación;
+sobrecarga;
+estados;
+accesibilidad.
+INTERFAZ
+jerarquía;
+navegación;
+botones;
+CTA;
+densidad;
+alineación;
+espaciado;
+consistencia.
+16. CONTENT TRUTH ENGINE
+
+Implementar:
+
+Content Truth / Message Alignment Engine
+
+Debe comparar:
+
+WHAT MILUKITA IS
+        ↓
+WHAT ACTUALLY EXISTS
+        ↓
+WHAT THE PAGE CLAIMS
+        ↓
+WHAT THE USER MAY UNDERSTAND
+
+Debe detectar:
+
+funcionalidades inexistentes;
+claims no demostrados;
+integraciones futuras presentadas como actuales;
+FAST inexistente presentado como operativo;
+24/7 simulado presentado como producción;
+afirmaciones regulatorias no verificadas;
+promesas comerciales sin evidencia.
+17. REGLA NO DATA → NO CLAIM
+
+Aplicar globalmente:
+
+NO DATA → NO CLAIM
+
+Si el sistema no dispone de evidencia suficiente:
+
+UNKNOWN
+NOT VERIFIED
+SIMULATED
+ESTIMATED
+EXTERNAL REQUIRED
+REQUIRES HUMAN
+
+según corresponda.
+
+Nunca rellenar automáticamente un vacío factual mediante imaginación.
+
+18. WEB QUALITY GATE
+
+Antes de publicar una modificación importante:
+
+PAGE
+ ↓
+CONTENT AUDIT
+ ↓
+VISUAL AUDIT
+ ↓
+UX AUDIT
+ ↓
+ACCESSIBILITY
+ ↓
+PERFORMANCE
+ ↓
+TRUTH / CLAIM CHECK
+ ↓
+ANALYTICS
+ ↓
+QUALITY GATE
+ ↓
+APPROVAL
+ ↓
+PUBLISH
+
+Un fallo crítico debe bloquear publicación.
+
+19. BUSINESS OS
+
+Consolidar:
+
+BUSINESS OS
+│
+├── Commercial
+├── Finance
+├── Accounting
+├── Tax Intelligence
+├── Jurisdiction
+├── Revenue
+├── Advertising
+├── Sponsorship
+├── Sales
+├── Partnerships
+└── Distribution
+
+No crear estos módulos como sistemas aislados.
+
+20. KPI OS
+
+Consolidar todo el trabajo previo de KPI bajo:
+
+MILUKITA KPI OS
+
+Cada agente debe tener:
+
+HEALTH
+QUALITY
+IMPACT
+GOVERNANCE
+
+Y el sistema debe diferenciar:
+
+AGENT KPI
+BUSINESS KPI
+SYSTEM KPI
+CORE KPI
+GOVERNANCE KPI
+
+No mezclar estas categorías.
+
+21. CONTROL ROOM
+
+Implementar/consolidar:
+
+/control-room
+
+Debe mostrar como mínimo:
+
+MILUKITA CONTROL ROOM
+
+SYSTEM HEALTH
+BUSINESS
+EXPERIENCE
+AGENTS
+CORE INTEGRITY
+RESILIENCE
+ALERTS
+22. CORE INTEGRITY COMO KPI DOMINANTE
+
+Si:
+
+Experience = 95
+Business = 92
+Agents = 94
+Distribution = 97
+Core Integrity = 0
+
+entonces:
+
+SYSTEM = CRITICAL
+
+Nunca permitir que un promedio esconda un fallo crítico.
+
+23. KPI TRANSVERSALES OBLIGATORIOS
+
+Implementar:
+
+Authority Violation Rate
+acciones fuera de autoridad
+/
+acciones totales
+
+Objetivo:
+
+0%
+
+Core Modification Attempts
+
+Objetivo:
+
+0
+
+Unauthorized Core Access
+
+Objetivo:
+
+0
+
+Commercial Failure → Core Failure
+
+Objetivo:
+
+0
+
+Commercial Failure → Result Impact
+
+Objetivo:
+
+0
+
+Commercial Failure → Wallet Impact
+
+Objetivo:
+
+0
+
+Commercial Failure → Ledger Impact
+
+Objetivo:
+
+0
+
+Core Survival Rate
+
+Objetivo:
+
+100%
+
+24. WATCHDOG + RECOVERY + AUDITOR + SUPERVISOR
+
+Estos cuatro componentes pasan a ser prioritarios.
+
+WATCHDOG
+
+Detectar:
+
+procesos muertos;
+heartbeat perdido;
+WebSocket;
+stream;
+scheduler;
+agentes;
+servicios críticos.
+
+Objetivo inicial:
+
+MTTD ≤ 5s
+RECOVERY
+
+Debe:
+
+restaurar estado;
+evitar duplicación;
+verificar integridad;
+reanudar operaciones;
+registrar recuperación.
+
+Nunca modificar resultados ya consolidados.
+
+AUDITOR
+
+Debe registrar:
+
+WHO
+WHAT
+WHEN
+WHY
+INPUT
+OUTPUT
+AUTHORITY
+POLICY
+RESULT
+SUPERVISOR
+
+Debe:
+
+coordinar agentes;
+detectar conflictos;
+evitar tareas duplicadas;
+aplicar políticas;
+escalar incidentes.
+
+No debe convertirse en una autoridad superior a MJP CORE.
+
+25. LIVE-24
+
+Este pasa a ser uno de los principales objetivos técnicos.
+
+Construir y validar:
+
+SCHEDULE
+ ↓
+CURRENT EVENT
+ ↓
+LUKITA
+ ↓
+TV
+ ↓
+QR
+ ↓
+MOBILE
+ ↓
+INTERACTION
+ ↓
+EVENT
+ ↓
+RESULT
+ ↓
+VERIFICATION
+ ↓
+NEXT EVENT
+26. PRUEBA LIVE-24
+
+No considerar terminado por una simulación.
+
+Realizar progresivamente:
+
+Stage 1
+
+Simulación controlada.
+
+Stage 2
+
+Operación prolongada local.
+
+Stage 3
+
+Operación 24 horas.
+
+Stage 4
+
+Prueba de fallos.
+
+Stage 5
+
+Recovery.
+
+Stage 6
+
+Auditoría completa.
+
+Separar siempre:
+
+SIMULATED
+
+de:
+
+PRODUCTION VERIFIED
+27. PRUEBA HOSTIL OBLIGATORIA
+
+MANUS deberá diseñar y ejecutar una prueba deliberadamente adversarial:
+
+iniciar LIVE;
+ejecutar eventos;
+matar proceso;
+reiniciar;
+cortar WebSocket;
+restaurar WebSocket;
+simular pérdida de TV;
+recuperar TV;
+duplicar callback;
+ejecutar dos veces el mismo evento;
+reiniciar instancia;
+verificar persistencia;
+verificar ausencia de premios duplicados;
+verificar QR;
+verificar integridad de MJP CORE.
+
+Resultado esperado:
+
+NO DUPLICATE
+NO RESULT ALTERATION
+NO WALLET CORRUPTION
+NO LEDGER CORRUPTION
+NO CORE AUTHORITY VIOLATION
+28. TV → QR → MOBILE: DEMOSTRACIÓN MAESTRA
+
+Debe convertirse en una experiencia demostrable:
+
+                  MILUKITA LIVE
+                       │
+                       ↓
+                       TV
+                       │
+                       ↓
+                      QR
+                       │
+                       ↓
+                    MOBILE
+                       │
+                       ↓
+                 INTERACTION
+                       │
+                       ↓
+                    EVENT
+                       │
+                       ↓
+                    RESULT
+                       │
+                       ↓
+                       TV
+
+Esta cadena debe funcionar de extremo a extremo antes de continuar expandiendo funcionalidades.
+
+29. MILUKITA LIVE COMO PRODUCTO SEPARADO
+
+Mantener:
+
+MiLukita.com
+INTERACTIVE
+WEB
+MOBILE
+QR
+
+y:
+
+MiLukita LIVE
+LINEAR
+24/7
+PROGRAMMING
+TV
+OTT
+IPTV
+FAST
+DISTRIBUTION
+
+Ambos consumen:
+
+ENTERTAINMENT OS
+
+No duplicar lógica.
+
+30. DISTRIBUTION OS
+
+Mantener la arquitectura preparada para:
+
+OTT
+ ↓
+IPTV
+ ↓
+FAST
+ ↓
+ISP
+ ↓
+CABLE
+ ↓
+SMART TV
+
+Pero:
+
+PAUSAR LA EXPANSIÓN COMERCIAL DE DISTRIBUCIÓN
+
+hasta demostrar:
+
+LIVE estable;
+señal IP estable;
+operación 24/7;
+métricas de audiencia;
+engagement;
+inventario publicitario;
+documentación técnica.
+
+No intentar todavía conquistar operadores de cable como prioridad.
+
+31. DISTRIBUTION AGENT
+
+Puede construirse en modo:
+
+READ
+ANALYZE
+PROPOSE
+
+Debe registrar:
+
+operadores;
+países;
+cobertura;
+requisitos;
+formatos;
+costes;
+contactos empresariales;
+estado;
+oportunidades;
+documentación.
+
+Pero:
+
+NEGOTIATION = HUMAN
+CONTRACT = HUMAN
+LEGAL COMMITMENT = HUMAN
+32. GROWTH OS
+
+Mantener preparado:
+
+Marketing Agent
+Social Agent
+Content Agent
+Analytics Agent
+Campaign Planner
+Creator Agent
+Growth Director
+
+Pero no permitir que Growth se convierta ahora en prioridad superior a la estabilización del producto.
+
+33. ORDEN DE PRIORIDADES
+
+MANUS deberá utilizar exactamente esta prioridad:
+
+P0 — Integridad
+MJP CORE
+Authority
+Security
+Audit
+Data integrity
+P1 — Operación
+LIVE
+Scheduler
+Heartbeat
+Watchdog
+Recovery
+Persistence
+P2 — Experiencia
+UX
+UI
+Lukita
+QR
+TV
+Mobile
+Content
+P3 — Inteligencia
+KPI OS
+Control Room
+Agents
+Analytics
+P4 — Business
+Finance
+Accounting
+Tax Intelligence
+Revenue
+Commercial
+P5 — Distribution/Growth
+FAST
+OTT
+IPTV
+Cable
+Marketing
+Partnerships
+34. PAUSA OBLIGATORIA
+
+Hasta que se cumplan los criterios P0–P4, NO iniciar nuevas líneas de producto.
+
+Pausar:
+
+nuevos juegos no esenciales;
+nuevas wallets;
+nuevas arquitecturas de RNG;
+nuevos cores;
+nuevos módulos no vinculados al objetivo;
+nuevas features experimentales;
+nuevos agentes sin función crítica;
+nuevas integraciones comerciales no necesarias.
+
+La instrucción es:
+
+REUTILIZAR ANTES DE CREAR.
+
+35. AGENT CREATION GATE
+
+Antes de crear un nuevo agente MANUS debe responder:
+
+1. ¿Qué problema resuelve?
+2. ¿Existe ya otro agente que pueda hacerlo?
+3. ¿Qué datos necesita?
+4. ¿Qué autoridad tendrá?
+5. ¿Qué NO puede hacer?
+6. ¿Qué KPI tendrá?
+7. ¿Cómo se auditará?
+8. ¿Qué ocurre si falla?
+9. ¿Puede funcionar READ/ANALYZE/PROPOSE?
+10. ¿Es necesario AHORA?
+
+Si la respuesta a la pregunta 10 es NO:
+
+PAUSE
+36. ECONOMÍA UNITARIA
+
+El sistema financiero deberá poder responder:
+
+COST PER HOUR
+COST PER EVENT
+COST PER USER
+REVENUE PER USER
+REVENUE PER EVENT
+REVENUE PER HOUR
+REVENUE PER QR
+GROSS MARGIN
+CONTRIBUTION MARGIN
+
+Y adicionalmente:
+
+REVENUE CONCENTRATION
+largest customer/channel revenue
+/
+total revenue
+
+Esto permitirá detectar dependencia excesiva de un único sponsor, cliente o distribuidor.
+
+37. DATA LAYER
+
+Crear una capa común de medición.
+
+Cada métrica deberá poder identificar:
+
+SOURCE
+TIMESTAMP
+VERSION
+QUALITY
+STATUS
+OWNER
+FORMULA
+
+Estados posibles:
+
+REAL
+SIMULATED
+ESTIMATED
+UNKNOWN
+NOT_VERIFIED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+38. DOCUMENTACIÓN DE ESTADO
+
+Actualizar el expediente:
+
+MILUKITA_AUDITORIA_TOTAL_UNIFICADA.md
+
+y mantener para cada componente:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+
+Nunca convertir:
+
+SIMULATED
+
+en:
+
+IMPLEMENTED
+
+sin evidencia.
+
+39. ARQUITECTURA OBJETIVO
+
+El resultado final de esta etapa debe aproximarse a:
+
+                         MILUKITA
+                            │
+                    ENTERTAINMENT OS
+                            │
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+   EXPERIENCE OS        BUSINESS OS          AGENT OS
+        │                   │                   │
+   UX Intelligence      Finance             Audience
+   Content              Accounting           Marketing
+   Lukita               Tax                  Content
+   TV UX                Revenue              Lukita
+   Mobile UX            Sales                Sales
+   QR                   Commercial            Revenue
+                        Distribution           Finance
+                                              Auditor
+                                              Watchdog
+                                              Recovery
+                                              Supervisor
+        │                   │                   │
+        └───────────────────┼───────────────────┘
+                            │
+                     GOVERNANCE OS
+                            │
+                 KPI / POLICY / AUDIT
+                            │
+                            ↓
+                       MJP CORE
+                            │
+              ┌─────────────┼─────────────┐
+              │             │             │
+             RNG          RESULT        LEDGER
+             RTP          RULES         WALLET
+              │             │             │
+              └─────────────┴─────────────┘
+40. CRITERIO DE ÉXITO DE ESTA ORDEN
+
+Esta iniciativa NO estará terminada porque MANUS haya creado archivos, componentes o agentes.
+
+Estará terminada cuando exista evidencia de:
+
+PRODUCT
+MiLukita.com funcionando
+MiLukita LIVE funcionando
+Lukita funcionando
+TV → QR → Mobile funcionando
+OPERATION
+24/7
+Heartbeat
+Watchdog
+Recovery
+Persistence
+GOVERNANCE
+Authority boundaries
+Audit
+Policy
+Supervisor
+EXPERIENCE
+UX Quality
+Visual QA
+Content Truth
+TV UX
+Mobile UX
+QR UX
+BUSINESS
+Revenue measurement
+Financial analysis
+Accounting classification
+Tax intelligence
+Jurisdiction analysis
+INTELLIGENCE
+KPI OS
+Control Room
+Agent metrics
+Alerts
+CORE
+MJP CORE isolated
+0 unauthorized access
+0 result alteration
+0 wallet corruption
+0 ledger corruption
+41. VALIDACIÓN TÉCNICA OBLIGATORIA
+
+Ejecutar, según corresponda al repositorio actual:
+
+pnpm check
+pnpm test -- --run
+pnpm build
+pnpm simulate:live
+
+No modificar scripts existentes sin necesidad.
+
+Si algún comando no existe:
+
+REPORT = NOT_AVAILABLE
+
+No inventar resultados.
+
+42. PROTOCOLO DE EJECUCIÓN
+
+Para cada fase:
+
+INSPECCIONAR
+      ↓
+INVENTARIAR
+      ↓
+REUTILIZAR
+      ↓
+DISEÑAR
+      ↓
+IMPLEMENTAR
+      ↓
+PROBAR
+      ↓
+ROMPER
+      ↓
+RECUPERAR
+      ↓
+AUDITAR
+      ↓
+DOCUMENTAR
+      ↓
+VALIDAR
+      ↓
+CONTINUAR
+
+No saltar directamente a implementación.
+
+43. REGLA DE NO REGRESIÓN
+
+Antes de cada modificación crítica:
+
+BASELINE
+ ↓
+CHANGE
+ ↓
+TEST
+ ↓
+COMPARE
+
+Debe comprobarse que la nueva implementación no rompe:
+
+MJP CORE;
+RNG;
+RTP;
+wallet;
+ledger;
+settlement;
+juegos existentes;
+LIVE;
+QR;
+persistencia;
+PWA;
+auditoría.
+44. ENTREGABLE FINAL
+
+MANUS deberá entregar:
+
+1.
+
+MILUKITA_AUDITORIA_TOTAL_UNIFICADA.md
+
+actualizado.
+
+2.
+
+Arquitectura actualizada.
+
+3.
+
+Mapa de agentes.
+
+4.
+
+Matriz de autoridad de agentes.
+
+5.
+
+KPI Master.
+
+6.
+
+Control Room.
+
+7.
+
+Experience Quality Engine.
+
+8.
+
+Financial / Accounting / Tax Intelligence architecture.
+
+9.
+
+Jurisdiction Engine.
+
+10.
+
+Transaction Classification Engine.
+
+11.
+
+LIVE-24.
+
+12.
+
+Watchdog.
+
+13.
+
+Recovery.
+
+14.
+
+Auditor.
+
+15.
+
+Supervisor.
+
+16.
+
+Documentación de MJP CORE isolation.
+
+17.
+
+Pruebas.
+
+18.
+
+Prueba hostil.
+
+19.
+
+Informe de regresión.
+
+20.
+
+Checkpoint final verificable.
+
+45. FORMATO OBLIGATORIO DEL REPORTE A LA DIRECCIÓN
+
+MANUS deberá terminar informando:
+
+MILUKITA MASTER CONSOLIDATION REPORT
+
+A. IMPLEMENTADO
+B. PARCIAL
+C. SIMULADO
+D. PENDIENTE
+E. BLOQUEADO
+F. EXTERNAL_REQUIRED
+G. REQUIRES_HUMAN
+H. NOT_VERIFIED
+
+P0 CORE
+P1 OPERATION
+P2 EXPERIENCE
+P3 INTELLIGENCE
+P4 BUSINESS
+P5 DISTRIBUTION/GROWTH
+
+TESTS
+REGRESSIONS
+FAILURES
+RECOVERIES
+
+LIVE-24 STATUS
+
+AGENT STATUS
+
+KPI STATUS
+
+UX STATUS
+
+FINANCIAL STATUS
+
+CORE INTEGRITY
+
+REMAINING RISKS
+
+NEXT CHECKPOINT
+46. ORDEN FINAL A MANUS
+
+No continúes expandiendo MiLukita como una colección de funcionalidades.
+
+Reorganiza, consolida y estabiliza el sistema alrededor de la nueva definición de MiLukita como Autonomous Interactive Entertainment Network.
+
+Pausa temporalmente todo desarrollo que no contribuya directamente a P0–P4.
+
+Prioriza integración sobre expansión, reutilización sobre duplicación, evidencia sobre afirmaciones y operación sobre demostración.
+
+MJP CORE permanece aislado y fuera de la autoridad de los agentes.
+
+Los agentes deben operar con autoridad limitada, observabilidad, KPI, auditoría, políticas y mecanismos de recuperación.
+
+MiLukita LIVE debe evolucionar hacia una operación 24/7 verificable.
+
+MiLukita.com + MiLukita LIVE + Lukita + QR/Mobile deben funcionar como una experiencia única.
+
+Business OS y Experience OS deben convertirse en componentes reales de la plataforma, no documentos conceptuales.
+
+Financial, Accounting & Tax Intelligence Agent deberá analizar, no ejecutar decisiones legales/fiscales irreversibles.
+
+Experience & UX Intelligence Agent deberá vigilar permanentemente la calidad visual, funcional, textual, cognitiva y de interacción de MiLukita.
+
+NO DATA → NO CLAIM.
+
+SIMULATED ≠ PRODUCTION.
+
+AGENT ≠ AUTHORITY.
+
+CORE INTEGRITY > cualquier KPI comercial.
+
+No declares terminado algo que no haya sido probado y documentado.
+
+El objetivo de esta etapa no es añadir más tecnología. Es demostrar que la tecnología existente puede funcionar como un sistema único, autónomo dentro de límites, auditable, resiliente y económicamente medible.
+
+Ejecuta la iniciativa completa, fase por fase, y reporta evidencia verificable de cada resultado.
+
+Mi decisión sobre el proyecto
+
+Esta es la dirección que considero correcta a partir de ahora.
+
+La tesis ya no es:
+
+"Construyamos una web de juegos con IA."
+
+Ni siquiera:
+
+"Construyamos muchos agentes."
+
+La tesis pasa a ser:
+
+CONSTRUIR UN SISTEMA OPERATIVO DE ENTRETENIMIENTO INTERACTIVO
+
+donde:
+
+MiLukita.com  = EXPERIENCIA DIGITAL
+MiLukita LIVE = EXPERIENCIA LINEAL
+Lukita        = INTERFAZ HUMANA DE LA MARCA
+Entertainment OS = ORQUESTACIÓN
+Business OS   = ECONOMÍA
+Agent OS      = INTELIGENCIA OPERATIVA
+Governance OS = CONTROL
+MJP CORE      = INTEGRIDAD
+
+Y el verdadero examen será este:
+
+¿Puede MiLukita levantarse, programar, transmitir, presentar, conectar TV con QR y móvil, ejecutar eventos, medir lo ocurrido, detectar fallos, recuperarse, auditarse y continuar funcionando sin que un operador tenga que estar detrás de ella?
+
+Cuando la respuesta sea sí y esté demostrada con evidencia, recién tendremos derecho a decir que construimos algo verdaderamente distinto.
+
+Esta orden reemplaza y consolida las órdenes anteriores sobre KPI/Observabilidad, agentes, UX, Financial Agent, MiLukita LIVE, Distribution y visión de Entertainment OS. El desarrollo posterior debe seguir esta jerarquía.

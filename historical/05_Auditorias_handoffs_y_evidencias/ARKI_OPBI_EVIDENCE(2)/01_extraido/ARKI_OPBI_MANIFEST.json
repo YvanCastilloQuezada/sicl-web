@@ -1,0 +1,255 @@
+{
+  "schema": "ARKI-OPBI-001-MANIFEST-1.0",
+  "status": "FOUNDATION IMPLEMENTED / BOUNDED PILOTS / PENDING INDEPENDENT VERIFICATION",
+  "order": "97A-06",
+  "program": "ARKI-LKS-001",
+  "parent": "ICWI-001 + CFMI-001 + ACI-001 + HAI-001",
+  "jurisdiction": "PERU_FIRST",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED",
+  "ingestionPolicy": "NO BLIND SCRAPING / NO MASS INGESTION / GOVERNED SOURCES",
+  "submissionAuthority": "HUMAN_APPROVAL_REQUIRED",
+  "bindingActions": "PROHIBITED_WITHOUT_AUTHORIZED_MECHANISM",
+  "baselinePackage": "ARKI_ICWI_EVIDENCE.zip",
+  "entries": [
+    {
+      "file": "ARKI_OPBI_ARCHITECTURE.md",
+      "size": 385,
+      "sha256": "df8cf6b50a4ed661a40f9b9ec2f9892e9458d5d3879dfc3a8df7080baa6ab300",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_OPPORTUNITY_COMMAND_CENTER_SPEC.md",
+      "size": 330,
+      "sha256": "dc93076afe5c179771ddb25da280b3e28a491194905e72b1fd190587152bab5c",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PUBLIC_PROCUREMENT_CENTER_SPEC.md",
+      "size": 312,
+      "sha256": "6bd63a04c638c978cf8904a7b8274f9de28b9d31c5ab2d3b072c442022b7c231",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_CENTER_SPEC.md",
+      "size": 223,
+      "sha256": "2f9652d0d6675f067c2cb758632a0c720f5719b2f02b0fd59051c339ab6d19a0",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_OPPORTUNITY_STATE_MACHINE.md",
+      "size": 290,
+      "sha256": "6de064f5813c533c4bdb10f16faccc9d86195af5e331047b3b2f24d9b8043844",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_AUTOMATION_AUTHORITY_MATRIX.md",
+      "size": 488,
+      "sha256": "124be388a896ae974f2754be25bc2f4ad34588a3bd4fff11bb2d4ad3f8ed871d",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_SEACE_SOURCE_ADAPTER_SPEC.md",
+      "size": 291,
+      "sha256": "9f36ca221703337e8b65c5a035a2fe1f70ed3f92439c34bc208f9de29f9beeb9",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROCUREMENT_SOURCE_POLICY.md",
+      "size": 222,
+      "sha256": "034b0e89dd2f9f21afa85044297306a82595d287a8ae1572e5ecd289a5ff0b7c",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_TENDER_INTELLIGENCE_SPEC.md",
+      "size": 233,
+      "sha256": "563f54a7c0fc560b7317b5406cf7ec3a978a0972298bdda95e97b5f565699448",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_TENDER_REQUIREMENT_MATRIX.md",
+      "size": 238,
+      "sha256": "d4b6faf7705b48fe73e2fb17766e7ccaa542bfb5912fcf77dc5b9504df1af99d",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BASES_AUDITOR_SPEC.md",
+      "size": 339,
+      "sha256": "f758510333fe5e628bdeaa7a46db419d3d036217ea5b93ba9a0c17937ec358b0",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROFESSIONAL_REQUIREMENT_AUDITOR.md",
+      "size": 249,
+      "sha256": "f8bc2a88245a8a186e0d3a3f8a1c3d1adc38ef77ad6c8f8e33b814e01761ee13",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_TENDER_ANOMALY_MODEL.md",
+      "size": 242,
+      "sha256": "4bc4941e92ea0fa0880d3d6da1111be95cdff533c13bc05dcd5e6ce68773f560",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_OBSERVATION_WORKSPACE_SPEC.md",
+      "size": 296,
+      "sha256": "5e7ae2df85b7111c8d8be9f8a28409122fd351a966310658ab8d24cad695ca88",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BID_ELIGIBILITY_ENGINE.md",
+      "size": 273,
+      "sha256": "0f540011e3bed0e106d004b5e7b8abaef6f3bc08f43d5095f05dba09a929a794",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_EVIDENCE_VAULT_SPEC.md",
+      "size": 318,
+      "sha256": "45325550e277be1c2d8d1d64d40c95f386eb907db41f745ac6e5f60780ea7c0c",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BID_FACTORY_SPEC.md",
+      "size": 236,
+      "sha256": "da32ef8ce11ac830c1ce11781638dd193798473f6be7595307801a7413456439",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BID_RED_TEAM_SPEC.md",
+      "size": 284,
+      "sha256": "2da3ceb530ceb19567cd350fcb410e2f843917964a44802491e9b6824af315e1",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_CONTRACT_RISK_REVIEW_SPEC.md",
+      "size": 280,
+      "sha256": "84048bc747d4dc920ebcad3a6e49223c0914cb712f470742bb2b68746d9fb149",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_SUBMISSION_READINESS_GATE.md",
+      "size": 251,
+      "sha256": "35173ac1c78ff494f4c08b456e1d319184d21f197904f70f081188ed5ce55fcd",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROCUREMENT_OUTCOME_LEARNING.md",
+      "size": 223,
+      "sha256": "dfbd4e1f5dae1fa8a710c73ac52a923ad8c34f9db0ba55ce7c7b6c75368d26c7",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_RADAR_SPEC.md",
+      "size": 260,
+      "sha256": "a773cdded8d58325ab4cdfb333b76521f27e9d93295e6e44d22a8cc850cfcf1f",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_ELIGIBILITY_SPEC.md",
+      "size": 238,
+      "sha256": "1b1d6d6c26bc5924d9064d25d9822eb5d2408eaa498646f5608efe44adb514b4",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_COMPLIANCE_GATE.md",
+      "size": 217,
+      "sha256": "97f4b9fdba6eaf9e2fe14e432c5fb39677e8d71719c4bece1db5794aae367705",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_BRIEF_INTELLIGENCE.md",
+      "size": 186,
+      "sha256": "5948a3176a695ffb880c77c09e6a45f93d880b8bf1c17c79875dd774a1f4378d",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_SUBMISSION_FACTORY.md",
+      "size": 193,
+      "sha256": "746f61555f0d333a4b13a5896bd3ecd0bb43a395b326c05ef1f80b0300260d17",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_RED_TEAM.md",
+      "size": 186,
+      "sha256": "2bff66bb176ca5e7076d23d5c2980e5fad3c42460c08e3f84b25d94d7da7ef3e",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_COMPETITION_OUTCOME_INTEGRATION.md",
+      "size": 165,
+      "sha256": "aaa3fb483d6d2115a553061b916c9d51ee7056e3905069000f6ba73f58aecedc",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROCUREMENT_LEGAL_TEMPORALITY_POLICY.md",
+      "size": 208,
+      "sha256": "3fd611e5b1db2be9e53cd24c9ada5a466fda98ff1dfb745337ba53cea814a87f",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROCUREMENT_PROVENANCE_POLICY.md",
+      "size": 173,
+      "sha256": "b750a6573520b87fcbdc5f62a9e21ad1a714575f7ff48f58ee3463fd0af0b499",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_PROCUREMENT_ETHICS_POLICY.md",
+      "size": 162,
+      "sha256": "708e683517bd06dc8d8b6a3f5cb83f2822923d0a2491c3cd386c8817f74ff320",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_EVIDENCE_PRIVACY_POLICY.md",
+      "size": 222,
+      "sha256": "bf197528f3c73dfe5bc891fb763f90bb28a9edbf5024f255906d782f605dafa3",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_BINDING_ACTION_HUMAN_GATE.md",
+      "size": 221,
+      "sha256": "409c6d0ade2a49694a441727bf06b8fc159e666688e577fee05c795a65f13044",
+      "status": "BASELINE_OR_SOURCE"
+    },
+    {
+      "file": "ARKI_OPBI_SCOPE_LIMIT_REPORT.md",
+      "size": 294,
+      "sha256": "2694151a3d1defaffbf3321bbb19038cb0f98d44dce0ae764c46af02031ec671",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_OPBI_TEST_MATRIX.md",
+      "size": 634,
+      "sha256": "0480a4b134d3c0643f2b02dc5bd0bc8dbe0105d027837ccf6f569a176e65ac33",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_OPBI_OUTPUTS.txt",
+      "size": 5832,
+      "sha256": "8987ee0303fc54201113ae5a3a0f5647b25cb2c5e79c6c15393ae9f3b1895d31",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "pasted_content_110.txt",
+      "size": 36696,
+      "sha256": "dafb5ebfef65cb18f81a93e0f381ac87689b4224936ba9bd3fd560a2f9d2531b",
+      "status": "BASELINE_OR_SOURCE"
+    },
+    {
+      "file": "scripts/test-arki-opbi.ts",
+      "size": 3375,
+      "sha256": "43ec333d1987f4c3e1a6721c50d6480f9c0664698a492b8fe63e3c9d9bcc4329",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "shared/arkiLivingKnowledge.ts",
+      "size": 56716,
+      "sha256": "0c073a9ae516a5107c8f26d876fa51c16f27a150273cde2ec69a021167295938",
+      "status": "OPBI_FOUNDATION"
+    },
+    {
+      "file": "ARKI_ICWI_EVIDENCE.zip",
+      "size": 261978,
+      "sha256": "fa812c78ee29927946b408d1e71fdfa9e692e58b0a482ed98faadecf887bec13",
+      "status": "BASELINE_OR_SOURCE"
+    }
+  ]
+}

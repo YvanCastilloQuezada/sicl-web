@@ -1,0 +1,89 @@
+{
+  "runtime_port": 4002,
+  "routes": [
+    {
+      "route": "/arki",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "DIRECT/NO LAZY FAILURE"
+    },
+    {
+      "route": "/arki-device-bridge",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "DIRECT/NO LAZY FAILURE"
+    },
+    {
+      "route": "/arki-operations",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "DIRECT/NO LAZY FAILURE"
+    },
+    {
+      "route": "/audit",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "DIRECT/NO LAZY FAILURE"
+    },
+    {
+      "route": "/help/user",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "DIRECT/SHARED CHUNK"
+    },
+    {
+      "route": "/comparisons",
+      "before": "CONTROLLED_CORE_BLOCK",
+      "after": "CONTROLLED_CORE_BLOCK",
+      "classification": "DIRECT/CORE DATA"
+    },
+    {
+      "route": "/evaluations",
+      "before": "CONTROLLED_CORE_BLOCK",
+      "after": "CONTROLLED_CORE_BLOCK",
+      "classification": "DIRECT/CORE DATA"
+    },
+    {
+      "route": "/arki-parametric-runtime",
+      "before": "CONTROLLED_AUTH",
+      "after": "CONTROLLED_AUTH",
+      "classification": "AUTH GATE"
+    },
+    {
+      "route": "/arki-book",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "LAZY CHUNK LOADED; MEANINGFUL RENDER OBSERVED"
+    },
+    {
+      "route": "/arki-research-review",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "LAZY CHUNK LOADED; PERMISSION ERROR SHOWN"
+    },
+    {
+      "route": "/help/operations",
+      "before": "RENDERED_SLOW",
+      "after": "RENDERED_SLOW",
+      "classification": "LAZY CHUNK LOADED; SLOW MARKDOWN RENDER (~20s in cold observation)"
+    },
+    {
+      "route": "/security-events",
+      "before": "RENDERED",
+      "after": "RENDERED",
+      "classification": "LAZY CHUNK LOADED; PERMISSION ERROR SHOWN"
+    },
+    {
+      "route": "/sources",
+      "before": "CONTROLLED_AUTH",
+      "after": "CONTROLLED_AUTH",
+      "classification": "AUTH GATE / AUTH REDIRECT OBSERVED"
+    },
+    {
+      "route": "/spatial",
+      "before": "CONTROLLED_CORE_BLOCK",
+      "after": "CONTROLLED_CORE_BLOCK",
+      "classification": "LAZY CHUNK LOADED; EXPLICIT CORE HTTP 503 STATE"
+    }
+  ]
+}

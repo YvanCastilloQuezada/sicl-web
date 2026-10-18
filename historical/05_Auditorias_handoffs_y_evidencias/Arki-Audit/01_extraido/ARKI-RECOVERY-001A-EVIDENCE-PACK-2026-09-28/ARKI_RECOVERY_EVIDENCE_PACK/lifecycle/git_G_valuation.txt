@@ -1,0 +1,65 @@
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33mea6e31c[m fix(a002): downgrade unverifiable known inputs to unknown
+[33m96dab57[m feat(a002): unify v1.4 policy identity and authority contracts
+[33m3f4ce33[m feat(H-003): implement two-phase Validity / Invalidation (read-only)
+[33mf644ed0[m test(vsm): add controlled critical change simulation
+[33m578b5dc[m test(vsm): add controlled critical change simulation
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33m6cdea17[m ci(vsm): automate weekly master surveillance
+[33m1c41655[m docs: add canonical master handoff
+[33mad935ad[m feat: derive hierarchical spatial design state
+[33m73eff82[m feat: add formal spatial design operations
+[33mb4eecd3[m feat: add traceable semantic design reasoning
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m5538a89[m feat: add traceable multi-agent design exploration
+[33m59d3232[m feat: add bounded advanced design evolution
+[33m9a945cc[m docs: adopt execution efficiency governance
+[33mfb4a761[m feat: add architectural spatial synthesis foundation
+[33m7df46b3[m docs: normalize gdi future backlog
+[33m9ab4417[m feat: add gdi generative design ladder
+[33mda3583b[m feat: complete div-p0 design intelligence loop
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33m499a397[m docs: lock project intelligence distinctions
+[33m57b095e[m feat: add immutable multiscale variable catalog foundation
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33mea43eca[m docs: define territorial variable matrices
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33ma8cb566[m docs: audit current multiscale variable architecture
+[33mf7e2f6f[m docs: freeze multiscale variable intelligence decision lock
+[33md8353a6[m feat: expose canonical UPAO001 pareto transport
+[33md6aabb6[m feat: add canonical UPAO001 spatial evaluations
+[33m3fa1387[m docs: add complete project handover
+[33md1ef50d[m feat: implement RFC-027 BIM IFC exchange contract
+[33m9483246[m docs: add RFC-026 persistence plan and demo v3
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+[33m37926a2[m feat: add RFC-025 regulatory corpus foundation
+[33md4e177a[m feat: add feasibility filtering and project variables
+[33m9276194[m docs: align user manual with current Core commands
+[33m2cde44d[m docs: add independent operations manual
+[33mc83d6ed[m docs: add SiMS-DeI 2.2 master architecture
+[33mb26faaf[m docs: add Core Contract versioning policy
+[33ma47ef17[m feat: implement RFC-006.1 Monte Carlo simulation
+[33m01ce186[m feat: implement RFC-006.1 Monte Carlo simulation
+[33mddcad3b[m docs: formalize RFC-014 user copilot LLM contract
+[33md93c610[m docs: add user manual and entity glossary
+[33m2458070[m feat: add institutional memory projection
+[33m14e3198[m docs: add SiMS-DeI 2.0 master architecture
+[33m4d9b0b9[m feat: expose canonical multiobjective contract
+[33m8bdf1b1[m feat: add read-only design intelligence catalog
+[33m6592695[m feat: add simulation contract and HTTP v1 endpoints
+[33mad59f89[m feat: expose evaluation and comparison over HTTP v1
+[33m700c1ae[m feat: implement canonical RFC-002 v1 HTTP contract
+[33m0bcc9a1[m fix: align v2 core with SiMS-DeI constitutional invariants
+[33m12ed526[m feat: add deterministic alternative generation and tradeoff matrix
+[33mb648c95[m feat: add structural economic agents and multi-agent debate
+[33mb29b35f[m docs: add SICL v2 architect demo script
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis
+[33m0170e8a[m feat: add traceable site intelligence demo kit
+[33m384a454[m chore: add repository metadata and core CI
+[33mbf4a1e1[m chore: backup SICL Core v1.2 + API Layer + Export features

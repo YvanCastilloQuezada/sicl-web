@@ -1,0 +1,57 @@
+# ORDEN 93 STATIC SAFETY AND BYPASS SCAN
+## dynamic execution
+shared/arkiConstraintEngine.ts:171:  constructor(issues: string[]) { super(`Constraint validation failed: ${issues.join("; ")}`); this.name = "ConstraintValidationError"; this.issues = issues; }
+shared/arkiConstraintEngine.ts:175:  constructor(message: string) { super(message); this.name = "ConstraintDependencyError"; }
+scripts/test-bkh2-constraint-engine.ts:129:const arbitraryCall = { kind: "call", functionId: "eval", arguments: [{ kind: "literal", value: "process.exit()", valueType: "string" }] } as unknown as PredicateNode;
+scripts/test-bkh2-constraint-engine.ts:130:assert.throws(() => validatePredicate(arbitraryCall), ConstraintValidationError);
+scripts/test-bkh2-constraint-engine.ts:131:const executableString = evaluateConstraint(makeRecord({ predicate: { kind: "literal", value: "eval('process.exit()')", valueType: "string" } }), context);
+scripts/test-bkh2-constraint-engine.ts:152:console.log(JSON.stringify({ status: "PASS", requiredCases: 28, registryTypes: Object.keys(ConstraintTypeRegistry).length, statuses: ["SATISFIED", "VIOLATED", "UNKNOWN", "NOT_APPLICABLE", "CONFLICTING", "ERROR"], reasons: ["NOT_DEMONSTRATED", "EXTERNAL_ORACLE_REQUIRED", "INSUFFICIENT_EVIDENCE", "INSUFFICIENT_EPISTEMIC_STATE", "MISSING_DEPENDENCY", "INVALID_INPUT"], currencySafety: "PEN_USD_INCOMPATIBLE", arbitraryExecution: "PROHIBITED", mutation: "UNCHANGED" }));
+shared/arkiMamparaFamily.ts:208:// Evaluación determinista. Sin eval(), sin dependencias dinámicas.
+shared/arkiConstructionOntology.ts:48:  constructor(input: { id: string; proyecto_id: string; nombre: string; funcion: FuncionMuro; tipo: TipoMuro; especialidad_principal: Especialidad; x_inicio_m: number; y_inicio_m: number; x_fin_m: number; y_fin_m: number; altura_m: number; nivel_piso?: number }) { Object.assign(this, input); this.nivel_piso = input.nivel_piso ?? 0; }
+client/src/components/ErrorBoundary.tsx:15:  constructor(props: Props) {
+## direct canonical mutation
+shared/arkiRegenerationEngine.ts:3:// It does not commit, transact, mutate source state, or replace canonical state.
+shared/arkiRegenerationEngine.ts:108:  evaluateConstraints?: (phase: "precondition" | "postcondition", input: RegeneratorInput, output?: RegeneratorOutput) => readonly ConstraintGateResult[];
+shared/arkiRegenerationEngine.ts:324:    const preconditions = regenerator.evaluateConstraints?.("precondition", regeneratorInput) ?? [];
+shared/arkiRegenerationEngine.ts:338:      const postconditions = regenerator.evaluateConstraints?.("postcondition", regeneratorInput, output) ?? [];
+shared/arkiRegenerationEngine.ts:351:      emit("REGENERATED", "derived state proposed; no canonical commit", nodeId);
+shared/arkiConstraintEngine.ts:285:export function evaluateConstraint(record: ConstraintRecord, context: ConstraintEvaluationContext): ConstraintEvaluation {
+shared/arkiConstraintEngine.ts:322:      const leftResult = evaluateConstraint(left, context);
+shared/arkiConstraintEngine.ts:323:      const rightResult = evaluateConstraint(right, context);
+shared/arkiConstraintEngine.ts:348:  evaluate(constraintId: string, context: ConstraintEvaluationContext): ConstraintEvaluation { const record = this.get(constraintId); if (!record) throw new ConstraintValidationError([`constraint not found: ${constraintId}`]); return evaluateConstraint(record, context); }
+shared/arkiRelationshipAdapters.ts:3:import { createRelationship, type RelationshipDiscipline, type RelationshipRecord, type RelationshipScale } from "./arkiRelationshipFabric";
+shared/arkiRelationshipAdapters.ts:30:  return createRelationship({ relationshipType: input.type, sourceEntityId: input.sourceId, targetEntityId: input.targetId, direction: "DIRECTED", sourceScale: source.scale, targetScale: target.scale, applicabilityScale: "BUILDING", sourceDiscipline: source.discipline, targetDiscipline: target.discipline, relationshipDiscipline: source.discipline === target.discipline ? source.discipline : "coordination", origin: input.origin ?? "LEGACY_ADAPTER", evidence: [{ kind: input.evidenceKind ?? "legacy", reference: input.legacyRefs?.[0] ?? input.description, detail: input.description }], epistemicStatus: "OBSERVED", projectVersion: versionFor(model), provenance: { source: "ConstructionModel", adapter: "arkiRelationshipAdapters", transformations: ["legacy-to-fabric"] }, legacyRefs: input.legacyRefs });
+shared/arkiRelationshipFabric.ts:83:export function createRelationship(input: RelationshipInput): RelationshipRecord {
+shared/arkiRelationshipFabric.ts:113:  return createRelationship({ ...record, relationshipType: inverseType, sourceEntityId: record.targetEntityId, targetEntityId: record.sourceEntityId, sourceScale: record.targetScale, targetScale: record.sourceScale, sourceDiscipline: record.targetDiscipline, targetDiscipline: record.sourceDiscipline, relationshipId: undefined, relationshipRevisionId: undefined, legacyRefs: record.legacyRefs ? [...record.legacyRefs, record.relationshipId] : [record.relationshipId], provenance: { ...record.provenance, transformations: [...record.provenance.transformations, "inverse"] } });
+shared/arkiDynamicFamilies.ts:1:import { generateConstructionModel, type ConstructionModel } from "./arkiConstructionOntology";
+shared/arkiDynamicFamilies.ts:123:  family({ id: "FAM-LANDSCAPE", name: "Paisajismo", category: "LANDSCAPE", description: "Parques, plazas, malecones, corredores verdes y humedales.", geometryStrategy: "COURTYARD_MASS", scale: "URBAN", tags: ["paisajismo", "parque", "espacio público"], primary: ["áreas verdes", "senderos", "estancias", "equipamiento"], services: ["riego", "bombas", "servicios higiénicos"], variants: [{ id: "URBAN_PARK", name: "Parque urbano", description: "Parque de barrio con recreación y vegetación.", tags: ["parque", "verde"], extra: ["juegos infantiles", "ciclovía"], modifiers: { areaM2: 20000, capacity: 5000, floors: 1 } }, { id: "PUBLIC_PLAZA", name: "Plaza pública", description: "Plaza cívica y cultural.", tags: ["plaza", "cívica"], extra: ["fuente", "pavimento cívico"], modifiers: { areaM2: 5000, capacity: 2000, floors: 1 } }, { id: "WETLAND", name: "Humedal artificial", description: "Humedal para tratamiento y biodiversidad.", tags: ["humedal", "agua"], extra: ["sendero interpretativo", "mirador de aves"], modifiers: { areaM2: 50000, capacity: 500, floors: 1 } }] }),
+shared/arkiDynamicFamilies.ts:173:    constructionModel: generateConstructionModel({ projectId: id, name: `${selectedFamily.name} · ${selectedVariant.name}`, widthM, depthM, floors, familyCategory: selectedFamily.category }),
+shared/arkiConstructionOntology.ts:97:export function generateConstructionModel(input: { projectId: string; name: string; widthM: number; depthM: number; floors: number; familyCategory?: string }): ConstructionModel {
+client/src/modules/GeneratorModule.tsx:23:  const { setBuilding: setProjectBuilding, constructionModel } = useProjectContext();
+client/src/modules/GeneratorModule.tsx:33:  const [building, setBuilding] = useState<GeneratedBuilding | null>(null);
+client/src/modules/GeneratorModule.tsx:50:  const generate = () => { const next = generateDynamicBuilding({ familyId, variantId, context: { country: "PE", city, jurisdiction: "RNE-PE" }, parameters: { areaM2: Number(areaM2), capacity: Number(capacity), floors: Number(floors) } }); setBuilding(next); setProjectBuilding(next); setComparison(null); toast.success("Propuesta generada", { description: `${next.name} · ${next.context.city}` }); };
+client/src/modules/GeneratorModule.tsx:53:  const restoreVersion = (saved: SavedVersion) => { setBuilding(saved.building); setProjectBuilding(saved.building); setFamilyId(saved.building.familyId); setVariantId(saved.building.variantId); setCity(saved.building.context.city ?? ""); setAreaM2(String(saved.building.parameters.areaM2)); setCapacity(String(saved.building.parameters.capacity)); setFloors(String(saved.building.parameters.floors)); toast.success("Versión restaurada"); };
+client/src/contexts/ProjectContext.tsx:4:const ProjectContext = createContext<{ building: GeneratedBuilding | null; constructionModel: ConstructionModel | null; setBuilding: (building: GeneratedBuilding | null) => void } | null>(null);
+client/src/contexts/ProjectContext.tsx:5:export function ProjectContextProvider({ children }: { children: ReactNode }) { const [building, setBuilding] = useState<GeneratedBuilding | null>(null); const constructionModel = building?.constructionModel ?? null; const value = useMemo(() => ({ building, constructionModel, setBuilding }), [building, constructionModel]); return <ProjectContext.Provider value={value}>{children}</ProjectContext.Provider>; }
+shared/arkiRecalculation.ts:61:  action: "created" | "updated" | "invalidated" | "recalculated";
+shared/arkiRecalculation.ts:121:function recalculateMampara(instance: FamilyInstance): {
+shared/arkiRecalculation.ts:138:export function recalculateProject(input: {
+shared/arkiRecalculation.ts:185:    const { quantities, costs, schedule, geometry } = recalculateMampara(instance);
+shared/arkiRecalculation.ts:261:    const { quantities, costs, schedule, geometry } = recalculateMampara(instance);
+## duplicate engines
+shared/arki4d/index.ts
+shared/arki5d/index.ts
+shared/arkiConstraintEngine.ts
+shared/arkiConstructionDTOs.ts
+shared/arkiConstructionElements.ts
+shared/arkiConstructionOntology.ts
+shared/arkiDynamicFamilies.ts
+shared/arkiMamparaFamily.ts
+shared/arkiParametricFamilies.ts
+shared/arkiPriceBook.ts
+shared/arkiProfessionalModules.ts
+shared/arkiRecalculation.ts
+shared/arkiRegenerationEngine.ts
+shared/arkiRelationshipAdapters.ts
+shared/arkiRelationshipFabric.ts
+shared/arkiSnapshotExports.ts

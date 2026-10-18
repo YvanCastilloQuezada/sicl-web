@@ -1,0 +1,154 @@
+# Terminal Full Output
+# Terminal: recalibration-test-baseline
+# Command: cd /home/ubuntu/ruleta-peru-online && pnpm test
+# PID: 18367
+# Timestamp: 2026-08-25_07-46-01.796907
+# Original Length: 15534 characters
+# ----------------------------------------
+
+[32mubuntu@sandbox:~$ [0mcd /home/ubuntu/ruleta-peru-online && pnpm test
+[22m [31m❯[39m [2mserver/[22mapi[2m.e2e.test.ts[22m[2m (2)[22m[33m 2636[2mms
+[22m[39m   [31m❯[39m API HTTP end-to-end del piloto[2m (2)[22m[33m 2635[2mms
+[22m[39m     [32m✓[39m expone salud, identidad sintética y lecturas públicas sin crear usuarios ni datos de prueba[33m 459[2mms
+[22m[39m     [31m×[39m mantiene el rechazo no autenticado y procesa una reserva autenticada con usuario temporal que se elimina al finalizar[33m 2175[2mms
+[22m[39m [32m✓[39m [2mserver/[22mauth[2m.logout.test.ts[22m[2m (1)
+[22m [32m✓[39m [2mserver/[22mbingoRecalibration[2m.integration.test.ts[22m[2m (1)[22m[33m 1997[2mms
+[22m[39m [32m✓[39m [2mserver/[22mkycAmlReadiness[2m.test.ts[22m[2m (2)
+[22m [31m❯[39m [2mserver/[22mloteriaRecalibration[2m.integration.test.ts[22m[2m (1)[22m[33m 337[2mms
+[22m[39m   [31m❯[39m liquidación persistida aislada de Lotería v1.0.1[2m (1)[22m[33m 337[2mms
+[22m[39m     [31m×[39m ejecuta el cierre sobre tablas reales, aplica 170 000 créditos y revierte todos los datos de prueba[33m 336[2mms
+[22m[39m [31m❯[39m [2mserver/[22mlotteryVariants[2m.integration.test.ts[22m[2m (2)[22m[33m 1809[2mms
+[22m[39m   [31m❯[39m liquidación persistida aislada de Loterías virtuales[2m (2)[22m[33m 1809[2mms
+[22m[39m     [32m✓[39m liquida el premio mayor de cada expediente sin alterar los registros históricos[33m 1800[2mms
+[22m[39m     [31m×[39m registra el consuelo, la bola elegida y el abono virtual en un ticket real reversible
+ [31m❯[39m [2mserver/[22mlotteryVariants[2m.test.ts[22m[2m (5)
+[22m   [31m❯[39m loterías virtuales y familia de consuelo[2m (5)
+[22m     [32m✓[39m mantiene las tablas base dentro de la banda pública cercana a 85 %
+     [32m✓[39m calcula exactamente el RTP de cada paquete publicado de bolas de consuelo
+     [32m✓[39m liquida cada premio de la tabla publicada respetando el tamaño de cada modalidad
+     [31m×[39m paga el consuelo una sola vez cuando una bola adicional coincide con un número no sorteado
+     [32m✓[39m mantiene la referencia PEN sin valor cobrable ni conversión automática
+ [32m✓[39m [2mserver/[22mmjpExtra[2m.test.ts[22m[2m (2)[22m[33m 1163[2mms
+[22m[39m [31m❯[39m [2mserver/[22mpilot[2m.test.ts[22m[2m (13)
+[22m   [31m❯[39m motor verificable del piloto[2m (13)
+[22m     [32m✓[39m deriva el mismo índice cuando se conservan semilla y contexto
+     [32m✓[39m no utiliza una reducción directa de un byte para seleccionar una casilla
+     [32m✓[39m mantiene la selección dentro del dominio correcto para una ruleta de 37 casillas
+     [32m✓[39m liquida una coincidencia de ruleta únicamente cuando el número coincide
+     [32m✓[39m reparte el pozo virtual de Jackpot solo con cinco coincidencias
+     [32m✓[39m calcula las categorías de premio de Lotería v1.0.1 con créditos virtuales
+     [32m✓[39m liquida Trío 13 solo por coincidencias de cartas verificables
+     [32m✓[39m liquida Bingo recalibrado a 82 créditos por cartilla ganadora
+     [31m×[39m liquida las tablas uniformes de una unidad desde una política versionada
+     [32m✓[39m resuelve el premio de Bingo desde la política persistida y conserva la regla histórica
+     [32m✓[39m revela el mismo Trío 13 para una semilla y contexto conservados
+     [32m✓[39m solo acredita contratos virtuales del lado que coincide con la resolución
+     [32m✓[39m limita MultiMarket a las categorías curatoriales del piloto
+ [31m❯[39m [2mserver/[22msimplifiedGames[2m.integration.test.ts[22m[2m (1)[22m[33m 764[2mms
+[22m[39m   [31m❯[39m liquidación reversible de modalidades simplificadas[2m (1)[22m[33m 764[2mms
+[22m[39m     [31m×[39m liquida los pagos de Ruleta 7, Flash, Keno y Bingo 75 conforme a sus reglas[33m 763[2mms
+[22m[39m [32m✓[39m [2mserver/[22mticketIdentifiers[2m.test.ts[22m[2m (3)
+[22m [32m✓[39m [2mserver/_core/[22mrequestMeta[2m.test.ts[22m[2m (2)
+[22m [32m✓[39m [2mserver/_core/[22msecurityHealth[2m.test.ts[22m[2m (3)
+[22m [32m✓[39m [2mserver/simulator/[22msimulator[2m.test.ts[22m[2m (2)
+[22m [31m❯[39m [2mshared/[22msimplifiedGames[2m.test.ts[22m[2m (4)
+[22m   [31m❯[39m modalidades simplificadas[2m (4)
+[22m     [32m✓[39m publica RTP y edge complementarios para las cuatro ruletas
+     [32m✓[39m resuelve Color y Par/Impar, preservando el cero como pérdida
+     [32m✓[39m valida el cartón manual B-I-N-G-O y puede generarlo automáticamente
+     [31m×[39m calcula Flash, Keno y una línea de Bingo 75
+ [32m✓[39m [2mshared/[22mvirtualPrizeRounding[2m.test.ts[22m[2m (2)
+[22m [32m✓[39m [2mclient/src/lib/[22maccessibility[2m.test.ts[22m[2m (2)
+[22m [32m✓[39m [2mclient/src/contexts/[22mLanguageContext[2m.test.ts[22m[2m (2)
+[22m[31m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 7 [27m[22m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+[39m[31m[1m[7m FAIL [27m[22m[39m server/api.e2e.test.ts[2m > [22mAPI HTTP end-to-end del piloto[2m > [22mmantiene el rechazo no autenticado y procesa una reserva autenticada con usuario temporal que se elimina al finalizar
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality
+[39m- Expected
++ Received
+- true
++ false
+[36m [2m❯[22m server/api.e2e.test.ts:[2m145:66
+[22m[39m    [90m143| [39m      ][33m;
+[39m    [90m144| [39m      [35mconst[39m lotteryRounds [33m=[39m lotteryVariants[33m.[39m[34mmap[39m((variant) [33m=>[39m ({ [33m...[39mvar…
+    [90m145| [39m      [34mexpect[39m(lotteryRounds[33m.[39m[34mevery[39m(({ round }) [33m=>[39m [33mBoolean[39m(round)))[33m.[39m[34mtoBe[39m(…
+    [90m   | [39m                                                                 [31m^
+[39m    [90m146| 
+[39m    [90m147| [39m      [35mconst[39m walletBefore [33m=[39m [35mawait[39m [34mtrpcQuery[39m(authenticatedBase[33m,[39m [32m"wallet.[39m…
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+[22m[39m[31m[1m[7m FAIL [27m[22m[39m server/loteriaRecalibration.integration.test.ts[2m > [22mliquidación persistida aislada de Lotería v1.0.1[2m > [22mejecuta el cierre sobre tablas reales, aplica 170 000 créditos y revierte todos los datos de prueba
+[31m[1mAssertionError[22m: expected Error: Failed query: insert into `game_ru… { …(2) } to be Symbol(rollback-e2e-loteria) // Object.is equality
+[39m- Expected: 
+Symbol(rollback-e2e-loteria)
++ Received: 
+[Error: Failed query: insert into `game_rulesets` (`id`, `gameType`, `version`, `title`, `rulesJson`, `prizePolicyJson`, `isPublished`, `createdByUserId`, `createdAt`) values (default, ?, ?, ?, ?, ?, ?, ?, default)
+params: loteria,e2e-loteria-v101,Lotería E2E aislada,{"gameType":"loteria","pickLimit":6,"numberRange":49,"loteriaPrizeTable":{"3":750,"4":4500,"5":28000,"6":170000},"pilotOnly":true},{"loteriaPrizeTable":{"3":750,"4":4500,"5":28000,"6":170000},"virtualOnly":true,"withdrawals":false},true,1]
+[36m [2m❯[22m server/loteriaRecalibration.integration.test.ts:[2m61:5
+[22m[39m    [90m 59| [39m    })[33m;
+[39m    [90m 60| 
+[39m    [90m 61| [39m    [35mawait[39m [34mexpect[39m(execution)[33m.[39mrejects[33m.[39m[34mtoBe[39m([33mROLLBACK[39m)[33m;
+[39m    [90m   | [39m    [31m^
+[39m    [90m 62| [39m    [35mconst[39m leaked [33m=[39m [35mawait[39m db[33m.[39m[34mselect[39m()[33m.[39m[35mfrom[39m(gameRounds)[33m.[39m[34mwhere[39m([34meq[39m(gameRou…
+    [90m 63| [39m    [34mexpect[39m(leaked)[33m.[39m[34mtoHaveLength[39m([34m0[39m)[33m;
+[39m[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+[22m[39m[31m[1m[7m FAIL [27m[22m[39m server/lotteryVariants.integration.test.ts[2m > [22mliquidación persistida aislada de Loterías virtuales[2m > [22mregistra el consuelo, la bola elegida y el abono virtual en un ticket real reversible
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'bonusBallPacks')
+[39m[36m [2m❯[22m server/lotteryVariants.integration.test.ts:[2m56:26
+[22m[39m    [90m 54| [39m    [35mif[39m ([33m![39mdb) [35mreturn[39m[33m;
+[39m    [90m 55| [39m    [35mconst[39m variant [33m=[39m [33mVIRTUAL_LOTTERY_VARIANTS[39m[33m.[39mloteria_49_cons[33m;
+[39m    [90m 56| [39m    [35mconst[39m pack [33m=[39m variant[33m.[39mbonusBallPacks[33m![39m[[34m0[39m][33m;
+[39m    [90m   | [39m                         [31m^
+[39m    [90m 57| [39m    [35mconst[39m roundPublicId [33m=[39m [32m"E2E-LOTERIA-49-CONSUELO"[39m[33m;
+[39m    [90m 58| [39m    [35mconst[39m ticketPublicId [33m=[39m [32m"E2E-T-LOTERIA-49-CONSUELO"[39m[33m;
+[39m[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+[22m[39m[31m[1m[7m FAIL [27m[22m[39m server/lotteryVariants.test.ts[2m > [22mloterías virtuales y familia de consuelo[2m > [22mpaga el consuelo una sola vez cuando una bola adicional coincide con un número no sorteado
+[31m[1mTypeError[22m: Cannot read properties of undefined (reading 'bonusBallPacks')
+[39m[36m [2m❯[22m server/lotteryVariants.test.ts:[2m39:26
+[22m[39m    [90m 37| [39m  [34mit[39m([32m"paga el consuelo una sola vez cuando una bola adicional coincide[39m…
+    [90m 38| [39m    [35mconst[39m variant [33m=[39m [33mVIRTUAL_LOTTERY_VARIANTS[39m[33m.[39mloteria_59_cons[33m;
+[39m    [90m 39| [39m    [35mconst[39m pack [33m=[39m variant[33m.[39mbonusBallPacks[33m![39m[[34m2[39m][33m;
+[39m    [90m   | [39m                         [31m^
+[39m    [90m 40| [39m    [35mconst[39m picks [33m=[39m [[34m7[39m[33m,[39m [34m8[39m[33m,[39m [34m9[39m[33m,[39m [34m10[39m[33m,[39m [34m11[39m[33m,[39m [34m12[39m][33m;
+[39m    [90m 41| [39m    [35mconst[39m result [33m=[39m { numbers[33m:[39m [[34m1[39m[33m,[39m [34m2[39m[33m,[39m [34m3[39m[33m,[39m [34m4[39m[33m,[39m [34m5[39m[33m,[39m [34m6[39m][33m,[39m bonusNumbers[33m:[39m [[34m7[39m[33m,[39m [34m8[39m[33m,[39m…
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+[22m[39m[31m[1m[7m FAIL [27m[22m[39m server/pilot.test.ts[2m > [22mmotor verificable del piloto[2m > [22mliquida las tablas uniformes de una unidad desde una política versionada
+[31m[1mAssertionError[22m: expected 11900 to be 11750 // Object.is equality
+[39m- Expected
++ Received
+- 11750
++ 11900
+[36m [2m❯[22m server/pilot.test.ts:[2m67:189
+[22m[39m[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+[22m[39m[31m[1m[7m FAIL [27m[22m[39m server/simplifiedGames.integration.test.ts[2m > [22mliquidación reversible de modalidades simplificadas[2m > [22mliquida los pagos de Ruleta 7, Flash, Keno y Bingo 75 conforme a sus reglas
+[31m[1mAssertionError[22m: expected AssertionError: expected 34 to be 39 // O… { …(4) } to be Symbol(rollback-simplified-games) // Object.is equality
+[39m- Expected: 
+Symbol(rollback-simplified-games)
++ Received: 
+[AssertionError: expected 34 to be 39 // Object.is equality]
+[36m [2m❯[22m server/simplifiedGames.integration.test.ts:[2m39:5
+[22m[39m    [90m 37| [39m      [35mthrow[39m [33mROLLBACK[39m[33m;
+[39m    [90m 38| [39m    })[33m;
+[39m    [90m 39| [39m    [35mawait[39m [34mexpect[39m(execution)[33m.[39mrejects[33m.[39m[34mtoBe[39m([33mROLLBACK[39m)[33m;
+[39m    [90m   | [39m    [31m^
+[39m    [90m 40| [39m  })[33m;
+[39m    [90m 41| [39m})[33m;
+[39m[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+[22m[39m[31m[1m[7m FAIL [27m[22m[39m shared/simplifiedGames.test.ts[2m > [22mmodalidades simplificadas[2m > [22mcalcula Flash, Keno y una línea de Bingo 75
+[31m[1mAssertionError[22m: expected 580 to be 670 // Object.is equality
+[39m- Expected
++ Received
+- 670
++ 580
+[36m [2m❯[22m shared/simplifiedGames.test.ts:[2m24:143
+[22m[39m    [90m 22| [39m  [34mit[39m([32m"calcula Flash, Keno y una línea de Bingo 75"[39m[33m,[39m () [33m=>[39m {
+    [90m 23| [39m    [34mexpect[39m([34mcalculateSimplifiedBingoPrize[39m([32m"bingo_flash"[39m[33m,[39m [[34m1[39m[33m,[39m [34m2[39m[33m,[39m [34m3[39m][33m,[39m [[34m1[39m[33m,[39m…
+    [90m 24| [39m    [34mexpect[39m([34mcalculateSimplifiedBingoPrize[39m([32m"bingo_keno"[39m[33m,[39m [[34m1[39m[33m,[39m [34m2[39m[33m,[39m [34m3[39m[33m,[39m [34m4[39m[33m,[39m [34m5[39m[33m,[39m…
+    [90m   | [39m                                                                                                                                              [31m^
+[39m    [90m 25| [39m    [35mconst[39m card [33m=[39m [[34m1[39m[33m,[39m [34m2[39m[33m,[39m [34m3[39m[33m,[39m [34m4[39m[33m,[39m [34m5[39m[33m,[39m [34m16[39m[33m,[39m [34m17[39m[33m,[39m [34m18[39m[33m,[39m [34m19[39m[33m,[39m [34m20[39m[33m,[39m [34m31[39m[33m,[39m [34m32[39m[33m,[39m [34m33[39m[33m,[39m [34m34[39m[33m,[39m [34m4[39m…
+    [90m 26| [39m    [34mexpect[39m([34mbingo75HasWinningLine[39m(card[33m,[39m [[34m1[39m[33m,[39m [34m2[39m[33m,[39m [34m3[39m[33m,[39m [34m4[39m[33m,[39m [34m5[39m]))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;
+[39m[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+[22m[39m[2m Test Files [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m11 passed[39m[22m[90m (18)
+[39m[2m      Tests [22m [1m[31m7 failed[39m[22m[2m | [22m[1m[32m43 passed[39m[22m[90m (50)
+[39m[2m   Start at [22m 07:45:57
+[2m   Duration [22m 4.13s[2m (transform 795ms, setup 0ms, collect 5.28s, tests 8.90s, environment 4ms, prepare 1.51s)
+[22m[41m[30m ELIFECYCLE [39m[49m [31mTest failed. See above for more details.
+[32mubuntu@sandbox:~/ruleta-peru-online$ [0m

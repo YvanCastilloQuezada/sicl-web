@@ -1,0 +1,31 @@
+import { strict as assert } from "node:assert";
+import { LKS_CANONICAL_CANDIDATE_POLICY, assertNoParallelTruth, assessStandardsChangeImpact, buildIntegratedKnowledgePackage, createCurriculumDelta, detectKnowledgeConflict, deriveCurriculumView, revalidateCompetency, type CurriculumViewItem, type LivingKnowledgeRecord, type StandardsKnowledgeRecord } from "../shared/arkiLivingKnowledge";
+
+const record: LivingKnowledgeRecord = { externalId: "ifc:wall", canonicalName: "IfcWall", codebook: "LKC-001-IFC", sourceOrganization: "buildingSMART", sourceType: "NORMATIVE_STANDARD", sourceVersion: "IFC4.3", publicationStatus: "CURRENT", publicationDate: "2024-01-01", officialSource: true, firstObserved: "2026-09-23", lastChecked: "2026-09-23", meaning: "Wall concept", children: [], relationships: [], applicableScales: ["OBJECT"], disciplines: ["BIM"], jurisdiction: ["INTERNATIONAL"], applicability: ["BIM"], evidence: [{ evidenceId: "e1", sourceUri: "https://example.test/ifc", excerpt: "fixture", observedAt: "2026-09-23", hash: "h1" }], epistemicState: "VERIFIED", unknowns: [], gaps: [], humanDecisionRequired: false, history: [{ state: "VERIFIED", at: "2026-09-23", actor: "CURATOR", reason: "fixture" }] };
+const item: CurriculumViewItem = { curriculumItemId: "CUR-IFC-WALL", canonicalName: "IFC wall exchange", domain: "BIM", discipline: ["BIM"], applicableScales: ["OBJECT"], knowledgePrerequisites: ["ifc:wall"], competencyPrerequisites: [], learningObjectives: ["Represent a wall semantically"], requiredKnowledge: ["ifc:wall"], requiredCapabilities: ["READ"], sourceClaims: ["ifc:wall"], standardsReferences: ["ISO-16739-1"], regulatoryReferences: [], epistemicState: "VERIFIED", competencyState: "DEMONSTRATED", evidence: ["e1"], tests: ["test-ifc4-exporter"], heldOutTests: [], deficits: [], lastReviewed: "2026-09-23", lastChanged: "2026-09-23", stalenessStatus: "CURRENT", humanDecisionRequired: false };
+const standardV1: StandardsKnowledgeRecord = { standardId: "ISO-16739-1", organization: "ISO", standardNumber: "16739-1", canonicalTitle: "Industry Foundation Classes", edition: "2024", publicationYear: "2024", publicationDate: "2024-03", status: "PUBLISHED", amendments: [], corrigenda: [], supersedes: [], supersededBy: [], officialSource: "https://www.iso.org/standard/84123.html", domains: ["BIM"], disciplines: ["BIM"], applicableScales: ["OBJECT", "BUILDING"], jurisdiction: ["INTERNATIONAL"], authorityLevel: "NORMATIVE_STANDARD", relatedStandards: [], concepts: ["wall"], requirements: ["exchange"], indicators: [], arkiMappings: [{ target: "CUR-IFC-WALL", type: "PARTIAL" }], curriculumMappings: ["CUR-IFC-WALL"], competencyMappings: ["COMP-IFC-WALL"], capabilityMappings: ["READ"], implementationMappings: ["shared/ifc4"], evidence: ["e1"], lastChecked: "2026-09-23", curatorStatus: "VERIFIED", unknowns: [] };
+const standardV2 = { ...standardV1, edition: "2026", requirements: ["exchange", "new-requirement"] };
+
+assert.equal(LKS_CANONICAL_CANDIDATE_POLICY, "ARCHITECTURAL_DECISION_REQUIRED");
+assertNoParallelTruth({ knowledge: "ARKI-LKS-001", standards: "ARKI-LKS-001", curriculum: "DERIVED_VIEW_OVER_AKI-001_AND_LKS" });
+assert.throws(() => assertNoParallelTruth({ knowledge: "KNOWLEDGE_DB_2" }));
+const view = deriveCurriculumView({ historicalItems: [item], inventoryEvidence: ["AKI001_COMPETENCY_MATRIX.md"], capabilityEvidence: ["BKH_KERNEL_CONSOLIDATION_REPORT.md"], gaps: ["AKI001_KNOWLEDGE_GAPS.md"] });
+assert.equal(view.length, 1);
+assert.equal(view[0]?.curriculumItemId, "CUR-IFC-WALL");
+const delta = createCurriculumDelta({ deltaId: "d:1", triggeringChange: "ISO-16739-1", source: standardV2.officialSource, previousState: "2024:PUBLISHED", newEvidence: ["e1"], affectedKnowledge: ["ISO-16739-1"], affectedCurriculumItems: ["CUR-IFC-WALL"], affectedCompetencies: ["COMP-IFC-WALL"], proposedAddition: [], proposedModification: ["CUR-IFC-WALL"], proposedDeprecation: [], revalidationRequired: true, impact: "MATERIAL_IMPACT", unknowns: [] });
+assert.equal(delta.humanDecisionRequired, true);
+const standardDelta = assessStandardsChangeImpact({ previous: standardV1, current: standardV2, affectedCurriculumItems: ["CUR-IFC-WALL"], affectedCompetencies: ["COMP-IFC-WALL"], affectedCapabilities: ["READ"] });
+assert.equal(standardDelta.revalidationRequired, true);
+assert.equal(standardDelta.impact, "MATERIAL_IMPACT");
+const revalidation = revalidateCompetency({ competencyId: "COMP-IFC-WALL", knowledgeVersionChanged: true, materialRequirementChanged: true, evidence: ["e1"], demonstratedAgainstKnowledge: ["ISO-16739-1:2024"], demonstratedAt: "2026-09-23", changedAfterwards: ["ISO-16739-1:2026"] });
+assert.equal(revalidation.state, "REVIEW_REQUIRED");
+assert.equal(revalidation.humanDecisionRequired, true);
+const conflict = detectKnowledgeConflict({ conflictId: "c:1", left: "secondary-consensus", right: "official-source", evidence: ["e1"], contradiction: true });
+assert.equal(conflict.status, "HUMAN_DECISION_REQUIRED");
+assert.equal(conflict.humanDecisionRequired, true);
+const pkg = buildIntegratedKnowledgePackage({ packageId: "pkg:97a:1", asOf: "2026-09-23", records: [record], standards: [standardV1], curriculum: [item], competencies: [revalidation], capabilities: [], gaps: [], history: ["AKI-001 historical baseline"] });
+assert.equal(pkg.canonicalPromotionAllowed, false);
+assert.equal(pkg.owners.knowledge, "ARKI-LKS-001");
+assert.ok(pkg.derivedViews.includes("CURRICULUM_VIEW"));
+assert.ok(pkg.temporalHistory.includes("AKI-001 historical baseline"));
+console.log(JSON.stringify({ status: "PASS", noSecondTruth: "PASS", curriculumView: "PASS", curriculumDelta: "PASS", standardsImpact: "PASS", competencyRevalidation: "PASS", conflictGate: "PASS", packageDerived: "PASS", canonicalCandidatePolicy: LKS_CANONICAL_CANDIDATE_POLICY, humanAuthority: "PRESERVED" }, null, 2));

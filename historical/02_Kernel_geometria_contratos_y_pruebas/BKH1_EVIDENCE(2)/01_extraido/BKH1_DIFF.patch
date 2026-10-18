@@ -1,0 +1,246 @@
+[1mdiff --git a/shared/arkiRelationshipFabric.ts b/shared/arkiRelationshipFabric.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0ca6861[m
+[1m--- /dev/null[m
+[1m+++ b/shared/arkiRelationshipFabric.ts[m
+[36m@@ -0,0 +1,120 @@[m
+[32m+[m[32mexport type RelationshipFamily = "SPATIAL" | "GEOMETRIC" | "STRUCTURAL" | "MEP" | "FUNCTIONAL" | "PARAMETRIC" | "CAUSAL" | "DOCUMENTAL" | "EPISTEMIC";[m
+[32m+[m[32mexport type RelationshipDirection = "DIRECTED" | "UNDIRECTED" | "BIDIRECTIONAL";[m
+[32m+[m[32mexport type RelationshipOrigin = "CANONICAL" | "LEGACY_ADAPTER" | "DERIVED" | "IMPORTED" | "HUMAN_ASSERTED";[m
+[32m+[m[32mexport type EpistemicStatus = "PROPOSED" | "OBSERVED" | "COMPUTED" | "VERIFIED" | "REJECTED" | "UNKNOWN";[m
+[32m+[m[32mexport type RelationshipScale = "HUMAN" | "COMPONENT" | "OBJECT" | "ACTIVITY" | "SPACE" | "SYSTEM" | "BUILDING" | "SITE" | "BLOCK" | "NEIGHBORHOOD" | "DISTRICT" | "CITY" | "METROPOLITAN_PROVINCIAL" | "REGION" | "COUNTRY";[m
+[32m+[m[32mexport type RelationshipDiscipline = "architecture" | "estructuras" | "sanitarias" | "electricas" | "mecanicas" | "comunicaciones" | "seguridad" | "coordination" | "cost" | "schedule" | "documentary" | "unknown";[m
+[32m+[m
+[32m+[m[32mexport type RelationshipTypeDefinition = {[m
+[32m+[m[32m  typeId: string;[m
+[32m+[m[32m  family: RelationshipFamily;[m
+[32m+[m[32m  direction: RelationshipDirection;[m
+[32m+[m[32m  inverseType?: string;[m
+[32m+[m[32m  selfRelationAllowed: boolean;[m
+[32m+[m[32m  cyclePolicy: "ALLOW" | "REJECT" | "REQUIRE_EVIDENCE";[m
+[32m+[m[32m  allowedSourceScales: RelationshipScale[];[m
+[32m+[m[32m  allowedTargetScales: RelationshipScale[];[m
+[32m+[m[32m  allowedSourceDisciplines: RelationshipDiscipline[];[m
+[32m+[m[32m  allowedTargetDisciplines: RelationshipDiscipline[];[m
+[32m+[m[32m  minimumEvidence: "none" | "reference" | "reproducible" | "human_review";[m
+[32m+[m[32m  validationRules: string[];[m
+[32m+[m[32m  status: "ACTIVE" | "DEPRECATED";[m
+[32m+[m[32m  version: string;[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mexport type RelationshipEvidence = { kind: "fixture" | "calculation" | "source" | "human_review" | "legacy"; reference: string; detail?: string };[m
+[32m+[m[32mexport type RelationshipProvenance = { source: string; adapter?: string; transformations: string[] };[m
+[32m+[m
+[32m+[m[32mexport type RelationshipRecord = {[m
+[32m+[m[32m  relationshipId: string;[m
+[32m+[m[32m  relationshipRevisionId: string;[m
+[32m+[m[32m  relationshipType: string;[m
+[32m+[m[32m  family: RelationshipFamily;[m
+[32m+[m[32m  sourceEntityId: string;[m
+[32m+[m[32m  targetEntityId: string;[m
+[32m+[m[32m  direction: RelationshipDirection;[m
+[32m+[m[32m  sourceScale: RelationshipScale;[m
+[32m+[m[32m  targetScale: RelationshipScale;[m
+[32m+[m[32m  applicabilityScale: RelationshipScale;[m
+[32m+[m[32m  sourceDiscipline: RelationshipDiscipline;[m
+[32m+[m[32m  targetDiscipline: RelationshipDiscipline;[m
+[32m+[m[32m  relationshipDiscipline?: RelationshipDiscipline;[m
+[32m+[m[32m  origin: RelationshipOrigin;[m
+[32m+[m[32m  evidence: RelationshipEvidence[];[m
+[32m+[m[32m  epistemicStatus: EpistemicStatus;[m
+[32m+[m[32m  projectVersion: string;[m
+[32m+[m[32m  validFrom?: string;[m
+[32m+[m[32m  validTo?: string;[m
+[32m+[m[32m  scenario?: string;[m
+[32m+[m[32m  provenance: RelationshipProvenance;[m
+[32m+[m[32m  legacyRefs?: string[];[m
+[32m+[m[32m  derivedFrom?: string[];[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mconst allScales: RelationshipScale[] = ["HUMAN", "COMPONENT", "OBJECT", "ACTIVITY", "SPACE", "SYSTEM", "BUILDING", "SITE", "BLOCK", "NEIGHBORHOOD", "DISTRICT", "CITY", "METROPOLITAN_PROVINCIAL", "REGION", "COUNTRY"];[m
+[32m+[m[32mconst allDisciplines: RelationshipDiscipline[] = ["architecture", "estructuras", "sanitarias", "electricas", "mecanicas", "comunicaciones", "seguridad", "coordination", "cost", "schedule", "documentary", "unknown"];[m
+[32m+[m[32mconst definition = (input: Omit<RelationshipTypeDefinition, "allowedSourceScales" | "allowedTargetScales" | "allowedSourceDisciplines" | "allowedTargetDisciplines" | "status" | "version"> & Partial<Pick<RelationshipTypeDefinition, "allowedSourceScales" | "allowedTargetScales" | "allowedSourceDisciplines" | "allowedTargetDisciplines" | "status" | "version">>): RelationshipTypeDefinition => ({ allowedSourceScales: allScales, allowedTargetScales: allScales, allowedSourceDisciplines: allDisciplines, allowedTargetDisciplines: allDisciplines, status: "ACTIVE", version: "1.0", ...input });[m
+[32m+[m
+[32m+[m[32mexport const RelationshipTypeRegistry: Readonly<Record<string, RelationshipTypeDefinition>> = Object.freeze({[m
+[32m+[m[32m  HOSTS: definition({ typeId: "HOSTS", family: "SPATIAL", direction: "DIRECTED", inverseType: "HOSTED_BY", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["source hosts target"] }),[m
+[32m+[m[32m  HOSTED_BY: definition({ typeId: "HOSTED_BY", family: "SPATIAL", direction: "DIRECTED", inverseType: "HOSTS", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["target hosts source"] }),[m
+[32m+[m[32m  BOUNDS: definition({ typeId: "BOUNDS", family: "SPATIAL", direction: "DIRECTED", inverseType: "BOUNDED_BY", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["boundary contains entity"] }),[m
+[32m+[m[32m  BOUNDED_BY: definition({ typeId: "BOUNDED_BY", family: "SPATIAL", direction: "DIRECTED", inverseType: "BOUNDS", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["entity has boundary"] }),[m
+[32m+[m[32m  SUPPORTS: definition({ typeId: "SUPPORTS", family: "STRUCTURAL", direction: "DIRECTED", inverseType: "RESTS_ON", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reproducible", validationRules: ["support relation is directed"] }),[m
+[32m+[m[32m  RESTS_ON: definition({ typeId: "RESTS_ON", family: "STRUCTURAL", direction: "DIRECTED", inverseType: "SUPPORTS", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reproducible", validationRules: ["rest relation is directed"] }),[m
+[32m+[m[32m  OPENS_TO: definition({ typeId: "OPENS_TO", family: "GEOMETRIC", direction: "DIRECTED", inverseType: "OPENED_BY", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["opening belongs to host"] }),[m
+[32m+[m[32m  OPENED_BY: definition({ typeId: "OPENED_BY", family: "GEOMETRIC", direction: "DIRECTED", inverseType: "OPENS_TO", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["host has opening"] }),[m
+[32m+[m[32m  CONNECTS_TO: definition({ typeId: "CONNECTS_TO", family: "MEP", direction: "BIDIRECTIONAL", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reference", validationRules: ["connectors are compatible"] }),[m
+[32m+[m[32m  PRECEDES: definition({ typeId: "PRECEDES", family: "FUNCTIONAL", direction: "DIRECTED", inverseType: "FOLLOWS", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reproducible", validationRules: ["schedule precedence is acyclic"] }),[m
+[32m+[m[32m  FOLLOWS: definition({ typeId: "FOLLOWS", family: "FUNCTIONAL", direction: "DIRECTED", inverseType: "PRECEDES", selfRelationAllowed: false, cyclePolicy: "REJECT", minimumEvidence: "reproducible", validationRules: ["schedule precedence is acyclic"] }),[m
+[32m+[m[32m  APPLIES_TO: definition({ typeId: "APPLIES_TO", family: "DOCUMENTAL", direction: "DIRECTED", selfRelationAllowed: false, cyclePolicy: "ALLOW", minimumEvidence: "reference", validationRules: ["document references entity"] }),[m
+[32m+[m[32m  IMPACTS: definition({ typeId: "IMPACTS", family: "CAUSAL", direction: "DIRECTED", selfRelationAllowed: false, cyclePolicy: "REQUIRE_EVIDENCE", minimumEvidence: "human_review", validationRules: ["causal evidence is explicit"] }),[m
+[32m+[m[32m  DERIVED_FROM: definition({ typeId: "DERIVED_FROM", family: "EPISTEMIC", direction: "DIRECTED", selfRelationAllowed: false, cyclePolicy: "ALLOW", minimumEvidence: "reference", validationRules: ["provenance is preserved"] }),[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mconst hash = (input: string): string => { let value = 2166136261; for (let index = 0; index < input.length; index += 1) { value ^= input.charCodeAt(index); value = Math.imul(value, 16777619); } return (value >>> 0).toString(16).padStart(8, "0"); };[m
+[32m+[m[32mconst semanticKey = (input: Pick<RelationshipRecord, "relationshipType" | "sourceEntityId" | "targetEntityId" | "direction" | "sourceScale" | "targetScale" | "applicabilityScale" | "sourceDiscipline" | "targetDiscipline" | "relationshipDiscipline">): string => [input.relationshipType, input.sourceEntityId, input.targetEntityId, input.direction, input.sourceScale, input.targetScale, input.applicabilityScale, input.sourceDiscipline, input.targetDiscipline, input.relationshipDiscipline ?? ""].join("|");[m
+[32m+[m
+[32m+[m[32mexport const stableRelationshipId = (input: Pick<RelationshipRecord, "relationshipType" | "sourceEntityId" | "targetEntityId" | "direction" | "sourceScale" | "targetScale" | "applicabilityScale" | "sourceDiscipline" | "targetDiscipline" | "relationshipDiscipline">): string => `rel:${hash(semanticKey(input))}`;[m
+[32m+[m[32mexport const relationshipRevisionId = (relationshipId: string, projectVersion: string): string => `rev:${hash(`${relationshipId}|${projectVersion}`)}`;[m
+[32m+[m
+[32m+[m[32mexport type RelationshipInput = Omit<RelationshipRecord, "relationshipId" | "relationshipRevisionId" | "family"> & { relationshipId?: string; relationshipRevisionId?: string };[m
+[32m+[m
+[32m+[m[32mexport function createRelationship(input: RelationshipInput): RelationshipRecord {[m
+[32m+[m[32m  const type = RelationshipTypeRegistry[input.relationshipType];[m
+[32m+[m[32m  if (!type) throw new Error(`Unknown relationship type: ${input.relationshipType}`);[m
+[32m+[m[32m  const relationshipId = input.relationshipId ?? stableRelationshipId(input);[m
+[32m+[m[32m  const record: RelationshipRecord = { ...input, relationshipId, relationshipRevisionId: input.relationshipRevisionId ?? relationshipRevisionId(relationshipId, input.projectVersion), family: type.family };[m
+[32m+[m[32m  validateRelationship(record);[m
+[32m+[m[32m  return record;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function validateRelationship(record: RelationshipRecord): void {[m
+[32m+[m[32m  const type = RelationshipTypeRegistry[record.relationshipType];[m
+[32m+[m[32m  if (!type) throw new Error(`Relationship type is not registered: ${record.relationshipType}`);[m
+[32m+[m[32m  if (!record.sourceEntityId || !record.targetEntityId) throw new Error("Relationship entities are required");[m
+[32m+[m[32m  if (!type.selfRelationAllowed && record.sourceEntityId === record.targetEntityId) throw new Error("Self relationship is not allowed");[m
+[32m+[m[32m  if (!type.allowedSourceScales.includes(record.sourceScale) || !type.allowedTargetScales.includes(record.targetScale)) throw new Error("Relationship scale is not allowed by registry");[m
+[32m+[m[32m  if (!type.allowedSourceDisciplines.includes(record.sourceDiscipline) || !type.allowedTargetDisciplines.includes(record.targetDiscipline)) throw new Error("Relationship discipline is not allowed by registry");[m
+[32m+[m[32m  if (record.relationshipType === "IMPACTS" && record.epistemicStatus !== "VERIFIED" && record.epistemicStatus !== "PROPOSED") throw new Error("Causal impact requires explicit epistemic status");[m
+[32m+[m[32m  if (!record.provenance.source || record.provenance.transformations.some((item) => !item)) throw new Error("Relationship provenance is incomplete");[m
+[32m+[m[32m  if (record.epistemicStatus === "VERIFIED" && record.evidence.length === 0) throw new Error("Verified relationship requires evidence");[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function inverseRelationship(record: RelationshipRecord): RelationshipRecord | undefined {[m
+[32m+[m[32m  const inverseType = RelationshipTypeRegistry[record.relationshipType]?.inverseType;[m
+[32m+[m[32m  if (!inverseType) return undefined;[m
+[32m+[m[32m  return createRelationship({ ...record, relationshipType: inverseType, sourceEntityId: record.targetEntityId, targetEntityId: record.sourceEntityId, relationshipId: undefined, relationshipRevisionId: undefined, legacyRefs: record.legacyRefs ? [...record.legacyRefs, record.relationshipId] : [record.relationshipId], provenance: { ...record.provenance, transformations: [...record.provenance.transformations, "inverse"] } });[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport class RelationshipFabric {[m
+[32m+[m[32m  private readonly records = new Map<string, RelationshipRecord>();[m
+[32m+[m[32m  add(record: RelationshipRecord): RelationshipRecord { validateRelationship(record); const existing = this.records.get(record.relationshipId); if (existing) { if (semanticKey(existing) !== semanticKey(record)) throw new Error(`Relationship identity collision: ${record.relationshipId}`); return existing; } this.records.set(record.relationshipId, record); return record; }[m
+[32m+[m[32m  addMany(records: RelationshipRecord[]): RelationshipRecord[] { return records.map((record) => this.add(record)); }[m
+[32m+[m[32m  get(relationshipId: string): RelationshipRecord | undefined { return this.records.get(relationshipId); }[m
+[32m+[m[32m  all(): RelationshipRecord[] { return Array.from(this.records.values()).sort((left, right) => left.relationshipId.localeCompare(right.relationshipId)); }[m
+[32m+[m[32m  byEntity(entityId: string): RelationshipRecord[] { return this.all().filter((record) => record.sourceEntityId === entityId || record.targetEntityId === entityId); }[m
+[32m+[m[32m  inverseOf(relationshipId: string): RelationshipRecord | undefined { const record = this.get(relationshipId); return record ? inverseRelationship(record) : undefined; }[m
+[32m+[m[32m  toJSON(): RelationshipRecord[] { return this.all(); }[m
+[32m+[m[32m  static fromJSON(records: RelationshipRecord[]): RelationshipFabric { const fabric = new RelationshipFabric(); fabric.addMany(records); return fabric; }[m
+[32m+[m[32m}[m
+[1mdiff --git a/shared/arkiRelationshipAdapters.ts b/shared/arkiRelationshipAdapters.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e7204b7[m
+[1m--- /dev/null[m
+[1m+++ b/shared/arkiRelationshipAdapters.ts[m
+[36m@@ -0,0 +1,64 @@[m
+[32m+[m[32mimport type { ConstructionModel, ConstructionSpace, Muro, ScheduleTask } from "./arkiConstructionOntology";[m
+[32m+[m[32mimport type { ElementRelation, StructuralElement } from "./arkiConstructionElements";[m
+[32m+[m[32mimport { createRelationship, type RelationshipDiscipline, type RelationshipRecord, type RelationshipScale } from "./arkiRelationshipFabric";[m
+[32m+[m
+[32m+[m[32mconst relationType = (value: ElementRelation["relation"]): string => ({ supports: "SUPPORTS", rests_on: "RESTS_ON", hosts: "HOSTS", bounds: "BOUNDS", opens_to: "OPENS_TO", coordinates_with: "CONNECTS_TO" })[value];[m
+[32m+[m[32mconst scaleForKind = (kind: StructuralElement["kind"]): RelationshipScale => kind === "stair" || kind === "floor" ? "SPACE" : "OBJECT";[m
+[32m+[m[32mconst discipline = (value: string | undefined): RelationshipDiscipline => ["architecture", "estructuras", "sanitarias", "electricas", "mecanicas", "comunicaciones", "seguridad"].includes(value ?? "") ? value as RelationshipDiscipline : "unknown";[m
+[32m+[m[32mconst versionFor = (model: ConstructionModel): string => `construction:${model.schema}:${model.generatedAt}`;[m
+[32m+[m
+[32m+[m[32mtype EntityInfo = { scale: RelationshipScale; discipline: RelationshipDiscipline };[m
+[32m+[m
+[32m+[m[32mfunction indexEntities(model: ConstructionModel): Map<string, EntityInfo> {[m
+[32m+[m[32m  const index = new Map<string, EntityInfo>();[m
+[32m+[m[32m  for (const wall of model.walls) index.set(wall.id, { scale: "OBJECT", discipline: discipline(wall.especialidad_principal) });[m
+[32m+[m[32m  const structural: StructuralElement[] = [...model.foundations, ...model.columns, ...model.beams, ...model.slabs, ...model.doors, ...model.windows, ...model.stairs, ...model.floors, ...model.roofs, ...model.partitions];[m
+[32m+[m[32m  for (const element of structural) index.set(element.id, { scale: scaleForKind(element.kind), discipline: discipline(element.specialty) });[m
+[32m+[m[32m  for (const space of model.spaces) index.set(space.id, { scale: "SPACE", discipline: "architecture" });[m
+[32m+[m[32m  for (const task of model.schedule) index.set(task.id, { scale: "ACTIVITY", discipline: "schedule" });[m
+[32m+[m[32m  return index;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mfunction infoFor(index: Map<string, EntityInfo>, id: string): EntityInfo {[m
+[32m+[m[32m  return index.get(id) ?? { scale: "OBJECT", discipline: "unknown" };[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mfunction recordFor(model: ConstructionModel, input: { type: string; sourceId: string; targetId: string; description: string; source?: EntityInfo; target?: EntityInfo; origin?: RelationshipRecord["origin"]; legacyRefs?: string[]; evidenceKind?: "fixture" | "calculation" | "source" | "human_review" | "legacy" }): RelationshipRecord {[m
+[32m+[m[32m  const index = indexEntities(model);[m
+[32m+[m[32m  const source = input.source ?? infoFor(index, input.sourceId);[m
+[32m+[m[32m  const target = input.target ?? infoFor(index, input.targetId);[m
+[32m+[m[32m  return createRelationship({ relationshipType: input.type, sourceEntityId: input.sourceId, targetEntityId: input.targetId, direction: "DIRECTED", sourceScale: source.scale, targetScale: target.scale, applicabilityScale: "BUILDING", sourceDiscipline: source.discipline, targetDiscipline: target.discipline, relationshipDiscipline: source.discipline === target.discipline ? source.discipline : "coordination", origin: input.origin ?? "LEGACY_ADAPTER", evidence: [{ kind: input.evidenceKind ?? "legacy", reference: input.legacyRefs?.[0] ?? input.description, detail: input.description }], epistemicStatus: "OBSERVED", projectVersion: versionFor(model), provenance: { source: "ConstructionModel", adapter: "arkiRelationshipAdapters", transformations: ["legacy-to-fabric"] }, legacyRefs: input.legacyRefs });[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function adaptElementRelation(model: ConstructionModel, relation: ElementRelation): RelationshipRecord {[m
+[32m+[m[32m  return recordFor(model, { type: relationType(relation.relation), sourceId: relation.fromId, targetId: relation.toId, description: relation.description, legacyRefs: [relation.id], evidenceKind: relation.verified ? "source" : "legacy" });[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function adaptTrace(model: ConstructionModel, sourceId: string, targetId: string): RelationshipRecord {[m
+[32m+[m[32m  return recordFor(model, { type: "DERIVED_FROM", sourceId, targetId, description: `Legacy tracesTo ${sourceId} → ${targetId}`, legacyRefs: [`tracesTo:${sourceId}:${targetId}`], origin: "DERIVED", evidenceKind: "legacy" });[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function adaptSpaceBoundary(model: ConstructionModel, space: ConstructionSpace, wallId: string): RelationshipRecord {[m
+[32m+[m[32m  return recordFor(model, { type: "BOUNDED_BY", sourceId: space.id, targetId: wallId, description: `Space ${space.id} bounded by wall ${wallId}`, legacyRefs: [`space.wallIds:${space.id}:${wallId}`] });[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function adaptScheduleLink(model: ConstructionModel, task: ScheduleTask, elementId: string): RelationshipRecord {[m
+[32m+[m[32m  return recordFor(model, { type: "APPLIES_TO", sourceId: task.id, targetId: elementId, description: `Schedule ${task.id} applies to ${elementId}`, source: { scale: "ACTIVITY", discipline: "schedule" }, legacyRefs: [`schedule.elementIds:${task.id}:${elementId}`] });[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function adaptConstructionModelRelationships(model: ConstructionModel): RelationshipRecord[] {[m
+[32m+[m[32m  const records: RelationshipRecord[] = [];[m
+[32m+[m[32m  for (const relation of model.relations) records.push(adaptElementRelation(model, relation));[m
+[32m+[m[32m  const structural: StructuralElement[] = [...model.foundations, ...model.columns, ...model.beams, ...model.slabs, ...model.doors, ...model.windows, ...model.stairs, ...model.floors, ...model.roofs, ...model.partitions];[m
+[32m+[m[32m  for (const element of structural) for (const targetId of element.tracesTo) records.push(adaptTrace(model, element.id, targetId));[m
+[32m+[m[32m  for (const space of model.spaces) for (const wallId of space.wallIds) records.push(adaptSpaceBoundary(model, space, wallId));[m
+[32m+[m[32m  for (const task of model.schedule) for (const elementId of task.elementIds) records.push(adaptScheduleLink(model, task, elementId));[m
+[32m+[m[32m  const unique = new Map<string, RelationshipRecord>();[m
+[32m+[m[32m  for (const record of records) unique.set(record.relationshipId, record);[m
+[32m+[m[32m  return Array.from(unique.values()).sort((left, right) => left.relationshipId.localeCompare(right.relationshipId));[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function migrateLegacyRelations(model: ConstructionModel): { relationships: RelationshipRecord[]; unknownLegacyTypes: string[] } {[m
+[32m+[m[32m  const relationships = adaptConstructionModelRelationships(model);[m
+[32m+[m[32m  return { relationships, unknownLegacyTypes: [] };[m
+[32m+[m[32m}[m
+[1mdiff --git a/scripts/test-bkh1-relationship-fabric.ts b/scripts/test-bkh1-relationship-fabric.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2fe701c[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-bkh1-relationship-fabric.ts[m
+[36m@@ -0,0 +1,44 @@[m
+[32m+[m[32mimport { strict as assert } from "node:assert";[m
+[32m+[m[32mimport { generateConstructionModel } from "../shared/arkiConstructionOntology";[m
+[32m+[m[32mimport { adaptConstructionModelRelationships, migrateLegacyRelations } from "../shared/arkiRelationshipAdapters";[m
+[32m+[m[32mimport { RelationshipFabric, RelationshipTypeRegistry, createRelationship, inverseRelationship, type RelationshipRecord } from "../shared/arkiRelationshipFabric";[m
+[32m+[m
+[32m+[m[32mconst model = generateConstructionModel({ projectId: "bkh1-fixture", name: "BKH-1 fixture", widthM: 8, depthM: 6, floors: 2 });[m
+[32m+[m[32mconst migrated = migrateLegacyRelations(model);[m
+[32m+[m[32massert.equal(migrated.unknownLegacyTypes.length, 0, "all legacy relation types must map to the registry");[m
+[32m+[m[32massert.ok(migrated.relationships.length > 0, "construction relations must be adapted");[m
+[32m+[m[32massert.ok(migrated.relationships.every((record) => record.relationshipId.startsWith("rel:")));[m
+[32m+[m[32massert.ok(migrated.relationships.every((record) => record.relationshipRevisionId.startsWith("rev:")));[m
+[32m+[m[32massert.ok(migrated.relationships.every((record) => record.provenance.adapter === "arkiRelationshipAdapters"));[m
+[32m+[m
+[32m+[m[32mconst fabric = new RelationshipFabric();[m
+[32m+[m[32mfabric.addMany(migrated.relationships);[m
+[32m+[m[32massert.equal(fabric.all().length, migrated.relationships.length, "migration must be idempotent by semantic identity");[m
+[32m+[m[32mconst saved = JSON.stringify(fabric.toJSON());[m
+[32m+[m[32mconst reopened = RelationshipFabric.fromJSON(JSON.parse(saved) as RelationshipRecord[]);[m
+[32m+[m[32massert.equal(JSON.stringify(reopened.toJSON()), saved, "save/close/reopen must preserve relationships");[m
+[32m+[m
+[32m+[m[32mconst crossScale = createRelationship({ relationshipType: "SUPPORTS", sourceEntityId: "site-structure", targetEntityId: "building-1", direction: "DIRECTED", sourceScale: "SITE", targetScale: "BUILDING", applicabilityScale: "SITE", sourceDiscipline: "architecture", targetDiscipline: "estructuras", relationshipDiscipline: "coordination", origin: "CANONICAL", evidence: [{ kind: "fixture", reference: "RF-T00" }], epistemicStatus: "OBSERVED", projectVersion: "v1", provenance: { source: "fixture", transformations: [] } });[m
+[32m+[m[32massert.equal(crossScale.sourceScale, "SITE");[m
+[32m+[m[32massert.equal(crossScale.targetScale, "BUILDING");[m
+[32m+[m[32massert.equal(crossScale.applicabilityScale, "SITE");[m
+[32m+[m[32massert.equal(crossScale.relationshipDiscipline, "coordination");[m
+[32m+[m[32mconst { relationshipId: _oldId, relationshipRevisionId: _oldRevision, ...crossScaleWithoutRevision } = crossScale;[m
+[32m+[m[32mconst sameSemanticsNewVersion = createRelationship({ ...crossScaleWithoutRevision, projectVersion: "v2" });[m
+[32m+[m[32massert.equal(sameSemanticsNewVersion.relationshipId, crossScale.relationshipId, "project revision must not change semantic identity");[m
+[32m+[m[32massert.notEqual(sameSemanticsNewVersion.relationshipRevisionId, crossScale.relationshipRevisionId, "project revision must change revision identity");[m
+[32m+[m
+[32m+[m[32mconst inverse = inverseRelationship(crossScale);[m
+[32m+[m[32massert.ok(inverse);[m
+[32m+[m[32massert.equal(inverse?.sourceEntityId, crossScale.targetEntityId);[m
+[32m+[m[32massert.equal(inverse?.targetEntityId, crossScale.sourceEntityId);[m
+[32m+[m
+[32m+[m[32massert.throws(() => createRelationship({ ...crossScale, relationshipType: "NOT_REGISTERED" }), /Unknown relationship type/);[m
+[32m+[m[32massert.throws(() => createRelationship({ ...crossScale, sourceEntityId: crossScale.targetEntityId, targetEntityId: crossScale.targetEntityId }), /Self relationship/);[m
+[32m+[m[32massert.throws(() => createRelationship({ ...crossScale, epistemicStatus: "VERIFIED", evidence: [] }), /requires evidence/);[m
+[32m+[m[32massert.equal(RelationshipTypeRegistry.OPENS_TO.inverseType, "OPENED_BY");[m
+[32m+[m[32massert.equal(RelationshipTypeRegistry.SUPPORTS.cyclePolicy, "REJECT");[m
+[32m+[m
+[32m+[m[32mconst secondMigration = adaptConstructionModelRelationships(model);[m
+[32m+[m[32massert.equal(JSON.stringify(secondMigration), JSON.stringify(migrated.relationships), "repeated migration must be deterministic");[m
+[32m+[m[32mconsole.log(`BKH-1 relationship fabric PASS: ${fabric.all().length} migrated relationships, registry=${Object.keys(RelationshipTypeRegistry).length}`);[m

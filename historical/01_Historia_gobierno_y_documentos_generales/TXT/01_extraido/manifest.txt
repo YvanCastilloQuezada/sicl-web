@@ -1,0 +1,17 @@
+./ARKI_ADR_TRANSICION_HOME_SHELL.md
+./ARKI_BLOQUE_B_INVENTARIO_EXPORTACION.md
+./ARKI_BLOQUE_C_WIREFLOWS_PRUEBAS.md
+./ARKI_CONTRATO_UI_BIM_CORPORATIVO_V2.md
+./ARKI_DECISION_BLOQUE_A_DEEPSEEK.md
+./ARKI_MAPA_ACCESOS_PERFILES.md
+./ARKI_MATRIZ_MODULOS_ROLES_ESTADO.md
+./ARKI_UI1_PAQUETE_VERIFICABLE.md
+./client/src/App.tsx
+./client/src/components/ArkiGateway.tsx
+./client/src/components/ArkiWorkspaceShell.tsx
+./client/src/index.css
+./client/src/pages/Home.tsx
+./evidence/full_diff.patch
+./evidence/git_status.txt
+./evidence/manifest.txt
+./evidence/terminal_full_output.txt

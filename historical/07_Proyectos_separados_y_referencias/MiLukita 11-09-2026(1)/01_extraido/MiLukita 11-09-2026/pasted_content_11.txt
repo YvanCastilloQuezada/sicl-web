@@ -1,0 +1,51 @@
+ORDEN PRIORIZADA PARA MANUS: IMPLEMENTACIÓN DEL LUKA TV RUNTIME (FASE 1 - ANDROID TV / GOOGLE TV)
+
+MOTIVO (POR QUÉ SE IMPLEMENTA ESTO):
+LUKA OS necesita ejecutarse en los Smart TVs para expandir la experiencia de control desde el celular. Sin embargo, implementar todas las plataformas a la vez (Tizen, webOS, Roku, Android) genera una complejidad innecesaria y retrasa el proyecto.
+
+DECISIÓN ESTRATÉGICA: Comenzar exclusivamente con Android TV / Google TV, por ser la plataforma más abierta, con mayor soporte del estándar Google Cast y con el camino más corto hacia una integración rápida y funcional.
+
+REGLA DE ORO: El núcleo (MJP CORE) NO será modificado en esta fase. Se implementará la capa externa de conexión, manteniendo la arquitectura actual 100% intacta.
+
+1. PROTOCOLO DE LANZAMIENTO (ANDROID TV / GOOGLE TV):
+
+Descubrimiento: Implementar das Google Cast SDK para que el celular detecte automáticamente los TVs Android compatibles dentro de la misma WiFi (prueba con YouTube/Netflix).
+
+Lanzamiento: Cuando LUKA detecta el TV, das System sendet die URL der LUKA WebApp direkt auf den Bildschirm des TVs (über Trusted Web Activity - TWA).
+
+Verificación: LUKA doit vérifier que l'application est bien chargée et que le TV est connecté.
+
+2. NAVEGACIÓN ESPACIAL (LRUD) - LA INTERFAZ IMITA EL CONTROL REMOTO:
+
+Das System doit implémentieren die Spatial Navigation (LRUD), damit der Fernbedienungs-Cursor (Pfeile, OK, Zurück) nahtlos durch die LUKA-Interfaces navigiert.
+
+Événements clés: Mapper les boutons du contrôle remote du TV (ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Enter, Back) sur les boutons de la LUKA WebApp.
+
+Focus Management: Toute interface de LUKA doit être navigable uniquement mit den Pfeilen et OK, sans nécessiter de Tastatur.
+
+3. ÉTAT DE CONNEXION:
+
+Si la connexion se fait correctement, l'interface de LUKA doit afficher: "Conectado a Smart TV" avec un check vert (comme prévu dans la maquette).
+
+Si le TV n'est pas trouvé, LUKA répond: "No he encontrado tu TV. Escanea el QR o prueba con otro dispositivo".
+
+4. ENTREGABLES OBLIGATOIRES DE CETTE PHASE:
+
+Code du Google Cast SDK (découverte et lancement de la WebApp).
+
+Spatial Navigation Library (LRUD) intégrée pour naviguer dans la LUKA WebApp.
+
+Checkliste de tests pour vérifier que la connexion et la navigation fonctionnent sur 3 modèles différents d'Android TV.
+
+Manuel de référence pour l'implémentation future sur Tizen, webOS et Roku.
+
+5. PHASES SUIVANTES (À NE PAS TOUCHER ENCORE):
+
+Phase 2: Samsung (Tizen) – utiliser le Developer Mode et le Tizen SDK.
+
+Phase 3: LG (webOS) – utiliser le Developer Mode et le webOS SDK.
+
+Phase 4: Roku – utiliser la Cloud Connector (comme Senza) pour rendre la UI et la transmettre en streaming.
+
+CONCLUSION:
+Cette commande priorise la mise en place du pont le plus rapide et le plus viable (Android TV / Google TV), tout en gardant le MJP CORE intact. Une fois cette intégration réussie, le code servira de modèle pour les autres plateformes, évitant de réécrire tout de zéro.

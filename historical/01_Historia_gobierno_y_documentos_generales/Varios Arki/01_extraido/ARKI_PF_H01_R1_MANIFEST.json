@@ -1,0 +1,19 @@
+{
+  "artifact": "PF-H01.R1",
+  "status": "CANONICAL_DOCUMENTED",
+  "verdictMaximum": "CANONICAL_DOCUMENTED",
+  "finalSeal": false,
+  "secretRequested": false,
+  "secretStored": false,
+  "productEnforcement": "PENDING",
+  "tx003dModified": false,
+  "files": [
+    {"path":"ARKI_FOUNDATIONAL_PRINCIPLE_PF-H01.md","sha256":"3e6772676756ee2ba8f843dfc82fb3a9eddbf43c4b2c1a7f47370a477f270008"},
+    {"path":"ARKI_FOUNDATIONAL_PRINCIPLE_PF-H01_R1.md","sha256":"f2ae4511a0e6e400e57a341bb2b1e0ff456682a995138ecd3e0bb27fc68ff343"},
+    {"path":"ARKI_PF_H01_R1_PROVENANCE.json","sha256":"a847711fd55086b1971356f9e262f35909fdaf50832635b43c5ec99c938355a0"},
+    {"path":"ARKI_PF_H01_R1_EXACT_DELTA.md","sha256":"07a76daea796527908a4e3255a19b156dee8a67d80d84fc476b8657e3f66b69d"},
+    {"path":"ARKI_FOUNDATIONAL_PRINCIPLE_PF-H01_LOCK.json","sha256":"5e9db87c35bcb0d508314b254213c34c1010785e01b12048f4a906825ac14acd"},
+    {"path":"ARKI_MASTER_CODEBOOK.md","sha256":"bf5f2ff5d6d32850ab4318d58d2dbced53aa0cd5b497271dabddc87943ada6e8"}
+  ],
+  "scopeGuard": ["NO_CONSTITUTIONAL_ROOT", "NO_FOUNDER_SEAL", "NO_ARKI_SEC", "NO_MVH", "NO_TX004", "NO_PRODUCT_CHANGES"]
+}

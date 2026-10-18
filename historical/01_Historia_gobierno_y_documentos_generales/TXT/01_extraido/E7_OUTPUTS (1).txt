@@ -1,0 +1,275 @@
+## pnpm check
+COMMAND: pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+## E7 23 checks
+COMMAND: pnpm tsx scripts/test-e7.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checks":23,"budget":4650,"scheduleDays":7,"clashes":1,"structural":"NOT_DEMONSTRATED","mep":"VERIFIED","impacts":2}
+EXIT_CODE=0
+## regression test-scene-model.ts
+COMMAND: pnpm tsx scripts/test-scene-model.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","schema":"ARKI-SCENE-MODEL-1.0","nodes":57,"levels":[0,1,2],"bounds":{"widthM":16.5,"depthM":9.75,"heightM":10.8},"kinds":["wall","space","foundation","column","beam","slab","door","window","stair","floor","roof","partition"]}
+EXIT_CODE=0
+## regression test-scene-model-mount.ts
+COMMAND: pnpm tsx scripts/test-scene-model-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-scene-model-mount: PASS
+EXIT_CODE=0
+## regression test-scene-comparison.ts
+COMMAND: pnpm tsx scripts/test-scene-comparison.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","added":0,"removed":0,"modified":16,"unchanged":16}
+EXIT_CODE=0
+## regression test-constructive.ts
+COMMAND: pnpm tsx scripts/test-constructive.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}
+EXIT_CODE=0
+## regression test-professional.ts
+COMMAND: pnpm tsx scripts/test-professional.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "periods": 3,
+  "financialTotal": 1759040.94,
+  "conflicts": 0,
+  "clashes": 480,
+  "approvalStatus": "pending",
+  "cdeDocuments": 2,
+  "s10Imported": 2
+}
+EXIT_CODE=0
+## regression test-technical-dossier.ts
+COMMAND: pnpm tsx scripts/test-technical-dossier.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "readiness": 50,
+  "specifications": 7,
+  "formwork": 164,
+  "prices": 7,
+  "findings": 4,
+  "sections": 6
+}
+EXIT_CODE=0
+## regression test-serialization.ts
+COMMAND: pnpm tsx scripts/test-serialization.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}
+EXIT_CODE=0
+## regression test-wall-coherence.ts
+COMMAND: pnpm tsx scripts/test-wall-coherence.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallsChecked": 16,
+  "checks": [
+    "capas con espesor > 0",
+    "capas con función válida",
+    "aberturas dentro del muro",
+    "aberturas con tipo válido",
+    "áreas no negativas",
+    "área neta == max(0, bruta - aberturas)",
+    "volumen no negativo",
+    "peso no negativo",
+    "metrado.m2_muro == area neta redondeada",
+    "metrado.m3_muro == volumen redondeado",
+    "peso_total_kg == suma de capas",
+    "metrado.peso_total_kg == peso_total_kg()",
+    "coherencia DTO ↔ dominio"
+  ]
+}
+EXIT_CODE=0
+## regression test-wall-door-canvas.ts
+COMMAND: pnpm tsx scripts/test-wall-door-canvas.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","squareWalls":4,"doorId":"door-1","hostWallId":"muro-1-1","opening":{"id":"puerta-9gawo9r","tipo":"puerta","ancho_m":0.9,"alto_m":2.1,"posicion_m":5.55,"tipo_marco":"aluminio"}}
+EXIT_CODE=0
+## regression test-bim-selection.ts
+COMMAND: pnpm tsx scripts/test-bim-selection.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-bim-selection: PASS
+EXIT_CODE=0
+## regression test-persistence-idb.ts
+COMMAND: pnpm tsx scripts/test-persistence-idb.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+EXIT_CODE=0
+## regression test-persistence-formal.ts
+COMMAND: pnpm tsx scripts/test-persistence-formal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+EXIT_CODE=0
+## regression test-ifc4-globalid.ts
+COMMAND: pnpm tsx scripts/test-ifc4-globalid.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","checked":10,"deterministic":true,"globalIdLength":22}
+EXIT_CODE=0
+## regression test-ifc4-exporter.ts
+COMMAND: pnpm tsx scripts/test-ifc4-exporter.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","entities":28,"preserved":28,"missing":0,"lossReport":{"preserved":["muro-1-1","muro-1-2","muro-1-3","muro-1-4","space-1-1","space-1-2","space-1-3","space-1-4","foundation-1","foundation-2","foundation-3","foundation-4","column-1-1","column-1-2","column-1-3","column-1-4","beam-1-1","beam-1-2","beam-1-3","beam-1-4","slab-1","door-1","window-1","window-2","stair-1","floor-1","roof-1","partition-1"],"degraded":[],"lost":[],"propertiesLost":[],"relationsLost":[]}}
+EXIT_CODE=0
+## regression test-ifc4-fixtures.ts
+COMMAND: pnpm tsx scripts/test-ifc4-fixtures.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","fixtures":[{"filename":"fixture_01_simple_wall.ifc","sha256":"4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e","entities":28},{"filename":"fixture_02_room_with_door.ifc","sha256":"124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8","entities":28},{"filename":"fixture_03_multi_storey.ifc","sha256":"5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b","entities":53}]}
+EXIT_CODE=0
+## regression test-ifc4-web-ifc.ts
+COMMAND: pnpm tsx scripts/test-ifc4-web-ifc.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","parser":"web-ifc","schema":"IFC4","entities":29}
+EXIT_CODE=0
+## regression test-e8a-dossier.ts
+COMMAND: pnpm tsx scripts/test-e8a-dossier.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8A-01 PASS — unapproved snapshot rejected
+E8A-02 PASS — five technical documents compiled
+E8A-03 PASS — snapshot/version/element traceability preserved
+E8A-04 PASS — budget and traceable plan emitted
+{
+  "status": "PASS",
+  "schema": "ARKI-E8A-TECHNICAL-DOSSIER-1.0",
+  "snapshotId": "ARKI-d9565f3b",
+  "version": 1,
+  "documents": [
+    "01-memoria-descriptiva.md",
+    "02-especificaciones-tecnicas.md",
+    "03-metrados.md",
+    "04-presupuesto.md",
+    "05-planta.svg"
+  ],
+  "tracedElements": 356
+}
+EXIT_CODE=0
+## regression test-e8b-assets.ts
+COMMAND: pnpm tsx scripts/test-e8b-assets.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8B-01 PASS — unapproved snapshot rejected
+E8B-02 PASS — missing element rejected
+E8B-03 PASS — asset, warranty, manual, inspection and work-order lifecycle validated
+E8B-04 PASS — IndexedDB close/reopen restores asset, warranty and chronological history
+{
+  "status": "PASS",
+  "schema": "ARKI-E8B-OM-1.0",
+  "assetId": "ARKI-4ba5cb0d",
+  "elementId": "muro-1-1",
+  "snapshotId": "ARKI-ffdee204",
+  "historyEntries": 3,
+  "stores": [
+    "assets",
+    "warranties",
+    "manuals",
+    "inspections",
+    "workOrders",
+    "assetHistory"
+  ]
+}
+EXIT_CODE=0
+## regression test-e8c-gate.ts
+COMMAND: pnpm tsx scripts/test-e8c-gate.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+E8C-01 PASS — actor ai is never approved
+E8C-02 PASS — unapproved snapshot rejected
+E8C-03 PASS — missing criterion is reported
+E8C-04 PASS — twelve human-verified criteria plus signature approved
+{
+  "status": "PASS",
+  "schema": "ARKI-E8C-PROJECT-GATE-1.0",
+  "criteria": 12,
+  "ai": "GATE_NEVER_APPROVED_BY_AI",
+  "missing": [
+    "mep_calculated"
+  ],
+  "approved": "approved"
+}
+EXIT_CODE=0
+## pnpm build
+COMMAND: pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-gp070iNZ.js        2,009.93 kB │ gzip: 549.91 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 20.37s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+## SUMMARY
+PASS_COMMANDS=22
+FAIL_COMMANDS=0
+OVERALL=PASS

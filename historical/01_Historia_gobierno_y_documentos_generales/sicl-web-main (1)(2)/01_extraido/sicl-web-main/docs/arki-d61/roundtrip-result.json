@@ -1,0 +1,44 @@
+{
+  "schema": "ARKI-D6.1-EXECUTED-0.1",
+  "projectId": "ARKICE-123-456",
+  "version": 1,
+  "coreMechanism": "SICL_PROJECT_SNAPSHOT_MYSQL",
+  "persistence": "PASS",
+  "reload": "PASS",
+  "retrieval": "PASS",
+  "provenancePreservation": true,
+  "scopePreservation": true,
+  "rightsPreservation": true,
+  "humanValidationPreservation": true,
+  "unknownConflictPreservation": true,
+  "pilotRecords": [
+    "KN-000001",
+    "KN-000002",
+    "KN-000008",
+    "TYP-HEALTHCARE",
+    "STR-000001"
+  ],
+  "query": "PROGRAM",
+  "retrievedKnowledgeIds": [
+    "KN-000002"
+  ],
+  "counts": {
+    "discovered": 30,
+    "mapped": 30,
+    "ingested": 30,
+    "humanValidatedFacts": 9,
+    "unknown": 4
+  },
+  "validationIds": [
+    "HV-D61-KN-000001",
+    "HV-D61-KN-000002",
+    "HV-D61-KN-000003",
+    "HV-D61-KN-000004",
+    "HV-D61-KN-000005",
+    "HV-D61-KN-000006",
+    "HV-D61-KN-000007",
+    "HV-D61-KN-000009",
+    "HV-D61-KN-000010"
+  ],
+  "timestamp": "2026-09-20T10:05:44.291Z"
+}

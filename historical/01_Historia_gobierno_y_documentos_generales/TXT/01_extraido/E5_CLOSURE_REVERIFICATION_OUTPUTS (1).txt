@@ -1,0 +1,303 @@
+# E5 CLOSURE REVERIFICATION
+timestamp=2026-09-23T23:23:21Z
+baseline=c62183a
+## E5-REGRESSION-CHECK
+COMMAND: pnpm check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+EXIT_CODE=0
+## E5-REGRESSION-BUILD
+COMMAND: pnpm build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 17.79s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+EXIT_CODE=0
+## REGRESSION-test-constructive.ts
+COMMAND: pnpm tsx scripts/test-constructive.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "walls": 16,
+  "spaces": 16,
+  "columns": 72,
+  "beams": 16,
+  "slabs": 4,
+  "foundations": 72,
+  "stairs": 4,
+  "floors": 4,
+  "roofs": 1,
+  "partitions": 4,
+  "doors": 16,
+  "windows": 320,
+  "relations": 464,
+  "netWallM2": 8028.6,
+  "budgetPen": 4672910,
+  "durationDays": 93,
+  "ifcFile": "FAM-HEALTH-construction-semantic.ifc",
+  "ifcSchema": "ARKI-IFC4-SEMANTIC-CONSTRUCTION-1.0"
+}
+EXIT_CODE=0
+## REGRESSION-test-serialization.ts
+COMMAND: pnpm tsx scripts/test-serialization.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallCount": 16,
+  "modelSummary": {
+    "wallCount": 16,
+    "spaceCount": 16,
+    "foundationCount": 72,
+    "columnCount": 72,
+    "beamCount": 16,
+    "slabCount": 4,
+    "doorCount": 16,
+    "windowCount": 320,
+    "stairCount": 4,
+    "floorElementCount": 4,
+    "roofCount": 1,
+    "partitionCount": 4,
+    "relationCount": 464,
+    "floorCount": 4,
+    "totalNetWallAreaM2": 8028.6,
+    "totalVolumeM3": 1364.86,
+    "totalWeightKg": 56796306,
+    "totalBudgetPen": 4672910,
+    "totalDurationDays": 93,
+    "doors": 16,
+    "windows": 320,
+    "interferences": 108
+  },
+  "checks": [
+    "wallToDTO identidad con Muro.to_dict()",
+    "wallFromDTO reconstrucción operativa",
+    "metrado profundo campo por campo",
+    "to_dict() reconstruido idéntico al original",
+    "metrado recalculado coincide",
+    "ConstructionModel round-trip completo"
+  ]
+}
+EXIT_CODE=0
+## REGRESSION-test-wall-coherence.ts
+COMMAND: pnpm tsx scripts/test-wall-coherence.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "wallsChecked": 16,
+  "checks": [
+    "capas con espesor > 0",
+    "capas con función válida",
+    "aberturas dentro del muro",
+    "aberturas con tipo válido",
+    "áreas no negativas",
+    "área neta == max(0, bruta - aberturas)",
+    "volumen no negativo",
+    "peso no negativo",
+    "metrado.m2_muro == area neta redondeada",
+    "metrado.m3_muro == volumen redondeado",
+    "peso_total_kg == suma de capas",
+    "metrado.peso_total_kg == peso_total_kg()",
+    "coherencia DTO ↔ dominio"
+  ]
+}
+EXIT_CODE=0
+## REGRESSION-test-wall-door-canvas.ts
+COMMAND: pnpm tsx scripts/test-wall-door-canvas.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","squareWalls":4,"doorId":"door-1","hostWallId":"muro-1-1","opening":{"id":"puerta-2lslx9l","tipo":"puerta","ancho_m":0.9,"alto_m":2.1,"posicion_m":5.55,"tipo_marco":"aluminio"}}
+EXIT_CODE=0
+## REGRESSION-test-bim-selection.ts
+COMMAND: pnpm tsx scripts/test-bim-selection.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-bim-selection: PASS
+EXIT_CODE=0
+## REGRESSION-test-scene-model.ts
+COMMAND: pnpm tsx scripts/test-scene-model.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","schema":"ARKI-SCENE-MODEL-1.0","nodes":57,"levels":[0,1,2],"bounds":{"widthM":16.5,"depthM":9.75,"heightM":10.8},"kinds":["wall","space","foundation","column","beam","slab","door","window","stair","floor","roof","partition"]}
+EXIT_CODE=0
+## REGRESSION-test-scene-model-mount.ts
+COMMAND: pnpm tsx scripts/test-scene-model-mount.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+test-scene-model-mount: PASS
+EXIT_CODE=0
+## REGRESSION-test-scene-comparison.ts
+COMMAND: pnpm tsx scripts/test-scene-comparison.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","added":0,"removed":0,"modified":16,"unchanged":16}
+EXIT_CODE=0
+## REGRESSION-test-persistence-idb.ts
+COMMAND: pnpm tsx scripts/test-persistence-idb.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","id":"persistence-fixture:v001","nodes":1,"gateStatus":"draft"}
+EXIT_CODE=0
+## REGRESSION-test-persistence-formal.ts
+COMMAND: pnpm tsx scripts/test-persistence-formal.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","auditChain":"valid","gatePassed":true,"rejectedRequirements":6}
+EXIT_CODE=0
+## REGRESSION-test-plan-3d-sync.ts
+COMMAND: pnpm tsx scripts/test-plan-3d-sync.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","contract":"shared SelectionProvider","views":["2D","3D"]}
+EXIT_CODE=0
+## REGRESSION-test-clipping-section.ts
+COMMAND: pnpm tsx scripts/test-clipping-section.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","contract":"serializable clipping state","controls":["enabled","height"]}
+EXIT_CODE=0
+## REGRESSION-test-camera-modes.ts
+COMMAND: pnpm tsx scripts/test-camera-modes.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","modes":["perspective","orthographic","plan","elevation","section"]}
+EXIT_CODE=0
+## REGRESSION-test-measure-snap.ts
+COMMAND: pnpm tsx scripts/test-measure-snap.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","unit":"m","snap":"centroide"}
+EXIT_CODE=0
+## REGRESSION-test-viewpoints.ts
+COMMAND: pnpm tsx scripts/test-viewpoints.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","fields":["viewMode","level","clipping","clipHeight","selectedIds"]}
+EXIT_CODE=0
+## REGRESSION-test-isolate-freeze.ts
+COMMAND: pnpm tsx scripts/test-isolate-freeze.ts
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{"status":"PASS","operations":["isolate","freeze","show-all"]}
+EXIT_CODE=0
+## E5-01-CAPTURE-INTEGRITY
+4e603cc4764377bdf92b9de3375c49f3b3fcd1d299ed66f69370fed7ec9b5798  evidence/E5_CAPTURAS/arki-scene-general.png
+{
+  "schema": "ARKI-SCENE-CAPTURE-1.0",
+  "sha256": "4e603cc4764377bdf92b9de3375c49f3b3fcd1d299ed66f69370fed7ec9b5798",
+  "viewport": {
+    "width": 743,
+    "height": 500
+  },
+  "level": "all",
+  "visibleKinds": [],
+  "selectedIds": [],
+  "nodes": 545,
+  "generatedAt": "2026-09-23T06:14:42.117Z"
+}RESULT=PARTIAL_EXISTING_CAPTURE_ONLY
+## E5-02-SNAPSHOT-RESTORE
+RESULT=NOT_DEMONSTRATED
+REASON=test-persistence-idb.ts validates deterministic record construction; it does not open IndexedDB, save, close, reopen and restore.
+## E5-03-VIEWPOINT-RESTORE
+RESULT=NOT_DEMONSTRATED
+REASON=test-viewpoints.ts performs source assertions; it does not execute save -> reload -> restore.
+## E5-04-COMPARISON-INDEPENDENT-CONTROLS
+RESULT=PARTIAL
+REASON=test-comparison-side-by-side.ts proves diff output; independent camera/level/layer/filter control is not executed as an interaction test.
+## E5-05-FINAL-NOMENCLATURE
+scripts/test-clipping-section.ts:4:assert.ok(source.includes("clippingActive"));
+scripts/test-clipping-section.ts:7:console.log(JSON.stringify({ status: "PASS", contract: "serializable clipping state", controls: ["enabled", "height"] }));
+scripts/test-measure-snap.ts:5:assert.ok(source.includes("snap: centroide"));
+scripts/test-measure-snap.ts:7:console.log(JSON.stringify({ status: "PASS", unit: "m", snap: "centroide" }));
+client/src/persistence/arkiIndexedDb.ts:50:export async function saveArkiSnapshot(snapshot: ArkiSnapshot): Promise<void> { await putRecord(ARKI_SNAPSHOT_STORE, snapshot); }
+client/src/persistence/arkiIndexedDb.ts:55:  const snapshot = await restoreArkiSnapshot(projectId, version);
+client/src/persistence/arkiIndexedDb.ts:56:  if (!snapshot) return null;
+client/src/persistence/arkiIndexedDb.ts:57:  const approved = { ...snapshot, gateStatus: "approved" as const };
+client/src/canvas/SceneModel3D.tsx:8:import { snapshotRecord, stableSnapshotPayload, type ArkiSnapshot } from "@shared/persistence/arkiPersistence";
+client/src/canvas/SceneModel3D.tsx:52:  const [snapshots, setSnapshots] = useState<ArkiSnapshot[]>([]);
+client/src/canvas/SceneModel3D.tsx:55:  const [clippingActive, setClippingActive] = useState(false);
+client/src/canvas/SceneModel3D.tsx:59:  const [viewpoints, setViewpoints] = useState<Array<{ name: string; viewMode: ViewMode; level: number | "all"; clipping: boolean; clipHeight: number; selectedIds: string[] }>>([]);
+client/src/canvas/SceneModel3D.tsx:75:  const nodes = scene.nodes.filter((node) => (activeLevel === "all" || node.level === activeLevel) && (visibleKinds.size === 0 || visibleKinds.has(node.kind)) && (!clippingActive || node.position[1] <= clipHeight) && (isolatedIds.size === 0 || isolatedIds.has(node.id))).map((node) => frozenIds.has(node.id) ? { ...node, opacity: Math.min(node.opacity, 0.22) } : node);
+client/src/canvas/SceneModel3D.tsx:95:    const version = `v${String(snapshots.length + 1).padStart(3, "0")}`;
+client/src/canvas/SceneModel3D.tsx:96:    const draft = snapshotRecord({ projectId: "active-project", version, scene, gateStatus: "draft", createdAt: new Date().toISOString(), contentHash: "pending" });
+client/src/canvas/SceneModel3D.tsx:105:    const latest = snapshots.at(-1);
+client/src/canvas/SceneModel3D.tsx:106:    if (!latest) { setCaptureMessage("Guarda un snapshot antes de aprobar"); return; }
+client/src/canvas/SceneModel3D.tsx:118:    setMeasurement(`Distancia ${distance.toFixed(2)} m · snap: centroide`);
+client/src/canvas/SceneModel3D.tsx:120:  const saveViewpoint = () => { const name = `Vista ${viewpoints.length + 1}`; setViewpoints((current) => [...current, { name, viewMode, level: activeLevel, clipping: clippingActive, clipHeight, selectedIds: Array.from(selectedIds) }]); setCaptureMessage(`${name} guardada`); };
+client/src/canvas/SceneModel3D.tsx:126:      <div className="scene-model-actions"><label>Nivel <select value={String(activeLevel)} onChange={(event) => setActiveLevel(event.target.value === "all" ? "all" : Number(event.target.value))}><option value="all">Todos</option>{scene.levels.map((level) => <option key={level} value={level}>Nivel {level + 1}</option>)}</select></label><label>Vista <select value={viewMode} onChange={(event) => setViewMode(event.target.value as ViewMode)}><option value="perspective">Perspectiva</option><option value="orthographic">Ortográfica</option><option value="plan">Planta</option><option value="elevation">Elevación</option><option value="section">Corte</option></select></label><label>Clipping <input type="checkbox" checked={clippingActive} onChange={(event) => setClippingActive(event.target.checked)} /></label>{clippingActive && <label>Altura <input type="range" min="0" max={Math.max(3, scene.bounds.heightM)} step="0.1" value={clipHeight} onChange={(event) => setClipHeight(Number(event.target.value))} /></label>}<button onClick={captureScene}>Capturar PNG + hash</button><button onClick={saveSnapshot}>Guardar snapshot</button><button onClick={approveLatestSnapshot}>Aprobar último</button><button onClick={measureSelection}>Medir selección</button><button onClick={isolateSelection}>Aislar</button><button onClick={freezeSelection}>Congelar</button><button onClick={resetVisibility}>Mostrar todo</button><button onClick={saveViewpoint}>Guardar viewpoint</button>{snapshots.length >= 2 && <button onClick={() => setComparisonOpen((open) => !open)}>{comparisonOpen ? "Ocultar comparación" : "Comparar snapshots"}</button>}<button onClick={() => setReferenceScene(scene)}>Capturar referencia</button><button onClick={clear}>Limpiar selección</button></div>
+client/src/canvas/SceneModel3D.tsx:128:    <div className="scene-model-canvas"><Canvas shadows gl={{ preserveDrawingBuffer: true, antialias: true }} onCreated={({ gl }) => { canvasRef.current = gl.domElement; }} onPointerMissed={clear}><SceneContent nodes={nodes} selectedIds={selectedIds} onSelect={selectNode} onClear={clear} bounds={scene.bounds} viewMode={viewMode} /></Canvas><div className="scene-model-hud"><strong>{selection.items.length ? `${selection.items.length} seleccionado(s)` : "Sin selección"}</strong><span>{viewMode} · {clippingActive ? `clipping ${clipHeight.toFixed(1)}m` : "sin clipping"}</span>{captureMessage.trim() && <small>{captureMessage}</small>}{measurement.trim() && <small>{measurement}</small>}{viewpoints.length > 0 && <small>{viewpoints.length} viewpoint(s)</small>}</div></div>
+client/src/canvas/SceneModel3D.tsx:131:    {snapshots.length > 0 && <div className="scene-model-comparison"><strong>Snapshots IndexedDB</strong>{snapshots.map((snapshot) => <span key={snapshot.id}>{snapshot.version} · {snapshot.gateStatus.toUpperCase()}</span>)}</div>}
+client/src/canvas/SceneModel3D.tsx:132:    {comparisonOpen && snapshots.length >= 2 && <SceneComparisonSideBySide left={snapshots.at(-2)!} right={snapshots.at(-1)!} />}
+client/src/canvas/InfoBoxPanel.tsx:11:function SingleInfo({ selection }: { selection: BimSelection }) { const item = selection.items[0]; return <div className="arki-inspector-content"><div className="arki-selected-title"><span>{item.category}</span><strong>{item.family ?? item.elementId}</strong><small>{item.elementId} · {item.type ?? "tipo no definido"}</small></div><InfoSection title="Contexto"><InfoRow label="Nivel" value={String(item.level + 1)} /><InfoRow label="Disciplina" value={item.discipline} /><InfoRow label="Fase" value={item.phase ?? "—"} /></InfoSection><InfoSection title="Propiedades">{Object.entries(item.properties).slice(0, 7).map(([key, value]) => <InfoRow key={key} label={key} value={String(value)} />)}</InfoSection>{item.materials && item.materials.length > 0 && <InfoSection title="Materiales">{item.materials.map((material) => <InfoRow key={material.name} label={material.function ?? "capa"} value={`${material.name}${material.thicknessM ? ` · ${material.thicknessM} m` : ""}`} />)}</InfoSection>}{item.metrics && <InfoSection title="Metrado">{Object.entries(item.metrics).slice(0, 7).map(([key, value]) => <InfoRow key={key} label={key} value={typeof value === "number" ? value.toLocaleString("es-PE") : String(value)} />)}</InfoSection>}<InfoSection title="Costo y trazabilidad"><InfoRow label="Costo parcial" value={item.cost ? `S/ ${item.cost.toLocaleString("es-PE")}` : "—"} /><InfoRow label="Relacionados" value={String(item.relatedIds.length)} /><InfoRow label="Snapshot" value={selection.timestamp.replace("snapshot:", "") || "—"} /></InfoSection></div>; }
+shared/arkiBimSelection.ts:31:  return { mode: "empty", items: [], timestamp: "snapshot:empty" };
+shared/arkiBimSelection.ts:35:  return { mode: "single", items: [item], timestamp: `snapshot:${item.elementId}` };
+shared/arkiBimSelection.ts:40:  return ordered.length === 0 ? emptySelection() : { mode: "multiple", items: ordered, timestamp: `snapshot:${ordered.map((item) => item.elementId).join(",")}` };
+shared/arkiSnapshotExports.ts:2:// Entrega 1C — exportaciones desde snapshot.
+shared/arkiSnapshotExports.ts:4:// Markdown: documento propio desde snapshot, no desde TechnicalDossier.
+shared/arkiSnapshotExports.ts:8:import { snapshotToConstructionModel } from "./arkiRecalculation";
+shared/arkiSnapshotExports.ts:15:// IDs deterministas derivados del snapshot.id y de instance.id.
+shared/arkiSnapshotExports.ts:26:export function exportSnapshotToIfc(snapshot: ProjectSnapshot): {
+shared/arkiSnapshotExports.ts:39:  const model = snapshotToConstructionModel(snapshot);
+shared/arkiSnapshotExports.ts:41:    name: `Snapshot ${snapshot.id}`,
+shared/arkiSnapshotExports.ts:51:  const mamparas = snapshot.familyInstances.filter((i) => i.familyId === MAMPARA_FAMILY_ID);
+shared/arkiSnapshotExports.ts:54:    const geometry = snapshot.mamparaGeometry[instance.id];
+shared/arkiSnapshotExports.ts:60:    const guid = ifcSafeId(`${snapshot.id}-${instance.id}-PROXY`);
+shared/arkiSnapshotExports.ts:94:    const propGuid = ifcSafeId(`${snapshot.id}-${instance.id}-PSET`);
+shared/arkiSnapshotExports.ts:103:    const relGuid = ifcSafeId(`${snapshot.id}-${instance.id}-REL`);
+shared/arkiSnapshotExports.ts:117:        `Containment ${snapshot.id}`,
+shared/arkiSnapshotExports.ts:118:      )},'Mamparas del snapshot',(${insertedRefs.map((r) => `#${r}`).join(",")}));`,
+shared/arkiSnapshotExports.ts:134:    fileName: `snapshot-${snapshot.id}.ifc`,
+shared/arkiSnapshotExports.ts:140:      familyInstanceCount: snapshot.familyInstances.length,
+shared/arkiSnapshotExports.ts:149:// Markdown — documento desde snapshot.
+shared/arkiSnapshotExports.ts:154:export function exportSnapshotToMarkdown(snapshot: ProjectSnapshot): {
+shared/arkiSnapshotExports.ts:160:  lines.push(`# ARKI Snapshot ${snapshot.id}`);
+shared/arkiSnapshotExports.ts:162:  lines.push(`- Versión: ${snapshot.version}`);
+shared/arkiSnapshotExports.ts:163:  lines.push(`- Versión fuente: ${snapshot.sourceVersion}`);
+shared/arkiSnapshotExports.ts:164:  lines.push(`- Generado: ${snapshot.generatedAt}`);
+shared/arkiSnapshotExports.ts:165:  lines.push(`- Moneda: ${snapshot.budget.currency}`);
+shared/arkiSnapshotExports.ts:166:  lines.push(`- PriceBook: ${snapshot.budget.priceBookId} v${snapshot.budget.priceBookVersion}`);
+shared/arkiSnapshotExports.ts:170:  lines.push(`- Base del modelo: S/ ${snapshot.budget.basePen.toFixed(2)}`);
+shared/arkiSnapshotExports.ts:171:  lines.push(`- Mamparas: S/ ${snapshot.budget.mamparasPen.toFixed(2)}`);
+shared/arkiSnapshotExports.ts:172:  lines.push(`- Total: S/ ${snapshot.budget.totalPen.toFixed(2)}`);
+shared/arkiSnapshotExports.ts:176:  for (const instance of snapshot.familyInstances) {
+shared/arkiSnapshotExports.ts:188:    const q = snapshot.mamparaQuantities[instance.id];
+shared/arkiSnapshotExports.ts:196:    const c = snapshot.mamparaCosts[instance.id];
+shared/arkiSnapshotExports.ts:204:    const s = snapshot.mamparaSchedule[instance.id];
+shared/arkiSnapshotExports.ts:208:    const g = snapshot.mamparaGeometry[instance.id];
+shared/arkiSnapshotExports.ts:228:  if (snapshot.invalidations.length === 0) lines.push("- ninguna");
+shared/arkiSnapshotExports.ts:229:  else for (const inv of snapshot.invalidations) lines.push(`- ${inv}`);
+shared/arkiSnapshotExports.ts:233:  if (snapshot.provenance.length === 0) lines.push("- ninguna");
+shared/arkiSnapshotExports.ts:235:    for (const p of snapshot.provenance) {
+shared/arkiSnapshotExports.ts:241:  lines.push(`- Snapshot version: ${snapshot.version}`);
+shared/arkiSnapshotExports.ts:242:  lines.push(`- Family instances: ${snapshot.familyInstances.length}`);
+shared/arkiSnapshotExports.ts:243:  lines.push(`- Schedule tasks: ${snapshot.schedule.length}`);
+shared/arkiSnapshotExports.ts:247:    fileName: `snapshot-${snapshot.id}.md`,
+shared/arkiRecalculation.ts:2:// Entrega 1C — recálculo determinista con snapshots inmutables.
+shared/arkiRecalculation.ts:313:export function snapshotToConstructionModel(snapshot: ProjectSnapshot): ConstructionModel {
+shared/arkiRecalculation.ts:314:  return constructionModelFromDTO(snapshot.constructionModel);
+shared/arkiTechnicalDossier.ts:30:  for (const element of elements) { const reuseCycles = element.type === "slab" ? 12 : element.type === "foundation" ? 3 : element.type === "beam" ? 6 : 8; const sets = Math.max(1, Math.floor(10 / reuseCycles)); const props = element.type === "slab" ? Math.floor(element.area / 4) + 1 : element.type === "beam" ? Math.floor(Math.max(element.area / 3, 1)) + 1 : 0; const nailsFactor = element.type === "slab" ? .15 : element.type === "column" || element.type === "foundation" ? .2 : .18; requirements.push({ id: id("encofrado", element.id), elementId: element.id, elementType: element.type, system: element.type === "slab" ? "fenolica" : element.type === "column" ? "metalica" : "madera", areaM2: round(element.area), volumeM3: round(element.volume, 3), reuseCycles, estimatedDays: element.type === "foundation" ? 2 : element.type === "slab" ? 4 : 3, releaseCondition: element.type === "slab" ? "Verificar resistencia suficiente y puntales permanentes según cálculo." : "Liberar cuando el concreto alcance resistencia mínima aprobada por especialista.", safetyNotes: ["Revisar aplome, nivel y estabilidad antes del vaciado.", "Asegurar plataformas y accesos de trabajo.", "No desencofrar sin autorización de supervisión."], quantity: { sets, effectiveAreaM2: round(element.area * sets), faceVolumeM3: round(element.area * sets * .025, 4), props, propLengthM: round(props * (element.type === "slab" ? 2.5 : 3)), nailsKg: round(element.area * nailsFactor), wireKg: round(element.area * .08), releaseAgentL: round(element.area * .05) }, modelVersion: 1, elementVersion: 1, sourceSnapshotId: "snapshot:initial", status: "derived" }); }
+shared/persistence/arkiPersistence.ts:5:export const ARKI_SNAPSHOT_STORE = "snapshots";
+shared/persistence/arkiPersistence.ts:54:  snapshotId?: string;
+shared/persistence/arkiPersistence.ts:90:export function snapshotKey(projectId: string, version: string): string {
+shared/persistence/arkiPersistence.ts:94:export function snapshotRecord(input: Omit<ArkiSnapshot, "id">): ArkiSnapshot {
+shared/persistence/arkiPersistence.ts:95:  return { ...input, id: snapshotKey(input.projectId, input.version) };
+shared/persistence/arkiPersistence.ts:98:export function stableSnapshotPayload(snapshot: Omit<ArkiSnapshot, "contentHash">): string {
+shared/persistence/arkiPersistence.ts:99:  return JSON.stringify({ id: snapshotKey(snapshot.projectId, snapshot.version), projectId: snapshot.projectId, version: snapshot.version, scene: snapshot.scene, gateStatus: snapshot.gateStatus });
+RESULT=NOT_CLOSED_LEGACY_TERMS_PRESENT
+## E5-06-MANIFEST
+RESULT=NOT_DEMONSTRATED_MISSING_E5_MANIFEST
+## E5-07-SCOPE-LIMITS
+RESULT=NOT_DEMONSTRATED_MISSING_E5_SCOPE_LIMITS
+## E5-08-RAW-OUTPUTS
+RESULT=NOT_DEMONSTRATED_MISSING_E5_OUTPUTS
+## SUMMARY
+TECHNICAL_REGRESSION=PASS_IF_ALL_EXIT_CODE_0
+CONTRACT_CLOSURE=SEE_E5_POINTS_ABOVE

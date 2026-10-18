@@ -1,0 +1,1 @@
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:217:## 10. Cost, funnel, and progressive fidelity

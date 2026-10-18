@@ -1,0 +1,23 @@
+{
+  "status": "PASS_WITH_OBSERVATIONS",
+  "boundary": {
+    "unknownsPreserved": true,
+    "simulationNotTruth": true,
+    "predictionNotFact": true,
+    "certificationNotCertification": true,
+    "hashNotSignature": true,
+    "observationNotMeasurement": true,
+    "imageGeometryNotMetricGeometry": true,
+    "humanAuthorityRequired": true,
+    "pfH01Preserved": true
+  },
+  "observedRules": [
+    "UNKNOWN preserved",
+    "simulation != truth",
+    "prediction != fact",
+    "certification != assessment",
+    "hash != signature",
+    "human authority required",
+    "PF-H01 preserved"
+  ]
+}

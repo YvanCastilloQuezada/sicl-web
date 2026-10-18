@@ -1,0 +1,27 @@
+LEVEL_ID: L04
+NAME: "Detector de Déficits"
+DEFINITION: "ARKI identifica qué falta antes de proponer soluciones."
+INPUTS:
+  - project_context: "ProjectContext"
+  - requirements: "list<Requirement>"
+OUTPUTS:
+  - unknowns: "list<Unknown>"
+  - deficits: "list<Deficit>"
+  - resolution_paths: "list<ResolutionPath>"
+CONTRACTS:
+  - "UNKNOWN BEFORE INVENTING"
+  - "UNKNOWN ≠ FAIL"
+  - "Todo UNKNOWN debe tener resolution_path"
+RULES:
+  - "DL-03: UNKNOWN BEFORE INVENTING"
+  - "INV-K-002: UNKNOWN → VALID RESULT"
+  - "INV6-012: UNKNOWN ≠ PENALTY ≠ FAIL ≠ PASS"
+  - "Invariant: UNKNOWN WITHOUT RESOLUTION PATH = INCOMPLETE DIAGNOSIS"
+GATES:
+  - "GATE_L04_PASS: Déficits detectados con rutas de resolución"
+EVIDENCE_REQUIRED:
+  - "Unknown taxonomy classification"
+  - "Deficit detection log"
+  - "Resolution path proposals"
+  - "Human review requests (si aplica)"
+CURRENT_STATUS: "DEMONSTRATED"

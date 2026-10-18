@@ -1,0 +1,9 @@
+{
+  "schema":"ARKI-CAD-INTERMEDIATE-REPRESENTATION-1.0",
+  "status":"NOT_CREATED_BECAUSE_NO_GOVERNED_CAD_EXTRACTION",
+  "authority":"DERIVED_VIEW_ONLY; never source of truth",
+  "sourceToDerivedChain":[],
+  "entities":[],
+  "lossReport":[],
+  "note":"Creating placeholder geometry would violate F1C. An empty ACIR is not evidence of empty DWG content."
+}

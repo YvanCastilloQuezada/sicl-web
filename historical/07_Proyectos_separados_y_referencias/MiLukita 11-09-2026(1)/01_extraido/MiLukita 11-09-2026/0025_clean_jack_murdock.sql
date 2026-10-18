@@ -1,0 +1,1 @@
+ALTER TABLE `lukita_script_versions` MODIFY COLUMN `tagsJson` varchar(512) NOT NULL DEFAULT '[]';

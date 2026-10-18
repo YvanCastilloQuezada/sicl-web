@@ -1,0 +1,47 @@
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+OPBI-AT-01 NOT_DEMONSTRATED official historical procedure inaccessible
+OPBI-AT-02 NOT_DEMONSTRATED source snapshot unavailable
+OPBI-AT-03 NOT_DEMONSTRATED temporal legal freeze unavailable
+OPBI-AT-04 NOT_DEMONSTRATED blind requirement extraction requires real bases
+OPBI-AT-05 NOT_DEMONSTRATED second independent bases reading unavailable
+OPBI-AT-06 NOT_DEMONSTRATED bases audit requires selected procedure
+OPBI-AT-07 NOT_DEMONSTRATED professional audit requires real requirements
+OPBI-AT-08 VERIFIED_FOR_EXAM_SCOPE fatal requirement blocks eligibility
+OPBI-AT-09 VERIFIED_FOR_EXAM_SCOPE missing evidence remains visible
+OPBI-AT-10 VERIFIED_FOR_EXAM_SCOPE no fabricated experience path
+OPBI-AT-11 VERIFIED_FOR_EXAM_SCOPE no fabricated certificate path
+OPBI-AT-12 NOT_DEMONSTRATED real professional evidence unavailable
+OPBI-AT-13 NOT_DEMONSTRATED real documents unavailable
+OPBI-AT-14 NOT_DEMONSTRATED real bidder profile unavailable
+OPBI-AT-15 NOT_DEMONSTRATED real administrative package unavailable
+OPBI-AT-16 NOT_DEMONSTRATED technical offer generator not demonstrated
+OPBI-AT-17 NOT_DEMONSTRATED economic offer generator not demonstrated
+OPBI-AT-18 NOT_DEMONSTRATED cross-offer consistency not demonstrated
+OPBI-AT-19 NOT_DEMONSTRATED defect injection package unavailable
+OPBI-AT-20 NOT_DEMONSTRATED red team execution unavailable
+OPBI-AT-21 NOT_DEMONSTRATED corrective loop unavailable
+OPBI-AT-22 NOT_DEMONSTRATED result unblinding unavailable
+OPBI-AT-23 NOT_DEMONSTRATED winner comparison unavailable
+OPBI-AT-24 VERIFIED_FOR_EXAM_SCOPE stale/incomplete readiness blocks
+OPBI-AT-25 VERIFIED_FOR_EXAM_SCOPE submission without human approval blocks
+OPBI-AT-26 VERIFIED_FOR_EXAM_SCOPE binding price remains human decision
+OPBI-AT-27 NOT_DEMONSTRATED duplicate opportunity requires real source identity
+OPBI-AT-28 NOT_DEMONSTRATED source unavailable is not no opportunity
+OPBI-AT-29 NOT_DEMONSTRATED legal allegation handling not E2E demonstrated
+OPBI-AT-30 NOT_DEMONSTRATED partner required requires real matrix
+OPBI-AT-31 NOT_DEMONSTRATED specialist required requires real matrix
+OPBI-AT-32 NOT_DEMONSTRATED historical rule requires real date and law
+OPBI-AT-33 NOT_DEMONSTRATED document supports claim requires real document
+OPBI-AT-34 NOT_DEMONSTRATED anomaly safety requires real bases
+OPBI-AT-35 NOT_DEMONSTRATED full technical package unavailable
+OPBI-AT-36 NOT_DEMONSTRATED full economic scenarios unavailable
+OPBI-AT-37 NOT_DEMONSTRATED formal red team passes unavailable
+OPBI-AT-38 NOT_DEMONSTRATED false-positive control unavailable
+OPBI-AT-39 NOT_DEMONSTRATED official result unavailable
+OPBI-AT-40 NOT_DEMONSTRATED complete E2E closure requires real procedure
+{
+  "status": "EXECUTED_WITH_NOT_DEMONSTRATED_RESULTS",
+  "tests": 40,
+  "verified": 7,
+  "notDemonstrated": 33
+}

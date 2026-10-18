@@ -1,0 +1,73 @@
+COCO-EXPRESS-002 / FAMILIA X — INTEROPERABILIDAD
+==================================================
+
+Alcance: X1 Revit round-trip, X2 DWG/DXF gobernado, X3 nubes de puntos, X4 IFC4x3.
+Estado de esta evidencia: PARTIAL. No se afirma competencia profesional, certificación, conformidad ni firma.
+
+CONTRATO COMÚN PRESERVADO
+-------------------------
+Cada ejercicio conserva, cuando corresponde:
+  epistemicStatus = UNKNOWN
+  provenance      = fixture:X-EX-01
+  units           = m
+  applicability   = component
+  scale           = OBJECT
+  project         = X-DEMO-07
+  time            = 2026-09-24T00:00:00Z
+  scenario        = coordination-draft
+
+No se permite convertir simulación, observación, forecast, hash o import success en verdad/certificación.
+
+NORMAL — X2: DWG/DXF gobernado
+------------------------------
+Entrada: bytes sintéticos [0x41,0x42,0x43], nombre normal.dxf.
+Reutilización: createMockCadReaderAdapter() y validateAcirDocument() de shared/arkiCadGateway.ts.
+Assertions:
+  - sourceFormat == DXF
+  - units == UNKNOWN
+  - semanticPromotion == PROHIBITED
+  - entity.semanticMeaning == UNKNOWN_CAD_FACT
+  - sourceFileHash existe en provenance
+Resultado: PASS.
+Interpretación: el parseo de fixture sólo demuestra la ruta sintética validada; no demuestra lectura productiva DXF ni que la geometría sea verdadera.
+
+ADVERSARIAL — X3: nube de puntos como observación, no verdad
+-------------------------------------------------------------
+Entrada: registro {pointCount:3, imported:true, hash:"abc"} envuelto con preserveEnvelope().
+Oracle: exige UNKNOWN, provenance, units, applicability, scale, project, time y scenario.
+Mutante controlado: mutantDropsProvenance() reemplaza provenance por cadena vacía.
+Resultado: PASS; el oracle lanza assertion y mata el mutante (mutantsKilled=1).
+Interpretación: imported=true y hash no elevan la observación a VERIFIED ni certifican registro, precisión, CRS o estado construido. No se ejecutó parser E57/LAS/LAZ real: GAP específico de X3.
+
+TRANSFER — X4 con cautela X1
+-----------------------------
+Entrada IFC4 STEP mínima con FILE_SCHEMA IFC4, una IFCWALL, GlobalId gid-1 y nombre ARKI:wall-1:Wall.
+Reutilización: parseIfcText() y lossReport de shared/ifc4/arkiIfc4.ts.
+Assertions:
+  - schema == IFC4
+  - entities.length == 1
+  - archiElementId == wall-1
+  - lossReport.preserved contiene wall-1
+  - envelope conserva UNKNOWN/provenance/units/contexto
+Resultado: PASS.
+Interpretación: esto transfiere el patrón de identidad y pérdida explícita, pero no prueba Revit/RFA/RVT ni IFC4x3. IFC4 probado != IFC4x3 certificado; GlobalId preservado != geometría, propiedades o semántica validadas.
+
+EJECUCIÓN REPRODUCIBLE
+----------------------
+Comando:
+  cd /home/ubuntu/generador-familias
+  pnpm exec tsx /home/ubuntu/jobs/cbef0db18f21_a9/test_x_exercises.ts
+
+Salida:
+  {"status":"PASS","normal":"PASS","adversarial":"PASS","transfer":"PASS","mutantsKilled":1,"cadUnits":"UNKNOWN","cadSemantic":"PROHIBITED","ifcSchema":"IFC4","epistemicStatus":"UNKNOWN"}
+  MUTANT_ORACLE: PASS (provenance drop detected; correct preserveEnvelope remains intact)
+  ANTI_PROMOTION_GUARDS: PASS
+
+CÓDIGO CORRECTO Y MUTANTE
+-------------------------
+El código de test aislado está en /home/ubuntu/jobs/cbef0db18f21_a9/test_x_exercises.ts.
+El mutante sólo existe como función controlada mutantDropsProvenance(), se ejecuta dentro de try/catch y se deja intacta la función correcta preserveEnvelope(). No se modificaron Product State, BKH, TX, E5-E8 ni PF-H01.
+
+LÍMITES OBSERVADOS
+------------------
+ARKI existente demuestra IFC4 conceptual, GlobalId, fixtures IFC4, parser/exporter y regresiones IFC4; no demuestra IFC4x3. El gateway CAD sintético conserva UNKNOWN y prohíbe promoción; las fuentes DWG congeladas registran NO_DWG_READER_AVAILABLE. La matriz ARKI declara que no hay adaptador productivo Revit/RFA/RVT. No se encontró módulo específico de nube de puntos. Por ello el estado global es PARTIAL y permanecen GAPs de X1, X3 y X4x3.

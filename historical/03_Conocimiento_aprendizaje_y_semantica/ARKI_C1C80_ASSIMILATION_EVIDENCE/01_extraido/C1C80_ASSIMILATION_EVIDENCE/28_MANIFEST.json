@@ -1,0 +1,3808 @@
+{
+  "artifact": "ARKI-C1C80-ASSIMILATE-001",
+  "status": "ASSIMILATION_PROGRAM_PARTIAL",
+  "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+  "branch": "main",
+  "worktreeEntries": 1141,
+  "quarantine": {
+    "enforced": true,
+    "violations": 0,
+    "AuroraSolutionsUsed": false
+  },
+  "counts": {
+    "attempted": 80,
+    "documented": 80,
+    "digested": 80,
+    "implementedBounded": 0,
+    "adversariallyTested": 0,
+    "transferTested": 0,
+    "verifiedBounded": 0
+  },
+  "files": [
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/00_BASELINE.md",
+      "sha256": "sha256:v1:365aa427cceedc4f0f0003f0f4a021e214bdcebddd6739140523469b7d22eb7c",
+      "bytes": 239
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/01_AURORA_QUARANTINE.md",
+      "sha256": "sha256:v1:0159c0fd6d027c8fc25dded15eba56168aad2290e5207ebec48f6a3e8c7f6ab1",
+      "bytes": 717
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/02_CAPABILITY_LEARNING_GRAPH.md",
+      "sha256": "sha256:v1:1a46753fb29287667ebf1646fd63e517786ab65ed7860f4edb918d64d803493c",
+      "bytes": 659
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/03_CAPABILITY_LEARNING_GRAPH.json",
+      "sha256": "sha256:v1:8dc01e334a3570c3eeb666efe0a8cb14daaf1acc07c7ed8d1340adce4a8e0718",
+      "bytes": 3792
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/04_PREREQUISITE_MATRIX.md",
+      "sha256": "sha256:v1:790b5ce2803a63f4aeea2deb0e3e16a3fbfd103e37b86af46c6e09d2ba164642",
+      "bytes": 11222
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/05_DEFICIT_MODEL.md",
+      "sha256": "sha256:v1:03a2fa5848ab4f0142044a058e9a2dcbbaff963a3d7ba2cbee214a6e57d1475f",
+      "bytes": 406
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/06_CAPABILITY_LIFECYCLE.md",
+      "sha256": "sha256:v1:d2977496f9285304d762346c94d2f129947681af315ec4a6d891e120f58137be",
+      "bytes": 273
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/07_ASSIMILATION_SEQUENCE.md",
+      "sha256": "sha256:v1:fccb172e8735c8cffd6a8da8c62a46e8663c93be233f27f7490066617d5c563a",
+      "bytes": 8841
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/08_ASSIMILATION_SEQUENCE.json",
+      "sha256": "sha256:v1:2e0970c6f153de2f7821925acc0c719011a58aa82da6403ed51fd7620decdb33",
+      "bytes": 34018
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/09_SHARED_ENGINE_MAP.md",
+      "sha256": "sha256:v1:ee3f718f95918bc6403751afac97175686447381094198c3c85901a4e3929dcd",
+      "bytes": 2065
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/10_TOOL_REQUIREMENT_MAP.md",
+      "sha256": "sha256:v1:23a1c7433ac54d9bc7998cd9644407a5a66ae6a0ed5495624efaefae16c94ed0",
+      "bytes": 202
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/11_ORACLE_MAP.md",
+      "sha256": "sha256:v1:ef8034bdb5bae96abf83f0ff8b0068878675db1b88f611cf84f23056c66cc71e",
+      "bytes": 216
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/12_TRAINING_SCENARIOS.md",
+      "sha256": "sha256:v1:410874c64108c75c8a88f155b7d23d503b6684b3b3a393cb243b0aed499e86c5",
+      "bytes": 355
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/13_ADVERSARIAL_PROGRAM.md",
+      "sha256": "sha256:v1:cf4ca9349bd3f9fdfc143fc4bb81b10c61ccc026f4dc093fd3afce3c84790bf1",
+      "bytes": 306
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/14_MUTATION_PROGRAM.md",
+      "sha256": "sha256:v1:6c386808e1317cc6dd7e21f38a8c8929910dc282a85461324f7d94852d46789a",
+      "bytes": 260
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/15_TRANSFER_PROGRAM.md",
+      "sha256": "sha256:v1:62815068c16c12f3cf93d841a64dd1fc6472a8061f57ecfbee2964bb781b87ba",
+      "bytes": 174
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/16_CROSS_DISCIPLINE_TESTS.md",
+      "sha256": "sha256:v1:3a0236fdff344cbbf8be48f13f8bc9f52f5bb260baa968478fc1d61e1516804f",
+      "bytes": 296
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/17_DEPENDENCY_PROPAGATION_RESULTS.md",
+      "sha256": "sha256:v1:c7f8ce2811b46d520aa9645c9f21ef0ffb0cebf7ccdfb75859531860ca40ac3d",
+      "bytes": 220
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/18_C1_C80_STATUS_MATRIX.md",
+      "sha256": "sha256:v1:1cf02d713876d1493fdb8c9b03ab362cac66b0c7b1a66e6ffd5e5e1b3daf3fd1",
+      "bytes": 6093
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/19_C1_C80_STATUS_MATRIX.json",
+      "sha256": "sha256:v1:3ba4a57694715e796406f47e41129d0426d862a53d8322292cf84fd3a683c62d",
+      "bytes": 45763
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/20_ARKI_LEARNING_LEDGER.md",
+      "sha256": "sha256:v1:af442520fd747213e9d02c07f6a3df4747392e3921599f9b93400d9cf802f13a",
+      "bytes": 76477
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/21_UNKNOWN_REGISTER.md",
+      "sha256": "sha256:v1:9a29db04b33c0b086fafc7461b3abb27ba985517f93d8e25b740bce902ff1ed8",
+      "bytes": 75840
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/22_RISK_REGISTER.md",
+      "sha256": "sha256:v1:772716fabf0f801549db4cab048349e1db18ebf613e182b5842077bcd5f7dc88",
+      "bytes": 376
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/23_DECISION_REGISTER.md",
+      "sha256": "sha256:v1:34b32933c86b7c7224091159d31df81a9c5bd8991de5b87ed330f31fddc39f50",
+      "bytes": 236
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/24_REGRESSION_RAW.txt",
+      "sha256": "sha256:v1:fe18ed777748cab5e634f28ba8150911f5e13a77cb299168a272c2291267b9e4",
+      "bytes": 4883
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/24_REGRESSION_RESULTS.md",
+      "sha256": "sha256:v1:bc3dd3c1ac80170f9feecd8fa1ac7131618f758b4277f28ad080e162db4b1549",
+      "bytes": 127
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/25_EVIDENCE_MATRIX.md",
+      "sha256": "sha256:v1:4768ae89ddd145f590490a48cca8421f5c04a31b59cf39b42755aa82ea78b781",
+      "bytes": 290
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/26_IMPLEMENTATION_JOURNAL.md",
+      "sha256": "sha256:v1:9c391522b4e78dd3963ab451db198a267b1250c22406c508ab2e289693e1892c",
+      "bytes": 285
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/27_ASSIMILATION_TEST_RAW.txt",
+      "sha256": "sha256:v1:bef1cd18664a651255b5f08978249844d015ba6cf4a233b026521113d77f7eec",
+      "bytes": 142
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/27_RAW_OUTPUTS.txt",
+      "sha256": "sha256:v1:277e0b83405090243cbbd56c54caee6196ef53dc0ff17ed29d07130933fb55c7",
+      "bytes": 4979
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/FOUNDATION.md",
+      "sha256": "sha256:v1:13b60095f5fed769a86745773565375c1eb06b19a38b031314f26c75989ac57b",
+      "bytes": 199
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/STATUS.json",
+      "sha256": "sha256:v1:d996f97ab926de55f5d507ab4d7d1a11e433ed658aa09240a08bc9e32e493d5a",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:47ac9ad78ddfa71ef1cfeb164fc9a8f3bade9ba9de0942b1846d52a4225de68e",
+      "bytes": 3290
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C01/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/FOUNDATION.md",
+      "sha256": "sha256:v1:1a971d87090c2f2567776cf82ed6ed3a9a5d149c704e2f3428b81dbee84750b3",
+      "bytes": 224
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/STATUS.json",
+      "sha256": "sha256:v1:ee1dd3356b7b305f766a961979d8c3d7ee1235b2f2f47ffd5f58a0f8b4d0af14",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:c10922603ab1cd3beac819b24799033c820849f1cdad2c263dc04a6327bcff1e",
+      "bytes": 3315
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C02/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/FOUNDATION.md",
+      "sha256": "sha256:v1:22ec75c545fece0cbc553cdd3201ef3545b53f84896a98ced2e952bb1f7eb164",
+      "bytes": 201
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/STATUS.json",
+      "sha256": "sha256:v1:8b94621c29c7000038a731712f8b9f1a799e30d732d587b78e6ddf306cd68e1c",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:4e22bcab2841fab9b5f581766640cd2e04d537960a0e5b0f624ca58c2767d0ee",
+      "bytes": 3270
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C03/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/FOUNDATION.md",
+      "sha256": "sha256:v1:9c12862c9e84b80a598bd791cfe5e41773c9a8f934f7f131fec740c1b70ba102",
+      "bytes": 205
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/STATUS.json",
+      "sha256": "sha256:v1:28f1421dd249b9fd204145c5a9535c4dcf6c34173ab32e2306501595ec380e34",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:477ab4ed9fd43c0f2e2068a1d3ed0a97034de2b9d8a06b3e1ae286b88978e900",
+      "bytes": 3274
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C04/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/FOUNDATION.md",
+      "sha256": "sha256:v1:d3847a15bb0a1f7b43a7b75af05334bcdfdbadd4aab142420333bcd5c11488da",
+      "bytes": 207
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/STATUS.json",
+      "sha256": "sha256:v1:d4dd5da95be463b15e69b4bc3c4f3557a181db0942f6a3f974d627f85dd60d0a",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:8e90e01e9e20856af724258ffff0ad064bb548a0decdcf221b4e2b373ef1d305",
+      "bytes": 3276
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C05/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/FOUNDATION.md",
+      "sha256": "sha256:v1:fb8a46d8da1c29d14790eaddd5e89943e5479f7d0582e93f0c62c266682cab16",
+      "bytes": 210
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/STATUS.json",
+      "sha256": "sha256:v1:515e44b8465000732cc8be8ddc2dc302352e797c2e557ee0cf98ab8954233b3b",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:2b60ed9dedeadf28e34c8b85196cde804dd11f1a99efd9b06111d672478b45b7",
+      "bytes": 3277
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C06/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/FOUNDATION.md",
+      "sha256": "sha256:v1:937d900181306185a16472b35261a430cac91dc122cf8d63665767f20433b672",
+      "bytes": 200
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/STATUS.json",
+      "sha256": "sha256:v1:f92d11545b7bab5dfc6ffe1f1d9f2843ce1a1976260a2c76c53b0e9adcd80d8d",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:ac8a9483c7be9bea1ae11850a164331606a27f3669dcf68d86d6d3e535391410",
+      "bytes": 3267
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C07/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/FOUNDATION.md",
+      "sha256": "sha256:v1:b87577fc0f6215df0ff8f5e784b038b37e81ec6f16fb5e66e01e597e5ffa66fa",
+      "bytes": 218
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/STATUS.json",
+      "sha256": "sha256:v1:8e15a6008bd0e23a02a12fa282fa7d11e72a45e3f0e3c2b13afb9b34865b4d6f",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1633d9d7a756390f759030e82d1bc9b9ab3e59d74ad99f0cf4936a885ac41685",
+      "bytes": 3285
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C08/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/FOUNDATION.md",
+      "sha256": "sha256:v1:c6b7495593d91f9b31875710458e1c8d38c3ee430f29a6c0b7c2b751969f9e1d",
+      "bytes": 194
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/STATUS.json",
+      "sha256": "sha256:v1:87f9fbf0319a065cc2dd7907284611370ce54c52de3f5fb8db6be547affa3b49",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:a01eeadea313664932458c328f707e4f17408981f1b41898dbbf29bb6e5c7def",
+      "bytes": 3261
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C09/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/FOUNDATION.md",
+      "sha256": "sha256:v1:ec364d86da5e79131cdfe06eae915c5ea3d0d2bf7d7f3bf962865ef704839eff",
+      "bytes": 209
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/STATUS.json",
+      "sha256": "sha256:v1:0106f9876de0c68cf8905262388c4328cbef80acb70ca93067bd05655584e392",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1988897d73cfe8de6b5a16c42bddd3f80a4335d1c974b12fd306c8e53a38872b",
+      "bytes": 3298
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C10/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/FOUNDATION.md",
+      "sha256": "sha256:v1:58bb1e9ee4f33e32fcb8c1702f6f823b69649be9df3cdacd65f12c7c5c311a25",
+      "bytes": 169
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/STATUS.json",
+      "sha256": "sha256:v1:1f0cdabfe94a042434beb05ee45c1b37b562f07e65f817855502963e9ec8ca5a",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:90389bc926ac287ea63d826cd4834701385fc8cead7757ac2499e7ca8713a2de",
+      "bytes": 3182
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C11/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/FOUNDATION.md",
+      "sha256": "sha256:v1:5d917191ff638285712b3e17c9f65f87a9684530e32820cf489179ff826ede4a",
+      "bytes": 180
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/STATUS.json",
+      "sha256": "sha256:v1:aad9f61f3bcfa111dbe3bde24c51f49f8af5deb1283d847ff249eca8b1589e82",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:abd130cb5d3122af7eb85bc435c62fc72e1e0ba402fdb7fd27a4a4b52d04399d",
+      "bytes": 3193
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C12/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/FOUNDATION.md",
+      "sha256": "sha256:v1:ab871ecaac21bed4e9ebbf0e3126612a4ac7eb0fa2d0390a2afad75e01d97967",
+      "bytes": 176
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/STATUS.json",
+      "sha256": "sha256:v1:209aa817b156a7a4d035bb312bda7e1a1cc7cf27fb6fc7b744cf04776d92e9c9",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1ef2bc9d088e9aef8af09e6f84effe4077ab7fee6922a4fc2cef5ba4bed57ad0",
+      "bytes": 3189
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C13/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/FOUNDATION.md",
+      "sha256": "sha256:v1:a62b468ca5425dc6e7b0f8792d7e825490c69bd0b721397afeebf83ec9865d19",
+      "bytes": 166
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/STATUS.json",
+      "sha256": "sha256:v1:5b3a4a7a6969802717cc2918f2182ff29ba8c3bf4009d31be714f218c1efa134",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:578e941a5b1f4cf05d01dc0f57a61d58d4d73faf83f70e9a8210c3d8fb166406",
+      "bytes": 3179
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C14/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/FOUNDATION.md",
+      "sha256": "sha256:v1:cb5df96628679edd55cb980e8f1d69384812d15f9a7b40ad4cedd89e3fa004f7",
+      "bytes": 186
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/STATUS.json",
+      "sha256": "sha256:v1:8717eb3641e708ffdbb1633c1a9fb6037e26c3b313860da499e58b1ebc15f53d",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:8ae61c8eb9cea9a737d0d60b13634f44ba906c38a9ed3f938531dc3f74482f27",
+      "bytes": 3199
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C15/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/FOUNDATION.md",
+      "sha256": "sha256:v1:d865ffad5422e0cd804cc0403e13b007c8f29131a7d157d759a8cb7b75d2b5b5",
+      "bytes": 174
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/STATUS.json",
+      "sha256": "sha256:v1:1444aedc7702b25f8ae96dd1b4b6d07ff88a3151963f35dcb26f268dfe45714b",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:4240310c1d1bdff3469a0edcd51356b007fd3fd953da6a77f84acb27668ab07d",
+      "bytes": 3187
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C16/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/FOUNDATION.md",
+      "sha256": "sha256:v1:acd9e66bbeb116a11e4e7ac0a6bd8295bc4e984b95eebe90c2faed06cfa2462d",
+      "bytes": 151
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/STATUS.json",
+      "sha256": "sha256:v1:cb55387a06953e7d088e25711034ba218e1ae5751bd2a2c4aa2e8f63d9581171",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:b213724090168732a483b6ccd0f323f5e4dc4af6982f20a90a2b2cebc4430d98",
+      "bytes": 3133
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C17/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/FOUNDATION.md",
+      "sha256": "sha256:v1:0c4d143b73fd8c8bb13b66075d41c3d609dc22e92c5169ab3b27ba51d11d2169",
+      "bytes": 151
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/STATUS.json",
+      "sha256": "sha256:v1:5f77eb792c1dead3f65313253177cffd9120d89602aa9420888b43e187ddbd09",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:71fb935ce83dc3bd6cbbf2b3ff11bf40d04768ee8ea27a6cb3c2cfe46f4fd009",
+      "bytes": 3133
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C18/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/FOUNDATION.md",
+      "sha256": "sha256:v1:bf424c904ae84a6b0c73eb265579344d02da1f674ae29a7e10dbf8049037ec03",
+      "bytes": 158
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/STATUS.json",
+      "sha256": "sha256:v1:53ed14684749be9fa4df95106966a9fc6dffc8446c27a432be0b467c4efce27d",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:c9d7601249e97f5f47472099c91c951903ee524d8361f2ef8c0e636125aa2593",
+      "bytes": 3140
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C19/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/FOUNDATION.md",
+      "sha256": "sha256:v1:8902d2103aac469450e71cf4205873d247830bd5cd474e6c4c7a56e371e705c1",
+      "bytes": 156
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/STATUS.json",
+      "sha256": "sha256:v1:556a61f26c66f2f0533bef4aa33e9573f3df3d118119aec70d4d909722e59f36",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:aebf891239b0ff2f26eecb18dcbc197d9b92dc2d089e848d2d66979e4bd09a0b",
+      "bytes": 3138
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C20/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/FOUNDATION.md",
+      "sha256": "sha256:v1:db05901d2ce7167faee165a6906496da386392dbe011060db513f84dcf228541",
+      "bytes": 152
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/STATUS.json",
+      "sha256": "sha256:v1:16e02b4efcd9bfde88cf7fcecc5727ea51e46d565edc58f9ad718f6756e0c9c9",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:71e3474e73afe71669e349ec42158328118e49633cb1a7e5c8d4325962114c7a",
+      "bytes": 3134
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C21/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/FOUNDATION.md",
+      "sha256": "sha256:v1:62f9f0bc2f0429c73c78c5352ad093f4f011e43d5bf8ca4a05ad480403235adc",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/STATUS.json",
+      "sha256": "sha256:v1:3b9170c2ffa2cfe9acbf0dbe8fe1a348f5da5d4be0e947d9ba088c77055ab0cc",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:8d6fb61707d22405060dd2f56922ac4c6a0cc49a5cfa4a6d2365a1de92f5c717",
+      "bytes": 3147
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C22/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/FOUNDATION.md",
+      "sha256": "sha256:v1:d413e07a60ea5e5ae35fd62aebed934f9abb154590e2fadfceae30ebb40cf17e",
+      "bytes": 167
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/STATUS.json",
+      "sha256": "sha256:v1:0b7149b24d377cfabac1cc4eb6a4e509857a91f334cc52d772c8d9b316f00c08",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:38ad890879aee8d1a6b34ef2c41c5566f67027ed9514044fd6f9fcd38d8de11e",
+      "bytes": 3126
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C23/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/FOUNDATION.md",
+      "sha256": "sha256:v1:30dab4e24740a36dc484ac5d51007d036a92bbb000566628ae85abf27647c346",
+      "bytes": 155
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/STATUS.json",
+      "sha256": "sha256:v1:6857e9f608a4dbd1f4291785ef8f5d5d5de644f4fbc665ff0d447de819e9819c",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:a84512b783b00215287e97ada4d37068a606d99e871d14614a144239edbb3679",
+      "bytes": 3114
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C24/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/FOUNDATION.md",
+      "sha256": "sha256:v1:24513cde840e2620e9769c08cda32c0c0b1070b9761e9a885b5255ef2f881427",
+      "bytes": 169
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/STATUS.json",
+      "sha256": "sha256:v1:c4f701e288b94bcb042f06f075630019c3f33c7458b2e16d3156c3506d904e86",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:21051fc77a9f24a9ae68225ed557fda5ae0e43c25cd2b876a88fadc7e231b339",
+      "bytes": 3128
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C25/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/FOUNDATION.md",
+      "sha256": "sha256:v1:d5ada19c55eda0ecf2baf41b2e72f3e4a1aad2c485c7533b3be3bcc885789c25",
+      "bytes": 173
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/STATUS.json",
+      "sha256": "sha256:v1:4f4caa33a72d43d97db139fc4e0b3fa933a850c3cec686ec33c6eea23cfef373",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:7fac0c2f11a0b51108d9a0bc4d5f4cf9d004ec34e60b03cc6e9a75bd2494cc22",
+      "bytes": 3154
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C26/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/FOUNDATION.md",
+      "sha256": "sha256:v1:d20155f6747b269005de4e41e1a17e2627304464584dc3e36d6f667da2e251a5",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/STATUS.json",
+      "sha256": "sha256:v1:490ff91e36f723a40de1ce7a269e87a618ef483478db928b056351a395becfc6",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:9322b67af2ab2df92f3aa7037e4dad59e929e38408d0a550bc3eb936d0ec7819",
+      "bytes": 3156
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C27/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/FOUNDATION.md",
+      "sha256": "sha256:v1:0c631ee94d55c3518a730dda0764d52d631424309aba542ffc5b95a9af20e0aa",
+      "bytes": 177
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/STATUS.json",
+      "sha256": "sha256:v1:a8dc4c6fd2933eab39d7cf7bdc563fea7c681fb95bd98a5537ab748a1512c296",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:93eb289d0d90e3e9b13f2340422fa6de3b5f90a6aa73486393dbf76cc56162d5",
+      "bytes": 3168
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C28/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/FOUNDATION.md",
+      "sha256": "sha256:v1:ce1bdecb9fd489ac666f8a6432c4e41b619034a135b4355a8a4efc684bf45283",
+      "bytes": 184
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/STATUS.json",
+      "sha256": "sha256:v1:23e5d218b6261a9bc53e74ccfa69b82b1ecca005ae41a4794ef50bcaff27bef9",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:50d4ee7526a335b1a99baca276f88f69c5da7c34abfb4ca82ff63f525336db47",
+      "bytes": 3175
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C29/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/FOUNDATION.md",
+      "sha256": "sha256:v1:ec8fd9aece67f2eca6c21c88f07df05ef784452943779cac07a2a7c035cd4427",
+      "bytes": 162
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/STATUS.json",
+      "sha256": "sha256:v1:c8486cb5afb62a32b506980ea60f830e028b1fb847e9d7fcfd66a1d9b2020207",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:21f369ff297e504268874d7d6428c6c9a336266f7787289aaf0dff5d02aa7e91",
+      "bytes": 3167
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C30/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/FOUNDATION.md",
+      "sha256": "sha256:v1:f008538559acd5d06428de3f76f459ac5b00b566ba69168e03f5aeb5ac7c833f",
+      "bytes": 155
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/STATUS.json",
+      "sha256": "sha256:v1:70836de7147cc4cfde899f508e5d4e4e11035a08b9efbece32456f86d6f0c5aa",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1499cc4bf4ca52d4fd4770d1baad713f71bbdadbdf2c9c7cb6c26f9147a16be8",
+      "bytes": 3160
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C31/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/FOUNDATION.md",
+      "sha256": "sha256:v1:ab35df2945e216fad4e0df07763e0e80272d31aa0f57723853b66a9fc17d7c2e",
+      "bytes": 167
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/STATUS.json",
+      "sha256": "sha256:v1:1117bf5974ec49201c8c75c9f6da13bcee110f862fa0865d48e6661b42d1c3d8",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:e76eae86dfec4c1eaa3b789c051224d85f0604e1c225f75fff62f3378ebffbae",
+      "bytes": 3172
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C32/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/FOUNDATION.md",
+      "sha256": "sha256:v1:9c71e287e92bd025cb75cc0409911592617c65168f3877844ae4c0ef3e447cf3",
+      "bytes": 161
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/STATUS.json",
+      "sha256": "sha256:v1:9eb4daa7da588664ccea7eec20853512a67833f6a0ddc1da2e635592b6e5dbbc",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:9a5f5a2b2706c2df7af42a6c43b1a3b7404d61e2f7aff118731885822dee5c4f",
+      "bytes": 3166
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C33/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/FOUNDATION.md",
+      "sha256": "sha256:v1:46956847f5871e30e4cb32531dd5d3de5e91f32b225048c91ceb1816f3484256",
+      "bytes": 166
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/STATUS.json",
+      "sha256": "sha256:v1:4e1de5afbdaffd8d88652b1b8124801e1d9b50a59f28e653cf851254b0642198",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:8da5ca38ebf00284eeadbdf2c4d8c4ebc5aaf61be219c5760bf7a5e7b152e0b5",
+      "bytes": 3163
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C34/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/FOUNDATION.md",
+      "sha256": "sha256:v1:7b4c0b77586d2bae8c72abde71d8f206aca46c3a44c7afae961d609976ddd080",
+      "bytes": 170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/STATUS.json",
+      "sha256": "sha256:v1:9f24e9bbd2582c38c9c14f89149e729b5f0ffc60b5bba2998caaa21d4a968599",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:46e4648a90177238a604e87a5fb91eedaa86c32bfd671aed060f72c8101946f5",
+      "bytes": 3167
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C35/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/FOUNDATION.md",
+      "sha256": "sha256:v1:4847349620728a1ed306eca428f4d4a2ec64ce3b95797dc6b7697a67590c5672",
+      "bytes": 164
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/STATUS.json",
+      "sha256": "sha256:v1:f569ff46a79aa1a8a7667cc2a7c1cee37896ce9c1aa6b77ac82abc978d455311",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:5fd7fbb4eda53a4e37e2c3e16604de3df685bacba018e69048c86dce88e303cc",
+      "bytes": 3161
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C36/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/FOUNDATION.md",
+      "sha256": "sha256:v1:aec905c8ceb9f8b7098ebd5ba21a55bebb606a9eed71531e75fff09c8afc80f9",
+      "bytes": 159
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/STATUS.json",
+      "sha256": "sha256:v1:70cffb64d92ed64f689fea18f7a87667c5dbfa65f47fc521f8460cfefbc19397",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:2b3299db9e063a80a3f5c59068d8b07ba6cd849e5f300bb1ec7121b6d9a673e8",
+      "bytes": 3156
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C37/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/FOUNDATION.md",
+      "sha256": "sha256:v1:e35700314536f1ac48f5d7405eaf3adf30e158063bdd679f8988bc63a6300a82",
+      "bytes": 158
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/STATUS.json",
+      "sha256": "sha256:v1:1b9779e6d13f3b242f97169c08aa1ac3352f19f98bf9e47ac4e8c53f791b4149",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:dd21ab55d746a8bf162a314fc64409a18f90ee11a2f356650f012e1757b1df1c",
+      "bytes": 3155
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C38/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/FOUNDATION.md",
+      "sha256": "sha256:v1:9143156e6ea3e1b384e0b50afa840b5dc35928e6321b4d0dad1ab53c8021bdac",
+      "bytes": 180
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/STATUS.json",
+      "sha256": "sha256:v1:d7388fb634ca586e361d806b0928342dafc0c11b3d0338315466ef5284cd775f",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:985a308281acc0481d062eb96800837c6a1fa16e9afb7b98b154d2ee9ac02bc8",
+      "bytes": 3177
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C39/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/FOUNDATION.md",
+      "sha256": "sha256:v1:e6c2fb7b9eec95d3430dc95100ecdeb2a81d7f6cc57996a804f38d301128a7d2",
+      "bytes": 156
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/STATUS.json",
+      "sha256": "sha256:v1:92a86339d7afd197493dc5474688e53527bdbc7b9aa1338ff5547d7fdf6b223e",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:877d5eab6026d427d5906162a1763d1502f656df937fc54e0de2055783004441",
+      "bytes": 3153
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C40/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/FOUNDATION.md",
+      "sha256": "sha256:v1:37bbfd0a08173b6f2e40a19149e53b9c5a448e62ff543b9f082cc8ed739a325d",
+      "bytes": 168
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/STATUS.json",
+      "sha256": "sha256:v1:3dd0b3866718e664af2ad80db493e72a5acf5b5c40bbb75b2787758edb2cbe14",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:64a21032beb5bfc14364319ae316fd8b72516eeab26c5fdb820aaac393b6da47",
+      "bytes": 3165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C41/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/FOUNDATION.md",
+      "sha256": "sha256:v1:f5480dc3a427570073966466274242a35b2bdaab91c3b12c3e2201878bb2909b",
+      "bytes": 156
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/STATUS.json",
+      "sha256": "sha256:v1:397a7c4ae260aebfd7ec7b5b4697f760fb516fb5755730902eea9c214be7b005",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:a279c6db2241b443baf1468c23f297ead988b69855efbda88d25540f043e10bb",
+      "bytes": 3153
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C42/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/FOUNDATION.md",
+      "sha256": "sha256:v1:b570809aead9cd6dc03b709a32285e9841f936b6ac4403afa69a736da2867a9b",
+      "bytes": 173
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/STATUS.json",
+      "sha256": "sha256:v1:87bff42abb3b56f0ce1ba0e41d4859c0dd30acc8652946575838d384604dbcfb",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:ff821568bdde263dbb728f41c4ddb8d1520cd3a26e2fc15b1733d9227e96a48f",
+      "bytes": 3192
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C43/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/FOUNDATION.md",
+      "sha256": "sha256:v1:c2c2ae816581ef44a097019473ccf5f80989ca5c15c17faa79f89261d5c0f9c6",
+      "bytes": 152
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/STATUS.json",
+      "sha256": "sha256:v1:bd63e73d01f599c66f7042ee62a54b1bc6c446e9a2dd6753773fb819fdadbeab",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:9df1e56914c86bec9b2b3428d45dbe4d8daa319425ca23f5c1cef1293b4729a7",
+      "bytes": 3158
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C44/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/FOUNDATION.md",
+      "sha256": "sha256:v1:f43c99e61306de77e42e90a62a8417faf63c2115c2bd4043a783f439f6c30829",
+      "bytes": 169
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/STATUS.json",
+      "sha256": "sha256:v1:0e7ed886889becc0dc8c88c810d385e1f9d1ca15d3dfe668f0da2b519a974c83",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:f79d8253221dbe8a51b6832a75c324660230a6e7be3d99a6f25fc9c09976faf5",
+      "bytes": 3175
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C45/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/FOUNDATION.md",
+      "sha256": "sha256:v1:e126e201b1fe29c7d6d05b69284dfee029bfb6cfcbe6ae651635a7c00e05aad1",
+      "bytes": 164
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/STATUS.json",
+      "sha256": "sha256:v1:4f882c042af0b3f29ba4cf8f0a83adf424ebcac617b1b3071b313f69cb57bbae",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:96ef936ad3425686d705174cebce4a782aebf23a56920c61d85c52099496a9e9",
+      "bytes": 3170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C46/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/FOUNDATION.md",
+      "sha256": "sha256:v1:6cbba5c9c2b66b562f10d7161444cedb3c7fad131200d4d6ce89e3d29a0d738e",
+      "bytes": 158
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/STATUS.json",
+      "sha256": "sha256:v1:9cd0d7c9bf3626b097e545a267c16d89ae29b6b427c97977bd71d5724a987214",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:e3f95ace5e94998d7b8059d9e7a6f4db0092e9f06986b2dc0b9010c00f2a893e",
+      "bytes": 3164
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C47/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/FOUNDATION.md",
+      "sha256": "sha256:v1:673cf3a77e50e63d390e6c2866c0a30c14613fb2160190606dfa313def62166d",
+      "bytes": 170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/STATUS.json",
+      "sha256": "sha256:v1:c5d3b53de5088d46e47e837dae0d08bb173dd061987ba3dc1fa77704190fdcf3",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:9d6e34135781526ce0315fc812b0015ba8f40601771b8a3046500a8274b4d338",
+      "bytes": 3170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C48/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/FOUNDATION.md",
+      "sha256": "sha256:v1:bdb795c2a12e743171231999b7b594fe0540ac819d3cad3fc21913f358336272",
+      "bytes": 170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/STATUS.json",
+      "sha256": "sha256:v1:513b294b6f270fe59fdc2cfece1e72d93c5d087c0a16db162f9664e7b86ef89b",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:2b7c822a3447c6923b0d7ee89c4732f959f5a241e749c42f7e83b65f2eaced63",
+      "bytes": 3170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C49/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/FOUNDATION.md",
+      "sha256": "sha256:v1:ac49335206daa04036bd609de8589a76a1bc614dcfc98dad4b38f564bc79f1b1",
+      "bytes": 172
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/STATUS.json",
+      "sha256": "sha256:v1:4964bb49168ebf9da04b773c73be495955380509e3b74ff1b5ba959308069816",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:39f0b8423e443f1cfaf4a098bba8b70cdab56571b0e55439b380182e81bbc67a",
+      "bytes": 3172
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C50/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/FOUNDATION.md",
+      "sha256": "sha256:v1:347af13f75af9bd0afcce14d425bca45a409ff041658736858fb6a6e07c2c18b",
+      "bytes": 170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/STATUS.json",
+      "sha256": "sha256:v1:2a1270452a2ef9c0707f0d56266f728106c65b23f4f507c9268b04db8fde6f4a",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:a54bc883ded0f11651c6e02a1ac07e478cd4d3781b5adc49b9a73212ebb240aa",
+      "bytes": 3170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C51/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/FOUNDATION.md",
+      "sha256": "sha256:v1:d735024665a425f655a617e221ae40aac333da60722c975f374f651eac719f1d",
+      "bytes": 179
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/STATUS.json",
+      "sha256": "sha256:v1:19bf91304ae4653391857b6ddf5326c4d1bf2f5f666b15a2d40146d5ea9baf03",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:9f29b67ac7090af629efa3f0fcba5631e83a04b0a1c0af3b9dbe99843032f128",
+      "bytes": 3179
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C52/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/FOUNDATION.md",
+      "sha256": "sha256:v1:76398826c47a7569db9971d7375324b27ac797f352f96d69826be26c09bcfe9c",
+      "bytes": 196
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/STATUS.json",
+      "sha256": "sha256:v1:55fc73eca56a1fafb07445cd938b3ec287f67448de1740f73f8d25132ecfdda5",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:ba243476f9591f4d9adbc0cf02a9718cce9a78f9f50e9cce89c75fc829a69880",
+      "bytes": 3196
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C53/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/FOUNDATION.md",
+      "sha256": "sha256:v1:aad9180bc6c55c60b801153ce911c0aa8ee5bcda3a6085945653a0bf3dae8fca",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/STATUS.json",
+      "sha256": "sha256:v1:5550e5fb8dcfa57bae5974fb4bb3e7623bbf46dbaca7ed9f25cd49f355aa0bfd",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:c2cd57991fadd72b943f39ffc4e6edb2633b8cb5916d02a9500d32237d5b2e17",
+      "bytes": 3170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C54/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/FOUNDATION.md",
+      "sha256": "sha256:v1:13fda15dd65bb82fe88d7cfb04b8c592b08af07b5e84badccb7170e530002854",
+      "bytes": 164
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/STATUS.json",
+      "sha256": "sha256:v1:8b39127e35951df4c5e84eb0590bf83e62a19bd16d94fefae0a0b7951219100c",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:2a7c35ce677e4243b2d5757bf844671e2c28ab7b72249070e298164d879e60be",
+      "bytes": 3169
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C55/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/FOUNDATION.md",
+      "sha256": "sha256:v1:0362290c5caac6f4f6d4b0981339e0e9daaac19f0e21ca8d86a101c671cb20c2",
+      "bytes": 154
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/STATUS.json",
+      "sha256": "sha256:v1:41f192d40a93716148b66274a43efb3aa09c7b2e556518ea05cd941c6333c346",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:0b2153861cbd1585f7076ffdb8120c7901469c80115a9c81424b460a57edff54",
+      "bytes": 3159
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C56/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/FOUNDATION.md",
+      "sha256": "sha256:v1:4d220beaa1a1acf2b949841343bf66da91e95ccfa7108f619f9c099d748f5702",
+      "bytes": 158
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/STATUS.json",
+      "sha256": "sha256:v1:5963745130821732e959c41d3eded0801818d8d27f24c1a6428565b76e3b4a8e",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:8100b70e354d816a83c651034af7be15ca55cb810e90c4053e8fc8aa780eff7b",
+      "bytes": 3163
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C57/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/FOUNDATION.md",
+      "sha256": "sha256:v1:5f1af64c4af98a48e8f35396808d3fdf3a359539d7c4e3fa0eee0bfbcd2cd360",
+      "bytes": 164
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/STATUS.json",
+      "sha256": "sha256:v1:a1bb81dd92cbeb02c696eb5a5df74e423d72633ff2bd45e485dfdaa402dbeb74",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:f52e0cc562fc2018545f12e0dd6ca7f42f67e1576697b267cf63aa7d8392f22f",
+      "bytes": 3169
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C58/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/FOUNDATION.md",
+      "sha256": "sha256:v1:768caf54aa8f4f00d1d33a61a7f021cf86d2b928b6b231e0a525b64d4330b99d",
+      "bytes": 157
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/STATUS.json",
+      "sha256": "sha256:v1:53d1a11dd8b8da936a35a719b2f33cd62aa0f9f9e1e8792812717fa00ed9ee2c",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:329fc01c04f7daf026ab7debfae845e7186e916e03da116360d5724c8d7113c8",
+      "bytes": 3162
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C59/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/FOUNDATION.md",
+      "sha256": "sha256:v1:4a33060e490bd133a69a89eac08b0dfaf44c706bb6727774d6a850349ca3fc2d",
+      "bytes": 175
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/STATUS.json",
+      "sha256": "sha256:v1:eab97cc68335a7d92d11b016d5e1337891d9cb52673bee01d3f5f37bcb0a1950",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:b319903aa9e1df14d493999f6df006a2448b7e006d9c6bf0f166082bb548092f",
+      "bytes": 3187
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C60/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/FOUNDATION.md",
+      "sha256": "sha256:v1:fd9087f4c764c57cdee692f9c49c0ef7d01b9a19305dc95ff792414bc92e2d9d",
+      "bytes": 175
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/STATUS.json",
+      "sha256": "sha256:v1:37ec7f3d495fa4d61781598ea3f3ffab681798cfa4f1c9207f26780b68fea501",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1eaa1adf53aef6ff0f0f7f81a7af0f54d34b1a81a812de7bdf60d764c360eb3c",
+      "bytes": 3163
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C61/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/FOUNDATION.md",
+      "sha256": "sha256:v1:33def55a8ebdf0f16485c7d2cf5248e82de3c26da4134529afc7d71ded1fb3ec",
+      "bytes": 197
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/STATUS.json",
+      "sha256": "sha256:v1:b0ca6d07464b09ba4e8461d23769c8db25024a32c2cc5348ec4efe0ea4f68ba9",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:faedb06a278b627c6357b8593df9b7615869a8383a9c6b9d916eb7d229478d12",
+      "bytes": 3185
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C62/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/FOUNDATION.md",
+      "sha256": "sha256:v1:b9e52a42495d90ee33d531215e84f9d73df2bc358eabd320d376e0c7f9894fce",
+      "bytes": 180
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/STATUS.json",
+      "sha256": "sha256:v1:fd4a159276a30b0917aada2d49cb5ecf0d910a0e9c9f799fac5994a719056fe8",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:98ac7445bfb942fa3a6ec1c94954c91880e2a64aebbac7422dc033ea35c6d2c6",
+      "bytes": 3170
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C63/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/FOUNDATION.md",
+      "sha256": "sha256:v1:06673a7398c293160165c536b14810bf9a44c7005cb22abe86be3f264ef6c332",
+      "bytes": 172
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/STATUS.json",
+      "sha256": "sha256:v1:c57775e745e6daf2f195677df4c2bc0d72fcff00a77a5a521a8ee752c1677953",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:5feef9ec82f44198eedd8a117881eeb840de694fa894b42e0ff70a0ba6ccc23d",
+      "bytes": 3158
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C64/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/FOUNDATION.md",
+      "sha256": "sha256:v1:267d5a02fcf45d019acbba44442fd7e3d7f284120a3ccd93cd52a595cf5d5e5d",
+      "bytes": 180
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/STATUS.json",
+      "sha256": "sha256:v1:1c129010f96651b830ada093dcb90eaae162351e1950004d096853e1c3233ddd",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:cbe5fdc50f9651dd5542c08c379f66eb32bb82d7805d0188e496fe4bd53208b7",
+      "bytes": 3167
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C65/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/FOUNDATION.md",
+      "sha256": "sha256:v1:113456240c755d60b4ad95e248c5d4697de0d374ee09cffee55af479347ee848",
+      "bytes": 193
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/STATUS.json",
+      "sha256": "sha256:v1:a09180c42d4b96a6d8d0c1c20ae3b547a4057d01ac072b8d687dce3adba83a4c",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:b2b45d3ae550b96f0da3bb950842b552d5674e441844c8033dfa479205d02d86",
+      "bytes": 3184
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C66/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/FOUNDATION.md",
+      "sha256": "sha256:v1:054a6da211286097ed3efdf80d879df1d0596c3f08f269aa86b6667f75d06081",
+      "bytes": 175
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/STATUS.json",
+      "sha256": "sha256:v1:ab98318770c60f41567957248bc74d2a2808508e2e1b6c29af8b014d31ae5442",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:0f6d74310b287df8ce0ad354e043bb364a5dfe731c82caa27dcf764e93dbd1e9",
+      "bytes": 3164
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C67/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/FOUNDATION.md",
+      "sha256": "sha256:v1:9a7dfa409dc35df4ef956e592af84d07686012a78764e8bbc2d173e63136c069",
+      "bytes": 184
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/STATUS.json",
+      "sha256": "sha256:v1:0836ebc2075b12921b41414284a17e253aeba8824140cfdc5ab2005782f5fe05",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:d53ac690cd6f71f6794f5a8429eda81c80853c095b4df47f10fe657db9791f2c",
+      "bytes": 3173
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C68/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/FOUNDATION.md",
+      "sha256": "sha256:v1:e771ac8da0e4de39a6ef69cd6e83a85e8e906d3d23012d3f5cf126b3fd5d3b9c",
+      "bytes": 172
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/STATUS.json",
+      "sha256": "sha256:v1:5d630d3638e891a1457f32d0a1c051bbb0a505b6bc54ca1db6e6391c121e6142",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:f77705ca23301c2020364f187e3009e326b20ee01404616f4bb51343aa4bcbc1",
+      "bytes": 3161
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C69/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/FOUNDATION.md",
+      "sha256": "sha256:v1:cfcc12effe15ab864557962bfb0e1891367d4b7af37504bc2f52ea98f8eef919",
+      "bytes": 159
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/STATUS.json",
+      "sha256": "sha256:v1:de747b474eb1a1e4899de6eaf2f5dd2cf30eb8358cbcba49056443497561db13",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:ca5b7c832b78393731231d4c82be929931fe5173d4e4a7b89bb9a01bb3069ba5",
+      "bytes": 3148
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C70/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/FOUNDATION.md",
+      "sha256": "sha256:v1:d1865c821bdcdfb2ab1b2f2160dd8eb7b03f9bae83533229a184023b5402dd26",
+      "bytes": 176
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/STATUS.json",
+      "sha256": "sha256:v1:22fce8bffe8250e976961d78c22b790eae93b0f13241a817ea6521e7af01e76f",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:8efb03dca1d778d39698c65ba492d1765e26deec4bf540bb3292f018e130597f",
+      "bytes": 3165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C71/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/FOUNDATION.md",
+      "sha256": "sha256:v1:cd6e7ced4938a6a57c289d99f9289d8fbcd90c96e80e66716828dcefec45db20",
+      "bytes": 183
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/STATUS.json",
+      "sha256": "sha256:v1:1c604f5a5e810a386859edbd0962ce2a4e136e2ec2070b16a121d9d292c86ab6",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:b76a583e586e40c858c8bbbedca4d90ef835e6017b28d4fbf055160710b1e782",
+      "bytes": 3172
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C72/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/FOUNDATION.md",
+      "sha256": "sha256:v1:ddbe092938a292463ec192099c35b538f9207fb74b4b8a3ed7597c9c637a8477",
+      "bytes": 178
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/STATUS.json",
+      "sha256": "sha256:v1:522d1916478f32d591156cbdfb8fb38d8e7a846804f288fba4580d37fdd74dbb",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1ddd7b8e0863e97da076f83a743c2887a18e0652069908e72873b410057fe41f",
+      "bytes": 3167
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C73/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/FOUNDATION.md",
+      "sha256": "sha256:v1:c03d3510b48cefce194c15f93aa36271e599a0086694e9f2f8341038f989d369",
+      "bytes": 179
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/STATUS.json",
+      "sha256": "sha256:v1:2ffaf3870af21c1cc6fe0f377018876f30c977b9bb7bd144f705c54aacf4b528",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:859e62d0f6525bc66978e8624229a3160cf80b0187d9a7d6134bcfea8add1727",
+      "bytes": 3168
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C74/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/FOUNDATION.md",
+      "sha256": "sha256:v1:08caf9158b8c5cbeada81cbb70902d44942d1a0fa2c28fca1401fc7acb8eeb7e",
+      "bytes": 184
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/STATUS.json",
+      "sha256": "sha256:v1:5fb5429efa4cbcb5d7d203d77ac3b868f1310e56832ac85041650df30ead9b24",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:59e058bb64c968158538363a3edce29be440ac3e1ebd771427c657afd16b18b4",
+      "bytes": 3221
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C75/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/FOUNDATION.md",
+      "sha256": "sha256:v1:b9db9ed783c0c9119564f90b325e67e561d1f31d73bd10b218bb32e6104e7243",
+      "bytes": 185
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/STATUS.json",
+      "sha256": "sha256:v1:911e074cf7faa5a44e2a74342862d9608d5cdcc75cf09507a31760aa10b6a167",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:5093302759be34f1da777f144e66ba1d547eb790759468a713029939338d6bab",
+      "bytes": 3248
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C76/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/FOUNDATION.md",
+      "sha256": "sha256:v1:ab9d9e79a534d99a63a37aeceadd6b640199a3c80ed1c5607f8ada57244d3da5",
+      "bytes": 198
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/STATUS.json",
+      "sha256": "sha256:v1:08030e741f8e392ee4047e2f4581994c6f1ee4730da2ddeb1a580b5baf3bf487",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:90fa590922377f3f528c9cce644cf2d297a35c079f023de2428f97931fdeca78",
+      "bytes": 3261
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C77/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/FOUNDATION.md",
+      "sha256": "sha256:v1:1ccaf14c4bb8af46b3d64427aab1a822109ff9d59c2211b878b7f947ceabbe0c",
+      "bytes": 201
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/STATUS.json",
+      "sha256": "sha256:v1:17e15ffbe13d9c92c603a31732f7fc0e5e4cd4d9a3ea063f62348502fa918b5e",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:3a1a5680060e51f50dea809b00b17d6ef6c46df7555ed119d6e1d8d5169d75b1",
+      "bytes": 3264
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C78/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/FOUNDATION.md",
+      "sha256": "sha256:v1:815043738101e38161166037a5dd3f53febbd1a84aec23c576296330a903e9eb",
+      "bytes": 184
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/STATUS.json",
+      "sha256": "sha256:v1:5b5d36d636f661993600e484a2bb82a1a4866423e0bc20521a26bc50328bcdd9",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:b18c7aa5ba50b292e5a023619e46d567658b65aeb527c4a65a02f7dacc58b4c7",
+      "bytes": 3225
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C79/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/ADVERSARIAL.md",
+      "sha256": "sha256:v1:2439487eff003ec8f6fed6469067557f0843e3ef1aa2cf7f3bee9cce475b95cd",
+      "bytes": 165
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/EVIDENCE.md",
+      "sha256": "sha256:v1:d4e375e9f4373489323d5deb8c41d6ffd08e501383e9bdc30b95afdbb43e7724",
+      "bytes": 314
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/FOUNDATION.md",
+      "sha256": "sha256:v1:3898fa4dfeee2fe861f51ff8e494dcb479885b4c2e81d3b482690bb796134107",
+      "bytes": 192
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/IMPLEMENTATION.md",
+      "sha256": "sha256:v1:d8696de7e65ca4a585258284b9dfba9e1e449c0e921be8c6ee82eea284c9ee95",
+      "bytes": 106
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/MUTANTS.md",
+      "sha256": "sha256:v1:8d3b84933543906709b1f48de150a2ea3dadc04867e91f0fe109d8e837decdcd",
+      "bytes": 100
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/STATUS.json",
+      "sha256": "sha256:v1:7d8ed02c4ef82059219cbf9d7649efd09b910dccb19ca024457a332db6588d78",
+      "bytes": 368
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/TESTS.md",
+      "sha256": "sha256:v1:e9fc731adf99f98697bc4ebfd3c9e5ab7e0712f31490800129d4b65468709efa",
+      "bytes": 146
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/TRAINING_UNIT.json",
+      "sha256": "sha256:v1:1663712b4d85090a3b07bc5f5c7baf326b84139ea0a37d828a69b019e6ee9b87",
+      "bytes": 3233
+    },
+    {
+      "path": "C1C80_ASSIMILATION_EVIDENCE/C80/TRANSFER.md",
+      "sha256": "sha256:v1:ab7156962a806ed956bb2362305ad3d06a6ca919e1b6d8d2189af10fc5e2b04c",
+      "bytes": 146
+    },
+    {
+      "path": "shared/arkiCapabilityAssimilation.ts",
+      "sha256": "sha256:v1:046f82f4c68654dd87d9a9eef9a188234f9cd348d1f0756562898687ed1eb2a5",
+      "bytes": 7397
+    },
+    {
+      "path": "scripts/run-c1c80-assimilation.ts",
+      "sha256": "sha256:v1:4adb1dc604712b09aed68558db386a6e67df7f037e1c42880465e43a3de0d236",
+      "bytes": 14535
+    },
+    {
+      "path": "scripts/test-assimilation-framework.ts",
+      "sha256": "sha256:v1:680cf5cb13543bd8c3b5e0cde69485b9f85ea9663d2f80f96b7d1e8ef34e3da7",
+      "bytes": 1295
+    },
+    {
+      "path": "scripts/create-assimilation-package.py",
+      "sha256": "sha256:v1:b52bde4f4222d790db2f5ddb09fccc7d5862766b6499120630e89faf28d6108c",
+      "bytes": 2381
+    },
+    {
+      "path": "C1_C80_WAVE1_REGISTRY.json",
+      "sha256": "sha256:v1:8c5af5dc33af9bafab917d832683486d31fab0ecc7bd10584393867903dd028e",
+      "bytes": 83837
+    },
+    {
+      "path": "DIGEST-001_EVIDENCE/18_C1_C80_READINESS_MATRIX.md",
+      "sha256": "sha256:v1:c42ce2ad03fb7b30d2d27aad9bae048392638b9c2e32151194b254cf35e22505",
+      "bytes": 7070
+    },
+    {
+      "path": "pasted_content_183.txt",
+      "sha256": "sha256:v1:cc7bcd899ef248763d7b66d96d634bc69e65cf52db874f6999c950beb2000f55",
+      "bytes": 22470
+    }
+  ]
+}

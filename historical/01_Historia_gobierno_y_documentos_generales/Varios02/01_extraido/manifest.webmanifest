@@ -1,0 +1,19 @@
+{
+  "name": "Multi Juegos Perú · Piloto virtual",
+  "short_name": "Multi Juegos",
+  "description": "Piloto gratuito de juegos virtuales verificables, sin dinero real ni retiros.",
+  "lang": "es-PE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071310",
+  "theme_color": "#0d5d43",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

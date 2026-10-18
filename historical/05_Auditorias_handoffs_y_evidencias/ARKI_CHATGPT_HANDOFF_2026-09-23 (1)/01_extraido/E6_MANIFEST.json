@@ -1,0 +1,27 @@
+{
+  "schema": "ARKI-E6-MANIFEST-1.0",
+  "status": "PARTIAL / IMPLEMENTATION FREEZE",
+  "generatedAt": "2026-09-23",
+  "files": [
+    {"path":"E6_PO_APPROVAL.md","sha256":"15dbd8f88839097251194297315d45502a1115cf7abb665b142a3603c06c2e9a"},
+    {"path":"E6_REPORT.md","sha256":"5309499d4f9e1aa087df19910e52763562debdb87222c7f1f95f6d216808c683"},
+    {"path":"E6_SCOPE_LIMITS.md","sha256":"a4f3c696a530b290600f4d205a8048642341cfdb61bac884d1947a0aefbe8a3c"},
+    {"path":"E6_DEBT_INHERITED.md","sha256":"16391fe9ddb2f1bf3c283c898898e295837b71040a84e692ccc5612d20281428"},
+    {"path":"E6_OUTPUTS.txt","sha256":"a07dbd7e47db5f85ef6daf5bf6d2736a4effeaecec9954f1dcf317fa2da6faa5"},
+    {"path":"contracts/adr/ADR-004.md","sha256":"5f3f27fdd0db8f46ae36e11b3d131dbf78d24f7edcadae04e033897c59df1b4b"},
+    {"path":"contracts/adr/ADR-005.md","sha256":"c5d9151ecaa5631dd4aa3ad18b507b2f4aaa8b3852d3877adb9617d1e89d273d"},
+    {"path":"contracts/adr/ADR-007.md","sha256":"0c411bdcc4c56d613d93f1ffba2e0543726f89405d51101d8d8cc5bd1c1a3856"},
+    {"path":"contracts/adr/ADR-020.md","sha256":"7e06e911a81f7446e92e601d7fb74b5c8bfb5723e4bf652b8fba35a4f62af4af"},
+    {"path":"contracts/adr/ADR-021.md","sha256":"83bb394cfde8ccafacaa24db56058cd891dedcce0e76d1b74c9825a7711cc19f"},
+    {"path":"contracts/adr/ADR-022.md","sha256":"b93be301d4a6dd9890a5fabc80b6faad79f83d6135cb0a81631be130bfa4c286"},
+    {"path":"shared/persistence/arkiPersistence.ts","sha256":"c0ec851bd9aaaa55c5a6f2395f00ed9139aeab5d33ba391a1a8bcaae6d2f6c37"},
+    {"path":"client/src/persistence/arkiIndexedDb.ts","sha256":"b0fa481d83b38d892c4dbc3670573ac7075eb0e14da2d11e55404f121febc9bb"},
+    {"path":"shared/identity/arkiGlobalId.ts","sha256":"75facea32445d12444cbdb165ae445fff7ec7dcfa9a883c896e84437cd1687ff"},
+    {"path":"shared/ifc4/arkiIfc4.ts","sha256":"09f0ec6080e0c7dcb035fa6b6b4f31f73315ad8d7349e5ba8e85cad91ce79882"},
+    {"path":"shared/ifc4/webIfcAdapter.ts","sha256":"6b17d6639eb8ce18ce26a94626260b1d335196b15992f3c3f34d066889c014d4"},
+    {"path":"client/src/ifc4/Ifc4Panel.tsx","sha256":"ad474aa514deef32b0a52c3d1b6b38f1971aeaa4629e1ba77e0d9a669a278381"},
+    {"path":"fixtures/ifc4/fixture_01_simple_wall.ifc","sha256":"4f1d7de33bce97dd2618e29c556e2c0e6c458520a55dc56f38832f379477b44e"},
+    {"path":"fixtures/ifc4/fixture_02_room_with_door.ifc","sha256":"124924a9d297c6e643133639ffc21dc9c13fba03715a15b746c8cfcaa855fef8"},
+    {"path":"fixtures/ifc4/fixture_03_multi_storey.ifc","sha256":"5d8fb0f9db4133785a0dd0dc44187020c679b858530bb5992fe6e389817cd94b"}
+  ]
+}

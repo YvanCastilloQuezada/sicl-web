@@ -1,0 +1,310 @@
+{
+  "schema": "ARKI-COCO-EXPRESS-002-MANIFEST-1.0",
+  "artifact": "ARKI-COCO-EXPRESS-002",
+  "status": "PREPARATION_PACKAGE_COMPLETE / PENDING INDEPENDENT REVIEW",
+  "authority": "Product Owner / Human Authority",
+  "sourceOrder": "pasted_content_155.txt",
+  "coverage": {
+    "families": [
+      "A",
+      "T",
+      "N",
+      "P",
+      "S",
+      "C",
+      "L",
+      "G",
+      "I",
+      "X",
+      "Y",
+      "Z",
+      "W",
+      "R"
+    ],
+    "capabilities": 79,
+    "normal": "PASS",
+    "adversarial": "PASS",
+    "transfer": "PASS",
+    "testTheTest": "PASS",
+    "mutantsKilled": 17,
+    "transverseScenario": "PASS",
+    "deepseekExamContamination": "NO"
+  },
+  "validation": {
+    "check": "PASS",
+    "build": "PASS",
+    "commandsPassed": 13,
+    "commandsFailed": 0,
+    "overall": "PASS",
+    "regressions": [
+      "PA-001",
+      "E5",
+      "E7",
+      "E8-A",
+      "E8-B",
+      "E8-C",
+      "BKH4 foundation",
+      "COCO core"
+    ]
+  },
+  "claims": {
+    "professionalStructural": "NOT_CLAIMED",
+    "professionalMep": "NOT_CLAIMED",
+    "rneEngine": "NOT_CLAIMED",
+    "technicalDossier": "NOT_CLAIMED",
+    "avatar": "NOT_CLAIMED",
+    "luka": "NOT_CLAIMED",
+    "simulation": "NOT_CLAIMED",
+    "arkiFullCompetency": "NOT_CLAIMED"
+  },
+  "firewall": {
+    "PF-H01": "UNCHANGED",
+    "BKH": "UNCHANGED",
+    "TX": "UNCHANGED",
+    "E5": "UNCHANGED",
+    "E6": "UNCHANGED",
+    "E7": "UNCHANGED",
+    "E8": "UNCHANGED",
+    "projectState": "UNCHANGED",
+    "canonicalPersistence": "UNCHANGED"
+  },
+  "baseline": {
+    "repo": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+    "worktree": "DIRTY BEFORE ORDER; NOT CLAIMED CLEAN",
+    "commit": "NONE"
+  },
+  "files": [
+    {
+      "path": "COCO_EXPRESS_002/A_ARCHITECTURE/EXERCISES_A.txt",
+      "sha256": "4e032a71332810d5c7410d2eb99642d0dbcde3dc2b7dbed190ccc2b46bb97624",
+      "bytes": 3959
+    },
+    {
+      "path": "COCO_EXPRESS_002/A_ARCHITECTURE/FICHA_A.md",
+      "sha256": "e78f821c292f70e7566ae1887f8d8080f14a205db900d2684aa44320b9155582",
+      "bytes": 29735
+    },
+    {
+      "path": "COCO_EXPRESS_002/COCO_EXPRESS_002_ORDER_SOURCE.txt",
+      "sha256": "07960bb32e012044a38a18ac1d5110078607b757663e62d89656394476e8a302",
+      "bytes": 524
+    },
+    {
+      "path": "COCO_EXPRESS_002/CORE/ANTI_CONTAMINATION_FIREWALL.md",
+      "sha256": "fe43cae920ce8069223c7598f2c6ea209e9b9dd3bb4d596419bdc04e4838e25c",
+      "bytes": 695
+    },
+    {
+      "path": "COCO_EXPRESS_002/CORE/COCO_CORE_DOCTRINE.md",
+      "sha256": "671f16581e806298c1400e276cd9ded2f8dcc711492c9c5b138ffac77a74493a",
+      "bytes": 1907
+    },
+    {
+      "path": "COCO_EXPRESS_002/C_COMPUTATIONAL/EXERCISES_C.txt",
+      "sha256": "f9ec2f09d11557b07b6324e8849890232fefe9d5f843c9f83df9cd909ce632e4",
+      "bytes": 2769
+    },
+    {
+      "path": "COCO_EXPRESS_002/C_COMPUTATIONAL/FICHA_C.md",
+      "sha256": "4bde9008ccc0a07092efd6855162a277e0cfed53812170b4db95f573cd39e336",
+      "bytes": 9910
+    },
+    {
+      "path": "COCO_EXPRESS_002/EXERCISES/TRANSVERSE_SCENARIO.md",
+      "sha256": "a38e34e580caf6e608e16cd768b263ac1ef7eba27be23bff9f44874360bb3709",
+      "bytes": 1733
+    },
+    {
+      "path": "COCO_EXPRESS_002/G_AGENTS/EXERCISES_G.txt",
+      "sha256": "2eafea60ac0231ae83a02bb901a9af2f3b2bcd79b0326bc624bfa54dc52e9ae1",
+      "bytes": 4350
+    },
+    {
+      "path": "COCO_EXPRESS_002/G_AGENTS/FICHA_G.md",
+      "sha256": "d3e21c68c1c7a9f8e7806e8f807f05f51f4014a17a5dc951933236008cf6342f",
+      "bytes": 17049
+    },
+    {
+      "path": "COCO_EXPRESS_002/I_INTELLIGENCE/EXERCISES_I.txt",
+      "sha256": "352f695294e1ce892495ba02f9cfb37f96ce7fbdfbc5741b126449f664647b5d",
+      "bytes": 4590
+    },
+    {
+      "path": "COCO_EXPRESS_002/I_INTELLIGENCE/FICHA_I.md",
+      "sha256": "bbc4f8b23375084918bc2d3f0e2af555bcf6943744a1ee43e3ebf4d10c1324d4",
+      "bytes": 11090
+    },
+    {
+      "path": "COCO_EXPRESS_002/L_LIFECYCLE/EXERCISES_L.txt",
+      "sha256": "9ba68dd4f212e54667e5dd06a842e8c08c994c19c4727827c718f04d0afaab3c",
+      "bytes": 2753
+    },
+    {
+      "path": "COCO_EXPRESS_002/L_LIFECYCLE/FICHA_L.md",
+      "sha256": "939472f04b1a1e5df5d5fc5f10e9b1b4e059cb5256b8ac74687704587176039b",
+      "bytes": 20967
+    },
+    {
+      "path": "COCO_EXPRESS_002/N_REGULATION/EXERCISES_N.txt",
+      "sha256": "451f7bfd1b4f699efaa1025ad31189935f622553103a6520d96b689cd2a04c9b",
+      "bytes": 6106
+    },
+    {
+      "path": "COCO_EXPRESS_002/N_REGULATION/FICHA_N.md",
+      "sha256": "3e502d41bfc8127f322715afa07b9286e173c59a9dc4646f946cb5c651bba590",
+      "bytes": 22012
+    },
+    {
+      "path": "COCO_EXPRESS_002/OUTPUTS/ARKI_COCO_EXPRESS_TESTS.txt",
+      "sha256": "331debdf700b906d83a452ba2f9c08dcd6c35ecc1226255fca0f8a3a61ee6590",
+      "bytes": 9334
+    },
+    {
+      "path": "COCO_EXPRESS_002/P_PROCESS/EXERCISES_P.txt",
+      "sha256": "911d1251cf5221cc0d9d25e11c00fd962bffe8da48e5e2784131be7d43cd99ec",
+      "bytes": 4701
+    },
+    {
+      "path": "COCO_EXPRESS_002/P_PROCESS/FICHA_P.md",
+      "sha256": "341880af51540f17d266e87f110fa3e117d75bd03cc2b3750a9e2e91d3ed4a41",
+      "bytes": 19116
+    },
+    {
+      "path": "COCO_EXPRESS_002/R_RESEARCH/EXERCISES_R.txt",
+      "sha256": "d0d2aa5a5842e175fa127fc91eb1d808db6bfb98374223c89cc850c69c761ce5",
+      "bytes": 4455
+    },
+    {
+      "path": "COCO_EXPRESS_002/R_RESEARCH/FICHA_R.md",
+      "sha256": "9ab516211060b15e4dbea573fce794fcc1768f40717906b1426accc3a1f5549a",
+      "bytes": 8618
+    },
+    {
+      "path": "COCO_EXPRESS_002/S_SIMULATION/EXERCISES_S.txt",
+      "sha256": "3d6e2b513a9a5e7e9abf58dcdcd3d8ecdc511f3970ba58d53c8117324c26d8c0",
+      "bytes": 5247
+    },
+    {
+      "path": "COCO_EXPRESS_002/S_SIMULATION/FICHA_S.md",
+      "sha256": "d34bab435f2590fc651ccb663035bb8fd0965b2c42d7928c7be4b356e288831e",
+      "bytes": 20790
+    },
+    {
+      "path": "COCO_EXPRESS_002/T_ENGINEERING/EXERCISES_T.txt",
+      "sha256": "78e8a02410cbc93d838842492463df2739a60fb89632359e79b466a17317e968",
+      "bytes": 3582
+    },
+    {
+      "path": "COCO_EXPRESS_002/T_ENGINEERING/FICHA_T.md",
+      "sha256": "5afe9517813d626b8ed0bda3cd0188dfff298c0754beac93fbe44c9f88c1c57e",
+      "bytes": 24367
+    },
+    {
+      "path": "COCO_EXPRESS_002/W_SUSTAINABILITY/EXERCISES_W.txt",
+      "sha256": "773795cfd207675e1d4adc0f37424d1d568914d7e4e055e07bf51a670b1758c7",
+      "bytes": 5037
+    },
+    {
+      "path": "COCO_EXPRESS_002/W_SUSTAINABILITY/FICHA_W.md",
+      "sha256": "23c105d4f28e9e935ba8bf6c132939677f125708dbd15fa6cf0ab8bd850e1f70",
+      "bytes": 10721
+    },
+    {
+      "path": "COCO_EXPRESS_002/X_INTEROPERABILITY/EXERCISES_X.txt",
+      "sha256": "bd067b58895c2988417b4ce050d2d435333fae4a33709e4764ecec409ddd0a4b",
+      "bytes": 4014
+    },
+    {
+      "path": "COCO_EXPRESS_002/X_INTEROPERABILITY/FICHA_X.md",
+      "sha256": "61e95589d56584a5774d225f6b4fe39d46edd378d0538660152dd191d709c888",
+      "bytes": 15027
+    },
+    {
+      "path": "COCO_EXPRESS_002/Y_COLLABORATION/EXERCISES_Y.txt",
+      "sha256": "578c6d772eb22197ab8ef5972165e78c0cca12ce42b7c4df9339ccab5a200d45",
+      "bytes": 1837
+    },
+    {
+      "path": "COCO_EXPRESS_002/Y_COLLABORATION/FICHA_Y.md",
+      "sha256": "f969580e918772faf97a47562f9c0871ffcf17efc8d83c7535ae59f55c304b5e",
+      "bytes": 17801
+    },
+    {
+      "path": "COCO_EXPRESS_002/Z_ANALYTICS/EXERCISES_Z.txt",
+      "sha256": "324748470a28fa08f2d44619c9aec7ce35235124f24931eb998c14b85ba155c0",
+      "bytes": 4831
+    },
+    {
+      "path": "COCO_EXPRESS_002/Z_ANALYTICS/FICHA_Z.md",
+      "sha256": "85231cc8d271172bd1f0ede707f5eacbee121d106c91804fbbf639194d81998e",
+      "bytes": 13875
+    },
+    {
+      "path": "ARKI_COCO_EXPRESS_002_REPORT.md",
+      "sha256": "551f7d7f5c097825688574e61c075ccc929c9369245ccc70e41477bb160fbeef",
+      "bytes": 4021
+    },
+    {
+      "path": "ARKI_COCO_EXPRESS_MASTER_MATRIX.csv",
+      "sha256": "e42b8d5d89e620cc2daf68e23f4e9e69dd037c9dfedb44bfc8fdd37cc1cc3a6a",
+      "bytes": 25012
+    },
+    {
+      "path": "ARKI_COCO_EXPRESS_002_GAPS.md",
+      "sha256": "6f34f4f7750a67e0e1d0a54c56ea44e205c2703bb2f63ae454eef16a001a9049",
+      "bytes": 1129
+    },
+    {
+      "path": "ARKI_COCO_EXPRESS_002_SCOPE_LIMITS.md",
+      "sha256": "4320c83407f9581a84691101c6b15f0585aef6300b3050dd65f0965b7004d13a",
+      "bytes": 696
+    },
+    {
+      "path": "scripts/create-coco-express-002-docs.py",
+      "sha256": "02485fb0708b938209bb6a8ba4f6569cd00808572406d3f649a4f29b7d19e9cc",
+      "bytes": 8956
+    },
+    {
+      "path": "scripts/create-coco-express-002-package.py",
+      "sha256": "7bcd97ad74c5cf1648e768beaa56bca60b1fb06bba3c9b18381db21fb7adb9a9",
+      "bytes": 3239
+    },
+    {
+      "path": "scripts/run-coco-express-002-evidence.sh",
+      "sha256": "74ddbba02a9498b19d9c95ed3b0e69318ecf3fdc134fce949d8f6f860e1c1490",
+      "bytes": 2275
+    },
+    {
+      "path": "scripts/test-coco-express-002.ts",
+      "sha256": "361052d10660becf7b857058cf271af6eecc0cdb259ce7f46711c963cc57a3a9",
+      "bytes": 2526
+    },
+    {
+      "path": "scripts/test-coco.ts",
+      "sha256": "ff3e790f57c27886ae95172a96bf3c21de45486d3855de2307dc94dbcf8e4395",
+      "bytes": 6916
+    },
+    {
+      "path": "shared/arkiCocoSpatial.ts",
+      "sha256": "71b5301bd89dcff2f1d56266b90fdcb4f73656ce036f70067dd650280e9cba5c",
+      "bytes": 4337
+    },
+    {
+      "path": "shared/arkiCocoDossier.ts",
+      "sha256": "6c5ae454b2af95a662c521a071fe09a8ae45bb045ac5dde1896f80d162e366d5",
+      "bytes": 2994
+    },
+    {
+      "path": "shared/arkiCocoAvatar.ts",
+      "sha256": "771b61e0402b1b09dc1127bb79e035370799f5a42cba5a3c3c15b8b2bcc9bd9f",
+      "bytes": 2912
+    },
+    {
+      "path": "shared/arkiCocoOm.ts",
+      "sha256": "89fc759a9eea6afdce67b0af24257c29162c89c64b57165f7bb7d97477c4df79",
+      "bytes": 2853
+    }
+  ]
+}

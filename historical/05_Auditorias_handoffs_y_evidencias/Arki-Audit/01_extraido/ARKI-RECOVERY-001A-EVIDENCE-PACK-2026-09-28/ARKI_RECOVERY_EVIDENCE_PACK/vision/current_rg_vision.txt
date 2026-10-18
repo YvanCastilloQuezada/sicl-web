@@ -1,0 +1,17 @@
+docs/D2_ARCHITECTURAL_CAPABILITIES.md:7:The former `ArchiTransaction.apply(...)` shortcut was removed because it could mutate canonical state without the required gates. This is an implementation alignment with D-1 v1.4, not a contract revision.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:281:- Aprender de revisiones humanas aprobadas.
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:462:10. Registrar revisiones humanas.
+src/sicl/drawing/title_block.py:6:REQUIRED_FIELDS = ("project", "sheet", "title", "scale", "date", "author", "revision", "status")
+src/sicl/drawing/title_block.py:35:    revision: str = "A"
+src/sicl/drawing/title_block.py:39:        required = [self.project_name, self.project_location, self.owner, self.architect_name, self.cap_number, self.drawing_number, self.revision]
+src/sicl/drawing/title_block.py:54:        base = [TitleBlockField("PROYECTO", self.project_name), TitleBlockField("UBICACION", self.project_location), TitleBlockField("PROPIETARIO", self.owner), TitleBlockField("ESPECIALIDAD", self.specialty.value), TitleBlockField("ARQUITECTO", self.architect_name), TitleBlockField("CAP", self.cap_number), TitleBlockField("LAMINA", self.drawing_number), TitleBlockField("REVISION", self.revision)]
+src/sicl/drawing/title_block.py:60:    block = {"project": project, "sheet": sheet, "title": title, "scale": scale, "date": "2026-09-26", "author": "SICL / ARKI", "revision": "R00", "status": "DRAFT"}
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:410:Cuando existen conflictos, el agente debe aplicar esta prioridad provisional:
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:44:The original transitional provision allowed certain projects already in technical approval, licensing or execution stages to continue under the prior text until completion.
+docs/RFC-025_OFFICIAL_REVIEW_NOTES.md:46:RM 217-2026-VIVIENDA was published on 2 June 2026 and modifies the sole transitional provision of RM 183. Its text includes projects with technical files in preparation or approved, building licences pending or approved, preliminary projects submitted for consultation, PPP projects from structuring onward, and work balances derived from earlier approved files.
+docs/SIMS_DEI_PROJECT_HANDOVER.md:11:SiMS-DeI es un sistema de apoyo al diseño espacial multiescala. SICL es su lenguaje formal. El sistema organiza proyectos, contexto, objetivos, restricciones, evidencia, fuentes, alternativas, simulaciones, comparaciones, recomendaciones, revisiones humanas y decisiones auditables.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:16:The provisional name **ARKI Representation Engine (ARE)** is reserved for a future representation architecture. The name may be revised by Human Authority before activation.
+docs/architecture/ARKI-ARE-000_FUTURE_REPRESENTATION_ENGINE.md:19:ARE_NAME         = PROVISIONAL_BUT_RESERVED
+docs/architecture/ARKI_ARE_001_REPRESENTATION_ARCHITECTURE_CONTRACT.md:210:viewports, title_block, legends, notes, revision_data
+docs/rfc/RFC-037.1-WEEKLY-MASTER-SURVEILLANCE.md:87:Mantener la versión anterior congelada. No copiar el comportamiento regresivo. Registrar el caso para futuras revisiones.
+docs/rfc/RFC-037.1-WEEKLY-MASTER-SURVEILLANCE.md:178:      "fecha_ultima_revision": "2026-09-26",

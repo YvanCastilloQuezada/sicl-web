@@ -1,0 +1,34 @@
+[33mf7bf872[m feat(are-002): add immutable representation foundation
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m3059ce0[m docs(canon): add ARKI Law Life of Ideas Is Cruel
+[33m1bf02bc[m test(H-005): harden causal propagation and fail-closed behavior
+[33mbf46805[m test: harden multiscale E2E and determinism evidence
+[33m509f1fe[m fix(H-003/H-004): close Red Team validity and reaction findings
+[33m3bbc5cf[m test(H-001/H-002/H-003): add multiscale E2E test (Wall-Move Lite)
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mf8ec89b[m feat(vsm): add weekly master registry and detector
+[33mb919e24[m docs(rfc-037): formalize multi-engine absorption doctrine
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m9ab4417[m feat: add gdi generative design ladder
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33mea43eca[m docs: define territorial variable matrices
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33mf7e2f6f[m docs: freeze multiscale variable intelligence decision lock
+[33m37926a2[m feat: add RFC-025 regulatory corpus foundation
+[33mddcad3b[m docs: formalize RFC-014 user copilot LLM contract
+[33md93c610[m docs: add user manual and entity glossary
+[33m9b3ca67[m docs: define RFC-014 user copilot
+[33m9aea57b[m feat: add multi-actor model
+[33m8c4675b[m docs: update v2 demo script for generative tradeoffs
+[33mb648c95[m feat: add structural economic agents and multi-agent debate
+[33mb29b35f[m docs: add SICL v2 architect demo script
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis
+[33m0170e8a[m feat: add traceable site intelligence demo kit
+[33mbf4a1e1[m chore: backup SICL Core v1.2 + API Layer + Export features

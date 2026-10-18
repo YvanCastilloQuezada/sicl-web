@@ -1,0 +1,6 @@
+ARKI-COCO-EXAM-001 TRANSFER STATUS
+
+NEXUS baseline: EXECUTED
+Second scenario transfer: BLOCKED / PENDING HARNESS HARDENING
+Professional competence: NOT CERTIFIED
+Required next action: create a distinct seeded scenario and repeat the same family-level checks without expected-answer reuse.

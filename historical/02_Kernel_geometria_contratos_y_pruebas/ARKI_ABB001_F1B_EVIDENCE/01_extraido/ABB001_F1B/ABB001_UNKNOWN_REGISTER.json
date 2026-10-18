@@ -1,0 +1,10 @@
+{
+  "schema":"ARKI-ABB001-UNKNOWN-REGISTER-1.0",
+  "items":[
+    {"id":"U-001","question":"Which architecture issue governs?","scope":"all architectural geometry and downstream coordination","evidenceInspected":["base A-01/A-02","modified A-01/A-02"],"reason":"no revision approval, date, cloud, transmittal or supersession instruction","materiality":"HIGH","resolutionPath":"customer/project authority identifies effective issue; professional review if changed","clarificationRequired":"CUSTOMER"},
+    {"id":"U-002","question":"Are modified elevation levels actual geometric changes?","scope":"building heights, facades and coordination","evidenceInspected":["A-02 p.3","A-02-M p.2"],"reason":"PDF extraction cannot prove entity identity or overlay","materiality":"HIGH","resolutionPath":"controlled DWG overlay","clarificationRequired":"CUSTOMER_AND_PROFESSIONAL"},
+    {"id":"U-003","question":"Are all architectural changes reflected in structure, plumbing and electrical?","scope":"cross-discipline coordination","evidenceInspected":["A sheets","E sheets","IS sheets","IE sheets"],"reason":"revision identifiers are not linked across disciplines","materiality":"HIGH","resolutionPath":"revision matrix and signed interdisciplinary review","clarificationRequired":"PROFESSIONAL"},
+    {"id":"U-004","question":"What are exact CAD coordinates, layers, blocks and entity properties?","scope":"BIM reconstruction","evidenceInspected":["DWG file signatures only"],"reason":"DWG geometry was not parsed in F1B","materiality":"HIGH","resolutionPath":"governed DWG/DXF adapter and fixture validation","clarificationRequired":"TECHNICAL"},
+    {"id":"U-005","question":"Which dimensions are authoritative where extraction shows different labels?","scope":"levels, openings, elevations","evidenceInspected":["PDF text and page summaries"],"reason":"visual/PDF evidence is not an exact CAD comparison","materiality":"HIGH","resolutionPath":"source overlay and human decision","clarificationRequired":"CUSTOMER_AND_PROFESSIONAL"}
+  ]
+}

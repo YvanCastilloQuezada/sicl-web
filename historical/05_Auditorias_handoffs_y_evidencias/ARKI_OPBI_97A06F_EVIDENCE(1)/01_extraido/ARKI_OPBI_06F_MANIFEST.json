@@ -1,0 +1,120 @@
+{
+  "schema": "ARKI-OPBI-06F-MANIFEST-1.0",
+  "exam": "BID-E2E-001",
+  "status": "IMPLEMENTED + E2E EXAM EXECUTED + PENDING INDEPENDENT VERIFICATION",
+  "verdict": "NOT_DEMONSTRATED_REAL_PROCEDURE",
+  "sourceAccess": "SEACE_HTTP_403_MEf_HTML_CHALLENGE",
+  "testCases": 40,
+  "verifiedForExamScope": 7,
+  "notDemonstrated": 33,
+  "noSubmission": true,
+  "humanAuthorityPreserved": true,
+  "bkhFirewall": "PRESERVED",
+  "entries": [
+    {
+      "file": "ARKI_BID_FACTORY_E2E_EXAM_REPORT.md",
+      "size": 1648,
+      "sha256": "b687ab639e0e63e1865257f07446c164a4ae460a92a7aa7a7c483eb49fbc4317"
+    },
+    {
+      "file": "ARKI_BID_FACTORY_E2E_RESULTS.json",
+      "size": 819,
+      "sha256": "b711c9253f5273c7b0f2c5852983eb77e38886b4c05f32c980cf803bf3373881"
+    },
+    {
+      "file": "ARKI_BID_FACTORY_E2E_TEST_OUTPUTS.txt",
+      "size": 2998,
+      "sha256": "e4e8eed50cdb968cd6218a6440e1dfced8b39676d9a3a57a625641ca57893bc4"
+    },
+    {
+      "file": "scripts/test-bid-factory-e2e.ts",
+      "size": 4342,
+      "sha256": "78a6a2ce873993f98b6893779df1a2c94f3364f7700ff44d3bf885b9345a7b2c"
+    },
+    {
+      "file": "pasted_content_111.txt",
+      "size": 22097,
+      "sha256": "151d89136995afd7c7b8965efa0208c26c43f14d999ca0f52d593849965058e0"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/00_SOURCE/mef_tdr_puno_p005.pdf",
+      "size": 212,
+      "sha256": "d02032286070b4dd9d8fbd985a7bdca8af8edf52b89ff177db3bfcb2c8a9c43d"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/01_PROCEDURE_INTELLIGENCE/PROCEDURE_SUMMARY.md",
+      "size": 231,
+      "sha256": "fc1339c1461678ba78caae64e03000cae3e459cd9a30376356916e8be2734d70"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/03_REQUIREMENT_MATRIX/REQUIREMENT_COVERAGE_REPORT.md",
+      "size": 192,
+      "sha256": "311d72af5c0ee212769bd31e964728dea09d2102ae1904667c1aa006e3f23999"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/04_ELIGIBILITY/VARIANT_A_RESULT.md",
+      "size": 210,
+      "sha256": "c1ab1c5d8eec9c452db0e88fa1b337a7c01f2c4853247b3788e432b974a070f5"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/04_ELIGIBILITY/VARIANT_B_RESULT.md",
+      "size": 175,
+      "sha256": "9273825e1ff496c81415f5ca1f6fe73a0129ade8e3e8c9ddc631114abdfbc475"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/06_ADMINISTRATIVE/ADMINISTRATIVE_PACKAGE.md",
+      "size": 156,
+      "sha256": "c7b72ecc1e6602d150c1e480952b90d3ac7ad486013b27cd00285b2030808275"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/07_TECHNICAL_OFFER/TECHNICAL_OFFER.md",
+      "size": 115,
+      "sha256": "27718b546da612653dccbef9d07dd77f231e8cca7110e72d94f08b5b1783f431"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/08_ECONOMIC_OFFER/ECONOMIC_SIMULATION.md",
+      "size": 112,
+      "sha256": "c3ea796054deace4d2ffea96efeaedd2319de479c4de6018fba22201f7394494"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/09_RED_TEAM/RED_TEAM_RESULT.md",
+      "size": 151,
+      "sha256": "e7d56a8106555f1ee833f5b6ad1f89ef12be8c0878d6ae61bad2201858c7b2e8"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/10_SUBMISSION_READINESS/READINESS_RESULT.md",
+      "size": 218,
+      "sha256": "4356733a8e8d68ec0a75fc4ac75a5e318b3c00f394dc8782654add4c109575b4"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/11_RESULT_COMPARISON/RESULT_COMPARISON.md",
+      "size": 139,
+      "sha256": "1ca0fd2ae704016df8bb564f060621044bfdd516a055893d970276aaac0b2e20"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/12_RAW_EVIDENCE/source_access_record.txt",
+      "size": 452,
+      "sha256": "b260e9c942435465f2af64137d3997da77fc884182db326e331111fb61bb5882"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/12_RAW_EVIDENCE/ARKI_BID_FACTORY_E2E_TEST_OUTPUTS.txt",
+      "size": 2998,
+      "sha256": "e4e8eed50cdb968cd6218a6440e1dfced8b39676d9a3a57a625641ca57893bc4"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/12_RAW_EVIDENCE/ARKI_OPBI_06F_REGRESSION_OUTPUTS.txt",
+      "size": 8842,
+      "sha256": "dee55e441d47c3817dc23474a88e53cd4af3df171d0d9090e7702c3e63e89025"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/13_MANIFEST/ARKI_BID_FACTORY_E2E_RESULTS.json",
+      "size": 819,
+      "sha256": "b711c9253f5273c7b0f2c5852983eb77e38886b4c05f32c980cf803bf3373881"
+    },
+    {
+      "file": "ARKI_BID_E2E_EXAM/13_MANIFEST/ARKI_BID_FACTORY_E2E_EXAM_REPORT.md",
+      "size": 1648,
+      "sha256": "b687ab639e0e63e1865257f07446c164a4ae460a92a7aa7a7c483eb49fbc4317"
+    }
+  ]
+}

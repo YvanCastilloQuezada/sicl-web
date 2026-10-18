@@ -1,0 +1,800 @@
+ORDEN MAESTRA — LUKA OS
+MVP PRODUCTIVO V1 — SALIDA AL MUNDO
+
+Proyecto: MiLukita / LUKA OS
+Fase: MVP Productivo V1
+Objetivo: pasar de sandbox técnico a producto mínimo viable utilizable por personas reales.
+Prioridad: EXPERIENCIA REAL > NUEVAS FUNCIONALIDADES.
+
+0. ORDEN EJECUTIVA
+
+A partir de esta orden queda CERRADA la fase de expansión arquitectónica.
+
+No desarrollar nuevos subsistemas, agentes, capacidades comerciales ni integraciones secundarias salvo que sean indispensables para completar el MVP definido en esta orden.
+
+MJP CORE permanece completamente congelado y protegido.
+
+El objetivo inmediato ya no es demostrar que LUKA puede hacer muchas cosas.
+
+El objetivo es demostrar que:
+
+Una persona cualquiera puede escanear un QR, abrir LUKA, encontrarse con LUKITA en AR y comenzar a interactuar con el mundo de LUKA sin configuración técnica.
+
+1. DEFINICIÓN DEL PRODUCTO MVP
+
+El MVP de LUKA debe reducirse conceptualmente a:
+
+                    LUKA
+                     │
+              UNIVERSAL ENTRY
+                     │
+             ┌───────┴───────┐
+             │               │
+             ▼               ▼
+        MUNDO LUKA          TV
+             │               │
+             │        ┌──────┼──────┐
+             │        ▼      ▼      ▼
+             │     TRACKPAD GAMEPAD TECLADO
+             │               │
+             └───────────────┘
+                     │
+                     ▼
+                    AR
+
+Pero el usuario no debe ver esta arquitectura.
+
+Debe percibir una sola presencia:
+
+LUKA.
+
+2. ENTRADA UNIVERSAL
+
+Modificar LukaUniversalEntry.
+
+Cuando el usuario:
+
+instala la PWA;
+abre el enlace;
+escanea un QR;
+vuelve posteriormente a LUKA;
+
+debe entrar por una única puerta universal.
+
+Eliminar como requisito inicial:
+
+configuración manual;
+selección de dispositivo;
+selección de modo;
+selección de capacidades;
+menús técnicos;
+perfiles obligatorios;
+configuración de TV;
+configuración de AR.
+Principio:
+
+ZERO CONFIGURATION FIRST RUN.
+
+3. EXPERIENCIA INICIAL
+
+La experiencia predeterminada será:
+
+AR
+
+Al entrar:
+
+solicitar únicamente los permisos indispensables;
+activar cámara;
+activar experiencia AR;
+presentar a LUKITA;
+ubicarla en el espacio;
+iniciar interacción.
+
+LUKITA debe aparecer como presencia, no como un objeto de menú.
+
+La primera experiencia debe sentirse aproximadamente así:
+
+                 CÁMARA
+                    │
+                    ▼
+
+             ┌─────────────┐
+             │   LUKITA    │
+             │     AR      │
+             └─────────────┘
+
+       "Hola. Soy LUKA."
+
+       "¿Quieres entrar a mi mundo
+        o quieres ver TV?"
+
+No mostrar un dashboard.
+
+No mostrar un menú completo.
+
+No mostrar una pantalla de configuración.
+
+4. DECISIÓN INICIAL
+
+La pregunta inicial debe ofrecer solamente dos caminos:
+
+A. ENTRAR AL MUNDO DE LUKA
+
+Activa:
+
+LUKA WORLD
+   ↓
+AR
+   ↓
+LUKITA
+   ↓
+Territorio
+B. VER TV
+
+Activa:
+
+LUKA TV
+
+La selección debe poder realizarse mediante:
+
+toque;
+voz.
+
+Ejemplos:
+
+“Quiero ver TV.”
+
+“Quiero entrar.”
+
+“Vamos a mi mundo.”
+
+5. ELIMINAR LA CONFIGURACIÓN COMO CONCEPTO DE UX
+
+La configuración no debe desaparecer técnicamente.
+
+Debe desaparecer de la experiencia del usuario.
+
+El sistema debe resolver automáticamente:
+
+contexto;
+dispositivo;
+permisos;
+modo;
+capability;
+superficie;
+estado;
+retorno.
+
+Si algo necesita configuración técnica, debe ser resuelto posteriormente mediante:
+
+progressive disclosure.
+
+6. LUKA TV
+
+LUKA TV pasa a ser una experiencia dentro de LUKA OS, no una aplicación independiente.
+
+Al decir:
+
+“Quiero ver TV.”
+
+aparece inmediatamente el control remoto.
+
+Debe conservar la estética y concepto del control presentado en el prototipo.
+
+Funciones MVP
+Netflix
+YouTube
+Prime Video
+Disney+
+reproducción
+pausa
+anterior
+siguiente
+volumen
+canal
+mute
+encendido
+navegación
+teclado
+menú
+back
+7. CONTROL UNIVERSAL CONTEXTUAL
+
+Este punto es crítico.
+
+NO crear cinco interfaces independientes.
+
+Debe existir un único controlador contextual.
+
+Estado:
+
+TV
+TRACKPAD
+GAMEPAD
+KEYBOARD
+AR
+
+El usuario cambia de estado mediante:
+
+Toque
+
+o
+
+Voz a LUKA.
+
+Ejemplos:
+
+“LUKA, trackpad.”
+
+“LUKA, teclado.”
+
+“LUKA, gamepad.”
+
+“LUKA, vuelve a TV.”
+
+“LUKA, muéstrame AR.”
+
+8. REGLA DE VISIBILIDAD DEL CONTROL
+
+Implementar exactamente el principio:
+
+El control que activa un modo se convierte en la puerta hacia el siguiente modo contextual.
+
+Ejemplo:
+
+Cuando está activo TV
+
+mostrar solamente controles relevantes.
+
+Cuando se activa Trackpad
+
+el botón contextual debe ofrecer:
+
+AR
+
+Cuando se activa Keyboard
+
+el botón contextual debe ofrecer:
+
+Gamepad
+
+Cuando se activa Gamepad
+
+el botón contextual debe permitir:
+
+Keyboard / TV / AR
+
+La interfaz debe funcionar como un sistema de estados, no como un conjunto de pantallas.
+
+9. BOTÓN DE LUKA
+
+Debe existir una vía permanente para volver a la presencia de LUKA.
+
+No necesariamente como un botón grande.
+
+Puede ser:
+
+icono;
+avatar;
+micrófono;
+gesto;
+voz.
+
+Ejemplo:
+
+“LUKA.”
+
+LUKA escucha.
+
+“Quiero volver al mundo.”
+
+→ AR.
+
+10. VOZ
+
+Para MVP no intentar resolver todavía un asistente conversacional universal.
+
+Implementar un conjunto pequeño y extremadamente fiable de intenciones.
+
+Mínimo:
+
+ver TV
+volver a AR
+trackpad
+gamepad
+teclado
+subir volumen
+bajar volumen
+mute
+canal siguiente
+canal anterior
+play
+pause
+back
+menu
+
+La prioridad es:
+
+fiabilidad > inteligencia aparente.
+
+11. MUNDO DE LUKA — MVP REAL
+
+Aquí está el verdadero siguiente paso.
+
+No intentar construir todavía:
+
+todo Perú;
+cientos de POI;
+todos los agentes;
+todos los dispositivos;
+vehículos;
+wearables;
+domótica universal;
+economía L*;
+mundo virtual completo.
+
+Construir UN PRIMER MUNDO LUKA REAL.
+
+Debe existir un área piloto claramente delimitada.
+
+Dentro de ella:
+
+LUKITA
+│
+├── ubicación
+├── orientación
+├── movimiento
+├── puntos territoriales
+├── información contextual
+├── interacción por voz
+└── navegación
+
+El primer mundo debe ser pequeño pero convincente.
+
+Un kilómetro cuadrado excelente vale más que todo Perú mediocre.
+
+12. LUKITA
+
+Cerrar el Character Foundation mínimo necesario.
+
+LUKITA debe tener:
+
+modelo 3D definitivo o suficientemente estable para MVP;
+escala;
+animación idle;
+aparición;
+desaparición;
+saludo;
+escucha;
+habla;
+indicación;
+desplazamiento básico;
+orientación hacia usuario;
+estados emocionales mínimos.
+
+No desarrollar todavía una personalidad compleja.
+
+Primero:
+
+presencia + legibilidad + consistencia.
+
+13. AR TERRITORIAL
+
+El MVP debe soportar:
+
+Cámara
++
+GPS
++
+posición del usuario
++
+posición de LUKITA
++
+POI
++
+interacción
+
+Cada POI deberá poder tener:
+
+ID
+posición
+nombre
+categoría
+distancia
+contenido
+acción
+
+Inicialmente puede utilizarse una fuente simple de datos.
+
+No construir todavía una infraestructura GIS gigantesca.
+
+14. PRIMERA EXPERIENCIA TERRITORIAL
+
+Crear una demostración completa:
+
+QR
+ ↓
+LUKA
+ ↓
+AR
+ ↓
+LUKITA
+ ↓
+"¿Quieres entrar a mi mundo?"
+ ↓
+SÍ
+ ↓
+LUKITA aparece
+ ↓
+usuario camina
+ ↓
+LUKITA detecta POI
+ ↓
+LUKITA explica
+ ↓
+usuario pregunta
+ ↓
+LUKA responde
+ ↓
+usuario continúa explorando
+
+Este flujo debe funcionar de principio a fin.
+
+15. QR
+
+El QR será uno de los mecanismos principales de distribución inicial.
+
+Debe existir un:
+
+LUKA QR
+
+que abra directamente la experiencia.
+
+El usuario no debe encontrarse primero con:
+
+Login
+Configuración
+Dashboard
+Perfil
+Dispositivo
+Preferencias
+
+Debe encontrarse con:
+
+LUKA.
+
+16. PWA
+
+Cerrar la PWA como producto mínimo.
+
+Requisitos:
+
+instalación;
+icono;
+splash;
+carga rápida;
+recuperación de sesión;
+funcionamiento razonable con conectividad intermitente;
+retorno a la última experiencia;
+QR → LUKA;
+mobile-first.
+17. IDENTIDAD DE PRODUCTO
+
+Separar definitivamente:
+
+MiLukita
+
+Proyecto / visión / organización del producto.
+
+LUKA
+
+Sistema operativo de experiencia y agente territorial.
+
+LUKITA
+
+Personaje/presencia de LUKA.
+
+LUKA OS
+
+Orquestador contextual.
+
+LUKA WORLD
+
+Experiencia territorial.
+
+LUKA TV
+
+Experiencia de control y entretenimiento.
+
+No utilizar indistintamente estos nombres.
+
+18. ORGANIGRAMA MVP
+
+Congelar para esta fase:
+
+MI LUKITA
+Human Authority
+      │
+      ▼
+    LUKA
+  Product Identity
+      │
+      ▼
+   LUKA OS
+      │
+ ┌────┴────┐
+ ▼         ▼
+LUKA      LUKA
+WORLD      TV
+ │         │
+ ▼         ▼
+AR       CONTROLLER
+ │         │
+ ▼       ┌─┼──────┐
+LUKITA   ▼ ▼      ▼
+       TV TRACKPAD KEYBOARD
+          │
+          ▼
+       GAMEPAD
+
+Las demás capacidades quedan fuera del MVP.
+
+19. CAPABILITIES
+
+Mantener el Capability Registry.
+
+Pero para lanzamiento público:
+
+AVAILABLE
+AR WORLD
+LUKA TV
+TV CONTROL
+TRACKPAD
+KEYBOARD
+GAMEPAD
+VOICE
+RESERVED
+LIGHTS & CLIMATE
+AUDIO
+WEARABLES
+VEHICLE
+HIDDEN
+L*
+MJP
+capacidades financieras
+capacidades experimentales
+
+Importante: hidden no significa eliminado.
+
+20. SEGURIDAD CONSTITUCIONAL
+
+Mantener sin cambios:
+
+LUKA OS
+      ↓
+Presentation / Intent
+      ↓
+Capabilities
+
+Nunca:
+
+LUKA
+ ↓
+MJP CORE
+ ↓
+RNG
+ ↓
+Ledger
+ ↓
+Settlement
+
+MJP CORE permanece fuera del alcance de LUKA OS.
+
+21. QUEDA PROHIBIDO EN ESTA FASE
+
+No iniciar:
+
+nueva arquitectura;
+nuevo organigrama;
+nuevo sistema de agentes;
+nueva economía;
+nuevos juegos;
+nuevos dashboards administrativos;
+nuevas capacidades IoT;
+integración universal de Smart TV;
+Matter;
+wearables;
+vehículos;
+blockchain;
+marketplace;
+expansión nacional;
+rediseño completo del backend.
+
+Si una tarea no mejora directamente el flujo:
+
+QR → LUKA → AR → LUKITA → WORLD / TV
+
+queda fuera del MVP.
+
+22. CRITERIO DE TERMINACIÓN
+
+Manus debe considerar el MVP terminado solamente si una persona que nunca ha visto el sistema puede realizar este flujo sin instrucciones:
+
+TEST 01
+
+Escanea QR.
+
+TEST 02
+
+Aparece LUKA/LUKITA.
+
+TEST 03
+
+Entiende inmediatamente qué puede hacer.
+
+TEST 04
+
+Entra al mundo AR.
+
+TEST 05
+
+Interactúa con LUKITA.
+
+TEST 06
+
+Puede decir:
+
+“Quiero ver TV.”
+
+TEST 07
+
+Aparece LUKA TV.
+
+TEST 08
+
+Puede controlar el TV.
+
+TEST 09
+
+Puede cambiar a Trackpad.
+
+TEST 10
+
+Puede cambiar a Keyboard.
+
+TEST 11
+
+Puede cambiar a Gamepad.
+
+TEST 12
+
+Puede volver a AR.
+
+TEST 13
+
+Puede hacerlo por voz.
+
+TEST 14
+
+Puede hacerlo sin entrar a configuración.
+
+TEST 15
+
+Puede repetir el ciclo.
+
+23. MÉTRICA PRINCIPAL
+
+No utilizar como métrica principal:
+
+número de archivos;
+número de agentes;
+número de componentes;
+número de capacidades;
+número de tests.
+
+La métrica principal del MVP será:
+
+TIME TO FIRST LUKA
+
+Tiempo desde:
+
+QR → primera aparición funcional de LUKITA.
+
+Objetivo inicial:
+
+≤ 10 segundos en condiciones normales de red y dispositivo.
+
+Segunda métrica:
+
+TIME TO FIRST ACTION
+
+QR → primera acción realizada por el usuario.
+
+Objetivo:
+
+≤ 30 segundos.
+
+24. ORDEN DE IMPLEMENTACIÓN
+
+Ejecutar estrictamente en este orden:
+
+P0 — Producto
+Congelar arquitectura.
+Congelar MJP CORE.
+Consolidar nomenclatura LUKA / LUKITA.
+Cerrar Universal Entry.
+P1 — Experiencia
+AR first entry.
+LUKITA.
+diálogo inicial.
+World MVP.
+POI básicos.
+interacción.
+P2 — TV
+LUKA TV.
+Controller contextual.
+Trackpad.
+Keyboard.
+Gamepad.
+transición AR ↔ TV.
+P3 — Voz
+comandos críticos.
+resolución.
+confirmación únicamente cuando sea necesaria.
+fallback táctil.
+P4 — Distribución
+QR.
+PWA.
+instalación.
+recuperación.
+analytics mínimos.
+P5 — QA
+Android.
+iOS si la arquitectura lo permite.
+teléfonos de gama baja/media.
+condiciones de red variables.
+pruebas de usuario.
+P6 — Lanzamiento piloto
+publicar.
+entregar QR.
+observar usuarios reales.
+registrar fallos.
+corregir solamente lo que bloquea la experiencia.
+25. REGLA FINAL PARA MANUS AI
+
+No interpretar esta orden como una invitación a seguir diseñando LUKA.
+
+LUKA ya tiene suficiente arquitectura para comenzar.
+
+A partir de ahora el trabajo cambia de:
+
+BUILD THE SYSTEM
+
+a:
+
+SHIP THE EXPERIENCE.
+
+El entregable de esta fase no será otro documento de arquitectura.
+
+Será:
+
+UNA PERSONA REAL → QR → LUKA → LUKITA → MUNDO AR → TV → CONTROL → AR.
+
+Cuando ese circuito funcione de manera estable, salimos del laboratorio.
+
+CHECKPOINT OBLIGATORIO
+
+Al terminar, entregar solamente:
+
+Estado de cada P0/P1/P2/P3/P4/P5.
+Lista de cambios realizados.
+Tests ejecutados.
+Fallos encontrados.
+Qué queda realmente bloqueado para lanzamiento.
+URL/entorno del MVP.
+Instrucciones mínimas para probarlo con un teléfono.
+Confirmación explícita de que MJP CORE no fue modificado.
+
+No continuar automáticamente hacia nuevas capacidades.
+
+Esperar nueva orden después del checkpoint.

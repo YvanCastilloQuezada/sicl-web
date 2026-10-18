@@ -1,0 +1,17 @@
+[33mcommit 5533bd8eb1e3b81c37d089bd30b424f2a4c1e231[m
+Author: YvanCastilloQuezada <3.28472919e+08+YvanCastilloQuezada@users.noreply.github.com>
+Date:   Sun Sep 27 09:36:42 2026 +0000
+
+    fix(H-004): RT-88 blocked dependency cascade + Freeze v1.0 manifests
+    
+    - RT-88: Transitive closure for BLOCKED nodes in _topological_sort.
+    - Documented RT-89 to RT-96 as DEFERRED / KNOWN_LIMITATIONS.
+    - Officially FROZEN H-001, H-002, H-003, H-004 as Core v1.0.
+    
+    Human Authority decision: Pragmatic close. Core is functional and safe.
+
+ docs/ARKI_CORE_FROZEN_v1.0.md       | 22 [32m+++++++++++++++++++++[m
+ docs/ARKI_KNOWN_LIMITATIONS_v1.0.md | 18 [32m+++++++++++++++++[m
+ src/sicl/reaction.py                | 39 [32m++++++++++++++++++++++++++++++++++++[m[31m-[m
+ tests/test_reaction.py              | 38 [32m++++++++++++++++++++++++++++++++++++[m
+ 4 files changed, 116 insertions(+), 1 deletion(-)

@@ -1,0 +1,1011 @@
+            Ministerio               Viceministerio de        Dirección General de Juegos
+            de Comercio Exterior                              de Casino y Máquinas
+                                     Turismo
+            y Turismo                                         Tragamonedas
+
+
+         “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                      “Año de la unidad, la paz y el desarrollo”
+
+
+
+
+                           FORMATOS DE
+
+CERTIFICADO DE CUMPLIMIENTO PARA:
+
+
+1. Plataforma Tecnológica                  (Juegos           a      Distancia/Apuestas
+   Deportivas a Distancia)
+
+2. Programas de juegos, modalidades de juegos y/o componentes
+   relacionados con los juegos y/o apuestas deportivas a distancia
+
+3. Integración de la Plataforma de Juego
+
+4. Generador de Números Aleatorios – GNA
+
+
+
+
+                                     2023
+
+
+              Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio                 Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                                Turismo
+                     y Turismo                                           Tragamonedas
+
+
+                  “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                               “Año de la unidad, la paz y el desarrollo”
+
+
+
+
+                                            FORMATO N° 01
+
+                     CERTIFICADO DE CUMPLIMIENTO N° <                                  >
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y
+   Máquinas Tragamonedas de acuerdo al detalle siguiente:
+
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+                                              <FABRICANTE>
+Nombre y datos del Fabricante:
+                                              <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+                                              Certificado   de  Cumplimiento     para   Plataforma
+Tipo de certificación:                        Tecnológica (Juegos a Distancia/Apuestas Deportivas a
+                                              Distancia)
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+                                              sección A.1>
+Tipo de Producto:                             Ej.
+                                              Plataforma de Gestión de Cuenta de Jugador (PAM)
+                                              Plataforma de apuestas deportivas (Sportsbook)/etc.
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557          y   sus      normas         modificatorias   y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de       identificación        del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                          _______________________________________
+                                Firma del representante autorizado
+                                             Nombre
+                                     Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio                    Viceministerio de     Dirección General de Juegos
+                      de Comercio Exterior                                de Casino y Máquinas
+                                                    Turismo
+                      y Turismo                                           Tragamonedas
+
+
+                   “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                “Año de la unidad, la paz y el desarrollo”
+
+EVALUACIÓN DE LA PLATAFORMA TECNOLÓGICA
+
+ A.1. Alcance
+ <Nombre del fabricante> ha solicitado a <nombre del laboratorio de certificación> la
+ evaluación de la Plataforma Tecnológica de los Juegos a Distancia / Plataforma
+ Tecnológica de Apuestas Deportivas a Distancia con el siguiente detalle:
+
+       Tipo de producto                      Nombre de producto                            Versión
+    Ejemplo de tipos de           Nombre del producto de acuerdo al
+                                                                                  Versión del producto
+          producto                            fabricante
+ Plataforma de Gestión de         Plataforma de Gestión de Cuenta de
+                                                                                            1.0.0.0
+ Cuenta de Jugador (PAM)                    Jugador (PAM)
+  Plataforma de Apuestas
+                                  Plataforma de Apuestas Deportivas                         1.0.0.0
+         Deportivas
+
+
+
+ Notas:
+ -  En caso de ser una actualización, indicar que es un certificado complementario y
+    referenciar el certificado base
+
+
+ A.2. Características de la Plataforma
+
+  A.2.1. Descripción General
+
+  Descripción detallada de la Plataforma Tecnológica que incluya las bases de datos,
+  aplicaciones, servicios, recursos y/o componentes de software, entre otros.
+
+  •     Para el caso de la Plataforma Tecnológica de los Juegos a Distancia
+
+  En la siguiente tabla se detallan los tipos de juego soportados por la plataforma tecnológica:
+
+       Tipo de Juego Soportado        Aplica Comentarios
+       Juegos de Línea                Sí/No -
+       Juegos de Naipes               Sí/No -
+       Juegos de Póker                Sí/No -
+       Juegos de Blackjack            Sí/No -
+       Juegos de Ruleta               Sí/No
+       Juegos de Dados                Sí/No -
+       Juegos de Deportes             Sí/No -
+       Juegos de Carreras             Sí/No -
+       Juegos de Extración de Bolas /
+                                      Sí/No
+       Números
+       Juegos de Keno                 Sí/No
+       Juegos de Bingo                Sí/No
+       Juegos de premios inmediatos   Sí/No -
+       Juegos Multijugador            Sí/No -
+
+
+      Pasarela de Pagos
+      <Breve descripción. Se deben especificar los proveedores de la pasarela de pagos.>
+
+      APIs de Integración
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                   Ministerio                  Viceministerio de      Dirección General de Juegos
+                   de Comercio Exterior                               de Casino y Máquinas
+                                               Turismo
+                   y Turismo                                          Tragamonedas
+
+
+                “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                             “Año de la unidad, la paz y el desarrollo”
+    <Listarlos junto a una breve descripción. Por ejemplo, Recargas, Integración con juegos,
+    etc.>
+
+    Otros
+    <N/A si no aplica>
+
+
+    Archivos críticos del sistema:
+
+           Archivo                                           Función
+     [nombre.extensión]           [breve descripción de su función]
+     [nombre.extensión]           [breve descripción de su función]
+
+    Huellas electrónicas de los archivos críticos:
+
+            Archivo                Ruta [solo si aplica]                SHA - 1
+                                 [Indique la ruta lógica del
+     [nombre.extensión]                                            [Firma electrónica]
+                                           archivo]
+                                 [Indique la ruta lógica del
+     [nombre.extensión]                                            [Firma electrónica]
+                                           archivo]
+        Ubicación: [Indique el dispositivo o componente del sistema donde se ubican los
+                                     archivos críticos listados]
+
+
+
+•     Para el caso de la Plataforma Tecnológica de Apuestas Deportivas a Distancia
+
+    Parrilla de Eventos
+    <Breve descripción. Se deben especificar los proveedores de los eventos o N/A de ser el
+    caso.>
+
+    Pasarela de Pagos
+    <Breve descripción. Se deben especificar los proveedores de la pasarela de pagos.>
+
+    APIs de Integración
+    <Listarlos junto a una breve descripción. Por ejemplo, Recargas, Integración con juegos,
+    etc.>
+
+    Otros
+    <N/A si no aplica>
+
+
+
+    Archivos críticos del sistema:
+
+           Archivo                                           Función
+     [nombre.extensión]           [breve descripción de su función]
+     [nombre.extensión]           [breve descripción de su función]
+
+    Huellas electrónicas de los archivos críticos:
+
+            Archivo                     Ruta [solo si aplica]                        SHA - 1
+                                      [Indique la ruta lógica del
+     [nombre.extensión]                                                      [Firma electrónica]
+                                               archivo]
+
+
+
+
+                      Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio               Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                              de Casino y Máquinas
+                                              Turismo
+                     y Turismo                                         Tragamonedas
+
+
+                “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                             “Año de la unidad, la paz y el desarrollo”
+            Archivo                Ruta [solo si aplica]                SHA - 1
+                                 [Indique la ruta lógica del
+     [nombre.extensión]                                            [Firma electrónica]
+                                           archivo]
+        Ubicación: [Indique el dispositivo o componente del sistema donde se ubican los
+                                     archivos críticos listados]
+
+
+
+
+A.2.2. Información sobre la Verificación de la Firma Digital
+
+ Procedimiento de Verificación de las Firmas Digitales:
+
+ ▪     [Descripción paso a paso de cómo obtener las firmas digitales]
+
+
+A.2.3. Relación de Juegos de Proveedores de Contenido / Referencia a Certificaciones
+
+N.A. si no aplica.
+
+
+Proveedor 1: [Nombre de proveedor 1]
+Plataforma del Proveedor 1: [Nombre y versión de la plataforma del proveedor 1]
+Número de Certificado
+Nombre del laboratorio de certificación emisor
+
+Relación de juegos:
+
+                              #             Juego                 Versión
+                              1       Juego 1                     Versión
+                              2       Juego 2                        -
+                                      Agregue las       filas
+                              3
+                                      necesarias.
+
+
+
+
+                       Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio               Viceministerio de        Dirección General de Juegos
+                        de Comercio Exterior                              de Casino y Máquinas
+                                                 Turismo
+                        y Turismo                                         Tragamonedas
+
+
+                    “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                 “Año de la unidad, la paz y el desarrollo”
+ A.3. Características del Hardware /Terminales de Apuesta
+
+    N.A. Si no aplica.
+< Descripción del hardware de apuestas. Esta sección sería solo aplicable para aquellos
+sistemas de apuestas que hagan uso de terminales físicas de apuestas>
+
+ Fabricante          ID                  del                  Función
+                     Producto/Número de
+                     Modelo
+ Fabricante      del Identificador único del                  Utilidad del          producto,           resumen
+ elemento hardware   tipo    de producto                      descriptivo
+                     (asignado     por    el
+                     fabricante)
+ GamingTerminals     90003452                                 Terminal de apuestas deportivas
+
+
+ A.4 Evaluación Realizada
+
+ <nombre del laboratorio de certificación> ha probado y confirmado la conformidad de la
+ Plataforma con los requerimientos aplicables relevantes para operar en la jurisdicción peruana.
+
+ <nombre del laboratorio de certificación> evaluó el desempeño funcional, implementación
+ del código fuente y la documentación provista, según se detalla a continuación.
+
+
+Lista de elemento/características que se han evaluado. Ejemplo (los elementos evaluados
+variarán según la funcionalidad de la plataforma o elemento bajo evaluación, en la lista se
+incluyen algunos ejemplos potenciales):
+
+La evaluación de la plataforma de juegos incluyó una evaluación de las siguientes características
+implementadas en la plataforma de juegos:
+
+              ➢   Registro de cuenta,
+              ➢   Acceso a la cuenta (Nombre de usuario y contraseña),
+              ➢   Interfaz del jugador,
+              ➢   Interfaz del operador,
+              ➢   Reportes,
+              ➢   Protección al jugador / sistemas de exclusión,
+              ➢   Desactivación de cuenta.
+              ➢   Registro de datos
+              ➢   Aplicaciones (ejemplo: funcionalidad de una aplicación móvil)
+              ➢   Etc.
+
+DETALLES DE LA CERTIFICACIÓN
+
+N.A. Si no aplica.
+Descripción de algun detalle adicional de la certificación, por ejemplo, si es una actualización de un
+certificado previo o es complementario.
+
+ANEXOS (relación de documentos de certificación utilizados)
+
+N.A. Si no aplica.
+Relación de documentos de certificación utilizados para la evaluación, (por ejemplo, el listado de certificados
+de juegos, del laboratorio de certificación o de otros laboratorios de certificaciones)
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio                 Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                                Turismo
+                     y Turismo                                           Tragamonedas
+
+
+                  “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                               “Año de la unidad, la paz y el desarrollo”
+
+                                            FORMATO N° 02
+
+                         CERTIFICADO DE CUMPLIMIENTO N° < >
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y
+   Máquinas Tragamonedas de acuerdo al detalle siguiente:
+
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+                                              <FABRICANTE>
+Nombre y datos del Fabricante:
+                                              <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+                                              Certificado de Cumplimiento para programas de juegos,
+Tipo de certificación:                        modalidades de juegos y/o componentes relacionados
+                                              con los juegos y/o apuestas deportivas a distancia
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+                                              sección A.1.1>
+                                              Ej.
+Tipo de Producto:
+                                              Programas de juegos y GNA detallados en la sección
+                                              A.1.1
+                                              Programas de juegos del Proveedor “AA” (X juegos)
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557          y   sus      normas         modificatorias   y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de       identificación        del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                          _______________________________________
+                                Firma del representante autorizado
+                                             Nombre
+                                     Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio                 Viceministerio de        Dirección General de Juegos
+                      de Comercio Exterior                                de Casino y Máquinas
+                                                 Turismo
+                      y Turismo                                           Tragamonedas
+
+
+                   “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                “Año de la unidad, la paz y el desarrollo”
+
+EVALUACIÓN DE LOS PROGRAMAS DE JUEGOS, MODALIDADES DE
+  JUEGOS Y/O COMPONENTES
+
+    A.1. Características del Software
+
+     A.1.1. Resumen
+
+     Información del servidor remoto de juegos (SRJ)
+
+     Los juegos evaluados en el presente certificado de cumplimiento son compatibles con la
+     plataforma de juego denominada <nombre del servidor de juego> versión <versión> del
+     fabricante <nombre del fabricante>.
+
+     En caso aplique, añadir archivos críticos y firmas digitales para el servidor remoto de juegos
+     (SRJ).
+
+     En la siguiente tabla se muestran los programas de juegos, modalidades de juegos y/o
+     componentes evaluados.
+
+
+     NOMBRE
+                VERSIÓ
+       DEL                              TIPO DE JUEGO                         MEDIOS SOPORTADOS
+                  N
+    PRODUCTO
+
+                            •    Juego de Línea
+                            •    Juego de Naipes
+                            •    Juego de Póker
+<Nombre del                 •    Juego Blackjack
+programa de                 •    Juego de Ruleta
+   juegos,                  •    Juego de Dados
+                                                                     <HTML5      para      computador con
+modalidades                 •    Juego de Deportes / Carreras
+                <1.0.0>                                              Windows, computador con iOS, Flash,
+ de juegos                  •    Juego de Extracción de Bolas /      Tablet, Android, etc. >
+     y/o                         Números
+componente                  •    Juego Keno o Bingo
+      s>                    •    Juego de Premio Inmediato
+                            •    Juego Multijugador
+                            •    Deportes virtuales
+                            •    Etc.
+       …
+
+
+•     La información de la plataforma de juego denominada <nombre del servidor de
+      juego> versión <versión> del fabricante <nombre del fabricante>, es referencial.
+
+
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                        Ministerio                     Viceministerio de        Dirección General de Juegos
+                        de Comercio Exterior                                    de Casino y Máquinas
+                                                       Turismo
+                        y Turismo                                               Tragamonedas
+
+
+                    “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                 “Año de la unidad, la paz y el desarrollo”
+
+   A.1.2. Archivos Críticos
+
+   A continuación, se listan las firmas digitales de los archivos críticos de los programas de
+   juegos, modalidades de juegos y/o componentes (productos) listados anteriormente. Diríjase
+   a la sección A.2 para mayor detalle del procedimiento de verificación.
+
+     NOMBRE DEL PRODUCTO: <Nombre del programa de juegos, modalidades de juegos y/o
+                                                      componentes >
+                                                                              Tipo de
+ Nombre del Archivo         Versión        Ubicación          Función          Firma                Firma Digital
+                                                                              Digital
+                                                                <breve       <SHA-1>               <Firma digital>
+                                                            descripción
+                                               <servidor                     < MD5>                <Firma digital>
+                                                           de la función
+ <nombre del binario>      <versión>           de juego,
+                                                            del archivo.
+                                                 etc.>
+                                                           ej. “lógica del    < etc.>              <Firma digital>
+                                                               juego”>
+ …                              …                 …               …                                           …
+
+
+
+   A.1.3. Porcentaje de Retorno Teórico al Jugador (RPT)
+
+                                                                         % RPT                        % RPT
+                  VARIACIÓN
+                                                  %RPT              PRESENTADO POR                 CALCULADO
+                       /                       EN EL JUEGO                EL                   POR EL LABORATORIO
+  NOMBRE
+ DEL JUEGO
+                   ID DE LA                                           FABRICANTE                DE CERTIFICACIÓN
+                  TABLA DE
+                    PAGOS               MÍNIMO         MÁXIMO       MÍNIMO    MÁXIMO          MÍNIMO              MÁXIMO
+
+
+
+
+     En caso de Progresivos:
+     (indicar si es opcional u obligatorio)
+
+                                                           RPT               VALOR
+                                                                                                 % DE
+       NOMBRE DEL            TIPO DE                                          BASE
+                                                      %            %                         CONTRIBUCIÓN
+       PROGRESIVO          PROGRESIVO                                          (DE
+                                                    MÍNIMO       MÁXIMO                       DE APUESTA
+                                                                             INICIO)
+
+
+
+
+<Nombre del Laboratorio de Certificación> ha confirmado que los valores del RPT (Porcentaje
+de Retorno Teórico al jugador) descritos en la tabla han mostrado:
+           a) Estar dentro de los límites estadísticos o valores equivalentes esperados
+               computados de los datos de las pruebas de simulación, o
+           b) Coincidir los valores derivados analíticamente del modelo matemático del juego.
+
+
+   A.1.4. Notas
+ Listar:
+
+
+                          Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                           Ministerio               Viceministerio de        Dirección General de Juegos
+                           de Comercio Exterior                              de Casino y Máquinas
+                                                    Turismo
+                           y Turismo                                         Tragamonedas
+
+
+                       “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                    “Año de la unidad, la paz y el desarrollo”
+       -        Notas a tener en consideración y que se estimen oportunas, de haberlas.
+       -        N/A de no haber notas.
+
+
+     A.1.5. Generador de Números Aleatorios (GNA)
+
+     <En esta sección, se debe detallar el tipo de GNA que es compatible con los programas de
+     juegos, modalidades de juegos y/o componentes evaluados y referenciar su correspondiente
+     Certificado de Cumplimiento. >
+
+     Ejemplo:
+     Los programas de juegos, modalidades de juegos y/o componentes evaluados son
+     compatibles con el siguiente generador de números aleatorios:
+     ▪ <nombre del GNA> versión vx.x, el cual cuenta con el Certificado de Cumplimiento N°
+         <____> emitido por <nombre del laboratorio de certificación> el DD de MMMM de
+         AAAA.>
+
+
+     A.1.6. Descripción de los Juegos
+
+                A.1.6.1. <Nombre y versión del juego 1>
+
+      <Descripción del juego o los juegos: número de rieles, tipos de apuestas, bonos >
+
+           a.      Descripción de los juegos incluidos en el componente de software evaluado
+                   i.    Tipo de juego: Cartas, video rodillos, ruleta, etc.
+                   ii.   Descripción de la temática y reglas de juego
+
+
+ A.2. Información sobre la Verificación de la Firma Digital
+
+ Procedimiento de Verificación de las Firmas Digitales:
+
+ ▪     Paso 1
+ ▪     Paso 2
+ ▪     Etc.
+
+NOTA: Indicar la herramienta utilizada para la verificación de las firmas digitales, y
+procedimiento detallado a seguir:
+
+DETALLES ADICIONALES
+N.A. Si no aplica.
+Descripción de algún detalle adicional de la certificación, por ejemplo, si es una actualización de un
+certificado previo o es complementario.
+
+
+
+
+                             Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio                 Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                                Turismo
+                     y Turismo                                           Tragamonedas
+
+
+                  “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                               “Año de la unidad, la paz y el desarrollo”
+
+                                            FORMATO N° 03
+
+                     CERTIFICADO DE CUMPLIMIENTO N° <                                  >
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y
+   Máquinas Tragamonedas de acuerdo al detalle siguiente:
+
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+                                              <FABRICANTE>
+Nombre y datos del Fabricante:
+                                              <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+                                            Integración de la Plataforma de Juego AAA con <Nombre
+Tipo de certificación:
+                                            del producto/módulo que se está integrando>
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+                                              sección A.1>
+Tipo de Producto:                             Ej.
+                                              Programas de juegos y GNA detallados
+                                              Programas de juegos del Proveedor “AA” (X juegos)
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557          y   sus      normas         modificatorias   y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de       identificación        del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                          _______________________________________
+                                Firma del representante autorizado
+                                             Nombre
+                                     Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                              Ministerio                    Viceministerio de           Dirección General de Juegos
+                              de Comercio Exterior                                      de Casino y Máquinas
+                                                            Turismo
+                              y Turismo                                                 Tragamonedas
+
+
+                           “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                        “Año de la unidad, la paz y el desarrollo”
+
+  EVALUACIÓN DE INTEGRACIÓN DE LA PLATAFORMA DE JUEGO AAA
+    CON <plataformas tecnológicas, SGR, pasarelas de pago, etc.>
+    A.1. Alcance
+    <Nombre del fabricante> ha solicitado al <nombre del laboratorio de certificación> la
+    evaluación de la integración de la Plataforma Tecnológica de los Juegos a Distancia /
+    Plataforma Tecnológica de Apuestas Deportivas a Distancia [Nombre y versión del
+    Sistema] con el siguiente detalle:
+
+             Identificación de la Plataforma (nombre y               Identificación del producto a integrar (nombre y
+                              versión)                                                    versión)
+                  Ejemplo de tipos de producto                       Nombre del producto de acuerdo al fabricante
+                                                                    RGS, Pasarelas de pago, PAM, Agregadores,
+                   Plataforma Tecnológica AAA                     plataforma de apuestas deportivas, plataforma de
+                                                                                   ESports, etc.
+                                  …                                                         …
+
+
+
+
+    A.2. Características de los productos a integrar.
+
+      A.2.1. Descripción
+
+      Sumario informativo de los elementos sujetos de la integración (listas de juegos, plataforma
+      base – donde los juegos se están integrando, entorno usado durante la integración).
+
+      La Plataforma Tecnológica de los Juegos a Distancia / Plataforma Tecnológica de
+      Apuestas Deportivas a Distancia [Nombre y versión del Sistema] del (operador/fabricante)
+      [Nombre    de   fabricante/operador], se    ha     integrado   con     los    siguientes
+      elementos/módulos/plataformas:
+
+      [Descripción de la Plataforma/Proveedor que se está integrando]
+
+  Ejemplo:
+  Se realizaron ensayos de integración entre Plataforma Base AAA y los siguientes juegos:
+
+                 Nombre                               Fecha de         Laboratorio       Escritorio              Movil    Identificador
+ Tipo de                         Número de
+                    de                                Emisión                de
+producto                         Certificado
+                 producto                                              certificación
+                                                                                         Indicar si la       Mecanismo      Código de
+                                                       Fecha de
+                  Nombre                                               Laboratorio     integración se        de entrega       registro
+                                 Número de           emisión del
+                     del                                                     de         ha ensayado            móvil      asignado por
+                                 certificado          certificado
+Ejemplo de        producto                                             certificación       sobre la                       MINCETUR a
+                                  donde se                 de
+ tipos de            de                                                 autorizado      plataforma de                     la plataforma
+                                  aprobó el          certificación
+ producto         acuerdo                                               que emitió        escritorio                       tecnológica,
+                                  elemento                 del
+                      al                                                     el        (computadora)                      modalidad de
+                                   listado             elemento
+                 fabricante                                             certificado                                          juego, de
+                                                        listado
+                                                                                                                          corresponder
+Plataforma       Plataforma    SY-22-FFF-23-
+                                                     25-11-2023                               X                       X
+   Base          Base AAA           01
+ Juego de                      MO-22-FFF-23-
+                  Juego1                             02-10-2023                               X                       X
+  líneas                            02
+ Juego de                      MO-22-FFF-23-
+                  Juego 2                            24-10-2023                               X                       X
+  líneas                            03
+ Juego de                      MO-22-FFF-23-
+                  Juego 3                            25-07-2023                               X                       X
+  líneas                            04
+ Juego de                      MO-22-FFF-23-
+                  Juego 4                            03-11-2023                               X                       X
+  líneas                            05
+    Etc.            Etc.           Etc.                  Etc.               Etc.             Etc.                 Etc.        Etc.
+
+
+
+
+                                Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                         Ministerio                      Viceministerio de         Dirección General de Juegos
+                         de Comercio Exterior                                      de Casino y Máquinas
+                                                         Turismo
+                         y Turismo                                                 Tragamonedas
+
+
+                     “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                                  “Año de la unidad, la paz y el desarrollo”
+
+Entorno usado. Ejemplo:
+
+El software fue ensayado en un entorno el cual consiste en los siguientes componentes:
+
+                                                Detalles de la parte del cliente
+ Mecanismos de Entrega                     Computadora/Móvil (Celular/Tableta)
+ Tipo de Mecanismo de Entrega:             HTML5
+ …                                         …
+                                                     Detalles de Ensayo
+ Plataforma y Versión Utilizada para
+                                           Plataforma Base AAA
+ las Pruebas:
+ Navegador y Versión Utilizada para
+                                           Google Chrome v114.0.5735.90
+ las Pruebas:
+ Sistema Operativo y Versión:              Windows 10 Enterprise
+ …                                         …
+
+
+
+DETALLES DE LA CERTIFICACIÓN
+N.A. Si no aplica.
+Descripción de algún detalle adicional de la certificación, por ejemplo, si es una actualización de un
+certificado previo o es complementario.
+
+
+ANEXOS (relación de documentos de certificación utilizados)
+
+N.A. Si no aplica.
+Relación de documentos de certificación utilizados para la evaluación, (por ejemplo, el listado de certificados
+de juegos, del laboratorio de certificación o de otros laboratorios de certificaciones)
+
+
+
+
+                           Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                     Ministerio                 Viceministerio de        Dirección General de Juegos
+                     de Comercio Exterior                                de Casino y Máquinas
+                                                Turismo
+                     y Turismo                                           Tragamonedas
+
+
+                  “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                               “Año de la unidad, la paz y el desarrollo”
+
+                                            FORMATO N° 04
+
+                         CERTIFICADO DE CUMPLIMIENTO N° < >
+
+   El Laboratorio de Certificación [Nombre del Laboratorio de Certificación] ha expedido el
+   presente Certificado de Cumplimiento dirigido a la Dirección General de Juegos de Casino y
+   Máquinas Tragamonedas de acuerdo al detalle siguiente:
+
+
+                                              <SOLICITANTE>
+Nombre y datos del solicitante:
+                                              <NACIONALIDAD>
+
+                                              <FABRICANTE>
+Nombre y datos del Fabricante:
+                                              <NACIONALIDAD>
+
+Representante del Laboratorio de
+                                              <Nombre del representante/firmante>
+Certificación:
+
+Tipo de certificación:                       Generador de Números Aleatorios – GNA
+
+                                              <Indicar lo que aplique y referenciar al detalle en la
+Tipo de Producto:                             sección A.1.1>
+
+
+Jurisdicción                                  Perú
+
+                                              Ley N° 31557          y   sus      normas         modificatorias   y
+Normatividad aplicada
+                                              reglamentarias.
+
+Conclusión:                                   <CUMPLE / NO CUMPLE>
+
+Fecha:                                        <dd/mm/aaaa>
+
+Código de       identificación        del
+                                              <Codificación propia de cada laboratorio>
+informe:
+
+
+
+
+                          _______________________________________
+                                     Firma del representante autorizado
+                                                Nombre
+                                        Número del documento
+
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                       Ministerio                     Viceministerio de        Dirección General de Juegos
+                       de Comercio Exterior                                    de Casino y Máquinas
+                                                      Turismo
+                       y Turismo                                               Tragamonedas
+
+
+                 “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                              “Año de la unidad, la paz y el desarrollo”
+
+EVALUACIÓN DEL GENERADOR DE NÚMEROS ALEATORIOS – GNA
+
+A.3. Características del Software
+
+  A.1.7. Alcance
+//Sumario del alcance de la evaluación realizada. Ejemplo:
+
+[Nombre de Proveedor] suministró los materiales necesarios a [nombre del laboratorio de
+certificación] con el fin de realizar el análisis de aleatoriedad del GNA [Nombre de GNA]. El
+alcance de este análisis se limita a la verificación del software, revisión del código fuente y
+análisis de los datos.
+
+El GNA [Nombre de GNA] fue evaluado aplicando los requerimientos de los estándares
+técnicos mencionados en la primera página de este reporte.
+
+
+
+  A.1.8. Archivos Críticos
+
+  A continuación, se listan las firmas digitales de los archivos críticos del componente GNA.
+  Diríjase a la sección A.2 para mayor detalle del procedimiento de verificación.
+
+                           NOMBRE DEL PRODUCTO: <Nombre del GNA >
+                                                                             Tipo de
+ Nombre del Archivo        Versión        Ubicación          Función          Firma                Firma Digital
+                                                                             Digital
+                                                               <breve       <SHA-1>               <Firma digital>
+                                                           descripción
+                                              <servidor                     < MD5>                <Firma digital>
+                                                          de la función
+<nombre del binario>      <versión>           de juego,
+                                                           del archivo.
+                                                etc.>
+                                                          ej. “lógica del    < etc.>              <Firma digital>
+                                                              juego”>
+…                              …                 …               …                                           …
+
+
+
+  A.1.9. Notas
+  Listar:
+    -   Notas a tener en consideración y que se estimen oportunas, de haberlas.
+
+    -   N/A de no haber notas.
+
+
+  A.1.10. Descripción del Generador de Números Aleatorios
+          a. Descripción del GNA (descripción del algoritmo utilizado)
+          b. Detalles de la evaluación:
+                 i. Revisión de código fuente
+                    Las siguientes secciones describen la implementación del GNA
+                    en el código fuente:
+                        • Semillado
+                            Si lo hace por sí solo o requiere un algoritmo de siembra.
+                        • Ciclado
+                            Indicar si presenta o no ciclado
+
+
+
+                         Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+                      Ministerio               Viceministerio de          Dirección General de Juegos
+                      de Comercio Exterior                                de Casino y Máquinas
+                                               Turismo
+                      y Turismo                                           Tragamonedas
+
+
+                  “Decenio de la Igualdad de oportunidades para mujeres y hombres”
+                               “Año de la unidad, la paz y el desarrollo”
+                                 •     Escalado
+                                       Indicar si hay un método de escalado
+                                 •     Seguridad
+                                       Indicar el nivel de seguridad, por ejemplo si es
+                                       criptográficamente seguro.
+                                 •     (cualquier otra característica relevante)
+
+                     ii. Pruebas estadísticas
+                            1. Pruebas empíricas
+                               Resultados de las pruebas
+                            2. Pruebas Diehard
+                               Resultado de las pruebas
+                            3. Pruebas NIST
+                               Resultado de las pruebas
+                            4. (cualquier otra prueba relevante)
+
+   A.1.11. Resultado de la evaluación
+   En la siguiente tabla se muestran los detalles del GNA.
+
+                                                VERSIÓ
+                NOMBRE DEL PRODUCTO                                    COMPONENTE
+                                                  N
+
+
+                <Nombre del programa de                            Generador      de     Números
+                                                <1.0.0>
+                        GNA>                                       Aleatorios
+
+                             …
+
+
+ A.4. Información sobre la Verificación de la Firma Digital
+
+
+ Procedimiento de Verificación de las Firmas Digitales:
+ ▪ Paso 1
+ ▪ Paso 2
+ ▪ Etc.
+
+NOTA: Indicar la herramienta utilizada para la verificación de las firmas digitales, y
+procedimiento detallado a seguir:
+
+
+DETALLES ADICIONALES
+N.A. Si no aplica.
+Descripción de algún detalle adicional de la certificación, por ejemplo, si es una actualización de un
+certificado previo o es complementario.
+
+
+
+
+                        Ca. Uno Oeste 050, Urb. Córpac - San Isidro, Lima 27, Perú
+

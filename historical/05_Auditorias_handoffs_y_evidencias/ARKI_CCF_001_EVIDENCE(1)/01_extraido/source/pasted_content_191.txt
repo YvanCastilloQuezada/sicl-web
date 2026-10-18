@@ -1,0 +1,1409 @@
+ARKI-CCF-001
+COMMAND CENTER FRAMEWORK
+UNIFIED HIERARCHICAL CONTROL, OBSERVABILITY & HUMAN AUTHORITY FRAMEWORK
+
+STATUS:
+AUTHORIZED FOR IMPLEMENTATION NOW
+
+ARCHITECTURAL DECISION:
+CANONICAL UI/CONTROL INFRASTRUCTURE FOR ARKI
+
+======================================================================
+0. PO DECISION
+======================================================================
+
+The Product Owner authorizes immediate implementation of:
+
+ARKI COMMAND CENTER FRAMEWORK — CCF.
+
+This supersedes the idea of independently building unrelated
+dashboards for each ARKI area.
+
+The architecture shall be:
+
+ONE ARKI
+ONE MASTER COMMAND CENTER
+MANY AREA COMMAND CENTERS
+ONE OPERATIONAL STATE
+ONE EVENT MODEL
+ONE DEPENDENCY MODEL
+ONE EVIDENCE MODEL
+ONE HUMAN AUTHORITY SURFACE.
+
+Autopilot becomes the FIRST real area integrated into this framework.
+
+======================================================================
+1. PURPOSE
+======================================================================
+
+Build a reusable framework capable of representing and controlling
+all current and future operational areas of ARKI.
+
+The framework must support:
+
+ARKI
+  ↓
+MASTER COMMAND CENTER
+  ↓
+AREA COMMAND CENTER
+  ↓
+CAPABILITY / PIPELINE
+  ↓
+TASK / RUN / MODEL / ANALYSIS
+  ↓
+EVIDENCE.
+
+The PO must be able to move from:
+
+30-second executive overview
+
+to:
+
+full forensic evidence
+
+without leaving ARKI.
+
+======================================================================
+2. IMPORTANT SEMANTIC RULE
+======================================================================
+
+COMMAND CENTER ≠ ARKI BRAIN.
+
+CCF is:
+
+OBSERVABILITY
+CONTROL PLANE
+NAVIGATION
+OPERATIONAL COORDINATION
+HUMAN AUTHORITY INTERFACE.
+
+ARKI remains ONE integrated intelligence.
+
+AREA ≠ AGENT.
+
+AREA ≠ SECOND BRAIN.
+
+======================================================================
+3. NON-LINEAR SYSTEM
+======================================================================
+
+CCF must support ARKI's non-linear operation.
+
+The framework must represent:
+
+OBJECTIVES
+SUBOBJECTIVES
+TASKS
+DEPENDENCIES
+DISCOVERIES
+DEFICITS
+STRATEGIES
+REPLANS
+TESTS
+MUTANTS
+TOOLS
+RUNS
+EVIDENCE
+UNKNOWN
+HUMAN GATES.
+
+The UI must not assume a fixed sequential workflow.
+
+======================================================================
+4. COMMAND CENTER HIERARCHY
+======================================================================
+
+Implement:
+
+LEVEL 0 — ATTENTION
+critical alerts / Human Gates.
+
+LEVEL 1 — MASTER
+ARKI global state.
+
+LEVEL 2 — AREA
+BIM, Autopilot, CAD, Structures, etc.
+
+LEVEL 3 — CAPABILITY / PIPELINE
+specific domain process.
+
+LEVEL 4 — RUN / TASK / MODEL
+actual execution.
+
+LEVEL 5 — FORENSIC EVIDENCE
+logs, hashes, inputs, outputs, diffs, provenance.
+
+This is:
+
+PROGRESSIVE OPERATIONAL DEPTH.
+
+MEGA PANEL ≠ EVERYTHING ON ONE SCREEN.
+
+======================================================================
+5. CCF CORE DATA MODEL
+======================================================================
+
+Implement/reconcile reusable framework contracts conceptually
+equivalent to:
+
+CommandCenterDefinition
+
+AreaDefinition
+AreaState
+AreaHealth
+
+AreaMetric
+AreaPipeline
+AreaCapability
+
+AreaDependency
+AreaInput
+AreaOutput
+
+AreaTool
+AreaWorker
+
+AreaEvent
+AreaEvidence
+
+AreaDeficit
+AreaUnknown
+AreaRisk
+
+AreaHumanGate
+AreaAction
+
+AreaViewDefinition.
+
+Do not duplicate existing ARKI foundations.
+
+REUSE BEFORE BUILD.
+
+======================================================================
+6. AREA REGISTRY
+======================================================================
+
+Implement:
+
+ARKI AREA REGISTRY.
+
+Areas must be discoverable/registered rather than being only
+hardcoded pages.
+
+Each AreaDefinition should expose where applicable:
+
+areaId
+name
+icon
+description
+domain
+status
+maturity
+route
+capabilities
+pipelines
+dependencies
+dependents
+tools
+workers
+availableViews
+currentObjective
+currentTask
+lastActivity.
+
+======================================================================
+7. INITIAL AREA INVENTORY
+======================================================================
+
+Inspect the actual repository first.
+
+Identify REAL existing areas.
+
+Candidate taxonomy:
+
+AUTOPILOT
+ARCHITECTURE / DESIGN
+BIM
+CAD
+STRUCTURES
+GEOTECHNICAL
+MEP
+ENERGY / ENVIRONMENT
+FIRE / LIFE SAFETY
+SIMULATION
+GIS / SITE / TERRITORY
+COST / FINANCE
+CONSTRUCTION
+OPTIMIZATION
+KNOWLEDGE
+EVIDENCE
+DIGITAL TWIN / OPERATIONS
+SECURITY
+SYSTEM / WORKERS.
+
+DO NOT claim these are all implemented.
+
+Truthfully classify each:
+
+ACTIVE
+PARTIAL
+FOUNDATIONAL
+DOCUMENT_ONLY
+NOT_IMPLEMENTED
+UNKNOWN
+
+or reconcile with existing canonical terminology.
+
+======================================================================
+8. EXTENSIBILITY
+======================================================================
+
+Adding a future area must NOT require redesigning the Master Command
+Center.
+
+A newly registered area should automatically receive basic support
+for:
+
+navigation
+status
+events
+dependencies
+evidence
+Human Gates
+live activity
+health
+Since Last Visit
+search
+drill-down.
+
+Domain-specific widgets may then extend the area.
+
+======================================================================
+9. SHARED AREA SHELL
+======================================================================
+
+Create reusable:
+
+AreaCommandCenterShell.
+
+Every area should inherit common operational regions:
+
+HEADER
+STATUS
+OBJECTIVE
+CURRENT ACTION
+PIPELINE
+DEPENDENCIES
+DEFICITS
+UNKNOWN
+TESTS
+EVIDENCE
+LIVE CONSOLE
+HUMAN GATES
+ACTIONS.
+
+Areas may add domain-specific panels.
+
+======================================================================
+10. MASTER COMMAND CENTER
+======================================================================
+
+Implement the primary ARKI screen.
+
+It must answer rapidly:
+
+IS ARKI WORKING?
+
+WHAT IS ARKI DOING?
+
+WHICH AREAS ARE ACTIVE?
+
+WHICH ARE BLOCKED?
+
+WHAT FAILED?
+
+WHAT RECOVERED?
+
+WHAT CHANGED?
+
+WHAT DEPENDS ON WHAT?
+
+WHAT IS UNKNOWN?
+
+WHAT NEEDS YVAN?
+
+WHAT HAPPENED SINCE HIS LAST VISIT?
+
+======================================================================
+11. MASTER AREA MATRIX
+======================================================================
+
+Show all registered areas using truthful live state.
+
+Example conceptually:
+
+BIM             ACTIVE
+CAD             HEALTHY
+STRUCTURES      BLOCKED
+ENERGY          TESTING
+MEP             PARTIAL
+FIRE            NOT_IMPLEMENTED
+AUTOPILOT       RUNNING.
+
+Each must be clickable.
+
+======================================================================
+12. MASTER STATUS ≠ FAKE PERCENTAGE
+======================================================================
+
+Do not invent a universal "ARKI 73%" metric.
+
+Use evidence-backed indicators:
+
+acceptance gates
+open deficits
+resolved deficits
+tests
+mutants
+unknowns
+dependencies
+Human Gates
+evidence coverage
+area maturity.
+
+Any derived percentage must expose its formula.
+
+======================================================================
+13. GLOBAL EVENT BUS / EVENT STREAM
+======================================================================
+
+Create/reconcile a shared persistent operational event model.
+
+All areas emit into the same governed event stream.
+
+Every event should identify:
+
+eventId
+timestamp
+projectId where applicable
+campaignId where applicable
+areaId
+capabilityId where applicable
+objectiveId
+taskId
+eventType
+severity
+summary
+status
+evidenceRefs
+causationId
+correlationId.
+
+======================================================================
+14. GLOBAL LIVE WORK CONSOLE
+======================================================================
+
+Implement the Manus-inspired but ARKI-native:
+
+ARKI LIVE WORK CONSOLE.
+
+Example:
+
+14:03:12 [AUTOPILOT] Task started
+14:03:19 [ENERGY] EnergyPlus run started
+14:03:31 [ENERGY] Test failed
+14:03:32 [ARKI] UNIT_DEFICIT discovered
+14:03:44 [AUTOPILOT] Replan
+14:04:11 [ENERGY] Retest
+14:04:24 [ENERGY] PASS
+14:04:25 [EVIDENCE] Run sealed.
+
+Allow filtering:
+
+ALL
+AREA
+PROJECT
+CAMPAIGN
+CAPABILITY
+SEVERITY
+TIME.
+
+======================================================================
+15. NO CHAIN OF THOUGHT
+======================================================================
+
+Live Console must NOT expose hidden model reasoning.
+
+Expose operationally auditable:
+
+ACTION
+DECLARED PURPOSE
+TOOL
+INPUT REFERENCE
+RESULT
+FAILURE CLASS
+DECISION
+EVIDENCE
+NEXT ACTION.
+
+======================================================================
+16. DEPENDENCY GRAPH — CORE FEATURE
+======================================================================
+
+Dependency visualization is mandatory.
+
+Implement/reconcile:
+
+ARKI DEPENDENCY GRAPH.
+
+Support relationships among:
+
+AREAS
+CAPABILITIES
+OBJECTIVES
+TASKS
+MODELS
+INPUTS
+OUTPUTS
+TOOLS
+SOLVERS
+EVIDENCE
+HUMAN GATES.
+
+======================================================================
+17. WHY BLOCKED?
+======================================================================
+
+Every BLOCKED state should support:
+
+WHY BLOCKED?
+
+Example:
+
+STRUCTURES
+
+BLOCKED BY:
+
+✕ geometry validation
+✓ materials
+✕ structural solver adapter
+
+DOWNSTREAM IMPACT:
+
+BIM coordination
+Cost
+Construction.
+
+======================================================================
+18. INVALIDATION PROPAGATION
+======================================================================
+
+The framework must visually represent stale/invalidated downstream
+state.
+
+Example:
+
+BIM GEOMETRY REVISION CHANGED
+        ↓
+STRUCTURAL RESULT STALE
+ENERGY RESULT STALE
+QUANTITY TAKEOFF RECHECK
+COST RECHECK.
+
+CCF observes and represents propagation.
+
+Do not implement a new canonical mutation engine.
+
+Reuse existing dependency/project-state architecture.
+
+======================================================================
+19. PROJECT VIEW
+======================================================================
+
+Implement:
+
+PROJECT COMMAND VIEW.
+
+For one project show all relevant areas together.
+
+Example:
+
+UPAO-001
+
+ARCHITECTURE
+BIM
+CAD
+STRUCTURES
+MEP
+ENERGY
+FIRE
+COST
+CONSTRUCTION
+EVIDENCE.
+
+This provides horizontal multidisciplinary visibility.
+
+======================================================================
+20. AREA VIEW
+======================================================================
+
+Implement:
+
+AREA COMMAND VIEW.
+
+Example:
+
+BIM
+
+shows BIM activity across the selected project/context.
+
+This provides vertical domain visibility.
+
+======================================================================
+21. SYSTEM VIEW
+======================================================================
+
+Implement:
+
+SYSTEM COMMAND VIEW.
+
+Show:
+
+AUTOPILOT
+workers
+tools
+solvers
+queues
+campaigns
+resources
+security
+runtime
+tests.
+
+======================================================================
+22. BIM FIRST DOMAIN AREA
+======================================================================
+
+After Autopilot, use BIM as the first rich domain-area demonstration
+IF actual repository state supports it.
+
+BIM panel should expose only supported state such as:
+
+SOURCE
+PREFLIGHT
+INGESTION
+RECONSTRUCTION
+AUDIT
+COORDINATION
+UPDATE
+IFC
+VALIDATION
+REVISION
+EVIDENCE
+PROFESSIONAL REVIEW.
+
+Preserve:
+
+AS_DOCUMENTED
+INFERRED
+PROPOSED_CORRECTION
+REDESIGNED
+UNKNOWN.
+
+RECONSTRUCTION ≠ DESIGN.
+
+======================================================================
+23. BIM SUBAREAS
+======================================================================
+
+Where actual capabilities exist, BIM may expose tabs/subareas such
+as:
+
+OVERVIEW
+MODELS
+INGESTION
+AUDIT
+COORDINATION
+REVISIONS
+IFC
+ISSUES
+RELATIONSHIPS
+EVIDENCE
+LIVE.
+
+Do not create false functionality.
+
+======================================================================
+24. FUTURE STRUCTURAL AREA
+======================================================================
+
+Define extension contract, but do not implement unavailable
+structural capability merely for UI.
+
+Future Structural Command Center should be able to expose:
+
+MODEL
+MATERIALS
+LOADS
+BOUNDARY CONDITIONS
+SOLVER
+RUNS
+CONVERGENCE
+RESULTS
+ORACLE
+VALIDATION
+BIM LINK
+EVIDENCE
+PROFESSIONAL REVIEW.
+
+======================================================================
+25. FUTURE MEP AREA
+======================================================================
+
+Architecture must allow:
+
+MEP
+  ├ ELECTRICAL
+  ├ PLUMBING
+  └ HVAC
+
+without requiring independent applications.
+
+Shared CCF shell.
+
+Domain-specific content.
+
+======================================================================
+26. COMMAND CENTER FRAMEWORK COMPONENT LIBRARY
+======================================================================
+
+Create reusable CCF components based on EXISTING DIP/ARKI UI.
+
+Candidates:
+
+CommandCenterShell
+AreaCard
+AreaStatusBadge
+CurrentActionCard
+ObjectiveCard
+PipelineView
+DependencyGraph
+DependencyInspector
+DeficitPanel
+UnknownPanel
+RiskPanel
+TestPanel
+MutantPanel
+EvidencePanel
+HumanGatePanel
+WorkerPanel
+ToolPanel
+LiveConsole
+ActivityCard
+SinceLastVisit
+DirectiveConsole
+ResourcePanel
+ProjectAreaMatrix
+SystemHealthPanel.
+
+Names may adapt to repository conventions.
+
+======================================================================
+27. DIP DESIGN SYSTEM
+======================================================================
+
+MANDATORY:
+
+Use the existing ARKI frontend / DIP-derived design language.
+
+Inspect actual repository components.
+
+Reuse:
+
+tokens
+typography
+spacing
+icons
+buttons
+cards
+panels
+navigation
+dialogs
+responsive patterns
+themes.
+
+DO NOT BUILD A SECOND DESIGN SYSTEM.
+
+======================================================================
+28. VISUAL QUALITY
+======================================================================
+
+CCF must be:
+
+PROFESSIONAL
+ARCHITECTURAL
+CALM
+PRECISE
+INFORMATION-DENSE
+READABLE FOR HOURS
+CONSISTENT.
+
+Avoid:
+
+dashboard clutter
+excessive color
+decorative charts without operational value
+huge KPI numbers without context.
+
+======================================================================
+29. DIRECTOR / LIVE / FORENSIC
+======================================================================
+
+Every major command surface should support progressive information
+depth:
+
+DIRECTOR
+
+executive operational state.
+
+LIVE
+
+continuous operational stream.
+
+FORENSIC
+
+inputs
+outputs
+logs
+commands
+diffs
+hashes
+provenance
+evidence.
+
+Same underlying state.
+
+Not three databases.
+
+======================================================================
+30. SINCE LAST VISIT
+======================================================================
+
+Implement globally and per area.
+
+Global:
+
+SINCE YOUR LAST VISIT TO ARKI.
+
+Area:
+
+SINCE YOUR LAST VISIT TO BIM.
+
+Report:
+
+tasks
+tests
+deficits
+resolutions
+replans
+new dependencies
+invalidations
+milestones
+Human Gates
+security events.
+
+======================================================================
+31. PO DIRECTIVE CONSOLE
+======================================================================
+
+Keep one governed directive interface.
+
+Yvan may issue instructions from the Command Center.
+
+Directive flow:
+
+PO DIRECTIVE
+→ AUTHORITY CHECK
+→ IMPACT ANALYSIS
+→ REPLAN
+→ EXECUTION.
+
+Show impacted areas before materially consequential execution where
+appropriate.
+
+======================================================================
+32. HUMAN AUTHORITY CENTER
+======================================================================
+
+Aggregate ALL Human Gates.
+
+Create one:
+
+HUMAN AUTHORITY CENTER.
+
+It must show:
+
+area
+project
+campaign
+decision
+reason
+impact
+options
+evidence
+safe state.
+
+Controls:
+
+AUTHORIZE
+REJECT
+REQUEST ALTERNATIVE
+DEFER
+PAUSE.
+
+No:
+
+BYPASS POLICY
+GRANT UNLIMITED AUTHORITY
+FORCE VERIFIED.
+
+======================================================================
+33. MASTER SEARCH
+======================================================================
+
+Provide unified navigation/search over available operational
+entities:
+
+projects
+areas
+capabilities
+tasks
+runs
+models
+deficits
+unknowns
+evidence
+decisions
+Human Gates.
+
+======================================================================
+34. REAL-TIME TRANSPORT
+======================================================================
+
+Use existing architecture where possible.
+
+Select:
+
+WebSocket
+SSE
+or bounded polling
+
+based on actual stack.
+
+Persistent state is authoritative.
+
+Realtime transport is delivery, not truth.
+
+======================================================================
+35. OFFLINE / RECONNECT
+======================================================================
+
+Dashboard disconnect must NOT stop Autopilot.
+
+On reconnect:
+
+LOAD PERSISTED STATE
+→ CATCH UP EVENTS
+→ ENTER LIVE MODE.
+
+======================================================================
+36. RESPONSIVE SUPERVISION
+======================================================================
+
+Desktop:
+full Command Center.
+
+Tablet:
+substantial supervision.
+
+Mobile:
+bounded director view.
+
+Mobile must at least expose:
+
+ARKI status
+current objective
+active areas
+current action
+Human Gates
+Since Last Visit
+Pause
+Safe Stop.
+
+======================================================================
+37. OBSERVABILITY CONTRACT
+======================================================================
+
+Every future ARKI area/capability should be able to expose a standard
+observability contract to CCF.
+
+Define:
+
+getAreaState()
+getCurrentActivity()
+getDependencies()
+getEvidence()
+getDeficits()
+getUnknowns()
+getHumanGates()
+getMetrics()
+
+or equivalent architecture.
+
+Do not tightly couple CCF to domain internals.
+
+======================================================================
+38. ACTION CONTRACT
+======================================================================
+
+Separate observation from control.
+
+An area may expose governed actions.
+
+Every action declares:
+
+actionId
+authorityRequired
+scope
+reversibility
+risk
+affectedEntities
+affectedAreas
+preconditions.
+
+CCF must not invent authority.
+
+======================================================================
+39. AREA PLUG-IN MODEL
+======================================================================
+
+Design a bounded area-extension mechanism.
+
+Goal:
+
+future area implementation registers itself with CCF.
+
+It should not require editing the entire Master Command Center.
+
+Do not create unsafe arbitrary executable plugins.
+
+Use typed/internal registration.
+
+======================================================================
+40. TRUTHFUL MATURITY
+======================================================================
+
+CCF must distinguish:
+
+VISION
+DOCUMENTED
+DIGESTED
+FOUNDATIONAL
+IMPLEMENTED_BOUNDED
+TESTED
+ADVERSARIALLY_TESTED
+TRANSFER_TESTED
+INTEGRATED
+VERIFIED_BOUNDED
+PROFESSIONAL_VALIDATION_REQUIRED
+UNKNOWN
+
+where compatible with actual canonical taxonomy.
+
+Never turn DOCUMENTED into IMPLEMENTED visually.
+
+======================================================================
+41. C1-C80
+======================================================================
+
+Integrate the capability registry into CCF visibility.
+
+Allow PO to inspect C1-C80 states.
+
+This does NOT authorize implementing them.
+
+======================================================================
+42. AUTOPILOT INTEGRATION
+======================================================================
+
+ARKI-AUTOPILOT-DEV-001 remains active.
+
+Refactor/implement its UI through CCF rather than creating an
+independent dashboard.
+
+Autopilot must register:
+
+campaigns
+objectives
+tasks
+events
+workers
+deficits
+replans
+tests
+mutants
+evidence
+Human Gates.
+
+======================================================================
+43. SOLVER LAB
+======================================================================
+
+When first autonomous Solver Lab campaign runs, its activity must
+appear through:
+
+MASTER
+AUTOPILOT AREA
+relevant scientific area where applicable
+LIVE CONSOLE
+PROJECT/SYSTEM VIEW
+EVIDENCE.
+
+One event source.
+
+Multiple views.
+
+======================================================================
+44. PERFORMANCE
+======================================================================
+
+Do not make the Command Center unusable after millions of events.
+
+Design for:
+
+event pagination
+time windows
+filtering
+aggregation
+virtualized lists where needed
+bounded realtime window
+historical retrieval.
+
+Do not prematurely build massive infrastructure without evidence.
+
+======================================================================
+45. ACCESSIBILITY
+======================================================================
+
+Use semantic UI.
+
+Keyboard navigation where appropriate.
+
+Status must not depend only on color.
+
+Respect existing ARKI accessibility foundations.
+
+======================================================================
+46. SECURITY
+======================================================================
+
+Command Center is privileged infrastructure.
+
+Protect:
+
+PO actions
+Human Gates
+worker control
+evidence
+directive console
+system actions.
+
+No browser UI may directly bypass Autopilot authority policy.
+
+UI ≠ AUTHORITY.
+
+Backend policy remains authoritative.
+
+======================================================================
+47. REQUIRED FIRST IMPLEMENTATION
+======================================================================
+
+Implement enough REAL functionality to demonstrate:
+
+1. MASTER COMMAND CENTER
+2. AREA REGISTRY
+3. SHARED AREA SHELL
+4. AUTOPILOT AREA
+5. ONE REAL NON-AUTOPILOT AREA
+   Prefer BIM if repository evidence supports it.
+6. GLOBAL LIVE CONSOLE
+7. DEPENDENCY GRAPH
+8. WHY BLOCKED
+9. PROJECT VIEW
+10. SYSTEM VIEW
+11. HUMAN AUTHORITY CENTER
+12. SINCE LAST VISIT
+13. PO DIRECTIVE CONSOLE
+14. DIRECTOR/LIVE/FORENSIC MODES
+15. REAL EVENT UPDATES.
+
+No mock-only acceptance.
+
+======================================================================
+48. VISUAL TEST
+======================================================================
+
+Capture evidence/screenshots of:
+
+MASTER overview
+Autopilot active
+BIM/real domain area
+dependency graph
+blocked dependency
+live execution
+failure
+replan
+recovery
+Human Gate
+Since Last Visit
+Project View
+System View
+Director Mode
+Live Mode
+Forensic Mode
+mobile/reduced supervision where implemented.
+
+======================================================================
+49. ADVERSARIAL UI TESTS
+======================================================================
+
+Test at minimum:
+
+stale event
+duplicate event
+out-of-order event
+unknown area
+offline worker
+worker recovery
+blocked area
+stale result
+invalid dependency
+Human Gate
+unauthorized action
+revoked mandate
+huge event history
+dashboard reconnect
+missing metrics
+UNKNOWN state
+backend unavailable.
+
+UI must fail honestly.
+
+======================================================================
+50. DO NOT
+======================================================================
+
+DO NOT:
+
+create a second ARKI brain
+create independent agents per area
+create independent truth stores per dashboard
+create separate design systems
+fake area implementation
+fake progress
+implement C1-C80 merely to populate UI
+run Aurora
+execute TX-005
+migrate canonical writers
+deploy
+push
+merge
+release
+purchase software.
+
+======================================================================
+51. REQUIRED ARTIFACTS
+======================================================================
+
+Produce at minimum:
+
+00_EXECUTIVE_REPORT.md
+01_CCF_REPOSITORY_PREFLIGHT.md
+02_CCF_ARCHITECTURE.md
+03_AREA_REGISTRY.md
+04_AREA_REGISTRY.json
+05_AREA_CONTRACT.md
+06_AREA_STATE_MODEL.md
+07_EVENT_MODEL.md
+08_DEPENDENCY_MODEL.md
+09_HUMAN_AUTHORITY_MODEL.md
+10_ACTION_CONTRACT.md
+11_OBSERVABILITY_CONTRACT.md
+12_MASTER_COMMAND_CENTER.md
+13_AUTOPILOT_AREA.md
+14_BIM_OR_REAL_DOMAIN_AREA.md
+15_PROJECT_VIEW.md
+16_SYSTEM_VIEW.md
+17_GLOBAL_LIVE_CONSOLE.md
+18_SINCE_LAST_VISIT.md
+19_DIRECTIVE_CONSOLE.md
+20_DIRECTOR_LIVE_FORENSIC.md
+21_REALTIME_ARCHITECTURE.md
+22_SECURITY_MODEL.md
+23_UI_TEST_RESULTS.md
+24_ADVERSARIAL_RESULTS.md
+25_UNKNOWN_REGISTER.md
+26_RISK_REGISTER.md
+27_DECISION_REGISTER.md
+28_EVIDENCE_MATRIX.md
+29_MANIFEST.json
+30_RAW_OUTPUTS.txt.
+
+Screenshots:
+
+ARKI_CCF_SCREENSHOTS/
+
+Evidence:
+
+ARKI_CCF_001_EVIDENCE.zip
+
+plus SHA-256.
+
+======================================================================
+52. ACCEPTANCE TEST
+======================================================================
+
+A human must be able to:
+
+OPEN ARKI
+
+→ understand global state
+
+→ see ARKI currently working
+
+→ identify active/blocked areas
+
+→ open BIM or another real area
+
+→ understand that area's state
+
+→ inspect dependencies
+
+→ ask WHY BLOCKED
+
+→ return to project view
+
+→ inspect a live task
+
+→ drill into evidence
+
+→ see what happened during absence
+
+→ inspect Human Gates
+
+→ issue a governed directive
+
+without manually inspecting repository files or terminal.
+
+======================================================================
+53. VERDICT
+======================================================================
+
+Allowed:
+
+CCF_VERIFIED_FOR_BOUNDED_OPERATIONAL_CONTROL
+
+CCF_PARTIAL
+
+CCF_BLOCKED
+
+CCF_FAILED.
+
+VERIFIED does NOT mean:
+
+all ARKI areas implemented
+C1-C80 implemented
+professional capability certified
+Autopilot has unlimited authority.
+
+It means the reusable Command Center Framework works with real ARKI
+operational state for the bounded implemented scope.
+
+======================================================================
+54. RELATION TO AUTOPILOT
+======================================================================
+
+Do NOT wait for every future ARKI capability.
+
+CCF and Autopilot should converge now.
+
+Autopilot provides the first rich operational event source.
+
+CCF provides Autopilot's permanent human-visible control surface.
+
+They are complementary.
+
+======================================================================
+55. STOP GATE
+======================================================================
+
+Complete:
+
+CCF FOUNDATION
++ AUTOPILOT INTEGRATION
++ ONE REAL DOMAIN AREA
++ LIVE OBSERVABILITY
++ DEPENDENCY GRAPH
++ HUMAN AUTHORITY
++ EVIDENCE
++ TESTS
+
+then STOP.
+
+Return to PO before mass domain expansion.
+
+======================================================================
+FINAL ARCHITECTURAL DOCTRINE
+======================================================================
+
+ONE ARKI.
+
+ONE MASTER COMMAND CENTER.
+
+MANY AREA COMMAND CENTERS.
+
+ONE OPERATIONAL STATE.
+
+ONE EVENT FABRIC.
+
+ONE DEPENDENCY GRAPH.
+
+ONE EVIDENCE FABRIC.
+
+ONE HUMAN AUTHORITY CENTER.
+
+AN AREA IS NOT AN AGENT.
+
+A DASHBOARD IS NOT A TRUTH STORE.
+
+A UI IS NOT AUTHORITY.
+
+THE MASTER SHOWS THE WHOLE.
+
+THE AREA EXPLAINS THE DOMAIN.
+
+THE CAPABILITY EXPLAINS THE PROCESS.
+
+THE RUN EXPLAINS THE EXECUTION.
+
+THE EVIDENCE EXPLAINS THE CLAIM.
+
+PROGRESSIVE DEPTH.
+REAL-TIME OBSERVABILITY.
+DYNAMIC DEPENDENCIES.
+GOVERNED CONTROL.
+HUMAN AUTHORITY.
+
+IMPLEMENT NOW.
+
+STOP AT CCF MAJOR OBJECTIVE REVIEW GATE.

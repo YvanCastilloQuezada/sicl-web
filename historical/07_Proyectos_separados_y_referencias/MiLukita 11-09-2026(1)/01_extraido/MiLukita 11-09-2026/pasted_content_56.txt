@@ -1,0 +1,187 @@
+ORDEN 56 — AUDIT / GOVERNANCE
+GENERACIÓN DE CÓDIGO DE INFRAESTRUCTURA
+
+OBJETIVO
+
+Implementar o completar exclusivamente la infraestructura de
+auditoría, trazabilidad y gobernanza necesaria para MiLukita.
+
+NO realizar frontend.
+
+============================================================
+1. PROHIBICIÓN FRONTEND
+============================================================
+
+NO modificar interfaces.
+
+NO modificar:
+
+- JSX
+- TSX visual
+- CSS
+- layouts
+- páginas
+- componentes
+- navegación.
+
+============================================================
+2. INSPECCIÓN
+============================================================
+
+Localizar primero:
+
+- audit_events
+- audit log
+- hash chain
+- governance
+- RBAC
+- Human Authority
+- permissions
+- capability system.
+
+Reutilizar lo existente.
+
+NO crear sistemas paralelos.
+
+============================================================
+3. AUDIT EVENT
+============================================================
+
+Implementar/completar eventos con:
+
+- id
+- timestamp
+- actor
+- role
+- action
+- resource
+- resourceId
+- previous state
+- new state
+- metadata mínima necesaria
+- correlationId cuando corresponda.
+
+============================================================
+4. INTEGRIDAD
+============================================================
+
+Si el proyecto ya utiliza hash chaining:
+
+preservarlo.
+
+Implementar validación de integridad.
+
+Detectar:
+
+- modificación
+- eliminación
+- hash inválido
+- secuencia inconsistente.
+
+============================================================
+5. GOVERNANCE
+============================================================
+
+Implementar reglas backend para distinguir:
+
+IMPLEMENTED
+PARTIAL
+SIMULATED
+PENDING
+BLOCKED
+EXTERNAL_REQUIRED
+REQUIRES_HUMAN
+NOT_VERIFIED
+DEPRECATED.
+
+No utilizar READY como sustituto de evidencia.
+
+============================================================
+6. HUMAN AUTHORITY
+============================================================
+
+Implementar comprobaciones backend para acciones que requieran
+autoridad humana.
+
+La IA no puede:
+
+- aprobar
+- publicar
+- modificar RBAC
+- resolver conflictos críticos
+- modificar MJP CORE.
+
+============================================================
+7. CAPABILITY MODEL
+============================================================
+
+Centralizar validaciones de capabilities cuando ya exista ese
+concepto.
+
+Distinguir:
+
+INTENT_DETECTED
+
+de
+
+ACTION_EXECUTED.
+
+============================================================
+8. RBAC
+============================================================
+
+Verificar autorización en backend.
+
+Nunca confiar exclusivamente en frontend.
+
+============================================================
+9. AUDIT QUERY
+============================================================
+
+Crear/completar servicios para:
+
+- obtener historial
+- filtrar por actor
+- filtrar por recurso
+- filtrar por acción
+- validar integridad.
+
+============================================================
+10. RETENCIÓN
+============================================================
+
+No eliminar automáticamente información de auditoría crítica.
+
+Respetar políticas existentes.
+
+============================================================
+11. TESTS
+============================================================
+
+Tests para:
+
+- creación de eventos
+- integridad
+- hash chain
+- RBAC
+- capabilities
+- Human Authority
+- intent/action separation
+- historial
+- tampering detection.
+
+============================================================
+12. MJP CORE
+============================================================
+
+NO modificar MJP CORE.
+
+============================================================
+13. ENTREGA
+============================================================
+
+Solo código backend/domain/infrastructure/tests.
+
+NO frontend.
+
+FIN.

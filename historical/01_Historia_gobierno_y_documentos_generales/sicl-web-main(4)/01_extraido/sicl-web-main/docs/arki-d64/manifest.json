@@ -1,0 +1,27 @@
+{
+  "schema": "ARKI-ANEXO-I-0.1",
+  "packageId": "ARKI-D64-MULTIMODAL-SOURCE-INGESTION-2026-09-20",
+  "experiment": "D6.4",
+  "status": "IMPLEMENTED_PENDING_FINAL_VALIDATION",
+  "scope": "camera_documents_ocr_visual_field_source_library",
+  "epistemicPolicy": "AI_PROPOSED_REQUIRES_HUMAN_REVIEW",
+  "artifacts": [
+    "server/arkiOcr.ts",
+    "server/arkiOcr.test.ts",
+    "server/visualField.ts",
+    "server/routers.ts",
+    "client/src/api/visual-field.ts",
+    "client/src/components/CommandBar.tsx",
+    "docs/arki-d64/D6.4-MULTIMODAL-SOURCE-INGESTION-REPORT.md"
+  ],
+  "gates": {
+    "mediaStorage": "PASS_BY_CONTRACT",
+    "ocr": "PASS_BY_ADAPTER",
+    "visualObservations": "AI_PROPOSED",
+    "unknownPreservation": "PASS",
+    "humanReview": "REQUIRED",
+    "automaticPromotion": "FORBIDDEN"
+  },
+  "replay": "server/arkiOcr.test.ts",
+  "remoteCore": "REQUIRES_CONFIGURED_AUTHENTICATED_CORE"
+}

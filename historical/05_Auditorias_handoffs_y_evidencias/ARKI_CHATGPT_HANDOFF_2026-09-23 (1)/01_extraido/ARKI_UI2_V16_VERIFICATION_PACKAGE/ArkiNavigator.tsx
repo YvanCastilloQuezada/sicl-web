@@ -1,0 +1,11 @@
+import { PanelLeft, Workflow } from "lucide-react";
+import { useTranslation } from "../i18n/useTranslation";
+import { accessColor, accessSubtitle, isAccessAllowed, type ArkiAccess, type ArkiModuleDefinition } from "./ArkiGateway";
+import type { TranslationKey } from "../i18n/catalog";
+
+const LABEL_KEYS: Record<string, TranslationKey> = { Data: "dataModule", Biblioteca: "library", Proyectos: "projectsModule", Generador: "generatorModule", "Modelo BIM": "bimModule", Planta: "plan", Corte: "section", "3D": "model3d", Metrados: "quantities", "PRESUP-5D": "budget5d", GASTOS: "expensesModule", "4D": "schedule4d", Clashes: "clashesModule", "EXP-TEC": "technicalDossier", "O-M": "operationsManagement", ADM: "administrationModule" };
+export function moduleLabelKey(name: string) { return LABEL_KEYS[name] ?? name; }
+export default function ArkiNavigator({ access, activeModule, modules, open, onToggle, onSelect }: { access: ArkiAccess; activeModule: string; modules: readonly ArkiModuleDefinition[]; open: boolean; onToggle: () => void; onSelect: (name: string) => void }) {
+  const { t } = useTranslation();
+  return <><button className="arki-navigator-toggle" aria-label={open ? "Cerrar navegador" : "Abrir navegador"} onClick={onToggle}><PanelLeft size={15} />{open && <span>{t("navigator")}</span>}</button>{open && <><button className="arki-navigator-backdrop" aria-label="Cerrar navegador" onClick={onToggle} /><aside className="arki-navigator"><div className="arki-nav-context"><span>{t("activeProfile")}</span><strong>{t(accessSubtitle(access))}</strong><small>{t("prototype")}</small></div><nav>{modules.filter(({ name }) => isAccessAllowed(access, name)).map(({ name, icon: Icon, status }) => { const disabled = status === "NOT AVAILABLE" || status === "FUTURE REFERENCE"; return <button key={name} className={activeModule === name ? "active" : ""} disabled={disabled} title={disabled ? t("unavailableModuleTooltip") : undefined} onClick={() => onSelect(name)}><Icon size={14} /><span>{t(moduleLabelKey(name))}</span><small className={`arki-module-status status-${status.toLowerCase().replaceAll(" ", "-")}`}>{status}</small></button>; })}</nav><div className="arki-nav-foot"><span className={`arki-engine-dot role-${accessColor(access)}`} /> {t("engine")}</div></aside></>}</>;
+}

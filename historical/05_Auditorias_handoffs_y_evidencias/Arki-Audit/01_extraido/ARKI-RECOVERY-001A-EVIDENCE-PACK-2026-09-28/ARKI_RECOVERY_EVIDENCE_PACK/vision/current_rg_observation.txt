@@ -1,0 +1,67 @@
+src/sicl/archi/transaction.py:129:        # H-002 CONTENT_CHANGED is a same-version WHAT-IF observation. The
+api/routes/v1.py:65:from sicl.site_intelligence import fetch_open_meteo_solar, fetch_open_meteo_solar_coordinates, get_site_observation
+api/routes/v1.py:1076:@router.post("/projects/{project_id}/site-observations", dependencies=[Depends(_auth)])
+api/routes/v1.py:1077:def site_observation(project_id: str, request: CanonicalWriteRequest, repo: SQLiteRepository = Depends(get_repository)) -> V1Envelope:
+api/routes/v1.py:1087:    observation = get_site_observation(location)
+api/routes/v1.py:1089:    return _ok({"observation": asdict(observation), "result": result.get("data", {})}, project_id, project.version if project else None)
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:124:└── master-observations.md
+docs/orders/ORDEN_DEFINITIVA_ARKI_APRENDER_REPLICAR_MEJORAR.md:237:  "source": "fixture_or_engine_observation",
+src/sicl/domain.py:180:    OBSERVATION = "OBSERVATION"
+src/sicl/domain.py:608:    """Immutable declaration captured from a source, observation, or testimony.
+src/sicl/design_knowledge.py:19:    SITE_OBSERVATION = "SITE_OBSERVATION"
+src/sicl/cli.py:16:from .site_intelligence import get_site_observation
+src/sicl/cli.py:765:            observation = get_site_observation(location)
+src/sicl/cli.py:768:        source = observation.source
+src/sicl/cli.py:770:            (f"Coordenadas: {observation.latitude}, {observation.longitude}", source),
+src/sicl/cli.py:771:            (f"Temperatura media observada: {observation.temperature_mean_c} °C", source),
+src/sicl/cli.py:772:            (f"Viento máximo medio: {observation.wind_speed_kmh} km/h; radiación: {observation.radiation_kwh_m2_day} kWh/m²/día", source),
+src/sicl/cli.py:780:        return self._ok({"location": location, "source": source, "records": recorded, "simulated": observation.simulated, "latitude": observation.latitude, "longitude": observation.longitude})
+tests/test_v2.py:18:    observation = fetch_open_meteo("Trujillo, Peru")
+tests/test_v2.py:19:    assert observation.source == "OPEN_METEO_API"
+tests/test_v2.py:20:    assert observation.latitude == -8.11
+tests/test_v2.py:21:    assert observation.temperature_mean_c == 21.0
+tests/test_v2.py:22:    assert observation.radiation_kwh_m2_day == 5.5
+tests/test_v2.py:26:    from sicl.site_intelligence import SiteObservation
+tests/test_v2.py:27:    monkeypatch.setattr("sicl.cli.get_site_observation", lambda location: SiteObservation(location, 1, 2, 23, 12, 5, "OPEN_METEO_API"))
+tests/test_v2.py:38:    from sicl.site_intelligence import get_site_observation
+tests/test_v2.py:39:    observation = get_site_observation("Trujillo")
+tests/test_v2.py:40:    assert observation.simulated is True
+tests/test_v2.py:41:    assert observation.source == "SITE_INTELLIGENCE_FIXTURE"
+tests/test_site_intelligence.py:9:    monkeypatch.setattr("sicl.cli.get_site_observation", lambda location: FALLBACK_TRUJILLO)
+tests/test_site_intelligence.py:32:    monkeypatch.setattr("sicl.cli.get_site_observation", lambda location: FALLBACK_TRUJILLO)
+tests/test_site_intelligence.py:49:    monkeypatch.setattr("sicl.cli.get_site_observation", lambda location: (_ for _ in ()).throw(ValueError("unknown")))
+tests/test_site_intelligence.py:61:def test_site_observation_has_complete_traceability() -> None:
+tests/test_evidence.py:65:    cli.execute('/EVIDENCE ADD E-5 "Persisted" OBSERVATION')
+tests/test_evidence.py:71:    assert evidence.evidence_type is EvidenceType.OBSERVATION
+tests/test_evidence.py:78:    cli.execute('/EVIDENCE ADD E-6 "Observed statement" OBSERVATION')
+tests/test_evidence.py:116:            created = client.post("/v1/projects/P-API-E/evidence", json={"evidence_id": "E-API", "statement": "API observation", "evidence_type": "OBSERVATION"})
+tests/test_evidence.py:122:            assert body["data"]["evidence"]["evidence_hash"] == hashlib.sha256(b"API observation").hexdigest()
+src/sicl/variable_catalog.py:159:    _profile("SITE_SOIL_CONDITION", SpatialScope.PARCELA_SITIO, "RECOMMENDED", "REQUIRES_DATA", "requires a site source or observation"),
+src/sicl/site_intelligence.py:19:class SiteObservation:
+src/sicl/site_intelligence.py:46:FALLBACK_TRUJILLO = SiteObservation(
+src/sicl/site_intelligence.py:67:def fetch_open_meteo(location: str, timeout: float = 5.0) -> SiteObservation:
+src/sicl/site_intelligence.py:71:    Callers should catch network/shape errors and use ``fallback_observation``.
+src/sicl/site_intelligence.py:95:    return SiteObservation(
+src/sicl/site_intelligence.py:178:def fallback_observation(location: str) -> SiteObservation:
+src/sicl/site_intelligence.py:184:def get_site_observation(location: str, timeout: float = 5.0) -> SiteObservation:
+src/sicl/site_intelligence.py:188:        return fallback_observation(location)
+docs/RFC-002_EVIDENCE_HTTP.md:16:Los tipos de Evidence son `DOCUMENT`, `OBSERVATION`, `MEASUREMENT`, `REFERENCE`, `TESTIMONY`, `NORMATIVE` y `OTHER`. Los tipos de Source son `OFFICIAL`, `SECONDARY`, `USER_PROVIDED` y `UNKNOWN`.
+docs/GLOSSARY.md:215:## SiteObservation
+docs/SICL_CORE_CONTRACT_v1.0.md:25:- `SiteObservation` con fuente y estado de conocimiento explícitos.
+docs/SICL_CORE_CONTRACT_v1.0.md:54:| SiteObservation | `location`, valores con unidad, `source`, `state`, `captured_at`, `method`, `evidence` |
+docs/SICL_CORE_CONTRACT_v1.0.md:157:14. `SiteObservation` no crea restricciones normativas; la normativa requiere una fuente específica y autoridad humana.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:121:- `POST /v1/projects/{project_id}/site-observations`
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.md:269:15. `SiteObservation` no infiere zonificación ni obligación normativa.
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:132:| `SITE_OBSERVATION` | Observación del sitio | Open-Meteo, medición o inspección |
+docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md:534:site_observations
+docs/COMMANDS_REFERENCE.md:180:/EVIDENCE ADD EVD-001 "Frente de 40 m" OBSERVATION
+docs/COMMANDS_REFERENCE.md:183:**Validación y comportamiento:** Tipo: DOCUMENT, OBSERVATION, MEASUREMENT, REFERENCE, TESTIMONY, NORMATIVE u OTHER.
+docs/COMMANDS_REFERENCE.md:1530:`DOCUMENT`, `OBSERVATION`, `MEASUREMENT`, `REFERENCE`, `TESTIMONY`, `NORMATIVE`, `OTHER`.
+docs/RFC-025_PERUVIAN_REGULATORY_CORPUS.md:155:  → SiteObservation
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:97:Incluye Facts, Assumptions, Evidence, Sources, SiteObservations, Regulations, NormativeInterpretations y NormativeSnapshots.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:257:### 7.17 SiteObservation
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:259:SiteObservation representa observaciones del sitio con ubicación, valores, fuente, estado, método y captura.
+docs/SIMS_DEI_MASTER_ARCHITECTURE_v2.2.md:595:`sicl-core` HEAD v2 es la base canónica de SiMS-DeI con reparaciones constitucionales: Site Intelligence sin inferencia normativa, HumanReview previo a Decision, trazabilidad de SiteObservation y estados generales.
+docs/USER_MANUAL.md:101:/EVIDENCE ADD E-001 "El sitio se encuentra en Trujillo" OBSERVATION
+docs/USER_MANUAL.md:438:POST /v1/projects/{project_id}/site-observations
+docs/future/SiMS_DeI_MASTER_FROZEN_FUTURE_ORDERS.md:55:S7 connects environmental source data and time-aware spatial analysis to a project location while preserving scientific and epistemic boundaries. Weather observations are not silently converted into building performance claims.

@@ -1,0 +1,141 @@
+[1mdiff --git a/client/src/index.css b/client/src/index.css[m
+[1mindex 6f51df4..2687d54 100644[m
+[1m--- a/client/src/index.css[m
+[1m+++ b/client/src/index.css[m
+[36m@@ -66,3 +66,5 @@[m [mbutton:focus-visible, input:focus-visible, select:focus-visible { box-shadow: 0[m
+ .arki-workspace { min-height: 100vh; color: var(--arki-white); background: var(--arki-bg); }.arki-workspace-top { display: flex; height: 58px; align-items: center; gap: 25px; padding: 0 18px; border-bottom: 1px solid rgba(169,168,199,.14); background: rgba(8,7,54,.96); }.arki-workspace-brand { display: flex; align-items: center; gap: 9px; min-width: 170px; }.arki-mini-mark { display: grid; width: 28px; height: 28px; place-items: center; border-radius: 7px; color: var(--arki-bg); background: var(--arki-orange); }.arki-workspace-brand strong { display: block; font: 700 15px/1 'Space Grotesk', sans-serif; letter-spacing: .1em; }.arki-workspace-brand span { display: block; margin-top: 3px; color: var(--arki-muted); font-size: 7px; letter-spacing: .15em; }.arki-project-context { display: flex; align-items: baseline; gap: 10px; }.arki-project-context span { color: var(--arki-muted); font-size: 8px; letter-spacing: .13em; }.arki-project-context b { font: 500 13px 'Space Grotesk', sans-serif; }.arki-project-context i { color: var(--arki-green); font-size: 9px; font-style: normal; }.arki-top-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }.arki-role-badge { padding: 6px 8px; border: 1px solid rgba(255,255,255,.18); border-radius: 5px; font-size: 8px; letter-spacing: .08em; }.role-yellow { color: var(--arki-yellow); }.role-orange { color: var(--arki-orange); }.role-cyan { color: var(--arki-cyan); }.role-green { color: var(--arki-green); }.arki-icon-button { display: grid; width: 28px; height: 28px; place-items: center; border: 0; border-radius: 5px; color: var(--arki-muted); background: transparent; }.arki-icon-button:hover { color: var(--arki-white); background: rgba(255,255,255,.08); }.arki-workspace-tabs { display: flex; gap: 2px; min-height: 35px; padding: 0 18px; border-bottom: 1px solid rgba(169,168,199,.12); background: var(--arki-surface); }.arki-workspace-tabs button { padding: 0 12px; border: 0; border-bottom: 2px solid transparent; color: var(--arki-muted); background: transparent; font-size: 9px; }.arki-workspace-tabs button:hover, .arki-workspace-tabs button.active { color: var(--arki-white); border-bottom-color: var(--arki-orange); background: rgba(255,138,76,.08); }.arki-workspace-body { display: grid; grid-template-columns: 190px minmax(0,1fr) 220px; min-height: calc(100vh - 129px); }.arki-module-nav { border-right: 1px solid rgba(169,168,199,.12); background: rgba(5,4,36,.7); }.arki-module-nav.closed { width: 42px; }.arki-collapse { display: flex; align-items: center; gap: 8px; width: 100%; height: 38px; padding: 0 12px; border: 0; color: var(--arki-muted); background: transparent; font-size: 8px; letter-spacing: .12em; }.arki-collapse:hover { color: var(--arki-white); background: rgba(255,255,255,.05); }.arki-nav-context { margin: 8px 10px 14px; padding: 10px; border: 1px solid rgba(99,215,229,.18); border-radius: 6px; background: rgba(99,215,229,.05); }.arki-nav-context span, .arki-nav-context small { display: block; color: var(--arki-muted); font-size: 7px; letter-spacing: .1em; }.arki-nav-context strong { display: block; margin: 5px 0; color: var(--arki-cyan); font-size: 10px; }.arki-module-nav nav { display: grid; gap: 2px; padding: 0 7px; }.arki-module-nav nav button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 8px; border: 0; border-radius: 4px; color: var(--arki-muted); background: transparent; text-align: left; font-size: 10px; }.arki-module-nav nav button:hover, .arki-module-nav nav button.active { color: var(--arki-white); background: rgba(255,138,76,.12); }.arki-module-nav nav button.active svg { color: var(--arki-orange); }.arki-module-nav nav small { margin-left: auto; color: var(--arki-green); font-size: 7px; }.arki-nav-foot { display: flex; align-items: center; gap: 6px; margin: 20px 10px 0; padding-top: 12px; border-top: 1px solid rgba(169,168,199,.12); color: var(--arki-green); font-size: 7px; }.arki-engine-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--arki-green); box-shadow: 0 0 0 3px rgba(91,227,140,.12); }.arki-workspace-canvas { min-width: 0; overflow: hidden; background: var(--arki-bg-deep); }.arki-context-toolbar { display: flex; justify-content: space-between; align-items: center; min-height: 52px; padding: 8px 15px; border-bottom: 1px solid rgba(169,168,199,.12); background: rgba(17,16,68,.7); }.arki-context-kicker { display: flex; align-items: center; gap: 5px; color: var(--arki-orange); font-size: 7px; letter-spacing: .12em; }.arki-context-toolbar strong { display: block; margin-top: 4px; font: 500 14px 'Space Grotesk', sans-serif; }.arki-context-actions { display: flex; gap: 13px; color: var(--arki-muted); font-size: 7px; letter-spacing: .09em; }.arki-legacy-content { min-width: 0; }.arki-legacy-content > .app-shell { min-height: calc(100vh - 181px); }.arki-info-box { border-left: 1px solid rgba(169,168,199,.12); background: rgba(17,16,68,.5); }.arki-info-head { display: flex; justify-content: space-between; padding: 13px; color: var(--arki-muted); font-size: 8px; letter-spacing: .12em; }.arki-info-head button { border: 1px solid rgba(169,168,199,.3); border-radius: 50%; color: var(--arki-muted); background: transparent; }.arki-info-empty { margin: 35px 16px; color: var(--arki-muted); text-align: center; }.arki-info-empty svg { color: var(--arki-cyan); }.arki-info-empty strong { display: block; margin: 12px 0 7px; color: var(--arki-white); font: 500 13px 'Space Grotesk', sans-serif; }.arki-info-empty p { font-size: 10px; line-height: 1.6; }.arki-info-status { display: flex; align-items: center; gap: 7px; margin: 15px 12px; padding-top: 12px; border-top: 1px solid rgba(169,168,199,.12); color: var(--arki-muted); font-size: 8px; }.arki-info-status b { margin-left: auto; color: var(--arki-green); font-size: 7px; }.arki-workspace-status { display: flex; align-items: center; gap: 16px; min-height: 36px; padding: 0 13px; border-top: 1px solid rgba(169,168,199,.15); color: var(--arki-muted); background: var(--arki-surface); font-size: 7px; letter-spacing: .08em; }.arki-workspace-status > span { display: flex; align-items: center; gap: 6px; }.arki-status-spacer { flex: 1; }.arki-status-warning { color: var(--arki-yellow); }[m
+ @media (max-width: 1050px) { .access-grid { grid-template-columns: repeat(2, 1fr); }.arki-workspace-body { grid-template-columns: 170px minmax(0,1fr); }.arki-info-box { display: none; } }[m
+ @media (max-width: 720px) { .gateway-inner { width: min(100% - 28px, 520px); }.gateway-copy { padding-top: 80px; }.gateway-copy h1 { font-size: 54px; }.access-grid { grid-template-columns: 1fr; }.access-card { min-height: 205px; }.gateway-footer { flex-direction: column; gap: 8px; }.arki-project-context, .arki-workspace-tabs { display: none; }.arki-workspace-body { grid-template-columns: 42px minmax(0,1fr); }.arki-module-nav.open { width: 42px; }.arki-module-nav.open .arki-collapse { padding-left: 12px; }.arki-module-nav.open nav, .arki-module-nav.open .arki-nav-context, .arki-module-nav.open .arki-nav-foot { display: none; }.arki-context-actions { display: none; }.arki-role-badge { display: none; }.arki-workspace-status { gap: 8px; overflow: hidden; white-space: nowrap; }.arki-workspace-status span:nth-child(n+3) { display: none; } }[m
+[32m+[m
+[32m+[m[32m.arki-module-status { margin-left: auto; max-width: 66px; overflow: hidden; color: var(--arki-muted); font-size: 6px !important; letter-spacing: .02em; text-overflow: ellipsis; white-space: nowrap; }.status-verified { color: var(--arki-green) !important; }.status-implemented { color: var(--arki-green) !important; }.status-partial { color: var(--arki-yellow) !important; }.status-conceptual { color: var(--arki-cyan) !important; }.status-not-available { color: var(--arki-red) !important; }.status-future-reference { color: var(--arki-orange) !important; }.arki-empty-module { display: grid; min-height: 430px; place-content: center; justify-items: center; padding: 40px; text-align: center; }.arki-empty-module-icon { display: grid; width: 58px; height: 58px; margin-bottom: 18px; place-items: center; border: 1px solid rgba(99,215,229,.35); border-radius: 14px; color: var(--arki-cyan); background: rgba(99,215,229,.08); }.arki-empty-module h2 { margin: 10px 0; font: 500 30px 'Space Grotesk', sans-serif; }.arki-empty-module p { max-width: 470px; margin: 0; color: var(--arki-muted); font-size: 12px; line-height: 1.7; }.arki-empty-module small { margin-top: 18px; color: var(--arki-yellow); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }[m
+[1mdiff --git a/client/src/components/ArkiGateway.tsx b/client/src/components/ArkiGateway.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..0012c70[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/components/ArkiGateway.tsx[m
+[36m@@ -0,0 +1,30 @@[m
+[32m+[m[32mimport { ArrowRight, Building2, Calculator, Eye, ShieldCheck, UsersRound, Workflow, type LucideIcon } from "lucide-react";[m
+[32m+[m
+[32m+[m[32mexport type ArkiAccess = "visitor" | "user" | "specialist" | "corporate";[m
+[32m+[m[32mexport type ArkiModuleStatus = "IMPLEMENTED" | "VERIFIED" | "PARTIAL" | "CONCEPTUAL" | "NOT AVAILABLE" | "FUTURE REFERENCE";[m
+[32m+[m[32mexport type ArkiModuleDefinition = { name: string; icon: LucideIcon; status: ArkiModuleStatus; allowed: readonly ArkiAccess[] };[m
+[32m+[m
+[32m+[m[32mtype AccessCard = { id: ArkiAccess; title: string; subtitle: string; description: string; icon: LucideIcon; accent: "yellow" | "orange" | "cyan" | "green"; modules: string[] };[m
+[32m+[m
+[32m+[m[32mexport const ACCESS_CARDS: AccessCard[] = [[m
+[32m+[m[32m  { id: "visitor", title: "Visitante", subtitle: "Explora ARKI", description: "Conoce el motor BIM, las familias y el flujo completo sin acceder a información privada.", icon: Eye, accent: "yellow", modules: ["Demostraciones", "Biblioteca pública", "Documentación"] },[m
+[32m+[m[32m  { id: "user", title: "Usuario / Proyecto", subtitle: "Diseña tu proyecto", description: "Crea propuestas, revisa espacios, compara versiones y prepara tu expediente.", icon: Building2, accent: "orange", modules: ["Proyectos", "Generador", "Modelo BIM"] },[m
+[32m+[m[32m  { id: "specialist", title: "Especialista / Coordinación", subtitle: "Revisa por disciplina", description: "Trabaja con arquitectura, estructuras, MEP, costos, coordinación y construcción.", icon: UsersRound, accent: "cyan", modules: ["Disciplinas", "Revisión", "Interferencias"] },[m
+[32m+[m[32m  { id: "corporate", title: "Corporativo", subtitle: "Costos e interferencias", description: "Administra estándares, PriceBook, APU, clashes, CDE e integraciones.", icon: Calculator, accent: "green", modules: ["Costos", "Clashes", "Gobierno"] },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32mexport default function ArkiGateway({ onEnter }: { onEnter: (access: ArkiAccess) => void }) {[m
+[32m+[m[32m  return <main className="arki-gateway"><div className="gateway-orbit gateway-orbit-a" /><div className="gateway-orbit gateway-orbit-b" /><section className="gateway-inner"><header className="gateway-brand"><div className="gateway-mark"><Workflow size={23} /></div><div><strong>ARKI</strong><span>PARAMETRIC BIM RUNTIME</span></div><div className="gateway-status"><span /> MOTOR LOCAL OPERATIVO</div></header><div className="gateway-copy"><span className="gateway-kicker"><ShieldCheck size={14} /> ESTACIÓN CORPORATIVA DE DISEÑO Y COORDINACIÓN</span><h1>Elige tu espacio<br /><em>de trabajo.</em></h1><p>Una plataforma para pasar de la intención arquitectónica al modelo, el costo, la coordinación y el ciclo de vida del proyecto.</p></div><div className="access-grid">{ACCESS_CARDS.map((item) => { const Icon = item.icon; return <button key={item.id} className={`access-card access-${item.accent}`} onClick={() => onEnter(item.id)}><div className="access-card-top"><span className="access-icon"><Icon size={19} /></span><ArrowRight size={16} className="access-arrow" /></div><span className="access-subtitle">{item.subtitle}</span><strong>{item.title}</strong><p>{item.description}</p><div className="access-modules">{item.modules.map((module) => <span key={module}>{module}</span>)}</div></button>; })}</div><footer className="gateway-footer"><span>PROTOTIPO LOCAL · UI-1 · NO ES AUTENTICACIÓN DE PRODUCCIÓN</span><span>PE · RNE-PE · IFC4X3</span></footer></section></main>;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function accessLabel(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.title ?? "Workspace"; }[m
+[32m+[m[32mexport function accessSubtitle(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.subtitle ?? "Workspace BIM"; }[m
+[32m+[m[32mexport function accessColor(access: ArkiAccess) { return ACCESS_CARDS.find((item) => item.id === access)?.accent ?? "orange"; }[m
+[32m+[m
+[32m+[m[32mconst BASE_MODULE_ACCESS: Record<string, readonly ArkiAccess[]> = {[m
+[32m+[m[32m  Inicio: ["visitor", "user", "specialist", "corporate"], Biblioteca: ["visitor", "user", "specialist", "corporate"], Proyectos: ["user", "specialist", "corporate"], Generador: ["user", "specialist", "corporate"], "Modelo BIM": ["user", "specialist", "corporate"], Planta: ["user", "specialist", "corporate"], Corte: ["user", "specialist", "corporate"], "3D": ["user", "specialist", "corporate"], Metrados: ["user", "specialist", "corporate"], Presupuesto: ["user", "specialist", "corporate"], "Costos contractuales": ["corporate"], "4D": ["user", "specialist", "corporate"], Clashes: ["specialist", "corporate"], Expediente: ["user", "specialist", "corporate"], "O&M": ["specialist", "corporate"], Administración: ["corporate"],[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mexport function isAccessAllowed(access: ArkiAccess, module: string) { return BASE_MODULE_ACCESS[module]?.includes(access) ?? false; }[m
+[32m+[m[32mexport function moduleAccess(module: string) { return BASE_MODULE_ACCESS[module] ?? []; }[m
+[32m+[m[32mexport function moduleNames() { return Object.keys(BASE_MODULE_ACCESS); }[m
+[1mdiff --git a/client/src/components/ArkiWorkspaceShell.tsx b/client/src/components/ArkiWorkspaceShell.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f6aad33[m
+[1m--- /dev/null[m
+[1m+++ b/client/src/components/ArkiWorkspaceShell.tsx[m
+[36m@@ -0,0 +1,53 @@[m
+[32m+[m[32mimport { useEffect, useMemo, useState } from "react";[m
+[32m+[m[32mimport { BarChart3, Box, Building2, CircleHelp, ClipboardCheck, DoorOpen, FileText, Layers3, LayoutDashboard, LogOut, PanelLeft, Settings2, ShieldAlert, SlidersHorizontal, WalletCards, Workflow } from "lucide-react";[m
+[32m+[m[32mimport { toast } from "sonner";[m
+[32m+[m[32mimport type { ArkiAccess } from "./ArkiGateway";[m
+[32m+[m[32mimport { accessColor, accessLabel, accessSubtitle, isAccessAllowed, type ArkiModuleDefinition } from "./ArkiGateway";[m
+[32m+[m
+[32m+[m[32mexport const MODULE_DEFINITIONS: readonly ArkiModuleDefinition[] = [[m
+[32m+[m[32m  { name: "Inicio", icon: LayoutDashboard, status: "IMPLEMENTED", allowed: ["visitor", "user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Biblioteca", icon: Layers3, status: "PARTIAL", allowed: ["visitor", "user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Proyectos", icon: Building2, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Generador", icon: Workflow, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Modelo BIM", icon: Layers3, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Planta", icon: PanelLeft, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Corte", icon: SlidersHorizontal, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "3D", icon: Box, status: "CONCEPTUAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Metrados", icon: BarChart3, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Presupuesto", icon: WalletCards, status: "VERIFIED", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Costos contractuales", icon: WalletCards, status: "NOT AVAILABLE", allowed: ["corporate"] },[m
+[32m+[m[32m  { name: "4D", icon: ClipboardCheck, status: "PARTIAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Clashes", icon: ShieldAlert, status: "PARTIAL", allowed: ["specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Expediente", icon: FileText, status: "PARTIAL", allowed: ["user", "specialist", "corporate"] },[m
+[32m+[m[32m  { name: "O&M", icon: Settings2, status: "FUTURE REFERENCE", allowed: ["specialist", "corporate"] },[m
+[32m+[m[32m  { name: "Administración", icon: Settings2, status: "FUTURE REFERENCE", allowed: ["corporate"] },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32mexport function moduleDefinition(name: string) { return MODULE_DEFINITIONS.find((module) => module.name === name); }[m
+[32m+[m
+[32m+[m[32mfunction EmptyModuleState({ name }: { name: string }) {[m
+[32m+[m[32m  const definition = moduleDefinition(name);[m
+[32m+[m[32m  return <div className="arki-empty-module"><div className="arki-empty-module-icon"><Workflow size={24} /></div><span className="arki-context-kicker">MÓDULO REGISTRADO · {definition?.status ?? "PENDING"}</span><h2>{name}</h2><p>Este módulo está integrado al workspace, pero su integración de dominio aún está pendiente. El generador funcional permanece disponible desde la pestaña Generador.</p><small>Estado: {definition?.status ?? "NOT AVAILABLE"} · UI-1</small></div>;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport default function ArkiWorkspaceShell({ access, onExit, children }: { access: ArkiAccess; onExit: () => void; children: React.ReactNode }) {[m
+[32m+[m[32m  const [activeModule, setActiveModule] = useState("Generador");[m
+[32m+[m[32m  const [navOpen, setNavOpen] = useState(true);[m
+[32m+[m[32m  const roleColor = accessColor(access);[m
+[32m+[m[32m  const availableModules = useMemo(() => MODULE_DEFINITIONS.filter(({ name }) => isAccessAllowed(access, name)), [access]);[m
+[32m+[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    const onKeyDown = (event: KeyboardEvent) => {[m
+[32m+[m[32m      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); toast.info("Búsqueda de comandos", { description: "UI-1: usa las pestañas del workspace para navegar." }); }[m
+[32m+[m[32m      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") { event.preventDefault(); toast.success("Borrador local listo", { description: "La persistencia corporativa se implementará en la fase de backend." }); }[m
+[32m+[m[32m      if (event.key === "Escape") toast.dismiss();[m
+[32m+[m[32m    };[m
+[32m+[m[32m    window.addEventListener("keydown", onKeyDown);[m
+[32m+[m[32m    return () => window.removeEventListener("keydown", onKeyDown);[m
+[32m+[m[32m  }, []);[m
+[32m+[m
+[32m+[m[32m  const selectModule = (name: string) => { setActiveModule(name); if (name !== "Generador") toast.info(`${name} seleccionado`, { description: "El estado del módulo ahora se muestra en el canvas." }); };[m
+[32m+[m[32m  const activeDefinition = moduleDefinition(activeModule);[m
+[32m+[m
+[32m+[m[32m  return <div className="arki-workspace"><header className="arki-workspace-top"><div className="arki-workspace-brand"><div className="arki-mini-mark"><Workflow size={16} /></div><div><strong>ARKI</strong><span>BIM WORKSPACE</span></div></div><div className="arki-project-context"><span>PROYECTO ACTIVO</span><b>Generador de familias</b><i>v1.0 · LOCAL</i></div><div className="arki-top-actions"><span className={`arki-role-badge role-${roleColor}`}>{accessLabel(access)} · PERFIL LOCAL</span><button className="arki-icon-button" title="Ayuda" onClick={() => toast.info("Ayuda ARKI", { description: "Ctrl/Cmd+K abre la búsqueda de comandos." })}><CircleHelp size={16} /></button><button className="arki-icon-button" title="Salir" onClick={onExit}><LogOut size={16} /></button></div></header><div className="arki-workspace-tabs">{["Inicio", "Generador", "Planta", "Corte", "3D", "BIM", "Presupuesto", "4D", "Clashes", "Expediente"].map((tab) => { const name = tab === "BIM" ? "Modelo BIM" : tab; return <button key={tab} className={activeModule === name ? "active" : ""} onClick={() => selectModule(name)}>{tab}</button>; })}</div><div className="arki-workspace-body"><aside className={`arki-module-nav ${navOpen ? "open" : "closed"}`}><button className="arki-collapse" onClick={() => setNavOpen((value) => !value)}><PanelLeft size={14} />{navOpen && "NAVEGADOR"}</button>{navOpen && <><div className="arki-nav-context"><span>PERFIL ACTIVO</span><strong>{accessSubtitle(access)}</strong><small>PROTOTIPO LOCAL</small></div><nav>{availableModules.map(({ name, icon: Icon, status }) => <button key={name} className={activeModule === name ? "active" : ""} onClick={() => selectModule(name)}><Icon size={14} /><span>{name}</span><small className={`arki-module-status status-${status.toLowerCase().replaceAll(" ", "-")}`}>{status}</small></button>)}</nav><div className="arki-nav-foot"><span className="arki-engine-dot" /> MOTOR LOCAL OPERATIVO</div></>}</aside><main className="arki-workspace-canvas"><div className="arki-context-toolbar"><div><span className="arki-context-kicker"><Workflow size={12} /> {activeModule.toUpperCase()} · {activeDefinition?.status ?? "PENDING"}</span><strong>{activeModule === "Generador" ? "Generador dinámico de familias" : activeModule}</strong></div><div className="arki-context-actions"><span>PE · RNE-PE</span><span>ESCALA 1:100</span><span>UI-1</span></div></div><div className="arki-legacy-content">{activeModule === "Generador" ? children : <EmptyModuleState name={activeModule} />}</div></main><aside className="arki-info-box"><div className="arki-info-head"><span>INFO BOX · SELECCIÓN PENDIENTE</span><button onClick={() => toast.info("La selección de elementos se integrará con el canvas BIM en UI-2")}>?</button></div><div className="arki-info-empty"><DoorOpen size={22} /><strong>Sin selección</strong><p>El canvas aún no emite un contrato de selección. Cuando se integre, aquí aparecerán propiedades, materiales, metrados, costo y trazabilidad.</p></div><div className="arki-info-status"><span className="arki-engine-dot" />{accessLabel(access)}<b>LOCAL</b></div></aside></div><footer className="arki-workspace-status"><span><i className="arki-engine-dot" /> MOTOR OPERATIVO</span><span>UNIDADES: MÉTRICO</span><span>DISCIPLINA: ARQUITECTURA</span><span>FASE: PROPUESTA</span><span className="arki-status-warning">ESTADOS UI-1 VISIBLES</span><span className="arki-status-spacer" /><span>Ctrl/Cmd+K COMANDOS</span></footer></div>;[m
+[32m+[m[32m}[m
+[1mdiff --git a/scripts/test-access-matrix.ts b/scripts/test-access-matrix.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..51de151[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-access-matrix.ts[m
+[36m@@ -0,0 +1,14 @@[m
+[32m+[m[32mimport { isAccessAllowed } from "../client/src/components/ArkiGateway";[m
+[32m+[m[32mimport { MODULE_DEFINITIONS } from "../client/src/components/ArkiWorkspaceShell";[m
+[32m+[m
+[32m+[m[32mconst assertions: Array<[string, boolean]> = [[m
+[32m+[m[32m  ["visitor sees Inicio", isAccessAllowed("visitor", "Inicio")],[m
+[32m+[m[32m  ["visitor sees Biblioteca", isAccessAllowed("visitor", "Biblioteca")],[m
+[32m+[m[32m  ["visitor does not see Generador", !isAccessAllowed("visitor", "Generador")],[m
+[32m+[m[32m  ["user sees Generador", isAccessAllowed("user", "Generador")],[m
+[32m+[m[32m  ["user does not see Costos contractuales", !isAccessAllowed("user", "Costos contractuales")],[m
+[32m+[m[32m  ["specialist does not see Administración", !isAccessAllowed("specialist", "Administración")],[m
+[32m+[m[32m  ["corporate sees every declared module", MODULE_DEFINITIONS.every(({ name }) => isAccessAllowed("corporate", name))],[m
+[32m+[m[32m];[m
+[32m+[m[32mfor (const [name, passed] of assertions) if (!passed) throw new Error(`FAIL: ${name}`);[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", assertions: assertions.length, checks: assertions.map(([name]) => name) }, null, 2));[m
+[1mdiff --git a/scripts/test-module-states.ts b/scripts/test-module-states.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..dcf464d[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/test-module-states.ts[m
+[36m@@ -0,0 +1,10 @@[m
+[32m+[m[32mimport { MODULE_DEFINITIONS } from "../client/src/components/ArkiWorkspaceShell";[m
+[32m+[m
+[32m+[m[32mconst allowed = new Set(["IMPLEMENTED", "VERIFIED", "PARTIAL", "CONCEPTUAL", "NOT AVAILABLE", "FUTURE REFERENCE"]);[m
+[32m+[m[32mif (MODULE_DEFINITIONS.length === 0) throw new Error("No modules declared");[m
+[32m+[m[32mfor (const module of MODULE_DEFINITIONS) {[m
+[32m+[m[32m  if (!module.name || !module.icon || !allowed.has(module.status) || module.allowed.length === 0) throw new Error(`Invalid module state: ${module.name}`);[m
+[32m+[m[32m}[m
+[32m+[m[32mconst uniqueNames = new Set(MODULE_DEFINITIONS.map(({ name }) => name));[m
+[32m+[m[32mif (uniqueNames.size !== MODULE_DEFINITIONS.length) throw new Error("Duplicate module name");[m
+[32m+[m[32mconsole.log(JSON.stringify({ status: "PASS", modules: MODULE_DEFINITIONS.length, statuses: [...new Set(MODULE_DEFINITIONS.map(({ status }) => status))] }, null, 2));[m

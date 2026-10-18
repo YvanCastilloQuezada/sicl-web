@@ -1,0 +1,13 @@
+{
+  "schema":"ARKI-ABB001-CROSS-DISCIPLINE-ALIGNMENT-1.0",
+  "status":"UNKNOWN",
+  "pairs":[
+    {"pair":["ARCHITECTURE","STRUCTURE"],"result":"UNKNOWN","basis":"same project/grid references visible in PDFs; no CAD coordinates"},
+    {"pair":["ARCHITECTURE","SANITARY"],"result":"UNKNOWN","basis":"corresponding floor sheets visible; no CAD coordinates"},
+    {"pair":["ARCHITECTURE","ELECTRICAL"],"result":"UNKNOWN","basis":"corresponding floor sheets visible; no CAD coordinates"},
+    {"pair":["STRUCTURE","SANITARY"],"result":"UNKNOWN","basis":"cistern and service references visible; no CAD geometry"},
+    {"pair":["LOCATION","ARCHITECTURE"],"result":"UNKNOWN","basis":"site sheet and building sheets exist; no common coordinate transform"}
+  ],
+  "allowedResults":["ALIGNABLE","ALIGNABLE_WITH_TRANSFORM","NOT_ALIGNABLE","UNKNOWN"],
+  "note":"Documentary correspondence is not geometric alignment."
+}

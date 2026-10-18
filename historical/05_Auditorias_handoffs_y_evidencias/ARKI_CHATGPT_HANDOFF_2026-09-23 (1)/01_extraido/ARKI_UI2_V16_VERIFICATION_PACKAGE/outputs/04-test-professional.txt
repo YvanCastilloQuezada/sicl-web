@@ -1,0 +1,11 @@
+=== 04-test-professional ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "periods": 3,
+  "financialTotal": 1759040.94,
+  "conflicts": 0,
+  "clashes": 480,
+  "approvalStatus": "pending",
+  "cdeDocuments": 2,
+  "s10Imported": 2
+}

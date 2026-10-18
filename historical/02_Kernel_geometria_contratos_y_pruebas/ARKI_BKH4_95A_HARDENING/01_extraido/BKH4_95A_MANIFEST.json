@@ -1,0 +1,74 @@
+{
+  "schema": "ARKI-BKH4-95A-1.0",
+  "status": "HARDENED / PENDING INDEPENDENT VERIFICATION",
+  "scope": [
+    "BKH4-0",
+    "BKH4-1",
+    "BKH4-2"
+  ],
+  "fixes": [
+    "F1_TRANSACTION_REVISION_STATE_SEMANTICS",
+    "F2_STRUCTURAL_DECLARATIVE_MUTATION_SECURITY",
+    "F3_OPERATION_SPECIFIC_MUTATION_INVARIANTS"
+  ],
+  "firewall": [
+    "BKH4-3",
+    "simulation-sandbox",
+    "canonical-mutation",
+    "commit",
+    "rollback",
+    "undo-redo",
+    "persistence",
+    "legacy-migration",
+    "ownership-consolidation",
+    "BKH5-7",
+    "E8"
+  ],
+  "physicalFilesTotal": 9,
+  "manifestEntries": 8,
+  "manifestFiles": 1,
+  "missingEntries": [],
+  "hashMismatches": [],
+  "entries": [
+    {
+      "path": "AKI001_CURRICULUM_DELTA_BKH4_95A.md",
+      "sha256": "0ae15277fa8a7be3a32e51a133d80fa243fe9cbf0204f48bd83a022c21d58a84",
+      "bytes": 783
+    },
+    {
+      "path": "ARKI_KNOWLEDGE_BOOK_DELTA_BKH4_95A.md",
+      "sha256": "78a6218f1b6a54915072751711ac201d42707c4e137e2997b2649c75f24cea83",
+      "bytes": 793
+    },
+    {
+      "path": "BKH4_95A_OUTPUTS.txt",
+      "sha256": "2476e5d202b0201899f00125623b47933d76391be63efb352f6d0f189decbd39",
+      "bytes": 4601
+    },
+    {
+      "path": "BKH4_95A_SCOPE_LIMIT_REPORT.md",
+      "sha256": "916dc4d771bf936bf6429f4d4bffa56f544accdb7af7c42c29a57e273e1f7939",
+      "bytes": 2008
+    },
+    {
+      "path": "BKH4_IMPLEMENTATION_BASELINE.md",
+      "sha256": "825aa881d507bee5c77dd193b384b631e3de19f4f17c5fc80dcaefac9e479843",
+      "bytes": 1710
+    },
+    {
+      "path": "BKH4_MUTATION_WRITER_INVENTORY.md",
+      "sha256": "842cd80472e05aeb0ced7c78dd11ee58bf80ed608ff98c9ce4527353e734ab72",
+      "bytes": 2771
+    },
+    {
+      "path": "arkiTransactionEngine.ts",
+      "sha256": "3adb1100c5a53e360f28d064a42ee390944fcc1f73577e329f18ba2326420046",
+      "bytes": 15261
+    },
+    {
+      "path": "test-bkh4-foundation.ts",
+      "sha256": "747c6b2953969d7fd2b09e2c6237d256d901533e5690614d687c8738197633d7",
+      "bytes": 6704
+    }
+  ]
+}

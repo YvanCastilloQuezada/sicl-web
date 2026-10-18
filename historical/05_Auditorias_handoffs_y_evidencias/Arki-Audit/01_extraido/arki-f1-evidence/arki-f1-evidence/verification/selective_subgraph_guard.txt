@@ -1,0 +1,13 @@
+        project_records = self.ledger.list(project_id)
+        matching = [
+            item for item in project_records
+            if item.output.key() == action.artifact_ref.key() and item.output.version == action.artifact_ref.version
+        ]
+        if not matching:
+            return self._blocked(project_id, action, "DERIVATION_NOT_FOUND", empty_inputs)
+        if len(matching) != 1:
+            return self._blocked(project_id, action, "AMBIGUOUS_DERIVATION", tuple(matching[0].inputs))
+        previous = matching[0]
+        if any(item.output.key() == previous.output.key() and item.output.version > previous.output.version for item in project_records):
+            return self._blocked(project_id, action, "STALE_PLAN", previous.inputs)
+

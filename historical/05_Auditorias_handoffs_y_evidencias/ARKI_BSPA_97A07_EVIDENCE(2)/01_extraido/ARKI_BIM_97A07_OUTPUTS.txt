@@ -1,0 +1,128 @@
+# ARKI BSPA 97A07 OUTPUTS
+2026-09-23T18:15:28Z
+## check
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 check /home/ubuntu/generador-familias
+> tsc --noEmit
+
+## bim foundation 40
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+BIM-01 PASS correct model
+BIM-02 PASS real clash
+BIM-03 PASS false positive clash
+BIM-04 PASS missing property
+BIM-05 PASS contradictory documents
+BIM-06 PASS unknown dimension
+BIM-07 PASS duplicate entity
+BIM-08 PASS orphan entity
+BIM-09 PASS invalid relationship
+BIM-10 PASS missing classification
+BIM-11 PASS quantity mismatch
+BIM-12 PASS drawing model conflict
+BIM-13 PASS unsupported discipline
+BIM-14 PASS missing audit basis
+BIM-15 PASS wrong requirement version
+BIM-16 PASS inapplicable requirement
+BIM-17 PASS repair creates clash
+BIM-18 PASS repair changes design
+BIM-19 PASS specialty redesign
+BIM-20 PASS scan without scale
+BIM-21 PASS photo no dimensional evidence
+BIM-22 PASS IFC property loss
+BIM-23 PASS IFC relationship loss
+BIM-24 PASS federated ownership
+BIM-25 PASS as designed not as built
+BIM-26 PASS as built not digital twin
+BIM-27 PASS audit conflict disclosed
+BIM-28 PASS audit only no upsell
+BIM-29 PASS confidential isolation
+BIM-30 PASS client data not canonical
+BIM-31 PASS post award not service need
+BIM-32 PASS BIM requirement not defect
+BIM-33 PASS one project not general rule
+BIM-34 PASS human authority
+BIM-35 PASS professional gate
+BIM-36 PASS large project extrapolation
+BIM-37 PASS false positive measured
+BIM-38 PASS false negative measured
+BIM-39 PASS UNKNOWN preserved
+BIM-40 PASS provenance preserved
+{
+  "status": "PASS",
+  "tests": 40,
+  "realE2E": "NOT_DEMONSTRATED_WITHOUT_LEGITIMATE_DATA",
+  "professionalCertification": false,
+  "canonicalMutation": false
+}
+## LKS
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "codebooks": [
+    "LKC-001-IFC",
+    "LKC-002-SMART-CITIES",
+    "LKC-003-URBAN-DIGITAL-TWIN"
+  ],
+  "twoKeyRule": "PASS",
+  "humanAuthorityGate": "PASS",
+  "noConfidenceTheater": "PASS",
+  "capabilityAtlas": "PASS",
+  "gapRegister": "PASS",
+  "noChangeClosure": "PASS",
+  "changeDetection": "PASS",
+  "scheduler": "NOT_DEMONSTRATED / EXTERNAL_ORCHESTRATION_REQUIRED"
+}
+## LKS integration
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "noSecondTruth": "PASS",
+  "curriculumView": "PASS",
+  "curriculumDelta": "PASS",
+  "standardsImpact": "PASS",
+  "competencyRevalidation": "PASS",
+  "conflictGate": "PASS",
+  "packageDerived": "PASS",
+  "canonicalCandidatePolicy": "ARCHITECTURAL_DECISION_REQUIRED",
+  "humanAuthority": "PRESERVED"
+}
+## OPBI
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "opportunityIdentity": "PASS",
+  "requirementTraceability": "PASS",
+  "fatalRequirement": "PASS",
+  "evidenceBoundary": "PASS",
+  "eligibility": "PASS",
+  "submissionGate": "PASS",
+  "humanAuthority": "PASS",
+  "boundedStatus": "PASS"
+}
+## build
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+
+> generador-familias@1.0.0 build /home/ubuntu/generador-familias
+> vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist
+
+vite v7.1.9 building for production...
+transforming...
+✓ 2212 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/public/index.html                        367.73 kB │ gzip: 105.53 kB
+../dist/public/assets/index-EkFn1Oqt.css         137.17 kB │ gzip:  24.29 kB
+../dist/public/assets/index-DRxz28sR.js        2,009.71 kB │ gzip: 549.76 kB
+../dist/public/assets/web-ifc-api-C7v6kqvu.js  3,519.08 kB │ gzip: 405.23 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.52s
+
+  dist/index.js  788b 
+
+⚡ Done in 3ms
+FINAL_EXIT_CODE=0

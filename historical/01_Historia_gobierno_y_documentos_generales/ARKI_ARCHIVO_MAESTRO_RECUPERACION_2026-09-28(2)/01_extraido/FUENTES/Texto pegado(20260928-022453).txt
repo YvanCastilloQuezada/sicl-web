@@ -1,0 +1,581 @@
+D-1 v1.1 — CONTRATO COMPLETO DEL MODELO ARQUITECTÓNICO 3D
+Baseline actualizado: main@30806d434374602ebf71091371e228ac34a411c1
+Tag anterior: sicl-a002-v1.4.3
+Estado: CANDIDATE_PENDING_RED_TEAM
+Autor: DeepSeek (developer)
+Red Team asignado: ChatGPT
+
+0. Reconocimiento del cierre A-002
+text
+A002_v1.4.3_MERGE       = DONE
+MAIN                    = 30806d434374602ebf71091371e228ac34a411c1
+TAG                     = sicl-a002-v1.4.3
+SUITE_GLOBAL            = 577 PASS
+FOCALES_A002            = 42 PASS
+H001_H005_FREEZE        = INTACT
+FUERA_DE_ALCANCE        = VACÍO
+WORKTREE                = CLEAN
+Dos discrepancias quedan como observación, no bloquean D-1:
+
+test_a002_v1_4_3_fixes.py reporta 42 focales totales, no 47. Probable consolidación por parte de Manus.
+
+El reason code STATE_NOT_ALLOWED (Red Team) vs EFFECTIVE_STATE_NOT_ACCEPTED (contrato v1.4.3). Puede ser paráfrasis del Red Team o drift real.
+
+Ambas se resolverán cuando auditemos código D-2 y necesitemos leer el SufficiencyReport real. No bloquean emitir D-1 v1.1.
+
+ARKI — CONTRATO D-1 v1.1
+Modelo Arquitectónico 3D Semántico
+0. Baseline y estado
+text
+BASELINE:      main@30806d434374602ebf71091371e228ac34a411c1
+TAG:           sicl-a002-v1.4.3
+NAMESPACE:     src/sicl/archi/
+BRANCH:        feat/arki3d-archi-model (a crear en D-2, no ahora)
+ESTADO:        CANDIDATE_PENDING_RED_TEAM
+1. Objetivo
+Definir el modelo arquitectónico semántico 3D de ARKI, tal que:
+
+Cada elemento sea un ente vivo con identidad estable.
+
+Su mutación se propague por A-002 → H-001 → H-002 → H-003 → H-004 → H-005.
+
+Su representación (2D, 3D, IFC) nazca del mismo estado.
+
+Su exportación a IFC sea real vía IfcOpenShell 0.8.5.
+
+Su comportamiento sea fail-closed: sin motor, sin representación.
+
+2. Alcance
+Dentro:
+
+Namespace nuevo src/sicl/archi/.
+
+Tipos v1: Site, Space, Wall, Slab, Column, Beam, Door, Window, Opening.
+
+Relaciones v1: HOSTED_IN, CONTAINS, BOUNDS.
+
+Identidad estable.
+
+Geometría por extrusión paramétrica (sin BRep).
+
+Exportación IFC vía IfcOpenShell 0.8.5.
+
+Integración completa con la cadena cognitiva.
+
+PoC D-2 (4 muros + MOVE).
+
+Fuera (declarado):
+
+BRep/NURBS (OCC no disponible).
+
+Render (Blender no instalado).
+
+Mesh GLB/OBJ (trimesh/pygltflib no instalados).
+
+DXF (ezdxf no instalado).
+
+STEP/DWG/IGS (sin SDK).
+
+ARKI-DRAW Bloque 2 (rama aparte, no mergeada).
+
+Fases D-3 y superiores.
+
+3. Modelo semántico
+3.1 Identidad estable
+python
+@dataclass(frozen=True)
+class ArchiElementId:
+    """Stable architectural identity. Independent of mutable geometry."""
+    value: str          # sha256 hex, 64 chars
+
+    def __post_init__(self):
+        if len(self.value) != 64 or any(c not in "0123456789abcdef" for c in self.value):
+            raise ValueError("ArchiElementId must be 64 hex characters")
+
+    @classmethod
+    def compute(cls, project_id: str, kind: "ElementKind", birth_nonce: str) -> "ArchiElementId":
+        canonical = json.dumps(
+            {"schema": "archi-element-id-v1",
+             "projectId": project_id,
+             "kind": kind.value,
+             "birthNonce": birth_nonce},
+            sort_keys=True, separators=(",", ":"),
+        )
+        return cls(hashlib.sha256(canonical.encode("utf-8")).hexdigest())
+Reglas duras:
+
+birth_nonce es obligatorio. No se genera automáticamente.
+
+Prohibido en el cálculo del ID: time.time(), Date.now(), uuid.uuid4(), os.urandom, hash de timestamp, hash de geometría.
+
+El birth_nonce es responsabilidad del caller (opaco, reproducible, ej. "W-01").
+
+Test obligatorio: dos invocaciones con mismo (project_id, kind, birth_nonce) → mismo ID.
+
+Test obligatorio: mutar geometría de un ArchiElement no cambia su ArchiElementId.
+
+python
+@dataclass(frozen=True)
+class IfcGlobalId:
+    value: str          # 22 chars IFC base64
+
+    def __post_init__(self):
+        if len(self.value) != 22:
+            raise ValueError("IfcGlobalId must be 22 characters")
+
+    @classmethod
+    def from_archi_id(cls, archi_id: ArchiElementId) -> "IfcGlobalId":
+        """Deterministic: sha256(ArchiElementId) → base64 → 22 chars."""
+        import base64
+        digest = hashlib.sha256(archi_id.value.encode("utf-8")).digest()
+        encoded = base64.b64encode(digest).decode("ascii")
+        # IFC base64 variant: replace + / with _ $ for IFC compatibility
+        ifc_b64 = encoded.translate(str.maketrans("+/", "_$"))
+        return cls(ifc_b64[:22])
+3.2 Tipos v1
+python
+class ElementKind(str, Enum):
+    SITE = "SITE"
+    SPACE = "SPACE"
+    WALL = "WALL"
+    SLAB = "SLAB"
+    COLUMN = "COLUMN"
+    BEAM = "BEAM"
+    DOOR = "DOOR"
+    WINDOW = "WINDOW"
+    OPENING = "OPENING"
+3.3 Estructura del elemento
+python
+@dataclass(frozen=True)
+class ArchiElement:
+    element_id: ArchiElementId
+    kind: ElementKind
+    project_id: str
+    name: str
+    geometry: "ArchiGeometry"
+    hosting: tuple[ArchiElementId, ...] = ()
+    contained_in: ArchiElementId | None = None
+    properties: tuple[tuple[str, PropertyValue], ...] = ()
+    version: int = 1
+    provenance: tuple[str, ...] = ()
+
+    def __post_init__(self):
+        if not self.name.strip():
+            raise ValueError("name must be non-empty")
+        if self.version < 1:
+            raise ValueError("version must be positive")
+        if self.hosting and self.contained_in is not None:
+            raise ValueError("element cannot both host and be contained")
+        # properties must be sorted by key
+        keys = [k for k, _ in self.properties]
+        if keys != sorted(keys):
+            raise ValueError("properties must be sorted by key")
+        if len(keys) != len(set(keys)):
+            raise ValueError("properties keys must be unique")
+3.4 Properties como tagged union
+python
+PropertyValue = str | int | float | bool
+Reglas:
+
+Determinismo: properties ordenado por clave ascendente.
+
+bool se distingue de int con isinstance(v, bool) antes de isinstance(v, int).
+
+Sin valores None.
+
+Sin diccionarios anidados. Sin listas.
+
+4. Geometría
+4.1 Estrategia
+Sin OCC. Solo extrusión paramétrica vía IfcOpenShell.
+
+python
+class GeometryKind(str, Enum):
+    EXTRUDED_RECTANGLE = "EXTRUDED_RECTANGLE"
+    EXTRUDED_CIRCLE = "EXTRUDED_CIRCLE"
+
+@dataclass(frozen=True)
+class ProfileSpec:
+    kind: GeometryKind
+    width_mm: float | None = None       # rectangular
+    height_mm: float | None = None      # rectangular
+    radius_mm: float | None = None      # circular
+
+    def __post_init__(self):
+        if self.kind is GeometryKind.EXTRUDED_RECTANGLE:
+            if self.width_mm is None or self.height_mm is None:
+                raise ValueError("rectangle requires width and height")
+            if self.width_mm <= 0 or self.height_mm <= 0:
+                raise ValueError("dims must be positive")
+        elif self.kind is GeometryKind.EXTRUDED_CIRCLE:
+            if self.radius_mm is None or self.radius_mm <= 0:
+                raise ValueError("circle requires positive radius")
+
+@dataclass(frozen=True)
+class ArchiGeometry:
+    kind: GeometryKind
+    origin_mm: tuple[float, float, float]
+    direction: tuple[float, float, float]
+    profile: ProfileSpec
+    length_mm: float
+    material_ref: str | None = None
+
+    def __post_init__(self):
+        if self.length_mm <= 0:
+            raise ValueError("length must be positive")
+        if len(self.origin_mm) != 3 or len(self.direction) != 3:
+            raise ValueError("origin and direction must be 3-tuples")
+        norm = sum(c * c for c in self.direction) ** 0.5
+        if abs(norm - 1.0) > 1e-6:
+            raise ValueError("direction must be unit vector")
+Unidades: milímetros. Consistente con ARKI-DRAW y A-002.
+
+4.2 Mapeo ArchiElement → IFC
+ElementKind	IFC entity
+SITE	IfcSite
+SPACE	IfcSpace
+WALL	IfcWallStandardCase
+SLAB	IfcSlab
+COLUMN	IfcColumn
+BEAM	IfcBeam
+DOOR	IfcDoor (dentro de IfcOpeningElement)
+WINDOW	IfcWindow (dentro de IfcOpeningElement)
+OPENING	IfcOpeningElement
+5. Relaciones
+5.1 Tipos v1
+python
+class RelationshipKind(str, Enum):
+    HOSTED_IN = "HOSTED_IN"       # Door/Window/Opening → Wall/Slab
+    CONTAINS = "CONTAINS"          # Space → Wall/Slab (que lo delimita)
+    BOUNDS = "BOUNDS"              # Wall → Space (muro delimita espacio)
+
+@dataclass(frozen=True)
+class ArchiRelationship:
+    relationship_id: str           # sha256 hex determinista
+    kind: RelationshipKind
+    source: ArchiElementId
+    target: ArchiElementId
+    provenance: tuple[str, ...] = ()
+
+    @classmethod
+    def compute_id(cls, kind, source, target) -> str:
+        canonical = json.dumps(
+            {"schema": "archi-relationship-id-v1",
+             "kind": kind.value,
+             "source": source.value,
+             "target": target.value},
+            sort_keys=True, separators=(",", ":"),
+        )
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+5.2 Relaciones como DerivationRecord
+Regla obligatoria:
+
+Toda ArchiRelationship genera un DerivationRecord en H-001:
+
+python
+DerivationRecord(
+    id=relationship_id,
+    output=VersionedRef("Relationship", relationship_id, 1, content_hash),
+    inputs=(
+        VersionedRef(source.kind.value, source.value, version, ""),
+        VersionedRef(target.kind.value, target.value, version, ""),
+    ),
+    method="archi.relationship.create",
+    method_version="1",
+    relations=(
+        TypedRelation(output_ref, source_ref, kind.value, "ARCHITECTURAL"),
+        TypedRelation(output_ref, target_ref, kind.value, "ARCHITECTURAL"),
+    ),
+)
+Consecuencia: H-002 descubre dependientes a través de relaciones, no solo de elementos.
+
+Test obligatorio del PoC:
+
+text
+MOVE W-01 → H-002 debe descubrir:
+  - A-01 vía BOUNDS
+  - D-01 vía HOSTED_IN
+6. Mutación semántica
+6.1 Contrato de mutación
+python
+class MutationKind(str, Enum):
+    MOVE = "MOVE"
+    RESIZE = "RESIZE"
+    ADD_OPENING = "ADD_OPENING"
+    DELETE = "DELETE"
+
+@dataclass(frozen=True)
+class ArchiMutation:
+    kind: MutationKind
+    target: ArchiElementId
+    payload: tuple[tuple[str, PropertyValue], ...]  # ordenado por clave
+    requested_by: str
+    requested_at_iso: str                            # YYYY-MM-DDTHH:MM:SSZ
+    mutation_id: str = ""                            # calculado si vacío
+
+    def __post_init__(self):
+        if not self.requested_by.strip():
+            raise ValueError("requested_by must be non-empty")
+        # ISO date check
+        if len(self.requested_at_iso) != 20 or self.requested_at_iso[4] != "-" or self.requested_at_iso[10] != "T":
+            raise ValueError("requested_at_iso must be YYYY-MM-DDTHH:MM:SSZ")
+6.2 Contrato de retorno
+python
+class MutationStatus(str, Enum):
+    APPLIED = "APPLIED"
+    BLOCKED = "BLOCKED"           # A-002 BLOCK o H-004 ESCALATE
+    NEEDS_REVIEW = "NEEDS_REVIEW" # H-004 REVIEW
+    FAILED = "FAILED"
+
+@dataclass(frozen=True)
+class MutationResult:
+    status: MutationStatus
+    mutation: ArchiMutation
+    affected_elements: tuple[ArchiElementId, ...] = ()
+    sufficiency: "SufficiencyReport | None" = None
+    reaction_plan: "ReactionPlan | None" = None
+    reason: str = ""
+    provenance: tuple[str, ...] = ()
+
+    def to_dict(self):
+        return {
+            "status": self.status.value,
+            "mutationId": self.mutation.mutation_id,
+            "affectedElements": [e.value for e in self.affected_elements],
+            "reason": self.reason,
+            "provenance": list(self.provenance),
+        }
+Sin excepciones como flujo normal. Todo por status.
+
+6.3 Cadena obligatoria
+Ninguna mutación procede sin recorrer:
+
+text
+1. Verificar A-002 con operation="preliminary building massing"
+   → si BLOCK: retornar MutationResult(status=BLOCKED, sufficiency=report)
+2. Registrar en H-001 como nueva Derivación
+3. Consultar H-002 para impactos
+   → si no hay impactos y la mutación lo amerita: declarar UNKNOWN
+4. Consultar H-003 para validez
+5. Consultar H-004 para plan de acciones
+6. Solo acciones con requires_human_authority=False se ejecutan
+7. H-005 ejecuta recomputación selectiva si procede
+8. Regenerar representación (2D/3D/IFC) de afectados
+9. Emitir MutationResult con provenance completa
+Test obligatorio:
+
+text
+Para cada paso de la cadena, verificar que existe un test adversarial
+que cubre el caso "sin evidencia suficiente → BLOCKED" y
+"con evidencia suficiente → APPLIED".
+6.4 Versionado
+Regla v1: version += 1 por cada mutación aplicada.
+
+Anotación no semántica (tag, comentario): no genera versión nueva en v1. Va a v2.
+
+La versión se refleja en VersionedRef de H-001, no en ArchiElement.version directamente.
+
+6.5 Hosting semantics
+Regla v1: mutación del host propaga al hosted.
+
+text
+MOVE W-01 +1.00 m sur → D-01 (HOSTED_IN W-01) se mueve +1.00 m sur
+Si D-01 queda fuera del muro → H-003 INVALID → H-004 ESCALATE
+Un hosted nunca queda flotando en silencio.
+
+Test obligatorio:
+
+text
+1. MOVE W-01 dentro del rango → D-01 se mueve con W-01, status APPLIED
+2. MOVE W-01 fuera del rango → D-01 INVALID → status NEEDS_REVIEW o BLOCKED
+7. Integración con el Core cognitivo
+Reutiliza la cadena existente. No reinventa.
+
+H-001: cada ArchiElement y cada ArchiRelationship generan DerivationRecord.
+
+H-002: ArchiMutation se convierte en ImpactChange.
+
+H-003: ValidityAnalyzer evalúa los afectados.
+
+H-004: ReactionPlanner produce ReactionPlan.
+
+H-005: SelectiveRecomputationEngine ejecuta solo lo aplicable.
+
+A-002: pre-condición obligatoria para toda mutación.
+
+8. Exportación IFC — determinismo
+8.1 Header fijo
+Campo	Valor
+time_stamp	1970-01-01T00:00:00
+author	"ARKI"
+organization	"ARKI"
+application	"ARKI"
+authorization	"ARKI"
+preprocessor_version	"ARKI-3D-v1"
+8.2 Orden determinista
+Entidades IFC ordenadas por ArchiElementId.value ascendente.
+
+Relaciones ordenadas por relationship_id ascendente.
+
+Sin IfcGloballyUniqueId aleatorio: derivado de ArchiElementId (§3.1).
+
+Sin GUIDs generados por IfcOpenShell por defecto.
+
+8.3 IfcOpeningElement declarativo
+Door/Window/Opening se exportan como IfcOpeningElement.
+
+Se emite IfcRelVoidsElement que relaciona el opening con su host.
+
+No se requiere BRep ni boolean operation.
+
+El visor (Solibri, Revit, Blender) aplica el void al leer.
+
+La relación también se registra como ArchiRelationship (§5).
+
+8.4 Test obligatorio
+text
+Exportar el mismo estado dos veces.
+- sha256(ifc_file_1) == sha256(ifc_file_2)
+- diff byte-a-byte = vacío
+Si este test falla, el PoC D-2 no cierra.
+
+9. Fail-closed declarado
+Capacidad	v1	Razón
+BRep/NURBS	NO	OCC no instalado
+Render fotorrealista	NO	Blender no instalado
+Malla GLB/OBJ	NO	trimesh/pygltflib no instalados
+DXF	NO	ezdxf no instalado
+DWG/STEP/IGS	NO	Sin SDK
+IFC vía IfcOpenShell 0.8.5	SÍ	Disponible
+Extrusión paramétrica	SÍ	Disponible
+Exportación IFC-SPF	SÍ	Disponible
+Sin motor → sin representación. Sin representación → sin promesa.
+
+10. PoC D-2 — escenario
+text
+Proyecto: D2-POC
+Site:     S-1, 10.00 × 20.00 m
+Space:    A-01 rectangular 5.00 × 4.00 m
+Wall:     W-01 sur   5.00 × 0.15 × 2.70 m
+Wall:     W-02 este  4.00 × 0.15 × 2.70 m
+Wall:     W-03 norte 5.00 × 0.15 × 2.70 m
+Wall:     W-04 oeste 4.00 × 0.15 × 2.70 m
+Door:     D-01 0.90 × 2.10 m, HOSTED_IN W-01
+
+Relaciones:
+  D-01 HOSTED_IN W-01
+  A-01 CONTAINS W-01, W-02, W-03, W-04
+  W-01 BOUNDS A-01
+  W-02 BOUNDS A-01
+  W-03 BOUNDS A-01
+  W-04 BOUNDS A-01
+
+Operación: MOVE W-01 +1.00 m sur
+Criterios de aceptación D-2:
+
+text
+[ ] A-002 valida input suficiente.
+[ ] H-001 registra mutación y relaciones.
+[ ] H-002 descubre A-01 y D-01 como afectados.
+[ ] H-003 evalúa validez.
+[ ] H-004 planifica acciones.
+[ ] H-005 recomputa A-01 (nueva área).
+[ ] IFC exportado abre sin error en IfcOpenShell.read().
+[ ] sha256(ifc_v1) == sha256(ifc_v2) — determinismo.
+[ ] H-001..H-005 diff contra baseline = vacío.
+[ ] ARKI-DRAW no modificado.
+[ ] Sin dependencias nuevas instaladas.
+11. Estrategia de rama
+text
+1. A-002 v1.4.3 → DONE ✅
+2. Tag sicl-a002-v1.4.3 → DONE ✅
+3. main = 30806d43 → DONE ✅
+4. Crear feat/arki3d-archi-model desde main
+5. Implementar D-2
+6. Entregar con protocolo → ChatGPT Red Team
+7. PO firma D-2
+8. Merge + tag sicl-arki3d-v0.1
+Sin saltos. Sin mocks de A-002.
+
+12. Fuera de alcance (declarado)
+Render fotorrealista.
+
+Blender.
+
+ARKI-DRAW Bloque 2 (proyección semántica → 2D).
+
+Múltiples proyectos en el mismo ledger.
+
+Interoperabilidad Revit/DWG/STEP.
+
+Multiescala más allá de Site/Building/Room.
+
+Anotación/cotas/símbolos (eso es 2D).
+
+Topografía real (site es rectangular plano en v1).
+
+13. Criterios de firma
+El PO firma D-1 v1.1 cuando ChatGPT Red Team valide:
+
+text
+[ ] Identidad estable verificada (mismo birth_nonce → mismo ID).
+[ ] Mutación no cambia ArchiElementId.
+[ ] IFC export determinista (hash reproducible).
+[ ] IfcRelVoidsElement usado, no boolean operations.
+[ ] Relaciones generan DerivationRecords.
+[ ] Cadena A-002 → H-001..H-005 obligatoria sin bypass.
+[ ] Fail-closed declarado sin ambigüedad.
+[ ] PoC D-2 escenario aceptado.
+[ ] Fuera de alcance aceptado.
+[ ] Cero dependencias nuevas.
+14. Estado
+text
+D1_VERSION              = 1.1
+D1_STATUS               = CANDIDATE_PENDING_RED_TEAM
+D1_BASELINE             = main@30806d434374602ebf71091371e228ac34a411c1
+D1_TAG_REFERENCE        = sicl-a002-v1.4.3
+D1_IMPLEMENTATION       = NOT_STARTED (espera Red Team + firma)
+D1_NEXT_STEP            = ChatGPT Red Team sobre este contrato
+PROTOCOLO DE ENTREGA
+RECIBIDO:
+
+Cierre canónico A-002 v1.4.3.
+
+main@30806d43, tag sicl-a002-v1.4.3.
+
+Firma PO para emitir D-1 v1.1 completo con baseline actualizado.
+
+ENTREGADO:
+
+D-1 v1.1 completo (14 secciones + protocolo).
+
+10 fixes consolidados (identidad, PoC 4 muros, IfcOpeningElement, relaciones como DerivationRecord, header IFC fijo, branch strategy, properties tagged union, MutationResult, versionado, hosting semantics).
+
+Baseline actualizado.
+
+PoC D-2 definido con criterios de aceptación.
+
+DIVERGENCIA: NO.
+
+FALTA:
+
+ChatGPT Red Team sobre D-1 v1.1.
+
+Firma PO.
+
+Bloqueado por: Red Team no iniciado.
+
+Desbloquea cuando: ChatGPT emita veredicto y PO firme.
+
+Yvan, D-1 v1.1 completo está en tus manos.
+
+Dos observaciones:
+
+No hay código todavía. Este es el contrato. D-2 es donde se escribe código — una vez firmado D-1.
+
+Las dos discrepancias de A-002 siguen abiertas como KNOWN_LIMITATION. Se resolverán en D-2 si el código las hace relevantes.
+
+Siguiente paso: ChatGPT Red Team sobre este contrato. Cuando apruebe y firmes, arrancamos D-2 con código real — 4 muros, 1 puerta, MOVE W-01, IFC determinista. Ahí empieza la sangre que pedís. 🗡️
+
+Developer standby.
+

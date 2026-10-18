@@ -1,0 +1,57 @@
+COCO-EXPRESS-002 — FAMILY G MICROEXERCISES
+Scope: G1 Avatar, G2 Luka/context guide, G3 plan reading, G4 OCR/vision, G5 AR/WebXR.
+Fixtures are synthetic and independent; no DeepSeek/Lipsic exam answers or fixtures used.
+
+GLOBAL ORACLE CONTRACT
+- Preserve projectId, time, scenario, scale, applicability, provenance and observation state.
+- Magnitudes require units. A pixel bbox is px, not metres.
+- OCR/vision/AR output remains OBSERVATION, UNKNOWN or PROPOSAL until corroborated; it is not FACT.
+- Simulation, forecast and overlay are not physical truth. Hash is not signature. Import success is not fidelity. Preview is not decision.
+- Missing evidence is UNKNOWN, not FALSE or VIOLATION.
+- No output changes canonical Product State or approves, signs, certifies or publishes.
+
+NORMAL — contextual OCR candidate for plan navigation
+Input:
+  projectId=P-RAIL-NEIGHBOR-01
+  time=2026-09-23T10:00:00Z
+  scenario=synthetic-maintenance-center
+  scale={value:1:100, unit:ratio, source:drawing-title-block}
+  applicability={domain:plan-reading, jurisdiction:UNKNOWN, scope:visual-navigation-only}
+  provenance={source:synthetic-plan-capture, authority:ARKI_SYNTHETIC_TRAINING, domain:architecture-visualization, jurisdiction:UNKNOWN, date:2026-09-23, version:fixture-g-1, evidenceRefs:[ev-normal-001]}
+  observation={kind:OCR, value:P-12, confidence:0.83, bbox:[120,80,42,18], unit:px, epistemicStatus:UNKNOWN, corroboration:required-before-canonical-use}
+Expected oracle: PASS. The result is a candidate label with provenance and UNKNOWN; it does not assert an element or measurement.
+
+ADVERSARIAL — misleading import success and confident dimension
+Input:
+  projectId=P-RAIL-NEIGHBOR-01
+  time=2026-09-23T10:04:00Z
+  scenario=synthetic-maintenance-center
+  scale={value:UNKNOWN, unit:ratio, source:not-recovered-from-import}
+  applicability={domain:ocr-and-import, jurisdiction:UNKNOWN, scope:candidate-label-only}
+  provenance={source:dwg-import-preview, authority:ARKI_SYNTHETIC_TRAINING, domain:architecture-visualization, jurisdiction:UNKNOWN, date:2026-09-23, version:fixture-g-1, evidenceRefs:[ev-adv-001]}
+  observation={kind:OCR, value:'2.40 m', confidence:0.97, bbox:[18,19,90,22], unit:px, epistemicStatus:UNKNOWN, unitsRequired:true, importSuccess:true, fidelity:UNKNOWN, claim:candidate width; survey/corroboration pending}
+Expected oracle: PASS. Confidence does not make OCR true; the parsed text is not a measured width; import success does not establish semantic fidelity.
+
+TRANSFER — AR/WebXR overlay of a door annotation in a different project/scenario
+Input:
+  projectId=P-RAIL-NEIGHBOR-02
+  time=2026-09-23T10:08:00Z
+  scenario=synthetic-yard-ar-preview
+  scale={value:1:50, unit:ratio, source:user-declared; not calibrated}
+  applicability={domain:WebXR-preview, jurisdiction:UNKNOWN, scope:non-authoritative overlay}
+  provenance={source:camera-and-plan-overlay, authority:ARKI_SYNTHETIC_TRAINING, domain:architecture-visualization, jurisdiction:UNKNOWN, date:2026-09-23, version:fixture-g-1, evidenceRefs:[ev-transfer-001]}
+  observation={kind:AR_OVERLAY, anchorId:anchor-door-7, value:candidate door annotation, confidence:0.61, unit:anchor-space, epistemicStatus:PROPOSAL, trackingQuality:UNKNOWN, simulation:true, claim:preview only; does not alter canonical project state}
+Expected oracle: PASS. The overlay is a proposal with unknown tracking quality and cannot certify placement or modify project state.
+
+CONTROLLED MUTANT / TEST-THE-TEST
+Mutant: copy NORMAL and change observation.epistemicStatus from UNKNOWN to FACT while keeping kind=OCR.
+Expected oracle: REJECT. Detected with assertion on epistemic state.
+Mutant status: KILLED; correct fixtures left intact.
+
+EXECUTION
+Command: node /home/ubuntu/jobs/cbef0db18f21_a7/test_g.mjs
+Result:
+{"status":"PASS","normal":"PASS","adversarial":"PASS","transfer":"PASS","mutant":"KILLED","unknownPreserved":true,"provenancePreserved":true,"unitsPreserved":true,"applicabilityPreserved":true,"contextPreserved":true,"forbiddenPromotionsRejected":true}
+
+EVIDENCE / LIMITS
+The test is a compact independent oracle, not a production OCR, computer-vision or WebXR implementation. It does not claim professional competence, certification, signing, inspection or ARKI completion. Existing correct code was not mutated. Product State, BKH, TX, E5-E8 and PF-H01 were not modified.

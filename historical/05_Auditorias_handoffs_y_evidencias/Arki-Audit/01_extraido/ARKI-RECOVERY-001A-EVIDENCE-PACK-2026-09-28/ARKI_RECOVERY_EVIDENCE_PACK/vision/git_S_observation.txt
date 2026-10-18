@@ -1,0 +1,33 @@
+[33m34617e0[m test(case): add controlled house E2E validation
+[33m3ae67e3[m feat(d2.1): connect architectural transaction to H003-H005
+[33mac240d5[m docs(governance): declare patched baseline and preserve orders
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33mf8ec89b[m feat(vsm): add weekly master registry and detector
+[33m1c41655[m docs: add canonical master handoff
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m33ce390[m feat: add bounded real spatial context
+[33m7175867[m test: close multiscale evidence safety gates
+[33m2cb33e3[m feat: add multiscale spatial evidence workflow
+[33m7a55bd0[m feat: activate georeferenced site intelligence foundation
+[33m8636f9b[m feat(gdi): add design contribution trace
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m5538a89[m feat: add traceable multi-agent design exploration
+[33m9ab4417[m feat: add gdi generative design ladder
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33m57b095e[m feat: add immutable multiscale variable catalog foundation
+[33md9c97ee[m docs: complete multiscale variable architecture
+[33mbe2aa87[m docs: canonicalize cross-scale variable semantics
+[33mea43eca[m docs: define territorial variable matrices
+[33mc20433e[m docs: define system building and site variable matrices
+[33m3789fdd[m docs: define space-scale variable matrix
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33ma8cb566[m docs: audit current multiscale variable architecture
+[33md53912b[m feat: implement RFC-026 design knowledge agent
+[33m37926a2[m feat: add RFC-025 regulatory corpus foundation
+[33md93c610[m docs: add user manual and entity glossary
+[33m14e3198[m docs: add SiMS-DeI 2.0 master architecture
+[33m700c1ae[m feat: implement canonical RFC-002 v1 HTTP contract
+[33m0bcc9a1[m fix: align v2 core with SiMS-DeI constitutional invariants
+[33m10d2ba7[m feat: add Open-Meteo intelligence agents and Pareto analysis

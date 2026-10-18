@@ -1,0 +1,5 @@
+# CCF Raw Outputs
+
+Raw outputs are preserved under `raw/ccf-preflight.txt`, `raw/ccf-framework-tests.txt`, existing Autopilot/Solver Lab outputs and the screenshots directory. The final manifest records each packaged file hash.
+
+This CCF artifact is bounded by Human Authority, PF-H01, the canonical-state firewall, and the explicit scope of ARKI-CCF-001. CCF is observability, navigation, coordination and governed control; it is not ARKI's brain, a truth store, a canonical mutation engine, or a source of professional certification.

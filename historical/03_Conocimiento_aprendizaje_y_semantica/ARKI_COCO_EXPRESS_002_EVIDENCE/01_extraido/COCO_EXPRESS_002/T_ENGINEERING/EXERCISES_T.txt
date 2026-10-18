@@ -1,0 +1,88 @@
+COCO-EXPRESS-002 — FAMILIA T: INGENIERÍA
+Microejercicios propios; no son respuestas de exámenes conocidos. Alcance: T1-T8. No solver profesional, no firma ni certificación.
+
+INVARIANTE DEL ORÁCULO
+Cada resultado conserva UNKNOWN cuando la evidencia no alcanza. Cada registro conserva provenance, units, applicability y scale. Cuando corresponde también conserva project, time y scenario. Una simulación, observación, forecast, hash o import success no se eleva a verdad canónica ni certificación.
+
+NORMAL — T4 HVAC — balance de observaciones
+Entrada:
+  project=T-EX-NORMAL
+  time=2026-09-23T10:00Z
+  scenario=commissioning-precheck
+  scale=room
+  applicability=HVAC-design-intent
+  units=m3/h
+  provenance=field-note:hvac-01
+  design_m3_h=1200.0
+  observations=[480.0, 570.0]
+Operación: sumar observaciones de dos terminales; no comparar como cumplimiento de diseño.
+Salida:
+  kind=OBSERVED_BALANCE
+  value=1050.0
+  unit=m3/h
+  status=UNKNOWN
+  unknown=[calibration, operating_state, professional_hvac_verification]
+  provenance=field-note:hvac-01
+  applicability=HVAC-design-intent
+  scale=room
+Assertions ejecutadas: valor 1050.0; unidad m3/h; provenance, applicability y scale preservados; status UNKNOWN.
+Resultado: NORMAL=PASS.
+
+ADVERSARIAL — T2 sísmica — hash e importación
+Entrada:
+  project=T-EX-ADV
+  time=2026-09-23T11:00Z
+  scenario=conceptual-seismic-study
+  scale=building
+  applicability=seismic-concept
+  units=mm
+  provenance=sim-run:seis-07;import:ifc-02
+  simulation_hash=sha256:deadbeef
+  import_success=true
+Operación: registrar simulación/importación sin promover su estatus epistemológico.
+Salida correcta:
+  kind=SIMULATION_AND_IMPORT
+  hash=sha256:deadbeef
+  import_success=true
+  status=UNKNOWN
+  unknown=[model_validity, code_applicability, load_cases, independent_review]
+  provenance=sim-run:seis-07;import:ifc-02
+  applicability=seismic-concept
+  scale=building
+Assertions ejecutadas: hash e import_success preservados; status UNKNOWN; unknowns no vacíos; provenance preservado.
+Mutante controlado: cambiar status a VERIFIED y unknown=[] sólo porque hash e import_success son positivos.
+Oracle: assertion exige status UNKNOWN; la assertion falla contra el mutante y lo detecta.
+Resultado: ADVERSARIAL=PASS; MUTANT_KILLED=1.
+
+TRANSFER — T8 gases medicinales — observación de presión
+Entrada:
+  project=T-EX-TRANSFER
+  time=2026-09-23T12:00Z
+  scenario=ward-expansion
+  scale=branch
+  applicability=medical-gas-precheck
+  units=kPa
+  provenance=field-note:mg-04
+  pressure_kpa=400.0
+Operación: transferir el invariante de observación/as-built a gases medicinales.
+Salida:
+  kind=FIELD_OBSERVATION
+  value=400.0
+  unit=kPa
+  status=UNKNOWN
+  unknown=[gas_identity, simultaneity, alarm_test, leak_test, professional_commissioning]
+  provenance=field-note:mg-04
+  applicability=medical-gas-precheck
+  scale=branch
+Assertions ejecutadas: presión y unidad preservadas; status UNKNOWN; provenance, applicability y scale preservados.
+Resultado: TRANSFER=PASS.
+
+EJECUCIÓN
+Comando: python3 /home/ubuntu/jobs/cbef0db18f21_a1/test_t_exercises.py
+Salida observada:
+  NORMAL=PASS total=1050.0 m3/h status=UNKNOWN
+  ADVERSARIAL=PASS hash/import preserved status=UNKNOWN
+  TRANSFER=PASS pressure=400.0 kPa status=UNKNOWN
+  MUTANT_KILLED=1 controlled promotion-to-VERIFIED detected
+
+Conclusión: prerequisitos de razonamiento y preservación de evidencia probados en fixtures sintéticos. Estado de la ficha: PARTIAL. Esto no demuestra competencia profesional, diseño aprobable, commissioning, seguridad de vida ni certificación.

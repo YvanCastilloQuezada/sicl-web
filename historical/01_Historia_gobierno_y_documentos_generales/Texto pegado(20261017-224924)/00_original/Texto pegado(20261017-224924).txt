@@ -1,0 +1,916 @@
+Hola, mira, hazme un favor. Yo en el servidor que tengo es un HP Z840 con 96 gigas de RAM, una tarjeta de video de Asus RTX 3060 de 12 gigas y el procesador es un Xeon E5 2680 v4. Entonces, este, es una máquina bastante aceptable, pero yo ya he descargado Oyama y también unos programas de inteligencia artificial. Lo que pasa es que quiero que Arky, dotarle de visión y también para que hable, ¿no? Y también quiero que un programa, pues deepseeker creo que es, Code, para que le busque a Arky libros para que estudie y aprenda a codificar, ¿no? Eso quiero. Entonces, ¿cómo puedes? Dime tú cómo lo puedo programar para que, no sé, meter algunos códigos y que haga lo que yo quiera, pues para poder conversar con ellos y que hagan lo que yo quiera. Explícame cómo es eso o cómo lo harías tú.
+Tu HP Z840 tiene capacidad suficiente para convertirlo en una estación local de inteligencia artificial para ARKI. Con 96 GB de RAM, un Xeon E5-2680 v4 y una RTX 3060 de 12 GB, podemos montar un sistema que escuche, hable, vea imágenes, consulte documentación y ayude a programar.
+
+Lo importante es organizar correctamente esos componentes. No necesitas instalar diez inteligencias artificiales independientes que trabajen sin coordinación.
+
+Mi propuesta es que ARKI sea el coordinador y Ollama proporcione los modelos de inteligencia artificial. Los modelos especializados actuarían como colaboradores de ARKI, no como motores arquitectónicos paralelos.
+
+1. Cómo funcionaría
+Tú conversas con ARKI
+
+Voz, texto, fotografías, planos y documentos
+Coordinador ARKI
+
+Comprende el pedido, selecciona herramientas y registra lo que hace
+Visión
+
+Interpreta imágenes y planos
+Conversación
+
+Razona y responde
+Programador
+
+Lee código y propone mejoras
+Universidad ARKI
+
+Estudia y organiza conocimiento
+ARKI Core + AGK + Árbol Vivo F1–F10
+
+Geometría, conocimiento, pruebas, evidencias y decisiones autorizadas
+Así, por ejemplo, podrías decirle:
+
+«ARKI, abre este plano, revisa los accesos, dime qué problemas encuentras y propón tres soluciones. Después muéstramelas en 3D».
+
+ARKI podría utilizar visión para interpretar el plano, sus herramientas arquitectónicas para analizarlo y el visor existente para representar las alternativas. La revisión profesional y la aprobación seguirían siendo tuyas.
+
+2. Qué programas utilizaría
+Función
+
+Herramienta
+
+Para qué sirve
+
+Cerebro conversacional
+
+Ollama
+
+Ejecutar modelos locales
+
+Visión
+
+Modelo multimodal compatible con Ollama
+
+Examinar fotografías, planos e imágenes
+
+Programación
+
+Modelo de código de la familia Qwen Coder o DeepSeek Coder
+
+Leer, explicar, escribir y revisar código
+
+Oído
+
+whisper.cpp
+
+Convertir tu voz en texto
+
+Voz
+
+Piper TTS
+
+Convertir respuestas en audio
+
+Memoria y estudio
+
+Universidad ARKI + buscador documental
+
+Recuperar libros, normas y conocimientos con fuentes
+
+Diseño
+
+ARKI Core + AGK
+
+Ejecutar operaciones arquitectónicas y geométricas
+
+Ollama dispone de una API local en http://localhost:11434/api y admite mecanismos de llamadas a herramientas, que sirven para conectar modelos con funciones controladas de ARKI. 
+
+GitHub
++1
+ Whisper.cpp puede funcionar localmente con NVIDIA; Piper permite generar voz sin depender de un servicio externo. 
+
+GitHub
++1
+
+Sobre DeepSeek Coder: puede ayudar a ARKI a programar, pero no debe recibir acceso irrestricto para modificar el repositorio. Lo usaría como agente que inspecciona código, propone cambios, ejecuta pruebas en un entorno aislado y solicita autorización antes de integrar.
+
+Para buscar libros, incorporaría un agente bibliotecario con acceso a fuentes autorizadas. Buscaría bibliografía, verificaría autores y ediciones, descargaría únicamente material permitido y prepararía fichas de estudio. Luego la Universidad ARKI, mediante Delta 6.2, evaluaría ese conocimiento. Leer un libro no significa automáticamente haber adquirido una competencia.
+
+3. Primeras pruebas en tu servidor
+Como ya tienes Ollama instalado, no lo reinstalaría. Primero comprobaría qué está funcionando.
+
+En Ubuntu, abre una terminal y ejecuta:
+
+
+echo "=== EQUIPO ==="
+hostname
+uname -a
+free -h
+
+echo "=== NVIDIA ==="
+nvidia-smi
+
+echo "=== OLLAMA ==="
+ollama --version
+ollama list
+ollama ps
+
+echo "=== API LOCAL ==="
+curl -sS --max-time 5 http://127.0.0.1:11434/api/tags
+
+echo
+echo "=== SERVICIO ==="
+systemctl is-active ollama || true
+
+Estos comandos son de inspección; no modifican el sistema.
+
+Con el resultado sabremos qué modelos tienes descargados, si la RTX 3060 está disponible para Ollama y si el servicio responde.
+
+4. Una primera conversación con ARKI
+Antes de integrar voz y visión, podemos probar el cerebro local mediante un programa pequeño. Este ejemplo utiliza un modelo que ya tengas descargado y no modifica ARKI.
+
+
+import json
+import urllib.request
+
+MODELO = "REEMPLAZAR_CON_MODELO_INSTALADO"
+
+def preguntar_arki(pregunta):
+    datos = {
+        "model": MODELO,
+        "stream": False,
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "Eres un asistente experimental de ARKI. "
+                    "Ayudas a estudiar arquitectura y programación. "
+                    "No afirmes haber ejecutado herramientas "
+                    "ni modificado proyectos."
+                )
+            },
+            {"role": "user", "content": pregunta}
+        ]
+    }
+
+    solicitud = urllib.request.Request(
+        "http://127.0.0.1:11434/api/chat",
+        data=json.dumps(datos).encode("utf-8"),
+        headers={"Content-Type": "application/json"}
+    )
+
+    with urllib.request.urlopen(
+        solicitud, timeout=300
+    ) as respuesta:
+        resultado = json.load(respuesta)
+
+    return resultado["message"]["content"]
+
+Guárdalo como prueba_arki_ollama.py, reemplaza REEMPLAZAR_CON_MODELO_INSTALADO por un nombre de ollama list y ejecútalo con:
+
+python3 prueba_arki_ollama.py
+
+Esto demuestra una conversación local básica. Todavía no es el ARKI integrado ni tiene memoria persistente, voz o visión.
+
+5. Cómo aprovecharía tu HP Z840
+RTX 3060 · 12 GB VRAM
+
+Adecuada
+Buena para modelos cuantizados pequeños y medianos. Empezaría con modelos de 4B a 8B parámetros; algunos de 14B pueden funcionar con ajustes, pero no todos cabrán completamente en la GPU.
+
+96 GB RAM
+
+Permiten manejar documentos, índices de búsqueda y modelos mayores con descarga parcial a RAM, aunque con menor velocidad.
+
+Xeon E5-2680 v4
+
+Útil para orquestación, procesamiento documental y servicios. La generación de IA intensiva dependerá principalmente de la GPU.
+
+No cargaría simultáneamente cuatro modelos grandes en los 12 GB de VRAM. ARKI debería activar el especialista que necesita y liberar recursos cuando termine.
+
+6. Cómo lo llevaría al ARKI real
+Haría la integración progresivamente, pero sobre tu instalación actual, sin crear otra aplicación:
+
+Conectar Ollama al Core: que ARKI pueda conversar con el modelo local y reconocer sus herramientas disponibles.
+
+Activar oído y voz: que puedas hablarle desde el navegador y escuchar sus respuestas.
+
+Activar visión: que reciba fotografías, capturas, planos e imágenes del visor.
+
+Activar programador y biblioteca: que examine código, investigue bibliografía y proponga aprendizaje controlado.
+
+Conectar con F1–F10: que cada actividad quede registrada en el Árbol Vivo, respete dependencias y requiera autorización para modificar el sistema.
+
+El objetivo final sería que pudieras decir:
+
+«ARKI, revisa qué te falta para generar planos arquitectónicos. Investiga cómo resolverlo, estudia las fuentes necesarias, prepara tres alternativas, prueba sus resultados y muéstrame cuál propones implementar».
+
+ARKI haría el trabajo de investigación y experimentación; tú aprobarías las modificaciones importantes.
+
+Ahora necesito una sola cosa: pega aquí el resultado del bloque de diagnóstico de tu HP Z840. Con eso podremos elegir los modelos que mejor aprovechen tu tarjeta, sin descargar programas innecesarios ni interferir con lo que ya tienes instalado.
+
+arki@Arki-02:~/Descargas/ARKI_INT049R_20261017T175333Z_484314/isolated-repo$ 
+echo "=== EQUIPO ==="
+hostname
+uname -a
+free -h
+
+echo "=== NVIDIA ==="
+nvidia-smi
+
+echo "=== OLLAMA ==="
+ollama --version
+ollama list
+ollama ps
+
+echo "=== API LOCAL ==="
+curl -sS --max-time 5 http://127.0.0.1:11434/api/tags
+
+echo
+echo "=== SERVICIO ==="
+systemctl is-active ollama || true
+=== EQUIPO ===
+Arki-02
+Linux Arki-02 7.0.0-38-generic #38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026 x86_64 GNU/Linux
+               total       usado       libre  compartido   búf/caché  disponible
+Mem:            92Gi       7,0Gi        70Gi       385Mi        16Gi        85Gi
+Inter:         8,0Gi          0B       8,0Gi
+=== NVIDIA ===
+Sat Oct 17 17:31:25 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.99.02              Driver Version: 595.99.02      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3060        Off |   00000000:04:00.0  On |                  N/A |
+|  0%   51C    P0             41W /  170W |     319MiB /  12288MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2790      G   /usr/bin/gnome-shell                     84MiB |
+|    0   N/A  N/A            5658      G   /usr/bin/Xwayland                         3MiB |
+|    0   N/A  N/A            6606    C+G   ...rack-uuid=3190708988185955192         88MiB |
+|    0   N/A  N/A           70774    C+G   /usr/bin/nautilus                        22MiB |
+|    0   N/A  N/A         2293804    C+G   /usr/bin/ptyxis                          20MiB |
++-----------------------------------------------------------------------------------------+
+=== OLLAMA ===
+ollama version is 0.40.4
+NAME                       ID              SIZE      MODIFIED   
+llama3.2-vision:11b        6f2f9757ae97    7.8 GB    2 days ago    
+qwen3-coder-next:q4_K_M    ca06e9e4087c    51 GB     2 days ago    
+devstral-small-2:24b       24277f07f62d    15 GB     2 days ago    
+qwen3-coder:30b            06c1097efce0    18 GB     2 days ago    
+NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL 
+=== API LOCAL ===
+{"models":[{"name":"llama3.2-vision:11b","model":"llama3.2-vision:11b","modified_at":"2026-10-15T03:12:57.968451739-05:00","size":7816589186,"digest":"6f2f9757ae97e8a3f8ea33d6adb2b11d93d9a35bef277cd2c0b1b5af8e8d0b1e","details":{"parent_model":"","format":"gguf","family":"mllama","families":["mllama"],"parameter_size":"10.7B","quantization_level":"Q4_K_M","context_length":131072,"embedding_length":4096,"runner":"ggml"},"capabilities":["tools","completion","vision"]},{"name":"qwen3-coder-next:q4_K_M","model":"qwen3-coder-next:q4_K_M","modified_at":"2026-10-15T03:11:20.496926865-05:00","size":51741611823,"digest":"ca06e9e4087c714d44355bf954099187890e63084b4a632b8e9956c4b9492074","details":{"parent_model":"","format":"gguf","family":"qwen3next","families":["qwen3next"],"parameter_size":"79.7B","quantization_level":"Q4_K_M","context_length":262144,"embedding_length":2048,"runner":"ggml"},"capabilities":["completion","tools"]},{"name":"devstral-small-2:24b","model":"devstral-small-2:24b","modified_at":"2026-10-15T02:41:51.928594236-05:00","size":15177374099,"digest":"24277f07f62db8f9cb68e9dfc679ea1818a7fbac47a50eff0a701d3f645b63c8","details":{"parent_model":"","format":"gguf","family":"mistral3","families":["mistral3"],"parameter_size":"24.0B","quantization_level":"Q4_K_M","context_length":393216,"embedding_length":5120,"runner":"ggml"},"capabilities":["completion","vision","tools"]},{"name":"qwen3-coder:30b","model":"qwen3-coder:30b","modified_at":"2026-10-15T02:22:01.336352397-05:00","size":18556700761,"digest":"06c1097efce0431c2045fe7b2e5108366e43bee1b4603a7aded8f21689e90bca","details":{"parent_model":"","format":"gguf","family":"qwen3moe","families":["qwen3moe"],"parameter_size":"30.5B","quantization_level":"Q4_K_M","context_length":262144,"embedding_length":2048,"runner":"ggml"},"capabilities":["completion","tools"]}]}
+=== SERVICIO ===
+active
+arki@Arki-02:~/Descargas/ARKI_INT049R_20261017T175333Z_484314/isolated-repo$
+…
+ARKI-02 — Diagnóstico de inteligencia artificial local
+Ollama operativo y API accesible
+Los resultados confirman que tu estación Arki-02 ya dispone de una infraestructura funcional para ejecutar modelos de inteligencia artificial localmente. No necesitamos reinstalar Ollama ni descargar nuevamente los cuatro modelos.
+
+1. Estado comprobado
+Componente
+
+Resultado
+
+Estado
+
+Ubuntu Linux
+
+Kernel 7.0.0-38
+
+ Detectado
+
+RAM
+
+92 GiB, 85 GiB disponibles
+
+
+GPU
+
+NVIDIA RTX 3060, 12 GB VRAM
+
+
+Controlador NVIDIA
+
+595.99.02, CUDA 13.2 reportado
+
+
+Ollama
+
+Versión 0.40.4
+
+
+Servicio Ollama
+
+active
+
+
+API local
+
+Puerto 11434 responde
+
+
+Modelos instalados
+
+4
+
+
+Modelos ejecutándose
+
+0
+
+En espera
+
+Importante: todavía no hemos demostrado que los modelos generen respuestas correctamente, que utilicen la GPU ni que estén conectados al núcleo de ARKI. Esas son las siguientes verificaciones.
+
+2. Distribución propuesta de los cuatro modelos
+Modelo instalado
+
+Función dentro de ARKI
+
+Consideración
+
+llama3.2-vision:11b
+
+Ojos: interpretar fotografías, croquis y planos
+
+7,8 GB; candidato para GPU
+
+devstral-small-2:24b
+
+Programación, análisis técnico y visión complementaria
+
+15 GB; probable descarga parcial a RAM
+
+qwen3-coder:30b
+
+Programador y revisor de código
+
+18 GB; probable descarga parcial a RAM
+
+qwen3-coder-next:q4_K_M
+
+Programación compleja y revisión profunda
+
+51 GB; ejecución potencialmente lenta en este equipo
+
+Los tamaños son de los archivos de los modelos, no el consumo total de memoria durante la inferencia. Aunque algunos anuncian contextos enormes, no significa que podamos utilizarlos íntegramente con 12 GB de VRAM.
+
+Mi decisión técnica: empezar por llama3.2-vision:11b y qwen3-coder:30b. Mantener los otros dos instalados, pero no cargarlos simultáneamente. Para conversación general y voz podremos evaluar después un modelo ligero, sin descargarlo todavía.
+
+3. Primera prueba automatizada: modelos, GPU y respuestas
+Te dejo un bloque completo que puedes pegar directamente en tu terminal Ubuntu. No modifica ARKI, no crea ramas, no instala dependencias y no elimina archivos.
+
+Ejecuta las pruebas secuencialmente para evitar competir por la VRAM.
+
+ARKI — Prueba de inferencia local 001
+
+cat > /tmp/arki_ollama_diagnostico.py <<'PY'
+import json, time, urllib.request, subprocess
+
+BASE = "http://127.0.0.1:11434"
+MODELS = [
+    "llama3.2-vision:11b",
+    "qwen3-coder:30b",
+    "devstral-small-2:24b",
+    "qwen3-coder-next:q4_K_M",
+]
+
+def api(path, payload=None, timeout=180):
+    data = None if payload is None else json.dumps(payload).encode()
+    req = urllib.request.Request(
+        BASE + path, data=data,
+        headers={"Content-Type": "application/json"}
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        return json.load(response)
+
+for model in MODELS:
+    print("\n" + "=" * 70, flush=True)
+    print("MODELO:", model, flush=True)
+    start = time.monotonic()
+    try:
+        result = api("/api/chat", {
+            "model": model,
+            "messages": [{"role": "user", "content":
+                "Responde exactamente: ARKI LOCAL OK"}],
+            "stream": False,
+            "options": {"num_ctx": 2048, "num_predict": 40},
+            "keep_alive": 0
+        }, timeout=240)
+        print("RESPUESTA:", result.get("message", {}).get("content", "")[:400])
+        print("SEGUNDOS:", round(time.monotonic() - start, 2))
+        print("TOKENS GENERADOS:", result.get("eval_count", "UNKNOWN"))
+        print("ESTADO: PASS" if result.get("done") else "ESTADO: INCOMPLETE")
+    except Exception as exc:
+        print("ESTADO: FAIL")
+        print("ERROR:", type(exc).__name__, str(exc)[:500])
+    finally:
+        try:
+            api("/api/generate", {"model": model, "keep_alive": 0})
+        except Exception:
+            pass
+        subprocess.run(["ollama", "stop", model], capture_output=True)
+
+print("\n=== GPU FINAL ===", flush=True)
+subprocess.run(["nvidia-smi", "--query-gpu=name,memory.used,memory.total",
+                "--format=csv,noheader"])
+print("\n=== OLLAMA FINAL ===", flush=True)
+subprocess.run(["ollama", "ps"])
+PY
+
+python3 -u /tmp/arki_ollama_diagnostico.py 2>&1 \
+  | tee ~/Descargas/ARKI_OLLAMA_DIAGNOSTICO_001.log
+
+Esta prueba comprueba respuestas reales, registra tiempos y libera los modelos entre ejecuciones. Puede tardar varios minutos, especialmente con el modelo de 80 mil millones de parámetros. Un PASS indica que Ollama completó la inferencia, no que haya utilizado la GPU ni que la respuesta sea semánticamente correcta.
+
+4. Cómo quedará integrado dentro de ARKI
+ARKI — Árbol Vivo / Interfaz única
+
+Conversación · Voz · Imágenes · Planos · Propuestas
+
+ARKI Core — Orquestador
+
+Selecciona capacidades, verifica dependencias y controla autorizaciones
+
+Visión
+
+Llama Vision
+Programación
+
+Qwen / Devstral
+Conversación y voz
+
+LLM + STT/TTS
+Universidad ARKI
+
+Fuentes + Delta 6.2
+AGK único + Árbol Gemelo Digital
+
+Geometría real · Simulación · Evidencia · Aprobación del PO
+
+El principio es que los modelos razonan y proponen, pero no sustituyen al motor geométrico ni escriben directamente en el estado canónico.
+
+Para la voz necesitaremos comprobar qué herramientas de reconocimiento y síntesis ya están instaladas. Para la biblioteca, utilizaremos fuentes autorizadas e indexación documental, con procedencia y evaluación antes de incorporar conocimiento.
+
+5. Próximo paso
+Ejecuta el bloque y pásame el archivo ARKI_OLLAMA_DIAGNOSTICO_001.log o pega su contenido.
+
+Con ese resultado podremos determinar cuáles de tus cuatro modelos realmente funcionan en Arki-02 y cuáles conviene asignar a cada capacidad. Después corresponde inspeccionar el adaptador Ollama existente en sicl-core y conectarlo al Árbol Vivo, sin crear otra aplicación ni abrir ramas innecesarias.
+
+Conclusión: ARKI ya tiene disponible un servidor local de IA y cuatro modelos instalados. Lo que falta demostrar es la inferencia efectiva y construir o verificar su integración funcional con ARKI.
+
+https://ollama.com/search?q=vision   arki@Arki-02:~/Descargas/ARKI_INT049R_20261017T175333Z_484314/isolated-repo$ 
+arki@Arki-02:~/Descargas/ARKI_INT049R_20261017T175333Z_484314/isolated-repo$ cat > /tmp/arki_ollama_diagnostico.py <<'PY'
+import json, time, urllib.request, subprocess
+
+BASE = "http://127.0.0.1:11434"
+MODELS = [
+    "llama3.2-vision:11b",
+    "qwen3-coder:30b",
+    "devstral-small-2:24b",
+    "qwen3-coder-next:q4_K_M",
+]
+
+def api(path, payload=None, timeout=180):
+    data = None if payload is None else json.dumps(payload).encode()
+    req = urllib.request.Request(
+        BASE + path, data=data,
+        headers={"Content-Type": "application/json"}
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        return json.load(response)
+
+for model in MODELS:
+    print("\n" + "=" * 70, flush=True)
+    print("MODELO:", model, flush=True)
+    start = time.monotonic()
+    try:
+        result = api("/api/chat", {
+            "model": model,
+            "messages": [{"role": "user", "content":
+                "Responde exactamente: ARKI LOCAL OK"}],
+            "stream": False,
+            "options": {"num_ctx": 2048, "num_predict": 40},
+            "keep_alive": 0
+        }, timeout=240)
+        print("RESPUESTA:", result.get("message", {}).get("content", "")[:400])
+        print("SEGUNDOS:", round(time.monotonic() - start, 2))
+        print("TOKENS GENERADOS:", result.get("eval_count", "UNKNOWN"))
+        print("ESTADO: PASS" if result.get("done") else "ESTADO: INCOMPLETE")
+    except Exception as exc:
+        print("ESTADO: FAIL")
+        print("ERROR:", type(exc).__name__, str(exc)[:500])
+    finally:
+        try:
+            api("/api/generate", {"model": model, "keep_alive": 0})
+        except Exception:
+            pass
+        subprocess.run(["ollama", "stop", model], capture_output=True)
+
+print("\n=== GPU FINAL ===", flush=True)
+subprocess.run(["nvidia-smi", "--query-gpu=name,memory.used,memory.total",
+                "--format=csv,noheader"])
+print("\n=== OLLAMA FINAL ===", flush=True)
+subprocess.run(["ollama", "ps"])
+PY
+python3 -u /tmp/arki_ollama_diagnostico.py 2>&1 | tee ~/Descargas/ARKI_OLLAMA_DIAGNOSTICO_001.log
+
+======================================================================
+MODELO: llama3.2-vision:11b
+ESTADO: FAIL
+ERROR: HTTPError HTTP Error 500: Internal Server Error
+
+======================================================================
+MODELO: qwen3-coder:30b
+RESPUESTA: ARKI LOCAL OK
+SEGUNDOS: 17.2
+TOKENS GENERADOS: 5
+ESTADO: PASS
+
+======================================================================
+MODELO: devstral-small-2:24b
+RESPUESTA: ARKI LOCAL OK
+SEGUNDOS: 17.76
+TOKENS GENERADOS: 5
+ESTADO: PASS
+
+======================================================================
+MODELO: qwen3-coder-next:q4_K_M
+RESPUESTA: ARKI LOCAL OK
+SEGUNDOS: 42.81
+TOKENS GENERADOS: 5
+ESTADO: PASS
+
+=== GPU FINAL ===
+NVIDIA GeForce RTX 3060, 342 MiB, 12288 MiB
+
+=== OLLAMA FINAL ===
+NAME    ID    SIZE    PROCESSOR    CONTEXT    RUNNER    UNTIL 
+arki@Arki-02:~/Descargas/ARKI_INT049R_20261017T175333Z_484314/isolated-repo$ \
+
+…
+ARKI-02 — Resultado de la prueba de inteligencia local
+Los resultados son claros: tres de los cuatro modelos funcionan y uno presenta un error HTTP 500.
+
+Modelo
+
+Resultado
+
+Tiempo de primera respuesta
+
+llama3.2-vision:11b
+
+ FAIL — HTTP 500
+
+No determinado
+
+qwen3-coder:30b
+
+ PASS
+
+17,20 s
+
+devstral-small-2:24b
+
+ PASS
+
+17,76 s
+
+qwen3-coder-next:q4_K_M
+
+ PASS
+
+42,81 s
+
+Los tres modelos exitosos respondieron exactamente ARKI LOCAL OK. Eso demuestra inferencia básica, aunque todavía no capacidad de programación autónoma ni integración con ARKI.
+
+Hay un detalle importante: devstral-small-2:24b también declara capacidad de visión en tu API de Ollama. Por tanto, el fallo de Llama Vision no significa que ARKI se haya quedado sin un modelo visual disponible.
+
+La medición final de 342 MiB de VRAM tampoco demuestra que los modelos hayan utilizado la GPU: tu script los descargó antes de medirla.
+
+No recomiendo descargar otros modelos todavía. Primero debemos diagnosticar el error 500 y comprobar visión real con una imagen de prueba.
+
+1. Sobre el catálogo de modelos visuales de Ollama
+Revisé el catálogo oficial de modelos con visión. Hay opciones interesantes para ARKI, especialmente:
+
+Qwen3-VL: candidato para interpretar fotografías, croquis, planos y relaciones espaciales.
+
+Qwen2.5-VL: alternativa para comprensión visual y documentos.
+
+Granite 3.2 Vision: especializado en comprensión de documentos visuales, tablas y diagramas.
+
+DeepSeek-OCR: candidato para extracción de texto de documentos escaneados.
+
+Estas capacidades figuran en el catálogo; su precisión en planos arquitectónicos todavía debe medirse con pruebas propias de ARKI. 
+
+Ollama
+
+Mi candidato para una evaluación posterior sería qwen3-vl:8b, pero primero vamos a verificar lo que ya tienes instalado.
+
+2. Diagnóstico del fallo de Llama Vision
+Ejecuta este bloque completo. Captura el mensaje real del servidor, prueba visión con una imagen generada localmente y registra el procesador usado mientras el modelo permanece cargado.
+
+
+cat > /tmp/arki_vision_002.py <<'PY'
+import base64
+import json
+import subprocess
+import time
+import urllib.request
+import urllib.error
+import zlib
+import struct
+from pathlib import Path
+
+BASE = "http://127.0.0.1:11434"
+MODELS = ["llama3.2-vision:11b", "devstral-small-2:24b"]
+OUT = Path.home() / "Descargas" / "ARKI_VISION_002.json"
+
+def chunk(tag, data):
+    return (struct.pack(">I", len(data)) + tag + data +
+            struct.pack(">I", zlib.crc32(tag + data) & 0xffffffff))
+
+# Imagen de prueba: rectángulo rojo sobre fondo blanco.
+w, h = 128, 128
+pixels = bytearray()
+for y in range(h):
+    pixels.append(0)
+    for x in range(w):
+        pixels.extend((220, 30, 30) if 32 <= x < 96 and 40 <= y < 88
+                      else (255, 255, 255))
+png = (b"\x89PNG\r\n\x1a\n" +
+       chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0)) +
+       chunk(b"IDAT", zlib.compress(bytes(pixels))) +
+       chunk(b"IEND", b""))
+
+def api(path, data, timeout=240):
+    request = urllib.request.Request(
+        BASE + path,
+        data=json.dumps(data).encode(),
+        headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as r:
+            return json.load(r)
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(
+            f"HTTP {e.code}: {e.read().decode(errors='replace')[:2000]}")
+
+results = []
+for model in MODELS:
+    print("\nMODELO:", model, flush=True)
+    start = time.monotonic()
+    record = {"model": model}
+    try:
+        result = api("/api/chat", {
+            "model": model,
+            "messages": [{
+                "role": "user",
+                "content": "¿Qué figura y color principal ves? Responde en español.",
+                "images": [base64.b64encode(png).decode()]
+            }],
+            "stream": False,
+            "keep_alive": "2m",
+            "options": {"num_ctx": 2048, "num_predict": 100}
+        })
+        record["response"] = result.get("message", {}).get("content")
+        record["done"] = result.get("done")
+        record["seconds"] = round(time.monotonic() - start, 2)
+        record["status"] = "PASS" if record["done"] else "INCOMPLETE"
+        ps = subprocess.run(["ollama", "ps"], capture_output=True, text=True)
+        record["ollama_ps"] = ps.stdout
+        print("RESPUESTA:", record["response"], flush=True)
+        print("PROCESADOR:\n", ps.stdout, flush=True)
+    except Exception as exc:
+        record["status"] = "FAIL"
+        record["error"] = str(exc)
+        print("ERROR:", record["error"], flush=True)
+    finally:
+        subprocess.run(["ollama", "stop", model], capture_output=True)
+    results.append(record)
+
+OUT.write_text(json.dumps(results, indent=2, ensure_ascii=False))
+print("\nRESULTADOS:", OUT)
+PY
+
+python3 -u /tmp/arki_vision_002.py \
+  2>&1 | tee ~/Descargas/ARKI_VISION_002.log
+
+echo "=== ERRORES RECIENTES DE OLLAMA ==="
+journalctl -u ollama --since "15 minutes ago" \
+  --no-pager -n 100
+
+La prueba no modifica repositorios ni descarga modelos. El archivo JSON y el registro permitirán distinguir un problema de carga del modelo, memoria, compatibilidad o procesamiento visual. Los registros del servicio pueden contener información del entorno, así que revísalos antes de compartirlos.
+
+3. Decisión para ARKI
+Mantendría esta asignación provisional:
+
+Programación: qwen3-coder:30b.
+
+Revisión técnica: devstral-small-2:24b.
+
+Visión: pendiente de la prueba 002.
+
+Programación profunda: qwen3-coder-next:q4_K_M, cuando justifique su mayor tiempo de respuesta.
+
+No instalaría aún más modelos ni cambiaría el núcleo de ARKI.
+
+Cuando tengamos la prueba visual, pasaremos a conectar el modelo validado al ARKI Core existente, para que ARKI pueda recibir un plano, interpretarlo, identificar incertidumbres y presentar sus conclusiones en el Árbol Vivo. La interpretación de una imagen no se considerará geometría CAD verificada hasta contrastarla con datos y pruebas geométricas reales.
+
+Modelos
+Ver todo →
+Nombre
+
+Tamaño / Uso
+
+Contexto
+
+Aporte
+
+qwen3-vl:último
+6,1 GB
+
+256K
+
+Texto, Imagen
+
+qwen3-vl:2b
+
+1,9 GB
+
+256K
+
+Texto, Imagen
+
+qwen3-vl:4b
+3,3 GB
+
+256K
+
+Texto, Imagen
+
+qwen3-vl:8b
+el último
+6,1 GB
+
+256K
+
+Texto, Imagen
+
+qwen3-vl:30b
+20 GB
+
+256K
+
+Texto, Imagen
+
+qwen3-vl:32b
+21 GB
+
+256K
+
+Texto, Imagen
+
+qwen3-vl:235b
+143 GB
+
+256K
+
+Texto, Imagen
+…
+Para ARKI-02, con 92 GiB de RAM y una NVIDIA RTX 3060 de 12 GB, mi elección sería qwen3-vl:8b como modelo visual principal.
+
+No necesitamos instalar todos los modelos. Necesitamos seleccionar el que permita a ARKI interpretar planos, croquis, fotografías, documentos y elementos arquitectónicos con una velocidad razonable.
+
+Comparación para tu equipo
+Modelo
+
+Tamaño indicado
+
+Evaluación para ARKI
+
+qwen3-vl:2b
+
+1,9 GB
+
+Ligero, útil para tareas visuales sencillas
+
+qwen3-vl:4b
+
+3,3 GB
+
+Rápido; alternativa económica
+
+qwen3-vl:8b
+
+6,1 GB
+
+Primera opción recomendada
+
+qwen3-vl:30b
+
+20 GB
+
+Mayor demanda; necesitará RAM además de VRAM
+
+qwen3-vl:32b
+
+21 GB
+
+Candidato para pruebas profundas, más lento
+
+qwen3-vl:235b
+
+143 GB
+
+No recomendable para tu estación actual
+
+Los 256K de contexto anunciados son la capacidad nominal de la familia, no una garantía de que ese contexto completo pueda ejecutarse eficientemente con tu hardware.
+
+Mi propuesta
+Shop Drawings vs As Built Drawings | United BIM
+ARKI Vision — Qwen3-VL 8B
+
+Recomendado para prueba
+Reconocimiento de espacios, elementos, cotas visibles y relaciones arquitectónicas; sujeto a validación.
+
+Este modelo interpretará imágenes. El AGK único seguirá siendo responsable de construir y verificar geometría real.
+
+Instalar y probar
+Copia estas instrucciones en Ubuntu:
+
+# Descargar el modelo visual recomendado
+ollama pull qwen3-vl:8b
+
+# Verificar instalación
+ollama list
+
+# Abrir conversación local
+ollama run qwen3-vl:8b
+
+Dentro de la conversación puedes preguntarle:
+
+¿Qué capacidades tienes para interpretar planos arquitectónicos, identificar ambientes, circulaciones, accesos y relaciones espaciales? Responde en español.
+
+Eso comprobará conversación, no visión real. La siguiente prueba debe incluir una imagen auténtica y verificar qué interpreta correctamente y qué inventa.
+
+¿Y los modelos de 30B y 32B?
+Los reservaría para una segunda etapa comparativa. Tienes suficiente RAM para intentar ejecutarlos con descarga parcial a CPU, pero no suficiente VRAM para alojarlos completos en la GPU. Su mayor tamaño tampoco garantiza mejores resultados en todos los planos.
+
+Decisión: instalar únicamente qwen3-vl:8b, probarlo con imágenes arquitectónicas y compararlo con devstral-small-2:24b, que ya tienes instalado.
+
+Después integraremos el ganador en el ARKI Core existente, sin crear otro motor ni otra interfaz.
+
+como instyalo  qwen3-vl:8b
+En tu computadora Arki-02 (Ubuntu) ya tienes Ollama funcionando. Para instalar Qwen3-VL 8B, solo necesitas ejecutar un comando.
+
+1. Instalar el modelo
+Abre tu terminal y copia:
+
+ollama pull qwen3-vl:8b
+
+Espera a que termine la descarga, aproximadamente 6,1 GB.
+
+2. Verificar que se instaló
+ollama list
+
+Debe aparecer:
+
+qwen3-vl:8b
+3. Ejecutar el modelo
+ollama run qwen3-vl:8b
+
+Cuando aparezca el indicador >>>, escribe:
+
+Hola, soy ARKI. Responde en español. ¿Puedes analizar planos arquitectónicos e imágenes?
+Para salir, escribe /bye.
+
+4. Probarlo con un plano arquitectónico
+Cuando tengas una imagen JPG o PNG de un plano, ejecuta:
+
+ollama run qwen3-vl:8b
+
+Y dentro del modelo escribe, sustituyendo la ruta por la de tu imagen:
+
+Analiza este plano arquitectónico: /home/arki/Descargas/plano.png
+El modelo debe intentar interpretar la imagen. Sus resultados deberán verificarse antes de utilizarlos como datos arquitectónicos.
+
+Importante: no desinstales los otros modelos. Qwen3-VL será el candidato para los ojos de ARKI; los modelos de programación seguirán disponibles.
+
+Cuando termines, pásame el resultado de ollama list y continuamos con la integración de visión en ARKI Core.
+
+
+Texto pegado(20261017-224648).txt
+Documento
+ARKI-02 — Qwen3-VL 8B instalado correctamente
+Revisé el registro que enviaste. Hay dos conclusiones importantes:

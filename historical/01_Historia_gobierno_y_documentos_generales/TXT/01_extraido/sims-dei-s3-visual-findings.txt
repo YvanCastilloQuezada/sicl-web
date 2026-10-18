@@ -1,0 +1,9 @@
+S3 visual validation findings — 2026-09-17
+
+The initial temporary harness capture at /tmp/s3-alternative-a.png and /tmp/s3-alternative-b.png rendered the application's 404 Page Not Found screen, because the harness was first placed under the Vite client root and was handled by the application fallback. After relocating the harness to the discardable copy's client/public directory, Chromium headless still captured only the initial Loading harness… state for A and B; the module runtime did not complete. Therefore no valid visual evidence of Alternative A/B/C was accepted. The official Web preview at http://127.0.0.1:3123/spatial was gated by authentication; the existing login flow returned HTTP 403 from manus.im/app-auth. No source branch or committed file was changed.
+
+Authoritative test comparison:
+- S2 clone at 032a867eeabc046f578c5f17a6eebe04099e7c2f: 269 passed, 1 warning, same venv.
+- S3 Core at 5450e415948577dae9098204a7eada30ec4af6e6: 272 passed, 1 warning, same venv.
+- S3 added 3 transport tests; current full result is authoritative.
+- Historical 255 and 241 figures are not reproducible from the current branch/environment and should be treated as stale or partial-run labels, not a regression.

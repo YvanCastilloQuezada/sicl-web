@@ -1,0 +1,349 @@
+{
+  "schema": "ARKI-CAPABILITY-DIGEST-1.0",
+  "capabilityId": "C80",
+  "source": {
+    "uri": "registry://C80",
+    "version": "C1C80-W1",
+    "hash": "sha256:v1:00e7223019dc9a65d691bef77f22ee2d7ac1d863b55cf316fab26dffa851519b",
+    "trust": "TRANSFER_PACKAGE"
+  },
+  "sourceVersion": "C1C80-W1",
+  "sourceHash": "sha256:v1:00e7223019dc9a65d691bef77f22ee2d7ac1d863b55cf316fab26dffa851519b",
+  "semanticClassification": "Architecture:Wayfinding y Señalética",
+  "domains": [
+    "Architecture"
+  ],
+  "scales": [],
+  "jurisdictions": [],
+  "dependencies": [
+    "W1:identity",
+    "W1:epistemic",
+    "W7:explanation",
+    "W9:human-authority"
+  ],
+  "existingCapabilities": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "C19",
+    "C20",
+    "C21",
+    "C22",
+    "C23",
+    "C24",
+    "C25",
+    "C26",
+    "C27",
+    "C28",
+    "C29",
+    "C30",
+    "C31",
+    "C32",
+    "C33",
+    "C34",
+    "C35",
+    "C36",
+    "C37",
+    "C38",
+    "C39",
+    "C40",
+    "C41",
+    "C42",
+    "C43",
+    "C44",
+    "C45",
+    "C46",
+    "C47",
+    "C48",
+    "C49",
+    "C50",
+    "C51",
+    "C52",
+    "C53",
+    "C54",
+    "C55",
+    "C56",
+    "C57",
+    "C58",
+    "C59",
+    "C60",
+    "C61",
+    "C62",
+    "C63",
+    "C64",
+    "C65",
+    "C66",
+    "C67",
+    "C68",
+    "C69",
+    "C70",
+    "C71",
+    "C72",
+    "C73",
+    "C74",
+    "C75",
+    "C76",
+    "C77",
+    "C78",
+    "C79"
+  ],
+  "existingCode": [
+    {
+      "path": "ARKI_C1C80_WAVE1_EVIDENCE.zip",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "ARKI_C1C80_WAVE1_EVIDENCE.zip.sha256",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/00_BASELINE.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/01_C1_C80_CAPABILITY_REGISTRY.json",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/02_C1_C80_CAPABILITY_MATRIX.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/03_C1_C80_DEPENDENCY_DAG.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/04_C1_C80_ACTIVATION_BOARD.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/05_SHARED_ENGINE_MAP.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/06_EXISTING_REUSE_MAP.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/07_CANONICAL_BOUNDARY_MAP.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/08_WAVE_IMPLEMENTATION_PLAN.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/09_TEST_ORACLE_MATRIX.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/10_TOOL_REQUIREMENT_MATRIX.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/11_PROFESSIONAL_VALIDATION_MATRIX.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/12_IMPLEMENTATION_JOURNAL.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/13_WAVE0_TEST_RESULTS.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/14_WAVE0_REGRESSION_RESULTS.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/15_UNKNOWN_REGISTER.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/16_RISK_REGISTER.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    },
+    {
+      "path": "C1_C80_WAVE0/17_DECISION_REQUIRED.md",
+      "kind": "FILE",
+      "matches": [
+        "C80"
+      ],
+      "readOnly": true
+    }
+  ],
+  "sharedEngines": [
+    "W1:identity",
+    "W1:epistemic"
+  ],
+  "overlaps": [],
+  "contradictions": [],
+  "identityRequirements": [
+    "stable semantic capability identity",
+    "source/version/hash provenance"
+  ],
+  "epistemicState": "INFERRED",
+  "evidenceAvailable": [
+    "registry-evidence:C80"
+  ],
+  "evidenceMissing": [],
+  "provenance": [
+    {
+      "provenanceId": "prov:C80",
+      "source": "registry://C80",
+      "sourceType": "SYSTEM",
+      "actor": "DIGEST-001",
+      "observedAt": "1970-01-01T00:00:00.000Z",
+      "action": "READ_ONLY_REGISTRY_DIGEST",
+      "evidenceIds": []
+    }
+  ],
+  "units": [],
+  "toolsRequired": [],
+  "toolsAvailable": [],
+  "oracles": [
+    "INVARIANT_OR_REFERENCE_OR_TRUSTED_SOLVER_REQUIRED"
+  ],
+  "professionalValidation": [
+    "BOUNDED_OR_NOT_APPLICABLE"
+  ],
+  "unknowns": [
+    {
+      "what": "SCALE",
+      "why": "The registry does not establish a safe applicability scale for this capability",
+      "affectedCapability": "C80",
+      "dependencies": [
+        "W1:identity",
+        "W1:epistemic",
+        "W7:explanation",
+        "W9:human-authority"
+      ],
+      "severity": "HIGH",
+      "blocking": true,
+      "requiredEvidence": [
+        "explicit scale applicability"
+      ],
+      "resolutionPath": "Supply a governed applicability context"
+    }
+  ],
+  "risks": [
+    "readiness is not implementation authorization",
+    "registry evidence does not prove runtime capability"
+  ],
+  "reuseStrategy": "EXTEND",
+  "implementationReadiness": "KNOWLEDGE_DEFICIT",
+  "implementationStatus": "PARTIAL",
+  "testPlan": [
+    "normal",
+    "boundary",
+    "property",
+    "mutant",
+    "adversarial",
+    "transfer",
+    "regression"
+  ],
+  "adversarialPlan": [
+    "duplicate identity",
+    "wrong unit",
+    "wrong scale",
+    "missing provenance",
+    "malicious executable payload",
+    "fake VERIFIED claim"
+  ],
+  "transferPlan": [
+    "process cold synthetic capability outside C1-C80"
+  ],
+  "humanDecisionsRequired": []
+}

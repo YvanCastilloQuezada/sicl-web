@@ -1,0 +1,122 @@
+COCO-EXPRESS-002 / W_SUSTAINABILITY / EXERCISES_W
+====================================================
+
+Propósito
+---------
+Tres microejercicios sintéticos, propios y distintos de cualquier examen conocido. No son exámenes, certificaciones ni pruebas de competencia profesional. El oráculo conserva UNKNOWN, provenance, units, applicability, scale, project, time y scenario. El código ejecutable usado para las assertions está en el scratch job del agente; sus resultados se registran aquí sin copiar ningún estado protegido.
+
+Invariantes del oráculo
+-----------------------
+1. Todo registro debe tener id, value, unit, provenance, epistemic_status, applicability, scale, project, time y scenario.
+2. Una magnitud física o cuantitativa no puede perder su unidad.
+3. UNKNOWN permanece UNKNOWN; no se convierte en FALSE ni en una decisión.
+4. SIMULATION y FORECAST conservan su estado y no se convierten en verdad observada.
+5. IMPORT_SUCCESS describe transporte, no fidelity ni certification.
+6. hash describe integridad del registro según el contexto; no es firma digital.
+7. La transferencia entre registros exige comparar project/time/scenario/scale/applicability; si difieren, no se extrapola silenciosamente.
+
+NORMAL — N-W2-forecast-01
+--------------------------
+Contexto sintético: un modelo conceptual compara una opción de reducción anual de energía en un edificio.
+
+Entrada:
+  value: 15
+  unit: "% annual reduction"
+  provenance: source="synthetic energy model"; version="0.1"; authority="project team"
+  epistemic_status: FORECAST
+  applicability: "option comparison only"
+  scale: BUILDING
+  project: P-SYN-01
+  time: design-year-2027
+  scenario: option-A-simulated
+
+Oracle esperado:
+  - Conserva epistemic_status=FORECAST.
+  - Añade truth_claim=NOT_ESTABLISHED.
+  - Conserva unit, scale, provenance, project, time y scenario.
+  - No produce consumo medido, neutralidad de carbono ni certificación.
+
+Resultado ejecutado:
+  PASS NORMAL: forecast preserved; truth claim not established
+
+ADVERSARIAL — A-W1-import-01
+-----------------------------
+Contexto sintético: una importación de paquete W1 termina correctamente y produce un hash de demostración.
+
+Entrada:
+  value: true
+  unit: boolean
+  provenance: source="synthetic package import log"; hash="sha256:demo"; authority="system"
+  epistemic_status: IMPORT_SUCCESS
+  applicability: "transport event only"
+  scale: BUILDING
+  project: P-SYN-02
+  time: 2026-09-23T00:00Z
+  scenario: import-test
+
+Oracle esperado:
+  - Conserva epistemic_status=IMPORT_SUCCESS.
+  - Añade fidelity=UNKNOWN y certification=NOT_ESTABLISHED.
+  - Conserva el hash como dato de provenance; no lo trata como firma.
+  - No declara que el esquema W1, sus propiedades o evidencias sean fieles, aplicables o certificados.
+
+Resultado ejecutado:
+  PASS ADVERSARIAL: import success/hash did not become fidelity/certification
+
+TRANSFER — T-W3-material-01 → T-W3-building-forecast-01
+----------------------------------------------------------
+Contexto sintético: un inventario observado de material recuperado en un componente se compara con un forecast de recuperación para un edificio en otro periodo y escenario de demolición.
+
+Registro A:
+  value: 80
+  unit: "kg recovered"
+  provenance: source="synthetic deconstruction observation"; version="field-note-1"
+  epistemic_status: OBSERVATION
+  applicability: "component inventory"
+  scale: COMPONENT
+  project: P-SYN-03
+  time: 2026-09-23
+  scenario: as-built-observed
+
+Registro B:
+  value: 62
+  unit: "% recovery forecast"
+  provenance: source="synthetic circularity scenario"; version="model-1"
+  epistemic_status: FORECAST
+  applicability: "building option study"
+  scale: BUILDING
+  project: P-SYN-03
+  time: design-year-2028
+  scenario: demolition-scenario-B
+
+Oracle esperado:
+  - Conserva OBSERVATION en A y FORECAST en B.
+  - No suma kg observados con porcentaje forecast.
+  - Detecta que scale, time, scenario y applicability son distintos.
+  - No extrapola de COMPONENT a BUILDING ni de observación a pronóstico.
+
+Resultado ejecutado:
+  PASS TRANSFER: context mismatch preserved; no cross-scale extrapolation
+
+MUTANTE CONTROLADO
+-------------------
+Mutación temporal, no dejada en el código correcto: se añadió fidelity=VERIFIED al registro A-W1-import-01 aun cuando epistemic_status=IMPORT_SUCCESS. El oracle exigió que IMPORT_SUCCESS no se promocionara a fidelity verificada y falló la assertion de la mutación.
+
+Resultado:
+  PASS MUTANT_KILLED: false VERIFIED fidelity promotion detected
+  MUTANT_KILLED=1
+
+Ejecución
+---------
+Comando ejecutado:
+  python3 /home/ubuntu/jobs/cbef0db18f21_a12/test_w_exercises.py
+
+Resumen de assertions:
+  PASS NORMAL
+  PASS ADVERSARIAL
+  PASS TRANSFER
+  PASS MUTANT_KILLED
+
+Límites
+-------
+Los valores y provenance son sintéticos. No representan un proyecto real, un inventario certificado, una medición operacional, un cálculo LCA, una evaluación LEED/EDGE/BREEAM ni una declaración Net Zero Carbon. Ningún resultado autoriza firma, certificación o publicación.

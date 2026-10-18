@@ -1,0 +1,34 @@
+# ARKI Codebook for Architect v0.1
+
+**Estado:** FORENSIC DRAFT / PENDING HUMAN & INDEPENDENT REVIEW
+
+| Código | Qué significa | En palabras simples | Estado | ¿Debo preocuparme ahora? |
+|---|---|---|---|---|
+| AKI-001 | Programa de conocimiento del arquitecto | Libro y currículo para que ARKI conserve conocimiento útil | IMPLEMENTED / historical baseline | WATCH |
+| BKH-0 | Mapeo forense | Revisó qué existía realmente antes de diseñar más kernel | VERIFIED | NO |
+| BKH-1 | Relationship Fabric | Dice qué elemento se relaciona con cuál | VERIFIED | NO |
+| BKH-2 | Constraint Engine | Dice qué condiciones están permitidas, prohibidas o desconocidas | IMPLEMENTED / bounded scope | WATCH |
+| BKH-3 | Regeneration Engine | Decide qué debe volver a calcularse cuando algo cambia | HARDENED / review boundary | WATCH |
+| BKH-4 | Transaction Engine | Gobierna cómo se propone y controla un cambio | Foundation hardened; later stages blocked | YES |
+| BKH-5 | Documentation Compiler | Derivaría planos, láminas y documentos | BLOCKED | HISTORICAL |
+| BKH-6 | Performance | Mediría rendimiento con proyectos grandes | BLOCKED | HISTORICAL |
+| BKH-7 | Integrated Torture Test | Prueba integrada de todo el kernel | BLOCKED | HISTORICAL |
+| E5 | Entrega histórica de canvas/selección | Iteración congelada de visualización BIM | FROZEN | HISTORICAL |
+| E6 | Entrega histórica IFC/persistencia | Iteración congelada de interoperabilidad/persistencia | PARTIAL / FROZEN | WATCH |
+| E7 | Entrega histórica 4D/5D/clashes | Iteración congelada de coordinación y costos | PARTIAL / FROZEN | WATCH |
+| UI-1 | Gateway y shell BIM | Entrada y marco general de trabajo | APPROVE / CLOSED | NO |
+| UI-2 | Workspace BIM | Pantalla principal con módulos y paneles | APPROVE / CLOSED | NO |
+| UI-3A | Canvas y selección | Área para ver y seleccionar elementos | APPROVED lineage | WATCH |
+| ORDEN 95 | Fundación BKH4 | Implementó identidad, estados y mutations declarativas | IMPLEMENTED / review | YES |
+| ORDEN 95A | Endurecimiento BKH4 | Cerró defectos defensivos de esa fundación | HARDENED / review | YES |
+| IFC | Estándar externo de intercambio BIM | Formato común para intercambiar modelos | PARTIAL bounded support | WATCH |
+| ISO 16739 | Norma externa relacionada con IFC | Norma que define IFC | REFERENCE | NO |
+| D-series | Códigos históricos ARKI | Nombres de etapas antiguas cuyo detalle no está completamente recuperado | HISTORICAL / UNKNOWN details | HISTORICAL |
+| OI-* | Open Items | Lista de pendientes o preguntas abiertas | MIXED | WATCH |
+| FIX-* | Corrective Fixes | Correcciones acotadas de una revisión | MIXED by parent | WATCH |
+
+## Regla práctica
+
+`VERIFIED` siempre significa verificado dentro de un alcance definido. No significa que ARKI sea un sustituto de software profesional firmado. `HARDENED` tampoco significa `COMMITTED` ni `PRODUCTION COMPLETE`.
+
+**Preguntas importantes ahora:** revisar BKH4 foundation independently, resolver ownership pendientes antes de stages posteriores y no confundir capacidades bounded con solvers profesionales.

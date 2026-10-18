@@ -1,0 +1,7 @@
+[33m5c91576[m docs(architecture): freeze future ARKI Representation Engine
+[33m71ce972[m feat: persist field media with spatial evidence
+[33m7175867[m test: close multiscale evidence safety gates
+[33m2cb33e3[m feat: add multiscale spatial evidence workflow
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33m2c3d8e2[m docs: define object-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema

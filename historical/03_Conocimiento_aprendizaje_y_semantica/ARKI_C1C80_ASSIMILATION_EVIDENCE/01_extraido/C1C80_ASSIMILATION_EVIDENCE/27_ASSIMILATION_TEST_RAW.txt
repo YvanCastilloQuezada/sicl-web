@@ -1,0 +1,1 @@
+{"status":"PASS","cluster":"PASS","prerequisites":"PASS","deficitModel":"PASS","lifecycle":"PASS","promotionGate":"PASS","quarantine":"PASS"}

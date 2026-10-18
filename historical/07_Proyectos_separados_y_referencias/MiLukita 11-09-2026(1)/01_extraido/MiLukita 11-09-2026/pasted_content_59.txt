@@ -1,0 +1,202 @@
+ORDEN 59 — L★ / QR
+INTEGRACIÓN FINAL BACKEND / DOMAIN / API
+
+OBJETIVO
+
+Integrar el ShareService implementado en la Orden 52 con las
+capacidades territoriales y de experiencia de MiLukita.
+
+NO realizar frontend.
+
+============================================================
+1. PROHIBICIÓN FRONTEND
+============================================================
+
+NO modificar:
+
+- JSX
+- TSX visual
+- CSS
+- layouts
+- páginas
+- componentes
+- navegación
+- iconos
+- UX.
+
+NO integrar visualmente L★.
+
+La integración solicitada es exclusivamente backend/domain/API.
+
+============================================================
+2. REUTILIZAR ORDEN 52
+============================================================
+
+NO recrear ShareService.
+
+Utilizar la implementación existente de:
+
+- ShareTarget
+- ShareSession
+- resolveActiveShareTarget
+- creación de sesiones
+- TTL
+- expiración
+- revocación
+- ownership
+- RBAC
+- capabilities
+- auditoría.
+
+============================================================
+3. INTEGRACIÓN CON EXPERIENCES
+============================================================
+
+Permitir que un Experience publicado pueda convertirse en:
+
+ACTIVE_EXPERIENCE_SHARE_TARGET.
+
+Validar:
+
+- existencia
+- publicación
+- autorización
+- estado.
+
+============================================================
+4. INTEGRACIÓN CON TERRITORIAL
+============================================================
+
+Permitir que un WorldObject/territorial experience publicado pueda
+generar un share target cuando corresponda.
+
+Nunca exponer:
+
+- DRAFT
+- UNDER_REVIEW
+- DISPUTED
+- REJECTED
+- ARCHIVED
+
+como contenido público.
+
+============================================================
+5. SESSION SHARE
+============================================================
+
+Integrar sesiones autorizadas.
+
+Mantener:
+
+- token opaco
+- TTL
+- revocación
+- ownership
+- RBAC.
+
+QR != AUTHORIZATION.
+
+============================================================
+6. ACTIVE SHARE RESOLUTION
+============================================================
+
+La resolución debe mantener prioridad:
+
+1. ACTIVE EXPERIENCE
+2. AUTHORIZED SESSION
+3. PUBLIC LUKA.
+
+============================================================
+7. DEEP LINKS
+============================================================
+
+Preparar únicamente backend/domain para targets de:
+
+- MiLukita
+- LUKA AR
+- Experiences
+- sesiones autorizadas.
+
+NO implementar todavía control universal de TV.
+
+No asumir que QR conecta automáticamente un teléfono con cualquier TV.
+
+============================================================
+8. SECURITY
+============================================================
+
+Validar siempre:
+
+AUTHENTICATION
++
+RBAC
++
+CAPABILITY
++
+RESOURCE STATE.
+
+No confiar en URL o QR como mecanismo de autorización.
+
+============================================================
+9. AUDIT
+============================================================
+
+Integrar con Audit/Governance existente.
+
+No crear otro sistema.
+
+============================================================
+10. TESTS
+============================================================
+
+Tests de integración para:
+
+- public LUKA
+- active experience
+- authorized session
+- priority
+- expiration
+- revocation
+- RBAC
+- unpublished target
+- disputed target
+- invalid target
+- deep-link resolution.
+
+============================================================
+11. MJP CORE
+============================================================
+
+NO modificar:
+
+- RNG
+- RTP
+- RULES
+- RESULT
+- WALLET
+- LEDGER
+- SETTLEMENT
+- juegos
+- sorteos
+- pagos.
+
+============================================================
+12. ENTREGA
+============================================================
+
+Entregar:
+
+1. archivos modificados
+2. archivos nuevos
+3. APIs
+4. servicios
+5. integraciones
+6. tests
+7. TypeScript
+8. build
+9. dependencias
+10. limitaciones.
+
+NO frontend.
+
+FIN.

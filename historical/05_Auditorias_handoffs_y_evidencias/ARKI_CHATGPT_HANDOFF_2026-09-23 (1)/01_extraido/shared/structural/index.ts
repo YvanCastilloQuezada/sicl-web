@@ -1,0 +1,5 @@
+export type StructuralNode = { id: string; position: [number, number, number]; restraint?: [boolean, boolean, boolean] };
+export type StructuralMember = { id: string; startNodeId: string; endNodeId: string; material: string; section: string };
+export type StructuralModel = { nodes: StructuralNode[]; members: StructuralMember[]; loads: Record<string, number>; solver: "opensees-stub" | "opensees" };
+export type StructuralResult = { status: "NOT_DEMONSTRATED" | "VERIFIED"; warnings: string[]; modelSummary: { nodes: number; members: number } };
+export function validateStructuralModel(model: StructuralModel): StructuralResult { const ids = new Set(model.nodes.map((node) => node.id)); const warnings: string[] = []; for (const member of model.members) { if (!ids.has(member.startNodeId) || !ids.has(member.endNodeId)) warnings.push(`member ${member.id} references missing node`); } if (model.solver === "opensees-stub") warnings.push("No professional structural solver executed"); return { status: warnings.length ? "NOT_DEMONSTRATED" : "VERIFIED", warnings, modelSummary: { nodes: model.nodes.length, members: model.members.length } }; }

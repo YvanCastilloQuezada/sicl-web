@@ -1,0 +1,898 @@
+[
+  {
+    "areaId": "overview",
+    "name": "OVERVIEW",
+    "description": "ARKI-wide operational projection",
+    "status": "ACTIVE",
+    "maturity": "RUNTIME_EVIDENCE",
+    "source": [
+      "client/src/pages/AutopilotCommandCenter.tsx"
+    ],
+    "capabilities": [
+      "master overview",
+      "project view",
+      "system view"
+    ],
+    "dependencies": [],
+    "dependents": [
+      "autopilot",
+      "bim",
+      "evidence"
+    ],
+    "tools": [
+      "browser"
+    ],
+    "workers": [
+      "ARKI-DEV-WORKER-01"
+    ],
+    "inputs": [
+      "autopilot state",
+      "area registry",
+      "dependency graph"
+    ],
+    "outputs": [
+      "operational overview"
+    ],
+    "unknowns": [
+      "production backend telemetry"
+    ],
+    "deficits": [],
+    "risks": [
+      "projection is not canonical state"
+    ],
+    "tests": [
+      "test-autopilot-command-center.ts"
+    ],
+    "evidence": [
+      "AUTOPILOT_EVIDENCE_BUILD/29_EVIDENCE_MATRIX.md"
+    ],
+    "humanGates": 0,
+    "lastActivity": "2026-09-24T17:06:07.446Z",
+    "health": "OBSERVED"
+  },
+  {
+    "areaId": "autopilot",
+    "name": "AUTOPILOT",
+    "description": "Governed campaign execution, workers, checkpoints and evidence",
+    "status": "WAITING",
+    "maturity": "RUNTIME_EVIDENCE",
+    "activeObjective": "Solver Lab bounded campaign",
+    "currentTask": "Major Objective Review Gate",
+    "source": [
+      "shared/arkiAutopilot.ts",
+      "autopilot-state/solver-lab-001.json"
+    ],
+    "capabilities": [
+      "mandate",
+      "campaign",
+      "worker",
+      "human gates",
+      "audit",
+      "recovery"
+    ],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [
+      "evidence"
+    ],
+    "tools": [
+      "pnpm",
+      "python3",
+      "cmake",
+      "gcc"
+    ],
+    "workers": [
+      "ARKI-DEV-WORKER-01"
+    ],
+    "inputs": [
+      "Human mandate",
+      "structured commands"
+    ],
+    "outputs": [
+      "events",
+      "checkpoints",
+      "raw outputs"
+    ],
+    "unknowns": [
+      "remote worker reconnect"
+    ],
+    "deficits": [],
+    "risks": [
+      "filesystem projection not production multi-process persistence"
+    ],
+    "tests": [
+      "scripts/test-autopilot.ts",
+      "scripts/test-autopilot-command-center.ts"
+    ],
+    "evidence": [
+      "client/public/__autopilot__/events.json"
+    ],
+    "humanGates": 0,
+    "lastActivity": "2026-09-24T17:06:07.446Z",
+    "health": "OBSERVED"
+  },
+  {
+    "areaId": "bim",
+    "name": "BIM",
+    "description": "Existing construction model, plan/3D, selection and IFC-related surfaces",
+    "status": "ACTIVE",
+    "maturity": "CODE_EVIDENCE",
+    "source": [
+      "client/src/components/ArkiWorkspaceShell.tsx",
+      "shared/arkiConstructionOntology.ts",
+      "shared/ifc4/webIfcAdapter.ts"
+    ],
+    "activeObjective": "BIM workspace integration",
+    "currentTask": "Model and view state available when a building exists",
+    "capabilities": [
+      "construction model",
+      "plan view",
+      "3D scene",
+      "selection",
+      "IFC adapter"
+    ],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [
+      "evidence"
+    ],
+    "tools": [
+      "Three.js",
+      "web-ifc"
+    ],
+    "workers": [],
+    "inputs": [
+      "GeneratedBuilding",
+      "ConstructionModel"
+    ],
+    "outputs": [
+      "model views",
+      "selection state"
+    ],
+    "unknowns": [
+      "productive IFC round-trip"
+    ],
+    "deficits": [
+      "professional review boundary"
+    ],
+    "risks": [
+      "not all BIM states are runtime demonstrated"
+    ],
+    "tests": [
+      "existing BIM tests"
+    ],
+    "evidence": [
+      "shared/arkiConstructionOntology.ts"
+    ],
+    "humanGates": 0,
+    "health": "OBSERVED"
+  },
+  {
+    "areaId": "five-four-d-clashes",
+    "name": "5D / 4D / CLASHES",
+    "description": "Existing bounded domain integrations from E7",
+    "status": "ACTIVE",
+    "maturity": "RUNTIME_EVIDENCE",
+    "source": [
+      "client/src/components/ArkiWorkspaceShell.tsx",
+      "client/src/modules/E7DomainModule.tsx",
+      "shared/arki4d/index.ts",
+      "shared/arki5d/index.ts"
+    ],
+    "capabilities": [
+      "quantities",
+      "cost",
+      "schedule",
+      "clashes"
+    ],
+    "dependencies": [
+      "bim"
+    ],
+    "dependents": [
+      "evidence"
+    ],
+    "tools": [],
+    "workers": [],
+    "inputs": [
+      "ConstructionModel"
+    ],
+    "outputs": [
+      "bounded domain results"
+    ],
+    "unknowns": [
+      "professional signoff"
+    ],
+    "deficits": [],
+    "risks": [
+      "scope bounded by evidence"
+    ],
+    "tests": [
+      "E7 regression"
+    ],
+    "evidence": [
+      "E7 evidence package"
+    ],
+    "humanGates": 0,
+    "health": "OBSERVED"
+  },
+  {
+    "areaId": "evidence",
+    "name": "EVIDENCE",
+    "description": "Evidence packages, manifests, raw outputs and hashes",
+    "status": "ACTIVE",
+    "maturity": "RUNTIME_EVIDENCE",
+    "source": [
+      "AUTOPILOT_EVIDENCE_BUILD/30_MANIFEST.json",
+      "scripts/create-autopilot-evidence.py"
+    ],
+    "capabilities": [
+      "manifest",
+      "hashes",
+      "raw outputs",
+      "reports"
+    ],
+    "dependencies": [
+      "autopilot",
+      "bim"
+    ],
+    "dependents": [],
+    "tools": [
+      "sha256sum",
+      "zip"
+    ],
+    "workers": [],
+    "inputs": [
+      "campaign outputs"
+    ],
+    "outputs": [
+      "evidence ZIP"
+    ],
+    "unknowns": [],
+    "deficits": [],
+    "risks": [
+      "package is not canonical product state"
+    ],
+    "tests": [
+      "ZIP integrity"
+    ],
+    "evidence": [
+      "ARKI_AUTOPILOT_DEV_001_EVIDENCE.zip"
+    ],
+    "humanGates": 0,
+    "health": "OBSERVED"
+  },
+  {
+    "areaId": "structures-energy-cad",
+    "name": "STRUCTURES / ENERGY / CAD",
+    "description": "Future or documented area family; no fabricated runtime card",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "source": [
+      "shared/structural/index.ts",
+      "shared/arkiSolverLab.ts",
+      "shared/arkiCadGateway.ts"
+    ],
+    "capabilities": [
+      "solver map",
+      "energy pilot",
+      "CAD gateway"
+    ],
+    "dependencies": [
+      "bim"
+    ],
+    "dependents": [],
+    "tools": [
+      "SciPy",
+      "EPANET",
+      "EnergyPlus"
+    ],
+    "workers": [],
+    "inputs": [],
+    "outputs": [],
+    "unknowns": [
+      "professional production solvers"
+    ],
+    "deficits": [
+      "productive adapters"
+    ],
+    "risks": [
+      "false completion if promoted"
+    ],
+    "tests": [
+      "bounded pilots"
+    ],
+    "evidence": [
+      "SOLVER_LAB_001_EVIDENCE"
+    ],
+    "humanGates": 1,
+    "health": "OBSERVED"
+  },
+  {
+    "areaId": "architecture-design",
+    "name": "ARCHITECTURE / DESIGN",
+    "description": "Architecture/design domain is not a separate runtime area in the current UI.",
+    "domain": "architecture / design",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "cad",
+    "name": "CAD",
+    "description": "CAD gateway exists as a contract; production CAD runtime is not demonstrated.",
+    "domain": "cad",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "structures",
+    "name": "STRUCTURES",
+    "description": "Structural contracts exist; professional solver runtime is not claimed.",
+    "domain": "structures",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "geotechnical",
+    "name": "GEOTECHNICAL",
+    "description": "No demonstrated geotechnical runtime area in the inspected repository.",
+    "domain": "geotechnical",
+    "status": "NOT_IMPLEMENTED",
+    "maturity": "UNKNOWN",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "mep",
+    "name": "MEP",
+    "description": "MEP contracts/adapters exist; professional MEP runtime is not claimed.",
+    "domain": "mep",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "fire-life-safety",
+    "name": "FIRE / LIFE SAFETY",
+    "description": "No demonstrated fire/life-safety runtime area.",
+    "domain": "fire / life safety",
+    "status": "NOT_IMPLEMENTED",
+    "maturity": "UNKNOWN",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "simulation",
+    "name": "SIMULATION",
+    "description": "Simulation sandbox contract exists; this is not a professional simulation area.",
+    "domain": "simulation",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "gis-site-territory",
+    "name": "GIS / SITE / TERRITORY",
+    "description": "No demonstrated GIS/site runtime area.",
+    "domain": "gis / site / territory",
+    "status": "NOT_IMPLEMENTED",
+    "maturity": "UNKNOWN",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "cost-finance",
+    "name": "COST / FINANCE",
+    "description": "Bounded 5D cost and PriceBook evidence exists.",
+    "domain": "cost / finance",
+    "status": "PARTIAL",
+    "maturity": "IMPLEMENTED_BOUNDED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "OBSERVED",
+    "source": [
+      "repository evidence"
+    ],
+    "unknowns": [],
+    "deficits": [],
+    "risks": [],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "construction",
+    "name": "CONSTRUCTION",
+    "description": "Construction model and bounded 4D evidence exist.",
+    "domain": "construction",
+    "status": "PARTIAL",
+    "maturity": "IMPLEMENTED_BOUNDED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "OBSERVED",
+    "source": [
+      "repository evidence"
+    ],
+    "unknowns": [],
+    "deficits": [],
+    "risks": [],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "optimization",
+    "name": "OPTIMIZATION",
+    "description": "Optimization is registry/contract material; no broad solver area is claimed.",
+    "domain": "optimization",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "knowledge",
+    "name": "KNOWLEDGE",
+    "description": "Knowledge/digest/assimilation foundations exist.",
+    "domain": "knowledge",
+    "status": "FOUNDATIONAL",
+    "maturity": "FOUNDATIONAL",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "OBSERVED",
+    "source": [
+      "repository evidence"
+    ],
+    "unknowns": [],
+    "deficits": [],
+    "risks": [],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "digital-twin-operations",
+    "name": "DIGITAL TWIN / OPERATIONS",
+    "description": "Operations contracts exist; no full digital twin runtime claimed.",
+    "domain": "digital twin / operations",
+    "status": "DOCUMENT_ONLY",
+    "maturity": "DOCUMENTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "UNKNOWN",
+    "source": [
+      "repository inspection / no separate runtime page"
+    ],
+    "unknowns": [
+      "runtime scope"
+    ],
+    "deficits": [
+      "separate area runtime"
+    ],
+    "risks": [
+      "false promotion from documentation"
+    ],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "security",
+    "name": "SECURITY",
+    "description": "Autopilot authority/security policy and tests exist.",
+    "domain": "security",
+    "status": "FOUNDATIONAL",
+    "maturity": "TESTED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "OBSERVED",
+    "source": [
+      "repository evidence"
+    ],
+    "unknowns": [],
+    "deficits": [],
+    "risks": [],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  },
+  {
+    "areaId": "system-workers",
+    "name": "SYSTEM / WORKERS",
+    "description": "Autopilot worker, campaign, resources and audit projection exist.",
+    "domain": "system / workers",
+    "status": "ACTIVE",
+    "maturity": "IMPLEMENTED_BOUNDED",
+    "route": "/autopilot",
+    "capabilities": [],
+    "pipelines": [],
+    "dependencies": [
+      "overview"
+    ],
+    "dependents": [],
+    "tools": [],
+    "workers": [],
+    "availableViews": [
+      "DIRECTOR",
+      "LIVE",
+      "FORENSIC"
+    ],
+    "currentObjective": null,
+    "currentTask": null,
+    "lastActivity": null,
+    "health": "OBSERVED",
+    "source": [
+      "repository evidence"
+    ],
+    "unknowns": [],
+    "deficits": [],
+    "risks": [],
+    "tests": [],
+    "evidence": [],
+    "humanGates": 0
+  }
+]
+This CCF artifact is bounded by Human Authority, PF-H01, the canonical-state firewall, and the explicit scope of ARKI-CCF-001. CCF is observability, navigation, coordination and governed control; it is not ARKI's brain, a truth store, a canonical mutation engine, or a source of professional certification.

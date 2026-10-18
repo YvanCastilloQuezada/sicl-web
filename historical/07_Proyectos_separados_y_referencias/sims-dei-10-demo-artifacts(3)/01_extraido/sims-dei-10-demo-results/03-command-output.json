@@ -1,0 +1,538 @@
+{
+  "run": 3,
+  "label": "EDIFICIO (BUILD-001) ===",
+  "source": "orden-189-sintaxis-corregida",
+  "project_id": "BUILD-001",
+  "status": "PASS",
+  "commands_total": 20,
+  "commands_failed": 0,
+  "elapsed_seconds": 0.022,
+  "failures": [],
+  "snapshot": {
+    "project_id": "BUILD-001",
+    "name": "Edificio multifamiliar",
+    "spatial_scope": "edificio",
+    "temporal_scope": "proyecto",
+    "stage": "DRAFT",
+    "version": 19,
+    "facts": 1,
+    "assumptions": 0,
+    "evidence": 1,
+    "objectives": 1,
+    "constraints": 1,
+    "alternatives": 2,
+    "evaluations": 2,
+    "comparisons": 1,
+    "simulations": 1,
+    "multiobjectives": 0,
+    "human_reviews": 1,
+    "decisions": 1,
+    "events": 19
+  },
+  "command_rows": [
+    {
+      "sequence": 1,
+      "command": "/PROJECT CREATE BUILD-001 \"Edificio multifamiliar\" edificio proyecto",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "BUILD-001",
+          "name": "Edificio multifamiliar",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "edificio",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000928
+    },
+    {
+      "sequence": 2,
+      "command": "/PROJECT OPEN BUILD-001",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "project_id": "BUILD-001",
+          "name": "Edificio multifamiliar",
+          "stage": "DRAFT",
+          "version": 1,
+          "objectives": {},
+          "constraints": {},
+          "roles": {},
+          "actors": {},
+          "positions": {},
+          "temporal_cycles": {},
+          "scenario_branches": {},
+          "scenario_evolutions": {},
+          "facts": {},
+          "assumptions": {},
+          "preferences": {},
+          "decisions": {},
+          "human_reviews": {},
+          "alternatives": {},
+          "evaluations": {},
+          "comparisons": {},
+          "recommendations": {},
+          "evidence": {},
+          "sources": {},
+          "simulations": {},
+          "multiobjective_results": {},
+          "generated_alternatives": {},
+          "planning_instruments": {},
+          "regulations": {},
+          "interpretations": {},
+          "normative_snapshots": {},
+          "spatial_scope": "edificio",
+          "temporal_scope": "proyecto",
+          "scale_relations": {}
+        }
+      },
+      "elapsed_seconds": 0.000593
+    },
+    {
+      "sequence": 3,
+      "command": "/FACT SET \"El lote tiene 500 m2\" CATASTRO",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "fact_id": "FACT-8dde3c241b",
+          "project_id": "BUILD-001",
+          "statement": "El lote tiene 500 m2",
+          "source": "CATASTRO",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.00109
+    },
+    {
+      "sequence": 4,
+      "command": "/EVIDENCE ADD EVD-B001 \"Zonificación C-2\" DOCUMENT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evidence_id": "EVD-B001",
+          "project_id": "BUILD-001",
+          "source_id": null,
+          "statement": "Zonificación C-2",
+          "evidence_type": "DOCUMENT",
+          "captured_at": "2026-09-16 18:06:10.626938+00:00",
+          "method_version": "CLI/1.0",
+          "evidence_url": null,
+          "evidence_hash": "0fa13cc1b145b9e1ffbf69edf05bec9f394f92c460ba44e3634c8c54a4150728",
+          "state": "OBSERVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001083
+    },
+    {
+      "sequence": 5,
+      "command": "/OBJECTIVE SET RENTABILIDAD MAXIMIZE 80",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "objective_id": "OBJ-0d42129026",
+          "project_id": "BUILD-001",
+          "key": "RENTABILIDAD",
+          "direction": "MAXIMIZE",
+          "value": "80",
+          "version": 1,
+          "source_parent_objective_id": null
+        }
+      },
+      "elapsed_seconds": 0.00116
+    },
+    {
+      "sequence": 6,
+      "command": "/CONSTRAINT SET ALTURA <= 7 PISOS",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "constraint_id": "CON-609d07b210",
+          "project_id": "BUILD-001",
+          "key": "ALTURA",
+          "operator": "<=",
+          "value": "7",
+          "unit": "PISOS",
+          "hard": true,
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001124
+    },
+    {
+      "sequence": 7,
+      "command": "/ALTERNATIVE CREATE BUILD-A",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dc4d763b96",
+          "project_id": "BUILD-001",
+          "name": "BUILD-A",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001079
+    },
+    {
+      "sequence": 8,
+      "command": "/ALTERNATIVE SET BUILD-A pisos 7",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dc4d763b96",
+          "project_id": "BUILD-001",
+          "name": "BUILD-A",
+          "description": "",
+          "parameters": {
+            "pisos": "7"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001035
+    },
+    {
+      "sequence": 9,
+      "command": "/ALTERNATIVE SET BUILD-A unidades 21",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dc4d763b96",
+          "project_id": "BUILD-001",
+          "name": "BUILD-A",
+          "description": "",
+          "parameters": {
+            "pisos": "7",
+            "unidades": "21"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00097
+    },
+    {
+      "sequence": 10,
+      "command": "/ALTERNATIVE SET BUILD-A area_libre 100",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-dc4d763b96",
+          "project_id": "BUILD-001",
+          "name": "BUILD-A",
+          "description": "",
+          "parameters": {
+            "pisos": "7",
+            "unidades": "21",
+            "area_libre": "100"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001082
+    },
+    {
+      "sequence": 11,
+      "command": "/ALTERNATIVE CREATE BUILD-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-3aeda40d6f",
+          "project_id": "BUILD-001",
+          "name": "BUILD-B",
+          "description": "",
+          "parameters": {},
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001023
+    },
+    {
+      "sequence": 12,
+      "command": "/ALTERNATIVE SET BUILD-B pisos 6",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-3aeda40d6f",
+          "project_id": "BUILD-001",
+          "name": "BUILD-B",
+          "description": "",
+          "parameters": {
+            "pisos": "6"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.00095
+    },
+    {
+      "sequence": 13,
+      "command": "/ALTERNATIVE SET BUILD-B unidades 20",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-3aeda40d6f",
+          "project_id": "BUILD-001",
+          "name": "BUILD-B",
+          "description": "",
+          "parameters": {
+            "pisos": "6",
+            "unidades": "20"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.000972
+    },
+    {
+      "sequence": 14,
+      "command": "/ALTERNATIVE SET BUILD-B area_libre 150",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "alternative_id": "ALT-3aeda40d6f",
+          "project_id": "BUILD-001",
+          "name": "BUILD-B",
+          "description": "",
+          "parameters": {
+            "pisos": "6",
+            "unidades": "20",
+            "area_libre": "150"
+          },
+          "status": "GENERATED",
+          "version": 1,
+          "source": "USER_COMMAND"
+        }
+      },
+      "elapsed_seconds": 0.001018
+    },
+    {
+      "sequence": 15,
+      "command": "/EVALUATE BUILD-A RENTABILIDAD 85 SCORE 0.85 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-5cefe658d2",
+          "alternative_id": "ALT-dc4d763b96",
+          "objective_id": "OBJ-0d42129026",
+          "value": 85.0,
+          "unit": "SCORE",
+          "confidence": 0.85,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001182
+    },
+    {
+      "sequence": 16,
+      "command": "/EVALUATE BUILD-B RENTABILIDAD 78 SCORE 0.85 USER_INPUT",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "evaluation_id": "EVAL-8542601c1a",
+          "alternative_id": "ALT-3aeda40d6f",
+          "objective_id": "OBJ-0d42129026",
+          "value": 78.0,
+          "unit": "SCORE",
+          "confidence": 0.85,
+          "source": "USER_INPUT",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001099
+    },
+    {
+      "sequence": 17,
+      "command": "/COMPARE BUILD-A BUILD-B",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "comparison_id": "CMP-b1cbe4edce",
+          "project_id": "BUILD-001",
+          "alternative_ids": [
+            "ALT-dc4d763b96",
+            "ALT-3aeda40d6f"
+          ],
+          "evaluations": [
+            {
+              "evaluation_id": "EVAL-5cefe658d2",
+              "alternative_id": "ALT-dc4d763b96",
+              "objective_id": "OBJ-0d42129026",
+              "value": 85.0,
+              "unit": "SCORE",
+              "confidence": 0.85,
+              "source": "USER_INPUT",
+              "version": 1
+            },
+            {
+              "evaluation_id": "EVAL-8542601c1a",
+              "alternative_id": "ALT-3aeda40d6f",
+              "objective_id": "OBJ-0d42129026",
+              "value": 78.0,
+              "unit": "SCORE",
+              "confidence": 0.85,
+              "source": "USER_INPUT",
+              "version": 1
+            }
+          ],
+          "tradeoffs": {},
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001193
+    },
+    {
+      "sequence": 18,
+      "command": "/SIMULATE RUN DETERMINISTIC deterministic_basic_v1 '{\"alternative_id\":\"BUILD-A\",\"objective_id\":\"RENTABILIDAD\",\"parameter_value\":85}'",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "simulation": {
+            "simulation_id": "SIM-e6428e14c4",
+            "project_id": "BUILD-001",
+            "simulation_type": "DETERMINISTIC",
+            "method": "deterministic_basic_v1",
+            "method_version": "1.0",
+            "inputs": {
+              "alternative_id": "BUILD-A",
+              "objective_id": "RENTABILIDAD",
+              "parameter_value": 85
+            },
+            "outputs": {
+              "missing_inputs": [
+                "alternative_id"
+              ]
+            },
+            "state": "INSUFFICIENT",
+            "started_at": "2026-09-16T18:06:10.642116+00:00",
+            "finished_at": "2026-09-16T18:06:10.642129+00:00",
+            "evidence_hash": "cfbf3f1c495ec05127b65b4ac90fe8134cbcde1925ce046361123664bb5dc836",
+            "version": 1
+          },
+          "decision_created": false,
+          "recommendation_created": false
+        }
+      },
+      "elapsed_seconds": 0.001436
+    },
+    {
+      "sequence": 19,
+      "command": "/HUMAN REVIEW architect-yvan 2026-09-16T07:00:00Z \"Revisión del análisis\" \"Proyecto validado\" \"Architect\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "review_id": "REV-ffb127c039",
+          "project_id": "BUILD-001",
+          "actor": "architect-yvan",
+          "timestamp": "2026-09-16T07:00:00Z",
+          "review": "Revisión del análisis",
+          "reason": "Proyecto validado",
+          "authority": "Architect",
+          "status": "APPROVED",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001277
+    },
+    {
+      "sequence": 20,
+      "command": "/DECISION RECORD \"Adoptar BUILD-A\" architect-yvan \"Architect\"",
+      "response": {
+        "status": "OK",
+        "code": "OK",
+        "message": "ok",
+        "data": {
+          "decision_id": "DEC-32085906d7",
+          "project_id": "BUILD-001",
+          "statement": "Adoptar BUILD-A",
+          "actor": "architect-yvan",
+          "authority": "Architect",
+          "version": 1
+        }
+      },
+      "elapsed_seconds": 0.001179
+    }
+  ]
+}

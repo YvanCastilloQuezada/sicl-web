@@ -1,0 +1,1977 @@
+ORDEN 97A — ARKI LIVING KNOWLEDGE INTEGRATION v1.1
+Curriculum + Competency + Standards/ISO + Existing Knowledge Integration
+
+Programa padre: ARKI-LKS-001 — ARKI Living Knowledge System
+Orden precedente: ORDEN 97
+Gate precedente: 97A-0 — Existing ARKI Knowledge Topology & Migration Baseline — VERIFIED
+Tipo: Architecture + Integration + Implementation + Evidence
+Prioridad: HIGH / STRATEGIC
+Autoridad: Product Owner / Human Authority
+Master nomenclature: ARKI Master Codebook v1.0 — CANONICAL
+
+0. MISIÓN
+
+Extender ARKI-LKS-001 para convertirlo en la infraestructura gobernada común que conecte:
+
+EXTERNAL KNOWLEDGE
+        +
+INTERNAL ARKI KNOWLEDGE
+        +
+STANDARDS
+        +
+CURRICULUM
+        +
+COMPETENCIES
+        +
+CAPABILITY EVIDENCE
+        +
+KNOWLEDGE GAPS
+        +
+LEARNING REQUIREMENTS
+        +
+TEMPORAL CHANGE
+        ↓
+ONE GOVERNED ARKI KNOWLEDGE SYSTEM
+
+El objetivo NO es construir otra base de conocimiento.
+
+El objetivo es integrar lo existente bajo una arquitectura común, trazable, versionada y curada.
+
+1. BASELINE OBLIGATORIO
+
+Tomar como baseline vinculante los resultados de 97A-0.
+
+Reutilizar explícitamente, según corresponda:
+
+AKI-001
+PCB-001 / competency baseline existente
+Academy artifacts
+Historical Curriculum
+Knowledge Inventory
+Competency Matrix
+Knowledge Gaps
+Evidence Index
+Knowledge Book
+Knowledge Book deltas
+BKH capability evidence
+BKH invariants/tests
+LKS v1
+Capability Atlas
+Gap Register
+IFC knowledge/evidence existente
+Computational Intelligence artifacts
+Tutor / Examiner / Oracle concepts existentes
+
+No repetir AKI-001.
+
+No reconstruir desde cero conocimiento que ya posee evidencia.
+
+2. INTEGRATION FIRST — CREATION LAST
+
+Nueva regla obligatoria:
+
+REUSE → INTEGRATE → ADAPT → DERIVE → CREATE ONLY IF MISSING
+
+Antes de crear cualquier estructura nueva, demostrar que:
+
+no existe ya un owner adecuado;
+no puede extenderse el owner existente sin degradarlo;
+no puede resolverse mediante vista derivada;
+no introduce una segunda verdad.
+
+Si no se demuestra:
+
+DO_NOT_CREATE
+3. ONE KNOWLEDGE SYSTEM
+
+Formalizar:
+
+ONE ARKI · ONE GOVERNED KNOWLEDGE SYSTEM · MULTIPLE SEMANTIC VIEWS · HUMAN AUTHORITY
+
+No crear:
+
+Knowledge DB #2
+Curriculum DB #2
+Competency DB #2
+Evidence DB #2
+Gap DB #2
+IFC DB #2
+Standards DB #2
+ISO DB #2
+
+Las diferentes funciones podrán tener vistas especializadas sobre la misma infraestructura gobernada.
+
+4. DISTINCIONES SEMÁNTICAS OBLIGATORIAS
+
+Mantener separadas:
+
+KNOWLEDGE
+CURRICULUM
+COMPETENCE
+CAPABILITY
+IMPLEMENTATION
+EVIDENCE
+AUTHORITY
+
+Definiciones operativas:
+
+KNOWLEDGE
+Información estructurada y sustentada.
+
+CURRICULUM
+Conjunto gobernado de conocimientos y capacidades que deben enseñarse, mantenerse o verificarse.
+
+COMPETENCE
+Capacidad demostrada mediante evidencia.
+
+CAPABILITY
+Función que ARKI puede ejecutar dentro de un alcance demostrado.
+
+IMPLEMENTATION
+Existencia de software o mecanismo técnico.
+
+EVIDENCE
+Prueba que sustenta una afirmación.
+
+AUTHORITY
+Permiso/responsabilidad para decidir, establecer o actuar.
+
+Formalizar:
+
+IMPLEMENTED ≠ COMPETENT
+
+TAUGHT ≠ LEARNED
+
+LEARNED ≠ DEMONSTRATED
+
+DEMONSTRATED ≠ VERIFIED
+
+KNOWLEDGE ≠ CAPABILITY
+
+CAPABILITY ≠ AUTHORITY
+
+VERIFIED COMPETENCE ≠
+PROFESSIONAL AUTHORITY
+5. EXISTING KNOWLEDGE OWNERSHIP
+
+Usar:
+
+ARKI_KNOWLEDGE_OWNERSHIP_MAP
+
+como punto de partida.
+
+Para cada nueva necesidad determinar:
+
+CURRENT_OWNER
+DERIVED_VIEW
+ADAPTER
+EXTENSION
+MIGRATION_REQUIRED
+NEW_OWNER_REQUIRED
+UNKNOWN
+ARCHITECTURAL_DECISION_REQUIRED
+
+No cambiar ownership silenciosamente.
+
+6. CURRICULUM INTEGRATION
+
+No crear automáticamente un segundo CurriculumRegistry.
+
+Construir una Curriculum View / governed curriculum capability sobre:
+
+AKI-001 Historical Curriculum
++
+Knowledge Inventory
++
+Competency Matrix
++
+Knowledge Gaps
++
+Evidence
++
+LKS
+
+Crear owner nuevo únicamente si el análisis de implementación demuestra que ninguna estructura existente puede cumplir los invariantes requeridos.
+
+7. CURRICULUM ITEM MODEL
+
+El sistema deberá poder representar, directa o derivadamente:
+
+curriculumItemId
+canonicalName
+domain
+discipline
+applicableScales
+
+knowledgePrerequisites
+competencyPrerequisites
+
+learningObjectives
+requiredKnowledge
+requiredCapabilities
+
+sourceClaims
+standardsReferences
+regulatoryReferences
+
+epistemicState
+competencyState
+
+evidence
+tests
+heldOutTests
+
+deficits
+lastReviewed
+lastChanged
+stalenessStatus
+
+humanDecisionRequired
+
+No todos los campos tienen que residir físicamente en una sola entidad.
+
+La vista puede componerse desde owners gobernados diferentes.
+
+8. CURRICULUM DEPENDENCY GRAPH
+
+Implementar o derivar:
+
+SOURCE
+   ↓
+CLAIM
+   ↓
+CURATION
+   ↓
+KNOWLEDGE
+   ↓
+PREREQUISITE
+   ↓
+CURRICULUM ITEM
+   ↓
+COMPETENCY
+   ↓
+EXAM
+   ↓
+EVIDENCE
+   ↓
+VERIFIED / DEFICIT
+
+Permitir relaciones entre:
+
+disciplinas;
+escalas;
+estándares;
+competencias;
+capacidades.
+
+No asumir transferencia automática entre escalas.
+
+9. DEFICIT-DRIVEN CURRICULUM
+
+El currículo deberá responder a déficits demostrados.
+
+Fuentes posibles:
+
+AKI knowledge gaps
+Capability Atlas gaps
+failed examinations
+new verified knowledge
+changed standards
+superseded standards
+stale knowledge
+project-specific requirements
+new disciplines
+new technologies
+new regulatory requirements
+
+Pero:
+
+DETECTED DEFICIT ≠ AUTOMATIC TRAINING
+
+y:
+
+LEARNING REQUIREMENT ≠ IMPLEMENTATION AUTHORIZATION
+
+10. NO RE-TEACH RULE
+
+No enseñar automáticamente una competencia ya demostrada.
+
+Estados deberán preservar, cuando sean aplicables:
+
+KNOWN
+STRUCTURED
+PRACTICED
+DEMONSTRATED
+VERIFIED
+PARTIAL
+NOT_DEMONSTRATED
+STALE
+UNKNOWN
+
+Un nuevo estándar puede provocar:
+
+VERIFIED
+   ↓
+REVALIDATION_REQUIRED
+
+sin borrar la competencia histórica.
+
+11. ACADEMY INTEGRATION
+
+Academy deberá consumir conocimiento gobernado por LKS.
+
+No convertirse en una segunda fuente de verdad.
+
+Arquitectura:
+
+                    LKS
+                     │
+             GOVERNED KNOWLEDGE
+                     │
+       ┌─────────────┼─────────────┐
+       │             │             │
+   CURRICULUM      CURATOR     CAPABILITY
+      VIEW                        ATLAS
+       │
+     TUTOR
+       │
+    EXAMINER
+       │
+    EVIDENCE
+       │
+   COMPETENCY
+
+Mantener:
+
+LKS       → organize/govern knowledge
+CURATOR   → validate claims/evidence
+TUTOR     → teach
+EXAMINER  → test
+ARKI      → reason/integrate
+HUMAN     → govern
+
+No crear múltiples inteligencias independientes.
+
+12. CURATOR EXTENSION
+
+Extender ARKI Curator para validar también conocimiento curricular.
+
+Debe poder cuestionar:
+
+source
+version
+currentness
+scope
+discipline
+scale
+jurisdiction
+claim support
+curriculum interpretation
+prerequisite
+competency declaration
+evidence sufficiency
+standard correspondence
+staleness
+conflicts
+
+Regla:
+
+CURRICULUM SAYS X ≠ X IS FACT
+
+13. STANDARDS COMO FAMILIA DE LKS
+
+NO crear una base independiente StandardsRegistry al lado de LKS.
+
+Implementar:
+
+STANDARDS KNOWLEDGE FAMILY
+
+utilizando:
+
+LKS Sources
+LKS Claims
+LKS Evidence
+LKS Curation
+LKS Versioning
+LKS Change Detection
+
+y vistas especializadas cuando sean necesarias.
+
+14. STANDARDS KNOWLEDGE MODEL
+
+El sistema deberá poder representar:
+
+standardId
+organization
+standardNumber
+canonicalTitle
+
+edition
+publicationYear
+publicationDate
+status
+
+amendments
+corrigenda
+
+supersedes
+supersededBy
+
+officialSource
+
+domains
+disciplines
+applicableScales
+jurisdiction
+authorityLevel
+
+relatedStandards
+
+concepts
+requirements
+indicators
+
+arkiMappings
+curriculumMappings
+capabilityMappings
+implementationMappings
+
+evidence
+lastChecked
+curatorStatus
+unknowns
+
+Esto puede implementarse mediante composición LKS.
+
+No requiere necesariamente una nueva tabla monolítica.
+
+15. ORGANIZACIONES DE ESTÁNDARES
+
+Preparar capacidad para conocimiento procedente de:
+
+ISO
+IEC
+ISO/IEC
+buildingSMART
+OGC
+national standards bodies
+regulatory bodies
+sector standards organizations
+
+No asumir misma autoridad entre organizaciones ni documentos.
+
+16. ISO KNOWLEDGE FAMILY
+
+Implementar dentro de Standards Knowledge:
+
+ISO KNOWLEDGE FAMILY
+
+No como base independiente.
+
+Realizar inventario inicial gobernado de familias ISO relevantes para ARKI, cuando exista evidencia.
+
+Como mínimo investigar la aplicabilidad de familias relacionadas con:
+
+BIM
+Information Management
+Smart Cities
+Sustainable Communities
+Urban Digital Twins
+Geospatial Information
+Sustainability
+Resilience
+Energy
+Asset / Facility Lifecycle
+Information Exchange
+Quality
+Transport
+Infrastructure
+Environment
+
+No inventar cobertura.
+
+No afirmar exhaustividad.
+
+17. ISO CURATOR RULE
+
+Todo conocimiento ISO deberá registrar, cuando pueda determinarse:
+
+ORGANIZATION
+STANDARD NUMBER
+TITLE
+EDITION
+YEAR
+STATUS
+SOURCE
+LAST VERIFIED
+
+y diferenciar:
+
+CURRENT
+PUBLISHED
+AMENDED
+CORRIGENDUM
+UNDER_REVIEW
+UNDER_DEVELOPMENT
+DRAFT
+SUPERSEDED
+WITHDRAWN
+UNKNOWN
+
+Regla:
+
+DRAFT ≠ CURRENT STANDARD
+
+y:
+
+STANDARD EXISTS ≠ REQUIREMENT APPLIES
+
+18. COPYRIGHT / ACCESS BOUNDARY
+
+No copiar ilegítimamente textos completos protegidos de estándares.
+
+Almacenar:
+
+metadata
+identifiers
+official references
+permitted extracts
+structured claims
+concept mappings
+evidence references
+ARKI interpretation
+
+Cuando el texto normativo completo no esté legalmente disponible:
+
+SOURCE_ACCESS_LIMITED
+
+o estado equivalente.
+
+No inventar contenido faltante.
+
+19. IFC CONTINÚA DENTRO DE LKS
+
+LKC-001-IFC continúa siendo Living Codebook.
+
+No crear segunda base IFC.
+
+El conocimiento IFC existente deberá conectarse con:
+
+Curriculum
+Competencies
+Capability Atlas
+Gap Register
+Standards Knowledge
+Evidence
+20. SMART CITIES Y DIGITAL TWINS
+
+Mantener:
+
+LKC-002-SMART-CITIES
+LKC-003-URBAN-DIGITAL-TWIN
+
+como vistas/codebooks del mismo LKS.
+
+No crear sistemas autónomos.
+
+Sus estándares relacionados deberán apuntar a la misma familia de Standards Knowledge.
+
+21. KNOWLEDGE → CURRICULUM PROPAGATION
+
+Cuando Curator valide conocimiento nuevo:
+
+VERIFIED KNOWLEDGE CHANGE
+             ↓
+       IMPACT ANALYSIS
+             ↓
+ ┌───────────┼────────────┐
+ ↓           ↓            ↓
+KNOWLEDGE CURRICULUM  CAPABILITY
+IMPACT     IMPACT       IMPACT
+             │
+             ↓
+        COMPETENCY
+          IMPACT
+             │
+             ↓
+      IMPLEMENTATION
+          IMPACT
+
+Clasificar cada impacto:
+
+NO_IMPACT
+POSSIBLE_IMPACT
+MATERIAL_IMPACT
+UNKNOWN
+HUMAN_DECISION_REQUIRED
+22. CURRICULUM DELTA
+
+Implementar CurriculumDelta o representación equivalente.
+
+Debe poder mostrar:
+
+triggeringChange
+source
+previousState
+newEvidence
+
+affectedKnowledge
+affectedCurriculumItems
+affectedCompetencies
+
+proposedAddition
+proposedModification
+proposedDeprecation
+
+revalidationRequired
+unknowns
+humanDecisionRequired
+
+No aplicar silenciosamente cambios curriculares materiales.
+
+23. COMPETENCY REVALIDATION
+
+Cuando cambia materialmente la base de una competencia:
+
+COMPETENCY
+     ↓
+STILL_VALID
+REVIEW_REQUIRED
+PARTIALLY_STALE
+STALE
+UNKNOWN
+
+No borrar evidencia histórica.
+
+Registrar:
+
+what was demonstrated
+against which knowledge/version
+when
+with which evidence
+what changed afterwards
+24. STANDARDS CHANGE PROPAGATION
+
+Ejemplo requerido:
+
+ISO / IFC / OGC CHANGE
+        ↓
+CURATOR
+        ↓
+VERIFIED DELTA
+        ↓
+KNOWLEDGE IMPACT
+        ↓
+CURRICULUM IMPACT
+        ↓
+COMPETENCY IMPACT
+        ↓
+CAPABILITY IMPACT
+        ↓
+IMPLEMENTATION IMPACT
+
+No todas las ramas deben cambiar.
+
+El sistema debe poder demostrar NO_IMPACT.
+
+25. MULTISCALE SAFETY
+
+Mantener la jerarquía multiescala ARKI.
+
+Todo conocimiento deberá declarar escala cuando corresponda.
+
+Formalizar:
+
+KNOWLEDGE VALID AT SCALE X ≠ KNOWLEDGE VALID AT SCALE Y
+
+Ejemplo adversarial obligatorio:
+
+Un cambio Smart City aplicable a CITY no puede propagarse automáticamente a BUILDING.
+
+26. JURISDICTION SAFETY
+
+Mantener separadas:
+
+INTERNATIONAL STANDARD
+NATIONAL STANDARD
+REGULATION
+LOCAL REGULATION
+GUIDANCE
+BEST PRACTICE
+RESEARCH
+
+No convertir ISO automáticamente en obligación jurídica peruana.
+
+No convertir regulación peruana en regla universal.
+
+27. KNOWLEDGE PACKAGE
+
+No crear una nueva base KnowledgePackage.
+
+Crear una representación/export gobernado:
+
+ARKI Knowledge Package
+
+capaz de reunir referencias coherentes a:
+
+Living Codebooks
+Sources
+Claims
+Evidence
+Standards
+Curriculum
+Competencies
+Capability Atlas
+Gap Register
+Temporal History
+
+Debe ser una composición/versioned view.
+
+No otro owner.
+
+28. TEMPORAL KNOWLEDGE
+
+Preservar:
+
+SOURCE
+→ DISCOVERY
+→ CLAIM
+→ CURATION
+→ KNOWLEDGE VERSION
+→ CURRICULUM
+→ TEACHING
+→ EXAM
+→ EVIDENCE
+→ COMPETENCY
+→ STANDARD CHANGE
+→ REVALIDATION
+
+Debe poder responder:
+
+¿Qué sabía ARKI en la fecha X y con qué evidencia?
+
+y:
+
+¿Por qué una competencia que era válida pasó a requerir revisión?
+
+29. LIVING CYCLE — 15 DAYS
+
+Mantener el ciclo de Orden 97:
+
+CHECK
+↓
+DISCOVER
+↓
+EXTRACT
+↓
+CURATE
+↓
+COMPARE
+↓
+IMPACT
+↓
+RECORD
+↓
+CLOSE
+
+Extenderlo con:
+
+CURRICULUM_IMPACT?
+COMPETENCY_IMPACT?
+REVALIDATION_REQUIRED?
+30. SILENT CLOSURE
+
+Mantener:
+
+NO CHANGE → RECORD → CLOSE → NO HUMAN INTERRUPTION
+
+También:
+
+REJECTED / NON-MATERIAL → RECORD → CLOSE
+
+No generar informes vacíos al Product Owner.
+
+31. MATERIAL CHANGE ESCALATION
+
+Escalar únicamente cuando corresponda:
+
+MATERIAL KNOWLEDGE CHANGE
+MATERIAL CURRICULUM CHANGE
+COMPETENCY REVALIDATION
+ARCHITECTURAL CONFLICT
+CANONICAL CONFLICT
+PROFESSIONAL / REGULATORY IMPACT
+HUMAN_DECISION_REQUIRED
+32. CANONICAL CANDIDATE POLICY — ADR REQUIRED
+
+97A-0 y revisión independiente detectaron una cuestión arquitectónica abierta:
+
+Actualmente la promoción hacia CANONICAL_CANDIDATE puede requerir Human Authority.
+
+No modificar silenciosamente esa política.
+
+Crear ADR:
+
+ADR-LKS-001 — CANONICAL CANDIDATE AUTHORITY
+
+Comparar al menos:
+
+OPTION A
+
+Human Authority requerida para crear CANONICAL_CANDIDATE.
+
+OPTION B
+
+Curator/ARKI puede producir CANONICAL_CANDIDATE; Human Authority se requiere únicamente para CANONICAL cuando la política lo determine.
+
+OPTION C
+
+política basada en clase de conocimiento/riesgo.
+
+Analizar:
+
+noise
+safety
+governance
+automation
+human workload
+epistemic risk
+regulatory risk
+reversibility
+
+No decidir automáticamente.
+
+Estado:
+
+ARCHITECTURAL_DECISION_REQUIRED
+33. CURATOR NO SE AUTO-CERTIFICA
+
+Curator puede verificar evidencia.
+
+No puede afirmar:
+
+“I verified myself, therefore this is true.”
+
+Las afirmaciones críticas deberán mantener evidencia externa reproducible o pruebas independientes según corresponda.
+
+34. RESEARCHER ≠ CURATOR
+
+Mantener Two-Key Rule:
+
+RESEARCHER DISCOVERS · CURATOR VERIFIES
+
+No permitir que Researcher produzca directamente:
+
+VERIFIED
+CANONICAL_CANDIDATE
+CANONICAL
+35. EXTERNAL KNOWLEDGE IS UNTRUSTED
+
+Mantener defensa contra prompt injection y contenido externo malicioso.
+
+Contenido recuperado nunca puede:
+
+change ARKI policy
+change Human Authority
+execute arbitrary code
+modify Kernel
+install software
+authorize implementation
+become canonical by instruction
+36. DUPLICATION INVARIANTS
+
+Formalizar invariantes derivados de 97A-0:
+
+NO_SECOND_CURRICULUM
+NO_SECOND_COMPETENCY_REGISTRY
+NO_SECOND_GAP_REGISTRY
+NO_SECOND_EVIDENCE_REGISTRY
+NO_SECOND_IFC_KNOWLEDGE_BASE
+NO_PARALLEL_STANDARDS_TRUTH
+NO_PARALLEL_KNOWLEDGE_BOOK
+NO_PARALLEL_CAPABILITY_ATLAS
+
+Cada uno deberá tener evidencia/test o inspección estructural apropiada.
+
+37. MIGRATION ACTIONS
+
+Usar las categorías ya definidas por 97A-0:
+
+REUSE_AS_IS
+INTEGRATE
+ADAPT
+MIGRATE_LATER
+DERIVE_VIEW
+PRESERVE_HISTORICAL
+SUPERSEDE_WITH_TRACEABILITY
+DUPLICATE_CANDIDATE
+UNKNOWN
+
+Para cada artefacto afectado registrar decisión.
+
+No borrar historia.
+
+38. AKI-001 PRESERVATION
+
+AKI-001 permanece como baseline histórico verificable.
+
+No reescribir sus conclusiones para ajustarlas a LKS.
+
+LKS deberá poder referenciarlo y evolucionar desde él.
+
+Formalizar:
+
+HISTORICAL BASELINE ≠ CURRENT LIVING STATE
+
+39. TESTS ADVERSARIALES MÍNIMOS
+
+Además de los tests de Orden 97, probar:
+
+reutilización de AKI-001 sin duplicarlo;
+mismo curriculum item encontrado por dos rutas → una identidad gobernada;
+competencia existente no se duplica;
+gap existente no genera segundo Gap Register;
+evidence existente se referencia, no se copia como segunda verdad;
+estándar nuevo → candidate knowledge, no canonical;
+estándar superseded → revisión curricular;
+draft no reemplaza estándar vigente;
+corrigendum correctamente vinculado;
+cambio editorial → no curriculum impact;
+cambio material → CurriculumDelta;
+competencia histórica preservada;
+competencia stale → revalidation;
+teaching no crea VERIFIED competence;
+failed exam → deficit, no fabricated knowledge;
+IFC gap → learning requirement, no auto-implementation;
+ISO knowledge sin fuente suficiente → UNKNOWN;
+Smart City CITY rule no extrapolada a BUILDING;
+jurisdiction mismatch → no automatic applicability;
+source conflict → CONFLICT;
+malicious external instruction → rejected/isolated;
+Knowledge Package no crea nuevo owner;
+Curator no auto-certifica;
+Researcher no puede verificar su propio claim;
+Human Authority preserved;
+historical evidence preserved after update;
+Capability Atlas sigue siendo vista derivada;
+Standards knowledge utiliza infraestructura LKS existente;
+no second curriculum;
+no second competency registry;
+no second evidence registry;
+no second standards truth.
+40. REGRESSION
+
+Ejecutar regresiones pertinentes de:
+
+LKS Order 97
+AKI evidence references
+Capability Atlas
+Gap Register
+BKH verified suites where integration touches shared contracts
+check
+build
+
+No modificar BKH para hacer pasar 97A.
+
+Si una integración requiere cambio Kernel:
+
+OUT_OF_SCOPE
++
+HUMAN_DECISION_REQUIRED
+41. DELIVERABLES
+
+Entregar como mínimo:
+
+ARKI_LKS_INTEGRATED_ARCHITECTURE.md
+
+ARKI_EXISTING_KNOWLEDGE_INTEGRATION_REPORT.md
+
+ARKI_CURRICULUM_VIEW_SPEC.md
+
+ARKI_CURRICULUM_DEPENDENCY_GRAPH.md
+
+ARKI_CURRICULUM_DELTA_SPEC.md
+
+ARKI_COMPETENCY_REVALIDATION_SPEC.md
+
+ARKI_STANDARDS_KNOWLEDGE_MODEL.md
+
+ARKI_ISO_KNOWLEDGE_FAMILY.md
+
+ARKI_STANDARDS_CURRICULUM_PROPAGATION.md
+
+ARKI_KNOWLEDGE_PACKAGE_SPEC.md
+
+ARKI_LKS_DUPLICATION_INVARIANTS.md
+
+ARKI_LKS_MIGRATION_DECISIONS.md
+
+ADR_LKS_001_CANONICAL_CANDIDATE_AUTHORITY.md
+
+ARKI_LKS_97A_TEST_MATRIX.md
+
+ARKI_LKS_97A_SCOPE_LIMIT_REPORT.md
+
+ARKI_LKS_97A_IMPLEMENTATION_REPORT.md
+
+raw test outputs
+
+manifest
+
+per-file SHA-256
+
+ZIP SHA-256
+
+Si un deliverable equivalente ya existe:
+
+**
+
+continua
+
+Continúo exactamente desde el punto 41 de la Orden 97A v1.1:
+
+Si un deliverable equivalente ya existe:
+
+NO DUPLICARLO.
+
+Registrar:
+
+EXISTING_ARTIFACT
+
+REUSED
+
+EXTENDED
+
+SUPERSEDED_WITH_TRACEABILITY
+
+o:
+
+NOT_APPLICABLE
+
+según corresponda.
+
+42. EVIDENCE PACKAGE
+
+Todo resultado deberá entregarse en un único Evidence Package auditable.
+
+El paquete deberá permitir reconstruir:
+
+97A-0 BASELINE
+      ↓
+EXISTING OWNER
+      ↓
+INTEGRATION DECISION
+      ↓
+IMPLEMENTATION DELTA
+      ↓
+TEST
+      ↓
+RESULT
+      ↓
+CURRENT STATUS
+
+Para cada capacidad declarar explícitamente:
+
+EXISTED_BEFORE_97A
+
+REUSED
+
+ADAPTED
+
+NEWLY_IMPLEMENTED
+
+DERIVED_VIEW
+
+DOCUMENTED_ONLY
+
+NOT_DEMONSTRATED
+
+UNKNOWN.
+
+No atribuir a 97A capacidades que ya existían.
+
+43. EVIDENCE GRANULARITY
+
+Evitar evidencia genérica del tipo:
+
+tests passed.
+
+Cada afirmación importante deberá apuntar, cuando corresponda, a:
+
+source
+artifact
+module
+test
+fixture
+raw output
+version
+hash
+
+Mantener separación:
+
+CLAIM ≠ EVIDENCE
+
+TEST EXISTS ≠ TEST PASSED
+
+TEST PASSED ≠ PROFESSIONAL VALIDATION
+
+44. CURRICULUM COVERAGE MATRIX
+
+Generar una vista derivada que permita responder:
+
+¿Qué debería saber ARKI, qué sabe actualmente y qué ha demostrado?
+
+Como mínimo:
+
+DOMAIN
+TOPIC
+SCALE
+DISCIPLINE
+REQUIRED_KNOWLEDGE
+CURRENT_KNOWLEDGE
+CURRICULUM_STATUS
+COMPETENCY_STATUS
+CAPABILITY_STATUS
+EVIDENCE
+STANDARD_REFERENCE
+GAP
+REVALIDATION
+
+No generar un porcentaje global engañoso de “inteligencia de ARKI”.
+
+45. STANDARDS COVERAGE MATRIX
+
+Generar vista:
+
+ORGANIZATION
+STANDARD
+VERSION
+STATUS
+DOMAIN
+SCALE
+ARKI KNOWLEDGE
+CURRICULUM IMPACT
+COMPETENCY IMPACT
+CAPABILITY IMPACT
+IMPLEMENTATION IMPACT
+EVIDENCE
+UNKNOWN
+LAST CHECKED
+
+Debe poder distinguir:
+
+KNOWN
+MAPPED
+PARTIAL
+NOT_DEMONSTRATED
+NOT_APPLICABLE
+UNKNOWN
+
+No usar NOT_APPLICABLE para ocultar falta de investigación.
+
+46. ISO INITIAL BASELINE
+
+Construir una línea base inicial, no exhaustiva, de conocimiento ISO relevante para ARKI.
+
+Esta fase debe priorizar identificación, clasificación, versión, estado, relación y aplicabilidad, no copiar el contenido completo de las normas.
+
+Investigar inicialmente, cuando exista fuente oficial verificable, familias relacionadas con:
+
+BIM / INFORMATION MANAGEMENT
+SMART CITIES / SUSTAINABLE COMMUNITIES
+GEOSPATIAL INFORMATION
+DIGITAL TWINS
+ASSET / FACILITY MANAGEMENT
+SUSTAINABILITY
+RESILIENCE
+ENERGY / ENVIRONMENT
+QUALITY / INFORMATION GOVERNANCE
+INFRASTRUCTURE / TRANSPORT
+
+Para cada estándar encontrado:
+
+VERIFIED_METADATA
+VERIFIED_SCOPE
+PARTIAL_CONTENT_KNOWLEDGE
+SOURCE_ACCESS_LIMITED
+UNKNOWN
+
+según evidencia real.
+
+No afirmar conocimiento integral de una ISO porque se conozcan título y abstract.
+
+47. ISO ↔ ARKI MAPPING
+
+Cada estándar relevante podrá relacionarse con:
+
+ARKI KNOWLEDGE
+ARKI SCALE
+ARKI DISCIPLINE
+ARKI CURRICULUM
+ARKI COMPETENCY
+ARKI CAPABILITY
+ARKI MODULE
+ARKI GAP
+
+Una relación deberá tener tipo:
+
+DIRECT
+PARTIAL
+CONTEXTUAL
+REFERENCE_ONLY
+POTENTIAL
+CONFLICT
+UNKNOWN
+
+No inferir equivalencia normativa por similitud terminológica.
+
+48. IFC + ISO + OGC CROSS-STANDARD KNOWLEDGE
+
+Preparar la arquitectura para que un concepto pueda estar relacionado simultáneamente con múltiples estándares.
+
+Ejemplo conceptual:
+
+BUILDING
+   ├── IFC
+   ├── ISO information-management context
+   ├── GIS / OGC representation
+   ├── Smart City context
+   └── Urban Digital Twin context
+
+Esto NO autoriza fusionar ontologías.
+
+Formalizar:
+
+CROSS-STANDARD MAPPING ≠ ONTOLOGY COLLAPSE
+
+Cada modelo conserva sus propias semánticas, alcance, versión y autoridad.
+
+49. FACILITY & INFRASTRUCTURE KNOWLEDGE
+
+Incorporar como vista/concepto gobernado el principio previamente identificado de:
+
+Facility & Infrastructure Knowledge Matrix
+
+sin crear una base paralela si puede derivarse desde LKS.
+
+Para cada tipo de instalación o infraestructura, el sistema deberá poder representar progresivamente:
+
+purpose
+users
+activities
+spaces
+zones
+circulation
+
+architecture
+structure
+HVAC
+electrical
+plumbing
+fire
+controls
+communications
+
+equipment
+components
+connections
+networks
+
+materials
+properties
+quantities
+
+construction
+cost
+schedule
+
+commissioning
+operation
+maintenance
+
+sensors
+observations
+digital twin
+
+applicable standards
+applicable regulation
+
+professional knowledge
+evidence
+unknowns
+
+Estados:
+
+REQUIRED
+
+APPLICABLE
+
+OPTIONAL
+
+NOT_APPLICABLE
+
+NOT_DEMONSTRATED
+
+UNKNOWN.
+
+50. FACILITY COMPLETENESS RULE
+
+Formalizar:
+
+ARKI FACILITY COMPLETENESS RULE
+
+Un edificio, hospital, aeropuerto, estación, puerto, infraestructura o cualquier otra tipología NO se considera comprendida completamente porque ARKI pueda generar su geometría o reconocer sus objetos principales.
+
+La cobertura deberá considerar, según aplicabilidad:
+
+spaces
+systems
+equipment
+components
+relationships
+properties
+quantities
+processes
+requirements
+disciplines
+lifecycle
+information requirements
+standards
+regulation
+51. COMPUTATIONAL KNOWLEDGE LINK
+
+Integrar conceptualmente el Addendum de Inteligencia Computacional ya existente.
+
+Mantener:
+
+KNOWLEDGE FABRIC      → SABER
+REASONING FABRIC      → PENSAR
+COMPUTATION FABRIC    → CALCULAR
+
+El LKS gobierna conocimiento y evidencia.
+
+No convertir conocimiento textual de una disciplina en capacidad computacional.
+
+Formalizar:
+
+KNOWING HOW A CALCULATION WORKS ≠ HAVING A VERIFIED SOLVER
+
+y:
+
+STANDARD KNOWLEDGE ≠ COMPLIANCE ENGINE
+
+52. COMPUTATIONAL COMPETENCY
+
+Cuando un curriculum item requiera cálculo:
+
+distinguir:
+
+CONCEPTUAL_KNOWLEDGE
+FORMULA_KNOWLEDGE
+PROCEDURAL_KNOWLEDGE
+IMPLEMENTED_SOLVER
+TESTED_SOLVER
+VERIFIED_SOLVER
+PROFESSIONAL_VALIDATION_REQUIRED
+EXTERNAL_ORACLE_REQUIRED
+
+No elevar estados automáticamente.
+
+53. PROFESSIONAL DISCIPLINES
+
+La arquitectura curricular deberá ser extensible a:
+
+Architecture
+Urbanism
+Structures
+Seismic
+Geotechnics
+Hydraulics
+Plumbing
+Electrical
+HVAC
+Fire
+Evacuation
+Acoustics
+Lighting
+Energy
+Environment
+GIS
+BIM
+Cost
+Schedule
+Airport
+Rail
+Port
+Healthcare
+Education
+other justified disciplines
+
+La existencia de una categoría no implica competencia.
+
+Cada una deberá conservar estado real.
+
+54. MULTISCALE CURRICULUM
+
+El currículo deberá poder distinguir conocimiento por escala:
+
+COUNTRY
+REGION
+PROVINCE / METROPOLITAN SYSTEM
+CITY
+DISTRICT
+NEIGHBORHOOD
+BLOCK / PUBLIC REALM
+SITE
+BUILDING
+SYSTEM / ZONE
+SPACE
+ACTIVITY
+OBJECT
+COMPONENT
+HUMAN
+
+Formalizar:
+
+MULTISCALE KNOWLEDGE ≠ SAME KNOWLEDGE AT DIFFERENT ZOOM
+
+Cambiar de escala puede cambiar:
+
+ontology
+standards
+regulation
+methods
+evidence
+constraints
+indicators
+professional disciplines
+verification methods
+55. REGULATORY KNOWLEDGE — PREPARATION ONLY
+
+Preparar el LKS para futura incorporación gobernada de regulación.
+
+No intentar completar en 97A toda la normativa peruana.
+
+El modelo deberá poder distinguir:
+
+jurisdiction
+issuingAuthority
+legalLevel
+regulationId
+version
+effectiveFrom
+effectiveTo
+supersedes
+supersededBy
+applicableScale
+projectType
+applicabilityConditions
+evidence
+interpretation
+unknowns
+
+Regla:
+
+STANDARD ≠ LAW ≠ REGULATION ≠ GUIDANCE
+
+56. PERU FUTURE FAMILY
+
+Registrar únicamente como extensión futura gobernada:
+
+LKC-REG-PE
+
+o código equivalente conforme al Master Codebook.
+
+Estado máximo:
+
+REGISTERED / NOT IMPLEMENTED
+
+salvo que ya exista una estructura equivalente que deba reutilizarse.
+
+No abrir investigación normativa masiva en esta orden.
+
+57. PROJECT-SPECIFIC KNOWLEDGE
+
+Mantener separación entre:
+
+GENERAL KNOWLEDGE
+DOMAIN KNOWLEDGE
+PROJECT-SPECIFIC KNOWLEDGE
+
+Un aprendizaje derivado de un proyecto no se generaliza automáticamente.
+
+Formalizar:
+
+PROJECT EVIDENCE ≠ GENERAL KNOWLEDGE
+
+y:
+
+PROJECT COMPETENCE ≠ UNIVERSAL COMPETENCE
+
+58. LEARNING / GENERALIZATION FIREWALL
+
+Esta orden no autoriza aprendizaje autónomo generalizado.
+
+Cualquier mecanismo futuro de transferencia deberá distinguir:
+
+PROJECT_ONLY
+CANDIDATE_FOR_TRANSFER
+TRANSFER_TEST_REQUIRED
+GENERALIZED
+REJECTED
+UNKNOWN
+
+GENERALIZED no puede producirse por simple reutilización exitosa una vez.
+
+59. KNOWLEDGE CONFLICT ENGINE — BOUNDED
+
+Implementar o especificar capacidad para representar conflictos de conocimiento.
+
+Ejemplos:
+
+SOURCE_A vs SOURCE_B
+CURRENT vs SUPERSEDED
+ISO vs LOCAL_REGULATION
+IFC_SEMANTICS vs ARKI_INTERNAL_SEMANTICS
+RESEARCH vs NORMATIVE_SOURCE
+
+Estados posibles:
+
+NO_CONFLICT
+POTENTIAL_CONFLICT
+CONFIRMED_CONFLICT
+RESOLVED_WITH_EVIDENCE
+HUMAN_DECISION_REQUIRED
+UNKNOWN
+
+No resolver conflictos mediante simple prioridad del modelo.
+
+60. CURATOR ADVERSARIAL TEST
+
+Añadir una prueba donde Researcher encuentre una afirmación plausible, repetida por múltiples fuentes secundarias, pero contradicha por la fuente primaria oficial.
+
+Resultado esperado:
+
+CLAIM = NOT_VERIFIED / REJECTED
+
+según evidencia.
+
+Esto debe demostrar:
+
+CONSENSUS OF SECONDARY SOURCES ≠ PRIMARY EVIDENCE
+
+61. TEMPORAL STANDARD TEST
+
+Añadir caso:
+
+STANDARD V1
+   ↓
+competency taught/tested
+   ↓
+STANDARD V2
+   ↓
+material requirement changes
+
+Resultado:
+
+historical competency preserved
++
+revalidation analysis created
+
+Nunca:
+
+delete historical evidence
+62. KNOWLEDGE PACKAGE TEST
+
+Demostrar que ARKI Knowledge Package:
+
+puede reconstruir conocimiento y referencias;
+no duplica los owners;
+conserva versiones;
+conserva evidencia;
+conserva UNKNOWN;
+puede mostrar currículo y competencia;
+no convierte views en canonical owners.
+63. ARCHITECT VIEW
+
+Generar una vista comprensible para Product Owner arquitecto:
+
+QUÉ ES
+QUÉ SABE ARKI
+DÓNDE LO SABE
+DE DÓNDE VIENE
+QUÉ NORMA/ESTÁNDAR LO RESPALDA
+QUÉ PUEDE HACER
+QUÉ HA DEMOSTRADO
+QUÉ LE FALTA
+QUÉ ESTÁ DESACTUALIZADO
+QUÉ NECESITA APRENDER
+QUÉ REQUIERE DECISIÓN
+
+Evitar exponer innecesariamente detalles internos de implementación.
+
+64. TECHNICAL VIEW
+
+Generar vista técnica:
+
+knowledgeId
+owner
+source
+claim
+evidence
+epistemicState
+version
+relationships
+standardMappings
+curriculumMappings
+competencyMappings
+capabilityMappings
+gaps
+tests
+provenance
+65. EXECUTIVE CHANGE VIEW
+
+Para cada ciclo vivo con cambio material, poder producir:
+
+WHAT CHANGED
+SOURCE
+PREVIOUS VERSION
+NEW VERSION
+CURATOR RESULT
+ARKI IMPACT
+CURRICULUM IMPACT
+COMPETENCY IMPACT
+CAPABILITY IMPACT
+IMPLEMENTATION IMPACT
+HUMAN DECISION
+
+Si no hay cambio material:
+
+no generar informe ejecutivo al PO.
+
+66. AUTOMATION STATUS
+
+Mantener el principio de Orden 97:
+
+si no existe scheduler seguro demostrado:
+
+SCHEDULER_IMPLEMENTATION =
+NOT_DEMONSTRATED /
+EXTERNAL_ORCHESTRATION_REQUIRED
+
+No crear infraestructura paralela improvisada únicamente para cumplir el ciclo de 15 días.
+
+67. BKH FIREWALL
+
+Esta orden NO autoriza:
+
+BKH4-4+
+canonical mutation
+atomic commit
+atomic persistence
+rollback
+undo/redo
+crash recovery
+BKH5
+BKH6
+BKH7
+E8
+
+Tampoco autoriza modificar ownership del Kernel.
+
+Un descubrimiento LKS que afecte Kernel deberá generar:
+
+ARCHITECTURAL_IMPACT_CANDIDATE
+
+y detenerse.
+
+68. NO AUTO-IMPLEMENTATION
+
+Formalizar nuevamente:
+
+DISCOVERED GAP ≠ AUTHORIZATION TO IMPLEMENT
+
+y:
+
+CURRICULUM GAP ≠ AUTHORIZATION TO MODIFY PRODUCT
+
+y:
+
+NEW STANDARD ≠ AUTOMATIC SOFTWARE CHANGE
+
+69. NO SELF-CERTIFICATION
+
+Ninguna función de ARKI podrá elevarse a:
+
+VERIFIED
+PROFESSIONALLY_VALIDATED
+COMPLETE
+COMPLIANT
+
+únicamente porque su propia implementación o documentación lo declare.
+
+Exigir evidencia correspondiente al nivel de afirmación.
+
+70. SCOPE LIMIT REPORT
+
+El informe final deberá declarar explícitamente lo que 97A NO demuestra.
+
+Como mínimo:
+
+exhaustive ISO knowledge
+exhaustive IFC knowledge
+exhaustive Smart City knowledge
+exhaustive Urban Digital Twin knowledge
+exhaustive professional curriculum
+professional competence in every discipline
+regulatory compliance
+autonomous general learning
+professional certification
+legal authority
+complete external scheduler
+71. STATUS MODEL
+
+Para cada frente reportar por separado:
+
+EXISTING
+REUSED
+INTEGRATED
+ADAPTED
+DERIVED
+IMPLEMENTED
+TESTED
+VERIFIED_BY_LOCAL_TEST
+PENDING_INDEPENDENT_VERIFICATION
+PARTIAL
+NOT_DEMONSTRATED
+UNKNOWN
+EXTERNAL_ORCHESTRATION_REQUIRED
+HUMAN_DECISION_REQUIRED
+
+No usar un único estado global para esconder heterogeneidad.
+
+72. FINAL REPORT
+
+El reporte deberá responder claramente:
+
+¿Qué existía antes?
+¿Qué fue reutilizado?
+¿Qué fue integrado?
+¿Qué fue adaptado?
+¿Qué se creó realmente?
+¿Qué evitamos duplicar?
+¿Dónde vive ahora el currículo?
+¿Dónde vive el conocimiento ISO?
+¿Cómo se relaciona IFC con currículo y capacidades?
+¿Cómo se relacionan Smart Cities y UDT?
+¿Qué hace Curator?
+¿Qué puede actualizarse automáticamente?
+¿Qué nunca puede canonicalizarse automáticamente?
+¿Qué cambios requieren Human Authority?
+¿Qué sigue siendo UNKNOWN?
+¿Qué sigue siendo NOT_DEMONSTRATED?
+¿Qué gaps se detectaron?
+¿Cuáles NO fueron implementados por alcance?
+73. REQUIRED MACHINE-READABLE OUTPUT
+
+Además de documentación humana, producir representación estructurada suficiente para reconstruir:
+
+KNOWLEDGE
+SOURCES
+CLAIMS
+EVIDENCE
+STANDARDS
+CURRICULUM
+COMPETENCIES
+CAPABILITIES
+GAPS
+TEMPORAL HISTORY
+
+No permitir que la arquitectura exista solamente en Markdown.
+
+74. MANIFEST
+
+El paquete final deberá incluir manifest con:
+
+file
+purpose
+size
+SHA-256
+generated/modified/reused
+evidence category
+
+Incluir SHA-256 del ZIP final.
+
+No declarar archivos inexistentes.
+
+75. MAXIMUM ALLOWED STATUS
+
+Manus NO podrá declarar por sí mismo:
+
+ARKI-LKS VERIFIED.
+
+Estado máximo:
+
+ARKI-LKS-001 + 97A — INTEGRATED / IMPLEMENTED FOR DECLARED SCOPE / PENDING INDEPENDENT VERIFICATION
+
+Para Standards:
+
+INITIAL GOVERNED KNOWLEDGE / NOT EXHAUSTIVE
+
+Para ISO:
+
+INITIAL ISO KNOWLEDGE FAMILY / NOT EXHAUSTIVE
+
+Para Curriculum:
+
+INTEGRATED WITH EXISTING BASELINE / COVERAGE NOT CLAIMED COMPLETE
+
+Para Competency:
+
+HISTORICAL + CURRENT EVIDENCE INTEGRATED / NO PROFESSIONAL AUTHORITY IMPLIED
+
+76. ACCEPTANCE GATE
+
+Para considerar 97A candidata a cierre deberán demostrarse simultáneamente:
+
+97A-0 baseline preserved
+no second curriculum
+no second competency registry
+no second evidence registry
+no second Gap Register
+no second Capability Atlas
+no parallel standards truth
+
+AKI-001 integrated
+curriculum queryable/derivable
+competency evidence traceable
+
+standards represented in LKS
+initial ISO family populated
+
+Curator validates standards claims
+standards changes propagate to impact analysis
+curriculum delta works
+competency revalidation works
+
+Knowledge Package is derived
+temporal history preserved
+multiscale safety preserved
+jurisdiction safety preserved
+Human Authority preserved
+
+check PASS
+relevant regressions PASS
+evidence package complete
+
+Failure of any critical invariant:
+
+APPROVE_WITH_FIXES
+
+or:
+
+DEFER
+
+según gravedad.
+
+77. STOP
+
+Una vez completados:
+
+integration
+implementation
+tests
+regression
+evidence package
+manifest
+final report
+
+STOP.
+
+No iniciar:
+
+BKH4-4
+new professional solvers
+mass regulatory ingestion
+autonomous training
+additional LKC families
+automatic gap closure
+Kernel changes
+
+Esperar:
+
+INDEPENDENT REVIEW + PRODUCT OWNER DECISION.
+
+78. FINAL ARCHITECTURAL TARGET
+
+La implementación deberá converger conceptualmente hacia:
+
+                        ONE ARKI
+                           │
+                 LIVING KNOWLEDGE SYSTEM
+                           │
+       ┌───────────────────┼───────────────────┐
+       │                   │                   │
+    SOURCES              CLAIMS             EVIDENCE
+       │                   │                   │
+       └───────────────────┼───────────────────┘
+                           │
+                        CURATOR
+                           │
+                   GOVERNED KNOWLEDGE
+                           │
+      ┌────────────┬───────┼────────┬──────────────┐
+      │            │       │        │              │
+     IFC          ISO     OGC   SMART CITY        UDT
+      │            │       │        │              │
+      └────────────┴───────┼────────┴──────────────┘
+                           │
+                   KNOWLEDGE GRAPH
+                           │
+       ┌───────────────────┼───────────────────┐
+       │                   │                   │
+  CURRICULUM          CAPABILITY ATLAS      GAP REGISTER
+       │                   │                   │
+     TUTOR              ARKI REALITY       ROADMAP INPUT
+       │
+    EXAMINER
+       │
+    EVIDENCE
+       │
+   COMPETENCY
+       │
+   REVALIDATION
+                           │
+                     HUMAN AUTHORITY
+
+Este diagrama representa funciones y vistas gobernadas.
+
+NO autoriza convertir cada caja en un agente, motor, servicio o base de datos independiente.
+
+79. PRINCIPIOS DE CIERRE
+
+Registrar como invariantes de arquitectura:
+
+RESEARCHER DISCOVERS · CURATOR VERIFIES · ARKI INTEGRATES · HUMAN GOVERNS.
+
+ENCONTRAR ≠ SABER.
+
+FUENTE EXISTE ≠ CLAIM VERIFICADO.
+
+SABER ≠ SABER HACER.
+
+ENSEÑAR ≠ APRENDER.
+
+APRENDER ≠ DEMOSTRAR.
+
+DEMOSTRAR ≠ AUTORIDAD PROFESIONAL.
+
+NUEVO CONOCIMIENTO ≠ CAMBIO AUTOMÁTICO DEL PRODUCTO.
+
+UNA NORMA NUEVA ≠ UNA REGLA AUTOMÁTICA DE ARKI.
+
+HISTORIA CANÓNICA ES INMUTABLE; CONOCIMIENTO EXTERNO VIVO ES VERSIONADO.
+
+ONE ARKI · ONE GOVERNED KNOWLEDGE SYSTEM · MULTIPLE VIEWS · HUMAN AUTHORITY.
+
+FIN DE ORDEN 97A v1.1 — STOP.

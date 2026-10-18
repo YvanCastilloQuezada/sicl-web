@@ -1,0 +1,9 @@
+discipline,knowledge,algorithm,solver,execution,test,final_truth
+Structures,knowledge/contracts,bounded model,no professional solver,not demonstrated,topology/contract tests,PROFESSIONAL_VALIDATION_REQUIRED
+Foundations,knowledge/contracts,conceptual quantities,no,not demonstrated,constructive tests,PROFESSIONAL_VALIDATION_REQUIRED
+Water/drainage,documents only,no demonstrated algorithm,no,no,none,UNKNOWN
+Electrical,documents/MEP contracts,topology only,no,no,bounded MEP tests,PROFESSIONAL_VALIDATION_REQUIRED
+HVAC,documents/MEP contracts,topology only,no,no,bounded MEP tests,PROFESSIONAL_VALIDATION_REQUIRED
+Fire/life safety,RNE findings/gates,screening only,no,no,gate tests,PROFESSIONAL_VALIDATION_REQUIRED
+Elevators,concept documents,no,no,no,none,UNKNOWN
+Facade actions,concept documents,no,no,no,none,UNKNOWN

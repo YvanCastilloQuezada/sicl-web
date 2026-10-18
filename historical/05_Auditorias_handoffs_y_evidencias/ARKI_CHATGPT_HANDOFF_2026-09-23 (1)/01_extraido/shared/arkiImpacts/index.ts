@@ -1,0 +1,2 @@
+export type Impact = { id: string; sourceId: string; targetId: string; domain: "cost" | "schedule" | "clash" | "structural" | "mep"; reason: string; requiresHumanReview: boolean };
+export function buildImpacts(sourceId: string, affected: Array<{ id: string; domain: Impact["domain"]; reason: string; requiresHumanReview?: boolean }>): Impact[] { return affected.map((item) => ({ id: `impact:${sourceId}:${item.id}:${item.domain}`, sourceId, targetId: item.id, domain: item.domain, reason: item.reason, requiresHumanReview: item.requiresHumanReview ?? true })); }

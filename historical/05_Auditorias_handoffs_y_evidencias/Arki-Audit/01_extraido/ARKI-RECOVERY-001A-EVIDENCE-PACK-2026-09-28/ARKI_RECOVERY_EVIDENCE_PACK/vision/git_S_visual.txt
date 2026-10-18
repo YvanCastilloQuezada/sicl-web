@@ -1,0 +1,23 @@
+[33me093da4[m fix(are): close source lineage and view semantics
+[33mcc6828b[m docs(architecture): define ARKI representation architecture contract
+[33mac240d5[m docs(governance): declare patched baseline and preserve orders
+[33m45b12f2[m ci(vsm): automate weekly master surveillance
+[33md740892[m docs(rfc-037): add weekly master surveillance
+[33m39b7798[m docs(arki): record phase1 multi-master learning
+[33m90421fb[m docs: add rfc structure and reference folders
+[33m1c41655[m docs: add canonical master handoff
+[33m09449fc[m docs: close multisource knowledge macroorder
+[33m3e9ae7c[m feat: add Alexander CES design knowledge pilot
+[33m98fa06d[m docs: prepare controlled architect mvp validation
+[33m82500b3[m feat: add scale-aware generative capabilities
+[33m7df46b3[m docs: normalize gdi future backlog
+[33m6a1b198[m feat(environment): add adaptive territorial scale profiles
+[33m3d1c475[m docs: integrate master frozen future orders register
+[33mde949f5[m docs: consolidate SiMS-DeI frozen future orders
+[33m499a397[m docs: lock project intelligence distinctions
+[33m3789fdd[m docs: define space-scale variable matrix
+[33mc7d9cde[m docs: specify common multiscale variable schema
+[33mf7e2f6f[m docs: freeze multiscale variable intelligence decision lock
+[33md1cec32[m docs: add executive board presentation script
+[33mdb7b9ec[m feat: add physical IFC adapter and GIS RFC-028
+[33m8bdf1b1[m feat: add read-only design intelligence catalog

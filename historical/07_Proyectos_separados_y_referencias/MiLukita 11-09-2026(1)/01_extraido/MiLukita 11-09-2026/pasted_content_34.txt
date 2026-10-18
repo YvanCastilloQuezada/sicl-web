@@ -1,0 +1,402 @@
+ORDEN DEFINITIVA PARA MANUS — CIERRE TÉCNICO DE MAPPER + THE EYE
+
+ORDEN: CIERRE TÉCNICO, RESOLUCIÓN DE CONFLICTOS, QA EN DISPOSITIVOS REALES Y PREPARACIÓN PARA UI DEFINITIVA
+
+MOTIVO Y PROPÓSITO
+
+La infraestructura funcional de MiLukita Mapper + The Eye ya cuenta con:
+
+CaptureSession persistente.
+Captura y edición de WorldObject.
+Versionado.
+Snapshots históricos inmutables.
+Restauración como nueva versión.
+Funcionamiento offline.
+Cola de sincronización.
+Sincronización idempotente.
+Detección de conflictos sin last-write-wins.
+Auditoría.
+Separación entre captura, verificación y publicación.
+Runtime limitado a objetos PUBLISHED.
+MJP CORE intacto.
+
+Las pruebas automatizadas actuales también presentan resultados satisfactorios:
+
+TypeScript: PASS.
+Build: PASS.
+458 pruebas aprobadas.
+4 pruebas omitidas.
+
+Sin embargo, pruebas automatizadas no equivalen a validación operacional real.
+
+Mapper será utilizado en campo y, por tanto, debemos demostrar que el sistema funciona correctamente bajo las condiciones reales de uso antes de invertir en la UI definitiva.
+
+Esta orden tiene como objetivo cerrar esa brecha.
+
+1. RESOLUCIÓN VISUAL DE CONFLICTOS
+
+Implementar una interfaz funcional para que The Eye pueda resolver conflictos de sincronización de manera explícita y trazable.
+
+Debe permitir:
+
+Versión A | Versión B
+
+Mostrar lado a lado:
+
+coordenadas;
+fecha/hora;
+dispositivo;
+operador;
+versión;
+nombre;
+tipo;
+claims;
+sources;
+evidence;
+fotografías;
+modificaciones realizadas.
+
+El auditor debe poder identificar exactamente qué cambió entre ambas versiones.
+
+Decisiones permitidas:
+Aceptar A
+Aceptar B
+Conservar ambas
+Solicitar evidencia
+Escalar a Human Authority
+
+IMPORTANTE:
+
+La resolución nunca debe eliminar silenciosamente una versión.
+
+La versión descartada debe permanecer disponible en el historial.
+
+Toda resolución debe generar:
+
+usuario;
+fecha/hora;
+conflicto;
+versiones involucradas;
+decisión;
+justificación;
+resultado.
+
+Registrar todo en Audit Log.
+
+2. PROTECCIÓN CONTRA PÉRDIDA DE INFORMACIÓN
+
+Antes de considerar terminada la sincronización offline, verificar explícitamente:
+
+ningún objeto local se pierde;
+ninguna fotografía se pierde;
+ninguna evidencia se pierde;
+ninguna versión histórica se sobrescribe;
+una misma operación sincronizada dos veces no genera duplicados;
+una desconexión durante sincronización puede recuperarse;
+una reconexión posterior continúa correctamente.
+
+Implementar o verificar estados claros:
+
+LOCAL_PENDING
+
+SYNCING
+
+SYNCED
+
+CONFLICT
+
+SYNC_ERROR
+
+El usuario debe poder saber qué ocurrió con cada elemento.
+
+3. QA EN DISPOSITIVOS REALES
+
+Ejecutar pruebas reales, no solamente simuladas.
+
+Escenario A — Captura online
+Abrir Mapper.
+Crear CaptureSession.
+Obtener ubicación GPS.
+Capturar fotografía.
+Crear WorldObject.
+Guardar.
+Editar.
+Enviar a The Eye.
+
+Verificar todo el flujo.
+
+Escenario B — Captura completamente offline
+Abrir Mapper.
+Desactivar conexión.
+Crear sesión.
+Capturar varios WorldObjects.
+Tomar fotografías.
+Registrar GPS.
+Registrar notas.
+Cerrar y volver a abrir la aplicación.
+Verificar persistencia.
+Recuperar conexión.
+Sincronizar.
+
+Resultado esperado:
+
+Todos los objetos, fotografías, coordenadas, notas y versiones deben llegar correctamente al servidor.
+
+Escenario C — Conflicto real
+
+Utilizar dos dispositivos.
+
+Dispositivo A:
+
+modificar WorldObject.
+
+Dispositivo B:
+
+modificar simultáneamente el mismo WorldObject.
+
+Sincronizar ambos.
+
+Verificar que:
+
+no existe last-write-wins;
+ambas versiones quedan preservadas;
+aparece el conflicto;
+The Eye puede resolverlo;
+la resolución queda auditada.
+4. PRUEBAS ESPECÍFICAS DEL MAPPER
+
+Verificar en dispositivo móvil real:
+
+GPS
+permiso concedido;
+permiso denegado;
+precisión baja;
+pérdida temporal de GPS;
+recuperación de GPS;
+coordenadas inválidas;
+coordenadas fuera del territorio esperado.
+Cámara
+permiso concedido;
+permiso denegado;
+captura correcta;
+cancelación;
+archivo corrupto;
+fotografía de gran tamaño.
+Almacenamiento
+persistencia offline;
+cierre inesperado;
+reapertura;
+recuperación de sesión.
+Conectividad
+online;
+offline;
+conexión intermitente;
+sincronización posterior.
+
+Registrar resultados.
+
+5. PRUEBA E2E DEFINITIVA
+
+Ejecutar y dejar documentada una prueba completa:
+
+REALIDAD
+   ↓
+MAPPER
+   ↓
+CAPTURE SESSION
+   ↓
+WORLD OBJECT
+   ↓
+CLAIMS + SOURCES + EVIDENCE
+   ↓
+VERSION
+   ↓
+THE EYE
+   ↓
+VERIFICACIÓN
+   ↓
+HUMAN AUTHORITY
+   ↓
+PUBLISHED
+   ↓
+RUNTIME
+
+La prueba debe demostrar que:
+
+un dato capturado en el mundo físico puede recorrer todo el sistema hasta convertirse en información pública, manteniendo trazabilidad durante todo el proceso.
+
+6. REGLA DE INTEGRIDAD DEL RUNTIME
+
+Crear una prueba explícita que intente introducir en Runtime objetos:
+
+DRAFT
+CAPTURED
+UNDER_REVIEW
+EVIDENCE_REQUIRED
+DISPUTED
+REJECTED
+ARCHIVED
+
+Todos deben ser rechazados.
+
+Únicamente debe poder aparecer la versión específicamente autorizada para publicación.
+
+7. CODE-SPLITTING
+
+Implementar code-splitting solo si el análisis del build demuestra que existe un problema real de carga inicial.
+
+No realizar optimización por estética técnica.
+
+Medir antes y después:
+
+tamaño inicial;
+chunks;
+tiempo de carga;
+rutas críticas;
+carga de Mapper;
+carga de The Eye.
+
+Si el beneficio es marginal, documentarlo y no introducir complejidad innecesaria.
+
+8. NO MODIFICAR MJP CORE
+
+Esta condición permanece absoluta.
+
+Mapper, The Eye, World Engine, sincronización y Runtime territorial no deben alterar la lógica de MJP CORE.
+
+Al finalizar:
+
+ejecutar pruebas existentes de MJP CORE;
+comparar resultados;
+confirmar que no existen regresiones.
+9. ENTREGABLE DE QA
+
+No entregar solamente:
+
+PASS
+
+Entregar un informe estructurado:
+
+Prueba	Dispositivo	Condición	Resultado	Evidencia	Incidencia
+Captura GPS	Android	Online			
+Captura GPS	Android	Offline			
+Cámara	Android	Online			
+Cámara	Android	Offline			
+Sincronización	Android A/B	Conflicto			
+The Eye	Web	Resolución			
+Runtime	Web/Móvil	Publicación			
+10. CRITERIO DE CIERRE
+
+Esta orden solamente se considera completada cuando:
+
+A. Mapper
+
+Puede capturar información real en campo.
+
+B. Offline
+
+Puede trabajar sin conexión y recuperar posteriormente la información.
+
+C. Sync
+
+La sincronización no pierde información ni sobrescribe silenciosamente versiones.
+
+D. Conflicts
+
+Los conflictos pueden visualizarse y resolverse humanamente.
+
+E. The Eye
+
+Puede revisar evidencia y tomar una decisión trazable.
+
+F. Runtime
+
+Solo puede consumir información autorizada para publicación.
+
+G. Audit
+
+Toda transición importante queda registrada.
+
+H. MJP CORE
+
+Permanece intacto y sus pruebas continúan pasando.
+
+11. NO IMPLEMENTAR TODAVÍA
+
+No iniciar todavía una nueva capa estética ni agregar funcionalidades no necesarias para el cierre de esta fase.
+
+No introducir:
+
+gamificación;
+funcionalidades sociales;
+nuevos agentes;
+nuevas categorías de WorldObjects;
+funcionalidades comerciales;
+nuevas capacidades de AR no necesarias para la prueba;
+cambios arquitectónicos no justificados.
+
+El objetivo ahora es cerrar confiabilidad operacional.
+
+12. SIGUIENTE FASE — CONDICIONAL
+
+Si esta orden termina correctamente, declarar explícitamente:
+
+MAPPER + THE EYE = READY FOR UI DEFINITIVE
+
+Recién entonces pasar a:
+
+FASE SIGUIENTE
+
+UI DEFINITIVA → PRIMEROS WORLDOBJECTS REALES → VERIFICACIÓN → PUBLICACIÓN → PRIMERA EXPERIENCIA PÚBLICA DE EL MUNDO DE MILUKITA
+
+No iniciar esa fase hasta cumplir los criterios de cierre anteriores.
+
+Mi evaluación
+
+Esta orden es mejor que la que estabas a punto de enviar.
+
+Hay una diferencia importante: no estamos construyendo Mapper para demostrar que el código funciona; estamos construyendo Mapper para salir físicamente a capturar Trujillo. Esa diferencia cambia qué debemos probar.
+
+Y hay otro punto que corregiría de nuestra línea anterior: la UI de Gemini no debe dictar la arquitectura. Gemini puede servir para diseño visual, pero la interfaz definitiva debe construirse sobre el flujo funcional ya probado. Primero sabemos qué debe hacer el operador; después decidimos cómo se ve.
+
+El orden que recomiendo queda así:
+
+                 ┌──────────────────────┐
+                 │   REALIDAD FÍSICA     │
+                 └──────────┬───────────┘
+                            ↓
+                    MILUKITA MAPPER
+                            ↓
+                  CAPTURE SESSION
+                            ↓
+              WORLD OBJECT + EVIDENCE
+                            ↓
+                    VERSIONAMIENTO
+                            ↓
+                      THE EYE
+                            ↓
+                 VERIFICACIÓN / CONFLICTOS
+                            ↓
+                  HUMAN AUTHORITY
+                            ↓
+                       PUBLISHED
+                            ↓
+                       RUNTIME
+                            ↓
+                 EL MUNDO DE MILUKITA
+
+Y alrededor de todo eso:
+
+Audit Log + Snapshots + Offline + Sync + RBAC
+
+El punto estratégico
+
+No necesitamos seguir acumulando arquitectura indefinidamente.
+
+Después de esta orden, si Manus demuestra el flujo en un teléfono real, tenemos que parar de construir infraestructura y empezar a producir territorio.
+
+Ese será el verdadero test de MiLukita:
+
+¿Podemos tomar un lugar real de Trujillo, documentarlo, demostrar por qué creemos que los datos son ciertos, aprobar una versión y hacer que esa versión aparezca correctamente en el Mundo de MiLukita?
+
+Si la respuesta es sí, dejamos de estar haciendo una plataforma hipotética y empezamos a construir el mundo real de MiLukita.

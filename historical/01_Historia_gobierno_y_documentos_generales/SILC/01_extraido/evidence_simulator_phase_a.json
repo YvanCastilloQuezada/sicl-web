@@ -1,0 +1,670 @@
+{
+  "simulator_contract_version": "0.1.0",
+  "suite": "SICL_1_PHASE_A",
+  "synthetic_only": true,
+  "results": [
+    {
+      "simulator_contract_version": "0.1.0",
+      "case_id": "SIM-SICL1-UPAO-001",
+      "case_fingerprint": "7d2936110ad284b88e5f33086f328e779b4845495bba06c3cc6a704ec57d0d4c",
+      "status": "PASSED",
+      "responses": [
+        {
+          "status": "OK",
+          "code": "PROJECT_CREATED",
+          "message": "project created",
+          "data": {
+            "project_id": "SIM-SICL1-UPAO-001"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "CONTEXT_SET",
+          "message": "operation completed",
+          "data": {
+            "key": "TYPE"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "REQUIREMENT_SET",
+          "message": "operation completed",
+          "data": {
+            "id": "R1"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "OBJECTIVE_SET",
+          "message": "operation completed",
+          "data": {
+            "key": "COST",
+            "direction": "MAXIMIZE",
+            "target": null
+          }
+        },
+        {
+          "status": "OK",
+          "code": "CONSTRAINT_SET",
+          "message": "operation completed",
+          "data": {
+            "key": "HEIGHT"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "ROLE_ADD",
+          "message": "operation completed",
+          "data": {
+            "role": "ARCHITECT"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "ALTERNATIVE_CREATE",
+          "message": "operation completed",
+          "data": {
+            "id": "A",
+            "data": {
+              "cost": 850000.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "ALTERNATIVE_CREATE",
+          "message": "operation completed",
+          "data": {
+            "id": "B",
+            "data": {
+              "cost": 920000.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "EVALUATION_RECORD",
+          "message": "operation completed",
+          "data": {
+            "evaluation_id": "EVAL-019f82e1",
+            "result": 850000.0,
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 850000.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "EVALUATION_RECORD",
+          "message": "operation completed",
+          "data": {
+            "evaluation_id": "EVAL-f2ea9d60",
+            "result": 920000.0,
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 920000.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "OBJECTIVE_SET",
+          "message": "operation completed",
+          "data": {
+            "key": "COST",
+            "direction": "MINIMIZE",
+            "target": null
+          }
+        },
+        {
+          "status": "OK",
+          "code": "COMPARE",
+          "message": "operation completed",
+          "data": {
+            "comparison_id": "CMP-ead3d8ce",
+            "winner": "A",
+            "difference": 70000.0,
+            "direction": "MINIMIZE",
+            "results": {
+              "COST": {
+                "A": 850000.0,
+                "B": 920000.0
+              }
+            },
+            "evaluation_ids": [
+              "EVAL-019f82e1",
+              "EVAL-f2ea9d60"
+            ]
+          }
+        },
+        {
+          "status": "OK",
+          "code": "RECOMMENDATION_RECORD",
+          "message": "operation completed",
+          "data": {
+            "recommendation_id": "REC-733c4292",
+            "based_on": null,
+            "source": "HUMAN"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "TRACEABILITY",
+          "message": "traceability chain",
+          "data": {
+            "project_id": "SIM-SICL1-UPAO-001",
+            "evaluations": [
+              {
+                "evaluation_id": "EVAL-019f82e1",
+                "project_id": "SIM-SICL1-UPAO-001",
+                "alternative_id": "A",
+                "criterion": "COST",
+                "method": "DECLARED_RESULT",
+                "inputs": {
+                  "value": 850000.0
+                },
+                "result": 850000.0,
+                "version": "0.2.5",
+                "evaluation_version": 1,
+                "contract_version": "0.2.5",
+                "direction": "MAXIMIZE",
+                "output_unit": "declared",
+                "feasibility_status": "UNKNOWN",
+                "evidence": []
+              },
+              {
+                "evaluation_id": "EVAL-f2ea9d60",
+                "project_id": "SIM-SICL1-UPAO-001",
+                "alternative_id": "B",
+                "criterion": "COST",
+                "method": "DECLARED_RESULT",
+                "inputs": {
+                  "value": 920000.0
+                },
+                "result": 920000.0,
+                "version": "0.2.5",
+                "evaluation_version": 1,
+                "contract_version": "0.2.5",
+                "direction": "MAXIMIZE",
+                "output_unit": "declared",
+                "feasibility_status": "UNKNOWN",
+                "evidence": []
+              }
+            ],
+            "comparisons": [
+              {
+                "comparison_id": "CMP-ead3d8ce",
+                "alternative_ids": [
+                  "A",
+                  "B"
+                ],
+                "results": {
+                  "COST": {
+                    "A": 850000.0,
+                    "B": 920000.0
+                  }
+                },
+                "direction": "MINIMIZE",
+                "winner": "A",
+                "difference": 70000.0,
+                "method": "DIRECT_COMPARISON",
+                "evaluation_ids": [
+                  "EVAL-019f82e1",
+                  "EVAL-f2ea9d60"
+                ]
+              }
+            ],
+            "multi_comparisons": [],
+            "tradeoffs": [],
+            "recommendations": [
+              {
+                "recommendation_id": "REC-733c4292",
+                "alternative_id": "A",
+                "reason": "fixture recommendation for traceability test",
+                "based_on": null,
+                "source": "HUMAN"
+              }
+            ],
+            "decisions": [],
+            "event_count": 13,
+            "events": 13
+          }
+        }
+      ],
+      "invariant_results": [
+        {
+          "name": "all_commands_ok",
+          "passed": true,
+          "detail": "Cada comando del fixture terminó con status OK."
+        },
+        {
+          "name": "comparison_exists",
+          "passed": true,
+          "detail": "Existe una comparación trazable."
+        },
+        {
+          "name": "recommendation_exists",
+          "passed": true,
+          "detail": "Existe una recomendación analítica registrada."
+        },
+        {
+          "name": "no_decision_created_automatically",
+          "passed": true,
+          "detail": "La recomendación no creó una decisión automáticamente."
+        },
+        {
+          "name": "events_are_append_only_at_application_boundary",
+          "passed": true,
+          "detail": "El historial conserva eventos del flujo."
+        },
+        {
+          "name": "case_is_explicitly_synthetic",
+          "passed": true,
+          "detail": "El caso está marcado como sintético."
+        }
+      ],
+      "traceability": {
+        "project_id": "SIM-SICL1-UPAO-001",
+        "evaluations": [
+          {
+            "evaluation_id": "EVAL-019f82e1",
+            "project_id": "SIM-SICL1-UPAO-001",
+            "alternative_id": "A",
+            "criterion": "COST",
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 850000.0
+            },
+            "result": 850000.0,
+            "version": "0.2.5",
+            "evaluation_version": 1,
+            "contract_version": "0.2.5",
+            "direction": "MAXIMIZE",
+            "output_unit": "declared",
+            "feasibility_status": "UNKNOWN",
+            "evidence": []
+          },
+          {
+            "evaluation_id": "EVAL-f2ea9d60",
+            "project_id": "SIM-SICL1-UPAO-001",
+            "alternative_id": "B",
+            "criterion": "COST",
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 920000.0
+            },
+            "result": 920000.0,
+            "version": "0.2.5",
+            "evaluation_version": 1,
+            "contract_version": "0.2.5",
+            "direction": "MAXIMIZE",
+            "output_unit": "declared",
+            "feasibility_status": "UNKNOWN",
+            "evidence": []
+          }
+        ],
+        "comparisons": [
+          {
+            "comparison_id": "CMP-ead3d8ce",
+            "alternative_ids": [
+              "A",
+              "B"
+            ],
+            "results": {
+              "COST": {
+                "A": 850000.0,
+                "B": 920000.0
+              }
+            },
+            "direction": "MINIMIZE",
+            "winner": "A",
+            "difference": 70000.0,
+            "method": "DIRECT_COMPARISON",
+            "evaluation_ids": [
+              "EVAL-019f82e1",
+              "EVAL-f2ea9d60"
+            ]
+          }
+        ],
+        "multi_comparisons": [],
+        "tradeoffs": [],
+        "recommendations": [
+          {
+            "recommendation_id": "REC-733c4292",
+            "alternative_id": "A",
+            "reason": "fixture recommendation for traceability test",
+            "based_on": null,
+            "source": "HUMAN"
+          }
+        ],
+        "decisions": [],
+        "event_count": 13,
+        "events": 13
+      }
+    },
+    {
+      "simulator_contract_version": "0.1.0",
+      "case_id": "SIM-SICL1-OBJECT-001",
+      "case_fingerprint": "515e5e87f6065c27c19c889386a90161b0e46b890d6417631e7bb2c1c19902e6",
+      "status": "PASSED",
+      "responses": [
+        {
+          "status": "OK",
+          "code": "PROJECT_CREATED",
+          "message": "project created",
+          "data": {
+            "project_id": "SIM-SICL1-OBJECT-001"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "CONTEXT_SET",
+          "message": "operation completed",
+          "data": {
+            "key": "TYPE"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "REQUIREMENT_SET",
+          "message": "operation completed",
+          "data": {
+            "id": "R1"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "OBJECTIVE_SET",
+          "message": "operation completed",
+          "data": {
+            "key": "COST",
+            "direction": "MINIMIZE",
+            "target": null
+          }
+        },
+        {
+          "status": "OK",
+          "code": "ROLE_ADD",
+          "message": "operation completed",
+          "data": {
+            "role": "ARCHITECT"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "ALTERNATIVE_CREATE",
+          "message": "operation completed",
+          "data": {
+            "id": "A",
+            "data": {
+              "cost": 120.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "ALTERNATIVE_CREATE",
+          "message": "operation completed",
+          "data": {
+            "id": "B",
+            "data": {
+              "cost": 150.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "EVALUATION_RECORD",
+          "message": "operation completed",
+          "data": {
+            "evaluation_id": "EVAL-a7423e3a",
+            "result": 120.0,
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 120.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "EVALUATION_RECORD",
+          "message": "operation completed",
+          "data": {
+            "evaluation_id": "EVAL-8c294e23",
+            "result": 150.0,
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 150.0
+            }
+          }
+        },
+        {
+          "status": "OK",
+          "code": "COMPARE",
+          "message": "operation completed",
+          "data": {
+            "comparison_id": "CMP-569eb7f1",
+            "winner": "A",
+            "difference": 30.0,
+            "direction": "MINIMIZE",
+            "results": {
+              "COST": {
+                "A": 120.0,
+                "B": 150.0
+              }
+            },
+            "evaluation_ids": [
+              "EVAL-a7423e3a",
+              "EVAL-8c294e23"
+            ]
+          }
+        },
+        {
+          "status": "OK",
+          "code": "RECOMMENDATION_RECORD",
+          "message": "operation completed",
+          "data": {
+            "recommendation_id": "REC-5d40385f",
+            "based_on": null,
+            "source": "HUMAN"
+          }
+        },
+        {
+          "status": "OK",
+          "code": "TRACEABILITY",
+          "message": "traceability chain",
+          "data": {
+            "project_id": "SIM-SICL1-OBJECT-001",
+            "evaluations": [
+              {
+                "evaluation_id": "EVAL-a7423e3a",
+                "project_id": "SIM-SICL1-OBJECT-001",
+                "alternative_id": "A",
+                "criterion": "COST",
+                "method": "DECLARED_RESULT",
+                "inputs": {
+                  "value": 120.0
+                },
+                "result": 120.0,
+                "version": "0.2.5",
+                "evaluation_version": 1,
+                "contract_version": "0.2.5",
+                "direction": "MINIMIZE",
+                "output_unit": "declared",
+                "feasibility_status": "UNKNOWN",
+                "evidence": []
+              },
+              {
+                "evaluation_id": "EVAL-8c294e23",
+                "project_id": "SIM-SICL1-OBJECT-001",
+                "alternative_id": "B",
+                "criterion": "COST",
+                "method": "DECLARED_RESULT",
+                "inputs": {
+                  "value": 150.0
+                },
+                "result": 150.0,
+                "version": "0.2.5",
+                "evaluation_version": 1,
+                "contract_version": "0.2.5",
+                "direction": "MINIMIZE",
+                "output_unit": "declared",
+                "feasibility_status": "UNKNOWN",
+                "evidence": []
+              }
+            ],
+            "comparisons": [
+              {
+                "comparison_id": "CMP-569eb7f1",
+                "alternative_ids": [
+                  "A",
+                  "B"
+                ],
+                "results": {
+                  "COST": {
+                    "A": 120.0,
+                    "B": 150.0
+                  }
+                },
+                "direction": "MINIMIZE",
+                "winner": "A",
+                "difference": 30.0,
+                "method": "DIRECT_COMPARISON",
+                "evaluation_ids": [
+                  "EVAL-a7423e3a",
+                  "EVAL-8c294e23"
+                ]
+              }
+            ],
+            "multi_comparisons": [],
+            "tradeoffs": [],
+            "recommendations": [
+              {
+                "recommendation_id": "REC-5d40385f",
+                "alternative_id": "A",
+                "reason": "fixture recommendation for traceability test",
+                "based_on": null,
+                "source": "HUMAN"
+              }
+            ],
+            "decisions": [],
+            "event_count": 11,
+            "events": 11
+          }
+        }
+      ],
+      "invariant_results": [
+        {
+          "name": "all_commands_ok",
+          "passed": true,
+          "detail": "Cada comando del fixture terminó con status OK."
+        },
+        {
+          "name": "comparison_exists",
+          "passed": true,
+          "detail": "Existe una comparación trazable."
+        },
+        {
+          "name": "recommendation_exists",
+          "passed": true,
+          "detail": "Existe una recomendación analítica registrada."
+        },
+        {
+          "name": "no_decision_created_automatically",
+          "passed": true,
+          "detail": "La recomendación no creó una decisión automáticamente."
+        },
+        {
+          "name": "events_are_append_only_at_application_boundary",
+          "passed": true,
+          "detail": "El historial conserva eventos del flujo."
+        },
+        {
+          "name": "case_is_explicitly_synthetic",
+          "passed": true,
+          "detail": "El caso está marcado como sintético."
+        }
+      ],
+      "traceability": {
+        "project_id": "SIM-SICL1-OBJECT-001",
+        "evaluations": [
+          {
+            "evaluation_id": "EVAL-a7423e3a",
+            "project_id": "SIM-SICL1-OBJECT-001",
+            "alternative_id": "A",
+            "criterion": "COST",
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 120.0
+            },
+            "result": 120.0,
+            "version": "0.2.5",
+            "evaluation_version": 1,
+            "contract_version": "0.2.5",
+            "direction": "MINIMIZE",
+            "output_unit": "declared",
+            "feasibility_status": "UNKNOWN",
+            "evidence": []
+          },
+          {
+            "evaluation_id": "EVAL-8c294e23",
+            "project_id": "SIM-SICL1-OBJECT-001",
+            "alternative_id": "B",
+            "criterion": "COST",
+            "method": "DECLARED_RESULT",
+            "inputs": {
+              "value": 150.0
+            },
+            "result": 150.0,
+            "version": "0.2.5",
+            "evaluation_version": 1,
+            "contract_version": "0.2.5",
+            "direction": "MINIMIZE",
+            "output_unit": "declared",
+            "feasibility_status": "UNKNOWN",
+            "evidence": []
+          }
+        ],
+        "comparisons": [
+          {
+            "comparison_id": "CMP-569eb7f1",
+            "alternative_ids": [
+              "A",
+              "B"
+            ],
+            "results": {
+              "COST": {
+                "A": 120.0,
+                "B": 150.0
+              }
+            },
+            "direction": "MINIMIZE",
+            "winner": "A",
+            "difference": 30.0,
+            "method": "DIRECT_COMPARISON",
+            "evaluation_ids": [
+              "EVAL-a7423e3a",
+              "EVAL-8c294e23"
+            ]
+          }
+        ],
+        "multi_comparisons": [],
+        "tradeoffs": [],
+        "recommendations": [
+          {
+            "recommendation_id": "REC-5d40385f",
+            "alternative_id": "A",
+            "reason": "fixture recommendation for traceability test",
+            "based_on": null,
+            "source": "HUMAN"
+          }
+        ],
+        "decisions": [],
+        "event_count": 11,
+        "events": 11
+      }
+    }
+  ],
+  "status": "PASSED"
+}

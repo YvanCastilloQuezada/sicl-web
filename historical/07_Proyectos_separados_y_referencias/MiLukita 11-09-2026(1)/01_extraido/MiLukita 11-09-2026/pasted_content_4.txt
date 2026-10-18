@@ -1,0 +1,1884 @@
+# ORDEN MAESTRA A MANUS
+
+## CIERRE DE ARQUITECTURA, DEFINICIÓN DE LUKITA Y PLAN INTEGRAL DE IMPLEMENTACIÓN
+
+**Proyecto:** MiLukita / Lukita Ecosystem
+**Documento:** Orden Maestra de Arquitectura y Ejecución
+**Estado:** DEFINITIVO PARA CONSOLIDACIÓN
+**Prioridad:** MÁXIMA
+**Modo de trabajo:** Auditoría → reorganización → arquitectura → implementación → pruebas → documentación → roadmap
+
+---
+
+# 0. INSTRUCCIÓN PRINCIPAL
+
+Manus debe tomar esta orden como **directiva arquitectónica superior para reorganizar y consolidar todo lo desarrollado hasta ahora**.
+
+No debe interpretar esta orden como una solicitud para crear otro prototipo aislado.
+
+Debe:
+
+1. Auditar todo lo existente.
+2. Identificar qué está implementado, qué está incompleto y qué está duplicado.
+3. Identificar componentes que están arquitectónicamente mal ubicados.
+4. Consolidar una arquitectura general coherente.
+5. Reorganizar el código y los módulos cuando sea necesario.
+6. Mantener lo que funcione.
+7. Eliminar duplicaciones.
+8. Evitar crear nuevas tecnologías innecesarias.
+9. Definir interfaces claras entre módulos.
+10. Implementar todo lo que pueda implementarse autónomamente.
+11. Ejecutar pruebas.
+12. Documentar cada cambio.
+13. Generar un cronograma de ejecución por fases.
+14. Continuar trabajando autónomamente mientras no exista un bloqueo real que requiera una decisión humana.
+
+**No pedir autorización para cada tarea técnica.**
+
+La intervención humana debe reservarse para:
+
+* decisiones de negocio;
+* decisiones irreversibles;
+* credenciales o servicios externos no disponibles;
+* compras;
+* dominios;
+* claves/API privadas;
+* decisiones legales;
+* decisiones regulatorias;
+* publicación definitiva en producción cuando requiera autorización externa.
+
+Todo lo demás debe ser resuelto autónomamente por Manus.
+
+---
+
+# 1. DEFINICIÓN DEFINITIVA DE LUKITA
+
+## 1.1. Qué ES Lukita
+
+Lukita debe definirse como:
+
+> **Un personaje digital inteligente, vivo, espacial, interactivo y reconocible que conecta personas, lugares, experiencias, entretenimiento, información y servicios dentro del ecosistema MiLukita.**
+
+Lukita NO debe definirse como:
+
+* una estatua;
+* un simple avatar;
+* una presentadora;
+* un modelo 3D estático;
+* un chatbot;
+* una mascota institucional;
+* una interfaz gráfica.
+
+Lukita es el **personaje protagonista del ecosistema**.
+
+---
+
+# 2. PRINCIPIO FUNDAMENTAL
+
+La arquitectura debe seguir esta lógica:
+
+```text
+                    LUKITA
+                      │
+          ┌───────────┼───────────┐
+          │           │           │
+        MUNDO       IA/AGENTES   EXPERIENCIAS
+          │           │           │
+          │           │           ├── WebAR
+          │           │           ├── Juegos
+          │           │           ├── Turismo
+          │           │           ├── Cultura
+          │           │           ├── Educación
+          │           │           ├── Comercio
+          │           │           └── Eventos
+          │           │
+          └───────────┼───────────┘
+                      │
+                PLATFORM CORE
+                      │
+          ┌───────────┼───────────┐
+          │           │           │
+       Identity      Data       Services
+          │           │           │
+          └───────────┼───────────┘
+                      │
+               TERRITORIO FÍSICO
+```
+
+Lukita es la identidad visible.
+
+La plataforma es la infraestructura.
+
+Los agentes son la inteligencia.
+
+Las experiencias son los productos.
+
+---
+
+# 3. ORGANIGRAMA FINAL DEL ECOSISTEMA
+
+Manus debe documentar y respetar esta estructura conceptual.
+
+## NIVEL 0 — ECOSISTEMA
+
+### MiLukita Ecosystem
+
+---
+
+## NIVEL 1 — LUKITA EXPERIENCE
+
+### A. Lukita Character
+
+Responsable de:
+
+* identidad visual;
+* modelo 3D;
+* rostro;
+* cuerpo;
+* vestimenta;
+* animaciones;
+* expresiones;
+* voz;
+* sonido;
+* personalidad;
+* comportamiento;
+* poses;
+* narrativa.
+
+### B. Lukita Spatial
+
+Responsable de:
+
+* geolocalización;
+* presencia espacial;
+* distancia;
+* orientación;
+* escala;
+* aparición;
+* navegación;
+* comportamiento contextual.
+
+### C. Lukita AR
+
+Responsable de:
+
+* WebAR;
+* cámara;
+* detección;
+* colocación;
+* seguimiento;
+* interacción;
+* efectos;
+* visualización 3D;
+* experiencias AR.
+
+### D. Lukita AI
+
+Responsable de:
+
+* conversación;
+* contexto;
+* memoria;
+* decisiones;
+* comportamiento;
+* recomendación;
+* adaptación.
+
+### E. Lukita Companion
+
+Responsable de la mascota/compañero de Lukita.
+
+La mascota debe complementar a Lukita, no competir con ella.
+
+Su función principal:
+
+* conectar con niños;
+* generar humor;
+* generar ternura;
+* provocar interacción;
+* participar en juegos y experiencias.
+
+---
+
+# 4. LUKITA CHARACTER BIBLE
+
+Manus debe crear y mantener un documento único:
+
+**LUKITA CHARACTER BIBLE**
+
+Debe contener como mínimo:
+
+### Identidad
+
+* nombre;
+* concepto;
+* personalidad;
+* valores;
+* tono;
+* edad narrativa;
+* relación con niños;
+* relación con jóvenes;
+* relación con adultos.
+
+### Diseño físico
+
+* proporciones;
+* cabeza;
+* ojos;
+* rostro;
+* cabello;
+* manos;
+* piernas;
+* pies;
+* silueta;
+* detalles distintivos.
+
+### Vestimenta
+
+La vestimenta debe ser:
+
+* icónica;
+* moderna;
+* tecnológica;
+* amigable;
+* no sexualizada;
+* adaptable;
+* reconocible.
+
+No debe parecer uniforme corporativo ni ropa de presentadora.
+
+Debe permitir variantes digitales:
+
+* urbana;
+* turística;
+* deportiva;
+* cultural;
+* universitaria;
+* festiva;
+* histórica;
+* futurista;
+* etc.
+
+Pero el rostro, cuerpo y elementos fundamentales deben permanecer consistentes.
+
+---
+
+# 5. ELEMENTO ICÓNICO
+
+Debe existir un elemento visual propietario de Lukita.
+
+La propuesta base es:
+
+## ⭐ LA ESTRELLA DE LUKITA
+
+Debe evaluarse como:
+
+* elemento del vestuario;
+* elemento del pecho;
+* elemento energético;
+* símbolo visual;
+* elemento de animación;
+* elemento de interfaz;
+* elemento sonoro;
+* elemento de recompensa.
+
+La estrella debe convertirse en parte del lenguaje visual del ecosistema.
+
+---
+
+# 6. LUKITA NUNCA DEBE ESTAR COMPLETAMENTE ESTÁTICA
+
+Regla fundamental:
+
+> **Lukita nunca debe comportarse como una estatua mientras esté activa.**
+
+Debe existir un sistema de comportamiento.
+
+Ejemplos:
+
+* caminar;
+* mirar;
+* respirar;
+* saludar;
+* bailar;
+* girar;
+* señalar;
+* jugar;
+* reaccionar;
+* conversar;
+* observar;
+* sentarse;
+* correr;
+* saltar;
+* volar;
+* interactuar con la mascota;
+* hacer poses;
+* reconocer al usuario.
+
+No utilizar una única animación repetida indefinidamente.
+
+Debe existir un:
+
+## LUKITA BEHAVIOR ENGINE
+
+---
+
+# 7. LUKITA BEHAVIOR ENGINE
+
+El comportamiento debe depender de:
+
+```text
+DISTANCIA
+ORIENTACIÓN
+TIEMPO
+USUARIO
+CONTEXTO
+EVENTO
+UBICACIÓN
+EXPERIENCIA
+HISTORIAL
+```
+
+Arquitectura:
+
+```text
+USER
+ │
+ ├── GPS
+ ├── Orientation
+ ├── Camera
+ ├── Interaction
+ └── Session
+        │
+        ▼
+LUKITA CONTEXT
+        │
+        ▼
+BEHAVIOR ENGINE
+        │
+ ┌──────┼─────────────┐
+ │      │             │
+IDLE  GREETING      PLAY
+ │      │             │
+WALK  TALK          DANCE
+ │      │             │
+LOOK  POINT         CELEBRATE
+        │
+        ▼
+LUKITA ANIMATION
+```
+
+---
+
+# 8. LUKITA SCALE ENGINE
+
+La escala debe convertirse en una característica fundamental de la experiencia.
+
+## Regla base
+
+### 0–5 metros
+
+Lukita:
+
+**1.8–2.0 m**
+
+Modo:
+
+**PERSONAL**
+
+Objetivo:
+
+* interacción cercana;
+* conversación;
+* selfie;
+* fotografía;
+* gestos;
+* interacción con niños.
+
+---
+
+### 5–10 metros
+
+Lukita:
+
+**2–8 m progresivamente**
+
+Modo:
+
+**GROWING**
+
+La transición debe ser continua.
+
+Nunca debe existir un salto visible.
+
+---
+
+### 10–50 metros
+
+Lukita:
+
+**aproximadamente 8 m**
+
+Modo:
+
+**GIANT**
+
+Debe producir una presencia espectacular.
+
+---
+
+### 50–500 metros
+
+Modo:
+
+**BEACON**
+
+Lukita mantiene una presencia visual claramente identificable, pero la representación puede adaptarse técnicamente para evitar problemas de precisión AR.
+
+---
+
+### 500–1.000 metros
+
+Modo:
+
+**DISCOVERY**
+
+El objetivo es:
+
+> Encontrar a Lukita.
+
+La experiencia debe utilizar:
+
+* geolocalización;
+* orientación;
+* indicación de distancia;
+* dirección;
+* presencia visual;
+* animación;
+* narrativa.
+
+No prometer precisión espacial absoluta a 1 km.
+
+---
+
+# 9. PRINCIPIO DE TRANSICIÓN
+
+La transformación no debe ser simplemente:
+
+```text
+distancia → escala
+```
+
+Debe ser:
+
+```text
+distancia
+   +
+escala
+   +
+comportamiento
+   +
+detalle
+   +
+interacción
+   +
+sonido
+```
+
+La percepción buscada es:
+
+> **Lukita está viva y se está acercando a mí.**
+
+No:
+
+> “El modelo 3D cambió de tamaño.”
+
+---
+
+# 10. LUKITA LIVE POINT
+
+Cada ubicación debe poder convertirse en:
+
+## LUKITA LIVE POINT
+
+No necesariamente requiere una estatua física.
+
+Debe contener:
+
+* coordenadas;
+* radio;
+* QR;
+* NFC opcional;
+* experiencia AR;
+* configuración de Lukita;
+* comportamiento;
+* contenidos;
+* eventos;
+* comercios;
+* juegos;
+* recompensas.
+
+Ejemplo:
+
+```text
+LUKITA LIVE POINT
+      │
+      ├── LOCATION
+      ├── QR
+      ├── GEO-FENCE
+      ├── AR
+      ├── AUDIO
+      ├── EXPERIENCE
+      ├── EVENTS
+      ├── BUSINESS
+      └── REWARDS
+```
+
+---
+
+# 11. LUKITA COMO FARO DIGITAL
+
+La función territorial de Lukita debe ser:
+
+```text
+VER
+ ↓
+DESCUBRIR
+ ↓
+APUNTAR
+ ↓
+ACERCARSE
+ ↓
+ENCONTRAR
+ ↓
+INTERACTUAR
+ ↓
+EXPERIMENTAR
+ ↓
+COMPARTIR
+```
+
+Esto convierte a Lukita en una infraestructura digital de atracción de personas.
+
+---
+
+# 12. WEBAR
+
+WebAR debe ser un módulo propio.
+
+Nombre conceptual:
+
+## LUKITA AR STAGE
+
+Debe estar separado del:
+
+* Controller Lab;
+* MJP CORE;
+* administración;
+* sistemas internos.
+
+Debe consumir servicios mediante APIs.
+
+No debe modificar directamente el modelo maestro de Lukita.
+
+---
+
+# 13. ARQUITECTURA DE WEBAR
+
+Base:
+
+```text
+QR
+ ↓
+WEB / PWA
+ ↓
+PERMISSION
+ ↓
+CAMERA
+ ↓
+GEOLOCATION
+ ↓
+ORIENTATION
+ ↓
+AR ENGINE
+ ↓
+LUKITA EXPERIENCE
+```
+
+Debe soportar:
+
+* modo AR;
+* modo 3D;
+* fallback;
+* escala;
+* rotación;
+* posición;
+* recenter;
+* pausa;
+* ocultar;
+* salir;
+* expresiones;
+* animaciones.
+
+---
+
+# 14. MODELO 3D
+
+El modelo maestro de Lukita debe mantenerse separado.
+
+Debe existir:
+
+```text
+MASTER CHARACTER
+      │
+      ├── HIGH
+      ├── MEDIUM
+      ├── LOW
+      └── MOBILE
+```
+
+Utilizar:
+
+* GLB/glTF;
+* LOD;
+* compresión;
+* Meshopt/Draco cuando corresponda;
+* texturas optimizadas;
+* carga progresiva.
+
+El modelo maestro NO debe ser modificado desde una experiencia AR.
+
+---
+
+# 15. IDENTIDAD VISUAL BLOQUEADA
+
+Debe existir:
+
+## IDENTITY LOCK
+
+Debe impedir que diferentes versiones comiencen a derivar visualmente.
+
+Validar:
+
+* rostro;
+* ojos;
+* proporciones;
+* silueta;
+* cabello;
+* elemento estrella;
+* vestimenta base.
+
+Toda nueva variante debe conservar la identidad.
+
+---
+
+# 16. SONIDO DE LUKITA
+
+Crear:
+
+## LUKITA SOUND IDENTITY
+
+Tres niveles:
+
+### 1. Lukita Sound
+
+Firma sonora de 2–3 segundos.
+
+### 2. Lukita Theme
+
+Tema musical principal.
+
+### 3. Lukita Songs
+
+Música completa para:
+
+* eventos;
+* campañas;
+* experiencias;
+* redes;
+* juegos.
+
+---
+
+# 17. ACTIVACIÓN DEL AUDIO
+
+Flujo:
+
+```text
+QR
+ ↓
+LUKITA EXPERIENCE
+ ↓
+"ACTIVAR EXPERIENCIA"
+ ↓
+CAMERA
+ ↓
+DETECT LUKITA / POINT
+ ↓
+LUKITA SOUND
+ ↓
+ANIMATION
+ ↓
+THEME
+```
+
+Respetar las restricciones de autoplay de navegadores móviles.
+
+No asumir reproducción automática sin interacción previa del usuario.
+
+---
+
+# 18. AGENTES DE IA
+
+Los agentes no deben convertirse en una colección desordenada de bots.
+
+Debe existir una arquitectura de agentes.
+
+## NIVEL SUPERIOR
+
+### LUKITA ORCHESTRATOR
+
+Responsable de coordinar:
+
+* conversación;
+* contexto;
+* herramientas;
+* experiencias;
+* agentes especializados.
+
+---
+
+## AGENTES ESPECIALIZADOS
+
+Como mínimo evaluar:
+
+### 1. Character Agent
+
+Personalidad y comportamiento de Lukita.
+
+### 2. Spatial Agent
+
+Ubicación, distancia, orientación y contexto territorial.
+
+### 3. AR Experience Agent
+
+Construcción/configuración de experiencias AR.
+
+### 4. Content Agent
+
+Contenido narrativo.
+
+### 5. Tourism Agent
+
+Información territorial y turística.
+
+### 6. Education Agent
+
+Experiencias educativas.
+
+### 7. Game Agent
+
+Experiencias de juegos.
+
+### 8. Commerce Agent
+
+Comercios, promociones y experiencias comerciales.
+
+### 9. Event Agent
+
+Eventos y programación.
+
+### 10. Analytics Agent
+
+Métricas y comportamiento.
+
+### 11. Recommendation Agent
+
+Recomendaciones personalizadas.
+
+### 12. System Agent
+
+Salud, monitoreo y operación técnica.
+
+No implementar agentes solamente porque suenan interesantes.
+
+Cada agente debe tener:
+
+* responsabilidad;
+* herramientas;
+* entradas;
+* salidas;
+* permisos;
+* límites;
+* memoria;
+* métricas.
+
+---
+
+# 19. MJP CORE
+
+## Multi Juegos Perú
+
+Debe mantenerse como una vertical separada.
+
+No mezclar indiscriminadamente el núcleo de juegos con Lukita.
+
+Arquitectura:
+
+```text
+                 MILUKITA PLATFORM
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+         LUKITA CORE          MJP CORE
+             │                   │
+         EXPERIENCE            GAMES
+             │                   │
+             └─────────┬─────────┘
+                       │
+                 COMMON SERVICES
+```
+
+MJP debe mantener su propio:
+
+* game engine;
+* sorteos;
+* tickets;
+* usuarios;
+* wallet cuando corresponda;
+* auditoría;
+* seguridad;
+* reglas;
+* resultados;
+* KYC/AML cuando legalmente corresponda.
+
+No conectar directamente Lukita con funciones críticas del núcleo financiero del juego.
+
+---
+
+# 20. LUKITA + JUEGOS
+
+Lukita puede ser:
+
+* anfitriona;
+* narradora;
+* guía;
+* personaje;
+* presentadora;
+* elemento de interacción.
+
+Pero no debe tener control directo sobre:
+
+* resultados;
+* sorteos;
+* balances;
+* transacciones;
+* seguridad financiera.
+
+La separación de responsabilidades es obligatoria.
+
+---
+
+# 21. COMMON PLATFORM SERVICES
+
+Debe existir una capa de servicios comunes:
+
+```text
+IDENTITY
+AUTH
+USER PROFILE
+LOCATION
+CONTENT
+MEDIA
+NOTIFICATIONS
+ANALYTICS
+EVENTS
+REWARDS
+CONFIGURATION
+AUDIT
+```
+
+Estos servicios deben evitar duplicación entre módulos.
+
+---
+
+# 22. EVENT-DRIVEN ARCHITECTURE
+
+Siempre que sea conveniente, las experiencias deben producir eventos.
+
+Ejemplos:
+
+```text
+QR_SCANNED
+LUKITA_FOUND
+AR_STARTED
+AR_COMPLETED
+USER_APPROACHED
+PHOTO_TAKEN
+GAME_STARTED
+GAME_COMPLETED
+REWARD_UNLOCKED
+POINT_VISITED
+CONTENT_VIEWED
+```
+
+Esto permitirá posteriormente:
+
+* analytics;
+* recomendaciones;
+* agentes;
+* gamificación;
+* comercio;
+* turismo.
+
+---
+
+# 23. DATOS
+
+Separar claramente:
+
+### Identity Data
+
+### Experience Data
+
+### Spatial Data
+
+### Game Data
+
+### Analytics Data
+
+### Content Data
+
+### Configuration Data
+
+### Audit Data
+
+No crear una base de datos gigante sin separación conceptual.
+
+---
+
+# 24. PRIVACIDAD
+
+La cámara debe:
+
+* activarse con consentimiento;
+* procesarse localmente cuando sea posible;
+* no almacenar imágenes por defecto;
+* no almacenar video por defecto;
+* minimizar datos de localización;
+* informar al usuario.
+
+La privacidad debe formar parte de la arquitectura, no ser una función agregada al final.
+
+---
+
+# 25. EXPERIENCIA DE USUARIO
+
+La experiencia inicial debe ser extremadamente simple.
+
+## QR
+
+↓
+
+### ⭐ LUKITA ESTÁ AQUÍ
+
+↓
+
+### [VER A LUKITA]
+
+↓
+
+Permisos
+
+↓
+
+Cámara
+
+↓
+
+Lukita aparece
+
+↓
+
+Música
+
+↓
+
+Movimiento
+
+↓
+
+Interacción
+
+El usuario no debe enfrentarse a una interfaz compleja.
+
+---
+
+# 26. FALLBACK
+
+Si el dispositivo no soporta AR:
+
+```text
+AR
+ ↓
+NO SOPORTADO
+ ↓
+3D VIEWER
+```
+
+Nunca terminar en una pantalla de error.
+
+---
+
+# 27. LUKITA PHOTO EXPERIENCE
+
+Crear un modo específico:
+
+## LUKITA PHOTO
+
+Debe permitir:
+
+* poses;
+* selfie;
+* interacción;
+* mascota;
+* efectos;
+* captura;
+* compartir.
+
+Pero el usuario debe controlar cuándo se realiza la captura.
+
+---
+
+# 28. LUKITA Y LOS NIÑOS
+
+La mascota debe utilizarse estratégicamente.
+
+No hacer que la mascota opaque a Lukita.
+
+Modelo:
+
+```text
+              LUKITA
+                 │
+          protagonista
+                 │
+        ┌────────┴────────┐
+        │                 │
+     JÓVENES           NIÑOS
+        │                 │
+      COOL            MASCOTA
+        │                 │
+        └────────┬────────┘
+                 │
+              FAMILIA
+```
+
+Lukita atrae.
+
+La mascota facilita la conexión infantil.
+
+Los niños atraen a los padres.
+
+Los jóvenes encuentran el componente social/cool.
+
+---
+
+# 29. LUKITA DEBE FUNCIONAR EN TRES PÚBLICOS
+
+## Niños
+
+* juego;
+* ternura;
+* mascota;
+* sorpresa;
+* movimiento.
+
+## Jóvenes
+
+* estética;
+* música;
+* humor;
+* actitud;
+* AR;
+* contenido social;
+* retos.
+
+## Adultos
+
+* familia;
+* turismo;
+* cultura;
+* información;
+* comercio;
+* experiencias.
+
+No diseñar una personalidad infantilizada para todos.
+
+---
+
+# 30. IP — PROPIEDAD INTELECTUAL
+
+La arquitectura debe tratar a Lukita como una IP.
+
+Debe documentarse:
+
+* identidad;
+* diseño;
+* personaje;
+* mascota;
+* sonidos;
+* animaciones;
+* narrativa;
+* variantes;
+* reglas de uso;
+* assets maestros.
+
+No crear versiones arbitrarias.
+
+---
+
+# 31. ARQUITECTURA GENERAL FINAL
+
+Manus debe producir un diagrama equivalente a:
+
+```text
+                         MILUKITA ECOSYSTEM
+                                │
+          ┌─────────────────────┼─────────────────────┐
+          │                     │                     │
+       LUKITA                AI AGENTS             CONTENT
+          │                     │                     │
+   ┌──────┼──────┐              │                     │
+   │      │      │              │                     │
+CHARACTER SPATIAL AR          ORCHESTRATOR            │
+   │      │      │              │                     │
+   │      │      └──────┬───────┤                     │
+   │      │             │       │                     │
+   │      │          SPECIALIZED AGENTS               │
+   │      │             │                             │
+   └──────┴─────────────┼─────────────────────────────┘
+                         │
+                 EXPERIENCE LAYER
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+       WebAR           GAMES           SERVICES
+        │                │                │
+        │              MJP CORE          │
+        │                │                │
+        └────────────────┼────────────────┘
+                         │
+                  PLATFORM CORE
+                         │
+       ┌─────────────────┼─────────────────┐
+       │                 │                 │
+    IDENTITY            DATA            EVENTS
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         │
+                  TERRITORIAL LAYER
+                         │
+       ┌─────────────────┼─────────────────┐
+       │                 │                 │
+     POINTS           PLACES            USERS
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         │
+                     ANALYTICS
+```
+
+---
+
+# 32. REGLA ARQUITECTÓNICA FUNDAMENTAL
+
+Manus debe aplicar:
+
+> **Separación de responsabilidades + APIs + módulos independientes + servicios comunes + eventos + configuración centralizada.**
+
+No construir un monolito donde:
+
+* Lukita controle juegos;
+* AR controle base de datos;
+* agentes modifiquen directamente modelos;
+* juegos controlen identidad;
+* frontend tenga lógica crítica;
+* componentes duplicados hagan lo mismo.
+
+---
+
+# 33. AUDITORÍA INICIAL OBLIGATORIA
+
+Antes de implementar nuevas funcionalidades:
+
+Manus debe inspeccionar:
+
+* repositorios;
+* estructura de carpetas;
+* frontend;
+* backend;
+* APIs;
+* bases de datos;
+* modelos;
+* assets;
+* componentes AR;
+* agentes;
+* juegos;
+* autenticación;
+* configuración;
+* documentación;
+* scripts;
+* pruebas;
+* dependencias.
+
+Debe producir:
+
+## AUDIT REPORT
+
+Con:
+
+| Área           | Estado | Problemas | Acción |
+| -------------- | ------ | --------- | ------ |
+| Frontend       |        |           |        |
+| Backend        |        |           |        |
+| WebAR          |        |           |        |
+| Lukita         |        |           |        |
+| Agents         |        |           |        |
+| MJP            |        |           |        |
+| Data           |        |           |        |
+| Auth           |        |           |        |
+| Analytics      |        |           |        |
+| Infrastructure |        |           |        |
+
+Estados:
+
+* GREEN = correcto;
+* YELLOW = requiere reorganización;
+* RED = debe corregirse;
+* GREY = pendiente/no implementado.
+
+---
+
+# 34. NO REESCRIBIR TODO POR DEFECTO
+
+Regla:
+
+> **No reemplazar código funcional solamente para hacerlo diferente.**
+
+Primero:
+
+1. comprender;
+2. medir;
+3. identificar problema;
+4. corregir;
+5. probar.
+
+Solo realizar reescritura cuando exista una razón arquitectónica clara.
+
+---
+
+# 35. ORDEN DE PRIORIDADES
+
+Manus debe ejecutar en este orden:
+
+## PRIORIDAD 1
+
+Arquitectura y auditoría.
+
+## PRIORIDAD 2
+
+Lukita Character Foundation.
+
+## PRIORIDAD 3
+
+Lukita WebAR Stage.
+
+## PRIORIDAD 4
+
+Spatial / Scale / Behavior Engine.
+
+## PRIORIDAD 5
+
+Lukita Sound.
+
+## PRIORIDAD 6
+
+Lukita Companion.
+
+## PRIORIDAD 7
+
+Agent Architecture.
+
+## PRIORIDAD 8
+
+Common Platform Services.
+
+## PRIORIDAD 9
+
+Integración con MJP.
+
+## PRIORIDAD 10
+
+Analytics / Events / Rewards.
+
+## PRIORIDAD 11
+
+Experiencias avanzadas.
+
+---
+
+# 36. CRONOGRAMA PROPUESTO
+
+Manus debe producir un cronograma realista después de auditar el código.
+
+Como estructura inicial:
+
+## FASE 0 — AUDITORÍA
+
+**Semana 1**
+
+* inventario;
+* arquitectura actual;
+* dependencias;
+* riesgos;
+* duplicaciones;
+* deuda técnica;
+* mapa de módulos.
+
+ENTREGABLE:
+
+**Architecture Audit Report**
+
+---
+
+## FASE 1 — FOUNDATION
+
+**Semanas 2–3**
+
+* arquitectura modular;
+* contratos API;
+* configuración;
+* identity;
+* eventos;
+* estructura de datos;
+* documentación.
+
+ENTREGABLE:
+
+**MiLukita Platform Foundation**
+
+---
+
+## FASE 2 — LUKITA CHARACTER
+
+**Semanas 3–5**
+
+* modelo;
+* GLB;
+* LOD;
+* materiales;
+* identidad;
+* animaciones;
+* expresiones;
+* Character Bible.
+
+ENTREGABLE:
+
+**Lukita Character v1**
+
+---
+
+## FASE 3 — WEBAR
+
+**Semanas 5–8**
+
+* QR;
+* PWA;
+* cámara;
+* geolocation;
+* orientación;
+* AR;
+* 3D fallback;
+* escala;
+* recenter;
+* controles.
+
+ENTREGABLE:
+
+**Lukita AR Stage v1**
+
+---
+
+## FASE 4 — SPATIAL EXPERIENCE
+
+**Semanas 8–10**
+
+* Scale Engine;
+* Distance Engine;
+* Beacon;
+* Discovery;
+* Live Points;
+* navegación.
+
+ENTREGABLE:
+
+**Lukita Spatial Engine**
+
+---
+
+## FASE 5 — BEHAVIOR + SOUND
+
+**Semanas 10–12**
+
+* Behavior Engine;
+* estados;
+* animaciones;
+* Sound Identity;
+* música;
+* activación.
+
+ENTREGABLE:
+
+**Lukita Live v1**
+
+---
+
+## FASE 6 — COMPANION
+
+**Semanas 12–14**
+
+* mascota;
+* personalidad;
+* animaciones;
+* interacción;
+* integración con Lukita.
+
+ENTREGABLE:
+
+**Lukita Companion v1**
+
+---
+
+## FASE 7 — AGENTS
+
+**Semanas 14–18**
+
+* Orchestrator;
+* Character Agent;
+* Spatial Agent;
+* Content Agent;
+* Experience Agent;
+* Game Agent;
+* Recommendation Agent;
+* Analytics Agent.
+
+ENTREGABLE:
+
+**Lukita Agent System v1**
+
+---
+
+## FASE 8 — MJP INTEGRATION
+
+**Semanas 18–21**
+
+Integrar sin romper la separación:
+
+```text
+LUKITA
+   │
+ EXPERIENCE
+   │
+ GAME EXPERIENCE
+   │
+ MJP CORE
+```
+
+Lukita puede presentar y acompañar.
+
+MJP mantiene el control de su lógica crítica.
+
+ENTREGABLE:
+
+**Lukita + MJP Experience Layer**
+
+---
+
+## FASE 9 — ANALYTICS / REWARDS
+
+**Semanas 21–23**
+
+* eventos;
+* métricas;
+* sesiones;
+* puntos;
+* rewards;
+* comportamiento;
+* funnels.
+
+ENTREGABLE:
+
+**MiLukita Analytics**
+
+---
+
+## FASE 10 — PILOTO INTEGRAL
+
+**Semanas 23–26**
+
+Crear un:
+
+# LUKITA LIVE PILOT
+
+Debe demostrar:
+
+```text
+QR
+ ↓
+USER
+ ↓
+GEOLOCATION
+ ↓
+LUKITA DISCOVERY
+ ↓
+LUKITA BEACON
+ ↓
+APPROACH
+ ↓
+LUKITA GIANT
+ ↓
+GROWTH
+ ↓
+LUKITA PERSONAL
+ ↓
+MUSIC
+ ↓
+ANIMATION
+ ↓
+MASCOT
+ ↓
+PHOTO
+ ↓
+EXPERIENCE
+ ↓
+REWARD
+ ↓
+ANALYTICS
+```
+
+---
+
+# 37. PRUEBAS OBLIGATORIAS
+
+Manus debe implementar pruebas para:
+
+### Web
+
+* Chrome;
+* Safari;
+* Android;
+* iOS.
+
+### AR
+
+* cámara;
+* permisos;
+* tracking;
+* fallback;
+* escala;
+* recenter.
+
+### Spatial
+
+* GPS;
+* orientación;
+* distancia;
+* geofence.
+
+### Performance
+
+* FPS;
+* memoria;
+* carga;
+* batería;
+* tamaño de assets.
+
+### Lukita
+
+* identidad;
+* animaciones;
+* comportamiento;
+* transición de escala.
+
+### Seguridad
+
+* autenticación;
+* APIs;
+* permisos;
+* separación MJP;
+* validación de entradas.
+
+---
+
+# 38. MÉTRICAS
+
+No considerar el proyecto terminado simplemente porque “funciona”.
+
+Medir:
+
+* tiempo hasta primera aparición;
+* tiempo de carga;
+* FPS;
+* abandono;
+* tiempo de interacción;
+* distancia recorrida;
+* sesiones;
+* experiencias completadas;
+* fotografías;
+* recompensas;
+* errores;
+* compatibilidad.
+
+---
+
+# 39. CRITERIO DE ÉXITO
+
+La primera experiencia debe lograr que el usuario perciba:
+
+> **“No estoy viendo un modelo 3D. Estoy encontrando a Lukita.”**
+
+Esta es la métrica conceptual principal.
+
+---
+
+# 40. DEFINICIÓN FINAL DEL PRODUCTO
+
+Manus debe utilizar esta definición como referencia:
+
+> **MiLukita es un ecosistema físico-digital en el que Lukita actúa como personaje protagonista e interfaz viva entre las personas, el territorio y las experiencias digitales.**
+>
+> **Lukita aparece espacialmente mediante WebAR, responde al contexto y al usuario, cambia de escala según la distancia, se mueve continuamente, posee personalidad, música, comportamiento y un compañero, y puede conducir al usuario hacia experiencias de entretenimiento, juegos, turismo, cultura, educación, comercio y eventos.**
+>
+> **La inteligencia artificial proporciona agentes especializados que permiten que el ecosistema evolucione y opere de manera contextual.**
+>
+> **Multi Juegos Perú constituye una vertical independiente de entretenimiento, conectada mediante una capa de experiencia pero protegida mediante una arquitectura separada para sus funciones críticas.**
+
+---
+
+# 41. PRINCIPIO DE DISEÑO FINAL DE LUKITA
+
+Manus debe utilizar estas reglas como restricciones permanentes:
+
+### LUKITA DEBE SER:
+
+* reconocible;
+* adorable sin ser infantil;
+* cool para jóvenes;
+* familiar;
+* no sexualizada;
+* cinematográfica;
+* expresiva;
+* dinámica;
+* fotografiable;
+* memorable;
+* escalable;
+* adaptable;
+* viva.
+
+### LUKITA NO DEBE SER:
+
+* una estatua;
+* una mujer hiperrealista;
+* una presentadora corporativa;
+* un avatar genérico;
+* una mascota infantil;
+* un personaje sexualizado;
+* una figura estática;
+* un modelo 3D intercambiable.
+
+---
+
+# 42. REGLA FINAL: LUKITA DEBE TENER VIDA PROPIA
+
+Esta debe convertirse en una de las reglas centrales del proyecto:
+
+> **Cuando el usuario entra en la experiencia, no debe parecer que Lukita fue creada para él. Debe parecer que Lukita ya estaba allí haciendo algo y que el usuario acaba de encontrarla.**
+
+Por eso debe existir:
+
+* comportamiento autónomo;
+* actividades;
+* pequeñas historias;
+* interacción con la mascota;
+* reacciones;
+* música;
+* sorpresas;
+* contexto territorial;
+* personalidad.
+
+---
+
+# 43. ORDEN DE EJECUCIÓN AUTÓNOMA
+
+A partir de esta orden, Manus debe:
+
+### PASO 1
+
+Auditar todo el proyecto actual.
+
+### PASO 2
+
+Generar el mapa de arquitectura actual.
+
+### PASO 3
+
+Compararlo con esta arquitectura objetivo.
+
+### PASO 4
+
+Crear:
+
+**ARCHITECTURE GAP REPORT**
+
+### PASO 5
+
+Crear:
+
+**MASTER IMPLEMENTATION PLAN**
+
+### PASO 6
+
+Crear:
+
+**DEPENDENCY GRAPH**
+
+### PASO 7
+
+Ejecutar automáticamente las tareas que no requieran intervención humana.
+
+### PASO 8
+
+Después de cada bloque:
+
+* probar;
+* documentar;
+* registrar cambios;
+* actualizar roadmap.
+
+### PASO 9
+
+No detenerse simplemente porque una tarea individual termine.
+
+Continuar con la siguiente tarea desbloqueada.
+
+### PASO 10
+
+Si aparece un bloqueo real, clasificarlo:
+
+```text
+BLOCKER
+├── Technical
+├── Credential
+├── External Service
+├── Legal
+├── Business Decision
+└── Human Approval
+```
+
+Resolver automáticamente los técnicos.
+
+Solicitar intervención humana únicamente cuando sea indispensable.
+
+---
+
+# 44. ENTREGABLES OBLIGATORIOS DE MANUS
+
+Al finalizar la auditoría inicial debe entregar:
+
+1. **Architecture Audit Report**
+2. **Current System Map**
+3. **Target Architecture**
+4. **Architecture Gap Report**
+5. **Master Dependency Graph**
+6. **Final Organigram**
+7. **Lukita Character Architecture**
+8. **Lukita Character Bible**
+9. **WebAR Architecture**
+10. **Spatial Engine Specification**
+11. **Scale Engine Specification**
+12. **Behavior Engine Specification**
+13. **Sound Architecture**
+14. **Companion Specification**
+15. **AI Agent Architecture**
+16. **MJP Integration Architecture**
+17. **Data Architecture**
+18. **Event Architecture**
+19. **Security Model**
+20. **Privacy Model**
+21. **Testing Strategy**
+22. **Performance Strategy**
+23. **Master Implementation Roadmap**
+24. **Detailed Sprint Plan**
+25. **List of Human Decisions Required**
+26. **List of Tasks Manus Can Execute Autonomously**
+27. **Current Completion Percentage by Module**
+28. **Technical Debt Register**
+29. **Risk Register**
+30. **Definition of Done**
+
+---
+
+# 45. INSTRUCCIÓN FINAL A MANUS
+
+No quiero una nueva lluvia de ideas.
+
+No quiero otra propuesta conceptual.
+
+No quiero que simplemente describas lo que podría hacerse.
+
+Quiero que tomes **todo el trabajo existente**, lo audites y lo conviertas en un sistema coherente.
+
+Debes decidir técnicamente:
+
+* qué conservar;
+* qué modificar;
+* qué reorganizar;
+* qué eliminar;
+* qué falta;
+* qué debe implementarse primero;
+* qué depende de qué;
+* qué puede ejecutarse automáticamente.
+
+La arquitectura objetivo debe ser:
+
+**modular + escalable + mantenible + segura + orientada a eventos + preparada para IA + preparada para WebAR + preparada para múltiples experiencias + preparada para crecimiento territorial.**
+
+Y debes entender una cosa por encima de todas:
+
+> **El producto central no es el modelo 3D.**
+>
+> **El producto central es la experiencia de encontrar a Lukita en el mundo real.**
+
+El modelo 3D es su cuerpo.
+
+WebAR es uno de sus sentidos.
+
+El Behavior Engine es parte de su comportamiento.
+
+Los agentes son parte de su inteligencia.
+
+La música es parte de su identidad.
+
+La mascota es parte de su capacidad de conectar con niños.
+
+Los Live Points son sus lugares de presencia.
+
+Los juegos son una de sus experiencias.
+
+El territorio es su escenario.
+
+Y MiLukita es el ecosistema que conecta todo.
+
+**Procede ahora con la auditoría integral y entrega primero el Architecture Audit Report, el mapa de arquitectura actual, la arquitectura objetivo, el gap analysis y el cronograma maestro.**
+
+Después comienza automáticamente la implementación de todas las tareas que no requieran intervención humana.

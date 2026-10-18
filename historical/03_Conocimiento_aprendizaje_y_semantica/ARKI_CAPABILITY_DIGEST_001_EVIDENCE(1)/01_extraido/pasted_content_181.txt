@@ -1,0 +1,925 @@
+ORDEN A MANUS
+
+ARKI-CAPABILITY-DIGEST-001
+AUTONOMOUS GOVERNED CAPABILITY ASSIMILATION PIPELINE
+
+FASE:
+POST-WAVE-1 / PRE-WAVE-2
+
+AUTORIZACIÓN:
+IMPLEMENTAR EL MOTOR DE DIGESTIÓN/ASIMILACIÓN DE CAPACIDADES.
+
+NO AUTORIZA WAVE 2.
+NO AUTORIZA IMPLEMENTAR C1–C80 TODAVÍA.
+NO AUTORIZA TX-005.
+
+======================================================================
+0. BASELINE ACEPTADO
+======================================================================
+
+WAVE 0:
+VERIFIED FOR REGISTRY AND PLAN SCOPE.
+
+WAVE 1:
+VERIFIED FOR BOUNDED FOUNDATION SCOPE.
+
+C1–C80:
+80 REGISTERED
+0 IMPLEMENTED.
+
+La fundación común ya existe.
+
+Ahora ARKI debe adquirir la capacidad de procesar sistemáticamente
+nuevo conocimiento/capacidades antes de implementarlas.
+
+======================================================================
+1. PRE-FLIGHT OBLIGATORIO
+======================================================================
+
+Antes de DIGEST-001:
+
+A. corregir H-01:
+
+implementationStatus:
+FOUNDATIONAL_OVERLAP
+
+→
+
+implementationStatus:
+DOCUMENTED
+
+manteniendo:
+
+reuseDecision:
+ADAPT_SHARED_ENGINE.
+
+No mezclar:
+
+IMPLEMENTATION STATUS
+con
+REUSE STRATEGY.
+
+B. añadir behavioral tests para:
+
+assertNoIdentityCollisions
+rejectExecutablePayload
+reviewCuratorProposal
+assertApplicability
+assertEpistemicConsistency.
+
+C. separar cuando sea razonable los tests WAVE 1 en:
+
+identity
+units
+epistemic
+DAG
+contracts.
+
+D. preservar regresión WAVE 1.
+
+======================================================================
+2. MISIÓN
+======================================================================
+
+Construir un pipeline reusable mediante el cual ARKI pueda recibir
+una capacidad/conocimiento nuevo y determinar automáticamente:
+
+WHAT IS IT?
+WHAT DO I ALREADY HAVE?
+WHAT IS ACTUALLY NEW?
+WHAT DOES IT DEPEND ON?
+WHAT DOES IT CONFLICT WITH?
+WHAT CAN I REUSE?
+WHAT IS MISSING?
+WHAT EVIDENCE EXISTS?
+WHAT EVIDENCE IS REQUIRED?
+WHAT TOOL IS REQUIRED?
+WHAT TEST IS REQUIRED?
+CAN IT BE IMPLEMENTED?
+WHAT REQUIRES HUMAN AUTHORITY?
+
+Sin convertir automáticamente ninguna respuesta en verdad canónica.
+
+======================================================================
+3. PRINCIPIO
+======================================================================
+
+AUTOMATIC DIGESTION
+≠
+AUTOMATIC TRUTH.
+
+AUTOMATIC ANALYSIS
+≠
+AUTOMATIC CANONICALIZATION.
+
+AUTOMATIC IMPLEMENTATION PLAN
+≠
+AUTOMATIC AUTHORITY.
+
+AUTOMATIC TESTING
+≠
+SELF-CERTIFICATION.
+
+======================================================================
+4. PIPELINE
+======================================================================
+
+Implementar:
+
+INGEST
+↓
+PARSE
+↓
+CLASSIFY
+↓
+NORMALIZE
+↓
+SEMANTIC MAP
+↓
+IDENTITY RESOLUTION
+↓
+EPISTEMIC CLASSIFICATION
+↓
+EVIDENCE ANALYSIS
+↓
+PROVENANCE
+↓
+SCALE/APPLICABILITY
+↓
+TEMPORAL APPLICABILITY
+↓
+DEPENDENCY DISCOVERY
+↓
+OVERLAP DISCOVERY
+↓
+CONTRADICTION DETECTION
+↓
+EXISTING CODE DISCOVERY
+↓
+REUSE ANALYSIS
+↓
+TOOL REQUIREMENT ANALYSIS
+↓
+ORACLE REQUIREMENT
+↓
+PROFESSIONAL VALIDATION REQUIREMENT
+↓
+IMPLEMENTATION READINESS
+↓
+TEST PLAN
+↓
+ADVERSARIAL PLAN
+↓
+TRANSFER TEST PLAN
+↓
+CAPABILITY DIGEST REPORT.
+
+======================================================================
+5. DIGEST OBJECT
+======================================================================
+
+Crear/reconciliar:
+
+CapabilityDigest.
+
+Debe contener como mínimo:
+
+capabilityId
+source
+sourceVersion
+sourceHash
+semanticClassification
+domains
+scales
+jurisdictions
+dependencies
+existingCapabilities
+existingCode
+sharedEngines
+overlaps
+contradictions
+identityRequirements
+epistemicState
+evidenceAvailable
+evidenceMissing
+provenance
+units
+toolsRequired
+toolsAvailable
+oracles
+professionalValidation
+unknowns
+risks
+reuseStrategy
+implementationReadiness
+testPlan
+adversarialPlan
+transferPlan
+humanDecisionsRequired.
+
+======================================================================
+6. READINESS STATES
+======================================================================
+
+Crear estados explícitos, separados de implementationStatus.
+
+Ejemplo:
+
+READY_FOR_ASSIMILATION
+PARTIAL_REUSE
+REUSE_AVAILABLE
+DEPENDENCY_BLOCKED
+TOOL_DEFICIT
+EVIDENCE_DEFICIT
+KNOWLEDGE_DEFICIT
+CONTRADICTION_DETECTED
+PROFESSIONAL_VALIDATION_REQUIRED
+HUMAN_DECISION_REQUIRED
+NOT_READY.
+
+No reutilizar:
+
+IMPLEMENTED
+VERIFIED
+
+para readiness.
+
+======================================================================
+7. REUSE BEFORE BUILD
+======================================================================
+
+El pipeline debe buscar primero en ARKI.
+
+Para una capacidad nueva:
+
+SEARCH:
+code
+contracts
+types
+tests
+knowledge
+semantic concepts
+existing capability registry
+shared engines
+tools/adapters.
+
+Clasificar:
+
+REUSE
+EXTEND
+ADAPT_SHARED_ENGINE
+NEW_IMPLEMENTATION
+EXTERNAL_TOOL_REQUIRED
+BLOCKED.
+
+No duplicar automáticamente.
+
+======================================================================
+8. CONTRADICTION ENGINE
+======================================================================
+
+Detectar como mínimo:
+
+semantic contradiction
+identity contradiction
+unit contradiction
+scale contradiction
+jurisdiction contradiction
+temporal contradiction
+dependency contradiction
+epistemic contradiction
+evidence contradiction
+canonical-boundary contradiction.
+
+Una contradicción:
+
+NO se resuelve silenciosamente.
+
+Debe producir:
+
+CONTRADICTION_DETECTED
++
+evidence
++
+candidate resolution.
+
+======================================================================
+9. UNKNOWN
+======================================================================
+
+Todo dato ausente relevante debe producir UNKNOWN operacional.
+
+Cada UNKNOWN debe contener:
+
+what
+why
+affected capability
+dependencies
+severity
+blocking?
+required evidence
+resolution path.
+
+NULL ≠ UNKNOWN.
+
+======================================================================
+10. CAPABILITY KNOWLEDGE PACKAGE
+======================================================================
+
+Definir formato declarativo de entrada.
+
+Ejemplo conceptual:
+
+CapabilityKnowledgePackage.
+
+Debe aceptar:
+
+identity
+name
+description
+domain
+theory
+methods
+algorithms
+equations
+constraints
+dependencies
+references
+examples
+known limitations
+required tools
+expected inputs
+expected outputs
+validation requirements.
+
+NO permitir código arbitrario dentro del package.
+
+Knowledge package:
+
+DATA
+NOT EXECUTABLE CODE.
+
+======================================================================
+11. SOURCE TRUST
+======================================================================
+
+El pipeline debe distinguir:
+
+OFFICIAL_STANDARD
+REGULATION
+ACADEMIC
+TECHNICAL_REFERENCE
+MANUFACTURER
+PROFESSIONAL_GUIDE
+TRANSFER_PACKAGE
+USER_INPUT
+OBSERVATION
+GENERATED_HYPOTHESIS
+UNKNOWN_SOURCE.
+
+La categoría de fuente NO equivale automáticamente a verdad.
+
+======================================================================
+12. CAPABILITY ≠ KNOWLEDGE
+======================================================================
+
+Mantener:
+
+DOCUMENT RECEIVED
+≠
+KNOWLEDGE ASSIMILATED
+≠
+CAPABILITY READY
+≠
+CAPABILITY IMPLEMENTED
+≠
+CAPABILITY VERIFIED.
+
+El pipeline debe representar explícitamente estas etapas.
+
+======================================================================
+13. CODE DISCOVERY
+======================================================================
+
+Crear mecanismo read-only para buscar equivalencias funcionales
+dentro del repositorio.
+
+No depender únicamente de nombre de archivo.
+
+Buscar:
+
+symbols
+types
+interfaces
+tests
+imports
+call graph when feasible
+semantic references
+existing registry references.
+
+Resultado:
+
+CODE_EVIDENCE.
+
+No modificar código encontrado durante DIGEST-001.
+
+======================================================================
+14. DEPENDENCY PLANNER
+======================================================================
+
+Usar el DAG existente.
+
+El sistema debe determinar:
+
+DIRECT DEPENDENCIES
+TRANSITIVE DEPENDENCIES
+BLOCKERS
+SHARED FOUNDATIONS
+DOWNSTREAM IMPACT.
+
+No implementar todavía automáticamente dependencias faltantes.
+
+======================================================================
+15. IMPLEMENTATION PLANNER
+======================================================================
+
+Generar un plan candidato:
+
+files likely affected
+existing modules reused
+new modules proposed
+contracts required
+tools required
+tests required
+oracles required
+risks
+rollback strategy
+professional review.
+
+Esto es:
+
+PROPOSAL.
+
+No ejecución.
+
+======================================================================
+16. TEST PLANNER
+======================================================================
+
+Por cada capacidad digerida generar:
+
+NORMAL TESTS
+BOUNDARY TESTS
+PROPERTY TESTS
+MUTANTS
+ADVERSARIAL TESTS
+TRANSFER TESTS
+REGRESSION TARGETS.
+
+Si existe resultado matemático verificable:
+
+LLM JUDGMENT IS NOT ORACLE.
+
+======================================================================
+17. ANTI-OVERFITTING
+======================================================================
+
+No utilizar como entrenamiento:
+
+Vertical Aurora
+known DeepSeek exam fixtures
+known final answers.
+
+Puede conocer:
+
+capability definition
+methods
+general theory.
+
+No:
+
+exam solution.
+
+======================================================================
+18. C1–C80 FIRST MASS DIGESTION
+======================================================================
+
+Después de implementar el pipeline:
+
+procesar C1–C80 COMPLETAS.
+
+IMPORTANTE:
+
+NO IMPLEMENTARLAS.
+
+Solo DIGEST.
+
+Generar para cada una:
+
+Cxx_DIGEST.json
+
+y estado de readiness.
+
+Queremos transformar:
+
+80 × BLOCKED
+
+en una clasificación informativa real.
+
+Ejemplo:
+
+C01 READY_FOR_ASSIMILATION
+C02 READY_FOR_ASSIMILATION
+C03 TOOL_DEFICIT
+C06 EXTERNAL_TOOL_REQUIRED
+C35 REUSE_AVAILABLE
+
+SOLAMENTE si la evidencia lo demuestra.
+
+No hardcodear estos ejemplos.
+
+======================================================================
+19. CROSS-CAPABILITY ANALYSIS
+======================================================================
+
+Después de digerir las 80:
+
+detectar automáticamente:
+
+shared engines
+duplicate concepts
+shared tools
+shared data
+shared solvers
+conflicting assumptions
+common prerequisites
+implementation clusters.
+
+Comparar con los 18 overlaps documentados.
+
+El sistema puede encontrar:
+
+MORE
+LESS
+DIFFERENT.
+
+No obligarlo a reproducir 18.
+
+======================================================================
+20. AUTO-SEQUENCING
+======================================================================
+
+Calcular una secuencia candidata de implementación basada en:
+
+dependency readiness
+reuse potential
+foundation readiness
+tool availability
+risk
+testability
+downstream leverage.
+
+IMPORTANTE:
+
+AUTO-SEQUENCING
+≠
+AUTO-AUTHORIZATION.
+
+ARKI propone orden.
+
+PO autoriza ejecución.
+
+======================================================================
+21. LEARNING OUTPUT
+======================================================================
+
+Cada digestión debe producir un objeto reusable de conocimiento.
+
+Pero:
+
+DIGEST RESULT
+≠
+CANONICAL PROJECT STATE.
+
+Guardar únicamente en la capa autorizada para knowledge/evidence
+o como artefacto read-only de esta fase.
+
+No product-state mutation.
+
+======================================================================
+22. SELF-IMPROVEMENT BOUNDARY
+======================================================================
+
+ARKI puede detectar:
+
+"I lack capability X."
+
+Puede generar:
+
+proposal
+plan
+tests
+required tools
+required knowledge.
+
+NO puede:
+
+autorizarse
+modificar producción sin gate
+declararse VERIFIED
+eliminar Human Authority.
+
+======================================================================
+23. ADVERSARIAL TESTS DEL PIPELINE
+======================================================================
+
+Crear paquetes falsos/controlados:
+
+duplicate capability
+renamed duplicate
+contradictory capability
+wrong unit
+wrong scale
+wrong jurisdiction
+expired regulation
+missing source
+missing provenance
+malicious executable payload
+circular dependency
+fake solver claim
+fake VERIFIED claim
+capability requiring unavailable tool
+capability overlapping two existing engines
+capability with insufficient evidence.
+
+El pipeline debe detectar cada condición.
+
+======================================================================
+24. METAMORPHIC TEST
+======================================================================
+
+La misma capacidad expresada con:
+
+different wording
+different ordering
+aliases
+
+debe conservar clasificación semántica equivalente
+cuando el significado sea equivalente.
+
+No usar simple string matching como inteligencia.
+
+======================================================================
+25. TRANSFER TEST
+======================================================================
+
+Después de C1–C80:
+
+crear una capacidad sintética NUEVA,
+no perteneciente a C1–C80,
+no basada en fixture conocido.
+
+Procesarla cold.
+
+Evaluar si ARKI puede:
+
+classify
+map
+detect dependencies
+detect reuse
+find unknowns
+generate tests
+produce implementation plan.
+
+No implementar la capacidad.
+
+======================================================================
+26. FAIL CLOSED
+======================================================================
+
+Si falta información:
+
+UNKNOWN.
+
+Si falta herramienta:
+
+TOOL_DEFICIT.
+
+Si hay contradicción:
+
+CONTRADICTION_DETECTED.
+
+Si requiere humano:
+
+HUMAN_DECISION_REQUIRED.
+
+Nunca inventar el dato para completar el pipeline.
+
+======================================================================
+27. FINGERPRINT POLICY
+======================================================================
+
+Resolver explícitamente la ambigüedad detectada en WAVE 1.
+
+FNV-1a puede permanecer únicamente como:
+
+NON_SECURITY_DETERMINISTIC_HELPER
+
+si existe una razón técnica.
+
+NO puede sustituir:
+
+sha256:v1
+
+para evidencia durable, canonical fingerprint,
+integrity/security decisions o BKH4 durability.
+
+Documentar la separación.
+
+======================================================================
+28. EPISTEMIC TRANSITIONS
+======================================================================
+
+Añadir una policy explícita de transición.
+
+Ejemplos prohibidos sin requisitos:
+
+UNKNOWN → FACT
+ASSUMPTION → VERIFIED
+PROPOSAL → FACT
+GENERATED → VERIFIED.
+
+Cada transición debe declarar:
+
+from
+to
+required evidence
+required validation
+required authority
+reason
+provenance.
+
+Testear transiciones inválidas.
+
+======================================================================
+29. NO SECOND BRAIN
+======================================================================
+
+Capability Digest Pipeline es un órgano de ARKI.
+
+NO agente independiente.
+NO canonical authority.
+NO second knowledge truth.
+NO second project state.
+NO second reasoning authority.
+
+======================================================================
+30. NO PRODUCT MUTATION
+======================================================================
+
+DIGEST-001 debe operar inicialmente:
+
+READ-ONLY respecto al producto.
+
+Puede producir:
+
+analysis artifacts
+digest objects
+plans
+tests
+evidence.
+
+No canonical project mutation.
+
+======================================================================
+31. ENTREGABLES
+======================================================================
+
+Como mínimo:
+
+00_BASELINE.md
+01_DIGEST_ARCHITECTURE.md
+02_CAPABILITY_KNOWLEDGE_PACKAGE_SCHEMA.json
+03_CAPABILITY_DIGEST_SCHEMA.json
+04_READINESS_STATE_MODEL.md
+05_SOURCE_TRUST_MODEL.md
+06_CODE_DISCOVERY_MODEL.md
+07_CONTRADICTION_MODEL.md
+08_DEPENDENCY_PLANNER.md
+09_IMPLEMENTATION_PLANNER.md
+10_TEST_PLANNER.md
+11_EPISTEMIC_TRANSITION_POLICY.md
+12_FINGERPRINT_POLICY.md
+13_PIPELINE_TESTS.md
+14_ADVERSARIAL_RESULTS.md
+15_METAMORPHIC_RESULTS.md
+16_TRANSFER_TEST.md
+17_C1_C80_DIGEST_SUMMARY.md
+18_C1_C80_READINESS_MATRIX.md
+19_CROSS_CAPABILITY_ANALYSIS.md
+20_AUTO_SEQUENCE_PROPOSAL.md
+21_UNKNOWN_REGISTER.md
+22_RISK_REGISTER.md
+23_DECISION_REQUIRED.md
+24_REGRESSION_RESULTS.md
+25_IMPLEMENTATION_JOURNAL.md
+26_EVIDENCE_MATRIX.md
+27_MANIFEST.json
+28_RAW_OUTPUTS.txt.
+
+Además:
+
+source code
+tests
+fixtures
+80 Cxx_DIGEST.json artifacts.
+
+======================================================================
+32. TESTS / REGRESSIONS
+======================================================================
+
+Ejecutar:
+
+pnpm check
+pnpm build
+WAVE0 regression
+WAVE1 regression
+CAD regression
+relevant BKH/TX regression
+E5/E6/E7/E8 regressions where available.
+
+No degradar producto existente.
+
+======================================================================
+33. VERDICT
+======================================================================
+
+Únicamente:
+
+DIGEST_PIPELINE_VERIFIED
+DIGEST_PIPELINE_PARTIAL
+DIGEST_PIPELINE_BLOCKED
+DIGEST_PIPELINE_FAILED.
+
+Además reportar:
+
+C1_C80_DIGESTED = X/80
+
+Esto NO significa:
+
+IMPLEMENTED.
+
+======================================================================
+34. STOP
+======================================================================
+
+Al terminar:
+
+STOP.
+
+NO WAVE 2.
+NO C1 implementation.
+NO TX-005.
+NO solver installation.
+NO C81–C92 implementation.
+NO enterprise.
+NO deploy.
+NO push.
+NO PR.
+NO merge.
+
+Devuelve:
+
+VERDICT
+HEAD
+WORKTREE
+FILES CHANGED
+PRE-FLIGHT FIX RESULTS
+PIPELINE TEST RESULTS
+ADVERSARIAL RESULTS
+METAMORPHIC RESULTS
+TRANSFER RESULT
+C1_C80_DIGESTED
+READINESS DISTRIBUTION
+AUTO-SEQUENCE PROPOSAL
+UNKNOWN
+RISKS
+DECISIONS REQUIRED
+EVIDENCE PACKAGE
+SHA-256.
+
+GOAL:
+
+ARKI SHOULD NOT REQUIRE HUMANS TO MANUALLY ORGANIZE
+EVERY NEW CAPABILITY FOREVER.
+
+ARKI MUST LEARN HOW TO DIGEST NEW KNOWLEDGE
+WITHOUT GRANTING ITSELF AUTHORITY TO DECLARE THAT KNOWLEDGE TRUE.
+
+ONE ARKI.
+AUTOMATIC DIGESTION.
+EVIDENCE BEFORE PROMOTION.
+NO SELF-CERTIFICATION.
+HUMAN AUTHORITY.
+
+STOP.

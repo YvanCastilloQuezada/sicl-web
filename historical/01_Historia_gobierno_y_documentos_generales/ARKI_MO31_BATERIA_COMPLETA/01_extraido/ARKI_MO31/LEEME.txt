@@ -1,0 +1,9 @@
+ARKI MO-31. No modifica repositorios, no descarga modelos, no ejecuta código generado.
+1. Descomprime el ZIP en ~/Descargas/ARKI_MO31
+2. Ejecuta: python3 ~/Descargas/ARKI_MO31/ARKI_MO31.py
+3. Adjunta el archivo resultados.json de la carpeta ARKI_MO31_YYYYMMDD_HHMMSS en ~/Descargas.
+Se usa plano_A01.png extraído del PDF original en español, NO la imagen inglesa anterior.
+Por defecto omite modelos >=25GB; --include-heavy los habilita (pueden tardar mucho).
+Para probar primero 2 modelos: --max-models 2
+Para modelos concretos: --models ornith-1.5:9b nemotron-mini:4b
+Los resultados de GPU antes/después no equivalen a medir uso de GPU durante la inferencia.

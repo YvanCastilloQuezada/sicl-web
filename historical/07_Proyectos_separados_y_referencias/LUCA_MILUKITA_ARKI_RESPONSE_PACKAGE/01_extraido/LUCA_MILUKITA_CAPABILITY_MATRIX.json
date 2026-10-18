@@ -1,0 +1,24 @@
+{
+  "schema":"LUCA-MILUKITA-CAPABILITY-MATRIX-1.0",
+  "status":"PARTIAL_EVIDENCE_BOUNDED",
+  "baselines":{"currentCheckout":"main@37d03d1b540a698716e243958423127bcf9ff15c","structuredBranch":"origin/feature/luca-spatial-intelligence-control-center@bc652e70bf2f64e9737eeb06a7f2212f58d153ed","canonicalC001Commit":"a6dafc5118dc8f36a1a5b60a21406397c089650e","canonicalCommitAvailable":false},
+  "capabilities":[
+    {"id":"identity","status":"IMPLEMENTED_PARTIAL","evidence":["milukita_identities","milukita_sessions","docs/MILUKITA_IDENTITY_ARCHITECTURE.md"],"runtime":"NOT_REEXECUTED"},
+    {"id":"device_control","status":"IMPLEMENTED_PARTIAL","evidence":["server/control.ts","shared/universalController.ts","client/src/pages/TouchRemotePage.tsx"],"runtime":"PHYSICAL_VALIDATION_REQUIRED"},
+    {"id":"tv_pairing","status":"IMPLEMENTED_PARTIAL","evidence":["docs/MILUKITA_TV_PAIRING_PROTOCOL.md","controlPairing tables"],"runtime":"PHYSICAL_VALIDATION_REQUIRED"},
+    {"id":"world_object","status":"IMPLEMENTED","evidence":["server/territorialTrust.ts","drizzle/schema.ts"],"runtime":"BRANCH_EVIDENCE"},
+    {"id":"world_point","status":"UNKNOWN_INSUFFICIENT_EVIDENCE","evidence":["docs/14_WORLD_ENGINE_ANALYSIS.md"],"runtime":"NOT_REEXECUTED"},
+    {"id":"claims_sources_evidence","status":"IMPLEMENTED","evidence":["server/territorialTrust.ts"],"runtime":"BRANCH_EVIDENCE"},
+    {"id":"mapper","status":"IMPLEMENTED_PARTIAL","evidence":["docs/12_MAPPER_ANALYSIS.md","TerritorialFieldTools.tsx"],"runtime":"PHYSICAL_VALIDATION_REQUIRED"},
+    {"id":"the_eye","status":"IMPLEMENTED_PARTIAL","evidence":["docs/13_THE_EYE_ANALYSIS.md","review procedures"],"runtime":"HUMAN_REVIEW_REQUIRED"},
+    {"id":"verified_published_separation","status":"IMPLEMENTED_BOUNDED","evidence":["territorialTrust.ts","publication filtering"],"runtime":"NOT_REEXECUTED"},
+    {"id":"community_mapping","status":"PARTIAL","evidence":["C-001 review","capture/review components"],"runtime":"NOT_READY"},
+    {"id":"gps_camera_ar","status":"PARTIAL_PHYSICAL_REQUIRED","evidence":["field and AR surfaces"],"runtime":"PHYSICAL_VALIDATION_REQUIRED"},
+    {"id":"ocr","status":"NOT_DEMONSTRATED","evidence":[],"runtime":"UNKNOWN"},
+    {"id":"offline_sync","status":"PARTIAL","evidence":["service worker, queues, sync contracts"],"runtime":"DEVICE_AND_STAGING_REQUIRED"},
+    {"id":"webrtc_signaling","status":"PREPARED_EXTERNAL_REQUIRED","evidence":["contracts/references"],"runtime":"NOT_DEMONSTRATED"},
+    {"id":"agents","status":"IMPLEMENTED_BOUNDED","evidence":["shared/agentRegistry.ts","shared/agentRouter.ts","governance tests"],"runtime":"NO_AUTONOMOUS_PUBLICATION"},
+    {"id":"payments_wallet_blockchain","status":"BLOCKED_NOT_CONFIGURED","evidence":["protected core boundaries"],"runtime":"NOT_ACTIVE"},
+    {"id":"production_runtime","status":"NOT_DEMONSTRATED","evidence":["feature branch runtime files"],"runtime":"NOT_TESTED_IN_THIS_AUDIT"}
+  ]
+}

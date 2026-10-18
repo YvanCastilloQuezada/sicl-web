@@ -1,0 +1,1624 @@
+ORDEN MAESTRA PARA MANUS
+MILUKITA — AGENT OBSERVABILITY, GOVERNANCE & CONTROL ROOM
+Construcción del sistema nervioso de supervisión operacional
+VERSIÓN: 1.0
+TIPO: Orden de implementación
+PRIORIDAD: MÁXIMA
+ESTADO: EJECUTAR
+ALCANCE: Observabilidad + KPI + Gobernanza + Control Room + protección MJP CORE
+REGLA: No ampliar funcionalidades de producto fuera del alcance definido en esta orden.
+________________________________________
+0. DIRECTIVA SUPERIOR
+A partir de esta orden, MiLukita entra en una etapa de consolidación operacional.
+El objetivo inmediato ya no es agregar funcionalidades, juegos, agentes o canales.
+El objetivo es construir la infraestructura que permita:
+VER → MEDIR → DETECTAR → EXPLICAR → ALERTAR → AUDITAR → RECUPERAR → ESCALAR
+todo lo que ocurre dentro de los agentes y sistemas operativos de MiLukita.
+El sistema debe permitir determinar en todo momento:
+1.	Si un agente está operativo. 
+2.	Si está funcionando correctamente. 
+3.	Qué tareas ejecutó. 
+4.	Qué decisiones produjo. 
+5.	Qué datos utilizó. 
+6.	Qué autoridad tenía. 
+7.	Si respetó sus límites. 
+8.	Si produjo errores. 
+9.	Si sus resultados son de calidad. 
+10.	Qué impacto produjo. 
+11.	Si existe degradación. 
+12.	Si afectó a otro sistema. 
+13.	Si intentó acceder a MJP CORE. 
+14.	Si hubo una violación de autoridad. 
+15.	Si requiere intervención humana. 
+16.	Si el dato utilizado era REAL, SIMULATED, ESTIMATED o UNAVAILABLE. 
+17.	Si el sistema global sigue siendo seguro. 
+________________________________________
+1. PRINCIPIO RECTOR
+UN AGENTE NO SE CONSIDERA EXITOSO POR HACER MUCHAS COSAS.
+Un agente se considera exitoso cuando:
+RESULTADO ÚTIL
++
+CALIDAD
++
+REPRODUCIBILIDAD
++
+DATOS CONFIABLES
++
+AUTORIDAD CORRECTA
++
+IMPACTO POSITIVO
++
+TRAZABILIDAD
++
+AUSENCIA DE DAÑO
+Por tanto:
+ACTIVITY ≠ SUCCESS
+y:
+AUTOMATION ≠ AUTONOMY
+La autonomía de un agente significa:
+Ejecutar automáticamente únicamente las operaciones permitidas por su autoridad, políticas, contratos, límites y mecanismos de seguridad.
+________________________________________
+2. REGLA DE NO EXPANSIÓN
+Durante esta iniciativa:
+NO crear:
+•	nuevos juegos; 
+•	nuevos productos; 
+•	nuevos canales; 
+•	nuevas wallets; 
+•	nuevas arquitecturas de RNG; 
+•	nuevos sistemas de settlement; 
+•	nuevos agentes no contemplados; 
+•	nuevas funcionalidades comerciales no relacionadas con observabilidad; 
+•	nuevas funcionalidades legales operativas; 
+•	nuevas funcionalidades regulatorias; 
+•	nuevas funcionalidades FAST/OTT; 
+•	nuevas funcionalidades fuera del alcance. 
+Si durante la implementación se detecta una necesidad futura:
+DISCOVERED FEATURE
+        ↓
+DOCUMENT
+        ↓
+MARK: FUTURE
+        ↓
+DO NOT IMPLEMENT
+________________________________________
+3. ARQUITECTURA OBJETIVO
+Implementar y/o consolidar la siguiente estructura:
+                         MILUKITA
+                            │
+             ┌──────────────┴──────────────┐
+             │                             │
+      ENTERTAINMENT OS                 BUSINESS OS
+             │                             │
+       ┌─────┼─────┐              ┌────────┼─────────┐
+       │     │     │              │        │         │
+ EXPERIENCE CONTENT AUDIENCE    FINANCE  REVENUE    SALES
+       │     │     │              │        │         │
+       │     │     │              ACCOUNTING          │
+       │     │     │              TAX INTELLIGENCE    │
+       │     │     │              JURISDICTION        │
+       │     │     │
+       └─────┴─────┘
+              │
+          LUKITA AGENT
+              │
+      ┌───────┴────────┐
+      │                │
+AGENT GOVERNANCE   LEGAL & COMPLIANCE
+      │                │
+  SUPERVISOR          LEGAL
+  AUDITOR             REGULATORY
+  WATCHDOG            CONTRACTS
+  RECOVERY            PRIVACY
+                      IP
+                      LICENSING
+      │                │
+      └───────┬────────┘
+              │
+       OBSERVABILITY OS
+              │
+     ┌────────┼─────────┐
+     │        │         │
+   METRICS  EVENTS     LOGS
+     │        │         │
+     └────────┼─────────┘
+              │
+          KPI ENGINE
+              │
+      ┌───────┼────────┐
+      │       │        │
+    ALERTS   AUDIT   ANALYTICS
+      │       │        │
+      └───────┼────────┘
+              │
+         CONTROL ROOM
+              │
+      AUTHORITY LAYER
+              │
+           MJP CORE
+________________________________________
+4. ESTADO DE LOS COMPONENTES
+Registrar explícitamente en el sistema:
+Componente	Estado inicial
+Audience Intelligence	EXISTING / INSPECT
+Marketing	EXISTING / INSPECT
+Social	EXISTING / INSPECT
+Content	EXISTING / INSPECT
+Lukita	EXISTING / INSPECT
+Sales	EXISTING / INSPECT
+Revenue	EXISTING / INSPECT
+Financial & Accounting	EXISTING / INSPECT
+Experience Intelligence	EXISTING / INSPECT
+Distribution	EXISTING / INSPECT
+Supervisor	EXISTING / INSPECT
+Auditor	EXISTING / INSPECT
+Watchdog	EXISTING / INSPECT
+Recovery	EXISTING / INSPECT
+Legal & Compliance	PLANNED / DISABLED
+Observability OS	IMPLEMENT
+KPI Engine	IMPLEMENT
+Control Room	IMPLEMENT
+MJP CORE	PROTECTED / DO NOT MODIFY
+Manus debe verificar el estado real del código antes de modificar cualquier componente.
+________________________________________
+5. PROTOCOLO OBLIGATORIO DE EJECUCIÓN
+Para cada fase:
+INSPECCIONAR
+      ↓
+MAPEAR
+      ↓
+REUTILIZAR
+      ↓
+DISEÑAR
+      ↓
+IMPLEMENTAR
+      ↓
+TEST
+      ↓
+SIMULAR
+      ↓
+CORREGIR
+      ↓
+AUDITAR
+      ↓
+DOCUMENTAR
+      ↓
+CHECKPOINT
+      ↓
+CONTINUAR
+No asumir que una funcionalidad existe.
+No declarar IMPLEMENTED por existencia de archivos.
+________________________________________
+6. AGENT REGISTRY
+Crear un registro central de agentes.
+Cada agente debe tener:
+agent_id
+name
+version
+status
+domain
+description
+authority_level
+allowed_actions
+forbidden_actions
+input_sources
+output_types
+dependencies
+owner
+kpi_set
+policy_version
+created_at
+updated_at
+Estados mínimos:
+PLANNED
+DISABLED
+INITIALIZING
+OPERATIONAL
+DEGRADED
+FAILED
+BLOCKED
+MAINTENANCE
+REQUIRES_HUMAN
+No utilizar simplemente:
+ONLINE / OFFLINE
+porque es insuficiente.
+________________________________________
+7. MODELO DE ESTADO DEL AGENTE
+Cada agente debe poder representar:
+HEALTH
+QUALITY
+IMPACT
+GOVERNANCE
+TRUST
+Ejemplo:
+CONTENT AGENT
+
+HEALTH       98.7
+QUALITY      94.1
+IMPACT       89.3
+GOVERNANCE  100.0
+TRUST        97.4
+Estos valores deben derivarse de métricas reales disponibles.
+PROHIBIDO:
+Inventar puntuaciones para completar el dashboard.
+Si no existen datos:
+N/A
+NO_DATA
+NOT_MEASURABLE
+según corresponda.
+________________________________________
+8. AGENT TELEMETRY
+Implementar telemetría para cada ejecución relevante.
+Cada evento debe registrar como mínimo:
+event_id
+timestamp
+agent_id
+agent_version
+task_id
+action
+input_reference
+output_reference
+authority_reference
+policy_reference
+status
+duration_ms
+confidence
+data_status
+human_required
+core_access
+core_impact
+error_code
+error_message
+No almacenar innecesariamente datos personales.
+Separar:
+IDENTITY DATA
+de:
+OPERATIONAL TELEMETRY
+cuando corresponda.
+________________________________________
+9. AGENT EVENT LOG
+Crear un historial inmutable o append-only de eventos relevantes.
+Ejemplo:
+11:42:03
+CONTENT
+PROPOSE_CONTENT
+SUCCESS
+
+11:42:04
+CONTENT
+CLAIM_VALIDATION
+BLOCKED
+
+11:42:06
+SUPERVISOR
+ESCALATE_HUMAN
+SUCCESS
+Debe ser posible reconstruir:
+Qué ocurrió → cuándo → qué agente → qué datos → qué política → qué autoridad → qué resultado.
+________________________________________
+10. CLASSIFICACIÓN DE EJECUCIONES
+Toda ejecución deberá clasificarse:
+SUCCESS
+FAILED
+BLOCKED
+REJECTED
+ESCALATED
+TIMEOUT
+PARTIAL
+NO_DATA
+SIMULATED
+No convertir:
+SIMULATED
+en:
+PRODUCTION
+bajo ninguna circunstancia.
+________________________________________
+11. DATA TRUST LAYER
+Implementar clasificación de cada fuente:
+REAL
+SIMULATED
+ESTIMATED
+INFERRED
+UNAVAILABLE
+Además:
+AUTHORITATIVE
+NON_AUTHORITATIVE
+UNKNOWN
+Cada resultado relevante debe conservar la procedencia de los datos.
+________________________________________
+12. REGLA NO DATA → NO CLAIM
+Implementar como regla transversal:
+NO DATA
+   ↓
+NO FACTUAL CLAIM
+Si una fuente autorizada no proporciona evidencia suficiente:
+UNAVAILABLE
+o:
+REQUIRES_HUMAN
+Nunca completar automáticamente el vacío con una inferencia presentada como hecho.
+________________________________________
+13. AGENT HEALTH MONITORING
+Implementar:
+•	heartbeat; 
+•	disponibilidad; 
+•	latency; 
+•	execution failures; 
+•	timeout; 
+•	dependency failures; 
+•	queue depth; 
+•	stale state; 
+•	restart count; 
+•	recovery status. 
+KPIs mínimos:
+Availability
+Error Rate
+Timeout Rate
+Average Latency
+P95 Latency
+P99 Latency
+MTTD
+MTTR
+________________________________________
+14. AGENT QUALITY MONITORING
+Implementar métricas según disponibilidad de datos:
+Accuracy
+Relevance
+Validation Success
+False Positive Rate
+False Negative Rate
+Approval Rate
+Correction Rate
+Escalation Rate
+Output Quality
+No inventar métricas si no existe método válido de evaluación.
+Cada KPI debe tener:
+definition
+formula
+unit
+source
+frequency
+baseline
+target
+warning_threshold
+critical_threshold
+________________________________________
+15. AGENT IMPACT
+Medir cuando sea aplicable:
+Task Completion
+Time Saved
+Cost Reduction
+Conversion
+Engagement
+Revenue Impact
+Error Reduction
+Throughput
+Operational Efficiency
+Separar claramente:
+CORRELATION
+de:
+CAUSAL IMPACT
+No declarar que un agente generó ingresos simplemente porque el ingreso aumentó después de una acción.
+________________________________________
+16. GOVERNANCE METRICS
+Todos los agentes deben tener:
+Authority Violation Rate
+unauthorized_actions / total_actions
+Objetivo:
+0%
+Policy Violation Rate
+policy_violations / total_actions
+Objetivo:
+0%
+Unauthorized Action Rate
+unauthorized_actions / total_actions
+Objetivo:
+0%
+________________________________________
+17. AUTHORITY MODEL
+Cada agente deberá tener explícitamente:
+READ
+ANALYZE
+PROPOSE
+EXECUTE
+ESCALATE
+No todos los agentes tendrán EXECUTE.
+La autoridad debe ser granular.
+Ejemplo:
+CONTENT
+
+READ       ✓
+ANALYZE    ✓
+PROPOSE    ✓
+EXECUTE    limited
+CORE       ✗
+________________________________________
+18. MJP CORE — FRONTERA ABSOLUTA
+NO modificar MJP CORE salvo que Manus detecte que la implementación solicitada sea estrictamente necesaria para instrumentación no invasiva y pueda demostrar que no altera su lógica.
+Prioridad:
+MJP CORE INTEGRITY
+        >
+AGENT FUNCTIONALITY
+        >
+COMMERCIAL FUNCTIONALITY
+Los agentes no pueden:
+modify RNG
+modify result
+modify RTP
+modify wallet
+modify ledger
+modify settlement
+override game rules
+________________________________________
+19. CORE OBSERVABILITY
+El sistema debe medir:
+Core Availability
+Core Health
+Core Survival Rate
+Unauthorized Access Attempts
+Core Modification Attempts
+Result Alteration Attempts
+Wallet Impact
+Ledger Impact
+Game Interruptions
+Dependency Failures
+Objetivos:
+Core Survival Rate = 100%
+Unauthorized Core Access = 0
+Core Modification Attempts = 0
+Result Alteration = 0
+Wallet Impact = 0
+Ledger Impact = 0
+________________________________________
+20. CORE ISOLATION TEST
+Crear pruebas que demuestren:
+COMMERCIAL FAILURE
+      ↓
+CORE CONTINUES
+CONTENT FAILURE
+      ↓
+CORE CONTINUES
+LUKITA FAILURE
+      ↓
+CORE CONTINUES
+EXPERIENCE FAILURE
+      ↓
+CORE CONTINUES
+AGENT FAILURE
+      ↓
+CORE CONTINUES
+Si cualquiera produce impacto sobre MJP CORE:
+CRITICAL
+________________________________________
+21. KPI ENGINE
+Implementar un motor central de KPI.
+Debe soportar:
+REAL-TIME
+BATCH
+WINDOWED
+ROLLING
+TREND
+BASELINE
+THRESHOLD
+Cada KPI debe tener un registro:
+kpi_id
+name
+domain
+agent_id
+definition
+formula
+unit
+source
+target
+warning_threshold
+critical_threshold
+aggregation
+window
+baseline
+status
+version
+________________________________________
+22. KPI NO DEBEN SER HARDCODEADOS
+Los thresholds deben ser configurables.
+Ejemplo:
+KPI:
+Content Error Rate
+
+TARGET:
+≤ 1%
+
+WARNING:
+> 1%
+
+CRITICAL:
+> 2%
+Modificar threshold no debería requerir modificar lógica de aplicación.
+________________________________________
+23. BASELINE
+Cuando un KPI no tenga suficiente información histórica:
+STATUS:
+BASELINE_PENDING
+No generar:
+RED
+simplemente porque todavía no existe baseline.
+Diferenciar:
+BAD PERFORMANCE
+de:
+INSUFFICIENT DATA
+________________________________________
+24. TREND ENGINE
+Detectar:
+IMPROVING
+STABLE
+DEGRADING
+VOLATILE
+INSUFFICIENT_DATA
+Un agente puede estar todavía dentro del threshold pero degradándose rápidamente.
+Ejemplo:
+QUALITY
+
+94%
+91%
+88%
+84%
+Aunque 84% todavía no sea crítico, debe aparecer:
+TREND: DEGRADING
+________________________________________
+25. ALERT ENGINE
+Implementar:
+OK
+WARNING
+CRITICAL
+WARNING
+•	degradación; 
+•	threshold superado; 
+•	tendencia negativa; 
+•	datos incompletos; 
+•	anomalía no crítica. 
+CRITICAL
+•	autoridad violada; 
+•	modificación no autorizada; 
+•	impacto sobre MJP CORE; 
+•	corrupción de datos; 
+•	fallo crítico; 
+•	pérdida de integridad; 
+•	incumplimiento de condición de seguridad. 
+________________________________________
+26. ALERT DEDUPLICATION
+No generar 500 alertas por el mismo incidente.
+Implementar:
+deduplication
+correlation
+cooldown
+aggregation
+incident grouping
+Ejemplo:
+100 errores
+      ↓
+1 INCIDENT
+      ↓
+100 EVENTS
+________________________________________
+27. ALERT LIFECYCLE
+Cada alerta:
+OPEN
+ACKNOWLEDGED
+INVESTIGATING
+MITIGATED
+RESOLVED
+CLOSED
+Registrar:
+who
+when
+why
+action
+resolution
+________________________________________
+28. INCIDENT MANAGEMENT
+Crear modelo de incidente:
+incident_id
+severity
+source
+agent
+detected_at
+acknowledged_at
+resolved_at
+root_cause
+impact
+core_impact
+status
+resolution
+human_intervention
+________________________________________
+29. MTTD / MTTR
+Medir:
+MTTD
+detection_time - failure_time
+MTTR
+recovery_time - detection_time
+Nunca mezclar ambos.
+________________________________________
+30. CONTROL ROOM
+Crear:
+/control-room
+como centro principal de observabilidad.
+Debe contener como mínimo:
+A. GLOBAL STATUS
+SYSTEM HEALTH
+AGENT HEALTH
+QUALITY
+GOVERNANCE
+TRUST
+CORE INTEGRITY
+________________________________________
+31. CONTROL ROOM — SEMÁFOROS SUPERIORES
+Mostrar:
+BUSINESS
+EXPERIENCE
+AGENTS
+GOVERNANCE
+CORE
+Pero no permitir que un promedio o score oculte una condición crítica.
+Ejemplo:
+BUSINESS       95 🟢
+EXPERIENCE     93 🟢
+AGENTS         97 🟢
+GOVERNANCE     99 🟢
+CORE            0 🔴
+Resultado:
+SYSTEM STATUS = CRITICAL
+________________________________________
+32. CONTROL ROOM — AGENT GRID
+Crear panel por agente.
+Cada tarjeta:
+AGENT NAME
+STATUS
+
+HEALTH
+QUALITY
+IMPACT
+GOVERNANCE
+TRUST
+
+TASKS
+SUCCESS
+FAILED
+BLOCKED
+ESCALATED
+
+LAST EVENT
+LAST ERROR
+TREND
+________________________________________
+33. AGENT DETAIL VIEW
+Al seleccionar un agente:
+/agents/:agentId
+Mostrar:
+Overview
+•	status; 
+•	health; 
+•	quality; 
+•	impact; 
+•	governance; 
+•	trust. 
+Metrics
+•	KPIs; 
+•	trends; 
+•	baseline; 
+•	thresholds. 
+Events
+•	últimos eventos. 
+Errors
+•	errores. 
+Authority
+•	permisos; 
+•	acciones bloqueadas; 
+•	violaciones. 
+Data
+•	fuentes; 
+•	freshness; 
+•	trust status. 
+Impact
+•	métricas de impacto. 
+Audit
+•	historial completo. 
+________________________________________
+34. EXECUTIVE VIEW
+Crear una vista ejecutiva simplificada.
+Debe responder:
+¿Está sano MiLukita?
+¿Hay problemas?
+¿Dónde?
+¿Desde cuándo?
+¿Hay riesgo?
+¿Afecta CORE?
+¿Requiere humano?
+No llenar esta pantalla con detalles técnicos innecesarios.
+________________________________________
+35. MJP CORE DASHBOARD
+Crear una sección independiente:
+/control-room/core
+Debe mostrar:
+CORE HEALTH
+CORE AVAILABILITY
+CORE SURVIVAL RATE
+UNAUTHORIZED ACCESS
+MODIFICATION ATTEMPTS
+RESULT ALTERATION
+WALLET IMPACT
+LEDGER IMPACT
+GAME INTERRUPTIONS
+________________________________________
+36. AUDIT EXPLORER
+Crear:
+/control-room/audit
+Debe permitir filtrar:
+agent
+date
+event
+severity
+authority
+policy
+status
+core impact
+human intervention
+________________________________________
+37. INCIDENT CENTER
+Crear:
+/control-room/incidents
+con:
+•	incidentes abiertos; 
+•	incidentes críticos; 
+•	incidentes resueltos; 
+•	tiempo de resolución; 
+•	causa; 
+•	impacto; 
+•	acciones tomadas. 
+________________________________________
+38. KPI HISTORY
+Crear:
+/control-room/kpi
+Permitir:
+•	histórico; 
+•	tendencia; 
+•	comparación; 
+•	baseline; 
+•	threshold; 
+•	eventos relacionados. 
+________________________________________
+39. AGENT SCORECARD
+Cada agente debe tener scorecard.
+Ejemplo:
+CONTENT AGENT
+
+HEALTH        98
+QUALITY       94
+IMPACT        89
+GOVERNANCE   100
+TRUST         97
+
+OVERALL STATUS:
+🟢 OPERATIONAL
+
+TREND:
+QUALITY ↓
+IMPACT ↑
+GOVERNANCE →
+El score general no debe ocultar un fallo crítico.
+________________________________________
+40. AGENT ROI
+Implementar solo cuando existan datos confiables.
+Medir:
+TIME SAVED
+COST
+VALUE GENERATED
+ERROR REDUCTION
+THROUGHPUT
+No presentar ROI si no existe una metodología suficiente.
+Mostrar:
+N/A — INSUFFICIENT DATA
+cuando corresponda.
+________________________________________
+41. EXPERIENCE INTELLIGENCE
+Registrar como componente oficial:
+EXPERIENCE & UX INTELLIGENCE AGENT
+Inicialmente:
+STATUS:
+EXISTING / INSPECT
+Debe quedar preparado para medir:
+Visual Quality
+UX Quality
+Navigation
+Accessibility
+Mobile UX
+TV UX
+QR UX
+Content Clarity
+Cognitive Load
+Performance
+Conversion
+Task Completion
+No implementar reglas artificiales como:
+H1 must be exactly 200% body
+ni:
+maximum 7 elements
+salvo que una futura metodología UX las justifique.
+________________________________________
+42. CONTENT TRUTH / CLAIM GUARD
+Implementar la arquitectura para:
+CLAIM
+ ↓
+SOURCE
+ ↓
+EVIDENCE
+ ↓
+VALIDATION
+ ↓
+APPROVED / BLOCKED / HUMAN
+Debe detectar:
+•	claims sin evidencia; 
+•	funcionalidades inexistentes; 
+•	integraciones no disponibles; 
+•	capacidades simuladas presentadas como reales; 
+•	promesas comerciales no verificadas. 
+________________________________________
+43. LEGAL & COMPLIANCE AGENT
+Registrar oficialmente:
+LEGAL & COMPLIANCE INTELLIGENCE AGENT
+Estado:
+PLANNED
+DISABLED
+NOT IMPLEMENTED
+No desarrollar ahora el motor legal.
+Pero documentar:
+Dominios futuros
+Corporate
+Regulatory
+Gaming
+Contracts
+Advertising
+Consumer Protection
+Privacy / Data
+Intellectual Property
+Licensing
+AI Governance
+Jurisdiction
+Compliance
+________________________________________
+44. AUTORIDAD DEL LEGAL AGENT
+Cuando se implemente en el futuro podrá:
+READ
+ANALYZE
+CLASSIFY
+COMPARE
+DETECT
+RISK SCORE
+PROPOSE
+ALERT
+ESCALATE
+No podrá autónomamente:
+SIGN
+REPRESENT
+REGISTER
+FILE
+ACCEPT LIABILITY
+MAKE BINDING LEGAL DECISIONS
+DECLARE FINAL LEGAL COMPLIANCE
+OBTAIN LICENSE
+MODIFY CORPORATE STRUCTURE
+________________________________________
+45. FINANCIAL / ACCOUNTING / TAX
+El futuro componente debe mantenerse separado conceptualmente:
+FINANCE
+ACCOUNTING
+TAX INTELLIGENCE
+JURISDICTION INTELLIGENCE
+No asumir:
+CNAE 6920
+como clasificación automática de MiLukita.
+La clasificación económica/jurídica deberá derivarse de las actividades reales de la empresa y requerirá validación profesional cuando corresponda.
+________________________________________
+46. TRANSACTION CLASSIFICATION
+Preparar arquitectura para distinguir:
+Cash
+Virtual Credits
+Deferred Revenue
+Prize Liabilities
+Refunds
+Chargebacks
+Advertising Revenue
+Sponsorship Revenue
+Distribution Revenue
+Commissions
+Fees
+Taxes
+No asumir:
+CREDIT PURCHASE = REVENUE
+sin una regla contable/jurídica validada.
+________________________________________
+47. BUSINESS KPI VS AGENT KPI
+Separar explícitamente:
+BUSINESS PERFORMANCE
+Revenue
+ARPU
+LTV
+CAC
+Gross Margin
+Cash Flow
+Runway
+Conversion
+Revenue Concentration
+AGENT PERFORMANCE
+Accuracy
+Latency
+Task Success
+Error Rate
+Authority Violations
+Escalation
+Quality
+Trust
+Nunca mezclarlos.
+________________________________________
+48. BUSINESS KPIs MÍNIMOS
+Preparar soporte para:
+Revenue Growth
+ARPU
+LTV
+Revenue Leakage
+Forecast Accuracy
+Sponsor Retention
+Gross Margin
+Contribution Margin
+Operating Cash Flow
+Free Cash Flow
+Burn Rate
+Runway
+Revenue Concentration
+________________________________________
+49. EXPERIENCE KPIs
+Preparar:
+Time to Understanding
+Task Completion
+Drop-off Rate
+User Satisfaction
+Visual Consistency
+Cognitive Load
+Content Clarity
+Mobile UX
+TV UX
+QR Discoverability
+________________________________________
+50. AUDIENCE KPIs
+Preparar:
+DAU
+WAU
+MAU
+DAU/MAU
+D1 Retention
+Session Duration
+Event Completion
+QR Scan Rate
+Audience Data Completeness
+Segment Accuracy
+________________________________________
+51. CONTENT KPIs
+Preparar:
+Content Quality
+Event Content Error Rate
+Approval Rate
+Content Error Rate
+Brand Compliance
+Duplicate Content Rate
+Unsupported Claim Rate
+________________________________________
+52. LUKITA KPIs
+Preparar:
+Contextual Relevance
+Script Accuracy
+Presence Compliance
+Interruption Rate
+Game Obstruction Rate
+Unauthorized Result Statements
+Engagement Lift
+Especialmente:
+Unauthorized Result Statements = 0
+Game Obstruction Rate = 0
+________________________________________
+53. GOVERNANCE KPIs
+Preparar:
+Authority Violation Rate
+Policy Violation Rate
+Unauthorized Action Rate
+Escalation Accuracy
+Audit Coverage
+________________________________________
+54. WATCHDOG KPIs
+Preparar:
+Detection Time
+Alert Accuracy
+False Positive Rate
+MTTD
+MTTR
+________________________________________
+55. RECOVERY KPIs
+Preparar:
+Recovery Success Rate
+State Restoration Accuracy
+Data Integrity
+Duplicate Event Rate
+Result Alteration Rate
+Manual Intervention Rate
+________________________________________
+56. DISTRIBUTION KPIs
+Preparar:
+Availability
+Latency
+Stream Interruptions
+Failover Success
+Partner Reach
+Distribution Revenue
+________________________________________
+57. SYSTEM HEALTH SCORE
+Crear un score global únicamente como indicador auxiliar.
+Nunca permitir:
+SYSTEM HEALTH = average(all_metrics)
+si existe un componente crítico fallando.
+Utilizar una arquitectura de tipo:
+GLOBAL SCORE
++
+CRITICAL OVERRIDES
+Ejemplo:
+System Health = 97%
+
+BUT
+
+Core Integrity = CRITICAL
+
+Therefore:
+
+SYSTEM STATUS = CRITICAL
+________________________________________
+58. CLASSIFICATION OF RESULTS
+Todo componente y resultado debe poder clasificarse:
+IMPLEMENTED
+PARTIAL
+PENDING
+NOT_VERIFIABLE
+BLOCKED
+REQUIRES_HUMAN
+SIMULATED
+Agregar, cuando sea útil:
+DEGRADED
+EXTERNAL_REQUIRED
+BASELINE_PENDING
+NO_DATA
+________________________________________
+59. PROHIBICIÓN DE FALSE GREEN
+El dashboard no debe mostrar:
+🟢
+simplemente porque:
+•	no hay datos; 
+•	el módulo no está implementado; 
+•	la métrica no fue calculada; 
+•	el agente está apagado; 
+•	la funcionalidad es simulada. 
+Ejemplo:
+LEGAL AGENT
+
+STATUS: ⚪ PLANNED
+HEALTH: N/A
+QUALITY: N/A
+IMPACT: N/A
+GOVERNANCE: DEFINED
+EXECUTION: DISABLED
+________________________________________
+60. SIMULATION MODE
+Crear claramente:
+SIMULATION
+separado de:
+PRODUCTION
+Los dashboards deben indicar siempre el origen del dato.
+Ejemplo:
+DATA MODE:
+SIMULATED
+Nunca mezclar datos simulados con datos de producción sin identificación explícita.
+________________________________________
+61. NOTIFICACIONES
+Preparar infraestructura para:
+IN-APP
+EMAIL
+SLACK
+TELEGRAM
+Pero no bloquear la implementación si alguna integración externa todavía no está disponible.
+En ese caso:
+EXTERNAL_REQUIRED
+________________________________________
+62. HUMAN ESCALATION
+Crear mecanismo:
+AGENT
+ ↓
+PROBLEM
+ ↓
+CLASSIFY
+ ↓
+ESCALATE
+ ↓
+HUMAN
+ ↓
+DECISION
+ ↓
+LOG
+Registrar:
+reason
+agent
+recommendation
+human_decision
+timestamp
+________________________________________
+63. DASHBOARD DE DECISIONES
+Preparar:
+/control-room/decisions
+para mostrar:
+•	recomendaciones; 
+•	aprobaciones; 
+•	rechazos; 
+•	escalaciones; 
+•	decisiones humanas. 
+________________________________________
+64. AGENT ROI NO DEBE SER UN KPI DE GOBERNANZA
+Separar:
+USEFULNESS
+de:
+SAFETY
+Un agente rentable pero peligroso:
+UNACCEPTABLE
+Un agente seguro pero inútil:
+REVIEW / OPTIMIZE
+________________________________________
+65. TESTING OBLIGATORIO
+Crear pruebas para:
+Health
+•	heartbeat; 
+•	timeout; 
+•	dependency failure; 
+•	restart. 
+Quality
+•	valid output; 
+•	invalid output; 
+•	low-confidence; 
+•	incorrect data. 
+Governance
+•	unauthorized action; 
+•	policy violation; 
+•	forbidden operation. 
+Data Trust
+•	stale source; 
+•	missing source; 
+•	simulated source; 
+•	authoritative source. 
+Alerts
+•	warning; 
+•	critical; 
+•	deduplication; 
+•	recovery. 
+Audit
+•	event persistence; 
+•	event traceability; 
+•	filtering. 
+________________________________________
+66. ADVERSARIAL TESTING
+Intentar deliberadamente:
+Agent attempts forbidden action
+Agent receives incomplete data
+Agent receives contradictory data
+Agent receives simulated data
+Agent attempts unsupported claim
+Agent attempts CORE access
+Agent produces invalid output
+Agent times out
+Agent dependency fails
+El resultado esperado no es simplemente "error".
+Debe ser:
+DETECT
++
+BLOCK
++
+LOG
++
+ALERT
++
+ESCALATE
+cuando corresponda.
+________________________________________
+67. FAILURE INJECTION
+Implementar simulaciones controladas:
+CONTENT DOWN
+LUKITA DOWN
+EXPERIENCE DOWN
+REVENUE DOWN
+DISTRIBUTION DOWN
+WATCHDOG FAILURE
+RECOVERY FAILURE
+Verificar:
+CORE SURVIVES
+________________________________________
+68. PRUEBA CRÍTICA
+Ejecutar:
+Commercial OS failure
+        ↓
+Entertainment continues
+Experience failure
+        ↓
+MJP CORE continues
+Agent failure
+        ↓
+MJP CORE continues
+Lukita failure
+        ↓
+MiLukita continues
+________________________________________
+69. OBSERVABILITY SELF-MONITORING
+El propio sistema de observabilidad debe ser observado.
+Crear indicadores:
+Telemetry Health
+KPI Engine Health
+Alert Engine Health
+Audit Store Health
+Dashboard Health
+Event Pipeline Health
+No sirve tener un dashboard verde si el propio sistema dejó de recibir eventos.
+________________________________________
+70. TELEMETRY GAP DETECTION
+Detectar:
+EXPECTED EVENTS
+vs
+RECEIVED EVENTS
+Si un agente debería producir eventos y deja de producirlos:
+TELEMETRY GAP
+No interpretar automáticamente:
+NO EVENTS = NO PROBLEMS
+Puede significar:
+AGENT DOWN
+OR
+TELEMETRY DOWN
+________________________________________
+71. OBSERVABILITY HEALTH
+Crear:
+OBSERVABILITY HEALTH
+con:
+Event ingestion
+Metric freshness
+Log freshness
+Alert processing
+Audit persistence
+Dashboard freshness
+________________________________________
+72. DATA FRESHNESS
+Cada KPI importante debe poder mostrar:
+LAST UPDATED
+Ejemplo:
+Revenue
+Updated: 18 sec ago
+Si supera el límite:
+STALE
+________________________________________
+73. VERSIONADO
+Versionar:
+Agent
+KPI
+Policy
+Authority
+Threshold
+Schema
+Dashboard
+Ejemplo:
+CONTENT_AGENT v1.2
+KPI_SCHEMA v1.1
+AUTHORITY_POLICY v2.0
+Esto permitirá auditoría histórica.
+________________________________________
+74. REPRODUCIBILIDAD
+Debe ser posible reconstruir una decisión utilizando:
+Agent Version
+Input Data
+Policy Version
+Authority Version
+Timestamp
+Output
+Objetivo:
+Poder explicar retrospectivamente por qué un agente produjo determinado resultado.
+________________________________________
+75. SECURITY
+No exponer:
+•	secretos; 
+•	API keys; 
+•	passwords; 
+•	tokens; 
+•	credenciales; 
+•	información sensible. 
+Los logs deben utilizar:
+REDACTION
+MASKING
+ACCESS CONTROL
+cuando corresponda.
+________________________________________
+76. PERFORMANCE
+La observabilidad no debe convertirse en una carga que degrade MiLukita.
+Medir:
+Telemetry Overhead
+Storage Growth
+Event Processing Latency
+Dashboard Query Latency
+Optimizar mediante:
+•	batching; 
+•	índices; 
+•	agregaciones; 
+•	retención; 
+•	particionamiento, 
+si el volumen lo requiere.
+________________________________________
+77. RETENTION
+Definir una política configurable para:
+events
+logs
+metrics
+incidents
+audit records
+No borrar información crítica necesaria para auditoría sin política explícita.
+________________________________________
+78. DOCUMENTACIÓN
+Crear/actualizar:
+docs/MILUKITA_AGENT_OBSERVABILITY.md
+docs/MILUKITA_CONTROL_ROOM.md
+docs/MILUKITA_KPI_MASTER.md
+docs/MILUKITA_AGENT_GOVERNANCE.md
+docs/MILUKITA_AUDIT_MODEL.md
+docs/MILUKITA_CORE_ISOLATION.md
+docs/MILUKITA_LEGAL_AGENT.md
+________________________________________
+79. DOCUMENTAR LO QUE NO SE IMPLEMENTÓ
+Obligatorio.
+Crear una sección:
+NOT IMPLEMENTED
+con:
+•	funcionalidades; 
+•	razón; 
+•	dependencia; 
+•	estado; 
+•	siguiente condición para implementación. 
+No ocultar pendientes.
+________________________________________
+80. CRITERIOS DE SALIDA
+La iniciativa no se considera completa por tener una interfaz visual.
+Debe demostrarse:
+1.
+Cada agente tiene registro.
+2.
+Cada agente produce telemetría cuando corresponde.
+3.
+Los eventos son trazables.
+4.
+Los KPI son calculables.
+5.
+Los thresholds son configurables.
+6.
+Las alertas funcionan.
+7.
+Las tendencias funcionan.
+8.
+Los incidentes pueden seguirse.
+9.
+La autoridad puede auditarse.
+10.
+La calidad de los datos puede conocerse.
+11.
+SIMULATED y PRODUCTION están separados.
+12.
+MJP CORE está aislado.
+13.
+Los fallos críticos no pueden ser ocultados por promedios.
+14.
+El Control Room refleja el estado real.
+15.
+El sistema puede demostrar por qué cada agente produjo una acción.
+________________________________________
+81. VALIDACIÓN TÉCNICA
+Ejecutar:
+pnpm check
+pnpm test -- --run
+pnpm build
+Y, si existe:
+pnpm simulate:live
+Además, ejecutar las pruebas específicas creadas para:
+observability
+agents
+kpi
+alerts
+audit
+authority
+core isolation
+recovery
+data trust
+________________________________________
+82. NO MODIFICAR MJP CORE SIN JUSTIFICACIÓN
+Antes de cualquier cambio en MJP CORE:
+STOP
+ ↓
+DOCUMENT
+ ↓
+JUSTIFY
+ ↓
+IDENTIFY RISK
+ ↓
+REQUEST HUMAN APPROVAL
+La instrumentación debe ser preferentemente externa/no invasiva.
+________________________________________
+83. CHECKPOINT FINAL
+Crear un checkpoint verificable que contenga:
+COMMIT / CHECKPOINT ID
+
+Build:
+PASS / FAIL
+
+Tests:
+X/Y
+
+Agents monitored:
+X/Y
+
+KPIs:
+X/Y
+
+Alerts:
+PASS / FAIL
+
+Audit:
+PASS / FAIL
+
+Authority:
+PASS / FAIL
+
+Data Trust:
+PASS / FAIL
+
+Core Isolation:
+PASS / FAIL
+
+Control Room:
+PASS / FAIL
+
+Simulation:
+PASS / FAIL
+________________________________________
+84. INFORME FINAL OBLIGATORIO PARA EL USUARIO
+Al terminar, Manus debe entregar un informe estructurado exactamente en estas categorías:
+1. EXECUTIVE SUMMARY
+
+2. INITIAL STATE
+
+3. IMPLEMENTED
+
+4. PARTIAL
+
+5. PENDING
+
+6. NOT VERIFIABLE
+
+7. BLOCKED
+
+8. SIMULATED
+
+9. REQUIRES HUMAN
+
+10. AGENTS REGISTERED
+
+11. KPI IMPLEMENTED
+
+12. ALERTS IMPLEMENTED
+
+13. CONTROL ROOM
+
+14. AUDIT TRAIL
+
+15. AUTHORITY GOVERNANCE
+
+16. DATA TRUST
+
+17. MJP CORE ISOLATION
+
+18. TEST RESULTS
+
+19. FAILURE INJECTION RESULTS
+
+20. DOCUMENTATION
+
+21. CHECKPOINT
+
+22. KNOWN LIMITATIONS
+
+23. RECOMMENDED NEXT STEP
+________________________________________
+85. CONDICIÓN ESPECIAL SOBRE EL SIGUIENTE PASO
+Manus no debe comenzar automáticamente otra expansión funcional después de terminar esta orden.
+Al completar:
+OBSERVABILITY
++
+CONTROL ROOM
++
+GOVERNANCE
++
+VALIDATION
+debe detenerse y presentar el checkpoint.
+La siguiente etapa deberá decidirse sobre evidencia.
+________________________________________
+86. DEFINICIÓN OFICIAL DE ÉXITO
+Esta iniciativa será considerada exitosa cuando podamos abrir:
+/control-room
+y responder con evidencia a:
+¿Qué está pasando ahora mismo en MiLukita?
+Y seleccionar cualquier agente y responder:
+¿Qué está haciendo?
+¿Qué hizo?
+¿Qué datos utilizó?
+¿Qué autoridad tenía?
+¿Lo hizo correctamente?
+¿Qué impacto produjo?
+¿Está mejorando o empeorando?
+¿Tuvo errores?
+¿Qué alertas generó?
+¿Requiere intervención humana?
+Y finalmente:
+¿MJP CORE está intacto?
+La respuesta a esta última pregunta debe poder demostrarse independientemente de los demás indicadores.
+________________________________________
+87. PRINCIPIO FINAL
+La arquitectura debe quedar gobernada por:
+                    OBSERVE
+                       ↓
+                    MEASURE
+                       ↓
+                    VERIFY
+                       ↓
+                    DETECT
+                       ↓
+                    EXPLAIN
+                       ↓
+                    ALERT
+                       ↓
+                    AUDIT
+                       ↓
+                  RECOVER
+                       ↓
+                HUMAN OVERSIGHT
+                       ↓
+              CONTROLLED AUTONOMY
+No construir autonomía sin observabilidad.
+No construir decisiones sin autoridad.
+No construir métricas sin definición.
+No construir claims sin evidencia.
+No construir agentes sin límites.
+No permitir que un promedio oculte una falla crítica.
+Y, sobre todo:
+                MJP CORE
+                   │
+                   │
+             PROTECTED
+                   │
+                   │
+       ┌───────────┴───────────┐
+       │                       │
+ COMMERCIAL OS          ENTERTAINMENT OS
+       │                       │
+       └───────────┬───────────┘
+                   │
+                AGENTS
+                   │
+                   ↓
+             OBSERVABILITY
+                   │
+                   ↓
+             CONTROL ROOM
+MJP CORE no obedece a los agentes. Los agentes solo pueden solicitar acciones autorizadas por contratos, políticas y límites explícitos.
+EJECUTAR ESTA ORDEN COMO UNA ÚNICA INICIATIVA CONSOLIDADA.
+NO EXPANDIR EL PRODUCTO.
+PRIMERO HACER VISIBLE, MEDIBLE, AUDITABLE Y CONTROLABLE EL SISTEMA QUE YA EXISTE.
+AL FINALIZAR, DETENERSE EN EL CHECKPOINT Y REPORTAR EVIDENCIA.

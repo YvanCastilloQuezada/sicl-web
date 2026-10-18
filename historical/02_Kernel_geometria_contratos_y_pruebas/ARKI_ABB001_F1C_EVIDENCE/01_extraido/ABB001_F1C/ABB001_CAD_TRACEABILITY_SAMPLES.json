@@ -1,0 +1,8 @@
+{
+  "schema":"ARKI-ABB001-CAD-TRACEABILITY-SAMPLES-1.0",
+  "status":"NO_SAMPLES_RECOVERED",
+  "requiredSampleClasses":["architectural_candidate","door_or_block_candidate","window_or_block_candidate","text","dimension","axis","structural","sanitary","electrical"],
+  "samples":[],
+  "reason":"No entity handles, layers, coordinates or CAD types were recovered; no synthetic sourceEntityId was created.",
+  "antiHallucination":"No CAD entity was promoted to BIM or architectural semantics."
+}

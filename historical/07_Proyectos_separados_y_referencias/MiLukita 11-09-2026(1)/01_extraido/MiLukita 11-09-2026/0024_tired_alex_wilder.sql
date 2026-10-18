@@ -1,0 +1,2 @@
+ALTER TABLE `lukita_script_versions` ADD `category` varchar(40) DEFAULT 'general' NOT NULL;--> statement-breakpoint
+ALTER TABLE `lukita_script_versions` ADD `tagsJson` varchar(512) NOT NULL DEFAULT '[]';

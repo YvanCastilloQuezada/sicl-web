@@ -1,0 +1,76 @@
+{
+  "schema": "ARKI-PA001-MANIFEST-1.0",
+  "artifact": "ARKI-CAPACITACION-PREVIA-001",
+  "status": "IMPLEMENTED / TESTS_PASS / PENDING INDEPENDENT REVIEW",
+  "baseline": {
+    "repo": "/home/ubuntu/generador-familias",
+    "branch": "main",
+    "head": "c62183a5904f02aa0a935572454a5a35f9d167aa",
+    "worktree": "DIRTY BEFORE PA-001; NOT CLAIMED CLEAN"
+  },
+  "scope": {
+    "spaceSyntax": "NOT_IMPLEMENTED",
+    "deepseekExams": "NOT_USED",
+    "professionalCompetency": "NOT_CLAIMED"
+  },
+  "results": {
+    "check": "PASS",
+    "build": "PASS",
+    "normal": 10,
+    "adversarial": 8,
+    "metamorphic": 5,
+    "testTheTest": "PASS",
+    "deterministic": true,
+    "unknownPreserved": true,
+    "provenancePreserved": true,
+    "conflictDetection": true,
+    "projectIsolation": true
+  },
+  "files": [
+    {
+      "path": "PA001_ORDER_SOURCE.txt",
+      "sha256": "1159bf5945148d85fe9a1590a3289864bd33bb5be58cb7413f64c5e57891de94",
+      "bytes": 14729
+    },
+    {
+      "path": "PA001_AUDIT_BEFORE_CODE.md",
+      "sha256": "4926ef97ecc9323d8a0423ccf595817abc0fd1d1891549d124eae928133e76c6",
+      "bytes": 2255
+    },
+    {
+      "path": "PA001_IMPLEMENTATION_REPORT.md",
+      "sha256": "0a5bb6299d85f8b1887b9317514945659ff7f9c3e3dda42404d38b1be0610d7b",
+      "bytes": 4073
+    },
+    {
+      "path": "PA001_REQUIREMENT_MATRIX.md",
+      "sha256": "e5c2bb15fba9cae1e66ebc05b24bcc33ab1941fbbe1831526c875f23c3f87b97",
+      "bytes": 1804
+    },
+    {
+      "path": "PA001_OUTPUTS.txt",
+      "sha256": "9e386b3b88dec2bb2dfe93cc922bdcb8d64d5a26cd61bbede056f23f663a96fb",
+      "bytes": 2176
+    },
+    {
+      "path": "shared/arkiArchitecturalProgram.ts",
+      "sha256": "1464687e43f73f2a6211e8d0beb7f86f9a24768c79d94ad53abeb6ddc4ada9a6",
+      "bytes": 8967
+    },
+    {
+      "path": "scripts/test-architectural-program.ts",
+      "sha256": "33f907aecc3b456aac07a98af7a84da5eb4df3f0fee2eb39408f0698f2a677ee",
+      "bytes": 8540
+    },
+    {
+      "path": "scripts/run-pa001-evidence.sh",
+      "sha256": "f48e5d967aa19abbb232047f7260851d96a03299e9287b649264f21cb79f9ae3",
+      "bytes": 644
+    },
+    {
+      "path": "scripts/create-pa001-package.py",
+      "sha256": "4dad7385751e456605bc060770c7360878a356f0b2a29d75fecd1b65ac54614c",
+      "bytes": 2169
+    }
+  ]
+}

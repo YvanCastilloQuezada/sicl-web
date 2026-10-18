@@ -1,0 +1,605 @@
+Attribute VB_Name = "UserFormRuleta"
+Attribute VB_Base = "0{059F9F22-87C8-4C06-B7BC-75625EFD9E6B}{84C66D0A-BB8F-412E-88E8-24C06408B64B}"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Attribute VB_TemplateDerived = False
+Attribute VB_Customizable = False
+#If VBA7 Then
+    Private Declare PtrSafe Function CryptAcquireContext Lib "advapi32.dll" Alias "CryptAcquireContextA" (ByRef phProv As LongPtr, ByVal pszContainer As String, ByVal pszProvider As String, ByVal dwProvType As Long, ByVal dwFlags As Long) As Long
+    Private Declare PtrSafe Function CryptGenRandom Lib "advapi32.dll" (ByVal hProv As LongPtr, ByVal dwLen As Long, ByRef pbBuffer As Byte) As Long
+    Private Declare PtrSafe Function CryptReleaseContext Lib "advapi32.dll" (ByVal hProv As LongPtr, ByVal dwFlags As Long) As Long
+    Private Declare PtrSafe Function GetLastError Lib "kernel32" () As Long
+#Else
+    Private Declare Function CryptAcquireContext Lib "advapi32.dll" Alias "CryptAcquireContextA" (ByRef phProv As Long, ByVal pszContainer As String, ByVal pszProvider As String, ByVal dwProvType As Long, ByVal dwFlags As Long) As Long
+    Private Declare Function CryptGenRandom Lib "advapi32.dll" (ByVal hProv As Long, ByVal dwLen As Long, ByRef pbBuffer As Byte) As Long
+    Private Declare Function CryptReleaseContext Lib "advapi32.dll" (ByVal hProv As Long, ByVal dwFlags As Long) As Long
+    Private Declare Function GetLastError Lib "kernel32" () As Long
+#End If
+
+Private Const PROV_RSA_FULL As Long = 1
+Private Const CRYPT_VERIFYCONTEXT As Long = &HF0000000
+Private Const CRYPT_SILENT As Long = &H40
+Private Const MAX_ULTIMOS_GANADORES As Integer = 10
+Private ultimosValores(1 To 10) As String
+Private indiceUltimoValor As Integer
+Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
+Public ValorCompartido As String
+
+Dim ultimosGanadores(MAX_ULTIMOS_GANADORES) As Integer
+Public JuegoNroValor As String
+
+' Función para generar un número aleatorio seguro entre 1 y 38
+Private Function GetSecureRandomNumber() As Integer
+    Dim hProv As LongPtr
+    Dim result As Long
+    Dim buffer(3) As Byte
+    Dim numeroAleatorio As Integer
+    Dim i As Integer
+    Dim repetido As Boolean
+    
+    Do
+        result = CryptAcquireContext(hProv, vbNullString, vbNullString, PROV_RSA_FULL, CRYPT_VERIFYCONTEXT Or CRYPT_SILENT)
+        If result = 0 Then
+            MsgBox "Error al adquirir contexto criptográfico: " & GetLastError(), vbCritical
+            Exit Function
+        End If
+        
+        result = CryptGenRandom(hProv, 4, buffer(0))
+        If result = 0 Then
+            MsgBox "Error al generar números aleatorios: " & GetLastError(), vbCritical
+        End If
+        
+        result = CryptReleaseContext(hProv, 0)
+        
+        ' Combinar los valores del buffer para obtener un número aleatorio entre 1 y 38
+        numeroAleatorio = (buffer(0) Xor buffer(1) Xor buffer(2) Xor buffer(3)) Mod 38 + 1
+        
+        ' Verificar si el número generado ya está en los últimos ganadores
+        repetido = False
+        For i = 1 To MAX_ULTIMOS_GANADORES
+            If ultimosGanadores(i) = numeroAleatorio Then
+                repetido = True
+                Exit For
+            End If
+        Next i
+        
+    Loop Until numeroAleatorio >= 1 And numeroAleatorio <= 38 And Not repetido
+    
+    ' Actualizar lista de últimos ganadores
+    For i = MAX_ULTIMOS_GANADORES To 2 Step -1
+        ultimosGanadores(i) = ultimosGanadores(i - 1)
+    Next i
+    ultimosGanadores(1) = numeroAleatorio
+    
+    ' Devolver el número aleatorio seguro no repetido
+    GetSecureRandomNumber = numeroAleatorio
+End Function
+
+Private Sub UserForm_Initialize()
+
+    ' Asegurarse de que el botón "Girar" esté habilitado al iniciar
+    btnGirarBolita.Enabled = True
+      
+    ' Inicializar el valor de LabelJackpotInicial
+    Me.LabelJackpotInicial.Caption = "1,000"
+      
+    ' Configurar el control WindowsMediaPlayerVideo
+    With Me.WindowsMediaPlayerVideo
+        .Left = 798
+        .Top = 114
+        .Width = 320
+        .Height = 218
+        .ZOrder 0
+        .uiMode = "none" ' Ocultar los controles del reproductor
+        .windowlessVideo = True ' Permitir que el video se ajuste al tamaño del control
+        .Url = "C:\0-Videos\Ruleta.mp4"
+        .settings.setMode "loop", True ' Reproducir en bucle
+        .settings.autoStart = True ' Comenzar la reproducción automáticamente
+    End With
+    
+    ' Configurar el control WindowsMediaPlayerAudio
+    With Me.WindowsMediaPlayerAudio
+        .Left = 798
+        .Top = 114
+        .Width = 320
+        .Height = 218
+        .ZOrder 1
+        .uiMode = "none" ' Ocultar los controles del reproductor
+        .windowlessVideo = True ' Permitir que el video se ajuste al tamaño del control
+        .Url = "C:\0-Musica\Donna.mp3"
+        .settings.setMode "loop", True ' Reproducir en bucle
+        .settings.autoStart = True ' Comenzar la reproducción automáticamente
+        .settings.volume = Me.ScrollBarVolumenAudio.value ' Establecer el volumen inicial al 30%
+    End With
+    
+    ' Configurar el ScrollBarVolumenAudio
+    With Me.ScrollBarVolumenAudio
+        .Min = 0
+        .Max = 100
+        .LargeChange = 10
+        .SmallChange = 1
+        .value = 10 ' Establecer el volumen inicial al 50%
+    End With
+      
+    ' Población del ComboBoxFecha
+    Dim fecha As Date
+    For fecha = DateSerial(2024, 1, 1) To DateSerial(2024, 12, 31)
+        ComboBoxFecha.AddItem Format(fecha, "dd-mm-yyyy")
+    Next fecha
+    
+    ' Población del ComboBoxHora
+    Dim hora As Date
+    For hora = TimeSerial(9, 0, 0) To TimeSerial(13, 0, 0) Step TimeSerial(0, 30, 0)
+        ComboBoxHora.AddItem Format(hora, "hh:mm")
+    Next hora
+    For hora = TimeSerial(15, 0, 0) To TimeSerial(21, 0, 0) Step TimeSerial(0, 30, 0)
+        ComboBoxHora.AddItem Format(hora, "hh:mm")
+    Next hora
+    
+    ' Llamar a la función para actualizar LabelVer
+    ActualizarLabelVer
+           
+End Sub
+
+Private Sub btnGirarBolita_Click()
+    Dim bolita As Object
+    Dim i As Integer
+    Dim centroX As Integer
+    Dim centroY As Integer
+    Dim angulo As Single
+    Dim radio As Integer
+    Dim vueltas As Integer
+    Dim velocidad As Single
+    Dim tiempoTotal As Single
+    Dim tiempoInicio As Single
+    Dim puntoInicial As Integer
+    Dim puntoFinal As Integer
+    Dim numerosCasillas As Variant
+    Dim valoresCasillas As Variant
+    Dim ultimoGanador As Integer
+    Dim posicionesX(37) As Integer
+    Dim posicionesY(37) As Integer
+    Dim ultimosGanadores(1 To 10) As Integer
+    Dim ProgressBarVisible As Boolean
+       
+    ' Establecer el valor de LabelPremio en blanco al inicio
+    Me.LabelPremio.Caption = ""
+    
+    ' Establecer el valor de LabelBolilla en blanco al inicio
+    Me.LabelBolilla.Caption = ""
+    
+    ' Hacer visibles las imágenes ImageDollar y ImageDollar1
+    ' Me.ImageDollar.Visible = True
+    Me.ImageDollar1.Visible = True
+    
+    ' Actualizar LabelPremioActual con un valor aleatorio entre 2,000 y 20,000 cerrado a decenas y con formato de coma de miles
+    Dim premioActual As Long
+    premioActual = GenerarNumeroAleatorioCerradoADecenas(2000, 10000)
+    Me.LabelPremioActual.Caption = Format(premioActual, "#,##0")
+
+    ' Leer valores de los TextBoxes
+    centroX = CInt(Me.TextBoxCentroX.Text)
+    centroY = CInt(Me.TextBoxCentroY.Text)
+    radio = CInt(Me.TextBoxRadio.Text)
+
+    ' Puntos del centro de la ruleta y radio
+    ' centroX = 548  ' Centro de la ruleta en el eje X
+    ' centroY = 417  ' Centro de la ruleta en el eje Y
+    ' radio = 157    ' Radio de la ruleta
+    
+    ' Números correspondientes a cada casilla en sentido horario
+    numerosCasillas = Array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38)
+    
+    ' Calcular posiciones X e Y basadas en los valores de los TextBoxes
+    Dim posicionesCalculadasX(37) As Double
+    Dim posicionesCalculadasY(37) As Double
+    For i = 0 To 37
+        angulo = i * (360 / 38)
+        posicionesCalculadasX(i) = centroX + radio * Cos(angulo * 3.1416 / 180)
+        posicionesCalculadasY(i) = centroY + radio * Sin(angulo * 3.1416 / 180)
+    Next i
+    
+    ' Valores asignados a cada casilla
+    valoresCasillas = Array("0", "28", "9", "26", "30", "11", "7", "20", "32", "17", "5", "22", "34", "15", "3", "24", _
+                            "36", "13", "1", "00", "27", "10", "25", "29", "12", "8", "19", "31", "18", "6", "21", "33", _
+                            "16", "4", "23", "35", "14", "2")
+          
+    ' Velocidad de giro (0.05)
+    velocidad = 0.05
+    
+    ' Número de divisiones en la ruleta
+    vueltas = 38  ' 38 divisiones para una vuelta completa de la ruleta
+    
+    ' Calcular tiempo aleatorio de pausa entre 10 y 20 segundos utilizando GetSecureRandomNumber
+    Randomize  ' Inicializar el generador de números aleatorios seguro
+    tiempoTotal = 10 + (GetSecureRandomNumber() / 38) * 10  ' Generar número aleatorio entre 10 y 20 segundos
+    
+    ' Elegir un punto inicial aleatorio entre los 38 puntos
+    puntoInicial = GetSecureRandomNumber()
+    
+    ' Eliminar bolita anterior si existe
+    LimpiarBolitaAnterior
+    
+    ' Crear la bolita (círculo)
+    Set bolita = Me.Controls.Add("Forms.Label.1", "Bolita")
+    With bolita
+        .Picture = LoadPicture("C:\Bolita2.gif")  ' Ajusta esta ruta
+        .Width = 16  ' Ancho de la bolita
+        .Height = 16  ' Altura de la bolita
+        .BorderStyle = fmBorderStyleNone  ' Sin borde
+        .Left = centroX + (radio * Cos(puntoInicial * (360 / vueltas) * 3.1416 / 180)) - .Width / 2  ' Posición inicial en el eje X
+        .Top = centroY + (radio * Sin(puntoInicial * (360 / vueltas) * 3.1416 / 180)) - .Height / 2  ' Posición inicial en el eje Y
+        .Visible = True  ' Mostrar la bolita
+        .BackStyle = fmBackStyleTransparent
+    End With
+     
+    tiempoInicio = Timer
+    
+    ' Mostrar y configurar ProgressBar
+    With Me.ProgresoBarRuleta
+        .Visible = True
+        .Min = 0
+        .Max = tiempoTotal * 1000
+        .value = 0
+    End With
+    
+    ' Mostrar porcentaje de progreso
+    Me.LabelProgresoRuleta.Caption = "%"
+           
+    ' Simular movimiento de la bolita
+    Do While Timer < tiempoInicio + tiempoTotal
+        For i = puntoInicial To puntoInicial + vueltas - 1
+            angulo = i * (360 / vueltas)
+            bolita.Left = centroX + (radio * Cos(angulo * 3.1416 / 180)) - bolita.Width / 2  ' Movimiento horizontal en el eje X
+            bolita.Top = centroY + (radio * Sin(angulo * 3.1416 / 180)) - bolita.Height / 2   ' Movimiento vertical en el eje Y
+            
+            ' Refrescar el formulario para mostrar los cambios
+            DoEvents
+            
+            ' Obtener velocidad según el tiempo transcurrido
+            velocidad = ObtenerVelocidad(Timer - tiempoInicio, tiempoTotal)
+            
+            ' Pausa para simular el movimiento constante
+            Pausa velocidad
+            
+            ' Calcular progreso en milisegundos
+            Dim progreso As Long
+            progreso = (Timer - tiempoInicio) * 1000
+            
+            ' Actualizar ProgressBar solo si está visible y está inicializado
+            On Error Resume Next
+            If Me.ProgresoBarRuleta.Visible And Not IsError(Me.ProgresoBarRuleta.value) Then
+                Me.ProgresoBarRuleta.value = (Timer - tiempoInicio) * 1000
+                
+                ' Mostrar porcentaje de progreso
+                Me.LabelProgresoRuleta.Caption = Int(Me.ProgresoBarRuleta.value / Me.ProgresoBarRuleta.Max * 100) & "%"
+            End If
+            On Error GoTo 0
+        Next i
+    Loop
+    
+    ' Ocultar ProgressBar al finalizar
+    Me.ProgresoBarRuleta.Visible = True
+    
+    ' Calcular el número ganador
+    puntoFinal = (puntoInicial + vueltas + 7) Mod vueltas
+        
+    ' Ajustar el número ganador considerando los últimos 10 números ganadores
+    Do
+        puntoFinal = (puntoFinal) Mod vueltas
+        ultimoGanador = numerosCasillas(puntoFinal)
+    Loop While ArrayIndexOf(ultimosGanadores, ultimoGanador) > 0
+    
+    ' Guardar el último número ganador en el historial
+    For i = 10 To 2 Step -1
+        ultimosGanadores(i) = ultimosGanadores(i - 1)
+    Next i
+    ultimosGanadores(1) = ultimoGanador
+
+    ' Verificar que el índice esté dentro del rango
+    If ultimoGanador >= LBound(valoresCasillas) And ultimoGanador <= UBound(valoresCasillas) Then
+        
+        ' Actualizar el LabelBolilla con el número ganador
+        Me.LabelBolilla.Caption = valoresCasillas(ultimoGanador)
+        AlmacenarValorBolilla
+        
+        ' Asegurarse de que el número ganador "0" se maneje correctamente
+        If valoresCasillas(ultimoGanador) = "0" Then
+            Me.LabelBolilla.Caption = "0"
+        End If
+        
+        ' Asegurarse de que el número ganador "00" se maneje correctamente
+        If valoresCasillas(ultimoGanador) = "00" Then
+            Me.LabelBolilla.Caption = "00"
+        End If
+     
+        ' Detener el sonido
+        If Me.LabelBolilla.Caption <> "" Then
+        Me.WindowsMediaPlayerAudio.Controls.stop
+        Debug.Print "Sonido detenido" ' Mensaje de depuración
+        End If
+        
+    ' Desactivar el botón "Sortear Número" al alcanzar 10 números ganadores
+    If ganadores >= 10 Then
+        CommandButtonSortearNumero.Enabled = False
+    End If
+    
+    ' Llamar a la subrutina para actualizar LabelPremio y ImageDollar
+    UpdateLabelPremioAndImageDollar
+    
+    ' Llamar a la subrutina para actualizar LabelBolilla y ImageDollar1
+    UpdateLabelBolillaAndImageDollar1
+    
+    ' Obtiene el valor del premio del LabelPremio
+    premio = Round((premioActual * 0.95) / 100, 0) * 100
+    
+    ' Quita el formato del premio y convierte a número
+    Dim premioNumero As Double
+    premioNumero = premio
+    
+    ' Convierte el número a cadena de texto
+    Dim premioTexto As String
+    premioTexto = CStr(premioNumero)
+    
+    ' Actualizar el LabelJackpotInicial
+    jackpotInicial = CDbl(Me.LabelJackpotInicial.Caption)
+    jackpotInicial = jackpotInicial + (premioActual - premio)
+    Me.LabelJackpotInicial.Caption = Format(jackpotInicial, "#,##0")
+
+    ' Actualizar el LabelPremio
+    Me.LabelPremio.Caption = Format(premio, "#,##0")
+    
+    ' Leer el número ganador y el premio en voz alta
+    Application.Speech.Speak "FELICITACIONES. El número ganador es el     " & LabelBolilla
+    Application.Speech.Speak "Y el premio es de     " & premioTexto & " soles"
+    Application.Speech.Speak "Y se ha incrementado el Jackpot en " & Format(premioActual - premio, "#,##0") & " soles"
+    
+    ' Inicia la reproducción del audio
+    With Me.WindowsMediaPlayerAudio
+        .Url = "C:\0-Musica\Donna.mp3"
+        .Controls.Play
+    End With
+End If
+End Sub
+
+Private Function ObtenerVelocidad(tiempoTranscurrido As Single, tiempoTotal As Single) As Single
+    Select Case tiempoTranscurrido
+        Case 0 To 1
+            ObtenerVelocidad = 0.2 ' Velocidad inicial
+        Case 1 To 2
+            ObtenerVelocidad = 0.1 ' Velocidad media lenta
+        Case 2 To (tiempoTotal - 3)
+            ObtenerVelocidad = 0.05 ' Velocidad rápida constante
+        Case (tiempoTotal - 2) To (tiempoTotal - 0)
+            ObtenerVelocidad = 0.1 ' Velocidad media lenta
+        Case (tiempoTotal - 0) To tiempoTotal
+            ObtenerVelocidad = 0.2 ' Velocidad lenta
+        Case Else
+            ObtenerVelocidad = 0.2 ' Velocidad por defecto
+    End Select
+End Function
+
+Private Sub LimpiarBolitaAnterior()
+    Dim ctrl As Control
+    
+    ' Eliminar bolita anterior si existe
+    For Each ctrl In Me.Controls
+        If ctrl.Name = "Bolita" Then
+            Me.Controls.Remove ctrl.Name
+            Exit For
+        End If
+    Next ctrl
+End Sub
+
+Private Sub Pausa(Segundos As Single)
+    Dim Tiempo As Single
+    Tiempo = Timer + Segundos
+    Do While Timer < Tiempo
+        DoEvents
+    Loop
+End Sub
+
+Function ArrayIndexOf(arr As Variant, value As Variant) As Integer
+    Dim i As Integer
+    For i = LBound(arr) To UBound(arr)
+        If arr(i) = value Then
+            ArrayIndexOf = i
+            Exit Function
+        End If
+    Next i
+    ArrayIndexOf = -1 ' Si no se encuentra el valor en el array
+End Function
+
+Private Sub CommandButtonSalida_Click()
+    ' Salir del UserForm al hacer clic en CommandButtonSalida
+    Unload Me
+End Sub
+
+Private Sub CommandVerGanador_Click()
+    ' Mostrar UserFormMsgGanador al hacer clic en CommandVerGanador
+    UserFormMsgGanador.Show
+End Sub
+
+Private Sub AlmacenarValorBolilla()
+    Dim i As Integer
+    Dim labelName As String
+    
+    ' Obtén el valor actual del LabelBolilla
+    Dim valorActual As String
+    valorActual = Me.LabelBolilla.Caption
+    
+    ' Desplazar los valores existentes una posición hacia arriba
+    For i = 1 To 9
+        ultimosValores(i) = ultimosValores(i + 1)
+    Next i
+    
+    ' Almacenar el valor actual en la última posición
+    ultimosValores(10) = valorActual
+    
+    ' Actualizar los Labels desde Label6 hasta Label15
+    For i = 1 To 10
+        labelName = "Label" & (5 + i)
+        If ControlExists(labelName) Then
+            Me.Controls(labelName).Caption = ultimosValores(i)
+        End If
+    Next i
+End Sub
+
+Private Function ControlExists(ctrlName As String) As Boolean
+    On Error Resume Next
+    ControlExists = Not Me.Controls(ctrlName) Is Nothing
+    On Error GoTo 0
+End Function
+
+Private Sub LabelBolilla_Change()
+    AlmacenarValorBolilla
+End Sub
+
+Private Sub CommandButtonJackpot_Click()
+    ' Guardar el valor del LabelVer en la variable pública
+    JuegoNroValor = Me.LabelVer.Caption
+    
+    ' Ocultar el formulario actual
+    Me.Hide
+    
+    ' Mostrar el formulario UserFormRuletaJackpot
+    UserFormRuletaJackpot.Show
+End Sub
+
+Private Sub UpdateLabelPremioAndImageDollar()
+    ' Verificar si LabelBolilla tiene un valor
+    If Me.LabelBolilla.Caption <> "" Then
+        ' Ocultar ImageDollar
+        ' Me.ImageDollar.Visible = False
+        
+        ' Actualizar LabelPremio con el valor de LabelPremioActual
+        Me.LabelPremio.Caption = Me.LabelPremioActual.Caption
+    Else
+        ' Mostrar ImageDollar
+        ' Me.ImageDollar.Visible = True
+        
+        ' Limpiar LabelPremio
+        Me.LabelPremio.Caption = ""
+    End If
+End Sub
+
+Private Sub UpdateLabelBolillaAndImageDollar1()
+    ' Verificar si LabelBolilla tiene un valor
+    If Me.LabelBolilla.Caption <> "" Then
+        ' Ocultar ImageDollar1
+        Me.ImageDollar1.Visible = False
+        
+        ' Actualizar LabelBolilla con el valor de LabelPremioActual
+        Me.LabelBolilla.Caption = Me.LabelBolilla.Caption
+                
+    Else
+        ' Mostrar ImageDollar1
+        Me.ImageDollar1.Visible = True
+        
+        ' Limpiar LabelPremio
+        Me.LabelBolilla.Caption = ""
+    End If
+End Sub
+
+Private Sub ScrollBarVolumenAudio_Change()
+    ' Ajustar el volumen del WindowsMediaPlayerAudio basado en la posición del ScrollBar
+    Me.WindowsMediaPlayerAudio.settings.volume = Me.ScrollBarVolumenAudio.value
+End Sub
+
+Private Sub ActualizarLabelVer()
+    ' Combinar los valores y mostrar en LabelVer
+    If ComboBoxFecha.ListIndex <> -1 And ComboBoxHora.ListIndex <> -1 Then
+       
+        Dim FechaFormateada As String
+        Dim FechaPartes() As String
+        FechaPartes = Split(ComboBoxFecha.value, "-")
+        FechaFormateada = FechaPartes(0) & "/" & FechaPartes(1) & "/" & FechaPartes(2) ' Convertir el formato a dd/mm/yyyy
+        
+        LabelVer.Caption = "Rul-" & FechaFormateada & "-" & ComboBoxHora.value
+    Else
+        LabelVer.Caption = ""
+    End If
+End Sub
+
+Private Sub ComboBoxFecha_Change()
+    ' Llamar a la función ActualizarLabelVer al cambiar el valor de ComboBoxFecha
+    ActualizarLabelVer
+End Sub
+
+Private Sub ComboBoxHora_Change()
+    ' Llamar a la función ActualizarLabelVer al cambiar el valor de ComboBoxHora
+    ActualizarLabelVer
+End Sub
+
+Private Function GenerarNumeroAleatorioCerradoADecenas(minimo As Long, maximo As Long) As Long
+    Dim numeroAleatorio As Long
+    numeroAleatorio = Int((maximo - minimo + 1) * Rnd + minimo)
+    GenerarNumeroAleatorioCerradoADecenas = Round(numeroAleatorio / 10) * 10
+End Function
+
+Private Sub CommandButtonSimular_Click()
+    Dim ws As Worksheet
+    Dim headers As Variant
+    Dim i As Integer
+    Dim rng As Range
+    Dim apuesta As Integer
+    Dim cell As Range
+    Dim celular As String
+    Dim Multi As Integer
+        
+    ' Nombre de la hoja donde se crearán los encabezados y datos
+    Set ws = ThisWorkbook.Sheets("BaseDeDatos")
+    
+    ' Definir los encabezados como un array de strings
+    headers = Array("Boleto", "Celular", "Multi", "Apuesta", "1er", "2do", "3er", "4to", "5to", "6to")
+    
+    ' Colocar encabezados en la primera fila de la hoja
+    For i = LBound(headers) To UBound(headers)
+        ws.Cells(1, i + 1).value = headers(i)
+    Next i
+    
+    ' Ajustar ancho de columna automáticamente
+    ws.Cells.EntireColumn.AutoFit
+    
+    ' Inicializar la generación de números aleatorios
+    Randomize
+    
+    ' Inicializar el rango y limpiar las columnas generadas
+    Set rng = ws.Range("D2:D5001") ' Rango para los 5000 números de Apuesta
+    ws.Range("E2:J5001").ClearContents ' Limpiar las columnas generadas previamente
+    
+    ' Generar números aleatorios para las celdas
+    For Each cell In rng
+        ' Rellenar Boleto con número secuencial
+        ws.Cells(cell.Row, 1).value = cell.Row - 1
+        
+        ' Generar número aleatorio de celular de 9 dígitos empezando con 9
+        celular = "9" & Format(Int(Rnd * 100000000), "00000000")
+        ws.Cells(cell.Row, 2).value = celular
+        
+        ' Generar número aleatorio para Multi de 1 dígito (1, 2, 3, 5 o 10)
+        Multi = Array(1, 2, 3, 5, 10)(Int(Rnd * 5))
+        ws.Cells(cell.Row, 3).value = Multi
+        
+        ' Generar números aleatorios para la columna "Apuesta"
+        cell.value = Application.WorksheetFunction.RandBetween(1, 3)
+                
+        ' Generar números aleatorios únicos según la apuesta
+        Select Case cell.value
+            Case 1
+                GenerarNumerosUnicos ws, cell.Row, cell.value, Array("E", "F", "G"), 3
+            Case 2
+                GenerarNumerosUnicos ws, cell.Row, cell.value, Array("E", "F", "G", "H", "I"), 5
+            Case 3
+                GenerarNumerosUnicos ws, cell.Row, cell.value, Array("E", "F", "G", "H", "I", "J"), 6
+        End Select
+        
+    Next cell
+    
+    ' Ajustar ancho de columna automáticamente para las columnas generadas
+    ws.Cells.EntireColumn.AutoFit
+   
+    MsgBox "Datos generados correctamente.", vbInformation
+End Sub

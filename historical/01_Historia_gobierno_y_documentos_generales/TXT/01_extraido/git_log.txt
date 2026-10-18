@@ -1,0 +1,5 @@
+[33m4a680c7[m feat(H-004): add read-only reaction planning
+[33m3bbc5cf[m test(H-001/H-002/H-003): add multiscale E2E test (Wall-Move Lite)
+[33m3f4ce33[m feat(H-003): implement two-phase Validity / Invalidation (read-only)
+[33md3b4462[m feat(H-002): implement read-only Impact Analysis with RT-01 to RT-14
+[33m94f3fcf[m feat(H-001 Examen 11): incorporate RT-A and RT-D into core baseline

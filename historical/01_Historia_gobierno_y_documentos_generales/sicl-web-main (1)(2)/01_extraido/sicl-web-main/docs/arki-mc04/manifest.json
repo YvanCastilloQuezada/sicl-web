@@ -1,0 +1,15 @@
+{
+  "master": "ARKI_SICL_DETERMINISTIC_BOUNDARY_REGISTER.xlsx",
+  "generated_at": "2026-09-21T04:24:26.279371+00:00",
+  "property_count": 14,
+  "correction_count": 4,
+  "classifications": {
+    "PRESERVED": 6,
+    "DISTRIBUTED": 5,
+    "PARTIAL": 3
+  },
+  "gate": "GATE_SICL_BOUNDARY_RESOLVED = PASS",
+  "sicl_reconstructed": false,
+  "new_core_created": false,
+  "roadmap_started": false
+}

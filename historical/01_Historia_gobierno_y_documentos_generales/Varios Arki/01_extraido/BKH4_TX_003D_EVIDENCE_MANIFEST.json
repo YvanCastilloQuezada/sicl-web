@@ -1,0 +1,98 @@
+{
+  "package": "ARKI_BKH4_TX_003D_EVIDENCE",
+  "status": "VERIFIED_FOR_BOUNDED_SCOPE",
+  "scope": "crash_restart_recovery",
+  "powerLoss": "NOT_TESTED",
+  "files": [
+    {
+      "path": "shared/arkiCanonicalPersistence.ts",
+      "sha256": "f18c0e2120ddb33c8d0f9f4bc402378b142b156cca7bb2aff49247c6e3300865",
+      "bytes": 24693
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003d-browser.ts",
+      "sha256": "37c7932c661f911c08676dd25068dc2b9750cf9979e214239c0075be15089fb5",
+      "bytes": 2495
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003d-recovery.ts",
+      "sha256": "43a46e1f58001f5ecb8bfc93a9ac0bfbe9600366e86172853c292d4c1a21c897",
+      "bytes": 7419
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003d-process-restart.mjs",
+      "sha256": "75e33d462124cd833f264de5f661cf0a81744008ada9f8a758c21dc524e401de",
+      "bytes": 6218
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003d-reload.mjs",
+      "sha256": "99c110852613cc171eb35aa8889a88e31d08a5c61a320629f9ab9b5abe6653bb",
+      "bytes": 4952
+    },
+    {
+      "path": "scripts/run-bkh4-tx-003d-evidence.sh",
+      "sha256": "b9a90c75cdb58d938546b1cd7efcc2d58745b557c96506c9d0769ba2391a0fac",
+      "bytes": 1782
+    },
+    {
+      "path": "BKH4_TX_003D_OUTPUTS.txt",
+      "sha256": "65a7927857e247843acf944e3eb25d735385463968ec3e7fc54760f818d5992f",
+      "bytes": 41009
+    },
+    {
+      "path": "BKH4_TX_003D_RESTART_CAMPAIGN_OUTPUT.json",
+      "sha256": "e0176a36b46da66b32e9989792baa706f482897076f1293a8ede961360a64f7e",
+      "bytes": 10933
+    },
+    {
+      "path": "BKH4_TX_003D_RELOAD_OUTPUT.json",
+      "sha256": "0133388e9558f04160a0b2feba3641571293243c9371d487b76f8530360676c6",
+      "bytes": 935
+    },
+    {
+      "path": "ARKI_BKH4_TX_003D_IMPLEMENTATION_REPORT.md",
+      "sha256": "9b6909c0ecc9db50223bf2aa3c14c42083edb448d1116991668693567b53e619",
+      "bytes": 4201
+    },
+    {
+      "path": "ARKI_BKH4_TX_003D_CAMPAIGN_RESULT.md",
+      "sha256": "75b4d48a975addcdd384fb80d3c388fd07197b6b22b84f8d4d371f2d5398da56",
+      "bytes": 496
+    },
+    {
+      "path": "ARKI_FOUNDATIONAL_PRINCIPLE_PF-H01.md",
+      "sha256": "3e6772676756ee2ba8f843dfc82fb3a9eddbf43c4b2c1a7f47370a477f270008",
+      "bytes": 3900
+    },
+    {
+      "path": "ARKI_FOUNDATIONAL_PRINCIPLE_PF-H01_LOCK.json",
+      "sha256": "9c34fc74df552cfd793bb15740aea4f4827ff8bdf68ac6964441270293815ea8",
+      "bytes": 661
+    },
+    {
+      "path": "ARKI_MASTER_CODEBOOK.md",
+      "sha256": "ffc4af4afc18104f9c1b66328a29ab646e09165e06b077cca471661fd469d521",
+      "bytes": 9500
+    },
+    {
+      "path": "shared/arkiTransactionEngine.ts",
+      "sha256": "3adb1100c5a53e360f28d064a42ee390944fcc1f73577e329f18ba2326420046",
+      "bytes": 15261
+    },
+    {
+      "path": "shared/persistence/arkiPersistence.ts",
+      "sha256": "4019128307b9f90d479ef4884d54aa90704118be3f3d4335db0e0213aab5de4c",
+      "bytes": 4474
+    },
+    {
+      "path": "scripts/test-bkh4-foundation.ts",
+      "sha256": "747c6b2953969d7fd2b09e2c6237d256d901533e5690614d687c8738197633d7",
+      "bytes": 6704
+    },
+    {
+      "path": "scripts/test-bkh4-tx-003c-cas-idempotency.ts",
+      "sha256": "ab8ce1fa06022450dcd61b51283da3bd4852f21947146f41fc76dd794846fce7",
+      "bytes": 9460
+    }
+  ]
+}

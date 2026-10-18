@@ -1,0 +1,27 @@
+LEVEL_ID: L03
+NAME: "Recuperador de Conocimiento"
+DEFINITION: "ARKI busca en su base de conocimiento y presenta fuentes con provenance."
+INPUTS:
+  - query: "string"
+  - scope: "Scope (typology, context, jurisdiction)"
+OUTPUTS:
+  - knowledge_items: "list<Knowledge>"
+  - sources: "list<Source>"
+  - provenance: "ProvenanceChain"
+CONTRACTS:
+  - "SOURCE ≠ KNOWLEDGE"
+  - "Todo conocimiento debe tener provenance trazable"
+  - "No universalizar alcance"
+RULES:
+  - "E-01: SOURCE ≠ KNOWLEDGE"
+  - "DL-05: SOURCE ≠ KNOWLEDGE; GENERATED ≠ FACT"
+  - "INV-009: FOREIGN STANDARD ≠ APPLICABLE PROJECT REQUIREMENT"
+  - "INV-019: TYPOLOGICAL KNOWLEDGE ≠ APPLICABLE REGULATION"
+GATES:
+  - "GATE_L03_PASS: Conocimiento recuperado con provenance completa"
+EVIDENCE_REQUIRED:
+  - "Knowledge retrieval log"
+  - "Source registry entries"
+  - "Provenance chain (source → evidence → claim → knowledge)"
+  - "Scope validation"
+CURRENT_STATUS: "DEMONSTRATED"

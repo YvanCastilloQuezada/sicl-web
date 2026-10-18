@@ -1,0 +1,43 @@
+{
+  "exampleId": "EJEMPLO-019",
+  "title": "Ejemplo 019 · /SCENARIO CREATE",
+  "commandName": "/SCENARIO CREATE",
+  "category": "scenario",
+  "syntax": "/SCENARIO CREATE <branch_id> <cycle_id> <name>",
+  "command": "/SCENARIO CREATE SCENARIO-BASE CYCLE-2026 Casa Demo Paramétrica",
+  "arguments": [
+    {
+      "name": "branch_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "SCENARIO-BASE"
+    },
+    {
+      "name": "cycle_id",
+      "required": true,
+      "type": "string",
+      "exampleValue": "CYCLE-2026"
+    },
+    {
+      "name": "name",
+      "required": true,
+      "type": "string",
+      "exampleValue": "Casa Demo Paramétrica"
+    }
+  ],
+  "mode": "APPLY",
+  "repeatability": "DETERMINISTIC_INPUT_EXAMPLE",
+  "executionBoundary": "CATALOG_EXAMPLE_ONLY",
+  "humanReviewRequired": true,
+  "expectedOutcome": "Creates a repeatable command-shaped example for learning and traceability.",
+  "learningObjective": "Aprender la sintaxis y el límite operativo de /SCENARIO CREATE.",
+  "provenance": [
+    "commands-catalog.json",
+    "ARKI-PARAMETRIC-RUNTIME",
+    "user-authorized-example-corpus"
+  ],
+  "unknowns": [
+    "Los efectos reales dependen del Project State, evidencia disponible y permisos del entorno."
+  ],
+  "artifacts": []
+}

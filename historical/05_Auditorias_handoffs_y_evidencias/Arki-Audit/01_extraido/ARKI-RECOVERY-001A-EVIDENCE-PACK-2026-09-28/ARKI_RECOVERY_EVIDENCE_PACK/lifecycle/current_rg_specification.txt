@@ -1,0 +1,1 @@
+docs/SICL_V1_ARCHITECTURE_AUDIT.md:7:**Fuentes revisadas:** Engineering Reset & Controlled Implementation, SICL Frontend Specification v1.0, Core Contract v1.0 — Final Proposed, Semantic Consolidation + Core Contract v1.0, Architecture Consolidation Review v2 e Implementation Specification v1.0.

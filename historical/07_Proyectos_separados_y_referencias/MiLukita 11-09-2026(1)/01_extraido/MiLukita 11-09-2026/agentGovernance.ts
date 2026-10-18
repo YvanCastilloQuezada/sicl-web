@@ -1,0 +1,5 @@
+export type MetricType = "FACT" | "DERIVED" | "ESTIMATE" | "SIMULATED";
+export type SystemStatus = "CRITICAL" | "DEGRADED" | "WARNING" | "HEALTHY";
+export type AgentScorecard = { agentId: string; health: number | null; quality: number | null; impact: number | null; governance: number | null; cost: number | null; status: SystemStatus; metricTypes: Record<"health" | "quality" | "impact" | "governance" | "cost", MetricType> };
+export function getSystemStatus(input: { level0CriticalFailure: boolean; level1Degraded: boolean; nonCriticalWarning: boolean }): SystemStatus { if (input.level0CriticalFailure) return "CRITICAL"; if (input.level1Degraded) return "DEGRADED"; if (input.nonCriticalWarning) return "WARNING"; return "HEALTHY"; }
+export function buildAgentScorecard(input: Omit<AgentScorecard, "status"> & { level0CriticalFailure: boolean; level1Degraded: boolean; nonCriticalWarning: boolean }): AgentScorecard { const { level0CriticalFailure, level1Degraded, nonCriticalWarning, ...scorecard } = input; return { ...scorecard, status: getSystemStatus({ level0CriticalFailure, level1Degraded, nonCriticalWarning }) }; }

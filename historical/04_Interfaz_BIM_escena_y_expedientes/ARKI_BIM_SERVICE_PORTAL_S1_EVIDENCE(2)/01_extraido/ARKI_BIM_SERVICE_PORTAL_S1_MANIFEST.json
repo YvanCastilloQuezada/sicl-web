@@ -1,0 +1,38 @@
+{
+  "schema": "ARKI-BIM-SERVICE-PORTAL-S1-MANIFEST-1.0",
+  "status": "PORTAL FOUNDATION IMPLEMENTED / INTERNAL TESTING / NO PUBLIC LAUNCH / NO REAL PAYMENTS / PENDING INDEPENDENT VERIFICATION",
+  "firewall": [
+    "NO_REAL_PAYMENTS",
+    "NO_PUBLIC_LAUNCH",
+    "NO_UNCONTROLLED_UPLOADS",
+    "NO_AUTONOMOUS_PROFESSIONAL_CERTIFICATION",
+    "NO_MASS_PROCESSING"
+  ],
+  "entries": [
+    {
+      "file": "ARKI_BIM_SERVICE_PORTAL_S1.md",
+      "size": 2022,
+      "sha256": "5fb282472840917e460c2173187385b9e2cb74cdf86bb9f062357e2f840c2d69"
+    },
+    {
+      "file": "shared/arkiBimServicePortal.ts",
+      "size": 8838,
+      "sha256": "da09bc658024b9594f5379c4fd9eafd03f2667f62693228386982c4fd3d363b5"
+    },
+    {
+      "file": "scripts/test-arki-bim-service-portal.ts",
+      "size": 4438,
+      "sha256": "2ab21a67c709c6d9bf2694047dec6fb6431769705d8b358fd6bf08ce2c32f649"
+    },
+    {
+      "file": "ARKI_BIM_SERVICE_PORTAL_S1_OUTPUTS.txt",
+      "size": 3470,
+      "sha256": "f7f36869eb70a693d1a3ea0fec3d94e88a043c7c5bb00b1b4c9c275cf005586c"
+    },
+    {
+      "file": "pasted_content_115.txt",
+      "size": 8647,
+      "sha256": "b972080d9c1e53eb44ca0395c4c8e810bf20d6cf0ea9a9d1108bd5c030241e3c"
+    }
+  ]
+}

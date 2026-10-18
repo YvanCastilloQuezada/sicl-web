@@ -1,0 +1,1106 @@
+# ORDEN MAESTRA LUKA — PRODUCCIÓN MVP + BLINDAJE
+## Código de Orden: LUKA-MVP-PRODUCTION-001
+## Prioridad: P0 — EJECUCIÓN INMEDIATA
+## Estado: AUTORIZADO
+## Objetivo: convertir LUKA Fase 1 sandbox en MVP público controlado y comenzar la construcción del Mundo LUKA.
+
+---
+
+# 0. AUTORIDAD
+
+Esta orden emana de HUMAN AUTHORITY / PROPIETARIO DEL PROYECTO.
+
+Manus AI actúa exclusivamente como:
+- desarrollador;
+- integrador;
+- auditor técnico;
+- ejecutor de pruebas;
+- documentador.
+
+Manus NO puede:
+- redefinir la visión de LUKA;
+- cambiar la identidad del producto;
+- modificar MJP CORE;
+- alterar RNG, RTP, wallet, ledger, settlement o reglas;
+- convertir capacidades HIDDEN en AVAILABLE por iniciativa propia;
+- introducir funcionalidades financieras;
+- publicar información estratégica del sistema;
+- sustituir decisiones de producto por decisiones técnicas.
+
+Si existe conflicto entre esta orden y cualquier documento anterior, esta orden tiene prioridad para la fase de MVP LUKA, salvo las restricciones constitucionales de MJP CORE.
+
+---
+
+# 1. DECISIÓN DE PRODUCTO
+
+LUKA deja de ser tratado como una simple demo técnica.
+
+A partir de esta orden:
+
+LUKA = PRODUCTO MVP.
+
+La experiencia pública debe ser:
+
+QR / URL
+      ↓
+LUKA Universal Entry
+      ↓
+LUKA aparece
+      ↓
+Modo AR por defecto
+      ↓
+LUKA pregunta:
+
+"¿Quieres entrar al mundo de LUKA
+o quieres ver TV?"
+
+Opciones:
+
+[ ENTRAR AL MUNDO DE LUKA ]
+
+[ VER TV ]
+
+La experiencia debe evitar un menú tradicional de aplicación.
+
+PRINCIPIO:
+
+Progressive Interface Disclosure.
+
+El usuario no debe configurar manualmente todo el sistema.
+
+---
+
+# 2. EXPERIENCIA CENTRAL DEFINITIVA
+
+## 2.1 Entrada
+
+Primera interacción:
+
+LUKA aparece en AR.
+
+No mostrar inicialmente:
+- dashboard;
+- menú técnico;
+- lista extensa de funciones;
+- configuraciones;
+- capacidades futuras;
+- arquitectura;
+- agentes;
+- módulos internos.
+
+LUKA debe sentirse como una presencia.
+
+---
+
+# 3. MODO TV
+
+Cuando el usuario diga:
+
+"Quiero ver TV"
+
+activar:
+
+LUKA TV.
+
+El celular se convierte en controlador multimedia.
+
+La interfaz base debe contener:
+
+- navegación;
+- OK / Enter;
+- atrás;
+- inicio;
+- volumen;
+- canal;
+- reproducción;
+- pausa;
+- mute;
+- teclado cuando corresponda;
+- trackpad cuando corresponda;
+- gamepad cuando corresponda.
+
+Pero NO mostrar todos los modos simultáneamente.
+
+---
+
+# 4. CONTROL DINÁMICO
+
+Implementar Progressive Interface Disclosure.
+
+## Regla:
+
+Cuando está activo TRACKPAD:
+
+mostrar:
+
+TRACKPAD
++
+botón VISOR AR
+
+El botón VISOR AR permite regresar inmediatamente al mundo AR.
+
+Cuando está activo KEYBOARD:
+
+el botón contextual inferior debe convertirse en:
+
+GAMEPAD
+
+Cuando está activo GAMEPAD:
+
+permitir regresar al modo anterior mediante navegación contextual.
+
+No llenar la pantalla con botones permanentes.
+
+La interfaz debe cambiar según la tarea.
+
+---
+
+# 5. CAMBIO DE MODO SIN CONFIGURACIÓN
+
+Eliminar, en la experiencia pública, la necesidad de que el usuario entre a una configuración para seleccionar:
+
+- TV;
+- Trackpad;
+- Keyboard;
+- Gamepad;
+- AR.
+
+El cambio debe poder realizarse:
+
+1. tocando el control contextual;
+
+o
+
+2. mediante voz a LUKA.
+
+Ejemplos:
+
+"LUCA, quiero teclado."
+
+"LUCA, quiero usar el trackpad."
+
+"LUCA, quiero jugar."
+
+"LUCA, llévame al mundo de LUKA."
+
+"LUCA, quiero ver televisión."
+
+El Intent Engine debe resolver estas intenciones.
+
+---
+
+# 6. REGLA DE NOMBRE
+
+Normalizar definitivamente la identidad pública.
+
+No utilizar indistintamente:
+
+LUKA
+LUKITA
+LUKALLPA
+MiLukita
+
+como si fueran el mismo nivel.
+
+Mantener separación:
+
+MI LUKITA = identidad/proyecto/marca matriz registrada.
+
+LUKA = presencia/personaje/agente/experiencia pública.
+
+LUKALLPA = denominación territorial/ecosistema cuando corresponda.
+
+Antes de modificar branding existente, generar una propuesta de nomenclatura y NO ejecutarla automáticamente.
+
+---
+
+# 7. SEGURIDAD — OBJETIVO
+
+No existe sistema "imposible de hackear".
+
+No utilizar esa afirmación.
+
+Objetivo real:
+
+REDUCIR SUPERFICIE DE ATAQUE
++
+LIMITAR DAÑO
++
+DETECTAR
++
+REVOCAR
++
+RECUPERAR.
+
+---
+
+# 8. REGLA FUNDAMENTAL DE SEGURIDAD
+
+El navegador NO debe poseer secretos críticos.
+
+Nunca colocar en:
+
+- JavaScript público;
+- localStorage;
+- bundle;
+- HTML;
+- variables públicas;
+- QR;
+- código cliente;
+
+ninguno de los siguientes:
+
+- claves privadas;
+- secretos API;
+- credenciales;
+- claves de firma críticas;
+- secretos de infraestructura;
+- claves de MJP CORE;
+- credenciales de base de datos;
+- tokens administrativos.
+
+Todo secreto crítico debe permanecer en servidor o infraestructura segura.
+
+---
+
+# 9. AUTENTICACIÓN
+
+Implementar para producción:
+
+- sesiones seguras;
+- cookies HttpOnly;
+- Secure;
+- SameSite apropiado;
+- expiración;
+- rotación;
+- revocación;
+- rate limiting;
+- protección CSRF cuando corresponda;
+- protección contra replay;
+- validación server-side.
+
+No confiar en validaciones únicamente realizadas en React.
+
+---
+
+# 10. ADMINISTRACIÓN
+
+Separar radicalmente:
+
+PUBLIC USER
+vs
+ADMIN
+vs
+DEVELOPER
+vs
+AUDITOR.
+
+Nunca utilizar el mismo mecanismo de autorización para todos.
+
+Implementar RBAC mínimo.
+
+Toda operación administrativa sensible debe generar:
+
+AUDIT EVENT.
+
+---
+
+# 11. MJP CORE
+
+MJP CORE continúa protegido.
+
+LUKA jamás debe poder:
+
+WRITE
+sobre:
+
+RNG
+RTP
+LEDGER
+WALLET
+SETTLEMENT
+GAME RULES
+RESULTS.
+
+LUKA solamente puede consumir interfaces autorizadas.
+
+Implementar boundary explícito:
+
+LUKA
+   ↓
+READ / PRESENTATION CONTRACT
+   ↓
+MJP CORE
+
+Nunca:
+
+LUKA
+   ↓
+DATABASE DIRECT WRITE
+   ↓
+MJP CORE
+
+---
+
+# 12. PROTECCIÓN DE LA IDEA
+
+No intentar proteger la idea mediante oscuridad.
+
+Proteger mediante capas:
+
+## Capa 1 — Legal
+
+Documentar y mantener expediente de:
+
+- identidad;
+- marca;
+- código;
+- diseños;
+- personajes;
+- assets;
+- documentación;
+- arquitectura;
+- fechas de creación;
+- versiones.
+
+La marca MiLukita ya fue registrada ante INDECOPI por HUMAN AUTHORITY.
+
+NO afirmar que esto protege automáticamente todas las funcionalidades de LUKA.
+
+Preparar inventario de activos susceptibles de protección adicional.
+
+---
+
+# 13. PATENTE / MODELO DE UTILIDAD
+
+NO publicar detalles técnicos innecesarios sobre mecanismos potencialmente patentables antes de realizar evaluación profesional de propiedad industrial.
+
+Crear documento:
+
+docs/LUKA_IP_ASSET_REGISTER.md
+
+Clasificar:
+
+A — PUBLICABLE
+B — INTERNO
+C — CONFIDENCIAL
+D — POTENCIALMENTE PATENTABLE
+E — SECRETO COMERCIAL
+
+No publicar detalles de categoría D/E.
+
+NO solicitar patente automáticamente.
+
+Preparar expediente técnico para revisión de especialista.
+
+---
+
+# 14. PROTECCIÓN CONTRA COPIA
+
+Aceptar una realidad:
+
+El código frontend puede ser inspeccionado.
+
+Por tanto, el verdadero moat de LUKA NO será ocultar React.
+
+Debe construirse en:
+
+1. marca;
+2. personaje;
+3. experiencia;
+4. World Engine;
+5. datos territoriales;
+6. POIs;
+7. contenido;
+8. agentes;
+9. modelos de interacción;
+10. arquitectura;
+11. comunidad;
+12. distribución;
+13. integración territorial;
+14. conocimiento acumulado;
+15. identidad del usuario;
+16. red de dispositivos;
+17. historial de interacción;
+18. infraestructura operacional.
+
+El competidor debe poder copiar una pantalla.
+
+Debe ser mucho más difícil copiar el sistema completo.
+
+---
+
+# 15. WORLD LUKA
+
+Una vez estabilizado el MVP:
+
+comenzar formalmente:
+
+WORLD LUKA.
+
+No intentar construir todo Perú inmediatamente.
+
+Construir primero un territorio piloto.
+
+Cada POI debe poder convertirse en:
+
+- ubicación;
+- contenido;
+- historia;
+- personaje;
+- objeto AR;
+- interacción;
+- servicio;
+- ruta;
+- evento;
+- juego;
+- aprendizaje.
+
+Crear estructura preparada para escalar territorialmente.
+
+---
+
+# 16. ARQUITECTURA DE DATOS TERRITORIALES
+
+Diseñar entidades mínimas:
+
+WORLD
+REGION
+CITY
+DISTRICT
+ZONE
+POI
+BUILDING
+STREET
+EVENT
+CHARACTER
+CONTENT
+AR_OBJECT
+ROUTE
+SERVICE
+BUSINESS.
+
+Cada entidad debe tener:
+
+id
+geo
+type
+status
+content
+permissions
+publication state
+version
+audit metadata.
+
+No implementar todavía todo el modelo.
+
+Crear foundation extensible.
+
+---
+
+# 17. LUKA COMO AGENTE TERRITORIAL
+
+LUKA debe evolucionar de:
+
+"control remoto inteligente"
+
+a:
+
+"agente territorial".
+
+Ejemplo:
+
+Usuario:
+"LUKA, ¿qué puedo conocer cerca?"
+
+LUKA:
+
+- detecta ubicación;
+- identifica POIs;
+- filtra por contexto;
+- propone;
+- muestra AR;
+- guía;
+- permite interactuar.
+
+La experiencia debe surgir de contexto.
+
+---
+
+# 18. VOZ
+
+Para MVP:
+
+NO exigir wake word perfecto.
+
+Prioridad:
+
+PUSH / TAP / VOICE.
+
+Implementar arquitectura preparada para:
+
+wake word
+→ ASR
+→ Intent Engine
+→ confirmation
+→ action.
+
+No bloquear lanzamiento esperando hardware de wake word perfecto.
+
+---
+
+# 19. PRIVACIDAD
+
+Solicitar permisos JUST-IN-TIME.
+
+No pedir:
+
+GPS
+Cámara
+Micrófono
+Bluetooth
+
+todos al inicio.
+
+Solicitar únicamente cuando la función lo requiera.
+
+Explicar brevemente:
+
+qué
+para qué
+y cuándo.
+
+---
+
+# 20. QR
+
+El QR debe convertirse en una puerta de entrada al mundo LUKA.
+
+Flujo:
+
+QR
+→ HTTPS
+→ LUKA Universal Entry
+→ AR.
+
+No almacenar secretos críticos en QR.
+
+Los códigos deben poder:
+
+- expirar;
+- revocarse;
+- validarse;
+- asociarse a contexto;
+- generar eventos de auditoría.
+
+---
+
+# 21. DOMINIO
+
+Preparar producción bajo dominio oficial.
+
+Requisitos:
+
+HTTPS obligatorio.
+
+Redirección HTTP → HTTPS.
+
+HSTS.
+
+CSP.
+
+X-Content-Type-Options.
+
+Referrer-Policy.
+
+Permissions-Policy.
+
+Frame protections.
+
+Rate limiting.
+
+Logs.
+
+Alertas.
+
+Backup.
+
+Recovery.
+
+No permitir que el sandbox se convierta accidentalmente en producción.
+
+---
+
+# 22. ANTI-PHISHING
+
+No existe protección absoluta contra una web falsa.
+
+Mitigar mediante:
+
+- dominio oficial;
+- identidad visual consistente;
+- HTTPS;
+- enlaces oficiales;
+- instrucciones de verificación;
+- nunca solicitar contraseñas innecesarias;
+- no pedir secretos por chat;
+- QR verificables;
+- sesiones seguras.
+
+Preparar:
+
+docs/LUKA_ANTI_PHISHING.md
+
+---
+
+# 23. OBSERVABILIDAD
+
+Implementar:
+
+- login events;
+- session events;
+- intent events;
+- device events;
+- errors;
+- security events;
+- admin actions;
+- revocations;
+- suspicious activity.
+
+No registrar datos sensibles innecesariamente.
+
+---
+
+# 24. BACKUP Y RECOVERY
+
+Crear estrategia:
+
+DATABASE BACKUP
++
+CONFIG BACKUP
++
+ASSET BACKUP
++
+KEY ROTATION
++
+RECOVERY TEST.
+
+Un backup que nunca fue restaurado NO está certificado.
+
+Realizar al menos una prueba de restauración en staging.
+
+---
+
+# 25. SUPPLY CHAIN
+
+Auditar dependencias antes del release.
+
+Generar:
+
+- lockfile;
+- dependency audit;
+- versión exacta de build;
+- SBOM si es viable;
+- hash de artefactos.
+
+No actualizar paquetes arbitrariamente durante el release.
+
+Congelar versión candidata.
+
+---
+
+# 26. FRONTEND
+
+Reducir exposición de información interna.
+
+No enviar al cliente:
+
+- nombres de módulos internos innecesarios;
+- flags estratégicos;
+- endpoints administrativos;
+- estructuras internas;
+- información sobre MJP CORE;
+- capacidades futuras detalladas.
+
+La interfaz pública solamente conoce lo necesario.
+
+---
+
+# 27. API
+
+Toda API pública debe validar:
+
+AUTH
++
+AUTHORIZATION
++
+INPUT
++
+RATE
++
+STATE
++
+AUDIT.
+
+Nunca confiar en:
+
+"isAdmin" enviado desde cliente.
+
+---
+
+# 28. TEST DE SEGURIDAD
+
+Antes de producción ejecutar:
+
+- auth tests;
+- authorization tests;
+- session tests;
+- rate-limit tests;
+- input validation;
+- XSS;
+- CSRF;
+- SSRF donde aplique;
+- IDOR/BOLA;
+- injection;
+- replay;
+- privilege escalation;
+- secret exposure;
+- API abuse;
+- WebSocket abuse.
+
+Crear:
+
+docs/LUKA_SECURITY_RELEASE_AUDIT.md
+
+---
+
+# 29. RELEASE CANDIDATE
+
+Crear:
+
+LUKA MVP RC1.
+
+Congelar funcionalidades.
+
+NO introducir funcionalidades nuevas durante la certificación.
+
+Validar:
+
+1. entrada;
+2. AR;
+3. elección AR/TV;
+4. TV;
+5. trackpad;
+6. keyboard;
+7. gamepad;
+8. cambio contextual;
+9. voz;
+10. QR;
+11. sesiones;
+12. permisos;
+13. seguridad;
+14. recovery.
+
+---
+
+# 30. HARDWARE
+
+No declarar:
+
+"compatible con Smart TV"
+
+hasta realizar pruebas reales.
+
+Declarar inicialmente:
+
+"Compatible con dispositivos y entornos verificados."
+
+Crear matriz:
+
+Android
+iOS
+Chrome
+Safari
+Android TV
+Google TV
+Samsung
+LG
+etc.
+
+Pero no bloquear MVP por compatibilidad universal.
+
+---
+
+# 31. MÉTRICAS DE PRODUCTO
+
+Instrumentar:
+
+activation
+AR start
+AR → TV conversion
+TV session
+intent success
+intent failure
+mode switching
+voice usage
+QR usage
+return users
+session duration
+crash rate
+permission rejection
+device compatibility.
+
+No obsesionarse con métricas vanidosas.
+
+La métrica principal inicial:
+
+¿El usuario entiende qué es LUKA y vuelve a usarlo?
+
+---
+
+# 32. CRITERIO DE SALIDA
+
+LUKA puede salir públicamente cuando:
+
+[ ] HTTPS
+[ ] auth segura
+[ ] autorización server-side
+[ ] secrets protegidos
+[ ] CSP/security headers
+[ ] rate limiting
+[ ] audit logging
+[ ] backup
+[ ] recovery test
+[ ] MJP CORE aislado
+[ ] AR probado
+[ ] TV probado
+[ ] QR probado
+[ ] voz fallback probado
+[ ] permisos contextuales
+[ ] privacy mínima
+[ ] RC1 congelado
+[ ] security audit PASS
+[ ] product flow PASS.
+
+No exigir perfección.
+
+Exigir seguridad razonable y experiencia coherente.
+
+---
+
+# 33. ORDEN DE EJECUCIÓN
+
+MANUS DEBE EJECUTAR EN ESTE ORDEN:
+
+P0. Congelar arquitectura constitucional.
+
+P1. Implementar LUKA Universal Entry definitivo.
+
+P2. Implementar flujo AR → elección Mundo LUKA / TV.
+
+P3. Implementar LUKA TV como controlador universal MVP.
+
+P4. Implementar disclosure contextual:
+    TV → Trackpad
+    Trackpad → AR
+    Keyboard → Gamepad
+    Gamepad → modos disponibles.
+
+P5. Implementar comandos de voz.
+
+P6. Eliminar configuraciones innecesarias del flujo público.
+
+P7. Security Hardening.
+
+P8. Privacy / Permissions.
+
+P9. Observability.
+
+P10. Backup / Recovery.
+
+P11. RC1.
+
+P12. QA integral.
+
+P13. Security audit.
+
+P14. Product acceptance.
+
+P15. Public MVP release.
+
+P16. Inmediatamente después del release:
+     iniciar WORLD LUKA.
+
+---
+
+# 34. PROHIBICIONES
+
+NO:
+
+- rehacer MJP CORE;
+- introducir pagos;
+- introducir wallet;
+- introducir moneda L*;
+- convertir capacidades hidden en públicas;
+- construir 20 funcionalidades nuevas;
+- crear un dashboard gigante;
+- añadir configuraciones innecesarias;
+- esperar compatibilidad universal;
+- afirmar seguridad absoluta;
+- afirmar que la marca protege la idea;
+- publicar arquitectura sensible;
+- publicar secretos;
+- almacenar secretos en frontend.
+
+---
+
+# 35. RESULTADO ESPERADO
+
+Al finalizar esta orden debe existir:
+
+LUKA MVP PUBLICABLE.
+
+Experiencia:
+
+QR
+↓
+LUKA aparece en AR
+↓
+"¿Quieres entrar al mundo de LUKA o quieres ver TV?"
+↓
+MUNDO LUKA
+       │
+       └── AR territorial
+
+o
+
+TV
+↓
+control remoto
+↓
+Trackpad / Keyboard / Gamepad
+↓
+AR disponible contextualmente
+↓
+voz disponible.
+
+Todo bajo una sola identidad:
+
+LUKA.
+
+Sin obligar al usuario a comprender la arquitectura interna.
+
+---
+
+# 36. DOCUMENTACIÓN OBLIGATORIA
+
+Crear/actualizar:
+
+docs/LUKA_MVP_PRODUCTION_SPEC.md
+docs/LUKA_SECURITY_RELEASE_AUDIT.md
+docs/LUKA_IP_ASSET_REGISTER.md
+docs/LUKA_ANTI_PHISHING.md
+docs/LUKA_WORLD_ENGINE_FOUNDATION.md
+docs/LUKA_MVP_RELEASE_REPORT.md
+
+Cada documento debe indicar:
+
+IMPLEMENTED
+SIMULATED
+PREPARED
+BLOCKED
+NOT TESTED.
+
+No confundir simulación con integración real.
+
+---
+
+# 37. REPORTE FINAL
+
+Al terminar, Manus debe entregar:
+
+A. cambios realizados;
+B. archivos modificados;
+C. tests ejecutados;
+D. resultados;
+E. vulnerabilidades encontradas;
+F. vulnerabilidades corregidas;
+G. vulnerabilidades pendientes;
+H. capacidades realmente conectadas;
+I. capacidades simuladas;
+J. compatibilidad real comprobada;
+K. riesgos de producción;
+L. decisión:
+
+GO
+o
+NO-GO.
+
+Si NO-GO:
+explicar exactamente qué bloquea el lanzamiento.
+
+Si GO:
+indicar las condiciones bajo las cuales se recomienda el lanzamiento.
+
+---
+
+# 38. PRINCIPIO FINAL
+
+NO CONSTRUIR UNA APP.
+
+CONSTRUIR LA PUERTA DE ENTRADA AL MUNDO LUKA.
+
+La primera versión no necesita demostrar todo lo que LUKA podrá hacer.
+
+Necesita demostrar una sola cosa:
+
+QUE LUKA ES UNA NUEVA FORMA DE INTERACTUAR CON EL MUNDO.
+
+FIN DE ORDEN.
+Y una precisión estratégica
+
+Hay una cosa que yo cambiaría respecto de la auditoría de Manus.
+
+No considero que el siguiente gran paso sea simplemente "terminar el MVP de TV".
+
+TV es el caballo de Troya funcional: resuelve una necesidad concreta —controlar la televisión desde el celular— y permite que LUKA entre en la casa.
+
+Pero el producto que realmente estás intentando construir es:
+
+LUKA → TV → AR → territorio → Mundo LUKA.
+
+Por eso el orden correcto es:
+
+                 LUKA
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+   MUNDO LUKA             TV
+        │                   │
+       AR            CONTROL REMOTO
+        │                   │
+   TERRITORIO       Trackpad / Keyboard
+        │                   │
+    POIs / lugares       Gamepad
+        │                   │
+        └─────────┬─────────┘
+                  │
+             LUKA OS
+                  │
+          Intent + Context
+                  │
+        ┌─────────┴─────────┐
+        │                   │
+   Dispositivos          Territorio
+
+No construiría todavía Lights, Climate, Wearables, Vehicle, etc. Eso es expansión prematura.
+
+Primero hay que conseguir que una persona común haga este recorrido sin necesitar instrucciones:
+
+Escanea → aparece LUKA → entiende qué es → entra al mundo o ve TV → controla algo → vuelve a LUKA.
+
+Si eso funciona, entonces tenemos producto.
+
+Si no funciona, agregar veinte capacidades solo producirá una aplicación más grande y peor.
+
+Y sobre la protección: no confundamos secreto con ventaja competitiva. El frontend siempre podrá inspeccionarse. Lo que debemos proteger realmente es el backend, las claves, los datos, los contratos, los algoritmos sensibles, la infraestructura y —a largo plazo— el World Engine + contenido territorial + identidad + distribución. Ahí está el verdadero activo difícil de copiar.

@@ -1,0 +1,92 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="12"></o:idmap>
+ </o:shapelayout><v:shapetype id="_x0000_t201" coordsize="21600,21600" o:spt="201" path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"></v:stroke>
+  <v:path shadowok="f" o:extrusionok="f" strokeok="f" fillok="f" o:connecttype="rect"></v:path>
+  <o:lock v:ext="edit" shapetype="t"></o:lock>
+ </v:shapetype><v:shape id="_x0000_s12289" type="#_x0000_t201" style="position:absolute;   margin-left:777pt;margin-top:305.25pt;width:91.5pt;height:31.5pt;z-index:1;   mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t" aspectratio="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Borrar Base de Datos</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>18,8,16,13,18,130,18,9</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[1]!Borar_Base_de_Datos</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s12290" type="#_x0000_t201" style="position:absolute;   margin-left:776.25pt;margin-top:400.5pt;width:92.25pt;height:17.25pt;   z-index:2;mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t" aspectratio="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Hacer Cuadros</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>18,7,22,2,18,130,23,2</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[1]!Hacer_Cuadros</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s12291" type="#_x0000_t201" style="position:absolute;   margin-left:777pt;margin-top:342pt;width:91.5pt;height:33pt;z-index:3;   mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t" aspectratio="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Crear Hoja de Ganadores</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>18,8,18,16,18,130,20,14</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[1]!CrearHojaGanadores</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s12292" type="#_x0000_t201" style="position:absolute;   margin-left:776.25pt;margin-top:378.75pt;width:92.25pt;height:16.5pt;   z-index:4;mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t" aspectratio="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Frecuencia</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>18,7,20,19,18,130,21,18</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[1]!frecuencia</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s12293" type="#_x0000_t201" style="position:absolute;   margin-left:777pt;margin-top:423.75pt;width:91.5pt;height:19.5pt;z-index:5;   mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t" aspectratio="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">OrdenarRepeticiones</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>18,8,23,10,18,130,24,13</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[1]!VerificarRepeticiones</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape><v:shape id="_x0000_s12294" type="#_x0000_t201" style="position:absolute;   margin-left:777pt;margin-top:450.75pt;width:91.5pt;height:19.5pt;z-index:6;   mso-wrap-style:tight" o:button="t" fillcolor="buttonFace [67]" strokecolor="windowText [64]" o:insetmode="auto">
+  <v:fill color2="buttonFace [67]" o:detectmouseclick="t"></v:fill>
+  <o:lock v:ext="edit" rotation="t" aspectratio="t"></o:lock>
+  <v:textbox style="mso-direction-alt:auto" o:singleclick="f">
+   <div style="text-align:center"><font face="Calibri" size="220" color="#000000">Calcular Aciertos</font></div>
+  </v:textbox>
+  <x:ClientData ObjectType="Button">
+   <x:Anchor>18,8,25,0,18,130,26,3</x:Anchor>
+   <x:PrintObject>False</x:PrintObject>
+   <x:AutoFill>False</x:AutoFill>
+   <x:FmlaMacro>[0]!NumeroAciertos2</x:FmlaMacro>
+   <x:TextHAlign>Center</x:TextHAlign>
+   <x:TextVAlign>Center</x:TextVAlign>
+  </x:ClientData>
+ </v:shape></xml>

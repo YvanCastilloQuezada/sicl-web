@@ -1,0 +1,301 @@
+arki@Arki-02:~/Descargas$ 
+arki@Arki-02:~/Descargas$ echo "========================================"
+echo " ARKI — INVENTARIO DE MODELOS IA"
+echo "========================================"
+
+echo
+echo "=== 1. MODELOS INSTALADOS EN OLLAMA ==="
+ollama list
+
+echo
+echo "=== 2. MODELOS CARGADOS ACTUALMENTE ==="
+ollama ps
+
+echo
+echo "=== 3. VERSION DE OLLAMA ==="
+ollama --version
+
+echo
+echo "=== 4. ESTADO DE GPU NVIDIA ==="
+nvidia-smi
+
+echo
+echo "=== 5. DETALLE DE CADA MODELO ==="
+ollama list | tail -n +2 | awk '{print $1}' | while read -r modelo; do
+    echo
+    echo "----------------------------------------"
+    echo "MODELO: $modelo"
+    ollama show "$modelo" 2>&1 | head -n 35
+done
+
+echo
+echo "=== 6. OTROS SERVIDORES DE IA ==="
+for servicio in ollama vllm llama-cpp-server; do
+    systemctl is-active "$servicio" 2>/dev/null || true
+done
+
+echo
+echo "========================================"
+echo " INVENTARIO TERMINADO"
+echo "========================================"
+========================================
+ ARKI — INVENTARIO DE MODELOS IA
+========================================
+
+=== 1. MODELOS INSTALADOS EN OLLAMA ===
+NAME                       ID              SIZE      MODIFIED       
+d1-omni:latest             1ba59f63e836    849 MB    8 minutes ago     
+nemotron-mini:4b           ed76ab18784f    2.7 GB    11 minutes ago    
+deepseek-coder:1.3b        3ddd2d3fc8d2    776 MB    14 minutes ago    
+qwen3-vl:8b                901cae732162    6.1 GB    2 hours ago       
+llama3.2-vision:11b        6f2f9757ae97    7.8 GB    2 days ago        
+qwen3-coder-next:q4_K_M    ca06e9e4087c    51 GB     2 days ago        
+devstral-small-2:24b       24277f07f62d    15 GB     2 days ago        
+qwen3-coder:30b            06c1097efce0    18 GB     2 days ago        
+
+=== 2. MODELOS CARGADOS ACTUALMENTE ===
+NAME                   ID              SIZE      PROCESSOR    CONTEXT    RUNNER      UNTIL                   
+deepseek-coder:1.3b    3ddd2d3fc8d2    1.6 GB    100% GPU     4096       llamacpp    2 minutes from now         
+nemotron-mini:4b       ed76ab18784f    2.8 GB    100% GPU     4096       llamacpp    2 minutes from now         
+d1-omni:latest         1ba59f63e836    2.9 GB    100% GPU     16384      llamacpp    About a minute from now    
+
+=== 3. VERSION DE OLLAMA ===
+ollama version is 0.40.4
+
+=== 4. ESTADO DE GPU NVIDIA ===
+Sat Oct 17 19:20:54 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 595.99.02              Driver Version: 595.99.02      CUDA Version: 13.2     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3060        Off |   00000000:04:00.0  On |                  N/A |
+|  0%   45C    P8             16W /  170W |    8131MiB /  12288MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2790      G   /usr/bin/gnome-shell                     84MiB |
+|    0   N/A  N/A            5658      G   /usr/bin/Xwayland                         3MiB |
+|    0   N/A  N/A            6606    C+G   ...rack-uuid=3190708988185955192        135MiB |
+|    0   N/A  N/A         2911058    C+G   /usr/bin/ptyxis                          16MiB |
+|    0   N/A  N/A         2982164      C   ...local/lib/ollama/llama-server       3290MiB |
+|    0   N/A  N/A         2989504      C   ...local/lib/ollama/llama-server       2830MiB |
+|    0   N/A  N/A         2993555      C   ...local/lib/ollama/llama-server       1652MiB |
++-----------------------------------------------------------------------------------------+
+
+=== 5. DETALLE DE CADA MODELO ===
+
+----------------------------------------
+MODELO: d1-omni:latest
+  Model
+    architecture        lfm2       
+    parameters          380.73M    
+    context length      128000     
+    embedding length    1024       
+    quantization        Q8_0       
+    requires            0.40.4     
+
+  Capabilities
+    decision    
+    vision      
+
+  Projector
+    architecture        clip       
+    parameters          206.41M    
+    embedding length    768        
+    dimensions          1024       
+
+  Parameters
+    num_ctx    16384    
+
+  License
+    LFM Open License v1.0                                           
+    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION    
+    ...                                                             
+
+
+----------------------------------------
+MODELO: nemotron-mini:4b
+  Model
+    architecture        nemotron    
+    parameters          4.2B        
+    context length      4096        
+    embedding length    3072        
+    quantization        Q4_K_M      
+
+  Capabilities
+    completion    
+    tools         
+
+  License
+    NVIDIA AI Foundation Models Community License Agreement                                   
+    IMPORTANT NOTICE – PLEASE READ AND AGREE BEFORE USING THE NVIDIA AI FOUNDATION MODELS.    
+    ...                                                                                       
+
+
+----------------------------------------
+MODELO: deepseek-coder:1.3b
+  Model
+    architecture        llama    
+    parameters          1B       
+    context length      16384    
+    embedding length    2048     
+    quantization        Q4_0     
+
+  Capabilities
+    completion    
+
+  System
+    You are an AI programming assistant, utilizing the Deepseek Coder model, developed by Deepseek          
+      Company, and you only answer questions related to computer science. For politically sensitive           
+      questions, security and privacy issues, and other non-computer science questions, you will refuse to    
+      answer.                                                                                                 
+
+  License
+    DEEPSEEK LICENSE AGREEMENT      
+    Version 1.0, 23 October 2023    
+    ...                             
+
+
+----------------------------------------
+MODELO: qwen3-vl:8b
+  Model
+    architecture        qwen3vl    
+    parameters          8.8B       
+    context length      262144     
+    embedding length    4096       
+    quantization        Q4_K_M     
+
+  Capabilities
+    completion     
+    vision         
+    tools          
+    thinking       
+        levels     false, true    
+        default    true           
+
+  Parameters
+    temperature    1       
+    top_k          20      
+    top_p          0.95    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+
+----------------------------------------
+MODELO: llama3.2-vision:11b
+  Model
+    architecture        mllama    
+    parameters          10.7B     
+    context length      131072    
+    embedding length    4096      
+    quantization        Q4_K_M    
+
+  Capabilities
+    tools         
+    completion    
+    vision        
+
+  Parameters
+    temperature    0.6    
+    top_p          0.9    
+
+  License
+    **Llama 3.2** **Acceptable Use Policy**                                                                 
+    Meta is committed to promoting safe and fair use of its tools and features,                             
+      including Llama 3.2. If you access or use Llama 3.2, you agree to this Acceptable                       
+      Use Policy (“**Policy**”). The most recent copy of this policy can be found at                          
+      [https://www.llama.com/llama3_2/use-policy](https://www.llama.com/llama3_2/use-policy).                 
+    ...                                                                                                     
+
+
+----------------------------------------
+MODELO: qwen3-coder-next:q4_K_M
+  Model
+    architecture        qwen3next    
+    parameters          79.7B        
+    context length      262144       
+    embedding length    2048         
+    quantization        Q4_K_M       
+    requires            0.15.5       
+
+  Capabilities
+    completion    
+    tools         
+
+  Parameters
+    temperature    1       
+    top_k          40      
+    top_p          0.95    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+
+----------------------------------------
+MODELO: devstral-small-2:24b
+  Model
+    architecture        mistral3    
+    parameters          24.0B       
+    context length      393216      
+    embedding length    5120        
+    quantization        Q4_K_M      
+
+  Capabilities
+    completion    
+    vision        
+    tools         
+
+  Parameters
+    temperature    0.15    
+
+
+----------------------------------------
+MODELO: qwen3-coder:30b
+  Model
+    architecture        qwen3moe    
+    parameters          30.5B       
+    context length      262144      
+    embedding length    2048        
+    quantization        Q4_K_M      
+
+  Capabilities
+    completion    
+    tools         
+
+  Parameters
+    temperature       0.7                
+    top_k             20                 
+    top_p             0.8                
+    repeat_penalty    1.05               
+    stop              "<|im_start|>"     
+    stop              "<|im_end|>"       
+    stop              "<|endoftext|>"    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+
+=== 6. OTROS SERVIDORES DE IA ===
+active
+inactive
+inactive
+
+========================================
+ INVENTARIO TERMINADO
+========================================
+arki@Arki-02:~/Descargas$ 

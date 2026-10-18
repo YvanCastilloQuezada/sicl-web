@@ -1,0 +1,14 @@
+=== 11-test-module-states ===
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.patchedDependencies", "pnpm.overrides". See https://pnpm.io/settings for the new home of each setting.
+{
+  "status": "PASS",
+  "modules": 16,
+  "statuses": [
+    "IMPLEMENTED",
+    "PARTIAL",
+    "CONCEPTUAL",
+    "VERIFIED",
+    "NOT AVAILABLE",
+    "FUTURE REFERENCE"
+  ]
+}

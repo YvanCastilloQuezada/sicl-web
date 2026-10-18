@@ -1,0 +1,84 @@
+{
+  "schema": "ARKI-ANEXO-I-0.1",
+  "packageId": "ARKI-E1-K-BLIND-LEARNING-EXAM-2026-09-20",
+  "experimentType": "BLIND_ARCHITECTURAL_LEARNING_AND_REASONING_EXAM",
+  "executionId": "E1-K-2026-09-20-0355-ARKI-E1-ANIMAL-RESCUE",
+  "implementationFrozen": true,
+  "noInternetDuringResolution": true,
+  "noExamSpecificCode": true,
+  "baseline": {
+    "repository": "SICL Command Center / ARKI",
+    "branch": "main",
+    "head": "ee5cc8c50827a20e65eaf6fe620e0851cddeafbf",
+    "m0kBaseline": "ee5cc8c50827a20e65eaf6fe620e0851cddeafbf"
+  },
+  "input": {
+    "projectId": "ARKI-E1-ANIMAL-RESCUE",
+    "lot": "60m x 40m",
+    "accesses": ["NORTH", "WEST"],
+    "capacity": {"dogs": 60, "cats": 40, "visitorsSimultaneous": 20, "workersPerShift": 12},
+    "operation": {"animalReception": "24/7", "publicAdoptions": "08:00-18:00"},
+    "activities": ["arrival", "reception", "initial evaluation", "temporary recovery", "feeding", "cleaning", "waste handling", "food and supplies storage", "visitor service", "controlled animal encounter", "adoption", "administration", "staff work"],
+    "criticalCondition": "Some incoming animals may have unknown health condition"
+  },
+  "prohibitedInputs": ["room list", "zoning", "parti", "initial geometry", "dimensions", "ratios", "specific veterinary regulation", "solution geometry"],
+  "prohibitedReuseAsSolution": ["UPAO-001", "Project B/P9/P10", "hospital", "terminal", "hotel", "restaurant", "laboratory", "R-PARTI geometries"],
+  "artifacts": {
+    "report": "docs/exams/ARKI-E1-K-BLIND-LEARNING-EXAM-2026-09-20.md",
+    "manifest": "docs/arki-e1-k/manifest.json",
+    "m0kFoundation": "shared/arkiKnowledgeCorpusFoundation.ts",
+    "m0kContractTests": "client/src/arkiKnowledgeCorpusFoundation.test.ts"
+  },
+  "results": {
+    "roomFixation": "FALSE",
+    "prematureSolution": "FALSE",
+    "unsupportedPrecisionFailure": "FALSE",
+    "linearScalingAssumption": "FALSE",
+    "strategyRealizationSeparation": "PASS",
+    "rationalePreservation": "PARTIAL",
+    "persistence": "BLOCKED",
+    "nearVariantTransfer": "ADAPT",
+    "crossTypologyTransfer": "ADAPT_OR_UNKNOWN",
+    "counterexampleHandling": "NOT_EVALUABLE",
+    "regulatoryCompliance": "NOT_VERIFIED",
+    "humanAuthority": "DEMONSTRATED_IN_CONTROLLED_TEST",
+    "highestAutonomy": "L6_GENERATES_CANDIDATES",
+    "finalEpistemicState": "PARTIALLY_IMPLEMENTED"
+  },
+  "learningEvent": {
+    "introducedAfterReasoning": true,
+    "observation": "Accumulation at animal reception when more than four deliveries arrive within 15 minutes across three observed days",
+    "scope": "PROJECT/CASE-SCOPED",
+    "kBefore": "No project-specific reception throughput observation",
+    "kAfter": "K2_CANDIDATE",
+    "universalCanonization": false,
+    "promotion": "HUMAN_REVIEW_REQUIRED"
+  },
+  "dimensionProfile": {
+    "representation": "DEMONSTRATED_IN_CONTROLLED_TEST",
+    "knowledgeRetrieval": "PARTIAL",
+    "provenance": "PARTIAL",
+    "unknownManagement": "DEMONSTRATED_IN_CONTROLLED_TEST",
+    "functionalReasoning": "DEMONSTRATED_IN_CONTROLLED_TEST",
+    "causalReasoning": "PARTIAL",
+    "diagnosis": "DEMONSTRATED_IN_CONTROLLED_TEST",
+    "strategyGeneration": "PARTIAL",
+    "strategicDiversity": "PARTIAL",
+    "realizationDiversity": "PARTIAL",
+    "topologicalReasoning": "NOT_DEMONSTRATED_GEOMETRICALLY",
+    "capacityTimeReasoning": "PARTIAL",
+    "failureReasoning": "PARTIAL",
+    "learning": "DEMONSTRATED_CASE_SCOPED",
+    "persistence": "BLOCKED",
+    "transfer": "PARTIAL",
+    "generalization": "NOT_DEMONSTRATED",
+    "restraint": "DEMONSTRATED_IN_CONTROLLED_TEST",
+    "regulatoryEpistemics": "DEMONSTRATED_IN_CONTROLLED_TEST"
+  },
+  "regressions": {
+    "knowledge": "NO_CORPUS_MUTATION",
+    "reasoning": "M0K_T1_T11_PASS_BEFORE_EXAM",
+    "software": "6_PRE_EXISTING_PHASE_A_THEME_FAILURES_UNRELATED_TO_E1"
+  },
+  "stopConditions": ["No code repair during exam", "No E2", "No automatic K7 promotion", "No hazard canonization", "No Manual of Forms modification"]
+}
