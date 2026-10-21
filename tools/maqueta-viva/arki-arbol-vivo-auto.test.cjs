@@ -21,4 +21,11 @@ const dependency=build({ideas:[{id:"A",targetPhase:"F1"},{id:"B",targetPhase:"F2
 assert.deepEqual(dependency.order.map(x=>x.id),["A","B"]);
 const cycle=build({ideas:[{id:"A",targetPhase:"F1",dependencies:["B"]},{id:"B",targetPhase:"F2",dependencies:["A"]}],components:[]});
 assert(cycle.issues.some(x=>x.code==="DEPENDENCY_CYCLE"));
+assert.equal(result.dependencyCoverage.total,result.counts.total);
+assert.equal(result.dependencyCoverage.declared,0);
+assert.equal(result.order.filter(x=>x.prerequisiteStatus==="BLOCKED_UNVERIFIED").length,result.counts.total);
+const declared=build({ideas:[{id:"A",targetPhase:"F1",dependencies:[]},{id:"B",targetPhase:"F2",dependencies:["A"]}],components:[]});
+assert(declared.order.every(x=>x.prerequisiteStatus==="DECLARED_NOT_COMPETENCE_VERIFIED"));
+const propagated=build({ideas:[{id:"A",targetPhase:"F1"},{id:"B",targetPhase:"F2",dependencies:["A"]}],components:[]});
+assert(propagated.order.every(x=>x.prerequisiteStatus==="BLOCKED_UNVERIFIED"));
 console.log("ARKI_ARBOL_VIVO_AUTO_001=PASS; INVENTORY="+result.counts.total+"; PHASE_ASSIGNMENT_NOT_AUTONOMOUS; REAL_EXPERIMENT_NOT_EXECUTED");

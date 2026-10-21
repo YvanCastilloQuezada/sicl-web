@@ -119,3 +119,48 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 **Declaración del Product Owner:** este documento recoge cómo nació ARKI y lo que debe llegar a ser. **IMPORTANTE: contenido de las hojas AÚN NO LEÍDO**; la herramienta GitHub disponible rechazó la extracción del XLSX binario. No inferir contenido ni declararlo auditado.
 **Próxima acción obligatoria:** materializar/descargar XLSX con un mecanismo binario válido; leer todas las hojas, contrastar origen, decisiones, cambios de nombre SICL→Vitruvio→ARKI, visión futura, autoridad y determinismo; incorporar los hallazgos documentados aquí y al mapa maestro con referencia exacta de hoja/celda. Distinguir historia, intención, implementación y evidencia.
 **Otra fuente de preservación:** `docs/arki-knowledge/preserved/01_ARKI_Decisiones_y_Constitucion_v1.0.xlsx`, también pendiente de lectura integral.
+
+## Continuidad de validación offline — 2026-10-14
+- GitHub Actions para PR #57 no asignó runner y terminó en segundos; causa de facturación/cuota plausible pero NO CONFIRMADA con acceso a billing.
+- Rama `test/arki-autonomy-offline-ci-20261014`, PR #61 DRAFT, implementa `tools/maqueta-viva/Run-ARKI-Offline-CI.cjs` para 13 suites existentes sin dependencia de GitHub Actions. Node 22, SHA exacto, worktree limpio, reporte JSON y fallos explícitos. Último commit del runner: `c7744aba22ba801758d5bf612de0d9047641d880`.
+- Procedimiento: `docs/arki-master-map/ARKI_OFFLINE_VALIDATION_20261014.md`. No se ha ejecutado en ARKI-02; NO reclamar PASS.
+- PR #60 mantiene auditoría doble sin modificación de runtime. PR #57 es la autonomía ya existente; NO DUPLICAR.
+- Próximo: ejecutar validación offline en clon experimental, reconciliar PR #57 con Árbol Vivo, verificar persistencia y ACE88. No merge ni FREEZE hasta evidencias.
+
+## Continuidad adicional offline — 2026-10-14
+- El runner local ahora enumera 15 archivos de pruebas, incluyendo verificador de journal y analizador de divergencia de ramas. No se han ejecutado en ARKI-02.
+- Nuevos módulos read-only: `tools/maqueta-viva/Verify-ARKI-Journal.cjs`, `Reconcile-ARKI-Branches.cjs`, con pruebas adversariales independientes.
+- Procedimiento actualizado: `docs/arki-master-map/ARKI_OFFLINE_VALIDATION_20261014.md`.
+- PR #61 DRAFT. Evitar merge a main y no afirmar ACE88 integrado, persistencia durable ni AGK E2E.
+
+## Integración ACE88 — continuidad 2026-10-14
+- Contrato propuesto en `docs/arki-master-map/ARKI_ACE88_WEB_CORE_BOUNDARY_20261014.md` (commit `ccd4cc8b19019b9b8d0ebd67f435a5106ddc5484`).
+- Fuente Core `docs/ace88/ACE88_ROOT_INTEGRATION.md`: declara regresión local PASS al 14/10; auditoría independiente y SECURITY_FREEZE siguen pendientes. No inferir aprobación desde clic UI.
+- Se optimizó `Reconcile-ARKI-Branches.cjs` para evitar ejecutar un proceso Git por cada ruta (commit `d1568d766627ef959a22c365f289f1e87c028b74`).
+- Próximo: inspeccionar API ACE88 real y escribir adaptador fail-closed con pruebas, sin promover cambios canónicos antes de validación E2E.
+
+## ACE88 Web-Core adapter — 2026-10-14
+- Preflight y transporte inyectable implementados: `tools/maqueta-viva/arki-ace88-preflight-adapter.cjs`, `arki-ace88-core-transport.cjs`.
+- Ruta Core verificada en código: POST `/v1/projects/{project_id}/developer-promotions`; servicio requiere Bearer; no almacenar tokens.
+- Suites ACE88 incluidas en runner offline: 17 archivos de pruebas totales; ejecución real NO DEMOSTRADA.
+- Contrato y advertencias E2E: `docs/arki-master-map/ARKI_ACE88_ADAPTER_IMPLEMENTATION_20261014.md`.
+- No usar proyecto canónico para pruebas de promoción; falta cliente HTTP servidor real, verificación independiente y SECURITY_FREEZE.
+
+## Árbol Vivo — propagación segura de antecedentes (2026-10-14)
+- `arki-arbol-vivo-auto.cjs` ahora consume el gate `arki-dependency-coverage.cjs`, marca `prerequisiteStatus` y propaga bloqueos a descendientes sin cambiar el registro canónico.
+- Registro histórico de 51 elementos: ninguno declara `dependencies`; su ruta de precedencias permanece `BLOCKED_UNVERIFIED`, aunque el orden topológico histórico se conserve para inspección.
+- `arki-arbol-vivo-auto.test.cjs` añade pruebas de bloqueo propagado y antecedentes declarados. Ejecutar offline; no se afirma PASS hasta recibir evidencia.
+- El estado `DECLARED_NOT_COMPETENCE_VERIFIED` tampoco habilita ejecución: falta validación de competencias, evidencia y ACE88.
+
+## Aprendizaje relacional Árbol Vivo — 2026-10-14
+- Nuevo generador de relaciones candidatas `tools/maqueta-viva/arki-relational-learning.cjs`: REQUIRES, INFORMS, FEEDBACK, trazabilidad declarada y detección de ciclos. No promociona ni muta el registro.
+- Suite `arki-relational-learning.test.cjs` incorporada al runner offline (19 archivos en total), pruebas no ejecutadas.
+- Documentación `docs/arki-master-map/ARKI_RELATIONAL_LEARNING_20261014.md`.
+- Próximo paso: extracción y verificación automática de evidencia desde los tres repositorios y conexión a UI Árbol Vivo, sin inventar precedencias.
+
+## Descubrimiento automático de relaciones — 2026-10-14
+- `arki-relational-discovery.cjs` recorre documentación versionada y reconoce declaraciones explícitas `ARKI_RELATION: A REQUIRES B` (o INFORMS/FEEDBACK).
+- `arki-relational-evidence.cjs` comprueba citas contra Git SHA exacto; no verifica semántica ni permite promoción.
+- Nuevas suites `arki-relational-discovery.test.cjs` y `arki-relational-evidence.test.cjs` integradas en runner offline (21 archivos), ejecución aún pendiente.
+- Instrucciones y límites: `docs/arki-master-map/ARKI_AUTONOMOUS_RELATION_DISCOVERY_20261014.md`.
+- Pendiente: ampliar extracción de relaciones no estructuradas, revisar evidencias y conectar grafo aprobado a UI y aprendizaje Delta 6.2; respetar ACE88.

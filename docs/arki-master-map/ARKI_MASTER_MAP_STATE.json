@@ -9,7 +9,7 @@
       "phase": 7,
       "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
-      "note": "F6 is frozen. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
+      "note": "F6 FROZEN permanently revoked by explicit PO decision on 2026-10-14; historical evidence retained, revalidation required. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
     },
     "phases": [
       {
@@ -39,8 +39,8 @@
       },
       {
         "id": "F6",
-        "status": "FROZEN",
-        "evidence_status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY"
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "HISTORICAL_GO_BOUNDED_EVIDENCE_RETAINED_REVALIDATION_REQUIRED"
       },
       {
         "id": "F7",
@@ -2341,5 +2341,15 @@
     },
     "next_gate": "Run GDT-02 synthetic self-test on Windows, then obtain genuine asset register and timestamped observations with byte-verified sources; independently validate asset mapping and provenance before any operational twin claim",
     "authority": "NO EVIDENCIA = NO VERDE; F1-F10, FROZEN, D-2, AGK, and roadmap unchanged"
+  },
+  "f6_freeze_revocation": {
+    "decision": "PERMANENT_FROZEN_REVOCATION",
+    "authority": "PO_EXPLICIT",
+    "date": "2026-10-14",
+    "phase": "F6",
+    "current_status": "RECONCILIATION_REQUIRED",
+    "historical_evidence": "GO_BOUNDED_DEMONSTRATED_BOUNDARY",
+    "rule": "Do not automatically restore FROZEN; any future freeze requires a new explicit PO decision and independently verified evidence.",
+    "scope": "F6 phase status; historical evidence and other FROZEN contracts are preserved"
   }
 }

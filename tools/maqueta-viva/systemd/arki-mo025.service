@@ -1,0 +1,13 @@
+[Unit]
+Description=ARKI MO-025 supervised advisory pulse
+Documentation=man:systemd.service(5)
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/ARKI/validacion-f6-descongelada
+ExecStart=/usr/bin/node %h/ARKI/validacion-f6-descongelada/tools/maqueta-viva/arki-mo025-scheduled.cjs %h/.config/arki/mo025.json
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/state/arki
