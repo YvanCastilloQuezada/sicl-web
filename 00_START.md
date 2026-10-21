@@ -130,3 +130,11 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - PR #57: https://github.com/YvanCastilloQuezada/sicl-web/pull/57; 7 archivos/9 commits sobre esta rama, DRAFT; no promover a main en bloque.
 - Macroorden de continuidad: localizar mecanismo que efectivamente escriba `00_START`, verificar timer + ejecuciones diarias con timestamps + commit de salida, conciliar handoffs, y solo entonces conectar el ciclo de autonomía sin duplicar servicios.
 - Próxima evidencia imprescindible: `systemctl --user list-timers --all`, `systemctl --user status arki02-ci.timer arki02-ci.service`, `journalctl --user -u arki02-ci.service --since '7 days ago'`, `ls -l --full-time ~/ARKI/bin/arki02-local-ci.sh ~/ARKI/bin/arki02-git-sync.py`, `git log -5 --format='%H %aI %s' -- 00_START.md` en repositorio Web local. No asumir que timer CI actualiza este archivo.
+
+
+## Auditoría doble Mapa Vivo / Árbol Vivo / Árbol Gemelo Digital — 2026-10-14
+- Auditoría estática publicada en `docs/arki-master-map/ARKI_LIVE_MAP_TREE_TWIN_DOUBLE_AUDIT_20261014.md`, commit `9cc2996004278a1eb6f37be0eb80f830b94ec1d5`.
+- Confirmado: los tres sistemas ya existen en `sicl-web`; no desarrollar versiones paralelas.
+- Ramas `feat/arbol-vivo-autoensamblaje-20261011` y `feat/arki-autonomy-orchestrator-20261013` divergen (9 adelante / 1 atrás en dirección orquestador respecto autoensamblaje). No fusionar sin reconciliación y pruebas.
+- `sicl-core/tools/arki_mapa_vivo.py` es candidato a deprecación por redundancia, no autoridad canónica.
+- Próximo trabajo: reconciliar cambios y `00_START.md`, ejecutar CI/E3, probar seguridad y conectar ACE88 con adaptador mínimo. Estado: AUDIT_ONLY / NOT_VERIFIED / NO_MERGE.
