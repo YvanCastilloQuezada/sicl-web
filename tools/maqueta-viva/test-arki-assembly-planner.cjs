@@ -1,0 +1,16 @@
+"use strict";
+const assert=require("node:assert/strict");
+const {planAssembly}=require("./arki-assembly-planner.cjs");
+const p=(id,phase,dependencies=[],extra={})=>({id,path:"src/"+id+".js",phase,dependencies,...extra});
+const result=planAssembly([p("C","F3",["B"]),p("A","F1"),p("B","F2",["A"]),p("Z","F4",["NOPE"]),p("F","F6",[],{frozen:true})]);
+assert.equal(result.summary.total,5);
+assert.equal(result.parts.find(x=>x.id==="C").status,"PROPOSED");
+assert(result.parts.find(x=>x.id==="Z").reasons.includes("DEPENDENCY_BLOCKED"));
+assert(result.parts.find(x=>x.id==="F").reasons.includes("FROZEN_READ_ONLY"));
+assert.equal(result.canonicalMutation,false);
+assert.equal(result.execution,"NOT_EXECUTED");
+assert.equal(planAssembly([p("A","F1")],{A:{phase:"F2"}}).parts[0].status,"REVIEW_REQUIRED");
+assert(planAssembly([p("A","F1",["B"]),p("B","F2",["A"])]).issues.some(x=>x.code==="DEPENDENCY_CYCLE"));
+assert.throws(()=>planAssembly([p("A","F1"),p("A","F2")]),/DUPLICATE_ID/);
+assert.throws(()=>planAssembly([{id:"../bad",path:"src/a.js"}]),/INVALID_PART/);
+console.log("ARKI_ASSEMBLY_PLANNER_TESTS=PASS");
