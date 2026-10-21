@@ -800,9 +800,18 @@ Inspección directa de código en `main` (21-10-2026):
 
 **El principal hueco demostrado no es la ausencia total de memoria, sino que varias piezas existentes tienen contratos y persistencias separados, y el macroorden/orquestador no está conectado al adaptador persistente.** Además, la captura automática de decisiones de conversación y la recuperación en una sesión nueva no están demostradas. No declarar MEMORY operativo hasta probar persistencia entre procesos y recuperación real.
 
-### Criterio de integración (sin inventar otro sistema)
+### Criterio de integración basado en los componentes existentes
 
-Reutilizar el adaptador JSON existente para el diario operativo que ya maneja `OBSERVATION`, `DEFICIT`, `PROPOSAL`, `EXPERIMENT_RESULT`, `TEST_RESULT`, `HUMAN_DECISION`, `BLOCKED` y `REASSESSMENT`; conectar el flujo de macroórdenes a ese almacén o demostrar el puente ya existente. Mantener Core como autoridad para eventos/decisiones canónicas y la memoria institucional versionada; los mapas y catálogos siguen siendo proyecciones con procedencia. Antes de fusionar, ejecutar pruebas de reinicio, duplicados, corrupción, ancla, evidencia faltante, revocación y consulta desde un proceso nuevo.
+- Existe un flujo persistente y probado por código para diagnósticos: `arki-integrated-diagnosis.cjs` llama a `planMo03`, `recordPlan`, `inspect` y `treeHistory`; comprueba `DIAGNOSIS_NOT_PERSISTED` si no encuentra el recibo guardado. `arki-mo04-guarded.cjs` y `arki-mo04-persistence.cjs` exigen un ancla confiable externa y rechazan truncamiento/corrupción.
+- `arki-autonomy-macro-orders.cjs` genera un diario en memoria del proceso (`history=[]` por defecto) y el buscador de código encontró solo la definición y sus pruebas como referencias de `runMacroOrder`. No se debe conectar a otra persistencia en paralelo sin demostrar que ese flujo no es un duplicado del MO03→MO04 existente.
+- `arki-automejora-operativa.cjs` sí persiste el ciclo operativo específico de observaciones, déficits, propuestas, recibos de experimentos y reevaluaciones. Es un dominio distinto del historial de diagnósticos MO04; mantener esa distinción hasta definir el mapeo existente.
+- SICL Core conserva la autoridad para eventos/decisiones canónicas y `institutional_memory` versionada. El mapa/ledger de continuidad y el catálogo de commits son proyecciones documentales con procedencia, no un Event Store alternativo.
+- `shared/arkiKnowledgeCorpusFoundation.ts` ya define contratos semánticos para fuentes, evidencia, conocimiento, UNKNOWN, transferencias y revisión humana. Pero `docs/arki-knowledge/README.md` y `package-manifest-v1.0.json` declaran `automatic_runtime_ingestion=false`: las 13 hojas Excel están preservadas/indexadas como fuentes, no incorporadas automáticamente al corpus de conocimiento canónico.
+- Por tanto, el trabajo de MEMORY debe unir la consulta/recuperación de estos sistemas existentes y habilitar la ingestión autorizada del paquete documental con su procedencia/estado, sin crear una segunda autoridad canónica ni un nuevo diario paralelo. La prueba de aceptación es recuperación real desde un proceso/chat nuevo, con SHA, fuente, fecha, estado epistemológico y decisiones/bloqueos pendientes.
+
+### Corrección registrada durante la auditoría
+
+Se exploró una conexión de persistencia adicional para `arki-autonomy-macro-orders.cjs`, pero al encontrar el flujo MO03→MO04 persistente y anclado se revirtió esa modificación antes de fusionar. El PR #68 conserva como diferencia neta solo el cambio original del workflow de continuidad a modo read-only. Esto evita dejar otra ruta de memoria redundante.
 
 
 ## Ampliación de paginación — historias de las ramas por defecto
