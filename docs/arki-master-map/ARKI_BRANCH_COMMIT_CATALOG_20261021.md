@@ -781,3 +781,25 @@
 - [SICL Web](https://github.com/YvanCastilloQuezada/sicl-web)
 - [SICL Core](https://github.com/YvanCastilloQuezada/sicl-core)
 - [ARKI ACS](https://github.com/YvanCastilloQuezada/arki-acs)
+
+
+## Hallazgo técnico ampliado — fragmentación de persistencia y brecha de conexión
+
+Inspección directa de código en `main` (21-10-2026):
+
+- `tools/maqueta-viva/arki-automejora-operativa.cjs` (`7872af5135bf`) sí es un adaptador persistente: valida ruta absoluta, usa archivo de bloqueo, valida la cadena de eventos, rechaza destinos inseguros y escribe mediante archivo temporal + rename. Expone `observe`, `evaluateLatest`, `reassess` y `readStore`.
+- `tools/maqueta-viva/arki-autonomy-memory.cjs` (`99a55814b857`) define el diario lógico encadenado por SHA-256. `summarize()` declara `NOT_PERSISTED_BY_THIS_MODULE`; la persistencia la hace el adaptador anterior.
+- `tools/maqueta-viva/arki-autonomy-macro-orders.cjs` (`9312e3e9360d`) llama a `orchestrate` y `memory.record`, pero recibe `history=[]` por defecto y devuelve el diario en memoria del proceso. No recibe `memoryFile`, no llama al adaptador persistente y no guarda ese diario en disco.
+- `tools/maqueta-viva/arki-autonomy-orchestrator.cjs` declara `memoryWrite: "NOT_PERFORMED"`. Es un planificador de solo planificación, no un ciclo de memoria persistente.
+- `tools/maqueta-viva/arki-mo04-persistence.cjs` (`99ad36f6c036`) implementa otro diario durable con un formato/contrato distinto y exige ancla confiable externa (`expectedLength`, `expectedHead`). No debe confundirse automáticamente con el almacén de auto-mejora.
+- `docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl` + `ARKI_MAPA_VIVO_CONTINUIDAD.md` son continuidad documental. El propio protocolo afirma que el ledger no captura automáticamente conversaciones y que la integración E2E sigue pendiente.
+- SICL Core ya tiene un `SQLiteRepository` con tabla `events` append-only y `institutional_memory` versionada, pero RFC-011 deriva patrones/lecciones de proyectos cerrados. No sustituye directamente el diario operativo vivo.
+- ACS conserva su función de laboratorio/evidencias; no es autoridad canónica de memoria.
+
+### Diagnóstico respaldado por código
+
+**El principal hueco demostrado no es la ausencia total de memoria, sino que varias piezas existentes tienen contratos y persistencias separados, y el macroorden/orquestador no está conectado al adaptador persistente.** Además, la captura automática de decisiones de conversación y la recuperación en una sesión nueva no están demostradas. No declarar MEMORY operativo hasta probar persistencia entre procesos y recuperación real.
+
+### Criterio de integración (sin inventar otro sistema)
+
+Reutilizar el adaptador JSON existente para el diario operativo que ya maneja `OBSERVATION`, `DEFICIT`, `PROPOSAL`, `EXPERIMENT_RESULT`, `TEST_RESULT`, `HUMAN_DECISION`, `BLOCKED` y `REASSESSMENT`; conectar el flujo de macroórdenes a ese almacén o demostrar el puente ya existente. Mantener Core como autoridad para eventos/decisiones canónicas y la memoria institucional versionada; los mapas y catálogos siguen siendo proyecciones con procedencia. Antes de fusionar, ejecutar pruebas de reinicio, duplicados, corrupción, ancla, evidencia faltante, revocación y consulta desde un proceso nuevo.
