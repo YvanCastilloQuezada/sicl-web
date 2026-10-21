@@ -1,23 +1,33 @@
 "use strict";
-// Macro-order executor: planning and evidence journaling only; no external actions.
+// Macro-order executor: plans and writes an idempotent operational journal only.
+// It never executes code or promotes canonical state.
 const {orchestrate}=require("./arki-autonomy-orchestrator.cjs");
-const memory=require("./arki-autonomy-memory.cjs");
+const store=require("./arki-automejora-operativa.cjs");
 const COMMANDS=new Set(["AUDIT_AND_PLAN","REASSESS"]);
-function runMacroOrder({command,parts,discovery,phaseRules={},evidence={},history=[],sourceSha}){
+function runMacroOrder({command,parts,discovery,phaseRules={},evidence={},memoryFile,sourceSha}){
  if(!COMMANDS.has(command)||!/^[0-9a-f]{40}$/.test(sourceSha||""))throw Error("INVALID_MACRO_ORDER");
- const prior=memory.validate(history);
+ if(typeof memoryFile!=="string"||!memoryFile)throw Error("MEMORY_FILE_REQUIRED");
  const plan=orchestrate({parts,discovery,phaseRules,evidence});
- let journal=history;
- journal=memory.record(journal,{type:"OBSERVATION",subject:"ARKI_AUTONOMY",sourceSha,evidenceRef:"plan:"+plan.digest,
-  payload:{command,parts:plan.work.length,priorHead:prior.headHash}});
+ const planDigest=plan.digest;
+ const events=[{
+  type:"OBSERVATION",subject:"ARKI_AUTONOMY",sourceSha,evidenceRef:"plan:"+planDigest,
+  payload:{idempotencyKey:"macro-order:"+command+":"+planDigest+":observation",command,planDigest,
+   epistemicState:"PLAN_ONLY_NOT_FACT",parts:plan.work.length,execution:plan.execution}
+ }];
  for(const item of plan.work){
-  journal=memory.record(journal,{type:item.action==="ISOLATED_EXPERIMENT_CANDIDATE"?"PROPOSAL":"BLOCKED",
-   subject:item.id,sourceSha,evidenceRef:"plan:"+plan.digest,
-   payload:{action:item.action,phase:item.proposedPhase,reasons:item.reasons}});
+  const type=item.action==="ISOLATED_EXPERIMENT_CANDIDATE"?"PROPOSAL":"BLOCKED";
+  events.push({type,subject:item.id,sourceSha,evidenceRef:"plan:"+planDigest,
+   payload:{idempotencyKey:"macro-order:"+command+":"+planDigest+":"+item.id+":"+type,
+    command,planDigest,action:item.action,phase:item.proposedPhase,reasons:item.reasons,
+    epistemicState:"PROPOSAL_OR_BLOCKER_NOT_FACT"}});
  }
- if(command==="REASSESS")journal=memory.record(journal,{type:"REASSESSMENT",subject:"ARKI_AUTONOMY",
-  sourceSha,evidenceRef:"plan:"+plan.digest,payload:{blocked:plan.work.filter(x=>x.action!=="ISOLATED_EXPERIMENT_CANDIDATE").length}});
- return {schema:"ARKI-MACRO-ORDER-0.1",command,plan,journal,summary:memory.summarize(journal),
-  execution:"PLAN_AND_JOURNAL_ONLY",canonicalMutation:false,ownerDecision:"NOT_REQUESTED"};
+ if(command==="REASSESS")events.push({type:"REASSESSMENT",subject:"ARKI_AUTONOMY",sourceSha,
+  evidenceRef:"plan:"+planDigest,payload:{idempotencyKey:"macro-order:"+command+":"+planDigest+":reassessment",
+   command,planDigest,blocked:plan.work.filter(x=>x.action!=="ISOLATED_EXPERIMENT_CANDIDATE").length,
+   epistemicState:"REASSESSMENT_NOT_CANONICAL_DECISION"}});
+ const persisted=store.appendEvents(events,{memoryFile});
+ return {schema:"ARKI-MACRO-ORDER-0.2",command,plan,journal:persisted.events,summary:persisted.memory,
+  persistence:{appendedCount:persisted.appendedCount,duplicateCount:persisted.duplicateCount},
+  execution:"PLAN_AND_DURABLE_JOURNAL_ONLY",canonicalMutation:false,ownerDecision:"NOT_REQUESTED"};
 }
 module.exports={runMacroOrder};
