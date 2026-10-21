@@ -12,6 +12,19 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: ci-test-password
+          MARIADB_DATABASE: sicl_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
 
     steps:
       - name: Checkout
@@ -32,9 +45,19 @@ jobs:
       - name: TypeScript check
         run: pnpm check
 
+      - name: Prepare isolated MO22 test storage
+        run: mkdir -p "${RUNNER_TEMP}/arki-mo22/objects"
+
       - name: Run tests
         env:
           SICL_CORE_SERVICE_TOKEN: ci-test-token
+          JWT_SECRET: ci-only-session-secret-not-for-production-2026
+          VITE_APP_ID: arki-ci-test-app
+          DATABASE_URL: mysql://root:ci-test-password@127.0.0.1:3306/sicl_test
+          ARKI_STORAGE_ROOT: ${{ runner.temp }}/arki-mo22
+          ARKI_STORAGE_MODE: local
+          ARKI_IDENTITY_MODE: manus
+          ARKI_MO22_ENABLE: "0"
         run: pnpm test -- --run
 
       - name: Build production bundle
