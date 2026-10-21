@@ -1,0 +1,108 @@
+# ARKI — ADN de mejora continua (contrato arquitectónico propuesto)
+
+**Estado:** PROPOSED / NOT CANONICALLY PROMOTED / NOT IMPLEMENTED IN CORE
+**Ámbito:** ARKI/ARQUI, transversal a F1–F10, diseño arquitectónico, AGK, agentes, evidencia y operación.
+**No confundir:** el ÁRBOL Gemelo Digital observa esta capacidad; no es su motor ni su fuente de verdad.
+**Restricciones:** no modificar FROZEN, no promover automáticamente, no modificar Core/AGK sin autorización y pruebas.
+
+## Invariante ADN-MC-001
+
+> Toda capacidad de ARKI debe poder observar su resultado, detectar déficits, formular hipótesis de mejora, proponer alternativas, someterlas a pruebas reproducibles, evaluar diferencias y registrar aprendizaje trazable; ninguna propuesta puede presentarse como mejora verificada sin evidencia suficiente.
+
+La mejora continua **es una propiedad intrínseca del núcleo unificado**, no un microservicio opcional, un agente independiente ni un motor encadenado en runtime. Su semántica debe incorporarse a Project State y a los contratos de ejecución, y no solo a la interfaz.
+
+## Dos verdades distintas
+
+1. **Regla canónica del sistema:** ARKI está obligado a intentar detectar y corregir deficiencias cuando tenga observaciones válidas y recursos autorizados. Este principio debe pasar por aprobación formal antes de congelarse como contrato del Core.
+2. **Contenido de una mejora:** una idea o mutación empieza como hipótesis. Solo puede pasar a resultado verificado cuando su prueba real, trazabilidad y controles superen las puertas establecidas. El aprendizaje experimental no equivale a mutación canónica.
+
+## Máquina de estados mínima
+
+`OBSERVED → DEFICIT_IDENTIFIED → HYPOTHESIS → CANDIDATES → EXPERIMENT_AUTHORIZED → EXECUTED → EVALUATED → LEARNING_RECORDED → [PROPOSED_FOR_PROMOTION | REJECTED]`
+
+Rutas de fallo explícitas: `UNKNOWN`, `INSUFFICIENT_EVIDENCE`, `TEST_FAILED`, `REGRESSION_DETECTED`, `AUTHORIZATION_REQUIRED`, `ROLLBACK_REQUIRED`.
+
+- Las observaciones deben vincularse a datos, versión, timestamp, agente/productor y contexto.
+- Cada déficit debe tener criterio objetivo de detección y severidad.
+- Las alternativas deben compararse contra baseline y restricciones, no solo entre sí.
+- Los experimentos de arquitectura pueden operar en escenarios aislados; los cambios del código, permisos y verdad canónica requieren autorización separada.
+- El aprendizaje debe registrar también hipótesis rechazadas y causas, evitando repetir errores.
+- Ninguna evaluación de una sola métrica puede ocultar degradación en seguridad, normativa, exactitud geométrica o cobertura.
+
+## Contrato mínimo de evidencia por iteración
+
+`baseline`, `input`, `initialUnknowns`, `deficit`, `hypothesis`, `candidates`, `rejectedCandidates`, `testPlan`, `authorization`, `executionReceipt`, `metricsBefore`, `metricsAfter`, `regressions`, `dependencyPropagation`, `newUnknowns`, `evidence`, `decision`, `learning`, `rollbackPlan`, `producerIdentity`, `sourceCommit`.
+
+## Autonomía gradual
+
+- **A0 — Diagnóstico:** ARKI identifica déficits y emite propuestas. No cambia estado.
+- **A1 — Experimentación aislada:** ejecuta pruebas y alternativas dentro de un presupuesto y un sandbox autorizado.
+- **A2 — Aprendizaje experimental:** conserva conocimiento versionado con procedencia y prueba de restauración; no muta FROZEN.
+- **A3 — Promoción supervisada:** solicita aprobación de cambios canónicos con evidencia y revisión independiente.
+- **A4 — Operación autónoma acotada:** solo para clases de cambios previamente autorizadas, reversibles, con límites y parada automática. Nunca autoriza por sí mismo ampliar sus propios permisos.
+
+## Puertas de cierre
+
+1. Esquema de eventos y estado único integrado al Core, sin segundo motor de verdad.
+2. Recolección autenticada de resultados reales de Core/AGK y agentes.
+3. Evaluación reproducible multiobjetivo, con pruebas adversariales y regresión.
+4. Historial append-only, rollback, versionado, límites de recursos y aislamiento.
+5. Pruebas E2E de ciclos consecutivos **iniciados por ARKI**, sin instrucción manual entre ciclos.
+6. Auditoría Red Team (Qwen) y aprobación explícita del contrato canónico.
+
+## Criterio de demostración
+
+Una prueba de mejora continua autónoma debe comenzar con un encargo o déficit inicial, permitir que ARKI identifique al menos una oportunidad **no predefinida por el operador**, genere alternativas, ejecute pruebas autorizadas, compare contra baseline y conserve una decisión justificable. Repetir el ciclo sobre la observación nueva demuestra continuidad; un único script que reordena tareas no la demuestra.
+
+**Estado real a 2026-10-10:** esta definición está documentada en la rama experimental; no se afirma que la autonomía esté ejecutándose ni que la regla esté ya integrada al estado canónico.
+
+## Referencia ejecutable experimental A0/A1
+
+Se añadieron `arki-adn-mejora-continua.cjs`, `arki-adn-mejora-continua.test.cjs` y `Run-ARKI-ADN-MC.cjs` en `tools/maqueta-viva/`. Detectan deficits en métricas verificadas, generan hipótesis de mejora deterministas y producen un reporte de solo lectura. No ejecutan geometría, no modifican FROZEN ni promueven resultados al Core.
+
+`iterate()` se detiene tras la primera observación; para continuar exige observaciones independientes nuevas. `evaluate()` mantiene las mejoras como pendientes de revisión externa. El runner se inicia manualmente; no existe todavía un disparador autónomo persistente.
+
+Prueba: `node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs`.
+
+**Estado:** IMPLEMENTED_EXPERIMENTALLY / NOT_CANONICAL / AUTONOMOUS_RUNTIME_NOT_IMPLEMENTED / NOT_VERIFIED.
+
+## Suplemento: observador local y comparación multiobjetivo
+
+El coordinador experimental `arki-adn-observer.cjs` puede **iniciar propuestas por sí mismo** al detectar nuevas observaciones JSON en una carpeta local. Se ejecuta manualmente como proceso Node con dos modos: `--once` (una exploración) y `--watch` (exploraciones periódicas con intervalo y número máximo de consultas). Cada observación válida genera un reporte `proposal-000001.json` y un evento `event-000001.json` con hashes SHA-256 encadenados; duplicados no generan nuevas propuestas. Los cambios o pérdidas de archivos de evidencia hacen fallar la lectura. El hash encadenado detecta modificaciones accidentales y parciales; **no autentica** a quien controle toda la carpeta.
+
+Ejemplo para un entorno experimental aislado:
+
+```powershell
+New-Item -ItemType Directory -Force .\adn-inbox, .\adn-outbox | Out-Null
+node tools/maqueta-viva/arki-adn-observer.cjs --watch .\adn-inbox .\adn-outbox --interval-ms 5000 --max-polls 20
+```
+
+Cada observación de entrada debe cumplir `ARKI-ADN-OBSERVATION-1`. El observador no inventa métricas ni ejecuta experimentos Core/AGK. Los reportes se generan sin modificar el estado canónico. No hay servicio permanente ni tareas programadas del sistema operativo.
+
+Se añadió `compareObservations(before, after)`: comparación de métricas verificadas, con veto ante regresiones, bloqueo por métricas desconocidas y comprobación de consistencia de unidades, dirección y objetivos. El resultado siempre requiere revisión independiente antes de considerarse aprendizaje.
+
+**Pruebas nuevas:** `arki-adn-observer.test.cjs` y ampliación de `arki-adn-mejora-continua.test.cjs`; incluidos en CI Linux/Windows y en la suite PowerShell experimental. **Estado:** código publicado, ejecución/CI pendiente de comprobar en SHA exacto. No está integrado en el Core ni puede declararse ADN canónico.
+
+## Cierre de preparación de pruebas — 2026-10-10
+
+**Código de referencia publicado, sin resultado E2E confirmado.** El observador incluye corrección de detección de eventos previos en el ledger, verifica hash de cada reporte y evento, y bloquea reportes ausentes/huérfanos. El evaluador exige que un recibo que diga `SUCCESS` incluya una variación favorable en la métrica objetivo respecto de su baseline; la afirmación sigue pendiente de validación independiente. Máximo 12 ciclos en el estado experimental.
+
+### Pruebas de Diego (Windows)
+
+Ejecutar desde el worktree experimental limpio:
+
+```powershell
+pwsh -NoProfile -File .\tools\maqueta-viva\Test-ARKI-GemeloArbol.ps1
+```
+
+La suite ejecuta pruebas Node del motor ADN, observador y firmas, instalación aislada y pruebas reales de interfaz Edge/Chrome. Un fallo debe detener la suite y conservar la ruta del informe local. El resultado `PASS` prueba solamente el alcance de los casos ejecutados; **no** acredita diseño autónomo de edificios, conexión a AGK/Core ni aprendizaje real.
+
+### Límites y deudas de integración (bloqueantes para el estado canónico)
+
+- Observaciones marcadas `verified:true` son **declaraciones del archivo**, no autenticación del origen. El observador no verifica firma de origen, ni reproduce una ejecución de Core/AGK.
+- La cadena SHA-256 permite detectar modificaciones locales parciales; un adversario que controle toda la carpeta puede reemplazar o truncar la historia. Hace falta anclaje externo firmado y almacenamiento resistente a borrado.
+- El observador solo se ejecuta cuando se inicia un proceso Node; no es un servicio persistente del Core.
+- Las propuestas son objetivos métricos deterministas, no soluciones arquitectónicas calculadas ni modificaciones del diseño.
+- No existe todavía integración con el estado canónico único del Core, autorización de ejecución AGK, rollback real, ni cierre Red Team. La promoción canónica permanece `BLOCKED`.
+
+**Puerta de promoción:** ejecución real de al menos dos ciclos consecutivos con datos auténticos de arquitectura/AGK, experimentación aislada, evaluación multiobjetivo, verificación independiente y autorización explícita. Hasta entonces, el ADN es un contrato propuesto con referencia experimental.
