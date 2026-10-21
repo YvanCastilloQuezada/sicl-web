@@ -118,6 +118,59 @@ function appendEvent(events, input) {
   return MEMORY.record(events, input);
 }
 
+function appendEvents(inputs, options) {
+  if (!options || typeof options.memoryFile !== "string") {
+    throw Error("MEMORY_FILE_REQUIRED");
+  }
+  if (!Array.isArray(inputs) || inputs.length < 1 || inputs.length > 1000) {
+    throw Error("INVALID_MEMORY_EVENTS");
+  }
+  for (const input of inputs) {
+    if (!input || typeof input !== "object" || Array.isArray(input)) {
+      throw Error("INVALID_MEMORY_EVENT");
+    }
+    requireEvidenceRef(input.evidenceRef);
+    const key = input.payload && input.payload.idempotencyKey;
+    if (key !== undefined &&
+        (typeof key !== "string" || !key.trim() || key.length > 512)) {
+      throw Error("INVALID_IDEMPOTENCY_KEY");
+    }
+  }
+
+  return withStoreLock(options.memoryFile, () => {
+    const store = readStore(options.memoryFile);
+    let events = store.events;
+    const seen = new Set(events
+      .map(event => event.payload && event.payload.idempotencyKey)
+      .filter(key => typeof key === "string" && key));
+    let appendedCount = 0;
+    let duplicateCount = 0;
+
+    for (const input of inputs) {
+      const key = input.payload && input.payload.idempotencyKey;
+      if (key && seen.has(key)) {
+        duplicateCount += 1;
+        continue;
+      }
+      events = appendEvent(events, input);
+      if (key) seen.add(key);
+      appendedCount += 1;
+    }
+
+    if (appendedCount > 0) {
+      persistStore(options.memoryFile, { schema: STORE_SCHEMA, events });
+    }
+
+    return {
+      events,
+      memory: MEMORY.summarize(events),
+      appendedCount,
+      duplicateCount,
+      canonicalMutation: false
+    };
+  });
+}
+
 function observe(input, options) {
   if (!options || typeof options.memoryFile !== "string") {
     throw Error("MEMORY_FILE_REQUIRED");
@@ -325,6 +378,7 @@ function reassess(beforeInput, afterInput, options) {
 
 module.exports = {
   STORE_SCHEMA,
+  appendEvents,
   observe,
   evaluateLatest,
   reassess,
