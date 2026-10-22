@@ -9,11 +9,7 @@
       "phase": 7,
       "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
-      "note": "F6 is frozen. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
-      "note": "F6 integral AGK closure recorded GO; F7 Professional Technical Development opened at contract-formation/reconciliation boundary."
-      "approximate_subphase": "F7.0→F7.9 integration spine",
-      "status": "IN_PROGRESS",
-      "note": "F6 FROZEN permanently revoked by explicit PO decision on 2026-10-14; historical evidence retained, revalidation required. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
+      "note": "Historical note: F6 was previously recorded as frozen. F6 integral AGK closure was recorded GO; F7 Professional Technical Development opened at the contract-formation/reconciliation boundary. Current state: F6 FROZEN was permanently revoked by explicit PO decision on 2026-10-14; historical evidence is retained and revalidation is required. The F7/F8 implementation branch contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending the local gate."
     },
     "phases": [
       {
