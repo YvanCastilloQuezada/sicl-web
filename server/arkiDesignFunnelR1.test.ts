@@ -11,7 +11,8 @@ describe("ARKI S2 R1 bounded UI governance", () => {
     expect(source).not.toMatch(/<Card[\s\S]{0,2200}>[\s\S]*Marcar/);
     expect(source).not.toMatch(/<Card[\s\S]{0,2200}>[\s\S]*Elegir/);
     expect(source).toContain("aria-label={`Activar ${label}`}");
-    expect(source).toContain("<Visual id={label} mode={mode}");
+    expect(source).toContain("<CanonicalVisual id={label} mode={mode}");
+    expect(source).toContain("return <Visual id={id} mode={mode}");
   });
 
   it("preserves canonical identity through rapid P1→P4→P9→P16 selection", () => {
