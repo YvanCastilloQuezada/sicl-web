@@ -159,10 +159,6 @@ async function startServer() {
     console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
   }
 
-  server.listen(port, "127.0.0.1", () => {
-    attachParametricWebSocket(server);
-    console.log(`Server running on http://localhost:${port}/`);
-  });
   const devSocket = process.env.ARKI_DEV_SOCKET;
   if (devSocket) {
     if (process.env.ARKI_DEV_OPEN !== "1" || process.env.NODE_ENV !== "production") {
@@ -178,7 +174,7 @@ async function startServer() {
       console.log("ARKI isolated development socket ready");
     });
   } else {
-    server.listen(port, "127.0.0.1", () => {
+    server.listen(port, "0.0.0.0", () => {
       if (process.env.ARKI_DEV_OPEN !== "1") attachParametricWebSocket(server);
       console.log(`Server running on http://localhost:${port}/`);
     });
