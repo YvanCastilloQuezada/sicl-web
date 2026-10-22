@@ -4,6 +4,7 @@ import { fetchCanonicalSnapshot } from "./coreHttpClient";
 describe("coreHttpClient", () => {
   afterEach(() => {
     delete process.env.SICL_CORE_URL;
+    delete process.env.SICL_CORE_SERVICE_TOKEN;
     vi.unstubAllGlobals();
   });
 
@@ -16,6 +17,7 @@ describe("coreHttpClient", () => {
 
   it("fetches only the canonical snapshot endpoint without browser credentials", async () => {
     process.env.SICL_CORE_URL = "https://core.example.test/";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.1", project_id: "SICL-1", observed_version: 3, snapshot: { events: [] } }), { status: 200, headers: { "content-type": "application/json" } }));
     vi.stubGlobal("fetch", fetchSpy);
     await expect(fetchCanonicalSnapshot("SICL-1")).resolves.toMatchObject({ observed_version: 3 });
@@ -24,6 +26,7 @@ describe("coreHttpClient", () => {
 
   it("preserves adapter failures instead of turning them into success", async () => {
     process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status: 503 })));
     await expect(fetchCanonicalSnapshot("SICL-1")).rejects.toThrow("503");
   });

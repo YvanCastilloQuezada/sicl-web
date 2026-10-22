@@ -272,8 +272,8 @@ class SDKServer {
 
     const session = await this.verifySession(sessionToken);
 
-    if (!session) {
-      throw ForbiddenError("Invalid session cookie");
+    if (!session || session.appId !== ENV.appId) {
+      throw ForbiddenError("Invalid session cookie or application");
     }
 
     if (session.openId.startsWith(CRON_OPEN_ID_PREFIX)) {

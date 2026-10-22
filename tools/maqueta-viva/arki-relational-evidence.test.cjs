@@ -1,0 +1,11 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict");
+const {verifySource,verifyRelationCandidates}=require("./arki-relational-evidence.cjs");
+const source={sha:"a".repeat(40),path:"docs/contracts.md",quote:"A precedes B"};
+const readBlob=()=> "Rules: A precedes B. Other text.";
+test("exact immutable blob quote accepted as source only",()=>assert.equal(verifySource(source,{readBlob}).verified,true));
+test("fabricated quote rejected",()=>assert.equal(verifySource({...source,quote:"invented"},{readBlob}).reason,"QUOTE_NOT_FOUND"));
+test("unsafe path rejected",()=>assert.equal(verifySource({...source,path:"../secrets"},{readBlob}).reason,"INVALID_SOURCE_REFERENCE"));
+test("invalid SHA rejected",()=>assert.equal(verifySource({...source,sha:"main"},{readBlob}).reason,"INVALID_SOURCE_REFERENCE"));
+test("missing blob rejected",()=>assert.equal(verifySource(source,{readBlob:()=>{throw Error("missing")}}).verified,false));
+test("verified quote cannot grant authorization",()=>{const candidate={id:"1",before:"A",after:"B",relation:"REQUIRES",source};const r=verifyRelationCandidates({schema:"ARKI-RELATIONAL-LEARNING-1",candidates:[candidate]},{readBlob});assert.equal(r.verifiedSources,1);assert.equal(r.candidates[0].decision,"PROPOSED_FOR_REVIEW");assert.equal(r.relationSemantics,"NOT_VERIFIED");assert.equal(r.canonicalMutation,false)});
