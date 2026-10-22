@@ -80,6 +80,8 @@
       "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
       "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
     ],
+    "last_completed": "ARKI Live Command Center promoted as primary owner status surface; exact recovered 10-phase roadmap restored (F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE) and Body Map remains visible.",
+    "next_exact_action": "Turn /arki-command-center into the live owner dashboard: reconcile organ/superpower/idea/dossier counts from evidence, expose last verified movement and blockers, and automate projections from canonical registries without making the UI a second source of truth.",
     "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
     "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code.",
     "blockers": []
@@ -467,7 +469,7 @@
     },
     "frontend_first_assembly": {
       "id": "ARKI_FRONTEND_FIRST_ASSEMBLY_V1",
-      "status": "IMPLEMENTED_WAVE_1",
+      "status": "IMPLEMENTED_WAVE_7_PENDING_CI",
       "principle": "Frontend assembly is now the immediate product priority. AGK benchmarking continues only as needed to support the visible architectural workflow and must not block frontend delivery.",
       "surfaces": [
         {
@@ -506,6 +508,134 @@
         "Preserve DeepSeek visual identity/palette.",
         "Site Intelligence claims remain evidence-bounded until current runtime E2E is revalidated.",
         "Canonical 2D/3D/BIM representations must converge on one project/geometric state."
+      ],
+      "site_intelligence_ui": {
+        "status": "IMPLEMENTED_EVIDENCE_BOUNDED",
+        "confirmed_location": "propagated immediately from LocationPicker to Design Studio",
+        "solar": "existing SolarTemporalOverlay reused; only OBSERVED when endpoint returns analysis",
+        "missing_data": "visible from Core missing-data report",
+        "gis_topography": "UNKNOWN until current E2E revalidation",
+        "principle": "No live-provider or site-fact claim is manufactured by the UI."
+      },
+      "canonical_representation_bridge": {
+        "status": "IMPLEMENTED_PARTIAL",
+        "source": "Core /v1/projects/{projectId}/spatial-representations",
+        "plan": "existing SpatialSvgViewer consumes SpatialRepresentation",
+        "three_d": "existing UPAO001MassingViewer3D consumes the same SpatialRepresentation",
+        "section": "derived from BuildingMass coordinates in the same SpatialRepresentation; no independent design geometry",
+        "fallback": "explicit conceptual fallback; no canonical geometry fabricated",
+        "invariant_target": "PLAN/3D/SECTION/ELEVATION/BIM must derive from one canonical candidate state and preserve representation identity/provenance",
+        "elevation": "derived from BuildingMass coordinates in the same SpatialRepresentation; no independent design geometry",
+        "identity_contract": [
+          "representation.id",
+          "alternative_id",
+          "input_fingerprint",
+          "stable spatial element ids"
+        ]
+      },
+      "professional_bim_shell": {
+        "status": "IMPLEMENTED_INITIAL",
+        "anatomy": [
+          "PROJECT TREE",
+          "DIGITAL WORLD",
+          "ARKI INTELLIGENCE",
+          "BOTTOM MULTIDIMENSION TRAY"
+        ],
+        "left_hierarchy": [
+          "PORTFOLIO",
+          "PROJECT",
+          "SITE",
+          "BUILDING",
+          "SYSTEMS",
+          "SPACES",
+          "OBJECTS/COMPONENTS"
+        ],
+        "right_tabs": [
+          "Properties",
+          "Relationships",
+          "Evidence",
+          "Unknowns",
+          "Reasoning",
+          "Alternatives",
+          "Simulation",
+          "Coordination"
+        ],
+        "bottom_dimensions": [
+          "4D Time",
+          "5D Cost",
+          "Energy",
+          "Carbon",
+          "Scenarios",
+          "Operations"
+        ],
+        "governance": [
+          "PREVIEW != DECISION",
+          "AI PROPOSAL != CANONICAL MUTATION",
+          "Human Authority remains explicit"
+        ],
+        "design_studio": "mounted inside DIGITAL WORLD",
+        "next": "bind live selected-candidate context to intelligence and multidimension panels",
+        "selection_contract": {
+          "status": "IMPLEMENTED_INITIAL",
+          "sources": [
+            "PLAN SpatialSvgViewer",
+            "3D UPAO001MassingViewer3D"
+          ],
+          "identity": "SpatialElement.id from the active SpatialRepresentation",
+          "left": "information/context only",
+          "center": "canonical project geometry and design workflow",
+          "right": "contextual modification controls; proposal/preview until governed commit",
+          "invariant": "selection does not create a second geometry truth"
+        }
+      }
+    },
+    "idea_ledger": {
+      "status": "UI_ENTRYPOINT_IMPLEMENTED_REGISTRY_PENDING",
+      "code": "IDE",
+      "purpose": "Capture every material idea and track it from intake through evaluation, prioritization, implementation, incorporation, rejection or freeze.",
+      "states": [
+        "CAPTURED",
+        "UNDER_REVIEW",
+        "PRIORITIZED",
+        "IN_DEVELOPMENT",
+        "IMPLEMENTED",
+        "INCORPORATED",
+        "REJECTED",
+        "FROZEN"
+      ],
+      "rule": "Ideas are proposals, not canonical knowledge. If an idea becomes knowledge it must pass the Delta 6.2 epistemic gate.",
+      "evidence_commit": "fd84137a6276344273391869b0a23aa539142b61"
+    },
+    "ai_laboratory_control_surface": {
+      "status": "ENTRYPOINT_IMPLEMENTED_EXISTING_CORE_LINEAGE_VERIFIED",
+      "code": "AIL",
+      "purpose": "Experiment with, create and evaluate candidate artificial intelligences that may improve ARKI or LUCA.",
+      "existing_core_evidence": "sicl-core commit bbc8d75d: AI Laboratory with LAB-001 traceability, LAB-002 determinism, LAB-003 fail-closed corpus validation, LAB-004 Human Authority promotion gate, plus 10 tests.",
+      "boundary": "Laboratory candidates are experimental and cannot silently mutate ARKI or LUCA canonical state.",
+      "knowledge_rule": "Any learned knowledge intended for ARKI must pass Delta 6.2; laboratory evidence does not itself become canonical knowledge.",
+      "ui_commit": "211ddd4be273d1c2b5687c2d0c7c67827a6411c8"
+    },
+    "frontend_control_ribbon": {
+      "status": "OWNER_ORDER_LOCKED_FOR_CURRENT_FRONTEND",
+      "labels": [
+        "Evidencia",
+        "Evaluaciones",
+        "Comparaciones",
+        "Auditoría",
+        "Superpoderes",
+        "Ideas",
+        "AI Lab"
+      ],
+      "evidence_commit": "d96c13e38392aa3d2374cc2e3031715cdd950278"
+    },
+    "arki_live_page": {
+      "status": "PRIMARY_OWNER_SURFACE",
+      "route": "/arki-command-center",
+      "rule": "Read-only live projection; UI is not source of truth.",
+      "phase_source": "Recovered ARKI_MASTER_STATE v1.0: F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE",
+      "evidence_commits": [
+        "898d31be0fad9a06c3001ad69ec6d2c0caa07fe6",
+        "4aac2420bba7b359f7933c67a2ff0400249473b0"
       ]
     }
   },

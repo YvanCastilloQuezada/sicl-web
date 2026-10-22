@@ -44,6 +44,10 @@ const ArkiFamilyStudioPage = lazy(() => import("./pages/ArkiFamilyStudioPage"));
 const ArkiSuperArchitectViewerPage = lazy(() => import("./pages/ArkiSuperArchitectViewerPage"));
 const ArkiDesignFunnelPage = lazy(() => import("./pages/ArkiDesignFunnelPage"));
 const ArkiSuperarchitectCommandCenterPage = lazy(() => import("./pages/ArkiSuperarchitectCommandCenterPage"));
+const ArkiIdeasPage = lazy(() => import("./pages/ArkiIdeasPage"));
+const ArkiSuperpowersPage = lazy(() => import("./pages/ArkiSuperpowersPage"));
+const ArkiAiLabPage = lazy(() => import("./pages/ArkiAiLabPage"));
+const ArkiSuperDossierPage = lazy(() => import("./pages/ArkiSuperDossierPage"));
 
 function PageLoadingFallback() {
   return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
@@ -95,6 +99,10 @@ function Router() {
       <Route path={"/arki-super-architect"}>{() => <ArkiSuperArchitectViewerPage />}</Route>
       <Route path={"/arki-command-center"}>{() => <ArkiSuperarchitectCommandCenterPage />}</Route>
       <Route path={"/arki-design-funnel"}>{() => <ArkiDesignFunnelPage />}</Route>
+      <Route path={"/arki-ideas"}>{() => <ArkiIdeasPage />}</Route>
+      <Route path={"/arki-superpowers"}>{() => <ArkiSuperpowersPage />}</Route>
+      <Route path={"/arki-ai-lab"}>{() => <ArkiAiLabPage />}</Route>
+      <Route path={"/arki-super-dossier"}>{() => <ArkiSuperDossierPage />}</Route>
       <Route path={"/arki-bim-visor"}>{() => <ArkiBimViewerPage />}</Route>
       <Route path={"/arki-host-connections"}>{() => <ArkiHostConnectionsPage />}</Route>
       <Route path={"/arki-device-bridge"}>{() => <DashboardLayout><ArkiDeviceInteroperabilityPage /></DashboardLayout>}</Route>

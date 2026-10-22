@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { apiErrorMessage, siclClient, type MissingDataReport, type SpatialLocation } from "@/api/sicl-client";
 
-type Props = { projectId?: string };
+type Props = { projectId?: string; onConfirmed?: (location: SpatialLocation, missing?: MissingDataReport) => void };
 const WORLD = { minLongitude: -180, maxLongitude: 180, minLatitude: -90, maxLatitude: 90 };
 const VIEWBOX = { width: 720, height: 300 };
 
@@ -18,7 +18,7 @@ function unprojectPoint(x: number, y: number) {
   return { longitude: WORLD.minLongitude + (x / VIEWBOX.width) * 360, latitude: WORLD.maxLatitude - (y / VIEWBOX.height) * 180 };
 }
 
-export default function LocationPicker({ projectId }: Props) {
+export default function LocationPicker({ projectId, onConfirmed }: Props) {
   const { t } = useTranslation();
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -35,7 +35,7 @@ export default function LocationPicker({ projectId }: Props) {
     if (!projectId) return;
     try {
       const [current, report] = await Promise.all([siclClient.currentLocation(projectId), siclClient.missingData(projectId, "parcela_sitio")]);
-      setLocation(current ?? undefined); setMissing(report);
+      setLocation(current ?? undefined); setMissing(report); if (current) onConfirmed?.(current, report);
       if (current?.longitude != null && current?.latitude != null) { setLongitude(String(current.longitude)); setLatitude(String(current.latitude)); }
     } catch (err) { setError(apiErrorMessage(err)); }
   };

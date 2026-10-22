@@ -195,6 +195,7 @@ describe("ARKI Design Funnel S1", () => {
   });
   it("exposes only implemented comparison modes", () => {
     expect(setComparisonMode(makeState(), "PLAN").comparisonMode).toBe("PLAN");
+    expect(setComparisonMode(makeState(), "ELEVATION").comparisonMode).toBe("ELEVATION");
     expect(() => setComparisonMode(makeState(), "DAYLIGHT")).toThrow("COMPARISON_MODE_NOT_IMPLEMENTED");
   });
 });

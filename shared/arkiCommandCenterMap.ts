@@ -1,6 +1,18 @@
 export type CommandCenterStatus = "VERIFIED" | "IMPLEMENTED" | "IN_PROGRESS" | "FROZEN" | "DESIGN" | "UNKNOWN" | "RECONCILIATION_REQUIRED";
 export type CommandCenterNode = { id:string; name:string; kind:string; status:CommandCenterStatus; summary:string; gained:string; missing:string; phase:string; children?:CommandCenterNode[] };
 
+export const commandCenterPhases: CommandCenterNode[] = Array.from({length:10},(_,i)=>{
+ const phase=i+1;
+ const current=phase===6;
+ return {
+  id:`F${phase}`,name:`Fase ${phase}`,kind:"PHASE",
+  status:current?"IN_PROGRESS":phase<6?"RECONCILIATION_REQUIRED":"DESIGN",
+  summary:current?"Fase actual declarada por Product Owner; definición histórica exacta y subfase aún deben reconciliarse con evidencia.":"Definición, subfases y gates históricos pendientes de recuperación; no se inventa un nombre.",
+  gained:current?"Zona actual de trabajo: ensamblaje, fidelidad canónica y frontend vivo, con evidencia parcial ya recuperada.":phase<6?"Existe trabajo histórico previo, pero esta vista no lo declara cerrado sin reconciliación fase por fase.":"Fase futura dentro del esquema de diez fases; alcance exacto pendiente de evidencia.",
+  missing:"Recuperar definición histórica exacta, gates, artefactos, pruebas y SHA antes de elevar el estado.",
+  phase:`F${phase}`
+ };
+});
 export const commandCenterPhases: CommandCenterNode[] = [
  {id:"F1",name:"F1 · Identidad, Trust & Project State",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F1",summary:"Identidad reproducible, provenance, autoridad humana y estado versionado del proyecto.",gained:"Project/version, provenance, snapshots y revisión humana tienen activos históricos.",missing:"Reconciliar gates históricos, custodia, firmas/revocación y evidencia actual."},
  {id:"F2",name:"F2 · Conocimiento & Universidad",kind:"PHASE",status:"RECONCILIATION_REQUIRED",phase:"F2",summary:"Delta 6.2 como única puerta de conocimiento; Universidad, Tutor, Curator y Examiner.",gained:"M0-K, D6.1, KR-6.2, Book y currículos existen.",missing:"Conectar aprendizaje, examen, Version Watcher y R&D Scout sin crear un segundo conocimiento."},

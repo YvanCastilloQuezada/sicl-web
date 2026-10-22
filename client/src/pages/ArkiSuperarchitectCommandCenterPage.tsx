@@ -164,11 +164,11 @@ export default function ArkiSuperarchitectCommandCenterPage(){
 
       <section className="grid gap-3 xl:grid-cols-[1fr_auto]">
         <div><div className="text-[10px] uppercase tracking-[.25em] text-[#7dd3fc]">ESTADO VIVO DEL SISTEMA</div><h1 className="mt-1 text-2xl font-semibold">ARKI · Retomar exactamente donde nos quedamos</h1><p className="mt-2 max-w-4xl text-xs leading-5 text-[#8fa8bc]">Una sola superficie para ver avance, conocimiento, órganos, fases, evidencia y próximos pasos. Sin inventar verde: lo no reconciliado permanece explícito.</p></div>
-        <div className="rounded-[6px] border border-[#f0a35b]/50 bg-[#f0a35b]/10 px-4 py-3"><div className="text-[9px] tracking-[.18em] text-[#f6c995]">POSICIÓN ACTUAL DECLARADA</div><div className="mt-1 font-semibold">FASE 6 → FASE 7</div><div className="text-[10px] text-[#9eb5c4]">subfase exacta aún por reconciliar</div></div>
+        <div className="rounded-[6px] border border-[#f0a35b]/50 bg-[#f0a35b]/10 px-4 py-3"><div className="text-[9px] tracking-[.18em] text-[#f6c995]">POSICIÓN ACTUAL DECLARADA</div><div className="mt-1 font-semibold">FASE 6 · IN PROGRESS</div><div className="text-[10px] text-[#9eb5c4]">10 fases · definiciones históricas en reconciliación</div></div>
       </section>
 
       <nav className="mt-5 flex gap-1 overflow-x-auto border-b border-[#28445b]">{([
-        ["OVERVIEW","RESUMEN"],["KNOWLEDGE","DELTA 6.2"],["SYSTEM","SUPERARQUITECTO"],["PHASES","10 FASES"],["IDEAS","IDEAS / FROZEN"],["EVOLUTION","PRUEBA 16→4→1"]
+        ["OVERVIEW","RESUMEN"],["PHASES","10 FASES"],["SYSTEM","CUERPO ARKI"],["KNOWLEDGE","DELTA 6.2"],["IDEAS","IDEAS / FROZEN"],["EVOLUTION","PRUEBA 16→4→1"]
       ] as [MainTab,string][]).map(([id,label])=><button key={id} onClick={()=>setTab(id)} className={`whitespace-nowrap border-b-2 px-4 py-3 text-[11px] font-semibold tracking-[.08em] ${tab===id?"border-[#d4ff3a] text-[#d4ff3a]":"border-transparent text-[#8fa8bc] hover:text-white"}`}>{label}</button>)}</nav>
 
       <div className="mt-4">
