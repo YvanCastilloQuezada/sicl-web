@@ -3,6 +3,8 @@
 import {execFileSync} from 'node:child_process';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {resolve} from 'node:path';
+import scopeModule from './arki-executor-scope.cjs';
+const {scope}=scopeModule;
 const REPO='YvanCastilloQuezada/sicl-web',OWNER='YvanCastilloQuezada',SHA=/^[a-f0-9]{40}$/i;
 const PROTECTED=[/^\.github\//,/^docs\/arki-master-map\//,/^tools\/maqueta-viva\/arki-executor-gate\.mjs$/,/^ARKI-MAQUETA-VIVA\.cmd$/,/((^|\/)(AGENTS\.md|.*\.lock))$/i];
 const TESTS=['pnpm check','pnpm test -- --run','pnpm build'];
@@ -27,6 +29,7 @@ if(manifest.noCanonicalPromotion!==true||manifest.requiresRedTeam!==true||manife
 if(manifest.testCommands!==undefined&&JSON.stringify(manifest.testCommands)!==JSON.stringify(TESTS))deny('TESTS_NOT_FIXED');
 return {caseId:manifest.caseId,phase:manifest.phase,phaseStatus:phase.status,headSha:head,baseSha:base,changedFiles:changes,scope:'PASS',tests:TESTS,ownerAuthorization:'NOT_VERIFIED',redTeam:'NOT_VERIFIED',acceptance:'BLOCKED'};
 }
+
 async function verifyGitHub(receipt,head,pr){
 if(!process.env.GH_TOKEN)deny('GH_TOKEN_REQUIRED');
 if(!Number.isInteger(pr)||pr<1)deny('PR_INVALID');

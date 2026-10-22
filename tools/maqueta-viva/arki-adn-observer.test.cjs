@@ -1,0 +1,48 @@
+"use strict";
+const assert=require("node:assert/strict"),fs=require("node:fs"),os=require("node:os"),path=require("node:path");
+const {spawnSync}=require("node:child_process");
+const {processOnce,ledger}=require("./arki-adn-observer.cjs");
+const root=fs.mkdtempSync(path.join(os.tmpdir(),"arki-adn-observer-"));
+const inbox=path.join(root,"inbox"),outbox=path.join(root,"outbox");
+fs.mkdirSync(inbox);fs.mkdirSync(outbox);
+const base={schema:"ARKI-ADN-OBSERVATION-1",observationId:"O-01",sourceCommit:"a".repeat(40),metrics:[{id:"cost",value:120,target:100,direction:"MINIMIZE",unit:"USD-m2",verified:true},{id:"unknown",value:4,target:2,direction:"MINIMIZE",unit:"score",verified:false}]};
+try{
+ fs.writeFileSync(path.join(inbox,"obs-01.json"),JSON.stringify(base));
+ let result=processOnce(inbox,outbox);
+ assert.equal(result.added,1);
+ assert.equal(result.canonicalMutation,false);
+ assert.equal(processOnce(inbox,outbox).skipped,1);
+ const first=JSON.parse(fs.readFileSync(path.join(outbox,"proposal-000001.json"),"utf8"));
+ assert.equal(first.result.proposals.length,2);
+ assert.equal(first.result.deficits.filter(x=>x.status==="UNKNOWN").length,1);
+ assert.equal(first.canonicalPromotion,"BLOCKED");
+ fs.writeFileSync(path.join(inbox,"obs-02.json"),JSON.stringify({...base,observationId:"O-02",metrics:[{...base.metrics[0],value:110},base.metrics[1]]}));
+ result=processOnce(inbox,outbox);
+ assert.equal(result.added,1);
+ assert.equal(ledger(outbox).seq,2);
+ const second=JSON.parse(fs.readFileSync(path.join(outbox,"proposal-000002.json"),"utf8"));
+ assert.equal(second.result.proposals[1].proposedValue,105);
+ assert.equal(second.result.execution,"NOT_EXECUTED");
+ assert.equal(second.canonicalMutation,false);
+ const cli=spawnSync(process.execPath,[path.join(__dirname,"arki-adn-observer.cjs"),"--once",inbox,outbox],{encoding:"utf8",timeout:10000});
+ assert.equal(cli.status,0,cli.stderr);
+ assert.equal(JSON.parse(cli.stdout).added,0);
+ const watched=spawnSync(process.execPath,[path.join(__dirname,"arki-adn-observer.cjs"),"--watch",inbox,outbox,"--interval-ms","1000","--max-polls","1"],{encoding:"utf8",timeout:10000});
+ assert.equal(watched.status,0,watched.stderr);
+ assert.equal(JSON.parse(watched.stdout).poll,1);
+ assert.equal(JSON.parse(watched.stdout).added,0);
+ const unsafe=spawnSync(process.execPath,[path.join(__dirname,"arki-adn-observer.cjs"),"--watch",inbox,outbox,"--interval-ms","1","--max-polls","10000"],{encoding:"utf8",timeout:10000});
+ assert.notEqual(unsafe.status,0);
+
+ const reportFile=path.join(outbox,"proposal-000002.json"),original=fs.readFileSync(reportFile,"utf8");
+ fs.writeFileSync(reportFile,original.replace("NOT_EXECUTED","EXECUTED"));
+ assert.throws(()=>processOnce(inbox,outbox),/REPORT_TAMPER_DETECTED/);
+ fs.writeFileSync(reportFile,original);
+ const eventFile=path.join(outbox,"event-000002.json"),originalEvent=fs.readFileSync(eventFile,"utf8");
+ fs.writeFileSync(eventFile,originalEvent.replace("O-02","O-03"));
+ assert.throws(()=>ledger(outbox),/LEDGER_INVALID/);
+ fs.writeFileSync(eventFile,originalEvent);
+ assert.equal(ledger(outbox).seq,2);
+ assert.throws(()=>processOnce(inbox,inbox),/UNSAFE_DIRECTORY_LAYOUT/);
+ console.log("ARKI_ADN_OBSERVER=PASS; TWO_DISTINCT_OBSERVATIONS; TAMPER_REJECTION; CANONICAL_UNCHANGED");
+}finally{fs.rmSync(root,{recursive:true,force:true})}
