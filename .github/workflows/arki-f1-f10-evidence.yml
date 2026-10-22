@@ -1,5 +1,11 @@
 name: ARKI F1-F10 Evidence Runner (manual, read-only)
 on:
+name: ARKI F1-F10 Evidence Runner (PR + manual, read-only)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/arki-f1-f10-evidence.yml'
+      - 'scripts/arki-phase-evidence-runner.mjs'
   workflow_dispatch:
     inputs:
       phase:
@@ -17,6 +23,7 @@ jobs:
   verify:
     name: "Evidence ${{ matrix.phase }}"
     if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
@@ -27,6 +34,7 @@ jobs:
     steps:
       - name: Checkout exact branch commit (read only)
         if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
         uses: actions/checkout@v4
         with:
           persist-credentials: false
@@ -35,6 +43,10 @@ jobs:
         uses: pnpm/action-setup@v4
       - name: Setup Node 22
         if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: pnpm/action-setup@v4
+      - name: Setup Node 22
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
         uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -44,6 +56,10 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Discover and execute existing phase tests
         if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        run: pnpm install --frozen-lockfile
+      - name: Discover and execute existing phase tests
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
         id: phase
         env:
           ARKI_PHASE: ${{ matrix.phase }}
@@ -51,6 +67,7 @@ jobs:
         run: node scripts/arki-phase-evidence-runner.mjs
       - name: Upload evidence even on failure
         if: always() && (inputs.phase == 'ALL' || inputs.phase == matrix.phase)
+        if: always() && (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase)
         uses: actions/upload-artifact@v4
         with:
           name: arki-evidence-${{ matrix.phase }}-${{ github.sha }}
@@ -61,6 +78,7 @@ jobs:
   core:
     name: Core regression (separate evidence)
     if: github.event_name == 'workflow_dispatch' && (inputs.phase == 'ALL' || inputs.phase == 'MO11')
+    if: (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == 'MO11')
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:

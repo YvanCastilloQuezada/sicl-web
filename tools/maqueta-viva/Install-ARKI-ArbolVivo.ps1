@@ -6,6 +6,9 @@ $ErrorActionPreference = "Stop"
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 if ($CandidateBranch -notmatch "^[A-Za-z0-9][A-Za-z0-9._/-]{0,150}$" -or $CandidateBranch.Contains("..") -or $CandidateBranch.Contains("//") -or $CandidateBranch.EndsWith("/")) { throw "Invalid branch" }
 $Branch = $CandidateBranch
+$ErrorActionPreference = "Stop"
+$Repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+$Branch = "docs/av-ui-001-preparation-20261010"
 $Install = Join-Path $env:LOCALAPPDATA "ARKI\ArbolVivo"
 $Ref = "refs/remotes/origin/$Branch"
 Set-Location $Repo
@@ -51,6 +54,7 @@ if ($Branch -eq "feat/arbol-vivo-precedencias-seguras-20261010") {
 Write-Host "SOURCE_BRANCH=$Branch"
 Write-Host "SOURCE_SHA=$sha"
 Write-Host "FIVE_TABS_SOURCE=$($html.Contains('id="arki-tab-plan"'))"
+if (!$html.Contains('id="selection-status"') -or !$html.Contains("Árbol Vivo")) { throw "HTML integrity check failed" }
 # Use explicit remote-tracking main as the current documentary source, not the stale detached checkout.
 & git fetch origin "+refs/heads/main:refs/remotes/origin/main"
 if ($LASTEXITCODE -ne 0) { throw "Cannot refresh canonical documentary source main" }

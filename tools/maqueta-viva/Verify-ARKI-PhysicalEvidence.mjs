@@ -45,6 +45,7 @@ function validate(assetsDoc,eventsDoc,assetsDir,eventsDir) {
     const source=evidenceFile(assetsDir,a.sourceRef,a.sourceSha256);
     assetMap.set(a.assetId,{assetId:a.assetId,semanticId:a.semanticId,source});
     
+
   }
   const ids=new Set(),seenOccurrence=new Set(),events=[],observers=new Set(),sources=new Set();
   for(const e of eventsDoc.events){

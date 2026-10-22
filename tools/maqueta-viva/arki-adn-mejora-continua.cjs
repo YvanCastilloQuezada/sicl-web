@@ -5,6 +5,7 @@
  * no code editing, no FROZEN mutation, no canonical promotion.
  */
 const {createHash}=require("node:crypto");
+const {createHash,verify:verifySignature}=require("node:crypto");
 const SCHEMA="ARKI-ADN-MC-001";
 const MAX_OBSERVATIONS=100,MAX_CYCLES=12;
 function hash(v){return createHash("sha256").update(JSON.stringify(v)).digest("hex")}
@@ -47,6 +48,34 @@ function propose(input){
  return {schema:SCHEMA,observationId:obs.observationId,sourceCommit:obs.sourceCommit,observationDigest:hash(obs),deficits,proposals,generatedBy:"DETERMINISTIC_ADN_MC_REFERENCE",proposalStatus:"HYPOTHESIS_ONLY",execution:"NOT_EXECUTED",canonicalMutation:false,canonicalPromotion:"BLOCKED"};
 }
 function evaluate(proposal,receipt){
+function canonicalize(value){
+ if(Array.isArray(value))return "["+value.map(canonicalize).join(",")+"]";
+ if(value&&typeof value==="object"){
+  return "{"+Object.keys(value).filter(k=>value[k]!==undefined).sort()
+   .map(k=>JSON.stringify(k)+":"+canonicalize(value[k])).join(",")+"}";
+ }
+ return JSON.stringify(value);
+}
+function receiptSigningPayload(receipt){
+ assert(receipt&&typeof receipt==="object"&&!Array.isArray(receipt),"INVALID_RECEIPT");
+ const unsigned={...receipt};
+ delete unsigned.signature;
+ return canonicalize(unsigned);
+}
+function verifyReceiptSignature(receipt,publicKey){
+ assert(typeof publicKey==="string"&&publicKey.trim(),"RECEIPT_PUBLIC_KEY_REQUIRED");
+ assert(typeof receipt.signature==="string"&&receipt.signature.length>0,"RECEIPT_SIGNATURE_MISSING");
+ let signature;
+ try{
+  signature=Buffer.from(receipt.signature,"base64");
+  assert(signature.length>0&&signature.toString("base64")===receipt.signature,"RECEIPT_SIGNATURE_INVALID");
+  assert(verifySignature("sha256",Buffer.from(receiptSigningPayload(receipt)),publicKey,signature),"RECEIPT_SIGNATURE_INVALID");
+ }catch(error){
+  if(error&&/^RECEIPT_SIGNATURE_INVALID$/.test(error.message))throw error;
+  throw Error("RECEIPT_SIGNATURE_INVALID");
+ }
+}
+function evaluate(proposal,receipt,options={}){
  assert(proposal&&proposal.schema===SCHEMA&&proposal.canonicalMutation===false,"INVALID_PROPOSAL");
  assert(receipt&&receipt.schema==="ARKI-ADN-EXPERIMENT-RECEIPT-1","INVALID_RECEIPT");
  assert(receipt.observationDigest===proposal.observationDigest,"BASELINE_MISMATCH");
@@ -65,6 +94,7 @@ function evaluate(proposal,receipt){
   assert(improved,"NO_MEASURED_IMPROVEMENT");
  }
 
+ verifyReceiptSignature(receipt,options.publicKey);
  const result=receipt.outcome==="SUCCESS"?"EVIDENCE_SUBMITTED_REQUIRES_INDEPENDENT_REVIEW":"REJECTED";
  return {schema:"ARKI-ADN-LEARNING-1",candidateId:receipt.candidateId,baseline:receipt.before,observed:receipt.after,evidenceDigest:receipt.evidenceDigest,status:result,learningVerified:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
@@ -108,3 +138,4 @@ function compareObservations(beforeInput,afterInput){
  return {schema:"ARKI-ADN-COMPARISON-1",baselineDigest:hash(before),candidateDigest:hash(after),comparisons,summary:{improvements:improvements.length,regressions:regressions.length,unknown:unknown.length},recommendation:regressions.length?"REJECT_REGRESSION":unknown.length?"INSUFFICIENT_EVIDENCE":improvements.length?"INDEPENDENT_REVIEW_REQUIRED":"NO_DEMONSTRATED_IMPROVEMENT",learningVerified:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
 module.exports={SCHEMA,normalize,propose,evaluate,iterate,nextObservation,compareObservations};
+module.exports={SCHEMA,normalize,propose,evaluate,iterate,nextObservation,compareObservations,receiptSigningPayload};

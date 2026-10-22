@@ -10,6 +10,10 @@
       "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
       "note": "F6 is frozen. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
+      "note": "F6 integral AGK closure recorded GO; F7 Professional Technical Development opened at contract-formation/reconciliation boundary."
+      "approximate_subphase": "F7.0→F7.9 integration spine",
+      "status": "IN_PROGRESS",
+      "note": "F6 FROZEN permanently revoked by explicit PO decision on 2026-10-14; historical evidence retained, revalidation required. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
     },
     "phases": [
       {
@@ -41,10 +45,13 @@
         "id": "F6",
         "status": "FROZEN",
         "evidence_status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY"
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "HISTORICAL_GO_BOUNDED_EVIDENCE_RETAINED_REVALIDATION_REQUIRED"
       },
       {
         "id": "F7",
         "status": "IN_PROGRESS",
+        "evidence_status": "CONTRACT_FORMATION_AND_REPOSITORY_RECONCILIATION"
         "evidence_status": "IMPLEMENTATION_PRESENT_EXECUTION_VERIFICATION_PENDING"
       },
       {
@@ -65,6 +72,17 @@
     ]
   },
   "current_focus": {
+    "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
+    "active": [
+      "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
+      "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
+      "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
+      "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
+    ],
+    "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
+    "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code.",
+    "blockers": []
     "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
     "active": [
       "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
@@ -1051,6 +1069,7 @@
     "next_phase": "F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT"
   },
   "f7_professional_technical_development": {
+    "status": "OPEN_CONTRACT_FORMATION",
     "status": "IMPLEMENTED_TARGETED_EXECUTION_VERIFIED",
     "gate_document": "docs/arki-master-map/ARKI_F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT_GATE_V1.md",
     "entry_dependency": "F6_GO_SATISFIED",
@@ -1066,6 +1085,7 @@
       "F7.8 Professional Coordination Gate",
       "F7.9 F8 Handoff"
     ],
+    "next": "REPOSITORY_CAPABILITY_MATRIX"
     "next": "OECE_VERIFIED_DOCUMENT_CONTENT_INSPECTION",
     "verification_head": "9597eb3e975628ab09a19aa7cda6b2262a8aec80",
     "targeted_gate": {
@@ -2341,5 +2361,15 @@
     },
     "next_gate": "Run GDT-02 synthetic self-test on Windows, then obtain genuine asset register and timestamped observations with byte-verified sources; independently validate asset mapping and provenance before any operational twin claim",
     "authority": "NO EVIDENCIA = NO VERDE; F1-F10, FROZEN, D-2, AGK, and roadmap unchanged"
+  },
+  "f6_freeze_revocation": {
+    "decision": "PERMANENT_FROZEN_REVOCATION",
+    "authority": "PO_EXPLICIT",
+    "date": "2026-10-14",
+    "phase": "F6",
+    "current_status": "RECONCILIATION_REQUIRED",
+    "historical_evidence": "GO_BOUNDED_DEMONSTRATED_BOUNDARY",
+    "rule": "Do not automatically restore FROZEN; any future freeze requires a new explicit PO decision and independently verified evidence.",
+    "scope": "F6 phase status; historical evidence and other FROZEN contracts are preserved"
   }
 }

@@ -1,0 +1,10 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict");
+const {assess}=require("./arki-av006-diagnostic.cjs");
+const h="a".repeat(40);
+const cycle={schema:"ARKI-LIVE-CYCLE-1",webHead:h,evidenceInventory:{trackedPairs:[{test:"tools/maqueta-viva/a.test.cjs"},{test:"tools/maqueta-viva/b.test.cjs"}],proposals:[{id:"I-01"}]}};
+const report={schema:"ARKI-AV005-SELF-TEST-1",webHead:h,receiptSha256:"receipt",results:[{test:"tools/maqueta-viva/a.test.cjs",status:"PASS"}]};
+test("AV-006 classifies passing test without claiming competence",()=>{const r=assess(cycle,report);assert.equal(r.counts.passed,1);assert.equal(r.counts.untested,1);assert.equal(r.proposals[0].status,"UNVERIFIED");assert.equal(r.policy.canonicalMutation,false)});
+test("AV-006 rejects stale commit",()=>assert.throws(()=>assess(cycle,{...report,webHead:"b".repeat(40)}),/STALE_SELF_TEST/));
+test("AV-006 rejects unbound or repeated results",()=>{assert.throws(()=>assess(cycle,{...report,results:[{test:"other",status:"PASS"}]}),/UNBOUND_TEST_RESULT/);assert.throws(()=>assess(cycle,{...report,results:[report.results[0],report.results[0]]}),/UNBOUND_TEST_RESULT/)});
+test("AV-006 creates incident for actual failure, not invented repair",()=>{const r=assess(cycle,{...report,results:[{test:"tools/maqueta-viva/a.test.cjs",status:"FAIL"}]});assert.equal(r.counts.failed,1);assert.equal(r.incidents[0].kind,"CONFIRMED_TEST_FAILURE");assert.deepEqual(r.incidents[0].candidateRepairs,[]);assert.equal(r.proposals[0].affectedByFailure,"UNKNOWN")});

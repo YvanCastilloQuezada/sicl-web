@@ -2049,6 +2049,25 @@ draftControls()+viewControls()+
 
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
 }
+let av020ImportedObservation=null;
+function av020ObservationPanel(){
+const d=av020ImportedObservation;
+let out='<section class="panel" aria-label="Observación externa AV-020"><h3>ARKI · Evidencia de decisiones AV-020</h3><p class="hint">Importación local de observación, NO atestación criptográfica del navegador ni autorización. Core/AGK protegidos.</p><label>Importar snapshot AV-020 (JSON) <input type="file" accept=".json,application/json" data-av020-import></label>';
+if(!d)return out+'<p class="hint">Sin observación importada. No se infiere aprobación ni madurez.</p></section>';
+out+='<p><strong>Propuesta:</strong> '+escapeHtml(d.proposal.receipt)+'</p><p><strong>Estado:</strong> '+escapeHtml(d.decision.status)+'</p><p><strong>Eventos:</strong> '+d.history.events+' · <strong>Cadena:</strong> '+(d.history.verified?'verificada por productor':'no verificada')+'</p>';
+for(const a of d.proposal.alternatives)out+='<div class="item"><strong>'+escapeHtml(a.id+' · '+a.status)+'</strong><small>'+escapeHtml(a.label||'Sin descripción')+' · Reversión '+(a.rollbackVerified?'declarada':'NO')+'</small></div>';
+return out+'<p class="caption">Origen externo AV-020 · Importado sin firma verificable · Sin promoción ni ejecución.</p></section>';
+}
+function validateAv020Observation(d){
+if(!d||d.schema!=='ARKI-AV020-TREE-SNAPSHOT-1'||!d.proposal||!d.decision||!d.history||!d.gates)throw Error('SCHEMA_INVALID');
+if(!/^[a-f0-9]{64}$/.test(d.proposal.receipt)||d.proposal.scope!=='CONTROLLED_FIXTURE_ONLY')throw Error('PROPOSAL_INVALID');
+if(!Array.isArray(d.proposal.alternatives)||d.proposal.alternatives.length!==3||d.proposal.alternatives.some(a=>!['PASS','FAIL','TIMEOUT','EXECUTION_ERROR'].includes(a.status)||!['A','B','C'].includes(a.id)))throw Error('ALTERNATIVES_INVALID');
+if(d.gates.coreWrite!==false||d.gates.canonicalIntegration!==false||d.gates.poIdentityAuthenticated!==false||d.gates.realDefectRepairProven!==false)throw Error('UNSAFE_RIGHTS');
+if(!Number.isSafeInteger(d.history.events)||d.history.events<0||d.history.verified!==true)throw Error('HISTORY_INVALID');
+if(!['AWAITING_PO','EXPERIMENT_APPROVED','REJECTED','MORE_INVESTIGATION_REQUIRED'].includes(d.decision.status))throw Error('DECISION_INVALID');
+return {schema:d.schema,proposal:{receipt:d.proposal.receipt,scope:d.proposal.scope,alternatives:d.proposal.alternatives.map(a=>({id:String(a.id),status:a.status,label:String(a.label||'').slice(0,300),rollbackVerified:a.rollbackVerified===true}))},decision:{status:d.decision.status},history:{events:d.history.events,verified:true},gates:{coreWrite:false,canonicalIntegration:false}};
+}
+
 function rightPanel(){
 let content="";
 if(tray==="frozen"){
@@ -2065,6 +2084,7 @@ const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
 return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
+return av020ObservationPanel()+'<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
 const parts=all.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.description));
@@ -2652,6 +2672,7 @@ if(!before)return {status:"SIN_DATOS",summary:"Fase no disponible.",metrics:[]};
 if(!idea.id.startsWith("SPINE-"))return {status:"SIN ENSAYO AISLADO",summary:"Esta propuesta aún no tiene una mutación estructural específica y verificable. No se atribuyen mejoras de escenarios globales a esta idea.",metrics:[],eligibleForAuthorization:false};
 const phase=phases.find(p=>p.id===idea.phase);
 if(!phase||phase.status==="FROZEN")return {status:"PROTEGIDO",summary:"No se ensaya modificación de una fase FROZEN.",metrics:[],eligibleForAuthorization:false};
+if(!phase)return {status:"SIN_DATOS",summary:"La fase de la propuesta no existe.",metrics:[],eligibleForAuthorization:false};
 const unlinked=[...ideas,...components].filter(x=>placements[x.id]===idea.phase&&spineAssignments[x.id]===undefined);
 if(!unlinked.length)return {status:"SIN CAMBIO NECESARIO",summary:"No hay piezas sin hito en la referencia actual.",metrics:[],eligibleForAuthorization:false};
 const candidates=[0,1,2,3].map(stage=>{
@@ -2709,6 +2730,7 @@ const absent=topology.missing.get(row.id)||[];
 const cyclic=topology.cycleMembers.has(row.id);
 const unresolved=deps.filter(id=>!placements[id]||!reviewGate(id).complete);
 return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":row.protected?"REVISAR FROZEN":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
+return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
 }
 function arkiGlobalPrecedence(rows){
 const downstream=id=>arkiDependencyImpact(id);
@@ -2760,6 +2782,7 @@ if(missing.length)actions.push("Identificar referencias ausentes: "+missing.join
 if(!placements[id])actions.push("Asignar fase");
 if(!readiness.complete)actions.push("Completar ficha y evidencia verificable");
 if(frozen)actions.push("Revisar alcance FROZEN con autorización expresa");
+if(frozen)actions.push("Registrar impacto sobre alcance histórico; mantener autorización de promoción");
 if(!actions.length)actions.push("Ejecutar pruebas externas y revisión independiente");
 return {id,phase,unlocks:affected.size,dependentIds:[...affected].sort(),predecessors:deps,missing,cycle,frozen,actions,priority:cycle||missing.length?"P0":affected.size>=3?"P1":affected.size?"P2":"P3"};
 }).sort((a,b)=>a.priority.localeCompare(b.priority)||b.unlocks-a.unlocks||a.id.localeCompare(b.id));
@@ -2774,6 +2797,9 @@ const missing=topology.missing.get(id)||[];
 if(topology.cycleMembers.has(id)||missing.length||frozen){
 pending.delete(id);
 blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":missing.length?"DEPENDENCIA NO REGISTRADA":"FROZEN"});
+if(topology.cycleMembers.has(id)||missing.length){
+pending.delete(id);
+blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":"DEPENDENCIA NO REGISTRADA"});
 }
 }
 const completed=new Set();
@@ -2812,6 +2838,7 @@ return '<section class="arki-experiment-panel"><h3>Expedientes para decisión de
 '<p class="caption">Cobertura de las diez fases, propuestas automáticas y piezas colocadas. La falta de resultados verificados impide recomendar una autorización de ejecución; ninguna decisión se toma automáticamente.</p>'+
 '<div class="evolution-metrics"><article><strong>'+scoped.length+'</strong><span>expedientes locales</span></article><article><strong>'+docket.ready+'</strong><span>aptos para decisión informada con evidencia externa</span></article><article><strong>0</strong><span>ejecuciones autorizadas desde este panel</span></article></div>'+
 '<p class="caption">P0 exige atención de precedencias; no autoriza ejecución. Colas separadas de investigación, pruebas e implementación.</p>'+ 
+'<p class="caption">P0 exige atención de precedencias; no autoriza ejecución. Colas separadas de investigación, pruebas e implementación.</p>'+
 '<div class="scope-grid">'+scoped.map(x=>'<article class="scope-phase-card"><strong>'+escapeHtml(x.precedence+" · "+x.phase+" · "+x.title)+'</strong><span>'+escapeHtml(x.type+" · "+x.status+" · Desbloquea: "+x.unlocks)+ '</span><small>'+escapeHtml("Investigar: "+x.lanes.research+" · Probar: "+x.lanes.test+" · Implementar: "+x.lanes.implementation+" · Precedentes: "+(x.lanes.predecessors.join(", ")||"ninguno registrado")+(x.lanes.cycle?" · CICLO DETECTADO":""))+'</small><small>'+escapeHtml(x.metric)+'</small><small>'+escapeHtml(x.decision)+'</small><small>'+escapeHtml(x.reason)+'</small></article>').join("")+'</div>'+
 '<p class="caption">Para aprobar o denegar con fundamento: falta incorporar simulación aislada del cambio concreto, resultados contrastados, pruebas de regresión, procedencia verificable y límites de autorización. El estado actual es diagnóstico, no autorización.</p></section>';
 }
@@ -2891,6 +2918,7 @@ function exportControlledScope(c,baseSha,pathsText){
 if(!c||c.status!=="AUTHORIZED"){correctiveNotice="Primero autoriza la preparación de un caso válido.";render();return;}
 const p=phases.find(x=>x.id===c.phase);
 if(!p||p.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase FROZEN o fuente distinta a la evaluación autorizada.";render();return;}
+if(!p||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase inexistente o fuente distinta a la evaluación autorizada.";render();return;}
 const sha=String(baseSha||"").trim().toLowerCase();
 const paths=String(pathsText||"").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
 const protectedPath=x=>x.startsWith(".github/")||x.startsWith("docs/arki-master-map/")||x==="tools/maqueta-viva/arki-executor-gate.mjs"||x==="ARKI-MAQUETA-VIVA.cmd"||/(^|\/)(AGENTS\.md|[^/]+\.lock)$/i.test(x);
@@ -2906,6 +2934,7 @@ function requestCorrectiveExecution(c){
 if(!c||c.status!=="AUTHORIZED")return;
 const current=phases.find(p=>p.id===c.phase);
 if(current?.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: la fase está FROZEN o cambió el estado fuente desde la evaluación. Se requiere nueva evaluación y autorización.";render();return;}
+if(!current||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: fase inexistente o estado fuente modificado. Se requiere nueva evaluación y autorización.";render();return;}
 correctivePacket(c,"EXECUTION_REQUEST");
 c.status="EXTERNAL_EXECUTION_PENDING";correctiveNotice="Orden exportada para ejecutor externo. EJECUCIÓN NO CONFIRMADA; no hay conexión remota desde esta maqueta.";persistCorrective();render();
 }
@@ -3258,6 +3287,12 @@ function updateContextHelp(target){
 const output=app.querySelector("#arki-context-text");
 if(output)output.textContent=contextualDescription(helpTarget(target));
 }
+app.addEventListener("change",async e=>{
+if(!e.target.matches?.("[data-av020-import]"))return;
+const file=e.target.files?.[0];if(!file)return;
+try{if(file.size>200000)throw Error("FILE_TOO_LARGE");const parsed=JSON.parse(await file.text());av020ImportedObservation=validateAv020Observation(parsed);render();}
+catch(err){av020ImportedObservation=null;draftNotice="AV-020 importación rechazada: "+String(err.message).slice(0,120);render();}
+});
 app.addEventListener("mouseover",e=>updateContextHelp(e.target));
 app.addEventListener("focusin",e=>updateContextHelp(e.target));
 app.addEventListener("mouseout",e=>{if(!app.contains(e.relatedTarget))updateContextHelp(null);else updateContextHelp(e.relatedTarget);});

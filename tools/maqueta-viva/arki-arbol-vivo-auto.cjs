@@ -3,6 +3,7 @@
  * Advisory only. No canonical writes, no FROZEN mutation, no fabricated measurements.
  */
 const fs=require("node:fs"),path=require("node:path"),crypto=require("node:crypto");
+const {assessDependencyCoverage}=require("./arki-dependency-coverage.cjs");
 const PHASES=Array.from({length:10},(_,i)=>"F"+(i+1));
 const hash=x=>crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
 function build(registry,options={}){
@@ -34,6 +35,12 @@ function build(registry,options={}){
   if(deps.includes(x.id))issues.push({id:x.id,code:"SELF_DEPENDENCY"});
   return {id:x.id,title:String(x.title||x.id),kind:x.kind,phase,phaseBasis:"HISTORICAL_PROPOSAL_NOT_AUTONOMOUSLY_VERIFIED",status,verification,evidence:verified?evidence:null,dependencies:deps,missing,excluded};
  });
+  const verified=Boolean(evidence.trim())&&/DEMONSTRATED|VERIFIED/.test(status)&&!(/REQUIRES|UNKNOWN|NOT_VERIFIED/.test(verification));
+  const missing= !verified;
+  const deps=Array.isArray(x.dependencies)?x.dependencies.filter(d=>typeof d==="string"):[];
+  return {id:x.id,title:String(x.title||x.id),kind:x.kind,phase,phaseBasis:"HISTORICAL_PROPOSAL_NOT_AUTONOMOUSLY_VERIFIED",status,verification,evidence:verified?evidence:null,dependencies:deps,missing,excluded};
+ });
+ const dependencyCoverage=assessDependencyCoverage(registry);
  const byId=new Map(items.map(x=>[x.id,x]));
  for(const x of items)for(const d of x.dependencies)if(!byId.has(d))issues.push({id:x.id,code:"UNKNOWN_DEPENDENCY",dependency:d});
  const inDegree=new Map(items.map(x=>[x.id,0])),children=new Map(items.map(x=>[x.id,[]]));
@@ -51,6 +58,22 @@ function build(registry,options={}){
  if(ordered.length!==items.length)issues.push({code:"DEPENDENCY_CYCLE",ids:items.filter(x=>inDegree.get(x.id)>0).map(x=>x.id)});
  const branches=PHASES.map(phase=>({phase,activities:ordered.filter(x=>x.phase===phase)}));
  const result={schema:"ARKI-ARBOL-VIVO-AUTO-001",authority:"ADVISORY_ONLY",sourceCut:registry.updated_at||null,counts:{ideas:registry.ideas.length,components:registry.components.length,total:items.length,scheduled:ordered.filter(x=>x.phase).length,excluded:ordered.filter(x=>x.excluded).length},trunk:PHASES,branches,unassigned:ordered.filter(x=>!x.phase&&!x.excluded),excluded:ordered.filter(x=>x.excluded),issues,autonomy:{inventory:"AUTOMATIC",phaseAssignment:"HISTORICAL_REUSED_NOT_AUTONOMOUS",priority:"TRANSITIVE_DEPENDENCY_REACH_NO_DURATION_OR_URGENCY",experiment:"NOT_EXECUTED",measuredImprovement:"NOT_AVAILABLE",canonicalMutation:false},order:ordered.map(x=>({id:x.id,phase:x.phase,priorityScore:x.priorityScore,downstreamCount:x.downstreamCount,dependenciesResolved:x.dependenciesResolved,dependsOn:x.dependencies})),};
+ const ready=items.filter(x=>inDegree.get(x.id)===0),ordered=[];
+ const score=x=>{const phase=x.phase?Number(x.phase.slice(1)):11;return (x.missing?100:0)+(11-phase)*10+children.get(x.id).length*3};
+ while(ready.length){
+  ready.sort((a,b)=>score(b)-score(a)||a.id.localeCompare(b.id));
+  const x=ready.shift();ordered.push({...x,priorityScore:score(x),priorityBasis:"EXPLICIT_HEURISTIC_NOT_MEASURED_BENEFIT"});
+  for(const id of children.get(x.id)){inDegree.set(id,inDegree.get(id)-1);if(inDegree.get(id)===0)ready.push(byId.get(id))}
+ }
+ if(ordered.length!==items.length)issues.push({code:"DEPENDENCY_CYCLE",ids:items.filter(x=>inDegree.get(x.id)>0).map(x=>x.id)});
+ const declared=new Map(raw.map(x=>[x.id,Array.isArray(x.dependencies)]));
+ const unsafe=new Set(dependencyCoverage.issues.map(x=>x.id).filter(Boolean));
+ for(const cycle of dependencyCoverage.cycles)for(const id of cycle)unsafe.add(id);
+ let propagated=true;
+ while(propagated){propagated=false;for(const x of items)if(!unsafe.has(x.id)&&x.dependencies.some(d=>unsafe.has(d))){unsafe.add(x.id);propagated=true}}
+ const annotated=ordered.map(x=>({...x,prerequisiteStatus:unsafe.has(x.id)?"BLOCKED_UNVERIFIED":declared.get(x.id)?"DECLARED_NOT_COMPETENCE_VERIFIED":"BLOCKED_UNVERIFIED"}));
+ const branches=PHASES.map(phase=>({phase,activities:annotated.filter(x=>x.phase===phase)}));
+ const result={schema:"ARKI-ARBOL-VIVO-AUTO-001",authority:"ADVISORY_ONLY",sourceCut:registry.updated_at||null,counts:{ideas:registry.ideas.length,components:registry.components.length,total:items.length,scheduled:ordered.filter(x=>x.phase).length,excluded:ordered.filter(x=>x.excluded).length},trunk:PHASES,branches,unassigned:ordered.filter(x=>!x.phase&&!x.excluded),excluded:ordered.filter(x=>x.excluded),issues,dependencyCoverage,autonomy:{inventory:"AUTOMATIC",phaseAssignment:"HISTORICAL_REUSED_NOT_AUTONOMOUS",priority:"DETERMINISTIC_HEURISTIC",experiment:"NOT_EXECUTED",measuredImprovement:"NOT_AVAILABLE",canonicalMutation:false},order:annotated.map(x=>({id:x.id,phase:x.phase,priorityScore:x.priorityScore,dependsOn:x.dependencies,prerequisiteStatus:x.prerequisiteStatus})),};
  result.receiptSha256=hash(result);return result;
 }
 function main(){
@@ -61,6 +84,7 @@ function main(){
  console.log("EXCLUDED_OUT_OF_SCOPE="+result.counts.excluded+"; UNRESOLVED="+result.unassigned.length);
  console.log("PHASE_ASSIGNMENT=HISTORICAL_NOT_AUTONOMOUS; EXPERIMENT=NOT_EXECUTED; NO_CANONICAL_MUTATION");
  if(result.issues.some(x=>["DEPENDENCY_CYCLE","UNRESOLVED_PHASE","UNKNOWN_DEPENDENCY","INVALID_DEPENDENCY","INVALID_DEPENDENCY_EDGE","UNVERIFIED_PRECEDENCE","SELF_DEPENDENCY"].includes(x.code)))process.exitCode=2;
+ if(result.issues.some(x=>x.code==="DEPENDENCY_CYCLE"||x.code==="UNRESOLVED_PHASE"))process.exitCode=2;
 }
 if(require.main===module)main();
 module.exports={build,PHASES};

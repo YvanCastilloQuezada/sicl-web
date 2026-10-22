@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { appRouter } from "./routers";
 import type { TrpcContext } from "./_core/context";
 import * as db from "./db";
+import { ENV } from "./_core/env";
 
 const user = { id: 7, openId: "actor-7", email: "actor@example.test", name: "Actor", loginMethod: "test", role: "user" as const, createdAt: new Date(), updatedAt: new Date(), lastSignedIn: new Date() };
 const ctx: TrpcContext = { user, req: {} as TrpcContext["req"], res: {} as TrpcContext["res"] };
@@ -15,10 +16,14 @@ describe("tRPC to SICL Core delegation", () => {
     process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
     const fetchSpy = vi.fn().mockImplementation(() => Promise.resolve(response()));
     vi.stubGlobal("fetch", fetchSpy);
-    const caller = appRouter.createCaller(ctx);
+    const owner = { ...user, role: "admin" as const, openId: "ace88-owner" };
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = owner.openId;
+    try {
+    const caller = appRouter.createCaller({ ...ctx, user: owner });
     await caller.projects.recommendationCreate({ projectId: "SICL-1", expectedVersion: 1, recommendationId: "REC-1", alternativeId: "ALT-A", basedOn: "CMP-1", basedOnKind: "MULTI_CRITERIA", reason: "Explicit analytical basis", source: "ANALYTICAL" });
-    await caller.projects.reviewRecord({ projectId: "SICL-1", expectedVersion: 1, reviewId: "REV-1", recommendationId: "REC-1", actorId: "actor-7", confirmationId: "CONF-1", reason: "Explicit human review", recommendationVersion: 1, status: "ACCEPTED" });
-    await caller.projects.decisionRecord({ projectId: "SICL-1", expectedVersion: 1, decisionId: "DEC-1", selectedAlternativeId: "ALT-A", actorId: "actor-7", authorityBasis: "PRODUCT_OWNER", confirmationId: "CONF-2", rationale: "Explicit human decision" });
+    await caller.projects.reviewRecord({ projectId: "SICL-1", expectedVersion: 1, reviewId: "REV-1", recommendationId: "REC-1", actorId: "ace88-owner", confirmationId: "CONF-1", reason: "Explicit human review", recommendationVersion: 1, status: "ACCEPTED" });
+    await caller.projects.decisionRecord({ projectId: "SICL-1", expectedVersion: 1, decisionId: "DEC-1", selectedAlternativeId: "ALT-A", actorId: "ace88-owner", authorityBasis: "PRODUCT_OWNER", confirmationId: "CONF-2", rationale: "Explicit human decision" });
     expect(fetchSpy).toHaveBeenCalledTimes(3);
     expect(JSON.parse((fetchSpy.mock.calls[0]?.[1] as RequestInit).body as string).based_on_kind).toBe("MULTI_CRITERIA");
     expect(fetchSpy.mock.calls.map(([url]) => url)).toEqual([
@@ -26,6 +31,149 @@ describe("tRPC to SICL Core delegation", () => {
       "https://core.example.test/v1/projects/SICL-1/human-reviews",
       "https://core.example.test/v1/projects/SICL-1/decisions",
     ]);
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
+  });
+
+  it("rejects human review without owner authority before calling Core", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    const caller = appRouter.createCaller(ctx);
+    await expect(caller.projects.reviewRecord({
+      projectId: "SICL-1", expectedVersion: 1,
+      reviewId: "REV-X", recommendationId: "REC-1",
+      actorId: "actor-7", confirmationId: "CONF-X",
+      reason: "Unauthorized review attempt",
+      recommendationVersion: 1, status: "ACCEPTED",
+    })).rejects.toThrow("OWNER_HUMAN_AUTHORITY_REQUIRED");
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it("rejects human decision without owner authority before calling Core", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    const caller = appRouter.createCaller(ctx);
+    await expect(caller.projects.decisionRecord({
+      projectId: "SICL-1", expectedVersion: 1,
+      decisionId: "DEC-X", selectedAlternativeId: "ALT-A",
+      actorId: "actor-7", authorityBasis: "PRODUCT_OWNER",
+      confirmationId: "CONF-X", rationale: "Unauthorized decision attempt",
+    })).rejects.toThrow("OWNER_HUMAN_AUTHORITY_REQUIRED");
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it.each(["review", "decision"])("rejects actor impersonation in %s before Core", async (operation) => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = "ace88-owner";
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    try {
+      const owner = { ...user, role: "admin" as const, openId: "ace88-owner" };
+      const caller = appRouter.createCaller({ ...ctx, user: owner });
+      if (operation === "review") {
+        await expect(caller.projects.reviewRecord({
+          projectId: "SICL-1", expectedVersion: 1,
+          reviewId: "REV-IMP", recommendationId: "REC-1",
+          actorId: "another-user", confirmationId: "CONF-IMP",
+          reason: "Attempted actor impersonation",
+          recommendationVersion: 1, status: "ACCEPTED",
+        })).rejects.toThrow("HUMAN_REVIEW_ACTOR_MISMATCH");
+      } else {
+        await expect(caller.projects.decisionRecord({
+          projectId: "SICL-1", expectedVersion: 1,
+          decisionId: "DEC-IMP", selectedAlternativeId: "ALT-A",
+          actorId: "another-user", authorityBasis: "PRODUCT_OWNER",
+          confirmationId: "CONF-IMP", rationale: "Attempted actor impersonation",
+        })).rejects.toThrow("HUMAN_DECISION_ACTOR_MISMATCH");
+      }
+      expect(fetchSpy).not.toHaveBeenCalled();
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
+  });
+
+  it("rejects an administrator who is not the configured owner", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = "ace88-owner";
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    try {
+      const otherAdmin = { ...user, role: "admin" as const, openId: "other-admin" };
+      await expect(appRouter.createCaller({ ...ctx, user: otherAdmin }).projects.reviewRecord({
+        projectId: "SICL-1", expectedVersion: 1,
+        reviewId: "REV-OTHER", recommendationId: "REC-1",
+        actorId: "other-admin", confirmationId: "CONF-OTHER",
+        reason: "Other administrator review",
+        recommendationVersion: 1, status: "ACCEPTED",
+      })).rejects.toThrow("OWNER_HUMAN_AUTHORITY_REQUIRED");
+      expect(fetchSpy).not.toHaveBeenCalled();
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
+  });
+
+  it("rejects human decision when owner identity is not configured", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = "";
+    const fetchSpy = vi.fn();
+    vi.stubGlobal("fetch", fetchSpy);
+    try {
+      const admin = { ...user, role: "admin" as const };
+      await expect(appRouter.createCaller({ ...ctx, user: admin }).projects.decisionRecord({
+        projectId: "SICL-1", expectedVersion: 1,
+        decisionId: "DEC-NO-OWNER", selectedAlternativeId: "ALT-A",
+        actorId: admin.openId, authorityBasis: "PRODUCT_OWNER",
+        confirmationId: "CONF-NO-OWNER", rationale: "Owner not configured",
+      })).rejects.toThrow("OWNER_HUMAN_AUTHORITY_REQUIRED");
+      expect(fetchSpy).not.toHaveBeenCalled();
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
+  });
+
+  it("rejects unauthorized decision preparation", async () => {
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = "ace88-owner";
+    try {
+      const caller = appRouter.createCaller(ctx);
+      await expect(caller.projects.decisionPrepare({
+        projectId: "SICL-1",
+        expectedVersion: 1,
+        selectedAlternativeId: "ALT-A",
+        actorId: "actor-7",
+        authorityBasis: "PRODUCT_OWNER",
+        confirmationId: "CONF-PREP",
+        rationale: "Unauthorized decision preparation",
+      })).rejects.toThrow("OWNER_HUMAN_AUTHORITY_REQUIRED");
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
+  });
+
+  it("rejects actor impersonation during decision preparation", async () => {
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = "ace88-owner";
+    try {
+      const owner = { ...user, role: "admin" as const, openId: "ace88-owner" };
+      const caller = appRouter.createCaller({ ...ctx, user: owner });
+      await expect(caller.projects.decisionPrepare({
+        projectId: "SICL-1",
+        expectedVersion: 1,
+        selectedAlternativeId: "ALT-A",
+        actorId: "another-user",
+        authorityBasis: "PRODUCT_OWNER",
+        confirmationId: "CONF-PREP",
+        rationale: "Attempted impersonation during preparation",
+      })).rejects.toThrow("HUMAN_DECISION_ACTOR_MISMATCH");
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
   });
 
   it("translates canonical read 404 into NOT_FOUND with upstream detail", async () => {
@@ -61,8 +209,15 @@ describe("tRPC to SICL Core delegation", () => {
     process.env.SICL_CORE_URL = "https://core.example.test";
     process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: "AUTHORITY_CONTEXT_INVALID", detail: "authority basis is not sufficient" }), { status: 422, headers: { "content-type": "application/json" } })));
-    const caller = appRouter.createCaller(ctx);
-    await expect(caller.projects.decisionRecord({ projectId: "SICL-1", expectedVersion: 1, decisionId: "DEC-1", selectedAlternativeId: "ALT-A", actorId: "actor-7", authorityBasis: "UNVERIFIED", confirmationId: "CONF-2", rationale: "Explicit human decision" })).rejects.toThrow("422: authority basis is not sufficient");
+    const previousOwner = ENV.ownerOpenId;
+    ENV.ownerOpenId = "ace88-owner";
+    try {
+    const owner = { ...user, role: "admin" as const, openId: "ace88-owner" };
+    const caller = appRouter.createCaller({ ...ctx, user: owner });
+    await expect(caller.projects.decisionRecord({ projectId: "SICL-1", expectedVersion: 1, decisionId: "DEC-1", selectedAlternativeId: "ALT-A", actorId: "ace88-owner", authorityBasis: "UNVERIFIED", confirmationId: "CONF-2", rationale: "Explicit human decision" })).rejects.toThrow("422: authority basis is not sufficient");
+    } finally {
+      ENV.ownerOpenId = previousOwner;
+    }
   });
 
 
