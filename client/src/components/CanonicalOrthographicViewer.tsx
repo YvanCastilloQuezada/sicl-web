@@ -1,3 +1,4 @@
+import React from "react";
 import type { SpatialElement, SpatialRepresentation } from "./UPAO001SpatialViewer";
 
 type Point3 = [number, number, number];
