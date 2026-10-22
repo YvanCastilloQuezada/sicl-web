@@ -10,6 +10,13 @@ on:
       - 'tools/maqueta-viva/generate-arki-handoff.cjs'
       - 'tools/maqueta-viva/ARKI_AUDIT_INDEX.json'
       - '.github/workflows/arki-continuity.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ARKI_HANDOFF.md'
+      - 'tools/maqueta-viva/generate-arki-handoff.cjs'
+      - 'tools/maqueta-viva/ARKI_AUDIT_INDEX.json'
+      - '.github/workflows/arki-continuity.yml'
   workflow_dispatch:
   schedule:
     - cron: '17 */6 * * *'
