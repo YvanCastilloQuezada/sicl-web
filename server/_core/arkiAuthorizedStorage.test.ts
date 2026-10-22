@@ -44,6 +44,11 @@ function fixture() {
       const record = objects.get(objectId);
       return record ? { ...record } : undefined;
     },
+    mutateForTest(objectId: string, patch: Record<string, unknown>) {
+      const record = objects.get(objectId);
+      if (!record) throw new Error("TEST_RECORD_NOT_FOUND");
+      Object.assign(record, patch);
+    },
   };
 
   const filesBackend = {
@@ -126,6 +131,50 @@ describe("ARKI authorized storage", () => {
         objectId: saved.objectId,
       })
     ).rejects.toThrow("STORAGE_ACCESS_DENIED");
+  });
+
+  it("deniega si cambia el propietario del registro durante la lectura", async () => {
+    const f = fixture();
+    const saved = await putSample(f);
+    f.setDuringRead(async () => {
+      f.ledger.mutateForTest(saved.objectId, { ownerId: 2 });
+    });
+    await expect(f.service.read({
+      ownerId: 1, projectId: "alpha", objectId: saved.objectId,
+    })).rejects.toThrow("STORAGE_ACCESS_DENIED");
+  });
+
+  it("deniega si cambia el proyecto del registro durante la lectura", async () => {
+    const f = fixture();
+    const saved = await putSample(f);
+    f.setDuringRead(async () => {
+      f.ledger.mutateForTest(saved.objectId, { projectId: "other" });
+    });
+    await expect(f.service.read({
+      ownerId: 1, projectId: "alpha", objectId: saved.objectId,
+    })).rejects.toThrow("STORAGE_ACCESS_DENIED");
+  });
+
+  it("deniega si el estado deja de ser READY durante la lectura", async () => {
+    const f = fixture();
+    const saved = await putSample(f);
+    f.setDuringRead(async () => {
+      f.ledger.mutateForTest(saved.objectId, { status: "REVOKED" });
+    });
+    await expect(f.service.read({
+      ownerId: 1, projectId: "alpha", objectId: saved.objectId,
+    })).rejects.toThrow("STORAGE_ACCESS_DENIED");
+  });
+
+  it("deniega si cambia la clave del registro durante la lectura", async () => {
+    const f = fixture();
+    const saved = await putSample(f);
+    f.setDuringRead(async () => {
+      f.ledger.mutateForTest(saved.objectId, { key: "objects/otro-objeto" });
+    });
+    await expect(f.service.read({
+      ownerId: 1, projectId: "alpha", objectId: saved.objectId,
+    })).rejects.toThrow("STORAGE_ACCESS_DENIED");
   });
 
   it("rechaza contenido alterado mediante la comprobación de integridad", async () => {
