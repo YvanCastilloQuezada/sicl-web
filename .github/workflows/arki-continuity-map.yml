@@ -15,7 +15,7 @@ on:
       - '.github/workflows/arki-continuity-map.yml'
   workflow_dispatch:
 
-# Read-only: validate continuity; publishing requires an explicit reviewed change.
+# Read-only: validate continuity and publish the generated candidate as an artifact only.
 permissions:
   contents: read
 
@@ -46,13 +46,15 @@ jobs:
           git --version
           node --test tools/maqueta-viva/arki-continuity-snapshot.test.cjs 2>&1 | tee arki-continuity-test.log
 
-      - name: Verify committed snapshot is current
-        run: node tools/maqueta-viva/arki-continuity-snapshot.cjs --check
+      - name: Generate continuity snapshot for review (no repository write)
+        run: node tools/maqueta-viva/arki-continuity-snapshot.cjs
 
-      - name: Upload continuity test diagnostics
+      - name: Upload continuity snapshot and test diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: arki-continuity-test-diagnostics
-          path: arki-continuity-test.log
+          name: arki-continuity-review
+          path: |
+            arki-continuity-test.log
+            docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md
           if-no-files-found: warn
