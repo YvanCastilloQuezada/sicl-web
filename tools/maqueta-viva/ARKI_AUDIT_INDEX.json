@@ -1,0 +1,73 @@
+{
+  "schema": "ARKI-AUDIT-INDEX-001",
+  "status": "HISTORICAL_UNRECONCILED",
+  "generatedAt": "2026-10-10",
+  "policy": {
+    "auditClaimIsProof": false,
+    "requireExactSha": true,
+    "allowCanonicalPromotion": false,
+    "missingEvidence": "UNKNOWN"
+  },
+  "audits": [
+    {
+      "id": "AUD-E2E001-20261001",
+      "topic": "Capability Fabric E2E-001",
+      "auditor": "Qwen Red Team",
+      "date": "2026-10-01",
+      "sha": "5d4277e90982dbf7f72963476670223b57e25586",
+      "reportedVerdict": "RED_TEAM_PASS",
+      "currentVerification": "HISTORICAL_NOT_REVALIDATED",
+      "findings": [
+        "L-01 repo-wide bypass",
+        "L-02 provenance receipt",
+        "L-03 D-2 auth",
+        "L-04 AGK-only CI trigger"
+      ],
+      "nextAction": "Verify exact SHA, current CI and closure evidence before freeze"
+    },
+    {
+      "id": "AUD-AGK-20261001",
+      "topic": "AGK hypothesis and G-200",
+      "auditor": "Qwen Red Team",
+      "date": "2026-10-01",
+      "sha": null,
+      "reportedVerdict": "HYPOTHESIS_LOCKED",
+      "currentVerification": "HISTORICAL_NOT_REVALIDATED",
+      "findings": [
+        "OCCT plus ARKI_DELTA architecture hypothesis",
+        "G0-G2 in progress; G3-G12 not specified",
+        "G2 ring orientation abs() issue"
+      ],
+      "nextAction": "Retrieve exact audit evidence and benchmark matrix"
+    },
+    {
+      "id": "AUD-CORE-20260928",
+      "topic": "Core and semantic derivation",
+      "auditor": "DeepSeek",
+      "date": "2026-09-28",
+      "sha": null,
+      "reportedVerdict": "FINDINGS_REPORTED",
+      "currentVerification": "HISTORICAL_NOT_REVALIDATED",
+      "findings": [
+        "SQLite DERIVATION_RECORDED count reported zero",
+        "RT-89 UNKNOWN_DEPENDENCY",
+        "RT-90 H-003 normative content",
+        "RT-91 dependency/change semantics"
+      ],
+      "nextAction": "Reconcile findings with current Core and exact evidence"
+    },
+    {
+      "id": "AUD-LAYOUT-20261001",
+      "topic": "Spatial Layout architectural program",
+      "auditor": "Qwen Red Team",
+      "date": "2026-10-01",
+      "sha": null,
+      "reportedVerdict": "STRATEGICALLY_APPROVED",
+      "currentVerification": "CONCEPTUAL_ONLY",
+      "findings": [
+        "Spatial Layout should formalize program, relationships and constraints, not randomly place rooms"
+      ],
+      "nextAction": "Confirm contract and implementation separately"
+    }
+  ]
+}
