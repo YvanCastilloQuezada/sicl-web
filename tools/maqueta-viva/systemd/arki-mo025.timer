@@ -1,0 +1,11 @@
+[Unit]
+Description=ARKI MO-025 advisory pulse every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=15min
+Persistent=true
+Unit=arki-mo025.service
+
+[Install]
+WantedBy=timers.target

@@ -2049,6 +2049,25 @@ draftControls()+viewControls()+
 
 '<p class="caption">Fase: '+escapeHtml(p.description)+' · Evidencia: '+escapeHtml(p.evidence_status||"NO REGISTRADA")+'. La mesa es un borrador local; no modifica autoridades canónicas.</p>';
 }
+let av020ImportedObservation=null;
+function av020ObservationPanel(){
+const d=av020ImportedObservation;
+let out='<section class="panel" aria-label="Observación externa AV-020"><h3>ARKI · Evidencia de decisiones AV-020</h3><p class="hint">Importación local de observación, NO atestación criptográfica del navegador ni autorización. Core/AGK protegidos.</p><label>Importar snapshot AV-020 (JSON) <input type="file" accept=".json,application/json" data-av020-import></label>';
+if(!d)return out+'<p class="hint">Sin observación importada. No se infiere aprobación ni madurez.</p></section>';
+out+='<p><strong>Propuesta:</strong> '+escapeHtml(d.proposal.receipt)+'</p><p><strong>Estado:</strong> '+escapeHtml(d.decision.status)+'</p><p><strong>Eventos:</strong> '+d.history.events+' · <strong>Cadena:</strong> '+(d.history.verified?'verificada por productor':'no verificada')+'</p>';
+for(const a of d.proposal.alternatives)out+='<div class="item"><strong>'+escapeHtml(a.id+' · '+a.status)+'</strong><small>'+escapeHtml(a.label||'Sin descripción')+' · Reversión '+(a.rollbackVerified?'declarada':'NO')+'</small></div>';
+return out+'<p class="caption">Origen externo AV-020 · Importado sin firma verificable · Sin promoción ni ejecución.</p></section>';
+}
+function validateAv020Observation(d){
+if(!d||d.schema!=='ARKI-AV020-TREE-SNAPSHOT-1'||!d.proposal||!d.decision||!d.history||!d.gates)throw Error('SCHEMA_INVALID');
+if(!/^[a-f0-9]{64}$/.test(d.proposal.receipt)||d.proposal.scope!=='CONTROLLED_FIXTURE_ONLY')throw Error('PROPOSAL_INVALID');
+if(!Array.isArray(d.proposal.alternatives)||d.proposal.alternatives.length!==3||d.proposal.alternatives.some(a=>!['PASS','FAIL','TIMEOUT','EXECUTION_ERROR'].includes(a.status)||!['A','B','C'].includes(a.id)))throw Error('ALTERNATIVES_INVALID');
+if(d.gates.coreWrite!==false||d.gates.canonicalIntegration!==false||d.gates.poIdentityAuthenticated!==false||d.gates.realDefectRepairProven!==false)throw Error('UNSAFE_RIGHTS');
+if(!Number.isSafeInteger(d.history.events)||d.history.events<0||d.history.verified!==true)throw Error('HISTORY_INVALID');
+if(!['AWAITING_PO','EXPERIMENT_APPROVED','REJECTED','MORE_INVESTIGATION_REQUIRED'].includes(d.decision.status))throw Error('DECISION_INVALID');
+return {schema:d.schema,proposal:{receipt:d.proposal.receipt,scope:d.proposal.scope,alternatives:d.proposal.alternatives.map(a=>({id:String(a.id),status:a.status,label:String(a.label||'').slice(0,300),rollbackVerified:a.rollbackVerified===true}))},decision:{status:d.decision.status},history:{events:d.history.events,verified:true},gates:{coreWrite:false,canonicalIntegration:false}};
+}
+
 function rightPanel(){
 let content="";
 if(tray==="frozen"){
@@ -2064,7 +2083,7 @@ content='<p class="hint">Ideas históricas y propuestas locales. Primero se mues
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
-return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
+return av020ObservationPanel()+'<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
 const parts=all.filter(p=>matches(p.id+" "+p.name+" "+p.status+" "+p.description));
@@ -3258,6 +3277,12 @@ function updateContextHelp(target){
 const output=app.querySelector("#arki-context-text");
 if(output)output.textContent=contextualDescription(helpTarget(target));
 }
+app.addEventListener("change",async e=>{
+if(!e.target.matches?.("[data-av020-import]"))return;
+const file=e.target.files?.[0];if(!file)return;
+try{if(file.size>200000)throw Error("FILE_TOO_LARGE");const parsed=JSON.parse(await file.text());av020ImportedObservation=validateAv020Observation(parsed);render();}
+catch(err){av020ImportedObservation=null;draftNotice="AV-020 importación rechazada: "+String(err.message).slice(0,120);render();}
+});
 app.addEventListener("mouseover",e=>updateContextHelp(e.target));
 app.addEventListener("focusin",e=>updateContextHelp(e.target));
 app.addEventListener("mouseout",e=>{if(!app.contains(e.relatedTarget))updateContextHelp(null);else updateContextHelp(e.relatedTarget);});

@@ -2,7 +2,7 @@
 export type AssemblyCapability = { id: string; phase: number; authority: "CORE" | "D2" | "AGK" | "WEB" | "ACS"; inputs: string[]; outputs: string[]; dependencies: string[]; evidence: string[]; verified: boolean };
 export type AssemblyOption = { id: string; strategy: "CONNECT" | "ADAPT" | "HOLD"; title: string; reason: string; requiredChecks: string[]; authorized: false };
 export type AssemblyReview = { schema: "ARKI-LIVING-ASSEMBLY-1"; capabilityId: string; status: "PROPOSAL_ONLY"; blockers: string[]; options: [AssemblyOption,AssemblyOption,AssemblyOption]; selected: null };
-const sorted = (values: string[]) => [...new Set(values)].sort();
+const sorted = (values: string[]) => Array.from(new Set(values)).sort();
 /** No side effects, no writes, no automatic approval. Stable inputs produce stable output. */
 export function evaluateAssembly(capability: AssemblyCapability, availableIds: readonly string[]): AssemblyReview {
   if (!/^[A-Za-z0-9][A-Za-z0-9_.-]{0,127}$/.test(capability.id)) throw new Error("INVALID_CAPABILITY_ID");

@@ -1,0 +1,12 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict");
+const {assessDependencyCoverage:assess}=require("./arki-dependency-coverage.cjs");
+const x=(id,dependencies)=>({id,...(dependencies===undefined?{}:{dependencies})});
+const reg=(...ideas)=>({updated_at:"test",ideas,components:[]});
+test("undeclared is not same as independent",()=>{const r=assess(reg(x("A")));assert.equal(r.readiness,"BLOCKED_UNVERIFIED");assert.equal(r.issues[0].code,"DEPENDENCIES_UNDECLARED")});
+test("explicit empty dependencies can be declared",()=>{const r=assess(reg(x("A",[])));assert.equal(r.declared,1);assert.equal(r.edges,0)});
+test("declared prerequisite",()=>{const r=assess(reg(x("A",[]),x("B",["A"])));assert.equal(r.edges,1);assert.equal(r.readiness,"STRUCTURALLY_DECLARED_NOT_COMPETENCE_VERIFIED")});
+test("missing predecessor blocks",()=>assert.equal(assess(reg(x("B",["MISSING"]))).issues[0].code,"DEPENDENCY_UNKNOWN"));
+test("self dependency blocks",()=>assert.equal(assess(reg(x("A",["A"]))).issues[0].code,"SELF_DEPENDENCY"));
+test("cycle blocks",()=>assert.equal(assess(reg(x("A",["B"]),x("B",["A"]))).cycles.length,1));
+test("duplicate ID rejected",()=>assert.throws(()=>assess(reg(x("A",[]),x("A",[]))),/DUPLICATE/));
