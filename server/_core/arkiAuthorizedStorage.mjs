@@ -36,6 +36,20 @@ export function createAuthorizedStorage({ledger, files}) {
       if (!record || record.status !== 'READY' || record.ownerId !== ownerId || record.projectId !== projectId || record.key !== `objects/${objectId}`) deny();
       const body = await files.readExact(record.key);
       if (!Buffer.isBuffer(body) || body.length !== record.sizeBytes || hash(body) !== record.sha256) throw new Error('STORAGE_INTEGRITY_FAILURE');
+
+      // Revalidate authorization and object state after file I/O.
+      // Ownership or READY status may have changed while the blob was read.
+      if (!await ledger.isProjectOwner(ownerId, projectId)) deny();
+      const current = await ledger.get(objectId);
+      if (
+        !current ||
+        current.status !== 'READY' ||
+        current.ownerId !== ownerId ||
+        current.projectId !== projectId ||
+        current.key !== record.key ||
+        current.key !== `objects/${objectId}`
+      ) deny();
+
       return {body,contentType:record.contentType};
     },
     async revoke({ownerId,projectId,objectId}) {
