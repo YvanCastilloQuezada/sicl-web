@@ -15,7 +15,7 @@ on:
       - '.github/workflows/arki-continuity-map.yml'
   workflow_dispatch:
 
-# Read-only: validate continuity and publish the generated candidate as an artifact only.
+# Read-only: validate continuity; publishing requires an explicit reviewed change.
 permissions:
   contents: read
 
