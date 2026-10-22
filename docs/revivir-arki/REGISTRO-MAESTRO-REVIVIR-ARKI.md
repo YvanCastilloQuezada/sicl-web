@@ -10,11 +10,10 @@ Conservar el estado verificable de la etapa REVIVIR ARKI para que una sesión fu
 
 - Fecha: 2026-10-22 (UTC).
 - Repositorio: `YvanCastilloQuezada/sicl-web`.
-- Rama de integración: `main`.
-- Commit actual de `main` verificado tras PR #72: `8ba7fb32f3a70e3fe239866d13a23f17eb25ad21`.
-- Estado general de REVIVIR ARKI: **EN CURSO**. La fusión del PR no implica que el sistema completo esté operativo.
+- Último commit de `main` confirmado en esta actualización: merge de PR #73, `daf8ad49947c5eafad6d41148f9f723ba40d0371`.
+- Estado general de REVIVIR ARKI: **EN CURSO**. Los cambios de documentación y las pruebas del adaptador no demuestran por sí solos operación completa en producción.
 
-## Registro de hitos verificados
+## Hitos integrados
 
 ### Hito 1 — Pruebas de revalidación de almacenamiento
 
@@ -24,37 +23,65 @@ Conservar el estado verificable de la etapa REVIVIR ARKI para que una sesión fu
 - Commit de integración en `main`: `8ba7fb32f3a70e3fe239866d13a23f17eb25ad21`.
 - Archivo modificado: `server/_core/arkiAuthorizedStorage.test.ts`.
 - Alcance: cuatro pruebas de regresión para cambios del propietario, proyecto, estado (READY/REVOKED) y clave del registro durante una lectura.
-- Evidencia de pruebas reportada en el PR: candidato ejecutado con Vitest 2.1.9, **8/8 pruebas aprobadas**. La regresión combinada local previamente reportada fue **13/13**.
-- Logs locales referenciados en el historial de trabajo (no se ha verificado aquí que estén respaldados fuera del entorno local):
+- CI: [SICL Web CI, ejecución #950](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/39742109215), conclusión **success**. Pasaron TypeScript check, tests y build de producción.
+- Pruebas locales reportadas: candidato 8/8 y regresión combinada 13/13.
+- Logs locales referenciados en el historial (no verificados como respaldados fuera del entorno local):
   - `/home/arki/arki-revivir-regression-edge-final.log`
   - `/home/arki/arki-revivir-main-candidate-test-run-2.log`
   - `/home/arki/arki-revivir-publish-test-commit.log`
-- Limitación: estas pruebas no demuestran por sí solas que el adaptador esté activado en producción ni que el ciclo completo de ARKI funcione.
+- Límite: esto prueba el conjunto ejecutado en CI, no que el adaptador esté habilitado en una instancia productiva.
+
+### Hito 2 — Registro maestro de continuidad
+
+- PR: [#73 — docs(revivir-arki): add continuity evidence register](https://github.com/YvanCastilloQuezada/sicl-web/pull/73)
+- Estado: **FUSIONADO Y CERRADO**.
+- Commit de integración: `daf8ad49947c5eafad6d41148f9f723ba40d0371`.
+- Archivo: `docs/revivir-arki/REGISTRO-MAESTRO-REVIVIR-ARKI.md`.
+- CI de la documentación: [SICL Web CI, ejecución #952](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/39742775598), conclusión **success**.
+
+## Trazado del adaptador — inspección estática del código en main
+
+Fuentes revisadas:
+- [Adaptador autorizado](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/arkiAuthorizedStorage.mjs)
+- [Puente MO-22](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/arkiMo22Bridge.ts)
+- [Rutas HTTP](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/arkiHttpRoutes.mjs)
+- [Repositorio MySQL](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/arkiMysqlLedgerRepository.mjs)
+- [Backend de archivos](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/arkiFileBackend.mjs)
+- [Inicialización del servidor](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/index.ts)
+- [Prueba de integración real MO-22](https://github.com/YvanCastilloQuezada/sicl-web/blob/main/server/_core/arkiMo22RealIntegration.test.ts)
+
+Hallazgos observados en el código:
+1. `server/_core/index.ts` llama a `registerArkiMo22(app)` durante el arranque.
+2. El puente solo registra rutas cuando `enabled()` resulta verdadero. Requiere `ARKI_STORAGE_MODE=local`, `ARKI_MO22_ENABLE=1`, `ARKI_DEV_OPEN` distinto de `1` y una combinación permitida de identidad. La identidad local requiere `ARKI_MO08_LOCAL_AUTH=1` y `NODE_ENV` distinto de `production`; la otra vía usa identidad Manus.
+3. Al crear el servicio, el puente exige `DATABASE_URL` y `ARKI_STORAGE_ROOT` absoluto.
+4. Las rutas exponen POST, GET y DELETE bajo `/api/arki-storage/projects/:projectId/objects`; la autenticación se delega al puente.
+5. La lectura valida pertenencia al proyecto, estado READY, propietario, proyecto y clave antes y después de la lectura física, además de tamaño y SHA-256.
+6. El repositorio MySQL usa transacciones para comprobar la propiedad del proyecto y cambiar estados PENDING/READY/REVOKED.
+7. El backend local restringe la raíz, usa claves exactas, evita symlinks en aperturas y comprueba cambios del archivo durante la lectura.
+8. El CI de PR #72 ejecutó un job con TypeScript, pruebas y build exitosos. La prueba `arkiMo22RealIntegration.test.ts` contiene 13 comprobaciones de integración con MariaDB/HTTP, pero **no se ha obtenido todavía evidencia de una ejecución exitosa de esa prueba contra una instancia de MariaDB real en el entorno objetivo**.
+
+Limitación importante: la inspección de código demuestra que hay un camino de registro condicionado por configuración; **no demuestra qué variables están configuradas en el despliegue actual ni que las rutas estén habilitadas en producción**.
 
 ## Próximas etapas
 
-### A — Verificar CI e integración
-- Estado: **PENDIENTE DE CIERRE DOCUMENTAL**.
-- Revisar la ejecución de GitHub Actions asociada al PR #72 y registrar su conclusión real. En la última consulta anterior a la fusión, el workflow `SICL Web CI` estaba `in_progress`; no asumir que pasó sin comprobarlo.
-- Confirmar que `main` contiene el merge commit registrado arriba.
-
-### B — Trazar el recorrido real del adaptador
+### A — Confirmar la ejecución de la integración real MO-22
 - Estado: **PENDIENTE**.
-- Identificar los puntos de entrada y consumidores reales de `server/_core/arkiAuthorizedStorage.mjs`, las rutas de autorización y el estado persistido.
-- Documentar referencias de código y pruebas existentes antes de modificar nada.
-- No afirmar que el servicio está activo en producción sin evidencia de ejecución.
+- Encontrar una ejecución CI o de entorno controlado que muestre el resultado de `arkiMo22RealIntegration.test.ts` contra MariaDB real.
+- Guardar logs completos y confirmar limpieza/aislamiento de las tablas y archivos temporales usados por la prueba.
+- No ejecutar contra una base productiva ni alterar datos reales.
 
-### C — Pruebas integrales y adversariales
+### B — Verificar configuración de despliegue sin exponer secretos
 - Estado: **PENDIENTE**.
-- Validar accesos revocados, cambios de propietario/proyecto/clave, fallos parciales, integridad de contenido y compensación ante errores.
-- Registrar comandos exactos, código de salida y resultados. Separar pruebas unitarias de integración y de entorno real.
+- Confirmar en el entorno objetivo solo la presencia/ausencia y valores no secretos de las variables de activación: `ARKI_STORAGE_MODE`, `ARKI_MO22_ENABLE`, `ARKI_DEV_OPEN`, `ARKI_IDENTITY_MODE`, `ARKI_MO08_LOCAL_AUTH`, `NODE_ENV`, y presencia de `DATABASE_URL`/`ARKI_STORAGE_ROOT` sin imprimir credenciales.
+- No cambiar configuración ni activar el servicio como parte de la inspección.
 
-### D — Demostrar un ciclo operativo seguro
+### C — Demostrar un ciclo operativo seguro
 - Estado: **PENDIENTE**.
-- Evidenciar el ciclo de solicitud → acción autorizada → revalidación → resultado → registro de evidencia.
-- Probar que las acciones no autorizadas se rechazan y que los fallos no se reportan como éxito.
+- En un entorno aislado: solicitud autenticada → escritura → registro READY → lectura con bytes y hash verificados → revocación → lectura denegada.
+- Incluir casos de identidad inválida, otro propietario/proyecto, contenido alterado y error parcial.
+- Registrar comandos, códigos de salida, resultados y logs persistentes.
 
-### E — Cierre de deudas e integración
+### D — Cierre de deudas e integración
 - Estado: **PENDIENTE**.
 - Integrar únicamente cambios autorizados mediante el flujo existente.
 - Evitar ramas de prueba innecesarias. No borrar respaldos ni cambios locales no relacionados.
