@@ -19,6 +19,15 @@ function orchestrate({parts,discovery,phaseRules={},evidence={}}) {
     const blocked=p.status!=="PROPOSED" || !valid || !phaseValid || frozen;
     return {id:p.id,proposedPhase:p.proposedPhase,action:blocked?"EVIDENCE_OR_AUTHORITY_REVIEW":"ISOLATED_EXPERIMENT_CANDIDATE",
       reasons:[...p.reasons,...(!valid?["UNVERIFIED_EVIDENCE"]:[])],execution:"NOT_EXECUTED",
+    const nonFrozenReasons=p.reasons.filter(r=>r!=="FROZEN_READ_ONLY");
+    const legacyFrozenOnly=p.status==="REVIEW_REQUIRED" &&
+      p.reasons.length===1 &&
+      p.reasons[0]==="FROZEN_READ_ONLY" &&
+      plan.issues.length===0;
+    const blocked=(p.status!=="PROPOSED" && !legacyFrozenOnly) ||
+      !valid || !phaseValid || nonFrozenReasons.length>0;
+    return {id:p.id,proposedPhase:p.proposedPhase,action:blocked?"EVIDENCE_OR_AUTHORITY_REVIEW":"ISOLATED_EXPERIMENT_CANDIDATE",
+      reasons:[...nonFrozenReasons,...(!valid?["UNVERIFIED_EVIDENCE"]:[])],execution:"NOT_EXECUTED",
       canonicalMutation:false,ownerGate:"REQUIRED_FOR_PROMOTION"};
   }).sort(SORT);
   const digest=crypto.createHash("sha256").update(JSON.stringify({work,issues:plan.issues,strategies:strategies.strategies.map(s=>s.id)})).digest("hex");

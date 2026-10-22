@@ -8,6 +8,27 @@ const STATE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
 const REGISTRY="tools/maqueta-viva/assembly-registry.json";
 const CATALOG="tools/maqueta-viva/av-ui-001-capability-catalog.json";
 function gitShow(root,file){return cp.execFileSync("git",["show",COMMIT+":"+file],{cwd:root,encoding:"utf8",maxBuffer:8*1024*1024,timeout:15000})}
+const {publicDiagnosis,script:diagnosisScript}=require("./arki-av029-diagnosis-bridge.cjs");
+const {publicNeeds,script:needsScript}=require("./arki-av032-needs-bridge.cjs");
+const COMMIT="1de8814382367cbdd8198a496e70ebe66851a02f";
+const FILE="tools/maqueta-viva/av-ui-001-readonly-prototype.html";
+const FROZEN="tools/maqueta-viva/historical/av-ui-001-frozen.html";
+const STATE="docs/arki-master-map/ARKI_MASTER_MAP_STATE.json";
+const REGISTRY="tools/maqueta-viva/assembly-registry.json";
+const CATALOG="tools/maqueta-viva/av-ui-001-capability-catalog.json";
+function gitShow(root,file){
+ if(file===FILE){
+  const frozen=path.join(root,FROZEN);
+  if(!fs.existsSync(frozen))throw Error("HISTORICAL_FRONTEND_ASSET_MISSING");
+  const html=fs.readFileSync(frozen,"utf8");
+  if(!html.includes("ARKI")||!html.includes("__ARKI_EMBEDDED_STATE__"))
+   throw Error("HISTORICAL_FRONTEND_ASSET_INVALID");
+  return html;
+ }
+ return cp.execFileSync("git",["show","HEAD:"+file],{
+  cwd:root,encoding:"utf8",maxBuffer:8*1024*1024,timeout:15000
+ });
+}
 function safeData(raw){const data=JSON.parse(raw);return JSON.stringify(data).replace(/</g,"\\u003c").replace(/>/g,"\\u003e").replace(/&/g,"\\u0026").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029")}
 function page(root){
  const original=gitShow(root,FILE);
@@ -42,12 +63,49 @@ function page(root){
 </script>`;
  if(!original.includes("<script>")||!original.includes("</body>"))throw Error("HISTORICAL_HTML_INVALID");
  return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+"</body>");
+ return original.replace("<script>",boot+"\n<script>").replace("</body>",bridge+diagnosisScript+needsScript+"</body>");
 }
 function start(root,proposal,ledger,port=8768){
  const html=page(root);snapshot(proposal,ledger);
  const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,"http://localhost").pathname;
  if(req.method!=="GET"||!["/","/api/tree"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(req.method!=="GET"||!["/","/api/tree","/api/diagnosis","/api/needs"].includes(pathname)){res.writeHead(404);res.end("Not found");return}
+ if(pathname==="/api/needs"){
+  try{
+    const result=publicNeeds(root);
+    res.writeHead(200,{
+      "Content-Type":"application/json; charset=utf-8",
+      "Cache-Control":"no-store",
+      "X-Content-Type-Options":"nosniff"
+    });
+    res.end(JSON.stringify(result));
+  }catch(error){
+    res.writeHead(503,{
+      "Content-Type":"application/json",
+      "Cache-Control":"no-store"
+    });
+    res.end(JSON.stringify({
+      error:"NEEDS_UNAVAILABLE"
+    }));
+  }
+  return;
+ }
+ if(pathname==="/api/diagnosis"){
+  try{
+    const result=publicDiagnosis(root);
+    res.writeHead(200,{
+      "Content-Type":"application/json; charset=utf-8",
+      "Cache-Control":"no-store",
+      "X-Content-Type-Options":"nosniff"
+    });
+    res.end(JSON.stringify(result));
+  }catch(e){
+    res.writeHead(503,{"Content-Type":"application/json"});
+    res.end(JSON.stringify({error:"DIAGNOSIS_UNAVAILABLE"}));
+  }
+  return;
+ }
  if(pathname==="/"){res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(html);return}
  try{res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(snapshot(proposal,ledger)))}
  catch(e){res.writeHead(503,{"Content-Type":"application/json"});res.end(JSON.stringify({error:"EVIDENCE_UNAVAILABLE"}))}

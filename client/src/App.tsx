@@ -5,6 +5,9 @@ import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 const OfflineSyncManager = lazy(() => import("./components/OfflineSyncManager"));
+import ArkiFirstContact from "./components/ArkiFirstContact";
+import PwaInstallPrompt from "./components/PwaInstallPrompt";
+import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
@@ -135,6 +138,9 @@ function App() {
           <TooltipProvider>
             <Toaster />
             <Suspense fallback={null}><OfflineSyncManager /></Suspense>
+            <ArkiFirstContact />
+            <PwaInstallPrompt />
+            <OfflineSyncManager />
             <Suspense fallback={null}><CommandBar /></Suspense>
             <Router />
           </TooltipProvider>

@@ -52,6 +52,7 @@ try {
   if (matched.length === 0) {
     receipt.status = "BLOCKED";
     receipt.reason = "NO_PHASE_TEST_FILES_DISCOVERED; manual coverage mapping required";
+    receipt.reason = phase === "F8" ? "F8_TESTS_NOT_IN_THIS_REF: F8-specific test server/arkiF7F8Closure.test.ts exists on feat/f7-f8-integral-closure, not on main; verification BLOCKED pending branch integration; cannot report PASS" : "NO_PHASE_TEST_FILES_DISCOVERED; manual coverage mapping required";
   } else {
     const args = ["exec", "vitest", "run", ...matched];
     run("vitest-" + phase.toLowerCase(), "pnpm", args);
@@ -75,6 +76,7 @@ try {
     "- Core: " + receipt.core,
     "- PO: " + receipt.approval,
     "- Matched test files: " + (receipt.discovery?.countMatched ?? 0),
+    ...(receipt.reason ? ["- Blocker: " + receipt.reason] : []),
     ...receipt.tests.map(t => "- " + t.name + ": " + t.status + " (exit " + t.exitCode + ")"),
     "- Limit: PASS_WEB_ONLY is NOT phase acceptance or end-to-end validation."
   ];

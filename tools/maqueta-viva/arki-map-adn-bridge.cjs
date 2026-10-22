@@ -3,6 +3,7 @@
 // Map claims are not independently verified measurements.
 const fs=require("node:fs"),crypto=require("node:crypto");
 const {propose}=require("./arki-adn-mejora-continua.cjs");
+const {validateF6Map}=require("./arki-f6-revocation.cjs");
 const hash=x=>crypto.createHash("sha256").update(x).digest("hex");
 const PHASE=/^F(?:10|[1-9])$/;
 function inspectMap(map,sourceCommit){
@@ -10,6 +11,7 @@ function inspectMap(map,sourceCommit){
  if(typeof sourceCommit!=="string"||!/^[a-f0-9]{40}$/.test(sourceCommit))throw Error("INVALID_SOURCE_COMMIT");
  const phases=map.roadmap?.phases;
  if(!Array.isArray(phases)||phases.length!==10)throw Error("INVALID_PHASES");
+ validateF6Map(map,phases);
  const seen=new Set(),findings=[];
  for(const p of phases){
   if(!p||typeof p.id!=="string"||!PHASE.test(p.id)||seen.has(p.id)||typeof p.status!=="string"||!p.status.trim()||typeof p.evidence_status!=="string"||!p.evidence_status.trim())throw Error("INVALID_PHASE_ENTRY");

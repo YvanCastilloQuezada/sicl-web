@@ -10,6 +10,7 @@ import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
 import { extractOcr, classifyDocumentStructure, type OcrInputKind } from "./arkiOcr";
 import { storagePut } from "./storage";
+import { putArkiMo22 } from "./_core/arkiMo22Bridge";
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, SiclCoreHttpError } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
@@ -120,8 +121,12 @@ export const appRouter = router({
       const project = await ownedProject(ctx.user.id, input.projectId);
       const sourceId = `SRC-${Date.now().toString(36).toUpperCase()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
       const base64 = input.dataUrl.split(",", 2)[1];
-      if (!base64) fail("Media data is not valid base64");
-      const media = await storagePut(`projects/${input.projectId}/sources/${input.fileName}`, Buffer.from(base64, "base64"), input.mimeType);
+      if (!base64 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(base64)) {
+        fail("Media data is not valid base64");
+      }
+      const media = process.env.ARKI_STORAGE_MODE === "local"
+        ? await putArkiMo22(ctx.user.id, input.projectId, Buffer.from(base64, "base64"), input.mimeType)
+        : await storagePut(`projects/${input.projectId}/sources/${input.fileName}`, Buffer.from(base64, "base64"), input.mimeType);
       const ocr = input.runOcr ? await extractOcr({ sourceId, dataUrl: input.dataUrl, kind: input.ocrKind as OcrInputKind, language: input.language }) : [];
       const visual = input.analyzeVisual && input.mimeType.startsWith("image/") ? await analyzeVisualPhoto(input.dataUrl, { spatialScope: input.spatialScope, mediaId: media.key }) : null;
       const sourceRecord = { id: sourceId, name: input.fileName, status: "SOURCE_INGESTED", provenance: [`MEDIA:${media.key}`, `PROJECT:${input.projectId}`, `CAPTURE_TYPE:${input.sourceType}`], data: { sourceType: input.sourceType, mimeType: input.mimeType, mediaUrl: media.url, mediaKey: media.key, captureTimestamp: new Date().toISOString(), note: input.note ?? "", ocr: ocr as unknown as string, visual: visual ? JSON.stringify(visual) : "", documentStructure: ocr[0] ? JSON.stringify(classifyDocumentStructure(ocr.map((item) => item.normalizedText).join("\n"))) : "" } } as unknown as SiclRecord;
@@ -386,11 +391,13 @@ export const appRouter = router({
       const channel = `project:${input.projectId}`;
       publishParametricEvent(channel, { type: "UPLOAD_STARTED", projectId: input.projectId, fileName: input.fileName, progress: 5, message: "Upload started", humanReviewRequired: true, at: new Date().toISOString() });
       const [, base64] = input.dataUrl.split(",", 2);
-      if (!base64) fail("Parametric file data is not valid base64");
+      if (!base64 || !/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(base64)) fail("Parametric file data is not valid base64");
       const content = Buffer.from(base64, "base64");
       publishParametricEvent(channel, { type: "VALIDATION_PROGRESS", projectId: input.projectId, fileName: input.fileName, progress: 45, message: "Inspecting format and checksum", humanReviewRequired: true, at: new Date().toISOString() });
       const manifest = inspectParametricArtifact({ fileName: input.fileName, content });
-      const stored = await storagePut(`users/${ctx.user.id}/parametric/${Date.now()}-${input.fileName}`, content, input.mimeType);
+      const stored = process.env.ARKI_STORAGE_MODE === "local"
+        ? await putArkiMo22(ctx.user.id, input.projectId, content, input.mimeType)
+        : await storagePut(`users/${ctx.user.id}/parametric/${Date.now()}-${input.fileName}`, content, input.mimeType);
       publishParametricEvent(channel, { type: "REVIEW_REQUIRED", projectId: input.projectId, artifactId: manifest.artifactId, fileName: input.fileName, progress: 80, message: manifest.hostRequired ? `Host gate: ${manifest.hostRequired}` : "Manifest ready for human review", humanReviewRequired: true, at: new Date().toISOString() });
       const persisted = await insertParametricFile({ ownerId: ctx.user.id, projectId: input.projectId, artifactId: manifest.artifactId, fileName: manifest.fileName, format: manifest.format, sizeBytes: manifest.sizeBytes, checksum: manifest.checksum, parsed: manifest.parsed ? 1 : 0, declaredDependencies: JSON.stringify(manifest.declaredDependencies), capabilities: JSON.stringify(manifest.capabilities), hostRequired: manifest.hostRequired, status: manifest.status, storageKey: stored.key, storageUrl: stored.url, humanReviewRequired: 1 });
       publishParametricEvent(channel, { type: "UPLOAD_COMPLETED", projectId: input.projectId, artifactId: manifest.artifactId, fileName: input.fileName, progress: 100, message: "Persisted and awaiting human review", humanReviewRequired: true, at: new Date().toISOString() });
@@ -516,8 +523,9 @@ export const appRouter = router({
       return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE");
     }),
     reviewRecord: protectedProcedure.input(versionInput.extend({ reviewId: z.string().min(1), recommendationId: z.string().min(1), actorId: z.string().min(1), confirmationId: z.string().min(1), reason: z.string().trim().min(10), recommendationVersion: z.number().int().positive(), status: z.enum(["ACCEPTED", "MODIFIED", "REJECTED"]), authorityBasis: z.string().min(1).default("HUMAN_REVIEW") })).mutation(async ({ ctx, input }) => {
-      if (hasCoreUrl()) return recordCoreHumanReview(input.projectId, { review_id: input.reviewId, recommendation_id: input.recommendationId, actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId, status: input.status, reason: input.reason, observed_project_version: input.expectedVersion, recommendation_version: input.recommendationVersion, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });
       requireOwnerHumanAuthority(ctx);
+      if (input.actorId !== ctx.user.openId) throw new TRPCError({ code: "FORBIDDEN", message: "HUMAN_REVIEW_ACTOR_MISMATCH" });
+      if (hasCoreUrl()) return recordCoreHumanReview(input.projectId, { review_id: input.reviewId, recommendation_id: input.recommendationId, actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId, status: input.status, reason: input.reason, observed_project_version: input.expectedVersion, recommendation_version: input.recommendationVersion, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID() });
       const project = await ownedProject(ctx.user.id, input.projectId);
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before saving" });
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
@@ -528,6 +536,8 @@ export const appRouter = router({
       return saveNext(ctx.user.id, input.projectId, input.expectedVersion, next, "ACTIVE", "HUMAN_REVIEW_APPEND", true);
     }),
     decisionPrepare: protectedProcedure.input(versionInput.extend({ selectedAlternativeId: z.string().min(1), actorId: z.string().min(1), authorityBasis: z.string().min(1), confirmationId: z.string().min(1), rationale: z.string().trim().min(10) })).query(async ({ ctx, input }) => {
+      requireOwnerHumanAuthority(ctx);
+      if (input.actorId !== ctx.user.openId) throw new TRPCError({ code: "FORBIDDEN", message: "HUMAN_DECISION_ACTOR_MISMATCH" });
       const project = await ownedProject(ctx.user.id, input.projectId);
       const snapshot = siclCorePort.parseSnapshot(project.snapshot);
       if (project.version !== input.expectedVersion) throw new TRPCError({ code: "CONFLICT", message: "Project changed; reload before preparing" });
@@ -535,6 +545,8 @@ export const appRouter = router({
       return { ready: true, writeRequired: true, decisionType: "HUMAN", observedVersion: input.expectedVersion, actorId: input.actorId, authorityBasis: input.authorityBasis, confirmationId: input.confirmationId, rationale: input.rationale, selectedAlternativeId: input.selectedAlternativeId };
     }),
     decisionRecord: protectedProcedure.input(versionInput.extend({ decisionId: z.string().min(1), selectedAlternativeId: z.string().min(1), actorId: z.string().min(1), authorityBasis: z.string().min(1), confirmationId: z.string().min(1), rationale: z.string().trim().min(10) })).mutation(async ({ ctx, input }) => {
+      requireOwnerHumanAuthority(ctx);
+      if (input.actorId !== ctx.user.openId) throw new TRPCError({ code: "FORBIDDEN", message: "HUMAN_DECISION_ACTOR_MISMATCH" });
       if (hasCoreUrl()) return recordCoreDecision(input.projectId, { decision_id: input.decisionId, selected_alternative_id: input.selectedAlternativeId, decision_maker: input.actorId, rationale: input.rationale, expected_project_version: input.expectedVersion, event_id: crypto.randomUUID(), authority_context: { actor_id: input.actorId, authority_basis: input.authorityBasis, confirmation_id: input.confirmationId } });
       requireOwnerHumanAuthority(ctx);
       const project = await ownedProject(ctx.user.id, input.projectId);

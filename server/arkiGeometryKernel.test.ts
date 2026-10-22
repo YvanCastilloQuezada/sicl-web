@@ -88,6 +88,20 @@ describe("AGK-001 operational spine", () => {
     expect(initial.value.revision).toBe(0);
     expect(initial.value.objects[0].geometry.x_mm).toBe(1000);
   });
+  it("rejects structurally forged operational geometry before canonical state creation", () => {
+    const valid = { objectId: "valid", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1000, depth_mm: 200, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 } };
+    expect(createAgkState([{ ...valid, objectId: "   " }])).toEqual({ ok: false, code: "OPERATIONAL_OBJECT_ID_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, x_mm: Number.NaN } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, profile: { ...valid.geometry.profile, width_mm: -1 } } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, height_mm: 0 } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, kind: "FORGED_KIND" as "EXTRUDED_RECTANGLE" } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+    expect(createAgkState([{ ...valid, geometry: { ...valid.geometry, profile: { ...valid.geometry.profile, radius_mm: 10 as null } } }])).toEqual({ ok: false, code: "OPERATIONAL_GEOMETRY_INVALID" });
+  });
+
+  it("routes D6.3 materialization through the same operational object validation boundary", () => {
+    expect(materializeD63Geometry("   ", input)).toEqual({ ok: false, code: "OPERATIONAL_OBJECT_ID_INVALID" });
+  });
+
   it("propagates HOSTS dependency and preserves identities", () => {
     const wall = { objectId: "wall-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 4000, depth_mm: 200, radius_mm: null }, x_mm: 1000, y_mm: 2000, z_mm: 0, height_mm: 2800 } };
     const window = { objectId: "window-1", geometry: { kind: "EXTRUDED_RECTANGLE" as const, profile: { width_mm: 1200, depth_mm: 200, radius_mm: null }, x_mm: 2200, y_mm: 2000, z_mm: 900, height_mm: 1200 } };
@@ -129,6 +143,21 @@ describe("AGK-001 operational spine", () => {
     expect(first.ok && second.ok && first.value.stateId).toBe(second.ok ? second.value.stateId : "invalid");
   });
 
+  it("snapshots opaque external provenance without interpreting its domain semantics", () => {
+    const initial = createAgkState([{ objectId: "space-1", geometry: { kind: "EXTRUDED_RECTANGLE", profile: { width_mm: 1000, depth_mm: 1000, radius_mm: null }, x_mm: 0, y_mm: 0, z_mm: 0, height_mm: 2800 } }]);
+    expect(initial.ok).toBe(true);
+    if (!initial.ok) return;
+    const external = { sourceKind: "TEST_SOURCE", sourceId: "source-1", evidence: { opaqueKey: "opaque-value", observed: true } };
+    const moved = applyAgkCommand(initial.value, { kind: "MOVE", objectId: "space-1", delta_mm: { x: 1, y: 0, z: 0 } }, external);
+    expect(moved.ok).toBe(true);
+    if (!moved.ok) return;
+    external.evidence.opaqueKey = "mutated-after-commit";
+    expect(moved.value.externalProvenance).toEqual({ sourceKind: "TEST_SOURCE", sourceId: "source-1", evidence: { opaqueKey: "opaque-value", observed: true } });
+    expect(moved.value.provenance.external).toEqual(moved.value.externalProvenance);
+    expect(Object.isFrozen(moved.value.externalProvenance)).toBe(true);
+    expect(Object.isFrozen(moved.value.externalProvenance?.evidence)).toBe(true);
+  });
+
   it("deep-freezes committed geometry and records transaction provenance", () => {
     const initial = materializeD63Geometry("space-1", input);
     expect(initial.ok).toBe(true);
@@ -155,7 +184,7 @@ describe("AGK-001 operational spine", () => {
     const causalModel={features:[
       {featureId:"f-wall",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"wall-1",parameters:{width_mm:4000,depth_mm:200,height_mm:2800,x_mm:1000,y_mm:0,z_mm:0},inputFeatureIds:[]},
       {featureId:"f-window",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"window-1",parameters:{width_mm:1200,depth_mm:200,height_mm:1200,x_mm:2200,y_mm:0,z_mm:0},inputFeatureIds:["f-wall"]},
-      {featureId:"f-column",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"column-1",parameters:{width_mm:400,depth_mm:400,height_mm:2800,x_mm:9000,y_mm:0,z_mm:0},inputFeatureIds:[]},
+      {featureId:"f-column",kind:"EXTRUDE_RECTANGLE" as const,producesObjectId:"column-1",parameters:{width_mm:400,depth_mm:200,height_mm:2800,x_mm:9000,y_mm:0,z_mm:0},inputFeatureIds:[]},
     ],constraints:[{constraintId:"c-host",kind:"HOSTED_TRANSLATION_OFFSET" as const,hostObjectId:"wall-1",dependentObjectId:"window-1",offset_mm:{x:1200,y:0,z:0},requireWithinHostX:true}]};
     const initial=createAgkState(objects,[{kind:"HOSTS",hostObjectId:"wall-1",dependentObjectId:"window-1"}],causalModel);
     expect(initial.ok).toBe(true); if(!initial.ok)return;

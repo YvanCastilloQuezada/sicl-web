@@ -1,0 +1,3 @@
+# ARKI Capability Fabric — pinned COMPAS core runtime.
+# Verified against the official COMPAS changelog on 2026-10-01.
+compas==2.15.0
