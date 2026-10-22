@@ -145,3 +145,14 @@ Este documento cataloga las cabezas de todas las ramas que la API de GitHub devo
 2. Construir matriz de precedentes/antecedentes y destino de integración.
 3. Leer los archivos de código/test asociados a MEMORY, REVIVIR y MAPAS VIVOS completos; verificar persistencia real entre procesos.
 4. Solo después, preparar plan de consolidación en una rama existente aprobada y decidir qué ramas se pueden archivar o borrar.
+
+
+---
+
+## Actualización del catálogo — auditoría comparativa 2026-10-22
+
+- Informe comparativo: [ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md](ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md).
+- El catálogo de 2026-10-21 es un inventario de cabezas, no una auditoría completa de commits exclusivos. No debe interpretarse como validación funcional.
+- El 2026-10-22 se consultaron 98 ramas en GitHub (incluida `main`) y se compararon 24 ramas contra `main`. La lista detallada de resultados y sus límites está en el informe enlazado.
+- Estado global: **PARCIAL — quedan ramas por comparar y commits exclusivos por inspeccionar**. No se ejecutaron pruebas en cada rama; no se declara verde sin CI del SHA exacto.
+- La documentación se actualizó en la rama existente `feat/arki-autonomy-memory-main-20261013`; no se creó rama nueva ni se modificó `main`.
