@@ -164,3 +164,21 @@ Inventario auxiliar guardado en `docs/arki-master-map/ARKI_SUPERPOWERS_AUDIT_202
 - Nuevas suites `arki-relational-discovery.test.cjs` y `arki-relational-evidence.test.cjs` integradas en runner offline (21 archivos), ejecución aún pendiente.
 - Instrucciones y límites: `docs/arki-master-map/ARKI_AUTONOMOUS_RELATION_DISCOVERY_20261014.md`.
 - Pendiente: ampliar extracción de relaciones no estructuradas, revisar evidencias y conectar grafo aprobado a UI y aprendizaje Delta 6.2; respetar ACE88.
+
+## VERIFICACIÓN DE CONTINUIDAD E INTEGRACIÓN — 2026-10-13
+- Fuente: inspección directa GitHub; este bloque es auditoría, no prueba de ejecución en ARKI-02.
+- Archivo `00_START.md`: presente en esta rama experimental; AUSENTE de `main` al consultar GitHub.
+- `00_INICIO_ARKI.md`: presente en rama `audit/arbol-vivo-continuidad-20261011`; reconciliación pendiente.
+- Automatización local históricamente documentada: `~/ARKI/bin/arki02-local-ci.sh` con `arki02-ci.service`/`.timer` (06:00 local); sincronizador `~/ARKI/bin/arki02-git-sync.py`. Estado actual del servidor, temporizadores, logs y actualización diaria de `00_START`: NO VERIFICADO REMOTAMENTE.
+- PR #58 hacia `main`: https://github.com/YvanCastilloQuezada/sicl-web/pull/58; paquete independiente de memoria, HEAD `bdfefedb38a0a8cc1dfdbdea097b77594141777f`; CI run 38443066124 FAILURE, job verify FAILURE, logs no recuperables (BlobNotFound). MERGE BLOQUEADO hasta CI verde y controles de seguridad. Autorización del propietario CONDICIONADA, no permiso de omitir gates.
+- PR #57: https://github.com/YvanCastilloQuezada/sicl-web/pull/57; 7 archivos/9 commits sobre esta rama, DRAFT; no promover a main en bloque.
+- Macroorden de continuidad: localizar mecanismo que efectivamente escriba `00_START`, verificar timer + ejecuciones diarias con timestamps + commit de salida, conciliar handoffs, y solo entonces conectar el ciclo de autonomía sin duplicar servicios.
+- Próxima evidencia imprescindible: `systemctl --user list-timers --all`, `systemctl --user status arki02-ci.timer arki02-ci.service`, `journalctl --user -u arki02-ci.service --since '7 days ago'`, `ls -l --full-time ~/ARKI/bin/arki02-local-ci.sh ~/ARKI/bin/arki02-git-sync.py`, `git log -5 --format='%H %aI %s' -- 00_START.md` en repositorio Web local. No asumir que timer CI actualiza este archivo.
+
+
+## Auditoría doble Mapa Vivo / Árbol Vivo / Árbol Gemelo Digital — 2026-10-14
+- Auditoría estática publicada en `docs/arki-master-map/ARKI_LIVE_MAP_TREE_TWIN_DOUBLE_AUDIT_20261014.md`, commit `9cc2996004278a1eb6f37be0eb80f830b94ec1d5`.
+- Confirmado: los tres sistemas ya existen en `sicl-web`; no desarrollar versiones paralelas.
+- Ramas `feat/arbol-vivo-autoensamblaje-20261011` y `feat/arki-autonomy-orchestrator-20261013` divergen (9 adelante / 1 atrás en dirección orquestador respecto autoensamblaje). No fusionar sin reconciliación y pruebas.
+- `sicl-core/tools/arki_mapa_vivo.py` es candidato a deprecación por redundancia, no autoridad canónica.
+- Próximo trabajo: reconciliar cambios y `00_START.md`, ejecutar CI/E3, probar seguridad y conectar ACE88 con adaptador mínimo. Estado: AUDIT_ONLY / NOT_VERIFIED / NO_MERGE.
