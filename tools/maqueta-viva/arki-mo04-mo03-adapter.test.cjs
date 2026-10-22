@@ -1,0 +1,10 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),os=require("node:os"),path=require("node:path"),crypto=require("node:crypto");
+const {recordPlan,treeHistory}=require("./arki-mo04-mo03-adapter.cjs");
+function fixture(fn){const root=fs.mkdtempSync(path.join(os.tmpdir(),"arki-mo044-"));const j=path.join(root,"events","journal.json"),a=path.join(root,"anchor","anchor.json");fs.mkdirSync(path.dirname(j));fs.mkdirSync(path.dirname(a));try{fn(j,a)}finally{fs.rmSync(root,{recursive:true,force:true})}}
+function plan(){const x={schema:"ARKI-MO03-AUTOMATED-ADVISORY-1",counts:{activities:1,inScope:1,excluded:0},queue:[{id:"I-01",gate:"BLOCKED_UNVERIFIED",automaticExecution:false,dependencyState:"UNDECLARED",reasons:["COMPETENCE_NOT_VERIFIED"]}],policy:{automaticCanonicalMutation:false,automaticCompetencePromotion:false},execution:"READ_ONLY",coreHead:"a".repeat(40),webHead:"b".repeat(40)};x.receiptSha256=crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");return x}
+test("MO-03 diagnosis stored and tree view is read-only",()=>fixture((j,a)=>{const r=recordPlan(j,a,plan());assert.equal(r.status,"RECORDED");const v=treeHistory(j,a);assert.equal(v.events.length,1);assert.equal(v.canonicalMutation,false);assert.equal(v.approval,"NOT_INFERRED")}));
+test("same receipt is idempotent",()=>fixture((j,a)=>{const p=plan();recordPlan(j,a,p);assert.equal(recordPlan(j,a,p).status,"ALREADY_RECORDED");assert.equal(treeHistory(j,a).events.length,1)}));
+test("altered receipt rejected",()=>fixture((j,a)=>{const p=plan();p.counts.excluded=2;assert.throws(()=>recordPlan(j,a,p),/MO03_RECEIPT_MISMATCH/)}));
+test("unauthorized execution rejected",()=>fixture((j,a)=>{const p=plan();p.queue[0].automaticExecution=true;p.receiptSha256=crypto.createHash("sha256").update(JSON.stringify({...p,receiptSha256:undefined},(k,v)=>v===undefined?undefined:v)).digest("hex");assert.throws(()=>recordPlan(j,a,p))}));
+test("no history means empty read-only view",()=>fixture((j,a)=>assert.equal(treeHistory(j,a).events.length,0)));

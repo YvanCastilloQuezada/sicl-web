@@ -1,0 +1,64 @@
+name: ARKI E2E-002 Phase 1 Canary
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - feat/capability-fabric-001-contract
+    paths:
+      - "server/spatialReasoning/**"
+      - ".github/workflows/e2e002-phase1.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  e2e002-phase1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve audited SHA
+        id: audited-sha
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout audited SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.audited-sha.outputs.sha }}
+
+      - name: Verify audited SHA
+        shell: bash
+        run: |
+          echo "ARKI_E2E002_AUDITED_SHA=$(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "${{ steps.audited-sha.outputs.sha }}"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run E2E-002 Phase 1 tests
+        run: pnpm vitest run server/spatialReasoning
+
+      - name: Run D2 boundary regression
+        run: pnpm vitest run server/arkiD63ToD2GeometryBridge.test.ts
+
+      - name: Run AGK regression
+        run: pnpm vitest run server/arkiGeometryKernel.test.ts
+
+      - name: Run Capability Fabric regression
+        run: pnpm vitest run server/capabilityFabric
+
+# Phase 1 forensic exact-SHA gate
