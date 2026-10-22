@@ -2733,7 +2733,7 @@ const absent=topology.missing.get(row.id)||[];
 const cyclic=topology.cycleMembers.has(row.id);
 const unresolved=deps.filter(id=>!placements[id]||!reviewGate(id).complete);
 return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":row.protected?"REVISAR FROZEN":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
-
+return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
 }
 function arkiGlobalPrecedence(rows){
 const downstream=id=>arkiDependencyImpact(id);
@@ -2795,12 +2795,12 @@ function arkiConstructionWaves(){
 const topology=arkiDependencyTopology(),nodes=[...topology.edges.keys()];
 const pending=new Set(nodes),waves=[],blocked=[];
 for(const id of nodes){
- const phase=placements[id],frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
- const missing=topology.missing.get(id)||[];
- if(topology.cycleMembers.has(id)||missing.length||frozen){
-  pending.delete(id);
-  blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":missing.length?"DEPENDENCIA NO REGISTRADA":"FROZEN"});
- }
+const phase=placements[id],frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
+const missing=topology.missing.get(id)||[];
+if(topology.cycleMembers.has(id)||missing.length||frozen){
+ pending.delete(id);
+ blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":missing.length?"DEPENDENCIA NO REGISTRADA":"FROZEN"});
+}
 }
 const completed=new Set();
 while(pending.size){
