@@ -44,6 +44,7 @@ const ArkiFamilyStudioPage = lazy(() => import("./pages/ArkiFamilyStudioPage"));
 const ArkiSuperArchitectViewerPage = lazy(() => import("./pages/ArkiSuperArchitectViewerPage"));
 const ArkiDesignFunnelPage = lazy(() => import("./pages/ArkiDesignFunnelPage"));
 const ArkiSuperarchitectCommandCenterPage = lazy(() => import("./pages/ArkiSuperarchitectCommandCenterPage"));
+const ArkiLivingTreePage = lazy(() => import("./pages/ArkiLivingTreePage"));
 const ArkiIdeasPage = lazy(() => import("./pages/ArkiIdeasPage"));
 const ArkiSuperpowersPage = lazy(() => import("./pages/ArkiSuperpowersPage"));
 const ArkiAiLabPage = lazy(() => import("./pages/ArkiAiLabPage"));
@@ -82,6 +83,7 @@ function Router() {
     <Switch>
       <Route path={"/"}>{() => <ArkiSuperarchitectCommandCenterPage />}</Route>
       <Route path={"/arki"}>{() => <HashWorkspaceRoute />}</Route>
+      <Route path={"/arki-arbol-vivo"}>{() => <ArkiLivingTreePage />}</Route>
       <Route path={"/evidence"} component={EvidencePage} />
       <Route path={"/evaluations"} component={EvaluationsPage} />
       <Route path={"/comparisons"} component={ComparisonsPage} />

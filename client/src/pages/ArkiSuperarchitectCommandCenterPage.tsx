@@ -37,6 +37,7 @@ const knowledgeFlow = [
 
 const primarySurfaces = [
   { href:"/", eyebrow:"PROFESSIONAL", title:"ARKI Professional", body:"Proyecto, contexto, alternativas, evidencia, evaluación y decisión en el workspace profesional.", accent:"text-[#7dd3fc]" },
+  { href:"/arki-arbol-vivo", eyebrow:"LIVING TREE", title:"Árbol Vivo original", body:"Maqueta Viva y Árbol Gemelo Digital existentes, con observación AV-022 de evidencias y decisiones. Requiere servicio local.", accent:"text-[#a7e6c5]" },
   { href:"/arki-command-center", eyebrow:"SYSTEM", title:"Command Center", body:"Cuerpo vivo de ARKI: órganos, Delta 6.2, fases, evidencia, estado y próximos gates.", accent:"text-[#d4ff3a]" },
   { href:"/control-center", eyebrow:"AUTHORITY", title:"Director / Control", body:"Superficie de Human Authority para control, revisión, gobernanza y decisiones.", accent:"text-[#f0a35b]" },
   { href:"/arki-design-funnel", eyebrow:"DESIGN", title:"Design Studio", body:"Exploración arquitectónica N→16→4→1 con comparación, trazabilidad y selección para desarrollo.", accent:"text-[#70e1a2]" },
