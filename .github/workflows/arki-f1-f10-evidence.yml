@@ -1,0 +1,107 @@
+name: ARKI F1-F10 Evidence Runner (PR + manual, read-only)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/arki-f1-f10-evidence.yml'
+      - 'scripts/arki-phase-evidence-runner.mjs'
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: "Fase para verificar; ALL ejecuta F1-F10 y MO11"
+        required: true
+        default: "ALL"
+        type: choice
+        options: [ALL, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, MO11]
+permissions:
+  contents: read
+concurrency:
+  group: arki-f1-f10-evidence-${{ github.ref }}-${{ inputs.phase }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    name: "Evidence ${{ matrix.phase }}"
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        phase: [F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, MO11]
+    steps:
+      - name: Checkout exact branch commit (read only)
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: pnpm/action-setup@v4
+      - name: Setup Node 22
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install frozen dependencies
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        run: pnpm install --frozen-lockfile
+      - name: Discover and execute existing phase tests
+        if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
+        id: phase
+        env:
+          ARKI_PHASE: ${{ matrix.phase }}
+          SICL_CORE_SERVICE_TOKEN: ci-test-token
+        run: node scripts/arki-phase-evidence-runner.mjs
+      - name: Upload evidence even on failure
+        if: always() && (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase)
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-evidence-${{ matrix.phase }}-${{ github.sha }}
+          path: artifacts/arki-phase-evidence/
+          if-no-files-found: error
+          retention-days: 30
+
+  core:
+    name: Core regression (separate evidence)
+    if: (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == 'MO11')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Core main (record exact resolved SHA)
+        uses: actions/checkout@v4
+        with:
+          repository: YvanCastilloQuezada/sicl-core
+          ref: main
+          path: core
+          persist-credentials: false
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Core test and API dependencies
+        working-directory: core
+        run: python -m pip install -e '.[test,api]'
+      - name: Run Core regression with durable receipt
+        shell: bash
+        run: |
+          mkdir -p artifacts/arki-core-evidence
+          sha=$(git -C core rev-parse HEAD)
+          printf '%s\n' "$sha" > artifacts/arki-core-evidence/core-sha.txt
+          set +e
+          (cd core && python -m pytest -q) > artifacts/arki-core-evidence/pytest.log 2>&1
+          code=$?
+          set -e
+          printf 'core_repo=YvanCastilloQuezada/sicl-core\ncore_sha=%s\nexit_code=%s\n' "$sha" "$code" > artifacts/arki-core-evidence/receipt.txt
+          cat artifacts/arki-core-evidence/receipt.txt
+          exit "$code"
+      - name: Upload Core evidence on all outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-core-evidence-${{ github.sha }}
+          path: artifacts/arki-core-evidence/
+          if-no-files-found: warn
+          retention-days: 30
