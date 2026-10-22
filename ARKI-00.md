@@ -423,3 +423,8 @@ Los ZIP son **instantáneas de origen a comparar**, no autorización para sustit
 - Evidencia del entorno local compartida por el PO: el comando ejecutado desde `/home/arki` no encontró variables de entorno exportadas para MO-22/storage/identity ni `DATABASE_URL` o `ARKI_STORAGE_ROOT`; sí observó el proceso `node /home/arki/ARKI/repositorios/sicl-web/dist/index.js`, el proceso de UI histórica AV-023, Docker y un proxy en `127.0.0.1:3307`. Esto describe el entorno de terminal/procesos mostrado, no prueba que las variables falten dentro del proceso Node ni en producción.
 - Próximo paso seguro en Arki-02: entrar explícitamente al checkout `/home/arki/ARKI/repositorios/sicl-web`, capturar `git status --short --branch` y verificar existencia/estado de los scripts del generador antes de ejecutar nada. No hacer reset/stash/checkout destructivo ni regenerar el mapa antes de preservar y revisar cambios locales.
 - Referencias: [auditoría de ramas](docs/arki-master-map/ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md), [catálogo de ramas](docs/arki-master-map/ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md).
+
+
+### Corrección de inventario — 2026-10-22, segundo lote
+
+La auditoría comparativa ya documenta **58 ramas de 97 candidatas distintas de `main`**; quedan **39 ramas** por comparar. Diez ramas adicionales se compararon en esta tanda: nueve están detrás de `main` sin commits exclusivos y `feat/m001-e3-gate-hardening` diverge ampliamente (436 ahead/69 behind). El conteo anterior de 48/49 pendientes queda reemplazado por este corte más reciente. No se ha fusionado, creado ni eliminado ninguna rama.
