@@ -1221,6 +1221,7 @@ function runE3Checks(){
 const checks=[];
 const test=(id,fn)=>{try{const ok=Boolean(fn());checks.push({id,status:ok?"PASS":"FAIL"});}catch(e){checks.push({id,status:"FAIL",detail:String(e.message)});}};
 test("TEN_PHASES",()=>phases.length===10&&phases.every((p,i)=>p.id==="F"+(i+1)));
+test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id)).items.length>=0)));
 test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>{const gate=spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id));const expected=[...ideas,...components].filter(x=>placements[x.id]===p.id&&currentSpine()[x.id]===String(i));return gate&&Array.isArray(gate.items)&&gate.items.length===expected.length&&gate.items.every(item=>expected.some(x=>x.id===item.id))&&Array.isArray(gate.missingEvidence)&&Array.isArray(gate.missingTargets)&&Array.isArray(gate.crossPhase)&&Array.isArray(gate.withDeclaredReview);})));
 test("ROADMAP_MATRIX_NAVIGATION",()=>((roadmapMilestoneMatrix().match(/data-roadmap-stage="/g)||[]).length===40));
 test("SPINE_DECLARED_DEPENDENCIES_ONLY",()=>phases.every(p=>{const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id);const output=spineDependencyMap(p.id,staged);const declared=staged.flatMap(x=>reviews[x.id]?.dependencies||[]).length;return output.includes("Mapa visual de dependencias")&&(declared>0||!output.includes('class="spine-map-external"'));}));
@@ -1229,6 +1230,7 @@ test("ADVISOR_READONLY_AND_TEN_PHASES",()=>{const before=JSON.stringify({placeme
 test("TWIN_ACS_SEPARATE_GATES",()=>{const panel=twinReadinessPanel();return panel.includes("1. KNOW")&&panel.includes("4. EVOLVE")&&panel.includes("DATOS Y PROCEDENCIA")&&panel.includes("NO VERIFICADO EN ESTA MAQUETA");});
 test("FROZEN_CANONICAL_READONLY",()=>phases.every(p=>p.status===state.roadmap.phases.find(x=>x.id===p.id)?.status));
 test("DRAFT_SCHEMA",()=>Object.keys(validateDraft({schema:DRAFT_SCHEMA,placements})).length===Object.keys(placements).length);
+test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&Object.keys(validateSpineAssignments(spineAssignments,placements)).length>=0&&Object.keys(validateSpineAssignments(alternativeSpineAssignments,placements)).length>=0);
 test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&JSON.stringify(validateSpineAssignments(spineAssignments,placements))===JSON.stringify(spineAssignments)&&JSON.stringify(validateSpineAssignments(alternativeSpineAssignments,placements))===JSON.stringify(alternativeSpineAssignments));
 test("TRACE_SCHEMA",()=>validateTraceEvents(traceEvents).length===traceEvents.length&&Object.keys(validateTraceNotes(traceNotes)).length>=0);
 test("SOURCE_HISTORY",()=>Array.isArray(sourceHistory)&&sourceHistory.every(e=>e&&typeof e.action==="string"&&typeof e.id==="string"));
@@ -1236,6 +1238,7 @@ test("BROWSER_STORAGE_ROUNDTRIP",()=>{
 const key="arki-maqueta-e3-probe";const value="E3-"+new Date().toISOString();
 localStorage.setItem(key,value);const ok=localStorage.getItem(key)===value;localStorage.removeItem(key);return ok;
 });
+test("PERSISTED_DRAFT",()=>{const raw=localStorage.getItem(DRAFT_KEY);if(!raw)return Object.keys(placements).length===0;const j=JSON.parse(raw);return JSON.stringify(j.placements)===JSON.stringify(placements)&&JSON.stringify(j.spineAssignments||{})===JSON.stringify(spineAssignments)&&JSON.stringify(j.alternativeSpineAssignments||{})===JSON.stringify(alternativeSpineAssignments);});
 test("PERSISTED_DRAFT",()=>{const raw=localStorage.getItem(DRAFT_KEY);if(!raw)return Object.keys(placements).length===0;const j=JSON.parse(raw);return JSON.stringify(j.placements)===JSON.stringify(placements)&&JSON.stringify(j.spineAssignments||{})===JSON.stringify(spineAssignments)&&JSON.stringify(j.alternativeSpineAssignments||{})===JSON.stringify(alternativeSpineAssignments)&&JSON.stringify(j.reviews||{})===JSON.stringify(reviews)&&JSON.stringify(j.workflowStages||{})===JSON.stringify(workflowStages)&&JSON.stringify(j.traceEvents||[])===JSON.stringify(traceEvents);});
 return {at:new Date().toISOString(),platform:navigator.platform||"UNKNOWN",browser:navigator.userAgent||"UNKNOWN",sourceStateDate:sourceManifest.stateDate,checks,manual:{...e3Manual},status:"AUTOMATED_LOCAL_ONLY_E3_MANUAL_PENDING"};
 }
@@ -2083,6 +2086,7 @@ content='<p class="hint">Ideas históricas y propuestas locales. Primero se mues
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
+return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 return av020ObservationPanel()+'<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
