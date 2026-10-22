@@ -165,3 +165,13 @@ Este documento cataloga las cabezas de todas las ramas que la API de GitHub devo
 - Generador del mapa: [`tools/maqueta-viva/arki-continuity-snapshot.cjs`](../../tools/maqueta-viva/arki-continuity-snapshot.cjs). Produce solo `ARKI_MAPA_VIVO_CONTINUIDAD.md` a partir de Git + eventos del ledger; no genera `ARKI-00.md`, el catálogo de ramas ni la auditoría.
 - Pruebas y workflow: `tools/maqueta-viva/arki-continuity-snapshot.test.cjs`, `tools/maqueta-viva/arki-continuity-local-verify.cjs` y `.github/workflows/arki-continuity-map.yml`.
 - Estado de verificación: **INSPECCIÓN ESTÁTICA; EJECUCIÓN LOCAL PENDIENTE**. La existencia del código no equivale a una prueba ejecutada ni a CI verde para el SHA actual.
+
+
+## Actualización de auditoría — 2026-10-22
+
+- Inventario remoto consultado: 98 ramas incluyendo `main`; la auditoría comparativa contiene 48 ramas distintas de `main`, por lo que quedan 49 candidatas sin comparación documentada.
+- El informe de auditoría corrige el recuento anterior y añade inspección de los commits recientes de ramas prioritarias ARBOL Vivo/Gemelo Digital y AGK.
+- Prioridad ARBOL: revisar el estado final del gate de dependencias en `feat/arbol-vivo-functional-repair-20261014`, porque su historial reciente contiene implementación y reversiones; tratar `feat/arbol-vivo-autoensamblaje-20261011` y `audit/mapa-arbol-gemelo-reconciliacion-20261014` como genealogía relacionada.
+- Prioridad AGK: inspeccionar el diff completo de `feat/agk-003-parametric-family-unification` (11 commits exclusivos según compare) antes de valorar recuperación. La rama `feat/agk-t4-t7-evidence-v2` contiene principalmente evidencia documental, pero su delta ejecutable debe aislarse.
+- No se fusionó, creó ni eliminó ninguna rama. Los resultados son metadatos Git y lectura de commits recientes; no son validación de tests.
+- Enlaces: [informe comparativo](ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md) · [manual maestro](../../ARKI-00.md).
