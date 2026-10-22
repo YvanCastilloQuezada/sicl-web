@@ -1,5 +1,3 @@
-name: ARKI F1-F10 Evidence Runner (manual, read-only)
-on:
 name: ARKI F1-F10 Evidence Runner (PR + manual, read-only)
 on:
   pull_request:
