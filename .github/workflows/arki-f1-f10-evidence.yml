@@ -20,7 +20,6 @@ concurrency:
 jobs:
   verify:
     name: "Evidence ${{ matrix.phase }}"
-    if: github.event_name == 'workflow_dispatch'
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -28,19 +27,14 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        phase: [F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, MO11]
+        phase: [F1, F2, F3, F4, F5, F6, F7, F8, F9, F10]
     steps:
       - name: Checkout exact branch commit (read only)
-        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
         if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
         uses: actions/checkout@v4
         with:
           persist-credentials: false
       - name: Setup pnpm
-        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
-        uses: pnpm/action-setup@v4
-      - name: Setup Node 22
-        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
         if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
         uses: pnpm/action-setup@v4
       - name: Setup Node 22
@@ -50,10 +44,6 @@ jobs:
           node-version: '22'
           cache: pnpm
       - name: Install frozen dependencies
-        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
-        run: pnpm install --frozen-lockfile
-      - name: Discover and execute existing phase tests
-        if: inputs.phase == 'ALL' || inputs.phase == matrix.phase
         if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase
         run: pnpm install --frozen-lockfile
       - name: Discover and execute existing phase tests
@@ -64,7 +54,6 @@ jobs:
           SICL_CORE_SERVICE_TOKEN: ci-test-token
         run: node scripts/arki-phase-evidence-runner.mjs
       - name: Upload evidence even on failure
-        if: always() && (inputs.phase == 'ALL' || inputs.phase == matrix.phase)
         if: always() && (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == matrix.phase)
         uses: actions/upload-artifact@v4
         with:
@@ -73,9 +62,64 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
+
+  mo11:
+    name: "Evidence MO11 (full Web integration)"
+    if: github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == 'MO11'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      mariadb:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: ci-test-password
+          MARIADB_DATABASE: sicl_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - name: Checkout exact branch commit (read only)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Prepare isolated MO22 test storage
+        run: mkdir -p "${RUNNER_TEMP}/arki-mo22/objects"
+      - name: Discover and execute MO11 tests with required services
+        env:
+          ARKI_PHASE: MO11
+          SICL_CORE_SERVICE_TOKEN: ci-test-token
+          JWT_SECRET: ci-only-session-secret-not-for-production-2026
+          VITE_APP_ID: arki-ci-test-app
+          DATABASE_URL: mysql://root:ci-test-password@127.0.0.1:3306/sicl_test
+          ARKI_STORAGE_ROOT: ${{ runner.temp }}/arki-mo22
+          ARKI_STORAGE_MODE: local
+          ARKI_IDENTITY_MODE: manus
+          ARKI_MO22_ENABLE: "0"
+        run: node scripts/arki-phase-evidence-runner.mjs
+      - name: Upload MO11 evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-evidence-MO11-${{ github.sha }}
+          path: artifacts/arki-phase-evidence/
+          if-no-files-found: error
+          retention-days: 30
+
   core:
     name: Core regression (separate evidence)
-    if: github.event_name == 'workflow_dispatch' && (inputs.phase == 'ALL' || inputs.phase == 'MO11')
     if: (github.event_name == 'pull_request' || inputs.phase == 'ALL' || inputs.phase == 'MO11')
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -117,3 +161,4 @@ jobs:
           path: artifacts/arki-core-evidence/
           if-no-files-found: warn
           retention-days: 30
+
