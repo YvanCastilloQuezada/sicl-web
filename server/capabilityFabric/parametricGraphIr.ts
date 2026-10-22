@@ -1,4 +1,4 @@
-import type { ParametricGraph } from "./arkiParametricRuntime";
+import type { ParametricGraph } from "../arkiParametricRuntime";
 
 export type ParametricGraphEdge = {
   fromNodeId: string;

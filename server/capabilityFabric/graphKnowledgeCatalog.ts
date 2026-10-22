@@ -30,7 +30,7 @@ function stable(value: unknown): string {
 
 export function indexEnrichedGraph(graph: EnrichedArkiGraph): GraphKnowledgeRecord {
   const fingerprint = `sha256:${createHash("sha256").update(stable(graph)).digest("hex")}`;
-  const unique = (values: string[]) => [...new Set(values)].sort();
+  const unique = (values: string[]) => Array.from(new Set(values)).sort();
   return {
     knowledgeId: `graph-knowledge:${fingerprint.slice(7, 23)}`,
     graphId: graph.graph.graphId,

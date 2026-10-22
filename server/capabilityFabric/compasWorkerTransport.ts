@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import path from "node:path";
-import type { CapabilityRequest } from "./types";
+import type { CapabilityRequest, CapabilityResult } from "./types";
 import type { CompasTransport } from "./compasAdapter";
 
 export interface CompasWorkerOptions {
@@ -22,7 +22,7 @@ export function createCompasWorkerTransport(
       operation: CapabilityRequest<TInput>["operation"],
       input: TInput,
     ) {
-      return new Promise((resolve, reject) => {
+      return new Promise<{ output:TOutput; evidenceStatus:"OBSERVED"|"SIMULATED"|"UNKNOWN"; diagnostics?:readonly string[]; runtime:{observed:boolean;name:string;version:string|null} }>((resolve, reject) => {
         const child = spawn(python, [workerPath], { stdio: ["pipe", "pipe", "pipe"] });
         let stdout = "";
         let stderr = "";
