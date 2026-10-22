@@ -4,7 +4,6 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
-const OfflineSyncManager = lazy(() => import("./components/OfflineSyncManager"));
 import ArkiFirstContact from "./components/ArkiFirstContact";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import OfflineSyncManager from "./components/OfflineSyncManager";
@@ -145,8 +144,7 @@ function App() {
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-            <Suspense fallback={null}><OfflineSyncManager /></Suspense>
-            <ArkiFirstContact />
+                        <ArkiFirstContact />
             <PwaInstallPrompt />
             <OfflineSyncManager />
             <Suspense fallback={null}><CommandBar /></Suspense>
