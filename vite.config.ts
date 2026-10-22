@@ -181,7 +181,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    host: true,
+    host: "127.0.0.1",
     // The Manus preview proxy cannot execute Vite's virtual React Refresh
     // module; disabling HMR keeps normal ESM bootstrap and production intact.
     hmr: false,

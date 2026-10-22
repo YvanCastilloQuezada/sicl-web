@@ -1,0 +1,10 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict");
+const {append,verify,replay}=require("./arki-mo04-journal.cjs");
+const receipt="a".repeat(64);
+test("deterministic append and replay",()=>{const a=append([],{kind:"DIAGNOSIS",sourceReceipt:receipt,payload:{blocked:50}});const b=append([],{kind:"DIAGNOSIS",sourceReceipt:receipt,payload:{blocked:50}});assert.deepEqual(a,b);assert.equal(verify(a).length,1);assert.equal(replay(a).canonicalMutation,false)});
+test("linked records verify",()=>{let j=append([],{kind:"OBSERVATION",sourceReceipt:receipt,payload:{x:1}});j=append(j,{kind:"PROPOSAL",sourceReceipt:receipt,payload:{x:2}});assert.equal(verify(j).length,2);assert.equal(j[1].previous,j[0].digest)});
+test("tampering rejected",()=>{const j=append([],{kind:"OBSERVATION",sourceReceipt:receipt,payload:{x:1}});j[0].payload.x=2;assert.throws(()=>verify(j),/JOURNAL_TAMPERED/)});
+test("reordering and truncation detected by expected head",()=>{let j=append([],{kind:"OBSERVATION",sourceReceipt:receipt,payload:{x:1}});j=append(j,{kind:"RESULT_RECORDED",sourceReceipt:receipt,payload:{x:2}});assert.throws(()=>verify(j.slice().reverse()),/INVALID_JOURNAL_CHAIN/);assert.notEqual(verify(j.slice(0,1)).head,verify(j).head)});
+test("recording decision never implies approval",()=>{const j=append([],{kind:"DECISION_RECORDED",sourceReceipt:receipt,payload:{decision:"PO_EXPLICIT"}});assert.equal(replay(j).approval,"NOT_INFERRED");assert.equal(j[0].authority,"RECORDED_ONLY_NOT_APPROVED")});
+test("invalid evidence refused",()=>assert.throws(()=>append([],{kind:"OBSERVATION",sourceReceipt:"bad",payload:{}}),/INVALID_EVENT/));

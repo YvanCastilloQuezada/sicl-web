@@ -53,6 +53,35 @@ const productionChain = [
   ["08","DOCUMENTAR","Planta · corte · elevación · BIM desde el mismo estado"],
 ];
 
+const phaseIdeaChips:Record<string,string[]> = {
+ F1:["Project State","Trust","Provenance"],
+ F2:["Delta 6.2","Universidad","Book adaptativo"],
+ F3:["Brief","Normativa","Agentes"],
+ F4:["PARTI ×3","Topología","Backtrack"],
+ F5:["16→4→1","Pareto","Superpoderes"],
+ F6:["OCCT","Naming","Paramétricos"],
+ F7:["RNE","MEP/Estructura","IFC/CAD"],
+ F8:["Súper Expediente","Planos","Metrados"],
+ F9:["ARKI-CONSTRUCT","As-built","Field/AR"],
+ F10:["ARKI-BUILDING","O&M","Concursos/Ingresos"],
+};
+
+function TenPhaseRoadmap(){
+ return <section className="rounded-[6px] border border-[#28445b] bg-[#091827] p-4">
+  <div className="flex flex-wrap items-end justify-between gap-3 border-b border-[#28445b] pb-3">
+   <div><div className="text-[9px] font-bold tracking-[.18em] text-[#7dd3fc]">PRODUCT SPINE · F1→F10</div><h2 className="mt-1 font-semibold">Cronograma por evidencia</h2><p className="mt-1 text-[10px] text-[#8fa8bc]">Sin fechas inventadas: cada fase avanza cuando cruza su gate. F6 es el frente activo declarado.</p></div>
+   <div className="flex gap-2 text-[9px]"><span className="rounded border border-amber-400/40 px-2 py-1 text-amber-100">NOW · F6</span><span className="rounded border border-blue-400/40 px-2 py-1 text-blue-100">NEXT · F7</span></div>
+  </div>
+  <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-5">{commandCenterPhases.map(p=><div key={p.id} className={`rounded-[5px] border p-3 ${p.status==="IN_PROGRESS"?"border-[#d4ff3a] bg-[#d4ff3a]/10":"border-[#28445b] bg-[#0d1d2c]"}`}>
+   <div className="flex items-center justify-between gap-2"><b className="text-[11px] text-[#e8f1f7]">{p.id}</b><span className={`rounded border px-1.5 py-0.5 text-[8px] ${statusClass[p.status]}`}>{p.status}</span></div>
+   <div className="mt-2 text-[11px] font-semibold text-[#d4ff3a]">{p.name.replace(p.id+" · ","")}</div>
+   <p className="mt-1 text-[9px] leading-4 text-[#8fa8bc]">{p.summary}</p>
+   <div className="mt-2 flex flex-wrap gap-1">{phaseIdeaChips[p.id]?.map(x=><span key={x} className="rounded bg-[#102538] px-1.5 py-0.5 text-[8px] text-[#9eb5c4]">{x}</span>)}</div>
+   <div className="mt-2 border-t border-[#28445b] pt-2 text-[8px] leading-3 text-[#718b9a]">GATE: {p.missing}</div>
+  </div>)}</div>
+ </section>;
+}
+
 const watchCards = [
   {title:"Version Watcher", tag:"ACTUALIZACIONES", body:"Vigila conocimiento ya estudiado. Una nueva edición, norma, método o software crea UPDATE_CANDIDATE; nunca sobrescribe conocimiento silenciosamente.", tone:"cyan"},
   {title:"R&D Scout", tag:"CONOCIMIENTO NUEVO", body:"Busca investigación y desarrollos emergentes. Los hallazgos entran como RESEARCH_CANDIDATE y pasan por curación antes de llegar a ARKI.", tone:"lime"},
@@ -130,6 +159,8 @@ export default function ArkiSuperarchitectCommandCenterPage(){
         </div>
         <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">{productionChain.map(([n,title,body])=><div key={n} className="rounded-[5px] border border-[#28445b] bg-[#0d1d2c] p-3"><div className="text-[9px] text-[#718b9a]">{n}</div><div className="mt-1 text-[10px] font-bold text-[#d4ff3a]">{title}</div><p className="mt-1 text-[9px] leading-4 text-[#8fa8bc]">{body}</p></div>)}</div>
       </section>
+
+      <div className="mb-5"><TenPhaseRoadmap/></div>
 
       <section className="grid gap-3 xl:grid-cols-[1fr_auto]">
         <div><div className="text-[10px] uppercase tracking-[.25em] text-[#7dd3fc]">ESTADO VIVO DEL SISTEMA</div><h1 className="mt-1 text-2xl font-semibold">ARKI · Retomar exactamente donde nos quedamos</h1><p className="mt-2 max-w-4xl text-xs leading-5 text-[#8fa8bc]">Una sola superficie para ver avance, conocimiento, órganos, fases, evidencia y próximos pasos. Sin inventar verde: lo no reconciliado permanece explícito.</p></div>

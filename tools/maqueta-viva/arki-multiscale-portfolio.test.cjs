@@ -1,0 +1,18 @@
+"use strict";
+const assert=require("node:assert/strict");
+const {buildPortfolio,impact}=require("./arki-multiscale-portfolio.cjs");
+const sizes={MACROREGIONAL:[200000,100000],REGIONAL:[20000,10000],URBANISM:[1000,1000],ARCHITECTURE:[50,40],INTERIOR:[10,8],OBJECT:[0.5,0.5],LANDSCAPE:[200,100]};
+const entries=[["MACROREGIONAL",null],["REGIONAL","MACROREGIONAL"],["URBANISM","REGIONAL"],["ARCHITECTURE","URBANISM"],["INTERIOR","ARCHITECTURE"],["OBJECT","INTERIOR"],["LANDSCAPE","URBANISM"]];
+const briefs=entries.map(([scale,parent])=>({schema:"ARKI-MULTISCALE-BRIEF-1",id:scale,scale,sourceCommit:"a".repeat(40),site:{widthM:sizes[scale][0],depthM:sizes[scale][1]},program:{units:4,targetCoverage:0.3},objectives:{compactness:0.4,openSpace:0.3,connectivity:0.3},constraints:{maxCoverage:0.65,requiredChecks:["JURISDICTION_SPECIFIC_RULES"]},parent:parent?{id:parent,scale:parent}:undefined}));
+const portfolio=buildPortfolio(briefs);
+assert.equal(portfolio.designs.length,7);
+assert.equal(portfolio.edges.length,6);
+assert.equal(portfolio.canonicalMutation,false);
+assert.equal(portfolio.scaleNorms,"SEPARATE_UNVERIFIED_CHECKS");
+assert.equal(impact(portfolio,"MACROREGIONAL").affected.length,6);
+assert.deepEqual(impact(portfolio,"ARCHITECTURE").affected,["INTERIOR","OBJECT"]);
+assert.deepEqual(impact(portfolio,"LANDSCAPE").affected,[]);
+assert.throws(()=>impact(portfolio,"MISSING"),/UNKNOWN_CHANGED_NODE/);
+assert.throws(()=>buildPortfolio(briefs.slice(1)),/MISSING_OR_INVALID_PARENT/);
+assert.throws(()=>buildPortfolio([...briefs,briefs[0]]),/DUPLICATE_BRIEF/);
+console.log("ARKI_MULTISCALE_PORTFOLIO=PASS; 7_SCALES; DEPENDENCY_PROPAGATION; NO_CANONICAL_MUTATION");

@@ -1,0 +1,11 @@
+"use strict";
+const assert=require("node:assert/strict");
+const {discover}=require("./arki-discovery.cjs");
+const src=(n,p)=>({repository:"YvanCastilloQuezada/"+n,commit:"a".repeat(40),truncated:false,fileCount:p.length,paths:p});
+const x={schema:"ARKI-REPOSITORY-TREE-SNAPSHOT-1",totalFiles:3,sources:[src("sicl-web",["tools/maqueta-viva/a.js"]),src("sicl-core",["src/core/state.py"]),src("arki-acs",["src/unknown.cs"])]};
+assert.equal(discover(x).totalFiles,3);
+assert.equal(discover(x).unclassified,1);
+assert.equal(discover(x).counts["YvanCastilloQuezada/sicl-web"].DIGITAL_TWIN_AND_TREE,1);
+assert.throws(()=>discover({...x,totalFiles:4}),/TOTAL_MISMATCH/);
+const bad=JSON.parse(JSON.stringify(x));bad.sources[0].paths[0]="../escape";assert.throws(()=>discover(bad),/INVALID_PATH/);
+console.log("ARKI_DISCOVERY_TESTS=PASS");

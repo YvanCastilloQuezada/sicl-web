@@ -130,7 +130,24 @@ function Inspector({ candidate, state, revision, lastDelta }: { candidate?: Desi
     <div className="mt-3 grid gap-2 text-sm text-[#b8cbe0]"><div><span className="text-[#7893af]">Estrategia:</span> {candidate.strategy}</div><div><span className="text-[#7893af]">Estado:</span> {candidate.stage} · {candidate.status}</div><div><span className="text-[#7893af]">Área:</span> {String(candidate.metrics.area)} m²</div><div><span className="text-[#7893af]">Eficiencia:</span> {String(candidate.metrics.efficiency)}</div></div>
     <div className="mt-4 border-t border-[#28445b] pt-3"><div className="text-xs uppercase tracking-[.16em] text-[#d4ff3a]">Economía disponible</div><div className="mt-2 text-lg text-[#edf4ff]">S/ {estimate.centralEstimate.toLocaleString("es-PE")}</div><div className="text-xs text-[#9eb5c4]">Rango S/ {estimate.lowEstimate.toLocaleString("es-PE")}–{estimate.highEstimate.toLocaleString("es-PE")} · {estimate.epistemicState}</div></div>
     {lastDelta && <div className="mt-4 rounded border border-[#f5aa56]/50 bg-[#2b2118] p-3 text-xs text-[#f6d3aa]"><div className="font-semibold">CostDelta trazado</div><div className="mt-1">{lastDelta.absoluteDelta >= 0 ? "+" : ""}S/ {lastDelta.absoluteDelta.toLocaleString("es-PE")} {lastDelta.percentageDelta === null ? "" : `(${lastDelta.percentageDelta}%)`}</div><div className="mt-1 text-[#d7b58d]">Cambio: {lastDelta.designChangeRefs.join(" · ")}</div></div>}
-    <div className="mt-4 grid gap-3 text-xs"><div><div className="mb-1 text-[#7893af]">UNKNOWNs</div>{candidate.unknowns.length ? candidate.unknowns.join(" · ") : "No registrado en esta etapa."}</div><div><div className="mb-1 text-[#7893af]">Evidencia</div>{candidate.evidence.join(" · ")}</div><div><div className="mb-1 text-[#7893af]">Provenance interna</div>{candidate.provenance.join(" · ")}</div></div>
+    <div className="mt-4 grid gap-3 text-xs">
+      {([
+        ["Hechos", candidate.epistemic.facts],
+        ["Supuestos", candidate.epistemic.assumptions],
+        ["Preferencias", candidate.epistemic.preferences],
+        ["Requisitos", candidate.epistemic.requirements],
+        ["Objetivos", candidate.epistemic.objectives],
+        ["Restricciones", candidate.epistemic.constraints],
+      ] as const).map(([label, items]) => (
+        <div key={label}>
+          <div className="mb-1 text-[#7893af]">{label}</div>
+          {items.length ? items.map((item) => item.statement).join(" · ") : "No registrado en esta etapa."}
+        </div>
+      ))}
+      <div><div className="mb-1 text-[#7893af]">UNKNOWNs</div>{candidate.unknowns.length ? candidate.unknowns.join(" · ") : "No registrado en esta etapa."}</div>
+      <div><div className="mb-1 text-[#7893af]">Evidencia</div>{candidate.evidence.join(" · ")}</div>
+      <div><div className="mb-1 text-[#7893af]">Provenance interna</div>{candidate.provenance.join(" · ")}</div>
+    </div>
   </Card>;
 }
 

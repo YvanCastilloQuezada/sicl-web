@@ -13,7 +13,9 @@
     "e2e:canonical": "tsx scripts/run-arki-canonical-e2e.ts",
     "e2e:advanced": "tsx scripts/run-arki-advanced-e2e.ts",
     "security:stress:local": "node scripts/arki-local-security-stress.mjs",
-    "db:push": "drizzle-kit generate && drizzle-kit migrate"
+    "db:push": "drizzle-kit generate && drizzle-kit migrate",
+    "e2e:oece": "tsx scripts/run-arki-oece-evidence-e2e.ts",
+    "e2e:oece:fragment": "tsx scripts/run-arki-oece-fragment-e2e.ts"
   },
   "pnpm": {
     "overrides": {
@@ -89,7 +91,6 @@
     "nanoid": "^5.1.16",
     "next-themes": "^0.4.6",
     "path-to-regexp": "^0.1.13",
-    "qrcode": "^1.5.4",
     "react": "^19.2.1",
     "react-day-picker": "^9.11.1",
     "react-dom": "^19.2.1",
@@ -127,7 +128,6 @@
     "@types/express": "4.17.21",
     "@types/google.maps": "^3.58.1",
     "@types/node": "^24.7.0",
-    "@types/qrcode": "^1.5.6",
     "@types/react": "^19.2.1",
     "@types/react-dom": "^19.2.1",
     "@types/three": "^0.186.0",

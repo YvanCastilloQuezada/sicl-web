@@ -1,15 +1,19 @@
 {
   "schema": "ARKI-MASTER-MAP-STATE-0.1",
-  "updated_at": "2026-10-05",
+  "updated_at": "2026-10-07",
   "product": "ARKI / ARQUI Superarchitect",
   "authority_note": "Status is evidence-bounded. No evidence = no green.",
   "roadmap": {
     "total_phases": 10,
     "current_zone": {
-      "phase": 6,
-      "approximate_subphase": "6.3–6.5",
+      "phase": 7,
+      "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
-      "note": "User locates current work between Phase 6 and Phase 7; exact historical subphase numbering remains to be reconciled before a narrower value is asserted."
+      "note": "F6 is frozen. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
+      "note": "F6 integral AGK closure recorded GO; F7 Professional Technical Development opened at contract-formation/reconciliation boundary."
+      "approximate_subphase": "F7.0→F7.9 integration spine",
+      "status": "IN_PROGRESS",
+      "note": "F6 FROZEN permanently revoked by explicit PO decision on 2026-10-14; historical evidence retained, revalidation required. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
     },
     "phases": [
       {
@@ -34,23 +38,26 @@
       },
       {
         "id": "F5",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "RECONCILED_WITH_POST_AUDIT_CORRECTIONS",
+        "evidence_status": "SEMANTIC_CATEGORY_HARDENING_IMPLEMENTED_LOCAL_EVIDENCE_RECORDED"
       },
       {
         "id": "F6",
-        "status": "IN_PROGRESS",
-        "evidence_status": "USER_CURRENT_POSITION"
+        "status": "FROZEN",
+        "evidence_status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY"
+        "status": "RECONCILIATION_REQUIRED",
+        "evidence_status": "HISTORICAL_GO_BOUNDED_EVIDENCE_RETAINED_REVALIDATION_REQUIRED"
       },
       {
         "id": "F7",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "IN_PROGRESS",
+        "evidence_status": "CONTRACT_FORMATION_AND_REPOSITORY_RECONCILIATION"
+        "evidence_status": "IMPLEMENTATION_PRESENT_EXECUTION_VERIFICATION_PENDING"
       },
       {
         "id": "F8",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "IN_PROGRESS",
+        "evidence_status": "DERIVED_DOSSIER_CONTRACT_IMPLEMENTED_EXECUTION_VERIFICATION_PENDING"
       },
       {
         "id": "F9",
@@ -65,21 +72,36 @@
     ]
   },
   "current_focus": {
-    "title": "Frontend-first assembly of the ARKI Superarchitect",
+    "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
     "active": [
-      "ARKI frontend assembly",
-      "ARKI Professional",
-      "ARKI Command Center",
-      "ARKI Director / Control",
-      "ARKI Design Studio",
-      "SITE-FIRST nervous system",
-      "AGK integration as supporting geometry authority"
+      "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
+      "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
+      "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
+      "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
     ],
     "last_completed": "ARKI Live Command Center promoted as primary owner status surface; exact recovered 10-phase roadmap restored (F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE) and Body Map remains visible.",
     "next_exact_action": "Turn /arki-command-center into the live owner dashboard: reconcile organ/superpower/idea/dossier counts from evidence, expose last verified movement and blockers, and automate projections from canonical registries without making the UI a second source of truth.",
+    "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
+    "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code.",
+    "blockers": []
+    "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
+    "active": [
+      "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
+      "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
+      "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
+      "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
+    ],
+    "last_completed": "Physical S10 specimen located and non-mutating binary identification completed: Microsoft SQL Server backup (TAPE header), S102000 Data paths and budget-related schema identifiers; database restore and budget inventory NOT_EXECUTED. F7 OECE gate PASS/E3.",
+    "next_exact_action": "S10: inspect backup metadata (SQL Server version, logical files) using a compatible SQL Server RESTORE HEADERONLY/FILELISTONLY, then isolate and inventory budgets read-only. Never alter source or claim budget counts until database read.",
     "blockers": [
-      "Exact canonical names/gates for the 10 historical phases still require repository reconciliation.",
-      "Current runtime E2E of Site Intelligence providers must be revalidated before UI labels can claim live provider execution."
+      "S10_BACKUP_ENGINE_VERSION_UNKNOWN",
+      "S10_RESTORE_AND_BUDGET_INVENTORY_NOT_EXECUTED",
+      "S10_NATIVE_WRITE_NOT_CLAIMED",
+      "S10_ROUND_TRIP_NOT_CLAIMED",
+      "RVT_NATIVE_SEMANTIC_EXTRACTION_NOT_DEMONSTRATED",
+      "OECE_COMPLETE_TECHNICAL_DOSSIER_NOT_DEMONSTRATED_FOR_THIS_SPECIMEN"
     ]
   },
   "status_vocabulary": [
@@ -219,7 +241,13 @@
         "advanced_canary": "PASS_16_OF_16",
         "torture_t1": "PASS_22_OF_22",
         "t2_coordinate_tolerance": "EXECUTED_BOUNDARIES_FOUND_AND_CLASSIFIED",
-        "t3_degeneracy_surface": "EXECUTED_11_INVARIANT_PASS_1_KNOWN_TOLERANCE_BOUNDARY_0_UNEXPLAINED"
+        "t3_degeneracy_surface": "EXECUTED_11_INVARIANT_PASS_1_KNOWN_TOLERANCE_BOUNDARY_0_UNEXPLAINED",
+        "t4_architectural_freeform": "PASS_12_OF_12_WITH_BOUNDED_INTERPRETATION",
+        "t5_parametric_editability": "PASS_14_OF_14",
+        "t6_constraint_math": "PASS_14_OF_14_HARNESS_ASSERTIONS_PRODUCTION_SOLVER_NOT_DEMONSTRATED",
+        "t7a_solver_stress": "EXECUTED_11_PASS_0_FAIL_1_OBSERVATION_3_EXPLICIT_GAPS",
+        "t7b1_libslvs_oracle_build": "PASS_CONFIGURE_AND_BUILD_ORACLE_ONLY",
+        "t7b2_libslvs_conflict_diagnosis": "PARTIAL_PROBLEMATIC_CONSTRAINT_LOCALIZATION_DEMONSTRATED"
       },
       "demonstrated_delta_policies": [
         {
@@ -231,15 +259,112 @@
           "id": "AGK-DELTA-002",
           "name": "Geometric Acceptance Contract",
           "status": "DEMONSTRATED_NEED_POLICY_CANDIDATE"
+        },
+        {
+          "id": "AGK-DELTA-003",
+          "name": "Parametric Transaction Contract",
+          "status": "PROVISIONAL_EVIDENCE_SUPPORTED"
+        },
+        {
+          "id": "AGK-DELTA-004",
+          "name": "Constraint Solver Capability",
+          "status": "SPECIALIZED_DELTA_CANDIDATE"
         }
       ],
       "guardrails": [
         "Whole AGK is not yet VERIFIED/FROZEN as a production integration",
         "ARKI_KERNEL_DELTA is not finalized",
         "Observed numeric thresholds are benchmark-specific, not universal constants",
-        "Do not add CGAL/Manifold/OpenVDB/libfive/PicoGK/SolveSpace/Topologic without reproducible OCCT limitation evidence"
+        "OCCT remains the sole canonical BRep geometry body at this checkpoint",
+        "Constraint solving is a specialized layer above OCCT, not a second geometry authority",
+        "SolveSpace/libslvs is oracle/research evidence only; no AGK runtime integration is approved",
+        "OWN CAPABILITY FIRST / EXTERNAL ENGINE WHEN NECESSARY"
       ],
-      "next": "T4 architectural freeform/double-curvature benchmark"
+      "next": "T7-B3 industrial constraint-semantics comparison (T715), then branch continuity and richer conflict-set probes",
+      "constraint_solver_discovery": {
+        "own_solver": "EXPERIMENTAL_BOUNDED_CAPABILITY",
+        "t7a_gaps": [
+          "T713 minimal conflict localization",
+          "T714 stable geometric entity identity across solve/regeneration",
+          "T715 industrial sketch constraint semantics"
+        ],
+        "solution_intent": "T709 demonstrates branch sensitivity; production contract must preserve solution/branch intent",
+        "solvespace_libslvs": {
+          "disposition": "KEEP_ORACLE_RESEARCH_MASTER_PROVISIONAL",
+          "upstream_head": "581f4cbf5617bf32ba5856e93ee06a25842128fd",
+          "local_build": "PASS",
+          "runtime_integration": "NONE",
+          "license_boundary": "GPL; no proprietary code copying or runtime admission without explicit architecture/legal decision"
+        },
+        "t7b2": {
+          "status": "EXECUTED",
+          "baseline": "PASS",
+          "contradiction": "PASS",
+          "t713": "PARTIAL_PROBLEMATIC_CONSTRAINT_HANDLE_DEMONSTRATED_MINIMAL_CONFLICT_SET_NOT_YET_DEMONSTRATED",
+          "agk_modified": false,
+          "solvespace_source_modified": false,
+          "libslvs_role": "ORACLE_ONLY"
+        }
+      }
+    },
+    "cross_repo_reconciliation_2026_10_07": {
+      "classification": "AUDITED_IMPLEMENTATION_IN_PROGRESS",
+      "baselines": {
+        "sicl_web_main": "ec6ede75a13e6a346816dfd96816272926a575b9",
+        "sicl_web_f7_f8_branch": "cb63f03bda43ca9212984eeffe9ce4b986b4cf32",
+        "sicl_core_main": "45fd21a6b41f67e2d25bffac1f8b7e236cc6555e"
+      },
+      "branch_relation": "feat/f7-f8-integral-closure descends from sicl-web main; no main-side divergence was observed at reconciliation start.",
+      "authority_law": {
+        "CORE": "canonical project state / evidence / provenance",
+        "D2": "architectural semantic authority",
+        "AGK": "operational geometry authority",
+        "WEB_PROFESSIONAL_STATE": "projection referencing canonical authorities; not canonical project truth",
+        "F8_DOSSIER": "derived projection only",
+        "ACS": "technology/source acquisition and evidence; not architectural or geometry authority"
+      },
+      "implemented_on_branch": [
+        "shared/arkiCanonicalRefs.ts",
+        "server/arkiProfessionalState.ts",
+        "server/arkiProjectEconomicTwin.ts",
+        "server/arkiTechnicalDossier.ts",
+        "server/arkiF7F8Closure.test.ts",
+        "server/arkiProfessionalAdapters.ts",
+        "server/arkiProfessionalAdapters.test.ts",
+        "shared/delta62Knowledge.ts promotion boundary",
+        "server/arkiS10Interop.ts",
+        "server/arkiS10Interop.test.ts",
+        "server/arkiF7NormativeProjection.ts",
+        "server/arkiF7NormativeProjection.test.ts",
+        "specialist-review hard acceptance gate",
+        "S10 budget hierarchy/APU/resource/declared-total reconciliation",
+        "server/arkiOeceEvidence.ts",
+        "server/arkiOeceEvidence.test.ts",
+        "ARKI_F7_OECE_ACS_EVIDENCE_CONTRACT_V1.md",
+        "OECE_ARKI_EVIDENCE_PACKAGE_V1.schema.json",
+        "S10_NORMALIZED_PROJECT_V1.schema.json",
+        "runtime fail-closed ingestion for S10 normalized envelopes",
+        "runtime fail-closed ingestion for ACS/OECE evidence envelopes",
+        "S10 APU unit-price reconciliation and budget-foot reconciliation",
+        "OECE expected-surface anti-overclaim completeness enforcement"
+      ],
+      "evidence_boundary": "Files/commits are IMPLEMENTED. They are not VERIFIED until local execution gate passes.",
+      "known_reconciliation_items": [
+        "sicl-web lifecycle/BIM/cost structures must remain projections/adapters rather than parallel canonical state",
+        "F5 selected-candidate to persistent Core semantic identity remains an integration capability gap",
+        "RVT remains HOST_REQUIRED; no proprietary browser parser claim",
+        "Delta 6.2 direct canonical mutation path is now contractually blocked in code; execution verification pending.",
+        "S10 READ/NORMALIZE/RECONCILE internal boundary is implemented; native WRITE/round-trip remains explicitly NOT_CLAIMED.",
+        "RVT remains HOST_REQUIRED; real Huaura host execution remains external evidence pending.",
+        "OECE/ACS→ARKI cross-language evidence package and BASELINE_0 translation are implemented; real ACS corpus/download specimen execution remains pending.",
+        "S10 hierarchy/APU/resource/total reconciliation is implemented; real S10 project specimen and native transport characterization remain pending."
+      ],
+      "core_reconciliation_branch": "reconcile/arki-live-map-2026-10-07",
+      "core_reconciliation_head": "bad480272140109e9529c3e269d525515624fc0c",
+      "review_surfaces": {
+        "sicl_web_draft_pr": 49,
+        "sicl_core_draft_pr": 45
+      }
     }
   },
   "architectural_decisions": {
@@ -802,5 +927,1579 @@
       "Use a recovered high-rise case as Phase 6 regression specimen: 3D -> canonical state -> plan/section/elevation must preserve identity and relationships.",
       "Integrate recovered specimens into the Design Testbed as historical benchmark cases, distinct from synthetic demo candidates."
     ]
+  },
+  "agk_t7_solver_discovery": {
+    "status": "COMPLETED_WITH_T714_OPEN",
+    "evidence_commit": "bb61981875b9498e419f0318fa7fa2dc8da93cfb",
+    "findings": {
+      "branch_continuity": "DEMONSTRATED_IN_TESTED_SPECIMEN",
+      "solution_intent": "REQUIRED",
+      "solver_handle_identity": "DEMONSTRATED_IN_TESTED_EDIT",
+      "brep_topological_identity": "NOT_DEMONSTRATED",
+      "libslvs_scale_20_to_1000": "PASS_LOCAL_DISCOVERY",
+      "libslvs_disposition": "KEEP_ORACLE / RESEARCH_MASTER",
+      "second_geometry_kernel_required": "NO_EVIDENCE"
+    },
+    "next": "T714 persistent BRep topological identity/naming across AGK regeneration"
+  },
+  "agk_t714_topological_identity": {
+    "status": "GAP_CONFIRMED_OWN_DELTA_JUSTIFIED",
+    "evidence_commit": "00ea439968065378bc2dff73e2401990ddbb15f8",
+    "process_exit": 0,
+    "findings": {
+      "exact_regeneration": "GEOMETRIC_CORRESPONDENCE_FULL_IN_TESTED_CASES",
+      "parametric_edit": "CORRESPONDENCE_PARTIAL",
+      "boolean_local_edit": "CORRESPONDENCE_PARTIAL",
+      "fillet_edit": "CORRESPONDENCE_PARTIAL",
+      "rigid_transform": "WORLD_COORDINATE_MATCH_NOT_IDENTITY",
+      "brep_roundtrip": "GEOMETRIC_CORRESPONDENCE_FULL_IN_TESTED_CASE",
+      "index_order": "OBSERVATION_ONLY_NOT_IDENTITY",
+      "brep_subshape_persistent_identity": "NOT_PROVEN"
+    },
+    "delta": "AGK-DELTA-005 Persistent Topological Naming / Semantic Identity Bridge",
+    "authority": "ARKI owns semantic and parametric identity; OCCT remains canonical BRep body",
+    "second_geometry_kernel_required": "NO"
+  },
+  "agk_delta_005": {
+    "status": "FROZEN_MINIMAL_VERIFIED_CONTRACT",
+    "evidence_commit": "0f8c53b0b06a3337899451e76408c4b2bbc2aa25",
+    "authority": {
+      "semantic_identity": "ARKI",
+      "brep_representation": "OCCT"
+    },
+    "phase1": {
+      "exact_regen": "6 HIGH",
+      "boolean_exact": "10 HIGH",
+      "parametric_edit": "1 HIGH / 5 MEDIUM",
+      "boolean_local_move": "6 HIGH / 4 MEDIUM",
+      "fillet_edit": "4 HIGH / 2 MEDIUM / 1 NO_MATCH",
+      "feature_add": "5 HIGH / 1 MEDIUM",
+      "feature_delete": "5 HIGH / 1 MEDIUM / 5 NO_MATCH",
+      "rigid_transform": "6 AMBIGUOUS",
+      "symmetry_area_only": "6 AMBIGUOUS",
+      "topology_role_change": "5 HIGH / 1 MEDIUM / 4 NO_MATCH",
+      "fail_closed": "REQUIRED"
+    },
+    "next": "Freeze DELTA-005 minimal contract; continue F6 AGK closure without reopening frozen semantics absent counterevidence",
+    "phase2": {
+      "status": "EXECUTED_PASS_WITH_EXPECTED_AMBIGUITY",
+      "evidence_commit": "dac4f570bbabadb57a255e5c4b570def45cfe02c",
+      "parametric_role_continuity": "6 PRESERVE",
+      "boolean_lineage_continuity": "6 PRESERVE / 4 AMBIGUOUS",
+      "feature_add": "6 predecessor faces PRESERVE; 5 new topology faces",
+      "feature_delete": "6 PRESERVE / 5 DELETED_OR_NO_MATCH",
+      "role_change_guard": "6 PRESERVE / 4 DELETED_OR_NO_MATCH",
+      "policies": [
+        "explicit lineage required for SPLIT/MERGE",
+        "AMBIGUOUS fails closed",
+        "semantic identity ARKI-owned",
+        "event vocabulary frozen provisionally"
+      ],
+      "next": "Phase 3 explicit lineage graph + concrete 1->N / N->1 tests"
+    },
+    "phase3": {
+      "status": "PARTIAL_TRUE_SPLIT_MERGE_NOT_DEMONSTRATED",
+      "evidence_commit": "e46555e8d06cda75511ccd7fa5d33ecbfe5757d3",
+      "graph": "EXECUTED",
+      "continuity": "6/6 predecessor faces covered; 6/11 successor faces covered",
+      "new_event": "5 detected",
+      "deleted_event": "5 detected",
+      "split_1_to_n": "NOT_DEMONSTRATED_children_1",
+      "merge_n_to_1": "NOT_DEMONSTRATED_parents_1",
+      "classification": "TEST_SPECIMEN_INSUFFICIENT_NOT_OCCT_LIMITATION",
+      "next": "Phase 3R true split/merge specimen + OCCT operation history"
+    },
+    "phase3r": {
+      "status": "PARTIAL_SPLIT_PASS_MERGE_OPEN",
+      "evidence_commit": "ef26bb4be9899ec4153431ce5873bd2eaefb1dd4",
+      "process_exit": 3,
+      "split_status": "DEMONSTRATED_1_TO_N",
+      "split_children": 2,
+      "split_source_area": 280,
+      "split_descendant_area": 252,
+      "split_expected_area": 252,
+      "occt_modified": 2,
+      "occt_generated": 2,
+      "merge_status": "NOT_DEMONSTRATED_N_TO_1",
+      "merge_top_faces": 4,
+      "merge_recovered_area": 268,
+      "merge_expected_area": 280,
+      "next": "Phase 3M dedicated true N-to-1 merge specimen"
+    },
+    "phase3m": {
+      "status": "PASS_TRUE_N_TO_1_DEMONSTRATED",
+      "evidence_commit": "6d47b58e3473261381eee21688ab5943af3c3b33",
+      "process_exit": 0,
+      "parents": 2,
+      "children": 1,
+      "parent_area": 280,
+      "child_area": 280,
+      "raw_fuse_top_faces": 2,
+      "same_domain_unified_top_faces": 1,
+      "gap_negative_control": "PASS_NO_SILENT_MERGE",
+      "semantic_event": "MERGE SEM:ROOF_A + SEM:ROOF_B -> SEM:ROOF",
+      "authority": "ARKI_SEMANTIC_IDENTITY; OCCT_GEOMETRIC_EVIDENCE",
+      "next": "Delta-005 Phase 4 adversarial identity + production contract"
+    },
+    "split_merge_discovery": {
+      "status": "CLOSED",
+      "split": "DEMONSTRATED_PHASE3R",
+      "merge": "DEMONSTRATED_PHASE3M",
+      "production_persistent_naming": "NOT_YET_CLAIMED"
+    },
+    "phase4": {
+      "status": "PASS_12_OF_12",
+      "evidence_commit": "48956ad0838263a38d6f3c7d08b7aadaaf829024",
+      "process_exit": 0,
+      "contract": "SEMANTIC_ID + FEATURE_PROVENANCE + ROLE_CONTEXT + OP_HISTORY + GEOM_TOPO_EVIDENCE -> CANDIDATES -> CONFIDENCE/AMBIGUITY -> EVENT -> ACCEPT_OR_FAIL_CLOSED",
+      "events": [
+        "PRESERVE",
+        "REMAP",
+        "SPLIT",
+        "MERGE",
+        "NEW",
+        "DELETED",
+        "AMBIGUOUS"
+      ],
+      "authority": {
+        "semantic_identity": "ARKI",
+        "canonical_brep_geometry": "OCCT",
+        "brep_index": "NOT_AUTHORITY",
+        "transient_handle": "NOT_AUTHORITY"
+      },
+      "boundary": "PRODUCTION_NAMING_SERVICE_NOT_YET_DEMONSTRATED",
+      "next": "freeze contract then implement minimal ARKI-owned naming service"
+    },
+    "minimal_naming_service": {
+      "status": "VERIFIED_UNIT_CONTRACT_7_OF_7",
+      "verification_head": "0218103f6ea7eac16d96ab00a49ea719a793f4ab",
+      "evidence_commit": "1472978dd440f11a7703c9b58d9718c93c4bd7a9",
+      "test_file": "server/arkiPersistentNaming.test.ts",
+      "tests_passed": 7,
+      "tests_failed": 0,
+      "process_exit": 0,
+      "boundary": "Unit contract verified; OCCT/BRep E2E integration, durable persistence, concurrency and production readiness not yet demonstrated",
+      "next": "evidence adapter + append-only naming decision ledger + integration tests"
+    },
+    "p9": {
+      "status": "PASS_NATIVE_OCCT",
+      "tests": "8/8 (6 substantive OCCT + 2 governance assertions)",
+      "process_exit": 0,
+      "boundary": "Native OCCT produced ARKI-compatible envelope; machine ingestion into TypeScript service not yet demonstrated"
+    },
+    "p10": {
+      "status": "PASS_ADVERSARIAL_STRESS_REGRESSION",
+      "verification_head": "c8c7a2428a4bcf1056bc3ca7a368bd1c07c86622",
+      "target_tests": "25/25",
+      "full_delta005_regression": "88/88 across 8 files",
+      "process_exit": 0
+    },
+    "freeze_readiness": {
+      "verdict": "READY_FOR_FREEZE_MINIMAL_CONTRACT_ONLY",
+      "evidence_commit": "570a48d62d0e55e4db83634637218408284fe544",
+      "demonstrated": [
+        "semantic naming decisions",
+        "explicit lineage events",
+        "fail-closed ambiguity",
+        "append-only ledger",
+        "transaction/rollback",
+        "deterministic serialization/replay",
+        "in-process optimistic stale-writer protection",
+        "typed AGK/OCCT evidence boundary",
+        "native OCCT evidence producer",
+        "adversarial/stress regression"
+      ],
+      "not_claimed": [
+        "native C++ envelope -> TypeScript machine-ingestion E2E",
+        "durable filesystem/database crash recovery",
+        "multi-process/database/distributed concurrency",
+        "industrial long-duration performance",
+        "geometry-only semantic identity"
+      ]
+    }
+  },
+  "ten_phase_product_integration": {
+    "status": "IMPLEMENTED_PLANNING_SPINE_PENDING_RUNTIME_VERIFICATION",
+    "roadmap": "docs/arki-master-map/ARKI_TEN_PHASE_PRODUCT_INTEGRATION_ROADMAP_V1.md",
+    "phases": {
+      "F1": "RECONCILIATION_REQUIRED",
+      "F2": "RECONCILIATION_REQUIRED",
+      "F3": "RECONCILIATION_REQUIRED",
+      "F4": "RECONCILIATION_REQUIRED",
+      "F5": "RECONCILIATION_REQUIRED",
+      "F6": "IN_PROGRESS",
+      "F7": "DESIGN",
+      "F8": "DESIGN",
+      "F9": "DESIGN",
+      "F10": "DESIGN"
+    },
+    "current": "F6",
+    "sequence": [
+      "F6 AGK closure",
+      "Command Center roadmap + idea registry",
+      "F1-F5 historical gate reconciliation",
+      "F7 technical development",
+      "F8 super technical dossier",
+      "F9 field/digital twin",
+      "F10 operations/economic learning loop"
+    ],
+    "recovered_idea_families": [
+      "remote/core E2E",
+      "adaptive ARKI Book",
+      "jurisdictional normative reasoning",
+      "constructive BIM/CAD/MEP/structure",
+      "three PARTI realizations + reject/backtrack",
+      "site-building-operations continuity",
+      "ARKI-CONSTRUCT",
+      "ARKI-BUILDING",
+      "GIS/CRS precision",
+      "robust AR",
+      "cost/quantities",
+      "multi-scale lineage",
+      "specialist coordination",
+      "corporate/marketplace",
+      "competitions/revenue",
+      "AI Lab/technology internalization"
+    ],
+    "frontend_commit": "213e017f9250d6cddf119327f00e9f531a943a53",
+    "boundary": "Planning and UI map do not promote historical documentary claims to current verified capability."
+  },
+  "f6_agk_integral_closure": {
+    "status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY",
+    "decision_date": "2026-10-05",
+    "tested_head": "0d6bdd792e7d733622a31185f304bc189b80e7c5",
+    "final_local_gate": {
+      "typescript": "PASS_EXIT_0",
+      "delta005_regression": "PASS_8_FILES_88_TESTS_EXIT_0",
+      "production_build": "PASS_EXIT_0"
+    },
+    "authority": {
+      "canonical_brep": "OCCT",
+      "semantic_identity": "ARKI",
+      "second_geometry_kernel": "NOT_JUSTIFIED"
+    },
+    "constituent_disposition": {
+      "AGK-DELTA-001": "FREEZE_DEMONSTRATED_POLICY_BOUNDARY",
+      "AGK-DELTA-002": "FREEZE_DEMONSTRATED_POLICY_BOUNDARY",
+      "AGK-DELTA-003": "FREEZE_BOUNDED_CONTRACT",
+      "AGK-DELTA-004": "FREEZE_BOUNDED_INTERNAL_CAPABILITY_PRODUCTION_SOLVER_NOT_CLAIMED",
+      "AGK-DELTA-004.1": "FREEZE_BOUNDED_EVIDENCE_SUPPORTED",
+      "AGK-DELTA-004.2": "FREEZE_BOUNDED_EVIDENCE_SUPPORTED",
+      "AGK-DELTA-005": "FREEZE_MINIMAL_VERIFIED_CONTRACT"
+    },
+    "oracle_policy": "SolveSpace/libslvs=KEEP_ORACLE_RESEARCH_MASTER_NOT_RUNTIME_BACKEND",
+    "non_claims": [
+      "native C++ evidence to TypeScript packaged ingestion",
+      "durable crash recovery",
+      "multi-process/database/distributed concurrency",
+      "production industrial sketch completeness",
+      "long-duration industrial performance"
+    ],
+    "reopen_rule": "REPRODUCIBLE_COUNTEREVIDENCE_OR_NEW_VERSIONED_REQUIREMENT_ONLY",
+    "next_phase": "F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT"
+  },
+  "f7_professional_technical_development": {
+    "status": "OPEN_CONTRACT_FORMATION",
+    "status": "IMPLEMENTED_TARGETED_EXECUTION_VERIFIED",
+    "gate_document": "docs/arki-master-map/ARKI_F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT_GATE_V1.md",
+    "entry_dependency": "F6_GO_SATISFIED",
+    "work_packages": [
+      "F7.0 Professional Model Contract",
+      "F7.1 Jurisdiction & Applicability",
+      "F7.2 Architectural Technical Development",
+      "F7.3 Structural Coordination",
+      "F7.4 MEP Coordination",
+      "F7.5 Accessibility & Life Safety",
+      "F7.6 Quantities & Cost",
+      "F7.7 BIM / IFC / CAD Interoperability",
+      "F7.8 Professional Coordination Gate",
+      "F7.9 F8 Handoff"
+    ],
+    "next": "REPOSITORY_CAPABILITY_MATRIX"
+    "next": "OECE_VERIFIED_DOCUMENT_CONTENT_INSPECTION",
+    "verification_head": "9597eb3e975628ab09a19aa7cda6b2262a8aec80",
+    "targeted_gate": {
+      "typescript": "PASS_EXIT_0",
+      "tests": "20/20_PASS_3_FILES",
+      "suites": [
+        "F7/F8 closure",
+        "S10 interoperability",
+        "OECE evidence"
+      ]
+    },
+    "oece_real_e2e": {
+      "status": "PASS_E3_PHYSICAL_HANDOFF_TO_BASELINE_0",
+      "input_sha256": "290d13584f44c180763e889f44ee0093850de9be903decdb46ffcdba64141655",
+      "package_completeness": "PARTIAL_EVIDENCE",
+      "technical_dossier_claim": "NOT_DEMONSTRATED",
+      "canonical_mutation": false,
+      "source_artifacts": 1,
+      "claims": 21,
+      "baseline_immutable": true
+    },
+    "s10_real_specimen": {
+      "status": "REAL_SQL_SERVER_BACKUP_RECEIVED_FORMAT_IDENTIFIED_RESTORE_PENDING",
+      "observed_date": "2026-10-07",
+      "searched_surfaces": [
+        "Windows uninstall registry HKLM/HKCU",
+        "user Desktop/Documents/Downloads",
+        "ProgramData",
+        "Program Files",
+        "Program Files (x86)",
+        "available filesystem drives D:/E:",
+        "bounded temp surface"
+      ],
+      "registry_matches": 0,
+      "directory_matches": 0,
+      "file_candidates_examined": 22,
+      "legitimate_s10_specimens_found": 0,
+      "classification": "REAL_INPUT_AVAILABLE_BINARY_FORMAT_IDENTIFIED_EVIDENCE_LEVEL_E1",
+      "resume_condition": "RESTORE_HEADERONLY_AND_FILELISTONLY_ON_COMPATIBLE_SQL_SERVER_THEN_READ_ONLY_RESTORE_OR_SUPPORTED_EXPORT",
+      "prior_search_status": "INPUT_NOT_AVAILABLE_ON_SEARCHED_SURFACES (superseded by uploaded specimen)",
+      "filename": "BASE DE DATOS JUAN VELASCO.S2K",
+      "bytes": 115026432,
+      "sha256": "e60fe3f427c32c36ee8e842def8f765ab4d6805e0816b03d73d50ef79c5d8648",
+      "identified_format": "Windows NTbackup archive; Microsoft SQL Server backup",
+      "observed_header_signature": "TAPE",
+      "observed_internal_paths": [
+        "C:\\S102000\\Data\\BASE DE DATOS JUAN VELASCO_1.mdf",
+        "C:\\S102000\\Data\\BASE DE DATOS JUAN VELASCO_2.ndf",
+        "C:\\S102000\\Data\\BASE DE DATOS JUAN VELASCO_3.ldf"
+      ],
+      "observed_logical_files": [
+        "S10_Data",
+        "S10_Datos",
+        "S10_Log"
+      ],
+      "observed_schema_identifiers": [
+        "vUPKCL_PresupuestoSubpartidaDetalle",
+        "vDF_PresupuestoSubpartida_TieneNota",
+        "lUPKCL_PrecioParticularPartida"
+      ],
+      "evidence_boundary": [
+        "The S102000 path supports S10 2000 association but does not verify exact SQL Server engine version",
+        "A SQL Server backup format is not a direct S10 project export or native .S2K reader",
+        "Number, names, totals and contents of budgets NOT_EXTRACTED",
+        "No SQL Server restore performed; no integrity CHECKDB or RESTORE VERIFYONLY claimed",
+        "Do not infer actual physical budget data from visible catalog strings"
+      ],
+      "next_gate": "Determine SQL Server backup version and database logical layout without mutating source; choose safe compatible restore path; enumerate budgets and reconcile S10 report totals."
+    },
+    "oece_real_multisurface_e2e": {
+      "status": "PASS_E3_PHYSICAL_HANDOFF_TO_BASELINE_0",
+      "verification_head": "c358d505dc731013e857a052e39663fa9f5bf969",
+      "ocid": "ocds-dgv273-seacev3-1237735",
+      "input_sha256": "c927e04a250c8fa873ae629c982738fae513c3546392cdde72972e4868284d1d",
+      "package_fingerprint": "4c6d483758b5ebe07fbe6c3beb80ff36a7f3353f50bb4930685321a83620b026",
+      "expected_surfaces": [
+        "PROCEDURE",
+        "AWARD",
+        "CONTRACT",
+        "ENTITY",
+        "SUPPLIER",
+        "DOCUMENT"
+      ],
+      "missing_surfaces": [],
+      "dataset_counts": {
+        "AWARD": 1,
+        "CONTRACT": 1,
+        "DOCUMENT": 5,
+        "ENTITY": 2,
+        "PROCEDURE": 6,
+        "SUPPLIER": 1
+      },
+      "documents": {
+        "total": 5,
+        "DISCOVERED": 5,
+        "VERIFIED": 0
+      },
+      "package_completeness": "PARTIAL_EVIDENCE",
+      "technical_dossier_claim": "NOT_DEMONSTRATED",
+      "canonical_mutation": false,
+      "baseline": {
+        "fingerprint": "eee73cd7579ccfb5340b8dc5e7c0b5822aee7184352f661beac526a98e7e1230",
+        "source_artifacts": 16,
+        "claims": 142,
+        "immutable": true
+      }
+    },
+    "oece_verified_document_handoff": {
+      "status": "PASS_E3_VERIFIED_DOCUMENTS_TO_BASELINE_0",
+      "verification_head": "ca3ce90e6e7a25ba308c8b99c0bd025b156484f1",
+      "input_sha256": "a71d0417685bfd7311d4d860438b75c7c4ada4c66eceece626f7d4139d4f7d18",
+      "package_fingerprint": "eba3f712de8e1f88f65f7ed31411217fd03b74e40ce4e1d82f736465257712d6",
+      "package_completeness": "SOURCE_PACKAGE_VERIFIED",
+      "documents": {
+        "total": 5,
+        "VERIFIED": 5,
+        "verifiedTechnicalDocuments": 0
+      },
+      "technical_dossier_claim": "NOT_DEMONSTRATED",
+      "canonical_mutation": false,
+      "claims": {
+        "procurementPartial": 142,
+        "documentVerified": 5,
+        "total": 147
+      },
+      "duplicate_content": [
+        {
+          "checksum": "d8a8c52466f4ca08ae9a9958911309b18ca307b0110fb6a5ebabb55cc15a89c3",
+          "documentIds": [
+            "contract:153191064",
+            "contract:153191464"
+          ]
+        }
+      ],
+      "baseline": {
+        "fingerprint": "6b3d4e2f205bd8bc7451998955a0355f19b179d5ceaf3e3fde03aa762afbfe0c",
+        "source_artifacts": 21,
+        "immutable": true
+      }
+    },
+    "oece_verified_content_inspection": {
+      "status": "PASS_E3_NO_SEMANTIC_PROMOTION",
+      "verification_head": "fd4ac7276125338cfda1d0c18cf1c9454d8f6929",
+      "unique_relevant_pdfs": 5,
+      "text_extracted": 2,
+      "text_not_available": 3,
+      "observations": [
+        "Proposal-presentation report: text extracted; proposal lexical signal.",
+        "Award report: text extracted; Buena Pro and reference-value wording; S/ 99,870.00 observed.",
+        "Contract binary: 6 pages; no extractable text; duplicated under two OECE document identities.",
+        "Administrative Bases: 38 pages; no extractable text.",
+        "Award act: 3 pages; no extractable text."
+      ],
+      "semantic_promotion": "NOT_PERFORMED",
+      "technical_dossier_claim": "NOT_DEMONSTRATED"
+    },
+    "oece_pdf_structure": {
+      "status": "PASS_E3_IMAGE_ONLY_CONFIRMED",
+      "verification_head": "8c76492eb646dd7ee7f5a257b8af066db4178fc4",
+      "image_only_documents": [
+        {
+          "identity": "contract content (duplicate OECE identities)",
+          "pages": 6,
+          "letters": 0,
+          "images": 6,
+          "imageOnlyCandidatePages": 6
+        },
+        {
+          "identity": "Administrative Bases",
+          "pages": 38,
+          "letters": 0,
+          "images": 38,
+          "imageOnlyCandidatePages": 38
+        },
+        {
+          "identity": "Award Act",
+          "pages": 3,
+          "letters": 0,
+          "images": 3,
+          "imageOnlyCandidatePages": 3
+        }
+      ],
+      "image_only_pages_total": 47,
+      "ocr_scope": "JUSTIFIED_FOR_47_IMAGE_ONLY_PAGES_ONLY",
+      "technical_dossier_claim": "NOT_DEMONSTRATED"
+    },
+    "oece_ocr_capability": {
+      "windows_runtime_probe": "NOT_AVAILABLE_IN_CURRENT_POWERSHELL_ENVIRONMENT",
+      "cli_tools": {
+        "tesseract": "NOT_FOUND",
+        "imagemagick": "NOT_FOUND",
+        "ghostscript": "NOT_FOUND"
+      },
+      "decision": "ACS_PINNED_TESSERACT_FALLBACK",
+      "package": "TesseractOCR 5.4.2",
+      "model_source": "tesseract-ocr/tessdata_fast",
+      "model_commit": "87416418657359cb625c412a48b6e1d6d41c29bd",
+      "spanish_model_git_blob_sha1": "72e901f13ca52cfe34cf239a368b9ed3c0ddaf26",
+      "scope": "47_PROVEN_IMAGE_ONLY_PAGES",
+      "semantic_promotion": "FORBIDDEN_BY_OCR_STEP",
+      "initial_runtime_attempt": {
+        "package": "TesseractOCR 5.5.2",
+        "result": "FAIL",
+        "evidence": "Test host FileNotFoundException for TesseractOCR 5.5.2; MSBuild also exposed Logging.Abstractions 8.x/10.x conflict",
+        "classification": "KNOWN_FIXABLE_INTEGRATION_DEFECT"
+      },
+      "package_reason": "Aligns with .NET 8 / Microsoft.Extensions.Logging.Abstractions >=8.0.2; explicit integration-test reference materializes OCR runtime in test host.",
+      "status": "PASS_E3_47_OF_47",
+      "runtime_host_fix": {
+        "status": "VERIFIED_E3",
+        "evidence": [
+          "Integration host build: 0 warnings, 0 errors",
+          "No MSB3277 dependency conflict",
+          "TesseractOCR.dll materialized",
+          "x64/x86 tesseract54.dll and leptonica-1.85.0.dll materialized"
+        ]
+      },
+      "current_defect": null,
+      "verification_head": "fb1e096551e8bd7d778775c8c304d67cdf9efa7f",
+      "execution": {
+        "pages_expected": 47,
+        "pages_processed": 47,
+        "total_characters": 187608,
+        "documents": [
+          {
+            "identity": "contract",
+            "pages": 6,
+            "characters": 18030,
+            "mean_confidence": 0.9233,
+            "signals": [
+              "BASES_ADMINISTRATIVAS",
+              "BUENA_PRO",
+              "CONTRATO",
+              "GARANTIA",
+              "PROPUESTA"
+            ]
+          },
+          {
+            "identity": "administrative_bases",
+            "pages": 38,
+            "characters": 161070,
+            "mean_confidence": 0.9079,
+            "signals": [
+              "BASES_ADMINISTRATIVAS",
+              "BUENA_PRO",
+              "CONTRATO",
+              "EXPEDIENTE_TECNICO",
+              "GARANTIA",
+              "MEMORIA_DESCRIPTIVA",
+              "PLANOS",
+              "PRESUPUESTO_TERM",
+              "PROPUESTA"
+            ]
+          },
+          {
+            "identity": "award_act",
+            "pages": 3,
+            "characters": 8508,
+            "mean_confidence": 0.9267,
+            "signals": [
+              "BUENA_PRO",
+              "EXPEDIENTE_TECNICO",
+              "PROPUESTA"
+            ]
+          }
+        ],
+        "semantic_promotion": "NOT_PERFORMED"
+      },
+      "page_evidence": {
+        "status": "PASS_E3_PERSISTED",
+        "producer_head": "ad013ca4bad2b257d8e7936be54eccaa169c1d77",
+        "path": "C:\\acs-v1\\test-artifacts\\oece-documents\\ocds-dgv273-seacev3-1237735\\oece-ocr-page-evidence.json",
+        "bytes": 223856,
+        "sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "model_sha256": "6f2e04d02774a18f01bed44b1111f2cd7f3ba7ac9dc4373cd3f898a40ea6b464",
+        "pages": 47,
+        "semantic_promotion": false
+      },
+      "context_probe": {
+        "status": "PASS_E3",
+        "execution_head": "b06b7d4b31734d86e0a1345bc93840c43996d7b4",
+        "evidence_sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "hits": 8,
+        "findings": {
+          "budget_page_9": "ADMINISTRATIVE_LEGAL_REFERENCE_ONLY: Ley de Presupuesto / equilibrio financiero; not project budget evidence",
+          "memoria_page_11": "ADMINISTRATIVE_REQUIREMENT_ONLY: plan de trabajo con memoria descriptiva; not technical dossier memory evidence",
+          "expediente_award_act": "PROCUREMENT_OBJECT_REFERENCE_ONLY: describes contracting object; attachment not demonstrated",
+          "bases_page_13": "EMBEDDED_TECHNICAL_CONTENT_DEMONSTRATED: approved technical sheet referenced with plans/specifications and visible description/unit/metrado/price-style table fragment"
+        },
+        "technical_document_attached": "NOT_DEMONSTRATED",
+        "technical_content_fragment": "DEMONSTRATED_E3",
+        "technical_core_set_verified": false,
+        "technical_dossier": "NOT_DEMONSTRATED",
+        "semantic_promotion": false
+      },
+      "bases_page_13": {
+        "status": "TECHNICAL_FRAGMENT_DEMONSTRATED_E3",
+        "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
+        "page": 13,
+        "ocr_characters": 6226,
+        "ocr_mean_confidence": 0.86,
+        "demonstrated": [
+          "Execution is governed by an approved maintenance technical sheet",
+          "The approved technical sheet is stated to contain plans and technical specifications",
+          "Embedded technical activity/table fragment exposes description/unit/metrado/price-style columns, but OCR is insufficient for exact numeric reconstruction",
+          "Contractor disposal obligation for surplus material is stated",
+          "Final report requirements include maintenance summary, activity narrative, executed quantities, current contract amount, photographic record and digital medium",
+          "Final-report annex list references an approved technical dossier"
+        ],
+        "epistemic_limits": [
+          "The approved technical dossier itself is not demonstrated as attached",
+          "Plans themselves are not demonstrated as attached",
+          "Technical specifications as a standalone source document are not demonstrated as attached",
+          "Exact table quantities/prices are not verified from OCR",
+          "Reference to approved technical dossier in final-report annexes is a deliverable requirement, not proof of current possession"
+        ],
+        "classification": "EMBEDDED_TECHNICAL_CONTENT_FRAGMENT",
+        "whole_document_promotion": "FORBIDDEN",
+        "technical_core_set_verified": false,
+        "technical_dossier": "NOT_DEMONSTRATED"
+      },
+      "bases_technical_fragment_boundary": {
+        "status": "START_AND_END_BOUNDARIES_DEMONSTRATED_E3",
+        "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
+        "page_13": "Technical execution/activities/deliverables; embedded fragment demonstrated.",
+        "page_14": "Continuation of deliverable annex requirements at page start, then section 7 FORMA DE PAGO and sections 8-16 contractual/administrative. Technical fragment ends on page 14 before section 7.",
+        "page_15": "Contract dispute/resolution/risk/sanctions and qualification requirements; outside embedded technical fragment.",
+        "end_boundary": "PAGE_14_BEFORE_SECTION_7",
+        "start_boundary": "PAGE_12_SECTION_3_4_TERMINOS_DE_REFERENCIA",
+        "exact_table_values": "NOT_VERIFIED_FROM_OCR",
+        "technical_document_attached": "NOT_DEMONSTRATED",
+        "whole_document_promotion": "FORBIDDEN",
+        "context_before_start": "PAGE_12_CHAPTER_III_REQUIREMENT_SECTIONS_3_1_TO_3_3_RETAINED_AS_SOURCE_CONTEXT_NOT_STRICT_TECHNICAL_FRAGMENT"
+      },
+      "bases_technical_fragment_contract": {
+        "schema": "ACS-OECE-EMBEDDED-TECHNICAL-FRAGMENT-1.0",
+        "acs_head": "3fa4e4a799606e3595a29688223b0f50c1672ef8",
+        "status": "PASS_E3_ARTIFACT_PERSISTED",
+        "source_sha256": "b1e1ef36ae4e62f230f9eed70ccbdc6ab946c690f83186b4fcd3e23208d7c7fc",
+        "ocr_evidence_sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "artifact_bytes": 1694,
+        "artifact_sha256": "a94782d56effddd21d242a5c154f691e8ec49a5447ef51c0cbff56874f1ffec3",
+        "fingerprint": "104de3221ddff3927d732de648288b196ce62537688690687726326ee3344b26",
+        "start": "12:3.4 TERMINOS DE REFERENCIA",
+        "end": "14:IMMEDIATELY_BEFORE_7_FORMA_DE_PAGO",
+        "whole_document_promotion": false,
+        "technical_core_set_verified": false,
+        "canonical_mutation": false
+      },
+      "arki_derived_fragment_handoff": {
+        "status": "PASS_E3_PHYSICAL_HANDOFF",
+        "web_head": "b19372f1df9a90b48c9a5c7fa12b71fa2b9bf310",
+        "contract": "server/arkiOeceEmbeddedTechnicalFragment.ts",
+        "tests": "server/arkiOeceEmbeddedTechnicalFragment.test.ts",
+        "e2e": "pnpm e2e:oece:fragment",
+        "invariants": [
+          "strict schema",
+          "C# fingerprint recomputation",
+          "three physical artifact hashes",
+          "source document exact SHA/verified identity",
+          "PARTIAL claim",
+          "no canonical mutation",
+          "technical dossier NOT_DEMONSTRATED"
+        ],
+        "verified_web_head": "c98b87e172c37975969c4382d705bd50aef1ca83",
+        "typescript_check": "PASS",
+        "focused_tests": "2_OF_2_PASS",
+        "physical_e2e": "PASS",
+        "package_sha256": "a71d0417685bfd7311d4d860438b75c7c4ada4c66eceece626f7d4139d4f7d18",
+        "fragment_artifact_sha256": "a94782d56effddd21d242a5c154f691e8ec49a5447ef51c0cbff56874f1ffec3",
+        "ocr_evidence_sha256": "a703304253dcd454e1271bca69de05d30a7caf595e2098b85094dcc60f718b87",
+        "fragment_fingerprint": "104de3221ddff3927d732de648288b196ce62537688690687726326ee3344b26",
+        "derived_baseline_fingerprint": "1bd8407a786202642431beab2371b83b1f1c5b3713419a1b4f8d108dd1b3d66e",
+        "baseline_source_artifacts": 22,
+        "baseline_claims": 148,
+        "derived_claims": 1,
+        "derived_claim_evidence_state": "PARTIAL",
+        "technical_dossier_claim": "NOT_DEMONSTRATED",
+        "whole_document_promotion": false,
+        "canonical_mutation": false,
+        "original_baseline_unchanged": true,
+        "local_untracked_file": "p9.obj (untouched)"
+      },
+      "f7_source_readiness_gate": {
+        "status": "PASS_E3_CLOSED_BOUNDED",
+        "implementation_head": "be33a28fb9d3fcf9eca94aa1c99b670f819e336b",
+        "scope": "OECE embedded technical fragment claim, not unrelated procurement metadata",
+        "contract": "server/arkiProfessionalState.ts::assessF7SourceReadiness",
+        "adversarial_tests": "server/arkiF7OeceSourceGate.test.ts",
+        "physical_e2e": "PASS",
+        "invariants": [
+          "PARTIAL derived technical fragment cannot be silently omitted from F7 projection to enable acceptance",
+          "Forged VERIFIED status on a derived fragment cannot bypass the gate",
+          "Existing unrelated F7 ready paths remain unchanged",
+          "Actual OECE specimen remains EVIDENCE_ONLY_BLOCKED for F7 acceptance",
+          "No D2/AGK authority refs fabricated by physical E2E"
+        ],
+        "resolution_path": "Require actual verified technical core and a separately governed review/reconciliation before lifting the fragment blocker; not claimed or implemented by this bounded gate.",
+        "verified_web_head": "083ecdbcf2ea67076e5baaa0f37ace55f9451232",
+        "typescript": "PASS",
+        "tests": "11_OF_11_PASS_IN_3_FILES",
+        "f7_source_readiness": "EVIDENCE_ONLY_BLOCKED",
+        "derived_claims": 1,
+        "derived_claim_evidence_state": "PARTIAL",
+        "technical_dossier_claim": "NOT_DEMONSTRATED",
+        "canonical_mutation": false,
+        "baseline_fingerprint": "1bd8407a786202642431beab2371b83b1f1c5b3713419a1b4f8d108dd1b3d66e",
+        "baseline_source_artifacts": 22,
+        "baseline_claims": 148,
+        "worktree_exception": "untracked p9.obj (untouched)",
+        "verification_note": "Observed on local PowerShell at exact HEAD; no general F7/F8 full product freeze claimed."
+      }
+    },
+    "revit_real_specimen": {
+      "status": "PHYSICAL_FILE_PRESENT_CONTAINER_METADATA_OBSERVED",
+      "filename": "AGROPECUARIO MODELO WIP 05.rvt",
+      "bytes": 246304768,
+      "sha256": "933c71e0424d3f5dd68d74709591613c7fd9e61eaec98d4a95f36051ebb6f81e",
+      "file_container": "OLE_COMPOUND_FILE_V4",
+      "metadata_version_observed": "2026",
+      "metadata_build_observed": "20250519_1515(x64)",
+      "ole_streams_observed": [
+        "BasicFileInfo",
+        "ProjectInformation",
+        "Partitions",
+        "ElemTable",
+        "ContentDocuments",
+        "RevitPreview4.0"
+      ],
+      "epistemic_boundary": [
+        "Revit version string observed in container metadata; Revit application compatibility not yet executed",
+        "Native BIM semantic element extraction NOT_DEMONSTRATED",
+        "Native geometry extraction NOT_DEMONSTRATED",
+        "No project data or user file uploaded to GitHub",
+        "Do not conflate RVT BIM specimen with S10 .S2K budget database specimen"
+      ],
+      "next_gate": "Bounded non-mutating characterization of RVT metadata and possible Revit-hosted export/adapter path; no proprietary native parser claim."
+    }
+  },
+  "maqueta_viva": {
+    "name": "ARKI MAQUETA VIVA",
+    "version": "0.1-local",
+    "status": "FIRST_WINDOWS_LAUNCH_FAILED_FIX_APPLIED_AWAITING_RETEST",
+    "purpose": "Offline, read-only, navigable visualization of the existing ARKI master structured state, opened with a Windows desktop shortcut",
+    "files": [
+      "ARKI-MAQUETA-VIVA.cmd",
+      "tools/maqueta-viva/Start-ARKI-MaquetaViva.ps1",
+      "tools/maqueta-viva/maqueta-viva.template.html"
+    ],
+    "source": "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json",
+    "output": "%LOCALAPPDATA%\\ARKI\\MaquetaViva\\index.html",
+    "views": [
+      "structure",
+      "connections",
+      "parts",
+      "floating"
+    ],
+    "invariants": [
+      "NO_EVIDENCE_NO_GREEN",
+      "NO_CANONICAL_MUTATION",
+      "NO_NETWORK_REQUIRED",
+      "NO_EXTRA_RUNTIME_OR_SERVER",
+      "LOCAL_SNAPSHOT_ON_EACH_LAUNCH",
+      "SHORTCUT_CREATED_ON_FIRST_LAUNCH"
+    ],
+    "evidence": {
+      "github_code": "PRESENT",
+      "javascript_syntax": "PASS_STATIC",
+      "windows_shortcut": "NOT_EXECUTED",
+      "browser_render": "NOT_EXECUTED",
+      "source_consistency": "GENERATED_FROM_LOCAL_JSON_AT_LAUNCH",
+      "first_windows_launch": "FAILED_E3_INVALID_PATH_FROM_CMD_TRAILING_BACKSLASH",
+      "launcher_fix_commit": "febd223c33aaf49a7a2aa4c4a91850c81432abec"
+    },
+    "next_gate": "Open ARKI-MAQUETA-VIVA.cmd on Windows; visually inspect eight tabs and swapped rails; stage a piece, fill review, export/import, optionally run GitHub observer with real credentials and read-only permissions; provide browser screenshot and/or console output. Node smoke 29/29 and mocked GitHub observer 14/14 already PASS.",
+    "layout": {
+      "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
+      "left": "REMOVED: no left sidebar; central assembly workspace expands",
+      "center": "Wide blue, mostly empty draft assembly canvas with phase context, provisional placed pieces and drop target; historic inventories no longer fill structure canvas",
+      "right": "Only sidebar: piece tray, selected by yellow Pendientes/Ideas/Dispersas/FROZEN buttons; ideas selected by default for draggable pieces",
+      "interaction": "Click F1–F10 to change active assembly phase. Yellow buttons change right tray without replacing canvas. Drag a movable piece from right tray into center to stage locally; inspect staged pieces on demand.",
+      "default_phase": "F1",
+      "responsive": "Desktop two columns (wide blue workspace plus right tray); on narrow screens phase menu scrolls horizontally and tray stacks below canvas",
+      "integration_boundary": "No code operation in the visual draft promotes integration or mutates canonical phase statuses; source refresh requires launcher regeneration from updated local files",
+      "static_js_syntax": "PASS",
+      "windows_browser_gate": "NOT_EXECUTED",
+      "visual_reference": "User screenshot 2026-10-07: retain existing navigation and sidebars; replace black-looking middle area with blue workspace",
+      "center_background": "linear-gradient(160deg,#1b4769,#173a59,#12324d)",
+      "top_menu": "Below phase menu: counters at left; orange Estructura, Conexiones, Inventario, Flotantes; yellow Pendientes, Ideas, Dispersas, FROZEN control right tray; search at right.",
+      "top_menu_status": "IMPLEMENTED_STATIC_SYNTAX_PASS_WINDOWS_E3_PENDING",
+      "menu_palette": {
+        "orange": "#f28c28",
+        "yellow": "#f2d94e",
+        "text": "#111820"
+      },
+      "phase_navigation": "F1–F10 horizontal phase menu directly below ARKI MAQUETA VIVA header, phase names compact with status accent and active phase highlight",
+      "piece_transfer": "Movable idea/component placed in any F1-F10 draft is filtered from its original right tray across phases; one draft placement per piece globally",
+      "piece_return": "Each staged workbench card has an accessible X action; removing draft placement restores item to original Ideas or Dispersas tray and persists in localStorage",
+      "phase_colors": {
+        "F1": "#a73540",
+        "F2": "#a65a20",
+        "F3": "#8c710f",
+        "F4": "#4f7927",
+        "F5": "#16765b",
+        "F6": "#13798b",
+        "F7": "#315db4",
+        "F8": "#6849a3",
+        "F9": "#9a3889",
+        "F10": "#ad416c"
+      },
+      "color_semantics": "Ten distinct phase identities; separate status markers and white selected outline; colors do not assert verification",
+      "interaction_simulation": "PASS: real registry and canonical state mocked DOM, ten phase buttons, drop I-01 from tray onto F1 Hito1, local draft persisted, tray item removed, grip shown, drag to Hito3, undo restores Hito1",
+      "phase_occupancy_badges": "Each F1–F10 button displays current count of draft-placed pieces when nonzero; badge is not completion percentage or canonical progress",
+      "piece_inspector": "Selected piece opens dismissible floating inspector on blue canvas, with existing local review/placement controls; no permanent third sidebar",
+      "new_interactions": {
+        "free_layout": "Piece grip moves placed cards within current phase workbench; normalized x/y positions persisted locally and in export/import JSON",
+        "undo_redo": "50-step in-memory undo/redo for placements, removals, interphase reassignment, and free-position moves",
+        "phase_reassignment": "Existing staged piece can be deliberately moved to a different phase via inspector; never duplicated; roadmap statuses unchanged",
+        "focus_mode": "Expand center by temporarily hiding right tray; toggle restores tray, no inventory mutation",
+        "auto_arrange": "Reset free positions in active phase, undoable; preserves placement and reviews",
+        "compatibility": "Old ARKI-MAQUETA-DRAFT-1 JSON without positions remains importable, new positions validated within 0..1",
+        "proposed_placement": "Each available historical/local idea and dispersed component has one-click proposed phase placement, optionally linking a unique text-matched milestone; all as local unverified draft",
+        "source_reconciliation": "On changed/missing registry IDs, original draft is preserved in a separate localStorage backup, known pieces displayed provisionally and original export offered; no silent discard",
+        "alternative_routes": "Reference and Alternative A have separate milestone associations, with shared phase placements; user can switch and undo"
+      },
+      "connections_ui": {
+        "default_view": "Mis piezas conectadas",
+        "requires": "At least two draft-placed pieces to create a dependency",
+        "workflow": "Open Conexiones -> choose dependent piece -> choose required piece -> Crear conexión -> dashed arrow appears; Quitar conexión reverses",
+        "representation": "Only declared local dependencies in reviews; edges never imply executed tests, verified integration, or canonical relationships",
+        "validation": "Existing validateReviews rejects unknown IDs, self-dependency, cycles, duplicate dependency declarations; stored in local JSON",
+        "legacy": "Arquitectura registrada toggles to previous ACS/BASELINE/Core/AGK/F7/F8 scoped diagram"
+      },
+      "roadmap_ui": {
+        "menu": "New orange Roadmap tab alongside Estructura and Conexiones",
+        "source": "State.roadmap.phases and current_zone; ten official statuses/evidence statuses unchanged",
+        "visual": "10 phase cards with distinct identity colors, current zone, canonical status/evidence, separate local draft piece counts",
+        "interaction": "Click phase card to open its assembly table",
+        "rule": "Never infer completion percentage or official milestone from locally placed pieces"
+      },
+      "direct_workbench_connections": {
+        "status": "IMPLEMENTED_CODE_AWAITING_WINDOWS_E3",
+        "instructions": "Estructura -> 🔗 Conectar piezas -> 🔗 on dependent card -> 🔗 on required card",
+        "visible": "Yellow dashed directional SVG overlay on current phase free workbench, re-rendered on card movement",
+        "management": "Inline remove connection; undo/redo includes local reviews/dependencies; persists via local JSON",
+        "scope": "Only same-phase connections drawn on that phase workbench; cross-phase declared dependencies remain visible in Conexiones -> Mis piezas conectadas",
+        "boundary": "User-declared local dependency only, not executable, verified, or canonical; phase roadmap untouched"
+      },
+      "default_phase_view": "SPINE_VIEW",
+      "spine_proposal": {
+        "phase_coverage": "F1-F10",
+        "milestones": {
+          "F1": [
+            "Propósito y alcance",
+            "Identidad y requisitos",
+            "Estado y procedencia",
+            "Gobernanza y cierre"
+          ],
+          "F2": [
+            "Jurisdicción",
+            "Normas aplicables",
+            "Restricciones",
+            "Conformidad y evidencia"
+          ],
+          "F3": [
+            "Fuentes de conocimiento",
+            "Razonamiento",
+            "Agentes y capacidades",
+            "Decisiones y trazabilidad"
+          ],
+          "F4": [
+            "Programa arquitectónico",
+            "Relaciones espaciales",
+            "Alternativas de partido",
+            "Partido y validación"
+          ],
+          "F5": [
+            "Criterios de evaluación",
+            "Escenarios",
+            "Comparación y trade-offs",
+            "Decisión y evidencia"
+          ],
+          "F6": [
+            "Primitivas y representación",
+            "Topología e identidad",
+            "Operaciones geométricas",
+            "Validación y contratos"
+          ],
+          "F7": [
+            "Sistemas y componentes",
+            "Especialidades",
+            "Coordinación",
+            "Documentación técnica"
+          ],
+          "F8": [
+            "Documentos base",
+            "Consistencia de expediente",
+            "Revisión y conformidad",
+            "Expediente entregable"
+          ],
+          "F9": [
+            "Planificación de obra",
+            "Ejecución",
+            "Supervisión",
+            "Control y cierre"
+          ],
+          "F10": [
+            "Entrega y recepción",
+            "Operación",
+            "Mantenimiento",
+            "Retroalimentación"
+          ]
+        },
+        "classification": "ILLUSTRATIVE_STRUCTURAL_HYPOTHESIS_NOT_CRITICAL_PATH",
+        "secondary_activities": "Only placed historical idea/component pieces; unassigned until user explicitly links to milestone",
+        "visual_connections": "Each manually assigned secondary activity is shown under a milestone with a vertical branch and connector; not a validated code dependency",
+        "mode_switch": "Spine view default on phase navigation; Mesa libre preserves previous free placement, manual peer links, drag and visual position",
+        "draft_persistence": "spineAssignments keyed by piece ID, value milestone index 0..3; old drafts import without this field",
+        "reversibility": "Link/unlink, undo/redo, X returns piece to tray and deletes association, phase move clears stale association",
+        "invariants": "Never infer verified execution, critical-path timing, completion, canonical promotion or phase status from visual links"
+      },
+      "spine_scenarios": {
+        "reference": "Proposed reference route, never official critical path",
+        "alternative": "Separate F1–F10 milestone assignments saved locally; shared piece inventory and placements; no canonical mutation",
+        "suggestions": "Deterministic accent-normalized text matching against per-phase milestone vocabulary; abstains on ambiguous or absent match; opt-in application with rationale and LOW/MEDIUM labels"
+      },
+      "dynamic_ideas": {
+        "local_capture": "New local ideas receive LOCAL-N IDs, user-selected proposed phase, persist in browser and appear in tray",
+        "portable": "Draft JSON export/import carries localIdeas and separate scenario assignments",
+        "source_updates": "On launcher rebuild compare prior embedded source inventory and canonical status snapshots; report new ideas/components/FROZEN and changed phase/frozen records; no remote polling",
+        "limit": "Git pull or local file updates + reopen launcher required to incorporate new upstream ideas; no autonomous remote discovery"
+      },
+      "spine_next_level": {
+        "milestone_selection": "All F1–F10 proposed spine stages can be clicked to select the target for manual unassigned activity linking; default hito is selected; no official roadmap mutation",
+        "scenario_comparison": "Expandable reference versus alternative comparison of per-piece hito associations, counts and differences; no canonical promotion",
+        "safe_scenario_copy": "Copy current phase's reference associations into an empty alternative only, preserving base and refusing overwrite",
+        "phase_mismatch": "Explicit warning when piece is placed in a phase different from its registry's proposed target; human review required",
+        "tray_priority": "Ideas and dispersed components for active phase sorted first; all other phases remain accessible, not hidden",
+        "unmatched_suggestions": "When no unambiguous textual suggestions, UI explains that this is not an incompatibility; manual mapping remains available",
+        "source_refresh": "Retain existing launcher regeneration from local canonical state and inventory and local source change banner; no remote real-time claims"
+      },
+      "validation": "JS syntax PASS; mock DOM smoke test 5 evolution buttons, 10 phase buttons, autocorrective proposal -> impact -> explicit authorization, blocked acceptance, digital and predictive views PASS",
+      "vertebral_secondary_dependencies": {
+        "interaction": "Two-click dependency creation directly on linked or unlinked secondary activity cards in vertebral view; no forced Mesa libre switch",
+        "visualization": "Each attached activity shows declared dependencies and incoming references; phase ledger supports explicit removal",
+        "storage": "Existing local reviews.dependencies, same data shown in Mesa libre and Conexiones, shared by reference and alternative scenarios",
+        "validation": "validateReviews rejects self-links, duplicate links, cycles and unknown IDs",
+        "semantics": "Hypothesis only, no automatic certification or critical path calculation"
+      },
+      "phase_placement_audit": {
+        "scope": "Checks current draft placement against source-proposed phase, flags missing textual stage suggestions",
+        "action": "Explicit per-piece move to proposed phase with undo/redo; never auto-moves",
+        "guard": "Does not alter canonical phase status, frozen contracts, inventory or roadmap"
+      },
+      "predecessor_successor_view": {
+        "milestones": "Each of four proposed spine milestones in every F1-F10 phase displays previous and next proposed milestone; start and end explicitly labeled",
+        "activities": "Each staged spine activity, linked or unlinked, shows predecessors (declared dependencies required by it) and successors (activities that depend on it); no undeclared relationships invented",
+        "cross_phase": "Declared relations show destination phase when placed, or SIN UBICAR, and clicking a placed ID navigates to its phase",
+        "epistemic_boundary": "Predecessor/successor relations for activities are unverified local declarations; proposed milestone ordering is not calculated critical path; canonical roadmap remains untouched"
+      },
+      "advisory_placement_v1": {
+        "entry": "F1-F10 -> Columna vertebral y espinas -> Revisar ubicaciones sugeridas",
+        "scope": "Review placed and unplaced phase-relevant pieces; Ver todas las piezas expands to inventory",
+        "recommendation": "Deterministic Spanish title-keyword heuristics plus historical inventory fallback; no repository evidence audit, confidence MEDIA/HISTÓRICA/SIN BASE, explanation shown per piece",
+        "edit": "Explicit phase and hito dropdown per piece; applying moves/places draft piece, updates current scenario milestone, clears stale phase-specific assignments, preserves other pieces and undo/redo",
+        "scenario": "Reference and Alternative A milestone assignments remain independent; cross-phase move clears stale assignments for that moved piece only",
+        "sources": "New ideas/frozen/phase status continue to refresh only from local launcher-generated snapshot; proposals recomputed from embedded current inventory at each render; never auto-promoted",
+        "authority": "No canonical roadmap or FROZEN mutation"
+      },
+      "tests": {
+        "static_js_syntax": "PASS",
+        "simulated_phase_navigation": "PASS F1..F10, 4 gates each",
+        "simulated_map": "PASS internal declared arrows and cross-phase link",
+        "simulated_roadmap": "PASS 10 phase cards, 40 milestone cells, jump to F6 Hito 3",
+        "browser_windows_e3": "NOT_EXECUTED"
+      },
+      "automatic_classification": {
+        "new_local_ideas": "New local ideas auto placed in draft with phase classification and spine hito; confidence and reason retained, editable; no canonical promotion",
+        "new_source_items": "On later launcher source refreshes, newly detected registry ideas/components auto placed if a valid phase exists; first-ever inventory not mass moved; out-of-scope UNASSIGNED not forced",
+        "historic_batch": "Explicit Organizar piezas disponibles button classifies remaining historical pieces; leaves preexisting placements untouched; undo available",
+        "spine_fallback": "When no unambiguous milestone match, provisional Hito 1 with BAJA confidence and review notice; never claimed verified",
+        "workflow": "IDEA/EVALUACION/EN_DESARROLLO/IMPLEMENTACION_DECLARADA/VERIFICACION_PENDIENTE/PAUSADA/DESCARTADA, local editable metadata; implementation is declaration, never verified",
+        "frozen": "FROZEN source records read from canonical state and refresh independently; cannot be user-promoted by workflow",
+        "persistence": "workflowStages and autoPlacementNotes included in local draft, import/export, undo/redo"
+      },
+      "verification": "PASS: JS syntax, runtime simulation with canonical JSON and assembly registry, 10 phases, 3 goals, proposal approval persisted, technical round-trip, frozen navigation, F6 navigation",
+      "activity_sequence_auto": {
+        "rule": "On each render, derive previous and next milestone for a staged spine from its current scenario (base or alternative); locate up to 3 candidate activities in nearest populated earlier and later milestones within the same phase",
+        "semantics": "Auto-derived candidates are visible immediately but never persisted as verified dependencies; explicit Vincular creates a reversible local review dependency after cycle validation",
+        "scope": "F1-F10 and all 4 proposed milestones per phase; unassigned pieces have no inferred activity neighbors",
+        "alternatives": "Derived candidates follow selected reference/alternative spine map; confirmed local dependencies remain shared between scenarios",
+        "canonical": "No roadmap status, freeze or official milestone modified"
+      },
+      "route_integrity_radar": {
+        "phase_view": "Dynamic per-phase diagnostic counts of staged pieces, spine hito links, orphan spines, intra-phase/cross-phase declared dependencies, unresolved dependency targets, low-confidence auto placements, and declared-evidence gaps",
+        "roadmap_view": "10-phase reference route audit and cross-phase dependency jump links",
+        "source_refresh": "Derived on each local render; source inventory and FROZEN changes are read from regenerated local source snapshot when launcher is run, not live web polling",
+        "authority_boundary": "All diagnostic counts are draft metadata only; no completion percentages, route critical path claim, canonical status mutations, or test execution assertions"
+      },
+      "spine_improvements": {
+        "coverage": "Each phase/scenario shows linked vs staged counts and separately declared dependencies; progressbar explicitly measures local visual linking only, not official roadmap progress",
+        "unassigned": "First five unlinked activities visible by default; show all toggle available when >5; no pieces or links are deleted",
+        "markdown_sheet": "Export active phase and Reference/Alternative A to standalone .md with four proposed milestones, linked/unlinked activities, declared dependencies, canonical status/evidence as read-only context, and explicit nonofficial limitations",
+        "authority": "All ten phase statuses and frozen contracts remain untouched; no inferred technical dependencies promoted"
+      },
+      "checks": {
+        "js_syntax": "PASS",
+        "simulated_runtime": "PASS: 10 phase buttons, cross-phase priority, reference/alternative difference, navigate to connections, open location review, apply F4→F6 and persist, inline feedback",
+        "windows_e3": "NOT_EXECUTED"
+      },
+      "spine_preview": {
+        "display": "Unassigned pieces with unique textual milestone matches appear as amber preview cards beneath corresponding F1–F10 milestone; max 4 per milestone",
+        "accept": "Explicit per-card action links the piece to its suggested milestone in active base or alternative local scenario; undo restores previous state",
+        "guard": "Recomputes suggestion and checks unassigned before accepting; ties and unmatched items remain in manual review list",
+        "evidence": "Never represents a verified dependency, completed milestone or official critical path"
+      },
+      "review_queue": {
+        "scope": "F1–F10 local spine assembly",
+        "priorities": [
+          "P1 declared dependency on unplaced piece",
+          "P2 declared cross-phase dependency",
+          "P3 spine without milestone in current local scenario",
+          "P4 reference/alternative milestone discrepancy",
+          "P5 unplaced candidate for current phase"
+        ],
+        "action": "Revisar opens local connection view or location review; no automatic application",
+        "comparison": "Per-item non-mutating preview of milestone coverage in Reference and Alternative A; declared cross-phase relations shared by both scenarios",
+        "authority": "Advisory local draft only; no verified technical dependency or calculated critical path"
+      },
+      "apply_location_fix": {
+        "problem": "No-op Apply feedback was only in a distant notice, appearing broken when scrolled",
+        "fix": "Row-local aria-live result plus explicit applied/no-change messages, row highlight, and persistent all-items review after phase move",
+        "safety": "No-op does not write; real change uses remember/saveDraft and remains undoable"
+      },
+      "offline_smoke_gate": "CI previously failed on stale test assertions (right-only tray vs swapped sidebars); assertions updated, awaiting exact-head rerun",
+      "traceability": "Per-piece local source, reason, evidence declaration and confidence, with append-only traceEvents across placement, hito assignment and dependencies; export/import JSON and Markdown.",
+      "source_reconciliation": "Offline source diff ledger stores previous and new values for ideas, components, phases and FROZEN; local drafts remain separate.",
+      "e3_windows_gate": "PENDING: real Windows browser run of Pruebas E3 Windows, manual persistence/alternative/source refresh checks and exported E3 JSON evidence.",
+      "navigation": "Counters occupy reserved flex width; orange/yellow menu is horizontally scrollable rather than overlapping at constrained widths",
+      "placement_recommendations": {
+        "method": "Deterministic, explainable scoring of ten phases using milestone lexical matches, inventory historical phase, declared dependencies and downstream dependents",
+        "scope": "Heuristic comparison, not mathematical global optimum or autonomous AI inference",
+        "default": "Do not assign Hito 1 when no unambiguous milestone match exists; piece remains SIN HITO",
+        "manual_control": "Evaluar ubicación opens editable phase/milestone review without changing placement; Aplicar commits local draft",
+        "source_auto": "Automatically place newly discovered source pieces only when scoring returns MEDIA; low confidence remains in tray",
+        "bulk": "User can explicitly request bulk organization as local draft"
+      },
+      "arki_improvement_ideas": {
+        "surface": "Yellow Ideas ARKI navigation; local diagnostic proposals derived on render from phase reconciliation, unassigned spines, unresolved dependencies, low-confidence placements and source changes",
+        "decision": "User can APPROVE FOR EVALUATION, REJECT or REOPEN; no implementation or canonical promotion",
+        "storage": "Local browser storage with JSON export/import of decisions",
+        "limits": "Rules-based diagnostics; no background autonomous code modification or live remote synchronization"
+      },
+      "header": "ARKI MAQUETA VIVA - La estructura optimizada, conexiones, piezas que faltan e Ideas de ARKI (single line; horizontal overflow on narrow viewport)",
+      "contextual_help": {
+        "position": "Immediately below the main navigation command bar",
+        "trigger": "Delegated mouseover and keyboard focusin for phase buttons, menus, milestone nodes, cards, form controls, scenario alerts and panels",
+        "content": "Action-specific explanatory text; preserves official-vs-draft boundary",
+        "accessibility": "aria-live polite status, keyboard focus supported, no external services"
+      },
+      "scenario_comparison": {
+        "scope": "Full ten-phase read-only comparison of local reference and alternative milestone assignments; phase placements and declared dependencies currently shared by both scenarios",
+        "detects": [
+          "UNASSIGNED_MILESTONE",
+          "UNPLACED_DEPENDENCY",
+          "REVERSED_SAME_PHASE_MILESTONE_DEPENDENCY",
+          "CROSS_PHASE_DEPENDENCY_REVIEW",
+          "FROZEN_SCOPE_REVIEW",
+          "MISSING_DECLARED_EVIDENCE_COUNT",
+          "HISTORICAL_PHASE_MISMATCH_COUNT"
+        ],
+        "recommendation": "Lexicographic heuristic: potential blockers first, review notices second; ties reported, no optimality claim",
+        "limitations": "No validated objective function, durations, resources, full constraints, executed tests or independent alternative placements/dependency sets; no global optimizer or critical path computation",
+        "safety": "No canonical roadmap or frozen contract mutations"
+      },
+      "idea_decision_colors": {
+        "APPROVED_FOR_EVALUATION": {
+          "background": "#2e9c5d",
+          "meaning": "Authorized to evaluate, not integrated or verified"
+        },
+        "PENDING_HUMAN_VALIDATION": {
+          "background": "#f3d84f",
+          "meaning": "Awaiting human decision"
+        },
+        "REJECTED": {
+          "background": "#475b6c",
+          "meaning": "Dismissed locally"
+        }
+      },
+      "research_trends": {
+        "scope": "Public GitHub releases metadata, six curated repositories and six capability families",
+        "external_process": [
+          "tools/research-trends/watch.py",
+          "tools/research-trends/sources.json",
+          "ARKI-RESEARCH-WATCH.cmd",
+          ".github/workflows/arki-research-trends.yml"
+        ],
+        "offline_import": "Maqueta Viva Research & Trends tab; user selects report.json, no network call",
+        "novelty": "First run baseline only; subsequent runs compare release_id against previous observations",
+        "dedup": "One candidate per capability key per observation; explicit canonical capability signals and human equivalence gate",
+        "candidate_status": "PENDING_HUMAN_VALIDATION; manual approval only permits evaluation",
+        "schedule_gate": "GitHub Actions cron only activates when workflow is present on default branch; feature branch does not auto-schedule",
+        "canonical_mutation": false,
+        "external_live_execution": "NOT_EXECUTED",
+        "unit_tests": "WRITTEN_NOT_EXECUTED",
+        "browser_e3": "NOT_EXECUTED"
+      },
+      "vertebral_evidence_gates": {
+        "scope": "Four computed draft diagnostic gates for each of ten phases; counts activity placements, locally declared complete reviews, missing evidence, unresolved dependency destinations and cross-phase declarations",
+        "authority": "Never a canonical milestone verdict, PASS, CI result, or critical path"
+      },
+      "vertebral_dependency_map": {
+        "scope": "Optional SVG map of up to five placed activities per stage, with dashed declared dependency arrows, cross-phase list and missing target warnings",
+        "edge_source": "Only reviews[].dependencies explicitly declared by user; stage order never generates verified edges",
+        "accessibility": "SVG piece nodes keyboard focusable; Enter/Space opens phase inspector"
+      },
+      "roadmap_milestone_matrix": {
+        "scope": "10x4 navigable matrix from proposed SPINE_STAGES, counts draft activities and local review declarations, with direct phase/stage drill-down",
+        "authority": "Official statuses read only from roadmap.phases; frozen contracts not modified"
+      },
+      "spine_direct_drag": {
+        "behavior": "In Columna vertebral y espinas, drop available tray piece directly onto milestone 1-4 to stage and link in one undoable local transaction; drag attached or unassigned activity using dedicated grip to move between milestones",
+        "scope": "Active phase and selected reference/alternative scenario only; moving an already staged piece from another phase is refused until explicitly reassigned",
+        "feedback": "Milestone highlights as drop target, persistent local draft notice and counts, reversible via undo",
+        "accessibility": "Existing milestone selection plus Hito selector and Vincular buttons retained as keyboard/mouse alternatives",
+        "boundary": "No mutation of roadmap, frozen authority, canonical integration or verified dependency"
+      },
+      "spine_advisor": {
+        "behavior": "Deterministic read-only diagnostics of staged spines: unassigned hito, missing declared dependency target, inverted declared dependency vs proposed milestone order, missing declared evidence, text-based candidate hito changes and lexical pair relationship suggestions",
+        "candidate_dependency": "Candidate review requires distinct assigned milestones and either >=2 shared distinctive terms or adjacent proposed milestones; never auto-created, does not prove a dependency, explicit user action validated against cycles",
+        "actions": "Explicit bind/move milestone via assignSpine; explicit declare dependency via addConnection; inspect for evidence; undo/redo remains available",
+        "limits": "Textual co-occurrence is not evidence of causal dependency; advisory suggestions are never verified facts or critical-path claims"
+      },
+      "digital_twin_gates": {
+        "purpose": "Proposed four evidence gates for future digital twin; distinct from official F1-F10",
+        "stages": [
+          "DATOS_Y_PROCEDENCIA",
+          "ESTADO_OBSERVABLE",
+          "SIMULACION_Y_REPLAY",
+          "DECISION_Y_OPERACION"
+        ],
+        "evidence_status": "NOT_VERIFIED_IN_MAQUETA",
+        "acs_stages": [
+          "KNOW",
+          "RUN",
+          "UNDERSTAND",
+          "EVOLVE"
+        ],
+        "acs_stage_status": "NOT_DETERMINED_FROM_CANONICAL_STATE",
+        "source": "current_focus.blockers and roadmap statuses, read-only",
+        "acs_evidence": "Display bounded ACS→ARKI handoff from current_focus.active if present, without claiming completion of KNOW/RUN/UNDERSTAND/EVOLVE"
+      },
+      "test_evidence": {
+        "js_syntax": "PASS",
+        "simulated_dom": "PASS: 10 phase buttons, advisory rendered on structure, twin and four ACS stages visible on Roadmap, placed piece diagnosed for missing evidence",
+        "e3_checks_added": [
+          "ADVISOR_READONLY_AND_TEN_PHASES",
+          "TWIN_ACS_SEPARATE_GATES"
+        ],
+        "windows_browser": "NOT_EXECUTED",
+        "simulated_e3": "13/13 local E3 checks PASS in simulated DOM (not Windows visual evidence), including advisory read-only and twin/ACS separation"
+      },
+      "authority_boundary": "No canonical phase or FROZEN mutation; no automatic promotions, integrations, or verified progress claims",
+      "digital_twin_real_data_gate": {
+        "id": "GDT-01",
+        "date": "2026-10-08",
+        "status": "IMPLEMENTED_AWAITING_LOCAL_EXECUTION",
+        "operational_twin_verdict": "NOT_READY",
+        "source_comparison": {
+          "firstCommit": "17c5bab905f9dd2c939fbc03a441e3a76533fa54",
+          "secondCommit": "bc10c8e22d703ddce8c3b3eaca51304bd093b688",
+          "phaseIds": "F1-F10",
+          "phaseStatusChangesObserved": 0,
+          "phaseEvidenceStatusChangesObserved": 0,
+          "sourceBlobsDiffer": true,
+          "temporalLimit": "GIT_COMMIT_TIME_NOT_DOMAIN_OCCURRED_AT"
+        },
+        "validator": "tools/maqueta-viva/Verify-ARKI-TwinTimeline.mjs",
+        "contract": "docs/arki-master-map/ARKI_DIGITAL_TWIN_REAL_DATA_GATE_2026-10-08.md",
+        "gates": {
+          "identity": "PARTIAL_PHASE_IDS_ONLY",
+          "events": "NO_REAL_DOMAIN_EVENTS",
+          "provenance": "GIT_REPOSITORY_EVIDENCE_PRESENT_PHYSICAL_CHAIN_UNKNOWN",
+          "historicalReplay": "CODE_READY_AWAITING_REAL_LOCAL_EXECUTION"
+        },
+        "physicalAssetMapping": "NOT_DEMONSTRATED",
+        "realSensorEvents": "NOT_DEMONSTRATED",
+        "simulationCalibration": "NOT_DEMONSTRATED",
+        "roadmapMutation": false,
+        "freezeMutation": false
+      },
+      "default_workspace": "EXECUTIVE_DECISION_COCKPIT",
+      "goals_displayed": [
+        {
+          "id": "03",
+          "name": "Gemelo Digital",
+          "status": "PRODUCT_GOAL_NOT_VERIFIED"
+        },
+        {
+          "id": "04",
+          "name": "Gemelo Predictivo",
+          "status": "PRODUCT_GOAL_NOT_VERIFIED"
+        },
+        {
+          "id": "05",
+          "name": "ARKI Autocorrectivo",
+          "status": "PRODUCT_GOAL_NOT_VERIFIED"
+        }
+      ],
+      "decision_flow": "Select F1-F10 -> read top 3 pending local diagnostic/editorial proposals -> inspect reason/action -> approve evaluation, discard, or reopen; all local decisions only",
+      "technical_mode": "Explicit Abrir mesa técnica retains original spine/branches, local dependencies, radar, audit trace, inventory and import/export; can return to executive cockpit",
+      "source_panel": "Collapsed in executive mode, fully available in technical mode",
+      "right_tray": "Hidden in executive mode; shown in technical mode; category tabs and frozen entry navigate into technical mode",
+      "official_roadmap": "F1-F10 statuses and milestones unchanged; goal 03/04/05 shown as target vision, not evidenced capabilities",
+      "evolution_navigation": {
+        "placement": "Five-level menu below ARKI title and above canonical F1-F10",
+        "levels": [
+          "01 Plano ARKI",
+          "02 Maqueta Viva",
+          "03 Gemelo Digital",
+          "04 Gemelo Predictivo",
+          "05 ARKI Autocorrectivo"
+        ],
+        "phase_authority": "F1-F10 roadmap statuses unchanged; evolution levels are navigation capabilities",
+        "modes": {
+          "plano": "existing registered architecture diagram",
+          "maqueta": "spine and pieces assembly",
+          "digital": "local read-only evidence and source change dashboard, no live synchronization",
+          "predictivo": "existing reference vs alternative scenario analysis",
+          "autocorrectivo": "new offline decision console"
+        }
+      },
+      "autocorrective_v1": {
+        "steps": [
+          "local proposal",
+          "local heuristic impact snapshot",
+          "explicit typed authorization",
+          "export controlled external execution request",
+          "record unverified external receipt",
+          "export reversal request or block acceptance"
+        ],
+        "new_ideas": "Generated local suggestions recalculated from latest local source and draft; user must choose to create a case",
+        "frozen": "Authorization and execution request blocked for FROZEN phase; source-status mismatch blocks execution",
+        "persistence": "Separate localStorage key arki-autocorrective-cases-v1; export backup JSON",
+        "execution": "NOT_IMPLEMENTED_EXTERNAL_EXECUTOR_REQUIRED",
+        "test_verification": "NOT_IMPLEMENTED_EXTERNAL_SHA_CI_RED_TEAM_REQUIRED",
+        "canonical_acceptance": "BLOCKED_UNTIL_EXTERNAL_VERIFICATION",
+        "reversal": "REQUEST_EXPORT_ONLY_NOT_EXECUTED"
+      },
+      "phase_default_navigation": "Clicking F1-F10 or a roadmap phase card opens technical Columna vertebral y espinas directly; decision cockpit remains available via Volver a decisiones",
+      "spine_route_priority": {
+        "status": "CODE_UPDATED_AWAITING_WINDOWS_E3",
+        "sequence": "Scenario choice -> route orientation and counts -> drag/connect instructions -> spine gates and four milestones -> unassigned activities -> dependencies -> expandable diagnostics/evidence",
+        "secondary_panels": "Comparison, traceability, radar, evaluator, review queue, placement audit, candidate summary and dependency map moved below vertebral route inside Diagnóstico y evidencia; no logic removed",
+        "visibility": "Secondary diagnostics collapsed by default and expanded when locationReviewOpen",
+        "protection": "No official F1-F10 roadmap, FROZEN, evidence gate or integration claims mutated"
+      },
+      "navigation_matrix": {
+        "evolution_levels": [
+          "01 Plano ARKI",
+          "02 Maqueta Viva",
+          "03 Gemelo Digital",
+          "04 Gemelo Predictivo",
+          "05 ARKI Autocorrectivo"
+        ],
+        "scope": [
+          "ALL",
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "F10"
+        ],
+        "invariant": "Changing phase scope must preserve evolution mode; changing evolution mode must preserve ALL/F1-F10 scope",
+        "default_scope": "ALL",
+        "views": "01 global roadmap map or phase-specific placed pieces and declared links; 02 global assembly summary or existing phase workbench; 03 local evidence snapshot global/phase; 04 local heuristic scenario alerts global/phase; 05 scoped local correction cases",
+        "boundary": "Digital/predictive are evidence-bounded local views, not live twin or calibrated forecast",
+        "validation": "PASS_STATIC_JS; PASS mocked DOM navigation: initial ALL, plano ALL, plano F1, plano F2, digital F2, predictivo F2, predictivo ALL, maqueta ALL; Windows browser E3 NOT_EXECUTED"
+      },
+      "phase_navigation_gate": "Clicking F1–F10 always opens Maqueta Viva / technical vertebral view, four proposed milestones, from any evolution mode; roadmap phase/stage jumps likewise select Maqueta Viva and scoped phase",
+      "draft_import_gate": "Prevalidate entire imported JSON and merged trace-event bound before applying; on commit/storage error roll back local draft, phase/spine assignments, local ideas and decisions; never touch canonical roadmap",
+      "simulation_evidence_2026_10_08": {
+        "phase_navigation": "PASS: after switching to Gemelo Digital, each F1–F10 opens the vertebral route with exactly four draft milestone gate cards",
+        "built_in_e3": "13/13 automated local checks PASS in mocked browser execution (not Windows E3)",
+        "assembly": "PASS: stage two pieces into different milestones, copy reference to alternative, change alternative, undo, redo, return piece; reference unchanged",
+        "import": "PASS: reject invalid piece and preserve original JSON; accept valid draft; F6 canonical status remains FROZEN",
+        "js_syntax": "PASS"
+      }
+    },
+    "assembly": {
+      "status": "IMPLEMENTED_AWAITING_WINDOWS_E3",
+      "registry": "tools/maqueta-viva/assembly-registry.json",
+      "historical_inventory": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
+      "historical_idea_count": 24,
+      "phase_assigned_provisional": 23,
+      "unassigned_out_of_scope": 1,
+      "frozen_scope": "Explicit FROZEN/FREEZE constituent records in current Master State: 7 AGK deltas + F6 phase (8 unique display entries); not repo-wide exhaustive",
+      "three_trays": [
+        "pending",
+        "ideas",
+        "scattered_components",
+        "frozen"
+      ],
+      "phase_contents": "Each phase shows historical capability cards, proposed idea cards and explicitly frozen constituent records; no card auto-promotes to integrated.",
+      "semantics": "PROPOSED_PHASE_ASSIGNMENT_NOT_INCORPORATED; FROZEN_NOT_EQUIVALENT_TO_INTEGRATED",
+      "static_js_syntax": "PASS",
+      "local_windows_e3": "NOT_EXECUTED",
+      "historical_scattered_components": 27,
+      "historical_capability_inventory": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md"
+    },
+    "assembly_interactive": {
+      "status": "IMPLEMENTED_OFFLINE_SIMULATION_PASS_WINDOWS_E3_PENDING",
+      "scope": "Local-only visual puzzle assembly of 24 historical ideas and 27 historical capability records",
+      "interaction": [
+        "Select phase F1-F10 from right rail",
+        "Click idea or scattered component from left tray or yellow menu",
+        "Choose target phase and click Ubicar pieza",
+        "Desktop drag a movable piece from tray onto blue central workspace for active phase",
+        "Remove draft placement",
+        "Export JSON",
+        "Import validated JSON"
+      ],
+      "draft_schema": "ARKI-MAQUETA-DRAFT-1",
+      "storage": "Browser localStorage best-effort, export/import JSON as backup",
+      "source_of_truth": "ARKI_MASTER_MAP_STATE.json + historical assembly-registry.json remain read-only",
+      "evidence_boundary": "Visual placement is a local BORRADOR, never implementation, verification, freeze, or canonical integration",
+      "frozen_policy": "FROZEN source records are inspectable but cannot be staged by this workflow",
+      "validation": {
+        "js_syntax": "PASS",
+        "isolated_offline_checks": "14/14 PASS",
+        "committed_node_smoke_suite": "tools/maqueta-viva/test-maqueta-viva.cjs",
+        "node_suite_execution": "NOT_EXECUTED",
+        "windows_browser_e3": "NOT_EXECUTED"
+      },
+      "limitations": [
+        "Browser localStorage on file:// may be unavailable; manual JSON export/import recommended",
+        "No drag-and-drop on some touch devices; click/select alternative",
+        "No canonical integration engine, repository mutation, or automatic debt clearance",
+        "Historical inventories still require current-head reconciliation"
+      ],
+      "integration_preparation": {
+        "status": "IMPLEMENTED_OFFLINE_SIMULATION_PASS_CI_PENDING_WINDOWS_E3_PENDING",
+        "scope": "Per-piece integration preparation dossier; evidence references and dependencies are user-declared, not executed or verified",
+        "fields": [
+          "repository owner/name",
+          "module path",
+          "40-hex commit SHA",
+          "test command",
+          "known piece dependencies"
+        ],
+        "gates": [
+          "piece must be provisionally placed",
+          "all four evidence reference fields must be declared",
+          "dependency IDs must be known, acyclic and placed"
+        ],
+        "ready_label": "LISTA PARA SOLICITAR AUDITORÍA",
+        "not_allowed": [
+          "automatically mark IMPLEMENTED/VERIFIED/FROZEN",
+          "clear debt",
+          "modify canonical ARKI state",
+          "execute user-entered test commands"
+        ],
+        "persistence": "Backward-compatible optional reviews in ARKI-MAQUETA-DRAFT-1 localStorage and JSON export/import",
+        "tests": {
+          "isolated_checks": "11/11 PASS for dossier validation, gating, cycles, persistence and non-promotion",
+          "previous_checks": "14/14 PASS",
+          "committed_suite": "25 checks, execution in Node PENDING",
+          "ci_workflow": ".github/workflows/maqueta-viva-smoke.yml",
+          "ci_run": "NOT_OBSERVED",
+          "windows_e3": "NOT_EXECUTED"
+        }
+      },
+      "github_observation": {
+        "status": "WINDOWS_NODE_TESTS_PASS_BROWSER_E3_AND_LIVE_EVIDENCE_PENDING",
+        "tool": "tools/maqueta-viva/verify-github-evidence.cjs",
+        "test": "tools/maqueta-viva/test-github-evidence.cjs",
+        "ui": "Cargar observación GitHub; report must match current local repo/path/sha",
+        "schema": "ARKI-MAQUETA-GITHUB-OBSERVATION-1",
+        "checks": [
+          "commit SHA exists on GitHub",
+          "source file exists at exact commit SHA",
+          "any successful GitHub Actions run at exact commit SHA"
+        ],
+        "scope": "READ_ONLY_GITHUB_OBSERVATION_NOT_INTEGRATION_VERIFICATION",
+        "critical_limits": [
+          "Successful Actions run does not prove user-declared test executed",
+          "Browser import is untrusted/unattested and is not stored persistently",
+          "Private repos require read-only token; errors remain UNKNOWN",
+          "No canonical status promotion or debt closure"
+        ],
+        "evidence": {
+          "isolated_mock_observer_checks": "8/8 PASS in JS harness",
+          "isolated_import_checks": "2/2 PASS",
+          "committed_offline_suite": "29/29 PASS ON USER WINDOWS (offline simulation)",
+          "committed_observer_suite": "14/14 PASS ON USER WINDOWS (mocked network, not live GitHub)",
+          "github_ci": "NOT OBSERVED",
+          "windows_browser_e3": "NOT EXECUTED: browser UI visual/interaction verification remains separate",
+          "user_windows_2026_10_08": "PASS: test-maqueta-viva.cjs 29/29 after CRLF fix; PASS: test-github-evidence.cjs 14/14 earlier in same Windows session; PowerShell 7.6.6, Node 24.19.0; user-supplied raw console output",
+          "fix": "test-maqueta-viva.cjs now extracts inline script with CRLF/LF normalization",
+          "post_fix_simulated_execution": "29/29 PASS on LF and CRLF in isolated JS harness; not executed on user's Windows",
+          "windows_retest": "PASS 29/29; previous CRLF script-extraction failure closed"
+        }
+      }
+    },
+    "ideas_continuous_improvement": {
+      "status": "LOCAL_UI_CANDIDATES_IMPLEMENTED_CANONICAL_PROMOTION_NOT_REQUESTED",
+      "catalog_count": 14,
+      "scope": [
+        "quality and independent evaluation",
+        "architectural design quality",
+        "geometry/topology robustness",
+        "BIM IFC/IDS interoperability",
+        "professional documentation",
+        "construction/operation feedback",
+        "Research & Trends",
+        "R&D Scout",
+        "Version Watcher",
+        "AI Laboratory",
+        "market opportunity hypotheses",
+        "IDE governance"
+      ],
+      "sources": "Curated research hypotheses and local draft diagnostic rules; NOT live web data, autonomous agent execution, or validated market demand",
+      "deterministic_triggers": [
+        "F1-F10 reconciliation",
+        "spines without milestone",
+        "unplaced dependencies",
+        "low-confidence classification",
+        "local review evidence incomplete",
+        "draft placements in FROZEN scope",
+        "source snapshot changes"
+      ],
+      "decisions": "APPROVED_FOR_EVALUATION / REJECTED / PENDING, local only; never automatic merge, implementation, freeze or canonical state change",
+      "test_evidence": "PASS: 14 stable catalog entries, 23 generated candidates on 10-phase mock baseline, CI decisions validated, frozen draft triggers FREEZE-F6 and QUALITY-F6; static JS syntax PASS",
+      "windows_browser_gate": "NOT_EXECUTED",
+      "integration_boundary": "IDEA != KNOWLEDGE != IMPLEMENTED; Delta 6.2 and human approval govern promotion"
+    },
+    "controlled_github_executor_v0": {
+      "status": "GATE_CODE_COMMITTED_AWAITING_REAL_PR_CI_EVIDENCE",
+      "mode": "READ_ONLY_PR_VERIFICATION",
+      "target_branch": "feat/f7-f8-integral-closure",
+      "never_target_main": true,
+      "files": [
+        "tools/maqueta-viva/arki-executor-gate.mjs",
+        ".github/workflows/arki-controlled-executor.yml",
+        "docs/arki-master-map/ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md"
+      ],
+      "offline_console": "Evolución 05 exports executor-scope.json only after local authorization and exact base SHA/allowlist validation; no direct GitHub calls",
+      "authorization": "Owner PR comment exact final SHA, independent GitHub reviewer on exact SHA, no owner-as-red-team",
+      "checks": [
+        "BASE_AND_HEAD_EXACT_SHA",
+        "DIFF_SCOPE_ALLOWLIST",
+        "FROZEN_PHASE_DENY",
+        "PROTECTED_PATH_DENY",
+        "PNPM_FROZEN_INSTALL",
+        "TSC_CHECK",
+        "VITEST_RUN",
+        "PRODUCTION_BUILD",
+        "OWNER_AUTHORIZATION",
+        "INDEPENDENT_RED_TEAM_REVIEW"
+      ],
+      "evidence": "Unit simulations for scope gates and UI export PASS; live GitHub Actions run NOT_EXECUTED; external Qwen audit NOT_EXECUTED",
+      "acceptance": "BLOCKED_PENDING_REAL_PR_CI_RED_TEAM_AND_MANUAL_DECISION",
+      "rollback": "NOT_EXECUTED; manual externally authorized procedure required",
+      "canonical_promotion": false,
+      "limitations": [
+        "No autonomous code changes or GitHub writes",
+        "No real PR run yet",
+        "GitHub branch protections not verified",
+        "Qwen audit cannot be inferred from GitHub reviewer identity alone",
+        "Exact SHA and review must be repeated after every commit"
+      ]
+    },
+    "unified_trace_graph": {
+      "schema": "ARKI-UNIFIED-TRACE-GRAPH-1",
+      "status": "IMPLEMENTED_LOCAL_READ_ONLY_AWAITING_WINDOWS_E3",
+      "contract": "docs/arki-master-map/ARKI_UNIFIED_TRACE_GRAPH_V1.md",
+      "implementation": "tools/maqueta-viva/maqueta-viva.template.html",
+      "views": [
+        "plano",
+        "maqueta",
+        "digital",
+        "predictivo",
+        "autocorrectivo"
+      ],
+      "sources": [
+        "docs/arki-master-map/ARKI_MASTER_MAP_STATE.json",
+        "tools/maqueta-viva/assembly-registry.json",
+        "localStorage:arki-maqueta-assembly-draft-v1",
+        "localStorage:arki-maqueta-local-ideas-v1",
+        "localStorage:arki-autocorrective-cases-v1"
+      ],
+      "projection": "In-memory, on demand; exportable JSON; no independent canonical storage",
+      "capabilities": {
+        "live_sync": false,
+        "real_twin": false,
+        "calibrated_prediction": false,
+        "autonomous_code_mutation": false,
+        "canonical_promotion": false
+      },
+      "tests": {
+        "static_js_syntax": "PASS",
+        "five_views_dom_simulation": "PASS",
+        "graph_invariants_dom_simulation": "PASS",
+        "windows_browser_e3": "NOT_EXECUTED",
+        "real_json_download": "NOT_EXECUTED"
+      },
+      "evidence_note": "Simulation: 10 PHASE, 40 PROPOSED_STAGE, 2 PLACED_IN, 1 REQUIRES, 1 base ASSIGNED_TO, 1 alternative ASSIGNED_TO, 1 CORRECTIVE_CASE, 8 FROZEN_RECORD; no duplicate node IDs, no unresolved edges, F6 unchanged FROZEN",
+      "next_gate": "Validate five panels and JSON export on Windows; do not claim operational digital twin or remote sync"
+    }
+  },
+  "f7_f8_f9_lineage_checkpoint_2026_10_08": {
+    "status": "CODE_COMMITTED_EXECUTION_VERIFICATION_PENDING",
+    "branch": "feat/f7-f8-integral-closure",
+    "contract": "docs/arki-master-map/ARKI_F7_F8_F9_EXECUTION_HANDOFF_2026-10-08.md",
+    "f7": {
+      "file": "server/arkiProfessionalState.ts",
+      "change": "BASELINE_0 fingerprint integrity and unique projection/issue IDs",
+      "state": "IMPLEMENTED_NOT_YET_EXECUTED_ON_EXACT_HEAD"
+    },
+    "f8": {
+      "file": "server/arkiTechnicalDossier.ts",
+      "change": "F7 state fingerprint, unique dossier artifact IDs, dossier self-integrity and project lineage",
+      "state": "IMPLEMENTED_NOT_YET_EXECUTED_ON_EXACT_HEAD"
+    },
+    "f9": {
+      "file": "server/arkiF9ConstructionLineage.ts",
+      "change": "Field baseline candidate derived from accepted F7 and intact F8; observation evidence batches, fail-closed provenance and review gate",
+      "state": "BOUNDED_CONTRACT_IMPLEMENTED_NOT_F9_PHASE_COMPLETE"
+    },
+    "tests": {
+      "file": "server/arkiF7F8Closure.test.ts",
+      "new_cases": 4,
+      "execution": "PENDING_CI_EXACT_SHA"
+    },
+    "limitations": [
+      "NO_REAL_PROFESSIONAL_SPECIMEN_VALIDATED",
+      "NO_F9_FIELD_E2E_EXECUTED",
+      "NO_PROFESSIONAL_SIGNATURE_AUTHENTICITY_VERIFIED",
+      "NO_CANONICAL_MUTATION"
+    ],
+    "roadmap_status_mutation": false
+  },
+  "digital_twin_evidence_gates_2026_10_08": {
+    "status": "GDT01_GIT_REPLAY_VERIFIED_GDT02_PHYSICAL_INPUT_PENDING",
+    "canonical_roadmap_mutation": false,
+    "gdt01": {
+      "script": "tools/maqueta-viva/Verify-ARKI-TwinTimeline.mjs",
+      "execution": "WINDOWS_POWERSHELL_7_6_6_USER_EVIDENCE",
+      "self_test": "PASS_SYNTHETIC_ADVERSARIAL",
+      "git_replay": "PASS_REAL_GIT_SNAPSHOTS",
+      "snapshots": 35,
+      "initialObservations": 10,
+      "observedChanges": 0,
+      "replayCheckpoints": 35,
+      "physicalObservations": 0,
+      "verdict": "NOT_READY_FOR_OPERATIONAL_DIGITAL_TWIN",
+      "report": "%LOCALAPPDATA%/ARKI/MaquetaViva/twin-temporal-gate.json"
+    },
+    "gdt02": {
+      "script": "tools/maqueta-viva/Verify-ARKI-PhysicalEvidence.mjs",
+      "implementation": "CODE_COMMITTED_STATIC_SYNTAX_PASS",
+      "self_test": "PENDING_WINDOWS_EXECUTION",
+      "real_asset_register": "NOT_PROVIDED",
+      "real_observations": "NOT_PROVIDED",
+      "requires": "one real physical asset and two distinct timestamped source-verified observations",
+      "verdict": "NOT_TESTED_WITH_REAL_DATA",
+      "output": "%LOCALAPPDATA%/ARKI/MaquetaViva/physical-evidence-gate.json"
+    },
+    "next_gate": "Run GDT-02 synthetic self-test on Windows, then obtain genuine asset register and timestamped observations with byte-verified sources; independently validate asset mapping and provenance before any operational twin claim",
+    "authority": "NO EVIDENCIA = NO VERDE; F1-F10, FROZEN, D-2, AGK, and roadmap unchanged"
+  },
+  "f6_freeze_revocation": {
+    "decision": "PERMANENT_FROZEN_REVOCATION",
+    "authority": "PO_EXPLICIT",
+    "date": "2026-10-14",
+    "phase": "F6",
+    "current_status": "RECONCILIATION_REQUIRED",
+    "historical_evidence": "GO_BOUNDED_DEMONSTRATED_BOUNDARY",
+    "rule": "Do not automatically restore FROZEN; any future freeze requires a new explicit PO decision and independently verified evidence.",
+    "scope": "F6 phase status; historical evidence and other FROZEN contracts are preserved"
   }
 }

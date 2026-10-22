@@ -1,0 +1,77 @@
+"use strict";
+/** ARKI Maqueta Viva offline smoke. Node built-ins only. Does NOT certify browser/Windows E3. */
+const fs=require("node:fs"),path=require("node:path"),assert=require("node:assert/strict");
+const base=path.resolve(__dirname,"../..");
+const html=fs.readFileSync(path.join(__dirname,"maqueta-viva.template.html"),"utf8");
+const registry=fs.readFileSync(path.join(__dirname,"assembly-registry.json"),"utf8");
+const state=fs.readFileSync(path.join(base,"docs/arki-master-map/ARKI_MASTER_MAP_STATE.json"),"utf8");
+const match=html.match(/<script(?:\s[^>]*)?>\s*([\s\S]*?)<\/script\s*>/gi)?.find(x=>/^<script>\s*/i.test(x));
+const script=match?.replace(/^<script>\s*/i,"").replace(/<\/script\s*>$/i,"").replace(/\r\n?/g,"\n");
+assert(script,"Inline application script must exist");
+new Function(script);
+const storage=new Map(),listeners={};
+const zone={setAttribute(){},addEventListener(type,fn){listeners[type]=fn;},classList:{add(){},remove(){}},contains(){return false;}};
+const app={innerHTML:"",addEventListener(){},querySelectorAll(){return [];},querySelector(sel){return sel==="#arki-workspace"?zone:{addEventListener(){},focus(){},setSelectionRange(){}};}};
+const document={getElementById(id){return id==="app"?app:id==="stamp"?{textContent:""}:id==="arki-state"?{textContent:state}:id==="arki-assembly"?{textContent:registry}:null;},body:{appendChild(){}},createElement(){return {click(){},remove(){}};}};
+const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
+const exposed="\nrender();\nreturn {arkiConstructionWaves,stagePiece,unstagePiece,dropSpinePiece,assignSpine,chooseScenario,addConnection,removeConnection,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,runE3Checks,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),getSpines:()=>({...spineAssignments}),getAlternatives:()=>({...alternativeSpineAssignments}),getScenario:()=>spineScenario,setPhase:id=>{activePhase=id;viewScope=id;evolutionMode='maqueta';selected=id;technicalMode=true;spineView=true;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
+const exposed="\nrender();\nreturn {stagePiece,unstagePiece,dropSpinePiece,assignSpine,chooseScenario,addConnection,removeConnection,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,runE3Checks,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),getSpines:()=>({...spineAssignments}),getAlternatives:()=>({...alternativeSpineAssignments}),getScenario:()=>spineScenario,setPhase:id=>{activePhase=id;viewScope=id;evolutionMode='maqueta';selected=id;technicalMode=true;spineView=true;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
+const testSource=script.replace("(function(){","return (function(){").replace(/\nrender\(\);\n\}\)\(\);\s*$/,exposed);
+assert.notEqual(testSource,script,"Test harness must expose application functions");
+const api=new Function("document","localStorage","FileReader","navigator",testSource)(document,localStorage,class FileReader{}, {platform:"NodeMock",userAgent:"NodeMock"});
+let count=0;
+function check(label,condition){assert(condition,label);count++;process.stdout.write("PASS "+label+"\n");}
+const canonical=JSON.parse(state).roadmap.phases.map(p=>({id:p.id,status:p.status,evidence_status:p.evidence_status}));
+check("ten phase buttons",Array.from({length:10},(_,i)=>app.innerHTML.includes('data-phase="F'+(i+1)+'"')).every(Boolean));
+check("initial center and right tray",app.innerHTML.includes('id="arki-workspace"')&&app.innerHTML.indexOf('id="arki-workspace"')<app.innerHTML.indexOf("Bandeja de piezas"));
+check("six orange navigation and four yellow tray controls",["structure","connections","roadmap","scenarios","parts","floating"].every(k=>app.innerHTML.includes('data-tab="'+k+'"'))&&["pending","ideas","components","frozen"].every(k=>app.innerHTML.includes('data-tray="'+k+'"')));
+check("initial draft empty",Object.keys(api.getPlacements()).length===0);
+for(let i=1;i<=10;i++){
+ api.setPhase("F"+i);
+ check("vertebral route F"+i,app.innerHTML.includes("VISTA VERTEBRAL · F"+i)&&app.innerHTML.includes("HITO 4")&&app.innerHTML.includes("PUERTA DE CONTROL"));
+}
+api.stagePiece("I-01","F5");api.setPhase("F5");
+check("stage and persist",api.getPlacements()["I-01"]==="F5"&&JSON.parse(storage.get("arki-maqueta-assembly-draft-v1")).placements["I-01"]==="F5");
+check("spine unlinked until assigned",app.innerHTML.includes("Espinas sin vincular"));
+api.dropSpinePiece("I-01",2);
+check("link spine and persist",api.getSpines()["I-01"]==="2"&&JSON.parse(storage.get("arki-maqueta-assembly-draft-v1")).spineAssignments["I-01"]==="2");
+api.chooseScenario("alternative");
+check("alternative starts isolated",api.getAlternatives()["I-01"]===undefined);
+api.dropSpinePiece("I-01",0);
+check("alternative independent",api.getAlternatives()["I-01"]==="0"&&api.getSpines()["I-01"]==="2");
+api.chooseScenario("base");
+api.stagePiece("I-01","F99");
+check("invalid phase rejected",api.getPlacements()["I-01"]==="F5");
+api.stagePiece("F6-FREEZE","F1");
+check("frozen records not movable",Object.keys(api.getPlacements()).length===1);
+api.stagePiece("HC-03","F5");
+api.addConnection("I-01","HC-03");
+check("local dependency created",api.getReviews()["I-01"].dependencies.includes("HC-03"));
+api.addConnection("HC-03","I-01");
+check("cycle rejected",!api.getReviews()["HC-03"]?.dependencies.includes("I-01"));
+const waves=api.arkiConstructionWaves();
+check("construction waves are local and non-executing",waves.scope==="PLANIFICACIÓN HIPOTÉTICA LOCAL"&&waves.executionAuthorized===false);
+check("construction waves respect declared dependency",waves.waves.findIndex(w=>w.some(x=>x.id==="HC-03"))<waves.waves.findIndex(w=>w.some(x=>x.id==="I-01"))&&waves.waves.some(w=>w.some(x=>x.id==="I-01")));
+check("construction waves never schedule frozen references",!waves.waves.flat().some(x=>x.id==="F6-FREEZE"));
+
+api.removeConnection("I-01","HC-03");
+check("local dependency removed",!api.getReviews()["I-01"].dependencies.includes("HC-03"));
+const sha="a".repeat(40);
+api.recordReview("I-01",{repo:"YvanCastilloQuezada/sicl-web",file:"shared/modulo.ts",sha,test:"pnpm.cmd test",dependencies:""});
+check("review local gate declared",api.reviewGate("I-01").complete&&api.getReviews()["I-01"].sha===sha);
+api.recordReview("I-01",{repo:"invalid repo!",file:"x",sha,test:"x",dependencies:""});
+check("invalid review rejected",api.getReviews()["I-01"].repo==="YvanCastilloQuezada/sicl-web");
+const observation={schema:"ARKI-MAQUETA-GITHUB-OBSERVATION-1",observed_at:"2026-10-08T00:00:00Z",observations:[{id:"I-01",repo:"YvanCastilloQuezada/sicl-web",file:"shared/modulo.ts",sha,source:{status:"OBSERVED_SOURCE_AT_SHA"},ci:{status:"CI_RUN_SUCCESS_AT_SHA"}}]};
+check("matching observation accepted",Object.keys(api.validateObservations(observation)).length===1);
+let wrong=false;try{api.validateObservations({...observation,observations:[{...observation.observations[0],sha:"b".repeat(40)}]});}catch(e){wrong=true;}
+check("wrong observation SHA rejected",wrong);
+api.unstagePiece("I-01");
+check("X restores piece and clears both scenario spines",!api.getPlacements()["I-01"]&&!api.getSpines()["I-01"]&&!api.getAlternatives()["I-01"]);
+check("drag/drop handler installed",typeof listeners.drop==="function"&&typeof listeners.dragover==="function");
+listeners.drop({preventDefault(){},dataTransfer:{getData(){return "I-01";}}});
+check("drag stages piece into selected phase",api.getPlacements()["I-01"]==="F5");
+const e3=api.runE3Checks();
+check("embedded E3 automated checks",e3.checks.length>=13&&e3.checks.every(x=>x.status==="PASS"));
+check("canonical statuses and evidence unchanged",JSON.stringify(JSON.parse(state).roadmap.phases.map(p=>({id:p.id,status:p.status,evidence_status:p.evidence_status})))===JSON.stringify(canonical));
+check("draft is never verified integration",script.includes("NO INTEGRADA")&&script.includes("El roadmap canónico sigue protegido")&&!script.includes("canonicalMutation:true"));
+process.stdout.write("RESULT "+count+"/"+count+" PASS (offline simulation only; Windows E3 pending)\n");

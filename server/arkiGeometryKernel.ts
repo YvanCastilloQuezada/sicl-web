@@ -5,8 +5,8 @@ import {
   type D63ToD2GeometryBridgeFailureCode,
   type D63ToD2GeometryBridgeInput,
 } from "./arkiD63ToD2GeometryBridge";
-import type { AgkCausalModel, AgkRegenerationReport } from "./agk/types";
-import { regenerateMove, validateCausalModel, type RegenerationFailure } from "./agk/regeneration";
+import type { AgkCausalModel, AgkFeatureParameterName, AgkRegenerationReport } from "./agk/types";
+import { regenerateFromFeatureChange, validateCausalModel, type RegenerationFailure } from "./agk/regeneration";
 
 export type AgkGeometry = D2ExtrudedRectangleGeometry;
 
@@ -32,7 +32,7 @@ export interface AgkCommittedState {
 
 export type AgkCommand =
   | { kind: "MOVE"; objectId: string; delta_mm: { x: number; y: number; z: number } }
-  | { kind: "SET_FEATURE_PARAMETER"; featureId: string; parameter: "height_mm"; value: number };
+  | { kind: "SET_FEATURE_PARAMETER"; featureId: string; parameter: AgkFeatureParameterName; value: number };
 
 export type AgkFailureCode =
   | D63ToD2GeometryBridgeFailureCode
@@ -40,6 +40,8 @@ export type AgkFailureCode =
   | "MOVE_DELTA_NOT_INTEGER"
   | "MOVE_DELTA_NOT_FINITE"
   | "DUPLICATE_OBJECT_ID"
+  | "OPERATIONAL_OBJECT_ID_INVALID"
+  | "OPERATIONAL_GEOMETRY_INVALID"
   | "DEPENDENCY_OBJECT_NOT_FOUND"
   | "DEPENDENCY_SELF_REFERENCE"
   | "DEPENDENCY_CYCLE"
@@ -59,6 +61,12 @@ export interface AgkDraftState {
   causalModel?: AgkCausalModel;
 }
 
+export interface AgkExternalProvenance {
+  readonly sourceKind: string;
+  readonly sourceId: string;
+  readonly evidence: Readonly<Record<string, unknown>>;
+}
+
 export interface AgkProvenanceEvent {
   kind: "AGK_COMMAND_COMMITTED";
   transactionId: string;
@@ -67,6 +75,7 @@ export interface AgkProvenanceEvent {
   command: AgkCommand;
   affectedObjectIds: readonly string[];
   regenerationReport?: AgkRegenerationReport;
+  external?: AgkExternalProvenance;
 }
 
 export interface AgkTransactionReceipt {
@@ -79,6 +88,7 @@ export interface AgkTransactionReceipt {
   state: AgkCommittedState;
   provenance: AgkProvenanceEvent;
   regenerationReport?: AgkRegenerationReport;
+  externalProvenance?: AgkExternalProvenance;
 }
 
 export interface AgkPlanRectangle {
@@ -157,6 +167,41 @@ function createState(
   });
 }
 
+function validateOperationalObjects(objects: readonly AgkOperationalObject[]): AgkFailureCode | null {
+  for (const candidate of objects as readonly unknown[]) {
+    if (!candidate || typeof candidate !== "object") return "OPERATIONAL_GEOMETRY_INVALID";
+    const object = candidate as { objectId?: unknown; geometry?: unknown };
+    if (typeof object.objectId !== "string" || !object.objectId.trim()) return "OPERATIONAL_OBJECT_ID_INVALID";
+    if (!object.geometry || typeof object.geometry !== "object") return "OPERATIONAL_GEOMETRY_INVALID";
+    const geometry = object.geometry as {
+      kind?: unknown;
+      profile?: unknown;
+      x_mm?: unknown;
+      y_mm?: unknown;
+      z_mm?: unknown;
+      height_mm?: unknown;
+    };
+    if (geometry.kind !== "EXTRUDED_RECTANGLE" || !geometry.profile || typeof geometry.profile !== "object") {
+      return "OPERATIONAL_GEOMETRY_INVALID";
+    }
+    const profile = geometry.profile as { width_mm?: unknown; depth_mm?: unknown; radius_mm?: unknown };
+    const positiveInteger = (value: unknown): value is number =>
+      typeof value === "number" && Number.isInteger(value) && value > 0;
+    const integer = (value: unknown): value is number =>
+      typeof value === "number" && Number.isInteger(value);
+    if (
+      !positiveInteger(profile.width_mm) ||
+      !positiveInteger(profile.depth_mm) ||
+      profile.radius_mm !== null ||
+      !integer(geometry.x_mm) ||
+      !integer(geometry.y_mm) ||
+      !integer(geometry.z_mm) ||
+      !positiveInteger(geometry.height_mm)
+    ) return "OPERATIONAL_GEOMETRY_INVALID";
+  }
+  return null;
+}
+
 function validateDependencies(
   objects: readonly AgkOperationalObject[],
   dependencies: readonly AgkDependency[]
@@ -214,7 +259,7 @@ export function materializeD63Geometry(
 ): AgkResult<AgkCommittedState> {
   const adapted = bridgeD63ToD2Geometry(input);
   if (!adapted.ok) return adapted;
-  return { ok: true, value: createState(0, [{ objectId, geometry: adapted.value }], []) };
+  return createAgkState([{ objectId, geometry: adapted.value }]);
 }
 
 export function createAgkState(
@@ -222,6 +267,8 @@ export function createAgkState(
   dependencies: readonly AgkDependency[] = [],
   causalModel?: AgkCausalModel
 ): AgkResult<AgkCommittedState> {
+  const objectFailure = validateOperationalObjects(objects);
+  if (objectFailure) return { ok: false, code: objectFailure };
   if (new Set(objects.map((object) => object.objectId)).size !== objects.length) {
     return { ok: false, code: "DUPLICATE_OBJECT_ID" };
   }
@@ -233,57 +280,96 @@ export function createAgkState(
 
 export function applyAgkCommand(
   current: AgkCommittedState,
-  command: AgkCommand
+  command: AgkCommand,
+  externalProvenance?: AgkExternalProvenance
 ): AgkResult<AgkTransactionReceipt> {
   if (command.kind === "MOVE") {
-    if (!current.objects.some((object) => object.objectId === command.objectId)) return { ok: false, code: "OBJECT_NOT_FOUND" };
+    const object = current.objects.find(o => o.objectId === command.objectId);
+    if (!object) return { ok: false, code: "OBJECT_NOT_FOUND" };
     const deltas = [command.delta_mm.x, command.delta_mm.y, command.delta_mm.z];
-    if (deltas.some((value) => !Number.isFinite(value))) return { ok: false, code: "MOVE_DELTA_NOT_FINITE" };
-    if (deltas.some((value) => !Number.isInteger(value))) return { ok: false, code: "MOVE_DELTA_NOT_INTEGER" };
-    let objects: readonly AgkOperationalObject[];
-    let report: AgkRegenerationReport | undefined;
+    if (deltas.some(value => !Number.isFinite(value))) return { ok: false, code: "MOVE_DELTA_NOT_FINITE" };
+    if (deltas.some(value => !Number.isInteger(value))) return { ok: false, code: "MOVE_DELTA_NOT_INTEGER" };
+
     if (current.causalModel) {
-      const regenerated = regenerateMove(current.objects, current.dependencies, current.causalModel, command.objectId, command.delta_mm);
+      const rootFeature = current.causalModel.features.find(f => f.producesObjectId === command.objectId);
+      if (!rootFeature) return { ok: false, code: "FEATURE_NOT_FOUND" };
+      const model: AgkCausalModel = {
+        ...current.causalModel,
+        features: current.causalModel.features.map(f => f.featureId !== rootFeature.featureId ? f : ({
+          ...f,
+          parameters: {
+            ...f.parameters,
+            x_mm: f.parameters.x_mm + command.delta_mm.x,
+            y_mm: f.parameters.y_mm + command.delta_mm.y,
+            z_mm: f.parameters.z_mm + command.delta_mm.z,
+          },
+        })),
+      };
+      const regenerated = regenerateFromFeatureChange(
+        current.objects,
+        current.dependencies,
+        model,
+        command.objectId,
+        command.delta_mm,
+      );
       if (!regenerated.ok) return regenerated;
-      objects = regenerated.objects; report = regenerated.report;
-    } else {
-      const affected = affectedByMove(current, command.objectId);
-      objects = current.objects.map((object) => !affected.has(object.objectId) ? object : ({...object,geometry:{...object.geometry,x_mm:object.geometry.x_mm+command.delta_mm.x,y_mm:object.geometry.y_mm+command.delta_mm.y,z_mm:object.geometry.z_mm+command.delta_mm.z}}));
+      return commit(current, command, regenerated.objects, regenerated.report, regenerated.model, externalProvenance);
     }
-    return commit(current, command, objects, report);
+
+    const affected = affectedByMove(current, command.objectId);
+    const objects = current.objects.map(o => !affected.has(o.objectId) ? o : ({
+      ...o,
+      geometry: {
+        ...o.geometry,
+        x_mm: o.geometry.x_mm + command.delta_mm.x,
+        y_mm: o.geometry.y_mm + command.delta_mm.y,
+        z_mm: o.geometry.z_mm + command.delta_mm.z,
+      },
+    }));
+    return commit(current, command, objects, undefined, current.causalModel, externalProvenance);
   }
 
   if (!Number.isFinite(command.value) || !Number.isInteger(command.value)) return { ok:false, code:"INVALID_FEATURE_PARAMETER" };
   if (!current.causalModel) return { ok:false, code:"FEATURE_NOT_FOUND" };
   const feature = current.causalModel.features.find(f => f.featureId === command.featureId);
   if (!feature) return { ok:false, code:"FEATURE_NOT_FOUND" };
-  const model: AgkCausalModel = {...current.causalModel, features: current.causalModel.features.map(f => f.featureId!==command.featureId?f:{...f,parameters:{...f.parameters,height_mm:command.value}})};
-  const baseObjects = current.objects.map(o => o.objectId !== feature.producesObjectId ? o : ({...o, geometry:{...o.geometry,height_mm:command.value}}));
-  const regenerated = regenerateMove(baseObjects, current.dependencies, model, feature.producesObjectId, {x:0,y:0,z:0});
+  if ((command.parameter === "width_mm" || command.parameter === "depth_mm" || command.parameter === "height_mm") && command.value <= 0) {
+    return { ok:false, code:"INVALID_FEATURE_PARAMETER" };
+  }
+  const model: AgkCausalModel = {
+    ...current.causalModel,
+    features: current.causalModel.features.map(f => f.featureId !== command.featureId ? f : ({
+      ...f,
+      parameters: { ...f.parameters, [command.parameter]: command.value },
+    })),
+  };
+  const regenerated = regenerateFromFeatureChange(current.objects, current.dependencies, model, feature.producesObjectId);
   if (!regenerated.ok) return regenerated;
-  const report: AgkRegenerationReport = {...regenerated.report, rootChangedObjectIds:[feature.producesObjectId]};
-  const draft: AgkDraftState={phase:"DRAFT_OPERATIONAL_STATE",baseStateId:current.stateId,objects:regenerated.objects,dependencies:current.dependencies,causalModel:model};
-  const dependencyFailure=validateDependencies(draft.objects,draft.dependencies); if(dependencyFailure)return {ok:false,code:dependencyFailure};
-  const next=createState(current.revision+1,draft.objects,draft.dependencies,draft.causalModel);
-  return receipt(current, command, next, report.affectedObjectIds, report);
+  return commit(current, command, regenerated.objects, regenerated.report, regenerated.model, externalProvenance);
 }
 
-function commit(current: AgkCommittedState, command: AgkCommand, objects: readonly AgkOperationalObject[], report?: AgkRegenerationReport): AgkResult<AgkTransactionReceipt> {
-  const draft: AgkDraftState={phase:"DRAFT_OPERATIONAL_STATE",baseStateId:current.stateId,objects,dependencies:current.dependencies,causalModel:current.causalModel};
+function commit(current: AgkCommittedState, command: AgkCommand, objects: readonly AgkOperationalObject[], report?: AgkRegenerationReport, causalModel: AgkCausalModel | undefined = current.causalModel, externalProvenance?: AgkExternalProvenance): AgkResult<AgkTransactionReceipt> {
+  const draft: AgkDraftState={phase:"DRAFT_OPERATIONAL_STATE",baseStateId:current.stateId,objects,dependencies:current.dependencies,causalModel};
+  const objectFailure=validateOperationalObjects(draft.objects); if(objectFailure)return {ok:false,code:objectFailure};
   const failure=validateDependencies(draft.objects,draft.dependencies); if(failure)return {ok:false,code:failure};
   const next=createState(current.revision+1,draft.objects,draft.dependencies,draft.causalModel);
   const affected=report?.affectedObjectIds ?? current.objects.filter((o,i)=>JSON.stringify(o)!==JSON.stringify(objects[i])).map(o=>o.objectId);
-  return receipt(current,command,next,affected,report);
+  return receipt(current,command,next,affected,report,externalProvenance);
 }
 
-function receipt(current:AgkCommittedState,command:AgkCommand,next:AgkCommittedState,affectedObjectIds:readonly string[],regenerationReport?:AgkRegenerationReport):AgkResult<AgkTransactionReceipt>{
+function receipt(current:AgkCommittedState,command:AgkCommand,next:AgkCommittedState,affectedObjectIds:readonly string[],regenerationReport?:AgkRegenerationReport,externalProvenance?:AgkExternalProvenance):AgkResult<AgkTransactionReceipt>{
+  const external = externalProvenance ? Object.freeze({
+    sourceKind: externalProvenance.sourceKind,
+    sourceId: externalProvenance.sourceId,
+    evidence: Object.freeze({ ...externalProvenance.evidence }),
+  }) : undefined;
   const transactionId=`agk-tx-${fingerprint({beforeStateId:current.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),afterStateId:next.stateId}).slice(0,24)}`;
-  const provenance=Object.freeze({kind:"AGK_COMMAND_COMMITTED" as const,transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:Object.freeze([...affectedObjectIds].sort()),regenerationReport});
-  return {ok:true,value:{transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),committed:true,state:next,provenance,regenerationReport}};
+  const provenance=Object.freeze({kind:"AGK_COMMAND_COMMITTED" as const,transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:Object.freeze([...affectedObjectIds].sort()),regenerationReport,external});
+  return {ok:true,value:{transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),committed:true,state:next,provenance,regenerationReport,externalProvenance:external}};
 }
 
 export function deriveAgkPlan(state: AgkCommittedState): readonly AgkPlanRectangle[] {
-  return state.objects.map(({ objectId, geometry }) => ({
+  return [...state.objects].sort((a,b)=>a.objectId.localeCompare(b.objectId)).map(({ objectId, geometry }) => ({
     objectId,
     kind: "RECTANGLE" as const,
     x_mm: geometry.x_mm,

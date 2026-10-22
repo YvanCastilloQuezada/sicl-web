@@ -51,3 +51,48 @@ export function makeDelta62LucaSeed(sourceCommit: string): Delta62KnowledgeRecor
     ["LUCA-GOV-001", "No mutación autónoma del Core", "La autonomía genera staging, evidencia y propuestas; no aprueba ni publica por sí sola.", "RULE", "GOVERNANCE"],
   ].map(([recordId, title, statement, recordType, domain]) => ({ recordId, formatVersion: DELTA_62_FORMAT_VERSION, product: "LUCA", domain, title, statement, recordType: recordType as Delta62KnowledgeRecord["recordType"], state: "STAGED", provenance: ["ARKI_DELTA_6.2_CONTRACT", "LUCA_REVIEWED_DOMAIN"], sourceCommit, sourceFile, dependencies: ["AR-LU-ORCHESTRATOR-1.0"], confidence: "DECLARED", humanReviewRequired: true }));
 }
+
+
+export type Delta62PromotionProposal = {
+  schema: "ARKI-DELTA62-PROMOTION-PROPOSAL-1.0";
+  proposalId: string;
+  recordId: string;
+  target: "CORE" | "D2" | "AGK";
+  evidence: string[];
+  requestedBy: string;
+  canonicalMutation: false;
+  status: "PROPOSED";
+};
+
+export function proposeDelta62Promotion(input: {
+  proposalId: string;
+  record: Delta62KnowledgeRecord;
+  target: Delta62PromotionProposal["target"];
+  evidence: string[];
+  requestedBy: string;
+}): Delta62PromotionProposal {
+  const validation = validateDelta62Record(input.record);
+  if (!validation.valid) throw new Error(`DELTA62_INVALID_RECORD:${validation.errors.join(",")}`);
+  if (!input.proposalId.trim() || !input.requestedBy.trim()) throw new Error("DELTA62_PROMOTION_IDENTITY_REQUIRED");
+  if (!input.evidence.length) throw new Error("DELTA62_PROMOTION_EVIDENCE_REQUIRED");
+  if (!["VALIDATED", "CANONICAL"].includes(input.record.state)) throw new Error("DELTA62_RECORD_NOT_PROMOTABLE");
+  return {
+    schema: "ARKI-DELTA62-PROMOTION-PROPOSAL-1.0",
+    proposalId: input.proposalId,
+    recordId: input.record.recordId,
+    target: input.target,
+    evidence: [...input.evidence],
+    requestedBy: input.requestedBy,
+    canonicalMutation: false,
+    status: "PROPOSED",
+  };
+}
+
+export const DELTA_62_AUTHORITY_BOUNDARY = Object.freeze({
+  role: "KNOWLEDGE_GATEWAY",
+  directCoreMutation: false,
+  directD2Mutation: false,
+  directAgkMutation: false,
+  promotionMode: "PROPOSAL_ONLY",
+  rule: "Delta 6.2 may stage validated knowledge and promotion proposals; canonical mutation must occur through the target authority's governed commit path.",
+} as const);
