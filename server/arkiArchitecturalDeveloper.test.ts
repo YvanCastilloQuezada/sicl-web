@@ -343,8 +343,16 @@ describe("ARKI Architectural Developer proposal-only", () => {
     ).toBe(false);
   });
 
-  it("preserves D6.3 PARTIAL and G12 FAIL as provenance/feedback evidence", () => {
-    const proposal = developProposal(fixture()).proposal;
+  it("preserves D6.3 PARTIAL and an explicit G12 FAIL as provenance/feedback evidence", () => {
+    const input = fixture();
+    const cycle: IntegratedArchitectCycle = {
+      ...input.cycle,
+      geometry: {
+        ...input.cycle.geometry,
+        gates: { ...input.cycle.geometry.gates, G12_NO_TEMPLATE_HARDCODING: "FAIL" },
+      },
+    };
+    const proposal = developProposal({ ...input, cycle }).proposal;
     expect(proposal.provenance).toEqual(
       expect.arrayContaining([
         { source: "d63_final_status", ref: "PARTIAL" },
