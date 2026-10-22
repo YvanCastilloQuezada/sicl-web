@@ -14,6 +14,7 @@ const zone={setAttribute(){},addEventListener(type,fn){listeners[type]=fn;},clas
 const app={innerHTML:"",addEventListener(){},querySelectorAll(){return [];},querySelector(sel){return sel==="#arki-workspace"?zone:{addEventListener(){},focus(){},setSelectionRange(){}};}};
 const document={getElementById(id){return id==="app"?app:id==="stamp"?{textContent:""}:id==="arki-state"?{textContent:state}:id==="arki-assembly"?{textContent:registry}:null;},body:{appendChild(){}},createElement(){return {click(){},remove(){}};}};
 const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
+const exposed="\nrender();\nreturn {arkiConstructionWaves,stagePiece,unstagePiece,dropSpinePiece,assignSpine,chooseScenario,addConnection,removeConnection,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,runE3Checks,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),getSpines:()=>({...spineAssignments}),getAlternatives:()=>({...alternativeSpineAssignments}),getScenario:()=>spineScenario,setPhase:id=>{activePhase=id;viewScope=id;evolutionMode='maqueta';selected=id;technicalMode=true;spineView=true;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
 const exposed="\nrender();\nreturn {stagePiece,unstagePiece,dropSpinePiece,assignSpine,chooseScenario,addConnection,removeConnection,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,runE3Checks,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),getSpines:()=>({...spineAssignments}),getAlternatives:()=>({...alternativeSpineAssignments}),getScenario:()=>spineScenario,setPhase:id=>{activePhase=id;viewScope=id;evolutionMode='maqueta';selected=id;technicalMode=true;spineView=true;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
 const testSource=script.replace("(function(){","return (function(){").replace(/\nrender\(\);\n\}\)\(\);\s*$/,exposed);
 assert.notEqual(testSource,script,"Test harness must expose application functions");
@@ -48,6 +49,11 @@ api.addConnection("I-01","HC-03");
 check("local dependency created",api.getReviews()["I-01"].dependencies.includes("HC-03"));
 api.addConnection("HC-03","I-01");
 check("cycle rejected",!api.getReviews()["HC-03"]?.dependencies.includes("I-01"));
+const waves=api.arkiConstructionWaves();
+check("construction waves are local and non-executing",waves.scope==="PLANIFICACIÓN HIPOTÉTICA LOCAL"&&waves.executionAuthorized===false);
+check("construction waves respect declared dependency",waves.waves.findIndex(w=>w.some(x=>x.id==="HC-03"))<waves.waves.findIndex(w=>w.some(x=>x.id==="I-01"))&&waves.waves.some(w=>w.some(x=>x.id==="I-01")));
+check("construction waves never schedule frozen references",!waves.waves.flat().some(x=>x.id==="F6-FREEZE"));
+
 api.removeConnection("I-01","HC-03");
 check("local dependency removed",!api.getReviews()["I-01"].dependencies.includes("HC-03"));
 const sha="a".repeat(40);

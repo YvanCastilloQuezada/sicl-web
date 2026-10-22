@@ -7,8 +7,9 @@
     "total_phases": 10,
     "current_zone": {
       "phase": 7,
-      "approximate_subphase": "F7.0",
+      "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
+      "note": "F6 is frozen. F7/F8 implementation branch now contains executable BASELINE_0, canonical Core/D-2/AGK references, coordinated professional state, project economic twin and derived F8 dossier contracts. Execution verification remains pending local gate."
       "note": "F6 integral AGK closure recorded GO; F7 Professional Technical Development opened at contract-formation/reconciliation boundary."
       "approximate_subphase": "F7.0→F7.9 integration spine",
       "status": "IN_PROGRESS",
@@ -71,16 +72,13 @@
     ]
   },
   "current_focus": {
-    "title": "F7 — Professional Technical Development",
+    "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
     "active": [
-      "F7.0 Professional Model Contract",
-      "F7 repository capability reconciliation",
-      "jurisdiction/applicability",
-      "architectural technical development",
-      "structure/MEP coordination",
-      "accessibility/life safety",
-      "quantities/cost",
-      "BIM/IFC/CAD interoperability"
+      "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
+      "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
+      "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
+      "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
     ],
     "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
     "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code.",

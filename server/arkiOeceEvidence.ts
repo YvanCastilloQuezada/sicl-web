@@ -1,0 +1,220 @@
+import { createHash } from "node:crypto";
+import { z } from "zod";
+import { createBaseline0, type Baseline0, type SourceClaim } from "./arkiProfessionalState";
+
+export type OeceDatasetKind =
+  | "PROCEDURE"
+  | "AWARD"
+  | "CONTRACT"
+  | "ENTITY"
+  | "SUPPLIER"
+  | "DOCUMENT"
+  | "WORK_LOG"
+  | "VALUATION"
+  | "OTHER";
+
+export type OeceEvidenceRecord = {
+  recordId: string;
+  dataset: OeceDatasetKind;
+  sourceRef: string;
+  sourceChecksum: string;
+  observedAt: string;
+  fields: Record<string, unknown>;
+};
+
+export type OeceDocumentEvidence = {
+  documentId: string;
+  title: string;
+  kind: "BASES" | "TDR" | "EXPEDIENTE_TECNICO" | "CONTRACT" | "DRAWING" | "BUDGET" | "SPECIFICATION" | "OTHER";
+  sourceRef: string;
+  acquisitionStatus: "DISCOVERED" | "DOWNLOADED" | "VERIFIED" | "FAILED" | "UNAVAILABLE";
+  checksum?: string;
+  mediaType?: string;
+  observedMediaType?: string;
+  localEvidenceRef?: string;
+};
+
+export type OeceEvidencePackage = {
+  schema: "ARKI-OECE-EVIDENCE-PACKAGE-1.0";
+  packageId: string;
+  projectId: string;
+  ocid?: string;
+  procedureId?: string;
+  records: OeceEvidenceRecord[];
+  documents: OeceDocumentEvidence[];
+  expectedSurfaces?: OeceDatasetKind[];
+  missingSurfaces: OeceDatasetKind[];
+  completeness: "METADATA_ONLY" | "PARTIAL_EVIDENCE" | "SOURCE_PACKAGE_VERIFIED";
+  technicalDossierClaim: "NOT_DEMONSTRATED" | "PARTIAL" | "TECHNICAL_CORE_SET_VERIFIED";
+  canonicalMutation: false;
+  immutable: true;
+  fingerprint: string;
+};
+
+const OeceRecordInputSchema = z.object({
+  recordId: z.string().min(1),
+  dataset: z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"]),
+  sourceRef: z.string().min(1),
+  sourceChecksum: z.string().min(1),
+  observedAt: z.string().min(1),
+  fields: z.record(z.string(), z.unknown()),
+}).strict();
+
+const OeceDocumentInputSchema = z.object({
+  documentId: z.string().min(1),
+  title: z.string(),
+  kind: z.enum(["BASES", "TDR", "EXPEDIENTE_TECNICO", "CONTRACT", "DRAWING", "BUDGET", "SPECIFICATION", "OTHER"]),
+  sourceRef: z.string().min(1),
+  acquisitionStatus: z.enum(["DISCOVERED", "DOWNLOADED", "VERIFIED", "FAILED", "UNAVAILABLE"]),
+  checksum: z.string().optional(),
+  mediaType: z.string().optional(),
+  observedMediaType: z.string().optional(),
+  localEvidenceRef: z.string().optional(),
+}).strict();
+
+const OecePackageInputSchema = z.object({
+  schema: z.literal("ARKI-OECE-EVIDENCE-PACKAGE-1.0").optional(),
+  packageId: z.string().min(1),
+  projectId: z.string().min(1),
+  ocid: z.string().min(1).optional(),
+  procedureId: z.string().min(1).optional(),
+  records: z.array(OeceRecordInputSchema),
+  documents: z.array(OeceDocumentInputSchema),
+  expectedSurfaces: z.array(z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"])).optional(),
+  missingSurfaces: z.array(z.enum(["PROCEDURE", "AWARD", "CONTRACT", "ENTITY", "SUPPLIER", "DOCUMENT", "WORK_LOG", "VALUATION", "OTHER"])),
+}).strict().refine(value => Boolean(value.ocid || value.procedureId), { message: "OECE_PROCEDURE_IDENTITY_REQUIRED" });
+
+export function ingestOeceEvidenceEnvelope(value: unknown): OeceEvidencePackage {
+  const parsed = OecePackageInputSchema.safeParse(value);
+  if (!parsed.success) throw new Error(`OECE_ENVELOPE_INVALID:${parsed.error.issues.map(i => i.message).join("|")}`);
+  const { schema: _schema, ...input } = parsed.data;
+  return createOeceEvidencePackage(input);
+}
+
+const hash = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
+const required = (value: string, code: string) => { if (!value.trim()) throw new Error(code); };
+
+export function createOeceEvidencePackage(input: Omit<OeceEvidencePackage, "schema" | "completeness" | "technicalDossierClaim" | "canonicalMutation" | "immutable" | "fingerprint">): OeceEvidencePackage {
+  required(input.packageId, "OECE_PACKAGE_ID_REQUIRED");
+  required(input.projectId, "OECE_PROJECT_ID_REQUIRED");
+  if (!input.ocid?.trim() && !input.procedureId?.trim()) throw new Error("OECE_PROCEDURE_IDENTITY_REQUIRED");
+  const recordIds = new Set<string>();
+  for (const record of input.records) {
+    required(record.recordId, "OECE_RECORD_ID_REQUIRED");
+    required(record.sourceRef, `OECE_RECORD_SOURCE_REQUIRED:${record.recordId}`);
+    required(record.sourceChecksum, `OECE_RECORD_CHECKSUM_REQUIRED:${record.recordId}`);
+    required(record.observedAt, `OECE_RECORD_OBSERVED_AT_REQUIRED:${record.recordId}`);
+    if (recordIds.has(record.recordId)) throw new Error(`OECE_DUPLICATE_RECORD_ID:${record.recordId}`);
+    recordIds.add(record.recordId);
+  }
+  const documentIds = new Set<string>();
+  for (const document of input.documents) {
+    required(document.documentId, "OECE_DOCUMENT_ID_REQUIRED");
+    required(document.sourceRef, `OECE_DOCUMENT_SOURCE_REQUIRED:${document.documentId}`);
+    if (documentIds.has(document.documentId)) throw new Error(`OECE_DUPLICATE_DOCUMENT_ID:${document.documentId}`);
+    documentIds.add(document.documentId);
+    if (document.acquisitionStatus === "VERIFIED" && (!document.checksum?.trim() || !document.localEvidenceRef?.trim())) {
+      throw new Error(`OECE_VERIFIED_DOCUMENT_EVIDENCE_REQUIRED:${document.documentId}`);
+    }
+  }
+
+  const verifiedDocs = input.documents.filter(d => d.acquisitionStatus === "VERIFIED");
+  const presentSurfaces = new Set<OeceDatasetKind>(input.records.map(r => r.dataset));
+  if (input.documents.length) presentSurfaces.add("DOCUMENT");
+  for (const surface of input.missingSurfaces) {
+    if (presentSurfaces.has(surface)) throw new Error(`OECE_SURFACE_PRESENT_AND_MISSING:${surface}`);
+  }
+  const derivedMissing = (input.expectedSurfaces ?? []).filter(surface => !presentSurfaces.has(surface));
+  const missingMismatch = derivedMissing.some(surface => !input.missingSurfaces.includes(surface));
+  if (missingMismatch) throw new Error("OECE_MISSING_SURFACES_UNDERREPORTED");
+  const hasProcedure = input.records.some(r => r.dataset === "PROCEDURE");
+  const hasStructuredProcurement = input.records.some(r => ["PROCEDURE", "AWARD", "CONTRACT"].includes(r.dataset));
+  const allDocumentsVerified = input.documents.length > 0
+    && verifiedDocs.length === input.documents.length;
+  const completeness: OeceEvidencePackage["completeness"] =
+    allDocumentsVerified && hasProcedure && Boolean(input.expectedSurfaces?.length) && derivedMissing.length === 0 && input.missingSurfaces.length === 0 ? "SOURCE_PACKAGE_VERIFIED"
+      : verifiedDocs.length || hasStructuredProcurement ? "PARTIAL_EVIDENCE"
+      : "METADATA_ONLY";
+
+  const technicalKinds = new Set(verifiedDocs.map(d => d.kind));
+  const hasTechnicalCore = technicalKinds.has("EXPEDIENTE_TECNICO")
+    && technicalKinds.has("BUDGET")
+    && technicalKinds.has("SPECIFICATION");
+  const hasPartialTechnicalCore = technicalKinds.has("EXPEDIENTE_TECNICO")
+    || technicalKinds.has("BUDGET")
+    || technicalKinds.has("SPECIFICATION");
+  const technicalDossierClaim: OeceEvidencePackage["technicalDossierClaim"] =
+    hasTechnicalCore ? "TECHNICAL_CORE_SET_VERIFIED"
+      : hasPartialTechnicalCore ? "PARTIAL"
+      : "NOT_DEMONSTRATED";
+
+  const payload = {
+    ...input,
+    schema: "ARKI-OECE-EVIDENCE-PACKAGE-1.0" as const,
+    completeness,
+    technicalDossierClaim,
+    canonicalMutation: false as const,
+    immutable: true as const,
+  };
+  return { ...payload, fingerprint: hash(payload) };
+}
+
+export function oecePackageToBaseline0(pkg: OeceEvidencePackage): Baseline0 {
+  const sourceArtifacts = [
+    ...pkg.records.map(record => ({
+      sourceId: `OECE-RECORD:${record.recordId}`,
+      checksum: record.sourceChecksum,
+      format: `OECE:${record.dataset}`,
+      receivedAt: record.observedAt,
+    })),
+    ...pkg.documents.filter(d => d.acquisitionStatus === "VERIFIED").map(document => ({
+      sourceId: `OECE-DOCUMENT:${document.documentId}`,
+      checksum: document.checksum!,
+      format: document.mediaType ?? document.kind,
+      receivedAt: "OECE_PACKAGE",
+    })),
+  ];
+  if (!sourceArtifacts.length) throw new Error("OECE_BASELINE_REQUIRES_EVIDENCE");
+
+  const claims: SourceClaim[] = [];
+  for (const record of pkg.records) {
+    for (const [field, value] of Object.entries(record.fields)) {
+      claims.push({
+        claimId: `OECE:${record.recordId}:${field}`,
+        sourceId: `OECE-RECORD:${record.recordId}`,
+        subjectId: pkg.ocid ?? pkg.procedureId!,
+        field: `oece.${record.dataset.toLowerCase()}.${field}`,
+        value,
+        evidenceState: "PARTIAL",
+        provenance: [record.sourceRef, record.sourceChecksum],
+      });
+    }
+  }
+  for (const document of pkg.documents.filter(d => d.acquisitionStatus === "VERIFIED")) {
+    claims.push({
+      claimId: `OECE:DOCUMENT:${document.documentId}`,
+      sourceId: `OECE-DOCUMENT:${document.documentId}`,
+      subjectId: pkg.ocid ?? pkg.procedureId!,
+      field: `oece.document.${document.kind.toLowerCase()}`,
+      value: { title: document.title, localEvidenceRef: document.localEvidenceRef },
+      evidenceState: "VERIFIED",
+      provenance: [document.sourceRef, document.checksum!],
+    });
+  }
+  return createBaseline0({
+    baselineId: `OECE:${pkg.packageId}`,
+    projectId: pkg.projectId,
+    sourceArtifacts,
+    claims,
+    contradictions: [],
+  });
+}
+
+export const OECE_ARKI_BOUNDARY = Object.freeze({
+  sourceRole: "UPSTREAM_EVIDENCE",
+  canonicalProjectTruth: false,
+  architecturalSemanticAuthority: false,
+  operationalGeometryAuthority: false,
+  directF8Publication: false,
+  requiredPath: "OECE/ACS → IMMUTABLE_EVIDENCE_PACKAGE → BASELINE_0 → D-2/AGK/F7 → ACCEPTANCE → F8",
+} as const);
