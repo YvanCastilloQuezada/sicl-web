@@ -175,3 +175,10 @@ Este documento cataloga las cabezas de todas las ramas que la API de GitHub devo
 - Prioridad AGK: inspeccionar el diff completo de `feat/agk-003-parametric-family-unification` (11 commits exclusivos según compare) antes de valorar recuperación. La rama `feat/agk-t4-t7-evidence-v2` contiene principalmente evidencia documental, pero su delta ejecutable debe aislarse.
 - No se fusionó, creó ni eliminó ninguna rama. Los resultados son metadatos Git y lectura de commits recientes; no son validación de tests.
 - Enlaces: [informe comparativo](ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md) · [manual maestro](../../ARKI-00.md).
+
+
+### Segunda tanda de comparación (2026-10-22)
+
+Se añadieron diez comparaciones: `feat/frontend-performance-cache-skeletons`, `feat/help-system`, `feat/i18n-core`, `feat/i18n-full-consistency-gate`, `feat/m001-e3-gate-hardening`, `feat/mv-p1-final-integration`, `feat/mv-p1-location-picker-web`, `feat/night-blue-unified-header`, `feat/project-workspace-i18n-routes` y `feat/sims-dei-visible-identity-i18n`. Nueve aparecen detrás de `main` sin commits exclusivos; `feat/m001-e3-gate-hardening` diverge 436 commits ahead / 69 behind con 90 archivos y 12.751 cambios reportados, por lo que exige inspección granular y no fusión en bloque.
+
+Total documentado actualizado: 58 ramas comparadas de 97 ramas candidatas distintas de `main`; quedan 39 pendientes. [Informe comparativo actualizado](ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md).
