@@ -14,7 +14,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Registrar ideas y tareas pendientes en un dominio propio, separándolas de las funciones ya implementadas.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -27,7 +26,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Conservar una cronología de trabajos, decisiones, hitos y cambios de la hoja de ruta.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -40,7 +38,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Describir propuestas de arquitectura y condiciones de aceptación sin convertirlas automáticamente en órdenes de implementación.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -53,7 +50,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Conservar fuentes, derechos, incertidumbre y revisión humana antes de aceptar conocimiento como canónico.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -66,7 +62,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Recuperar conocimiento del corpus sin perder su origen, alcance, derechos, validación ni datos desconocidos.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -79,7 +74,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Transformar conocimiento consultado en requisitos, déficits, hipótesis y estrategias antes de generar geometría.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -92,7 +86,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Proponer varias geometrías conceptuales controladas a partir de topologías y restricciones trazables.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -105,7 +98,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Incorporar documentos e imágenes mediante análisis visual y OCR, conservando incertidumbre y revisión humana.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -118,7 +110,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Transferir aprendizaje entre niveles distinguiendo qué se adapta, qué no se transfiere y qué permanece desconocido.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -131,7 +122,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Diferenciar la semántica de espacios y recintos de la de sus límites físicos, evitando inferencias automáticas incorrectas.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -144,7 +134,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Construir un tutor adaptativo que evalúe el progreso del estudiante y conserve su historial de aprendizaje.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -157,7 +146,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Conectar el entorno local con SICL Core remoto y comprobar la cadena completa de ejecución y evidencia.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -170,7 +158,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Evaluar normas según jurisdicción, vigencia y artículos citados, con revisión profesional antes de validarlas.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -183,7 +170,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Relacionar el modelo espacial con BIM, CAD, estructuras y MEP, y con intercambios de datos verificables.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -196,7 +182,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Explorar tres alternativas paramétricas del partido arquitectónico con trazabilidad, rechazo y retroceso.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -209,7 +194,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Conectar proyecto, obra ejecutada, operación, mantenimiento, activos y aprendizaje durante el ciclo de vida.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -222,7 +206,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Mantener relaciones espaciales y de procedencia desde componentes y edificios hasta ciudad y territorio.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -235,7 +218,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Estudiar terreno, elevaciones y condiciones climáticas mediante datos y simulaciones técnicas reproducibles.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -248,7 +230,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Superponer información del modelo al lugar físico mediante cámara, GPS y realidad aumentada.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -261,7 +242,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Intercambiar modelos tridimensionales mediante formatos GLB y glTF con validación de entrada y salida.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -274,7 +254,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Organizar productos y servicios ARKI para profesionales, aliados, especialistas, construcción, edificios y empresas.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -287,7 +266,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Preservar y reproducir la secuencia R-PARTI I0–I11 junto con sus integraciones y evidencias.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -300,7 +278,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Unificar la identidad y ejecución de Delta alrededor de una línea base canónica identificable y verificable.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
@@ -313,7 +290,6 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION"
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Investigar salud y envejecimiento con evidencia científica, supervisión profesional y límites éticos; no ofrecer tratamientos no validados.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
