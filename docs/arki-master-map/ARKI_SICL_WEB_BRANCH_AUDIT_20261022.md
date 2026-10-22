@@ -2,7 +2,7 @@
 
 **Repositorio:** `YvanCastilloQuezada/sicl-web`  
 **Base comparada:** `main` (referencia remota consultada durante esta auditoría; no se ejecutaron pruebas de código en cada rama).  
-**Estado:** PARCIAL — 30 comparaciones de ramas consultadas; inventario visible consultado: 98 ramas incluyendo `main`. Quedan 68 ramas sin comparación detallada en este corte.  
+**Estado:** PARCIAL — 48 ramas con comparación documentada; inventario remoto: 98 ramas incluyendo `main` (97 candidatas distintas de `main`). Quedan 49 ramas sin comparación documentada en este corte.  
 **Regla:** `ahead/behind` mide divergencia Git respecto a `main`; no certifica calidad, pruebas ni integración. `files` y `changes` son el resumen de la comparación que devuelve GitHub. No se ha fusionado ni eliminado ninguna rama.
 
 ## Resultados comparados
@@ -83,7 +83,7 @@ Las comparaciones se solicitaron mediante la función de comparación de commits
 | `feat/f7-f8-integral-closure` | diverged | 438 | 69 | 90 | 12751 | Mucho contenido exclusivo; revisar commits y evidencia de F7/F8, no fusionar completa. |
 | `feat/f7-f8-professional-delivery-v1` | diverged | 75 | 69 | 31 | 2731 | Dif similar a otras ramas F5–F9; verificar si comparte commits/artefactos con red-team. |
 
-El total de ramas con comparación documentada en este informe pasa de 24 a **30**. Las 68 restantes siguen pendientes; el informe no debe considerarse exhaustivo todavía.
+El inventario remoto devuelve 98 ramas incluyendo `main`. Este informe contiene 48 filas de ramas comparadas; por tanto quedan 49 ramas distintas de `main` pendientes de comparación. El informe sigue siendo parcial.
 
 
 ## Código que genera documentos de continuidad — inspección estática
@@ -95,3 +95,30 @@ El total de ramas con comparación documentada en este informe pasa de 24 a **30
 - **ARKI-00.md, catálogo de ramas e informe de auditoría:** las búsquedas realizadas no identificaron un generador que produzca automáticamente esos tres documentos. Se actualizaron explícitamente en esta rama de memoria. La búsqueda de código no es una prueba exhaustiva de ausencia.
 - **Validación:** se inspeccionaron las fuentes en GitHub; no se ejecutó el generador localmente ni se comprobó una ejecución CI del SHA recién escrito. Por tanto, estado **CÓDIGO IDENTIFICADO / EJECUCIÓN PENDIENTE**.
 - **Precaución operativa:** no ejecutar el generador en un checkout con cambios locales sin revisar el estado de Git; el script escribe el mapa generado y podría reemplazar modificaciones manuales de ese archivo.
+
+
+## Inspección de commits recientes en ramas prioritarias — 2026-10-22
+
+**Método y límite:** se consultaron los seis commits más recientes visibles por API para varias ramas prioritarias y se contrastaron sus métricas/diferencias contra `main`. Esto identifica líneas de trabajo y riesgos; no equivale a revisar individualmente los 700–958 commits exclusivos de las ramas grandes ni a ejecutar pruebas.
+
+### ARBOL Vivo / Gemelo Digital
+
+- `feat/arbol-vivo-precedencias-seguras-20261010`: 741 commits ahead / 69 behind; la diferencia incluye workflows de continuidad, ejecutor controlado, evidencia F1–F10, Research Trends, pruebas AV-UI y documentación AGK/OCCT. Los commits recientes visibles se concentran en generación/actualización automática del handoff raíz y disparadores de continuidad (11 oct). **Riesgo:** alcance transversal y muy divergente; separar por archivo/commit y probar antes de rescatar cualquier unidad.
+- `feat/arbol-vivo-functional-repair-20261014`: 851 ahead / 69 behind. Historial reciente incluye una implementación de gate de dependencias basado en evidencia seguida de dos reversiones que eliminan ese gate y restauran archivos base (14 oct). **Hallazgo importante:** no asumir que la rama contiene el gate activo en su estado final; inspeccionar el árbol final y las pruebas adversariales antes de recomendar recuperación.
+- `feat/arbol-vivo-autoensamblaje-20261011`: 707 ahead / 69 behind. Los commits visibles incluyen un evaluador determinista de autoensamblaje en modo propuesta (12 oct), reconciliación de Árbol/Gemelo/Mapa y documentación de continuidad; la punta de la rama es un merge de la reconciliación de auditoría (21 oct).
+- `audit/mapa-arbol-gemelo-reconciliacion-20261014`: 706 ahead / 69 behind. Comparte una secuencia de commits muy cercana a autoensamblaje, incluidos el evaluador de propuesta y la reconciliación de continuidad. Tratar ambas como genealogía relacionada, no como dos paquetes independientes para fusionar.
+- `feat/arki-operational-vitality-mo05-20261015`: 958 ahead / 69 behind. Los commits recientes inspeccionados contienen inventario multi-repositorio con gate fail-closed, clasificación de ideas/artefactos y síntesis entre ramas con aprobación PO (MO-07.6–07.8). La comparación también muestra `arki-arbol-vivo.cjs` y `ArkiLivingTreePage.tsx`. **Pendiente:** verificar contrato, pruebas y dependencia real de esas piezas; el volumen impide aceptar la rama en bloque.
+
+### AGK / geometría
+
+- `feat/agk-003-parametric-family-unification`: 11 ahead / 98 behind; contiene `server/agk/familyCompiler.ts`, sus pruebas, cambios en `regeneration.ts` y tipos AGK. Los commits visibles incluyen pasar el delta MOVE a la regeneración causal, preservar traslación hospedada y alinear fixtures con invariantes geométricas (1–2 oct). Es el candidato más acotado de este grupo para revisión de código, no para fusión automática.
+- `feat/agk-t4-t7-evidence-v2`: 75 ahead / 69 behind; los commits visibles son principalmente paquetes de evidencia documental F5–F9/red-team, contrato S10 y priorización en el mapa maestro. La comparación muestra también cambios en `server/_core/index.ts` y un script T7. Separar evidencia documental de cualquier cambio ejecutable antes de evaluar.
+- `feat/agk-001-operational-spine` y `feat/agk-002-causal-regeneration`: actualmente aparecen solo detrás de `main` (114 y 99 commits, respectivamente), sin commits exclusivos según la comparación. No requieren rescate de cambios exclusivos en este corte.
+- `feat/agk-occt-benchmark-evidence-v1`: aparece 73 commits detrás y sin commits exclusivos en la comparación actual; no hay delta exclusivo que recuperar según esta consulta.
+
+### Decisión de auditoría
+
+1. No fusionar ninguna rama grande completa.
+2. Continuar el inventario restante en lotes y actualizar el catálogo en la rama MEMORY existente.
+3. Para rescatar código, revisar commits exclusivos concretos y archivos completos, empezando por las piezas AGK acotadas y luego el gate de precedencias de ARBOL Vivo.
+4. No marcar una rama como validada solo por nombres de tests, documentos o workflows. Ejecutar pruebas reales en el checkout y guardar salida reproducible.
