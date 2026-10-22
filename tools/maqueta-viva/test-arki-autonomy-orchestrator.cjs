@@ -7,13 +7,7 @@ const part={id:"A",path:"src/a.ts",phase:"F2",dependencies:[]};
 test("unverified evidence fails closed",()=>{const r=orchestrate({parts:[part],discovery});assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW");assert.equal(r.canonicalMutation,false)});
 test("verified evidence only permits isolated experiment candidate",()=>{const r=orchestrate({parts:[part],discovery,evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});assert.equal(r.work[0].action,"ISOLATED_EXPERIMENT_CANDIDATE");assert.equal(r.execution,"NOT_EXECUTED")});
 test("frozen remains blocked",()=>{const r=orchestrate({parts:[{...part,frozen:true}],discovery,evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW")});
-test("legacy frozen with verified evidence may enter isolated experiment",()=>{
-  const r=orchestrate({parts:[{...part,frozen:true}],discovery,
-    evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});
-  assert.equal(r.work[0].action,"ISOLATED_EXPERIMENT_CANDIDATE");
-  assert.equal(r.execution,"NOT_EXECUTED");
-  assert.equal(r.canonicalMutation,false);
-});
+test("frozen remains blocked even with verified evidence",()=>{const r=orchestrate({parts:[{...part,frozen:true}],discovery,evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW");assert.ok(r.work[0].reasons.includes("FROZEN_READ_ONLY"));assert.equal(r.canonicalMutation,false)});
 test("legacy frozen without evidence remains blocked",()=>{
   const r=orchestrate({parts:[{...part,frozen:true}],discovery});
   assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW");
