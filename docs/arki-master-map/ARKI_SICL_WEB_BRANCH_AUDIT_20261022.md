@@ -2,7 +2,7 @@
 
 **Repositorio:** `YvanCastilloQuezada/sicl-web`  
 **Base comparada:** `main` (referencia remota consultada durante esta auditoría; no se ejecutaron pruebas de código en cada rama).  
-**Estado:** PARCIAL — 24 comparaciones de ramas consultadas; inventario visible consultado: 98 ramas incluyendo `main`. Quedan 74 ramas sin comparación detallada en este corte.  
+**Estado:** PARCIAL — 30 comparaciones de ramas consultadas; inventario visible consultado: 98 ramas incluyendo `main`. Quedan 68 ramas sin comparación detallada en este corte.  
 **Regla:** `ahead/behind` mide divergencia Git respecto a `main`; no certifica calidad, pruebas ni integración. `files` y `changes` son el resumen de la comparación que devuelve GitHub. No se ha fusionado ni eliminado ninguna rama.
 
 ## Resultados comparados
@@ -70,3 +70,17 @@
 ## Evidencia de consultas GitHub
 
 Las comparaciones se solicitaron mediante la función de comparación de commits del repositorio para cada rama de la tabla contra `main`. Los números reflejan la respuesta observada en esta sesión del 2026-10-22. No se alteraron refs de Git, no se fusionaron ramas y no se ejecutó código de las ramas auditadas.
+
+
+## Segunda tanda de comparaciones (continuación del 2026-10-22)
+
+| Rama | Estado vs main | Ahead | Behind | Archivos cambiados | Cambios | Lectura preliminar |
+|---|---:|---:|---:|---:|---:|---|
+| `feat/command-bar` | behind | 0 | 456 | 0 | 0 | Sin commits exclusivos; muy atrasada. |
+| `feat/d63-to-d2-geometry-bridge` | diverged | 1 | 150 | 0 | 0 | Un commit exclusivo según el grafo, sin diff de archivos informado; inspeccionar commit y merge-base. |
+| `feat/e2e001-red-team-hardening` | diverged | 95 | 98 | 51 | 3545 | Divergencia importante; revisar casos de seguridad y workflow antes de recuperar. |
+| `feat/e2e002-spatial-reasoning-phase1` | diverged | 149 | 98 | 60 | 4474 | Rama de razonamiento espacial; comparar con E2E/CI actuales antes de integrar. |
+| `feat/f7-f8-integral-closure` | diverged | 438 | 69 | 90 | 12751 | Mucho contenido exclusivo; revisar commits y evidencia de F7/F8, no fusionar completa. |
+| `feat/f7-f8-professional-delivery-v1` | diverged | 75 | 69 | 31 | 2731 | Dif similar a otras ramas F5–F9; verificar si comparte commits/artefactos con red-team. |
+
+El total de ramas con comparación documentada en este informe pasa de 24 a **30**. Las 68 restantes siguen pendientes; el informe no debe considerarse exhaustivo todavía.
