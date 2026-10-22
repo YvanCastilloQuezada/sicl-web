@@ -84,3 +84,14 @@ Las comparaciones se solicitaron mediante la función de comparación de commits
 | `feat/f7-f8-professional-delivery-v1` | diverged | 75 | 69 | 31 | 2731 | Dif similar a otras ramas F5–F9; verificar si comparte commits/artefactos con red-team. |
 
 El total de ramas con comparación documentada en este informe pasa de 24 a **30**. Las 68 restantes siguen pendientes; el informe no debe considerarse exhaustivo todavía.
+
+
+## Código que genera documentos de continuidad — inspección estática
+
+- **Mapa Vivo:** `tools/maqueta-viva/arki-continuity-snapshot.cjs`. Genera `docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md` a partir del historial Git y `ARKI_CONTINUITY_EVENTS.jsonl`. El código declara que el mapa no verifica CI, arquitectura ni despliegue.
+- **Pruebas del generador:** `tools/maqueta-viva/arki-continuity-snapshot.test.cjs`. Incluye validación de IDs/evidencias, estados no verificados, SHA/cronología, determinismo y ledger malformado/duplicado.
+- **Workflow:** `.github/workflows/arki-continuity-map.yml`. Ejecuta pruebas, regenera y verifica el mapa; su publicación automática está limitada a `main` y `feat/arki-integration-genealogy-20261013`.
+- **Verificador local:** `tools/maqueta-viva/arki-continuity-local-verify.cjs`. Ejecuta pruebas, generación y `--check`, y escribe `ARKI_CONTINUITY_LOCAL_VALIDATION.txt`.
+- **ARKI-00.md, catálogo de ramas e informe de auditoría:** las búsquedas realizadas no identificaron un generador que produzca automáticamente esos tres documentos. Se actualizaron explícitamente en esta rama de memoria. La búsqueda de código no es una prueba exhaustiva de ausencia.
+- **Validación:** se inspeccionaron las fuentes en GitHub; no se ejecutó el generador localmente ni se comprobó una ejecución CI del SHA recién escrito. Por tanto, estado **CÓDIGO IDENTIFICADO / EJECUCIÓN PENDIENTE**.
+- **Precaución operativa:** no ejecutar el generador en un checkout con cambios locales sin revisar el estado de Git; el script escribe el mapa generado y podría reemplazar modificaciones manuales de ese archivo.
