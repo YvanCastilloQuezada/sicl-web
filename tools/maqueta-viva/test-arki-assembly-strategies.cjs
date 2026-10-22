@@ -1,0 +1,10 @@
+"use strict";
+const assert=require("node:assert/strict");
+const {proposeStrategies}=require("./arki-assembly-strategies.cjs");
+const d={schema:"ARKI-CAPABILITY-DISCOVERY-1",sourceSnapshot:"x.json",totalFiles:1933,unclassified:460};
+const x=proposeStrategies(d);
+assert.deepEqual(x.strategies.map(s=>s.id),["A","B","C"]);
+assert(x.strategies.every(s=>s.ownerApproval==="REQUIRED"&&s.canonicalMutation===false&&s.execution==="NOT_EXECUTED"));
+assert.equal(x.decision,"OWNER_SELECTION_PENDING");
+assert.throws(()=>proposeStrategies({...d,unclassified:2000}),/INVALID_DISCOVERY/);
+console.log("ARKI_ASSEMBLY_STRATEGIES_TESTS=PASS");

@@ -1,0 +1,189 @@
+{
+  "schema": "ARKI-CAPABILITY-DISCOVERY-1",
+  "sourceSnapshot": "tools/maqueta-viva/arki-repository-snapshot.json",
+  "basis": "PATH_NAME_HEURISTIC_ONLY",
+  "status": "OBSERVED_PATHS_CLASSIFICATION_PROPOSED",
+  "totalFiles": 1933,
+  "unclassified": 460,
+  "counts": {
+    "YvanCastilloQuezada/sicl-web": {
+      "OPERATIONS": 6,
+      "STATE_AND_EVIDENCE": 96,
+      "DIGITAL_TWIN_AND_TREE": 42,
+      "UNCLASSIFIED": 192,
+      "TEST": 148,
+      "INTEGRATION": 306,
+      "GEOMETRY_OR_SPATIAL": 30,
+      "INTELLIGENCE": 54,
+      "DOCUMENTATION": 452
+    },
+    "YvanCastilloQuezada/sicl-core": {
+      "OPERATIONS": 5,
+      "UNCLASSIFIED": 133,
+      "INTEGRATION": 12,
+      "DOCUMENTATION": 91,
+      "STATE_AND_EVIDENCE": 9,
+      "INTELLIGENCE": 16,
+      "GEOMETRY_OR_SPATIAL": 20,
+      "TEST": 93
+    },
+    "YvanCastilloQuezada/arki-acs": {
+      "UNCLASSIFIED": 135,
+      "OPERATIONS": 1,
+      "DOCUMENTATION": 6,
+      "STATE_AND_EVIDENCE": 42,
+      "INTEGRATION": 36,
+      "GEOMETRY_OR_SPATIAL": 6,
+      "TEST": 2
+    }
+  },
+  "samples": {
+    "YvanCastilloQuezada/sicl-web": {
+      "OPERATIONS": [
+        ".github/workflows/arki-assembly-planner.yml",
+        ".github/workflows/arki-controlled-executor.yml",
+        ".github/workflows/arki-research-trends.yml",
+        ".github/workflows/ci.yml"
+      ],
+      "STATE_AND_EVIDENCE": [
+        ".github/workflows/arki-f1-f10-evidence.yml",
+        "client/src/_core/auth-access.ts",
+        "client/src/_core/hooks/useAuth.ts",
+        "client/src/api/mock-core.ts"
+      ],
+      "DIGITAL_TWIN_AND_TREE": [
+        ".github/workflows/av-ui-001-tree-twin.yml",
+        ".github/workflows/maqueta-viva-smoke.yml",
+        "ARKI-MAQUETA-VIVA.cmd",
+        "client/src/visualization/charts/EventTimeline.tsx"
+      ],
+      "UNCLASSIFIED": [
+        ".gitignore",
+        ".gitkeep",
+        ".prettierignore",
+        ".prettierrc"
+      ],
+      "TEST": [
+        "client/i18n-consistency.test.ts",
+        "client/src/api/sicl-client.test.ts",
+        "client/src/arkiKnowledgeCorpusFoundation.test.ts",
+        "client/src/arkiSpatialSemantics.test.ts"
+      ],
+      "INTEGRATION": [
+        "client/index.html",
+        "client/public/.gitkeep",
+        "client/public/__manus__/debug-collector.js",
+        "client/public/arki-access-qr-permanent.png"
+      ],
+      "GEOMETRY_OR_SPATIAL": [
+        "client/src/components/DashboardLayout.tsx",
+        "client/src/components/DashboardLayoutSkeleton.tsx",
+        "client/src/components/IfcGeometryViewer.tsx",
+        "client/src/components/PhaseAPageLayout.tsx"
+      ],
+      "INTELLIGENCE": [
+        "client/src/content/parametric-examples/examples/EJEMPLO-028-site-intelligence/README.md",
+        "client/src/content/parametric-examples/examples/EJEMPLO-028-site-intelligence/example.json",
+        "client/src/content/parametric-examples/examples/EJEMPLO-029-agent-run/README.md",
+        "client/src/content/parametric-examples/examples/EJEMPLO-029-agent-run/example.json"
+      ],
+      "DOCUMENTATION": [
+        "docs/ARKI-M0K-COMPATIBILITY-AUDIT.md",
+        "docs/ARKI_AND_SICL_FOUNDATIONS.md",
+        "docs/ARKI_EXECUTIVE_BOARD_PRESENTATION.md",
+        "docs/ARKI_FIRST_CONTACT_MANUAL.md"
+      ]
+    },
+    "YvanCastilloQuezada/sicl-core": {
+      "OPERATIONS": [
+        ".dockerignore",
+        ".github/workflows/ci.yml",
+        ".github/workflows/weekly-master-surveillance.yml",
+        "Dockerfile"
+      ],
+      "UNCLASSIFIED": [
+        ".env.example",
+        ".gitignore",
+        "DEMO_SCRIPT_V2.md",
+        "DEMO_SCRIPT_V3.md"
+      ],
+      "INTEGRATION": [
+        "api/__init__.py",
+        "api/deps.py",
+        "api/main.py",
+        "api/routes/__init__.py"
+      ],
+      "DOCUMENTATION": [
+        "docs/04_neofuturista_hero (1).png",
+        "docs/05_doble_helice_plaza (1).png",
+        "docs/06_doble_helice_noche (1).png",
+        "docs/07_vista_aerea_2k (2).png"
+      ],
+      "STATE_AND_EVIDENCE": [
+        "docs/ARKI_CORE_FROZEN_v1.0.md",
+        "docs/ARKI_CORE_PATCHED_BASELINE_v1.0.md",
+        "docs/PRODUCTION_CORE_DEPLOYMENT_MANUAL.md",
+        "docs/RFC-002_EVIDENCE_HTTP.md"
+      ],
+      "INTELLIGENCE": [
+        "docs/RFC-004_DESIGN_INTELLIGENCE_SCOPE.md",
+        "docs/RFC-026_DESIGN_KNOWLEDGE_AND_MULTISCALE_DESIGN_GRAMMAR.md",
+        "docs/learning/PHASE1_REPORT.md",
+        "docs/learning/engines/blenderbim-bonsai.md"
+      ],
+      "GEOMETRY_OR_SPATIAL": [
+        "docs/reference/RFC030_OUTPUT/EDIFICIO-YVAN-TRUJILLO-01_PROFESSIONAL_LAYOUT.pdf",
+        "docs/reference/RFC0341_CASA_NIDO_LAYOUT_REPORT.json",
+        "docs/rfc/RFC-034.1-SHEET-COMPOSITION-LAYOUT-ENGINE.md",
+        "scripts/layout_cli.py"
+      ],
+      "TEST": [
+        "tests/test_a002_adversarial.py",
+        "tests/test_a002_sufficiency.py",
+        "tests/test_a002_v1_4_3_fixes.py",
+        "tests/test_a002_v1_4_injections.py"
+      ]
+    },
+    "YvanCastilloQuezada/arki-acs": {
+      "UNCLASSIFIED": [
+        ".gitignore",
+        "ACS.sln",
+        "ARKI_ACS_fix_stage2_v2.ps1",
+        "Directory.Build.props"
+      ],
+      "OPERATIONS": [
+        "docker/Dockerfile.worker"
+      ],
+      "DOCUMENTATION": [
+        "docs/ARCHITECTURE.md",
+        "docs/DATA_MODEL.md",
+        "docs/LIMITATIONS.md",
+        "docs/REPRODUCTION.md"
+      ],
+      "STATE_AND_EVIDENCE": [
+        "src/Acs.Cli/Commands/EvidenceCommand.cs",
+        "src/Acs.Core/Acs.Core.csproj",
+        "src/Acs.Core/Artifact/Artifact.cs",
+        "src/Acs.Core/Artifact/ArtifactId.cs"
+      ],
+      "INTEGRATION": [
+        "src/Acs.Inspectors/ApiSurfaceInspectionResult.cs",
+        "src/Acs.Inspectors/DotNetApiSurfaceInspector.cs",
+        "src/Acs.OeceCorpus/Client/OeceAwardParser.cs",
+        "src/Acs.OeceCorpus/Client/OeceClient.cs"
+      ],
+      "GEOMETRY_OR_SPATIAL": [
+        "src/Acs.OecePortal/Components/Layout/MainLayout.razor",
+        "src/Acs.OecePortal/Components/Layout/MainLayout.razor.css",
+        "tests/Acs.Tests.Acceptance/ProtoGeometryLibgAcceptanceTests.cs",
+        "tests/Acs.Tests.Acceptance/ProtoGeometryLibgChainTests.cs"
+      ],
+      "TEST": [
+        "test-minimal.dyn",
+        "test-minimal.py"
+      ]
+    }
+  },
+  "decision": "NO_CANONICAL_PROMOTION",
+  "next": "INSPECT_MODULE_CONTENT_AND_DEPENDENCIES"
+}
