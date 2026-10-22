@@ -19,7 +19,7 @@ import { rateLimit, recordSecurityEvent, securityHeaders, writeRequestGuard } fr
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
     const server = net.createServer();
-    server.listen(port, () => {
+    server.listen(port, "127.0.0.1", () => {
       server.close(() => resolve(true));
     });
     server.on("error", () => resolve(false));
@@ -159,6 +159,10 @@ async function startServer() {
     console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
   }
 
+  server.listen(port, "127.0.0.1", () => {
+    attachParametricWebSocket(server);
+    console.log(`Server running on http://localhost:${port}/`);
+  });
   const devSocket = process.env.ARKI_DEV_SOCKET;
   if (devSocket) {
     if (process.env.ARKI_DEV_OPEN !== "1" || process.env.NODE_ENV !== "production") {
