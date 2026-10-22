@@ -397,3 +397,34 @@ Los ZIP son **instantáneas de origen a comparar**, no autorización para sustit
 9. Actualizar este archivo y mapa maestro tras cada hito real.
 
 **Regla final del PO:** «Quiero que ARKI tenga vida. No más ramas. No más vueltas. Meter lo útil en la interfaz que decidí y borrar lo que ya no sirve». La medida del éxito no es la cantidad de tests ni documentos, sino **una ejecución real, conectada, segura, verificable y persistente en el ARKI existente**.
+
+
+---
+
+## Actualización de continuidad — auditoría de ramas y generador (2026-10-22)
+
+- **Copia de continuidad:** este `ARKI-00.md` se ha copiado desde `main` a la rama existente de MEMORY para que el handoff maestro esté disponible en el mismo contexto que el catálogo y la auditoría. Se conserva el contenido original y se añade esta actualización al final.
+- **Informe de ramas:** [`docs/arki-master-map/ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md`](docs/arki-master-map/ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md). Estado PARCIAL: 30 ramas comparadas contra `main`; quedan 68 por comparar del inventario consultado de 98 ramas, incluida `main`.
+- **Catálogo:** [`docs/arki-master-map/ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md`](docs/arki-master-map/ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md). El catálogo anterior es un inventario de cabezas, no una validación técnica de cada rama.
+- **Generador del Mapa Vivo localizado:** `tools/maqueta-viva/arki-continuity-snapshot.cjs`. Lee `docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl`, extrae historia Git y genera `docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md`. El código declara explícitamente que el mapa no verifica CI, arquitectura ni despliegue.
+- **Pruebas del generador:** `tools/maqueta-viva/arki-continuity-snapshot.test.cjs`; el runner de verificación local `tools/maqueta-viva/arki-continuity-local-verify.cjs` ejecuta las pruebas, genera el mapa y verifica determinismo con `--check`. El workflow `.github/workflows/arki-continuity-map.yml` también genera y verifica el mapa.
+- **Límite importante:** el generador encontrado solo produce el Mapa Vivo de continuidad. No se encontró evidencia de que genere automáticamente este `ARKI-00.md`, el catálogo de ramas o el informe de auditoría. Esos documentos se actualizaron explícitamente en esta rama; no se debe suponer que el generador los mantendrá sincronizados.
+- **Estado de ejecución:** el código generador y sus pruebas fueron inspeccionados en GitHub, pero no se ejecutaron en un checkout local durante esta acción. No declarar sus pruebas verdes por inspección estática.
+- **Sin alteración de ramas de producto:** no se creó ninguna rama, no se fusionó ni eliminó ninguna rama y no se cambió `main`. La copia y los informes quedan en `feat/arki-autonomy-memory-main-20261013` para revisión.
+- **Siguiente paso:** completar la comparación de las ramas restantes, revisar commits exclusivos y CI por SHA, y comprobar en el entorno local el generador con `node --test tools/maqueta-viva/arki-continuity-snapshot.test.cjs` y `node tools/maqueta-viva/arki-continuity-snapshot.cjs --check`. No modificar el ledger ni regenerar el mapa sin verificar primero el estado del checkout.
+
+
+## Actualización de continuidad — 2026-10-22: auditoría de ramas y entorno REVIVIR ARKI
+
+- El inventario remoto de `YvanCastilloQuezada/sicl-web` devuelve 98 ramas incluyendo `main`. El informe de auditoría documenta 48 ramas comparadas y deja 49 ramas distintas de `main` pendientes de comparación.
+- La revisión prioritaria identificó que las ramas grandes de ARBOL Vivo/Gemelo Digital comparten una genealogía y mucha divergencia; no deben fusionarse en bloque. En `feat/arbol-vivo-functional-repair-20261014`, el historial reciente incluye implementación del gate de dependencias basada en evidencia seguida de reversiones; comprobar el estado final del código antes de considerar ese gate recuperable.
+- La rama AGK más acotada detectada para inspección es `feat/agk-003-parametric-family-unification` (11 commits exclusivos según compare, con compiler/regeneration/tests). Esto es una prioridad de revisión, no una aprobación para integrar.
+- El generador de continuidad ya fue identificado por inspección estática en `tools/maqueta-viva/arki-continuity-snapshot.cjs`; sus pruebas están en `tools/maqueta-viva/arki-continuity-snapshot.test.cjs`, y el verificador local en `tools/maqueta-viva/arki-continuity-local-verify.cjs`. Aún no se ha ejecutado en el checkout local real de Arki-02.
+- Evidencia del entorno local compartida por el PO: el comando ejecutado desde `/home/arki` no encontró variables de entorno exportadas para MO-22/storage/identity ni `DATABASE_URL` o `ARKI_STORAGE_ROOT`; sí observó el proceso `node /home/arki/ARKI/repositorios/sicl-web/dist/index.js`, el proceso de UI histórica AV-023, Docker y un proxy en `127.0.0.1:3307`. Esto describe el entorno de terminal/procesos mostrado, no prueba que las variables falten dentro del proceso Node ni en producción.
+- Próximo paso seguro en Arki-02: entrar explícitamente al checkout `/home/arki/ARKI/repositorios/sicl-web`, capturar `git status --short --branch` y verificar existencia/estado de los scripts del generador antes de ejecutar nada. No hacer reset/stash/checkout destructivo ni regenerar el mapa antes de preservar y revisar cambios locales.
+- Referencias: [auditoría de ramas](docs/arki-master-map/ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md), [catálogo de ramas](docs/arki-master-map/ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md).
+
+
+### Corrección de inventario — 2026-10-22, segundo lote
+
+La auditoría comparativa ya documenta **58 ramas de 97 candidatas distintas de `main`**; quedan **39 ramas** por comparar. Diez ramas adicionales se compararon en esta tanda: nueve están detrás de `main` sin commits exclusivos y `feat/m001-e3-gate-hardening` diverge ampliamente (436 ahead/69 behind). El conteo anterior de 48/49 pendientes queda reemplazado por este corte más reciente. No se ha fusionado, creado ni eliminado ninguna rama.
