@@ -15,7 +15,8 @@ function orchestrate({parts,discovery,phaseRules={},evidence={}}) {
       typeof ev.testReceipt==="string" && ev.testReceipt.length>0 &&
       typeof ev.source==="string" && ev.source.length>0;
     const phaseValid=PHASES.has(p.proposedPhase) && !p.reasons.includes("PHASE_CONFLICT");
-    const blocked=p.status!=="PROPOSED" || !valid || !phaseValid || p.reasons.length>0;
+    const frozen=p.reasons.includes("FROZEN_READ_ONLY");
+    const blocked=p.status!=="PROPOSED" || !valid || !phaseValid || frozen || p.reasons.length>0;
     return {id:p.id,proposedPhase:p.proposedPhase,action:blocked?"EVIDENCE_OR_AUTHORITY_REVIEW":"ISOLATED_EXPERIMENT_CANDIDATE",
       reasons:[...p.reasons,...(!valid?["UNVERIFIED_EVIDENCE"]:[])],execution:"NOT_EXECUTED",
       canonicalMutation:false,ownerGate:"REQUIRED_FOR_PROMOTION"};
