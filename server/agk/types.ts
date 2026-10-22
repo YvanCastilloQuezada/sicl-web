@@ -1,17 +1,21 @@
 export type AgkFeatureKind = "EXTRUDE_RECTANGLE";
 
+export type AgkExtrudeRectangleParameters = {
+  width_mm: number;
+  depth_mm: number;
+  height_mm: number;
+  x_mm: number;
+  y_mm: number;
+  z_mm: number;
+};
+
+export type AgkFeatureParameterName = keyof AgkExtrudeRectangleParameters;
+
 export interface AgkFeature {
   featureId: string;
   kind: AgkFeatureKind;
   producesObjectId: string;
-  parameters: {
-    width_mm: number;
-    depth_mm: number;
-    height_mm: number;
-    x_mm: number;
-    y_mm: number;
-    z_mm: number;
-  };
+  parameters: AgkExtrudeRectangleParameters;
   inputFeatureIds: readonly string[];
 }
 

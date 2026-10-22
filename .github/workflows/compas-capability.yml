@@ -1,0 +1,77 @@
+name: ARKI COMPAS Capability Canary
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - feat/agk-003-parametric-family-unification
+    paths:
+      - "server/capabilityFabric/**"
+      - "server/d2Authority.ts"
+      - "server/arkiGeometryKernel.ts"
+      - "server/arkiGeometryKernel.test.ts"
+      - "server/agk/**"
+      - "tools/arki_compas_worker.py"
+      - "tools/test_fixtures/**"
+      - "requirements-compas.txt"
+      - ".github/workflows/compas-capability.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compas-capability:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve audited SHA
+        id: audited-sha
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "sha=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout audited SHA
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.audited-sha.outputs.sha }}
+
+      - name: Verify audited SHA
+        shell: bash
+        run: |
+          echo "ARKI_AUDITED_SHA=$(git rev-parse HEAD)"
+          test "$(git rev-parse HEAD)" = "${{ steps.audited-sha.outputs.sha }}"
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-compas.txt
+
+      - name: Install Node dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install pinned COMPAS runtime
+        run: python -m pip install -r requirements-compas.txt
+
+      - name: Verify COMPAS runtime identity
+        run: python -m compas
+
+      - name: Run strict Capability Fabric canary
+        env:
+          ARKI_REQUIRE_COMPAS: "1"
+          ARKI_PYTHON_EXECUTABLE: python
+        run: pnpm vitest run server/capabilityFabric server/arkiGeometryKernel.test.ts
