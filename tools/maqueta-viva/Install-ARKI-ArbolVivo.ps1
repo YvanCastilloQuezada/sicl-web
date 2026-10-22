@@ -1,5 +1,11 @@
 # ARKI AV-UI-001 local read-only installer.
 # Run from any location: pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1
+# To preview a candidate: pwsh -File tools/maqueta-viva/Install-ARKI-ArbolVivo.ps1 -CandidateBranch feat/arbol-vivo-precedencias-seguras-20261010
+param([string]$CandidateBranch = "feat/arbol-vivo-precedencias-seguras-20261010")
+$ErrorActionPreference = "Stop"
+$Repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
+if ($CandidateBranch -notmatch "^[A-Za-z0-9][A-Za-z0-9._/-]{0,150}$" -or $CandidateBranch.Contains("..") -or $CandidateBranch.Contains("//") -or $CandidateBranch.EndsWith("/")) { throw "Invalid branch" }
+$Branch = $CandidateBranch
 $ErrorActionPreference = "Stop"
 $Repo = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $Branch = "docs/av-ui-001-preparation-20261010"
@@ -38,6 +44,16 @@ foreach($name in @("av-ui-001-readonly-prototype.html","av-ui-001-readonly-proto
 }
 $utf8 = [Text.UTF8Encoding]::new($false,$true)
 $html = [IO.File]::ReadAllText((Join-Path $Install "av-ui-001-readonly-prototype.html"),$utf8)
+if (!$html.Contains('id="selection-status"') -or !$html.Contains('id="tree"') -or !$html.Contains('id="twin-command-center"')) { throw "HTML integrity check failed: missing required structural IDs" }
+if ($Branch -eq "feat/arbol-vivo-precedencias-seguras-20261010" -and (!$html.Contains('id="arki-tab-plan"') -or !$html.Contains('id="arki-tab-tree"') -or !$html.Contains('id="arki-tab-twin"') -or !$html.Contains('id="arki-tab-brain"') -or !$html.Contains('id="arki-tab-3d"') -or !$html.Contains('id="arki-proposal-panel"'))) { throw "Candidate branch missing required five tabs or proposal panel; refusing stale installation" }
+if ($Branch -eq "feat/arbol-vivo-precedencias-seguras-20261010") {
+    foreach($required in @("arkiScientificDossierView","arkiAttachScientificReport","arkiScientificDossiers","arkiProposalMemorySnapshot","arkiImportProposalMemory")) {
+        if (!$html.Contains($required)) { throw "STALE_UI_SOURCE: $required" }
+    }
+}
+Write-Host "SOURCE_BRANCH=$Branch"
+Write-Host "SOURCE_SHA=$sha"
+Write-Host "FIVE_TABS_SOURCE=$($html.Contains('id="arki-tab-plan"'))"
 if (!$html.Contains('id="selection-status"') -or !$html.Contains("Árbol Vivo")) { throw "HTML integrity check failed" }
 # Use explicit remote-tracking main as the current documentary source, not the stale detached checkout.
 & git fetch origin "+refs/heads/main:refs/remotes/origin/main"

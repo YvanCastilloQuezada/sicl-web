@@ -4,6 +4,7 @@
  * Pure deterministic A0/A1/A2 evaluator. NO Core/AGK writes, no background scheduler,
  * no code editing, no FROZEN mutation, no canonical promotion.
  */
+const {createHash}=require("node:crypto");
 const {createHash,verify:verifySignature}=require("node:crypto");
 const SCHEMA="ARKI-ADN-MC-001";
 const MAX_OBSERVATIONS=100,MAX_CYCLES=12;
@@ -46,6 +47,7 @@ function propose(input){
  });
  return {schema:SCHEMA,observationId:obs.observationId,sourceCommit:obs.sourceCommit,observationDigest:hash(obs),deficits,proposals,generatedBy:"DETERMINISTIC_ADN_MC_REFERENCE",proposalStatus:"HYPOTHESIS_ONLY",execution:"NOT_EXECUTED",canonicalMutation:false,canonicalPromotion:"BLOCKED"};
 }
+function evaluate(proposal,receipt){
 function canonicalize(value){
  if(Array.isArray(value))return "["+value.map(canonicalize).join(",")+"]";
  if(value&&typeof value==="object"){
@@ -135,4 +137,5 @@ function compareObservations(beforeInput,afterInput){
  const improvements=comparisons.filter(x=>x.state==="IMPROVED");
  return {schema:"ARKI-ADN-COMPARISON-1",baselineDigest:hash(before),candidateDigest:hash(after),comparisons,summary:{improvements:improvements.length,regressions:regressions.length,unknown:unknown.length},recommendation:regressions.length?"REJECT_REGRESSION":unknown.length?"INSUFFICIENT_EVIDENCE":improvements.length?"INDEPENDENT_REVIEW_REQUIRED":"NO_DEMONSTRATED_IMPROVEMENT",learningVerified:false,canonicalPromotion:"BLOCKED",canonicalMutation:false};
 }
+module.exports={SCHEMA,normalize,propose,evaluate,iterate,nextObservation,compareObservations};
 module.exports={SCHEMA,normalize,propose,evaluate,iterate,nextObservation,compareObservations,receiptSigningPayload};

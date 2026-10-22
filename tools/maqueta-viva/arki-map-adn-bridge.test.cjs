@@ -7,6 +7,7 @@ const before=JSON.stringify(map),first=inspectMap(map,commit),second=inspectMap(
 assert.deepEqual(first,second);
 assert.equal(JSON.stringify(map),before);
 assert.equal(first.findings.length,10);
+assert.equal(first.findings.find(x=>x.phase==="F6").action,"NO_AUTOMATIC_CHANGE");
 assert.equal(map.roadmap.phases.find(x=>x.id==="F6").status,"RECONCILIATION_REQUIRED");
 assert.equal(map.f6_freeze_revocation?.decision,"PERMANENT_FROZEN_REVOCATION");
 assert.equal(first.findings.find(x=>x.phase==="F6").action,"RECONCILE_EVIDENCE");
@@ -24,6 +25,7 @@ const changed=structuredClone(map);changed.roadmap.phases[6].status="FROZEN";
 const next=inspectMap(changed,commit);
 assert.notEqual(next.mapDigest,first.mapDigest);
 assert.equal(next.findings.find(x=>x.phase==="F7").action,"NO_AUTOMATIC_CHANGE");
+console.log("ARKI_MAP_ADN_BRIDGE=PASS; READ_ONLY; FROZEN_PROTECTED; NO_FAKE_VERIFICATION");
 assert.equal(next.findings.find(x=>x.phase==="F6").action,"RECONCILE_EVIDENCE","F7 status change must not re-freeze F6");
 
 for(const [name,mutate] of [
