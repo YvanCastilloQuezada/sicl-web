@@ -86,6 +86,8 @@ Las comparaciones se solicitaron mediante la función de comparación de commits
 
 ## Segunda tanda de comparaciones — 2026-10-22
 
+| Rama | Estado vs main | Ahead | Behind | Archivos cambiados | Cambios | Lectura preliminar |
+|---|---:|---:|---:|---:|---:|---|
 | `feat/frontend-performance-cache-skeletons` | behind | 0 | 406 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
 | `feat/help-system` | behind | 0 | 462 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
 | `feat/i18n-core` | behind | 0 | 469 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
