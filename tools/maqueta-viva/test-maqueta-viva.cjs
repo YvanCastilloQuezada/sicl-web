@@ -21,7 +21,7 @@ const api=new Function("document","localStorage","FileReader","navigator",testSo
 let count=0;
 function check(label,condition){assert(condition,label);count++;process.stdout.write("PASS "+label+"\n");}
 const canonical=JSON.parse(state).roadmap.phases.map(p=>({id:p.id,status:p.status,evidence_status:p.evidence_status}));
-check("ten phase buttons",Array.from({length:10},(_,i)=>app.innerHTML.includes('data-phase="F'+(i+1)+'"')).every(Boolean));
+check("ten phase buttons",Array.from({length:10},(_,i)=>{const id="F"+(i+1);return app.innerHTML.includes('data-phase="'+id+'"')||app.innerHTML.includes("data-phase='"+id+"'");}).every(Boolean));
 check("initial center and right tray",app.innerHTML.includes('id="arki-workspace"')&&app.innerHTML.indexOf('id="arki-workspace"')<app.innerHTML.indexOf("Bandeja de piezas"));
 check("six orange navigation and four yellow tray controls",["structure","connections","roadmap","scenarios","parts","floating"].every(k=>app.innerHTML.includes('data-tab="'+k+'"'))&&["pending","ideas","components","frozen"].every(k=>app.innerHTML.includes('data-tray="'+k+'"')));
 check("initial draft empty",Object.keys(api.getPlacements()).length===0);
