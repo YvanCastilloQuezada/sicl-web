@@ -153,6 +153,6 @@ Este documento cataloga las cabezas de todas las ramas que la API de GitHub devo
 
 - Informe comparativo: [ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md](ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md).
 - El catálogo de 2026-10-21 es un inventario de cabezas, no una auditoría completa de commits exclusivos. No debe interpretarse como validación funcional.
-- El 2026-10-22 se consultaron 98 ramas en GitHub (incluida `main`) y se compararon 24 ramas contra `main`. La lista detallada de resultados y sus límites está en el informe enlazado.
+- El 2026-10-22 se consultaron 98 ramas en GitHub (incluida `main`) y se compararon 30 ramas contra `main`. La lista detallada de resultados y sus límites está en el informe enlazado.
 - Estado global: **PARCIAL — quedan ramas por comparar y commits exclusivos por inspeccionar**. No se ejecutaron pruebas en cada rama; no se declara verde sin CI del SHA exacto.
 - La documentación se actualizó en la rama existente `feat/arki-autonomy-memory-main-20261013`; no se creó rama nueva ni se modificó `main`.
