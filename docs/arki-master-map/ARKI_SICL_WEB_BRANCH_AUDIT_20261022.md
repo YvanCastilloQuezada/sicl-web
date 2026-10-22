@@ -2,7 +2,7 @@
 
 **Repositorio:** `YvanCastilloQuezada/sicl-web`  
 **Base comparada:** `main` (referencia remota consultada durante esta auditoría; no se ejecutaron pruebas de código en cada rama).  
-**Estado:** PARCIAL — 48 ramas con comparación documentada; inventario remoto: 98 ramas incluyendo `main` (97 candidatas distintas de `main`). Quedan 49 ramas sin comparación documentada en este corte.  
+**Estado:** PARCIAL — 58 ramas con comparación documentada; inventario remoto: 98 ramas incluyendo `main` (97 candidatas distintas de `main`). Quedan 39 ramas sin comparación documentada en este corte.  
 **Regla:** `ahead/behind` mide divergencia Git respecto a `main`; no certifica calidad, pruebas ni integración. `files` y `changes` son el resumen de la comparación que devuelve GitHub. No se ha fusionado ni eliminado ninguna rama.
 
 ## Resultados comparados
@@ -83,7 +83,21 @@ Las comparaciones se solicitaron mediante la función de comparación de commits
 | `feat/f7-f8-integral-closure` | diverged | 438 | 69 | 90 | 12751 | Mucho contenido exclusivo; revisar commits y evidencia de F7/F8, no fusionar completa. |
 | `feat/f7-f8-professional-delivery-v1` | diverged | 75 | 69 | 31 | 2731 | Dif similar a otras ramas F5–F9; verificar si comparte commits/artefactos con red-team. |
 
-El inventario remoto devuelve 98 ramas incluyendo `main`. Este informe contiene 48 filas de ramas comparadas; por tanto quedan 49 ramas distintas de `main` pendientes de comparación. El informe sigue siendo parcial.
+
+## Segunda tanda de comparaciones — 2026-10-22
+
+| `feat/frontend-performance-cache-skeletons` | behind | 0 | 406 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/help-system` | behind | 0 | 462 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/i18n-core` | behind | 0 | 469 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/i18n-full-consistency-gate` | behind | 0 | 379 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/m001-e3-gate-hardening` | diverged | 436 | 69 | 90 | 12751 | Divergencia grande; parece compartir bloque ARBOL/ejecutor/evidencia con ramas de genealogía similar; revisar commits exclusivos antes de rescatar. |
+| `feat/mv-p1-final-integration` | behind | 0 | 365 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/mv-p1-location-picker-web` | behind | 0 | 367 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/night-blue-unified-header` | behind | 0 | 400 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/project-workspace-i18n-routes` | behind | 0 | 385 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+| `feat/sims-dei-visible-identity-i18n` | behind | 0 | 377 | 0 | 0 | Sin commits exclusivos frente a main; rama atrasada. |
+
+El inventario remoto devuelve 98 ramas incluyendo `main`. Este informe contiene 58 filas de ramas comparadas; por tanto quedan 39 ramas distintas de `main` pendientes de comparación. El informe sigue siendo parcial.
 
 
 ## Código que genera documentos de continuidad — inspección estática
