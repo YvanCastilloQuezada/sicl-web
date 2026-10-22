@@ -1,0 +1,8 @@
+{
+  "schema": "ARKI-CONTINUITY-SMOKE-001",
+  "purpose": "Verify whether a GitHub-connected commit triggers handoff regeneration",
+  "expected": "ARKI_HANDOFF.md includes this commit after workflow run",
+  "canonicalMutation": false,
+  "source": "GitHub connector commit",
+  "verification": "PENDING"
+}

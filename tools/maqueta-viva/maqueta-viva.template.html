@@ -1221,6 +1221,7 @@ function runE3Checks(){
 const checks=[];
 const test=(id,fn)=>{try{const ok=Boolean(fn());checks.push({id,status:ok?"PASS":"FAIL"});}catch(e){checks.push({id,status:"FAIL",detail:String(e.message)});}};
 test("TEN_PHASES",()=>phases.length===10&&phases.every((p,i)=>p.id==="F"+(i+1)));
+test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id)).items.length>=0)));
 test("FORTY_DRAFT_MILESTONE_GATES",()=>phases.every(p=>SPINE_STAGES[p.id]?.length===4)&&phases.every(p=>[0,1,2,3].every(i=>{const gate=spineGate(p.id,i,[...ideas,...components].filter(x=>placements[x.id]===p.id));const expected=[...ideas,...components].filter(x=>placements[x.id]===p.id&&currentSpine()[x.id]===String(i));return gate&&Array.isArray(gate.items)&&gate.items.length===expected.length&&gate.items.every(item=>expected.some(x=>x.id===item.id))&&Array.isArray(gate.missingEvidence)&&Array.isArray(gate.missingTargets)&&Array.isArray(gate.crossPhase)&&Array.isArray(gate.withDeclaredReview);})));
 test("ROADMAP_MATRIX_NAVIGATION",()=>((roadmapMilestoneMatrix().match(/data-roadmap-stage="/g)||[]).length===40));
 test("SPINE_DECLARED_DEPENDENCIES_ONLY",()=>phases.every(p=>{const staged=[...ideas,...components].filter(x=>placements[x.id]===p.id);const output=spineDependencyMap(p.id,staged);const declared=staged.flatMap(x=>reviews[x.id]?.dependencies||[]).length;return output.includes("Mapa visual de dependencias")&&(declared>0||!output.includes('class="spine-map-external"'));}));
@@ -1229,6 +1230,7 @@ test("ADVISOR_READONLY_AND_TEN_PHASES",()=>{const before=JSON.stringify({placeme
 test("TWIN_ACS_SEPARATE_GATES",()=>{const panel=twinReadinessPanel();return panel.includes("1. KNOW")&&panel.includes("4. EVOLVE")&&panel.includes("DATOS Y PROCEDENCIA")&&panel.includes("NO VERIFICADO EN ESTA MAQUETA");});
 test("FROZEN_CANONICAL_READONLY",()=>phases.every(p=>p.status===state.roadmap.phases.find(x=>x.id===p.id)?.status));
 test("DRAFT_SCHEMA",()=>Object.keys(validateDraft({schema:DRAFT_SCHEMA,placements})).length===Object.keys(placements).length);
+test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&Object.keys(validateSpineAssignments(spineAssignments,placements)).length>=0&&Object.keys(validateSpineAssignments(alternativeSpineAssignments,placements)).length>=0);
 test("SCENARIOS_ISOLATED",()=>spineAssignments!==alternativeSpineAssignments&&JSON.stringify(validateSpineAssignments(spineAssignments,placements))===JSON.stringify(spineAssignments)&&JSON.stringify(validateSpineAssignments(alternativeSpineAssignments,placements))===JSON.stringify(alternativeSpineAssignments));
 test("TRACE_SCHEMA",()=>validateTraceEvents(traceEvents).length===traceEvents.length&&Object.keys(validateTraceNotes(traceNotes)).length>=0);
 test("SOURCE_HISTORY",()=>Array.isArray(sourceHistory)&&sourceHistory.every(e=>e&&typeof e.action==="string"&&typeof e.id==="string"));
@@ -1236,6 +1238,7 @@ test("BROWSER_STORAGE_ROUNDTRIP",()=>{
 const key="arki-maqueta-e3-probe";const value="E3-"+new Date().toISOString();
 localStorage.setItem(key,value);const ok=localStorage.getItem(key)===value;localStorage.removeItem(key);return ok;
 });
+test("PERSISTED_DRAFT",()=>{const raw=localStorage.getItem(DRAFT_KEY);if(!raw)return Object.keys(placements).length===0;const j=JSON.parse(raw);return JSON.stringify(j.placements)===JSON.stringify(placements)&&JSON.stringify(j.spineAssignments||{})===JSON.stringify(spineAssignments)&&JSON.stringify(j.alternativeSpineAssignments||{})===JSON.stringify(alternativeSpineAssignments);});
 test("PERSISTED_DRAFT",()=>{const raw=localStorage.getItem(DRAFT_KEY);if(!raw)return Object.keys(placements).length===0;const j=JSON.parse(raw);return JSON.stringify(j.placements)===JSON.stringify(placements)&&JSON.stringify(j.spineAssignments||{})===JSON.stringify(spineAssignments)&&JSON.stringify(j.alternativeSpineAssignments||{})===JSON.stringify(alternativeSpineAssignments)&&JSON.stringify(j.reviews||{})===JSON.stringify(reviews)&&JSON.stringify(j.workflowStages||{})===JSON.stringify(workflowStages)&&JSON.stringify(j.traceEvents||[])===JSON.stringify(traceEvents);});
 return {at:new Date().toISOString(),platform:navigator.platform||"UNKNOWN",browser:navigator.userAgent||"UNKNOWN",sourceStateDate:sourceManifest.stateDate,checks,manual:{...e3Manual},status:"AUTOMATED_LOCAL_ONLY_E3_MANUAL_PENDING"};
 }
@@ -2083,6 +2086,7 @@ content='<p class="hint">Ideas históricas y propuestas locales. Primero se mues
 const items=[...blockers.map(b=>({id:b,name:b.replace(/_/g," "),status:"BLOCKED"})),...phases.filter(p=>p.status==="RECONCILIATION_REQUIRED").map(p=>({id:p.id,name:p.name,status:"RECONCILIATION_REQUIRED"}))].filter(p=>matches(p.name+" "+p.id));
 content='<p class="hint">Bloqueos y fases por reconciliar. No son piezas inexistentes.</p><h3>'+items.length+' pendientes registrados</h3><div class="stack">'+items.map(p=>'<button class="item '+(selected===p.id?"selected-piece":"")+'" data-select="'+escapeHtml(p.id)+'"><strong>'+escapeHtml(p.name)+'</strong><small>'+escapeHtml(p.status)+'</small></button>').join("")+'</div>';
 }
+return '<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 return av020ObservationPanel()+'<h2>Bandeja de piezas</h2><div class="auto-organize-panel"><strong>Clasificación asistida por ARKI</strong><p>Fase e hito provisionales. Las dudas quedan señaladas para revisión.</p><button type="button" class="tab" data-auto-organize>Aplicar organización en borrador</button></div>'+content+'<p class="caption">Una pieza ubicada sale temporalmente de esta bandeja (borrador local). Pulsa X en la mesa para devolverla. No representa integración verificada.</p>';
 }
 function parts(){
@@ -2670,6 +2674,7 @@ const before=base.byPhase.find(p=>p.phase===idea.phase);
 if(!before)return {status:"SIN_DATOS",summary:"Fase no disponible.",metrics:[]};
 if(!idea.id.startsWith("SPINE-"))return {status:"SIN ENSAYO AISLADO",summary:"Esta propuesta aún no tiene una mutación estructural específica y verificable. No se atribuyen mejoras de escenarios globales a esta idea.",metrics:[],eligibleForAuthorization:false};
 const phase=phases.find(p=>p.id===idea.phase);
+if(!phase||phase.status==="FROZEN")return {status:"PROTEGIDO",summary:"No se ensaya modificación de una fase FROZEN.",metrics:[],eligibleForAuthorization:false};
 if(!phase)return {status:"SIN_DATOS",summary:"La fase de la propuesta no existe.",metrics:[],eligibleForAuthorization:false};
 const unlinked=[...ideas,...components].filter(x=>placements[x.id]===idea.phase&&spineAssignments[x.id]===undefined);
 if(!unlinked.length)return {status:"SIN CAMBIO NECESARIO",summary:"No hay piezas sin hito en la referencia actual.",metrics:[],eligibleForAuthorization:false};
@@ -2727,7 +2732,8 @@ const deps=topology.edges.get(row.id)||[];
 const absent=topology.missing.get(row.id)||[];
 const cyclic=topology.cycleMembers.has(row.id);
 const unresolved=deps.filter(id=>!placements[id]||!reviewGate(id).complete);
-return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
+return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":row.protected?"REVISAR FROZEN":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
+
 }
 function arkiGlobalPrecedence(rows){
 const downstream=id=>arkiDependencyImpact(id);
@@ -2778,6 +2784,7 @@ if(cycle)actions.push("Resolver ciclo de precedencias");
 if(missing.length)actions.push("Identificar referencias ausentes: "+missing.join(", "));
 if(!placements[id])actions.push("Asignar fase");
 if(!readiness.complete)actions.push("Completar ficha y evidencia verificable");
+if(frozen)actions.push("Revisar alcance FROZEN con autorización expresa");
 if(frozen)actions.push("Registrar impacto sobre alcance histórico; mantener autorización de promoción");
 if(!actions.length)actions.push("Ejecutar pruebas externas y revisión independiente");
 return {id,phase,unlocks:affected.size,dependentIds:[...affected].sort(),predecessors:deps,missing,cycle,frozen,actions,priority:cycle||missing.length?"P0":affected.size>=3?"P1":affected.size?"P2":"P3"};
@@ -2788,12 +2795,12 @@ function arkiConstructionWaves(){
 const topology=arkiDependencyTopology(),nodes=[...topology.edges.keys()];
 const pending=new Set(nodes),waves=[],blocked=[];
 for(const id of nodes){
-const phase=placements[id],frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
-const missing=topology.missing.get(id)||[];
-if(topology.cycleMembers.has(id)||missing.length){
-pending.delete(id);
-blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":"DEPENDENCIA NO REGISTRADA"});
-}
+ const phase=placements[id],frozen=phases.some(p=>p.id===phase&&p.status==="FROZEN");
+ const missing=topology.missing.get(id)||[];
+ if(topology.cycleMembers.has(id)||missing.length||frozen){
+  pending.delete(id);
+  blocked.push({id,phase:phase||"SIN ASIGNAR",reason:topology.cycleMembers.has(id)?"CICLO":missing.length?"DEPENDENCIA NO REGISTRADA":"FROZEN"});
+ }
 }
 const completed=new Set();
 while(pending.size){
@@ -2830,6 +2837,7 @@ const docket=arkiDecisionDocket(),scoped=docket.rows.filter(x=>viewScope==="ALL"
 return '<section class="arki-experiment-panel"><h3>Expedientes para decisión del propietario · F1–F10</h3>'+
 '<p class="caption">Cobertura de las diez fases, propuestas automáticas y piezas colocadas. La falta de resultados verificados impide recomendar una autorización de ejecución; ninguna decisión se toma automáticamente.</p>'+
 '<div class="evolution-metrics"><article><strong>'+scoped.length+'</strong><span>expedientes locales</span></article><article><strong>'+docket.ready+'</strong><span>aptos para decisión informada con evidencia externa</span></article><article><strong>0</strong><span>ejecuciones autorizadas desde este panel</span></article></div>'+
+'<p class="caption">P0 exige atención de precedencias; no autoriza ejecución. Colas separadas de investigación, pruebas e implementación.</p>'+ 
 '<p class="caption">P0 exige atención de precedencias; no autoriza ejecución. Colas separadas de investigación, pruebas e implementación.</p>'+
 '<div class="scope-grid">'+scoped.map(x=>'<article class="scope-phase-card"><strong>'+escapeHtml(x.precedence+" · "+x.phase+" · "+x.title)+'</strong><span>'+escapeHtml(x.type+" · "+x.status+" · Desbloquea: "+x.unlocks)+ '</span><small>'+escapeHtml("Investigar: "+x.lanes.research+" · Probar: "+x.lanes.test+" · Implementar: "+x.lanes.implementation+" · Precedentes: "+(x.lanes.predecessors.join(", ")||"ninguno registrado")+(x.lanes.cycle?" · CICLO DETECTADO":""))+'</small><small>'+escapeHtml(x.metric)+'</small><small>'+escapeHtml(x.decision)+'</small><small>'+escapeHtml(x.reason)+'</small></article>').join("")+'</div>'+
 '<p class="caption">Para aprobar o denegar con fundamento: falta incorporar simulación aislada del cambio concreto, resultados contrastados, pruebas de regresión, procedencia verificable y límites de autorización. El estado actual es diagnóstico, no autorización.</p></section>';
@@ -2897,6 +2905,7 @@ c.status="IMPACT_REVIEWED";correctiveNotice="Impacto heurístico calculado. Requ
 function authorizeCorrective(c,phrase){
 if(!c||c.status!=="IMPACT_REVIEWED")return;
 if(String(phrase||"").trim()!=="AUTORIZO"){correctiveNotice="Escribe AUTORIZO exactamente para autorizar la preparación de la orden.";render();return;}
+if(phases.find(p=>p.id===c.phase)?.status==="FROZEN"){correctiveNotice="BLOQUEADO: "+c.phase+" está FROZEN. Se requiere procedimiento de cambio de alcance y autorización independiente.";render();return;}
 if(c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==phases.find(p=>p.id===c.phase)?.status){correctiveNotice="Impacto desactualizado respecto del estado local: crea nueva evaluación antes de autorizar.";render();return;}
 c.status="AUTHORIZED";correctiveNotice="Autorización local registrada para PREPARAR ORDEN. No autoriza merge, ejecución ni promoción canónica.";persistCorrective();render();
 }
@@ -2908,6 +2917,7 @@ const a=document.createElement("a");a.href="data:application/json;charset=utf-8,
 function exportControlledScope(c,baseSha,pathsText){
 if(!c||c.status!=="AUTHORIZED"){correctiveNotice="Primero autoriza la preparación de un caso válido.";render();return;}
 const p=phases.find(x=>x.id===c.phase);
+if(!p||p.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase FROZEN o fuente distinta a la evaluación autorizada.";render();return;}
 if(!p||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==p.status){correctiveNotice="BLOQUEADO: fase inexistente o fuente distinta a la evaluación autorizada.";render();return;}
 const sha=String(baseSha||"").trim().toLowerCase();
 const paths=String(pathsText||"").split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
@@ -2923,6 +2933,7 @@ correctiveNotice="Manifest exportado. Debe incorporarse en una rama de correcci�
 function requestCorrectiveExecution(c){
 if(!c||c.status!=="AUTHORIZED")return;
 const current=phases.find(p=>p.id===c.phase);
+if(current?.status==="FROZEN"||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: la fase está FROZEN o cambió el estado fuente desde la evaluación. Se requiere nueva evaluación y autorización.";render();return;}
 if(!current||c.impact?.sourceDate!==(state.updated_at||"UNKNOWN")||c.impact?.phaseStatus!==current?.status){correctiveNotice="BLOQUEADO: fase inexistente o estado fuente modificado. Se requiere nueva evaluación y autorización.";render();return;}
 correctivePacket(c,"EXECUTION_REQUEST");
 c.status="EXTERNAL_EXECUTION_PENDING";correctiveNotice="Orden exportada para ejecutor externo. EJECUCIÓN NO CONFIRMADA; no hay conexión remota desde esta maqueta.";persistCorrective();render();

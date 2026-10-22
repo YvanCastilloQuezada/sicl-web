@@ -83,12 +83,54 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 .twin-inspector{border-left:3px solid #e7b45d;margin-top:10px;padding:9px 12px;background:#18364a;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}
 .twin-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .twin-metrics span{background:#24435a;padding:6px 9px;border-radius:6px;font-size:12px}
+
+/* Five central workspaces: single active screen; side panels remain independent. */
+.arki-central-tabs{display:flex;gap:7px;flex-wrap:wrap;position:sticky;top:-16px;z-index:12;padding:10px 0;background:#152b40;border-bottom:1px solid #44647a;margin-bottom:12px}
+.arki-central-tabs button{background:#203e54;border:1px solid #58798d;color:#edf5fa;padding:8px 11px;border-radius:8px;cursor:pointer}
+.arki-central-tabs button[aria-selected=true]{background:#335a70;border-color:#e7b45d;box-shadow:inset 0 -2px #e7b45d}
+.arki-central-tabs button:focus-visible{outline:2px solid #f2c879}
+/* AV-UI-001: distinct gradient tabs; separators mark Plan / Tree / Digital tools. */
+.arki-central-tabs{align-items:stretch;gap:8px;row-gap:10px}
+.arki-central-tabs button{min-width:0;min-height:43px;font-weight:700;line-height:1.2;white-space:normal;text-shadow:0 1px 1px #071825;background-image:linear-gradient(135deg,var(--tab-start),var(--tab-end));background-color:var(--tab-start);border:1px solid var(--tab-border);box-shadow:0 2px 7px #06162255;transition:filter .15s ease,box-shadow .15s ease}
+#arki-tab-plan{--tab-start:#176d8c;--tab-end:#2c9f9a;--tab-border:#67cfce}
+#arki-tab-tree{--tab-start:#286b43;--tab-end:#63a958;--tab-border:#9cdb83}
+#arki-tab-twin{--tab-start:#394f9e;--tab-end:#7162b8;--tab-border:#a69ee8}
+#arki-tab-brain{--tab-start:#74419c;--tab-end:#ad659f;--tab-border:#d69aca}
+#arki-tab-3d{--tab-start:#a45625;--tab-end:#c88937;--tab-border:#f1bf7e}
+.arki-central-tabs button[aria-selected=true]{background-image:linear-gradient(135deg,var(--tab-start),var(--tab-end));background-color:var(--tab-start);border:2px solid #fff4d7;box-shadow:inset 0 -3px #fff1bd,0 0 0 2px #e9d69c55,0 3px 12px #071b2b}
+.arki-central-tabs button:hover{filter:brightness(1.16)}
+.arki-central-tabs #arki-tab-tree,.arki-central-tabs #arki-tab-twin{margin-left:13px;position:relative}
+.arki-central-tabs #arki-tab-tree::before,.arki-central-tabs #arki-tab-twin::before{content:"";position:absolute;left:-12px;top:5px;bottom:5px;width:3px;border-radius:3px;background:linear-gradient(180deg,#f4bf72,#64c7da,#a58be0);pointer-events:none}
+@media(max-width:720px){.arki-central-tabs{gap:7px}.arki-central-tabs button{flex:1 1 43%;font-size:12px}.arki-central-tabs #arki-tab-tree,.arki-central-tabs #arki-tab-twin{margin-left:0}.arki-central-tabs #arki-tab-tree::before,.arki-central-tabs #arki-tab-twin::before{display:none}}
+
+.arki-central-panel[hidden]{display:none!important}
+.arki-central-panel{min-height:180px}
+#arki-plan-panel .entry{margin-bottom:8px}
+#arki-proposal-panel{border:2px solid #628da5;border-radius:10px;padding:12px;margin-bottom:16px}
+#arki-proposal-cards details{border-top:1px solid #44647a;padding:7px 0}
+#arki-proposal-cards summary{cursor:pointer;font-weight:650}
+#arki-proposal-cards form label{display:block;margin:7px 0}
+#arki-proposal-cards form input,#arki-proposal-cards form select{max-width:100%;background:#0f2638;color:#fff;border:1px solid #61849b;padding:5px;border-radius:5px}
+</style><style>
+.arki-abc-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+.arki-abc-option{min-width:0;border:1px solid #577b92;border-radius:9px;padding:9px;background:#10283b}
+.arki-abc-option p{font-size:12px;line-height:1.4;overflow-wrap:anywhere;margin:8px 0}
+.arki-abc-option small{display:block;font-size:11px;overflow-wrap:anywhere}
+.arki-compact-proposal{max-width:100%;overflow-wrap:anywhere}
+.arki-evidence-details{margin-top:10px}
+.arki-evidence-details summary{cursor:pointer;font-size:12px}
+.arki-evidence-details form{max-width:100%}
+.arki-evidence-details input,.arki-evidence-details select{max-width:100%;box-sizing:border-box}
+#memory{white-space:pre-line;overflow-wrap:anywhere}
+#twin-command-center .twin-controls:has(#twin-view-tree){display:none}
+@media(max-width:1450px){.arki-abc-comparison{grid-template-columns:1fr}}
 </style></head><body>
 <header><div><h1>ARKI · ÁRBOL Vivo <span class="tag">AV-UI-001 · READ ONLY</span></h1><small>Prototipo aislado · sin ejecución, sin autorizaciones y sin mutación canónica</small></div><div class="header-legends" aria-label="Guía del Árbol Vivo">
 <details class="header-guide"><summary>◆ Cómo leer el árbol</summary><div class="guide-content"><p><span class="key trunk">▰</span> Tronco: fases F1–F10</p><p><span class="key task">◆</span> Izquierda: espinas y actividades</p><p><span class="key capability">●</span> Derecha: capacidades e ideas</p><p><span class="key fruit">★</span> Fruto: resultado con evidencia verificada</p><small>Propuesto ≠ implementado ≠ verificado.</small></div></details>
 <details class="header-guide"><summary>■ Estados y evidencia</summary><div class="guide-content"><p><span class="key frozen">■</span> FROZEN: antecedente histórico; editable solo en escenarios experimentales</p><p><span class="key progress">■</span> IN_PROGRESS: progreso declarado</p><p><span class="key reconcile">■</span> RECONCILIATION_REQUIRED: pendiente de reconciliación</p><p><span class="key unknown">■</span> UNKNOWN: información insuficiente</p><small>Los estados son documentales, no certificaciones.</small></div></details>
 </div></header>
 <div class="shell"><aside aria-label="Memoria"><h2>Memoria y evidencia</h2><div id="memory" aria-live="polite"></div></aside>
+<main aria-label="Centro de ARKI"><nav class="arki-central-tabs" role="tablist" aria-label="Cinco espacios centrales"><button type="button" role="tab" id="arki-tab-plan" aria-controls="arki-plan-panel" aria-selected="true">Plano Vivo</button><button type="button" role="tab" id="arki-tab-tree" aria-controls="arki-tree-panel" aria-selected="false">ÁRBOL Vivo</button><button type="button" role="tab" id="arki-tab-twin" aria-controls="arki-twin-panel" aria-selected="false">Gemelo Digital</button><button type="button" role="tab" id="arki-tab-brain" aria-controls="arki-twin-panel" aria-selected="false">Cerebro relacional</button><button type="button" role="tab" id="arki-tab-3d" aria-controls="arki-twin-panel" aria-selected="false">Vista 3D</button></nav><section class="arki-central-panel" id="arki-plan-panel" role="tabpanel"><h2>Plano Vivo · Estado para cualquier conversación</h2><p class="muted">Punto de entrada documental. No implica ejecución, autorización ni aprendizaje certificado.</p><div id="arki-plan-content" aria-live="polite"></div></section><section class="arki-central-panel" id="arki-tree-panel" role="tabpanel" hidden><h2>ÁRBOL Vivo · Decisiones y ruta crítica</h2><p class="muted">Izquierda: actividades y dependencias. Derecha: capacidades propuestas. Estados documentales, no certificaciones.</p><div class="tree" id="tree"></div></section><section class="arki-central-panel" id="arki-twin-panel" role="tabpanel" hidden><section class="twin-center" id="twin-command-center" aria-label="ÁRBOL Gemelo Digital"><h3>ÁRBOL Gemelo Digital · Centro de observación</h3><p class="muted">Tres representaciones del mismo estado documental. No certifica ejecución, geometría AGK ni simulación física.</p><div class="twin-controls" role="group" aria-label="Representaciones del gemelo"><button type="button" id="twin-view-tree" aria-pressed="true">ÁRBOL Vivo</button><button type="button" id="twin-view-brain" aria-pressed="false">Cerebro relacional</button><button type="button" id="twin-view-3d" aria-pressed="false">Vista 3D</button><label for="twin-version">Versión</label><select id="twin-version"><option value="CURRENT">Actual · experimental</option></select></div><div class="twin-visual" id="twin-visual" role="region" aria-label="Visualización sincronizada"></div><div class="twin-metrics" id="twin-metrics" aria-live="polite"></div><div class="twin-controls"><button type="button" id="twin-impact-toggle" aria-pressed="false">Mostrar propagación documental</button></div><div class="twin-inspector" id="twin-inspector" aria-live="polite"></div>
 <main aria-label="Árbol de fases"><h2>Árbol de ARKI · F10 arriba, F1 abajo</h2><p class="muted">Izquierda: actividades y dependencias. Derecha: capacidades propuestas. Los estados son declaraciones documentales, no certificaciones.</p><section class="twin-center" id="twin-command-center" aria-label="ÁRBOL Gemelo Digital"><h3>ÁRBOL Gemelo Digital · Centro de observación</h3><p class="muted">Tres representaciones del mismo estado documental. No certifica ejecución, geometría AGK ni simulación física.</p><div class="twin-controls" role="group" aria-label="Representaciones del gemelo"><button type="button" id="twin-view-tree" aria-pressed="true">ÁRBOL Vivo</button><button type="button" id="twin-view-brain" aria-pressed="false">Cerebro relacional</button><button type="button" id="twin-view-3d" aria-pressed="false">Vista 3D</button><label for="twin-version">Versión</label><select id="twin-version"><option value="CURRENT">Actual · experimental</option></select></div><div class="twin-visual" id="twin-visual" role="region" aria-label="Visualización sincronizada"></div><div class="twin-metrics" id="twin-metrics" aria-live="polite"></div><div class="twin-controls"><button type="button" id="twin-impact-toggle" aria-pressed="false">Mostrar propagación documental</button></div><div class="twin-inspector" id="twin-inspector" aria-live="polite"></div>
 <div class="twin-supplement" aria-label="Observabilidad y alternativas">
 <h4>Alternativas A / B / C · análisis aislado</h4>
@@ -105,6 +147,8 @@ header{position:relative;z-index:5;gap:12px;align-items:center}
 <div id="twin-geometry-status" class="twin-inspector" aria-live="polite">Sin geometría AGK importada · vista 3D conceptual</div>
 <h4>Línea temporal causal documental</h4><div id="twin-timeline" class="twin-inspector" aria-live="polite">Sin selección histórica</div>
 <div id="twin-backup-status" class="twin-inspector" aria-live="polite">Respaldos no generados</div>
+</div></section></section><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
+<aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><section class="adaptive" id="arki-proposal-panel" aria-label="Propuestas del Árbol Vivo con tres alternativas"><strong>🌱 Propuestas del Árbol Vivo · A / B / C</strong><p class="muted">Hipótesis por pieza del inventario. No son experimentos ejecutados, conocimiento aprendido ni decisiones canónicas.</p><div id="arki-proposal-summary" aria-live="polite"></div><p><button type="button" id="arki-proposal-export">Exportar memoria experimental</button> <label for="arki-proposal-import">Importar memoria JSON</label> <input type="file" id="arki-proposal-import" accept=".json,application/json"></p><div id="arki-proposal-memory-status" aria-live="polite" class="muted">Memoria experimental en esta sesión · sin sincronización Core</div><div id="arki-proposal-cards" aria-live="polite"></div></section><section class="adaptive"><strong>Organización inteligente · propuestas</strong><div id="adaptive"></div></section><section class="adaptive" aria-label="E5 propuestas de ramas nuevas"><strong>E5 · Ramas candidatas nuevas</strong><p class="muted">Hipótesis generadas por reglas explícitas a partir de vacíos documentales. No son capacidades existentes ni evidencia de implementación.</p><button type="button" id="e5-generate">Analizar vacíos y generar propuestas</button><div id="e5-candidates" aria-live="polite"></div></section><section class="adaptive" aria-label="E6 trazabilidad de evidencias"><strong>E6 · Evidencias y decisiones experimentales</strong><p class="muted">Registra observaciones documentales sin validarlas automáticamente. Las referencias no se descargan ni verifican; toda evidencia queda UNVERIFIED.</p><p><label for="e6-branch">Rama candidata E5</label> <input id="e6-branch" type="text" placeholder="Ej. E5-GRAPH-000"></p><p><label for="e6-reference">Referencia documental</label> <input id="e6-reference" type="text" placeholder="Documento, enlace o identificador"></p><p><label for="e6-observation">Observación verificable</label> <input id="e6-observation" type="text" placeholder="Qué afirma la fuente"></p><p><label for="e6-outcome">Interpretación preliminar</label> <select id="e6-outcome"><option value="INCONCLUSIVE">Inconclusa</option><option value="SUPPORTS">Apoya la hipótesis</option><option value="CONTRADICTS">Contradice la hipótesis</option></select></p><button type="button" id="e6-record">Registrar observación</button><div id="e6-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E7 decisiones y efectos"><strong>E7 · Decisiones provisionales e impacto</strong><p class="muted">Las decisiones solo afectan al escenario alternativo. Nunca aprueban evidencia, alteran FROZEN ni ejecutan cambios canónicos.</p><p><label for="e7-branch">Rama E5 adoptada</label> <input id="e7-branch" type="text" placeholder="E5-GRAPH-000"></p><p><label for="e7-action">Decisión provisional</label> <select id="e7-action"><option value="INVESTIGATE">Investigar</option><option value="DEFER">Posponer</option><option value="REJECT_HYPOTHESIS">Descartar hipótesis</option></select></p><p><label for="e7-rationale">Justificación</label> <input id="e7-rationale" type="text" placeholder="Explica los criterios y limitaciones"></p><button type="button" id="e7-record">Registrar decisión provisional</button><div id="e7-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E8 reconciliación de decisiones"><strong>E8 · Reconciliación de decisiones</strong><p class="muted">Compara las decisiones provisionales con evidencias, dependencias y ramas actuales. Detecta cambios posteriores sin reescribir decisiones históricas ni validar automáticamente las fuentes.</p><button type="button" id="e8-reconcile">Revisar consistencia del escenario</button><div id="e8-report" aria-live="polite"></div></section><section class="adaptive" aria-label="E9 revisiones incrementales"><strong>E9 · Revisiones incrementales</strong><p class="muted">Cada revisión enlaza una decisión anterior, captura la evidencia y el impacto actuales, y conserva intacto el recibo original. Solo PROVISIONAL_ONLY.</p><p><label for="e9-parent">Decisión o revisión anterior</label> <input id="e9-parent" type="text" placeholder="DEC-0001 o REV-0001"></p><p><label for="e9-action">Nueva postura provisional</label> <select id="e9-action"><option value="INVESTIGATE">Investigar</option><option value="DEFER">Posponer</option><option value="REJECT_HYPOTHESIS">Descartar hipótesis</option></select></p><p><label for="e9-rationale">Motivo de la revisión</label> <input id="e9-rationale" type="text" placeholder="Describe el cambio y los pendientes"></p><button type="button" id="e9-create">Crear revisión vinculada</button><div id="e9-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E10 preparación y puertas de seguridad"><strong>E10 · Diagnóstico de preparación</strong><p class="muted">Control local del escenario experimental. No certifica fuentes, no acredita pruebas externas y nunca autoriza promoción a FROZEN.</p><button type="button" id="e10-evaluate">Evaluar puertas E10</button><button type="button" id="e10-export">Exportar informe JSON E10</button><div id="e10-report" aria-live="polite"></div></section><section class="adaptive" aria-label="Gemelo digital experimental de ARKI"><strong>Gemelo Digital del Árbol · simulación estructural</strong><p class="muted">Escenario documental local. No simula todavía física, energía, geometría ni edificios reales.</p><label for="twin-kind">Tipo de cambio</label> <select id="twin-kind"><option value="IDEA">Idea</option><option value="DEPENDENCY">Dependencia</option><option value="EVIDENCE">Evidencia</option><option value="PLACEMENT">Ubicación</option></select><p><label for="twin-id">Identificador</label> <input id="twin-id" type="text" placeholder="Ej. I-21" value="I-21"></p><p><label for="twin-new-phase">Proponer fase adicional</label> <input id="twin-new-phase" type="text" placeholder="Ej. F11" value="F11"></p><p><label for="twin-phase-name">Nombre y finalidad</label> <input id="twin-phase-name" type="text" placeholder="Ej. Gestión territorial multiescala"></p><button type="button" id="twin-propose-phase">Evaluar nueva fase</button> <p><label for="twin-phase-dependencies">Predecesoras de la fase (ej. F4,F10)</label> <input id="twin-phase-dependencies" type="text" placeholder="F4,F10"></p><button type="button" id="twin-set-dependencies">Guardar dependencias</button> <button type="button" id="twin-add-phase">Añadir al escenario</button> <button type="button" id="twin-export-phases">Exportar fases JSON</button> <button type="button" id="twin-export-workspace">Guardar gemelo completo</button> <button type="button" id="twin-save-browser">Guardar en este navegador</button> <button type="button" id="twin-load-browser">Recuperar de este navegador</button><p><label for="twin-import-workspace">Abrir gemelo completo</label> <input id="twin-import-workspace" type="file" accept=".json,application/json"></p><p><label for="twin-import-phases">Importar fases del escenario</label> <input id="twin-import-phases" type="file" accept=".json,application/json"></p> <button type="button" id="twin-run">Simular impacto</button> <button type="button" id="twin-snapshot">Registrar escenario</button><div id="twin-result" aria-live="polite"></div><div id="twin-phase-list" aria-live="polite"></div></section><section class="adaptive" aria-label="Historial alternativo"><strong>Historial alternativo · local</strong><p class="muted">Las versiones permanecen en memoria hasta guardar el JSON o pulsar «Guardar en este navegador». No hay sincronización automática ni envío a servidores.</p><button type="button" id="history-snapshot">Registrar versión</button> <button type="button" id="history-export">Guardar JSON</button><p><label for="history-import">Abrir historial JSON</label> <input id="history-import" type="file" accept=".json,application/json"></p><p><label for="history-from">Desde</label> <select id="history-from"></select> <label for="history-to">Hasta</label> <select id="history-to"></select> <button type="button" id="history-compare">Comparar</button> <button type="button" id="history-restore-phases">Restaurar fases alternativas</button></p><div id="history-result" aria-live="polite"></div></section><div id="decisions" aria-live="polite"></div></aside></div>
 </div></section><div class="tree" id="tree"></div><p id="selection-status" class="muted" aria-live="polite">Fase seleccionada: F1</p></main>
 <aside aria-label="Decisiones"><h2>Propuestas y decisiones</h2><section class="adaptive"><strong>Organización inteligente · propuestas</strong><div id="adaptive"></div></section><section class="adaptive" aria-label="E5 propuestas de ramas nuevas"><strong>E5 · Ramas candidatas nuevas</strong><p class="muted">Hipótesis generadas por reglas explícitas a partir de vacíos documentales. No son capacidades existentes ni evidencia de implementación.</p><button type="button" id="e5-generate">Analizar vacíos y generar propuestas</button><div id="e5-candidates" aria-live="polite"></div></section><section class="adaptive" aria-label="E6 trazabilidad de evidencias"><strong>E6 · Evidencias y decisiones experimentales</strong><p class="muted">Registra observaciones documentales sin validarlas automáticamente. Las referencias no se descargan ni verifican; toda evidencia queda UNVERIFIED.</p><p><label for="e6-branch">Rama candidata E5</label> <input id="e6-branch" type="text" placeholder="Ej. E5-GRAPH-000"></p><p><label for="e6-reference">Referencia documental</label> <input id="e6-reference" type="text" placeholder="Documento, enlace o identificador"></p><p><label for="e6-observation">Observación verificable</label> <input id="e6-observation" type="text" placeholder="Qué afirma la fuente"></p><p><label for="e6-outcome">Interpretación preliminar</label> <select id="e6-outcome"><option value="INCONCLUSIVE">Inconclusa</option><option value="SUPPORTS">Apoya la hipótesis</option><option value="CONTRADICTS">Contradice la hipótesis</option></select></p><button type="button" id="e6-record">Registrar observación</button><div id="e6-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E7 decisiones y efectos"><strong>E7 · Decisiones provisionales e impacto</strong><p class="muted">Las decisiones solo afectan al escenario alternativo. Nunca aprueban evidencia, alteran FROZEN ni ejecutan cambios canónicos.</p><p><label for="e7-branch">Rama E5 adoptada</label> <input id="e7-branch" type="text" placeholder="E5-GRAPH-000"></p><p><label for="e7-action">Decisión provisional</label> <select id="e7-action"><option value="INVESTIGATE">Investigar</option><option value="DEFER">Posponer</option><option value="REJECT_HYPOTHESIS">Descartar hipótesis</option></select></p><p><label for="e7-rationale">Justificación</label> <input id="e7-rationale" type="text" placeholder="Explica los criterios y limitaciones"></p><button type="button" id="e7-record">Registrar decisión provisional</button><div id="e7-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E8 reconciliación de decisiones"><strong>E8 · Reconciliación de decisiones</strong><p class="muted">Compara las decisiones provisionales con evidencias, dependencias y ramas actuales. Detecta cambios posteriores sin reescribir decisiones históricas ni validar automáticamente las fuentes.</p><button type="button" id="e8-reconcile">Revisar consistencia del escenario</button><div id="e8-report" aria-live="polite"></div></section><section class="adaptive" aria-label="E9 revisiones incrementales"><strong>E9 · Revisiones incrementales</strong><p class="muted">Cada revisión enlaza una decisión anterior, captura la evidencia y el impacto actuales, y conserva intacto el recibo original. Solo PROVISIONAL_ONLY.</p><p><label for="e9-parent">Decisión o revisión anterior</label> <input id="e9-parent" type="text" placeholder="DEC-0001 o REV-0001"></p><p><label for="e9-action">Nueva postura provisional</label> <select id="e9-action"><option value="INVESTIGATE">Investigar</option><option value="DEFER">Posponer</option><option value="REJECT_HYPOTHESIS">Descartar hipótesis</option></select></p><p><label for="e9-rationale">Motivo de la revisión</label> <input id="e9-rationale" type="text" placeholder="Describe el cambio y los pendientes"></p><button type="button" id="e9-create">Crear revisión vinculada</button><div id="e9-ledger" aria-live="polite"></div></section><section class="adaptive" aria-label="E10 preparación y puertas de seguridad"><strong>E10 · Diagnóstico de preparación</strong><p class="muted">Control local del escenario experimental. No certifica fuentes, no acredita pruebas externas y nunca autoriza promoción a FROZEN.</p><button type="button" id="e10-evaluate">Evaluar puertas E10</button><button type="button" id="e10-export">Exportar informe JSON E10</button><div id="e10-report" aria-live="polite"></div></section><section class="adaptive" aria-label="Gemelo digital experimental de ARKI"><strong>Gemelo Digital del Árbol · simulación estructural</strong><p class="muted">Escenario documental local. No simula todavía física, energía, geometría ni edificios reales.</p><label for="twin-kind">Tipo de cambio</label> <select id="twin-kind"><option value="IDEA">Idea</option><option value="DEPENDENCY">Dependencia</option><option value="EVIDENCE">Evidencia</option><option value="PLACEMENT">Ubicación</option></select><p><label for="twin-id">Identificador</label> <input id="twin-id" type="text" placeholder="Ej. I-21" value="I-21"></p><p><label for="twin-new-phase">Proponer fase adicional</label> <input id="twin-new-phase" type="text" placeholder="Ej. F11" value="F11"></p><p><label for="twin-phase-name">Nombre y finalidad</label> <input id="twin-phase-name" type="text" placeholder="Ej. Gestión territorial multiescala"></p><button type="button" id="twin-propose-phase">Evaluar nueva fase</button> <p><label for="twin-phase-dependencies">Predecesoras de la fase (ej. F4,F10)</label> <input id="twin-phase-dependencies" type="text" placeholder="F4,F10"></p><button type="button" id="twin-set-dependencies">Guardar dependencias</button> <button type="button" id="twin-add-phase">Añadir al escenario</button> <button type="button" id="twin-export-phases">Exportar fases JSON</button> <button type="button" id="twin-export-workspace">Guardar gemelo completo</button> <button type="button" id="twin-save-browser">Guardar en este navegador</button> <button type="button" id="twin-load-browser">Recuperar de este navegador</button><p><label for="twin-import-workspace">Abrir gemelo completo</label> <input id="twin-import-workspace" type="file" accept=".json,application/json"></p><p><label for="twin-import-phases">Importar fases del escenario</label> <input id="twin-import-phases" type="file" accept=".json,application/json"></p> <button type="button" id="twin-run">Simular impacto</button> <button type="button" id="twin-snapshot">Registrar escenario</button><div id="twin-result" aria-live="polite"></div><div id="twin-phase-list" aria-live="polite"></div></section><section class="adaptive" aria-label="Historial alternativo"><strong>Historial alternativo · local</strong><p class="muted">Las versiones permanecen en memoria hasta guardar el JSON o pulsar «Guardar en este navegador». No hay sincronización automática ni envío a servidores.</p><button type="button" id="history-snapshot">Registrar versión</button> <button type="button" id="history-export">Guardar JSON</button><p><label for="history-import">Abrir historial JSON</label> <input id="history-import" type="file" accept=".json,application/json"></p><p><label for="history-from">Desde</label> <select id="history-from"></select> <label for="history-to">Hasta</label> <select id="history-to"></select> <button type="button" id="history-compare">Comparar</button> <button type="button" id="history-restore-phases">Restaurar fases alternativas</button></p><div id="history-result" aria-live="polite"></div></section><div id="decisions" aria-live="polite"></div></aside></div>
 <footer id="foot">SIN FUENTE: carga el archivo docs/arki-master-map/ARKI_MASTER_MAP_STATE.json de tu copia local. Ninguna información se envía a servidores.</footer>
@@ -885,6 +929,425 @@ if(el("twin-check-fingerprint"))el("twin-check-fingerprint").addEventListener("c
 if(el("twin-geometry-file"))el("twin-geometry-file").addEventListener("change",()=>twinReadFile(el("twin-geometry-file"),async raw=>importTwinAgkMesh(raw),el("twin-geometry-status")));
 
 if(el("twin-visual")){el("twin-visual").addEventListener("click",event=>{const target=event.target.closest?.("[data-twin-id]");if(target){selected=target.getAttribute("data-twin-id");selectedBranch=null;selectedLeaf=null;show()}});el("twin-visual").addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){const target=event.target.closest?.("[data-twin-id]");if(target){event.preventDefault();selected=target.getAttribute("data-twin-id");selectedBranch=null;selectedLeaf=null;show()}}})}
+
+let arkiCentralMode="plan";
+function arkiShowCentral(mode){
+ if(!["plan","tree","twin","brain","3d"].includes(mode))return;
+ arkiCentralMode=mode;
+ for(const key of ["plan","tree","twin","brain","3d"]){const tab=el("arki-tab-"+key);if(tab){tab.setAttribute("aria-selected",String(key===mode));tab.tabIndex=key===mode?0:-1}}
+ for(const key of ["plan","tree","twin"]){const panel=el("arki-"+key+"-panel");if(panel)panel.hidden=!(key===mode||(key==="twin"&&["brain","3d"].includes(mode)))}
+ if(["twin","brain","3d"].includes(mode)){
+  const view=mode==="brain"?"brain":mode==="3d"?"3d":"tree";
+  const button=el("twin-view-"+view);if(button&&typeof button.click==="function")button.click();
+ }
+ if(mode==="plan")arkiRenderPlan();
+}
+function arkiTaskDiagnostic(){
+ const tasks=(registry?.ideas||[]).filter(x=>x&&/^I-[0-9]+$/.test(x.id)&&x.sourceStatus!=="RESEARCH_ONLY_OUT_OF_SCOPE");
+ return {schema:"ARKI-TASK-DIAGNOSTIC-001",tasks:tasks.map(x=>({id:x.id,title:x.title,targetPhase:x.targetPhase,status:x.sourceStatus==="FROZEN"||x.placement==="FROZEN"?"FROZEN_NO_MUTATION":"DEPENDENCIES_UNKNOWN"})),criticalPath:"UNKNOWN",execution:"BLOCKED",canonicalMutation:false};
+}
+function arkiRenderTaskDiagnostic(root){
+ const report=arkiTaskDiagnostic();
+ const section=node("details","","entry");section.open=true;
+ section.append(node("summary","Diagnostico de tareas · "+report.tasks.length+" ideas"));
+ section.append(node("p","Sin grafo de dependencias verificado: ARKI no asigna prioridades ni ruta critica."));
+ for(const task of report.tasks.filter(x=>x.targetPhase===selected))section.append(node("p",task.id+" · "+task.title+" · "+task.status));
+ section.append(node("small","Solo consulta · ejecucion BLOQUEADA · sin cambios canonicos."));
+ root.append(section);
+}
+function arkiStrategicContinuity(){
+ return {schema:"ARKI-CONTINUITY-SNAPSHOT-001",project:"ARKI/ARQUI",vision:"Arquitecto inteligente multiescala, 3D-First, AGK unificado y aprendizaje con evidencia",auditIndex:"tools/maqueta-viva/ARKI_AUDIT_INDEX.json",strategicMemory:"tools/maqueta-viva/ARKI-STRATEGIC-AUDIT-MEMORY.md",phase:selected,phaseTitle:labels[selected]||selected,ideas:(registry?.ideas||[]).map(x=>({id:x.id,title:x.title,phase:x.targetPhase,sourceStatus:x.sourceStatus})),auditVerification:"HISTORICAL_NOT_REVALIDATED",dependencies:"UNKNOWN",nextTask:"Reconciliar auditorias y dependencias documentales; integrar planificador consultivo",execution:"BLOCKED",promotion:"BLOCKED",canonicalMutation:false};
+}
+function arkiRenderContinuity(root){
+ const section=node("details","","entry");
+ section.append(node("summary","Contexto y auditorias para nuevo chat"));
+ section.append(node("p","Vision: ARKI/ARQUI es un arquitecto inteligente multiescala, 3D-First, con AGK unificado y aprendizaje respaldado por evidencia."));
+ section.append(node("p","Auditorias historicas: E2E-001, AGK G-200, Core/semantica y Spatial Layout. Sus conclusiones deben revalidarse con SHA y fuentes."));
+ section.append(node("p","Siguiente paso propuesto: reconciliar auditorias y dependencias antes de atribuir ruta critica o autonomia."));
+ const button=document.createElement("button");button.type="button";button.textContent="Descargar contexto para nuevo chat (JSON)";
+ button.addEventListener("click",()=>{
+  const payload=JSON.stringify(arkiStrategicContinuity(),null,2);
+  const blob=new Blob([payload],{type:"application/json;charset=utf-8"});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");link.href=url;link.download="ARKI-CONTINUIDAD-EXPERIMENTAL.json";link.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+ });
+ section.append(button);
+ section.append(node("small","Resumen orientativo local; no contiene textos completos de auditorias ni verifica el repositorio."));
+ root.append(section);
+}
+function arkiRenderPlan(){
+ const root=el("arki-plan-content");if(!root)return;
+ root.replaceChildren();
+ const phases=phaseData(),items=(registry?.ideas||[]).filter(x=>x.sourceStatus!=="RESEARCH_ONLY_OUT_OF_SCOPE");
+ root.append(node("p","Fuente: estado documental local · "+phases.length+" fases · "+items.length+" ideas · sin certificación de ejecución."));
+ root.append(node("p","Selección actual: "+selected+" · "+(labels[selected]||selected)+" · decisiones y alternativas en el panel derecho."));
+ const status=node("div","","entry");status.append(node("strong","Estado y límites"),node("p","Dependencias no verificadas: UNKNOWN · Experimentos: NOT_EXECUTED · Promoción canónica: BLOCKED"));root.append(status);
+ const proposals=arkiProposalCandidates(selected);root.append(node("p","Propuestas en "+selected+": "+proposals.length+" · tres alternativas A/B/C por idea; hipótesis, no resultados."));
+ arkiRenderTaskDiagnostic(root);
+ arkiRenderContinuity(root);
+ const button=document.createElement("button");button.type="button";button.textContent="Abrir ÁRBOL Vivo para decidir";button.addEventListener("click",()=>arkiShowCentral("tree"));root.append(button);
+}
+for(const key of ["plan","tree","twin","brain","3d"]){const tab=el("arki-tab-"+key);if(tab)tab.addEventListener("click",()=>arkiShowCentral(key))}
+function arkiProposalCandidates(phase=selected){
+ const ideas=(registry?.ideas||[]).filter(x=>x.targetPhase===phase&&x.sourceStatus!=="RESEARCH_ONLY_OUT_OF_SCOPE");
+ const rules=[
+  {domain:"KNOWLEDGE",re:/conocimiento|recuperaci[oó]n|ingesti[oó]n|ocr|book|tutor|transferencia|delta/i,baseline:"Proveniencia, derechos, curaduría y cobertura",actions:["Rastrear Universidad y Delta 6.2 existentes; reconciliar corpus y exámenes con SHA.","Ensayar corpus alternativos en sandbox y medir recuperación, contradicciones y transferencia.","Conservar currículo; resolver fuentes y solicitar revisión del Curador y Examinador."]},
+  {domain:"GEOMETRY",re:/geometr[ií]a|topolog[ií]a|parti|bim|cad|mep|estructura|glb|gltf/i,baseline:"D-2/AGK, geometría y restricciones",actions:["Reutilizar productores y consumidores D-2/AGK existentes; verificar sink canónico único.","Comparar escenarios geométricos aislados con AGK real y métricas de robustez, si se autoriza.","Conservar geometría verificada; bloquear mutaciones con topología o procedencia desconocida."]},
+  {domain:"TERRITORY",re:/territorial|gis|terreno|dtm|dsm|clima|cfd|normativa|jurisdicci[oó]n|sitio|obra|campo|operaci[oó]n|gps|webxr/i,baseline:"Escala, jurisdicción, vigencia y fuente",actions:["Reutilizar adaptadores espaciales existentes con evidencia por escala.","Comparar escenarios multiescala aislados con restricciones locales y datos verificables.","Mantener clasificación por jurisdicción hasta resolver fuentes, permisos y vigencia."]},
+  {domain:"GOVERNANCE",re:/registro|bit[aá]cora|hoja de ruta|rfc|gobernanza|identidad|versiones|core|e2e|replay|sem[aá]ntica/i,baseline:"Identidad, SHA, autoridad y dependencias",actions:["Reconciliar contratos, código y pruebas con identidad única; evitar duplicados.","Ensayar grafo alternativo de precedencias con ciclos y propagación adversarial.","Conservar baseline hasta demostrar equivalencia y no regresión."]},
+  {domain:"GENERAL",re:/.*/,baseline:"Objetivo, entradas, salidas y evidencia",actions:["Localizar implementación equivalente y reutilizarla.","Diseñar experimento falsable y escenarios propios del objetivo.","Conservar pieza en revisión y resolver desconocidos."]}
+ ];
+ return ideas.map(x=>{
+  const rule=rules.find(r=>r.re.test(x.title));
+  const status=String(x.sourceStatus||"UNKNOWN"),evidence=String(x.verification||"UNKNOWN");
+  const objective=String(x.purpose||x.title).slice(0,300);
+  const prefix="Para "+x.id+" ("+objective+"): ";
+  return {id:x.id,title:x.title,phase,status,evidence,domain:rule.domain,baseline:rule.baseline,
+   sourceRef:String(x.origin||"UNKNOWN"),sourceCut:String(x.sourceCut||"UNKNOWN"),
+   priorityBasis:"NO_VERIFIED_DEPENDENCY_RANK",experiment:"NOT_EXECUTED",learning:"NOT_VERIFIED",promotion:"BLOCKED",canonicalMutation:false,
+   alternatives:rule.actions.map((action,i)=>({id:["A","B","C"][i],name:["Reutilizar","Experimentar","Conservar"][i],action:prefix+action,
+    risk:["Equivalencia sin demostrar","Sin resultados medidos","Demora en resolver incertidumbre"][i],
+    gate:["SHA y regresión","Autorización, baseline y recibos","Revisión humana y UNKNOWN resueltos"][i]}))};
+ });
+}
+// Experimental local learning: proposals remain advisory; receipts are never self-certified.
+const arkiProposalObservations=[];
+const arkiOriginalHypotheses=[];
+function arkiRegisterOriginalHypothesis(record){
+ if(!record||typeof record!=="object"||typeof record.proposalId!=="string"||typeof record.alternativeId!=="string"||!["A","B","C"].includes(record.alternativeId))return {status:"INVALID_HYPOTHESIS",canonicalMutation:false};
+ if(!(registry?.ideas||[]).some(x=>x.id===record.proposalId&&arkiProposalCandidates(x.targetPhase).some(p=>p.id===record.proposalId)))return {status:"UNKNOWN_PROPOSAL",canonicalMutation:false};
+ const statement=String(record.statement||"").trim(),author=String(record.author||"").trim(),method=String(record.method||"").trim();
+ if(statement.length<12||statement.length>1200||author.length<2||author.length>120||method.length<8||method.length>1200||arkiOriginalHypotheses.length>=200)return {status:"INVALID_HYPOTHESIS",canonicalMutation:false};
+ const id="H-LOCAL-"+String(arkiOriginalHypotheses.length+1).padStart(3,"0");
+ const item={id,proposalId:record.proposalId,alternativeId:record.alternativeId,statement,author,method,createdAt:new Date().toISOString(),origin:"ORIGINAL_LOCAL",status:"HYPOTHESIS_UNTESTED",externalReferenceRequired:false,canonicalMutation:false};
+ arkiOriginalHypotheses.push(item);
+ return {status:"HYPOTHESIS_REGISTERED_UNTESTED",id,canonicalMutation:false};
+}
+function arkiOriginalHypothesisForm(proposal,alternative){
+ const details=node("details","","arki-evidence-details");
+ details.append(node("summary","Registrar idea original sin bibliografia"));
+ const form=document.createElement("form");form.className="entry";
+ const fields={};
+ for(const [key,label] of [["statement","Hipotesis falsable"],["author","Autor u origen"],["method","Como se pondra a prueba"]]){
+  const wrapper=document.createElement("label");wrapper.textContent=label+" ";
+  const input=document.createElement("textarea");input.required=true;input.maxLength=key==="author"?120:1200;
+  wrapper.append(input);form.append(wrapper);fields[key]=input;
+ }
+ const button=document.createElement("button");button.type="submit";button.textContent="Guardar hipotesis local";form.append(button);
+ const status=node("small","Registro original sin validacion ni promocion.");form.append(status);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const result=arkiRegisterOriginalHypothesis({proposalId:proposal.id,alternativeId:alternative.id,statement:fields.statement.value,author:fields.author.value,method:fields.method.value});
+  status.textContent=result.status+(result.id?" · "+result.id:"")+" · SIN PROMOCION";
+  const memory=el("arki-proposal-memory-status");if(memory)memory.textContent=result.status+" · exporta JSON para conservar";
+ });
+ details.append(form);return details;
+}
+const arkiScientificExperiments=[];
+function arkiRegisterExperiment(record){
+ if(!record||typeof record!=="object")return {status:"INVALID_EXPERIMENT",canonicalMutation:false};
+ const hypothesis=arkiOriginalHypotheses.find(x=>x.id===record.hypothesisId);
+ if(!hypothesis)return {status:"UNKNOWN_HYPOTHESIS",canonicalMutation:false};
+ const protocol=String(record.protocol||"").trim(),metric=String(record.metric||"").trim(),acceptance=String(record.acceptance||"").trim(),limitations=String(record.limitations||"").trim();
+ if(protocol.length<12||protocol.length>2000||metric.length<3||metric.length>160||acceptance.length<8||acceptance.length>800||limitations.length<3||limitations.length>800||arkiScientificExperiments.length>=200)return {status:"INVALID_EXPERIMENT",canonicalMutation:false};
+ const id="EXP-LOCAL-"+String(arkiScientificExperiments.length+1).padStart(3,"0");
+ arkiScientificExperiments.push({id,hypothesisId:hypothesis.id,proposalId:hypothesis.proposalId,alternativeId:hypothesis.alternativeId,protocol,metric,acceptance,limitations,createdAt:new Date().toISOString(),status:"PROTOCOL_DRAFT_UNEXECUTED",canonicalMutation:false});
+ return {status:"EXPERIMENT_PROTOCOL_REGISTERED_UNEXECUTED",id,canonicalMutation:false};
+}
+const arkiExperimentalResults=[];
+function arkiRecordExperimentalResult(record){
+ if(!record||typeof record!=="object")return {status:"INVALID_RESULT",canonicalMutation:false};
+ const experiment=arkiScientificExperiments.find(x=>x.id===record.experimentId);
+ if(!experiment)return {status:"UNKNOWN_EXPERIMENT",canonicalMutation:false};
+ const runId=String(record.runId||"").trim(),operator=String(record.operator||"").trim(),artifact=String(record.artifact||"").trim(),notes=String(record.notes||"").trim();
+ if(!["PASS","FAIL","INCONCLUSIVE"].includes(record.outcome)||runId.length<3||runId.length>120||operator.length<2||operator.length>120||artifact.length<3||artifact.length>600||notes.length<8||notes.length>1200||!Number.isFinite(record.value)||arkiExperimentalResults.length>=300||arkiExperimentalResults.some(x=>x.experimentId===experiment.id&&x.runId===runId))return {status:"INVALID_RESULT",canonicalMutation:false};
+ const item={id:"RES-LOCAL-"+String(arkiExperimentalResults.length+1).padStart(3,"0"),experimentId:experiment.id,hypothesisId:experiment.hypothesisId,proposalId:experiment.proposalId,alternativeId:experiment.alternativeId,runId,operator,artifact,notes,value:record.value,outcome:record.outcome,recordedAt:new Date().toISOString(),verification:"SELF_REPORTED_UNVERIFIED",status:"RESULT_DECLARED_NOT_VERIFIED",canonicalMutation:false};
+ arkiExperimentalResults.push(item);
+ return {status:"EXPERIMENT_RESULT_RECORDED_UNVERIFIED",id:item.id,canonicalMutation:false};
+}
+function arkiExperimentalResultForm(proposal,alternative){
+ const details=node("details","","arki-evidence-details");details.append(node("summary","Registrar resultado de experimento"));
+ const form=document.createElement("form");form.className="entry";const fields={};
+ for(const [key,label] of [["experimentId","ID del protocolo (EXP-LOCAL-...)"],["runId","ID de ejecucion"],["operator","Operador"],["artifact","Ruta o identificador del artefacto"],["notes","Observaciones y condiciones"],["value","Valor medido"]]){
+  const wrap=document.createElement("label");wrap.textContent=label+" ";
+  const input=document.createElement("input");input.required=true;input.maxLength=key==="notes"?1200:600;input.type=key==="value"?"number":"text";
+  wrap.append(input);form.append(wrap);fields[key]=input;
+ }
+ const outcome=document.createElement("select");
+ for(const choice of ["INCONCLUSIVE","PASS","FAIL"]){const option=document.createElement("option");option.value=choice;option.textContent=choice;outcome.append(option)}
+ form.append(node("label","Resultado declarado"),outcome);
+ const button=document.createElement("button");button.type="submit";button.textContent="Guardar resultado sin verificar";form.append(button);
+ const status=node("small","Declaracion local; no certifica ejecucion ni evidencia.");form.append(status);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const experiment=arkiScientificExperiments.find(x=>x.id===fields.experimentId.value.trim());
+  if(!experiment||experiment.proposalId!==proposal.id||experiment.alternativeId!==alternative.id){status.textContent="EXPERIMENT_MISMATCH";return}
+  const result=arkiRecordExperimentalResult({experimentId:experiment.id,runId:fields.runId.value,operator:fields.operator.value,artifact:fields.artifact.value,notes:fields.notes.value,value:Number(fields.value.value),outcome:outcome.value});
+  status.textContent=result.status+(result.id?" · "+result.id:"")+" · SIN PROMOCION";
+ });
+ details.append(form);return details;
+}
+const arkiEvidenceReviews=[];
+function arkiReviewEvidence(record){
+ if(!record||typeof record!=="object")return {status:"INVALID_REVIEW",canonicalMutation:false};
+ const result=arkiExperimentalResults.find(x=>x.id===record.resultId);
+ if(!result)return {status:"UNKNOWN_RESULT",canonicalMutation:false};
+ const reviewer=String(record.reviewer||"").trim(),method=String(record.method||"").trim(),reason=String(record.reason||"").trim(),artifactDigest=String(record.artifactDigest||"").trim();
+ if(reviewer.length<2||reviewer.length>120||method.length<12||method.length>1000||reason.length<8||reason.length>1000||!/^[a-f0-9]{64}$/.test(artifactDigest)||!["CONSISTENT","CONTRADICTED","INDETERMINATE"].includes(record.finding)||arkiEvidenceReviews.length>=300||arkiEvidenceReviews.some(x=>x.resultId===result.id))return {status:"INVALID_REVIEW",canonicalMutation:false};
+ const item={id:"REVIEW-LOCAL-"+String(arkiEvidenceReviews.length+1).padStart(3,"0"),resultId:result.id,experimentId:result.experimentId,reviewer,method,reason,artifactDigest,artifact:result.artifact,finding:record.finding,reviewedAt:new Date().toISOString(),verification:"REVIEW_SELF_REPORTED_UNVERIFIED",canonicalMutation:false};
+ arkiEvidenceReviews.push(item);
+ return {status:"EVIDENCE_REVIEW_DECLARED_UNVERIFIED",id:item.id,canonicalMutation:false};
+}
+function arkiEvidenceReviewForm(proposal,alternative){
+ const details=node("details","","arki-evidence-details");details.append(node("summary","Registrar revision independiente (declarada)"));
+ const form=document.createElement("form");form.className="entry";const fields={};
+ for(const [key,label] of [["resultId","ID del resultado (RES-LOCAL-...)"],["reviewer","Revisor"],["method","Metodo de revision"],["artifactDigest","SHA-256 del artefacto"],["reason","Hallazgos y limites"]]){
+  const wrap=document.createElement("label");wrap.textContent=label+" ";
+  const input=document.createElement("input");input.required=true;input.type="text";input.maxLength=key==="artifactDigest"?64:1000;wrap.append(input);form.append(wrap);fields[key]=input;
+ }
+ const finding=document.createElement("select");
+ for(const choice of ["INDETERMINATE","CONSISTENT","CONTRADICTED"]){const opt=document.createElement("option");opt.value=choice;opt.textContent=choice;finding.append(opt)}
+ form.append(node("label","Dictamen declarado"),finding);
+ const button=document.createElement("button");button.type="submit";button.textContent="Registrar revision local";form.append(button);
+ const status=node("small","SHA-256 declarado; el navegador no comprueba el archivo.");form.append(status);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const result=arkiExperimentalResults.find(x=>x.id===fields.resultId.value.trim());
+  if(!result||result.proposalId!==proposal.id||result.alternativeId!==alternative.id){status.textContent="RESULT_MISMATCH";return}
+  const review=arkiReviewEvidence({resultId:result.id,reviewer:fields.reviewer.value,method:fields.method.value,artifactDigest:fields.artifactDigest.value,reason:fields.reason.value,finding:finding.value});
+  status.textContent=review.status+" · NO VERIFICADO";
+ });
+ details.append(form);return details;
+}
+const arkiScientificDossiers=[];
+function arkiAttachScientificReport(input){
+ if(!input||typeof input!=="object"||!["ARKI-ARTIFACT-VERIFICATION-001","ARKI-REPRODUCIBILITY-001"].includes(input.report?.schema))return {status:"INVALID_REPORT",canonicalMutation:false};
+ const result=arkiExperimentalResults.find(x=>x.id===input.resultId);
+ if(!result)return {status:"UNKNOWN_RESULT",canonicalMutation:false};
+ const report=input.report;
+ if(report.canonicalMutation!==false||report.knowledgeValidated!==false||report.promotion!=="BLOCKED")return {status:"UNSAFE_REPORT_CLAIM",canonicalMutation:false};
+ if(arkiScientificDossiers.length>=300||arkiScientificDossiers.some(x=>x.resultId===result.id&&x.schema===report.schema))return {status:"DUPLICATE_OR_LIMIT",canonicalMutation:false};
+ if(report.schema==="ARKI-ARTIFACT-VERIFICATION-001"){
+  if(!["FILE_INTEGRITY_CONFIRMED_NOT_EXECUTION_VERIFIED","INTEGRITY_OR_BINDING_FAILED","REJECTED"].includes(report.status))return {status:"INVALID_REPORT_STATUS",canonicalMutation:false};
+ }else{
+  if(!["REJECTED","INTEGRITY_FAILED","DUPLICATE_RUN","PROTOCOL_MISMATCH","INDEPENDENCE_NOT_ESTABLISHED","CONTRADICTORY_MEASUREMENTS","REPEATABILITY_CANDIDATE_UNVERIFIED"].includes(report.status)||!Array.isArray(report.runs)||report.runs.length>20)return {status:"INVALID_REPORT_STATUS",canonicalMutation:false};
+  if(!report.runs.some(r=>r&&r.runId===result.runId))return {status:"RUN_NOT_IN_REPORT",canonicalMutation:false};
+ }
+ const entry={id:"DOSSIER-LOCAL-"+String(arkiScientificDossiers.length+1).padStart(3,"0"),schema:report.schema,resultId:result.id,experimentId:result.experimentId,hypothesisId:result.hypothesisId,proposalId:result.proposalId,alternativeId:result.alternativeId,reportedStatus:report.status,report:JSON.parse(JSON.stringify(report)),verification:"IMPORTED_REPORT_UNAUTHENTICATED",canonicalMutation:false,knowledgeValidated:false,promotion:"BLOCKED"};
+ arkiScientificDossiers.push(entry);
+ return {status:"REPORT_ATTACHED_UNAUTHENTICATED",id:entry.id,canonicalMutation:false};
+}
+function arkiScientificDossierView(proposal,alternative){
+ const details=node("details","","arki-evidence-details");
+ details.append(node("summary","Expediente cientifico compacto"));
+ const box=node("div","","arki-dossier-compact");
+ const hypotheses=arkiOriginalHypotheses.filter(x=>x.proposalId===proposal.id&&x.alternativeId===alternative.id);
+ const experiments=arkiScientificExperiments.filter(x=>hypotheses.some(h=>h.id===x.hypothesisId));
+ const results=arkiExperimentalResults.filter(x=>experiments.some(e=>e.id===x.experimentId));
+ const reviews=arkiEvidenceReviews.filter(x=>results.some(r=>r.id===x.resultId));
+ const reports=arkiScientificDossiers.filter(x=>results.some(r=>r.id===x.resultId));
+ box.append(node("p","Hipotesis: "+hypotheses.length+" | Protocolos: "+experiments.length+" | Resultados: "+results.length+" | Revisiones: "+reviews.length+" | Informes: "+reports.length));
+ for(const item of reports)box.append(node("small",item.id+" | "+item.reportedStatus+" | "+item.verification));
+ box.append(node("small","Integridad documental no acredita ejecucion ni validacion cientifica. PROMOCION BLOQUEADA."));
+ const form=node("form","");
+ const resultSelect=document.createElement("select");
+ for(const r of results){const option=document.createElement("option");option.value=r.id;option.textContent=r.id+" / "+r.runId;resultSelect.append(option)}
+ const input=document.createElement("textarea");input.placeholder="Pegar informe JSON generado por verificador Python";input.rows=3;
+ const submit=node("button","Adjuntar informe local");submit.type="submit";
+ const status=node("small","");
+ form.append(resultSelect,input,submit,status);
+ form.addEventListener("submit",event=>{
+  event.preventDefault();
+  let outcome;
+  try{if(input.value.length>50000)throw Error("TOO_LARGE");outcome=arkiAttachScientificReport({resultId:resultSelect.value,report:JSON.parse(input.value)})}
+  catch{outcome={status:"INVALID_JSON_OR_SIZE"}}
+  status.textContent=outcome.status+" | NO VERIFICADO | SIN PROMOCION";
+  if(outcome.id)renderArkiProposals();
+ });
+ if(results.length)box.append(form);else box.append(node("small","Registra primero un resultado experimental para vincular un informe."));
+ details.append(box);return details;
+}
+function arkiScientificReadiness(hypothesisId){
+ const hypothesis=arkiOriginalHypotheses.find(x=>x.id===hypothesisId);
+ if(!hypothesis)return {status:"UNKNOWN_HYPOTHESIS",canonicalMutation:false};
+ const protocols=arkiScientificExperiments.filter(x=>x.hypothesisId===hypothesisId);
+ return {status:protocols.length?"EXPERIMENT_DEFINED_NOT_EXECUTED":"HYPOTHESIS_UNTESTED",hypothesisId,protocols:protocols.length,declaredResults:arkiExperimentalResults.filter(x=>protocols.some(p=>p.id===x.experimentId)).length,declaredReviews:arkiEvidenceReviews.filter(x=>protocols.some(p=>p.id===x.experimentId)).length,verifiedEvidence:0,replications:0,knowledgeValidated:false,promotion:"BLOCKED",canonicalMutation:false};
+}
+function arkiExperimentForm(proposal,alternative){
+ const details=node("details","","arki-evidence-details");details.append(node("summary","Definir experimento reproducible"));
+ const form=document.createElement("form");form.className="entry";
+ const fields={};
+ for(const [key,label] of [["hypothesisId","ID de hipotesis (H-LOCAL-...)"],["protocol","Procedimiento y controles"],["metric","Metrica medible"],["acceptance","Criterio de aceptacion o refutacion"],["limitations","Limites y condiciones"]]){
+  const wrapper=document.createElement("label");wrapper.textContent=label+" ";
+  const input=document.createElement("textarea");input.required=true;input.maxLength=key==="protocol"?2000:800;
+  wrapper.append(input);form.append(wrapper);fields[key]=input;
+ }
+ const submit=document.createElement("button");submit.type="submit";submit.textContent="Guardar protocolo local";form.append(submit);
+ const status=node("small","No ejecutado · evidencia no verificada · sin promocion");form.append(status);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const h=arkiOriginalHypotheses.find(x=>x.id===fields.hypothesisId.value.trim());
+  if(!h||h.proposalId!==proposal.id||h.alternativeId!==alternative.id){status.textContent="HYPOTHESIS_MISMATCH";return}
+  const result=arkiRegisterExperiment({hypothesisId:h.id,protocol:fields.protocol.value,metric:fields.metric.value,acceptance:fields.acceptance.value,limitations:fields.limitations.value});
+  status.textContent=result.status+(result.id?" · "+result.id:"")+" · SIN PROMOCION";
+ });
+ details.append(form);return details;
+}
+function arkiProposalMemorySnapshot(){
+ return {schema:"ARKI-PROPOSAL-OBSERVATIONS-001",verification:"UNVERIFIED_LOCAL",canonicalMutation:false,
+  observations:arkiProposalObservations.map(x=>({...x})),hypotheses:arkiOriginalHypotheses.map(x=>({...x})),experiments:arkiScientificExperiments.map(x=>({...x})),results:arkiExperimentalResults.map(x=>({...x})),reviews:arkiEvidenceReviews.map(x=>({...x})),dossiers:arkiScientificDossiers.map(x=>JSON.parse(JSON.stringify(x)))};
+}
+function arkiImportProposalMemory(input){
+ if(!input||input.schema!=="ARKI-PROPOSAL-OBSERVATIONS-001"||!Array.isArray(input.observations)||input.observations.length>500)return {status:"INVALID_MEMORY",canonicalMutation:false};
+ if(input.hypotheses!==undefined&&(!Array.isArray(input.hypotheses)||input.hypotheses.length>200))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedHypotheses=[];
+ for(const item of input.hypotheses||[]){
+  if(!item||item.origin!=="ORIGINAL_LOCAL"||item.status!=="HYPOTHESIS_UNTESTED"||item.canonicalMutation!==false||typeof item.statement!=="string"||item.statement.trim().length<12||item.statement.length>1200||typeof item.author!=="string"||item.author.trim().length<2||item.author.length>120||typeof item.method!=="string"||item.method.trim().length<8||item.method.length>1200||!["A","B","C"].includes(item.alternativeId)||!(registry?.ideas||[]).some(x=>x.id===item.proposalId&&arkiProposalCandidates(x.targetPhase).some(p=>p.id===item.proposalId)))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedHypotheses.push({...item,externalReferenceRequired:false,canonicalMutation:false,status:"HYPOTHESIS_UNTESTED"});
+ }
+ if(input.experiments!==undefined&&(!Array.isArray(input.experiments)||input.experiments.length>200))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedExperiments=[];
+ for(const item of input.experiments||[]){
+  const h=proposedHypotheses.find(x=>x.id===item?.hypothesisId);
+  if(!h||item.status!=="PROTOCOL_DRAFT_UNEXECUTED"||item.canonicalMutation!==false||item.proposalId!==h.proposalId||item.alternativeId!==h.alternativeId||typeof item.protocol!=="string"||item.protocol.trim().length<12||item.protocol.length>2000||typeof item.metric!=="string"||item.metric.trim().length<3||item.metric.length>160||typeof item.acceptance!=="string"||item.acceptance.trim().length<8||item.acceptance.length>800||typeof item.limitations!=="string"||item.limitations.trim().length<3||item.limitations.length>800)return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedExperiments.push({...item,status:"PROTOCOL_DRAFT_UNEXECUTED",canonicalMutation:false});
+ }
+ if(input.results!==undefined&&(!Array.isArray(input.results)||input.results.length>300))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedResults=[];
+ for(const item of input.results||[]){
+  const experiment=proposedExperiments.find(x=>x.id===item?.experimentId);
+  if(!experiment||item.status!=="RESULT_DECLARED_NOT_VERIFIED"||item.verification!=="SELF_REPORTED_UNVERIFIED"||item.canonicalMutation!==false||item.hypothesisId!==experiment.hypothesisId||item.proposalId!==experiment.proposalId||item.alternativeId!==experiment.alternativeId||!["PASS","FAIL","INCONCLUSIVE"].includes(item.outcome)||typeof item.runId!=="string"||item.runId.trim().length<3||item.runId.length>120||typeof item.operator!=="string"||item.operator.trim().length<2||item.operator.length>120||typeof item.artifact!=="string"||item.artifact.trim().length<3||item.artifact.length>600||typeof item.notes!=="string"||item.notes.trim().length<8||item.notes.length>1200||!Number.isFinite(item.value)||proposedResults.some(x=>x.experimentId===item.experimentId&&x.runId===item.runId))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedResults.push({...item,verification:"SELF_REPORTED_UNVERIFIED",status:"RESULT_DECLARED_NOT_VERIFIED",canonicalMutation:false});
+ }
+ if(input.reviews!==undefined&&(!Array.isArray(input.reviews)||input.reviews.length>300))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedReviews=[];
+ for(const item of input.reviews||[]){
+  const result=proposedResults.find(x=>x.id===item?.resultId);
+  if(!result||item.experimentId!==result.experimentId||item.artifact!==result.artifact||item.verification!=="REVIEW_SELF_REPORTED_UNVERIFIED"||item.canonicalMutation!==false||typeof item.reviewer!=="string"||item.reviewer.trim().length<2||item.reviewer.length>120||typeof item.method!=="string"||item.method.trim().length<12||item.method.length>1000||typeof item.reason!=="string"||item.reason.trim().length<8||item.reason.length>1000||typeof item.artifactDigest!=="string"||!/^[a-f0-9]{64}$/.test(item.artifactDigest)||!["CONSISTENT","CONTRADICTED","INDETERMINATE"].includes(item.finding)||proposedReviews.some(x=>x.resultId===item.resultId))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedReviews.push({...item,verification:"REVIEW_SELF_REPORTED_UNVERIFIED",canonicalMutation:false});
+ }
+ if(input.dossiers!==undefined&&(!Array.isArray(input.dossiers)||input.dossiers.length>300))return {status:"INVALID_MEMORY",canonicalMutation:false};
+ const proposedDossiers=[];
+ for(const item of input.dossiers||[]){
+  const result=proposedResults.find(x=>x.id===item?.resultId);
+  const report=item?.report;
+  if(!result||!report||typeof report!=="object"||item.experimentId!==result.experimentId||item.hypothesisId!==result.hypothesisId||item.proposalId!==result.proposalId||item.alternativeId!==result.alternativeId||item.schema!==report.schema||item.reportedStatus!==report.status||item.verification!=="IMPORTED_REPORT_UNAUTHENTICATED"||item.canonicalMutation!==false||item.knowledgeValidated!==false||item.promotion!=="BLOCKED"||report.canonicalMutation!==false||report.knowledgeValidated!==false||report.promotion!=="BLOCKED"||!["ARKI-ARTIFACT-VERIFICATION-001","ARKI-REPRODUCIBILITY-001"].includes(report.schema)||proposedDossiers.some(x=>x.resultId===item.resultId&&x.schema===item.schema))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  if(report.schema==="ARKI-ARTIFACT-VERIFICATION-001"){
+   if(!["FILE_INTEGRITY_CONFIRMED_NOT_EXECUTION_VERIFIED","INTEGRITY_OR_BINDING_FAILED","REJECTED"].includes(report.status))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  }else if(!["REJECTED","INTEGRITY_FAILED","DUPLICATE_RUN","PROTOCOL_MISMATCH","INDEPENDENCE_NOT_ESTABLISHED","CONTRADICTORY_MEASUREMENTS","REPEATABILITY_CANDIDATE_UNVERIFIED"].includes(report.status)||!Array.isArray(report.runs)||report.runs.length>20||!report.runs.some(r=>r&&r.runId===result.runId))return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  proposedDossiers.push({...item,report:JSON.parse(JSON.stringify(report)),verification:"IMPORTED_REPORT_UNAUTHENTICATED",knowledgeValidated:false,promotion:"BLOCKED",canonicalMutation:false});
+ }
+ const previous=arkiProposalObservations.map(x=>({...x}));
+ arkiProposalObservations.length=0;
+ for(const item of input.observations){
+  const result=arkiRecordProposalObservation(item);
+  if(result.status!=="LOCAL_OBSERVATION_RECORDED"){
+   arkiProposalObservations.splice(0,arkiProposalObservations.length,...previous);
+   return {status:"IMPORT_REJECTED_ROLLED_BACK",canonicalMutation:false};
+  }
+ }
+ arkiOriginalHypotheses.splice(0,arkiOriginalHypotheses.length,...proposedHypotheses);
+ arkiScientificExperiments.splice(0,arkiScientificExperiments.length,...proposedExperiments);
+ arkiExperimentalResults.splice(0,arkiExperimentalResults.length,...proposedResults);
+ arkiEvidenceReviews.splice(0,arkiEvidenceReviews.length,...proposedReviews);
+ arkiScientificDossiers.splice(0,arkiScientificDossiers.length,...proposedDossiers);
+ return {status:"LOCAL_MEMORY_IMPORTED_UNVERIFIED",count:arkiProposalObservations.length,hypotheses:arkiOriginalHypotheses.length,canonicalMutation:false};
+}
+function arkiEvaluateProposal(proposalId,observations=arkiProposalObservations){
+ const proposal=(registry?.ideas||[]).filter(x=>x.id===proposalId&&x.targetPhase).map(x=>arkiProposalCandidates(x.targetPhase).find(p=>p.id===proposalId)).find(Boolean);
+ if(!proposal)return {status:"UNKNOWN_PROPOSAL",canonicalMutation:false};
+ const eligible=observations.filter(o=>o&&o.proposalId===proposalId&&["A","B","C"].includes(o.alternativeId));
+ const results=proposal.alternatives.map(a=>{
+  const obs=eligible.filter(o=>o.alternativeId===a.id);
+  const valid=obs.filter(o=>o.outcome==="PASS"&&o.sourceRef&&o.sourceCommit&&o.metric&&Number.isFinite(o.value)&&o.value>=0);
+  const rejected=obs.filter(o=>o.outcome==="FAIL");
+  return {id:a.id,observations:obs.length,localClaims:valid.length,rejected:rejected.length,status:"UNVERIFIED_LOCAL_OBSERVATION",verified:false};
+ });
+ return {schema:"ARKI-PROPOSAL-EVALUATION-001",proposalId,status:"EXPERIMENTAL_ONLY",results,
+  recommendation:"INSUFFICIENT_VERIFIED_EVIDENCE",learning:"LOCAL_HYPOTHESIS_ONLY",canonicalMutation:false,promotion:"BLOCKED"};
+}
+function arkiRecordProposalObservation(record){
+ if(!record||typeof record!=="object"||!/^I-[0-9]+$/.test(String(record.proposalId||""))||!["A","B","C"].includes(record.alternativeId))return {status:"INVALID_OBSERVATION"};
+ if(!(registry?.ideas||[]).some(x=>x.id===record.proposalId&&arkiProposalCandidates(x.targetPhase).some(p=>p.id===record.proposalId)))return {status:"UNKNOWN_PROPOSAL"};
+ if(arkiProposalObservations.length>=500)return {status:"MEMORY_LIMIT_REACHED",canonicalMutation:false};
+ if(!["PASS","FAIL","UNKNOWN"].includes(record.outcome)||typeof record.sourceRef!=="string"||record.sourceRef.trim().length<3||record.sourceRef.length>400||typeof record.sourceCommit!=="string"||record.sourceCommit.trim().length<1||record.sourceCommit.length>100||typeof record.metric!=="string"||record.metric.trim().length<1||record.metric.length>100||!Number.isFinite(record.value)||record.value<0)return {status:"INVALID_OBSERVATION",canonicalMutation:false};
+ const safe={proposalId:record.proposalId,alternativeId:record.alternativeId,outcome:record.outcome,sourceRef:record.sourceRef,sourceCommit:record.sourceCommit,metric:record.metric,value:record.value,verification:"UNVERIFIED_LOCAL",canonicalMutation:false};
+ arkiProposalObservations.push(safe);
+ return {status:"LOCAL_OBSERVATION_RECORDED",count:arkiProposalObservations.length,canonicalMutation:false};
+}
+function arkiProposalObservationForm(proposal,alternative){
+ const form=document.createElement("form");form.className="entry";
+ const title=node("strong","Registrar observación · "+proposal.id+" / "+alternative.id+" · SIN VERIFICAR");form.append(title);
+ const fields={};
+ for(const [key,label,kind] of [["outcome","Resultado declarado","select"],["sourceRef","Referencia documental","text"],["sourceCommit","SHA o identificador de fuente","text"],["metric","Métrica observada","text"],["value","Valor numérico","number"]]){
+  const wrapper=document.createElement("label");wrapper.textContent=label+" ";
+  const input=document.createElement(kind==="select"?"select":"input");
+  if(kind==="select"){for(const choice of ["UNKNOWN","PASS","FAIL"]){const option=document.createElement("option");option.value=choice;option.textContent=choice;input.append(option)}}
+  else {input.type=kind;input.required=true;input.maxLength=key==="sourceRef"?400:100;if(kind==="number"){input.min="0";input.step="any"}}
+  wrapper.append(input);form.append(wrapper);fields[key]=input;
+ }
+ const submit=document.createElement("button");submit.type="submit";submit.textContent="Registrar observación local";form.append(submit);
+ const feedback=node("small","Ningún resultado local verifica una alternativa.");form.append(feedback);
+ form.addEventListener("submit",event=>{
+  if(event&&typeof event.preventDefault==="function")event.preventDefault();
+  const value=fields.value.value.trim()?Number(fields.value.value):NaN;
+  const result=arkiRecordProposalObservation({proposalId:proposal.id,alternativeId:alternative.id,
+   outcome:fields.outcome.value,sourceRef:fields.sourceRef.value.trim(),sourceCommit:fields.sourceCommit.value.trim(),
+   metric:fields.metric.value.trim(),value});
+  feedback.textContent=result.status+" · NO VERIFICADO · SIN PROMOCIÓN";
+  const status=el("arki-proposal-memory-status");if(status)status.textContent=result.status+" · exporta JSON para conservar esta sesión";
+  const counter=el("arki-proposal-count-"+proposal.id);if(counter&&result.status==="LOCAL_OBSERVATION_RECORDED"){
+   const assessment=arkiEvaluateProposal(proposal.id);
+   counter.textContent=assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · "+assessment.recommendation;
+  }
+ });
+ return form;
+}
+function renderArkiProposals(){
+ arkiRenderPlan();
+ const root=el("arki-proposal-cards"),summary=el("arki-proposal-summary");
+ if(!root||!summary)return;
+ const all=arkiProposalCandidates();
+ const proposals=selectedLeaf?all.filter(p=>p.id===selectedLeaf):all;
+ summary.textContent=selectedLeaf?(selectedLeaf+" · 3 caminos en una ficha · SIN VERIFICAR"):(selected+" · "+all.length+" ideas · selecciona una hoja para comparar A/B/C");
+ root.replaceChildren();
+ if(!proposals.length){root.append(node("p",selectedLeaf?"La hoja seleccionada no tiene propuesta registrada.":"Selecciona una idea del ARBOL para ver sus tres caminos.","muted"));return}
+ for(const proposal of proposals){
+  const card=node("section","","entry arki-compact-proposal");
+  card.append(node("strong",proposal.id+" · "+proposal.title));
+  card.append(node("small","Dominio: "+proposal.domain+" · Estado: "+proposal.status+" · Evidencia: "+proposal.evidence));
+  const comparison=node("div","","arki-abc-comparison");
+  for(const alt of proposal.alternatives){
+   const part=node("div","","arki-abc-option");
+   part.append(node("strong",alt.id+" — "+alt.name),node("p",alt.action),node("small","Riesgo: "+alt.risk));
+   const details=node("details","","arki-evidence-details");
+   details.append(node("summary","Registrar prueba u observacion (opcional)"));
+   details.append(node("p","Idea original: no requiere bibliografia previa. Para validar, documenta el experimento, su autor, fecha, procedimiento y resultado. La evidencia puede generarse aqui; sin ella no hay promocion canonica.","muted"));
+   details.append(arkiProposalObservationForm(proposal,alt));
+   part.append(details);part.append(arkiOriginalHypothesisForm(proposal,alt));part.append(arkiExperimentForm(proposal,alt));part.append(arkiExperimentalResultForm(proposal,alt));part.append(arkiEvidenceReviewForm(proposal,alt));part.append(arkiScientificDossierView(proposal,alt));comparison.append(part);
+  }
+  card.append(comparison);
+  const assessment=arkiEvaluateProposal(proposal.id);
+  const counter=node("small","Estado: "+assessment.recommendation+" · "+assessment.results.map(r=>r.id+":"+r.observations).join(" / ")+" · SIN PROMOCION");
+  counter.id="arki-proposal-count-"+proposal.id;card.append(counter);root.append(card);
+ }
+}
+
+if(el("arki-proposal-export"))el("arki-proposal-export").addEventListener("click",()=>{
+ const blob=new Blob([JSON.stringify(arkiProposalMemorySnapshot(),null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="arki-propuestas-observaciones-experimentales.json";document.body.append(a);a.click();a.remove();URL.revokeObjectURL(url);
+ const status=el("arki-proposal-memory-status");if(status)status.textContent="Memoria exportada · NO VERIFICADA · sin promoción";
+});
+if(el("arki-proposal-import"))el("arki-proposal-import").addEventListener("change",async event=>{
+ const file=event.target.files?.[0];if(!file)return;
+ let result={status:"FILE_TOO_LARGE"};
+ if(file.size<=500000)try{result=arkiImportProposalMemory(JSON.parse(await file.text()))}catch{result={status:"INVALID_JSON"}}
+ const status=el("arki-proposal-memory-status");if(status)status.textContent=result.status+" · NO VERIFICADO · SIN PROMOCIÓN";
+ renderArkiProposals();
+});
+function show(){
+renderArkiProposals();showAdaptive();twinPhaseView();renderE6Evidence();renderE7Decisions();renderE8Reconciliation();renderE9Revisions();renderE10Readiness();renderTwinCommandCenter();
 function show(){
 showAdaptive();twinPhaseView();renderE6Evidence();renderE7Decisions();renderE8Reconciliation();renderE9Revisions();renderE10Readiness();renderTwinCommandCenter();
 const phases=phaseData();el("tree").replaceChildren();el("selection-status").textContent="SELECCIÓN ACTIVA: "+selected+" · "+labels[selected]+(selectedBranch?" / "+selectedBranch:"")+(selectedLeaf?" / 🍃 "+selectedLeaf:"");
@@ -1007,6 +1470,7 @@ function arkiFunctionalHelp(item){
  const what=known?.what||item.title;
  const purpose=known?.purpose||item.purpose||("Esta pieza propone "+item.title.toLocaleLowerCase("es")+". Su función concreta debe confirmarse en el documento fuente; el título por sí solo no acredita prestaciones.");
  const limit=known?.limit||("Estado registrado: "+(item.sourceStatus||item.recordedStatus||"UNKNOWN")+". La implementación no está verificada.");
+ return "¿Qué es? "+what+"\n¿Para qué sirve? "+purpose+"\nEstado y límites: "+limit+"\nFuente: "+(item.origin||item.source||"no registrada")+(item.purposeBasis?"\nInterpretación: "+item.purposeBasis:"");
  return "¿Qué es? "+what+"\\n¿Para qué sirve? "+purpose+"\\nEstado y límites: "+limit+"\\nFuente: "+(item.origin||item.source||"no registrada")+(item.purposeBasis?"\\nInterpretación: "+item.purposeBasis:"");
 }
 function arkiExplain(target){

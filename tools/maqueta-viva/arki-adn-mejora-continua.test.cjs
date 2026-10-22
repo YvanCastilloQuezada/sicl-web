@@ -1,5 +1,6 @@
 "use strict";
 const assert=require("node:assert/strict");
+const {propose,evaluate,iterate,nextObservation,compareObservations}=require("./arki-adn-mejora-continua.cjs");
 const crypto=require("node:crypto");
 const {propose,evaluate,iterate,nextObservation,compareObservations,receiptSigningPayload}=require("./arki-adn-mejora-continua.cjs");
 const baseline={schema:"ARKI-ADN-OBSERVATION-1",observationId:"O-001",sourceCommit:"a".repeat(40),metrics:[
@@ -53,6 +54,7 @@ assert.throws(()=>evaluate(first,{...evidence,after:120}),/NO_MEASURED_IMPROVEME
 
 assert.throws(()=>evaluate(first,{...evidence,sourceCommit:"b".repeat(40)}),/SOURCE_COMMIT_MISMATCH/);
 assert.throws(()=>evaluate(first,{...evidence,observationDigest:"f".repeat(64)}),/BASELINE_MISMATCH/);
+const review=evaluate(first,evidence);
 evidence.signature=crypto.sign("sha256",Buffer.from(receiptSigningPayload(evidence)),signingKeys.privateKey).toString("base64");
 assert.throws(()=>evaluate(first,{...evidence,after:109},{publicKey:publicKeyPem}),/RECEIPT_SIGNATURE_INVALID/);
 assert.throws(()=>evaluate(first,{...evidence,signature:""},{publicKey:publicKeyPem}));

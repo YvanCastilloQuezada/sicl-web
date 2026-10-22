@@ -1,0 +1,61 @@
+name: AV-UI-001 Tree Twin Regression
+on:
+  push:
+    branches:
+      - docs/av-ui-001-preparation-20261010
+    paths:
+      - 'tools/maqueta-viva/av-ui-001-readonly-prototype.html'
+      - 'tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs'
+      - 'tools/maqueta-viva/Test-ARKI-GemeloArbol.ps1'
+      - 'tools/maqueta-viva/Invoke-ARKI-ValidacionIntegral.ps1'
+      - 'tools/maqueta-viva/Generate-ARKI-Twin-Signed-Fixture.cjs'
+      - 'tools/maqueta-viva/Verify-ARKI-Twin-Receipts.cjs'
+      - 'tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs'
+      - 'tools/maqueta-viva/arki-adn-mejora-continua.cjs'
+      - 'tools/maqueta-viva/arki-adn-mejora-continua.test.cjs'
+      - 'tools/maqueta-viva/Run-ARKI-ADN-MC.cjs'
+      - 'tools/maqueta-viva/arki-adn-observer.cjs'
+      - 'tools/maqueta-viva/arki-adn-observer.test.cjs'
+      - 'tools/maqueta-viva/arki-multiscale-design.cjs'
+      - 'tools/maqueta-viva/arki-multiscale-design.test.cjs'
+      - 'tools/maqueta-viva/Run-ARKI-Multiscale-Design.cjs'
+      - 'tools/maqueta-viva/arki-multiscale-portfolio.cjs'
+      - 'tools/maqueta-viva/arki-multiscale-portfolio.test.cjs'
+      - '.github/workflows/av-ui-001-tree-twin.yml'
+  workflow_dispatch:
+jobs:
+  synthetic-regression:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+      - run: node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+      - run: node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
+      - run: node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
+      - run: node tools/maqueta-viva/arki-adn-observer.test.cjs
+      - run: node tools/maqueta-viva/arki-multiscale-design.test.cjs
+      - run: node tools/maqueta-viva/arki-multiscale-portfolio.test.cjs
+  windows-synthetic-regression:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax and synthetic contracts on Windows
+        shell: pwsh
+        run: |
+          node --check tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+          node tools/maqueta-viva/av-ui-001-readonly-prototype.test.cjs
+          node tools/maqueta-viva/Test-ARKI-Twin-Signatures.cjs
+          node tools/maqueta-viva/arki-adn-mejora-continua.test.cjs
+          node tools/maqueta-viva/arki-adn-observer.test.cjs
+          node tools/maqueta-viva/arki-multiscale-design.test.cjs
+          node tools/maqueta-viva/arki-multiscale-portfolio.test.cjs

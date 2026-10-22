@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://arki.local/contracts/oece-arki-evidence-package-1.0.schema.json",
+  "title": "ARKI OECE/ACS Evidence Package 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "packageId",
+    "projectId",
+    "records",
+    "documents",
+    "missingSurfaces"
+  ],
+  "properties": {
+    "schema": {
+      "const": "ARKI-OECE-EVIDENCE-PACKAGE-1.0"
+    },
+    "packageId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "projectId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ocid": {
+      "type": "string",
+      "minLength": 1
+    },
+    "procedureId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "recordId",
+          "dataset",
+          "sourceRef",
+          "sourceChecksum",
+          "observedAt",
+          "fields"
+        ],
+        "properties": {
+          "recordId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "dataset": {
+            "enum": [
+              "PROCEDURE",
+              "AWARD",
+              "CONTRACT",
+              "ENTITY",
+              "SUPPLIER",
+              "DOCUMENT",
+              "WORK_LOG",
+              "VALUATION",
+              "OTHER"
+            ]
+          },
+          "sourceRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceChecksum": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fields": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "documentId",
+          "title",
+          "kind",
+          "sourceRef",
+          "acquisitionStatus"
+        ],
+        "properties": {
+          "documentId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "BASES",
+              "TDR",
+              "EXPEDIENTE_TECNICO",
+              "CONTRACT",
+              "DRAWING",
+              "BUDGET",
+              "SPECIFICATION",
+              "OTHER"
+            ]
+          },
+          "sourceRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "acquisitionStatus": {
+            "enum": [
+              "DISCOVERED",
+              "DOWNLOADED",
+              "VERIFIED",
+              "FAILED",
+              "UNAVAILABLE"
+            ]
+          },
+          "checksum": {
+            "type": "string"
+          },
+          "mediaType": {
+            "type": "string"
+          },
+          "localEvidenceRef": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "missingSurfaces": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "PROCEDURE",
+          "AWARD",
+          "CONTRACT",
+          "ENTITY",
+          "SUPPLIER",
+          "DOCUMENT",
+          "WORK_LOG",
+          "VALUATION",
+          "OTHER"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "expectedSurfaces": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "PROCEDURE",
+          "AWARD",
+          "CONTRACT",
+          "ENTITY",
+          "SUPPLIER",
+          "DOCUMENT",
+          "WORK_LOG",
+          "VALUATION",
+          "OTHER"
+        ]
+      },
+      "uniqueItems": true
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "ocid"
+      ]
+    },
+    {
+      "required": [
+        "procedureId"
+      ]
+    }
+  ]
+}

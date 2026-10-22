@@ -1,0 +1,66 @@
+name: ARKI Controlled Correction Gate
+on:
+  pull_request:
+    branches: [feat/f7-f8-integral-closure]
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: read
+  issues: read
+concurrency:
+  group: arki-executor-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  controlled-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout exact PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify exact SHA and approved file scope
+        run: |
+          node tools/maqueta-viva/arki-executor-gate.mjs \
+            --manifest tools/maqueta-viva/executor-scope.json \
+            --head "${{ github.event.pull_request.head.sha }}" \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --receipt arki-executor-scope-receipt.json
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - name: Install dependencies (locked)
+        run: pnpm install --frozen-lockfile
+      - name: TypeScript check
+        run: pnpm check
+      - name: Run automated tests
+        env:
+          SICL_CORE_SERVICE_TOKEN: ci-test-token
+        run: pnpm test -- --run
+      - name: Build production bundle
+        run: pnpm build
+      - name: Verify owner authorization and independent Red Team review on exact SHA
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARKI_RED_TEAM_GITHUB_LOGIN: ${{ vars.ARKI_RED_TEAM_GITHUB_LOGIN }}
+        run: |
+          node tools/maqueta-viva/arki-executor-gate.mjs \
+            --manifest tools/maqueta-viva/executor-scope.json \
+            --head "${{ github.event.pull_request.head.sha }}" \
+            --base "${{ github.event.pull_request.base.sha }}" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --receipt arki-executor-scope-receipt.json
+      - name: Upload evidence receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-executor-scope-${{ github.event.pull_request.number }}
+          path: arki-executor-scope-receipt.json
+          if-no-files-found: ignore
+          retention-days: 30
