@@ -1,0 +1,40 @@
+{
+  "schema": "ARKI-MAQUETA-DRAFT-1",
+  "note": "Synthetic test data only. Not ARKI canonical state or actual executed test results.",
+  "placements": {
+    "TEST-F10": "F10",
+    "TEST-F1": "F1",
+    "TEST-F2": "F2",
+    "TEST-F6": "F6",
+    "TEST-MISSING": "F4",
+    "TEST-FROZEN": "F6"
+  },
+  "reviews": {
+    "TEST-F10": {
+      "dependencies": [
+        "TEST-F1"
+      ]
+    },
+    "TEST-F1": {
+      "dependencies": []
+    },
+    "TEST-F2": {
+      "dependencies": [
+        "TEST-F6"
+      ]
+    },
+    "TEST-F6": {
+      "dependencies": [
+        "TEST-F2"
+      ]
+    },
+    "TEST-MISSING": {
+      "dependencies": [
+        "TEST-UNKNOWN"
+      ]
+    },
+    "TEST-FROZEN": {
+      "dependencies": []
+    }
+  }
+}

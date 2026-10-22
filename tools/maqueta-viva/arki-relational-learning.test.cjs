@@ -1,0 +1,14 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict");
+const {proposeRelations}=require("./arki-relational-learning.cjs");
+const registry={updated_at:"test",ideas:[{id:"A"},{id:"B"},{id:"C"}],components:[]};
+const source={path:"docs/architecture.md",sha:"a".repeat(40),quote:"B requires A"};
+const statement=(before,after,relation="REQUIRES")=>({before,after,relation,source});
+test("source-linked prerequisites proposed but not promoted",()=>{const r=proposeRelations(registry,[statement("A","B")]);assert.equal(r.candidates.length,1);assert.equal(r.candidates[0].decision,"PROPOSED_FOR_REVIEW");assert.equal(r.canonicalMutation,false);assert.equal(r.existingCoverage.declared,0)});
+test("informational links do not create dependency cycles",()=>{const r=proposeRelations(registry,[statement("A","B","INFORMS"),statement("B","A","INFORMS")]);assert.equal(r.cycles.length,0)});
+test("required cycles are detected",()=>assert.equal(proposeRelations(registry,[statement("A","B"),statement("B","A")]).cycles.length,1));
+test("missing provenance rejected",()=>assert.equal(proposeRelations(registry,[{before:"A",after:"B",relation:"REQUIRES"}]).issues[0].code,"INVALID_SOURCE_STATEMENT"));
+test("unknown target rejected",()=>assert.equal(proposeRelations(registry,[statement("A","X")]).issues[0].code,"UNKNOWN_PART"));
+test("self relationship rejected",()=>assert.equal(proposeRelations(registry,[statement("A","A")]).issues[0].code,"SELF_RELATION"));
+test("duplicates rejected",()=>assert.equal(proposeRelations(registry,[statement("A","B"),statement("A","B")]).issues[0].code,"DUPLICATE_RELATION"));
+test("stable receipt",()=>assert.equal(proposeRelations(registry,[statement("A","B")]).receiptSha256,proposeRelations(registry,[statement("A","B")]).receiptSha256));
