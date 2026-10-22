@@ -42,6 +42,11 @@ async function startServer() {
   const server = createServer(app);
   app.use(securityHeaders());
 
+  // Platform health check: verifies the Web process independently of Core availability.
+  app.get("/health", (_req, res) => {
+    res.status(200).json({ status: "ok", service: "sicl-web" });
+  });
+
   // ARKI_DEV_OPEN_API_GUARD_V4
   app.use("/api", (req, res, next) => {
     if (process.env.ARKI_DEV_OPEN !== "1") {
@@ -153,7 +158,10 @@ async function startServer() {
   }
 
   const preferredPort = parseInt(process.env.PORT || "3000");
-  const port = process.env.ARKI_DEV_SOCKET ? preferredPort : await findAvailablePort(preferredPort);
+  // Managed production platforms require binding to their assigned PORT exactly.
+  const port = process.env.NODE_ENV === "production" || process.env.ARKI_DEV_SOCKET
+    ? preferredPort
+    : await findAvailablePort(preferredPort);
 
   if (port !== preferredPort) {
     console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
