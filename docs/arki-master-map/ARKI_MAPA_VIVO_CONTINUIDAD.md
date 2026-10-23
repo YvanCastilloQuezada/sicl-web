@@ -1,6 +1,20 @@
 # ARKI — MAPA VIVO DE CONTINUIDAD
 
-> BOOTSTRAP — 2026-10-13. Este archivo inicial será reemplazado por el generador automático cuando GitHub Actions ejecute correctamente. **NO declarar automatización verificada hasta comprobar el workflow.**
+> BOOTSTRAP — 2026-10-13; corte de auditoría actualizado el 2026-10-23. El workflow de continuidad ya ejecutó y pasó validación/generación en main (run 39878910134), pero es de solo lectura: el snapshot se entrega como artefacto revisable y no actualiza automáticamente este archivo. No confundir éxito del workflow con publicación del mapa ni con E2E de ARKI-02.
+
+## Corte actual — 2026-10-23
+
+> Reconciliación manual basada en metadatos de GitHub Actions y GitHub API. No es el artefacto generado por el workflow ni una actualización del Event Store canónico.
+
+- **Rama solicitada:** `feat/arki-integration-genealogy-20261013`; HEAD `b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4`. Sin commits nuevos desde el último corte.
+- **main:** HEAD `5c03107cda3f8c4a1d74415610fe5efa67100079` (merge PR #94, 2026-10-23 00:34:19 UTC). Cambios relevantes recientes: PR #93 corrige el workflow de continuidad para que sea de solo lectura; PR #94 consolida cierres documentales sustentados en evidencia.
+- **IMPLEMENTED:** generador de continuidad, pruebas y workflow read-only presentes en main.
+- **EXECUTED:** run [ARKI Continuity Map #76](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/39878910134) completó setup, validación del generador/ledger, generación de snapshot y carga de artefactos; runner real asignado y todos los pasos SUCCESS. Run programado [ARKI Continuity Snapshot #9](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/39948456613) también completó generación del handoff, comprobación de límites epistémicos y carga de artefacto.
+- **VERIFIED:** esos dos workflows pasaron en SHA `5c03107c`; el workflow de continuidad declara `permissions: contents: read` y “no repository write”. Por diseño, el éxito acredita validación/generación de artefactos, **no** publicación automática del Mapa Vivo.
+- **UNKNOWN:** si el artefacto generado coincide íntegramente con el mapa documental que debe promoverse; la operación E2E de AV-022 en ARKI-02; integración canónica Core/D-2/AGK.
+- **Bloqueo real:** el archivo `ARKI_MAPA_VIVO_CONTINUIDAD.md` de main aún contiene el estado histórico de 2026-10-21 y frases de bootstrap que afirman que el workflow no ha sido verificado. El workflow actual no lo reemplaza; solo sube artefactos para revisión. La reconciliación presente está en la rama de auditoría, no en main.
+- **Evidencia auxiliar:** [Maqueta Viva smoke](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/39883305292) SUCCESS en SHA `d47c88b41f`; no prueba por sí solo el E2E local de AV-022. El [Controlled Correction Gate](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/39883305388) falló en ese mismo SHA; causa no clasificada en esta revisión.
+- **Límites:** no se modifica Core, D-2, FROZEN ni el Event Store canónico. La bitácora JSONL es registro documental de continuidad, no un segundo Event Store.
 
 ## Punto de entrada del próximo chat
 ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema multiescala 3D-First con Core/D-2/AGK como autoridad canónica, razonamiento, memoria, representación y Human Authority. No duplicar Event Store ni estados canónicos. NO EVIDENCE = NO GREEN.
@@ -11,19 +25,19 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 ## Fuentes
 1. `docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl`: bitácora de decisiones y acciones declaradas; no reemplaza Event Store Core.
 2. `tools/maqueta-viva/arki-continuity-snapshot.cjs`: generador desde bitácora + últimos commits Git.
-3. `.github/workflows/arki-continuity-map.yml`: regeneración en push de la rama de trabajo y por disparo manual; **ejecución aún no verificada**.
+3. `.github/workflows/arki-continuity-map.yml`: validación y generación en push/PR/manual; ejecución verificada en run 39878910134 (2026-10-23), pero solo produce artefacto de revisión y no escribe en el repositorio.
 4. `docs/arki-master-map/ARKI_M10_001_MACROORDERS.md`: ruta de macroórdenes.
 5. `docs/arki-master-map/ARKI_BOLSA_IDEAS_CRONOLOGIA_BIC_007.md` y `ARKI_BOLSA_IDEAS_DOBLE_FECHA_ESTADO_BIC_008.md`: genealogía y fechas.
 
 ## Estado actual
 - Bolsa de Ideas: 44 de 189 ramas no-main comparadas, 145 pendientes.
 - Pulso de salud read-only en `feat/arki-live-readonly-pulse-20261013`: código y tests escritos; CI no verificado.
-- Automatización de continuidad: código y workflow escritos; **no ejecutado ni validado en este reporte**.
-- Core/D-2/AGK, CI exacto y despliegue: NOT_VERIFIED.
+- Automatización de continuidad: validación y generación de snapshot EXECUTED/VERIFIED en run 39878910134; publicación automática del archivo no implementada por el diseño read-only. E2E AV-022 en ARKI-02 sigue UNKNOWN.
+- SICL Web CI pasó en SHA `5c03107c` (run 39878909890); integración canónica Core/D-2/AGK y E2E de AV-022 en ARKI-02: NOT_VERIFIED.
 - Prohibido confundir documento de continuidad con memoria arquitectónica canónica.
 
 ## Pendientes inmediatos
-- Ejecutar workflow y comprobar que actualiza este mapa sin bucle.
+- Revisar el artefacto del run 39878910134 y promover la reconciliación del mapa mediante PR; el workflow read-only no modifica este archivo.
 - Incorporar eventos de cada decisión futura a JSONL con fuente y fecha; no asumir que ChatGPT escribe automáticamente sin ejecutar herramienta.
 - Verificar que un chat nuevo puede recuperar y leer este archivo.
 - Extender captura de eventos a otros repos y al Core respetando ownership.
@@ -50,13 +64,14 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 2. Comprobar SHA remoto y CI; no asumir que una declaración es evidencia ejecutada.
 3. Continuar desde pendientes sin repetir inventarios ya documentados.
 
-## Estado observado
-- Rama: `main`
-- Último SHA de cambios sustantivos (excluye snapshot): `a15597e2b2b51916d429afdec2ec4a8c77b72a20`
-- Último commit: 2026-10-21T01:54:26-05:00 — fix(arki): correct continuity ledger parser
-- Estado de Core/D-2/AGK: NOT_VERIFIED
-- CI exacto y E2E: NOT_VERIFIED
-- Promoción canónica: NO_AUTORIZADA_POR_ESTE_MAPA
+## Estado observado — corte 2026-10-23
+- Rama fuente: `feat/arki-integration-genealogy-20261013`, SHA `b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4`, sin commits nuevos.
+- `main`: SHA `5c03107cda3f8c4a1d74415610fe5efa67100079`; merge PR #94, 2026-10-23T00:34:19Z.
+- Workflow ARKI Continuity Map: run `39878910134` SUCCESS; validación, generación de snapshot y artifact upload verificados; sin escritura del repositorio.
+- Workflow ARKI Continuity Snapshot: run `39948456613` SUCCESS; handoff generado y subido como artefacto, sin escritura del repositorio.
+- Mapa Vivo versionado en `main`: aún contiene snapshot/estado de 2026-10-21; la actualización de este documento está en la rama de auditoría.
+- Estado de Core/D-2/AGK y E2E AV-022 en ARKI-02: NOT_VERIFIED / UNKNOWN.
+- Promoción canónica: NO_AUTORIZADA_POR_ESTE_MAPA.
 
 ## Decisiones y acciones explícitamente registradas (orden del ledger)
 - **2026-10-13** [PRIORITY_DECISION] CONT-20261013-001 — La continuidad automática y el Mapa Vivo histórico pasan a ser prioridad P0 antes de autoevaluación o automejora.; evidencia: Conversación del propietario 2026-10-13; decisión declarada, no validación técnica; estado: AUTHORIZED_SCOPE
@@ -71,7 +86,7 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 - **2026-10-13** [VALIDATION_PROTOCOL] CONT-20261013-010 — Se habilita verificación offline por SHA en servidor privado; GitHub Actions no se usa como evidencia de aprobación hasta recuperar su operación.; evidencia: sicl-web commit f46a5ca3cdd910d63e8ef3750b272b5ab91ffbca; tools/maqueta-viva/arki-continuity-local-verify.cjs; estado: IMPLEMENTED_AWAITING_LOCAL_EXECUTION
 
 ## Última acción registrada
-- CONT-20261013-010 — Se habilita verificación offline por SHA en servidor privado; GitHub Actions no se usa como evidencia de aprobación hasta recuperar su operación. — IMPLEMENTED_AWAITING_LOCAL_EXECUTION
+- CONT-20261023-015 — Workflow de continuidad ejecutado con éxito como generador read-only; mapa comprometido aún desactualizado y E2E AV-022 local UNKNOWN. — VERIFIED_PARTIAL
 
 ## Últimos 80 commits observados (no son aprobación)
 - 2026-10-21T01:54:26-05:00 — `a15597e2b2b5` — fix(arki): correct continuity ledger parser
