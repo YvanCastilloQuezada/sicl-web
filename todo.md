@@ -660,3 +660,31 @@
 - [x] Crear `server/security.test.ts` y actualizar `docs/arki-enterprise/ARKI_SECURITY_HARDENING.md`.
 - [x] Validar: `pnpm check` PASS; 58 archivos / 277 tests PASS; build PASS; header `Content-Security-Policy` verificado en producción; ruta `/security-events` HTTP 200; diff limpio.
 - [~] PENDING_PRODUCTION_SECURITY: rate limiting distribuido, WAF/DDoS, SAST/DAST, rotación de secretos, backups cifrados y pentest profesional requieren infraestructura y operación de producción.
+
+## 3. CERRADOS CON EVIDENCIA REGISTRADA
+
+**Criterio de cierre:** se consideran cerradas las áreas que cuentan con evidencia registrada en el historial del repositorio. Este estado no equivale automáticamente a disponibilidad en producción, certificación profesional ni validación en dispositivos físicos. Los resultados históricos deben conservar su fecha y alcance; no deben presentarse como una ejecución actual.
+
+| Área | Evidencia consignada en el historial | Alcance y límite del cierre |
+|---|---|---|
+| **Contratos SICL** | Adaptadores autenticados, delegación de operaciones y pruebas de propagación de errores HTTP `401`, `404`, `409` y `422`. | Cierre de los contratos y comportamientos documentados. No acredita por sí solo la disponibilidad permanente del servicio externo. |
+| **SICL 1–3** | Contratos de alcance espacial y temporal, compatibilidad de snapshots y selección de escala y horizonte. | Cierre de las capacidades contractuales documentadas. No implica autoridad automática para tomar decisiones. |
+| **Investigación de Operaciones** | Catálogo contractual de operaciones, restricciones, procedencia, factibilidad y sensibilidad; endpoint Python y llamada real desde la aplicación web sin mock. | Cierre de la integración y las pruebas consignadas. La disponibilidad del endpoint desplegado debe comprobarse por separado. |
+| **Preference** | Integración en el contrato Python Core, persistencia SQLite, revisiones, adaptador HTTP, tRPC y mecanismos de compatibilidad; pruebas contractuales, de persistencia, seguridad e interoperabilidad. | Cierre de la integración documentada. No demuestra persistencia duradera en un entorno de producción hasta verificarla allí. |
+| **Simulador** | Fixtures sintéticos, SQLite temporal, comprobación de invariantes y generación de reportes reproducibles. | Cierre del flujo de simulación local. Los resultados sintéticos no constituyen evidencia de comportamiento real en producción. |
+| **Adaptadores OSS** | Pruebas locales de lectura e invocación para IFC4, DXF, GeoJSON, GeoPackage, STEP e IGES. | Cierre del alcance probado localmente. No incluye, por este solo registro, DWG, interoperabilidad completa con aplicaciones externas ni certificación profesional de los resultados. |
+| **ARKI-ARK** | Importación e interpretación trazables, separación entre `OBSERVED` e `INFERRED`, registro de incertidumbres y revisión humana antes de la asimilación. | Cierre del flujo documentado. No equivale a aprendizaje autónomo validado ni permite tratar inferencias como hechos observados. |
+| **ARKI WebApp/PWA** | Arquitectura de la aplicación, Project State, resolución de comandos y prueba vertical local documentados. | Cierre de la arquitectura y del recorrido local registrado. No acredita por sí solo publicación pública, funcionamiento continuo ni aceptación integral en dispositivos reales. |
+| **Seguridad local** | Content Security Policy (CSP), cabeceras de seguridad, controles de origen, límites de WebSocket y panel protegido de eventos de seguridad. | Cierre de los controles locales consignados. La limitación de solicitudes en memoria no sustituye una estrategia distribuida; permanecen separados los controles de seguridad de producción. |
+| **Validación local** | Checkpoints históricos con TypeScript, suites de pruebas, compilación de producción (`build`) y `git diff --check` aprobados. | Cierre de las ejecuciones históricas documentadas. Los conteos y resultados corresponden a sus respectivas fechas y commits; no deben sumarse ni presentarse como una única ejecución actual sin repetir las pruebas. |
+
+### Condiciones para conservar estos cierres
+
+1. Mantener la evidencia asociada a su commit, fecha, comando de ejecución y resultado cuando esos datos estén disponibles.
+2. No convertir una casilla histórica `[x]` en prueba de funcionamiento actual si no existe una verificación reciente.
+3. No confundir simulaciones, fixtures sintéticos o pruebas locales con resultados observados en un servicio desplegado o dispositivo físico.
+4. No reabrir una capacidad únicamente por estar pendiente su despliegue externo: registrar por separado el cierre técnico local y el bloqueo de despliegue o aceptación externa.
+5. Reabrir un cierre cuando una prueba posterior reproduzca un fallo, se rompa un contrato o aparezca evidencia que contradiga el resultado registrado.
+
+**Estado de esta sección:** consolidación documental del historial existente. La actualización de esta tabla no sustituye la ejecución de pruebas ni demuestra por sí sola que se haya modificado o integrado el archivo `todo.md` en GitHub.
+
