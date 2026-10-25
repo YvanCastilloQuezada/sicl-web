@@ -12,7 +12,7 @@
 - **EXECUTED:** [ARKI Continuity Snapshot run 40189854942](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/40189854942) terminó SUCCESS el 2026-10-25. Job `snapshot` y los pasos de checkout, setup de Node, generación del handoff, verificación de límites epistémicos y carga del artefacto completados.
 - **VERIFIED:** artefacto `arki-handoff-5c03107cda3f8c4a1d74415610fe5efa67100079`, ID `12596523916`, tamaño 2199 bytes, digest `sha256:b3ebb173900cba5f2fc68ae55d6938b4a040e9088462738f912a2b72b6573d86`. El workflow declara “no repository write”; el archivo versionado no se actualiza automáticamente.
 - **VERIFIED — bloqueo distinto:** el estado combinado del SHA `5c03107c` muestra `failure` en `spectacular-acceptance - sicl-web`, con destino Railway. Este check no invalida el éxito del workflow de continuidad; su causa sigue **UNKNOWN**.
-- **UNKNOWN:** diagnóstico del check externo de Railway; ejecución E2E de AV-022 en ARKI-02; integración canónica Core/D-2/AGK.
+- **UNKNOWN:** contenido interno del handoff ZIP no inspeccionado (solo se verificaron metadatos, digest y pasos del workflow); diagnóstico del check externo de Railway; ejecución E2E de AV-022 en ARKI-02; integración canónica Core/D-2/AGK.
 - **Bloqueo documental:** el mapa de `main` y su bitácora siguen desactualizados; para promover cambios se requiere PR autorizado. La rama de auditoría se actualiza aquí sin tocar el Event Store canónico.
 - **Límites:** no modificar Core, D-2, FROZEN ni el Event Store canónico.
 
