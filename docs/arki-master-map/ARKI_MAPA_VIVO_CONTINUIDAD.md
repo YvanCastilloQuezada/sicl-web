@@ -1,8 +1,22 @@
 # ARKI — MAPA VIVO DE CONTINUIDAD
 
-> BOOTSTRAP — 2026-10-13; corte de auditoría actualizado el 2026-10-24. La rama fuente continúa sin commits nuevos y main permanece en 5c03107c. El snapshot programado más reciente (run 40088872229) generó y subió un handoff de revisión con todos los pasos en SUCCESS, pero el workflow es explícitamente de solo lectura: no actualiza automáticamente este archivo. No confundir éxito del handoff con publicación del mapa ni con E2E de ARKI-02.
+> BOOTSTRAP — 2026-10-13; corte de auditoría actualizado el 2026-10-25. La rama fuente permanece en b0a37f1b y main en 5c03107c, sin commits nuevos confirmados. El workflow programado más reciente (run 40189854942) terminó SUCCESS y cargó un handoff de revisión; no escribe al repositorio. En paralelo, el estado combinado de main reporta failure en el check externo `spectacular-acceptance - sicl-web` (Railway), de causa UNKNOWN. No confundir éxito del handoff con publicación del mapa, despliegue verde ni E2E de ARKI-02.
 
-## Corte actual — 2026-10-24
+## Corte actual — 2026-10-25
+
+> Reconciliación manual basada en compare de GitHub, metadatos de Actions y estado combinado del commit. No es el artefacto generado por el workflow ni una actualización del Event Store canónico.
+
+- **Rama solicitada:** `feat/arki-integration-genealogy-20261013`; HEAD `b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4`. Compare confirma cero commits nuevos respecto del corte anterior.
+- **main:** HEAD `5c03107cda3f8c4a1d74415610fe5efa67100079`; compare confirma cero commits nuevos desde el corte anterior.
+- **IMPLEMENTED:** generador de continuidad y workflow read-only presentes. La bitácora JSONL sigue siendo documental, no el Event Store canónico.
+- **EXECUTED:** [ARKI Continuity Snapshot run 40189854942](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/40189854942) terminó SUCCESS el 2026-10-25. Job `snapshot` y los pasos de checkout, setup de Node, generación del handoff, verificación de límites epistémicos y carga del artefacto completados.
+- **VERIFIED:** artefacto `arki-handoff-5c03107cda3f8c4a1d74415610fe5efa67100079`, ID `12596523916`, tamaño 2199 bytes, digest `sha256:b3ebb173900cba5f2fc68ae55d6938b4a040e9088462738f912a2b72b6573d86`. El workflow declara “no repository write”; el archivo versionado no se actualiza automáticamente.
+- **VERIFIED — bloqueo distinto:** el estado combinado del SHA `5c03107c` muestra `failure` en `spectacular-acceptance - sicl-web`, con destino Railway. Este check no invalida el éxito del workflow de continuidad; su causa sigue **UNKNOWN**.
+- **UNKNOWN:** diagnóstico del check externo de Railway; ejecución E2E de AV-022 en ARKI-02; integración canónica Core/D-2/AGK.
+- **Bloqueo documental:** el mapa de `main` y su bitácora siguen desactualizados; para promover cambios se requiere PR autorizado. La rama de auditoría se actualiza aquí sin tocar el Event Store canónico.
+- **Límites:** no modificar Core, D-2, FROZEN ni el Event Store canónico.
+
+## Corte anterior — 2026-10-24
 
 > Reconciliación manual basada en GitHub API y metadatos de Actions. No es el artefacto generado por el workflow ni una actualización del Event Store canónico.
 
@@ -32,12 +46,12 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 ## Estado actual
 - Bolsa de Ideas: 44 de 189 ramas no-main comparadas, 145 pendientes.
 - Pulso de salud read-only en `feat/arki-live-readonly-pulse-20261013`: código y tests escritos; CI no verificado.
-- Automatización de continuidad: generación de handoff EXECUTED/VERIFIED en run 40088872229; publicación automática del archivo no implementada por el diseño read-only. E2E AV-022 en ARKI-02 sigue UNKNOWN.
+- Automatización de continuidad: generación de handoff EXECUTED/VERIFIED en run 40189854942; publicación automática del archivo no implementada por el diseño read-only. Check externo spectacular-acceptance en FAILURE, causa UNKNOWN. E2E AV-022 en ARKI-02 sigue UNKNOWN.
 - SICL Web CI pasó en SHA `5c03107c` (run 39878909890); integración canónica Core/D-2/AGK y E2E de AV-022 en ARKI-02: NOT_VERIFIED.
 - Prohibido confundir documento de continuidad con memoria arquitectónica canónica.
 
 ## Pendientes inmediatos
-- Inspeccionar el artefacto del run 40088872229 y promover la reconciliación del Mapa Vivo mediante PR autorizado; el workflow read-only no modifica este archivo.
+- Inspeccionar el artefacto del run 40189854942, diagnosticar spectacular-acceptance y promover la reconciliación del Mapa Vivo mediante PR autorizado; el workflow read-only no modifica este archivo.
 - Incorporar eventos de cada decisión futura a JSONL con fuente y fecha; no asumir que ChatGPT escribe automáticamente sin ejecutar herramienta.
 - Verificar que un chat nuevo puede recuperar y leer este archivo.
 - Extender captura de eventos a otros repos y al Core respetando ownership.
