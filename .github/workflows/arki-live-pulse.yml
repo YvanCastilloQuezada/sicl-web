@@ -1,0 +1,31 @@
+name: ARKI Live Pulse Tests
+on:
+  push:
+    branches:
+      - feat/arki-live-readonly-pulse-20261013
+  pull_request:
+    paths:
+      - 'tools/maqueta-viva/arki-live-pulse.cjs'
+      - 'tools/maqueta-viva/arki-live-pulse.test.cjs'
+      - '.github/workflows/arki-live-pulse.yml'
+  workflow_dispatch:
+jobs:
+  pulse-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test fail-closed observation
+        run: node --test tools/maqueta-viva/arki-live-pulse.test.cjs
+      - name: Check unconfigured pulse remains UNKNOWN
+        run: |
+          set +e
+          node tools/maqueta-viva/arki-live-pulse.cjs > /tmp/arki-pulse.json
+          status=$?
+          set -e
+          test "$status" -eq 2
+          node -e 'const x=require("/tmp/arki-pulse.json"); if(x.state!=="UNCONFIGURED" || x.eventLog!=="NOT_MODIFIED") process.exit(1)'
