@@ -1,4 +1,4 @@
-// L-04 audit canary: AGK-only workflow path trigger; no runtime behavior change.
+// L-04 empirical canary: AGK-only path trigger; no runtime behavior change.
 import { fingerprint } from "./arkiFingerprint";
 import {
   bridgeD63ToD2Geometry,
