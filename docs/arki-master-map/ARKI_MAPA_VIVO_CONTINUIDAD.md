@@ -1,48 +1,5 @@
 # ARKI — MAPA VIVO DE CONTINUIDAD
 
-> BOOTSTRAP — 2026-10-13. Este archivo inicial será reemplazado por el generador automático cuando GitHub Actions ejecute correctamente. **NO declarar automatización verificada hasta comprobar el workflow.**
-
-## Punto de entrada del próximo chat
-ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema multiescala 3D-First con Core/D-2/AGK como autoridad canónica, razonamiento, memoria, representación y Human Authority. No duplicar Event Store ni estados canónicos. NO EVIDENCE = NO GREEN.
-
-## Prioridad P0 del propietario
-**Continuidad histórica permanente** antes de seguir ampliando módulos, autoevaluación o automejora. Cada decisión, avance, bloqueo y evidencia debe alimentar el mapa, y el siguiente chat debe comenzar leyendo este archivo y el ledger.
-
-## Fuentes
-1. `docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl`: bitácora de decisiones y acciones declaradas; no reemplaza Event Store Core.
-2. `tools/maqueta-viva/arki-continuity-snapshot.cjs`: generador desde bitácora + últimos commits Git.
-3. `.github/workflows/arki-continuity-map.yml`: regeneración en push de la rama de trabajo y por disparo manual; **ejecución aún no verificada**.
-4. `docs/arki-master-map/ARKI_M10_001_MACROORDERS.md`: ruta de macroórdenes.
-5. `docs/arki-master-map/ARKI_BOLSA_IDEAS_CRONOLOGIA_BIC_007.md` y `ARKI_BOLSA_IDEAS_DOBLE_FECHA_ESTADO_BIC_008.md`: genealogía y fechas.
-
-## Estado actual
-- Bolsa de Ideas: 44 de 189 ramas no-main comparadas, 145 pendientes.
-- Pulso de salud read-only en `feat/arki-live-readonly-pulse-20261013`: código y tests escritos; CI no verificado.
-- Automatización de continuidad: código y workflow escritos; **no ejecutado ni validado en este reporte**.
-- Core/D-2/AGK, CI exacto y despliegue: NOT_VERIFIED.
-- Prohibido confundir documento de continuidad con memoria arquitectónica canónica.
-
-## Pendientes inmediatos
-- Ejecutar workflow y comprobar que actualiza este mapa sin bucle.
-- Incorporar eventos de cada decisión futura a JSONL con fuente y fecha; no asumir que ChatGPT escribe automáticamente sin ejecutar herramienta.
-- Verificar que un chat nuevo puede recuperar y leer este archivo.
-- Extender captura de eventos a otros repos y al Core respetando ownership.
-
-## Reconciliación documental — 2026-10-17
-
-> Actualización documental manual en rama de auditoría, basada en la bitácora existente y GitHub. **No es una ejecución del generador, una promoción canónica ni una certificación de CI.** El generador oficial podrá reemplazar este bloque cuando se ejecute y verifique.
-
-- **Rama fuente inspeccionada:** `feat/arki-integration-genealogy-20261013`; HEAD `b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4` (commit del 2026-10-14 01:18:01 UTC). Sin commits posteriores al corte de revisión del 2026-10-15.
-- **Bitácora documental:** `ARKI_CONTINUITY_EVENTS.jsonl` en esta rama de auditoría incluye `CONT-20261014-011` (dos commits previamente identificados) y `CONT-20261014-012` (bloqueo de CI anterior a ejecutar pasos). No se agregan eventos duplicados en esta revisión.
-- **IMPLEMENTED:** lanzador Ubuntu de validación local, generador del mapa y workflow presentes en la rama fuente. Su presencia no acredita operación.
-- **EXECUTED:** los runs de GitHub Actions `38494969069` (ARKI Continuity Map) y `38494969097` (SICL Web CI) terminaron en `failure`; sus jobs muestran `runner_id=0` y cero pasos. No hay evidencia de ejecución de las suites.
-- **VERIFIED:** identidad del SHA remoto, existencia de los archivos de continuidad, estados y metadatos de esos runs y situación del PR #59 (abierto, borrador, sin fusionar), consultados en GitHub el 2026-10-17.
-- **UNKNOWN:** causa exacta de la falta de runner, validación local por SHA en ARKI-02 y aptitud para promoción canónica.
-- **BLOQUEOS:** recuperar CI o evidencia local atribuible al SHA exacto; validar el generador y regenerar determinísticamente el mapa antes de fusionar el PR #59.
-
-**Límites:** ninguna modificación de Core, D-2, AGK, FROZEN o Event Store canónico. No se atribuye aprobación del propietario ni resultado de prueba inexistente.
-
-**Evidencia:** [commit fuente](https://github.com/YvanCastilloQuezada/sicl-web/commit/b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4) · [run de continuidad](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/38494969069) · [run CI](https://github.com/YvanCastilloQuezada/sicl-web/actions/runs/38494969097) · [PR #59](https://github.com/YvanCastilloQuezada/sicl-web/pull/59).
 > GENERADO A PARTIR DE GIT + EVENTOS DECLARADOS. No es el Event Store canónico del Core. No verifica CI, arquitectura ni despliegue.
 
 ## Cómo retomar en un nuevo chat
@@ -52,8 +9,8 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 
 ## Estado observado
 - Rama: `main`
-- Último SHA de cambios sustantivos (excluye snapshot): `a15597e2b2b51916d429afdec2ec4a8c77b72a20`
-- Último commit: 2026-10-21T01:54:26-05:00 — fix(arki): correct continuity ledger parser
+- Último SHA de cambios sustantivos (excluye snapshot): `76d79f6192e79ad8dd930d5d0e83a0b9daef6ac0`
+- Último commit: 2026-10-27T16:21:32-05:00 — ci(arki): recuperar workflow arki-live-pulse de rama histórica
 - Estado de Core/D-2/AGK: NOT_VERIFIED
 - CI exacto y E2E: NOT_VERIFIED
 - Promoción canónica: NO_AUTORIZADA_POR_ESTE_MAPA
@@ -69,91 +26,95 @@ ARKI/ARQUI = arquitectura cognitiva de dominio del entorno construido; sistema m
 - **2026-10-13** [CONTINUITY_HARDENING] CONT-20261013-008 — Mapa Vivo ahora muestra última acción del ledger y enlace al protocolo de arranque; el CI del SHA exacto sigue sin verificación verde.; evidencia: sicl-web commit c1c3bf7b5a8b97badbb37c68b9bea26b8bc552ed; CI previo run 38477412351 failure; logs no recuperables; estado: IMPLEMENTED_NOT_VERIFIED
 - **2026-10-13** [CI_REPAIR] CONT-20261013-009 — Workflow de continuidad ajustado para probar en PR y publicar solo en push de rama; falta evidencia de ejecución verde, por lo que la fusión sigue bloqueada.; evidencia: sicl-web commit ff24dabdc7c58aa6cf04124e0594398b1aaeca6b; GitHub CI anterior 38480483015 FAILURE; estado: IMPLEMENTED_NOT_VERIFIED
 - **2026-10-13** [VALIDATION_PROTOCOL] CONT-20261013-010 — Se habilita verificación offline por SHA en servidor privado; GitHub Actions no se usa como evidencia de aprobación hasta recuperar su operación.; evidencia: sicl-web commit f46a5ca3cdd910d63e8ef3750b272b5ab91ffbca; tools/maqueta-viva/arki-continuity-local-verify.cjs; estado: IMPLEMENTED_AWAITING_LOCAL_EXECUTION
+- **2026-10-14** [CONTINUITY_REVIEW] CONT-20261014-011 — Revisión de continuidad: desde f46a5ca3 hasta b0a37f1b hay dos commits nuevos: protocolo de validación privada documentado y lanzador Ubuntu por SHA; la bitácora añadió CONT-20261013-010. No se demues; evidencia: GitHub compare f46a5ca3cdd910d63e8ef3750b272b5ab91ffbca...b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4; commits 2dea59b4190754ee76d2b9b40d8fc636b6a9cdad y b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4; estado: IMPLEMENTED_NOT_EXECUTED
+- **2026-10-14** [CI_OBSERVATION] CONT-20261014-012 — ARKI Continuity Map y SICL Web CI fallan para SHA b0a37f1b; jobs continuity y verify finalizaron failure sin runner asignado (runner_id=0, steps vacíos). No hay evidencia de ejecución de pruebas; caus; evidencia: GitHub Actions runs 38494969069 y 38494969097; jobs API; SHA b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4; estado: BLOCKED_PRE_EXECUTION
+- **2026-10-21** [CONTINUITY_REVIEW] CONT-20261021-013 — La rama fuente feat/arki-integration-genealogy-20261013 sigue en b0a37f1 sin commits nuevos. Novedad desde la revisión previa: PR #59 fue fusionado en main el 2026-10-21T06:12:36Z mediante merge commi; evidencia: GitHub branch API (feat branch b0a37f1); PR #59 API merged_at=2026-10-21T06:12:36Z, merge_commit_sha=2d2f0333181db4c7e52050086b506e6c747ce4a3; run 39554020549 step 'Validate continuity generator and l; estado: VERIFIED_PARTIAL
+- **2026-10-22** [CONTINUITY_REVIEW] CONT-20261022-014 — La rama feat/arki-integration-genealogy-20261013 permanece sin cambios en b0a37f1b; main avanzó 28 commits hasta a6d9d1bf e incluye PR #59 y avances de REVIVIR ARKI/MO-22. SICL Web CI pasó en a6d9d1bf; evidencia: Branch API source b0a37f1b3f063b66c6f0fcf1ac2cc8ebb4c17ea4; main a6d9d1bfd1962302ba1a4a41136522d6143ce694; compare b0a37f1...main ahead_by=28; SICL Web CI https://github.com/YvanCastilloQuezada/sicl-w; estado: VERIFIED_PARTIAL
 
 ## Última acción registrada
-- CONT-20261013-010 — Se habilita verificación offline por SHA en servidor privado; GitHub Actions no se usa como evidencia de aprobación hasta recuperar su operación. — IMPLEMENTED_AWAITING_LOCAL_EXECUTION
+- CONT-20261022-014 — La rama feat/arki-integration-genealogy-20261013 permanece sin cambios en b0a37f1b; main avanzó 28 commits hasta a6d9d1bf e incluye PR #59 y avances de REVIVIR ARKI/MO-22. SICL Web CI pasó en a6d9d1bf — VERIFIED_PARTIAL
 
 ## Últimos 80 commits observados (no son aprobación)
-- 2026-10-21T01:54:26-05:00 — `a15597e2b2b5` — fix(arki): correct continuity ledger parser
-- 2026-10-21T01:12:35-05:00 — `2d2f0333181d` — Merge pull request #59 from YvanCastilloQuezada/feat/arki-integration-genealogy-20261013
-- 2026-10-21T00:30:01-05:00 — `3018e9cc6992` — Merge pull request #62 from YvanCastilloQuezada/integration/arki-av035-main-20261015
-- 2026-10-21T00:25:20-05:00 — `87d7059015a4` — ci: provide isolated MariaDB and session fixtures for MO22 tests
-- 2026-10-20T23:58:14-05:00 — `8b40a717efa0` — feat(arki): harden receipt verification and operational self-improvement
-- 2026-10-17T11:36:28-05:00 — `f5f450712e97` — Merge pull request #63 from YvanCastilloQuezada/ace87/remove-qr
-- 2026-10-17T11:24:01-05:00 — `6fa1fb16a5c9` — test(mo29): track project resolver and secure core test fixtures
-- 2026-10-17T11:00:16-05:00 — `015caa62bf45` — fix(mo29): gate authorized storage by verified local identity
-- 2026-10-17T07:48:39-05:00 — `00891432b906` — ARKI MO08: guarded SQL local auth and verified isolated E2E
-- 2026-10-17T05:14:00-05:00 — `3f7bc450cf53` — ARKI MO24-MO27: integrate source and parametric browser flows
-- 2026-10-17T04:24:08-05:00 — `eda60ad12ce4` — feat(arki): integrate MO22 storage bridge and TypeScript declarations
-- 2026-10-17T04:20:36-05:00 — `67542ffa59ae` — feat(arki): checkpoint MO22 isolated storage components
-- 2026-10-16T18:01:18-05:00 — `0f977158a47b` — docs: add ARKI-00 canonical continuity and Árbol Vivo integration handoff
-- 2026-10-15T18:00:08-05:00 — `ffecd30daf44` — fix(arki): AV036 F6 revocation and executor safeguards
-- 2026-10-15T16:37:05-05:00 — `9914f5dfed15` — integrate(arki): AV035 tree and canonical map candidate
-- 2026-10-14T00:05:49-05:00 — `a72e1a9d7258` — ACE87: remove legacy QR access components
-- 2026-10-13T20:18:01-05:00 — `b0a37f1b3f06` — Add Ubuntu one-command SHA-pinned offline validation entrypoint
-- 2026-10-13T19:17:26-05:00 — `2dea59b41907` — Record private-server validation protocol and pending evidence
-- 2026-10-13T19:17:21-05:00 — `f46a5ca3cdd9` — Add one-command offline continuity verification with SHA-pinned report
-- 2026-10-13T19:15:50-05:00 — `3bbe7de807a4` — Fix adversarial duplicate-event validation in continuity ledger loader
-- 2026-10-13T19:14:32-05:00 — `82ef12ae4414` — Preserve continuity test diagnostics as CI artifact to identify failing step
-- 2026-10-13T19:14:13-05:00 — `de61c119b16d` — Add adversarial tests for missing ledger, corrupt JSON, duplicate IDs and invalid evidence
-- 2026-10-13T19:14:07-05:00 — `1621428e267d` — Allow isolated adversarial ledger validation without modifying production ledger
-- 2026-10-13T19:14:01-05:00 — `80e6e96c3bad` — Fail closed on missing continuity ledger and stabilize branch naming in detached CI checkout
-- 2026-10-13T17:59:43-05:00 — `bb0d358d7e84` — Enable continuity updates on main after merge and verify deterministic snapshot
-- 2026-10-13T17:59:32-05:00 — `64a96b9cd8f0` — Test stable snapshot generation and source-only commit SHA
-- 2026-10-13T17:59:27-05:00 — `246eb0352b0b` — Prevent self-referential continuity snapshot commit loop with source-only SHA
-- 2026-10-13T17:59:20-05:00 — `e10187d43969` — Prepare deterministic continuity history selection for verification
-- 2026-10-13T17:57:33-05:00 — `929d9693e475` — Track workflow repair and remaining CI gate in ARKI continuity ledger
-- 2026-10-13T17:57:01-05:00 — `ff24dabdc7c5` — Run isolated continuity tests on PR and restrict snapshot publishing to branch pushes
-- 2026-10-13T17:50:44-05:00 — `cfb6af43b87c` — Record latest living-map continuity hardening and CI verification blocker
-- 2026-10-13T17:50:37-05:00 — `c1c3bf7b5a8b` — Expose last documented ARKI action and mandatory new-chat protocol in living map
-- 2026-10-13T17:47:17-05:00 — `7ccbf698d9d0` — Specify mandatory ARKI new-chat handoff and append-only continuity acceptance protocol
-- 2026-10-13T17:47:07-05:00 — `23c117467839` — Journal CI failure, scheduled continuity and hardened ledger work with evidence
-- 2026-10-13T17:47:00-05:00 — `a24cd5b938c1` — Correct date validation regex in ARKI continuity ledger parser
-- 2026-10-13T17:46:53-05:00 — `7a596c76bf0b` — Harden ARKI continuity event schema with typed fields and valid dates
-- 2026-10-13T17:22:54-05:00 — `8b8a76dde4a4` — Gate ARKI living-map publication on deterministic continuity tests
-- 2026-10-13T17:22:49-05:00 — `d3f10ab825e6` — Add fail-closed tests for durable ARKI continuity snapshot and evidence ledger
-- 2026-10-13T17:20:39-05:00 — `9cb20e852e1e` — Automate ARKI continuity map generation on branch changes with nonrecursive publishing
-- 2026-10-13T17:20:30-05:00 — `9a3d3eac9a45` — Seed append-only ARKI continuity decision and evidence ledger
-- 2026-10-13T17:20:28-05:00 — `73c379486b40` — Implement deterministic ARKI continuity snapshot from Git history and explicit ledger
-- 2026-10-13T15:32:06-05:00 — `3d9b4f2d9d93` — Require idea conception date, implementation commit date, and independently evidenced open/closed status in every idea card
-- 2026-10-13T15:30:18-05:00 — `4bec9fb43ba9` — Add dated evidence timeline and preserve five newly compared branches with separate idea creation and commit dates
-- 2026-10-13T15:23:09-05:00 — `3b9dcd01da82` — Recover ARE representation and ARKIDRAW primitives as connected subcapabilities with explicit evidence gaps
-- 2026-10-13T15:19:59-05:00 — `520214888a4d` — Audit ARE and ARKIDRAW source semantics and classify complementary ideas without discarding historical branches
-- 2026-10-13T14:49:25-05:00 — `b86429dff63f` — Execute third idea-bag macro batch: preserve 12 branches and group five more capability clusters
-- 2026-10-13T14:46:46-05:00 — `528e4fbdf23e` — Continue macro-order batch: inspect 12 more branches and preserve historical architectural ideas
-- 2026-10-13T14:39:18-05:00 — `c591972da480` — Correct idea inventory: preserve incomplete ideas even when Git history is fully in main
-- 2026-10-13T14:36:44-05:00 — `e9e27737c89a` — Inventory 192 branches and extract initial cross-branch idea clusters with traceable comparison evidence
-- 2026-10-13T14:34:29-05:00 — `b4e9b6646913` — Create idea bag with traceable candidate connectors and ten initial recovered capabilities
-- 2026-10-13T14:30:58-05:00 — `c3740ad11bd7` — Advance M02-M03 using Core authority contract and historical debt classification
-- 2026-10-13T14:30:41-05:00 — `41c658446b83` — Execute M01 multi-repository inventory and identify existing map authority branches
-- 2026-10-13T14:29:33-05:00 — `c1a8df64436a` — Define ten gated ARKI recovery macro-orders and one-batch acceptance protocol
-- 2026-10-13T14:20:07-05:00 — `fab1086a689e` — Audit 17 assembly files, reverse branch deltas, and real continuity workflow limitations
-- 2026-10-13T14:17:00-05:00 — `1bc97dadf5d4` — Record branch divergence and local test evidence without claiming CI approval
-- 2026-10-13T13:18:53-05:00 — `c482cbcfe5f4` — Inventory branch genealogy and main integration gates without altering canonical code
-- 2026-10-11T18:39:19-05:00 — `1544b977ad34` — ACE85: synchronize validated local changes
-- 2026-10-04T23:36:06-05:00 — `e7cc9f9cd2f3` — docs(master-map): make frontend assembly the immediate ARKI priority
-- 2026-10-04T23:35:56-05:00 — `699528c16d9f` — feat(frontend): assemble primary ARKI surfaces and site-first nervous system
-- 2026-10-04T23:33:27-05:00 — `4f1ee9cca287` — docs(master-map): register AGK T2/T3 evidence and delta policies
-- 2026-10-04T23:33:17-05:00 — `f69edc07eece` — docs(agk): record T2 coordinate policy and T3 torture evidence
-- 2026-10-04T23:17:05-05:00 — `135b06f271cf` — docs(agk): record OCCT bounded execution evidence
-- 2026-10-04T18:14:48-05:00 — `2b7bfc8e1362` — docs(handoff): freeze ARKI continuity baseline before merge
-- 2026-10-04T18:11:37-05:00 — `8d9d92ca9ae5` — docs(master-map): add ARKI triple-audit body map
-- 2026-10-04T17:59:35-05:00 — `ca6915242d06` — docs(master-map): recover Phase 6 3D-to-2D fidelity gap
-- 2026-10-04T17:53:16-05:00 — `7ec0ebf37e9a` — docs(master-map): define three-dashboard evolution and architectural testbed
-- 2026-10-04T17:53:06-05:00 — `44b09dad5832` — chore(command-center): remove superseded hidden evolution block
-- 2026-10-04T17:52:57-05:00 — `16519f5d5be6` — feat(command-center): add ideas-frozen board and 16-4-1 demo entry
-- 2026-10-04T17:52:41-05:00 — `781538acd68e` — feat(design-funnel): add editable 120-floor demo brief to 16-4-1 explorer
-- 2026-10-04T17:38:22-05:00 — `ea58cb11862e` — docs(master-map): make Delta 6.2 the governed ARKI knowledge gate
-- 2026-10-04T17:38:10-05:00 — `00b0d0643073` — refactor(command-center): align organs with Delta 6.2 knowledge gate
-- 2026-10-04T17:38:01-05:00 — `5f68223a2220` — feat(command-center): evolve local frontend with Delta 6.2 knowledge view
-- 2026-10-04T16:30:20-05:00 — `364b628b4fd7` — docs(master-map): define localhost-only Command Center V1 and add federation evidence
-- 2026-10-04T16:27:06-05:00 — `dbc1fd240c67` — docs(master-map): begin AR-LU Corporation organizational consolidation
-- 2026-10-04T16:10:50-05:00 — `00fa82cc9baa` — docs(constitution): seal PF-05 Mutual Care as immutable fifth pillar
-- 2026-10-04T15:59:43-05:00 — `260792551c38` — feat(command-center): register Superarchitect live map route
-- 2026-10-04T15:59:38-05:00 — `8e67a7d579f8` — feat(command-center): add first Superarchitect Command Center
-- 2026-10-04T15:59:36-05:00 — `9e6704e0feda` — feat(command-center): add evidence-bounded live map model
-- 2026-10-04T15:52:52-05:00 — `462f02572d91` — docs(master-map): register computational intelligence architecture
-- 2026-10-04T15:47:45-05:00 — `68c94a6cf186` — audit(master-map): register AI Laboratory and LUCA evidence
+- 2026-10-27T16:21:32-05:00 — `76d79f6192e7` — ci(arki): recuperar workflow arki-live-pulse de rama histórica
+- 2026-10-27T16:08:05-05:00 — `e7833a51d6d2` — fix(adn): recuperar test de arki-adn-mejora-continua de av035-main-integration
+- 2026-10-27T16:06:46-05:00 — `07b4a23bdb39` — fix(adn): recuperar verifyReceiptSignature y receiptSigningPayload de av035-main-integration
+- 2026-10-27T16:04:33-05:00 — `c3b49e0324bc` — fix(maqueta-viva): eliminar return inalcanzable en arkiPriorityLane (bug del rebase del PR #79)
+- 2026-10-27T05:16:29-05:00 — `fec8ab5b9e0d` — Merge pull request #97 from YvanCastilloQuezada/feat/agk-003-parametric-family-unification
+- 2026-10-27T05:16:25-05:00 — `86bee18e5450` — resolve conflict with main in arkiGeometryKernel.ts
+- 2026-10-27T05:13:11-05:00 — `ec147ef7d966` — Revert "Merge pull request #81 from YvanCastilloQuezada/feat/arbol-vivo-autoensamblaje-20261011"
+- 2026-10-27T05:10:11-05:00 — `e5eab66d734d` — Merge pull request #96 from YvanCastilloQuezada/audit/l04-workflow-base-044707a
+- 2026-10-27T05:05:34-05:00 — `70c69549f546` — Merge pull request #81 from YvanCastilloQuezada/feat/arbol-vivo-autoensamblaje-20261011
+- 2026-10-27T05:05:29-05:00 — `e29b9aa81c0b` — resolve conflicts with main after #79
+- 2026-10-27T04:57:43-05:00 — `cdd93cd5754e` — fix(maqueta-viva): restore balanced precedence loop and single blocking reason
+- 2026-10-27T04:37:38-05:00 — `9e6b05d8ed61` — Merge pull request #39 from YvanCastilloQuezada/audit/l04-agk-only-trigger-v2
+- 2026-10-27T04:18:53-05:00 — `3dc596fd4395` — fix(tools): reparar 4 .cjs con bugs de sintaxis del merge 2773bcdc (copiados de av023-arbol-vivo)
+- 2026-10-22T19:28:40-05:00 — `d1922b2de8ac` — docs: consolidate evidence-backed closures in todo
+- 2026-10-22T17:33:20-05:00 — `25d4bf24f279` — fix(railway): define deterministic Web build and health check
+- 2026-10-22T17:33:13-05:00 — `8e451d752a13` — fix(railway): expose health endpoint and honor assigned port
+- 2026-10-22T17:19:41-05:00 — `c83705e008a9` — fix(web): bind production listener to container interface
+- 2026-10-22T17:19:29-05:00 — `52bbb8bb46ce` — fix(web): bind production listener to container interface
+- 2026-10-22T17:19:07-05:00 — `919632f00c2b` — fix(web): avoid registering HTTP server listener twice
+- 2026-10-22T17:14:19-05:00 — `5fa38851f4f7` — fix(ci): make ARKI continuity snapshot read-only
+- 2026-10-22T16:20:13-05:00 — `bec9a7a93147` — fix(arki): preserve FROZEN_READ_ONLY in autonomy orchestrator
+- 2026-10-22T15:52:07-05:00 — `8c6c9e0515a6` — fix(ci): restore valid read-only F1-F10 and MO11 evidence workflow
+- 2026-10-22T15:49:01-05:00 — `b312443809f8` — fix(ci): remove duplicate evidence workflow header
+- 2026-10-22T15:45:36-05:00 — `3bf6a731d848` — test(arki): enforce frozen autonomy boundary
+- 2026-10-22T15:44:44-05:00 — `d080abe78809` — fix(arki): keep frozen items blocked in autonomy planner
+- 2026-10-22T15:43:50-05:00 — `8c110720b404` — fix(arki): repair malformed autonomy orchestrator block
+- 2026-10-22T15:41:55-05:00 — `ead473cbde7c` — Merge branch 'main' into fix/maqueta-viva-runner-20261022
+- 2026-10-22T15:30:16-05:00 — `99635af39ce2` — Merge pull request #86 from YvanCastilloQuezada/fix/arki-continuity-workflow-readonly-20261021
+- 2026-10-22T15:20:46-05:00 — `577ea7c3d53d` — fix(ci): provision MariaDB and test secrets for MO11 evidence
+- 2026-10-22T15:13:53-05:00 — `c3efb157df9a` — fix(ci): repair read-only ARKI evidence workflows
+- 2026-10-22T15:11:16-05:00 — `98cbbdae7863` — Merge branch 'main' into audit/deepseek-f5-f9-redteam-v1
+- 2026-10-22T15:11:05-05:00 — `3c094fe9eab3` — fix(ci): repair ARKI workflow definitions on current main
+- 2026-10-22T14:57:41-05:00 — `ca1e9b19ffc6` — Repair ARKI state, assembly registry, and CI blockers
+- 2026-10-22T14:47:16-05:00 — `dab843e8bdb5` — Remove duplicate verification fields from assembly registry
+- 2026-10-22T14:40:41-05:00 — `96437ae3ce0c` — Repair duplicate keys in ARKI master map state
+- 2026-10-22T14:40:09-05:00 — `16e6266030ed` — Repair duplicate keys in ARKI master map state
+- 2026-10-22T10:30:59-05:00 — `a5a2415010d7` — Merge branch 'main' into feat/arbol-vivo-autoensamblaje-20261011
+- 2026-10-22T10:28:45-05:00 — `712c1db95dd0` — Merge pull request #67 from YvanCastilloQuezada/docs/av-ui-001-preparation-20261010
+- 2026-10-22T10:23:54-05:00 — `83b270b9cace` — Merge branch 'main' into feat/arbol-vivo-autoensamblaje-20261011
+- 2026-10-22T10:20:02-05:00 — `9aab3621abcc` — Merge branch 'main' into feat/arki-frontend-assembly-v1
+- 2026-10-22T10:19:09-05:00 — `71189bb896f1` — Merge branch 'main' into docs/av-ui-001-preparation-20261010
+- 2026-10-22T10:07:35-05:00 — `a3f9d9436eba` — Merge branch 'main' into feat/f7-f8-integral-closure
+- 2026-10-22T09:59:20-05:00 — `e0baceadce78` — Merge branch 'main' into feat/arbol-vivo-autoensamblaje-20261011
+- 2026-10-22T09:55:08-05:00 — `2773bcdc901d` — Merge branch 'main' into docs/av-ui-001-preparation-20261010
+- 2026-10-22T09:50:02-05:00 — `0ae8e31ddf84` — Merge branch 'main' into feat/arki-autonomy-memory-main-20261013
+- 2026-10-22T09:48:16-05:00 — `da1592c5a6f2` — Merge pull request #31 from YvanCastilloQuezada/feat/arki-education-motor-readiness
+- 2026-10-22T09:46:58-05:00 — `4ec36e4064cf` — Merge pull request #54 from YvanCastilloQuezada/test/maqueta-viva-construction-waves-e3
+- 2026-10-22T09:45:21-05:00 — `ce112be50aef` — Merge pull request #42 from YvanCastilloQuezada/feat/e2e002-spatial-reasoning-phase1
+- 2026-10-22T09:44:53-05:00 — `3c5d1a33c67b` — Merge pull request #52 from YvanCastilloQuezada/ci/arki-f1-f10-evidence-runner-v1
+- 2026-10-22T09:42:19-05:00 — `95d874a0745a` — Merge branch 'main' into audit/deepseek-f5-f9-redteam-v1
+- 2026-10-22T09:40:29-05:00 — `86220ed7c8b4` — Merge branch 'feat/arbol-vivo-autoensamblaje-20261011' into feat/arki-autonomy-orchestrator-20261013
+- 2026-10-22T09:35:48-05:00 — `6f7ba821bd02` — docs(memory): correct branch audit progress after second batch
+- 2026-10-22T09:35:40-05:00 — `b85b6a931cdf` — docs(memory): record second batch of branch comparisons
+- 2026-10-22T09:35:32-05:00 — `ac54871e26af` — docs(memory): format second batch comparison table
+- 2026-10-22T09:35:29-05:00 — `0330aebaa2d4` — Merge branch 'main' into audit/arki-continuity-daily-20261014
+- 2026-10-22T09:35:23-05:00 — `7865bfff35fc` — docs(memory): extend branch audit with ten additional comparisons
+- 2026-10-22T09:33:37-05:00 — `2945bfa081dc` — docs(memory): append ARKI continuity update for branch audit and local environment
+- 2026-10-22T09:33:33-05:00 — `519965a9b6ea` — docs(memory): update branch catalog with priority audit findings
+- 2026-10-22T09:33:20-05:00 — `25cf01e1bc3f` — docs(memory): correct branch audit count and add priority commit inspection
+- 2026-10-22T09:23:59-05:00 — `84790a05c21f` — docs(arki): record 2026-10-22 continuity and publication blocker evidence
+- 2026-10-22T08:10:56-05:00 — `0122146d3f4d` — docs(arki): document continuity generator and verification limits
+- 2026-10-22T08:10:32-05:00 — `2c704516c04f` — docs(arki): document canonical handoff copy and continuity generator
+- 2026-10-22T08:10:21-05:00 — `7c523af45165` — docs(arki): copy and update canonical ARKI handoff in memory branch
+- 2026-10-22T03:28:52-05:00 — `767dd92e9ef6` — docs(arki): update branch audit progress count
+- 2026-10-22T03:28:32-05:00 — `b0862ef2d7dc` — docs(arki): extend branch audit comparison batch
+- 2026-10-22T03:28:15-05:00 — `82410f705b6c` — docs(arki): link current comparative branch audit
+- 2026-10-22T03:27:57-05:00 — `8925c1d156ef` — docs(arki): record comparative SICL Web branch audit
+- 2026-10-22T02:49:52-05:00 — `177cab2e21ea` — docs(revivir-arki): record 14 of 14 MO22 integration checks
+- 2026-10-22T02:48:54-05:00 — `e7e3c68b88c7` — docs(revivir-arki): record integration and adapter trace findings
+- 2026-10-22T02:45:38-05:00 — `422a232f3cef` — docs(revivir-arki): add continuity evidence register
+- 2026-10-22T02:32:38-05:00 — `5a995e4aa6ae` — test(storage): cover authorization revalidation edge cases
+- 2026-10-22T01:30:22-05:00 — `71fdbc925245` — Merge pull request #55 from YvanCastilloQuezada/feat/arbol-vivo-precedencias-seguras-20261010
+- 2026-10-22T00:02:55-05:00 — `80773aeb068f` — fix(storage): revalidate authorization after read
+- 2026-10-21T08:42:14-05:00 — `ba9878b1b8a8` — docs(arki): record merge and recovered continuity CI evidence
+- 2026-10-21T04:50:17-05:00 — `e7237c6f8c67` — docs(arki): correct memory consolidation path from source audit
+- 2026-10-21T04:50:00-05:00 — `752087b8cb24` — docs(arki): extend commit catalog across older main history
+- 2026-10-21T04:49:50-05:00 — `e433aa77e26c` — docs(arki): expand branch catalog with deeper main histories
+- 2026-10-21T04:47:47-05:00 — `a0081ae04418` — docs(arki): catalog sicl web branches for memory audit
+- 2026-10-21T04:46:14-05:00 — `d5e81e34a7dc` — docs(arki): record memory persistence integration gap
+- 2026-10-21T04:44:21-05:00 — `905999edcc9b` — docs(arki): catalog branch heads and memory-related commit history
 
 ## Fuentes complementarias
 - `docs/arki-master-map/ARKI_CONTINUITY_NEW_CHAT_PROTOCOL.md` — protocolo de arranque y actualización.
