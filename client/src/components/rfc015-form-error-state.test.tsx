@@ -15,8 +15,8 @@ describe("RFC-015 forms", () => {
     fireEvent.change(screen.getByLabelText("module_ui.statement"), { target: { value: "Keep this statement" } });
     fireEvent.submit(screen.getByRole("button", { name: "phase_a.create_evidence" }).closest("form")!);
     await waitFor(() => expect(onSubmit).toHaveBeenCalled());
-    expect(screen.getByLabelText("phase_a.evidence_id")).toHaveValue("E-FAIL");
-    expect(screen.getByLabelText("module_ui.statement")).toHaveValue("Keep this statement");
+    expect((screen.getByLabelText("phase_a.evidence_id") as HTMLInputElement).value).toBe("E-FAIL");
+    expect((screen.getByLabelText("module_ui.statement") as HTMLTextAreaElement).value).toBe("Keep this statement");
   });
 
   it("preserves Source fields when the save fails", async () => {
@@ -26,8 +26,8 @@ describe("RFC-015 forms", () => {
     fireEvent.change(screen.getByLabelText("module_ui.title"), { target: { value: "Keep this source" } });
     fireEvent.submit(screen.getByRole("button", { name: "phase_a.create_source" }).closest("form")!);
     await waitFor(() => expect(onSubmit).toHaveBeenCalled());
-    expect(screen.getByLabelText("phase_a.source_id")).toHaveValue("S-FAIL");
-    expect(screen.getByLabelText("module_ui.title")).toHaveValue("Keep this source");
+    expect((screen.getByLabelText("phase_a.source_id") as HTMLInputElement).value).toBe("S-FAIL");
+    expect((screen.getByLabelText("module_ui.title") as HTMLInputElement).value).toBe("Keep this source");
   });
 
   it("preserves Evaluation fields when the save fails", async () => {
@@ -37,8 +37,8 @@ describe("RFC-015 forms", () => {
     fireEvent.change(screen.getByLabelText("gate.objective"), { target: { value: "Objective" } });
     fireEvent.submit(screen.getByRole("button", { name: "phase_a.create_evaluation" }).closest("form")!);
     await waitFor(() => expect(onSubmit).toHaveBeenCalled());
-    expect(screen.getByLabelText("gate.alternative")).toHaveValue("A-FAIL");
-    expect(screen.getByLabelText("gate.objective")).toHaveValue("Objective");
+    expect((screen.getByLabelText("gate.alternative") as HTMLInputElement).value).toBe("A-FAIL");
+    expect((screen.getByLabelText("gate.objective") as HTMLInputElement).value).toBe("Objective");
   });
 
   it("preserves Comparison fields when the save fails", async () => {
@@ -48,8 +48,8 @@ describe("RFC-015 forms", () => {
     fireEvent.change(screen.getByLabelText("ui.objectives_optional"), { target: { value: "Energy" } });
     fireEvent.submit(screen.getByRole("button", { name: "phase_a.create_comparison" }).closest("form")!);
     await waitFor(() => expect(onSubmit).toHaveBeenCalled());
-    expect(screen.getByLabelText("ui.alternatives_min")).toHaveValue("A, B");
-    expect(screen.getByLabelText("ui.objectives_optional")).toHaveValue("Energy");
+    expect((screen.getByLabelText("ui.alternatives_min") as HTMLInputElement).value).toBe("A, B");
+    expect((screen.getByLabelText("ui.objectives_optional") as HTMLInputElement).value).toBe("Energy");
   });
 
   it("clears Evidence fields only after a successful save", async () => {
@@ -58,7 +58,7 @@ describe("RFC-015 forms", () => {
     fireEvent.change(screen.getByLabelText("phase_a.evidence_id"), { target: { value: "E-OK" } });
     fireEvent.change(screen.getByLabelText("module_ui.statement"), { target: { value: "Saved statement" } });
     fireEvent.submit(screen.getByRole("button", { name: "phase_a.create_evidence" }).closest("form")!);
-    await waitFor(() => expect(screen.getByLabelText("phase_a.evidence_id")).toHaveValue(""));
-    expect(screen.getByLabelText("module_ui.statement")).toHaveValue("");
+    await waitFor(() => expect((screen.getByLabelText("phase_a.evidence_id") as HTMLInputElement).value).toBe(""));
+    expect((screen.getByLabelText("module_ui.statement") as HTMLTextAreaElement).value).toBe("");
   });
 });
