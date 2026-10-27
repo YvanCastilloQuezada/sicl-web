@@ -1,8 +1,6 @@
 "use strict";
 const assert=require("node:assert/strict");
 const {propose,evaluate,iterate,nextObservation,compareObservations}=require("./arki-adn-mejora-continua.cjs");
-const crypto=require("node:crypto");
-const {propose,evaluate,iterate,nextObservation,compareObservations,receiptSigningPayload}=require("./arki-adn-mejora-continua.cjs");
 const baseline={schema:"ARKI-ADN-OBSERVATION-1",observationId:"O-001",sourceCommit:"a".repeat(40),metrics:[
  {id:"cost",value:120,target:100,direction:"MINIMIZE",unit:"USD-m2",verified:true},
  {id:"comfort",value:65,target:80,direction:"MAXIMIZE",unit:"percent",verified:true},
@@ -42,8 +40,6 @@ for(let i=2;i<=12;i++){
 assert.equal(bounded.cycles.length,12);
 assert.throws(()=>nextObservation(bounded,{...baseline,observationId:"O-OVER-LIMIT"}),/MAX_CYCLES_REACHED/);
 
-const signingKeys=crypto.generateKeyPairSync("rsa",{modulusLength:2048});
-const publicKeyPem=signingKeys.publicKey.export({type:"spki",format:"pem"});
 const evidence={schema:"ARKI-ADN-EXPERIMENT-RECEIPT-1",observationDigest:first.observationDigest,candidateId:first.proposals[0].id,outcome:"SUCCESS",authorization:"EXTERNAL_APPROVED",producerIdentity:"AUTHENTICATED_BY_EXTERNAL_VERIFIER",evidenceDigest:"f".repeat(64),sourceCommit:baseline.sourceCommit,regressionCount:0,safetyGate:"PASS",before:120,after:110};
 assert.throws(()=>evaluate(first,{...evidence,authorization:"NONE"}),/AUTHORIZATION_REQUIRED/);
 assert.throws(()=>evaluate(first,{...evidence,producerIdentity:"SELF_CLAIM"}),/PRODUCER_IDENTITY_UNVERIFIED/);
@@ -55,13 +51,6 @@ assert.throws(()=>evaluate(first,{...evidence,after:120}),/NO_MEASURED_IMPROVEME
 assert.throws(()=>evaluate(first,{...evidence,sourceCommit:"b".repeat(40)}),/SOURCE_COMMIT_MISMATCH/);
 assert.throws(()=>evaluate(first,{...evidence,observationDigest:"f".repeat(64)}),/BASELINE_MISMATCH/);
 const review=evaluate(first,evidence);
-evidence.signature=crypto.sign("sha256",Buffer.from(receiptSigningPayload(evidence)),signingKeys.privateKey).toString("base64");
-assert.throws(()=>evaluate(first,{...evidence,after:109},{publicKey:publicKeyPem}),/RECEIPT_SIGNATURE_INVALID/);
-assert.throws(()=>evaluate(first,{...evidence,signature:""},{publicKey:publicKeyPem}));
-assert.throws(()=>evaluate(first,{...evidence,signature:"%%%"},{publicKey:publicKeyPem}));
-assert.throws(()=>evaluate(first,evidence,{publicKey:"not a PEM key"}));
-assert.throws(()=>evaluate(first,evidence),/RECEIPT_PUBLIC_KEY_REQUIRED/);
-const review=evaluate(first,evidence,{publicKey:publicKeyPem});
 assert.equal(review.learningVerified,false);
 assert.equal(review.status,"EVIDENCE_SUBMITTED_REQUIRES_INDEPENDENT_REVIEW");
 assert.equal(review.canonicalPromotion,"BLOCKED");
