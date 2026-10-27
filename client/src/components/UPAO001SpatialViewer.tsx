@@ -134,8 +134,7 @@ function labelOffset(element: SpatialElement): Point {
   return [0, 0];
 }
 
-export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, selectedElementId, onSelectElement }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; selectedElementId?: string | null; onSelectElement?: (element: SpatialElement) => void }) {
-export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, authorityStatus = "EDUCATIONAL" }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; authorityStatus?: "EDUCATIONAL" | "DERIVED" | "UNKNOWN" }) {
+export function SpatialSvgViewer({ representation, metrics, language = "es", boundsOverride, solarAzimuthDegrees, authorityStatus = "EDUCATIONAL", selectedElementId, onSelectElement }: { representation: SpatialRepresentation; metrics?: Metrics; language?: string; boundsOverride?: SpatialBounds; solarAzimuthDegrees?: number; authorityStatus?: "EDUCATIONAL" | "DERIVED" | "UNKNOWN"; selectedElementId?: string | null; onSelectElement?: (element: SpatialElement) => void }) {
   const [unsupported, setUnsupported] = useState<string[]>([]);
   const geometries = useMemo(() => representation.elements.flatMap((element) => sourcePoints(element)), [representation.elements]);
   const allPoints = geometries.flat();

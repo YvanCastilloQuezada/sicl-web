@@ -15,14 +15,13 @@ const app={innerHTML:"",addEventListener(){},querySelectorAll(){return [];},quer
 const document={getElementById(id){return id==="app"?app:id==="stamp"?{textContent:""}:id==="arki-state"?{textContent:state}:id==="arki-assembly"?{textContent:registry}:null;},body:{appendChild(){}},createElement(){return {click(){},remove(){}};}};
 const localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)};
 const exposed="\nrender();\nreturn {arkiConstructionWaves,stagePiece,unstagePiece,dropSpinePiece,assignSpine,chooseScenario,addConnection,removeConnection,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,runE3Checks,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),getSpines:()=>({...spineAssignments}),getAlternatives:()=>({...alternativeSpineAssignments}),getScenario:()=>spineScenario,setPhase:id=>{activePhase=id;viewScope=id;evolutionMode='maqueta';selected=id;technicalMode=true;spineView=true;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
-const exposed="\nrender();\nreturn {stagePiece,unstagePiece,dropSpinePiece,assignSpine,chooseScenario,addConnection,removeConnection,validateDraft,validateReviews,recordReview,reviewGate,validateObservations,runE3Checks,render,getPlacements:()=>({...placements}),getReviews:()=>({...reviews}),getSpines:()=>({...spineAssignments}),getAlternatives:()=>({...alternativeSpineAssignments}),getScenario:()=>spineScenario,setPhase:id=>{activePhase=id;viewScope=id;evolutionMode='maqueta';selected=id;technicalMode=true;spineView=true;tab='structure';render();},inspect:id=>{selected=id;render();}};\n})();";
 const testSource=script.replace("(function(){","return (function(){").replace(/\nrender\(\);\n\}\)\(\);\s*$/,exposed);
 assert.notEqual(testSource,script,"Test harness must expose application functions");
 const api=new Function("document","localStorage","FileReader","navigator",testSource)(document,localStorage,class FileReader{}, {platform:"NodeMock",userAgent:"NodeMock"});
 let count=0;
 function check(label,condition){assert(condition,label);count++;process.stdout.write("PASS "+label+"\n");}
 const canonical=JSON.parse(state).roadmap.phases.map(p=>({id:p.id,status:p.status,evidence_status:p.evidence_status}));
-check("ten phase buttons",Array.from({length:10},(_,i)=>app.innerHTML.includes('data-phase="F'+(i+1)+'"')).every(Boolean));
+check("ten phase buttons",Array.from({length:10},(_,i)=>{const id="F"+(i+1);return app.innerHTML.includes('data-phase="'+id+'"')||app.innerHTML.includes("data-phase='"+id+"'");}).every(Boolean));
 check("initial center and right tray",app.innerHTML.includes('id="arki-workspace"')&&app.innerHTML.indexOf('id="arki-workspace"')<app.innerHTML.indexOf("Bandeja de piezas"));
 check("six orange navigation and four yellow tray controls",["structure","connections","roadmap","scenarios","parts","floating"].every(k=>app.innerHTML.includes('data-tab="'+k+'"'))&&["pending","ideas","components","frozen"].every(k=>app.innerHTML.includes('data-tray="'+k+'"')));
 check("initial draft empty",Object.keys(api.getPlacements()).length===0);
