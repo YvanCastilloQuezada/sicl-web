@@ -16,7 +16,7 @@ export type SolarAnalysis = {
 
 type CapabilityResolution = { capability_id: string; spatial_scope: string; status: "AVAILABLE" | "REQUIRES_DATA" | "NOT_AVAILABLE" | "NOT_APPLICABLE"; reason: string; required_data: string[]; missing_data: string[]; profile_version: string };
 
-type Props = { selectedAlternativeId: string | null; onAnalysisChange: (analysis: SolarAnalysis | null) => void };
+type Props = { projectId: string; selectedAlternativeId: string | null; onAnalysisChange: (analysis: SolarAnalysis | null) => void };
 
 function todayLocal(): string {
   const now = new Date();
@@ -29,7 +29,7 @@ function hourNow(): string {
   return `${String(hour).padStart(2, "0")}:00`;
 }
 
-export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysisChange }: Props) {
+export default function SolarTemporalOverlay({ projectId, selectedAlternativeId, onAnalysisChange }: Props) {
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = useState(todayLocal);
   const [selectedTime, setSelectedTime] = useState(hourNow);
@@ -37,6 +37,7 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
   const [analysis, setAnalysis] = useState<SolarAnalysis | null>(null);
   const [capability, setCapability] = useState<CapabilityResolution | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const isReferenceExample = projectId !== "UPAO-001";
 
   useEffect(() => {
     let cancelled = false;
@@ -46,14 +47,14 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
         const response = await fetch(`/api/core/v1/examples/UPAO-001/environmental-analysis?selected_date=${encodeURIComponent(selectedDate)}&selected_time=${encodeURIComponent(selectedTime)}`, { headers: { accept: "application/json" } });
         const body = await response.json();
         if (!response.ok) throw new Error(body?.error?.message ?? body?.message ?? t("solar.sourceUnavailable"));
-        if (!cancelled) { setAnalysis(body.data); onAnalysisChange(body.data); }
+        if (!cancelled) { setAnalysis(body.data); onAnalysisChange(isReferenceExample ? null : body.data); }
       } catch (cause) {
         if (!cancelled) { setAnalysis(null); onAnalysisChange(null); setError(cause instanceof Error ? cause.message : t("solar.sourceUnavailable")); }
       }
     };
     void load();
     return () => { cancelled = true; };
-  }, [selectedDate, selectedTime, onAnalysisChange, t]);
+  }, [selectedDate, selectedTime, onAnalysisChange, t, isReferenceExample]);
 
   useEffect(() => {
     let cancelled = false;
@@ -87,6 +88,7 @@ export default function SolarTemporalOverlay({ selectedAlternativeId, onAnalysis
   const arrowY = 100 - Math.cos((azimuth * Math.PI) / 180) * 70;
 
   return <section className="mb-6 rounded-lg border border-amber-400/50 bg-card p-4 text-card-foreground" aria-label={t("solar.title")}>
+    {isReferenceExample && <div className="mb-3 rounded border border-[#f0a35b]/50 bg-[#2b2118] p-3 text-xs text-[#f6d3aa]"><strong>EXAMPLE_REFERENCE / NOT_PROJECT_SITE.</strong> La API disponible corresponde a UPAO-001. Se muestra sólo como referencia educativa y no se registra como análisis solar observado del proyecto {projectId}.</div>}
     <div className="flex flex-wrap items-start justify-between gap-4">
       <div><p className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-600">{t("solar.layer")}</p><h2 className="mt-1 text-lg font-semibold">{t("solar.title")}</h2><p className="mt-1 max-w-3xl text-sm text-muted-foreground">{t("solar.description")}</p></div>
       <span className="rounded-full border border-amber-400/50 px-3 py-1 text-xs font-semibold text-amber-700">{t("solar.educational")}</span>

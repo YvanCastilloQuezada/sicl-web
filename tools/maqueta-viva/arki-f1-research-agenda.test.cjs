@@ -1,0 +1,10 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict");
+const {buildAgenda}=require("./arki-f1-research-agenda.cjs");
+const registry={ideas:[{id:"I-01",title:"Ideas",origin:"docs/a.md"},{id:"I-02",title:"Log"}],components:[]};
+const pulse={schema:"ARKI-INTEGRATED-DIAGNOSIS-1",heartbeat:"ADVISORY_PULSE_COMPLETED",restartReplay:"VERIFIED",planReceipt:"a".repeat(64),policy:{canonicalMutation:false,agkExecuted:false},priority:[{id:"I-01",phase:"F1",dependencyState:"UNDECLARED"},{id:"I-02",phase:"F1",dependencyState:"UNDECLARED"}]};
+test("research agenda exposes unknown prerequisites without invention",()=>{const x=buildAgenda({registry,pulse});assert.equal(x.tasks.length,2);assert.equal(x.relationCandidates.length,0);assert(x.tasks.every(t=>t.dependencyDecision==="UNDECLARED_PENDING_EVIDENCE"&&!t.automaticPromotion));assert.equal(x.canonicalMutation,false)});
+test("source-linked relation remains a review candidate",()=>{const x=buildAgenda({registry,pulse,statements:[{before:"I-01",after:"I-02",relation:"REQUIRES",source:{path:"docs/a.md",sha:"b".repeat(40),quote:"I-02 requires I-01"}}]});assert.equal(x.relationCandidates.length,1);assert.equal(x.tasks[1].candidateRelationIds.length,1);assert.equal(x.relationCandidates[0].decision,"PROPOSED_FOR_REVIEW")});
+test("reject unverified pulse",()=>assert.throws(()=>buildAgenda({registry,pulse:{...pulse,restartReplay:"UNKNOWN"}}),/UNVERIFIED_PULSE/));
+test("reject forged priority IDs",()=>assert.throws(()=>buildAgenda({registry,pulse:{...pulse,priority:[{id:"X",dependencyState:"UNDECLARED"}]}}),/UNTRUSTED_PRIORITY/));
+test("reject duplicate priority",()=>assert.throws(()=>buildAgenda({registry,pulse:{...pulse,priority:[pulse.priority[0],pulse.priority[0]]}}),/UNTRUSTED_PRIORITY/));

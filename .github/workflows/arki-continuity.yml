@@ -1,0 +1,66 @@
+name: ARKI Continuity Snapshot
+
+on:
+  push:
+    branches:
+      - main
+      - feat/arbol-vivo-precedencias-seguras-20261010
+    paths:
+      - 'ARKI_HANDOFF.md'
+      - 'tools/maqueta-viva/generate-arki-handoff.cjs'
+      - 'tools/maqueta-viva/ARKI_AUDIT_INDEX.json'
+      - '.github/workflows/arki-continuity.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'ARKI_HANDOFF.md'
+      - 'tools/maqueta-viva/generate-arki-handoff.cjs'
+      - 'tools/maqueta-viva/ARKI_AUDIT_INDEX.json'
+      - '.github/workflows/arki-continuity.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+# Read-only: protected main must never be mutated by a scheduled workflow.
+# Generated handoff is published as an artifact for review, not pushed to Git.
+permissions:
+  contents: read
+
+concurrency:
+  group: arki-continuity-snapshot-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate handoff from observed Git state
+        run: node tools/maqueta-viva/generate-arki-handoff.cjs
+
+      - name: Verify generated handoff includes explicit epistemic limits
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -F -- 'NO_VERIFICADO' ARKI_HANDOFF.md
+          grep -F -- 'UNKNOWN' ARKI_HANDOFF.md
+          grep -F -- 'BLOCKED' ARKI_HANDOFF.md
+          git diff --check
+
+      - name: Upload generated handoff for review (no repository write)
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-handoff-${{ github.sha }}
+          path: ARKI_HANDOFF.md
+          if-no-files-found: error
+          retention-days: 30

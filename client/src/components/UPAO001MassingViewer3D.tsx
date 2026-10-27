@@ -17,7 +17,7 @@ export type DerivedMass = {
 
 type Bounds = { minX: number; maxX: number; minY: number; maxY: number; minZ: number; maxZ: number };
 
-type ViewerProps = { representation: SpatialRepresentation; metrics?: Metrics; language?: string };
+type ViewerProps = { representation: SpatialRepresentation; metrics?: Metrics; language?: string; selectedElementId?: string | null; onSelectElement?: (element: SpatialElement) => void };
 
 /** LOCAL_ENU (x=east, y=north, z=up) → Three renderer (x=east, y=up, z=-north). */
 export function spatialToRenderer(point: Point3): Point3 {
@@ -173,9 +173,11 @@ class Viewer3DErrorBoundary extends Component<{ fallback: React.ReactNode; child
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
-export default function UPAO001MassingViewer3D({ representation, metrics }: ViewerProps) {
+export default function UPAO001MassingViewer3D({ representation, metrics, selectedElementId, onSelectElement }: ViewerProps) {
   const controlsRef = useRef<OrbitControls | null>(null);
-  const [selected, setSelected] = useState<DerivedMass | null>(null);
+  const [internalSelected, setInternalSelected] = useState<DerivedMass | null>(null);
+  const selected = selectedElementId ? deriveMasses(representation).find((mass) => mass.element.id === selectedElementId) ?? null : internalSelected;
+  const selectMass = (mass: DerivedMass) => { setInternalSelected(mass); onSelectElement?.(mass.element); };
   const masses = useMemo(() => deriveMasses(representation), [representation]);
   const bounds = useMemo(() => boundsFor(representation), [representation]);
   const resetCamera = () => controlsRef.current?.reset();
@@ -184,7 +186,7 @@ export default function UPAO001MassingViewer3D({ representation, metrics }: View
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">MODEL PROJECT / EDUCATIONAL EXAMPLE</p><p className="mt-1 text-sm text-muted-foreground">Synthetic analytical geometry · LOCAL_ENU · m</p><p className="mt-1 text-xs text-muted-foreground">Alternative: {representation.alternative_id} · {representation.generator_version} · {representation.representation_version}</p></div>
     <div className="relative h-[520px] overflow-hidden rounded-md border border-border bg-slate-50" style={{ height: 520 }} data-testid="massing-3d-viewer">
       <Viewer3DErrorBoundary fallback={fallback}><Canvas camera={{ position: [55, 38, -55], fov: 42 }} dpr={[1, 1.5]} gl={{ antialias: true }} onCreated={({ gl }) => { gl.setClearColor("#f8fafc"); }}>
-        <Scene representation={representation} selectedId={selected?.element.id ?? null} onSelect={setSelected} controlsRef={controlsRef} />
+        <Scene representation={representation} selectedId={selected?.element.id ?? null} onSelect={selectMass} controlsRef={controlsRef} />
       </Canvas></Viewer3DErrorBoundary><button type="button" onClick={resetCamera} className="absolute right-3 top-3 rounded-md border border-slate-400 bg-white px-3 py-1.5 text-xs font-medium text-slate-900 shadow-sm">Reset camera</button>
     </div>
     <div className="grid gap-4 md:grid-cols-[1fr_280px]">

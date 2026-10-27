@@ -82,6 +82,14 @@ function selectedCandidate(projectId: string, id = "DEV-CANDIDATE-A"): DesignCan
     strategy: "Controlled public/service separation",
     preview: "PREVIEW_LOCAL_CONCEPTUAL",
     metrics: { evidenceLevel: "conceptual" },
+    epistemic: {
+      facts: [{ kind: "FACT", id: "FACT-DEV-1", statement: "Candidate was selected by the governed design funnel.", evidenceRefs: ["HUMAN_SELECTION_EVIDENCE"], provenance: ["GEN-C7"] }],
+      assumptions: [{ kind: "ASSUMPTION", id: "ASSUMPTION-DEV-1", statement: "Technical development remains incomplete.", evidenceRefs: [], provenance: ["GEN-C7"] }],
+      preferences: [{ kind: "PREFERENCE", id: "PREFERENCE-DEV-1", statement: "Preserve controlled public/service separation.", evidenceRefs: [], provenance: ["GEN-C7"] }],
+      requirements: [{ kind: "REQUIREMENT", id: "REQUIREMENT-DEV-1", statement: "Human review remains required.", evidenceRefs: ["HUMAN_SELECTION_EVIDENCE"], provenance: ["ARKI-F5"] }],
+      objectives: [{ kind: "OBJECTIVE", id: "OBJECTIVE-DEV-1", statement: "Develop the selected architectural hypothesis.", evidenceRefs: [], provenance: ["GEN-C7"] }],
+      constraints: [{ kind: "CONSTRAINT", id: "CONSTRAINT-DEV-1", statement: "Do not manufacture unresolved structural information.", evidenceRefs: [], provenance: ["GEN-C7"] }],
+    },
     evidence: ["HUMAN_SELECTION_EVIDENCE"],
     unknowns: ["structural system remains unknown"],
     failureReasons: [],
@@ -335,8 +343,16 @@ describe("ARKI Architectural Developer proposal-only", () => {
     ).toBe(false);
   });
 
-  it("preserves D6.3 PARTIAL and G12 FAIL as provenance/feedback evidence", () => {
-    const proposal = developProposal(fixture()).proposal;
+  it("preserves D6.3 PARTIAL and an explicit G12 FAIL as provenance/feedback evidence", () => {
+    const input = fixture();
+    const cycle: IntegratedArchitectCycle = {
+      ...input.cycle,
+      geometry: {
+        ...input.cycle.geometry,
+        gates: { ...input.cycle.geometry.gates, G12_NO_TEMPLATE_HARDCODING: "FAIL" },
+      },
+    };
+    const proposal = developProposal({ ...input, cycle }).proposal;
     expect(proposal.provenance).toEqual(
       expect.arrayContaining([
         { source: "d63_final_status", ref: "PARTIAL" },

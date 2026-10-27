@@ -1,0 +1,9 @@
+"use strict";
+const {test}=require("node:test"),assert=require("node:assert/strict"),fs=require("node:fs"),os=require("node:os"),path=require("node:path"),cp=require("node:child_process");
+const {reconcile}=require("./arki-av003-reconcile.cjs");
+function fixture(fn){const dir=fs.mkdtempSync(path.join(os.tmpdir(),"arki-av003-"));try{cp.execFileSync("git",["init","-q"],{cwd:dir});fs.mkdirSync(path.join(dir,"docs"));fs.writeFileSync(path.join(dir,"docs","source.md"),"source");cp.execFileSync("git",["add","docs/source.md"],{cwd:dir});fn(dir)}finally{fs.rmSync(dir,{recursive:true,force:true})}}
+test("tracks existing origin without claiming competence",()=>fixture(dir=>{const x=reconcile({ideas:[{id:"I-01",origin:"docs/source.md"}],components:[]},dir,["I-01"]);assert.equal(x.items[0].originStatus,"TRACKED_FILE_PRESENT");assert.equal(x.items[0].competenceVerified,false);assert.equal(x.policy.canonicalMutation,false)}));
+test("missing tracked source is not evidence",()=>fixture(dir=>{const x=reconcile({ideas:[{id:"I-01",origin:"docs/missing.md"}],components:[]},dir,["I-01"]);assert.equal(x.items[0].originStatus,"NOT_TRACKED_IN_WEB");assert.deepEqual(x.items[0].evidence,[])}));
+test("path traversal and absolute references fail closed",()=>fixture(dir=>{const r={ideas:[{id:"I-01",origin:"../outside.md"},{id:"I-02",origin:"/etc/passwd"}],components:[]};const x=reconcile(r,dir,["I-01","I-02"]);assert.ok(x.items.every(v=>v.originStatus==="UNSAFE_REFERENCE"))}));
+test("unknown ID stays unknown",()=>fixture(dir=>{const x=reconcile({ideas:[],components:[]},dir,["I-12"]);assert.equal(x.items[0].status,"UNKNOWN_ID")}));
+test("registry remains unchanged",()=>fixture(dir=>{const r={ideas:[{id:"I-01",origin:"docs/source.md"}],components:[]},before=JSON.stringify(r);reconcile(r,dir,["I-01"]);assert.equal(JSON.stringify(r),before)}));
