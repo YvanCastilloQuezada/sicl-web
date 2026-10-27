@@ -1,3 +1,4 @@
+// L-04 empirical canary: AGK-only path trigger; no runtime behavior change.
 import { fingerprint } from "./arkiFingerprint";
 import {
   bridgeD63ToD2Geometry,
