@@ -2733,7 +2733,6 @@ const absent=topology.missing.get(row.id)||[];
 const cyclic=topology.cycleMembers.has(row.id);
 const unresolved=deps.filter(id=>!placements[id]||!reviewGate(id).complete);
 return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":row.protected?"REVISAR FROZEN":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
-return {research:cyclic||absent.length?"INVESTIGAR RAÍZ":"ANALIZAR",test:cyclic?"BLOQUEADA POR CICLO":absent.length?"BLOQUEADA POR REFERENCIA AUSENTE":unresolved.length?"ESPERA PRECEDENTES":"REQUIERE PRUEBAS",implementation:"NO AUTORIZADA",predecessors:deps,missing:absent,cycle:cyclic};
 }
 function arkiGlobalPrecedence(rows){
 const downstream=id=>arkiDependencyImpact(id);
