@@ -6,12 +6,7 @@ const discovery={schema:"ARKI-CAPABILITY-DISCOVERY-1",totalFiles:1,unclassified:
 const part={id:"A",path:"src/a.ts",phase:"F2",dependencies:[]};
 test("unverified evidence fails closed",()=>{const r=orchestrate({parts:[part],discovery});assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW");assert.equal(r.canonicalMutation,false)});
 test("verified evidence only permits isolated experiment candidate",()=>{const r=orchestrate({parts:[part],discovery,evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});assert.equal(r.work[0].action,"ISOLATED_EXPERIMENT_CANDIDATE");assert.equal(r.execution,"NOT_EXECUTED")});
-<<<<<<< HEAD
-test("frozen remains blocked",()=>{const r=orchestrate({parts:[{...part,frozen:true}],discovery,evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW")});
-test("frozen items remain blocked even when evidence is present",()=>{
-=======
 test("FROZEN_READ_ONLY remains blocked even when evidence is verified",()=>{
->>>>>>> origin/main
   const r=orchestrate({parts:[{...part,frozen:true}],discovery,
     evidence:{A:{verified:true,commit:"a".repeat(40),testReceipt:"ci:123",source:"src/a.ts"}}});
   assert.equal(r.work[0].action,"EVIDENCE_OR_AUTHORITY_REVIEW");
