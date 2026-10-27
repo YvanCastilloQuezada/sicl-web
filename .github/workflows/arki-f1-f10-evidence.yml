@@ -161,4 +161,3 @@ jobs:
           path: artifacts/arki-core-evidence/
           if-no-files-found: warn
           retention-days: 30
-
