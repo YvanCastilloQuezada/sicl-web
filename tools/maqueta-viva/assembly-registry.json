@@ -336,7 +336,9 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 3/3 archivos de evidencia existen. sourceStatus=DEMONSTRATED."
     },
     {
       "id": "HC-02",
@@ -408,7 +410,9 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos de evidencia existen. sourceStatus=DEMONSTRATED."
     },
     {
       "id": "HC-08",
@@ -492,7 +496,9 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos de evidencia existen. sourceStatus=DEMONSTRATED_LOCAL."
     },
     {
       "id": "HC-15",
@@ -504,7 +510,9 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos de evidencia existen. sourceStatus=DEMONSTRATED_ADAPTER."
     },
     {
       "id": "HC-16",
