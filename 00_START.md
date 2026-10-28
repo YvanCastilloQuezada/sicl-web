@@ -85,7 +85,7 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 
 ## 6. Cómo retomar el siguiente chat
 
-1. Leer este `00-START.md` y `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md`.
+1. Leer este `00_START.md` y `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md`.
 2. Inspeccionar el HEAD actual de la rama experimental y el código real antes de cambiarlo.
 3. Si se necesita el estado de ARKI-02, pedir **una sola macroorden breve** que devuelva logs del timer, SHAs y estado, sin destruir nada.
 4. **Implementar código** en rama experimental a través de GitHub; incluir pruebas adversariales y dar un único bloque de validación para Ubuntu.
@@ -270,9 +270,9 @@ Si buscas X, ve a Y:
 
 | Si buscas... | Ve a... |
 |--------------|---------|
-| Qué es ARKI | `00-START.md` sección 1 + FUNDAMENTOS |
-| Estado actual | `00-START.md` sección 10 + `LATEST.json` |
-| Cómo arrancar | `00-START.md` sección 9 + `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md` |
+| Qué es ARKI | `00_START.md` sección 1 + FUNDAMENTOS |
+| Estado actual | `00_START.md` sección 10 + `LATEST.json` |
+| Cómo arrancar | `00_START.md` sección 9 + `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md` |
 | Estado de las fases | `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` |
 | Evidencia de las fases | `docs/ops/ARKI-F1-F10-PHASE-EVIDENCE-20261027.md` |
 | Cómo replicar E2E | `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md` |
@@ -634,8 +634,8 @@ text
 ## Anexo G — Manual Maestro de Continuidad (histórico 2026-10-16, revisado 2026-10-28)
 
 **Origen:** `ARKI-00.md` (raíz de `canonical/sicl-web`, trackeado en git, 430 líneas).
-**Estado:** histórico. Este anexo integra en el `00-START.md` las secciones del Manual Maestro que **no estaban** en el documento de continuidad. El original completo se conserva en `ARKI-00.md` para trazabilidad.
-**Regla:** para el estado **vigente**, leer el `00-START.md` (secciones 1-15 + Anexos A-G). Para el contexto histórico y la visión original del PO, leer `ARKI-00.md`.
+**Estado:** histórico. Este anexo integra en el `00_START.md` las secciones del Manual Maestro que **no estaban** en el documento de continuidad. El original completo se conserva en `ARKI-00.md` para trazabilidad.
+**Regla:** para el estado **vigente**, leer el `00_START.md` (secciones 1-15 + Anexos A-G). Para el contexto histórico y la visión original del PO, leer `ARKI-00.md`.
 
 ### G.1 — Interfaz gráfica elegida por el PO (crítico)
 
@@ -753,7 +753,7 @@ Buscar en `sicl-web/tools/maqueta-viva/` (especialmente checkout local `~/ARKI/a
 **Principio:** reutilizar repositorios y ramas existentes; integrar sobre un baseline aprobado por el PO, sin cambios destructivos prematuros. Cada fase debe entregar funcionalidad integrada.
 
 **Paso A — Reconocer la casa existente (una vez):**
-1. Leer este `00-START.md` + `ARKI-00.md`.
+1. Leer este `00_START.md` + `ARKI-00.md`.
 2. Revisar `ARKI_MASTER_MAP_LIVE.md` y `ARKI_MASTER_MAP_STATE.json`.
 3. Identificar SHAs actuales de `main`, `integration/arki-av035-main-20261015` y `experiment/arki-ideas-mapa-vivo-20261015`.
 4. Encontrar la **pantalla elegida** en `maqueta-viva.template.html`, su montaje y los archivos de datos; verificar si la página 3D final existe y dónde está. **No inventarla.**
@@ -800,7 +800,7 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 
 ### G.7 — Guion de arranque para el siguiente chat/agente
 
-1. Leer **`00-START.md` entero** (secciones 1-15 + Anexos A-G) y `ARKI-00.md` para contexto histórico.
+1. Leer **`00_START.md` entero** (secciones 1-15 + Anexos A-G) y `ARKI-00.md` para contexto histórico.
 2. Responder al PO en una frase: «ARKI tiene el Árbol Vivo AV023 encendido, pero falta el ciclo autónomo integrado; voy a completarlo en la interfaz aprobada, sin crear ramas».
 3. Abrir **`tools/maqueta-viva/maqueta-viva.template.html`** de la rama `integration/arki-av035-main-20261015` y localizar dónde se monta. Inspeccionar también el checkout `~/ARKI/av023-arbol-vivo`.
 4. Abrir el Mapa Maestro y archivos fundacionales; buscar código actual de Web/Core/ACS y la escena 3D real.
@@ -1295,7 +1295,7 @@ Existen componentes, pero no el producto compuesto:
 - **110 capturas** preservadas byte-for-byte.
 - **Ninguna reparación ejecutada**. `A0.R3_FINAL_VERDICT = CLOSED — AUDIT ONLY — STOP`.
 
-**Regla:** esta gobernanza es una línea base de integridad. No afirma funcionalidad. Para el estado vigente, ver `00-START.md §10`.
+**Regla:** esta gobernanza es una línea base de integridad. No afirma funcionalidad. Para el estado vigente, ver `00_START.md §10`.
 
 ---
 
@@ -1447,7 +1447,7 @@ Existen componentes, pero no el producto compuesto:
 
 # ANEXO N — HISTÓRICOS CLAVE (`docs/_ROOT_KEEP/`, 20 archivos)
 
-**Estado:** documentos históricos de producto, RFCs aprobados o en draft, manuales operativos. **Importantes para entender decisiones pasadas, pero no son el estado actual** (el `00-START.md` + Anexos I/J son la verdad vigente).
+**Estado:** documentos históricos de producto, RFCs aprobados o en draft, manuales operativos. **Importantes para entender decisiones pasadas, pero no son el estado actual** (el `00_START.md` + Anexos I/J son la verdad vigente).
 
 ## N.1 — Documentos de producto
 
@@ -1479,7 +1479,7 @@ Existen componentes, pero no el producto compuesto:
 | `RFC-023_CORE_CONNECTIVITY_AND_DEPLOYMENT.md` | APPROVED — AUTHORIZED |
 | `RFC-024_SYSTEM_COMPLETION.md` | IMPLEMENTED — LOCAL/MOCK; REMOTE E2E BLOCKED |
 
-**Regla:** estos documentos son historia. No están sincronizados con el estado vigente. Si hay conflicto, prevalece `00-START.md` + Anexos I/J.
+**Regla:** estos documentos son historia. No están sincronizados con el estado vigente. Si hay conflicto, prevalece `00_START.md` + Anexos I/J.
 
 ---
 
@@ -1520,7 +1520,7 @@ Existen componentes, pero no el producto compuesto:
 
 ## P.1 — `docs/arki-master-map/` (49 archivos, VIVO)
 
-**Estado:** mapa canónico de continuidad. Referenciado en §11 del `00-START.md`.
+**Estado:** mapa canónico de continuidad. Referenciado en §11 del `00_START.md`.
 
 | Archivo | Propósito | Estado |
 |---|---|---|
