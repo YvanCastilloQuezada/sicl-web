@@ -59,6 +59,6 @@ Tras las 19:00 -05:00, verificar `journalctl --user -u arki02-continuity.service
 
 **Cambio de SHAs respecto al 14-oct:** Core pasó de `c68b4451...` a `d48a3301...`. Web pasó de `cbeb41fc...` a `e51170b3...` (main de `canonical/sicl-web`).
 
-**Hallazgo para próxima misión:** el `repairExperiment` existe y funciona, pero devuelve `NO_SUPPORTED_DEFECT_FOUND` con 0 candidates. La misión "autocorrección funcional" del `00_REVIVIR.md` sección 5.2 requiere reinterpretarse como **cierre de information gaps**: tomar un HC-XX o I-XX, recolectar evidencia real, y demostrar transición `INFORMATION_GAP` → `EVIDENCE_VERIFIED` con cambio verificado (no waiver). Existen +50 `trackedPairs` con status `TRACKED_PAIR_NOT_EXECUTED`.
+**Hallazgo para próxima misión:** el `repairExperiment` existe y funciona, pero devuelve `NO_SUPPORTED_DEFECT_FOUND` con 0 candidates. La misión "autocorrección funcional" del `00_START.md` sección 5.2 requiere reinterpretarse como **cierre de information gaps**: tomar un HC-XX o I-XX, recolectar evidencia real, y demostrar transición `INFORMATION_GAP` → `EVIDENCE_VERIFIED` con cambio verificado (no waiver). Existen +50 `trackedPairs` con status `TRACKED_PAIR_NOT_EXECUTED`.
 
 

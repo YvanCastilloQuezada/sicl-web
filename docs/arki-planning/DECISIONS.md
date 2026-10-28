@@ -45,10 +45,10 @@ Cada decisión se registra con:
 
 **Fecha:** 2026-10-27
 **Actor:** Yvan Castillo Quezada (Product Owner)
-**Contexto:** El `00_REVIVIR.md` sección 5.1 pedía verificar el disparo del timer `arki02-continuity.timer` después de las 19:00.
-**Decisión:** Verificar el disparo del 27-oct 19:00:12 y actualizar `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md`, `00_REVIVIR.md` y `00_ARKI_EXPEDIENTE_MAESTRO.md` con la evidencia.
+**Contexto:** El `00_START.md` sección 5.1 pedía verificar el disparo del timer `arki02-continuity.timer` después de las 19:00.
+**Decisión:** Verificar el disparo del 27-oct 19:00:12 y actualizar `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md`, `00_START.md` y `00_ARKI_EXPEDIENTE_MAESTRO.md` con la evidencia.
 **Justificación:** El disparo fue exitoso (`ACE_SNAPSHOT_PASS` + `ADVISORY_PULSE_COMPLETED`). Es un hito verificable.
-**Impacto:** `TIMER_TRIGGER_VERIFIED` para el disparo del 27-oct. El `00_REVIVIR.md` sección 5.1 se marca como completado.
+**Impacto:** `TIMER_TRIGGER_VERIFIED` para el disparo del 27-oct. El `00_START.md` sección 5.1 se marca como completado.
 **Estado:** `ACTIVE`
 
 ---

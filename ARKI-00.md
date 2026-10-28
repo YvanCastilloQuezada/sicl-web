@@ -1,4 +1,4 @@
-> **HISTÓRICO (2026-10-16).** Este documento se ha integrado como **Anexo G** en `00_REVIVIR.md` (2026-10-28). Se conserva para trazabilidad. Para el estado vigente, leer `00_REVIVIR.md`.
+> **HISTÓRICO (2026-10-16).** Este documento se ha integrado como **Anexo G** en `00_START.md` (2026-10-28). Se conserva para trazabilidad. Para el estado vigente, leer `00_START.md`.
 
 # ARKI-00 — MANUAL MAESTRO DE CONTINUIDAD Y REANIMACIÓN DE ARKI/ARQUI
 
