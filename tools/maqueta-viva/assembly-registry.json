@@ -505,7 +505,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "EXPERIMENTAL. Requiere evaluación de si está listo para verificar."
+      "blockingReason": "sourceStatus=EXPERIMENTAL. sourceEvidence apunta a archivos no verificados (ArkiRealityView.tsx, UPAO001SpatialViewer.tsx). No se puede cerrar sin verificación funcional de WebXR/cámara AR."
     },
     {
       "id": "HC-14",
@@ -560,7 +560,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "Sin sourceEvidence. Requiere investigación manual."
+      "blockingReason": "sourceEvidence no es un archivo ('D6.4 report:17-19'). Requiere verificación documental manual del D6.4 report."
     },
     {
       "id": "HC-18",
@@ -587,7 +587,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "IMPLEMENTED_INTERFACE. Requiere verificación específica de la interfaz."
+      "blockingReason": "sourceStatus=IMPLEMENTED_INTERFACE. sourceEvidence apunta a _core/llm.ts que no está en canonical/sicl-web. Requiere verificación de la interfaz LLM."
     },
     {
       "id": "HC-20",
@@ -600,7 +600,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "NOT_VERIFIED. Requiere implementación antes de verificar."
+      "blockingReason": "sourceStatus=NOT_VERIFIED. sourceEvidence no es un archivo ('Exam reports; gates D6.3'). Requiere implementación de corpus normativo RNE/Plazola/Neufert."
     },
     {
       "id": "HC-21",
@@ -613,7 +613,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "DOCUMENTED_ONLY. Solo documentación, sin implementación."
+      "blockingReason": "sourceStatus=DOCUMENTED_ONLY. Solo hay solicitudes históricas, no exporter DWG/DXF. Requiere implementación."
     },
     {
       "id": "HC-22",
@@ -626,7 +626,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "DOCUMENTED_ONLY. Solo documentación, sin implementación."
+      "blockingReason": "sourceStatus=DOCUMENTED_ONLY. Solo hay tipos espaciales, no exporter Revit/RVT/IFC. Requiere implementación."
     },
     {
       "id": "HC-23",
@@ -639,7 +639,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "DOCUMENTED_ONLY. Solo documentación, sin implementación."
+      "blockingReason": "sourceStatus=DOCUMENTED_ONLY. No hay símbolos/evidencia ejecutable para MEP/estructura/familias. Requiere implementación."
     },
     {
       "id": "HC-24",
@@ -652,7 +652,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "PARTIAL. Requiere verificación de qué parte está completa."
+      "blockingReason": "sourceStatus=PARTIAL. sourceEvidence menciona Map.tsx y SpatialRepresentation pero no se verifican en canonical/sicl-web. Requiere verificación de GIS territorial."
     },
     {
       "id": "HC-25",
@@ -693,7 +693,7 @@
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
       "verification": "NOT_CURRENTLY_REVALIDATED",
-      "blockingReason": "Sin sourceEvidence. Requiere investigación manual."
+      "blockingReason": "sourceEvidence no es un archivo ('D6.4 report; protected routes; humanReviewRequired'). Requiere verificación documental de human authority."
     }
   ],
   "source_capability_inventory": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md"
