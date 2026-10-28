@@ -10,37 +10,37 @@
       "id": "I-01",
       "title": "Registro canónico de ideas y backlog",
       "targetPhase": "F1",
-      "sourceStatus": "NOT_FOUND_DISTRIBUTED_ARCHIVE",
+      "sourceStatus": "RESOLVED",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Registrar ideas y tareas pendientes en un dominio propio, separándolas de las funciones ya implementadas.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Resuelto 2026-10-27 (D-20261027-01): docs/arki-planning/ creado con BACKLOG, ROADMAP, DECISIONS, IDEAS"
     },
     {
       "id": "I-02",
       "title": "Bitácora cronológica y hoja de ruta",
       "targetPhase": "F1",
-      "sourceStatus": "PRESENT_PARTIALLY_ACTIVE",
+      "sourceStatus": "RESOLVED",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Conservar una cronología de trabajos, decisiones, hitos y cambios de la hoja de ruta.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Resuelto 2026-10-27 (D-20261027-04): docs/arki-planning/WORK_LEDGER.md creado"
     },
     {
       "id": "I-03",
       "title": "RFC y gobernanza de propuestas",
       "targetPhase": "F1",
-      "sourceStatus": "PRESENT_DOCUMENTARY",
+      "sourceStatus": "RESOLVED",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Describir propuestas de arquitectura y condiciones de aceptación sin convertirlas automáticamente en órdenes de implementación.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Resuelto 2026-10-27 (D-20261027-05): docs/arki-planning/RFC_APPROVALS.md creado"
     },
     {
       "id": "I-04",
