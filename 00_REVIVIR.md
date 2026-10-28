@@ -167,6 +167,7 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 - Core: HTTP 200 en :8000
 - Frontend: HTTP 200 en :3001
 - Árbol Vivo: HTTP 200 en :8768
+- **Maqueta Viva: HTTP 200 en :8769** (nuevo, 28-oct-2026) — interfaz aprobada con 10 etapas F1-F10 y 5 vistas
 - arki-all.service: activo + habilitado
 - Linger: habilitado (arranca al bootear)
 

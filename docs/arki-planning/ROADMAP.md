@@ -28,7 +28,7 @@
 ## Hitos pendientes (prioridad)
 
 1. Cerrar information gaps I-02, I-03, I-08, I-12 (los 4 bloqueados).
-2. Implementar autocorrección funcional (misión del `00-START.md` sección 5.2).
+2. Implementar autocorrección funcional (misión del `00_REVIVIR.md` sección 5.2).
 3. Investigar dependencias reales de I-01 a I-24.
 4. Conectar tareas con Árbol Vivo / Árbol Gemelo Digital.
 5. Tres alternativas arquitectónicas cuantificadas, Delta 6.2, AGK 3D-First, multiescala.

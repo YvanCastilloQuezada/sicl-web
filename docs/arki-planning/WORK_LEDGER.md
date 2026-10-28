@@ -30,7 +30,7 @@ en curso, el completado y el pendiente, con owner, prioridad y fecha.
 | W-000 | Bind `0.0.0.0` para Árbol Vivo | PO | Alta | 2026-10-27 | `be3e1980` + `3cdff4ee` |
 | W-000 | Verificar disparo del timer 19:00 | PO | Alta | 2026-10-27 | (log verificado) |
 | W-000 | Doc de ops actualizado | PO | Alta | 2026-10-27 | `3db49934` + `639718e7` |
-| W-000 | `00-START.md` actualizado | PO | Alta | 2026-10-27 | `35f6c50e` + `a41834ea` |
+| W-000 | `00_REVIVIR.md` actualizado | PO | Alta | 2026-10-27 | `35f6c50e` + `a41834ea` |
 | W-000 | `00_ARKI_EXPEDIENTE_MAESTRO.md` actualizado | PO | Alta | 2026-10-27 | `4081124` |
 | W-000 | Repositorio canónico de planificación | PO | Alta | 2026-10-27 | `8176cfee` |
 | W-000 | I-01 → RESOLVED | PO | Alta | 2026-10-27 | `8176cfee` |
