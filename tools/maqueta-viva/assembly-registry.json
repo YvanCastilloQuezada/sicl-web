@@ -484,7 +484,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "EXPERIMENTAL. Requiere evaluación de si está listo para verificar."
     },
     {
       "id": "HC-14",
@@ -536,7 +537,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "Sin sourceEvidence. Requiere investigación manual."
     },
     {
       "id": "HC-18",
@@ -560,7 +562,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "IMPLEMENTED_INTERFACE. Requiere verificación específica de la interfaz."
     },
     {
       "id": "HC-20",
@@ -572,7 +575,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "NOT_VERIFIED. Requiere implementación antes de verificar."
     },
     {
       "id": "HC-21",
@@ -584,7 +588,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "DOCUMENTED_ONLY. Solo documentación, sin implementación."
     },
     {
       "id": "HC-22",
@@ -596,7 +601,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "DOCUMENTED_ONLY. Solo documentación, sin implementación."
     },
     {
       "id": "HC-23",
@@ -608,7 +614,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "DOCUMENTED_ONLY. Solo documentación, sin implementación."
     },
     {
       "id": "HC-24",
@@ -620,7 +627,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "PARTIAL. Requiere verificación de qué parte está completa."
     },
     {
       "id": "HC-25",
@@ -656,7 +664,8 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "NOT_CURRENTLY_REVALIDATED",
+      "blockingReason": "Sin sourceEvidence. Requiere investigación manual."
     }
   ],
   "source_capability_inventory": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md"
