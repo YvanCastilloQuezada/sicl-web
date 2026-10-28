@@ -615,3 +615,122 @@ text
 | Fecha | Cambio |
 |---|---|
 | 2026-10-27 | Creación. Anexos A (COMPAS), B (Prerrequisitos), C (Tests y setup), D (Troubleshooting), E (Referencias cruzadas), F (Registro). |
+
+---
+
+## Anexo G — Manual Maestro de Continuidad (histórico 2026-10-16, revisado 2026-10-28)
+
+**Origen:** `ARKI-00.md` (raíz de `canonical/sicl-web`, trackeado en git, 430 líneas).
+**Estado:** histórico. Este anexo integra en el `00-START.md` las secciones del Manual Maestro que **no estaban** en el documento de continuidad. El original completo se conserva en `ARKI-00.md` para trazabilidad.
+**Regla:** para el estado **vigente**, leer el `00-START.md` (secciones 1-15 + Anexos A-G). Para el contexto histórico y la visión original del PO, leer `ARKI-00.md`.
+
+### G.1 — Interfaz gráfica elegida por el PO (crítico)
+
+**Instrucción del PO:** «Meter ahí y borrar, meter y borrar». Recuperar lo valioso de las ramas y módulos existentes, integrarlo en el **Árbol Vivo aprobado**, verificar conservación y luego eliminar solamente lo redundante. **No diseñar otra interfaz ni seguir abriendo ramas.**
+
+**Repositorio GitHub:** `YvanCastilloQuezada/sicl-web`.
+
+**Plantilla de interfaz aprobada que hay que completar:**
+
+`tools/maqueta-viva/maqueta-viva.template.html`
+
+**Ramas donde buscarla (no crear otras):**
+- `integration/arki-av035-main-20261015` (integración AV035).
+- `experiment/arki-ideas-mapa-vivo-20261015` (trabajo experimental posterior).
+- `feat/arbol-vivo-precedencias-seguras-20261010` (precedencias y plantilla histórica).
+
+**Diseño visual aprobado:**
+- **Árbol central:** tronco vertical F1 (abajo) hasta F10 (arriba), ramas por fase, espinas/actividades, hojas/frutos de evidencia.
+- **Al seleccionar una fase:** abrir columna vertebral/ruta crítica y espinas; mostrar dependencias, estado, alternativas, precedencia y urgencia.
+- **Izquierda:** leyenda, aprobaciones, información; **derecha:** propuestas pendientes y alternativas; centro con scroll.
+- **Madurez:** gradiente violeta→verde; rojo revisión; madurez separada de autorización. Nunca poner verde sin evidencia.
+- **Vistas:** 01 Plano ARKI (estructura); 02 Maqueta Viva (piezas/fases/espinas/alternativas); 03 Gemelo Digital (estado real y sincronización); 04 Gemelo Predictivo (escenarios y métricas); 05 ARKI Autocorrectivo (diagnóstico/autorización/reversión).
+- **Barra superior:** Estructura · Conexiones · Roadmap · Escenarios · Inventario · Flotantes · Pendientes · Ideas Dispersas · FROZEN · Ideas ARKI · Research & Trends · Historial fuentes · Pruebas E3 Windows · buscador PIEZA.
+- **Ocultar** entradas técnicas Estado/Borrador/Inventario JSON del flujo de uso normal.
+
+**Otros archivos visuales a localizar:**
+- `client/src/App.tsx` — rutas React.
+- `client/src/pages/ArkiControlCenterPage.tsx`.
+- `client/src/pages/ArkiSuperarchitectCommandCenterPage.tsx`.
+- `client/src/pages/ArkiSuperArchitectViewerPage.tsx`.
+- `tools/maqueta-viva/av-ui-001-readonly-prototype.html`.
+
+**Rutas del frontend:** `/control-center`, `/arki-command-center`, `/arki-super-architect`. **Estas rutas no están demostradas como la pantalla 3D oficial.** Examinar código de componentes, escena y datos antes de decidir dónde montar la integración.
+
+**Servidor histórico encendido (AV023):**
+- Ruta: `/home/arki/ARKI/av023-arbol-vivo/`
+- Servidor Node: `tools/maqueta-viva/arki-av023-historical-ui.cjs`
+- URL: `http://127.0.0.1:8768/`
+- **No confundir con el puerto 3000 (Gitea).** El 8768 sirve AV023 histórico, no AV036 ni el frontend definitivo.
+
+### G.2 — Tres repositorios técnicos y tres ramas web prioritarias
+
+**Repositorios (todos en `YvanCastilloQuezada`):**
+1. `sicl-web` — UI, Árbol Vivo, propuestas, coordinación web.
+2. `sicl-core` — Core Python, autoridad/capacidades, contratos y pruebas.
+3. `arki-acs` — frente ACS/CAD e integración geométrica.
+
+**Tres ramas web prioritarias (NO crear otras):**
+1. `main` — verdad publicada del repositorio, requiere contrastar SHA.
+2. `integration/arki-av035-main-20261015` — integración candidata donde aparece la plantilla seleccionada.
+3. `experiment/arki-ideas-mapa-vivo-20261015` — módulos recuperados REC-001/002/003/006 y pruebas MO-04..MO-07.
+
+**Ramas históricas auxiliares (fuentes a revisar, no destinos):**
+`feat/arbol-vivo-precedencias-seguras-20261010`, `feat/arbol-vivo-functional-repair-20261014`, `feat/arki-autonomy-orchestrator-20261013`, `feat/arki-autonomy-memory-main-20261013`, `feat/arki-master-map-live-v1`, `feat/agk-001-operational-spine`, `feat/arki-frontend-assembly-v1`, `audit/mapa-arbol-gemelo-reconciliacion-20261014`, `feat/arki-operational-vitality-mo05-20261015`, `experiment/arki-ideas-web-20261015`.
+
+**Inventario de ramas (22-oct):** 98 ramas incluyendo `main`. Auditoría PARCIAL: 58 ramas comparadas contra `main`, quedan 39 por comparar. **NO borrar ramas por antigüedad ni por nombre.** Conservar blobs, historia y procedencia.
+
+### G.3 — Dónde buscar los archivos fundacionales
+
+**Mapa Maestro (entrada canónica documental):**
+- `docs/arki-master-map/ARKI_MASTER_MAP_LIVE.md`
+- `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` (observado `updated_at=2026-10-07`, puede estar desactualizado).
+
+**Otros puntos de entrada:**
+- `README.md`
+- `docs/ARKI_FRONTEND_HANDOFF.md`
+- `docs/ARKI_PROJECT_HANDOFF_2026-09-16.docx`
+- `docs/arki-knowledge/`
+- `docs/arki-predictive/R1_ARCHITECTURE_ENGINEERING_HANDOFF.md`
+- `docs/arki-architecture/`
+- `tools/maqueta-viva/ARBOL-GEMELO-DIGITAL.md`
+
+**Fuentes fundacionales de arquitectura profesional (PO priorizó):**
+- Francis D. K. Ching (Forma, espacio y orden).
+- Edward T. White (conceptos de formas arquitectónicas y partido).
+- `101 Things I Learned in Architecture School`.
+
+Los PDF se compartieron en conversaciones anteriores; **no están certificados dentro de los repositorios**. Recuperarlos desde adjuntos/Library si están disponibles, registrar autor, procedencia, derechos y alcance. Someter su aprendizaje a curaduría Delta 6.2. **No fingir que ARKI ya asimiló su contenido.**
+
+**Concepto crucial del PO:** partido arquitectónico no es «acomodar habitaciones»; debe traducir programa, restricciones, relaciones espaciales, estructura, forma, orden, jerarquías y creatividad arquitectónica a conocimiento ejecutable y comprobable.
+
+### G.4 — Mapa de módulos existentes del Árbol Vivo
+
+Buscar en `sicl-web/tools/maqueta-viva/` (especialmente checkout local `~/ARKI/av023-arbol-vivo`):
+
+| Archivo | Rol probable o probado | Límite |
+|---|---|---|
+| `maqueta-viva.template.html` | UI seleccionada y vistas del Árbol | No equivale por sí sola a 3D nativo |
+| `av-ui-001-readonly-prototype.html` | Referencia gráfica aislada | No es producto final |
+| `arki-av023-historical-ui.cjs` | Servidor de la UI histórica | Read-only; no es AV036 |
+| `arki-av020-tree.cjs` | Estructura del árbol | Inspeccionar contrato real |
+| `arki-av002-precedence.cjs` | Referencias, precedencias, ciclos | Tests locales aprobados |
+| `arki-av017-proposal.cjs` | Propuestas y decisión PO | No autoaprobación |
+| `arki-twin-three-alternatives.cjs` | Tres alternativas | Hipótesis ≠ medición |
+| `arki-arbol-vivo-auto.cjs` | Inventario/automatización | Asignación de fase NO autónoma |
+| `arki-live-pulse.cjs` | Pulso/observación | No prueba ciclo completo |
+| `arki-core-mapa-vivo-bridge.cjs` | Puente Core↔mapa | Inspeccionar ejecución real |
+| `arki-map-adn-bridge.cjs` | Puente mapa↔ADN | Inspeccionar |
+| `arki-autonomy-orchestrator.cjs` | Orquestación | Ubicar rama/versión y verificar |
+| `arki-autonomy-memory.cjs` | Memoria | Verificar persistencia/reinicio |
+| `arki-multiscale-design.test.cjs` | Pruebas de diseño multiescala | Pruebas ≠ aprendizaje autónomo |
+| `arki-f1-source-audit.cjs` | Fuentes F1 | No certificar otras fases |
+
+**Módulos experimentales posteriores** (`experiments/arki-ideas/` en `experiment/arki-ideas-mapa-vivo-20261015`):
+- REC-001: coordinador de sistemas vivos.
+- REC-002: aprendizaje relacional.
+- REC-003: gemelo digital con tres alternativas hipotéticas.
+- REC-006: pulso de solo lectura.
+
+**Regla de recuperación:** comparar interfaces, dependencias y evidencia; extraer capacidades probadas, integrarlas en los puntos existentes, eliminar duplicación **una vez demostrado que nada se perdió**. No encadenar motores ni inventar una autoridad paralela.
+
