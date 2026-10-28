@@ -5,11 +5,11 @@ import type { EvaluationInput } from "@/api/sicl-client";
 const fieldClass = "mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring";
 const labelClass = "grid gap-1 text-sm font-medium text-foreground";
 
-export default function EvaluationForm({ onSubmit, busy }: { onSubmit: (input: EvaluationInput) => Promise<void>; busy?: boolean }) {
+export default function EvaluationForm({ onSubmit, busy }: { onSubmit: (input: EvaluationInput) => Promise<boolean>; busy?: boolean }) {
   const { t } = useTranslation();
   const [form, setForm] = useState<EvaluationInput>({ alternative: "", objective: "", value: 0, unit: "", confidence: "1.0", source: "USER_INPUT" });
   const set = (key: keyof EvaluationInput, value: string | number) => setForm((current) => ({ ...current, [key]: value }));
-  return <form className="grid gap-3" onSubmit={async (event) => { event.preventDefault(); await onSubmit(form); setForm({ alternative: "", objective: "", value: 0, unit: "", confidence: "1.0", source: "USER_INPUT" }); }}>
+  return <form className="grid gap-3" onSubmit={async (event) => { event.preventDefault(); if (await onSubmit(form)) setForm({ alternative: "", objective: "", value: 0, unit: "", confidence: "1.0", source: "USER_INPUT" }); }}>
     <h3 className="font-semibold text-foreground">{t("gate.evaluation_title")}</h3>
     <label className={labelClass}>{t("gate.alternative")}<input className={fieldClass} required value={form.alternative} onChange={(e) => set("alternative", e.target.value)} /></label>
     <label className={labelClass}>{t("gate.objective")}<input className={fieldClass} required value={form.objective} onChange={(e) => set("objective", e.target.value)} /></label>
