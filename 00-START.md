@@ -92,6 +92,8 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 5. No anunciar “ARKI superarquitecto autónomo” hasta demostrar diseño, AGK, aprendizaje y autocorrección funcional.
 
 
+**Documentos de entrada canónicos adicionales (en `sicl-core/`):** `00_ARKI_EXPEDIENTE_MAESTRO.md` (índice navegable completo, 15 páginas, 10 niveles), `ARKI_HANDOFF.md` (handoff base documental), `DEMO_SCRIPT_V2.md` y `DEMO_SCRIPT_V3.md` (guiones reproducibles). Ver Anexos Q, R, S.
+
 ## 7. Dictamen preciso para el siguiente asistente
 
 **ARKI tiene un ciclo vivo operativo, integrado con systemd y probado mediante inicio manual del servicio.** Hay cinco propuestas en revisión, historial persistente y rollback. **La autonomía arquitectónica completa NO está demostrada.** El objetivo inmediato es pasar de diagnóstico/ensayo a **acción funcional comprobada** y actualización del Árbol Vivo.
@@ -192,7 +194,7 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 ### Repos
 - canonical/sicl-web: HEAD a1bc2eae (main, limpio)
 - av023-arbol-vivo: HEAD 309a5700 (limpio)
-- canonical/sicl-core: HEAD 865944f (main, limpio)
+- canonical/sicl-core: HEAD 5dfd17a (main, limpio, con pypdf — commit del 27-oct-2026 que valida RFC-030)
 
 
 ## 11. REFERENCIAS CLAVE
@@ -205,6 +207,12 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 - docs/arki-master-map/ARKI_MASTER_MAP_STATE.json — Estado de las fases
 - docs/arki-master-map/ARKI_F1_F10_AUTOMATED_TEST_MACRO_ORDERS_V1.md — Macroórdenes
 - scripts/run-arki-canonical-e2e-auto.sh — Script E2E automatizado
+- `canonical/sicl-core/00_ARKI_EXPEDIENTE_MAESTRO.md` — Índice navegable completo (Anexo Q)
+- `canonical/sicl-core/ARKI_HANDOFF.md` — Handoff base documental
+- `canonical/sicl-core/DEMO_SCRIPT_V2.md` — Guión demo SICL v2.0 (Anexo R)
+- `canonical/sicl-core/DEMO_SCRIPT_V3.md` — Guión demo Design Knowledge Agent (Anexo R)
+- `SICL_HTTP_ADAPTER_CONTRACT.md` — Contrato HTTP del adaptador (Anexo S)
+- `canonical/sicl-core/PHASE_4_5_ARCHITECTURE.md` — Diseño de fases 4-5 (Anexo S)
 
 
 ## 12. PRÓXIMOS PASOS SUGERIDOS
@@ -273,6 +281,10 @@ Si buscas X, ve a Y:
 | Repositorios | `canonical/sicl-web`, `av023-arbol-vivo`, `canonical/sicl-core` |
 | Logs del sistema | `journalctl --user -u <servicio>` |
 | Ciclo vivo | `~/ARKI/continuity/arki-live/` |
+| Expediente Maestro | `canonical/sicl-core/00_ARKI_EXPEDIENTE_MAESTRO.md` (Anexo Q) |
+| Guiones de demo | `canonical/sicl-core/DEMO_SCRIPT_V2.md` y `DEMO_SCRIPT_V3.md` (Anexo R) |
+| Contrato HTTP adaptador | `SICL_HTTP_ADAPTER_CONTRACT.md` (Anexo S) |
+| Arquitectura fases 4-5 | `canonical/sicl-core/PHASE_4_5_ARCHITECTURE.md` (Anexo S) |
 
 
 ## 15. GLOSARIO
@@ -1617,3 +1629,174 @@ Existen componentes, pero no el producto compuesto:
 
 **End of Anexos K, L, M, N, O, P — 2026-10-28.**
 
+
+---
+
+# ANEXO Q — EXPEDIENTE MAESTRO (índice navegable)
+
+**Ubicación canónica:** `/home/arki/ARKI/canonical/sicl-core/00_ARKI_EXPEDIENTE_MAESTRO.md` (21 KB) + `00_ARKI_EXPEDIENTE_MAESTRO.docx` (20 KB).
+**Estado:** Vigente al 2026-10-27. Documento de referencia en `sicl-core`, no en `sicl-web`.
+**Función:** índice navegable del proyecto completo. **No reemplaza** a los documentos que enlaza; los organiza.
+
+## Q.1 — Estructura del Expediente Maestro (10 niveles)
+
+| Nivel | Contenido |
+|---|---|
+| **Nivel 0** | Constitucional (Congelado): 5 invariantes duros (INV-000 Ley Cero, RECOMMENDATION ≠ DECISION, UNKNOWN BEFORE INVENTING, SOURCE ≠ KNOWLEDGE, HUMAN AUTHORITY) + 5 documentos fundacionales |
+| **Nivel 1** | Auditoría y Estado Real: acta de cierre forense + revisión (5 capacidades que se decían inexistentes sí existen) |
+| **Nivel 2** | Arquitectura y Diseño: SICL Core Contract v1.0, ADRs, órdenes maestras |
+| **Nivel 3** | Implementación y RFCs: mapa completo de RFCs (001-037.1), con **RFC-016 como hueco definitivo** |
+| **Nivel 4** | Dominio y Aplicación: catálogo de tipologías, exámenes ciegos, inventario de ideas |
+| **Nivel 5** | Capacidades Críticas: PARTI, geometría avanzada, motor paramétrico (integrados) vs. modelo predictivo, arkiContextGate (no integrados) |
+| **Nivel 6** | Evidencia Forense: `HISTORIA_EVIDENCIA_2026-10/` (19 archivos), `_ARCHIVO/validaciones-2026-10/` (622 MB), `_BASURA_2026-10-27/` (929 MB) |
+| **Nivel 7** | Repositorios: 3 canónicos (sicl-web, sicl-core, arki-acs) con HEADs y fechas |
+| **Nivel 8** | Decisiones Pendientes: 5 decisiones abiertas que requieren al PO |
+| **Nivel 9** | Reglas de Navegación: cómo buscar por nivel vs tema, cómo agregar documentos, cómo distinguir canónico/derivado/histórico/basura |
+| **Apéndice A** | Cronología: 12 hitos fechados (2026-08-24 a 2026-10-27) |
+| **Apéndice B** | Estado del servidor al 27-oct-2026: documentación, repositorios, espacio (468 GB total, 178 usado, 267 libre) |
+
+## Q.2 — Estado consolidado al 2026-10-27 (según Expediente Maestro)
+
+| Métrica | Valor |
+|---|---|
+| Repos canónicos | 3 (`sicl-web`, `sicl-core`, `arki-acs`) |
+| HEADs | `sicl-web` `5c03107c`, `sicl-core` `5dfd17a`, `arki-acs` `302f63d` |
+| Documentación limpia | 607 archivos en `DOCS_LIMPIO/ARKI_DOCS_LAPTOP/` |
+| Evidencia forense | 19 archivos en `HISTORIA_EVIDENCIA_2026-10/` |
+| `_ARCHIVO/validaciones-2026-10/` | 16,058 archivos (622 MB) — **conservado por decisión** |
+| `_BASURA_2026-10-27/` | 340 + 4 directorios (929 MB) — **recuperable** |
+| `0-Copia/` | Backup completo — **no se toca** |
+| Espacio | 468 GB total, 178 GB usado, 267 GB libre, 40% uso |
+
+## Q.3 — Las 5 decisiones pendientes del PO (Nivel 8)
+
+| # | Decisión | Opciones | Recomendación actual |
+|---|---|---|---|
+| 1 | Integrar `arkiContextGate` a `canonical/sicl-web` | A) Integrar / B) Documentar / C) Descartar | **B** |
+| 2 | Integrar modelo predictivo (14 docs) a `canonical/` | A) A sicl-web/docs / B) A sicl-core/docs / C) Histórico | **C** |
+| 3 | Redactar RFC-016 (hueco definitivo) | A) Redactar / B) Documentar como hueco / C) Ignorar | **B** |
+| 4 | Desplegar Core a Cloud Computer (Fase 0-8 del 0.6) | A) Iniciar / B) Posponer / C) Cancelar | Pendiente |
+| 5 | Mover `_ARCHIVO/validaciones-2026-10/` (622 MB) a `_BASURA` | A) Mover / B) Revisar antes / C) Conservar | **C** |
+
+## Q.4 — Huecos conocidos del mapa vivo (27-oct-2026)
+
+El generador `tools/arki_mapa_vivo.py` declara 4 documentos prerequisito (`REQUIRED`). De ellos:
+
+| ID | Ruta esperada | Estado |
+|---|---|---|
+| `ACE88` | `docs/ace88/ACE88_ROOT_INTEGRATION.md` | ❌ No existe |
+| `AUTO_V0` | `docs/arki-automejora/ARKI_AUTONOMOUS_IMPROVEMENT_CONTRACT_V0.md` | ❌ No existe |
+| `INVENTORY` | `tools/arki_automejora_inventario.py` | ❌ No existe |
+| `START` | `00-start.md` | ✅ Recuperado de `av023-arbol-vivo/00_START.md` |
+
+Los 3 huecos restantes (ACE88, AUTO_V0, INVENTORY) requieren **decisión de contenido, no de organización**. Mientras no se resuelvan, el ciclo vivo reporta `UNKNOWN` en `LATEST.json`. **No es un fallo del ciclo vivo; es un hueco del corpus documental.**
+
+## Q.5 — Deuda de entorno conocida
+
+**MariaDB para test de integración (27-oct-2026):** el test `server/_core/arkiMo22RealIntegration.test.ts` de `sicl-web` requiere MariaDB local. MariaDB está instalado y corriendo, pero el usuario `sicl@127.0.0.1` no autentica por TCP (`Access denied`). **Impacto:** 1 test de integración falla. Los otros 947 tests de `sicl-web` pasan. **Estado:** deuda de entorno, no de código.
+
+**Regla de lectura del Expediente Maestro:** fechas antes que nombres o versiones. Un archivo llamado "v2.0" puede ser más viejo que uno sin versión. La fecha de modificación y la fecha interna son el ancla.
+
+---
+
+# ANEXO R — GUIONES DE DEMOSTRACIÓN
+
+**Ubicación:** `/home/arki/ARKI/canonical/sicl-core/DEMO_SCRIPT_V2.md` (8.7 KB, 22-oct-2026) y `DEMO_SCRIPT_V3.md` (2.7 KB, 22-oct-2026).
+**Función:** permiten que cualquier arquitecto o auditor reproduzca las capacidades actuales de ARKI sin acceder al código.
+
+## R.1 — DEMO_SCRIPT_V2 — Guión de demostración SICL v2.0
+
+**Caso:** Edificio Yvan Trujillo. **Objetivo:** demostrar inteligencia trazable sin sustituir la decisión profesional humana.
+
+**Regla:** SICL calcula, registra evidencia y formula recomendaciones. **La decisión sigue perteneciendo al arquitecto.** Los agentes no crean decisiones y Pareto no elige un ganador automático.
+
+**Preparación:**
+
+
+**5 bloques de la demo:**
+
+| Bloque | Comando | Qué demuestra |
+|---|---|---|
+| 1. Site Intelligence | `/SITE INTELLIGENCE "Trujillo, Peru"` | Genera Facts (no Assumptions) con `source=OPEN_METEO_API` o fallback `SITE_INTELLIGENCE_FIXTURE` |
+| 2. Agente bioclimático | `/AGENT RUN BIOCLIMATIC CONVENCIONAL_A` | Crea `Evaluation` (no `Decision`) con `source=EXPERT_SYSTEM` |
+| 3. Frente de Pareto | `/PARETO ENERGY_SAVINGS CONSTRUCTION_COST` | Separa no dominadas/dominadas, respeta direcciones, no elige ganador |
+| 4. Generación paramétrica | `/GENERATE CONVENCIONAL_A ENERGY_SAVINGS,CONSTRUCTION_COST` | Genera alternativas `PROPOSED` con `source=GENERATIVE_OPTIMIZER`, `decision_created=false` |
+| 5. Matriz de trade-offs | `/TRADEOFF_MATRIX ENERGY_SAVINGS CONSTRUCTION_COST` | Incluye originales + generadas, deltas, Pareto, sin crear `Recommendation` ni `Decision` |
+
+**Criterios PASS:** `OPEN_METEO_API` o fallback explícito; `Fact ≠ Assumption`; agente → `Evaluation` con `EXPERT_SYSTEM`; agente no crea `Decision`; Pareto devuelve no dominadas/dominadas/incompletas; historial append-only; solo humano registra `Decision`.
+
+## R.2 — DEMO_SCRIPT_V3 — Design Knowledge Agent
+
+**Objetivo:** demostrar que SiMS-DeI consulta conocimiento de diseño en escala urbana, mantiene separadas las referencias normativas del RNE y los patrones teóricos, genera preguntas abiertas y no crea una decisión automática.
+
+**Precondición:** `export PYTHONPATH=.:src`
+
+**3 pasos:**
+
+| Paso | Endpoint | Qué demuestra |
+|---|---|---|
+| 1. Catálogo por escala | `GET /v1/design-knowledge/catalog?scope=edificacion` | Las 11 escalas en `data.scales`, items y patrones aplicables |
+| 2. Consulta urbana | `POST /v1/design-knowledge/query` con `distrito_ciudad` + `vivienda` + objetivos | Respuesta con RNE `NO_VERIFICADA` (`reference_only`), patrones Alexander y Ching (`THEORETICAL`), `open_questions` |
+| 3. Autoridad humana | Verificación de la respuesta | `decision_created: false`, `review_state: HUMAN_REVIEW_REQUIRED` |
+
+**Criterios PASS:** `distrito_ciudad` aceptado; `REVIEW_REQUIRED` o `CONFLICTING` cuando hay normativa no verificada; RNE `reference_only`; Alexander y Ching `THEORETICAL`; `open_questions` presentes; `decision_created=false`; sin promoción normativa automática.
+
+## R.3 — Estado real de los guiones
+
+**Los guiones son del 22-oct-2026.** El estado actual del proyecto es del 27-oct-2026. **Los criterios de aceptación pueden haber cambiado.** Antes de usar un guion en una demo real, verificar:
+- Que los endpoints (`/v1/design-knowledge/*`, `/v1/projects/*`) existan en el Core actual.
+- Que los comandos (`/SITE INTELLIGENCE`, `/AGENT RUN`, `/PARETO`, `/GENERATE`, `/TRADEOFF_MATRIX`) estén implementados.
+- Que las respuestas devuelvan los campos contractuales.
+
+**Si algún criterio falla, se documenta como UNKNOWN, no se inventa un PASS.**
+
+---
+
+# ANEXO S — CONTRATO DE ADAPTADOR HTTP Y ARQUITECTURA DE FASES
+
+**Función:** referenciar los contratos canónicos del adaptador HTTP y el diseño de las fases 4-5, sin duplicar contenido.
+
+## S.1 — `SICL_HTTP_ADAPTER_CONTRACT.md` (en `sicl-web/`)
+
+**Ubicación:** `/home/arki/ARKI/canonical/sicl-web/SICL_HTTP_ADAPTER_CONTRACT.md`
+**Versión:** `sicl-core-http/0.2`
+
+**Reglas clave del contrato:**
+
+| Regla | Descripción |
+|---|---|
+| **Autenticación** | El web autentica la sesión del navegador. El adaptador recibe credencial server-to-server. Cookies, OAuth, JWT y aserciones de identidad **nunca cruzan** al payload de dominio. |
+| **Project scope** | `spatial_scope` (scale, id, name, parent_id) + `temporal_scope` (horizon, scenario). Estos campos contextualizan el análisis; no crean forecasts ni autoridad. |
+| **Read operations** | `GET /snapshot` (canonical persistido) + `POST /council/analyze` (read-only, acepta `observed_version`, **nunca crea** Recommendation/HumanReview/Decision). |
+| **Human-boundary operations** | `POST /recommendations`, `POST /human-reviews`, `POST /decisions/prepare` (read-only), `POST /decisions` (requiere autoridad humana verificada). |
+| **Error mapping** | `409` = optimistic concurrency failure; `422` = domain contract violation; `403` = insufficient access; `404` = missing project. |
+| **Invariantes** | Council no escribe authority records. Authentication no se convierte en authority. Recommendation no se convierte en Decision implícitamente. Toda escritura durable incluye `observed_version` y `event_id`. El adaptador no acepta ni devuelve secretos. |
+
+## S.2 — `PHASE_4_5_ARCHITECTURE.md` (en `sicl-core/`)
+
+**Ubicación:** `/home/arki/ARKI/canonical/sicl-core/PHASE_4_5_ARCHITECTURE.md` (2.8 KB)
+**Estado:** Documento de diseño; **no autoriza implementación** de agentes, optimización ni Pareto.
+
+**3 pilares del diseño:**
+
+| Pilar | Descripción |
+|---|---|
+| **Agente bioclimático** | Consume info explícita y trazable (ubicación, hechos climáticos, radiación, vientos, orientación, objetivos, restricciones). Produce `Evaluation` (no `Decision`). Si falta evidencia → `REQUIRES_HUMAN_DECISION`. |
+| **Debate multi-agente** | Comparación de análisis independientes sobre la misma `Alternative` y los mismos `Objective`/`Constraint`. Orquestador **no promedia** sin regla aprobada. Salida: `Recommendation` o estado de insuficiencia; **nunca `Decision` automática**. |
+| **Pareto básico** | Solo objetivos numéricos con dirección explícita (`MAXIMIZE`/`MINIMIZE`). Cada alternativa: dominada, no dominada, no evaluable. **No mezclar** con ponderaciones subjetivas. Frontera no dominada ≠ ganador automático. |
+
+**Dependencias y límites:**
+- **Fase 4** requiere contrato de fuentes y métodos, catálogo de unidades, política de datos faltantes, pruebas de no mutación de hechos.
+- **Fase 5** requiere comparación multiobjetivo, algoritmo Pareto determinista y evidencia reproducible.
+- **Site Intelligence actual** es un adaptador determinista y simulado. **No es** consulta en tiempo real a SENAMHI, NASA POWER o Municipalidad hasta implementar conectores, validación, versionado y manejo de disponibilidad.
+
+## S.3 — Referencias cruzadas
+
+| Documento | Repo | Función |
+|---|---|---|
+| `SICL_HTTP_ADAPTER_CONTRACT.md` | `sicl-web/` | Contrato HTTP del adaptador (v0.2) |
+| `PHASE_4_5_ARCHITECTURE.md` | `sicl-core/` | Diseño de fases 4-5 (agente bioclimático, Pareto) |
+| `00_ARKI_EXPEDIENTE_MAESTRO.md` | `sicl-core/` | Índice navegable completo (Anexo Q) |
+| `DEMO_SCRIPT_V2.md`, `DEMO_SCRIPT_V3.md` | `sicl-core/` | Guiones de demo reproducibles (Anexo R) |
+
+**End of Anexos Q, R, S — 2026-10-28.**
