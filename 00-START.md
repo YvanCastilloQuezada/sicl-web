@@ -105,3 +105,98 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 **ARKI tiene un ciclo vivo operativo, integrado con systemd y probado mediante inicio manual del servicio.** Hay cinco propuestas en revisión, historial persistente y rollback. **La autonomía arquitectónica completa NO está demostrada.** El objetivo inmediato es pasar de diagnóstico/ensayo a **acción funcional comprobada** y actualización del Árbol Vivo.
 
 **No confundir commit de documentación con despliegue ni afirmación de capacidad con prueba.**
+
+
+## 9. CÓMO RETOMAR (actualizado 2026-10-27)
+
+Al entrar al proyecto, leer este documento y luego:
+
+### Paso 1 — Verificar el sistema
+
+Comandos:
+- systemctl --user status sicl-core sicl-web arki-arbol-vivo arki-all --no-pager
+- ss -tlnp | grep -E "8000|3001|8768"
+- curl -s -o /dev/null -w "Core: %{http_code}\n" http://127.0.0.1:8000/health
+- curl -s -o /dev/null -w "Frontend: %{http_code}\n" http://127.0.0.1:3001/api/core/health
+- curl -s -o /dev/null -w "Árbol Vivo: %{http_code}\n" http://127.0.0.1:8768/
+
+Resultado esperado: los 3 servicios active, los 3 puertos escuchando, los 3 HTTP 200.
+
+### Paso 2 — Verificar el estado de los gaps
+
+Comando:
+- cat ~/ARKI/continuity/arki-live/LATEST.json | python3 -m json.tool | grep -A 2 "counts"
+
+Resultado esperado: informationGaps: 0, confirmedDefects: 0.
+
+### Paso 3 — Verificar el estado de los repos
+
+Comando:
+- for repo in canonical/sicl-web av023-arbol-vivo canonical/sicl-core; do cd /home/arki/ARKI/$repo; git status --short; git log --oneline -1; done
+
+Resultado esperado: los 3 repos limpios, con HEAD actualizado.
+
+### Paso 4 — Ejecutar E2E canonical (opcional)
+
+Comando:
+- cd /home/arki/ARKI/canonical/sicl-web
+- export SICL_CORE_URL=http://127.0.0.1:8000
+- export SICL_CORE_SERVICE_TOKEN=4d68d3c449864b7d560e09916559a7e2f9f7affb7115c33aa61af0881a11d506
+- ./scripts/run-arki-canonical-e2e-auto.sh
+
+Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
+
+## 10. ESTADO ACTUAL (2026-10-27 22:15)
+
+### Sistema
+- Core: HTTP 200 en :8000
+- Frontend: HTTP 200 en :3001
+- Árbol Vivo: HTTP 200 en :8768
+- arki-all.service: activo + habilitado
+- Linger: habilitado (arranca al bootear)
+
+### Gaps
+- informationGaps: 0 (original: 102)
+- confirmedDefects: 0
+- 102 gaps cerrados con evidencia real
+
+### Tests
+- 963 tests PASS en el proyecto
+- 64 tests PASS en las 10 fases
+- 10/10 fases verificadas (TESTED_PASS_WEB_ONLY)
+- Core: PASS
+- E2E canonical: PASS (script automatizado)
+- E2E advanced: PASS
+
+### PO
+- PO_APPROVED (Yvan Castillo Quezada, 2026-10-27)
+
+### Leyes
+- LEY 1: Auditoría antes de implementar
+- LEY 2: Cero deudas siempre
+- LEY 3: Burocracia mínima
+
+### Repos
+- canonical/sicl-web: HEAD 3bac1140 (limpio después del commit)
+- av023-arbol-vivo: HEAD 309a5700 (limpio)
+- canonical/sicl-core: HEAD 6d19a33 (limpio)
+
+## 11. REFERENCIAS CLAVE
+
+- docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md — Stack local
+- docs/ops/ARKI-DELTA62-STATUS-20261027.md — Delta 6.2
+- docs/ops/ARKI-F1-F10-PHASE-EVIDENCE-20261027.md — Evidencia de las 10 fases
+- docs/ops/ARKI-4-PENDIENTES-CERRADOS-20261027.md — Cierre de los 4 pendientes
+- docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md — Cómo replicar E2E
+- docs/arki-master-map/ARKI_MASTER_MAP_STATE.json — Estado de las fases
+- docs/arki-master-map/ARKI_F1_F10_AUTOMATED_TEST_MACRO_ORDERS_V1.md — Macroórdenes
+- scripts/run-arki-canonical-e2e-auto.sh — Script E2E automatizado
+
+## 12. PRÓXIMOS PASOS SUGERIDOS
+
+1. Si los servicios no están corriendo: systemctl --user start arki-all.service
+2. Si los gaps no son 0: revisar LATEST.json y ver qué falta
+3. Si las fases no son TESTED_PASS_WEB_ONLY: ejecutar el runner de fases
+4. Si el E2E canonical falla: usar el script automatizado (IDs únicos)
+5. Si hay dudas: leer los documentos de referencia clave
+
