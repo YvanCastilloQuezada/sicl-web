@@ -827,3 +827,361 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 - `tools/maqueta-viva/av-ui-001-readonly-prototype.html`
 - `tools/maqueta-viva/arki-av023-historical-ui.cjs` (servidor histórico)
 - https://github.com/YvanCastilloQuezada/sicl-web (repo oficial)
+
+
+
+---
+
+# ANEXO H — Auditoría completa de capacidades reales de ARKI (2026-10-28)
+
+**Estado:** Auditoría basada en código real de `sicl-core` y `sicl-web`. No en documentación. No en suposiciones.
+
+**Metodología:** Se listaron todos los archivos Python (`sicl-core`) y TypeScript (`sicl-web`), se leyó la cabecera de cada módulo principal, se listaron los endpoints de API (FastAPI y tRPC), se listaron los tests, y se verificó el estado de `git log`.
+
+**Conclusión general:** ARKI tiene **mucho más implementado de lo que su documentación sugiere**. Puede generar imágenes fotorrealistas, geometría conceptual, planos arquitectónicos, láminas, validar contra RNE, calcular costos, simular balance hídrico, ejecutar el embudo 16→4→1, federar ARKI-LUCA, interoperar con COMPAS, exportar IFC, y ejecutar APIs FastAPI + tRPC. **Lo que NO puede hacer es garantizar que la imagen generada sea evidencia geométrica** (es `AI_PROPOSED_VISUAL`, no evidencia).
+
+---
+
+## H.1 — `sicl-core`: el núcleo canónico (Python + FastAPI)
+
+### Módulos implementados
+
+| Módulo | Qué hace |
+|---|---|
+| `src/sicl/a002/` (authority, engine, gate, identity, model, persistence, policy, requirements) | Autoridad arquitectónica A-002, gobernanza, gates de decisión |
+| `src/sicl/archi/` (creation_validation, identity, ifc_export, integrity, model, mutation, persistence, relationships, sufficiency, transaction) | Modelo arquitectónico canónico, mutaciones, export IFC, persistencia transaccional |
+| `src/sicl/drawing/` (composer, projector, ifc_synthetic, drawing_rules, pdf_export, title_block, annotation, drawing_entities, http_api, paper) | **Generación de planos arquitectónicos** (plantas, techos, elevaciones, cortes), PDF, título de plano, anotaciones |
+| `src/sicl/layout/` (layout_engine, case_study, collision, http_api, layout_report, margin_validator, sheet_format, sheet_grid, sheet_zone) | **Composición de láminas** (sheet layout), validación de márgenes, colisiones, formato de hoja |
+| `src/sicl/dam/` (drawing_faculty, model) | **Drawing Faculty** — advisor + examiner para graduación de dibujo |
+| `src/sicl/compliance/` (content_labeling, eu_ai_act, iso_42001) | Compliance EU AI Act + ISO 42001 |
+| `src/sicl/design_knowledge.py`, `design_principles.py` | Conocimiento de diseño |
+| `src/sicl/bim.py`, `bim_connectors.py` | Conectores BIM |
+| `src/sicl/agents.py`, `actors.py` | Agentes y actores |
+| `src/sicl/alternative.py`, `comparison.py` | Alternativas y comparación |
+| `src/sicl/environmental.py` | Inteligencia ambiental (S7) |
+| `src/sicl/multiscale.py` | Multiescala |
+| `src/sicl/recommendation.py`, `capabilities.py`, `derivation.py` | Recomendación, capacidades, derivación |
+| `src/sicl/developer_promotion.py` | Promoción de desarrollador |
+| `src/sicl/v11.py`, `generation.py`, `site_intelligence.py`, `copilot.py` | V1.1, generación, inteligencia de sitio, copiloto |
+
+### Endpoints FastAPI
+
+| Endpoint | Qué hace |
+|---|---|
+| `/projects` (GET, POST, GET/:id, PUT/:id, DELETE/:id) | CRUD de proyectos |
+| `/v1/health` | Healthcheck |
+| `/v1/operations-research/methods` | Métodos de investigación operativa |
+| `/v1/simulations/methods` | Métodos de simulación |
+| `/v1/generations/methods` | Métodos de generación |
+| `/v1/gis/catalogs` | Catálogos GIS |
+| `/v1/projects/:id/gis/parcel-snapshots` (POST/GET) | Snapshots de parcela GIS |
+| `/v1/projects/:id/gis/ogc-query` (POST) | Consulta OGC |
+| `/v1/copilot/translate` (POST) | Traducción con copiloto |
+
+### Tests (20+ archivos)
+
+`test_feasibility.py`, `test_multiscale_wall_move_e2e.py`, `test_institutional_memory.py`, `test_agents_debate.py`, `test_monte_carlo.py`, `test_environmental_s7.py`, `test_d22_atomicity.py`, `test_archi_identity.py`, `test_optimization_phase5.py`, `test_schemas_developer.py`, `test_archi_mutation.py`, `test_simulation.py`, `test_contracts_pilar_viii.py`, `test_h005_fail_closed.py`, `test_design_intelligence.py`, `test_rfc028_029.py`, `test_ifc_import_http.py`, `test_archi_model.py`, `test_h005_contract_registry.py`, `test_rfc030_content.py`.
+
+### Dependencias
+
+---
+
+## H.2 — `sicl-web`: la interfaz (TypeScript + React + tRPC)
+
+### Módulos del servidor
+
+| Módulo | Qué hace |
+|---|---|
+| `server/arkiVisualIntelligence.ts` | **Generación visual fotorrealista** (HD, 2K, FULL_HD, 4K, 8K, 16K) |
+| `server/arkiDynamicFamilies.ts` | Familias dinámicas de edificios (salud, educación, comercio, deporte, oficinas, residencial, industria, transporte, cultura, hospitalidad, culto, paisaje) |
+| `server/arkiSuperArchitectModel.ts` | Modelo paramétrico del superarquitecto (6 familias) |
+| `server/arkiTypologyLibrary.ts` | 60+ tipologías arquitectónicas |
+| `server/arkiTypologyExecution.ts` | Ejecución de tipologías |
+| `server/arkiTypologyDsl.ts` | DSL declarativo para tipologías |
+| `server/arkiCostBudgetS2.ts` | Presupuesto de costos S2 |
+| `server/arkiDesignFunnel.ts` | Embudo de diseño 16→4→1 |
+| `server/arkiNormativeEngine.ts` | Motor normativo RNE Perú (50+ reglas) |
+| `server/arkiNormativeSources.ts` | Fuentes normativas |
+| `server/arkiWaterBalance.ts` | Balance hídrico |
+| `server/arkiProjectState.ts` | Estado del proyecto |
+| `server/arkiSpatialSemantics.ts` | Semántica espacial |
+| `server/arkiKnowledgeCorpusFoundation.ts` | Corpus de conocimiento |
+| `server/arkiSpecializedGeometry.ts` | Geometría especializada (hospital, aeropuerto, estadio, etc.) |
+| `server/arkiNativeGenerator.ts` | Generador nativo (plantillas) |
+| `server/arkiGenerativeAssistant.ts` | Asistente generativo |
+| `server/arkiFamilyComparison.ts` | Comparación de familias (export IFC/GeoJSON/SVG/CSV/HTML) |
+| `server/arkiAdvancedRenderCapabilities.ts` | Capacidades de render avanzado |
+| `server/arkiExecutionGovernance.ts` | Gobernanza de ejecución |
+| `server/arkiCommandCenterMap.ts` | Mapa del Command Center |
+| `server/arkiDeviceInteroperability.ts` | Interoperabilidad de dispositivos |
+| `server/arkiDisplayLanguage.ts` | 8 idiomas |
+| `server/arkiDeveloperProposal.ts` + test | Propuestas del desarrollador |
+| `server/arkiLucaSecurityFederation.ts` | Federación ARKI-LUCA |
+| `server/arkiMarketplaceGovernance.ts` | Marketplace |
+| `server/arkiTvFrozenContract.ts` | ARKI-TV (frozen) |
+| `server/arkiVerticalDecision.ts`, `arkiVerticalSystem.ts` | Decisiones verticales |
+| `server/arkiAdvancedGeometry.ts` | Geometría avanzada |
+| `server/arkiBimViewer.ts` | Visor BIM |
+| `server/arkiArchitecturalDeveloper.ts` | Desarrollador arquitectónico |
+| `server/agk/` (familyCompiler, regeneration, types) | AGK (Arkitechture Geometry Kernel) |
+| `server/capabilityFabric/` (e2e001, defaultFabric, compasWorkerTransport, compasAdapter, etc.) | Capability Fabric con COMPAS |
+| `server/spatialReasoning/` (core, smallOfficeVerticalSlice) | Razonamiento espacial |
+
+### Endpoints tRPC (`server/routers.ts`)
+
+| Endpoint | Qué hace |
+|---|---|
+| `federatedHandoffs` (list, create, review) | Handoffs federados AR-LU |
+| `visualField` (analyze, ingest) | Análisis de campo visual (imágenes, OCR, documentos) |
+| `spatialFieldBridge` (contract, openSession, observe) | Puente de campo espacial |
+| `visualGeneration` (presets, generate) | **Generación visual fotorrealista** |
+| `projectBrain` (analyze, executeCanonical) | Cerebro del proyecto |
+| `superpowers` (run) | Superpoderes |
+| `agents` (registry, orchestrate) | Agentes |
+| `commercialApi` (contract, capabilities, register) | API comercial |
+| `nativeAdapters` (registry) | Adaptadores nativos |
+| `spatialAr` (catalog) | AR espacial |
+| `architecture` (contract, layers, verticalProof) | Arquitectura |
+| `costs` (contract, calculate) | Costos |
+
+### Cliente React
+
+- **Componentes:** `LocationPicker`, `SolarTemporalOverlay`, `IfcGeometryViewer`, `CanonicalOrthographicViewer`, `ProfessionalFamilyViewer`, `ProjectWorkspace`, `PhaseAPageLayout`, `GuidedShell`, `PwaInstallPrompt`, `OfflineSyncManager`, `ArkiRealityView`, `ArkiProfessionalBimShell`, `AIChatBox`, `CommandBar`, `ComparisonForm`, `EvaluationForm`, `EvidenceForm`, `FeasibilityPanel`, `GuidedCatalogPanel`, `ImagePanZoom`, `KnowledgeState`, `LanguageSelector`, `Map`, `SourceForm`, `AssemblyStatusPanel`, `ArkiFirstContact`, `HelpButton`, `SocialLoginOptions`, `ErrorBoundary`, `DashboardLayout`, `ManusDialog`, `Phase1Phase2Tools`, `rfc015-form-error-state`, `command-bar`, `spatialAuthority`, `CoreDataStates`, `CoreTableSkeleton`.
+- **API:** `sicl-client.ts`, `visual-field.ts`, `mock-core.ts`.
+- **Visualización:** `visualization/`, `paretoModel`.
+
+### Tests
+
+156 archivos de test (963 tests con COMPAS, 959 sin COMPAS).
+
+---
+
+## H.3 — Lo que ARKI **puede hacer hoy** (respuesta directa)
+
+### ✅ Generar imágenes fotorrealistas
+
+`server/arkiVisualIntelligence.ts` tiene:
+- `VISUAL_PRESETS`: HD, 2K, FULL_HD, 4K, 8K, 16K.
+- `generateArkiPhotorealisticVisual()`: genera imagen con prompt y preset.
+- `visualGeneration.generate` (endpoint tRPC): acepta prompt, quality, purpose, language, referenceImageUrl, preserveGeometry.
+- Propósitos: `EXTERIOR_RENDER`, `INTERIOR_RENDER`, `MATERIAL_STUDY`, `AR_OVERLAY`, `SITE_CONTEXT`.
+
+**La imagen se marca como `AI_PROPOSED_VISUAL` (propuesta visual, no evidencia geométrica).**
+
+### ✅ Generar geometría conceptual de edificios
+
+- Familias dinámicas (12 categorías).
+- Tipologías (60+).
+- Superarquitecto (6 familias).
+- Geometría especializada (hospital, aeropuerto, estadio, etc.).
+- Comparación de familias (export IFC/GeoJSON/SVG/CSV/HTML).
+
+### ✅ Generar planos arquitectónicos
+
+`sicl-core/src/sicl/drawing/` → compositor de planos (plantas, techos, elevaciones, cortes). Export PDF. Título de plano. Anotaciones.
+
+### ✅ Componer láminas
+
+`sicl-core/src/sicl/layout/` → layout engine, márgenes, colisiones, formato de hoja.
+
+### ✅ Validar contra RNE
+
+`server/arkiNormativeEngine.ts` → 50+ reglas de referencia del RNE Perú.
+
+### ✅ Calcular costos
+
+`server/arkiCostBudgetS2.ts` → presupuesto de costos S2.
+
+### ✅ Simular balance hídrico
+
+`server/arkiWaterBalance.ts` → balance hídrico anual.
+
+### ✅ Ejecutar el embudo de diseño
+
+`server/arkiDesignFunnel.ts` → 16 → 4 → 1 con selección humana.
+
+### ✅ Federar ARKI con LUCA
+
+`server/arkiLucaSecurityFederation.ts`, `federatedAssistantDirector.ts`, `arluKnowledgeExchange.ts`, `arluPowerTransfer.ts`.
+
+### ✅ Analizar campo visual
+
+`server/visualField.ts`, `client/src/api/visual-field.ts` → análisis de imágenes, OCR, documentos.
+
+### ✅ Interoperar con COMPAS
+
+`server/capabilityFabric/` → COMPAS 2.15.0 (geometría 3D).
+
+### ✅ Exportar IFC
+
+`sicl-core/src/sicl/archi/ifc_export.py`, `server/arkiFamilyComparison.ts` (`exportDynamicBuilding(building, "IFC4")`).
+
+### ✅ Ejecutar API FastAPI
+
+10+ endpoints en `sicl-core/api/routes/`.
+
+### ✅ Ejecutar API tRPC
+
+12+ routers en `sicl-web/server/routers.ts`.
+
+---
+
+## H.4 — Lo que ARKI **NO puede hacer** (gaps reales)
+
+| Limitación | Por qué |
+|---|---|
+| Generar 120 pisos de geometría paramétrica | El máximo es 80 pisos en `arkiDynamicFamilies.ts` y `arkiSuperArchitectModel.ts`. **La imagen sí puede mostrar 120 pisos.** |
+| Generar 32 torres gemelas en geometría | El código genera **un edificio a la vez**. No hay concepto de "torres múltiples". **La imagen sí puede mostrarlas.** |
+| Garantizar la resolución exacta de la imagen | `providerResolutionVerified: false` hasta que se verifique. |
+| Garantizar que la imagen sea evidencia geométrica | La imagen es `AI_PROPOSED_VISUAL`, no evidencia. |
+
+---
+
+## H.5 — Cómo generar la imagen de un rascacielos de 120 pisos con 32 torres gemelas en un desierto
+
+**Prompt:** "rascacielos de 120 pisos de 32 torres gemelas en un desierto rodeado de agua y árboles y parques"
+
+**Cómo se hace:**
+1. Estar logueado (el endpoint `visualGeneration.generate` es `protectedProcedure`).
+2. Llamar a `visualGeneration.generate` con:
+   - `projectId`: un ID de proyecto existente.
+   - `prompt`: "rascacielos de 120 pisos de 32 torres gemelas en un desierto rodeado de agua y árboles y parques".
+   - `quality`: "4K" (3840 × 2160) o "FULL_HD" (1920 × 1080).
+   - `purpose`: "EXTERIOR_RENDER".
+   - `language`: "es" (o el idioma que prefieras).
+   - `preserveGeometry`: true (si hay una referencia geométrica).
+3. El proveedor de imágenes (vía `generateImage()` de `server/_core/imageGeneration`) genera la imagen.
+4. La imagen se marca como `AI_PROPOSED_VISUAL`, `providerResolutionVerified: false`, `humanReviewRequired: true`.
+
+**La imagen NO es evidencia geométrica.** Es una propuesta visual para revisión humana.
+
+---
+
+## H.6 — Resumen ejecutivo
+
+**ARKI tiene mucho más implementado de lo que su documentación sugiere.** Puede generar imágenes fotorrealistas, geometría conceptual, planos arquitectónicos, láminas, validar contra RNE, calcular costos, simular balance hídrico, ejecutar el embudo 16→4→1, federar ARKI-LUCA, interoperar con COMPAS, exportar IFC, y ejecutar APIs FastAPI + tRPC.
+
+**Lo que NO puede hacer es garantizar que la imagen generada sea evidencia geométrica.** Es `AI_PROPOSED_VISUAL`, no evidencia.
+
+**Para generar la imagen de un rascacielos de 120 pisos con 32 torres gemelas en un desierto, se usa `visualGeneration.generate` con `quality: "4K"`, `purpose: "EXTERIOR_RENDER"`, y el prompt.** La imagen se marca como propuesta visual para revisión humana.
+
+**End of audit — Anexo H.**
+
+---
+
+# ANEXO I — CONSTITUCIÓN, CUERPO Y EVIDENCIA DE ARKI
+
+**Origen:** Consolidación de 7 documentos canónicos de `docs/_CANONICAL_TRUTH_FOR_00_START/` (2026-10-28).
+**Regla epistémica:** `CLAIM != DESIGN != IMPLEMENTED != EXECUTED != OBSERVED != VERIFIED != FROZEN`.
+
+## I.1 — Fundamentos (ARKI y SICL)
+
+- **ARKI** = Sistema de Inteligencia de Diseño Espacial Multiescala. Apoyo a la deliberación, **no sustituye** al arquitecto ni a la autoridad profesional.
+- **SICL** = Spatial Intelligence Command Language. Lenguaje formal del Core.
+- **Invariantes:** `Recommendation ≠ Decision`. `Decision` requiere `HumanReview` + actor + authority. Auditoría append-only. Frontend NO crea verdad, solo interactúa.
+- **Flujo constitucional:** `Project → Preference → Recommendation → HumanReview → Decision → Audit`.
+
+## I.2 — Mapa Maestro Vivo (`ARKI_MASTER_MAP_LIVE.md`)
+
+- **32 dominios funcionales** (de intención a mantenimiento predictivo).
+- **6 autoridades:** D-2 (semántica), Core (estado), AGK (geometría), Capability Fabric (ejecución externa), ACS (laboratorio), Humano (decisión final).
+- **10 escalas:** pais → macro_region → region → provincia_metropoli → distrito_ciudad → zona_barrio_sector → parcela_sitio → edificacion → sistema → espacio → objeto.
+- **Ciclo de vida:** `PERCEIVE → UNDERSTAND → PROJECT STATE → REASON → N→16→4→1 → HUMAN VALIDATION → GEOMETRY → BIM → CONSTRUCTION → OPERATE → LEARN → REPEAT`.
+
+## I.3 — Evidencia AGK/OCCT (`AGK_OCCT_EXECUTION_EVIDENCE_V1.md`)
+
+- **OCCT 8.0.1 es un BASE EJECUTADO** (no solo diseñado).
+- **PASS:** Instalación, G0/G1/G2 canary, Advanced canary (16/16), Torture T1 (22/22), T3 (12 tests, 11 PASS, 1 FAIL controlado).
+- **AGK-DELTA-001 (Local Engineering Frame):** Las operaciones BRep canónicas deben hacerse en un marco local, nunca en coordenadas GIS globales.
+- **AGK-DELTA-002 (Geometric Acceptance Contract):** `IsDone()==true` NO es suficiente. Requiere validación de invariantes geométricos y topológicos.
+
+## I.4 — Handoff Canónico Base (`ARKI_CANONICAL_HANDOFF_2026-10-05.md`)
+
+- **Linaje:** SICL → Vitruvio → ARKI/ARQUI (mismo proyecto).
+- **Corporación:** AR-LU Corporation.
+- **Delta 6.2 (KR 6.2):** 4,118 filas consolidadas, 947 canonicalized, 458 UNKNOWN. Pipeline: `source → candidate → provenance → Delta 6.2 → Core → examination → transfer → competency`.
+- **Doctrina:** OWN CAPABILITY FIRST. EXTERNAL ENGINE WHEN NECESSARY.
+
+## I.5 — Decisión del Producto (`SICL_65_PRODUCT_DECISION.md`)
+
+- **Roles:** PO (visión), Chief Architect (semántica/contratos), Implementation Engineer (código/pruebas).
+- **Capability Gate Ledger:** `PROPOSAL → CONTRACT → AUTHORIZED → IMPLEMENTED → VERIFIED → AUDITED → RELEASED`.
+- **PO-016 (RFC-023):** Aprobado. Proxy same-origin, sin fallback silencioso, `SICL_CORE_URL` obligatorio.
+
+## I.6 — Protocolo Visual Fotorrealista (`ARKI_PHOTOREALISTIC_VISUAL_AND_EVIDENCE_PROTOCOL.md`)
+
+- **Presets:** HD (1280x720), 2K, FULL_HD, 4K.
+- **Controles:** `AI_PROPOSED_VISUAL`, `providerResolutionVerified: false`, `humanReviewRequired: true`.
+- **Super Eyes:** Evidencia `VISIBLE_IN_IMAGE`, `LEGIBLE_TEXT`, `MEASURED_METADATA`, `NOT_OBSERVED`. Lo no soportado es `UNKNOWN`.
+
+---
+
+# ANEXO J — FASES, INVENTARIOS, SUPERPODERES Y AUTONOMÍA
+
+**Origen:** Consolidación de 13 documentos de `docs/_CANONICAL_TRUTH_FOR_00_START/`.
+
+## J.1 — Fases D6.1 a D6.4 (El Delta)
+
+- **D6.1 (Persistencia):** PASS. Round-trip local de 30 records. 9 facts promovidos. 4 UNKNOWN. El "Restaurant Gate" quedó BLOCKED (no hay runtime honesto).
+- **D6.2-M (Reasoning → Topología):** PASS. Cadena ejecutable: `Requirements → UNKNOWN → Strategies → Realizations → Topology`. No genera geometría.
+- **D6.3-G (Topología → Geometría):** PASS. Genera Candidatos A/B (SVG) con mutaciones y validación. Sin ganador automático.
+- **D6.4 (Ingesta Multimodal):** PASS local. Cámara/PDF → OCR (pdftotext/tesseract) → `AI_PROPOSED`. Revisión humana obligatoria.
+
+## J.2 — Superpoderes (SP-01 a SP-05)
+
+Implementados en `server/arkiSuperpowersPack.ts`:
+1. **SP-01 Consequence Radar:** Clasifica consecuencias (DIRECT, SECONDARY, etc.).
+2. **SP-02 Value of Information:** Prioriza UNKNOWNs por impacto.
+3. **SP-03 Design Divergence:** Compara alternativas (no decide).
+4. **SP-04 Architectural Debt:** Registra pasivos futuros.
+5. **SP-05 Counterfactual Explorer:** Genera 8 escenarios `AI_PROPOSED`.
+
+## J.3 — Agentes (ARKI Agent Registry 1.0)
+
+- **12 agentes implementados/probados:** BRIEF, PARTI, REGULATION, COST, CONSEQUENCE, VOI, DIVERGENCE, DEBT, COUNTERFACTUAL, RED-TEAM, CONTRADICTION, TRANSFER.
+- **Estado:** `EXECUTABLE_WITH_BOUNDS`. `COORDINATED_AGENT_CONTRACTS_NOT_DEMONSTRATED` (no es multi-agente autónomo real).
+
+## J.4 — Autonomía (Escala L0-L10)
+
+| Nivel | Estado |
+|---|---|
+| L6 (Genera candidatos) | `PARTIAL/DEMONSTRATED` |
+| L7 (Genera geometría acotada) | `DEMONSTRATED_PARTIAL` |
+| L8 (Reevaluación autónoma) | `NOT_DEMONSTRATED` |
+| L9 (Comparación autónoma) | `NOT_DEMONSTRATED` |
+| L10 (Generalización) | `NOT_DEMONSTRATED` |
+
+**Conclusión:** ARKI NO es un superarquitecto autónomo. Es un sistema local acotado con humanos en el medio.
+
+## J.5 — Capacidades Latentes (Composites)
+
+Existen componentes, pero no el producto compuesto:
+- **ARKI-BOOK adaptativo:** Componentes sí, falta curriculum/learner state. (CONNECT/EXTEND)
+- **ARKI-CONSTRUCT / ARKI-BUILDING:** Componentes sí, falta as-built/telemetría. (EXTEND/RESEARCH)
+- **CORPORATE ARKI (SaaS):** Falta tenancy/billing/CRM/legal. (BUILD)
+- **SPECIALISTS (BIM/MEP/Structural):** Falta modelo disciplinar. (BUILD/RESEARCH)
+
+## J.6 — Qué sabe y qué no sabe ARKI HOY (Post-513)
+
+- **Sabe:** Aplicar invariantes M0-K, ejecutar reasoning acotado, generar topología/geometría conceptual, hacer OCR/ingesta, visualizar SVG/massing.
+- **NO sabe:** Aprendizaje autónomo, generalización, coordinación BIM/MEP, normativa vigente, survey/GIS, costos contractuales, tutoría adaptativa, profesionalización.
+- **Tipologías:** 27 mencionadas, 8 con fixtures, 6 con reasoning, 2 con geometría, **0 con evidencia profesional**.
+
+## J.7 — Roadmap de 10 Fases (F1-F10)
+
+| Fase | Propósito | Estado (declarado) |
+|---|---|---|
+| F1 | Identidad y Project State | RECONCILIATION_REQUIRED |
+| F2 | Conocimiento y Universidad | RECONCILIATION_REQUIRED |
+| F3 | Inteligencia Arquitectónica | RECONCILIATION_REQUIRED |
+| F4 | Partido y Topología | RECONCILIATION_REQUIRED |
+| F5 | Evaluación y Embudo | RECONCILIATION_REQUIRED |
+| **F6** | **AGK / Geometría 3D** | **IN_PROGRESS** |
+| F7 | Desarrollo Técnico | FUTURE |
+| F8 | Expediente Técnico | FUTURE |
+| F9 | Construcción y Gemelo Digital | FUTURE |
+| F10 | Operación y Aprendizaje | FUTURE |
+
+**Estado real:** F6 en progreso (OCCT ejecutado, DELTA-005 pendiente). F1-F5 requieren reconciliación con código/SHA. F7-F10 son futuro.
+
+**End of Anexos I y J — 2026-10-28.**
