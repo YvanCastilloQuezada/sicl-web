@@ -410,3 +410,136 @@ OK (`STATUS=ACE_SNAPSHOT_PASS`). **Material directo para la próxima misión
 Este `00_REVIVIR.md` es un espejo del `00-START.md` del worktree `av023-arbol-vivo/`, usado para "revivir" el proyecto en ese contexto. Para el estado completo, leer `00-START.md`.
 
 **End of nota.**
+
+---
+
+## 19. Autoensamblaje (rama `feat/arbol-vivo-autoensamblaje-20261011`) — 2026-10-28
+
+**Origen:** este apartado asimila el contenido de `00_CONTINUIDAD_AUTOENSAMBLAJE.md` (14-oct-2026), la rama `feat/arbol-vivo-autoensamblaje-20261011` y el PR #56. El documento original se conserva en el repo para trazabilidad, pero su contenido operativo queda aquí.
+
+### 19.1 — Qué es el autoensamblaje
+
+El **autoensamblaje** es la capacidad de ARKI de:
+
+1. **Inventariar** los archivos de Web/Core/ACS, anclados a commits concretos.
+2. **Clasificar** cada archivo (descubrimiento heurístico reproducible).
+3. **Planificar** el ensamblaje: proponer una fase (F1-F10) para cada archivo, detectar ciclos, dependencias faltantes y FROZEN.
+4. **Proponer tres alternativas** (A/B/C) de estrategia de ensamblaje.
+5. **No ejecutar** ni **no promover** canónicamente. Solo propone.
+
+### 19.2 — Estado actual (2026-10-28)
+
+| Componente | Archivo | Tamaño | Estado |
+|---|---|---|---|
+| Planificador | `tools/maqueta-viva/arki-assembly-planner.cjs` | 2.6 KB | ✅ Tests PASS |
+| Test del planificador | `tools/maqueta-viva/test-arki-assembly-planner.cjs` | 1.1 KB | ✅ `ARKI_ASSEMBLY_PLANNER_TESTS=PASS` |
+| Descubrimiento | `tools/maqueta-viva/arki-discovery.cjs` | 2.4 KB | ✅ Existe |
+| Inventario de capacidades | `tools/maqueta-viva/arki-capability-inventory.cjs` | 3.0 KB | ✅ Existe |
+| Estrategias A/B/C | `tools/maqueta-viva/arki-assembly-strategies.cjs` | 1.5 KB | ✅ Existe |
+| Workflow CI | `.github/workflows/arki-assembly-planner.yml` | 1.7 KB | ✅ Existe |
+| Snapshot de repositorios | `tools/maqueta-viva/arki-repository-snapshot.json` | 105 KB | ✅ Existe (1933 rutas) |
+| Reporte de descubrimiento | `tools/maqueta-viva/arki-discovery-report.json` | 6.3 KB | ✅ Existe (460 rutas no clasificadas) |
+
+### 19.3 — PR #56: MERGED
+
+**El PR #56 está MERGED** (no DRAFT, como decía el documento del 14-oct).
+
+- **Título:** "ARKI: inventario real de tres repositorios y planificación segura de autoensamblaje"
+- **Estado:** MERGED
+- **Adiciones:** 2,692 líneas
+- **Deleciones:** 0
+- **URL:** https://github.com/YvanCastilloQuezada/sicl-web/pull/56
+
+**Alcance:**
+- Inventario de rutas en WEB, CORE y ACS anclado a SHA.
+- Descubrimiento heurístico reproducible, con incertidumbre explícita.
+- Planificador de ensamblaje propuesto con controles de dependencias, ciclos, FROZEN y conflictos.
+- Pruebas unitarias y CI; frontend existente sin cambios.
+
+### 19.4 — El planificador (`arki-assembly-planner.cjs`)
+
+**Función:** `planAssembly(parts, phaseRules)`
+
+**Entrada:** array de partes, cada una con:
+- `id` (VALID_ID: `^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$`)
+- `path` (VALID_PATH: `^[A-Za-z0-9_.-]+(?:\/[A-Za-z0-9_.-]+)*$`)
+- `phase` (F1-F10, opcional)
+- `dependencies` (array de IDs)
+- `frozen` (boolean, opcional)
+
+**Salida:** `{ schema: "ARKI-ASSEMBLY-PLAN-1", parts, issues, summary, canonicalMutation: false, execution: "NOT_EXECUTED" }`
+
+**Garantías:**
+- **No ejecuta código.**
+- **No escribe en el filesystem.**
+- **No promueve canónicamente** (`canonicalMutation: false`).
+- **No ejecuta** (`execution: "NOT_EXECUTED"`).
+- **Detecta:** ciclos (`DEPENDENCY_CYCLE`), dependencias faltantes (`MISSING_DEPENDENCY`), IDs duplicados (`DUPLICATE_ID`), partes inválidas (`INVALID_PART`).
+- **Bloquea propagación:** si una parte tiene una dependencia bloqueada, se bloquea también.
+- **Marcas:** `FROZEN_READ_ONLY`, `DEPENDENCY_BLOCKED`, `PHASE_UNDETERMINED`, `PHASE_CONFLICT`.
+
+### 19.5 — El test (`test-arki-assembly-planner.cjs`)
+
+**Verifica:**
+- 5 partes → `summary.total === 5`.
+- Cadena A→B→C → `C.status === "PROPOSED"`.
+- Dependencia faltante (`Z` → `NOPE`) → `Z.reasons` incluye `DEPENDENCY_BLOCKED`.
+- Parte FROZEN (`F`) → `F.reasons` incluye `FROZEN_READ_ONLY`.
+- `canonicalMutation === false`.
+- `execution === "NOT_EXECUTED"`.
+- Conflicto de fase (A con `phaseRules` distinto) → `status === "REVIEW_REQUIRED"`.
+- Ciclo A↔B → `issues` incluye `DEPENDENCY_CYCLE`.
+- ID duplicado → `throws /DUPLICATE_ID/`.
+- ID inválido (`../bad`) → `throws /INVALID_PART/`.
+
+**Resultado:** `ARKI_ASSEMBLY_PLANNER_TESTS=PASS`.
+
+### 19.6 — Los archivos auxiliares
+
+| Archivo | Función |
+|---|---|
+| `arki-discovery.cjs` | Clasificación heurística conservadora de archivos. |
+| `arki-capability-inventory.cjs` | IDs estables con SHA-256, sin colisión por normalización. |
+| `arki-assembly-strategies.cjs` | Propone estrategias A/B/C (no ejecuta ni selecciona). |
+| `arki-repository-snapshot.json` | Snapshot de 1933 rutas de Web/Core/ACS, ancladas a SHA. |
+| `arki-discovery-report.json` | Reporte de 460 rutas no clasificadas por heurística. |
+
+### 19.7 — Lo que NO hace (límites)
+
+- **No ejecuta** el plan (solo lo propone).
+- **No promueve** canónicamente (`canonicalMutation: false`).
+- **No integra** la salida al HTML.
+- **No inspecciona** las dependencias reales a nivel código (solo detecta ciclos y faltantes).
+- **No asigna** fases autónomamente (marca `PHASE_UNDETERMINED` si no hay fase).
+- **No selecciona** una de las tres alternativas A/B/C (el PO decide).
+
+### 19.8 — Estado del CI
+
+**El documento original (14-oct) decía:**
+> "GitHub Actions run `38190972045`: FAILURE de infraestructura (runner no asignado; cero pasos ejecutados), **NO VERIFIED**."
+
+**Pero ahora:**
+- El test local **pasa** (`ARKI_ASSEMBLY_PLANNER_TESTS=PASS`).
+- El PR #56 está **MERGED**.
+- El CI del PR #56 **pasó** (para poder mergear).
+
+**El fallo de infraestructura del 14-oct fue transitorio.** El código funciona.
+
+### 19.9 — Siguiente paso
+
+El documento original decía:
+> "Siguiente paso: comprobar el planificador, integrarlo con inventario real, comparar ramas, implementar tres propuestas ensayables en sandbox y enlazar resultados al Árbol Vivo y Gemelo Digital. No atribuirle ejecución autónoma todavía."
+
+**Estado actual:**
+- ✅ Planificador comprobado (`ARKI_ASSEMBLY_PLANNER_TESTS=PASS`).
+- ✅ Inventario real integrado (`arki-repository-snapshot.json`, 1933 rutas).
+- ✅ Comparación de ramas (PR #56 MERGED).
+- ⚠️ **Tres propuestas ensayables en sandbox:** pendiente (`arki-assembly-strategies.cjs` propone A/B/C, pero no se han ensayado).
+- ⚠️ **Enlace al Árbol Vivo / Gemelo Digital:** pendiente.
+- ⚠️ **Ejecución autónoma:** no atribuida (correcto).
+
+### 19.10 — El `00_CONTINUIDAD_AUTOENSAMBLAJE.md` queda como histórico
+
+El archivo `00_CONTINUIDAD_AUTOENSAMBLAJE.md` (14-oct-2026) se conserva en el repo para trazabilidad, pero su contenido operativo queda asimilado en esta sección. **No es necesario leerlo para retomar el proyecto.** Si hay conflicto entre el documento original y esta sección, prevalece esta sección (fechada 2026-10-28, con el estado real verificado).
+
+**Fin del apartado 19 — 2026-10-28.**
