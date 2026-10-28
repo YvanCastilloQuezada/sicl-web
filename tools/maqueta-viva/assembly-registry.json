@@ -245,10 +245,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Estudiar terreno, elevaciones y condiciones climáticas mediante datos y simulaciones técnicas reproducibles.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: Terreno DTM/DSM y CFD verificado con 5 tests PASS en arkiTerrainCFDAdapter.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiTerrainCFDAdapter.ts`; `server/arkiTerrainCFDAdapter.test.ts`"
     },
     {
       "id": "I-19",
@@ -288,7 +289,7 @@
       "placement": "PROPOSED_NOT_INTEGRATED",
       "verification": "VERIFIED",
       "purpose": "Organizar productos y servicios ARKI para profesionales, aliados, especialistas, construcción, edificios y empresas.",
-      "purposeBasis": "Verificado 2026-10-27: Familias comerciales verificadas con test arkiDynamicFamilies.test.ts PASS. Archivos: 4/4.",
+      "purposeBasis": "Verificado 2026-10-27: Familias comerciales verificadas con test arkiDynamicFamilies.test.ts. Archivos: 4/4.",
       "dependsOn": [],
       "sourceEvidence": "`server/arkiSuperpowersPack.ts`; `server/arkiEnterpriseArchitecture.ts`; `server/routers.ts`; `server/arkiDynamicFamilies.test.ts`"
     },
@@ -328,10 +329,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Investigar salud y envejecimiento con evidencia científica, supervisión profesional y límites éticos; no ofrecer tratamientos no validados.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: Longevidad verificada con 5 tests PASS en arkiLongevityResearch.test.ts (documenta OUT_OF_SCOPE con límites éticos). Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`shared/arkiLongevityResearch.ts`; `shared/arkiLongevityResearch.test.ts`"
     }
   ],
   "notes": [
