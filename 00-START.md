@@ -13,10 +13,10 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 - GitHub Web: `YvanCastilloQuezada/sicl-web`.
 - Rama experimental de trabajo: `test/arki-autonomy-offline-ci-20261014`. **No fusionar a main sin autorización.**
 - **Último commit de esta continuidad, antes de crear/actualizar este 00-START:** `48c8e2c7724e9087d4cd5e50e3550cac93cc71a9` (documenta integración systemd).
-- Core Ubuntu: `/home/arki/ARKI/repositorios/sicl-core`, HEAD observado `d48a3301ba532d77e0d2eb1dd4b3b54df6fc0ab8`.
-- Web principal Ubuntu: `/home/arki/ARKI/repositorios/sicl-web` **DIRTY**, no resetear ni sobrescribir.
+- Core Ubuntu: `/home/arki/ARKI/canonical/sicl-core`, HEAD observado `865944f` (main, limpio).
+- Web principal Ubuntu: `/home/arki/ARKI/canonical/sicl-web`, HEAD `a1bc2eae` (main, limpio), no resetear.
 - Web aislado: `/home/arki/ARKI/validacion-f6-descongelada`, HEAD observado `48c8e2c7` tras fetch y detach.
-- ACS: `/home/arki/ARKI/repositorios/arki-acs`.
+- ACS: `/home/arki/ARKI/canonical/arki-acs`.
 - Core tiene archivos ACE88 no rastreados; preservarlos.
 - En ARKI-02 hay `git`, Node 22, Python 3, pnpm/corepack; `rg` no estaba instalado. GitHub HTTPS fetch funciona; SSH había fallado.
 - **No asumir acceso directo al equipo ARKI-02 desde GitHub**: el usuario ejecuta macroórdenes y pega resultados.
@@ -190,9 +190,9 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 - LEY 3: Burocracia mínima
 
 ### Repos
-- canonical/sicl-web: HEAD 3bac1140 (limpio después del commit)
+- canonical/sicl-web: HEAD a1bc2eae (main, limpio)
 - av023-arbol-vivo: HEAD 309a5700 (limpio)
-- canonical/sicl-core: HEAD 6d19a33 (limpio)
+- canonical/sicl-core: HEAD 865944f (main, limpio)
 
 
 ## 11. REFERENCIAS CLAVE
@@ -371,3 +371,31 @@ La jerarquía de diez fases comienza en Fase 1 con recepción del encargo/intenc
 
 
 
+
+---
+
+## Stack local y autostart (2026-10-27 22:30)
+
+Estado verificado: **operativo**. Los 4 servicios están `active` y `enabled`,
+los 3 endpoints responden HTTP 200, linger habilitado.
+
+| Servicio | Puerto | Estado | Desde |
+|---|---|---|---|
+| sicl-core.service | 8000 | active (running) | 20:06:51 |
+| sicl-web.service | 3001 | active (running) | 20:06:54 |
+| arki-arbol-vivo.service | 8768 | active (running) | 20:06:53 |
+| arki-all.service | — | active (exited) | 20:06:58 |
+
+Documentación completa: `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md`.
+
+**Bug menor conocido:** `arki-all-start.sh` verifica endpoints demasiado pronto
+(la verificación final del `startup.log` dio `HTTP 000` a las 20:06:58, pero a las
+22:30 los 3 endpoints dan 200). El script sale siempre con `exit 0`, así que no
+bloquea el arranque, pero el log es engañoso.
+
+**Fallo del timer 22:00:** `arki02-continuity.service` disparó a las 22:00:10 y
+`ExecStartPost` (`arki-live-run.sh`) falló con `status=1/FAILURE`:
+`ARKI_LIVE_SYSTEMS_FAIL: F6_REVOCATION_STATUS_CONFLICT` en
+`arki-live-systems-coordinator.cjs`. El `ExecStart` (`arki02-continuity.py`) sigue
+OK (`STATUS=ACE_SNAPSHOT_PASS`). **Material directo para la próxima misión
+(autocorrección funcional concreta y limitada).**
