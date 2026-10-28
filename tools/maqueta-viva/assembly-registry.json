@@ -56,7 +56,8 @@
       "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
       "purpose": "Conservar fuentes, derechos, incertidumbre y revisión humana antes de aceptar conocimiento como canónico.",
       "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "dependsOn": [],
+      "blockingReason": "Faltan: human-promotion-review.json"
     },
     {
       "id": "I-05",
@@ -79,9 +80,9 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Transformar conocimiento consultado en requisitos, déficits, hipótesis y estrategias antes de generar geometría.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos de evidencia existen en canonical/sicl-web.",
       "dependsOn": []
     },
     {
@@ -92,9 +93,9 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Proponer varias geometrías conceptuales controladas a partir de topologías y restricciones trazables.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
+      "purposeBasis": "Verificado 2026-10-27: 4/4 archivos de evidencia existen en canonical/sicl-web.",
       "dependsOn": []
     },
     {
@@ -118,9 +119,9 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Transferir aprendizaje entre niveles distinguiendo qué se adapta, qué no se transfiere y qué permanece desconocido.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos de evidencia existen en canonical/sicl-web.",
       "dependsOn": []
     },
     {
