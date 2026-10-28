@@ -62,3 +62,15 @@ Cada decisión se registra con:
 **Justificación:** Un work ledger canónico cierra I-02 por resolución estructural.
 **Impacto:** I-02 pasa de `PRESENT / PARTIALLY ACTIVE` a `RESOLVED`.
 **Estado:** `ACTIVE`
+
+---
+
+## D-20261027-05 — Cerrar I-03 (RFC approvals)
+
+**Fecha:** 2026-10-27
+**Actor:** Yvan Castillo Quezada (Product Owner)
+**Contexto:** I-03 estaba en `PRESENT / DOCUMENTARY` porque los RFCs existían como documentos pero sin registro de aprobación.
+**Decisión:** Crear `docs/arki-planning/RFC_APPROVALS.md` como registro de aprobación por RFC.
+**Justificación:** Un registro de aprobación cierra I-03 por resolución estructural.
+**Impacto:** I-03 pasa de `PRESENT / DOCUMENTARY` a `RESOLVED`.
+**Estado:** `ACTIVE`
