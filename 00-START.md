@@ -200,3 +200,59 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 4. Si el E2E canonical falla: usar el script automatizado (IDs únicos)
 5. Si hay dudas: leer los documentos de referencia clave
 
+
+## FUNDAMENTOS (del 00_START.md histórico, 2026-10-12)
+
+### Principio Fundacional Prioritario — ARKI DETERMINISTA / SICL
+
+**Instrucción expresa del Product Owner:** «ARKI es determinista. Eso es lo que lo hace distinto». Identifica a «SILC, S-I-L-C» como motor de búsqueda determinístico.
+
+**Contraste con fuente fundacional:** `docs/ARKI_AND_SICL_FOUNDATIONS.md` define **SICL** (S-I-C-L, Spatial Intelligence Command Language) como lenguaje formal de operación verificable del Core. **SILC vs SICL = NOMENCLATURA POR RECONCILIAR.** No asumir que son lo mismo ni inventar un motor nuevo.
+
+**Invariante de determinismo:** ante idéntica versión de código, estado inicial, entradas, reglas, parámetros, semillas y fuentes fijadas, el camino canónico de ARKI debe producir resultados reproducibles y rastreables.
+
+**Autoridad única:** un sistema ARKI, una autoridad arquitectónica semántica D-2, una autoridad geométrica AGK, Core para estado/validación, y revisión humana para decisiones. **NO_NEW_ENGINE; NO_AUTOMATIC_CANONIZATION.**
+
+### Ley del Embudo — «La vida es dura para las ideas»
+
+**Descripción del PO:** desde el encargo de Fase 1 ARKI explora miles de ideas/posibilidades. Las restricciones verificadas y criterios de evaluación van descartando alternativas; el embudo conduce a **N → 16 → 4 → 1**.
+
+**Regla:** generación amplia → filtros duros de inviabilidad → evaluación multiobjetivo → diversidad arquitectónica → 16 → 4 → 1 con decisión humana.
+
+**Retención:** si ARKI explora 10 000 ideas, las descartadas durante la exploración **NO SE GUARDAN individualmente**. **Solo se conservan las 16 ideas supervivientes** del primer corte N→16.
+
+**No eliminar ideas del historial:** rechazo/archivo reversible y trazable, no borrado de auditoría append-only.
+
+### Ley «La vida de las ideas es cruel»
+
+**Fuente canónica:** `YvanCastilloQuezada/sicl-core/docs/ARKI_LAW_LIFE_OF_IDEAS_IS_CRUEL.md`
+
+**Fórmula:** «MUCHAS IDEAS NACEN... POCAS SOBREVIVEN».
+**Regla de oro:** «MATAR UNA IDEA ES BARATO. DESARROLLARLA ES CARO».
+
+**Secuencia doctrinal:** IDEAS → ALTERNATIVAS → GEOMETRÍAS → SIMULACIONES → SOLUCIONES → PROPUESTAS → OBJETO/ARQUITECTURA/ESPACIO.
+
+**CHEAP VALIDATION BEFORE EXPENSIVE DEVELOPMENT.**
+
+### Mapa de Responsabilidades — CORE / WEB / ACS
+
+- **ARKI Core** = corazón normativo/canónico (leyes, constitución, contratos e invariantes).
+- **ARKI Web** = operación, interfaz y orquestación.
+- **ARKI ACS/SLC** = investigación/gemelo digital y módulo de búsqueda de contrataciones del Estado.
+
+**NO colapsar los repositorios ni confundir funciones.**
+
+### Visión del PO — Dos Gemelos
+
+**(A) Gemelo Digital Vivo del propio ARKI:** estado, capacidades, dependencias, evaluación de mejoras. Prepara **TRES opciones de mejora** para selección/aprobación humana.
+
+**(B) Gemelo Digital Experimental:** banco aislado para probar tecnologías/cambios antes de afectar ARKI.
+
+**No fusionar ambos conceptos ni asumir implementación E2E.**
+
+### Fase 1 — Encargo Único
+
+La jerarquía de diez fases comienza en Fase 1 con recepción del encargo/intención del cliente. El concepto de proyecto nace y se registra allí.
+
+**Flujo:** FASE 1 / ENCARGO → D-2 autoridad semántica → Project State / Core / trazabilidad → ejecución gobernada de FASES 2–10 → AGK único para geometría canónica → representaciones 2D/3D/BIM/IFC.
+
