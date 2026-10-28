@@ -53,11 +53,12 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Conservar fuentes, derechos, incertidumbre y revisión humana antes de aceptar conocimiento como canónico.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
+      "purposeBasis": "Verificado 2026-10-27: 3/3 archivos existen en canonical/sicl-web. Ruta de human-promotion-review.json corregida a docs/arki-m0k/.",
       "dependsOn": [],
-      "blockingReason": "Faltan: human-promotion-review.json"
+      "blockingReason": "Faltan: human-promotion-review.json",
+      "sourceEvidence": "`docs/ARKI-M0K-COMPATIBILITY-AUDIT.md`; `docs/arki-m0k/manifest.json`; `docs/arki-m0k/human-promotion-review.json`"
     },
     {
       "id": "I-05",
