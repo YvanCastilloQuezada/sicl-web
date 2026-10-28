@@ -286,10 +286,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Organizar productos y servicios ARKI para profesionales, aliados, especialistas, construcción, edificios y empresas.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: Familias comerciales verificadas con test arkiDynamicFamilies.test.ts PASS. Archivos: 4/4.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiSuperpowersPack.ts`; `server/arkiEnterpriseArchitecture.ts`; `server/routers.ts`; `server/arkiDynamicFamilies.test.ts`"
     },
     {
       "id": "I-22",
