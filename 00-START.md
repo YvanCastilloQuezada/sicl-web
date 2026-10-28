@@ -9,6 +9,18 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 
 **Regla:** no confundir simulación, anotación, diagnóstico o prueba de infraestructura con competencia arquitectónica demostrada. CERO DEUDAS; no waiver, no PASS inventado, no modificar canónico sin autorización del PO. Preferir implementación real y una macroorden de validación a más informes repetitivos.
 
+
+## LEYES INQUEBRANTABLES
+
+**LEY 1 — ANTES DE IMPLEMENTAR, AUDITORÍA INTENSA.**
+Antes de escribir código nuevo, buscar en todos los repositorios, backups, históricos y documentación. Verificar si ya existe. No duplicar. La auditoría precede a la implementación. Sin auditoría, no se implementa.
+
+**LEY 2 — CERO DEUDAS SIEMPRE.**
+No se dejan gaps abiertos sin documentar. No se dejan tests rotos. No se dejan duplicados. No se dejan TODOs sin resolver. Si algo no se puede cerrar, se documenta con `blockingReason` honesto. CERO DEUDAS.
+
+**LEY 3 — BUROCRACIA MÍNIMA SIEMPRE QUE SEA NECESARIO.**
+La documentación y los procesos existen para servir al proyecto, no al revés. Si un proceso no aporta valor, se elimina. Si un documento no se lee, se archiva. Si una ceremonia no ayuda, se simplifica. Burocracia mínima, pero suficiente para mantener trazabilidad.
+
 ## 2. Repositorios, ramas y máquina
 
 - GitHub Web: `YvanCastilloQuezada/sicl-web`.
