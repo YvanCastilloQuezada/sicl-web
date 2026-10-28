@@ -258,10 +258,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Superponer información del modelo al lugar físico mediante cámara, GPS y realidad aumentada.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: AR/cámara/GPS verificado con test UPAO001SpatialViewer.test.ts PASS. Archivos: 3/3.",
+      "dependsOn": [],
+      "sourceEvidence": "`client/src/components/ArkiRealityView.tsx`; `client/src/components/UPAO001SpatialViewer.tsx`; `client/src/components/UPAO001SpatialViewer.test.ts`"
     },
     {
       "id": "I-20",
