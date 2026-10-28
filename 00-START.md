@@ -1185,3 +1185,435 @@ Existen componentes, pero no el producto compuesto:
 **Estado real:** F6 en progreso (OCCT ejecutado, DELTA-005 pendiente). F1-F5 requieren reconciliación con código/SHA. F7-F10 son futuro.
 
 **End of Anexos I y J — 2026-10-28.**
+
+---
+
+# ANEXO K — GOBERNANZA UI (`docs/_UI_GOVERNANCE_ARCHIVE/`, 211 archivos)
+
+**Estado global:** `UI_INTEGRITY_BASELINE_PARTIAL` — auditoría cerrada, **sin reparaciones ejecutadas**.
+**Fuente:** 3 iteraciones A0 (auditoría), A0-V (visual 3002), A0.R2 (visual 4001), A0.R3 (forense final).
+
+## K.1 — A0: auditoría de gobernanza (25 .md + 2 .zip + 1 .json)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `01_SCOPE_AND_BASELINE.md` | Baseline 2026-09-24: 38 rutas, 1336 controles. | `SOURCE_VERIFIED` |
+| `02_AUDIT_PROTOCOL.md` | Política conservadora: 5 niveles de evidencia. | `PROTOCOL` |
+| `03_ROUTE_MAP.md` | 38 rutas declaradas en `client/src/App.tsx`. | `SOURCE_VERIFIED` |
+| `04_SURFACE_INVENTORY.md` | 1336 controles, 797 de alto riesgo. | `INVENTORY` |
+| `05_UI_ACTION_MATRIX.md` (432 KB) | Matriz de 1336 controles. | `UNKNOWN_UNVERIFIED` |
+| `06_UI_ACTION_REGISTRY.json` (3.9 MB) | Registro JSON de controles. | `SOURCE_VERIFIED` |
+| `07_SUCCESS_STATE_REGISTER.md` | No se canonizó ningún mensaje de éxito. | `POLICY` |
+| `08_UNKNOWN_UNVERIFIED_REGISTER.md` | 1336/1336 clasificados `UNKNOWN_UNVERIFIED`. | `CLASSIFICATION` |
+| `09_HIGH_RISK_CONTROL_REGISTER.md` | 797 candidatos de alto riesgo. | `CANDIDATES` |
+| `10_ROUTE_RUNTIME_COVERAGE.md` | 38 rutas, 0 con sweep completo. | `PENDING` |
+| `11_RUNTIME_TEST_PLAN.md` | Plan de barrido runtime. | `PLAN` |
+| `12_RUNTIME_TEST_LOG.md` | No se ejecutó sweep. 434 tests PASS, build PASS. | `PARTIAL` |
+| `13_PERSISTENCE_IMPACT_MATRIX.md` | Matriz de impacto de persistencia. | `MATRIX` |
+| `14_AUTHORITY_AND_GATE_MATRIX.md` | Matriz de autoridad y gates. | `MATRIX` |
+| `15_DEFECT_SEVERITY_REGISTER.md` | Severidades P0-P3. | `REGISTER` |
+| `16_SECURITY_REVIEW.md` | Revisión de seguridad de interfaz. | `REVIEW` |
+| `17_I18N_A11Y_REVIEW.md` | i18n y accesibilidad. | `REVIEW` |
+| `18_EXPORT_DOWNLOAD_REVIEW.md` | Exportaciones y descargas. | `REVIEW` |
+| `19_PLACEHOLDER_STUB_REVIEW.md` | Placeholders, mocks, stubs. | `REVIEW` |
+| `20_ROOT_CAUSE_AND_BLOCKERS.md` | Causas raíz. | `ANALYSIS` |
+| `21_REPRODUCTION_RUNBOOK.md` | Runbook reproducible. | `RUNBOOK` |
+| `22_ACCEPTANCE_CHECKLIST.md` | Checklist de aceptación. | `CHECKLIST` |
+| `23_EVIDENCE_MANIFEST.sha256.md` | Manifiesto SHA-256. | `INTEGRITY` |
+| `24_A0_EXECUTIVE_REPORT.md` | **Veredicto: `PARTIAL / EVIDENCE_INSUFFICIENT`**. | `FINAL` |
+| `A0R1_R2_A0V_RUNTIME_RECONCILIATION.md` | Reconciliación R2 ↔ A0-V. | `DIAGNOSTIC` |
+| `ARKI_CURRENT_PRODUCT_MAP.md` | Mapa de producto A0.R3. | `PRODUCT_MAP` |
+| `A0.zip` / `ARKI_UI_GOVERNANCE_001_A0_EVIDENCE.zip` | ZIP de evidencia. | `ARCHIVE` |
+| `UI_SCREEN_REGISTRY_R2.json` | Registro JSON de pantallas. | `INTEGRITY` |
+| `evidence/screens/` (3 .webp) | Capturas A0-V. | `EVIDENCE` |
+
+## K.2 — PO_VISUAL_REVIEW (A0-V, 3002 dev runtime, 5 .md + 1 .pdf + 3 .webp)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `00_VISUAL_INDEX.md` | 4 capturas, 34 rutas no capturadas. | `PARTIAL` |
+| `ARKI_UI_VISUAL_ATLAS.md` | Bootstrap bloqueado. | `PARTIAL` |
+| `UI_VISUAL_REVIEW_MATRIX.md` | 4 pantallas, 34 no capturadas. | `PARTIAL` |
+| `UI_SCREEN_REGISTRY.json` | Registro JSON. | `INTEGRITY` |
+| `ARKI_UI_VISUAL_CONTACT_SHEET.pdf` | PDF de contacto. | `EVIDENCE` |
+| `screens/` (3 .webp) | Capturas. | `EVIDENCE` |
+
+## K.3 — PO_VISUAL_REVIEW_FINAL (A0.R3, 4001 prod runtime, 14 .md + 2 .json + 110 .webp)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `00_PRODUCT_VISUAL_INDEX.md` | Cierre forense de A0.R2. 110 capturas. | `FINAL` |
+| `01_ROUTE_ACCOUNTING_38_OF_38.md` | 38/38 rutas contabilizadas. | `ACCOUNTING` |
+| `02_ARKI_COMPLETE_VISUAL_ATLAS.md` | Atlas completo. | `ATLAS` |
+| `03_SCREEN_REVIEW_MATRIX.md` | Matriz de revisión. | `MATRIX` |
+| `04_SCREEN_REGISTRY.json` | Registro JSON. | `INTEGRITY` |
+| `05_CONTROL_NORMALIZATION.md` | 1336 ocurrencias, 615 definiciones. | `NORMALIZATION` |
+| `06_BLOCKED_ROUTE_CAUSAL_CLUSTERS.md` | 5 clusters (A-E). | `CAUSAL` |
+| `07_APP_TSX_DIAGNOSTIC.md` | Sin conflictos. `pnpm check` PASS. | `DIAGNOSTIC` |
+| `08_TYPESCRIPT_BASELINE.md` | `TYPECHECK_EXIT=0`. | `BASELINE` |
+| `09_BUILD_RUNTIME_BASELINE.md` | Build PASS con warnings. | `BASELINE` |
+| `10_VISUAL_ISSUES_REGISTER.md` | 6 issues. | `ISSUES` |
+| `11_SCREEN_DISPOSITION_PROPOSALS.md` | KEEP para renderizadas. | `PROPOSAL` |
+| `12_REPAIR_PROGRAM_PROPOSAL.md` | Propuesta futura, no ejecutada. | `PROPOSAL` |
+| `A0R3_EVIDENCE_MANIFEST.sha256.md` | Manifiesto. | `INTEGRITY` |
+| `A0R3_FINAL_VERDICT.md` | **`UI_INTEGRITY_BASELINE_PARTIAL`**. | `FINAL` |
+| `repo-baseline.txt` | Baseline de repo. | `BASELINE` |
+| `screens/` (110 .webp) | Capturas 4001. | `EVIDENCE` |
+
+## K.4 — R2 (A0.R2, 4001 prod runtime, 6 .md + 108 .webp)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `A0_R2_FINAL_REPORT.md` | 15 rutas renderizadas, 20 bloqueadas. | `FINAL` |
+| `A0_STANDARD_RUNTIME_RUNBOOK.md` | Runbook 4001. | `RUNBOOK` |
+| `ARKI_UI_VISUAL_ATLAS_R2.md` | Atlas R2. | `ATLAS` |
+| `SCREEN_CONTROL_GRAPH_R2.md` | Grafo pantalla-control. | `GRAPH` |
+| `UI_VISUAL_REVIEW_MATRIX_R2.md` | Matriz R2. | `MATRIX` |
+| `A0R2_EVIDENCE_MANIFEST.sha256.md` | Manifiesto. | `INTEGRITY` |
+| `screens/` (108 .webp) | Capturas. | `EVIDENCE` |
+
+## K.5 — Estado real consolidado
+
+- **38 rutas** declaradas y contabilizadas.
+- **1336 controles** inventariados.
+- **0 controles** clasificados como `FUNCTIONAL` con evidencia completa.
+- **15 rutas** renderizadas en runtime 4001 (A0.R2).
+- **20 rutas** bloqueadas por lazy-loading, Core o auth.
+- **110 capturas** preservadas byte-for-byte.
+- **Ninguna reparación ejecutada**. `A0.R3_FINAL_VERDICT = CLOSED — AUDIT ONLY — STOP`.
+
+**Regla:** esta gobernanza es una línea base de integridad. No afirma funcionalidad. Para el estado vigente, ver `00-START.md §10`.
+
+---
+
+# ANEXO L — INVESTIGACIÓN (`docs/_RESEARCH_ARCHIVE/`, 52 archivos)
+
+**Estado global:** `READY_FOR_HUMAN_REVIEW` / `CANDIDATE_KNOWLEDGE` / `NOT_CANONIZED`. Ninguna capacidad implementada.
+
+## L.1 — `curriculum/` (23 archivos)
+
+| Archivo | Tema | Estado |
+|---|---|---|
+| `ARKI_CURRICULUM_BATCH_A_COMPARISON_2026-09-21.md` | Urbanismo, planificación, BIM, alfarería. | `READY_FOR_HUMAN_REVIEW` |
+| `ARKI_CURRICULUM_BATCH_B_COMPARISON_2026-09-21.md` | Ingenierías (civil, eléctrica, mecánica, sanitaria, estructural, puentes). | `READY_FOR_HUMAN_REVIEW` |
+| `ARKI_MASTER_CURRICULUM_AND_LIBRARY_PLAN_2026-09-21.md` (61 KB) | Plan maestro consolidado. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-artificial-intelligence-2026-09-21.md` | IA. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-causal-models-2026-09-21.md` | Modelos causales. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-computational-models-2026-09-21.md` | Modelos computacionales. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-deterministic-models-2026-09-21.md` | Modelos determinísticos. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-mathematical-models-2026-09-21.md` | Modelos matemáticos. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-mechanics-quantum-2026-09-21.md` | Mecánica cuántica. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-operations-research-2026-09-21.md` | Investigación de operaciones. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-physics-quantum-2026-09-21.md` | Física cuántica. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-software-engineering-2026-09-21.md` | Ingeniería de software. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-advanced-white-hat-security-2026-09-21.md` | White hat. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-architecture-2026-09-21.md` | Arquitectura. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-civil-2026-09-21.md` | Ingeniería civil. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-electrical-2026-09-21.md` | Ingeniería eléctrica. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-landscape-2026-09-21.md` | Arquitectura paisajista. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-sanitary-2026-09-21.md` | Ingeniería sanitaria. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-structural-2026-09-21.md` | Ingeniería estructural. | `READY_FOR_HUMAN_REVIEW` |
+| `curriculum-urbanism-2026-09-21.md` | Urbanismo. | `READY_FOR_HUMAN_REVIEW` |
+| `ARKI_MASTER_LEARNING_COVERAGE_2026-09-21.md` | Cobertura de aprendizaje. | `ALL_REGISTERED_TOPICS_COVERED` |
+| `ARKI_MASTER_CURRICULUM_5000.json` (6.5 MB) | 5000 temas (25 familias × 20 capacidades × 10 contextos). | `STRUCTURED` |
+| `ARKI_CURRICULUM_INCREMENTAL_REGISTRY.json` | Registro incremental. | `REGISTRY` |
+
+## L.2 — `workflows/` (5 archivos)
+
+| Archivo | Tema | Estado |
+|---|---|---|
+| `workflow-bim-official.md` (58 KB) | Marco oficial BIM Perú. | `REFERENCE` |
+| `workflow-costs.md` (29 KB) | Fuentes peruanas de costos. | `REFERENCE` |
+| `workflow-education.md` (62 KB) | Expediente técnico de colegio. | `REFERENCE` |
+| `workflow-hospital.md` (32 KB) | Expediente técnico de hospital. | `REFERENCE` |
+| `workflow-transport.md` (26 KB) | Expediente técnico de transporte. | `REFERENCE` |
+
+## L.3 — `research-specialties/` (24 archivos + 5 no-.md)
+
+| Archivo | Tema | Estado |
+|---|---|---|
+| `ARKI_ADVANCED_CYCLES_MASTER_2026-09-21.md` | Informe maestro de ciclos. | `NOT_CANONIZED` |
+| `ARKI_BIM_ETI_COSTS_IMPLEMENTATION_2026-09-21.md` | BIM, ETI, costos. | `CANDIDATE` |
+| `ARKI_BIM_VISOR_AND_INTERFERENCES_2026-09-21.md` | Visor BIM. | `CANDIDATE` |
+| `ARKI_IFC4_HOSTS_SELF_CARE_2026-09-21.md` | IFC4, round-trip. | `CANDIDATE` |
+| `ARKI_INTERNET_LEASE_AND_ARCHIVE_POLICY_2026-09-21.md` | Política de acceso web. | `IMPLEMENTED_LOCALLY` |
+| `ARKI_LONGEVITY_RESEARCH_PROPOSAL.md` | I-24, longevidad. | `AI_PROPOSED` |
+| `ARKI_MASTER_LEARNING_COVERAGE_2026-09-21.md` | Cobertura. | `ALL_COVERED` |
+| `ARKI_PERU_BIM_RNE_CONTRATACION_EXPEDIENTES_2026-09-21.md` | Normativa peruana. | `CANDIDATE` |
+| `ARKI_REPRESENTACION_BIOCLIMA_PAISAJE_2026-09-21.md` | Representación, bioclima. | `CANDIDATE` |
+| `ARKI_TRANSVERSAL_PREDIMENSIONING_IFC_2026-09-21.md` | Predimensionamiento. | `CANDIDATE` |
+| `ARKI_TRANSVERSAL_SPECIALTIES_CURRICULUM_2026-09-21.md` | Matriz transversal. | `CANDIDATE` |
+| `ARKI_TRIAD_AND_MASTER_CURRICULUM_INTEGRATION.md` | Triada. | `INTEGRATED` |
+| `ARKI_UNIVERSITY_TO_MOTOR_ALIGNMENT.md` | Universidad → motores. | `IMPLEMENTED_CONTRACT` |
+| `ARKI_VIVIENDA_MODERNA_MATERIALES_2026-09-21.md` | Vivienda. | `CANDIDATE` |
+| `ARKI_WEB_RESEARCH_SUPERPOWER.md` | Investigación web. | `IMPLEMENTED` |
+| `research-bim-delivery.md` (31 KB) | BIM, Revit, Dynamo. | `REFERENCE` |
+| `research-civil-structure.md` (33 KB) | Estructuras. | `REFERENCE` |
+| `research-environment-traffic.md` (32 KB) | SOMA, ambiente. | `REFERENCE` |
+| `research-life-safety.md` (28 KB) | Seguridad. | `REFERENCE` |
+| `research-mep-medical.md` (30 KB) | MEP hospitalaria. | `REFERENCE` |
+| 3 `.json` + 2 `.txt` + 1 `.xlsx` | Staging, config, listas. | `MIXED` |
+
+**Regla:** esta investigación es `CANDIDATE_KNOWLEDGE`. **No es conocimiento ingerido**. Para que una capacidad se considere implementada, requiere código + tests + evidencia de ejecución. Ver Anexos I/J.
+
+---
+
+# ANEXO M — EVIDENCIA (`docs/_EVIDENCE_ARCHIVE/`, 76 archivos)
+
+**Estado global:** evidencia real ejecutada. 15 ataques BREAK, 3 exámenes ciegos, 1 especificación DG-01, 1 paquete de preservación AGK.
+
+## M.1 — `break-001/` (32 archivos)
+
+| Archivo | Propósito | Resultado |
+|---|---|---|
+| `ARKI_BREAK_001_FINAL_REPORT.md` | Resumen de 15 ataques. | **2 RESISTS, 8 DEGRADES, 0 FAILS, 5 KNOWS_IT_DOES_NOT_KNOW, 0 FABRICATES.** |
+| `ARKI_BREAK_B01_REPORT.md` | Incomplete brief attack. | Input sufficiency → ASK_HUMAN. |
+| `ARKI_BREAK_B02_REPORT.md` | Contradictory brief. | No contradiction detector. |
+| `ARKI_BREAK_B03_REPORT.md` | Unknown typology. | 3 partis, no typology transfer. |
+| `ARKI_BREAK_B04_REPORT.md` | Difficult site. | Site facts preserved, no geometry. |
+| `ARKI_BREAK_B05_REPORT.md` | Capacity/area attack. | Capacity preserved, no solver. |
+| `ARKI_BREAK_B06_REPORT.md` | Flow collision. | Separation recorded, no graph. |
+| `ARKI_BREAK_B07_REPORT.md` | Late change. | No propagation ledger. |
+| `ARKI_BREAK_B08_REPORT.md` | Regulatory conflict. | No rule-to-object chain. |
+| `ARKI_BREAK_B09_REPORT.md` | Economic attack. | Cost UNKNOWN, no trade-off. |
+| `ARKI_BREAK_B10_REPORT.md` | Engineering collision. | No engineering solver. |
+| `ARKI_BREAK_B11_REPORT.md` | Kill the parti. | No kill-parti loop. |
+| `ARKI_BREAK_B12_REPORT.md` | Multiscale attack. | No cross-scale graph. |
+| `ARKI_BREAK_B13_REPORT.md` | Time attack. | No temporal scenario. |
+| `ARKI_BREAK_B14_REPORT.md` | False evidence. | Conflicts preserved, no winner. |
+| `ARKI_BREAK_B15_REPORT.md` | Impossible project. | UNKNOWN/PARTIAL, no impossibility proof. |
+| `ARKI_BREAK_001_CAPABILITY_MATRIX.json` | Matriz de capacidades. | `MATRIX` |
+| 15 `.json` evidence | Evidencia por ataque. | `EVIDENCE` |
+
+## M.2 — `exams-json/` (18 archivos)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `ARKI-CAUSAL-001_RESOLUCION_PROPUESTA_2026-09-21.md` (24 KB) | Hospital de Trujillo, 400→500 camas. | `AI_PROPOSED / HUMAN_REVIEW_REQUIRED` |
+| `ARKI-E1-K-BLIND-LEARNING-EXAM-2026-09-20.md` (20 KB) | Refugio de animales. | `AI_PROPOSED` |
+| `ARKI-RESTAURANT-500-EXAM-2026-09-20.md` (11 KB) | Restaurante para 500. | `AI_PROPOSED` |
+| `house-two-floor-existing-arki/HOUSE-A21-S1-N1.svg` | Planta N1. | `SVG` |
+| `house-two-floor-existing-arki/HOUSE-A21-S1-N2.svg` | Planta N2. | `SVG` |
+| `house-two-floor-existing-arki/HOUSE-A21-S1-model.json` | Modelo canónico. | `CANONICAL` |
+| `house-two-floor-existing-arki/README.md` | Descripción. | `README` |
+| `intermodal-terminal-30000m2/INTERMODAL-250-AUTOS-50-CAMIONES-20-AUTOBUSES-model.json` | Modelo intermodal. | `MODEL` |
+| `taxi-terminal-250-taxis/TAXI-250-A-LINEAL.svg` | Propuesta A. | `SVG` |
+| `taxi-terminal-250-taxis/TAXI-250-B-PLAZA-CENTRAL.svg` | Propuesta B. | `SVG` |
+| `taxi-terminal-250-taxis/TAXI-250-C-COMPACTO.svg` | Propuesta C. | `SVG` |
+| `taxi-terminal-250-taxis/TAXI-250-model.json` | Modelo. | `MODEL` |
+| `taxi-terminal-250-taxis/README.md` | Descripción. | `README` |
+| `terminal-50-buses/TERMINAL-50-BUSES-S01-SITE.svg` | Sitio. | `SVG` |
+| `terminal-50-buses/TERMINAL-50-BUSES-N1.svg` | N1. | `SVG` |
+| `terminal-50-buses/TERMINAL-50-BUSES-N2.svg` | N2. | `SVG` |
+| `terminal-50-buses/TERMINAL-50-BUSES-model.json` | Modelo. | `MODEL` |
+| `terminal-50-buses/README.md` | Descripción. | `README` |
+
+## M.3 — `agk/` (24 archivos + 13 .xlsx en preserved/)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `README.md` (14 KB) | Knowledge Preservation Package v1.0. | `PRESERVED` |
+| `package-manifest-v1.0.json` | Manifiesto. | `INTEGRITY` |
+| `MACROORDEN_MANUS_ARKI_KNOWLEDGE_PRESERVATION_PACKAGE_v1.0.txt` | Instrucciones. | `REFERENCE` |
+| `preserved/01-13_*.xlsx` | 13 workbooks preservados (constitución, investigación, historia, experimentos, capacidades, UNKNOWN, FROZEN, casos, fuentes, tipologías, ideas, libro maestro, formato IA). | `FROZEN` |
+| `external-evaluations/DS-EVAL-01/README.md` | Evaluación externa DeepSeek. | `REVIEWED / DISPOSITIONED` |
+| `fundamental-research/FKCG-02/FKCG-02_FUNDAMENTAL_KNOWLEDGE_PRESERVATION.md` | Preservación fundamental. | `PRESERVED / NOT_CANONIZED` |
+| `demonstration-gates/DG-01/DG-01_APPLICABILITY_EXPERIMENTAL_SPECIFICATION.md` (33 KB) | Especificación DG-01. | `SPECIFIED / NOT_IMPLEMENTED` |
+| `demonstration-gates/DG-01/DG-01B_BLIND_ADVERSARIAL_PROTOCOL.md` (24 KB) | Protocolo DG-01B. | `SPECIFICATION_CORRECTION_ONLY` |
+
+## M.4 — `costs/` (2 archivos)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `ARKI-HOUSE-A21-S1-COST-SIMULATION.md` | Simulación: PEN 728,384 (medio) sin IGV. | `SIMULATION` |
+| `ARKI-HOUSE-A21-S1-COST-SIMULATION.xlsx` | Datos. | `DATA` |
+
+**Regla:** esta evidencia es real y ejecutada. Pero **no prueba capacidad general**. BREAK-001 muestra 0 FAILS pero también 0 FABRICATES. Los exámenes ciegos son `AI_PROPOSED` y requieren revisión humana. DG-01 no se ha ejecutado. AGK está preservado, no ingerido.
+
+---
+
+# ANEXO N — HISTÓRICOS CLAVE (`docs/_ROOT_KEEP/`, 20 archivos)
+
+**Estado:** documentos históricos de producto, RFCs aprobados o en draft, manuales operativos. **Importantes para entender decisiones pasadas, pero no son el estado actual** (el `00-START.md` + Anexos I/J son la verdad vigente).
+
+## N.1 — Documentos de producto
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `ARKI_FIRST_CONTACT_MANUAL.md` | Manual de presentación. Camino A. | `REFERENCE` |
+| `ARKI_OPERATIONAL_ARCHITECTURE_FREEZE_1_0.md` | 4 capas: D-2, AGK, Directors, Capability Fabric. | `FROZEN` |
+| `COMMANDS_TRANSLATIONS_MATRIX.md` | 67 comandos SICL, 8 idiomas. | `REFERENCE` |
+| `DOCUMENTATION_COHERENCE_2.11.md` | Frontend, Core, RFC-027/028/029. | `REFERENCE` |
+| `EVALUACION_CONCEPTUAL_DOCUMENTO_63.md` | Evaluación crítica (visión vs madurez). | `EVALUATION` |
+| `SICL_1_3_HIERARCHY.md` | Jerarquía espacial/temporal. | `REFERENCE` |
+| `SICL_COORDINACION_CICLO_01.md` | Preference canónica. | `IMPLEMENTED` |
+| `SICL_FRONTEND_SPEC_v1.md` | Spec UX/UI. | `APROBADO` |
+| `SICL_GITHUB_RENDER_MIGRATION_v1.md` | Migración a Render. | `PREPARADO, NO DESPLEGADO` |
+| `SICL_HTTP_CLIENT_EXPECTED_CONTRACT_v1.md` | Contrato HTTP. | `REFERENCE` |
+| `SICL_IO_DECISION.md` | Investigación de Operaciones. | `DECISION` |
+| `SICL_PUBLIC_DEPLOYMENT_MANUAL_RUNBOOK_v1.md` | Runbook manual. | `RUNBOOK` |
+| `SICL_REST_FRONTEND_CONFIGURATION_v1.md` | Puente REST. | `REFERENCE` |
+| `VISUALIZATION_ENGINE.md` | Motor de visualización F1. | `IMPLEMENTED` |
+
+## N.2 — RFCs
+
+| Archivo | Estado |
+|---|---|
+| `RFC-015_FRONTEND_V2.md` | FASE A IMPLEMENTED |
+| `RFC-019_LOCALIZED_SICL_COMMAND_ALIASES.md` | DRAFT — PENDING PO |
+| `RFC-019_PARSER_SPECIFICATION.md` | DRAFT |
+| `RFC-022_FRONTEND_GUIDED_INTERFACE.md` | IMPLEMENTED ON MAIN |
+| `RFC-023_CORE_CONNECTIVITY_AND_DEPLOYMENT.md` | APPROVED — AUTHORIZED |
+| `RFC-024_SYSTEM_COMPLETION.md` | IMPLEMENTED — LOCAL/MOCK; REMOTE E2E BLOCKED |
+
+**Regla:** estos documentos son historia. No están sincronizados con el estado vigente. Si hay conflicto, prevalece `00-START.md` + Anexos I/J.
+
+---
+
+# ANEXO O — ÍNDICE CRUZADO DE LOS 20 CANÓNICOS
+
+**Propósito:** los 20 archivos de `docs/_CANONICAL_TRUTH_FOR_00_START/` ya están cubiertos por los Anexos I y J. Este anexo solo indica qué sección de I/J cubre cada uno.
+
+| Archivo | Cubierto por | Sección |
+|---|---|---|
+| `AGK_OCCT_EXECUTION_EVIDENCE_V1.md` | Anexo I | I.3 |
+| `ARKI_AGENT_REGISTRY_AND_ORCHESTRATOR.md` | Anexo J | J.3 |
+| `ARKI_AND_SICL_FOUNDATIONS.md` | Anexo I | I.1 |
+| `ARKI_AUTONOMY_EVIDENCE_MAP.md` | Anexo J | J.4 |
+| `ARKI_BODY_MAP_TRIPLE_AUDIT_V1.md` | Anexo I | I.2 (implícito) |
+| `ARKI_CANONICAL_HANDOFF_2026-10-05.md` | Anexo I | I.4 |
+| `ARKI_DELTA_SYSTEM_AUDIT.md` | Anexo J | J.1 |
+| `ARKI_F1_F10_AUTOMATED_TEST_MACRO_ORDERS_V1.md` | Anexo J | J.7 |
+| `ARKI_INTELLIGENCE_CAPABILITY_INVENTORY.md` | Anexo J | J.4 / J.6 |
+| `ARKI_LATENT_CAPABILITY_MAP.md` | Anexo J | J.5 |
+| `ARKI_MASTER_MAP_LIVE.md` | Anexo I | I.2 |
+| `ARKI_PHOTOREALISTIC_VISUAL_AND_EVIDENCE_PROTOCOL.md` | Anexo I | I.6 |
+| `ARKI_POST_513_EXECUTIVE_SYNTHESIS.md` | Anexo J | J.4 / J.6 |
+| `ARKI_SUPERPOWERS_PACK.md` | Anexo J | J.2 |
+| `ARKI_TEN_PHASE_PRODUCT_INTEGRATION_ROADMAP_V1.md` | Anexo J | J.7 |
+| `D6.1-REPORT.md` | Anexo J | J.1 |
+| `D6.2-M-REPORT.md` | Anexo J | J.1 |
+| `D6.3-G-REPORT.md` | Anexo J | J.1 |
+| `D6.4-MULTIMODAL-SOURCE-INGESTION-REPORT.md` | Anexo J | J.1 |
+| `SICL_65_PRODUCT_DECISION.md` | Anexo I | I.5 |
+
+**Regla:** los 20 canónicos están consolidados. Este anexo es un índice cruzado. No requiere duplicar contenido.
+
+---
+
+# ANEXO P — VIVOS, RAÍZ Y BASURA
+
+**Propósito:** mapear los 76 archivos vivos en subdirectorios + 8 archivos raíz de `docs/` + 165 archivos en `_BASURA_2026-10-28/` (fuera del repo).
+
+## P.1 — `docs/arki-master-map/` (49 archivos, VIVO)
+
+**Estado:** mapa canónico de continuidad. Referenciado en §11 del `00-START.md`.
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `ARKI_MASTER_MAP_LIVE.md` (38 KB) | Punto de entrada canónico. | `ACTIVE / LIVING MAP` |
+| `ARKI_MASTER_MAP_STATE.json` (130 KB) | Estado F1-F10. | `ACTIVE` |
+| `ARKI_CONTINUITY_EVENTS.jsonl` | Historial de eventos. | `ACTIVE` |
+| `AGK_DELTA_005_PERSISTENT_NAMING_CONTRACT_V1.md` | Naming persistente. | `FROZEN` |
+| `ARKI_ACE88_ADAPTER_IMPLEMENTATION_20261014.md` | ACE88 Core. | `CODE_INTEGRATED` |
+| `ARKI_ACE88_WEB_CORE_BOUNDARY_20261014.md` | Frontera Web/Core. | `CONTRACT_PROPOSED` |
+| `ARKI_AUTONOMOUS_RELATION_DISCOVERY_20261014.md` | Descubrimiento de relaciones. | `SOURCE_SCANNER_IMPLEMENTED` |
+| `ARKI_BOLSA_IDEAS_*` (8 archivos BIC) | Bolsa de Ideas. | `INVENTARIO EXPERIMENTAL` |
+| `ARKI_BRANCH_COMMIT_CATALOG_20261021.md` (378 KB) | Catálogo de ramas. | `INVENTORY` |
+| `ARKI_BRANCH_S10_TWIN_AUDIT_2026-10-09.md` | S10/twin. | `AUDIT` |
+| `ARKI_CAPABILITY_INSERTION_MAP_FROM_BUSINESS_PUBLIC_WORKS_V1.md` | 12 capacidades. | `TRIAGED` |
+| `ARKI_CONTINUITY_NEW_CHAT_PROTOCOL.md` | P0 continuidad. | `IMPLEMENTED_PARTIAL` |
+| `ARKI_CONTROLLED_GITHUB_EXECUTOR_V0.md` | Ejecutor V0. | `IMPLEMENTED` |
+| `ARKI_DIGITAL_TWIN_REAL_DATA_GATE_2026-10-08.md` | GDT-01. | `NO APTO` |
+| `ARKI_F5_F9_*` (2 archivos) | Red Team F5-F9. | `DOSSIER` |
+| `ARKI_F6_AGK_INTEGRAL_CLOSURE_GATE_V1.md` | F6/AGK. | `CLOSURE_AUDIT_ACTIVE` |
+| `ARKI_F7_F8_F9_EXECUTION_HANDOFF_2026-10-08.md` | F7-F9. | `IMPLEMENTED_PARTIAL` |
+| `ARKI_F7_OECE_ACS_EVIDENCE_CONTRACT_V1.md` | F7 OECE. | `CONTRACT + BOUNDED IMPL` |
+| `ARKI_F7_PROFESSIONAL_TECHNICAL_DEVELOPMENT_GATE_V1.md` | F7. | `OPEN / CONTRACT` |
+| `ARKI_F7_S10_PROJECT_COST_BASELINE_CONTRACT_V1.md` | F7 S10. | `CONTRACT + BOUNDED IMPL` |
+| `ARKI_JOURNAL_VERIFICATION_OFFLINE_20261014.md` | Journal offline. | `IMPLEMENTED_NOT_EXECUTED` |
+| `ARKI_LIVE_MAP_TREE_TWIN_DOUBLE_AUDIT_20261014.md` | Reconciliación. | `AUDITORÍA ESTÁTICA` |
+| `ARKI_LIVE_SYSTEMS_COORDINATOR_20261014.md` | Coordinador. | `IMPLEMENTED` |
+| `ARKI_M10_001_MACROORDERS.md` | 10 macroórdenes. | `AUTHORIZED` |
+| `ARKI_MAIN_INTEGRATION_GENEALOGY_2026-10-13.md` | Genealogía. | `PARCIAL` |
+| `ARKI_MAPA_VIVO_CONTINUIDAD.md` (16 KB) | Proyección de Git + eventos. | `GENERADO` |
+| `ARKI_MAQUETA_INTELLIGENT_ASSEMBLY_CONTRACT_V1.md` | Ensamblaje. | `DESIGN_PROPOSED` |
+| `ARKI_OFFLINE_VALIDATION_20261014.md` | Validación offline. | `RUNNER_IMPLEMENTED` |
+| `ARKI_RED_TEAM_A_DEEPSEEK_ORDER_V1.md` | Orden DeepSeek. | `ORDER` |
+| `ARKI_RED_TEAM_B_QWEN_ORDER_V1.md` | Orden Qwen. | `ORDER` |
+| `ARKI_RELATIONAL_LEARNING_20261014.md` | Aprendizaje relacional. | `CANDIDATE_ENGINE_IMPLEMENTED` |
+| `ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md` (17 KB) | Auditoría de ramas. | `PARCIAL` |
+| `ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md` (27 KB) | Catálogo de ramas. | `INVENTORY` |
+| `ARKI_SUPERPOWERS_AUDIT_2026-10-12.md` | Superpoderes. | `AUDITORÍA ESTÁTICA` |
+| `ARKI_THREE_LIVE_SYSTEMS_RECONCILIATION_20261014.md` | 3 sistemas. | `INSPECCIÓN ESTÁTICA` |
+| `ARKI_TREE_PREREQUISITE_COVERAGE_20261014.md` | Cobertura. | `0/51` |
+| `ARKI_TWIN_THREE_ALTERNATIVES_20261014.md` | Tres alternativas. | `EVALUATOR_IMPLEMENTED` |
+| `ARKI_UNIFIED_TRACE_GRAPH_V1.md` | Trace Graph. | `IMPLEMENTED_AS_LOCAL` |
+| `AV_UI_001_ARBOL_VIVO_PREPARATION.md` | Preparación UI. | `PREPARATION_ONLY` |
+| `ideas/IDEA-MT-001_MULTISCALE_TWIN_FROZEN.md` | Multiscale Twin. | `IDEA_FROZEN` |
+| `contracts/*.schema.json` (2) | Esquemas. | `SCHEMA` |
+
+## P.2 — `docs/arki-planning/` (7 archivos, VIVO)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `README.md` | Resuelve I-01. | `ACTIVE` |
+| `BACKLOG.md` | 24 ideas (I-01 a I-24). | `ACTIVE` |
+| `DECISIONS.md` | Registro PO. | `ACTIVE` |
+| `IDEAS.md` | Ley del Embudo. | `ACTIVE` |
+| `RFC_APPROVALS.md` | Registro. | `ACTIVE` |
+| `ROADMAP.md` | F1-F10. | `ACTIVE` |
+| `WORK_LEDGER.md` | Registro. | `ACTIVE` |
+
+## P.3 — `docs/ops/` (8 archivos, VIVO)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `ARKI-4-PENDIENTES-CERRADOS-20261027.md` | 4 pendientes. | `PASS` |
+| `ARKI-DELTA62-STATUS-20261027.md` | Delta 6.2. | `IMPLEMENTED` |
+| `ARKI-E2E-CANONICAL-REPLICATE-20261027.md` | E2E. | `RUNBOOK` |
+| `ARKI-F1-F10-PHASE-EVIDENCE-20261027.md` | 10 fases. | `PASS_WEB_ONLY` |
+| `ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md` | Systemd. | `PASS` |
+| `ARKI-LOCAL-STACK-AUTOSTART-20261027.md` | Autostart. | `ACTIVE` |
+| `ARKI-MO-025-ACTIVACION-ARBOL-VIVO.md` | MO-025. | `IMPLEMENTED` |
+| `ARKI-MO-026-032-ACTIVACION-INTEGRADA.md` | MO-026..032. | `IMPLEMENTED` |
+
+## P.4 — `docs/freeze/`, `docs/redteam/`, `docs/revivir-arki/`, `docs/security/` (4 archivos, VIVO)
+
+| Archivo | Propósito | Estado |
+|---|---|---|
+| `freeze/ARKI_V0_6_E2E002_PHASE1_FREEZE.md` | Freeze Phase 1. | `FROZEN` |
+| `redteam/ARKI_V0_6_RC_ROUND1_HANDOFF.md` | Round 1. | `RED_TEAM` |
+| `revivir-arki/REGISTRO-MAESTRO-REVIVIR-ARKI.md` | Continuidad. | `EN CURSO` |
+| `security/ARKI_RED_TEAM_VALIDATION_2026-09-21.md` | Validación defensiva. | `310 TESTS PASS` |
+
+## P.5 — `docs/` raíz (8 archivos, VIVO)
+
+| Archivo | Propósito |
+|---|---|
+| `ARKI_FRONTEND_ARCHITECTURE.md` | Arquitectura frontend. |
+| `ARKI_FRONTEND_HANDOFF.md` | Handoff frontend. |
+| `COMMANDS_COMPACT_REFERENCE.md` | Referencia de comandos. |
+| `COMMAND_BAR.md` | Command Bar SICL. |
+| `GUIA_USUARIO_PRODUCT_0_6.md` | Guía de usuario. |
+| `HELP_SYSTEM.md` | Help system. |
+| `PRODUCT_ACCEPTANCE_CONTRACT_SICL_0_6.md` | Contrato de aceptación. |
+| `READINESS_LOCAL_PREDEPLOYMENT.md` | Readiness local. |
+
+## P.6 — `_BASURA_2026-10-28/` (165 archivos, FUERA del repo)
+
+**Ubicación:** `/home/arki/ARKI/_BASURA_2026-10-28/` (no en `canonical/sicl-web/`).
+**Estado:** nada borrado. 165 archivos preservados.
+
+| Subdirectorio | Archivos | Contenido |
+|---|---|---|
+| `DOCS_DUPLICADOS/` | 3 | Propuestas de render 34, 35, 33. |
+| `DOCS_OBSOLETOS/` | 158 | Los 20 inventarios post-513, 9 pre-513, D6.x, KR6.2/6.3, MC01-04, PWA, Enterprise, Architecture (26), Predictive (28), etc. |
+| `DOCS_DRAFT/` | 0 | (Vacío) |
+
+**Regla:** `_BASURA` es backup, no basura eliminada. Nada se ha borrado. Si algo se necesita, se puede recuperar.
+
+---
+
+**End of Anexos K, L, M, N, O, P — 2026-10-28.**
+
