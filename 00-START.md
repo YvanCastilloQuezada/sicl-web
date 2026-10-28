@@ -14,7 +14,7 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 - GitHub Web: `YvanCastilloQuezada/sicl-web`.
 - Rama experimental de trabajo: `test/arki-autonomy-offline-ci-20261014`. **No fusionar a main sin autorización.**
 - **Último commit de esta continuidad, antes de crear/actualizar este 00-START:** `48c8e2c7724e9087d4cd5e50e3550cac93cc71a9` (documenta integración systemd).
-- Core Ubuntu: `/home/arki/ARKI/repositorios/sicl-core`, HEAD observado `c68b44514dc4a4574be0ed73df041f51ed5075a9`.
+- Core Ubuntu: `/home/arki/ARKI/repositorios/sicl-core`, HEAD observado `d48a3301ba532d77e0d2eb1dd4b3b54df6fc0ab8`.
 - Web principal Ubuntu: `/home/arki/ARKI/repositorios/sicl-web` **DIRTY**, no resetear ni sobrescribir.
 - Web aislado: `/home/arki/ARKI/validacion-f6-descongelada`, HEAD observado `48c8e2c7` tras fetch y detach.
 - ACS: `/home/arki/ARKI/repositorios/arki-acs`.
@@ -43,7 +43,7 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
   ```
 - Ejecutable local: `~/ARKI/bin/arki-live-run.sh`, que invoca `arki-live-cycle.cjs` en Web aislado, Core principal y estado externo.
 - **2026-10-14 18:09:46 -05:** el usuario ejecutó `systemctl --user start arki02-continuity.service`, salida 0; tanto `ExecStart` como `ExecStartPost` terminaron con `status=0/SUCCESS`. `Type=oneshot` queda `inactive (dead)` después de finalizar: **es normal**.
-- Timer figuraba activo con próxima ejecución `2026-10-14 19:00 -05`. **No se ha visto todavía un log del disparo posterior automático; no declararlo verificado.**
+- Timer disparó el **27-oct-2026 19:00:12 -05** con status 0/SUCCESS. `ExecStartPost` (arki-live-run.sh) también terminó con status 0/SUCCESS. Ciclo vivo verificado: `ADVISORY_PULSE_COMPLETED`, `rollbackVerified=true`, `canonicalMutation=false`. Ver `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md` sección "Disparo automático verificado — 2026-10-27 19:00".
 - Evidencia de este hito registrada en `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md`, commit `48c8e2c7`.
 
 ### Auditoría MO-032 (real)
@@ -72,8 +72,8 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 
 **El usuario exige ARKI realmente vivo y funcionando; no quiere más auditorías repetidas.** Prioridad de implementación:
 
-1. Comprobar **una vez** el disparo automático real de `arki02-continuity.timer` mediante logs posteriores a las 19:00, sin reinstalar servicios.
-2. **Implementar una autocorrección funcional concreta y limitada**, sobre un defecto verificable, en copia/worktree aislada: evidencia del fallo inicial, parche propuesto por el sistema, pruebas antes/después, rollback byte-exacto, registro y decisión pendiente del PO. No limitarse a agregar campos JSON.
+1. ~~Comprobar **una vez** el disparo automático real de `arki02-continuity.timer` mediante logs posteriores a las 19:00, sin reinstalar servicios.~~ **✅ COMPLETADO 2026-10-27 19:00:12.**
+2. **Cerrar un information gap real**: el `repairExperiment` existe pero devuelve `NO_SUPPORTED_DEFECT_FOUND` con 0 candidates. La misión real es tomar un HC-XX o I-XX de los 102 information gaps, recolectar evidencia real, y demostrar transición `INFORMATION_GAP` → `EVIDENCE_VERIFIED` con cambio verificado (no waiver). Existen +50 `trackedPairs` con status `TRACKED_PAIR_NOT_EXECUTED`.
 3. **Investigar y reconstruir dependencias** de I-01, I-02, I-03, I-08, I-12 usando código y evidencia real; no inferirlas de etiquetas ni promover sin prueba.
 4. **Conectar tareas y resultados reales con Árbol Vivo / Árbol Gemelo Digital**, con procedencia, estado, precedencias y bloqueo de propagación.
 5. Después, tres alternativas arquitectónicas cuantificadas, Delta 6.2 real, geometría AGK única 3D-First y pruebas multiescala.
