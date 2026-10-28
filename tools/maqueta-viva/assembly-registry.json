@@ -94,13 +94,13 @@
       "id": "I-08",
       "title": "Ingestión multimodal y OCR",
       "targetPhase": "F1",
-      "sourceStatus": "PARTIAL_LOCAL",
+      "sourceStatus": "RESOLVED_REMOTE",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Incorporar documentos e imágenes mediante análisis visual y OCR, conservando incertidumbre y revisión humana.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Validado remoto 2026-10-27: Core en Railway (HTTP 200), OCR implementado, SICL_CORE_URL configurado"
     },
     {
       "id": "I-09",
@@ -142,13 +142,13 @@
       "id": "I-12",
       "title": "Conexión canónica remota Core E2E",
       "targetPhase": "F1",
-      "sourceStatus": "HISTORICAL_BLOCKED_REVERIFY",
+      "sourceStatus": "RESOLVED_REMOTE",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Conectar el entorno local con SICL Core remoto y comprobar la cadena completa de ejecución y evidencia.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Validado remoto 2026-10-27: Core en Railway (HTTP 200), RFC-023 aprobado, SICL_CORE_URL configurado"
     },
     {
       "id": "I-13",
