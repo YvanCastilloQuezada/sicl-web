@@ -59,3 +59,23 @@
 
 **Prioridad 3 (baja):**
 - I-10, I-11, I-13 a I-24
+
+---
+
+## Nota sobre autocorrección funcional (2026-10-27)
+
+**Estado del `repairExperiment`:** implementado y funcional.
+
+**Lo que hace:** prueba 3 variantes de parche sobre un fixture controlado (`calculation.cjs`), verifica que la baseline falla, y devuelve las variantes que pasan.
+
+**Lo que devuelve:** `NO_SUPPORTED_DEFECT_FOUND` con `candidates: []` cuando no hay defecto.
+
+**Por qué:** los 60 tests del proyecto pasan (60/60 PASS). No hay defecto real que reparar.
+
+**Qué falta para autocorrección real:**
+1. Un defecto verificable (test que falla, bug reportado, error en logs).
+2. Un "detector de defectos" (que identifique el defecto automáticamente).
+3. Un "generador de parches" (que proponga el parche basado en el error).
+4. Validación del PO.
+
+**Decisión:** no inventar un defecto para probar la autocorrección. Documentar el estado `NOT_APPLICABLE` (no hay defecto) y esperar a que aparezca un defecto real.
