@@ -345,60 +345,70 @@
       "title": "Knowledge foundation M0-K",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_WITH_HUMAN_GATE",
-      "sourceEvidence": "`docs/arki-m0k/manifest.json`; `client/src/arkiKnowledgeCorpusFoundation.ts`",
+      "sourceEvidence": "`shared/arkiKnowledgeCorpusFoundation.ts`",
       "sourceGap": "Automatizar incorporación FACT está prohibido sin revisión",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-03",
       "title": "SICL local snapshot/replay",
       "targetPhase": "F1",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`server/siclCore.ts`; `arkiD62ReasoningHarness.ts:196-197`; tests",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "No remoto verificable sin `SICL_CORE_URL`",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-04",
       "title": "Recuperación de conocimiento",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_PARTIAL",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:54-60,154-159`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Relevancia lexical; falta evaluación semántica amplia",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-05",
       "title": "Reasoning funcional",
       "targetPhase": "F3",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:154-193`; `docs/arki-d62/restaurant-exam-result.json`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Resultado parcial; no garantiza diseño completo",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-06",
       "title": "Transferencia tipológica",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_LOCAL",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:66-102`; `docs/arki-l2/`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Promoción y Core remoto no demostrados",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-07",
@@ -419,60 +429,70 @@
       "title": "Dos realizaciones divergentes",
       "targetPhase": "F4",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:105-112`; `arkiD63GeometricBridge.ts:48-55`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`; `server/arkiD63GeometricBridge.ts`",
       "sourceGap": "Sólo dos candidatos en D6.3-G",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-09",
       "title": "Topología→geometría",
       "targetPhase": "F4",
       "sourceStatus": "DEMONSTRATED_CONCEPTUAL",
-      "sourceEvidence": "`arkiD63GeometricBridge.ts:43-59`; report D6.3-G",
+      "sourceEvidence": "`server/arkiD63GeometricBridge.ts`",
       "sourceGap": "Functional/operational UNKNOWN; regulatory NOT_EVALUATED",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-10",
       "title": "Validez geométrica básica",
       "targetPhase": "F6",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`arkiD63GeometricBridge.ts:28-39`",
+      "sourceEvidence": "`server/arkiD63GeometricBridge.ts`",
       "sourceGap": "No materiales, muros, puertas ni construcción",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-11",
       "title": "Planos SVG conceptuales",
       "targetPhase": "F8",
       "sourceStatus": "DEMONSTRATED_CONCEPTUAL",
-      "sourceEvidence": "`docs/exams/house-two-floor-existing-arki/`; `docs/arki-d63g/*.svg`",
+      "sourceEvidence": "`docs/arki-d63g/candidate-a.svg`; `docs/arki-d63g/candidate-b.svg`",
       "sourceGap": "No DWG/RVT/IFC; no licencia",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-12",
       "title": "3D massing",
       "targetPhase": "F6",
       "sourceStatus": "DEMONSTRATED_EXPERIMENTAL",
-      "sourceEvidence": "`UPAO001MassingViewer3D.tsx`; viewer route",
+      "sourceEvidence": "`client/src/components/UPAO001MassingViewer3D.tsx`",
       "sourceGap": "Massing analítico, no BIM",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-13",
@@ -520,12 +540,14 @@
       "title": "Biblioteca visual/zoom/pan",
       "targetPhase": "F1",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`SourceLibraryPage.tsx`; `ImagePanZoom.tsx`; checkpoint `a565a909`",
+      "sourceEvidence": "`client/src/pages/SourceLibraryPage.tsx`; `client/src/components/ImagePanZoom.tsx`",
       "sourceGap": "No valida contenido arquitectónico",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-17",
@@ -545,12 +567,14 @@
       "title": "Voz/Command Bar",
       "targetPhase": "F3",
       "sourceStatus": "DEMONSTRATED_UI / ADAPTER",
-      "sourceEvidence": "`CommandBar.tsx`; `voiceTranscription.ts`; tests",
+      "sourceEvidence": "`client/src/components/CommandBar.tsx`; `server/_core/voiceTranscription.ts`",
       "sourceGap": "No prueba ciclo de comprensión arquitectónica de extremo a extremo",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-19",
@@ -635,24 +659,28 @@
       "title": "Cost simulation",
       "targetPhase": "F7",
       "sourceStatus": "DEMONSTRATED_SIMULATION",
-      "sourceEvidence": "`docs/costs/*.md/.xlsx`",
+      "sourceEvidence": "`docs/costs/ARKI-HOUSE-A21-S1-COST-SIMULATION.md`; `docs/costs/ARKI-HOUSE-A21-S1-COST-SIMULATION.xlsx`",
       "sourceGap": "No presupuesto certificado",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-26",
       "title": "Libro Vivo",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_PRODUCT_UI",
-      "sourceEvidence": "`ArkiBookPage.tsx`; tests; checkpoints",
+      "sourceEvidence": "`client/src/pages/ArkiBookPage.tsx`",
       "sourceGap": "Contenido interno y público deben mantenerse separados",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-27",
