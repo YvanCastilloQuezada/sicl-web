@@ -1,8 +1,5 @@
 # 00-START — ARKI/ARQUI · continuidad obligatoria
 
-**Actualizado:** 2026-10-14 (Perú)  
-**Propósito:** punto de entrada para el siguiente chat de ChatGPT, Manus, Codex o auditor. **Leer antes de proponer cambios.**
-
 ## 1. Identidad y objetivo
 
 ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son proyectos distintos. Objetivo: **superarquitecto autónomo multiescala** (objeto, interior, edificio, conjunto, paisaje, ciudad, región y territorio). Debe aprender, razonar, detectar carencias, generar tres alternativas verificables, evaluar métricas, corregirse en entorno aislado, actualizar Árbol Vivo y Árbol Gemelo Digital y solicitar al PO aprobación para cambios protegidos. **Un solo kernel AGK**, 3D-First; hipótesis congelada: **OCCT + ARKI_DELTA**. **Delta 6.2** es la vía controlada de promoción del conocimiento. **F6 está descongelada por decisión del PO**; los demás contratos FROZEN se respetan. MiLukita es otro proyecto: no tocar.
@@ -10,16 +7,6 @@ ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son pro
 **Regla:** no confundir simulación, anotación, diagnóstico o prueba de infraestructura con competencia arquitectónica demostrada. CERO DEUDAS; no waiver, no PASS inventado, no modificar canónico sin autorización del PO. Preferir implementación real y una macroorden de validación a más informes repetitivos.
 
 
-## LEYES INQUEBRANTABLES
-
-**LEY 1 — ANTES DE IMPLEMENTAR, AUDITORÍA INTENSA.**
-Antes de escribir código nuevo, buscar en todos los repositorios, backups, históricos y documentación. Verificar si ya existe. No duplicar. La auditoría precede a la implementación. Sin auditoría, no se implementa.
-
-**LEY 2 — CERO DEUDAS SIEMPRE.**
-No se dejan gaps abiertos sin documentar. No se dejan tests rotos. No se dejan duplicados. No se dejan TODOs sin resolver. Si algo no se puede cerrar, se documenta con `blockingReason` honesto. CERO DEUDAS.
-
-**LEY 3 — BUROCRACIA MÍNIMA SIEMPRE QUE SEA NECESARIO.**
-La documentación y los procesos existen para servir al proyecto, no al revés. Si un proceso no aporta valor, se elimina. Si un documento no se lee, se archiva. Si una ceremonia no ayuda, se simplifica. Burocracia mínima, pero suficiente para mantener trazabilidad.
 
 ## 2. Repositorios, ramas y máquina
 
@@ -33,6 +20,7 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 - Core tiene archivos ACE88 no rastreados; preservarlos.
 - En ARKI-02 hay `git`, Node 22, Python 3, pnpm/corepack; `rg` no estaba instalado. GitHub HTTPS fetch funciona; SSH había fallado.
 - **No asumir acceso directo al equipo ARKI-02 desde GitHub**: el usuario ejecuta macroórdenes y pega resultados.
+
 
 ## 3. Estado confirmado: ARKI VIVO
 
@@ -68,6 +56,7 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 - L5: `NOT_DEMONSTRATED` (Delta 6.2, AGK, multiescala).
 - Pruebas focales MO031 21/21 PASS, bridge PASS, scheduled PASS, ACE PASS; son pruebas de alcance limitado.
 
+
 ## 4. Arquitectura existente que NO hay que duplicar
 
 - `tools/maqueta-viva/arki-mo025-cycle.cjs`: pulso consultivo, journal y replay.
@@ -79,6 +68,7 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 - `arki02-ci.service` antes se bloqueó por repos dirty; no borrar cambios para forzar PASS.
 - `arki-handoff.service` antes devolvía exit 0 sin generar handoff por ruta incorrecta `repos/sicl-web` vs `repositorios/sicl-web`; revisar productor antes de modificar.
 - Git sync existente `arki02-git-sync.service`.
+
 
 ## 5. Próxima misión: dejar de dar vueltas
 
@@ -92,6 +82,7 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 
 **PO:** el sistema detecta, investiga, ensaya y recomienda; el PO aprueba cambios canónicos. Mantener historia persistente y rollback.
 
+
 ## 6. Cómo retomar el siguiente chat
 
 1. Leer este `00-START.md` y `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md`.
@@ -100,11 +91,32 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 4. **Implementar código** en rama experimental a través de GitHub; incluir pruebas adversariales y dar un único bloque de validación para Ubuntu.
 5. No anunciar “ARKI superarquitecto autónomo” hasta demostrar diseño, AGK, aprendizaje y autocorrección funcional.
 
+
 ## 7. Dictamen preciso para el siguiente asistente
 
 **ARKI tiene un ciclo vivo operativo, integrado con systemd y probado mediante inicio manual del servicio.** Hay cinco propuestas en revisión, historial persistente y rollback. **La autonomía arquitectónica completa NO está demostrada.** El objetivo inmediato es pasar de diagnóstico/ensayo a **acción funcional comprobada** y actualización del Árbol Vivo.
 
 **No confundir commit de documentación con despliegue ni afirmación de capacidad con prueba.**
+
+
+
+## 8. AUDITORÍA DIARIA
+
+Historial de auditorías del proyecto. Cada entrada registra:
+- Fecha y hora.
+- Estado del sistema (Core, Frontend, Árbol Vivo).
+- Gaps (informationGaps, confirmedDefects).
+- Tests (proyecto, fases, Core, E2E).
+- Repos (limpios o con cambios).
+- Cambios realizados.
+
+### 2026-10-27
+
+- **Sistema:** Core 200, Frontend 200, Árbol Vivo 200.
+- **Gaps:** 0 informationGaps, 0 confirmedDefects.
+- **Tests:** 963 PASS (proyecto), 64 PASS (fases), Core PASS, E2E PASS.
+- **Repos:** 3 limpios.
+- **Cambios:** 102 gaps cerrados, 10/10 fases verificadas, PO_APPROVED, 3 leyes, "Cómo retomar", fundamentos fusionados, `00_START.md` eliminado.
 
 
 ## 9. CÓMO RETOMAR (actualizado 2026-10-27)
@@ -146,6 +158,7 @@ Comando:
 
 Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 
+
 ## 10. ESTADO ACTUAL (2026-10-27 22:15)
 
 ### Sistema
@@ -181,6 +194,7 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 - av023-arbol-vivo: HEAD 309a5700 (limpio)
 - canonical/sicl-core: HEAD 6d19a33 (limpio)
 
+
 ## 11. REFERENCIAS CLAVE
 
 - docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md — Stack local
@@ -192,6 +206,7 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 - docs/arki-master-map/ARKI_F1_F10_AUTOMATED_TEST_MACRO_ORDERS_V1.md — Macroórdenes
 - scripts/run-arki-canonical-e2e-auto.sh — Script E2E automatizado
 
+
 ## 12. PRÓXIMOS PASOS SUGERIDOS
 
 1. Si los servicios no están corriendo: systemctl --user start arki-all.service
@@ -199,6 +214,104 @@ Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
 3. Si las fases no son TESTED_PASS_WEB_ONLY: ejecutar el runner de fases
 4. Si el E2E canonical falla: usar el script automatizado (IDs únicos)
 5. Si hay dudas: leer los documentos de referencia clave
+
+
+
+## 13. ÁRBOL DE DECISIÓN PARA DEBUGGING
+
+Si algo falla, seguir este árbol:
+
+### ¿El sistema no responde?
+
+1. Verificar servicios: `systemctl --user status sicl-core sicl-web arki-arbol-vivo arki-all`
+2. Si no están activos: `systemctl --user start arki-all.service`
+3. Si siguen sin responder: ver logs: `journalctl --user -u <servicio> -n 50`
+
+### ¿Los gaps no son 0?
+
+1. Ver `LATEST.json`: `cat ~/ARKI/continuity/arki-live/LATEST.json | python3 -m json.tool`
+2. Ver qué gaps hay: buscar `informationGaps` en el JSON.
+3. Si hay gaps nuevos: revisar `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json`.
+4. Si hay defectos: revisar `docs/arki-planning/BACKLOG.md`.
+
+### ¿Las fases no son TESTED_PASS_WEB_ONLY?
+
+1. Ver `MASTER_MAP_STATE.json`: `cat docs/arki-master-map/ARKI_MASTER_MAP_STATE.json | python3 -m json.tool`
+2. Ejecutar el runner de fases: `ARKI_PHASE=F1 node scripts/arki-phase-evidence-runner.mjs`
+3. Ver el receipt: `cat artifacts/arki-phase-evidence/receipt-f1.json`
+
+### ¿El E2E canonical falla?
+
+1. Verificar que el Core está corriendo: `curl http://127.0.0.1:8000/health`
+2. Verificar `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`.
+3. Usar el script automatizado: `./scripts/run-arki-canonical-e2e-auto.sh`
+4. Si falla con 409 CONFLICT: usar IDs únicos (el script lo hace).
+5. Ver `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md`.
+
+### ¿Un repo no está limpio?
+
+1. Ver qué cambió: `git status --short`
+2. Si son cambios legítimos: `git add -A && git commit -m "..."`
+3. Si son basura: mover a `_BASURA` o `git checkout`.
+
+
+## 14. MAPA DE DOCUMENTOS
+
+Si buscas X, ve a Y:
+
+| Si buscas... | Ve a... |
+|--------------|---------|
+| Qué es ARKI | `00-START.md` sección 1 + FUNDAMENTOS |
+| Estado actual | `00-START.md` sección 10 + `LATEST.json` |
+| Cómo arrancar | `00-START.md` sección 9 + `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md` |
+| Estado de las fases | `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` |
+| Evidencia de las fases | `docs/ops/ARKI-F1-F10-PHASE-EVIDENCE-20261027.md` |
+| Cómo replicar E2E | `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md` |
+| Delta 6.2 | `docs/ops/ARKI-DELTA62-STATUS-20261027.md` |
+| Planificación | `docs/arki-planning/` |
+| Auditorías históricas | `_BASURA_2026-10-27/00_START_validaciones/` |
+| Repositorios | `canonical/sicl-web`, `av023-arbol-vivo`, `canonical/sicl-core` |
+| Logs del sistema | `journalctl --user -u <servicio>` |
+| Ciclo vivo | `~/ARKI/continuity/arki-live/` |
+
+
+## 15. GLOSARIO
+
+| Término | Significado |
+|---------|-------------|
+| **ARKI/ARQUI** | Proyecto actual anteriormente llamado SICL/Vitruvio |
+| **SICL** | Spatial Intelligence Command Language |
+| **AGK** | ARKI Geometric Kernel (OCCT + ARKI_DELTA) |
+| **D-2** | Autoridad arquitectónica semántica |
+| **Delta 6.2** | Vía controlada de promoción del conocimiento |
+| **Árbol Vivo** | Representación del estado del proyecto (av023-arbol-vivo) |
+| **Árbol Gemelo Digital** | Representación del estado del proyecto (Gemelo Digital Vivo + Experimental) |
+| **MO-025** | Pulso consultivo del ciclo vivo |
+| **MO-031** | Revisión de propuestas |
+| **MO-032** | Auditoría del ciclo vivo |
+| **PO** | Product Owner (Yvan Castillo Quezada) |
+| **F1-F10** | Las 10 fases del proyecto |
+| **TESTED_PASS_WEB_ONLY** | Tests de Web pasan, Core pendiente |
+| **PO_APPROVED** | El PO ha aprobado el estado testeado |
+| **informationGaps** | Gaps de información (deben ser 0) |
+| **confirmedDefects** | Defectos confirmados (deben ser 0) |
+| **E2E** | End-to-End (prueba de extremo a extremo) |
+| **Core** | Repo canónico `sicl-core` (puerto 8000) |
+| **Web** | Repo canónico `sicl-web` (puerto 3001) |
+| **Árbol Vivo** | Repo `av023-arbol-vivo` (puerto 8768) |
+
+
+
+## LEYES INQUEBRANTABLES
+
+**LEY 1 — ANTES DE IMPLEMENTAR, AUDITORÍA INTENSA.**
+Antes de escribir código nuevo, buscar en todos los repositorios, backups, históricos y documentación. Verificar si ya existe. No duplicar. La auditoría precede a la implementación. Sin auditoría, no se implementa.
+
+**LEY 2 — CERO DEUDAS SIEMPRE.**
+No se dejan gaps abiertos sin documentar. No se dejan tests rotos. No se dejan duplicados. No se dejan TODOs sin resolver. Si algo no se puede cerrar, se documenta con `blockingReason` honesto. CERO DEUDAS.
+
+**LEY 3 — BUROCRACIA MÍNIMA SIEMPRE QUE SEA NECESARIO.**
+La documentación y los procesos existen para servir al proyecto, no al revés. Si un proceso no aporta valor, se elimina. Si un documento no se lee, se archiva. Si una ceremonia no ayuda, se simplifica. Burocracia mínima, pero suficiente para mantener trazabilidad.
 
 
 ## FUNDAMENTOS (del 00_START.md histórico, 2026-10-12)
@@ -257,102 +370,4 @@ La jerarquía de diez fases comienza en Fase 1 con recepción del encargo/intenc
 **Flujo:** FASE 1 / ENCARGO → D-2 autoridad semántica → Project State / Core / trazabilidad → ejecución gobernada de FASES 2–10 → AGK único para geometría canónica → representaciones 2D/3D/BIM/IFC.
 
 
-## 8. AUDITORÍA DIARIA
-
-Historial de auditorías del proyecto. Cada entrada registra:
-- Fecha y hora.
-- Estado del sistema (Core, Frontend, Árbol Vivo).
-- Gaps (informationGaps, confirmedDefects).
-- Tests (proyecto, fases, Core, E2E).
-- Repos (limpios o con cambios).
-- Cambios realizados.
-
-### 2026-10-27
-
-- **Sistema:** Core 200, Frontend 200, Árbol Vivo 200.
-- **Gaps:** 0 informationGaps, 0 confirmedDefects.
-- **Tests:** 963 PASS (proyecto), 64 PASS (fases), Core PASS, E2E PASS.
-- **Repos:** 3 limpios.
-- **Cambios:** 102 gaps cerrados, 10/10 fases verificadas, PO_APPROVED, 3 leyes, "Cómo retomar", fundamentos fusionados, `00_START.md` eliminado.
-
-## 13. ÁRBOL DE DECISIÓN PARA DEBUGGING
-
-Si algo falla, seguir este árbol:
-
-### ¿El sistema no responde?
-
-1. Verificar servicios: `systemctl --user status sicl-core sicl-web arki-arbol-vivo arki-all`
-2. Si no están activos: `systemctl --user start arki-all.service`
-3. Si siguen sin responder: ver logs: `journalctl --user -u <servicio> -n 50`
-
-### ¿Los gaps no son 0?
-
-1. Ver `LATEST.json`: `cat ~/ARKI/continuity/arki-live/LATEST.json | python3 -m json.tool`
-2. Ver qué gaps hay: buscar `informationGaps` en el JSON.
-3. Si hay gaps nuevos: revisar `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json`.
-4. Si hay defectos: revisar `docs/arki-planning/BACKLOG.md`.
-
-### ¿Las fases no son TESTED_PASS_WEB_ONLY?
-
-1. Ver `MASTER_MAP_STATE.json`: `cat docs/arki-master-map/ARKI_MASTER_MAP_STATE.json | python3 -m json.tool`
-2. Ejecutar el runner de fases: `ARKI_PHASE=F1 node scripts/arki-phase-evidence-runner.mjs`
-3. Ver el receipt: `cat artifacts/arki-phase-evidence/receipt-f1.json`
-
-### ¿El E2E canonical falla?
-
-1. Verificar que el Core está corriendo: `curl http://127.0.0.1:8000/health`
-2. Verificar `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`.
-3. Usar el script automatizado: `./scripts/run-arki-canonical-e2e-auto.sh`
-4. Si falla con 409 CONFLICT: usar IDs únicos (el script lo hace).
-5. Ver `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md`.
-
-### ¿Un repo no está limpio?
-
-1. Ver qué cambió: `git status --short`
-2. Si son cambios legítimos: `git add -A && git commit -m "..."`
-3. Si son basura: mover a `_BASURA` o `git checkout`.
-
-## 14. MAPA DE DOCUMENTOS
-
-Si buscas X, ve a Y:
-
-| Si buscas... | Ve a... |
-|--------------|---------|
-| Qué es ARKI | `00-START.md` sección 1 + FUNDAMENTOS |
-| Estado actual | `00-START.md` sección 10 + `LATEST.json` |
-| Cómo arrancar | `00-START.md` sección 9 + `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md` |
-| Estado de las fases | `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` |
-| Evidencia de las fases | `docs/ops/ARKI-F1-F10-PHASE-EVIDENCE-20261027.md` |
-| Cómo replicar E2E | `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md` |
-| Delta 6.2 | `docs/ops/ARKI-DELTA62-STATUS-20261027.md` |
-| Planificación | `docs/arki-planning/` |
-| Auditorías históricas | `_BASURA_2026-10-27/00_START_validaciones/` |
-| Repositorios | `canonical/sicl-web`, `av023-arbol-vivo`, `canonical/sicl-core` |
-| Logs del sistema | `journalctl --user -u <servicio>` |
-| Ciclo vivo | `~/ARKI/continuity/arki-live/` |
-
-## 15. GLOSARIO
-
-| Término | Significado |
-|---------|-------------|
-| **ARKI/ARQUI** | Proyecto actual anteriormente llamado SICL/Vitruvio |
-| **SICL** | Spatial Intelligence Command Language |
-| **AGK** | ARKI Geometric Kernel (OCCT + ARKI_DELTA) |
-| **D-2** | Autoridad arquitectónica semántica |
-| **Delta 6.2** | Vía controlada de promoción del conocimiento |
-| **Árbol Vivo** | Representación del estado del proyecto (av023-arbol-vivo) |
-| **Árbol Gemelo Digital** | Representación del estado del proyecto (Gemelo Digital Vivo + Experimental) |
-| **MO-025** | Pulso consultivo del ciclo vivo |
-| **MO-031** | Revisión de propuestas |
-| **MO-032** | Auditoría del ciclo vivo |
-| **PO** | Product Owner (Yvan Castillo Quezada) |
-| **F1-F10** | Las 10 fases del proyecto |
-| **TESTED_PASS_WEB_ONLY** | Tests de Web pasan, Core pendiente |
-| **PO_APPROVED** | El PO ha aprobado el estado testeado |
-| **informationGaps** | Gaps de información (deben ser 0) |
-| **confirmedDefects** | Defectos confirmados (deben ser 0) |
-| **E2E** | End-to-End (prueba de extremo a extremo) |
-| **Core** | Repo canónico `sicl-core` (puerto 8000) |
-| **Web** | Repo canónico `sicl-web` (puerto 3001) |
-| **Árbol Vivo** | Repo `av023-arbol-vivo` (puerto 8768) |
 
