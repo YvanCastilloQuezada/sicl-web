@@ -734,3 +734,96 @@ Buscar en `sicl-web/tools/maqueta-viva/` (especialmente checkout local `~/ARKI/a
 
 **Regla de recuperación:** comparar interfaces, dependencias y evidencia; extraer capacidades probadas, integrarlas en los puntos existentes, eliminar duplicación **una vez demostrado que nada se perdió**. No encadenar motores ni inventar una autoridad paralela.
 
+
+### G.5 — Hoja de ruta ejecutable: darle vida SIN abrir ramas
+
+**Principio:** reutilizar repositorios y ramas existentes; integrar sobre un baseline aprobado por el PO, sin cambios destructivos prematuros. Cada fase debe entregar funcionalidad integrada.
+
+**Paso A — Reconocer la casa existente (una vez):**
+1. Leer este `00-START.md` + `ARKI-00.md`.
+2. Revisar `ARKI_MASTER_MAP_LIVE.md` y `ARKI_MASTER_MAP_STATE.json`.
+3. Identificar SHAs actuales de `main`, `integration/arki-av035-main-20261015` y `experiment/arki-ideas-mapa-vivo-20261015`.
+4. Encontrar la **pantalla elegida** en `maqueta-viva.template.html`, su montaje y los archivos de datos; verificar si la página 3D final existe y dónde está. **No inventarla.**
+5. Confirmar qué proceso sirve el puerto 8768. **No usar 3000 sin identificar servidor.**
+6. Confeccionar un mapa **archivo → función → evidencia → ubicación actual → destino de integración → duplicado a retirar**.
+
+**Paso B — Reunir piezas sin perder ideas:**
+1. Comparar archivos y commits de las tres ramas web prioritarias.
+2. Recuperar documentos, código, tests, UI, evidencias y procedencia **antes** de borrar.
+3. Consolidar inventario de ideas en una sola ubicación existente de GitHub.
+4. Integrar en la interfaz aprobada, no en un clon.
+5. Eliminar ramas **solo** cuando su contenido exclusivo esté conservado y el PO autorice.
+
+**Paso C — Primer ciclo vital REAL:**
+
+Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El ciclo debe ser:
+1. **Autoinspección:** inventario real y estado de capacidades.
+2. **Autodiagnóstico:** carencia priorizada, causa, dependencias, restricciones FROZEN.
+3. **Diseño de alternativas:** exactamente tres opciones diferenciadas, con hipótesis explícitas.
+4. **Experimento real:** con Core/AGK cuando requiera geometría. Si no hay AGK, **bloquear y reportar**, no simular métricas falsas.
+5. **Comparación:** resultados medidos, procedencia, costos/beneficios, rechazos.
+6. **Aprobación PO:** la UI aprobada muestra opciones y solicita autorización vinculada a ID y SHA.
+7. **Aplicación:** cambios permitidos, acotados, idempotentes y reversibles.
+8. **Propagación:** actualizar dependencias, fases, árbol, evidencias, ideas, FROZEN y mapa maestro.
+9. **Persistencia:** reiniciar y recuperar exactamente estado, decisión y prueba.
+10. **Rollback y reevaluación:** revertir ante fallo, comparar con baseline.
+
+**Criterio de «ARKI vivo»:** este ciclo funciona sobre código integrado y una UI real, con autoridad humana, motor real cuando corresponda, evidencia verificable y persistencia/reversión. Un HTTP 200, 22/22 tests o tres alternativas hipotéticas **no bastan**.
+
+**Paso D — Prueba de aceptación única:** capturar SHAs exactos, diff integrado, interacción en navegador ARKI real, solicitud PO, decisión, ejecución Core/AGK, evidencia y métricas, reinicio, reversión, estado del árbol. Probar errores adversariales. Si algo falla, corregir **la misma base** y repetir solo las pruebas afectadas.
+
+**Paso E — Limpieza final:** podar ramas redundantes, conservar trazabilidad y actualizar `ARKI-00.md`, mapa maestro y catálogo. **«Meter, verificar, borrar»** es el flujo. No borrar para ocultar deuda.
+
+### G.6 — Autoridad, seguridad y no-negociables
+
+- **Un solo AGK**, OCCT+DELTA como arquitectura aprobada; geometría 3D-First.
+- **FROZEN:** contratos inmutables salvo autorización expresa y procedimiento de migración.
+- **PO** decide promociones y mutaciones canónicas; ninguna sugerencia de ARKI equivale a autorización.
+- **Tres alternativas** por propuesta; nunca declarar resultados hipotéticos como medidos.
+- **Procedencia:** baseline, input, unknowns, reasoning, reused/new knowledge, deficits, candidates, rejected, geometry mutations, relationships, topology, scenario results, dependency propagation, coverage, evidence, UNKNOWN y ruta de resolución.
+- **Seguridad de fuentes externas:** MO06 deshabilitó transporte real pendiente de canal HTTPS seguro y fijación de destino; no reactivar red sin hardening, DNS/IP controls y pruebas.
+- **CERO DEUDA:** no maquillar limitaciones como `PASS`, no FUTURE_TEST para cerrar bloqueos críticos.
+- **No tocar repositorios/proyectos hermanos** sin pedido del PO.
+
+### G.7 — Guion de arranque para el siguiente chat/agente
+
+1. Leer **`00-START.md` entero** (secciones 1-15 + Anexos A-G) y `ARKI-00.md` para contexto histórico.
+2. Responder al PO en una frase: «ARKI tiene el Árbol Vivo AV023 encendido, pero falta el ciclo autónomo integrado; voy a completarlo en la interfaz aprobada, sin crear ramas».
+3. Abrir **`tools/maqueta-viva/maqueta-viva.template.html`** de la rama `integration/arki-av035-main-20261015` y localizar dónde se monta. Inspeccionar también el checkout `~/ARKI/av023-arbol-vivo`.
+4. Abrir el Mapa Maestro y archivos fundacionales; buscar código actual de Web/Core/ACS y la escena 3D real.
+5. Producir una matriz concreta **existente → falta → archivo destino → cambio**; hacer cambios reales en la base autorizada, sin bifurcar.
+6. Conectar primero una vertical completa (autodetección → 3 alternativas → PO → Core/AGK → persistencia → árbol). **No entregar otro plan interminable.**
+7. Validar interacción en la **página correcta**, corregir fallos sobre la misma base, registrar evidencia y estado.
+8. Consolidar contenido exclusivo de ramas y podar solo lo preservado.
+9. Actualizar este archivo y mapa maestro tras cada hito real.
+
+**Regla final del PO:** «Quiero que ARKI tenga vida. No más ramas. No más vueltas. Meter lo útil en la interfaz que decidí y borrar lo que ya no sirve». La medida del éxito no es la cantidad de tests ni documentos, sino **una ejecución real, conectada, segura, verificable y persistente en el ARKI existente**.
+
+### G.8 — Actualizaciones 2026-10-22 (auditoría de ramas y generador)
+
+- **Copia de continuidad:** `ARKI-00.md` se copió desde `main` a la rama de MEMORY para que el handoff maestro esté disponible. Se conserva el contenido original y se añade esta actualización.
+- **Informe de ramas:** `docs/arki-master-map/ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md`. Estado PARCIAL: 58 ramas comparadas contra `main`; quedan 39 por comparar de un inventario de 98 ramas.
+- **Catálogo:** `docs/arki-master-map/ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md`. Inventario de cabezas, no validación técnica de cada rama.
+- **Generador del Mapa Vivo localizado:** `tools/maqueta-viva/arki-continuity-snapshot.cjs`. Lee `docs/arki-master-map/ARKI_CONTINUITY_EVENTS.jsonl`, extrae historia Git y genera `docs/arki-master-map/ARKI_MAPA_VIVO_CONTINUIDAD.md`. **No verifica CI, arquitectura ni despliegue.**
+- **Pruebas del generador:** `tools/maqueta-viva/arki-continuity-snapshot.test.cjs`; runner local `tools/maqueta-viva/arki-continuity-local-verify.cjs`. Workflow `.github/workflows/arki-continuity-map.yml`.
+- **Límite:** el generador solo produce el Mapa Vivo de continuidad. **No genera `ARKI-00.md`, catálogo ni auditoría.**
+- **Estado de ejecución:** código y pruebas inspeccionados estáticamente, **no ejecutados en checkout local**.
+- **Sin alteración de ramas de producto:** no se creó ninguna rama, no se fusionó ni eliminó ninguna, no se cambió `main`.
+- **Siguiente paso:** completar comparación de ramas restantes, revisar commits exclusivos y CI por SHA, comprobar el generador con `node --test tools/maqueta-viva/arki-continuity-snapshot.test.cjs` y `node tools/maqueta-viva/arki-continuity-snapshot.cjs --check`.
+- **Rama AGK prioritaria para inspección:** `feat/agk-003-parametric-family-unification` (11 commits exclusivos). Es prioridad de revisión, **no aprobación para integrar**.
+- **Corrección de inventario (segundo lote):** auditoría comparativa documenta **58 ramas de 97 candidatas distintas de `main`**; quedan **39 ramas** por comparar. El conteo anterior de 48/49 pendientes queda reemplazado.
+
+### G.9 — Referencias históricas
+
+- `ARKI-00.md` (original completo, 430 líneas, histórico).
+- `docs/arki-master-map/ARKI_SICL_WEB_BRANCH_AUDIT_20261022.md`
+- `docs/arki-master-map/ARKI_SICL_WEB_BRANCH_CATALOG_20261021.md`
+- `docs/arki-master-map/ARKI_BRANCH_COMMIT_CATALOG_20261021.md`
+- `.github/workflows/arki-continuity-map.yml`
+- `tools/maqueta-viva/arki-continuity-snapshot.cjs`
+- `tools/maqueta-viva/arki-continuity-snapshot.test.cjs`
+- `tools/maqueta-viva/arki-continuity-local-verify.cjs`
+- `tools/maqueta-viva/maqueta-viva.template.html` (UI aprobada)
+- `tools/maqueta-viva/av-ui-001-readonly-prototype.html`
+- `tools/maqueta-viva/arki-av023-historical-ui.cjs` (servidor histórico)
+- https://github.com/YvanCastilloQuezada/sicl-web (repo oficial)
