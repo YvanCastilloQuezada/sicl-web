@@ -1,3 +1,5 @@
+> **HISTÓRICO (14-oct-2026, asimilado 28-oct-2026).** El contenido operativo de este documento está en `00_REVIVIR.md` §19. Se conserva para trazabilidad. Para el estado vigente, leer `00_REVIVIR.md` §19.
+
 # ARKI — continuidad de autoensamblaje
 
 ## Estado actual
