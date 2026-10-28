@@ -27,7 +27,7 @@ The inventory below uses the following fields for every entry: **ID; idea or pro
 
 | ID | Idea or proposition | Class | Repository locus | Recorded status | Decision / order line | Implementation, test, demonstration, and current-capability trace | Unknowns / conflicts |
 |---|---|---|---|---|---|---|---|
-| I-01 | A distinct canonical idea/backlog repository or planning domain should exist. | Repository idea / structural gap | `drizzle/schema.ts`; `server/db.ts`; `server/`; `shared/`; `docs/` | **NOT_FOUND / DISTRIBUTED_ARCHIVE** | No planning entity or service found. External repository existence is unknown. | Project snapshots and uploaded artifacts persist; planning records do not. | External canonical repository, if any, is unknown. |
+| I-01 | A distinct canonical idea/backlog repository or planning domain should exist. | Repository idea / structural gap | `docs/arki-planning/` (nuevo) | **RESOLVED** | Creado `docs/arki-planning/` con `BACKLOG.md`, `ROADMAP.md`, `DECISIONS.md`, `IDEAS.md` el 2026-10-27 por decisión del PO (D-20261027-01). | Repositorio canónico creado, poblado y con registro de decisiones. Ver `docs/arki-planning/README.md`. | Si el ciclo vivo lo detecta como `EVIDENCE_VERIFIED` está pendiente de verificar en la próxima ejecución. |
 | I-02 | A chronological project work ledger should capture backlog and roadmap work. | Backlog / roadmap | `todo.md:1-471` | **PRESENT / PARTIALLY ACTIVE** | No single owner, priority authority, or last-review registry is recorded. | Completed and unchecked sections coexist; this is a distributed work ledger, not a normalized active queue. | The last tracked-file update observed was older than HEAD; current queue semantics are unresolved. |
 | I-03 | RFCs should define future architecture, proposals, and promotion criteria without silently authorizing implementation. | Proposal / future architecture | `docs/RFC-015...`, `RFC-019...`, `RFC-022...`, `RFC-023...`, `RFC-024...`, `ARKI_FRONTEND_ARCHITECTURE.md` | **PRESENT / DOCUMENTARY** | RFC-024 states that it is a proposal and does not authorize code, deployment, credentials, domain, or Core-contract changes. | Documentary architecture and criteria exist; no proposal store or universal approval registry exists. | Approval state for each RFC is **NOT_RECORDED**. |
 | I-04 | M0-K should preserve epistemic separation, provenance, rights, uncertainty, and human-gated canonization. | Research / knowledge governance | `docs/ARKI-M0K-COMPATIBILITY-AUDIT.md`; `docs/arki-m0k/manifest.json`; `human-promotion-review.json` | **DEMONSTRATED_LOCAL** for nine K3-supported invariants; one K2 pattern remains a hypothesis | Human promotion is recorded locally; no automatic canonization is authorized. | Source/evidence/case, knowledge, strategy/realization, unknown/invention, and availability/ingestion distinctions are tested or documented. Complete Core projection and universal knowledge are not demonstrated. | Remote persistence, Manual of Forms completeness, hazard ontology decision, additive persistence decision, and jurisdictional promotion remain open. |
@@ -268,3 +268,20 @@ The Product Owner / Chief Architect explicitly ordered resolution of the eleven 
 The adopted rules are: `HEAD == origin/main == a565a909...` is the current executable baseline; untracked inventories are audit evidence only; historical reports are lineage/replay evidence; D6.3-G remains a conceptual microcase; ARKI-BOOK remains editorial; E-KNOW remains `HYPOTHESIS/K2_CANDIDATE`; L2 is `LOCAL_PASS/REMOTE_BLOCKED`; R-PARTI is `NOT_VERIFIED/NOT_IN_BASELINE`; RFC approval is not deployment proof; there is no unified Delta 515 runtime claim; and historical frozen baselines remain preserved without being silently superseded.
 
 Resolution counts: `11` conflicts resolved as classification or explicit baseline interpretation; `0` new capabilities implemented; `0` knowledge promotions; `0` new orders executed; `CODE_CHANGE = NO`; `COMMIT = NO`; `PUSH = NO`; `DEPLOY = NO`.
+
+---
+
+## Decisiones del PO registradas (2026-10-27)
+
+Las siguientes decisiones del Product Owner modifican el estado del inventario.
+Ver `docs/arki-planning/DECISIONS.md` para el registro completo.
+
+### D-20261027-01 — I-01 RESOLVED
+
+**I-01** pasa de `NOT_FOUND / DISTRIBUTED_ARCHIVE` a **`RESOLVED`**.
+Creado `docs/arki-planning/` con `BACKLOG.md`, `ROADMAP.md`, `DECISIONS.md`, `IDEAS.md`.
+Ver `docs/arki-planning/README.md`.
+
+**Actor:** Yvan Castillo Quezada (Product Owner)
+**Fecha:** 2026-10-27
+**Justificación:** Resolución estructural del gap, no declarativa.
