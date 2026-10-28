@@ -256,3 +256,103 @@ La jerarquía de diez fases comienza en Fase 1 con recepción del encargo/intenc
 
 **Flujo:** FASE 1 / ENCARGO → D-2 autoridad semántica → Project State / Core / trazabilidad → ejecución gobernada de FASES 2–10 → AGK único para geometría canónica → representaciones 2D/3D/BIM/IFC.
 
+
+## 8. AUDITORÍA DIARIA
+
+Historial de auditorías del proyecto. Cada entrada registra:
+- Fecha y hora.
+- Estado del sistema (Core, Frontend, Árbol Vivo).
+- Gaps (informationGaps, confirmedDefects).
+- Tests (proyecto, fases, Core, E2E).
+- Repos (limpios o con cambios).
+- Cambios realizados.
+
+### 2026-10-27
+
+- **Sistema:** Core 200, Frontend 200, Árbol Vivo 200.
+- **Gaps:** 0 informationGaps, 0 confirmedDefects.
+- **Tests:** 963 PASS (proyecto), 64 PASS (fases), Core PASS, E2E PASS.
+- **Repos:** 3 limpios.
+- **Cambios:** 102 gaps cerrados, 10/10 fases verificadas, PO_APPROVED, 3 leyes, "Cómo retomar", fundamentos fusionados, `00_START.md` eliminado.
+
+## 13. ÁRBOL DE DECISIÓN PARA DEBUGGING
+
+Si algo falla, seguir este árbol:
+
+### ¿El sistema no responde?
+
+1. Verificar servicios: `systemctl --user status sicl-core sicl-web arki-arbol-vivo arki-all`
+2. Si no están activos: `systemctl --user start arki-all.service`
+3. Si siguen sin responder: ver logs: `journalctl --user -u <servicio> -n 50`
+
+### ¿Los gaps no son 0?
+
+1. Ver `LATEST.json`: `cat ~/ARKI/continuity/arki-live/LATEST.json | python3 -m json.tool`
+2. Ver qué gaps hay: buscar `informationGaps` en el JSON.
+3. Si hay gaps nuevos: revisar `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json`.
+4. Si hay defectos: revisar `docs/arki-planning/BACKLOG.md`.
+
+### ¿Las fases no son TESTED_PASS_WEB_ONLY?
+
+1. Ver `MASTER_MAP_STATE.json`: `cat docs/arki-master-map/ARKI_MASTER_MAP_STATE.json | python3 -m json.tool`
+2. Ejecutar el runner de fases: `ARKI_PHASE=F1 node scripts/arki-phase-evidence-runner.mjs`
+3. Ver el receipt: `cat artifacts/arki-phase-evidence/receipt-f1.json`
+
+### ¿El E2E canonical falla?
+
+1. Verificar que el Core está corriendo: `curl http://127.0.0.1:8000/health`
+2. Verificar `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`.
+3. Usar el script automatizado: `./scripts/run-arki-canonical-e2e-auto.sh`
+4. Si falla con 409 CONFLICT: usar IDs únicos (el script lo hace).
+5. Ver `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md`.
+
+### ¿Un repo no está limpio?
+
+1. Ver qué cambió: `git status --short`
+2. Si son cambios legítimos: `git add -A && git commit -m "..."`
+3. Si son basura: mover a `_BASURA` o `git checkout`.
+
+## 14. MAPA DE DOCUMENTOS
+
+Si buscas X, ve a Y:
+
+| Si buscas... | Ve a... |
+|--------------|---------|
+| Qué es ARKI | `00-START.md` sección 1 + FUNDAMENTOS |
+| Estado actual | `00-START.md` sección 10 + `LATEST.json` |
+| Cómo arrancar | `00-START.md` sección 9 + `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md` |
+| Estado de las fases | `docs/arki-master-map/ARKI_MASTER_MAP_STATE.json` |
+| Evidencia de las fases | `docs/ops/ARKI-F1-F10-PHASE-EVIDENCE-20261027.md` |
+| Cómo replicar E2E | `docs/ops/ARKI-E2E-CANONICAL-REPLICATE-20261027.md` |
+| Delta 6.2 | `docs/ops/ARKI-DELTA62-STATUS-20261027.md` |
+| Planificación | `docs/arki-planning/` |
+| Auditorías históricas | `_BASURA_2026-10-27/00_START_validaciones/` |
+| Repositorios | `canonical/sicl-web`, `av023-arbol-vivo`, `canonical/sicl-core` |
+| Logs del sistema | `journalctl --user -u <servicio>` |
+| Ciclo vivo | `~/ARKI/continuity/arki-live/` |
+
+## 15. GLOSARIO
+
+| Término | Significado |
+|---------|-------------|
+| **ARKI/ARQUI** | Proyecto actual anteriormente llamado SICL/Vitruvio |
+| **SICL** | Spatial Intelligence Command Language |
+| **AGK** | ARKI Geometric Kernel (OCCT + ARKI_DELTA) |
+| **D-2** | Autoridad arquitectónica semántica |
+| **Delta 6.2** | Vía controlada de promoción del conocimiento |
+| **Árbol Vivo** | Representación del estado del proyecto (av023-arbol-vivo) |
+| **Árbol Gemelo Digital** | Representación del estado del proyecto (Gemelo Digital Vivo + Experimental) |
+| **MO-025** | Pulso consultivo del ciclo vivo |
+| **MO-031** | Revisión de propuestas |
+| **MO-032** | Auditoría del ciclo vivo |
+| **PO** | Product Owner (Yvan Castillo Quezada) |
+| **F1-F10** | Las 10 fases del proyecto |
+| **TESTED_PASS_WEB_ONLY** | Tests de Web pasan, Core pendiente |
+| **PO_APPROVED** | El PO ha aprobado el estado testeado |
+| **informationGaps** | Gaps de información (deben ser 0) |
+| **confirmedDefects** | Defectos confirmados (deben ser 0) |
+| **E2E** | End-to-End (prueba de extremo a extremo) |
+| **Core** | Repo canónico `sicl-core` (puerto 8000) |
+| **Web** | Repo canónico `sicl-web` (puerto 3001) |
+| **Árbol Vivo** | Repo `av023-arbol-vivo` (puerto 8768) |
+
