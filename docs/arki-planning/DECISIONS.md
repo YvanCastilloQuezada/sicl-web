@@ -50,3 +50,15 @@ Cada decisión se registra con:
 **Justificación:** El disparo fue exitoso (`ACE_SNAPSHOT_PASS` + `ADVISORY_PULSE_COMPLETED`). Es un hito verificable.
 **Impacto:** `TIMER_TRIGGER_VERIFIED` para el disparo del 27-oct. El `00-START.md` sección 5.1 se marca como completado.
 **Estado:** `ACTIVE`
+
+---
+
+## D-20261027-04 — Cerrar I-02 (work ledger)
+
+**Fecha:** 2026-10-27
+**Actor:** Yvan Castillo Quezada (Product Owner)
+**Contexto:** I-02 estaba en `PRESENT / PARTIALLY ACTIVE` porque el work ledger vivía distribuido en `todo.md` sin owner único ni autoridad de prioridad.
+**Decisión:** Crear `docs/arki-planning/WORK_LEDGER.md` como work ledger canónico con owner, prioridad, estado y fechas.
+**Justificación:** Un work ledger canónico cierra I-02 por resolución estructural.
+**Impacto:** I-02 pasa de `PRESENT / PARTIALLY ACTIVE` a `RESOLVED`.
+**Estado:** `ACTIVE`
