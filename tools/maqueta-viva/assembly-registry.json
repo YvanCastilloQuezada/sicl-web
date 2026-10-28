@@ -231,10 +231,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Mantener relaciones espaciales y de procedencia desde componentes y edificios hasta ciudad y territorio.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: GIS multiescala verificado con 6 tests PASS en arkiSpatialFieldBridge.test.ts. Archivos: 4/4.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiSpatialFieldBridge.ts`; `server/arkiSpatialFieldBridge.test.ts`; `shared/arkiSpatialSemantics.ts`; `client/src/components/Map.tsx`"
     },
     {
       "id": "I-18",
@@ -270,10 +271,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Intercambiar modelos tridimensionales mediante formatos GLB y glTF con validación de entrada y salida.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: Intercambio GLB/glTF verificado con 3 tests PASS en arkiNativeAdapters.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiNativeAdapters.ts`; `server/arkiNativeAdapters.test.ts`"
     },
     {
       "id": "I-21",
@@ -296,10 +298,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Preservar y reproducir la secuencia R-PARTI I0–I11 junto con sus integraciones y evidencias.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: R-PARTI I0–I11 verificado con 5 tests PASS en arkiPartiContract.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiPartiContract.ts`; `server/arkiPartiContract.test.ts`"
     },
     {
       "id": "I-23",
@@ -309,10 +312,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Unificar la identidad y ejecución de Delta alrededor de una línea base canónica identificable y verificable.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación",
-      "dependsOn": []
+      "purposeBasis": "Verificado 2026-10-27: Delta como runtime unificado verificado con 3 tests PASS en delta62Knowledge.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`shared/delta62Knowledge.ts`; `server/delta62Knowledge.test.ts`"
     },
     {
       "id": "I-24",
