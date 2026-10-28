@@ -369,9 +369,6 @@ La jerarquía de diez fases comienza en Fase 1 con recepción del encargo/intenc
 
 **Flujo:** FASE 1 / ENCARGO → D-2 autoridad semántica → Project State / Core / trazabilidad → ejecución gobernada de FASES 2–10 → AGK único para geometría canónica → representaciones 2D/3D/BIM/IFC.
 
-
-
-
 ---
 
 ## Stack local y autostart (2026-10-27 22:30)
@@ -399,3 +396,222 @@ bloquea el arranque, pero el log es engañoso.
 `arki-live-systems-coordinator.cjs`. El `ExecStart` (`arki02-continuity.py`) sigue
 OK (`STATUS=ACE_SNAPSHOT_PASS`). **Material directo para la próxima misión
 (autocorrección funcional concreta y limitada).**
+
+# ANEXOS
+
+## Anexo A — COMPAS (runtime no-canónico, 2.15.0)
+
+**Qué es:** COMPAS es un proveedor **no-canónico** de capacidades geométricas (`COMPAS_RUNTIME_IDENTITY`, `TRANSFORM_POINTS_3D`). Se usa como oráculo externo para verificar geometría. **No crea estado canónico** (el canónico es AGK).
+
+**Repo oficial:** https://github.com/compas-dev/compas (MIT, `compas-dev`). Framework Python open-source para investigación computacional en arquitectura/ingeniería.
+
+**Ubicación:** `.venv-compas/` (venv aislado dentro de `canonical/sicl-web`).
+
+**Versión pinneada:** `compas==2.15.0` (en `requirements-compas.txt`).
+
+**Instalación (si no existe):**
+cd /home/arki/ARKI/canonical/sicl-web
+python3 -m venv .venv-compas
+.venv-compas/bin/pip install -r requirements-compas.txt
+.venv-compas/bin/python -c "import compas; print('COMPAS:', compas.__version__)"
+.venv-compas/bin/python -m compas
+echo '{"capability":"COMPAS_RUNTIME_IDENTITY","input":{}}' | .venv-compas/bin/python tools/arki_compas_worker.py
+
+text
+
+**Dependencias instaladas (transitivas):** `numpy 2.5.4`, `scipy 1.18.1`, `networkx 3.7`, `jsonschema 4.26.0`, `watchdog 6.0.0`, `attrs 26.1.0`, `referencing 0.37.0`, `rpds-py 2026.9.1`, `jsonschema-specifications 2025.9.1`.
+
+**Archivos relevantes:**
+- `requirements-compas.txt` — versión pinneada.
+- `tools/arki_compas_worker.py` — worker stdin/stdout (JSON por línea).
+- `tools/test_fixtures/arki_fake_compas_unobserved.py` — fixture de test.
+- `.venv-compas/.gitignore` — contiene `*` (no se commitea).
+
+**Cómo se invoca:** `server/capabilityFabric/compasWorkerTransport.ts` lanza `python [workerPath]` vía `spawn`. Usa `ARKI_PYTHON_EXECUTABLE` (si está) o `python3`. Timeout 10s.
+
+**Tests que dependen de COMPAS (4, condicionales):**
+- `server/capabilityFabric/e2e001.test.ts` (1 test).
+- `server/capabilityFabric/defaultFabric.test.ts` (2 tests).
+- `server/capabilityFabric/compasWorkerTransport.test.ts` (1 test).
+
+**Cómo ejecutarlos:**
+Con COMPAS (0 skipped)
+ARKI_REQUIRE_COMPAS=1 ARKI_PYTHON_EXECUTABLE=.venv-compas/bin/python
+pnpm test -- --run server/capabilityFabric
+
+Sin COMPAS (4 skipped, resto pasa)
+pnpm test -- --run
+
+text
+
+**CI:** `.github/workflows/compas-capability.yml` instala COMPAS con `python -m pip install -r requirements-compas.txt` y ejecuta con `ARKI_REQUIRE_COMPAS=1`.
+
+**Estado verificado (2026-10-27):** 963 tests passed, 0 failed, 0 skipped con COMPAS. 959 passed, 4 skipped sin COMPAS (condicionales).
+
+**Troubleshooting:**
+- `COMPAS_RUNTIME_UNAVAILABLE` → `.venv-compas` no importa `compas`. Reinstalar.
+- `COMPAS_RUNTIME_SPAWN_FAILED` → `ARKI_PYTHON_EXECUTABLE` inválido.
+- `COMPAS_RUNTIME_TIMEOUT` → worker >10s. Aumentar `timeoutMs` (no recomendado).
+
+---
+
+## Anexo B — Prerrequisitos del sistema
+
+| Componente | Versión instalada | Comando de verificación |
+|---|---|---|
+| OS | Ubuntu 26.04.1 LTS | `cat /etc/os-release` |
+| Kernel | Linux 7.0.0-38-generic | `uname -a` |
+| Node.js | v22.22.1 | `node --version` |
+| pnpm | 10.15.1 | `pnpm --version` |
+| Python | 3.14.4 | `python3 --version` |
+| pip | 25.1.1 | `python3 -m pip --version` |
+| Docker | 29.1.3 | `docker --version` |
+| Docker Compose | 2.40.3 | `docker compose version` |
+| git | 2.53.0 | `git --version` |
+| systemd | 259 | `systemctl --version` |
+
+**Instalación de herramientas base (si falta alguna):**
+Node 22 (via NodeSource)
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+
+pnpm 10.15.1
+npm install -g pnpm@10.15.1
+
+Python 3.14 (viene con Ubuntu 26.04)
+sudo apt install -y python3 python3-pip python3-venv
+
+Docker (via repositorio oficial)
+sudo apt install -y docker.io docker-compose-v2
+sudo systemctl enable --now docker
+
+git
+sudo apt install -y git
+
+text
+
+**Nota:** las versiones exactas de cada componente se verificaron el 2026-10-27. Si en el futuro se actualizan, actualizar esta tabla en el mismo commit que la actualización.
+
+---
+
+## Anexo C — Tests y setup (`server/test-setup.ts` + `vitest.config.ts`)
+
+### `server/test-setup.ts`
+
+Archivo de setup global para vitest. Define variables de entorno **aisladas** para los tests. **NO afecta a producción ni a `.env.local`.**
+
+**Variables que define:**
+
+| Variable | Valor | Por qué |
+|---|---|---|
+| `VITE_APP_ID` | `MO22_TEST_APP_ID` | Para que `ENV.appId` no sea `""` (rompería `verifySession`) |
+| `JWT_SECRET` | `mo22-test-jwt-secret-for-vitest-only-32chars-min` | Para que `jose` no falle con `Zero-length key` |
+| `DATABASE_URL` | `mysql://arki_web:<pass>@127.0.0.1:3307/arki_test` | Para que los tests de MO22 conecten a `arki_test` (no a `arki_web`) |
+| `ARKI_STORAGE_ROOT` | `~/.arki-test-storage` | `createFileBackend` **rechaza** `/tmp/` y `/var/tmp/` por seguridad (`Unsafe root`) |
+| `ARKI_STORAGE_MODE` | `local` | Requerido por `enabled()` en `arkiMo22Bridge.ts` |
+| `ARKI_MO22_ENABLE` | `1` | Requerido por `enabled()` |
+| `ARKI_DEV_OPEN` | `0` | Requerido por `enabled()` |
+| `ARKI_IDENTITY_MODE` | `manus` | Activa la rama JWT de `enabled()` y de `authenticated()`. Con `local` se usa `authenticateLocalIdentity`, que **no verifica JWT** y rompe el test de MO22 |
+| `NODE_ENV` | `test` | Requerido por `enabled()` |
+
+**NO define** `SICL_CORE_URL` ni `SICL_CORE_SERVICE_TOKEN`. El test `coreHttpClient.test.ts` necesita que estén **vacíos por defecto** (test `"does not call a core service when no URL is configured"`). Cada test que los necesite los define con `vi.stubEnv(...)`.
+
+**Creación del directorio de storage:** el setup hace `mkdirSync(root, { recursive: true, mode: 0o700 })` y `mkdirSync(root/objects, { recursive: true, mode: 0o700 })`. Permisos `0o700` requeridos por `createFileBackend` (`if ((s.mode & 0o022) !== 0) throw Error('Unsafe storage directory')`).
+
+### `vitest.config.ts`
+test: {
+environment: "node",
+setupFiles: ["./server/test-setup.ts"],
+include: ["server//*.test.ts", "server//.spec.ts", "client/**/.test.ts", "client//*.spec.ts", "shared//.test.ts", "shared/**/.spec.ts"],
+}
+
+text
+
+### Cómo ejecutar los tests
+cd /home/arki/ARKI/canonical/sicl-web
+
+Con COMPAS (0 skipped, recomendado)
+ARKI_REQUIRE_COMPAS=1 ARKI_PYTHON_EXECUTABLE=.venv-compas/bin/python
+pnpm test -- --run
+
+Sin COMPAS (4 skipped, más rápido)
+pnpm test -- --run
+
+Solo COMPAS
+ARKI_REQUIRE_COMPAS=1 ARKI_PYTHON_EXECUTABLE=.venv-compas/bin/python
+pnpm test -- --run server/capabilityFabric
+
+Solo MO22
+pnpm test -- --run server/_core/arkiMo22
+
+text
+
+**Resultado esperado:**
+- Con COMPAS: `156 passed (156)`, `963 passed (963)`, `0 skipped`.
+- Sin COMPAS: `156 passed (156)`, `959 passed | 4 skipped (963)`.
+
+---
+
+## Anexo D — Troubleshooting consolidado (MO22 + COMPAS + SICL)
+
+### MO22 — Tests de storage
+
+| Síntoma | Causa | Fix |
+|---|---|---|
+| `TypeError: Cannot read properties of undefined (reading 'status')` en `coreHttpClient.test.ts` | `SICL_CORE_URL` global en `test-setup.ts` rompía el test "sin URL" | Quitar `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN` del setup global |
+| `Zero-length key is not supported` en `jose` | `JWT_SECRET` vacío | Definir `JWT_SECRET` en `test-setup.ts` |
+| `ECONNREFUSED 127.0.0.1:3306` | `DATABASE_URL` no definido → mysql2 usa 3306; MariaDB está en 3307 | Definir `DATABASE_URL=...3307/arki_test` en `test-setup.ts` |
+| `Table 'sicl_projects' already exists` | Test no idempotente | Añadir `DROP TABLE IF EXISTS sicl_projects` y `DROP TABLE IF EXISTS arki_storage_objects` al inicio del test |
+| `Unsafe root` | `ARKI_STORAGE_ROOT` en `/tmp/` o `/var/tmp/`. `createFileBackend` los rechaza por diseño | Usar `~/.arki-test-storage` con permisos `0o700` |
+| `STORAGE_ACCESS_DENIED` (403) en POST | 1) `authenticate()` con `IDENTITY_MODE="local"` usa flujo no-JWT; 2) `createFileBackend` falla por `Unsafe root` | 1) `IDENTITY_MODE="manus"`; 2) `ARKI_STORAGE_ROOT` fuera de `/tmp/` |
+| `404` en `POST /api/arki-storage/...` | `enabled()` requiere 6 variables, solo había 2 | Añadir `ARKI_STORAGE_MODE`, `ARKI_DEV_OPEN`, `ARKI_IDENTITY_MODE`, `NODE_ENV` al setup |
+| `OAUTH_SERVER_URL is not configured` | Warning de OAuth, no bloqueante | Añadir `OAUTH_SERVER_URL` a `.env.local` si se necesita OAuth |
+
+**Diagnóstico del 403 (logging temporal, ya revertido):** añadir `console.error(e?.message, e?.code, e?.sqlMessage)` en `failure()` de `arkiHttpRoutes.mjs` muestra el error real que el `catch` convierte en 403. Se revirtió después de diagnosticar.
+
+### COMPAS — Runtime no-canónico
+
+| Síntoma | Causa | Fix |
+|---|---|---|
+| `COMPAS_RUNTIME_UNAVAILABLE` | `.venv-compas` no importa `compas` | Reinstalar: `python3 -m venv .venv-compas && .venv-compas/bin/pip install -r requirements-compas.txt` |
+| `COMPAS_RUNTIME_SPAWN_FAILED` | `ARKI_PYTHON_EXECUTABLE` apunta a python inválido | Verificar `which .venv-compas/bin/python` |
+| `COMPAS_RUNTIME_TIMEOUT` | Worker tarda >10s | Aumentar `timeoutMs` en `createCompasWorkerTransport` (no recomendado) |
+| Tests de COMPAS skipped | `ARKI_REQUIRE_COMPAS !== "1"` | `ARKI_REQUIRE_COMPAS=1 ARKI_PYTHON_EXECUTABLE=.venv-compas/bin/python pnpm test` |
+
+### SICL Core / Web
+
+| Síntoma | Causa | Fix |
+|---|---|---|
+| `sicl-web` recarga al cambiar `.env.local` | Comportamiento normal de Vite en development | No es un bug |
+| `arki-all.service` falla | Algún endpoint no responde en 60s | Ver `journalctl --user -u arki-all -n 50` y `cat ~/ARKI/continuity/startup.log` |
+| Servicios no arrancan al bootear | Falta linger | `sudo loginctl enable-linger arki` |
+| `startup.log` dice `HTTP 000` pero los servicios están OK | `arki-all-start.sh` verifica demasiado pronto (15s) | Bug menor conocido, no bloquea. Documentado. |
+
+### Árbol Vivo
+
+| Síntoma | Causa | Fix |
+|---|---|---|
+| `ARKI_TREE_START_FAIL Command failed: git show HEAD:...` | Worktree huérfano | `cd canonical/sicl-web && git worktree prune && git worktree add /home/arki/ARKI/av023-arbol-vivo 2c476c37` |
+| Puerto 8768 ocupado | Otro proceso usa el puerto | `ss -tlnp | grep 8768` y matar el proceso |
+
+---
+
+## Anexo E — Referencias cruzadas
+
+- `docs/ops/ARKI-LOCAL-STACK-AUTOSTART-20261027.md` — Stack local y arranque automático (systemd).
+- `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md` — Integración del ciclo vivo con systemd.
+- `docs/ops/ARKI-MO-025-ACTIVACION-ARBOL-VIVO.md` — Activación del Árbol Vivo (MO-025).
+- `docs/ops/ARKI-MO-026-032-ACTIVACION-INTEGRADA.md` — Activación integrada MO-026..032.
+- `.github/workflows/compas-capability.yml` — CI de COMPAS.
+- `requirements-compas.txt` — Versión pinneada de COMPAS.
+- `server/test-setup.ts` — Setup de tests (vitest).
+- `vitest.config.ts` — Config de vitest con `setupFiles`.
+- https://github.com/compas-dev/compas — Repo oficial de COMPAS.
+
+---
+
+## Anexo F — Registro de cambios de estos anexos
+
+| Fecha | Cambio |
+|---|---|
+| 2026-10-27 | Creación. Anexos A (COMPAS), B (Prerrequisitos), C (Tests y setup), D (Troubleshooting), E (Referencias cruzadas), F (Registro). |
