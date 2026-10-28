@@ -101,7 +101,7 @@ function start(root,proposal,ledger,port=8768){
  if(pathname==="/"){res.writeHead(200,{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Content-Type-Options":"nosniff"});res.end(html);return}
  try{res.writeHead(200,{"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store"});res.end(JSON.stringify(snapshot(proposal,ledger)))}
  catch(e){res.writeHead(503,{"Content-Type":"application/json"});res.end(JSON.stringify({error:"EVIDENCE_UNAVAILABLE"}))}
- });server.listen(port,"127.0.0.1");return server;
+ });server.listen(port,"0.0.0.0");return server;
 }
 module.exports={page,start,COMMIT,FILE};
 if(require.main===module){try{const [root,proposal,ledger,portArg]=process.argv.slice(2);if(!root||!proposal||!ledger)throw Error("USAGE: node arki-av023-historical-ui.cjs REPO_ROOT PROPOSAL_JSON LEDGER_DIR [PORT]");const port=portArg?Number(portArg):8768;if(!Number.isInteger(port)||port<1024||port>65535)throw Error("INVALID_PORT");start(path.resolve(root),proposal,ledger,port);process.stdout.write("ARKI_AV023_HISTORICAL_TREE http://127.0.0.1:"+port+"\n")}catch(e){process.stderr.write("ARKI_AV023_FAIL "+e.message+"\n");process.exitCode=1}}

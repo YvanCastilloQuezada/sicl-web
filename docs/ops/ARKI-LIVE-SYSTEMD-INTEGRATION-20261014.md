@@ -30,3 +30,35 @@ Este commit registra evidencia aportada por la salida de ARKI-02; no constituye 
 ## Próximo control de aceptación
 
 Tras las 19:00 -05:00, verificar `journalctl --user -u arki02-continuity.service --since '2026-10-14 19:00:00' --no-pager` y `systemctl --user list-timers --all`; exigir `ExecStartPost status=0/SUCCESS` en un disparo de temporizador y nueva evidencia de ejecución antes de declarar `TIMER_TRIGGER_VERIFIED`.
+
+
+## Disparo automático verificado — 2026-10-27 19:00:12 -05
+
+**Hito:** primer disparo del timer `arki02-continuity.timer` verificado de punta a punta, posterior al control de aceptación del 14-oct.
+
+**Evidencia observada en Arki-001:**
+
+- Timer disparó a las 19:00:12 -05.
+- `ExecStart` (arki02-continuity.py): status 0/SUCCESS, `MANIFEST_INTEGRITY=PASS`, `FROZEN_MUTATION=NONE`, `REMOTE_WRITES=NONE`, `STATUS=ACE_SNAPSHOT_PASS`.
+- `ExecStartPost` (arki-live-run.sh): status 0/SUCCESS, `ADVISORY_PULSE_COMPLETED`.
+- `LATEST.json` actualizado: 38235 bytes, schema `ARKI-LIVE-CYCLE-1`.
+- Core SHA: `d48a3301ba532d77e0d2eb1dd4b3b54df6fc0ab8`.
+- Web SHA: `e51170b3ffff152b7a250038520f86ff285638b5`.
+- 5 propuestas procesadas: I-01, I-02, I-03, I-08, I-12; todas `EVIDENCE_REQUIRED`, dependencias `UNVERIFIED_OR_UNDECLARED`.
+- `repairExperiment`: `NO_SUPPORTED_DEFECT_FOUND`, candidates=[], `canonicalMutation=false`.
+- `precedenceDiagnosis`: 51 nodos, 102 information gaps, 0 confirmed defects.
+- `sandbox`: 5 correcciones temporales, `rollbackVerified=true`.
+- Política: `canonicalMutation=false`, `sourceWrites=0`, `poApproval=PENDING`.
+- Receipt SHA-256: `3a616934a50d7c6918573d3f7624a174b4c1865085d7d893bdda53ad045ffb5d`.
+- Servicio `arki-arbol-vivo.service`: active (running), bind `0.0.0.0:8768`.
+- HTTP 200 desde `127.0.0.1:8768`.
+
+**Dictamen:** `TIMER_TRIGGER_VERIFIED` para esta ejecución. El ciclo vivo completó un disparo automático real con evidencia persistente y rollback verificado.
+
+**No declarado:** autonomía arquitectónica, AGK, Delta 6.2, recuperación tras reboot. Persisten 102 information gaps y 0 confirmed defects.
+
+**Cambio de SHAs respecto al 14-oct:** Core pasó de `c68b4451...` a `d48a3301...`. Web pasó de `cbeb41fc...` a `e51170b3...` (main de `canonical/sicl-web`).
+
+**Hallazgo para próxima misión:** el `repairExperiment` existe y funciona, pero devuelve `NO_SUPPORTED_DEFECT_FOUND` con 0 candidates. La misión "autocorrección funcional" del `00-START.md` sección 5.2 requiere reinterpretarse como **cierre de information gaps**: tomar un HC-XX o I-XX, recolectar evidencia real, y demostrar transición `INFORMATION_GAP` → `EVIDENCE_VERIFIED` con cambio verificado (no waiver). Existen +50 `trackedPairs` con status `TRACKED_PAIR_NOT_EXECUTED`.
+
+

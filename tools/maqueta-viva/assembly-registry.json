@@ -10,37 +10,40 @@
       "id": "I-01",
       "title": "Registro canónico de ideas y backlog",
       "targetPhase": "F1",
-      "sourceStatus": "NOT_FOUND_DISTRIBUTED_ARCHIVE",
+      "sourceStatus": "RESOLVED",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Registrar ideas y tareas pendientes en un dominio propio, separándolas de las funciones ya implementadas.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Resuelto 2026-10-27 (D-20261027-01): docs/arki-planning/ creado con BACKLOG, ROADMAP, DECISIONS, IDEAS",
+      "dependsOn": []
     },
     {
       "id": "I-02",
       "title": "Bitácora cronológica y hoja de ruta",
       "targetPhase": "F1",
-      "sourceStatus": "PRESENT_PARTIALLY_ACTIVE",
+      "sourceStatus": "RESOLVED",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Conservar una cronología de trabajos, decisiones, hitos y cambios de la hoja de ruta.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Resuelto 2026-10-27 (D-20261027-04): docs/arki-planning/WORK_LEDGER.md creado",
+      "dependsOn": []
     },
     {
       "id": "I-03",
       "title": "RFC y gobernanza de propuestas",
       "targetPhase": "F1",
-      "sourceStatus": "PRESENT_DOCUMENTARY",
+      "sourceStatus": "RESOLVED",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Describir propuestas de arquitectura y condiciones de aceptación sin convertirlas automáticamente en órdenes de implementación.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Resuelto 2026-10-27 (D-20261027-05): docs/arki-planning/RFC_APPROVALS.md creado",
+      "dependsOn": []
     },
     {
       "id": "I-04",
@@ -50,9 +53,12 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Conservar fuentes, derechos, incertidumbre y revisión humana antes de aceptar conocimiento como canónico.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 3/3 archivos existen en canonical/sicl-web. Ruta de human-promotion-review.json corregida a docs/arki-m0k/.",
+      "dependsOn": [],
+      "blockingReason": "Faltan: human-promotion-review.json",
+      "sourceEvidence": "`docs/ARKI-M0K-COMPATIBILITY-AUDIT.md`; `docs/arki-m0k/manifest.json`; `docs/arki-m0k/human-promotion-review.json`"
     },
     {
       "id": "I-05",
@@ -62,9 +68,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Recuperar conocimiento del corpus sin perder su origen, alcance, derechos, validación ni datos desconocidos.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`scripts/arki_d61_roundtrip.ts`; `scripts/finalize_arki_d61.py`"
     },
     {
       "id": "I-06",
@@ -74,9 +82,10 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Transformar conocimiento consultado en requisitos, déficits, hipótesis y estrategias antes de generar geometría.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos de evidencia existen en canonical/sicl-web.",
+      "dependsOn": []
     },
     {
       "id": "I-07",
@@ -86,21 +95,23 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Proponer varias geometrías conceptuales controladas a partir de topologías y restricciones trazables.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 4/4 archivos de evidencia existen en canonical/sicl-web.",
+      "dependsOn": []
     },
     {
       "id": "I-08",
       "title": "Ingestión multimodal y OCR",
       "targetPhase": "F1",
-      "sourceStatus": "PARTIAL_LOCAL",
+      "sourceStatus": "RESOLVED_LOCAL",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Incorporar documentos e imágenes mediante análisis visual y OCR, conservando incertidumbre y revisión humana.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Validado local 2026-10-27: Core local en :8000 (HTTP 200), frontend en :3001 con token Bearer, OCR implementado. Railway abandonado por decisión de PO.",
+      "dependsOn": []
     },
     {
       "id": "I-09",
@@ -110,9 +121,10 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Transferir aprendizaje entre niveles distinguiendo qué se adapta, qué no se transfiere y qué permanece desconocido.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos de evidencia existen en canonical/sicl-web.",
+      "dependsOn": []
     },
     {
       "id": "I-10",
@@ -122,9 +134,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Diferenciar la semántica de espacios y recintos de la de sus límites físicos, evitando inferencias automáticas incorrectas.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`shared/arkiSpatialSemantics.ts`; `server/arkiSpatialFieldBridge.ts`"
     },
     {
       "id": "I-11",
@@ -134,21 +148,24 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Construir un tutor adaptativo que evalúe el progreso del estudiante y conserve su historial de aprendizaje.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`client/src/pages/ArkiBookPage.tsx`; `client/src/pages/arkiBookI18n.ts`"
     },
     {
       "id": "I-12",
       "title": "Conexión canónica remota Core E2E",
       "targetPhase": "F1",
-      "sourceStatus": "HISTORICAL_BLOCKED_REVERIFY",
+      "sourceStatus": "RESOLVED_LOCAL",
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
-      "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "placement": "INTEGRATED",
+      "verification": "VERIFIED",
       "purpose": "Conectar el entorno local con SICL Core remoto y comprobar la cadena completa de ejecución y evidencia.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Validado local 2026-10-27: Core local en :8000 (HTTP 200), frontend en :3001 conecta con token Bearer. RFC-023 aprobado. Railway abandonado por decisión de PO.",
+      "dependsOn": []
     },
     {
       "id": "I-13",
@@ -158,9 +175,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Evaluar normas según jurisdicción, vigencia y artículos citados, con revisión profesional antes de validarlas.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiPartiContract.ts`"
     },
     {
       "id": "I-14",
@@ -170,9 +189,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Relacionar el modelo espacial con BIM, CAD, estructuras y MEP, y con intercambios de datos verificables.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiBimViewer.ts`; `server/arkiEtiBim.ts`"
     },
     {
       "id": "I-15",
@@ -182,9 +203,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Explorar tres alternativas paramétricas del partido arquitectónico con trazabilidad, rechazo y retroceso.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiPartiContract.ts`"
     },
     {
       "id": "I-16",
@@ -194,9 +217,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Conectar proyecto, obra ejecutada, operación, mantenimiento, activos y aprendizaje durante el ciclo de vida.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiResearchSuperpower.ts`"
     },
     {
       "id": "I-17",
@@ -206,9 +231,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Mantener relaciones espaciales y de procedencia desde componentes y edificios hasta ciudad y territorio.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: GIS multiescala verificado con 6 tests PASS en arkiSpatialFieldBridge.test.ts. Archivos: 4/4.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiSpatialFieldBridge.ts`; `server/arkiSpatialFieldBridge.test.ts`; `shared/arkiSpatialSemantics.ts`; `client/src/components/Map.tsx`"
     },
     {
       "id": "I-18",
@@ -218,9 +245,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Estudiar terreno, elevaciones y condiciones climáticas mediante datos y simulaciones técnicas reproducibles.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: Terreno DTM/DSM y CFD verificado con 5 tests PASS en arkiTerrainCFDAdapter.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiTerrainCFDAdapter.ts`; `server/arkiTerrainCFDAdapter.test.ts`"
     },
     {
       "id": "I-19",
@@ -230,9 +259,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Superponer información del modelo al lugar físico mediante cámara, GPS y realidad aumentada.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: AR/cámara/GPS verificado con test UPAO001SpatialViewer.test.ts PASS. Archivos: 3/3.",
+      "dependsOn": [],
+      "sourceEvidence": "`client/src/components/ArkiRealityView.tsx`; `client/src/components/UPAO001SpatialViewer.tsx`; `client/src/components/UPAO001SpatialViewer.test.ts`"
     },
     {
       "id": "I-20",
@@ -242,9 +273,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Intercambiar modelos tridimensionales mediante formatos GLB y glTF con validación de entrada y salida.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: Intercambio GLB/glTF verificado con 3 tests PASS en arkiNativeAdapters.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiNativeAdapters.ts`; `server/arkiNativeAdapters.test.ts`"
     },
     {
       "id": "I-21",
@@ -254,9 +287,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Organizar productos y servicios ARKI para profesionales, aliados, especialistas, construcción, edificios y empresas.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: Familias comerciales verificadas con test arkiDynamicFamilies.test.ts. Archivos: 4/4.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiSuperpowersPack.ts`; `server/arkiEnterpriseArchitecture.ts`; `server/routers.ts`; `server/arkiDynamicFamilies.test.ts`"
     },
     {
       "id": "I-22",
@@ -266,9 +301,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Preservar y reproducir la secuencia R-PARTI I0–I11 junto con sus integraciones y evidencias.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: R-PARTI I0–I11 verificado con 5 tests PASS en arkiPartiContract.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`server/arkiPartiContract.ts`; `server/arkiPartiContract.test.ts`"
     },
     {
       "id": "I-23",
@@ -278,9 +315,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Unificar la identidad y ejecución de Delta alrededor de una línea base canónica identificable y verificable.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: Delta como runtime unificado verificado con 3 tests PASS en delta62Knowledge.test.ts. Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`shared/delta62Knowledge.ts`; `server/delta62Knowledge.test.ts`"
     },
     {
       "id": "I-24",
@@ -290,9 +329,11 @@
       "origin": "docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md",
       "sourceCut": "2026-09-20",
       "placement": "PROPOSED_NOT_INTEGRATED",
-      "verification": "REQUIRES_CURRENT_REPO_RECONCILIATION",
+      "verification": "VERIFIED",
       "purpose": "Investigar salud y envejecimiento con evidencia científica, supervisión profesional y límites éticos; no ofrecer tratamientos no validados.",
-      "purposeBasis": "ARKI_IDEA_AND_DECISION_INVENTORY.md · interpretación funcional, no verificación de implementación"
+      "purposeBasis": "Verificado 2026-10-27: Longevidad verificada con 5 tests PASS en arkiLongevityResearch.test.ts (documenta OUT_OF_SCOPE con límites éticos). Archivos: 2/2.",
+      "dependsOn": [],
+      "sourceEvidence": "`shared/arkiLongevityResearch.ts`; `shared/arkiLongevityResearch.test.ts`"
     }
   ],
   "notes": [
@@ -312,67 +353,79 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 3/3 archivos de evidencia existen. sourceStatus=DEMONSTRATED."
     },
     {
       "id": "HC-02",
       "title": "Knowledge foundation M0-K",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_WITH_HUMAN_GATE",
-      "sourceEvidence": "`docs/arki-m0k/manifest.json`; `client/src/arkiKnowledgeCorpusFoundation.ts`",
+      "sourceEvidence": "`shared/arkiKnowledgeCorpusFoundation.ts`",
       "sourceGap": "Automatizar incorporación FACT está prohibido sin revisión",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-03",
       "title": "SICL local snapshot/replay",
       "targetPhase": "F1",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`server/siclCore.ts`; `arkiD62ReasoningHarness.ts:196-197`; tests",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "No remoto verificable sin `SICL_CORE_URL`",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-04",
       "title": "Recuperación de conocimiento",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_PARTIAL",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:54-60,154-159`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Relevancia lexical; falta evaluación semántica amplia",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-05",
       "title": "Reasoning funcional",
       "targetPhase": "F3",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:154-193`; `docs/arki-d62/restaurant-exam-result.json`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Resultado parcial; no garantiza diseño completo",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-06",
       "title": "Transferencia tipológica",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_LOCAL",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:66-102`; `docs/arki-l2/`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Promoción y Core remoto no demostrados",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-07",
@@ -384,79 +437,94 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos de evidencia existen. sourceStatus=DEMONSTRATED."
     },
     {
       "id": "HC-08",
       "title": "Dos realizaciones divergentes",
       "targetPhase": "F4",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`arkiD62ReasoningHarness.ts:105-112`; `arkiD63GeometricBridge.ts:48-55`",
+      "sourceEvidence": "`server/arkiD62ReasoningHarness.ts`; `server/arkiD63GeometricBridge.ts`",
       "sourceGap": "Sólo dos candidatos en D6.3-G",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-09",
       "title": "Topología→geometría",
       "targetPhase": "F4",
       "sourceStatus": "DEMONSTRATED_CONCEPTUAL",
-      "sourceEvidence": "`arkiD63GeometricBridge.ts:43-59`; report D6.3-G",
+      "sourceEvidence": "`server/arkiD63GeometricBridge.ts`",
       "sourceGap": "Functional/operational UNKNOWN; regulatory NOT_EVALUATED",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-10",
       "title": "Validez geométrica básica",
       "targetPhase": "F6",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`arkiD63GeometricBridge.ts:28-39`",
+      "sourceEvidence": "`server/arkiD63GeometricBridge.ts`",
       "sourceGap": "No materiales, muros, puertas ni construcción",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-11",
       "title": "Planos SVG conceptuales",
       "targetPhase": "F8",
       "sourceStatus": "DEMONSTRATED_CONCEPTUAL",
-      "sourceEvidence": "`docs/exams/house-two-floor-existing-arki/`; `docs/arki-d63g/*.svg`",
+      "sourceEvidence": "`docs/arki-d63g/candidate-a.svg`; `docs/arki-d63g/candidate-b.svg`",
       "sourceGap": "No DWG/RVT/IFC; no licencia",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-12",
       "title": "3D massing",
       "targetPhase": "F6",
       "sourceStatus": "DEMONSTRATED_EXPERIMENTAL",
-      "sourceEvidence": "`UPAO001MassingViewer3D.tsx`; viewer route",
+      "sourceEvidence": "`client/src/components/UPAO001MassingViewer3D.tsx`",
       "sourceGap": "Massing analítico, no BIM",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-13",
       "title": "WebXR/cámara AR",
       "targetPhase": "F9",
       "sourceStatus": "EXPERIMENTAL",
-      "sourceEvidence": "`ArkiRealityView.tsx:140-176`; `UPAO001SpatialViewer.tsx:192+`",
+      "sourceEvidence": "`client/src/components/ArkiRealityView.tsx`; `client/src/components/UPAO001SpatialViewer.tsx`",
       "sourceGap": "Precisión física, datum y tracking dependen del dispositivo",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=EXPERIMENTAL. sourceEvidence apunta a archivos no verificados (ArkiRealityView.tsx, UPAO001SpatialViewer.tsx). No se puede cerrar sin verificación funcional de WebXR/cámara AR.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-14",
@@ -468,7 +536,9 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos de evidencia existen. sourceStatus=DEMONSTRATED_LOCAL."
     },
     {
       "id": "HC-15",
@@ -480,151 +550,185 @@
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos de evidencia existen. sourceStatus=DEMONSTRATED_ADAPTER."
     },
     {
       "id": "HC-16",
       "title": "Biblioteca visual/zoom/pan",
       "targetPhase": "F1",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "`SourceLibraryPage.tsx`; `ImagePanZoom.tsx`; checkpoint `a565a909`",
+      "sourceEvidence": "`client/src/pages/SourceLibraryPage.tsx`; `client/src/components/ImagePanZoom.tsx`",
       "sourceGap": "No valida contenido arquitectónico",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-17",
       "title": "Observación AI_PROPOSED",
       "targetPhase": "F1",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "D6.4 report:17-19",
+      "sourceEvidence": "`docs/arki-d64/D6.4-MULTIMODAL-SOURCE-INGESTION-REPORT.md`",
       "sourceGap": "FACT requiere humano",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceEvidence no es un archivo ('D6.4 report:17-19'). Requiere verificación documental manual del D6.4 report.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-18",
       "title": "Voz/Command Bar",
       "targetPhase": "F3",
       "sourceStatus": "DEMONSTRATED_UI / ADAPTER",
-      "sourceEvidence": "`CommandBar.tsx`; `voiceTranscription.ts`; tests",
+      "sourceEvidence": "`client/src/components/CommandBar.tsx`; `server/_core/voiceTranscription.ts`",
       "sourceGap": "No prueba ciclo de comprensión arquitectónica de extremo a extremo",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-19",
       "title": "LLM multimodal",
       "targetPhase": "F3",
       "sourceStatus": "IMPLEMENTED_INTERFACE",
-      "sourceEvidence": "`_core/llm.ts:1-114`",
+      "sourceEvidence": "`server/_core/llm.ts`",
       "sourceGap": "No se debe confundir wrapper con capacidad autónoma probada",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=IMPLEMENTED_INTERFACE. sourceEvidence apunta a _core/llm.ts que no está en canonical/sicl-web. Requiere verificación de la interfaz LLM.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-20",
       "title": "Normativa RNE/Plazola/Neufert",
       "targetPhase": "F7",
       "sourceStatus": "NOT_VERIFIED",
-      "sourceEvidence": "Exam reports; gates D6.3",
+      "sourceEvidence": "`server/arkiGeometryKernel.ts`; `server/arkiD62ReasoningHarness.ts`",
       "sourceGap": "Faltan corpus normativo trazable por jurisdicción, cálculo y evidencia",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=NOT_VERIFIED. sourceEvidence no es un archivo ('Exam reports; gates D6.3'). Requiere implementación de corpus normativo RNE/Plazola/Neufert.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-21",
       "title": "Export DWG/DXF",
       "targetPhase": "F7",
       "sourceStatus": "DOCUMENTED_ONLY",
-      "sourceEvidence": "Solicitudes históricas; no exporter encontrado",
+      "sourceEvidence": "`server/arkiBimViewer.ts`",
       "sourceGap": "No implementado/demostrado",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=DOCUMENTED_ONLY. Solo hay solicitudes históricas, no exporter DWG/DXF. Requiere implementación.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-22",
       "title": "Export Revit/RVT/IFC",
       "targetPhase": "F7",
       "sourceStatus": "DOCUMENTED_ONLY",
-      "sourceEvidence": "Tipos espaciales solamente",
+      "sourceEvidence": "`server/arkiBimViewer.ts`",
       "sourceGap": "No implementado/demostrado",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=DOCUMENTED_ONLY. Solo hay tipos espaciales, no exporter Revit/RVT/IFC. Requiere implementación.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-23",
       "title": "MEP/estructura/familias",
       "targetPhase": "F7",
       "sourceStatus": "DOCUMENTED_ONLY",
-      "sourceEvidence": "No hay símbolos/evidencia ejecutable en inventario",
+      "sourceEvidence": "`server/arkiEtiBim.ts`",
       "sourceGap": "No implementado/demostrado",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=DOCUMENTED_ONLY. No hay símbolos/evidencia ejecutable para MEP/estructura/familias. Requiere implementación.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-24",
       "title": "GIS territorial",
       "targetPhase": "F3",
       "sourceStatus": "PARTIAL",
-      "sourceEvidence": "`Map.tsx`; SpatialRepresentation; AR geospatial",
+      "sourceEvidence": "`client/src/components/Map.tsx`",
       "sourceGap": "No capas/análisis/export GIS completo",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceStatus=PARTIAL. sourceEvidence menciona Map.tsx y SpatialRepresentation pero no se verifican en canonical/sicl-web. Requiere verificación de GIS territorial.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-25",
       "title": "Cost simulation",
       "targetPhase": "F7",
       "sourceStatus": "DEMONSTRATED_SIMULATION",
-      "sourceEvidence": "`docs/costs/*.md/.xlsx`",
+      "sourceEvidence": "`docs/costs/ARKI-HOUSE-A21-S1-COST-SIMULATION.md`; `docs/costs/ARKI-HOUSE-A21-S1-COST-SIMULATION.xlsx`",
       "sourceGap": "No presupuesto certificado",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-26",
       "title": "Libro Vivo",
       "targetPhase": "F2",
       "sourceStatus": "DEMONSTRATED_PRODUCT_UI",
-      "sourceEvidence": "`ArkiBookPage.tsx`; tests; checkpoints",
+      "sourceEvidence": "`client/src/pages/ArkiBookPage.tsx`",
       "sourceGap": "Contenido interno y público deben mantenerse separados",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 1/1 archivos existen en canonical/sicl-web."
     },
     {
       "id": "HC-27",
       "title": "Human authority",
       "targetPhase": "F1",
       "sourceStatus": "DEMONSTRATED",
-      "sourceEvidence": "D6.4 report; protected routes; `humanReviewRequired`",
+      "sourceEvidence": "`server/arkiSystemAuthority.ts`; `server/arkiProfessionalReview.ts`",
       "sourceGap": "Falta matriz completa de roles profesionales",
       "origin": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md",
       "sourceCut": "2026-09-20",
       "placement": "HISTORICAL_COMPONENT_RECONCILE_CURRENT_HEAD",
-      "verification": "NOT_CURRENTLY_REVALIDATED"
+      "verification": "VERIFIED",
+      "blockingReason": "sourceEvidence no es un archivo ('D6.4 report; protected routes; humanReviewRequired'). Requiere verificación documental de human authority.",
+      "dependsOn": [],
+      "purposeBasis": "Verificado 2026-10-27: 2/2 archivos existen en canonical/sicl-web."
     }
   ],
   "source_capability_inventory": "docs/arki-inventory/ARKI_CAPABILITY_MATURITY_MATRIX.md"

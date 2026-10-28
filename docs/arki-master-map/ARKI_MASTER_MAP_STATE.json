@@ -14,100 +14,107 @@
     "phases": [
       {
         "id": "F1",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "8_TESTS_PASS_WEB_ONLY"
       },
       {
         "id": "F2",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "9_TESTS_PASS_WEB_ONLY"
       },
       {
         "id": "F3",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "7_TESTS_PASS_WEB_ONLY"
       },
       {
         "id": "F4",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "8_TESTS_PASS_WEB_ONLY"
       },
       {
         "id": "F5",
-        "status": "RECONCILED_WITH_POST_AUDIT_CORRECTIONS",
-        "evidence_status": "SEMANTIC_CATEGORY_HARDENING_IMPLEMENTED_LOCAL_EVIDENCE_RECORDED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "3_TESTS_PASS_WEB_ONLY"
       },
       {
         "id": "F6",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "HISTORICAL_GO_BOUNDED_EVIDENCE_RETAINED_REVALIDATION_REQUIRED",
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "17_TESTS_PASS_WEB_ONLY",
         "historical_status": "FROZEN",
         "historical_evidence_status": "GO_BOUNDED_DEMONSTRATED_BOUNDARY"
       },
       {
         "id": "F7",
-        "status": "IN_PROGRESS",
-        "evidence_status": "IMPLEMENTATION_PRESENT_EXECUTION_VERIFICATION_PENDING",
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "8_TESTS_PASS_WEB_ONLY",
         "historical_evidence_status": "CONTRACT_FORMATION_AND_REPOSITORY_RECONCILIATION"
       },
       {
         "id": "F8",
-        "status": "IN_PROGRESS",
-        "evidence_status": "DERIVED_DOSSIER_CONTRACT_IMPLEMENTED_EXECUTION_VERIFICATION_PENDING"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "1_TEST_PASS_WEB_ONLY"
       },
       {
         "id": "F9",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "1_TEST_PASS_WEB_ONLY"
       },
       {
         "id": "F10",
-        "status": "RECONCILIATION_REQUIRED",
-        "evidence_status": "NOT_YET_RECONCILED"
+        "status": "TESTED_PASS_WEB_ONLY",
+        "evidence_status": "2_TESTS_PASS_WEB_ONLY"
       }
-    ]
+    ],
+    "po_approval": {
+      "status": "PO_APPROVED",
+      "approved_by": "Yvan Castillo Quezada",
+      "approved_at": "2026-10-27T21:52:05.408848",
+      "scope": "10 phases tested pass web only; Core PASS; E2E canonical PASS; E2E advanced PASS",
+      "note": "PO approves the tested state. Core tests PASS. E2E canonical PASS. E2E advanced PASS."
+    }
   },
   "current_focus": {
-  "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
-  "active": [
-    "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
-    "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
-    "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
-    "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
-    "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
-  ],
-  "last_completed": "Physical S10 specimen located and non-mutating binary identification completed: Microsoft SQL Server backup (TAPE header), S102000 Data paths and budget-related schema identifiers; database restore and budget inventory NOT_EXECUTED. F7 OECE gate PASS/E3.",
-  "next_exact_action": "S10: inspect backup metadata (SQL Server version, logical files) using a compatible SQL Server RESTORE HEADERONLY/FILELISTONLY, then isolate and inventory budgets read-only. Never alter source or claim budget counts until database read.",
-  "blockers": [
-    "S10_BACKUP_ENGINE_VERSION_UNKNOWN",
-    "S10_RESTORE_AND_BUDGET_INVENTORY_NOT_EXECUTED",
-    "S10_NATIVE_WRITE_NOT_CLAIMED",
-    "S10_ROUND_TRIP_NOT_CLAIMED",
-    "RVT_NATIVE_SEMANTIC_EXTRACTION_NOT_DEMONSTRATED",
-    "OECE_COMPLETE_TECHNICAL_DOSSIER_NOT_DEMONSTRATED_FOR_THIS_SPECIMEN"
-  ],
-  "historical_checkpoint": {
-    "last_completed": "ARKI Live Command Center promoted as primary owner status surface; exact recovered 10-phase roadmap restored (F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE) and Body Map remains visible.",
-    "next_exact_action": "Turn /arki-command-center into the live owner dashboard: reconcile organ/superpower/idea/dossier counts from evidence, expose last verified movement and blockers, and automate projections from canonical registries without making the UI a second source of truth.",
-    "later_checkpoint": {
-      "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
-      "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code."
-    },
-    "prior_f7_focus": {
-      "title": "F7 — Professional Technical Development",
-      "active": [
-        "F7.0 Professional Model Contract",
-        "F7 repository capability reconciliation",
-        "jurisdiction/applicability",
-        "architectural technical development",
-        "structure/MEP coordination",
-        "accessibility/life safety",
-        "quantities/cost",
-        "BIM/IFC/CAD interoperability"
-      ]
+    "title": "F7/F8 — real S10 SQL Server backup available; safe restore characterization next",
+    "active": [
+      "OECE ACS→ARKI physical fragment handoff and F7 evidence guard CLOSED PASS/E3",
+      "Characterize real S10 .S2K SQL Server backup, then inventory budgets with a compatible SQL engine",
+      "Characterize real Revit 2026 RVT model via host/export path; no native semantic extraction claimed",
+      "Design HP MicroServer G7 as evidence storage/processing node, subject to CPU, disks, OS and hardware health",
+      "Maqueta Viva local implemented, awaiting Windows shortcut/browser smoke test"
+    ],
+    "last_completed": "Physical S10 specimen located and non-mutating binary identification completed: Microsoft SQL Server backup (TAPE header), S102000 Data paths and budget-related schema identifiers; database restore and budget inventory NOT_EXECUTED. F7 OECE gate PASS/E3.",
+    "next_exact_action": "S10: inspect backup metadata (SQL Server version, logical files) using a compatible SQL Server RESTORE HEADERONLY/FILELISTONLY, then isolate and inventory budgets read-only. Never alter source or claim budget counts until database read.",
+    "blockers": [
+      "S10_BACKUP_ENGINE_VERSION_UNKNOWN",
+      "S10_RESTORE_AND_BUDGET_INVENTORY_NOT_EXECUTED",
+      "S10_NATIVE_WRITE_NOT_CLAIMED",
+      "S10_ROUND_TRIP_NOT_CLAIMED",
+      "RVT_NATIVE_SEMANTIC_EXTRACTION_NOT_DEMONSTRATED",
+      "OECE_COMPLETE_TECHNICAL_DOSSIER_NOT_DEMONSTRATED_FOR_THIS_SPECIMEN"
+    ],
+    "historical_checkpoint": {
+      "last_completed": "ARKI Live Command Center promoted as primary owner status surface; exact recovered 10-phase roadmap restored (F0-F5 DONE/PASS, F6 IN PROGRESS, F7 NEXT, F8-F10 FUTURE) and Body Map remains visible.",
+      "next_exact_action": "Turn /arki-command-center into the live owner dashboard: reconcile organ/superpower/idea/dossier counts from evidence, expose last verified movement and blockers, and automate projections from canonical registries without making the UI a second source of truth.",
+      "later_checkpoint": {
+        "last_completed": "F6 / AGK integral closure GO; bounded DELTA contracts frozen after final local TypeScript, 88-test DELTA-005 regression and production-build gate.",
+        "next_exact_action": "Audit current repository F7 assets and produce capability matrix before adding new professional-development code."
+      },
+      "prior_f7_focus": {
+        "title": "F7 — Professional Technical Development",
+        "active": [
+          "F7.0 Professional Model Contract",
+          "F7 repository capability reconciliation",
+          "jurisdiction/applicability",
+          "architectural technical development",
+          "structure/MEP coordination",
+          "accessibility/life safety",
+          "quantities/cost",
+          "BIM/IFC/CAD interoperability"
+        ]
+      }
     }
-  }
-},
+  },
   "status_vocabulary": [
     "CLAIM",
     "DESIGN",

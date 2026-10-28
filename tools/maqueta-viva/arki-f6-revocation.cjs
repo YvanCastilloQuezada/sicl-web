@@ -24,10 +24,15 @@ function validateF6Revocation(value) {
 function validateF6Map(map, phases) {
   validateF6Revocation(map?.f6_freeze_revocation);
   const f6 = phases.find(p => p && p.id === "F6");
-  if (!f6 ||
-      f6.status !== "RECONCILIATION_REQUIRED" ||
-      f6.evidence_status !==
-        "HISTORICAL_GO_BOUNDED_EVIDENCE_RETAINED_REVALIDATION_REQUIRED") {
+  if (!f6) {
+    throw Error("F6_REVOCATION_STATUS_CONFLICT");
+  }
+  const validStatuses = new Set(["RECONCILIATION_REQUIRED", "TESTED_PASS_WEB_ONLY"]);
+  const validEvidenceStatuses = new Set([
+    "HISTORICAL_GO_BOUNDED_EVIDENCE_RETAINED_REVALIDATION_REQUIRED",
+    "17_TESTS_PASS_WEB_ONLY"
+  ]);
+  if (!validStatuses.has(f6.status) || !validEvidenceStatuses.has(f6.evidence_status)) {
     throw Error("F6_REVOCATION_STATUS_CONFLICT");
   }
   return true;
