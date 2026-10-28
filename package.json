@@ -15,7 +15,8 @@
     "security:stress:local": "node scripts/arki-local-security-stress.mjs",
     "db:push": "drizzle-kit generate && drizzle-kit migrate",
     "e2e:oece": "tsx scripts/run-arki-oece-evidence-e2e.ts",
-    "e2e:oece:fragment": "tsx scripts/run-arki-oece-fragment-e2e.ts"
+    "e2e:oece:fragment": "tsx scripts/run-arki-oece-fragment-e2e.ts",
+    "maqueta-viva": "node tools/maqueta-viva/arki-maqueta-viva-server.cjs"
   },
   "pnpm": {
     "overrides": {

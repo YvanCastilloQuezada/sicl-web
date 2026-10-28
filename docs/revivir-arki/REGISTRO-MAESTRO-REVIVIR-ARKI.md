@@ -102,3 +102,27 @@ Por cada ejecución, añadir:
 8. Estado: **PENDIENTE**, **BLOQUEADO** o **VALIDADO CON EVIDENCIA**.
 
 No convertir una intención en un resultado. Si no existe evidencia recuperable, marcarlo como pendiente.
+
+---
+
+### Hito 4 — Maqueta Viva servida en el puerto 8769 (2026-10-28)
+
+- **PR:** pendiente (cambios en working tree).
+- **Estado:** `IMPLEMENTED_LOCAL / NOT_COMMITTED`.
+- **Archivos nuevos:**
+  - `tools/maqueta-viva/arki-maqueta-viva-server.cjs` (3.5 KB) — servidor Node que sirve `maqueta-viva.template.html` con los 2 tokens inyectados.
+  - `package.json` — script `maqueta-viva` añadido.
+- **Servicio systemd:** `~/.config/systemd/user/arki-maqueta-viva.service`.
+- **Puerto:** 8769 (el AV023 sigue en el 8768, sin conflicto).
+- **Tokens inyectados:** `__ARKI_STATE_JSON__`, `__ARKI_ASSEMBLY_JSON__`.
+- **Etapas:** F1-F10 (10 etapas completas).
+- **Vistas:** 01 Plano ARKI, 02 Maqueta Viva, 03 Gemelo Digital, 04 Gemelo Predictivo, 05 ARKI Autocorrectivo.
+- **Verificación:**
+  - `HTTP 200` en `/health`.
+  - `HTTP 200 — 558,248 bytes` en `/`.
+  - `0` ocurrencias de tokens (100% reemplazados).
+  - `F0, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10` presentes.
+- **Límite:** este hito sirve la Maqueta Viva en el 8769, pero **no demuestra** que las 10 etapas estén funcionalmente conectadas al Core. Es la **capa visual** de la Maqueta Viva, no el ciclo vital REAL.
+- **Próximo paso:** verificar que las 5 vistas funcionan en el navegador (no solo que el HTML se sirve).
+
+**End of Hito 4 — 2026-10-28.**

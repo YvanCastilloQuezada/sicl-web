@@ -11,7 +11,7 @@ Este directorio es el **repositorio canónico de planificación** de ARKI.
 Centraliza el backlog, el roadmap, las decisiones del PO y las ideas en exploración.
 
 Antes de este repositorio, la planificación vivía distribuida en:
-- `00-START.md` (continuidad operativa)
+- `00_START.md` (continuidad operativa)
 - `00_ARKI_EXPEDIENTE_MAESTRO.md` (índice maestro)
 - `todo.md` (backlog ligero)
 - GitHub Issues (issues abiertos)
@@ -42,5 +42,5 @@ estructura persistente y trazable.
 
 - `docs/arki-inventory/ARKI_IDEA_AND_DECISION_INVENTORY.md` — inventario completo
 - `docs/ops/ARKI-LIVE-SYSTEMD-INTEGRATION-20261014.md` — ciclo vivo
-- `00-START.md` (raíz) — continuidad operativa
+- `00_START.md` (raíz) — continuidad operativa
 - `00_ARKI_EXPEDIENTE_MAESTRO.md` (en `sicl-core`) — índice maestro
