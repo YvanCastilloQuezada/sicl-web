@@ -3,8 +3,7 @@ import { fetchCanonicalSnapshot } from "./coreHttpClient";
 
 describe("coreHttpClient", () => {
   afterEach(() => {
-    delete process.env.SICL_CORE_URL;
-    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllEnvs();
     vi.unstubAllGlobals();
   });
 
@@ -16,8 +15,8 @@ describe("coreHttpClient", () => {
   });
 
   it("fetches only the canonical snapshot endpoint without browser credentials", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test/";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test/");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.1", project_id: "SICL-1", observed_version: 3, snapshot: { events: [] } }), { status: 200, headers: { "content-type": "application/json" } }));
     vi.stubGlobal("fetch", fetchSpy);
     await expect(fetchCanonicalSnapshot("SICL-1")).resolves.toMatchObject({ observed_version: 3 });
@@ -25,8 +24,8 @@ describe("coreHttpClient", () => {
   });
 
   it("preserves adapter failures instead of turning them into success", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("", { status: 503 })));
     await expect(fetchCanonicalSnapshot("SICL-1")).rejects.toThrow("503");
   });
@@ -35,14 +34,13 @@ describe("coreHttpClient", () => {
 
 describe("SiclCoreHttpError", () => {
   afterEach(() => {
-    delete process.env.SICL_CORE_URL;
-    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllEnvs();
     vi.unstubAllGlobals();
   });
 
   it("preserves upstream status and safe error envelope", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({ error: "CONCURRENCY_CONFLICT", detail: "expected project version 1, got 2" }), { status: 409, headers: { "content-type": "application/json" } })));
     const { createCoreRecommendation } = await import("./coreHttpClient");
     await expect(createCoreRecommendation("SICL-1", { recommendation_id: "REC-1" })).rejects.toMatchObject({ status: 409, errorCode: "CONCURRENCY_CONFLICT", message: expect.stringContaining("expected project version") });
@@ -51,8 +49,8 @@ describe("SiclCoreHttpError", () => {
 
 
   it("preserves the upstream 404 envelope for canonical reads", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const envelope = { error: "PROJECT_NOT_FOUND", detail: "No canonical project exists", trace_id: "trace-404" };
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify(envelope), { status: 404, headers: { "content-type": "application/json" } })));
     const result = await fetchCanonicalSnapshot("SICL-404");
@@ -60,8 +58,8 @@ describe("SiclCoreHttpError", () => {
   });
 
   it("sends hierarchical scopes to canonical project creation", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.2", project_id: "SICL-SCOPE", observed_version: 1, snapshot: { project: {} } }), { status: 200, headers: { "content-type": "application/json" } }));
     vi.stubGlobal("fetch", fetchSpy);
     const { createCoreProject } = await import("./coreHttpClient");
@@ -72,8 +70,8 @@ describe("SiclCoreHttpError", () => {
 
 
 it("fetches the read-only operations research catalog without exposing service credentials", async () => {
-  process.env.SICL_CORE_URL = "https://core.example.test";
-  process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+  vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+  vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
   const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({
     contract_version: "sicl-core-http/0.2",
     read_only: true,
@@ -89,8 +87,8 @@ it("fetches the read-only operations research catalog without exposing service c
 
 
 it("writes canonical preferences with explicit scope and provenance", async () => {
-  process.env.SICL_CORE_URL = "https://core.example.test";
-  process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+  vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+  vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
   const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.3", project_id: "SICL-PREF", observed_version: 2, preference: { preference_id: "PREF-1" } }), { status: 200, headers: { "content-type": "application/json" } }));
   vi.stubGlobal("fetch", fetchSpy);
   const { createCorePreference } = await import("./coreHttpClient");
@@ -104,14 +102,13 @@ it("writes canonical preferences with explicit scope and provenance", async () =
 
 describe("[6] Developer promotion Core client", () => {
   afterEach(() => {
-    delete process.env.SICL_CORE_URL;
-    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllEnvs();
     vi.unstubAllGlobals();
   });
 
   it("records bound HumanReview without inventing defaults or status", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const response = { human_review: { review_id: "REV-1", status: "APPROVED", referenced_entity_type: "DEVELOPER_PROPOSAL", referenced_entity_id: "dev-1", referenced_fingerprint: "a".repeat(64) } };
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ data: response }), { status: 200, headers: { "content-type": "application/json" } }));
     vi.stubGlobal("fetch", fetchSpy);
@@ -128,8 +125,8 @@ describe("[6] Developer promotion Core client", () => {
   });
 
   it("posts the exact promotion triple", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ data: {
       status: "COMMITTED", proposal_id: "dev-1", snapshot_id: "D2-1", d2_version: 7, effects_status: "COMPLETE", reason: "PROMOTED",
     } }), { status: 200, headers: { "content-type": "application/json" } }));
@@ -143,8 +140,8 @@ describe("[6] Developer promotion Core client", () => {
 
   it("aborts a promotion transport that exceeds the Core timeout", async () => {
     vi.useFakeTimers();
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     vi.stubGlobal("fetch", vi.fn().mockImplementation((_url: string, init: RequestInit) =>
       new Promise((_resolve, reject) => {
         init.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError")));
@@ -161,8 +158,8 @@ describe("[6] Developer promotion Core client", () => {
   });
 
   it("reads the exact version-addressed D-2 snapshot", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ data: { snapshot: {
       snapshot_id: "D2-7", project_id: "P-1", version: 7, elements: [], content_hash: "h", actor: "core", source_event_id: 1, created_at: "t",
     } } }), { status: 200, headers: { "content-type": "application/json" } }));
@@ -176,14 +173,13 @@ describe("[6] Developer promotion Core client", () => {
 
 describe("[6.7-T630-C.4] V1.5 Core error wire compatibility", () => {
   afterEach(() => {
-    delete process.env.SICL_CORE_URL;
-    delete process.env.SICL_CORE_SERVICE_TOKEN;
+    vi.unstubAllEnvs();
     vi.unstubAllGlobals();
   });
 
   it("preserves FastAPI detail.code, detail.message and positive integer Retry-After", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const envelope = { detail: {
       status: "ERROR", code: "RETRIABLE_BUSY_EXHAUSTED", message: "promotion deadline exhausted",
       data: { status: "RETRIABLE_BUSY_EXHAUSTED", proposal_id: "dev-1", reason: "promotion deadline exhausted" },
@@ -201,8 +197,8 @@ describe("[6.7-T630-C.4] V1.5 Core error wire compatibility", () => {
   });
 
   it.each(["0", "-1", "1.5", "soon", ""])("does not invent Retry-After from invalid value %j", async (retryAfter) => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
       detail: { status: "ERROR", code: "RETRIABLE_BUSY_EXHAUSTED", message: "busy", data: {} },
     }), { status: 503, headers: { "Retry-After": retryAfter } })));
@@ -213,8 +209,8 @@ describe("[6.7-T630-C.4] V1.5 Core error wire compatibility", () => {
   });
 
   it("preserves HTTP evidence without inventing causal identity for malformed JSON", async () => {
-    process.env.SICL_CORE_URL = "https://core.example.test";
-    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+    vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response("not-json", { status: 500 })));
     const { promoteDeveloperProposal } = await import("./coreHttpClient");
     await expect(promoteDeveloperProposal("P-1", {
