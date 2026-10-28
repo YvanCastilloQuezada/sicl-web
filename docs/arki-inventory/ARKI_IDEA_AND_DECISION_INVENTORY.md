@@ -285,3 +285,27 @@ Ver `docs/arki-planning/README.md`.
 **Actor:** Yvan Castillo Quezada (Product Owner)
 **Fecha:** 2026-10-27
 **Justificación:** Resolución estructural del gap, no declarativa.
+
+---
+
+## Nota sobre I-08 e I-12 (2026-10-27)
+
+**Estado actual:**
+
+- **Core en Railway:** desplegado y funcional (HTTP 200 verificado).
+- **Railway CLI:** instalado, pero **no autenticado**.
+- **SICL_CORE_URL:** no configurado en el frontend.
+- **SICL_CORE_SERVICE_TOKEN:** no configurado.
+
+**I-08 (OCR remoto):** implementado y validado localmente (8/8 gates, G8 prohibido por diseño). La validación remota requiere `SICL_CORE_URL` configurado.
+
+**I-12 (E2E Core remoto):** RFC-023 aprobado (PO-016, 16-sep-2026). Core desplegado en Railway. Falta configurar `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN` en el frontend.
+
+**Bloqueo:** no es infraestructura faltante, es **autenticación de Railway no completada**. El PO debe ejecutar `railway login` y `railway link` para desbloquear.
+
+**Próximo paso:** 
+1. `railway login` (manual, abre navegador).
+2. `railway link` en `canonical/sicl-core` (seleccionar el proyecto del Core).
+3. `railway domain` para obtener la URL.
+4. Configurar `.env.local` en `canonical/sicl-web` con `SICL_CORE_URL` y `SICL_CORE_SERVICE_TOKEN`.
+5. Verificar con `curl http://localhost:3000/api/core/health`.
