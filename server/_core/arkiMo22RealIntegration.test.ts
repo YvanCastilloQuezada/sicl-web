@@ -17,6 +17,8 @@ describe("MO22 real bridge MariaDB HTTP",()=>{
   let server:any; let count=0;
   const check=async(name:string,fn:()=>Promise<void>)=>{await fn();count++;console.log("PASS",name)};
   try {
+   await db.query(`DROP TABLE IF EXISTS sicl_projects`);
+   await db.query(`DROP TABLE IF EXISTS arki_storage_objects`);
    await db.query(`CREATE TABLE sicl_projects (id INT AUTO_INCREMENT PRIMARY KEY,ownerId INT NOT NULL,projectId VARCHAR(128) NOT NULL UNIQUE) ENGINE=InnoDB`);
    await db.query(`CREATE TABLE arki_storage_objects (object_id CHAR(36) PRIMARY KEY,owner_id INT NOT NULL,project_id VARCHAR(128) NOT NULL,storage_key VARCHAR(512) NOT NULL UNIQUE,sha256 CHAR(64) NOT NULL,size_bytes INT NOT NULL,content_type VARCHAR(200) NOT NULL,status ENUM('PENDING','READY','REVOKED') NOT NULL DEFAULT 'PENDING',created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,KEY idx_owner_project_status(owner_id,project_id,status)) ENGINE=InnoDB`);
    await db.query("INSERT INTO sicl_projects(ownerId,projectId) VALUES (101,'PROJECT-A'),(202,'PROJECT-B')");
