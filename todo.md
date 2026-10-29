@@ -1,3 +1,5 @@
+> **HISTÓRICO.** Este archivo es un registro de tareas de sesiones anteriores (SICL 0.6 a ARKI 2026-10). No refleja el estado actual. Para el estado vigente, leer `00_START.md`.
+
 # Project TODO
 
 - [x] Panel autenticado de proyectos SICL con estado, versión y navegación de módulos.

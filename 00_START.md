@@ -4,6 +4,8 @@
 
 ARKI/ARQUI es el proyecto actual anteriormente llamado SICL/Vitruvio; no son proyectos distintos. Objetivo: **superarquitecto autónomo multiescala** (objeto, interior, edificio, conjunto, paisaje, ciudad, región y territorio). Debe aprender, razonar, detectar carencias, generar tres alternativas verificables, evaluar métricas, corregirse en entorno aislado, actualizar Árbol Vivo y Árbol Gemelo Digital y solicitar al PO aprobación para cambios protegidos. **Un solo kernel AGK**, 3D-First; hipótesis congelada: **OCCT + ARKI_DELTA**. **Delta 6.2** es la vía controlada de promoción del conocimiento. **F6 está descongelada por decisión del PO**; los demás contratos FROZEN se respetan. MiLukita es otro proyecto: no tocar.
 
+**Nota de estado:** el objetivo es un superarquitecto autónomo multiescala. El estado actual (Anexo J.4) es L6-L7 parcial: ARKI genera candidatos y geometría acotada, pero L8-L10 (reevaluación, comparación, generalización autónoma) no están demostrados. La brecha es el trabajo pendiente, no una contradicción.
+
 **Regla:** no confundir simulación, anotación, diagnóstico o prueba de infraestructura con competencia arquitectónica demostrada. CERO DEUDAS; no waiver, no PASS inventado, no modificar canónico sin autorización del PO. Preferir implementación real y una macroorden de validación a más informes repetitivos.
 
 
@@ -1801,3 +1803,30 @@ Los 3 huecos restantes (ACE88, AUTO_V0, INVENTORY) requieren **decisión de cont
 | `DEMO_SCRIPT_V2.md`, `DEMO_SCRIPT_V3.md` | `sicl-core/` | Guiones de demo reproducibles (Anexo R) |
 
 **End of Anexos Q, R, S — 2026-10-28.**
+
+---
+
+## Tabla de HEADs verificados
+
+| Repo | Rama | HEAD | Verificado |
+|---|---|---|---|
+| canonical/sicl-web | main | 0614f4a5 | 2026-10-28 |
+| av023-arbol-vivo | fix/bind-0000-20261027 | 2c476c37 | 2026-10-28 |
+| canonical/sicl-core | main | cfdacb5 | 2026-10-28 |
+| canonical/arki-acs | main | 302f63d | 2026-10-28 |
+
+**Regla:** si el HEAD real difiere de esta tabla, prevalece el real. Actualizar esta tabla en el mismo commit que se detecte la diferencia.
+---
+
+# ANEXO T — AUTOENSAMBLAJE (asimilado de 00_REVIVIR.md §19)
+
+**Estado:** verificado localmente (`ARKI_ASSEMBLY_PLANNER_TESTS=PASS`). PR #56 MERGED.
+
+- Planificador: `tools/maqueta-viva/arki-assembly-planner.cjs` — propone plan, no ejecuta.
+- Test: `tools/maqueta-viva/test-arki-assembly-planner.cjs` — 10 verificaciones.
+- Auxiliares: `arki-discovery.cjs`, `arki-capability-inventory.cjs`, `arki-assembly-strategies.cjs`.
+- Snapshot: `arki-repository-snapshot.json` (1933 rutas).
+- Reporte: `arki-discovery-report.json` (460 no clasificadas).
+- Límites: `canonicalMutation: false`, `execution: "NOT_EXECUTED"`. No promueve, no integra al HTML, no selecciona A/B/C.
+
+**Para el detalle completo, leer `00_REVIVIR.md` §19.**
