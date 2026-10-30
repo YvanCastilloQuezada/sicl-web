@@ -63,12 +63,14 @@ function keyFromEnvironment(): Buffer {
   return key;
 }
 
-function aad(row: Pick<OutboxRow, "ownerId" | "projectId" | "eventId" | "idempotencyKey">): Buffer {
+function aad(row: Pick<OutboxRow, "ownerId" | "projectId" | "workstreamId" | "eventId" | "idempotencyKey" | "eventType">): Buffer {
   return Buffer.from(canonical({
     ownerId: row.ownerId,
     projectId: row.projectId,
+    workstreamId: row.workstreamId,
     eventId: row.eventId,
     idempotencyKey: row.idempotencyKey,
+    eventType: row.eventType,
   }), "utf8");
 }
 
@@ -154,8 +156,10 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
       const context = aad({
         ownerId: input.ownerId,
         projectId: input.projectId,
+        workstreamId: input.event.workstream_id,
         eventId: input.event.event_id,
         idempotencyKey: input.event.idempotency_key,
+        eventType: input.event.event_type,
       });
       const encrypted = encrypt(clear, context);
       db.exec("BEGIN IMMEDIATE");
