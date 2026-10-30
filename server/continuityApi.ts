@@ -33,7 +33,35 @@ const eventInput = z.object({
   supersedesEventId: z.string().trim().max(160).nullable().optional(),
   payload: z.record(z.string(), z.unknown()).default({}),
   confirmedByOwner: z.boolean().optional(),
-}).strict();
+}).strict().superRefine((value, ctx) => {
+  const payloadJson = JSON.stringify(value.payload);
+  if (Buffer.byteLength(payloadJson, "utf8") > 128 * 1024) {
+    ctx.addIssue({ code: "custom", path: ["payload"], message: "CONTINUITY_PAYLOAD_TOO_LARGE" });
+  }
+
+  const sensitiveKey = /(?:password|passwd|secret|api[_-]?key|access[_-]?token|refresh[_-]?token|private[_-]?key|credential|authorization|cookie)/i;
+  const inspect = (item: unknown, path: string, depth: number): void => {
+    if (depth > 16 || !item || typeof item !== "object" || Array.isArray(item)) return;
+    for (const [key, child] of Object.entries(item as Record<string, unknown>)) {
+      const childPath = path ? `${path}.${key}` : key;
+      if (sensitiveKey.test(key)) {
+        ctx.addIssue({ code: "custom", path: ["payload", childPath], message: "CONTINUITY_SENSITIVE_FIELD_REJECTED" });
+        continue;
+      }
+      inspect(child, childPath, depth + 1);
+    }
+  };
+  inspect(value.payload, "", 0);
+
+  for (const [index, reference] of value.evidenceRefs.entries()) {
+    try {
+      const url = new URL(reference);
+      if (["http:", "https:"].includes(url.protocol) && [...url.searchParams.keys()].some((key) => sensitiveKey.test(key))) {
+        ctx.addIssue({ code: "custom", path: ["evidenceRefs", index], message: "CONTINUITY_SENSITIVE_URL_REJECTED" });
+      }
+    } catch { /* Evidence references may be non-URL identifiers. */ }
+  }
+});
 
 let flushInProgress = false;
 
