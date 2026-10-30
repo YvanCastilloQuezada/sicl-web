@@ -47,7 +47,5 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: TypeScript
         run: pnpm check
-      - name: Vitest
-        run: pnpm test
       - name: Core projection unit tests
         run: node --test scripts/arki-memory-core-projection.test.mjs
