@@ -20,6 +20,7 @@ on:
       - "server/_core/index.ts"
       - "drizzle/**"
       - "scripts/arki-memory-core-projection*"
+      - "scripts/arki-memory-outbox-backup*"
       - ".github/workflows/arki-memory-web-ci.yml"
 
 permissions:
