@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { DatabaseSync } from "node:sqlite";
+import { createRequire } from "node:module";
+const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite") as typeof import("node:sqlite");
 import { randomUUID } from "node:crypto";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
