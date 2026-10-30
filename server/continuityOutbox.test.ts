@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { createRequire } from "node:module";
 import { randomBytes } from "node:crypto";
 import { mkdtemp, rm } from "node:fs/promises";
@@ -31,11 +31,14 @@ function event(overrides: Partial<ContinuityEnvelope> = {}): ContinuityEnvelope 
 }
 
 function fixture() {
-  process.env.ARKI_CONTINUITY_ENCRYPTION_KEY = key;
   const db = new DatabaseSync(":memory:");
   const store = createContinuityOutboxStore(db);
   return { db, store };
 }
+
+beforeEach(() => {
+  process.env.ARKI_CONTINUITY_ENCRYPTION_KEY = key;
+});
 
 afterEach(() => {
   if (originalKey === undefined) delete process.env.ARKI_CONTINUITY_ENCRYPTION_KEY;
