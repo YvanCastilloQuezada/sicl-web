@@ -159,6 +159,7 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
       });
       const encrypted = encrypt(clear, context);
       db.exec("BEGIN IMMEDIATE");
+      let transactionOpen = true;
       try {
         db.prepare(`
           INSERT INTO arki_continuity_outbox
@@ -183,9 +184,10 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
           throw new Error("CONTINUITY_IDEMPOTENCY_CONFLICT");
         }
         db.exec("COMMIT");
+        transactionOpen = false;
         return { id: row.id, eventId: row.eventId, status: row.status, sha256: row.sha256 };
       } catch (error) {
-        if (db.isTransaction) db.exec("ROLLBACK");
+        if (transactionOpen) db.exec("ROLLBACK");
         throw error;
       }
     },
