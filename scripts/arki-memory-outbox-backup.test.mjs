@@ -25,9 +25,7 @@ test("SQLite outbox backup is a consistent, integrity-checked snapshot", async (
 
     const backup = new DatabaseSync(result.backupPath);
     try {
-      assert.deepEqual(backup.prepare("SELECT payload FROM events").get(), {
-        payload: "encrypted-event-envelope",
-      });
+      assert.equal(backup.prepare("SELECT payload FROM events").get()?.payload, "encrypted-event-envelope");
       assert.deepEqual(backup.prepare("PRAGMA integrity_check").get(), { integrity_check: "ok" });
     } finally { backup.close(); }
 
