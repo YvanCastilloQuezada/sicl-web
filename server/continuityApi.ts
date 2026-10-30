@@ -164,7 +164,7 @@ export function registerContinuityApi(app: Express) {
       event_type: input.eventType,
       workstream_id: input.workstreamId,
       occurred_at: input.occurredAt,
-      recorded_at: input.occurredAt,
+      recorded_at: new Date().toISOString(),
       actor: user.openId,
       authority_ref: input.authorityRef ?? null,
       source_system: "SICL_WEB" as const,
