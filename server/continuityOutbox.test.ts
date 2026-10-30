@@ -123,15 +123,31 @@ describe("ARKI MEMORY SQLite continuity outbox", () => {
     } finally { db.close(); }
   });
 
-  it("blocks poison events after bounded retries", () => {
+  it("keeps transient Core failures pending with exponential retry delay", () => {
     const { db, store } = fixture();
     try {
       const queued = store.enqueue({ ownerId: 7, projectId: "ARKI", event: event() });
       for (let i = 0; i < 12; i++) store.recordFailure(queued.id, "CORE_UNAVAILABLE");
       expect(store.event(7, "ARKI", queued.eventId)).toMatchObject({
-        status: "BLOCKED",
+        status: "PENDING_SYNC",
         attempts: 12,
         lastError: "CORE_UNAVAILABLE",
+      });
+      expect(store.pending()).toHaveLength(0);
+      const row = db.prepare("SELECT next_attempt_at FROM arki_continuity_outbox WHERE id=?").get(queued.id) as { next_attempt_at: string };
+      expect(Date.parse(row.next_attempt_at)).toBeGreaterThan(Date.now());
+    } finally { db.close(); }
+  });
+
+  it("blocks only explicitly permanent failures", () => {
+    const { db, store } = fixture();
+    try {
+      const queued = store.enqueue({ ownerId: 7, projectId: "ARKI", event: event() });
+      store.recordFailure(queued.id, "CORE_IDEMPOTENCY_CONFLICT", true);
+      expect(store.event(7, "ARKI", queued.eventId)).toMatchObject({
+        status: "BLOCKED",
+        attempts: 1,
+        lastError: "CORE_IDEMPOTENCY_CONFLICT",
       });
       expect(store.pending()).toHaveLength(0);
     } finally { db.close(); }
