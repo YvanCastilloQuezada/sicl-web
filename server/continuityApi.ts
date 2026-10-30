@@ -1,0 +1,191 @@
+import type { Express, Request, Response } from "express";
+import { randomUUID } from "node:crypto";
+import { z } from "zod";
+import { createContext } from "./_core/context";
+import { ENV } from "./_core/env";
+import { getSiclProject } from "./db";
+import {
+  enqueueContinuityEvent,
+  getContinuityOutboxStatus,
+  listPendingContinuityEvents,
+  markContinuitySynced,
+  recordContinuitySyncFailure,
+} from "./continuityOutbox";
+import { proxyCoreRequest } from "./coreHttpClient";
+
+const EVENT_TYPES = [
+  "SESSION_OPENED", "SESSION_CLOSED", "DECISION_RECORDED",
+  "TASK_STARTED", "TASK_UPDATED", "TASK_BLOCKED", "TASK_COMPLETED",
+  "EVIDENCE_ATTACHED", "ROADMAP_CHANGED", "HANDOFF_CREATED",
+  "CORRECTION_RECORDED",
+] as const;
+
+const eventInput = z.object({
+  eventType: z.enum(EVENT_TYPES),
+  workstreamId: z.string().trim().min(1).max(160),
+  occurredAt: z.string().datetime({ offset: true }),
+  idempotencyKey: z.string().trim().min(1).max(200),
+  authorityRef: z.string().trim().max(500).nullable().optional(),
+  sourceSha: z.string().trim().max(128).nullable().optional(),
+  evidenceRefs: z.array(z.string().trim().min(1).max(500)).max(100).default([]),
+  correlationId: z.string().trim().max(160).optional(),
+  supersedesEventId: z.string().trim().max(160).nullable().optional(),
+  payload: z.record(z.string(), z.unknown()).default({}),
+  confirmedByOwner: z.boolean().optional(),
+}).strict();
+
+let flushInProgress = false;
+
+export async function flushPendingContinuityOutbox() {
+  if (flushInProgress) return;
+  flushInProgress = true;
+  try {
+    const pending = await listPendingContinuityEvents(25);
+    for (const item of pending) {
+      try {
+        const response = await proxyCoreRequest(
+          `/v1/projects/${encodeURIComponent(item.row.projectId)}/continuity/events`,
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(item.event),
+          },
+        );
+        let body: Record<string, unknown> = {};
+        try { body = JSON.parse(response.body) as Record<string, unknown>; } catch { /* Keep HTTP status as evidence. */ }
+        if (response.status >= 200 && response.status < 300) {
+          const sequence = Number(body.event_sequence);
+          if (!Number.isSafeInteger(sequence) || sequence < 1) {
+            await recordContinuitySyncFailure(item.row.id, "CORE_RESPONSE_MISSING_EVENT_SEQUENCE", true);
+          } else {
+            await markContinuitySynced(item.row.id, sequence);
+          }
+        } else {
+          const detail = body.detail && typeof body.detail === "object"
+            ? (body.detail as Record<string, unknown>)
+            : body;
+          const code = typeof detail.code === "string" ? detail.code : `CORE_HTTP_${response.status}`;
+          const blocked = response.status === 400 || response.status === 401 ||
+            response.status === 403 || response.status === 409 ||
+            response.status === 413 || response.status === 422;
+          await recordContinuitySyncFailure(item.row.id, code, blocked);
+        }
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "CORE_SYNC_UNKNOWN_ERROR";
+        await recordContinuitySyncFailure(item.row.id, message, false);
+      }
+    }
+  } catch (error) {
+    console.error("[ARKI continuity] outbox flush unavailable:", error instanceof Error ? error.message : "unknown");
+  } finally {
+    flushInProgress = false;
+  }
+}
+
+async function authenticatedOwner(req: Request, res: Response) {
+  const context = await createContext({ req, res });
+  if (!context.user) {
+    res.status(401).json({ code: "UNAUTHENTICATED" });
+    return null;
+  }
+  return context.user;
+}
+
+export function registerContinuityApi(app: Express) {
+  app.post("/api/continuity/projects/:projectId/events", async (req, res) => {
+    const user = await authenticatedOwner(req, res);
+    if (!user) return;
+    const projectId = String(req.params.projectId ?? "");
+    const project = await getSiclProject(user.id, projectId);
+    if (!project) { res.status(404).json({ code: "PROJECT_NOT_FOUND" }); return; }
+
+    const parsed = eventInput.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(422).json({ code: "CONTINUITY_EVENT_INVALID", issues: parsed.error.issues });
+      return;
+    }
+    const input = parsed.data;
+    if (input.eventType === "DECISION_RECORDED") {
+      const ownerAuthority = user.role === "admin" && Boolean(ENV.ownerOpenId) && user.openId === ENV.ownerOpenId;
+      if (!ownerAuthority || input.confirmedByOwner !== true || !input.authorityRef) {
+        res.status(403).json({ code: "OWNER_HUMAN_AUTHORITY_REQUIRED" });
+        return;
+      }
+    }
+
+    const event = {
+      event_id: randomUUID(),
+      event_type: input.eventType,
+      workstream_id: input.workstreamId,
+      occurred_at: input.occurredAt,
+      recorded_at: input.occurredAt,
+      actor: user.openId,
+      authority_ref: input.authorityRef ?? null,
+      source_system: "SICL_WEB" as const,
+      source_sha: input.sourceSha ?? null,
+      evidence_refs: input.evidenceRefs,
+      payload: input.payload,
+      idempotency_key: input.idempotencyKey,
+      correlation_id: input.correlationId ?? randomUUID(),
+      supersedes_event_id: input.supersedesEventId ?? null,
+    };
+
+    try {
+      const queued = await enqueueContinuityEvent({ ownerId: user.id, projectId, event });
+      await flushPendingContinuityOutbox();
+      const status = await getContinuityOutboxStatus(user.id, projectId);
+      const synced = status.SYNCED ?? 0;
+      const pending = status.PENDING_SYNC ?? 0;
+      res.status(pending > 0 ? 202 : 200).json({
+        code: pending > 0 ? "PENDING_SYNC" : "SYNCED",
+        eventId: queued.eventId,
+        sha256: queued.sha256,
+        outbox: status,
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "CONTINUITY_WRITE_FAILED";
+      const conflict = message === "CONTINUITY_IDEMPOTENCY_CONFLICT";
+      res.status(conflict ? 409 : 503).json({ code: message, retryable: !conflict });
+    }
+  });
+
+  app.get("/api/continuity/projects/:projectId/events", async (req, res) => {
+    const user = await authenticatedOwner(req, res);
+    if (!user) return;
+    const projectId = String(req.params.projectId ?? "");
+    const project = await getSiclProject(user.id, projectId);
+    if (!project) { res.status(404).json({ code: "PROJECT_NOT_FOUND" }); return; }
+    const afterId = Number(req.query.after_id ?? 0);
+    if (!Number.isSafeInteger(afterId) || afterId < 0) { res.status(400).json({ code: "INVALID_CURSOR" }); return; }
+    try {
+      const response = await proxyCoreRequest(
+        `/v1/projects/${encodeURIComponent(projectId)}/continuity/events?after_id=${afterId}`,
+        { method: "GET" },
+      );
+      res.status(response.status).type("application/json").send(response.body);
+    } catch {
+      res.status(503).json({ code: "CORE_UNAVAILABLE" });
+    }
+  });
+
+  app.get("/api/continuity/projects/:projectId/checkpoint", async (req, res) => {
+    const user = await authenticatedOwner(req, res);
+    if (!user) return;
+    const projectId = String(req.params.projectId ?? "");
+    const project = await getSiclProject(user.id, projectId);
+    if (!project) { res.status(404).json({ code: "PROJECT_NOT_FOUND" }); return; }
+    try {
+      const response = await proxyCoreRequest(
+        `/v1/projects/${encodeURIComponent(projectId)}/continuity/checkpoint`,
+        { method: "GET" },
+      );
+      const outbox = await getContinuityOutboxStatus(user.id, projectId);
+      res.status(response.status).type("application/json").send(JSON.stringify({
+        core: JSON.parse(response.body),
+        web_outbox: outbox,
+      }));
+    } catch {
+      res.status(503).json({ code: "CORE_UNAVAILABLE" });
+    }
+  });
+}
