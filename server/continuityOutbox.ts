@@ -240,21 +240,17 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
     },
 
     recordFailure(id: number, error: string, blocked = false) {
-      const current = db.prepare("SELECT attempts FROM arki_continuity_outbox WHERE id=? AND status='PENDING_SYNC'")
-        .get(id) as { attempts: number } | undefined;
-      if (!current) return;
-      const attempts = Number(current.attempts) + 1;
-      const delaySeconds = Math.min(3600, 30 * (2 ** Math.min(attempts - 1, 7)));
-      const nextAttemptAt = blocked ? null : new Date(Date.now() + delaySeconds * 1000).toISOString();
       db.prepare(`
         UPDATE arki_continuity_outbox
-        SET attempts=?,
+        SET attempts=attempts+1,
             status=CASE WHEN ?=1 THEN 'BLOCKED' ELSE 'PENDING_SYNC' END,
-            next_attempt_at=?,
+            next_attempt_at=CASE WHEN ?=1 THEN NULL ELSE
+              strftime('%Y-%m-%dT%H:%M:%fZ', '+' || MIN(3600, 30 * (1 << MIN(attempts, 7))) || ' seconds')
+            END,
             last_error=?,
             updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
         WHERE id=? AND status='PENDING_SYNC'
-      `).run(attempts, blocked ? 1 : 0, nextAttemptAt, error.slice(0, 1000), id);
+      `).run(blocked ? 1 : 0, blocked ? 1 : 0, error.slice(0, 1000), id);
     },
 
     status(ownerId: number, projectId: string) {
