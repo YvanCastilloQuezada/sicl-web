@@ -103,8 +103,8 @@ export async function flushPendingContinuityOutbox() {
             : body;
           const code = typeof detail.code === "string" ? detail.code : `CORE_HTTP_${response.status}`;
           const blocked = response.status === 400 || response.status === 401 ||
-            response.status === 403 || response.status === 409 ||
-            response.status === 413 || response.status === 422;
+            response.status === 403 || response.status === 404 || response.status === 405 ||
+            response.status === 409 || response.status === 413 || response.status === 422;
           await recordContinuitySyncFailure(item.row.id, code, blocked);
         }
       } catch (error) {
