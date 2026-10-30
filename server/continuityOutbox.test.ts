@@ -1,6 +1,9 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { createRequire } from "node:module";
 import { randomBytes } from "node:crypto";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { createContinuityOutboxStore, type ContinuityEnvelope } from "./continuityOutbox";
 
 const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite") as typeof import("node:sqlite");
@@ -50,6 +53,24 @@ describe("ARKI MEMORY SQLite continuity outbox", () => {
       expect(pending[0].event).toEqual(event());
       expect(pending[0].row.encryptedEnvelope).not.toContain("Outbox persistence test");
     } finally { db.close(); }
+  });
+
+  it("survives closing and reopening a file-backed SQLite database", async () => {
+    const directory = await mkdtemp(join(tmpdir(), "arki-memory-outbox-"));
+    const file = join(directory, "outbox.sqlite");
+    try {
+      const firstDb = new DatabaseSync(file);
+      const firstStore = createContinuityOutboxStore(firstDb);
+      firstStore.enqueue({ ownerId: 7, projectId: "ARKI", event: event() });
+      firstDb.close();
+
+      const secondDb = new DatabaseSync(file);
+      try {
+        const secondStore = createContinuityOutboxStore(secondDb);
+        expect(secondStore.pending()).toHaveLength(1);
+        expect(secondStore.pending()[0].event).toEqual(event());
+      } finally { secondDb.close(); }
+    } finally { await rm(directory, { recursive: true, force: true }); }
   });
 
   it("is idempotent for identical retries and rejects changed content", () => {
