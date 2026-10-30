@@ -10,6 +10,7 @@ on:
       - "server/_core/index.ts"
       - "drizzle/**"
       - "scripts/arki-memory-core-projection*"
+      - "scripts/arki-memory-outbox-backup*"
       - ".github/workflows/arki-memory-web-ci.yml"
   pull_request:
     branches: [main]
@@ -49,3 +50,5 @@ jobs:
         run: pnpm check
       - name: Core projection unit tests
         run: node --test scripts/arki-memory-core-projection.test.mjs
+      - name: SQLite outbox backup tests
+        run: node --test scripts/arki-memory-outbox-backup.test.mjs
