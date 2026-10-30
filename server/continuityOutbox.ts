@@ -245,7 +245,7 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
         SET attempts=attempts+1,
             status=CASE WHEN ?=1 THEN 'BLOCKED' ELSE 'PENDING_SYNC' END,
             next_attempt_at=CASE WHEN ?=1 THEN NULL ELSE
-              strftime('%Y-%m-%dT%H:%M:%fZ', '+' || MIN(3600, 30 * (1 << MIN(attempts, 7))) || ' seconds')
+              strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '+' || MIN(3600, 30 * (1 << MIN(attempts, 7))) || ' seconds')
             END,
             last_error=?,
             updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
