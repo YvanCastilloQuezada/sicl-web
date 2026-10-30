@@ -1,0 +1,43 @@
+name: ARKI MEMORY Core Projection
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "31 */6 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arki-memory-core-projection
+  cancel-in-progress: false
+
+jobs:
+  project:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test projection renderer
+        run: node --test scripts/arki-memory-core-projection.test.mjs
+      - name: Pull canonical events from SICL Core
+        env:
+          SICL_CORE_URL: ${{ secrets.SICL_CORE_URL }}
+          SICL_CORE_SERVICE_TOKEN: ${{ secrets.SICL_CORE_SERVICE_TOKEN }}
+          ARKI_MEMORY_PROJECT_IDS: ${{ vars.ARKI_MEMORY_PROJECT_IDS }}
+          ARKI_MEMORY_OUTPUT_DIR: artifacts/arki-memory
+        run: node scripts/arki-memory-core-projection.mjs
+      - name: Publish projection for recovery review
+        uses: actions/upload-artifact@v4
+        with:
+          name: arki-memory-core-${{ github.run_id }}
+          path: artifacts/arki-memory/
+          if-no-files-found: error
+          retention-days: 30
