@@ -6,7 +6,9 @@ on:
       - feat/arki-memory-continuity-m2-m5-20261030
     paths:
       - "server/continuityApi.ts"
+      - "server/continuityApi.test.ts"
       - "server/continuityOutbox.ts"
+      - "server/continuityOutbox.test.ts"
       - "server/_core/index.ts"
       - "drizzle/**"
       - "scripts/arki-memory-core-projection*"
