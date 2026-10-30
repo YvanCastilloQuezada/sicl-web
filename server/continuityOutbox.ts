@@ -151,45 +151,60 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
 
   return {
     enqueue(input: { ownerId: number; projectId: string; event: ContinuityEnvelope }) {
-      const clear = canonical(input.event);
-      const sha256 = createHash("sha256").update(clear).digest("hex");
-      const context = aad({
-        ownerId: input.ownerId,
-        projectId: input.projectId,
-        workstreamId: input.event.workstream_id,
-        eventId: input.event.event_id,
-        idempotencyKey: input.event.idempotency_key,
-        eventType: input.event.event_type,
-      });
-      const encrypted = encrypt(clear, context);
       db.exec("BEGIN IMMEDIATE");
       let transactionOpen = true;
       try {
+        // Serialize concurrent retries and preserve the original server-side recorded_at.
+        const existingRaw = db.prepare(`
+          SELECT * FROM arki_continuity_outbox
+          WHERE event_id=? OR (owner_id=? AND project_id=? AND idempotency_key=?)
+          LIMIT 2
+        `).all(input.event.event_id, input.ownerId, input.projectId, input.event.idempotency_key) as Record<string, unknown>[];
+        const existingRows = existingRaw.map(mapRow);
+        if (existingRows.length > 0) {
+          const existing = existingRows.find((row) => row.eventId === input.event.event_id)
+            ?? existingRows.find((row) => row.idempotencyKey === input.event.idempotency_key);
+          if (!existing || existing.ownerId !== input.ownerId || existing.projectId !== input.projectId ||
+              existing.eventId !== input.event.event_id || existing.idempotencyKey !== input.event.idempotency_key) {
+            throw new Error("CONTINUITY_IDEMPOTENCY_CONFLICT");
+          }
+          const previous = decrypt(existing);
+          const comparable = (event: ContinuityEnvelope) => canonical({ ...event, recorded_at: null });
+          if (comparable(previous) !== comparable(input.event)) {
+            throw new Error("CONTINUITY_IDEMPOTENCY_CONFLICT");
+          }
+          db.exec("COMMIT");
+          transactionOpen = false;
+          return { id: existing.id, eventId: existing.eventId, status: existing.status, sha256: existing.sha256 };
+        }
+
+        const clear = canonical(input.event);
+        const sha256 = createHash("sha256").update(clear).digest("hex");
+        const context = aad({
+          ownerId: input.ownerId,
+          projectId: input.projectId,
+          workstreamId: input.event.workstream_id,
+          eventId: input.event.event_id,
+          idempotencyKey: input.event.idempotency_key,
+          eventType: input.event.event_type,
+        });
+        const encrypted = encrypt(clear, context);
         db.prepare(`
           INSERT INTO arki_continuity_outbox
           (owner_id, project_id, workstream_id, event_id, idempotency_key, event_type,
            encrypted_envelope, nonce, auth_tag, sha256, status)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'PENDING_SYNC')
-          ON CONFLICT DO NOTHING
         `).run(
           input.ownerId, input.projectId, input.event.workstream_id, input.event.event_id,
           input.event.idempotency_key, input.event.event_type, encrypted.encryptedEnvelope,
           encrypted.nonce, encrypted.authTag, sha256,
         );
-        const raw = db.prepare(`
-          SELECT * FROM arki_continuity_outbox
-          WHERE event_id=? OR (owner_id=? AND project_id=? AND idempotency_key=?)
-          LIMIT 2
-        `).all(input.event.event_id, input.ownerId, input.projectId, input.event.idempotency_key) as Record<string, unknown>[];
-        const rows = raw.map(mapRow);
-        const row = rows.find((item) => item.eventId === input.event.event_id)
-          ?? rows.find((item) => item.idempotencyKey === input.event.idempotency_key);
-        if (!row || row.ownerId !== input.ownerId || row.projectId !== input.projectId || row.sha256 !== sha256) {
-          throw new Error("CONTINUITY_IDEMPOTENCY_CONFLICT");
-        }
+        const inserted = db.prepare("SELECT id, status FROM arki_continuity_outbox WHERE event_id=?")
+          .get(input.event.event_id) as { id: number; status: OutboxStatus } | undefined;
+        if (!inserted) throw new Error("CONTINUITY_OUTBOX_INSERT_NOT_CONFIRMED");
         db.exec("COMMIT");
         transactionOpen = false;
-        return { id: row.id, eventId: row.eventId, status: row.status, sha256: row.sha256 };
+        return { id: Number(inserted.id), eventId: input.event.event_id, status: inserted.status, sha256 };
       } catch (error) {
         if (transactionOpen) db.exec("ROLLBACK");
         throw error;
