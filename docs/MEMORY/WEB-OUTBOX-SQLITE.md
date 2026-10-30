@@ -31,7 +31,8 @@ Do not regenerate the key after events have been queued. Losing or changing it m
 - AES-256-GCM protects the event envelope. Authenticated additional data binds the ciphertext to owner, project, workstream, event ID, idempotency key and event type.
 - SHA-256 is checked after decryption.
 - Event and idempotency uniqueness are enforced by SQLite constraints.
-- Delivery retries are bounded; after 12 failed attempts the event becomes `BLOCKED` and requires operator review.
+- Transient delivery failures remain `PENDING_SYNC` and use an atomic exponential retry schedule: 30 seconds, doubling to a maximum of one hour. They are not discarded or automatically blocked by attempt count.
+- Permanent failures (for example, invalid authorization, schema rejection or idempotency conflict) become `BLOCKED` and require operator review.
 
 ## Deployment checklist
 
