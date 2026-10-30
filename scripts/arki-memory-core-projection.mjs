@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import path from "node:path";
-import process from "node:process";
+import { pathToFileURL } from "node:url";
+import process from "node:process";\nimport { createHash } from "node:crypto";
 
 const CORE_URL = process.env.SICL_CORE_URL?.trim().replace(/\/$/, "");
 const TOKEN = process.env.SICL_CORE_SERVICE_TOKEN?.trim();
@@ -11,7 +12,7 @@ function safeText(value, limit = 240) {
   return String(value ?? "").replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").slice(0, limit);
 }
 
-function summarizePayload(payload) {
+function awaitHash(value) {\n  return createHash("sha256").update(String(value)).digest("hex").slice(0, 16);\n}\n\nfunction summarizePayload(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return "Sin resumen de payload";
   const candidate = payload.summary ?? payload.decision ?? payload.title ?? payload.description;
   return candidate ? safeText(candidate) : "Evento registrado; detalle conservado en Core";
@@ -25,7 +26,7 @@ export function buildProjection(projectId, checkpoint, events, generatedAt = new
     workstream_id: event.workstream_id,
     occurred_at: event.occurred_at,
     recorded_at: event.recorded_at,
-    actor: safeText(event.actor, 80),
+    actor_ref: event.actor ? "sha256:" + (awaitHash(event.actor)) : null,
     authority_ref: event.authority_ref ?? null,
     source_sha: event.source_sha ?? null,
     evidence_refs: Array.isArray(event.evidence_refs) ? event.evidence_refs.slice(0, 20) : [],
@@ -98,6 +99,6 @@ async function main() {
   console.log("ARKI MEMORY projection generated for " + manifest.projects.length + " project(s)");
 }
 
-if (import.meta.url === "file://" + process.argv[1]) {
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   main().catch((error) => { console.error(error instanceof Error ? error.message : "PROJECTION_FAILED"); process.exitCode = 1; });
 }
