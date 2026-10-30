@@ -20,6 +20,7 @@ jobs:
           MARIADB_DATABASE: arki_test
           MARIADB_USER: arki_web
           MARIADB_PASSWORD: ci-test-password
+          MARIADB_USER_HOST: '%'
         ports:
           - 3307:3306
         options: >-
