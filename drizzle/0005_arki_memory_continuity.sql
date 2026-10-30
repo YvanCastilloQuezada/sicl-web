@@ -1,0 +1,23 @@
+CREATE TABLE `arki_continuity_outbox` (
+  `id` int AUTO_INCREMENT NOT NULL,
+  `ownerId` int NOT NULL,
+  `projectId` varchar(128) NOT NULL,
+  `workstreamId` varchar(160) NOT NULL,
+  `eventId` varchar(160) NOT NULL,
+  `idempotencyKey` varchar(200) NOT NULL,
+  `eventType` varchar(80) NOT NULL,
+  `encryptedEnvelope` text NOT NULL,
+  `nonce` varchar(32) NOT NULL,
+  `authTag` varchar(32) NOT NULL,
+  `sha256` varchar(64) NOT NULL,
+  `status` enum('PENDING_SYNC','SYNCED','BLOCKED') NOT NULL DEFAULT 'PENDING_SYNC',
+  `attempts` int NOT NULL DEFAULT 0,
+  `lastError` text,
+  `coreSequence` int,
+  `createdAt` timestamp NOT NULL DEFAULT (now()),
+  `updatedAt` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `arki_continuity_outbox_id` PRIMARY KEY(`id`),
+  CONSTRAINT `arki_continuity_event_id_unique` UNIQUE(`eventId`),
+  CONSTRAINT `arki_continuity_idempotency_unique` UNIQUE(`ownerId`,`projectId`,`idempotencyKey`),
+  INDEX `arki_continuity_pending_idx` (`status`,`createdAt`)
+);
