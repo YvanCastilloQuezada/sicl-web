@@ -2,10 +2,12 @@
 import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import fs from "node:fs/promises";
+import { createReadStream } from "node:fs";
+import { pathToFileURL } from "node:url";
 import path from "node:path";
 import process from "node:process";
 
-const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite") as typeof import("node:sqlite");
+const { DatabaseSync } = createRequire(import.meta.url)("node:sqlite");
 
 function quoteSqlitePath(value) {
   return "'" + value.replaceAll("'", "''") + "'";
@@ -13,12 +15,7 @@ function quoteSqlitePath(value) {
 
 async function sha256File(file) {
   const hash = createHash("sha256");
-  const handle = await fs.open(file, "r");
-  try {
-    for await (const chunk of handle.createReadStream()) hash.update(chunk);
-  } finally {
-    await handle.close();
-  }
+  for await (const chunk of createReadStream(file)) hash.update(chunk);
   return hash.digest("hex");
 }
 
@@ -82,7 +79,7 @@ async function main() {
   console.log(JSON.stringify(result.manifest));
 }
 
-if (process.argv[1] && import.meta.url === new URL(`file://${path.resolve(process.argv[1])}`).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {
   main().catch((error) => {
     console.error(error instanceof Error ? error.message : "OUTBOX_BACKUP_FAILED");
     process.exitCode = 1;
