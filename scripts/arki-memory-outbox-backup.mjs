@@ -139,6 +139,18 @@ export async function restoreContinuityOutbox({ backupPath, targetPath, manifest
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+  if (args[0] === "--restore") {
+    if (!args[1] || !args[2] || args.length > 3) {
+      throw new Error("USAGE: node scripts/arki-memory-outbox-backup.mjs --restore <backup.sqlite> <target.sqlite>");
+    }
+    const result = await restoreContinuityOutbox({ backupPath: args[1], targetPath: args[2] });
+    console.log(JSON.stringify(result));
+    return;
+  }
+  if (args.length > 0) {
+    throw new Error("UNKNOWN_ARGUMENT; use --restore <backup.sqlite> <target.sqlite> or no arguments for backup");
+  }
   const root = process.env.ARKI_STORAGE_ROOT?.trim() || path.join(process.cwd(), "data");
   const sourcePath = process.env.ARKI_CONTINUITY_OUTBOX_PATH?.trim()
     || path.join(root, "memory", "continuity-outbox.sqlite");
