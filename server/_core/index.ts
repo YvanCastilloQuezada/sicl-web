@@ -15,6 +15,7 @@ import { serveStatic, setupVite } from "./vite";
 import { checkCoreHealth, classifyCoreError, proxyCoreRequest } from "../coreHttpClient";
 import { attachParametricWebSocket } from "../parametricRealtime";
 import { rateLimit, recordSecurityEvent, securityHeaders, writeRequestGuard } from "../security";
+import { registerContinuityApi, flushPendingContinuityOutbox } from "../continuityApi";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -108,11 +109,15 @@ async function startServer() {
   });
   app.use("/api/oauth", rateLimit({ name: "oauth", max: 30 }));
   app.use("/api/core", rateLimit({ name: "core", max: 90 }));
+  app.use("/api/continuity", rateLimit({ name: "continuity", max: 60 }));
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   registerArkiMo22(app);
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   registerArkiLocalRoutes(app);
+  registerContinuityApi(app);
+  void flushPendingContinuityOutbox();
+  setInterval(() => { void flushPendingContinuityOutbox(); }, 60_000).unref();
   app.get("/api/core/health", async (_req, res) => {
     const correlationId = randomUUID();
     res.setHeader("x-correlation-id", correlationId);
