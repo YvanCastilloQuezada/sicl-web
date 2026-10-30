@@ -42,6 +42,10 @@ export async function flushPendingContinuityOutbox() {
   try {
     const pending = await listPendingContinuityEvents(25);
     for (const item of pending) {
+      if (!item.event) {
+        await recordContinuitySyncFailure(item.row.id, item.decryptError ?? "CONTINUITY_DECRYPTION_FAILED", true);
+        continue;
+      }
       try {
         const response = await proxyCoreRequest(
           `/v1/projects/${encodeURIComponent(item.row.projectId)}/continuity/events`,
@@ -136,8 +140,10 @@ export function registerContinuityApi(app: Express) {
       await flushPendingContinuityOutbox();
       const status = await getContinuityOutboxStatus(user.id, projectId);
       const pending = status.PENDING_SYNC ?? 0;
-      res.status(pending > 0 ? 202 : 200).json({
-        code: pending > 0 ? "PENDING_SYNC" : "SYNCED",
+      const blocked = status.BLOCKED ?? 0;
+      const resultCode = pending > 0 ? "PENDING_SYNC" : blocked > 0 ? "BLOCKED" : "SYNCED";
+      res.status(pending > 0 ? 202 : blocked > 0 ? 409 : 200).json({
+        code: resultCode,
         eventId: queued.eventId,
         sha256: queued.sha256,
         outbox: status,
