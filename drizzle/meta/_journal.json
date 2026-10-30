@@ -36,6 +36,13 @@
       "when": 1790050693169,
       "tag": "0004_salty_stryfe",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1793361600000,
+      "tag": "0005_arki_memory_continuity",
+      "breakpoints": true
     }
   ]
 }
