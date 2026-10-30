@@ -38,6 +38,7 @@ type OutboxRow = {
   sha256: string;
   status: OutboxStatus;
   attempts: number;
+  nextAttemptAt: string | null;
   lastError: string | null;
   coreSequence: number | null;
   createdAt: string;
@@ -115,6 +116,7 @@ function mapRow(row: Record<string, unknown>): OutboxRow {
     sha256: String(row.sha256),
     status: String(row.status) as OutboxStatus,
     attempts: Number(row.attempts),
+    nextAttemptAt: row.next_attempt_at == null ? null : String(row.next_attempt_at),
     lastError: row.last_error == null ? null : String(row.last_error),
     coreSequence: row.core_sequence == null ? null : Number(row.core_sequence),
     createdAt: String(row.created_at),
@@ -139,6 +141,7 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
       sha256 TEXT NOT NULL,
       status TEXT NOT NULL CHECK(status IN ('PENDING_SYNC','SYNCED','BLOCKED')),
       attempts INTEGER NOT NULL DEFAULT 0,
+      next_attempt_at TEXT,
       last_error TEXT,
       core_sequence INTEGER,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
@@ -148,6 +151,10 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
     CREATE INDEX IF NOT EXISTS arki_continuity_pending_idx
       ON arki_continuity_outbox(status, created_at);
   `);
+  const columns = db.prepare("PRAGMA table_info(arki_continuity_outbox)").all() as Array<{ name: string }>;
+  if (!columns.some((column) => column.name === "next_attempt_at")) {
+    db.exec("ALTER TABLE arki_continuity_outbox ADD COLUMN next_attempt_at TEXT");
+  }
 
   return {
     enqueue(input: { ownerId: number; projectId: string; event: ContinuityEnvelope }) {
@@ -214,7 +221,7 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
     pending(limit = 25) {
       const rows = db.prepare(`
         SELECT * FROM arki_continuity_outbox
-        WHERE status='PENDING_SYNC' ORDER BY created_at ASC, id ASC LIMIT ?
+        WHERE status='PENDING_SYNC' AND (next_attempt_at IS NULL OR next_attempt_at <= strftime('%Y-%m-%dT%H:%M:%fZ','now')) ORDER BY created_at ASC, id ASC LIMIT ?
       `).all(limit) as Record<string, unknown>[];
       return rows.map((raw) => {
         const row = mapRow(raw);
@@ -226,21 +233,28 @@ export function createContinuityOutboxStore(db: DatabaseSyncType) {
     markSynced(id: number, coreSequence: number) {
       db.prepare(`
         UPDATE arki_continuity_outbox
-        SET status='SYNCED', core_sequence=?, last_error=NULL,
+        SET status='SYNCED', core_sequence=?, last_error=NULL, next_attempt_at=NULL,
             updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
         WHERE id=? AND status='PENDING_SYNC'
       `).run(coreSequence, id);
     },
 
     recordFailure(id: number, error: string, blocked = false) {
+      const current = db.prepare("SELECT attempts FROM arki_continuity_outbox WHERE id=? AND status='PENDING_SYNC'")
+        .get(id) as { attempts: number } | undefined;
+      if (!current) return;
+      const attempts = Number(current.attempts) + 1;
+      const delaySeconds = Math.min(3600, 30 * (2 ** Math.min(attempts - 1, 7)));
+      const nextAttemptAt = blocked ? null : new Date(Date.now() + delaySeconds * 1000).toISOString();
       db.prepare(`
         UPDATE arki_continuity_outbox
-        SET attempts=attempts+1,
-            status=CASE WHEN ?=1 OR attempts+1>=12 THEN 'BLOCKED' ELSE 'PENDING_SYNC' END,
+        SET attempts=?,
+            status=CASE WHEN ?=1 THEN 'BLOCKED' ELSE 'PENDING_SYNC' END,
+            next_attempt_at=?,
             last_error=?,
             updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')
         WHERE id=? AND status='PENDING_SYNC'
-      `).run(blocked ? 1 : 0, error.slice(0, 1000), id);
+      `).run(attempts, blocked ? 1 : 0, nextAttemptAt, error.slice(0, 1000), id);
     },
 
     status(ownerId: number, projectId: string) {
