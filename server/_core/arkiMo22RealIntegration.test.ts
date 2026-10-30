@@ -13,7 +13,7 @@ import { ENV } from "./env";
 import { registerArkiMo22, putArkiMo22 } from "./arkiMo22Bridge";
 describe("MO22 real bridge MariaDB HTTP",()=>{
  it("executes 13 authorization and integrity checks",async()=>{
-  const db=mysql.createPool({uri:process.env.DATABASE_URL!,timezone:"Z",connectionLimit:4});
+  const db=mysql.createPool(process.env.DATABASE_URL!,{timezone:"Z",connectionLimit:4});
   let server:any; let count=0;
   const check=async(name:string,fn:()=>Promise<void>)=>{await fn();count++;console.log("PASS",name)};
   try {
