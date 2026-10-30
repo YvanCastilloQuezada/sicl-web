@@ -2,7 +2,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
-import process from "node:process";\nimport { createHash } from "node:crypto";
+import process from "node:process";
+import { createHash } from "node:crypto";
 
 const CORE_URL = process.env.SICL_CORE_URL?.trim().replace(/\/$/, "");
 const TOKEN = process.env.SICL_CORE_SERVICE_TOKEN?.trim();
@@ -12,7 +13,11 @@ function safeText(value, limit = 240) {
   return String(value ?? "").replace(/[\r\n\t]/g, " ").replace(/\s+/g, " ").slice(0, limit);
 }
 
-function awaitHash(value) {\n  return createHash("sha256").update(String(value)).digest("hex").slice(0, 16);\n}\n\nfunction summarizePayload(payload) {
+function awaitHash(value) {
+  return createHash("sha256").update(String(value)).digest("hex").slice(0, 16);
+}
+
+function summarizePayload(payload) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) return "Sin resumen de payload";
   const candidate = payload.summary ?? payload.decision ?? payload.title ?? payload.description;
   return candidate ? safeText(candidate) : "Evento registrado; detalle conservado en Core";
