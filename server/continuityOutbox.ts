@@ -24,7 +24,7 @@ function encryptionKey(): Buffer {
   const raw = process.env.ARKI_CONTINUITY_ENCRYPTION_KEY?.trim();
   if (!raw) throw new Error("CONTINUITY_ENCRYPTION_KEY_REQUIRED");
   const key = Buffer.from(raw, "base64");
-  if (key.length !== 32) throw new Error("CONTINUITY_ENCRYPTION_KEY_INVALID");
+  if (key.length !== 32 || key.toString("base64") !== raw) throw new Error("CONTINUITY_ENCRYPTION_KEY_INVALID");
   return key;
 }
 
