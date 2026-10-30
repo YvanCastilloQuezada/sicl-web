@@ -48,7 +48,7 @@ Do not regenerate the key after events have been queued. Losing or changing it m
 
 ## Backup and recovery
 
-The outbox contains events that may not yet have reached Core. It must be included in the Arki-02 backup plan. Do not copy only the main SQLite file while WAL mode is active; use SQLite's online backup mechanism or a consistent SQLite snapshot. After recovery, preserve the encryption key, restore the database to the configured path, start Web, and inspect both `PENDING_SYNC` and `BLOCKED` rows. Core remains the canonical history once an event has been acknowledged there.
+The outbox contains events that may not yet have reached Core. It must be included in the Arki-02 backup plan. Run `node scripts/arki-memory-outbox-backup.mjs` on a daily systemd schedule. The script uses SQLite `VACUUM INTO` to create a consistent snapshot while WAL mode is active, verifies the snapshot, writes a SHA-256 manifest and applies restrictive file permissions. It defaults to `$ARKI_STORAGE_ROOT/backups/memory-outbox`; override with `ARKI_CONTINUITY_BACKUP_DIR`. Do not copy only the main SQLite file while WAL mode is active. After recovery, preserve the encryption key, restore the database to the configured path, start Web, and inspect both `PENDING_SYNC` and `BLOCKED` rows. Core remains the canonical history once an event has been acknowledged there.
 
 ## Epistemic state
 
