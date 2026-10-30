@@ -86,6 +86,12 @@ export async function flushPendingContinuityOutbox() {
   }
 }
 
+async function getOwnedPersistentProject(ownerId: number, projectId: string) {
+  const project = await getSiclProject(ownerId, projectId);
+  if (!project || project.id <= 0 || project.ownerId !== ownerId) return null;
+  return project;
+}
+
 async function authenticatedOwner(req: Request, res: Response) {
   const context = await createContext({ req, res });
   if (!context.user) {
@@ -100,7 +106,7 @@ export function registerContinuityApi(app: Express) {
     const user = await authenticatedOwner(req, res);
     if (!user) return;
     const projectId = String(req.params.projectId ?? "");
-    const project = await getSiclProject(user.id, projectId);
+    const project = await getOwnedPersistentProject(user.id, projectId);
     if (!project) { res.status(404).json({ code: "PROJECT_NOT_FOUND" }); return; }
 
     const parsed = eventInput.safeParse(req.body);
