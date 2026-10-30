@@ -20,6 +20,8 @@ export type ContinuityEnvelope = {
   supersedes_event_id: string | null;
 };
 
+type OutboxRow = typeof arkiContinuityOutbox.$inferSelect;
+
 function encryptionKey(): Buffer {
   const raw = process.env.ARKI_CONTINUITY_ENCRYPTION_KEY?.trim();
   if (!raw) throw new Error("CONTINUITY_ENCRYPTION_KEY_REQUIRED");
@@ -40,15 +42,26 @@ function canonical(value: unknown): string {
   return JSON.stringify(sortDeep(value));
 }
 
-function encrypt(value: string) {
+function authenticatedContext(input: Pick<OutboxRow, "ownerId" | "projectId" | "eventId" | "idempotencyKey">): Buffer {
+  return Buffer.from(canonical({
+    ownerId: input.ownerId,
+    projectId: input.projectId,
+    eventId: input.eventId,
+    idempotencyKey: input.idempotencyKey,
+  }), "utf8");
+}
+
+function encrypt(value: string, context: Buffer) {
   const nonce = randomBytes(12);
   const cipher = createCipheriv("aes-256-gcm", encryptionKey(), nonce);
+  cipher.setAAD(context);
   const ciphertext = Buffer.concat([cipher.update(value, "utf8"), cipher.final()]);
   return { encryptedEnvelope: ciphertext.toString("base64"), nonce: nonce.toString("hex"), authTag: cipher.getAuthTag().toString("hex") };
 }
 
-function decrypt(row: typeof arkiContinuityOutbox.$inferSelect): ContinuityEnvelope {
+function decrypt(row: OutboxRow): ContinuityEnvelope {
   const decipher = createDecipheriv("aes-256-gcm", encryptionKey(), Buffer.from(row.nonce, "hex"));
+  decipher.setAAD(authenticatedContext(row));
   decipher.setAuthTag(Buffer.from(row.authTag, "hex"));
   const clear = Buffer.concat([
     decipher.update(Buffer.from(row.encryptedEnvelope, "base64")),
@@ -57,6 +70,14 @@ function decrypt(row: typeof arkiContinuityOutbox.$inferSelect): ContinuityEnvel
   const event = JSON.parse(clear) as ContinuityEnvelope;
   const actual = createHash("sha256").update(canonical(event)).digest("hex");
   if (actual !== row.sha256) throw new Error("CONTINUITY_OUTBOX_INTEGRITY_FAILURE");
+  if (
+    event.event_id !== row.eventId ||
+    event.idempotency_key !== row.idempotencyKey ||
+    !event.event_id ||
+    !event.idempotency_key
+  ) {
+    throw new Error("CONTINUITY_OUTBOX_CONTEXT_MISMATCH");
+  }
   return event;
 }
 
@@ -69,7 +90,13 @@ export async function enqueueContinuityEvent(input: {
   if (!db) throw new Error("CONTINUITY_DATABASE_REQUIRED");
   const clear = canonical(input.event);
   const sha256 = createHash("sha256").update(clear).digest("hex");
-  const encrypted = encrypt(clear);
+  const context = authenticatedContext({
+    ownerId: input.ownerId,
+    projectId: input.projectId,
+    eventId: input.event.event_id,
+    idempotencyKey: input.event.idempotency_key,
+  });
+  const encrypted = encrypt(clear, context);
   await db.insert(arkiContinuityOutbox).values({
     ownerId: input.ownerId,
     projectId: input.projectId,
@@ -119,21 +146,21 @@ export async function markContinuitySynced(id: number, coreSequence: number) {
   if (!db) throw new Error("CONTINUITY_DATABASE_REQUIRED");
   await db.update(arkiContinuityOutbox).set({
     status: "SYNCED", coreSequence, lastError: null, updatedAt: new Date(),
-  }).where(eq(arkiContinuityOutbox.id, id));
+  }).where(and(eq(arkiContinuityOutbox.id, id), eq(arkiContinuityOutbox.status, "PENDING_SYNC")));
 }
 
 export async function recordContinuitySyncFailure(id: number, error: string, blocked = false) {
   const db = await getDb();
   if (!db) throw new Error("CONTINUITY_DATABASE_REQUIRED");
   const rows = await db.select().from(arkiContinuityOutbox).where(eq(arkiContinuityOutbox.id, id)).limit(1);
-  if (!rows[0]) return;
+  if (!rows[0] || rows[0].status !== "PENDING_SYNC") return;
   const attempts = rows[0].attempts + 1;
   await db.update(arkiContinuityOutbox).set({
     status: blocked || attempts >= 12 ? "BLOCKED" : "PENDING_SYNC",
     attempts,
     lastError: error.slice(0, 1000),
     updatedAt: new Date(),
-  }).where(eq(arkiContinuityOutbox.id, id));
+  }).where(and(eq(arkiContinuityOutbox.id, id), eq(arkiContinuityOutbox.status, "PENDING_SYNC")));
 }
 
 export async function getContinuityOutboxStatus(ownerId: number, projectId: string) {
@@ -141,7 +168,7 @@ export async function getContinuityOutboxStatus(ownerId: number, projectId: stri
   if (!db) throw new Error("CONTINUITY_DATABASE_REQUIRED");
   const rows = await db.select({
     status: arkiContinuityOutbox.status,
-    count: arkiContinuityOutbox.id,
+    id: arkiContinuityOutbox.id,
   }).from(arkiContinuityOutbox).where(and(
     eq(arkiContinuityOutbox.ownerId, ownerId),
     eq(arkiContinuityOutbox.projectId, projectId),
@@ -150,4 +177,22 @@ export async function getContinuityOutboxStatus(ownerId: number, projectId: stri
     acc[row.status] = (acc[row.status] ?? 0) + 1;
     return acc;
   }, {} as Record<string, number>);
+}
+
+export async function getContinuityOutboxEvent(ownerId: number, projectId: string, eventId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("CONTINUITY_DATABASE_REQUIRED");
+  const rows = await db.select({
+    eventId: arkiContinuityOutbox.eventId,
+    status: arkiContinuityOutbox.status,
+    sha256: arkiContinuityOutbox.sha256,
+    coreSequence: arkiContinuityOutbox.coreSequence,
+    attempts: arkiContinuityOutbox.attempts,
+    lastError: arkiContinuityOutbox.lastError,
+  }).from(arkiContinuityOutbox).where(and(
+    eq(arkiContinuityOutbox.ownerId, ownerId),
+    eq(arkiContinuityOutbox.projectId, projectId),
+    eq(arkiContinuityOutbox.eventId, eventId),
+  )).limit(1);
+  return rows[0] ?? null;
 }
