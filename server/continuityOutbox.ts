@@ -108,7 +108,10 @@ export async function listPendingContinuityEvents(limit = 25) {
     .where(eq(arkiContinuityOutbox.status, "PENDING_SYNC"))
     .orderBy(asc(arkiContinuityOutbox.createdAt))
     .limit(limit);
-  return rows.map((row) => ({ row, event: decrypt(row) }));
+  return rows.map((row) => {
+    try { return { row, event: decrypt(row), decryptError: null as string | null }; }
+    catch (error) { return { row, event: null, decryptError: error instanceof Error ? error.message : "CONTINUITY_DECRYPTION_FAILED" }; }
+  });
 }
 
 export async function markContinuitySynced(id: number, coreSequence: number) {
@@ -124,9 +127,10 @@ export async function recordContinuitySyncFailure(id: number, error: string, blo
   if (!db) throw new Error("CONTINUITY_DATABASE_REQUIRED");
   const rows = await db.select().from(arkiContinuityOutbox).where(eq(arkiContinuityOutbox.id, id)).limit(1);
   if (!rows[0]) return;
+  const attempts = rows[0].attempts + 1;
   await db.update(arkiContinuityOutbox).set({
-    status: blocked ? "BLOCKED" : "PENDING_SYNC",
-    attempts: rows[0].attempts + 1,
+    status: blocked || attempts >= 12 ? "BLOCKED" : "PENDING_SYNC",
+    attempts,
     lastError: error.slice(0, 1000),
     updatedAt: new Date(),
   }).where(eq(arkiContinuityOutbox.id, id));
