@@ -80,8 +80,13 @@ describe("ARKI MEMORY SQLite continuity outbox", () => {
     const { db, store } = fixture();
     try {
       const first = store.enqueue({ ownerId: 7, projectId: "ARKI", event: event() });
-      const retry = store.enqueue({ ownerId: 7, projectId: "ARKI", event: event() });
+      const retry = store.enqueue({
+        ownerId: 7,
+        projectId: "ARKI",
+        event: event({ recorded_at: "2026-10-30T11:00:00.000Z" }),
+      });
       expect(retry.id).toBe(first.id);
+      expect(store.pending()[0].event?.recorded_at).toBe("2026-10-30T10:00:00.000Z");
       expect(db.prepare("SELECT COUNT(*) AS count FROM arki_continuity_outbox").get()).toMatchObject({ count: 1 });
       expect(() => store.enqueue({
         ownerId: 7,
