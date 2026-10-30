@@ -19,7 +19,7 @@ jobs:
           MARIADB_ROOT_PASSWORD: ci-root-password
           MARIADB_DATABASE: arki_test
           MARIADB_USER: arki_web
-          MARIADB_PASSWORD: YjIPFV8y0K_ccBLcwnfirB7cowH64MepDrNfRDpzn-7zOspe
+          MARIADB_PASSWORD: ci-test-password
         ports:
           - 3307:3306
         options: >-
@@ -52,6 +52,7 @@ jobs:
       - name: Run tests
         env:
           SICL_CORE_SERVICE_TOKEN: ci-test-token
+          DATABASE_URL: mysql://arki_web:ci-test-password@127.0.0.1:3307/arki_test
           JWT_SECRET: ci-only-session-secret-not-for-production-2026
           VITE_APP_ID: arki-ci-test-app
           ARKI_STORAGE_ROOT: ${{ runner.temp }}/arki-mo22
