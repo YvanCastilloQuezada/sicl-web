@@ -3,7 +3,6 @@ import { DatabaseSync } from "node:sqlite";
 import { randomUUID } from "node:crypto";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { tmpdir } from "node:os";
 import express from "express";
 import { sdk } from "./sdk";
 import { ENV } from "./env";
@@ -59,8 +58,8 @@ function createSqliteLedger(db: DatabaseSync) {
 describe("MO22 isolated SQLite HTTP integration", () => {
   it("executes authorization, persistence and integrity checks without MariaDB", async () => {
     const db = new DatabaseSync(":memory:");
-    const root = await mkdtemp(join(process.env.RUNNER_TEMP ?? tmpdir(), "arki-mo22-sqlite-"));
-    let server: ReturnType<ReturnType<typeof express>["listen"]> | undefined;
+    const root = await mkdtemp(join(process.cwd(), ".arki-mo22-sqlite-"));
+    let server: any;
     try {
       db.exec("PRAGMA foreign_keys=ON");
       db.exec("CREATE TABLE sicl_projects (id INTEGER PRIMARY KEY, owner_id INTEGER NOT NULL, project_id TEXT NOT NULL UNIQUE)");
