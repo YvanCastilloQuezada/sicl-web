@@ -6,6 +6,7 @@ import { ENV } from "./_core/env";
 import { getSiclProject } from "./db";
 import {
   enqueueContinuityEvent,
+  getContinuityOutboxEvent,
   getContinuityOutboxStatus,
   listPendingContinuityEvents,
   markContinuitySynced,
@@ -56,7 +57,7 @@ export async function flushPendingContinuityOutbox() {
           },
         );
         let body: Record<string, unknown> = {};
-        try { body = JSON.parse(response.body) as Record<string, unknown>; } catch { /* Keep HTTP status as evidence. */ }
+        try { body = JSON.parse(response.body) as Record<string, unknown>; } catch { /* HTTP status remains the failure evidence. */ }
         if (response.status >= 200 && response.status < 300) {
           const sequence = Number(body.event_sequence);
           if (!Number.isSafeInteger(sequence) || sequence < 1) {
@@ -87,9 +88,9 @@ export async function flushPendingContinuityOutbox() {
 }
 
 async function getOwnedPersistentProject(ownerId: number, projectId: string) {
-  const project = await getSiclProject(ownerId, projectId);
-  if (!project || project.id <= 0 || project.ownerId !== ownerId) return null;
-  return project;
+  // getSiclProject already scopes the lookup by ownerId. Do not reject id=0:
+  // the existing UPAO seed path returns a valid owner-scoped project before its DB id is re-read.
+  return await getSiclProject(ownerId, projectId) ?? null;
 }
 
 async function authenticatedOwner(req: Request, res: Response) {
@@ -129,7 +130,7 @@ export function registerContinuityApi(app: Express) {
       event_type: input.eventType,
       workstream_id: input.workstreamId,
       occurred_at: input.occurredAt,
-      recorded_at: input.occurredAt,
+      recorded_at: new Date().toISOString(),
       actor: user.openId,
       authority_ref: input.authorityRef ?? null,
       source_system: "SICL_WEB" as const,
@@ -144,15 +145,18 @@ export function registerContinuityApi(app: Express) {
     try {
       const queued = await enqueueContinuityEvent({ ownerId: user.id, projectId, event });
       await flushPendingContinuityOutbox();
-      const status = await getContinuityOutboxStatus(user.id, projectId);
-      const pending = status.PENDING_SYNC ?? 0;
-      const blocked = status.BLOCKED ?? 0;
-      const resultCode = pending > 0 ? "PENDING_SYNC" : blocked > 0 ? "BLOCKED" : "SYNCED";
-      res.status(pending > 0 ? 202 : blocked > 0 ? 409 : 200).json({
-        code: resultCode,
-        eventId: queued.eventId,
-        sha256: queued.sha256,
-        outbox: status,
+      const current = await getContinuityOutboxEvent(user.id, projectId, queued.eventId);
+      if (!current) throw new Error("CONTINUITY_OUTBOX_EVENT_NOT_FOUND");
+      const aggregate = await getContinuityOutboxStatus(user.id, projectId);
+      const code = current.status;
+      res.status(code === "SYNCED" ? 200 : code === "BLOCKED" ? 409 : 202).json({
+        code,
+        eventId: current.eventId,
+        sha256: current.sha256,
+        coreSequence: current.coreSequence,
+        attempts: current.attempts,
+        lastError: current.lastError,
+        outbox: aggregate,
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : "CONTINUITY_WRITE_FAILED";
@@ -165,7 +169,7 @@ export function registerContinuityApi(app: Express) {
     const user = await authenticatedOwner(req, res);
     if (!user) return;
     const projectId = String(req.params.projectId ?? "");
-    const project = await getSiclProject(user.id, projectId);
+    const project = await getOwnedPersistentProject(user.id, projectId);
     if (!project) { res.status(404).json({ code: "PROJECT_NOT_FOUND" }); return; }
     const afterId = Number(req.query.after_id ?? 0);
     if (!Number.isSafeInteger(afterId) || afterId < 0) { res.status(400).json({ code: "INVALID_CURSOR" }); return; }
@@ -174,7 +178,7 @@ export function registerContinuityApi(app: Express) {
         `/v1/projects/${encodeURIComponent(projectId)}/continuity/events?after_id=${afterId}`,
         { method: "GET" },
       );
-      res.status(response.status).type("application/json").send(response.body);
+      res.status(response.status).type(response.contentType).send(response.body);
     } catch {
       res.status(503).json({ code: "CORE_UNAVAILABLE" });
     }
@@ -184,18 +188,20 @@ export function registerContinuityApi(app: Express) {
     const user = await authenticatedOwner(req, res);
     if (!user) return;
     const projectId = String(req.params.projectId ?? "");
-    const project = await getSiclProject(user.id, projectId);
+    const project = await getOwnedPersistentProject(user.id, projectId);
     if (!project) { res.status(404).json({ code: "PROJECT_NOT_FOUND" }); return; }
     try {
       const response = await proxyCoreRequest(
         `/v1/projects/${encodeURIComponent(projectId)}/continuity/checkpoint`,
         { method: "GET" },
       );
+      if (response.status < 200 || response.status >= 300) {
+        res.status(response.status).type(response.contentType).send(response.body);
+        return;
+      }
+      const core = JSON.parse(response.body) as Record<string, unknown>;
       const outbox = await getContinuityOutboxStatus(user.id, projectId);
-      res.status(response.status).type("application/json").send(JSON.stringify({
-        core: JSON.parse(response.body),
-        web_outbox: outbox,
-      }));
+      res.status(200).json({ core, web_outbox: outbox });
     } catch {
       res.status(503).json({ code: "CORE_UNAVAILABLE" });
     }
