@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, uniqueIndex, index } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -94,29 +94,3 @@ export type InsertArkiCommandSession = typeof arkiCommandSessions.$inferInsert;
 export type FederatedAssistantHandoff = typeof federatedAssistantHandoffs.$inferSelect;
 export type InsertFederatedAssistantHandoff = typeof federatedAssistantHandoffs.$inferInsert;
 
-
-export const arkiContinuityOutbox = mysqlTable("arki_continuity_outbox", {
-  id: int("id").autoincrement().primaryKey(),
-  ownerId: int("ownerId").notNull(),
-  projectId: varchar("projectId", { length: 128 }).notNull(),
-  workstreamId: varchar("workstreamId", { length: 160 }).notNull(),
-  eventId: varchar("eventId", { length: 160 }).notNull(),
-  idempotencyKey: varchar("idempotencyKey", { length: 200 }).notNull(),
-  eventType: varchar("eventType", { length: 80 }).notNull(),
-  encryptedEnvelope: text("encryptedEnvelope").notNull(),
-  nonce: varchar("nonce", { length: 32 }).notNull(),
-  authTag: varchar("authTag", { length: 32 }).notNull(),
-  sha256: varchar("sha256", { length: 64 }).notNull(),
-  status: mysqlEnum("status", ["PENDING_SYNC", "SYNCED", "BLOCKED"]).notNull().default("PENDING_SYNC"),
-  attempts: int("attempts").notNull().default(0),
-  lastError: text("lastError"),
-  coreSequence: int("coreSequence"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
-}, (table) => ({
-  eventIdUnique: uniqueIndex("arki_continuity_event_id_unique").on(table.eventId),
-  idempotencyUnique: uniqueIndex("arki_continuity_idempotency_unique").on(table.ownerId, table.projectId, table.idempotencyKey),
-  pendingIndex: index("arki_continuity_pending_idx").on(table.status, table.createdAt),
-}));
-
-export type ArkiContinuityOutbox = typeof arkiContinuityOutbox.$inferSelect;
