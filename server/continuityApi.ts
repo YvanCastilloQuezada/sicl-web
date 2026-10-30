@@ -88,9 +88,11 @@ export async function flushPendingContinuityOutbox() {
 }
 
 async function getOwnedPersistentProject(ownerId: number, projectId: string) {
-  // getSiclProject already scopes the lookup by ownerId. Do not reject id=0:
-  // the existing UPAO seed path returns a valid owner-scoped project before its DB id is re-read.
-  return await getSiclProject(ownerId, projectId) ?? null;
+  // The lookup is owner-scoped and the positive database ID proves the project is persisted.
+  // Never accept the in-memory fallback as durable MEMORY ownership evidence.
+  const project = await getSiclProject(ownerId, projectId);
+  if (!project || !Number.isSafeInteger(project.id) || project.id <= 0 || project.ownerId !== ownerId) return null;
+  return project;
 }
 
 async function authenticatedOwner(req: Request, res: Response) {
