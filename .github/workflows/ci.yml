@@ -2,7 +2,7 @@ name: SICL Web CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/arki-memory-continuity-m2-m5-20261030]
   pull_request:
     branches: [main]
 
