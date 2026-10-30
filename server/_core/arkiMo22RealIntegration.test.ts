@@ -12,9 +12,9 @@ import { createFileBackend } from "./arkiFileBackend.mjs";
 import { registerArkiStorageRoutes } from "./arkiHttpRoutes.mjs";
 
 function createSqliteLedger(db: DatabaseSync) {
-  const rows = (sql: string, values: unknown[] = []) => db.prepare(sql).all(...values) as Record<string, any>[];
-  const one = (sql: string, values: unknown[] = []) => db.prepare(sql).get(...values) as Record<string, any> | undefined;
-  const run = (sql: string, values: unknown[] = []) => db.prepare(sql).run(...values);
+  const rows = (sql: string, values: any[] = []) => db.prepare(sql).all(...values) as Record<string, any>[];
+  const one = (sql: string, values: any[] = []) => db.prepare(sql).get(...values) as Record<string, any> | undefined;
+  const run = (sql: string, values: any[] = []) => db.prepare(sql).run(...values);
   return {
     async tx<T>(fn: () => Promise<T> | T): Promise<T> {
       db.exec("BEGIN IMMEDIATE");
