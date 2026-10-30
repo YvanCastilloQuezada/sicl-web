@@ -1,5 +1,5 @@
 import type { Express, Request, Response } from "express";
-import { randomUUID } from "node:crypto";
+import { createHash } from "node:crypto";
 import { z } from "zod";
 import { createContext } from "./_core/context";
 import { ENV } from "./_core/env";
@@ -113,8 +113,9 @@ export function registerContinuityApi(app: Express) {
       }
     }
 
+    const stableId = createHash("sha256").update(`${user.id}:${projectId}:${input.idempotencyKey}`).digest("hex").slice(0, 32);
     const event = {
-      event_id: randomUUID(),
+      event_id: `SICL-${stableId}`,
       event_type: input.eventType,
       workstream_id: input.workstreamId,
       occurred_at: input.occurredAt,
@@ -126,7 +127,7 @@ export function registerContinuityApi(app: Express) {
       evidence_refs: input.evidenceRefs,
       payload: input.payload,
       idempotency_key: input.idempotencyKey,
-      correlation_id: input.correlationId ?? randomUUID(),
+      correlation_id: input.correlationId ?? `SICL-${stableId}`,
       supersedes_event_id: input.supersedesEventId ?? null,
     };
 
@@ -134,7 +135,6 @@ export function registerContinuityApi(app: Express) {
       const queued = await enqueueContinuityEvent({ ownerId: user.id, projectId, event });
       await flushPendingContinuityOutbox();
       const status = await getContinuityOutboxStatus(user.id, projectId);
-      const synced = status.SYNCED ?? 0;
       const pending = status.PENDING_SYNC ?? 0;
       res.status(pending > 0 ? 202 : 200).json({
         code: pending > 0 ? "PENDING_SYNC" : "SYNCED",
