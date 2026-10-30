@@ -46,6 +46,37 @@ afterEach(() => {
 });
 
 describe("ARKI MEMORY SQLite continuity outbox", () => {
+  it("adds the retry schedule column to an existing outbox database", () => {
+    const db = new DatabaseSync(":memory:");
+    try {
+      db.exec(`
+        CREATE TABLE arki_continuity_outbox (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          owner_id INTEGER NOT NULL,
+          project_id TEXT NOT NULL,
+          workstream_id TEXT NOT NULL,
+          event_id TEXT NOT NULL UNIQUE,
+          idempotency_key TEXT NOT NULL,
+          event_type TEXT NOT NULL,
+          encrypted_envelope TEXT NOT NULL,
+          nonce TEXT NOT NULL,
+          auth_tag TEXT NOT NULL,
+          sha256 TEXT NOT NULL,
+          status TEXT NOT NULL CHECK(status IN ('PENDING_SYNC','SYNCED','BLOCKED')),
+          attempts INTEGER NOT NULL DEFAULT 0,
+          last_error TEXT,
+          core_sequence INTEGER,
+          created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+          updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+          UNIQUE(owner_id, project_id, idempotency_key)
+        );
+      `);
+      createContinuityOutboxStore(db);
+      const columns = db.prepare("PRAGMA table_info(arki_continuity_outbox)").all() as Array<{ name: string }>;
+      expect(columns.some((column) => column.name === "next_attempt_at")).toBe(true);
+    } finally { db.close(); }
+  });
+
   it("persists encrypted events and decrypts them for retry", () => {
     const { db, store } = fixture();
     try {
