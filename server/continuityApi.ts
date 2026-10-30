@@ -41,7 +41,11 @@ const eventInput = z.object({
 
   const sensitiveKey = /(?:password|passwd|secret|api[_-]?key|access[_-]?token|refresh[_-]?token|private[_-]?key|credential|authorization|cookie)/i;
   const inspect = (item: unknown, path: string, depth: number): void => {
-    if (depth > 16 || !item || typeof item !== "object" || Array.isArray(item)) return;
+    if (depth > 16 || !item || typeof item !== "object") return;
+    if (Array.isArray(item)) {
+      item.forEach((child, index) => inspect(child, `${path}[${index}]`, depth + 1));
+      return;
+    }
     for (const [key, child] of Object.entries(item as Record<string, unknown>)) {
       const childPath = path ? `${path}.${key}` : key;
       if (sensitiveKey.test(key)) {
