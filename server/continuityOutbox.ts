@@ -28,8 +28,16 @@ function encryptionKey(): Buffer {
   return key;
 }
 
+function sortDeep(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(sortDeep);
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value as Record<string, unknown>).sort(([a], [b]) => a.localeCompare(b)).map(([key, item]) => [key, sortDeep(item)]));
+  }
+  return value;
+}
+
 function canonical(value: unknown): string {
-  return JSON.stringify(value, Object.keys(value as object).sort());
+  return JSON.stringify(sortDeep(value));
 }
 
 function encrypt(value: string) {
