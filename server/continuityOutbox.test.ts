@@ -167,6 +167,9 @@ describe("ARKI MEMORY SQLite continuity outbox", () => {
       expect(store.pending()).toHaveLength(0);
       const row = db.prepare("SELECT next_attempt_at FROM arki_continuity_outbox WHERE id=?").get(queued.id) as { next_attempt_at: string };
       expect(Date.parse(row.next_attempt_at)).toBeGreaterThan(Date.now());
+      db.prepare("UPDATE arki_continuity_outbox SET next_attempt_at=? WHERE id=?")
+        .run(new Date(Date.now() - 1000).toISOString(), queued.id);
+      expect(store.pending()).toHaveLength(1);
     } finally { db.close(); }
   });
 
