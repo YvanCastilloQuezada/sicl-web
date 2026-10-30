@@ -1,0 +1,19 @@
+[Unit]
+Description=ARKI MEMORY SICL Web SQLite outbox backup
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=arki
+Group=arki
+WorkingDirectory=/home/arki/ARKI/repositorios/sicl-web
+EnvironmentFile=-/etc/arki/sicl-web.env
+Environment=NODE_ENV=production
+UMask=0077
+ExecStart=/usr/bin/node scripts/arki-memory-outbox-backup.mjs
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/arki/ARKI

@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily ARKI MEMORY SICL Web SQLite outbox backup
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=120
+Unit=arki-memory-outbox-backup.service
+
+[Install]
+WantedBy=timers.target

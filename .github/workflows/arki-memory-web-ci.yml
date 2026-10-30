@@ -1,0 +1,57 @@
+name: ARKI MEMORY Web CI
+
+on:
+  push:
+    branches:
+      - feat/arki-memory-continuity-m2-m5-20261030
+    paths:
+      - "server/continuityApi.ts"
+      - "server/continuityApi.test.ts"
+      - "server/continuityOutbox.ts"
+      - "server/continuityOutbox.test.ts"
+      - "server/_core/index.ts"
+      - "drizzle/**"
+      - "scripts/arki-memory-core-projection*"
+      - "scripts/arki-memory-outbox-backup*"
+      - ".github/workflows/arki-memory-web-ci.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "server/continuityApi.ts"
+      - "server/continuityOutbox.ts"
+      - "server/_core/index.ts"
+      - "drizzle/**"
+      - "scripts/arki-memory-core-projection*"
+      - "scripts/arki-memory-outbox-backup*"
+      - ".github/workflows/arki-memory-web-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arki-memory-web-ci-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: TypeScript
+        run: pnpm check
+      - name: Core projection unit tests
+        run: node --test scripts/arki-memory-core-projection.test.mjs
+      - name: SQLite outbox backup tests
+        run: node --test scripts/arki-memory-outbox-backup.test.mjs

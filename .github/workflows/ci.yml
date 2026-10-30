@@ -2,7 +2,7 @@ name: SICL Web CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/arki-memory-continuity-m2-m5-20261030]
   pull_request:
     branches: [main]
 
@@ -12,21 +12,6 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    services:
-      mariadb:
-        image: mariadb:11.4.8
-        env:
-          MARIADB_ROOT_PASSWORD: ci-root-password
-          MARIADB_DATABASE: arki_test
-          MARIADB_USER: arki_web
-          MARIADB_PASSWORD: YjIPFV8y0K_ccBLcwnfirB7cowH64MepDrNfRDpzn-7zOspe
-        ports:
-          - 3307:3306
-        options: >-
-          --health-cmd="healthcheck.sh --connect --innodb_initialized"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=10
     steps:
       - name: Checkout
         uses: actions/checkout@v4

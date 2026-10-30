@@ -40,7 +40,18 @@ async function seedUpao(ownerId: number): Promise<SiclProject> {
   const now = new Date();
   const project = { id: 0, ownerId, projectId: "UPAO-001", name: "UPAO-001 · Plaza Center", location: "Trujillo · 2000 m² · FAR 5.0", status: "ACTIVE" as const, version: 1, snapshot: upaoSnapshot(), createdAt: now, updatedAt: now } as SiclProject;
   const db = await getDb();
-  if (db) { try { await db.insert(siclProjects).values({ ownerId, projectId: project.projectId, name: project.name, location: project.location, status: project.status, version: project.version, snapshot: project.snapshot }); } catch { /* another request seeded it */ } }
+  if (db) {
+    try {
+      await db.insert(siclProjects).values({ ownerId, projectId: project.projectId, name: project.name, location: project.location, status: project.status, version: project.version, snapshot: project.snapshot });
+    } catch { /* another request may have seeded the same owner/project */ }
+    const persisted = await db.select().from(siclProjects)
+      .where(and(eq(siclProjects.ownerId, ownerId), eq(siclProjects.projectId, project.projectId)))
+      .limit(1);
+    if (persisted[0]) {
+      memoryProjects.set(`${ownerId}:${project.projectId}`, persisted[0]);
+      return persisted[0];
+    }
+  }
   memoryProjects.set(`${ownerId}:${project.projectId}`, project);
   return project;
 }

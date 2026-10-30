@@ -93,3 +93,4 @@ export type ArkiCommandSession = typeof arkiCommandSessions.$inferSelect;
 export type InsertArkiCommandSession = typeof arkiCommandSessions.$inferInsert;
 export type FederatedAssistantHandoff = typeof federatedAssistantHandoffs.$inferSelect;
 export type InsertFederatedAssistantHandoff = typeof federatedAssistantHandoffs.$inferInsert;
+
