@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { createDemoCandidates, createDesignFunnel, completeDeepEvaluation, promoteToFinalFour, selectForDevelopment, returnToFinalFour, setComparisonMode } from "../shared/arkiDesignFunnel";
+import { createFixtureCandidates, createDesignFunnel, completeDeepEvaluation, promoteToFinalFour, selectForDevelopment, returnToFinalFour, setComparisonMode } from "../shared/arkiDesignFunnel";
 
-const makeState = () => createDesignFunnel({ projectId: "P-001", candidates: createDemoCandidates("P-001"), timestamp: "2026-01-01T00:00:00.000Z" });
+const makeState = () => createDesignFunnel({ projectId: "P-001", candidates: createFixtureCandidates("P-001"), timestamp: "2026-01-01T00:00:00.000Z" });
 
 describe("ARKI F5 epistemic separation", () => {
   it("keeps facts, assumptions, preferences, requirements, objectives and constraints structurally distinct", () => {
-    const candidate = createDemoCandidates("P-EPI")[0];
+    const candidate = createFixtureCandidates("P-EPI")[0];
 
     expect(candidate.epistemic.facts[0].id).toMatch(/^FACT-/);
     expect(candidate.epistemic.assumptions[0].id).toMatch(/^ASSUMPTION-/);
@@ -19,7 +19,7 @@ describe("ARKI F5 epistemic separation", () => {
   });
 
   it("does not convert an assumption into a fact when the candidate enters the funnel", () => {
-    const candidates = createDemoCandidates("P-EPI");
+    const candidates = createFixtureCandidates("P-EPI");
     const assumption = candidates[0].epistemic.assumptions[0];
     const state = createDesignFunnel({ projectId: "P-EPI", candidates });
 
@@ -28,7 +28,7 @@ describe("ARKI F5 epistemic separation", () => {
   });
 
   it("preserves preferences separately from objectives through human promotion", () => {
-    const state = createDesignFunnel({ projectId: "P-EPI", candidates: createDemoCandidates("P-EPI") });
+    const state = createDesignFunnel({ projectId: "P-EPI", candidates: createFixtureCandidates("P-EPI") });
     const preference = state.candidates[0].epistemic.preferences[0];
     const objective = state.candidates[0].epistemic.objectives[0];
 
@@ -41,7 +41,7 @@ describe("ARKI F5 epistemic separation", () => {
   });
 
   it("keeps UNKNOWN outside facts and numeric metrics", () => {
-    const candidate = createDemoCandidates("P-EPI")[0];
+    const candidate = createFixtureCandidates("P-EPI")[0];
 
     expect(candidate.unknowns.length).toBeGreaterThan(0);
     for (const unknown of candidate.unknowns) {
@@ -52,7 +52,7 @@ describe("ARKI F5 epistemic separation", () => {
 });
 describe("ARKI F5 Requirement-Constraint semantic boundary", () => {
   it("does not silently treat a Requirement as a Constraint through the funnel", () => {
-    const candidates = createDemoCandidates("P-EPI-REQ-CONSTRAINT");
+    const candidates = createFixtureCandidates("P-EPI-REQ-CONSTRAINT");
     const requirement = candidates[0].epistemic.requirements[0];
 
     expect(requirement).toBeDefined();
@@ -74,7 +74,7 @@ describe("ARKI F5 Requirement-Constraint semantic boundary", () => {
 });
 describe("ARKI F5 C2 cross-category rejection", () => {
   it("rejects a Preference injected into Objectives", () => {
-    const candidates = createDemoCandidates("P-EPI-C2");
+    const candidates = createFixtureCandidates("P-EPI-C2");
 
     const preference =
       candidates[0].epistemic.preferences[0];
@@ -95,7 +95,7 @@ describe("ARKI F5 C2 cross-category rejection", () => {
 });
 describe("ARKI F5 epistemic runtime boundary", () => {
   it("rejects a candidate with the epistemic model removed at runtime", () => {
-    const candidates = createDemoCandidates("P-EPI-RUNTIME");
+    const candidates = createFixtureCandidates("P-EPI-RUNTIME");
     const forged = { ...candidates[0] } as any;
     delete forged.epistemic;
 
@@ -108,7 +108,7 @@ describe("ARKI F5 epistemic runtime boundary", () => {
   });
 
   it("rejects a candidate with a missing epistemic category at runtime", () => {
-    const candidates = createDemoCandidates("P-EPI-RUNTIME");
+    const candidates = createFixtureCandidates("P-EPI-RUNTIME");
     const forged = {
       ...candidates[0],
       epistemic: { ...candidates[0].epistemic },
@@ -125,7 +125,7 @@ describe("ARKI F5 epistemic runtime boundary", () => {
   });
 
   it("rejects malformed epistemic evidence instead of silently accepting it", () => {
-    const candidates = createDemoCandidates("P-EPI-RUNTIME");
+    const candidates = createFixtureCandidates("P-EPI-RUNTIME");
     const forged = {
       ...candidates[0],
       epistemic: {
