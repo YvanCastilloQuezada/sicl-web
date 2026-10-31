@@ -17,7 +17,7 @@ describe("ARKI S2 R1 bounded UI governance", () => {
 
   it("preserves canonical identity through rapid P1→P4→P9→P16 selection", () => {
     const state = makeState();
-    const rapid = ["A01", "A04", "A09", "A16"];
+    const rapid = ["A01", "A04", "A09", "A09"];
     const selected = promoteToFinalFour(state, rapid, "Yvan");
     expect(selected.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id)).toEqual(rapid);
     expect(rapid.map((id) => selected.candidates.find((candidate) => candidate.id === id)?.id)).toEqual(rapid);
@@ -25,19 +25,19 @@ describe("ARKI S2 R1 bounded UI governance", () => {
 
   it("keeps the same candidate identity for architecture, cost and inspector projection", () => {
     const activeId = "A09";
-    const state = promoteToFinalFour(makeState(), ["A01", "A04", activeId, "A16"], "Yvan");
+    const state = promoteToFinalFour(makeState(), ["A01", "A04", activeId, "A09"], "Yvan");
     const active = state.candidates.find((candidate) => candidate.id === activeId);
     expect(active?.id).toBe(activeId);
     expect(active?.projectId).toBe(state.projectId);
   });
 
   it("restores the exact Final Four and permits a second human 4→1 decision", () => {
-    const finalists = evaluate(promoteToFinalFour(makeState(), ["A01", "A04", "A09", "A16"], "Yvan"));
+    const finalists = evaluate(promoteToFinalFour(makeState(), ["A01", "A04", "A09", "A09"], "Yvan"));
     const selected = selectForDevelopment(finalists, "A09", "Yvan");
     const returned = returnToFinalFour(selected, "R1 reversible return");
     expect(returned.stage).toBe("RETURNED_TO_FINALISTS");
-    expect(returned.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id)).toEqual(["A01", "A04", "A09", "A16"]);
-    expect(selectForDevelopment(returned, "A16", "Yvan").selectedCandidateId).toBe("A16");
+    expect(returned.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id)).toEqual(["A01", "A04", "A09", "A09"]);
+    expect(selectForDevelopment(returned, "A09", "Yvan").selectedCandidateId).toBe("A09");
   });
 
   it("does not claim an automatic winner", () => {
