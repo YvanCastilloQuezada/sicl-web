@@ -347,7 +347,7 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 
 **Regla:** generación amplia → filtros duros de inviabilidad → evaluación multiobjetivo → diversidad arquitectónica → 9 → 4 → 1 con decisión humana.
 
-**Retención:** si ARKI explora 10 000 ideas, las descartadas durante la exploración **NO SE GUARDAN individualmente**. **Solo se conservan las 9 ideas supervivientes** del primer corte N→16.
+**Retención:** si ARKI explora 10 000 ideas, las descartadas durante la exploración **NO SE GUARDAN individualmente**. **Solo se conservan las 9 ideas supervivientes** del primer corte N→9.
 
 **No eliminar ideas del historial:** rechazo/archivo reversible y trazable, no borrado de auditoría append-only.
 
