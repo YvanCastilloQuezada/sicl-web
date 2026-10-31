@@ -157,7 +157,7 @@ Resultado esperado: los 3 repos limpios, con HEAD actualizado.
 Comando:
 - cd /home/arki/ARKI/canonical/sicl-web
 - export SICL_CORE_URL=http://127.0.0.1:8000
-- export SICL_CORE_SERVICE_TOKEN=4d68d3c449864b7d560e09916559a7e2f9f7affb7115c33aa61af0881a11d506
+export SICL_CORE_SERVICE_TOKEN="SET_IN_SECRET_STORE_NOT_IN_GIT"
 - ./scripts/run-arki-canonical-e2e-auto.sh
 
 Resultado esperado: status: EXECUTED, IDs únicos, event_id nuevos.
@@ -343,11 +343,11 @@ La documentación y los procesos existen para servir al proyecto, no al revés. 
 
 ### Ley del Embudo — «La vida es dura para las ideas»
 
-**Descripción del PO:** desde el encargo de Fase 1 ARKI explora miles de ideas/posibilidades. Las restricciones verificadas y criterios de evaluación van descartando alternativas; el embudo conduce a **N → 16 → 4 → 1**.
+**Descripción del PO:** desde el encargo de Fase 1 ARKI explora miles de ideas/posibilidades. Las restricciones verificadas y criterios de evaluación van descartando alternativas; el embudo conduce a **N → 9 → 4 → 1**.
 
-**Regla:** generación amplia → filtros duros de inviabilidad → evaluación multiobjetivo → diversidad arquitectónica → 16 → 4 → 1 con decisión humana.
+**Regla:** generación amplia → filtros duros de inviabilidad → evaluación multiobjetivo → diversidad arquitectónica → 9 → 4 → 1 con decisión humana.
 
-**Retención:** si ARKI explora 10 000 ideas, las descartadas durante la exploración **NO SE GUARDAN individualmente**. **Solo se conservan las 16 ideas supervivientes** del primer corte N→16.
+**Retención:** si ARKI explora 10 000 ideas, las descartadas durante la exploración **NO SE GUARDAN individualmente**. **Solo se conservan las 9 ideas supervivientes** del primer corte N→16.
 
 **No eliminar ideas del historial:** rechazo/archivo reversible y trazable, no borrado de auditoría append-only.
 
@@ -853,7 +853,7 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 
 **Metodología:** Se listaron todos los archivos Python (`sicl-core`) y TypeScript (`sicl-web`), se leyó la cabecera de cada módulo principal, se listaron los endpoints de API (FastAPI y tRPC), se listaron los tests, y se verificó el estado de `git log`.
 
-**Conclusión general:** ARKI tiene **mucho más implementado de lo que su documentación sugiere**. Puede generar imágenes fotorrealistas, geometría conceptual, planos arquitectónicos, láminas, validar contra RNE, calcular costos, simular balance hídrico, ejecutar el embudo 16→4→1, federar ARKI-LUCA, interoperar con COMPAS, exportar IFC, y ejecutar APIs FastAPI + tRPC. **Lo que NO puede hacer es garantizar que la imagen generada sea evidencia geométrica** (es `AI_PROPOSED_VISUAL`, no evidencia).
+**Conclusión general:** ARKI tiene **mucho más implementado de lo que su documentación sugiere**. Puede generar imágenes fotorrealistas, geometría conceptual, planos arquitectónicos, láminas, validar contra RNE, calcular costos, simular balance hídrico, ejecutar el embudo 9→4→1, federar ARKI-LUCA, interoperar con COMPAS, exportar IFC, y ejecutar APIs FastAPI + tRPC. **Lo que NO puede hacer es garantizar que la imagen generada sea evidencia geométrica** (es `AI_PROPOSED_VISUAL`, no evidencia).
 
 ---
 
@@ -914,7 +914,7 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 | `server/arkiTypologyExecution.ts` | Ejecución de tipologías |
 | `server/arkiTypologyDsl.ts` | DSL declarativo para tipologías |
 | `server/arkiCostBudgetS2.ts` | Presupuesto de costos S2 |
-| `server/arkiDesignFunnel.ts` | Embudo de diseño 16→4→1 |
+| `server/arkiDesignFunnel.ts` | Embudo de diseño 9→4→1 |
 | `server/arkiNormativeEngine.ts` | Motor normativo RNE Perú (50+ reglas) |
 | `server/arkiNormativeSources.ts` | Fuentes normativas |
 | `server/arkiWaterBalance.ts` | Balance hídrico |
@@ -1013,7 +1013,7 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 
 ### ✅ Ejecutar el embudo de diseño
 
-`server/arkiDesignFunnel.ts` → 16 → 4 → 1 con selección humana.
+`server/arkiDesignFunnel.ts` → 9 → 4 → 1 con selección humana.
 
 ### ✅ Federar ARKI con LUCA
 
@@ -1074,7 +1074,7 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 
 ## H.6 — Resumen ejecutivo
 
-**ARKI tiene mucho más implementado de lo que su documentación sugiere.** Puede generar imágenes fotorrealistas, geometría conceptual, planos arquitectónicos, láminas, validar contra RNE, calcular costos, simular balance hídrico, ejecutar el embudo 16→4→1, federar ARKI-LUCA, interoperar con COMPAS, exportar IFC, y ejecutar APIs FastAPI + tRPC.
+**ARKI tiene mucho más implementado de lo que su documentación sugiere.** Puede generar imágenes fotorrealistas, geometría conceptual, planos arquitectónicos, láminas, validar contra RNE, calcular costos, simular balance hídrico, ejecutar el embudo 9→4→1, federar ARKI-LUCA, interoperar con COMPAS, exportar IFC, y ejecutar APIs FastAPI + tRPC.
 
 **Lo que NO puede hacer es garantizar que la imagen generada sea evidencia geométrica.** Es `AI_PROPOSED_VISUAL`, no evidencia.
 
@@ -1101,7 +1101,7 @@ Elegir una carencia real y de bajo riesgo detectada por el propio Árbol. El cic
 - **32 dominios funcionales** (de intención a mantenimiento predictivo).
 - **6 autoridades:** D-2 (semántica), Core (estado), AGK (geometría), Capability Fabric (ejecución externa), ACS (laboratorio), Humano (decisión final).
 - **10 escalas:** pais → macro_region → region → provincia_metropoli → distrito_ciudad → zona_barrio_sector → parcela_sitio → edificacion → sistema → espacio → objeto.
-- **Ciclo de vida:** `PERCEIVE → UNDERSTAND → PROJECT STATE → REASON → N→16→4→1 → HUMAN VALIDATION → GEOMETRY → BIM → CONSTRUCTION → OPERATE → LEARN → REPEAT`.
+- **Ciclo de vida:** `PERCEIVE → UNDERSTAND → PROJECT STATE → REASON → N→9→4→1 → HUMAN VALIDATION → GEOMETRY → BIM → CONSTRUCTION → OPERATE → LEARN → REPEAT`.
 
 ## I.3 — Evidencia AGK/OCCT (`AGK_OCCT_EXECUTION_EVIDENCE_V1.md`)
 
