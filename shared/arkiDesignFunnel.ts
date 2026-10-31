@@ -1,4 +1,4 @@
-export const ARKI_DESIGN_FUNNEL_VERSION = "ARKI-PREDICTIVE-ARCHITECTURE-001.S1" as const;
+export const ARKI_DESIGN_FUNNEL_VERSION = "ARKI-PREDICTIVE-ARCHITECTURE-001.S2" as const;
 export type FunnelStage = "GENERATED" | "SCREENED" | "SURVIVOR" | "DESIGN_EXPLORER_9" | "FINALIST_4" | "SELECTED_FOR_DEVELOPMENT" | "DEVELOPMENT_IN_PROGRESS" | "BLOCKED" | "RETURNED_TO_FINALISTS" | "ARCHIVED" | "SUPERSEDED";
 export type HumanWaitState = "NONE" | "AWAITING_9_TO_4_SELECTION" | "AWAITING_4_TO_1_SELECTION";
 export type CandidateStatus = "ELIGIBLE" | "UNKNOWN" | "FAILED";
@@ -129,7 +129,7 @@ export function promoteToFinalFour(state: DesignFunnelState, selectedIds: string
   if (!humanActor.trim()) throw new Error("HUMAN_AUTHORITY_REQUIRED");
   assertCandidateSet(state, selectedIds, 4);
   const available = state.candidates.map((candidate) => candidate.id); const nonSelected = available.filter((candidateId) => !selectedIds.includes(candidateId));
-  const event: HumanDesignSelectionEvent = { eventId: id("HSE"), type: "HUMAN_DESIGN_SELECTION", projectId: state.projectId, explorationId: state.explorationId, generationId: state.generationId, selectionStage: "9_TO_4", availableCandidateIds: available, selectedCandidateIds: [...selectedIds], nonSelectedCandidateIds: nonSelected, humanActor, timestamp, ...(reason?.trim() ? { optionalReason: reason.trim() } : {}), evidenceRefs: [`FUNNEL:${state.generationId}`, "HUMAN_SELECTION_EVIDENCE"], uiContext: "DESIGN_EXPLORER_4X4" };
+  const event: HumanDesignSelectionEvent = { eventId: id("HSE"), type: "HUMAN_DESIGN_SELECTION", projectId: state.projectId, explorationId: state.explorationId, generationId: state.generationId, selectionStage: "9_TO_4", availableCandidateIds: available, selectedCandidateIds: [...selectedIds], nonSelectedCandidateIds: nonSelected, humanActor, timestamp, ...(reason?.trim() ? { optionalReason: reason.trim() } : {}), evidenceRefs: [`FUNNEL:${state.generationId}`, "HUMAN_SELECTION_EVIDENCE"], uiContext: "DESIGN_EXPLORER_3X3" };
   const candidates = state.candidates.map((candidate) => selectedIds.includes(candidate.id) ? { ...candidate, stage: "FINALIST_4" as const } : { ...candidate, stage: "ARCHIVED" as const });
   const deepEvaluation = Object.fromEntries(selectedIds.map((candidateId) => [candidateId, { status: "RUNNING" as const, findings: [], unknowns: [] }]));
   return { ...state, stage: "FINALIST_4", waitState: "NONE", candidates, events: [...state.events, event, { eventId: id("EVAL"), type: "DEEP_EVALUATION_STARTED", projectId: state.projectId, candidateIds: selectedIds, timestamp, evidenceRefs: [event.eventId] }], deepEvaluation };
