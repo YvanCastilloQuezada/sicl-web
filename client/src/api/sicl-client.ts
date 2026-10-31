@@ -160,7 +160,8 @@ export class SiclClientError extends Error {
 }
 
 export function isMockCoreEnabled(): boolean {
-  return typeof window !== "undefined" && window.localStorage.getItem("sims-dei.mock-core") === "true";
+  // PO HOLD: mock Core mode is disabled indefinitely; legacy localStorage flags are ignored.
+  return false;
 }
 
 function apiUrl(): string {
