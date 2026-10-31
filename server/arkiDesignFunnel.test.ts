@@ -148,10 +148,10 @@ describe("ARKI F5 epistemic runtime boundary", () => {
   });
 });
 describe("ARKI Design Funnel S1", () => {
-  it("creates the canonical 16-candidate waiting state", () => {
+  it("creates the canonical 9-candidate waiting state", () => {
     const state = makeState();
-    expect(state.candidates).toHaveLength(16);
-    expect(state.waitState).toBe("AWAITING_16_TO_4_SELECTION");
+    expect(state.candidates).toHaveLength(9);
+    expect(state.waitState).toBe("AWAITING_9_TO_4_SELECTION");
   });
   it("requires exactly four human-selected candidates", () => {
     expect(() => promoteToFinalFour(makeState(), ["A01", "A02", "A03"], "Yvan")).toThrow("SELECTION_REQUIRES_4");
@@ -169,7 +169,7 @@ describe("ARKI Design Funnel S1", () => {
     const foreign = { ...state.candidates[0], projectId: "OTHER" };
     expect(() => promoteToFinalFour({ ...state, candidates: [foreign, ...state.candidates.slice(1)] }, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("CROSS_PROJECT_SELECTION");
     const finalists = promoteToFinalFour(state, ["A01", "A02", "A03", "A04"], "Yvan");
-    expect(() => promoteToFinalFour(finalists, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("INVALID_16_TO_4_STAGE");
+    expect(() => promoteToFinalFour(finalists, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("INVALID_9_TO_4_STAGE");
   });
   it("requires deeper evaluation before the 4-to-1 decision", () => {
     const finalists = promoteToFinalFour(makeState(), ["A01", "A02", "A03", "A04"], "Yvan");
