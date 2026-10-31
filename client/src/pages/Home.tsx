@@ -112,7 +112,7 @@ function AuthenticatedHome() {
       const loaded = await siclClient.getProject(preferred.project_id);
       if (!cancelled) {
         setRestProject(loaded);
-        setRestMessage(isMockCoreEnabled() ? "Proyecto cargado con datos simulados" : "Proyecto cargado desde el Core remoto");
+        setRestMessage("Proyecto cargado desde el Core remoto");
         setCoreLoading(false);
       }
     }).catch((error) => {
