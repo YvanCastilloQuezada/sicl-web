@@ -57,7 +57,7 @@ describe("SiclCoreHttpError", () => {
     expect(result).toMatchObject({ not_found: true, status: 404, error: "PROJECT_NOT_FOUND", detail: "No canonical project exists", envelope });
   });
 
-  it("sends hierarchical scopes to canonical project creation", async () => {
+  it("maps Web scopes to the canonical Core ontology on project creation", async () => {
     vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
     vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
     const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "sicl-core-http/0.2", project_id: "SICL-SCOPE", observed_version: 1, snapshot: { project: {} } }), { status: 200, headers: { "content-type": "application/json" } }));
@@ -65,9 +65,21 @@ describe("SiclCoreHttpError", () => {
     const { createCoreProject } = await import("./coreHttpClient");
     await createCoreProject("SICL-SCOPE", "Territorial scenario", { spatialScope: { scale: "COUNTRY", id: "PE", name: "Peru" }, temporalScope: { horizon: "2050", scenario: "resilient-growth" } });
     const request = fetchSpy.mock.calls[0]?.[1] as RequestInit;
-    expect(JSON.parse(String(request.body))).toMatchObject({ spatial_scope: { scale: "COUNTRY", id: "PE", name: "Peru" }, temporal_scope: { horizon: "2050", scenario: "resilient-growth" } });
+    expect(JSON.parse(String(request.body))).toMatchObject({ spatial_scope: { scope: "pais" }, temporal_scope: { scope: "escenario_2050" } });
   });
 
+
+it("does not invent a Core spatial scope for the Web PROJECT level", async () => {
+  vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+  vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
+  const fetchSpy = vi.fn().mockResolvedValue(new Response(JSON.stringify({ contract_version: "1.0", data: { snapshot: {} } }), { status: 200, headers: { "content-type": "application/json" } }));
+  vi.stubGlobal("fetch", fetchSpy);
+  const { createCoreProject } = await import("./coreHttpClient");
+  await createCoreProject("SICL-PROJECT", "Project scope", { spatialScope: { scale: "PROJECT", id: "SICL-PROJECT", name: "Project" }, temporalScope: { horizon: "PRESENT" } });
+  const body = JSON.parse(String((fetchSpy.mock.calls[0][1] as RequestInit).body));
+  expect(body).not.toHaveProperty("spatial_scope");
+  expect(body).toMatchObject({ temporal_scope: { scope: "proyecto" } });
+});
 
 it("fetches the read-only operations research catalog without exposing service credentials", async () => {
   vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
