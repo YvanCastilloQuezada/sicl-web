@@ -167,8 +167,42 @@ export async function fetchCanonicalHistory(projectId: string): Promise<Canonica
   return unwrap(await response.json() as CanonicalHistory);
 }
 
+const CORE_SPATIAL_SCOPE: Partial<Record<SpatialScope["scale"], string>> = {
+  SECTOR: "zona_barrio_sector",
+  DISTRICT: "distrito_ciudad",
+  CITY: "distrito_ciudad",
+  METROPOLITAN_AREA: "provincia_metropoli",
+  REGION: "region",
+  MACROREGION: "macro_region",
+  COUNTRY: "pais",
+};
+
+const CORE_TEMPORAL_SCOPE: Record<TemporalScope["horizon"], string> = {
+  PRESENT: "proyecto",
+  "2030": "escenario_2030",
+  "2040": "escenario_2040",
+  "2050": "escenario_2050",
+};
+
 export async function createCoreProject(projectId: string, name: string, scopes?: { spatialScope?: SpatialScope; temporalScope?: TemporalScope }) {
-  return coreRequest<{ contract_version: string; project_id: string; observed_version: number; snapshot: Record<string, unknown> }>("/v1/projects", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ project_id: projectId, name, ...(scopes?.spatialScope ? { spatial_scope: { scale: scopes.spatialScope.scale, id: scopes.spatialScope.id, name: scopes.spatialScope.name, ...(scopes.spatialScope.parentId ? { parent_id: scopes.spatialScope.parentId } : {}) } } : {}), ...(scopes?.temporalScope ? { temporal_scope: scopes.temporalScope } : {}) }) });
+  // Core has no canonical PROJECT spatial level. Do not mislabel it as a
+  // building or geographic level; omit it until Core supports that scope.
+  const spatialScope = scopes?.spatialScope
+    ? CORE_SPATIAL_SCOPE[scopes.spatialScope.scale]
+    : undefined;
+  const temporalScope = scopes?.temporalScope
+    ? CORE_TEMPORAL_SCOPE[scopes.temporalScope.horizon]
+    : undefined;
+  return coreRequest<{ contract_version: string; project_id: string; observed_version: number; snapshot: Record<string, unknown> }>("/v1/projects", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      project_id: projectId,
+      name,
+      ...(spatialScope ? { spatial_scope: { scope: spatialScope } } : {}),
+      ...(temporalScope ? { temporal_scope: { scope: temporalScope } } : {}),
+    }),
+  });
 }
 
 export async function createCorePreference(projectId: string, payload: Record<string, unknown>) {
