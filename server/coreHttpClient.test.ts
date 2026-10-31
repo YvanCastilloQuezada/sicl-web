@@ -98,6 +98,19 @@ it("fetches the read-only operations research catalog without exposing service c
 });
 
 
+it("rejects an empty Core Operations Research catalog as a contract failure", async () => {
+  vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
+  vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+    contract_version: "1.0", read_only: true, methods: [],
+  }), { status: 200, headers: { "content-type": "application/json" } })));
+  const { fetchOperationsResearchMethods } = await import("./coreHttpClient");
+  await expect(fetchOperationsResearchMethods()).rejects.toMatchObject({
+    status: 502,
+    errorCode: "CORE_CATALOG_EMPTY",
+  });
+});
+
 it("writes canonical preferences with explicit scope and provenance", async () => {
   vi.stubEnv("SICL_CORE_URL", "https://core.example.test");
   vi.stubEnv("SICL_CORE_SERVICE_TOKEN", "service-token-test");
