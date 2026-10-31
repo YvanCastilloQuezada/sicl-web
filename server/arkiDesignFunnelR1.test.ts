@@ -36,7 +36,7 @@ describe("ARKI S2 R1 bounded UI governance", () => {
     const selected = selectForDevelopment(finalists, "A09", "Yvan");
     const returned = returnToFinalFour(selected, "R1 reversible return");
     expect(returned.stage).toBe("RETURNED_TO_FINALISTS");
-    expect(returned.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id)).toEqual(["A01", "A04", "A09", "A09"]);
+    expect(returned.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id)).toEqual(["A01", "A03", "A06", "A09"]);
     expect(selectForDevelopment(returned, "A09", "Yvan").selectedCandidateId).toBe("A09");
   });
 
