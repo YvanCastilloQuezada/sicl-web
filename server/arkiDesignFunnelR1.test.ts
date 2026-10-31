@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { completeDeepEvaluation, createDemoCandidates, createDesignFunnel, promoteToFinalFour, returnToFinalFour, selectForDevelopment } from "../shared/arkiDesignFunnel";
+import { completeDeepEvaluation, createFixtureCandidates, createDesignFunnel, promoteToFinalFour, returnToFinalFour, selectForDevelopment } from "../shared/arkiDesignFunnel";
 
-const makeState = () => createDesignFunnel({ projectId: "R1-PROJECT", candidates: createDemoCandidates("R1-PROJECT") });
+const makeState = () => createDesignFunnel({ projectId: "R1-PROJECT", candidates: createFixtureCandidates("R1-PROJECT") });
 const evaluate = (state: ReturnType<typeof makeState>) => completeDeepEvaluation(state, Object.fromEntries(state.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => [candidate.id, { status: "READY" as const }])));
 
 describe("ARKI S2 R1 bounded UI governance", () => {
