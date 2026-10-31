@@ -137,7 +137,16 @@ async function coreRequestWithTimeout<T>(path: string, init: RequestInit): Promi
 
 export async function fetchOperationsResearchMethods(): Promise<OperationsResearchCatalog | undefined> {
   if (!coreUrl()) return undefined;
-  return coreRequest<OperationsResearchCatalog>("/v1/operations-research/methods", { method: "GET" });
+  const catalog = await coreRequest<OperationsResearchCatalog>("/v1/operations-research/methods", { method: "GET" });
+  if (!catalog || catalog.read_only !== true || !Array.isArray(catalog.methods) || catalog.methods.length === 0) {
+    throw new SiclCoreHttpError(
+      502,
+      "CORE_CATALOG_EMPTY",
+      "SICL Core returned an empty or invalid Operations Research catalog",
+      { contract: "/v1/operations-research/methods" },
+    );
+  }
+  return catalog;
 }
 
 export async function fetchCanonicalCouncil(projectId: string): Promise<CanonicalCouncil | CanonicalNotFound | undefined> {
