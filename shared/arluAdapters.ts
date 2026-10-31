@@ -15,6 +15,6 @@ export function createDeviceInteroperabilityAdapter(input: { protocol: "BROADCAS
 }
 
 export function prepareDistributionAdapter(input: { provider: "SOCIAL" | "OTT" | "CDN" | "QR"; assetChecksum: string; metadataComplete: boolean; humanApproved: boolean }): AdapterProbe & { dispatch: "PREVIEW_ONLY" | "QUEUED_FOR_HUMAN_APPROVAL" } {
-  const state: AdapterState = !input.assetChecksum || !input.metadataComplete ? "BLOCKED" : input.humanApproved ? "PERMISSION_REQUIRED" : "HOST_REQUIRED";
-  return { adapter: "DISTRIBUTION", state, capabilities: [input.provider, input.metadataComplete ? "METADATA_VALIDATED" : "METADATA_MISSING"], evidence: [`ASSET_CHECKSUM:${input.assetChecksum || "MISSING"}`, "PROVIDER_CREDENTIALS_SERVER_SIDE", "PUBLICATION_HUMAN_GATE"], humanReviewRequired: true, canPublish: false, canMutateCore: false, dispatch: input.humanApproved ? "QUEUED_FOR_HUMAN_APPROVAL" : "PREVIEW_ONLY" };
+  const state: AdapterState = input.provider === "QR" || !input.assetChecksum || !input.metadataComplete ? "BLOCKED" : input.humanApproved ? "PERMISSION_REQUIRED" : "HOST_REQUIRED";
+  return { adapter: "DISTRIBUTION", state, capabilities: [input.provider, ...(input.provider === "QR" ? ["QR_PAUSED_BY_PRODUCT_OWNER"] : []), input.metadataComplete ? "METADATA_VALIDATED" : "METADATA_MISSING"], evidence: [`ASSET_CHECKSUM:${input.assetChecksum || "MISSING"}`, "PROVIDER_CREDENTIALS_SERVER_SIDE", "PUBLICATION_HUMAN_GATE"], humanReviewRequired: true, canPublish: false, canMutateCore: false, dispatch: input.humanApproved ? "QUEUED_FOR_HUMAN_APPROVAL" : "PREVIEW_ONLY" };
 }
