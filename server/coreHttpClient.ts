@@ -146,7 +146,19 @@ export async function fetchCanonicalCouncil(projectId: string): Promise<Canonica
   const response = await fetch(`${base}/v1/projects/${encodeURIComponent(projectId)}/council`, { headers: serviceHeaders() });
   if (response.status === 404) { const error = await errorFromResponse(response); return { not_found: true, project_id: projectId, status: 404, error: error.errorCode ?? "HTTP_404", detail: error.envelope.detail as string | undefined, envelope: error.envelope }; }
   if (!response.ok) throw await errorFromResponse(response);
-  return unwrap(await response.json() as CanonicalCouncil);
+  const council = unwrap(await response.json() as CanonicalCouncil);
+  // Core's canonical Council projection currently exposes comparisons and
+  // recommendations only. Keep the Web view stable without pretending that
+  // multi-comparisons or tradeoffs were returned by Core.
+  return {
+    ...council,
+    read_only: council.read_only === true,
+    readOnly: council.read_only === true,
+    comparisons: Array.isArray(council.comparisons) ? council.comparisons : [],
+    multi_comparisons: Array.isArray(council.multi_comparisons) ? council.multi_comparisons : [],
+    tradeoffs: Array.isArray(council.tradeoffs) ? council.tradeoffs : [],
+    recommendations: Array.isArray(council.recommendations) ? council.recommendations : [],
+  };
 }
 
 export async function fetchCanonicalSnapshot(projectId: string): Promise<CanonicalCoreSnapshot | CanonicalNotFound | undefined> {
