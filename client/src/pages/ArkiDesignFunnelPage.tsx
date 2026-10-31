@@ -93,7 +93,7 @@ function Status({ state }: { state: DesignFunnelState }) {
   }), [state]);
   return <div className="flex flex-wrap items-center gap-2 text-xs text-[#9eb5c4]">
     <span className="rounded border border-[#28445b] px-2 py-1">N → 9 → 4 → 1</span>
-    <span>Exploración: {summary.explorer || 16}</span><span>Final Four: {summary.finalists}</span><span>Archivadas: {summary.archived}</span>
+    <span>Exploración: {summary.explorer || 9}</span><span>Final Four: {summary.finalists}</span><span>Archivadas: {summary.archived}</span>
     <span className="text-[#d4ff3a]">{state.waitState === "NONE" ? state.stage : state.waitState}</span>
   </div>;
 }
@@ -107,7 +107,7 @@ function CostPanel({ state, revision, activeId, onSelect, location }: { state: D
     <h2 className="mt-1 text-lg font-semibold">Comparación económica</h2>
     <p className="mt-2 text-xs leading-5 text-[#9eb5c4]">{target}. La incertidumbre mostrada es la demostrada por el modelo, no una precisión fabricada.</p>
     <div className="mt-4 space-y-2">
-      {candidates.slice(0, fidelity === "RAPID_9" ? 16 : 4).map((candidate) => {
+      {candidates.slice(0, fidelity === "RAPID_9" ? 9 : 4).map((candidate) => {
         const estimate = estimateFor(candidate, state, revision, location);
         const label = displayId(candidate.id, state.candidates);
         return <button type="button" key={candidate.id} onClick={() => onSelect(candidate.id)} className={`w-full rounded border p-3 text-left transition ${candidate.id === activeId ? "border-[#d4ff3a] bg-[#132b3f]" : "border-[#28445b] bg-[#071726] hover:border-[#7893af]"}`}>
