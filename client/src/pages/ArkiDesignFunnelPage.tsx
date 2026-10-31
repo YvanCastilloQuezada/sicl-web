@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  createDemoCandidates,
+  createFixtureCandidates,
   createDesignFunnel,
   completeDeepEvaluation,
   promoteToFinalFour,
@@ -27,7 +27,7 @@ import { apiErrorMessage, siclClient, type MissingDataReport, type SpatialLocati
 const DEFAULT_PROJECT_ID = "DEMO-PROJECT";
 type DemoBrief = { projectId: string; prompt: string; floors: number; location: string; areaM2: number };
 const defaultBrief: DemoBrief = { projectId: DEFAULT_PROJECT_ID, prompt: "Edificio de 120 pisos", floors: 120, location: "Trujillo", areaM2: 120000 };
-const candidatesForBrief = (brief: DemoBrief) => createDemoCandidates(brief.projectId).map((candidate, index) => ({
+const candidatesForBrief = (brief: DemoBrief) => createFixtureCandidates(brief.projectId).map((candidate, index) => ({
   ...candidate,
   title: `Alternativa ${String(index + 1).padStart(2, "0")} · ${brief.floors} pisos`,
   metrics: { ...candidate.metrics, area: brief.areaM2 + index * 1250, floors: brief.floors, location: brief.location, brief: brief.prompt },
