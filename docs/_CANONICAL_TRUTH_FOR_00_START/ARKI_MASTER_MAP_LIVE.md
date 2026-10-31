@@ -34,7 +34,7 @@ Orthogonal states: `UNKNOWN`, `BLOCKED`, `FUTURE_EMPIRICAL_TEST`, `DEPRECATED`, 
 
 | Capability / artifact | Evidence locus | Current interpretation |
 |---|---|---|
-| Design Funnel | `docs/arki-predictive/DESIGN_FUNNEL_9_4_1.md`, `shared/arkiDesignFunnel.ts`, `ArkiDesignFunnelPage.tsx` | Implemented contract: `N -> 9 -> 4 -> 1 -> SELECTED_FOR_DEVELOPMENT`; non-selected candidates archived; final promotion is human |
+| Design Funnel | `docs/arki-predictive/DESIGN_FUNNEL_9_4_1.md`, `shared/arkiDesignFunnel.ts`, `ArkiDesignFunnelPage.tsx` | Contract revised to `N -> 9 -> 4 -> 1`; synthetic UI paused; real architectural generation-to-F5 integration NOT VERIFIED; human selection and archive rules preserved |
 | Superpowers Pack | `docs/arki-superpowers/ARKI_SUPERPOWERS_PACK.md` | SP-01 Consequence Radar, SP-02 Value of Information, SP-03 Design Divergence, SP-04 Architectural Debt, SP-05 Counterfactual Explorer; implemented/focused tests with explicit bounds |
 | Dynamic Family Generator | `shared/arkiDynamicFamilies.ts`, `shared/arkiFamilyComparison.ts`, `ArkiFamilyStudioPage.tsx`, `outputs/ARKI_GENERADOR_DINAMICO_FAMILIAS_CODIGO_COMPLETO.md` | Existing conceptual generator: family -> variant -> context -> parameters -> program -> rules -> 2D -> section -> 3D -> metrics -> gates; generated candidates do not mutate Project State automatically |
 | Current Architecture Map | `docs/arki-inventory/ARKI_CURRENT_ARCHITECTURE_MAP.md` | Historical audited architecture snapshot; lineage evidence, not automatically current truth |
@@ -185,7 +185,7 @@ Update **Current Focus**, **Last Completed**, **Open Blockers**, **Next Exact Ac
 
 - ARKI target is a highly autonomous super-architect, not merely a geometry or visualization tool.
 - 3D-FIRST is a system principle.
-- Design Funnel is `N -> 9 -> 4 -> 1`.
+- Design Funnel contract is `N -> 9 -> 4 -> 1`; production generation remains paused until the real engine is connected and verified end to end.
 - Non-selected design ideas remain traceable/archived rather than disappearing.
 - Human validation remains the final authority gate where required.
 - Technical dossiers must eventually support Peru and selected foreign jurisdictions through explicit jurisdiction-scoped normative evidence.
