@@ -109,6 +109,24 @@ export const appRouter = router({
   publicProcurementWorkspace: router({
     contract: publicProcedure.query(() => publicProcurementWorkspaceContract()),
     validate: protectedProcedure.input(z.unknown()).mutation(({ input }) => validatePublicProcurementWorkspace(input)),
+    oeceHealth: protectedProcedure.query(async () => {
+      const { getOeceAcsHealth } = await import("./arkiOeceAcsClient");
+      try { return await getOeceAcsHealth(); }
+      catch { throw new TRPCError({ code: "SERVICE_UNAVAILABLE", message: "ACS_OECE_CORPUS_UNAVAILABLE_OR_INVALID_CONTRACT" }); }
+    }),
+    oeceSearch: protectedProcedure.input(z.object({
+      years: z.array(z.number().int().min(2000).max(2200)).max(20).optional(),
+      categories: z.array(z.string().trim().min(1).max(80)).max(20).optional(),
+      methods: z.array(z.string().trim().min(1).max(100)).max(20).optional(),
+      department: z.string().trim().min(1).max(120).optional(),
+      minAmount: z.number().nonnegative().finite().optional(),
+      q: z.string().trim().max(200).optional(),
+      limit: z.number().int().min(1).max(200).default(50),
+    })).query(async ({ input }) => {
+      const { searchOeceAcsCorpus } = await import("./arkiOeceAcsClient");
+      try { return await searchOeceAcsCorpus(input); }
+      catch { throw new TRPCError({ code: "SERVICE_UNAVAILABLE", message: "ACS_OECE_QUERY_FAILED_OR_INVALID_CONTRACT" }); }
+    }),
   }),
   system: systemRouter,
   federatedHandoffs: router({
