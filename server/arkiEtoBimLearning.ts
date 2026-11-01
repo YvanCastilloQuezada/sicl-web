@@ -84,6 +84,7 @@ export const ETOBimExperimentSchema = z.object({
     }
     ids.add(artifact.artifactId);
   }
+  const artifacts = [...experiment.sourceArtifacts, ...experiment.producedArtifacts];
   for (const stage of experiment.stages) {
     for (const id of [...stage.inputArtifactIds, ...stage.outputArtifactIds]) {
       if (!ids.has(id)) {
@@ -91,6 +92,34 @@ export const ETOBimExperimentSchema = z.object({
       }
     }
   }
+
+  // A federation reference must resolve to an actual federated IFC artifact.
+  const federatedArtifacts = experiment.producedArtifacts.filter((artifact) => artifact.role === "FEDERATED_MODEL");
+  const federatedIds = federatedArtifacts.map((artifact) => artifact.artifactId).sort();
+  const declaredFederationIds = [...experiment.federationModelIds].sort();
+  if (federatedArtifacts.some((artifact) => artifact.format !== "FEDERATED_IFC")) {
+    ctx.addIssue({ code: "custom", path: ["producedArtifacts"], message: "BIM_FEDERATED_MODEL_MUST_USE_FEDERATED_IFC_FORMAT" });
+  }
+  if (JSON.stringify(federatedIds) !== JSON.stringify(declaredFederationIds)) {
+    ctx.addIssue({ code: "custom", path: ["federationModelIds"], message: "BIM_FEDERATION_MODEL_IDS_MUST_MATCH_REGISTERED_OUTPUTS" });
+  }
+
+  // Discipline models and the federated deliverable must declare one shared
+  // normalized unit and coordinate reference. Source CAD units may differ.
+  const coordinationArtifacts = experiment.producedArtifacts.filter((artifact) =>
+    artifact.role === "DISCIPLINE_MODEL" || artifact.role === "FEDERATED_MODEL");
+  if (coordinationArtifacts.some((artifact) => !artifact.discipline && artifact.role === "DISCIPLINE_MODEL")) {
+    ctx.addIssue({ code: "custom", path: ["producedArtifacts"], message: "BIM_DISCIPLINE_MODEL_REQUIRES_DISCIPLINE_IDENTITY" });
+  }
+  const coordinationUnits = new Set(coordinationArtifacts.map((artifact) => artifact.units));
+  const coordinationCoordinates = new Set(coordinationArtifacts.map((artifact) => artifact.coordinateSystem));
+  if (coordinationUnits.size > 1) {
+    ctx.addIssue({ code: "custom", path: ["producedArtifacts"], message: "BIM_FEDERATION_UNITS_MISMATCH" });
+  }
+  if (coordinationCoordinates.size > 1) {
+    ctx.addIssue({ code: "custom", path: ["producedArtifacts"], message: "BIM_FEDERATION_COORDINATE_SYSTEM_MISMATCH" });
+  }
+
   if (experiment.acceptance !== "NOT_REVIEWED" && (!experiment.humanReviewer || !experiment.humanReviewedAt)) {
     ctx.addIssue({ code: "custom", path: ["humanReviewer"], message: "BIM_ACCEPTANCE_REQUIRES_HUMAN_REVIEW" });
   }
