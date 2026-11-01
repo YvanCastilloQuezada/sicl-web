@@ -110,4 +110,32 @@ describe("ARKI ETO-to-BIM learning experiment", () => {
     experiment.stages[0] = { ...experiment.stages[0], evidenceRefs: [] };
     expect(() => ETOBimExperimentSchema.parse(experiment)).toThrow("BIM_STAGE_PASS_REQUIRES_EVIDENCE");
   });
+
+  it("requires federation IDs to resolve to registered federated IFC outputs", () => {
+    const experiment = base();
+    experiment.federationModelIds = ["missing-model"];
+    expect(() => ETOBimExperimentSchema.parse(experiment)).toThrow("BIM_FEDERATION_MODEL_IDS_MUST_MATCH_REGISTERED_OUTPUTS");
+  });
+
+  it("rejects discipline/federated models with inconsistent normalized units", () => {
+    const experiment = base();
+    experiment.producedArtifacts.unshift({
+      ...artifact("architecture-model", "FEDERATED_MODEL", "FEDERATED_IFC"),
+      role: "DISCIPLINE_MODEL",
+      format: "IFC4",
+      discipline: "ARCHITECTURE",
+      units: "mm",
+    });
+    expect(() => ETOBimExperimentSchema.parse(experiment)).toThrow("BIM_FEDERATION_UNITS_MISMATCH");
+  });
+
+  it("requires discipline identity on each discipline model", () => {
+    const experiment = base();
+    experiment.producedArtifacts.unshift({
+      ...artifact("structure-model", "FEDERATED_MODEL", "FEDERATED_IFC"),
+      role: "DISCIPLINE_MODEL",
+      format: "IFC4",
+    });
+    expect(() => ETOBimExperimentSchema.parse(experiment)).toThrow("BIM_DISCIPLINE_MODEL_REQUIRES_DISCIPLINE_IDENTITY");
+  });
 });
