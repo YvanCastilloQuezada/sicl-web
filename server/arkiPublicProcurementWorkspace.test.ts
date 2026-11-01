@@ -85,9 +85,14 @@ describe("ARKI shared public-procurement workspace", () => {
   });
 
   it("rejects invalid observation windows", () => {
-    const value = workspace();
-    value.context.observedFrom = "2026-12-01T00:00:00Z";
-    value.context.observedTo = "2026-01-01T00:00:00Z";
+    const value = {
+      ...workspace(),
+      context: {
+        ...workspace().context,
+        observedFrom: "2026-12-01T00:00:00Z",
+        observedTo: "2026-01-01T00:00:00Z",
+      },
+    };
     expect(() => ArkiPublicProcurementWorkspaceSchema.parse(value)).toThrow("PROCUREMENT_WORKSPACE_DATE_RANGE_INVALID");
   });
 });
