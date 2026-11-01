@@ -11,7 +11,6 @@ export type OeceChildRow = OeceChildRowIdentity & { [field: string]: unknown };
 export type OeceChildJoinResult<TChild extends OeceChildRow> = {
   matched: Array<{ publication: OeceMainRow; child: TChild }>;
   unmatched: Array<{ child: TChild; reason: "PARENT_PUBLICATION_NOT_FOUND" }>;
-  duplicatePublicationKeys: string[];
 };
 
 const compositeKey = (mainId: string, ocid: string) => JSON.stringify([mainId, ocid]);
@@ -69,6 +68,5 @@ export function joinOeceChildRows<TChild extends OeceChildRow>(
   return {
     matched,
     unmatched,
-    duplicatePublicationKeys: [...duplicates],
   };
 }
