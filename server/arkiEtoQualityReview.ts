@@ -139,7 +139,9 @@ export function evaluateETOQuality(input: ETOQualityReview): ETOQualityResult {
     : score >= 70 ? "USEFUL_REFERENCE"
       : score >= 50 ? "CASE_STUDY"
         : "REJECTED";
-  const acceptedClass = review.humanDecision === "REJECT" ? "REJECTED" : scoreClass;
+  const acceptedClass = review.humanDecision === "REJECT" ? "REJECTED"
+    : review.humanDecision === "ACCEPT_CASE_STUDY" ? "CASE_STUDY"
+      : scoreClass;
   return {
     status: "REVIEWED",
     score,
