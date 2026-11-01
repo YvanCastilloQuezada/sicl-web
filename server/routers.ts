@@ -35,6 +35,7 @@ import { securityLayerCatalog } from "./arkiSecurityLayers";
 import { ARKI_RESEARCH_SUPERPOWER, authorizeResearchWrite, buildExcelReviewRow, closeResearchInternetAccess, grantResearchInternetLease, inspectPublicResearchSource, listResearchCandidates, researchCyclePolicy, researchInternetLeaseStatus, reviewResearchCandidate, stageResearchCandidate } from "./arkiResearchSuperpower";
 import { ENV } from "./_core/env";
 import { arkiCostModuleContract, calculateArkiCostModel } from "./arkiCostIntelligence";
+import { publicProcurementWorkspaceContract, validatePublicProcurementWorkspace } from "./arkiPublicProcurementWorkspace";
 import { arkiEtiBimContract } from "./arkiEtiBim";
 import { arkiBimViewerContract, detectBimInterferences, inspectBimArtifact, type BimViewerModel } from "./arkiBimViewer";
 import { runPreliminaryPredimensioning, transversalKnowledgeContract } from "./arkiTransversalEngineering";
@@ -105,6 +106,10 @@ async function saveNext(ownerId: number, projectId: string, expectedVersion: num
 }
 
 export const appRouter = router({
+  publicProcurementWorkspace: router({
+    contract: publicProcedure.query(() => publicProcurementWorkspaceContract()),
+    validate: protectedProcedure.input(z.unknown()).mutation(({ input }) => validatePublicProcurementWorkspace(input)),
+  }),
   system: systemRouter,
   federatedHandoffs: router({
     list: protectedProcedure.input(z.object({ status: z.enum(["CANDIDATE", "HUMAN_REVIEW", "APPROVED", "REJECTED", "FROZEN"]).optional() }).optional()).query(({ ctx, input }) => listFederatedAssistantHandoffs(ctx.user.id, input?.status)),
