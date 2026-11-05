@@ -125,7 +125,7 @@ function assertCandidateSet(state: DesignFunnelState, ids: string[], expected: n
   if (selected.some((candidate) => candidate.stage === "ARCHIVED" || candidate.stage === "BLOCKED")) throw new Error("STALE_FINALIST_SELECTION");
 }
 export function promoteToFinalFour(state: DesignFunnelState, selectedIds: string[], humanActor: string, reason?: string, timestamp = now()): DesignFunnelState {
-  if (state.stage !== "DESIGN_EXPLORER_9" || state.waitState !== "AWAITING_9_TO_4_SELECTION") throw new Error("INVALID_16_TO_4_STAGE");
+  if (state.stage !== "DESIGN_EXPLORER_9" || state.waitState !== "AWAITING_9_TO_4_SELECTION") throw new Error("INVALID_9_TO_4_STAGE");
   if (!humanActor.trim()) throw new Error("HUMAN_AUTHORITY_REQUIRED");
   assertCandidateSet(state, selectedIds, 4);
   const available = state.candidates.map((candidate) => candidate.id); const nonSelected = available.filter((candidateId) => !selectedIds.includes(candidateId));
