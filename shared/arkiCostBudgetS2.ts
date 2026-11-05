@@ -1,6 +1,6 @@
 export const ARKI_COST_BUDGET_S2_VERSION = "ARKI-PREDICTIVE-ARCHITECTURE-001.S2" as const;
 
-export type CostFidelity = "RAPID_16" | "DEEP_4" | "DEVELOPMENT_1";
+export type CostFidelity = "RAPID_9" | "DEEP_4" | "DEVELOPMENT_1";
 export type EpistemicState = "ESTIMATE" | "BOUND" | "UNKNOWN" | "STALE" | "INVALIDATED" | "PROFESSIONAL_VALIDATION_REQUIRED";
 export type PriceProvenance = "PROJECT_PROVIDED" | "HISTORICAL_PROJECT" | "DATABASE" | "MARKET_QUOTE" | "PUBLIC_REFERENCE" | "ASSUMED" | "DERIVED" | "UNKNOWN";
 export type QuantityProvenance = "GEOMETRIC_QUANTITY" | "INFERRED_QUANTITY" | "ASSUMED_QUANTITY" | "MANUAL_QUANTITY" | "UNKNOWN_QUANTITY";
@@ -44,7 +44,7 @@ function assertContext(input: CostCandidateInput) {
 function round(value: number) { return Math.round(value * 100) / 100; }
 
 export function costBudgetS2Contract() {
-  return { version: ARKI_COST_BUDGET_S2_VERSION, doctrine: ["COST_NOT_VALUE", "ESTIMATE_NOT_BUDGET", "UNKNOWN_NOT_ZERO", "CHEAPEST_NOT_WINNER"], fidelity: { explorer16: "RAPID_16", finalist4: "DEEP_4", selected1: "DEVELOPMENT_1" }, acceptedUnits: ["m²", "m³", "m", "kg", "t", "unit", "hour"], priceProvenance: ["PROJECT_PROVIDED", "HISTORICAL_PROJECT", "DATABASE", "MARKET_QUOTE", "PUBLIC_REFERENCE", "ASSUMED", "DERIVED", "UNKNOWN"], quantityProvenance: ["GEOMETRIC_QUANTITY", "INFERRED_QUANTITY", "ASSUMED_QUANTITY", "MANUAL_QUANTITY", "UNKNOWN_QUANTITY"], humanAuthorityFinal: true, profitabilitySeparate: true, lifecycleCostSeparate: true } as const;
+  return { version: ARKI_COST_BUDGET_S2_VERSION, doctrine: ["COST_NOT_VALUE", "ESTIMATE_NOT_BUDGET", "UNKNOWN_NOT_ZERO", "CHEAPEST_NOT_WINNER"], fidelity: { explorer9: "RAPID_9", finalist4: "DEEP_4", selected1: "DEVELOPMENT_1" }, acceptedUnits: ["m²", "m³", "m", "kg", "t", "unit", "hour"], priceProvenance: ["PROJECT_PROVIDED", "HISTORICAL_PROJECT", "DATABASE", "MARKET_QUOTE", "PUBLIC_REFERENCE", "ASSUMED", "DERIVED", "UNKNOWN"], quantityProvenance: ["GEOMETRIC_QUANTITY", "INFERRED_QUANTITY", "ASSUMED_QUANTITY", "MANUAL_QUANTITY", "UNKNOWN_QUANTITY"], humanAuthorityFinal: true, profitabilitySeparate: true, lifecycleCostSeparate: true } as const;
 }
 
 export function estimateCandidateCost(input: CostCandidateInput, fidelity: CostFidelity): CostEstimate {
@@ -76,10 +76,10 @@ export function estimateCandidateCost(input: CostCandidateInput, fidelity: CostF
   const rawGroups: Record<CostGroup, number> = { STRUCTURE: structuralProxy * BASE_PRICES.STRUCTURE, ENVELOPE: facadeComplexity * BASE_PRICES.ENVELOPE, MEP: mepProxy * BASE_PRICES.MEP, FINISHES: area * BASE_PRICES.FINISHES, SITE_EXTERNAL: siteProxy * BASE_PRICES.SITE_EXTERNAL, INDIRECT: (area + circulation) * BASE_PRICES.INDIRECT };
   const groups = Object.fromEntries(GROUPS.map((group) => [group, round(rawGroups[group] * factor)])) as Partial<Record<CostGroup, number>>;
   const central = round(Object.values(groups).reduce((sum, value) => sum + (value ?? 0), 0));
-  const spread = fidelity === "RAPID_16" ? 0.18 : fidelity === "DEEP_4" ? 0.12 : 0.08;
+  const spread = fidelity === "RAPID_9" ? 0.18 : fidelity === "DEEP_4" ? 0.12 : 0.08;
   if (fidelity === "DEVELOPMENT_1") assumptions.push("Development model remains subject to professional quantity and price validation.");
   const epistemicState: EpistemicState = fidelity === "DEVELOPMENT_1" ? "PROFESSIONAL_VALIDATION_REQUIRED" : "BOUND";
-  return { estimateId: id("EST", input.candidateId), projectId: input.projectId, candidateId: input.candidateId, generationId: input.generationId, fidelityLevel: fidelity, currency: input.currency!, baseDate: input.baseDate!, location: input.location!, estimateMethod: fidelity === "RAPID_16" ? "PARAMETRIC_PROXY" : fidelity === "DEEP_4" ? "COMPARATIVE_TAKEOFF" : "DEVELOPMENT_MODEL", quantityRefs, unitPriceRefs, assumptions, exclusions, unknowns: Array.from(new Set(unknowns)), contingency: spread, lowEstimate: round(central * (1 - spread)), centralEstimate: central, highEstimate: round(central * (1 + spread)), evidenceRefs: [source, `GEOMETRY:${input.candidateId}:R${revision}`], provenance: [source, "DESIGN_CANDIDATE_METRICS"], epistemicState, timestamp: iso(), scenario, groups, costPerM2: round(central / area), designRevision: revision };
+  return { estimateId: id("EST", input.candidateId), projectId: input.projectId, candidateId: input.candidateId, generationId: input.generationId, fidelityLevel: fidelity, currency: input.currency!, baseDate: input.baseDate!, location: input.location!, estimateMethod: fidelity === "RAPID_9" ? "PARAMETRIC_PROXY" : fidelity === "DEEP_4" ? "COMPARATIVE_TAKEOFF" : "DEVELOPMENT_MODEL", quantityRefs, unitPriceRefs, assumptions, exclusions, unknowns: Array.from(new Set(unknowns)), contingency: spread, lowEstimate: round(central * (1 - spread)), centralEstimate: central, highEstimate: round(central * (1 + spread)), evidenceRefs: [source, `GEOMETRY:${input.candidateId}:R${revision}`], provenance: [source, "DESIGN_CANDIDATE_METRICS"], epistemicState, timestamp: iso(), scenario, groups, costPerM2: round(central / area), designRevision: revision };
 }
 
 export function compareCostEstimates(estimates: CostEstimate[]) {

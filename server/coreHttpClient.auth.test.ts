@@ -57,3 +57,19 @@ describe("coreHttpClient service authentication", () => {
     await expect(fetchCanonicalCouncil("SICL-1")).resolves.toMatchObject({ read_only: true, readOnly: true });
     expect(fetchSpy).toHaveBeenCalledWith("https://core.example.test/v1/projects/SICL-1/council", { headers: { accept: "application/json", authorization: "Bearer service-token-test" } });
   });
+
+  it("normalizes the actual Core v1 Council envelope without fabricating analytics", async () => {
+    process.env.SICL_CORE_URL = "https://core.example.test";
+    process.env.SICL_CORE_SERVICE_TOKEN = "service-token-test";
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      contract_version: "1.0", status: "OK", code: "OK", message: "ok",
+      project_id: "SICL-1", observed_version: 3,
+      data: { read_only: true, finding: "Council projection requires comparison and recommendation data.", snapshot: {}, comparisons: [], recommendations: [], decision_created: false },
+    }), { status: 200, headers: { "content-type": "application/json" } })));
+    const { fetchCanonicalCouncil } = await import("./coreHttpClient");
+    await expect(fetchCanonicalCouncil("SICL-1")).resolves.toMatchObject({
+      read_only: true, readOnly: true, observed_version: 3,
+      comparisons: [], multi_comparisons: [], tradeoffs: [], recommendations: [],
+      decision_created: false,
+    });
+  });

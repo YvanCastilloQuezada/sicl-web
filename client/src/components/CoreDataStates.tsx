@@ -1,10 +1,10 @@
-import { AlertTriangle, CheckCircle2, RefreshCw, WifiOff } from "lucide-react";
+import { AlertTriangle, RefreshCw, WifiOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "react-i18next";
 
-type CoreUnavailableProps = { onRetry: () => void; onEnableMock: () => void; error?: string };
+type CoreUnavailableProps = { onRetry: () => void; error?: string };
 
 export function CoreLoadingSkeleton() {
   return (
@@ -15,13 +15,13 @@ export function CoreLoadingSkeleton() {
   );
 }
 
-export function CoreUnavailable({ onRetry, onEnableMock, error }: CoreUnavailableProps) {
+export function CoreUnavailable({ onRetry, error }: CoreUnavailableProps) {
   const { t } = useTranslation();
   const displayError = error?.includes("SICL Core API returned 503") ? `${t("core.core_unconfigured")} (HTTP 503)` : error;
   return (
     <Card role="alert" className="mt-6 overflow-hidden border-[#d07b4a] bg-gradient-to-br from-[#fffaf3] to-[#f7e8dc] shadow-none">
       <CardHeader><div className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-full bg-[#d07b4a] text-white"><WifiOff className="h-5 w-5" /></span><div><CardTitle className="font-serif text-2xl text-[#63351f]">{t("core.core_unconfigured")}</CardTitle><p className="mt-1 text-sm text-[#7b5845]">{t("core.core_not_connected")}</p></div></div></CardHeader>
-      <CardContent className="space-y-4 text-sm text-[#63351f]"><p>{displayError || t("core.core_contact")}</p><ol className="grid gap-2 rounded-md border border-[#e7c3aa] bg-white/60 p-4 text-[#7b5845]"><li>1. {t("core.core_deploy")}</li><li>2. {t("core.core_configure")}</li><li>3. {t("core.core_retry_steps")}</li></ol><div className="flex flex-wrap gap-3"><Button type="button" onClick={onRetry} className="bg-[#385348] text-white hover:bg-[#294038]"><RefreshCw className="mr-2 h-4 w-4" /> {t("core.retry_connection")}</Button><Button type="button" variant="outline" onClick={onEnableMock} className="border-[#385348] bg-white text-[#385348] hover:bg-[#eef1eb]"><CheckCircle2 className="mr-2 h-4 w-4" /> {t("core.try_mock")}</Button></div></CardContent>
+      <CardContent className="space-y-4 text-sm text-[#63351f]"><p>{displayError || t("core.core_contact")}</p><ol className="grid gap-2 rounded-md border border-[#e7c3aa] bg-white/60 p-4 text-[#7b5845]"><li>1. {t("core.core_deploy")}</li><li>2. {t("core.core_configure")}</li><li>3. {t("core.core_retry_steps")}</li></ol><div className="flex flex-wrap gap-3"><Button type="button" onClick={onRetry} className="bg-[#385348] text-white hover:bg-[#294038]"><RefreshCw className="mr-2 h-4 w-4" /> {t("core.retry_connection")}</Button></div></CardContent>
     </Card>
   );
 }

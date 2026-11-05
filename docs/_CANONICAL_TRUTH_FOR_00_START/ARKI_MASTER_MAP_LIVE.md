@@ -34,7 +34,7 @@ Orthogonal states: `UNKNOWN`, `BLOCKED`, `FUTURE_EMPIRICAL_TEST`, `DEPRECATED`, 
 
 | Capability / artifact | Evidence locus | Current interpretation |
 |---|---|---|
-| Design Funnel | `docs/arki-predictive/DESIGN_FUNNEL_16_4_1.md`, `shared/arkiDesignFunnel.ts`, `ArkiDesignFunnelPage.tsx` | Implemented contract: `N -> 16 -> 4 -> 1 -> SELECTED_FOR_DEVELOPMENT`; non-selected candidates archived; final promotion is human |
+| Design Funnel | `docs/arki-predictive/DESIGN_FUNNEL_9_4_1.md`, `shared/arkiDesignFunnel.ts`, `ArkiDesignFunnelPage.tsx` | Contract revised to `N -> 9 -> 4 -> 1`; synthetic UI paused; real architectural generation-to-F5 integration NOT VERIFIED; human selection and archive rules preserved |
 | Superpowers Pack | `docs/arki-superpowers/ARKI_SUPERPOWERS_PACK.md` | SP-01 Consequence Radar, SP-02 Value of Information, SP-03 Design Divergence, SP-04 Architectural Debt, SP-05 Counterfactual Explorer; implemented/focused tests with explicit bounds |
 | Dynamic Family Generator | `shared/arkiDynamicFamilies.ts`, `shared/arkiFamilyComparison.ts`, `ArkiFamilyStudioPage.tsx`, `outputs/ARKI_GENERADOR_DINAMICO_FAMILIAS_CODIGO_COMPLETO.md` | Existing conceptual generator: family -> variant -> context -> parameters -> program -> rules -> 2D -> section -> 3D -> metrics -> gates; generated candidates do not mutate Project State automatically |
 | Current Architecture Map | `docs/arki-inventory/ARKI_CURRENT_ARCHITECTURE_MAP.md` | Historical audited architecture snapshot; lineage evidence, not automatically current truth |
@@ -60,7 +60,7 @@ The exact taxonomy remains subject to repository reconciliation. Until then thes
 7. Program and architectural relationships
 8. Parti / topology / spatial reasoning
 9. Design generation and divergence
-10. Design Funnel `N -> 16 -> 4 -> 1`
+10. Design Funnel `N -> 9 -> 4 -> 1`
 11. Dynamic families / parametric design
 12. Geometry materialization / AGK / 3D-FIRST
 13. BIM / interoperability / digital twin
@@ -104,7 +104,7 @@ PERCEIVE
   -> REASON
   -> GENERATE MANY CANDIDATES
   -> FILTER / TEST / EVALUATE
-  -> N -> 16 -> 4 -> 1
+  -> N -> 9 -> 4 -> 1
   -> HUMAN VALIDATION
   -> DEVELOP SELECTED DESIGN
   -> MATERIALIZE GEOMETRY
@@ -185,7 +185,7 @@ Update **Current Focus**, **Last Completed**, **Open Blockers**, **Next Exact Ac
 
 - ARKI target is a highly autonomous super-architect, not merely a geometry or visualization tool.
 - 3D-FIRST is a system principle.
-- Design Funnel is `N -> 16 -> 4 -> 1`.
+- Design Funnel contract is `N -> 9 -> 4 -> 1`; production generation remains paused until the real engine is connected and verified end to end.
 - Non-selected design ideas remain traceable/archived rather than disappearing.
 - Human validation remains the final authority gate where required.
 - Technical dossiers must eventually support Peru and selected foreign jurisdictions through explicit jurisdiction-scoped normative evidence.
@@ -211,7 +211,7 @@ Priority consolidation set:
 - `docs/arki-post-513-inventory/ARKI_LATENT_CAPABILITY_MAP.md`
 - `docs/arki-post-513-inventory/ARKI_MULTIMODAL_CAPABILITY_MAP.md`
 - `docs/arki-superpowers/ARKI_SUPERPOWERS_PACK.md`
-- `docs/arki-predictive/DESIGN_FUNNEL_16_4_1.md`
+- `docs/arki-predictive/DESIGN_FUNNEL_9_4_1.md`
 - `docs/arki-ui-governance-001/A0/ARKI_CURRENT_PRODUCT_MAP.md`
 - `docs/arki-ui-governance-001/A0/PO_VISUAL_REVIEW_R2/`
 - `outputs/ARKI_GENERADOR_DINAMICO_FAMILIAS_CODIGO_COMPLETO.md`
@@ -225,7 +225,7 @@ These remain source evidence. This live map becomes the continuity index over th
 2. Recover all explicit FROZEN contracts and their SHAs/evidence.
 3. Reconcile Superpowers, Design Funnel, Family Generator, D-2, spatial reasoning, Developer, AGK, Capability Fabric, multimodal inputs, BIM/drawing, evaluation/optimization, agents and lifecycle capabilities.
 4. Mark disconnected and conflicting capabilities.
-5. Establish the minimum end-to-end path for a real project: assignment -> design exploration -> 16 -> 4 -> 1 -> selected design development -> geometry -> BIM/drawings -> technical dossier -> human validation.
+5. Establish the minimum end-to-end path for a real project: assignment -> design exploration -> 9 -> 4 -> 1 -> selected design development -> geometry -> BIM/drawings -> technical dossier -> human validation.
 6. Only then resume ACS Stage 2/3 and its frontend against this global map.
 
 ## 13. Visual Live Map contract — v0.2
@@ -250,7 +250,7 @@ The current user-declared position is **Phase 6, approximately the F6.3–F6.5 t
 
 The visual organism MUST make the Superarchitect legible as one system. Initial organ groups:
 
-`PERCEPTION -> PROJECT STATE/MEMORY -> D-2/REASONING -> PROGRAM/TOPOLOGY/SPATIAL -> GENERATION -> N→16→4→1 -> EVALUATION/OPTIMIZATION -> AGK/3D-FIRST -> BIM/DRAWINGS/DOSSIER -> CONSTRUCTION/OPERATION/MAINTENANCE -> LEARNING`
+`PERCEPTION -> PROJECT STATE/MEMORY -> D-2/REASONING -> PROGRAM/TOPOLOGY/SPATIAL -> GENERATION -> N→9→4→1 -> EVALUATION/OPTIMIZATION -> AGK/3D-FIRST -> BIM/DRAWINGS/DOSSIER -> CONSTRUCTION/OPERATION/MAINTENANCE -> LEARNING`
 
 ACS and Capability Fabric are transverse nervous-system services and MUST NOT be drawn as competing architectural or geometry authorities.
 

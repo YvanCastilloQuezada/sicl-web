@@ -137,7 +137,16 @@ async function coreRequestWithTimeout<T>(path: string, init: RequestInit): Promi
 
 export async function fetchOperationsResearchMethods(): Promise<OperationsResearchCatalog | undefined> {
   if (!coreUrl()) return undefined;
-  return coreRequest<OperationsResearchCatalog>("/v1/operations-research/methods", { method: "GET" });
+  const catalog = await coreRequest<OperationsResearchCatalog>("/v1/operations-research/methods", { method: "GET" });
+  if (!catalog || catalog.read_only !== true || !Array.isArray(catalog.methods) || catalog.methods.length === 0) {
+    throw new SiclCoreHttpError(
+      502,
+      "CORE_CATALOG_EMPTY",
+      "SICL Core returned an empty or invalid Operations Research catalog",
+      { contract: "/v1/operations-research/methods" },
+    );
+  }
+  return catalog;
 }
 
 export async function fetchCanonicalCouncil(projectId: string): Promise<CanonicalCouncil | CanonicalNotFound | undefined> {
@@ -146,7 +155,19 @@ export async function fetchCanonicalCouncil(projectId: string): Promise<Canonica
   const response = await fetch(`${base}/v1/projects/${encodeURIComponent(projectId)}/council`, { headers: serviceHeaders() });
   if (response.status === 404) { const error = await errorFromResponse(response); return { not_found: true, project_id: projectId, status: 404, error: error.errorCode ?? "HTTP_404", detail: error.envelope.detail as string | undefined, envelope: error.envelope }; }
   if (!response.ok) throw await errorFromResponse(response);
-  return unwrap(await response.json() as CanonicalCouncil);
+  const council = unwrap(await response.json() as CanonicalCouncil);
+  // Core's canonical Council projection currently exposes comparisons and
+  // recommendations only. Keep the Web view stable without pretending that
+  // multi-comparisons or tradeoffs were returned by Core.
+  return {
+    ...council,
+    read_only: council.read_only === true,
+    readOnly: council.read_only === true,
+    comparisons: Array.isArray(council.comparisons) ? council.comparisons : [],
+    multi_comparisons: Array.isArray(council.multi_comparisons) ? council.multi_comparisons : [],
+    tradeoffs: Array.isArray(council.tradeoffs) ? council.tradeoffs : [],
+    recommendations: Array.isArray(council.recommendations) ? council.recommendations : [],
+  };
 }
 
 export async function fetchCanonicalSnapshot(projectId: string): Promise<CanonicalCoreSnapshot | CanonicalNotFound | undefined> {
@@ -167,8 +188,42 @@ export async function fetchCanonicalHistory(projectId: string): Promise<Canonica
   return unwrap(await response.json() as CanonicalHistory);
 }
 
+const CORE_SPATIAL_SCOPE: Partial<Record<SpatialScope["scale"], string>> = {
+  SECTOR: "zona_barrio_sector",
+  DISTRICT: "distrito_ciudad",
+  CITY: "distrito_ciudad",
+  METROPOLITAN_AREA: "provincia_metropoli",
+  REGION: "region",
+  MACROREGION: "macro_region",
+  COUNTRY: "pais",
+};
+
+const CORE_TEMPORAL_SCOPE: Record<TemporalScope["horizon"], string> = {
+  PRESENT: "proyecto",
+  "2030": "escenario_2030",
+  "2040": "escenario_2040",
+  "2050": "escenario_2050",
+};
+
 export async function createCoreProject(projectId: string, name: string, scopes?: { spatialScope?: SpatialScope; temporalScope?: TemporalScope }) {
-  return coreRequest<{ contract_version: string; project_id: string; observed_version: number; snapshot: Record<string, unknown> }>("/v1/projects", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ project_id: projectId, name, ...(scopes?.spatialScope ? { spatial_scope: { scale: scopes.spatialScope.scale, id: scopes.spatialScope.id, name: scopes.spatialScope.name, ...(scopes.spatialScope.parentId ? { parent_id: scopes.spatialScope.parentId } : {}) } } : {}), ...(scopes?.temporalScope ? { temporal_scope: scopes.temporalScope } : {}) }) });
+  // Core has no canonical PROJECT spatial level. Do not mislabel it as a
+  // building or geographic level; omit it until Core supports that scope.
+  const spatialScope = scopes?.spatialScope
+    ? CORE_SPATIAL_SCOPE[scopes.spatialScope.scale]
+    : undefined;
+  const temporalScope = scopes?.temporalScope
+    ? CORE_TEMPORAL_SCOPE[scopes.temporalScope.horizon]
+    : undefined;
+  return coreRequest<{ contract_version: string; project_id: string; observed_version: number; snapshot: Record<string, unknown> }>("/v1/projects", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      project_id: projectId,
+      name,
+      ...(spatialScope ? { spatial_scope: { scope: spatialScope } } : {}),
+      ...(temporalScope ? { temporal_scope: { scope: temporalScope } } : {}),
+    }),
+  });
 }
 
 export async function createCorePreference(projectId: string, payload: Record<string, unknown>) {

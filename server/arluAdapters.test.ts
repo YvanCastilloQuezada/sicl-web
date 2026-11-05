@@ -19,5 +19,8 @@ describe("AR-LU adapters", () => {
     expect(prepareDistributionAdapter({ provider: "SOCIAL", assetChecksum: "sha256:abc", metadataComplete: true, humanApproved: false }).dispatch).toBe("PREVIEW_ONLY");
     expect(prepareDistributionAdapter({ provider: "SOCIAL", assetChecksum: "sha256:abc", metadataComplete: true, humanApproved: true }).dispatch).toBe("QUEUED_FOR_HUMAN_APPROVAL");
     expect(prepareDistributionAdapter({ provider: "SOCIAL", assetChecksum: "", metadataComplete: true, humanApproved: true }).state).toBe("BLOCKED");
+    const qr = prepareDistributionAdapter({ provider: "QR", assetChecksum: "sha256:abc", metadataComplete: true, humanApproved: true });
+    expect(qr.state).toBe("BLOCKED");
+    expect(qr.capabilities).toContain("QR_PAUSED_BY_PRODUCT_OWNER");
   });
 });

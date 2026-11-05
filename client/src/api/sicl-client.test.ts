@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { siclClient } from "./sicl-client";
+import { isMockCoreEnabled, siclClient } from "./sicl-client";
 
 describe("siclClient REST bridge", () => {
   afterEach(() => {
@@ -9,15 +9,13 @@ describe("siclClient REST bridge", () => {
     vi.unstubAllEnvs();
   });
 
-  it("uses explicit mock data without making network requests", async () => {
+  it("ignores legacy mock flags because mock Core mode is paused", async () => {
     window.localStorage.setItem("sims-dei.mock-core", "true");
-    const fetchMock = vi.fn();
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ status: "OK", code: "OK", message: "ok", data: { projects: [] } }), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
-    const projects = await siclClient.listProjects();
-    expect(projects[0]).toMatchObject({ project_id: "MOCK-ARKI-001" });
-    await expect(siclClient.getProject("MOCK-ARKI-001")).resolves.toMatchObject({ stage: "OPEN" });
-    await siclClient.executeCommand("MOCK-ARKI-001", "/HISTORY");
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(isMockCoreEnabled()).toBe(false);
+    await expect(siclClient.listProjects()).resolves.toEqual([]);
+    expect(fetchMock).toHaveBeenCalledWith("/api/core/projects", expect.anything());
   });
 
   it("creates a project through POST /projects", async () => {

@@ -40,7 +40,7 @@ const primarySurfaces = [
   { href:"/arki-arbol-vivo", eyebrow:"LIVING TREE", title:"Árbol Vivo original", body:"Maqueta Viva y Árbol Gemelo Digital existentes, con observación AV-022 de evidencias y decisiones. Requiere servicio local.", accent:"text-[#a7e6c5]" },
   { href:"/arki-command-center", eyebrow:"SYSTEM", title:"Command Center", body:"Cuerpo vivo de ARKI: órganos, Delta 6.2, fases, evidencia, estado y próximos gates.", accent:"text-[#d4ff3a]" },
   { href:"/control-center", eyebrow:"AUTHORITY", title:"Director / Control", body:"Superficie de Human Authority para control, revisión, gobernanza y decisiones.", accent:"text-[#f0a35b]" },
-  { href:"/arki-design-funnel", eyebrow:"DESIGN", title:"Design Studio", body:"Exploración arquitectónica N→16→4→1 con comparación, trazabilidad y selección para desarrollo.", accent:"text-[#70e1a2]" },
+  { href:"/arki-design-funnel", eyebrow:"DESIGN", title:"Design Studio", body:"Exploración arquitectónica N→9→4→1 con comparación, trazabilidad y selección para desarrollo.", accent:"text-[#70e1a2]" },
 ];
 
 const productionChain = [
@@ -49,7 +49,7 @@ const productionChain = [
   ["03","BRIEF","Programa, objetivos, preferencias y restricciones"],
   ["04","PARTI","Intención → relaciones → topología"],
   ["05","EXPLORAR","Generación y divergencia arquitectónica"],
-  ["06","16 → 4 → 1","Comparar · evaluar · seleccionar sin borrar genealogía"],
+  ["06","9 → 4 → 1","Comparar · evaluar · seleccionar sin borrar genealogía"],
   ["07","AGK","Geometría canónica 3D en Local Engineering Frame"],
   ["08","DOCUMENTAR","Planta · corte · elevación · BIM desde el mismo estado"],
 ];
@@ -59,7 +59,7 @@ const phaseIdeaChips:Record<string,string[]> = {
  F2:["Delta 6.2","Universidad","Book adaptativo"],
  F3:["Brief","Normativa","Agentes"],
  F4:["PARTI ×3","Topología","Backtrack"],
- F5:["16→4→1","Pareto","Superpoderes"],
+ F5:["9→4→1","Pareto","Superpoderes"],
  F6:["OCCT","Naming","Paramétricos"],
  F7:["RNE","MEP/Estructura","IFC/CAD"],
  F8:["Súper Expediente","Planos","Metrados"],
@@ -169,7 +169,7 @@ export default function ArkiSuperarchitectCommandCenterPage(){
       </section>
 
       <nav className="mt-5 flex gap-1 overflow-x-auto border-b border-[#28445b]">{([
-        ["OVERVIEW","RESUMEN"],["PHASES","10 FASES"],["SYSTEM","CUERPO ARKI"],["KNOWLEDGE","DELTA 6.2"],["IDEAS","IDEAS / FROZEN"],["EVOLUTION","PRUEBA 16→4→1"]
+        ["OVERVIEW","RESUMEN"],["PHASES","10 FASES"],["SYSTEM","CUERPO ARKI"],["KNOWLEDGE","DELTA 6.2"],["IDEAS","IDEAS / FROZEN"],["EVOLUTION","PRUEBA 9→4→1"]
       ] as [MainTab,string][]).map(([id,label])=><button key={id} onClick={()=>setTab(id)} className={`whitespace-nowrap border-b-2 px-4 py-3 text-[11px] font-semibold tracking-[.08em] ${tab===id?"border-[#d4ff3a] text-[#d4ff3a]":"border-transparent text-[#8fa8bc] hover:text-white"}`}>{label}</button>)}</nav>
 
       <div className="mt-4">
@@ -182,7 +182,7 @@ export default function ArkiSuperarchitectCommandCenterPage(){
           <aside className="space-y-3">
             <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#7dd3fc]">ÚLTIMO HITO RECUPERADO</div><h3 className="mt-2 font-semibold">KR-6.2 · Gate PASS</h3><p className="mt-2 text-xs leading-5 text-[#9eb5c4]">Master histórico de conocimiento/razonamiento: 4,118 filas consolidadas, lineage v1–v6.1, conexiones runtime y UNKNOWN explícito.</p><button onClick={()=>setTab("KNOWLEDGE")} className="mt-3 flex items-center text-xs font-semibold text-[#d4ff3a]">Abrir Delta 6.2 <ChevronRight className="ml-1 size-3"/></button></div>
             <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#f0a35b]">TRABAJANDO AHORA</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Frontend-first: ensamblaje de Professional + Command Center + Director/Control + Design Studio. AGK continúa como soporte, no como bloqueo del frontend.</p></div>
-            <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#d4ff3a]">SIGUIENTE</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Conectar el flujo SITE-FIRST con Design Studio y el estado canónico: sitio → inteligencia → brief → Parti → 16→4→1 → AGK → planta/3D/BIM.</p></div>
+            <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-4"><div className="text-[9px] tracking-[.18em] text-[#d4ff3a]">SIGUIENTE</div><p className="mt-2 text-xs leading-5 text-[#b9cbd6]">Conectar el flujo SITE-FIRST con Design Studio y el estado canónico: sitio → inteligencia → brief → Parti → 9→4→1 → AGK → planta/3D/BIM.</p></div>
           </aside>
         </div>}
 
@@ -199,8 +199,8 @@ export default function ArkiSuperarchitectCommandCenterPage(){
           <div className="lg:col-span-3 rounded-[6px] border border-[#28445b] bg-[#091827] p-5"><div className="text-[10px] uppercase tracking-[.18em] text-[#f0a35b]">PENDIENTE DE RECONCILIACIÓN</div><p className="mt-2 text-sm text-[#b9cbd6]">Este tablero ya fija la taxonomía visual, pero todavía no inventa el inventario. La siguiente pasada debe cargar las ideas reales y los registros Frozen existentes del repositorio y documentos históricos.</p></div>
         </div>}
         {tab==="EVOLUTION"&&<div className="grid gap-4 lg:grid-cols-[1fr_360px]">
-          <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#d4ff3a]"><Sparkles className="size-4"/><b>Banco de pruebas arquitectónico</b></div><h3 className="mt-3 text-xl font-semibold">Ejemplo: edificio de 120 pisos</h3><p className="mt-2 text-sm leading-6 text-[#9eb5c4]">Ya existe un embudo ejecutable N→16→4→1. Preparé el modo demo para editar brief, pisos, área y ubicación, generar 16 candidatos conceptuales, escoger 4 y después 1, preservando los descartados y el historial.</p><a href="/arki-design-funnel" className="mt-4 inline-flex items-center rounded bg-[#d4ff3a] px-4 py-2 text-xs font-bold text-[#07121e]">Abrir prueba 16→4→1 <ChevronRight className="ml-1 size-4"/></a></div>
-          <div className="rounded-[6px] border border-[#f0a35b]/50 bg-[#f0a35b]/5 p-5"><div className="text-[9px] font-bold tracking-[.16em] text-[#f0a35b]">LÍMITE ACTUAL</div><p className="mt-3 text-xs leading-5 text-[#b9cbd6]">La corrida actual sirve para pulir interacción, selección y trazabilidad. Los 16 son candidatos conceptuales del demo existente; todavía no son 16 diseños profesionales de una torre de 120 pisos ni prueban estructura, normativa, viento, sismo, evacuación o AGK avanzado.</p></div>
+          <div className="rounded-[6px] border border-[#28445b] bg-[#0d1d2c] p-5"><div className="flex items-center gap-2 text-[#d4ff3a]"><Sparkles className="size-4"/><b>Banco de pruebas arquitectónico</b></div><h3 className="mt-3 text-xl font-semibold">F5 · Design Studio</h3><p className="mt-2 text-sm leading-6 text-[#9eb5c4]">El contrato de selección se ha reducido a 9→4→1. La demostración sintética está suspendida indefinidamente; el Studio reabrirá cuando la generación arquitectónica real esté conectada y verificada.</p><a href="/arki-design-funnel" className="mt-4 inline-flex items-center rounded bg-[#d4ff3a] px-4 py-2 text-xs font-bold text-[#07121e]">Ver estado del Design Studio <ChevronRight className="ml-1 size-4"/></a></div>
+          <div className="rounded-[6px] border border-[#f0a35b]/50 bg-[#f0a35b]/5 p-5"><div className="text-[9px] font-bold tracking-[.16em] text-[#f0a35b]">LÍMITE ACTUAL</div><p className="mt-3 text-xs leading-5 text-[#b9cbd6]">Estado: PAUSADO. No se muestran candidatos fabricados ni se afirma generación arquitectónica hasta que el motor real produzca geometría trazable y supere sus pruebas.</p></div>
         </div>}
       </div>
     </div>
