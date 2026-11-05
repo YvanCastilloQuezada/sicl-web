@@ -51,7 +51,7 @@ function displayId(candidateId: string, candidates: DesignCandidate[]) {
 }
 
 function fidelityFor(stage: DesignFunnelState["stage"]): CostFidelity {
-  return stage === "DESIGN_EXPLORER_9" ? "RAPID_16" : stage === "FINALIST_4" || stage === "RETURNED_TO_FINALISTS" ? "DEEP_4" : "DEVELOPMENT_1";
+  return stage === "DESIGN_EXPLORER_9" ? "RAPID_9" : stage === "FINALIST_4" || stage === "RETURNED_TO_FINALISTS" ? "DEEP_4" : "DEVELOPMENT_1";
 }
 
 function estimateFor(candidate: DesignCandidate, state: DesignFunnelState, revision: number, location: string): CostEstimate {
@@ -92,8 +92,8 @@ function Status({ state }: { state: DesignFunnelState }) {
     archived: state.candidates.filter((candidate) => candidate.stage === "ARCHIVED").length,
   }), [state]);
   return <div className="flex flex-wrap items-center gap-2 text-xs text-[#9eb5c4]">
-    <span className="rounded border border-[#28445b] px-2 py-1">N → 16 → 4 → 1</span>
-    <span>Exploración: {summary.explorer || 16}</span><span>Final Four: {summary.finalists}</span><span>Archivadas: {summary.archived}</span>
+    <span className="rounded border border-[#28445b] px-2 py-1">9 → 4 → 1</span>
+    <span>Exploración: {summary.explorer || 9}</span><span>Final Four: {summary.finalists}</span><span>Archivadas: {summary.archived}</span>
     <span className="text-[#d4ff3a]">{state.waitState === "NONE" ? state.stage : state.waitState}</span>
   </div>;
 }
@@ -101,13 +101,13 @@ function Status({ state }: { state: DesignFunnelState }) {
 function CostPanel({ state, revision, activeId, onSelect, location }: { state: DesignFunnelState; revision: number; activeId?: string; onSelect: (id: string) => void; location: string }) {
   const candidates = state.candidates.filter((candidate) => candidate.stage === "SURVIVOR" || candidate.stage === "FINALIST_4" || candidate.stage === "SELECTED_FOR_DEVELOPMENT");
   const fidelity = fidelityFor(state.stage);
-  const target = fidelity === "RAPID_16" ? "≤ ±10% objetivo" : fidelity === "DEEP_4" ? "≤ ±5% objetivo" : "≤ ±2% objetivo";
+  const target = fidelity === "RAPID_9" ? "≤ ±10% objetivo" : fidelity === "DEEP_4" ? "≤ ±5% objetivo" : "≤ ±2% objetivo";
   return <Card className="border-[#28445b] bg-[#0b2031] p-4">
     <div className="text-xs uppercase tracking-[.18em] text-[#d4ff3a]">COSTOS / FINANZAS · {fidelity}</div>
     <h2 className="mt-1 text-lg font-semibold">Comparación económica</h2>
     <p className="mt-2 text-xs leading-5 text-[#9eb5c4]">{target}. La incertidumbre mostrada es la demostrada por el modelo, no una precisión fabricada.</p>
     <div className="mt-4 space-y-2">
-      {candidates.slice(0, fidelity === "RAPID_16" ? 16 : 4).map((candidate) => {
+      {candidates.slice(0, fidelity === "RAPID_9" ? 9 : 4).map((candidate) => {
         const estimate = estimateFor(candidate, state, revision, location);
         const label = displayId(candidate.id, state.candidates);
         return <button type="button" key={candidate.id} onClick={() => onSelect(candidate.id)} className={`w-full rounded border p-3 text-left transition ${candidate.id === activeId ? "border-[#d4ff3a] bg-[#132b3f]" : "border-[#28445b] bg-[#071726] hover:border-[#7893af]"}`}>
