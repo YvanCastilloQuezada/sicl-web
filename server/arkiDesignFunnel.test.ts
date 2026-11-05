@@ -161,7 +161,7 @@ describe("ARKI Design Funnel S1", () => {
     const state = promoteToFinalFour(makeState(), ["A01", "A07", "A08", "A09"], "Yvan", "Comparación de patios y circulación");
     expect(state.stage).toBe("FINALIST_4");
     expect(state.candidates.filter((candidate) => candidate.stage === "FINALIST_4")).toHaveLength(4);
-    expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(5);
+    expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(8);
     expect(state.events[0].type).toBe("HUMAN_DESIGN_SELECTION");
   });
   it("rejects cross-project and stale selections", () => {
