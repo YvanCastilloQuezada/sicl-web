@@ -148,10 +148,10 @@ describe("ARKI F5 epistemic runtime boundary", () => {
   });
 });
 describe("ARKI Design Funnel S1", () => {
-  it("creates the canonical 16-candidate waiting state", () => {
+  it("creates the canonical 9-candidate waiting state", () => {
     const state = makeState();
-    expect(state.candidates).toHaveLength(16);
-    expect(state.waitState).toBe("AWAITING_16_TO_4_SELECTION");
+    expect(state.candidates).toHaveLength(9);
+    expect(state.waitState).toBe("AWAITING_9_TO_4_SELECTION");
   });
   it("requires exactly four human-selected candidates", () => {
     expect(() => promoteToFinalFour(makeState(), ["A01", "A02", "A03"], "Yvan")).toThrow("SELECTION_REQUIRES_4");
@@ -161,7 +161,7 @@ describe("ARKI Design Funnel S1", () => {
     const state = promoteToFinalFour(makeState(), ["A01", "A07", "A11", "A14"], "Yvan", "Comparación de patios y circulación");
     expect(state.stage).toBe("FINALIST_4");
     expect(state.candidates.filter((candidate) => candidate.stage === "FINALIST_4")).toHaveLength(4);
-    expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(12);
+    expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(5);
     expect(state.events[0].type).toBe("HUMAN_DESIGN_SELECTION");
   });
   it("rejects cross-project and stale selections", () => {
