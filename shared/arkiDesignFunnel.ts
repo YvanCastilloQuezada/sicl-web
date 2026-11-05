@@ -1,6 +1,6 @@
 export const ARKI_DESIGN_FUNNEL_VERSION = "ARKI-PREDICTIVE-ARCHITECTURE-001.S1" as const;
-export type FunnelStage = "GENERATED" | "SCREENED" | "SURVIVOR" | "DESIGN_EXPLORER_16" | "FINALIST_4" | "SELECTED_FOR_DEVELOPMENT" | "DEVELOPMENT_IN_PROGRESS" | "BLOCKED" | "RETURNED_TO_FINALISTS" | "ARCHIVED" | "SUPERSEDED";
-export type HumanWaitState = "NONE" | "AWAITING_16_TO_4_SELECTION" | "AWAITING_4_TO_1_SELECTION";
+export type FunnelStage = "GENERATED" | "SCREENED" | "SURVIVOR" | "DESIGN_EXPLORER_9" | "FINALIST_4" | "SELECTED_FOR_DEVELOPMENT" | "DEVELOPMENT_IN_PROGRESS" | "BLOCKED" | "RETURNED_TO_FINALISTS" | "ARCHIVED" | "SUPERSEDED";
+export type HumanWaitState = "NONE" | "AWAITING_9_TO_4_SELECTION" | "AWAITING_4_TO_1_SELECTION";
 export type CandidateStatus = "ELIGIBLE" | "UNKNOWN" | "FAILED";
 export type ComparisonMode = "PREVIEW" | "PLAN" | "3D" | "ELEVATION" | "SECTION" | "PROGRAM" | "CIRCULATION" | "ENERGY" | "DAYLIGHT" | "STRUCTURE" | "COST" | "TECHNICAL";
 export type CandidateEpistemicKind =
@@ -100,10 +100,10 @@ function validateCandidateEpistemicModel(candidate: DesignCandidate): void {
     }
   }
 }
-export type HumanDesignSelectionEvent = { eventId: string; type: "HUMAN_DESIGN_SELECTION"; projectId: string; explorationId: string; generationId: string; selectionStage: "16_TO_4" | "4_TO_1"; availableCandidateIds: string[]; selectedCandidateIds: string[]; nonSelectedCandidateIds: string[]; humanActor: string; timestamp: string; optionalReason?: string; evidenceRefs: string[]; uiContext: string };
+export type HumanDesignSelectionEvent = { eventId: string; type: "HUMAN_DESIGN_SELECTION"; projectId: string; explorationId: string; generationId: string; selectionStage: "9_TO_4" | "4_TO_1"; availableCandidateIds: string[]; selectedCandidateIds: string[]; nonSelectedCandidateIds: string[]; humanActor: string; timestamp: string; optionalReason?: string; evidenceRefs: string[]; uiContext: string };
 export type FunnelEvent = HumanDesignSelectionEvent | { eventId: string; type: "DEEP_EVALUATION_STARTED" | "DEEP_EVALUATION_COMPLETED" | "RETURN_TO_FINAL_FOUR" | "CANDIDATE_BLOCKED" | "NEW_GENERATION_REQUESTED"; projectId: string; candidateIds: string[]; timestamp: string; evidenceRefs: string[]; reason?: string };
 export type DesignFunnelState = { version: typeof ARKI_DESIGN_FUNNEL_VERSION; projectId: string; explorationId: string; generationId: string; stage: FunnelStage; waitState: HumanWaitState; candidates: DesignCandidate[]; events: FunnelEvent[]; comparisonMode: ComparisonMode; deepEvaluation: Record<string, { status: "NOT_EVALUATED" | "RUNNING" | "READY" | "BLOCKED"; findings: string[]; unknowns: string[] }>; selectedCandidateId?: string; explicitHumanAuthority: true };
-export const FUNNEL_LIMITS = { explorer: 16, finalists: 4, selected: 1 } as const;
+export const FUNNEL_LIMITS = { explorer: 9, finalists: 4, selected: 1 } as const;
 const now = () => new Date().toISOString();
 const id = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
@@ -112,9 +112,9 @@ export function createDesignFunnel(input: { projectId: string; explorationId?: s
     validateCandidateEpistemicModel(candidate);
   }
 
-  if (input.candidates.length !== 16) throw new Error("DESIGN_EXPLORER_REQUIRES_16_CANDIDATES");
+  if (input.candidates.length !== 9) throw new Error("DESIGN_EXPLORER_REQUIRES_9_CANDIDATES");
   const generationId = input.generationId ?? "GEN-001";
-  return { version: ARKI_DESIGN_FUNNEL_VERSION, projectId: input.projectId, explorationId: input.explorationId ?? "EXP-001", generationId, stage: "DESIGN_EXPLORER_16", waitState: "AWAITING_16_TO_4_SELECTION", candidates: input.candidates.map((candidate) => ({ ...candidate, projectId: input.projectId, stage: candidate.stage === "GENERATED" ? "SURVIVOR" : candidate.stage })), events: [], comparisonMode: "PREVIEW", deepEvaluation: {}, explicitHumanAuthority: true };
+  return { version: ARKI_DESIGN_FUNNEL_VERSION, projectId: input.projectId, explorationId: input.explorationId ?? "EXP-001", generationId, stage: "DESIGN_EXPLORER_9", waitState: "AWAITING_9_TO_4_SELECTION", candidates: input.candidates.map((candidate) => ({ ...candidate, projectId: input.projectId, stage: candidate.stage === "GENERATED" ? "SURVIVOR" : candidate.stage })), events: [], comparisonMode: "PREVIEW", deepEvaluation: {}, explicitHumanAuthority: true };
 }
 function assertCandidateSet(state: DesignFunnelState, ids: string[], expected: number) {
   if (new Set(ids).size !== ids.length) throw new Error("DUPLICATE_CANDIDATE_SELECTION");
@@ -125,11 +125,11 @@ function assertCandidateSet(state: DesignFunnelState, ids: string[], expected: n
   if (selected.some((candidate) => candidate.stage === "ARCHIVED" || candidate.stage === "BLOCKED")) throw new Error("STALE_FINALIST_SELECTION");
 }
 export function promoteToFinalFour(state: DesignFunnelState, selectedIds: string[], humanActor: string, reason?: string, timestamp = now()): DesignFunnelState {
-  if (state.stage !== "DESIGN_EXPLORER_16" || state.waitState !== "AWAITING_16_TO_4_SELECTION") throw new Error("INVALID_16_TO_4_STAGE");
+  if (state.stage !== "DESIGN_EXPLORER_9" || state.waitState !== "AWAITING_9_TO_4_SELECTION") throw new Error("INVALID_16_TO_4_STAGE");
   if (!humanActor.trim()) throw new Error("HUMAN_AUTHORITY_REQUIRED");
   assertCandidateSet(state, selectedIds, 4);
   const available = state.candidates.map((candidate) => candidate.id); const nonSelected = available.filter((candidateId) => !selectedIds.includes(candidateId));
-  const event: HumanDesignSelectionEvent = { eventId: id("HSE"), type: "HUMAN_DESIGN_SELECTION", projectId: state.projectId, explorationId: state.explorationId, generationId: state.generationId, selectionStage: "16_TO_4", availableCandidateIds: available, selectedCandidateIds: [...selectedIds], nonSelectedCandidateIds: nonSelected, humanActor, timestamp, ...(reason?.trim() ? { optionalReason: reason.trim() } : {}), evidenceRefs: [`FUNNEL:${state.generationId}`, "HUMAN_SELECTION_EVIDENCE"], uiContext: "DESIGN_EXPLORER_4X4" };
+  const event: HumanDesignSelectionEvent = { eventId: id("HSE"), type: "HUMAN_DESIGN_SELECTION", projectId: state.projectId, explorationId: state.explorationId, generationId: state.generationId, selectionStage: "9_TO_4", availableCandidateIds: available, selectedCandidateIds: [...selectedIds], nonSelectedCandidateIds: nonSelected, humanActor, timestamp, ...(reason?.trim() ? { optionalReason: reason.trim() } : {}), evidenceRefs: [`FUNNEL:${state.generationId}`, "HUMAN_SELECTION_EVIDENCE"], uiContext: "DESIGN_EXPLORER_3X3" };
   const candidates = state.candidates.map((candidate) => selectedIds.includes(candidate.id) ? { ...candidate, stage: "FINALIST_4" as const } : { ...candidate, stage: "ARCHIVED" as const });
   const deepEvaluation = Object.fromEntries(selectedIds.map((candidateId) => [candidateId, { status: "RUNNING" as const, findings: [], unknowns: [] }]));
   return { ...state, stage: "FINALIST_4", waitState: "NONE", candidates, events: [...state.events, event, { eventId: id("EVAL"), type: "DEEP_EVALUATION_STARTED", projectId: state.projectId, candidateIds: selectedIds, timestamp, evidenceRefs: [event.eventId] }], deepEvaluation };
@@ -155,7 +155,7 @@ export function returnToFinalFour(state: DesignFunnelState, reason: string, time
 }
 export function setComparisonMode(state: DesignFunnelState, mode: ComparisonMode): DesignFunnelState { const supported: ComparisonMode[] = ["PREVIEW", "PLAN", "3D", "ELEVATION", "SECTION", "PROGRAM", "COST", "TECHNICAL"]; if (!supported.includes(mode)) throw new Error("COMPARISON_MODE_NOT_IMPLEMENTED"); return { ...state, comparisonMode: mode }; }
 export function requestNewGeneration(state: DesignFunnelState, reason: string, timestamp = now()): DesignFunnelState { if (!reason.trim()) throw new Error("GENERATION_REASON_REQUIRED"); return { ...state, events: [...state.events, { eventId: id("GEN"), type: "NEW_GENERATION_REQUESTED", projectId: state.projectId, candidateIds: state.candidates.map((candidate) => candidate.id), timestamp, reason, evidenceRefs: ["DESIGN_HISTORY"] }] }; }
-export function createDemoCandidates(projectId = "DEMO-PROJECT"): DesignCandidate[] { return Array.from({ length: 16 }, (_, index) => ({ id: `A${String(index + 1).padStart(2, "0")}`, projectId, generationId: "GEN-007", stage: "SURVIVOR" as const, status: "ELIGIBLE" as const, title: `Alternativa ${String(index + 1).padStart(2, "0")}`, strategy: ["Patio central", "Espina pública", "Núcleo compacto", "Borde climático"][index % 4], preview: "PREVIEW_LOCAL_CONCEPTUAL", metrics: { area: 12000 + index * 175, efficiency: `${78 + (index % 7) * 2}%`, cost: 100 + index * 3 },
+export function createDemoCandidates(projectId = "DEMO-PROJECT"): DesignCandidate[] { return Array.from({ length: 9 }, (_, index) => ({ id: `A${String(index + 1).padStart(2, "0")}`, projectId, generationId: "GEN-007", stage: "SURVIVOR" as const, status: "ELIGIBLE" as const, title: `Alternativa ${String(index + 1).padStart(2, "0")}`, strategy: ["Patio central", "Espina pública", "Núcleo compacto", "Borde climático"][index % 4], preview: "PREVIEW_LOCAL_CONCEPTUAL", metrics: { area: 12000 + index * 175, efficiency: `${78 + (index % 7) * 2}%`, cost: 100 + index * 3 },
   epistemic: {
     facts: [{ kind: "FACT", id: `FACT-${index + 1}-01`, statement: "Candidate belongs to the current generated design set.", evidenceRefs: ["ELIGIBILITY_SCREENING"], provenance: ["GEN-007"] }],
     assumptions: [{ kind: "ASSUMPTION", id: `ASSUMPTION-${index + 1}-01`, statement: "Conceptual strategy remains subject to deeper technical verification.", evidenceRefs: [], provenance: ["GEN-007"] }],
