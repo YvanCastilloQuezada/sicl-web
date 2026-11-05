@@ -158,7 +158,7 @@ describe("ARKI Design Funnel S1", () => {
     expect(() => promoteToFinalFour(makeState(), ["A01", "A01", "A02", "A03"], "Yvan")).toThrow("DUPLICATE_CANDIDATE_SELECTION");
   });
   it("promotes four and preserves the other twelve", () => {
-    const state = promoteToFinalFour(makeState(), ["A01", "A07", "A11", "A14"], "Yvan", "Comparación de patios y circulación");
+    const state = promoteToFinalFour(makeState(), ["A01", "A07", "A08", "A09"], "Yvan", "Comparación de patios y circulación");
     expect(state.stage).toBe("FINALIST_4");
     expect(state.candidates.filter((candidate) => candidate.stage === "FINALIST_4")).toHaveLength(4);
     expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(5);
@@ -169,7 +169,7 @@ describe("ARKI Design Funnel S1", () => {
     const foreign = { ...state.candidates[0], projectId: "OTHER" };
     expect(() => promoteToFinalFour({ ...state, candidates: [foreign, ...state.candidates.slice(1)] }, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("CROSS_PROJECT_SELECTION");
     const finalists = promoteToFinalFour(state, ["A01", "A02", "A03", "A04"], "Yvan");
-    expect(() => promoteToFinalFour(finalists, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("INVALID_16_TO_4_STAGE");
+    expect(() => promoteToFinalFour(finalists, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("INVALID_9_TO_4_STAGE");
   });
   it("requires deeper evaluation before the 4-to-1 decision", () => {
     const finalists = promoteToFinalFour(makeState(), ["A01", "A02", "A03", "A04"], "Yvan");
