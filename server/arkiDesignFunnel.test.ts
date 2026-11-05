@@ -148,20 +148,20 @@ describe("ARKI F5 epistemic runtime boundary", () => {
   });
 });
 describe("ARKI Design Funnel S1", () => {
-  it("creates the canonical 16-candidate waiting state", () => {
+  it("creates the canonical 9-candidate waiting state", () => {
     const state = makeState();
-    expect(state.candidates).toHaveLength(16);
-    expect(state.waitState).toBe("AWAITING_16_TO_4_SELECTION");
+    expect(state.candidates).toHaveLength(9);
+    expect(state.waitState).toBe("AWAITING_9_TO_4_SELECTION");
   });
   it("requires exactly four human-selected candidates", () => {
     expect(() => promoteToFinalFour(makeState(), ["A01", "A02", "A03"], "Yvan")).toThrow("SELECTION_REQUIRES_4");
     expect(() => promoteToFinalFour(makeState(), ["A01", "A01", "A02", "A03"], "Yvan")).toThrow("DUPLICATE_CANDIDATE_SELECTION");
   });
-  it("promotes four and preserves the other twelve", () => {
-    const state = promoteToFinalFour(makeState(), ["A01", "A07", "A11", "A14"], "Yvan", "Comparación de patios y circulación");
+  it("promotes four and archives the other five", () => {
+    const state = promoteToFinalFour(makeState(), ["A01", "A07", "A08", "A09"], "Yvan", "Comparación de patios y circulación");
     expect(state.stage).toBe("FINALIST_4");
     expect(state.candidates.filter((candidate) => candidate.stage === "FINALIST_4")).toHaveLength(4);
-    expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(12);
+    expect(state.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(5);
     expect(state.events[0].type).toBe("HUMAN_DESIGN_SELECTION");
   });
   it("rejects cross-project and stale selections", () => {
@@ -169,7 +169,7 @@ describe("ARKI Design Funnel S1", () => {
     const foreign = { ...state.candidates[0], projectId: "OTHER" };
     expect(() => promoteToFinalFour({ ...state, candidates: [foreign, ...state.candidates.slice(1)] }, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("CROSS_PROJECT_SELECTION");
     const finalists = promoteToFinalFour(state, ["A01", "A02", "A03", "A04"], "Yvan");
-    expect(() => promoteToFinalFour(finalists, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("INVALID_16_TO_4_STAGE");
+    expect(() => promoteToFinalFour(finalists, ["A01", "A02", "A03", "A04"], "Yvan")).toThrow("INVALID_9_TO_4_STAGE");
   });
   it("requires deeper evaluation before the 4-to-1 decision", () => {
     const finalists = promoteToFinalFour(makeState(), ["A01", "A02", "A03", "A04"], "Yvan");
@@ -183,7 +183,7 @@ describe("ARKI Design Funnel S1", () => {
     const selected = selectForDevelopment(evaluated, "A03", "Yvan");
     expect(selected.stage).toBe("SELECTED_FOR_DEVELOPMENT");
     expect(selected.selectedCandidateId).toBe("A03");
-    expect(selected.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(15);
+    expect(selected.candidates.filter((candidate) => candidate.stage === "ARCHIVED")).toHaveLength(8);
     expect(selected.events.filter((event) => event.type === "HUMAN_DESIGN_SELECTION")).toHaveLength(2);
   });
   it("supports reversible return to the Final Four", () => {
