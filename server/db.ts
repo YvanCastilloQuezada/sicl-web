@@ -130,6 +130,13 @@ export async function insertParametricFile(file: InsertParametricFile): Promise<
   const db = await getDb();
   const now = new Date();
   if (!db) {
+    const duplicateArtifactId = Array.from(memoryParametricFiles.values())
+      .some((existing) => existing.artifactId === file.artifactId);
+
+    if (duplicateArtifactId) {
+      throw new Error("artifactId must be globally unique");
+    }
+
     const stored = { id: 0, createdAt: now, updatedAt: now, uploadedAt: now, ...file } as ParametricFile;
     memoryParametricFiles.set(`${file.ownerId}:${file.artifactId}`, stored);
     return stored;
