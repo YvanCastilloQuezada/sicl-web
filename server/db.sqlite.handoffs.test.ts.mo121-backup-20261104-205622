@@ -1,0 +1,221 @@
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
+import Database from "better-sqlite3";
+
+import {
+  createSqliteFederatedAssistantHandoffRepository,
+} from "./db.sqlite.handoffs";
+
+describe("SQLite federated assistant handoffs", () => {
+  let directory: string;
+  let databasePath: string;
+
+  const makeHandoff = (overrides: Record<string, unknown> = {}) => {
+    const now = Date.now();
+
+    return {
+      handoffId: "ARLU-TEST-001",
+      ownerId: 10,
+      sourceProduct: "ARKI",
+      targetProduct: "LUCA",
+      sourceAssistantId: "ARKI-ASSISTANT",
+      targetAssistantId: "LUCA-ASSISTANT",
+      request: "Test handoff",
+      sourceCommit: "test-commit",
+      evidenceJson: "{}",
+      traceJson: "{}",
+      status: "HUMAN_REVIEW" as const,
+      reviewNote: null,
+      reviewerOpenId: null,
+      reviewedAt: null,
+      createdAt: now,
+      updatedAt: now,
+      ...overrides,
+    };
+  };
+
+  beforeEach(() => {
+    directory = mkdtempSync(join(tmpdir(), "sicl-handoffs-"));
+    databasePath = join(directory, "handoffs.sqlite");
+
+    const sqlite = new Database(databasePath);
+    sqlite.exec(
+      readFileSync(
+        resolve(process.cwd(), "drizzle/sqlite/migrations/0000_initial.sql"),
+        "utf8",
+      ),
+    );
+    sqlite.close();
+  });
+
+  afterEach(() => {
+    rmSync(directory, { recursive: true, force: true });
+  });
+
+  it("creates and retrieves a handoff by owner", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+
+      const result = await repo.get(10, "ARLU-TEST-001");
+
+      expect(result).toBeDefined();
+      expect(result?.ownerId).toBe(10);
+      expect(result?.status).toBe("HUMAN_REVIEW");
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("does not expose a handoff to another owner", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+
+      expect(await repo.get(20, "ARLU-TEST-001")).toBeUndefined();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("rejects duplicate global handoffId", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+
+      await expect(
+        repo.create(makeHandoff({ ownerId: 20 })),
+      ).rejects.toThrow();
+
+      expect(await repo.get(10, "ARLU-TEST-001")).toBeDefined();
+      expect(await repo.get(20, "ARLU-TEST-001")).toBeUndefined();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("lists only the requested owner's handoffs", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+      await repo.create(makeHandoff({
+        handoffId: "ARLU-TEST-002",
+        ownerId: 20,
+      }));
+
+      const rows = await repo.list(10);
+
+      expect(rows).toHaveLength(1);
+      expect(rows[0].ownerId).toBe(10);
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("reviews a handoff only from HUMAN_REVIEW", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+
+      const reviewed = await repo.review({
+        ownerId: 10,
+        handoffId: "ARLU-TEST-001",
+        status: "APPROVED",
+        reviewNote: "Human review",
+        reviewerOpenId: "reviewer-1",
+      });
+
+      expect(reviewed).toBe(true);
+
+      const result = await repo.get(10, "ARLU-TEST-001");
+
+      expect(result?.status).toBe("APPROVED");
+      expect(result?.reviewNote).toBe("Human review");
+      expect(result?.reviewerOpenId).toBe("reviewer-1");
+      expect(result?.reviewedAt).toBeDefined();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("rejects repeated review", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+
+      const input = {
+        ownerId: 10,
+        handoffId: "ARLU-TEST-001",
+        status: "REJECTED" as const,
+        reviewNote: "Rejected",
+        reviewerOpenId: "reviewer-1",
+      };
+
+      expect(await repo.review(input)).toBe(true);
+      expect(await repo.review(input)).toBe(false);
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("rejects review by another owner", async () => {
+    const repo =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      await repo.create(makeHandoff());
+
+      const reviewed = await repo.review({
+        ownerId: 20,
+        handoffId: "ARLU-TEST-001",
+        status: "APPROVED",
+        reviewNote: null,
+        reviewerOpenId: "reviewer-2",
+      });
+
+      expect(reviewed).toBe(false);
+
+      const original = await repo.get(10, "ARLU-TEST-001");
+
+      expect(original?.ownerId).toBe(10);
+      expect(original?.status).toBe("HUMAN_REVIEW");
+      expect(original?.reviewerOpenId).toBeNull();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("persists handoff after closing and reopening SQLite", async () => {
+    const first =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    await first.create(makeHandoff());
+    first.close();
+
+    const second =
+      createSqliteFederatedAssistantHandoffRepository(databasePath);
+
+    try {
+      const result = await second.get(10, "ARLU-TEST-001");
+
+      expect(result).toBeDefined();
+      expect(result?.status).toBe("HUMAN_REVIEW");
+    } finally {
+      second.close();
+    }
+  });
+});

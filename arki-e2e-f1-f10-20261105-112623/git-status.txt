@@ -1,0 +1,44 @@
+ M server/arkiCanonicalExecution.test.ts
+ M server/arkiCanonicalExecution.ts
+ M server/arkiD62ReasoningHarness.ts
+?? arki-e2e-f1-f10-20261105-112623/
+?? arki-e2e-results-20261105-112510/
+?? arki-f1-f10-results-20261105-110807.tar.xz
+?? arki-f1-f10-results-20261105-110807/
+?? data/
+?? docs/migrations/SICL-WEB-SQLITE-MIGRATION-STATUS.md.mo29-backup-20261104-153700
+?? docs/migrations/SICL-WEB-SQLITE-MIGRATION-STATUS.md.mo42r-backup-20261104-160905
+?? docs/migrations/SICL-WEB-SQLITE-MIGRATION-STATUS.md.mo42s-backup-20261104-161025
+?? docs/migrations/SICL-WEB-SQLITE-MIGRATION-STATUS.md.mo48-backup-20261104-163244
+?? docs/migrations/SICL-WEB-SQLITE-MIGRATION-STATUS.md.mo61-backup-20261104-170404
+?? drizzle/schema.sqlite.ts.mo110-backup-20261104-195812
+?? drizzle/schema.sqlite.ts.mo130-backup-20261104-213937
+?? drizzle/schema.sqlite.ts.mo46-backup-20261104-162833
+?? drizzle/schema.sqlite.ts.mo51-backup-20261104-164031
+?? drizzle/schema.sqlite.ts.mo54-backup-20261104-164653
+?? drizzle/schema.sqlite.ts.mo84-backup-20261104-184556
+?? drizzle/schema.sqlite.ts.mo87-pre-restore-20261104-1853%S
+?? drizzle/sqlite/
+?? server/arkiCanonicalExecution.ts.bak
+?? server/arkiD62ReasoningHarness.ts.bak
+?? server/db.memory.parametric-files.test.ts
+?? server/db.sqlite.handoffs.test.ts.mo121-backup-20261104-205622
+?? server/db.sqlite.parametric-files.test.ts.mo66-backup-20261104-175111
+?? server/db.sqlite.parametric-files.test.ts.mo71-backup-20261104-180056
+?? server/db.sqlite.parametric-files.test.ts.mo84-backup-20261104-184556
+?? server/db.sqlite.parametric-files.ts.mo66-backup-20261104-175111
+?? server/db.sqlite.parametric-files.ts.mo68-backup-20261104-175519
+?? server/db.sqlite.parametric-files.ts.mo71-backup-20261104-180056
+?? server/db.sqlite.projects.test.ts.mo110-backup-20261104-195812
+?? server/db.sqlite.projects.test.ts.mo130-backup-20261104-213937
+?? server/db.sqlite.projects.test.ts.mo40-backup-20261104-155905
+?? server/db.sqlite.projects.test.ts.mo46-backup-20261104-162833
+?? server/db.sqlite.projects.ts.mo110-backup-20261104-195812
+?? server/db.sqlite.projects.ts.mo111-backup-20261104-195958
+?? server/db.sqlite.sessions.test.ts.mo118-backup-20261104-201624
+?? server/db.sqlite.sessions.ts.mo117-backup-20261104-201348
+?? server/db.ts.mo78-backup-20261104-182950
+?? server/db.ts.mo84-backup-20261104-184556
+?? server/db.ts.mo90-backup-20261104-190226
+?? server/db.ts.mo94-backup-20261104-190933
+?? server/parametric/

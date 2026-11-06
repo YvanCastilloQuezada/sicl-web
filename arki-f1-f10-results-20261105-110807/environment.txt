@@ -1,0 +1,10 @@
+Fecha: jue 05 nov 2026 11:08:07 -05
+Repositorio: /home/arki/ARKI/canonical/sicl-web
+Rama: migration/sicl-web-sqlite-20261103-013118
+Commit: 4404c3ccfd7c5beeeb951661942ebccd807d9610
+Node:
+v22.22.1
+PNPM:
+10.15.1
+Sistema:
+Linux Arki-001 7.0.0-38-generic #38-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep  4 09:10:14 UTC 2026 x86_64 GNU/Linux

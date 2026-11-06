@@ -1,0 +1,182 @@
+import {
+  integer,
+  sqliteTable,
+  text,
+  uniqueIndex,
+  check,
+} from "drizzle-orm/sqlite-core";
+import { sql } from "drizzle-orm";
+
+/**
+ * SQLite isolated schema for SICL Web.
+ *
+ * This file does not replace drizzle/schema.ts.
+ * Timestamps are stored as Unix milliseconds.
+ * JSON payloads remain text until application-level validation.
+ */
+
+export const sqliteUsers = sqliteTable(
+  "users",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    openId: text("openId").notNull(),
+    name: text("name"),
+    email: text("email"),
+    loginMethod: text("loginMethod"),
+    role: text("role").notNull().default("user"),
+    createdAt: integer("createdAt").notNull(),
+    updatedAt: integer("updatedAt").notNull(),
+    lastSignedIn: integer("lastSignedIn").notNull(),
+  },
+  (table) => [
+    uniqueIndex("users_openId_unique").on(table.openId),
+    check("sqlite_role_check", sql`${table.role} IN ('user', 'admin')`),
+  ],
+);
+
+export const sqliteSiclProjects = sqliteTable(
+  "sicl_projects",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    ownerId: integer("ownerId").notNull(),
+    projectId: text("projectId").notNull(),
+    name: text("name").notNull(),
+    location: text("location"),
+    status: text("status").notNull().default("DRAFT"),
+    version: integer("version").notNull().default(1),
+    snapshot: text("snapshot").notNull(),
+    createdAt: integer("createdAt").notNull(),
+    updatedAt: integer("updatedAt").notNull(),
+  },
+  (table) => [
+    uniqueIndex("sicl_projects_owner_project_unique").on(table.ownerId, table.projectId),
+    check(
+      "sqlite_project_status_check",
+      sql`${table.status} IN ('DRAFT', 'ACTIVE', 'DECIDED', 'ARCHIVED')`,
+    ),
+  ],
+);
+
+export const sqliteParametricFiles = sqliteTable(
+  "parametric_files",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    ownerId: integer("ownerId").notNull(),
+    projectId: text("projectId").notNull(),
+    artifactId: text("artifactId").notNull(),
+    fileName: text("fileName").notNull(),
+    format: text("format").notNull(),
+    sizeBytes: integer("sizeBytes").notNull(),
+    checksum: text("checksum").notNull(),
+    parsed: integer("parsed").notNull().default(0),
+    declaredDependencies: text("declaredDependencies").notNull(),
+    capabilities: text("capabilities").notNull(),
+    hostRequired: text("hostRequired"),
+    status: text("status").notNull(),
+    storageKey: text("storageKey").notNull(),
+    storageUrl: text("storageUrl").notNull(),
+    humanReviewRequired: integer("humanReviewRequired")
+      .notNull()
+      .default(1),
+    uploadedAt: integer("uploadedAt").notNull(),
+    createdAt: integer("createdAt").notNull(),
+    updatedAt: integer("updatedAt").notNull(),
+  },
+  (table) => [
+    uniqueIndex("parametric_files_artifactId_unique")
+      .on(table.artifactId),
+    check(
+      "sqlite_parametric_status_check",
+      sql`${table.status} IN ('INSPECTED', 'OPAQUE_HOST_REQUIRED', 'REJECTED', 'ARCHIVED')`,
+    ),
+  ],
+);
+
+export const sqliteArkiCommandSessions = sqliteTable(
+  "arki_command_sessions",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    ownerId: integer("ownerId").notNull(),
+    projectId: text("projectId").notNull(),
+    sessionId: text("sessionId").notNull(),
+    commandName: text("commandName").notNull(),
+    parameters: text("parameters").notNull(),
+    previewResult: text("previewResult").notNull(),
+    tutorialStep: integer("tutorialStep").notNull().default(0),
+    exerciseScore: integer("exerciseScore"),
+    exerciseState: text("exerciseState")
+      .notNull()
+      .default("IN_PROGRESS"),
+    lastAction: text("lastAction")
+      .notNull()
+      .default("AUTOSAVE"),
+    createdAt: integer("createdAt").notNull(),
+    updatedAt: integer("updatedAt").notNull(),
+  },
+  (table) => [
+    uniqueIndex("arki_command_sessions_sessionId_unique")
+      .on(table.sessionId),
+    check(
+      "sqlite_session_exercise_state_check",
+      sql`${table.exerciseState} IN ('IN_PROGRESS', 'PASSED', 'REVIEW_REQUIRED')`,
+    ),
+    check(
+      "sqlite_session_last_action_check",
+      sql`${table.lastAction} IN ('AUTOSAVE', 'EXERCISE_SUBMIT', 'MANUAL_SAVE', 'COMMAND_CHANGE')`,
+    ),
+  ],
+);
+
+export const sqliteFederatedAssistantHandoffs = sqliteTable(
+  "federated_assistant_handoffs",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    handoffId: text("handoffId").notNull(),
+    ownerId: integer("ownerId").notNull(),
+    sourceProduct: text("sourceProduct").notNull(),
+    targetProduct: text("targetProduct").notNull(),
+    sourceAssistantId: text("sourceAssistantId").notNull(),
+    targetAssistantId: text("targetAssistantId"),
+    request: text("request").notNull(),
+    status: text("status").notNull().default("CANDIDATE"),
+    sourceCommit: text("sourceCommit").notNull(),
+    evidenceJson: text("evidenceJson").notNull(),
+    traceJson: text("traceJson").notNull(),
+    reviewNote: text("reviewNote"),
+    reviewerOpenId: text("reviewerOpenId"),
+    reviewedAt: integer("reviewedAt"),
+    createdAt: integer("createdAt").notNull(),
+    updatedAt: integer("updatedAt").notNull(),
+  },
+  (table) => [
+    uniqueIndex("federated_assistant_handoffs_handoffId_unique")
+      .on(table.handoffId),
+    check(
+      "sqlite_handoff_status_check",
+      sql`${table.status} IN ('CANDIDATE', 'HUMAN_REVIEW', 'APPROVED', 'REJECTED', 'FROZEN')`,
+    ),
+  ],
+);
+
+export type SqliteUser = typeof sqliteUsers.$inferSelect;
+export type SqliteInsertUser = typeof sqliteUsers.$inferInsert;
+
+export type SqliteSiclProject =
+  typeof sqliteSiclProjects.$inferSelect;
+export type SqliteInsertSiclProject =
+  typeof sqliteSiclProjects.$inferInsert;
+
+export type SqliteParametricFile =
+  typeof sqliteParametricFiles.$inferSelect;
+export type SqliteInsertParametricFile =
+  typeof sqliteParametricFiles.$inferInsert;
+
+export type SqliteArkiCommandSession =
+  typeof sqliteArkiCommandSessions.$inferSelect;
+export type SqliteInsertArkiCommandSession =
+  typeof sqliteArkiCommandSessions.$inferInsert;
+
+export type SqliteFederatedAssistantHandoff =
+  typeof sqliteFederatedAssistantHandoffs.$inferSelect;
+export type SqliteInsertFederatedAssistantHandoff =
+  typeof sqliteFederatedAssistantHandoffs.$inferInsert;

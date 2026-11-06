@@ -1,0 +1,228 @@
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import Database from "better-sqlite3";
+
+import { createSqliteProjectRepository } from "./db.sqlite.projects";
+
+describe("SQLite project repository", () => {
+  let directory: string;
+  let databasePath: string;
+
+  beforeEach(() => {
+    directory = mkdtempSync(join(tmpdir(), "sicl-projects-"));
+    databasePath = join(directory, "projects.sqlite");
+
+    const sqlite = new Database(databasePath);
+
+    sqlite.exec(`
+      CREATE TABLE sicl_projects (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ownerId INTEGER NOT NULL,
+        projectId TEXT NOT NULL,
+        name TEXT NOT NULL,
+        location TEXT,
+        status TEXT NOT NULL DEFAULT 'DRAFT',
+        version INTEGER NOT NULL DEFAULT 1,
+        snapshot TEXT NOT NULL,
+        createdAt INTEGER NOT NULL,
+        updatedAt INTEGER NOT NULL,
+        CONSTRAINT sicl_projects_projectId_unique UNIQUE(projectId),
+        CONSTRAINT sqlite_project_status_check
+          CHECK(status IN ('DRAFT', 'ACTIVE', 'DECIDED', 'ARCHIVED'))
+      );
+    `);
+
+    sqlite.close();
+  });
+
+  afterEach(() => {
+    rmSync(directory, { recursive: true, force: true });
+  });
+
+  function project(overrides: Record<string, unknown> = {}) {
+    const now = Date.now();
+
+    return {
+      ownerId: 10,
+      projectId: "TEST-001",
+      name: "SQLite test project",
+      location: "Trujillo",
+      status: "DRAFT" as const,
+      version: 1,
+      snapshot: '{"geometry":[]}',
+      createdAt: now,
+      updatedAt: now,
+      ...overrides,
+    };
+  }
+
+  it("inserts and retrieves a project by owner and projectId", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project());
+
+      const result = await repo.get(10, "TEST-001");
+
+      expect(result).toBeDefined();
+      expect(result?.ownerId).toBe(10);
+      expect(result?.projectId).toBe("TEST-001");
+      expect(result?.snapshot).toBe('{"geometry":[]}');
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("does not expose a project to another owner", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project());
+
+      expect(await repo.get(99, "TEST-001")).toBeUndefined();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("returns undefined for a nonexistent project", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      expect(await repo.get(10, "MISSING")).toBeUndefined();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("rejects globally duplicated projectId", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project());
+
+      await expect(
+        repo.insert(project({ ownerId: 20 })),
+      ).rejects.toThrow();
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("updates snapshot and increments expected version", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project());
+
+      const updated = await repo.update(
+        10,
+        "TEST-001",
+        1,
+        '{"geometry":[1]}',
+        "ACTIVE",
+      );
+
+      expect(updated).toBe(true);
+
+      const result = await repo.get(10, "TEST-001");
+
+      expect(result?.snapshot).toBe('{"geometry":[1]}');
+      expect(result?.version).toBe(2);
+      expect(result?.status).toBe("ACTIVE");
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("rejects a stale version without changing the project", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project());
+
+      expect(
+        await repo.update(10, "TEST-001", 1, '{"geometry":[1]}'),
+      ).toBe(true);
+
+      expect(
+        await repo.update(10, "TEST-001", 1, '{"geometry":[2]}'),
+      ).toBe(false);
+
+      const result = await repo.get(10, "TEST-001");
+
+      expect(result?.version).toBe(2);
+      expect(result?.snapshot).toBe('{"geometry":[1]}');
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("rejects updates from another owner", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project());
+
+      expect(
+        await repo.update(99, "TEST-001", 1, '{"geometry":[1]}'),
+      ).toBe(false);
+
+      expect((await repo.get(10, "TEST-001"))?.version).toBe(1);
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("preserves status when update omits status", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await repo.insert(project({ status: "ACTIVE" }));
+
+      expect(
+        await repo.update(10, "TEST-001", 1, '{"geometry":[1]}'),
+      ).toBe(true);
+
+      const result = await repo.get(10, "TEST-001");
+
+      expect(result?.status).toBe("ACTIVE");
+      expect(result?.version).toBe(2);
+    } finally {
+      repo.close();
+    }
+  });
+
+  it("persists the project after closing and reopening", async () => {
+    const first = createSqliteProjectRepository(databasePath);
+
+    await first.insert(project());
+    first.close();
+
+    const second = createSqliteProjectRepository(databasePath);
+
+    try {
+      const result = await second.get(10, "TEST-001");
+
+      expect(result).toBeDefined();
+      expect(result?.projectId).toBe("TEST-001");
+      expect(result?.version).toBe(1);
+    } finally {
+      second.close();
+    }
+  });
+
+  it("rejects an invalid project status through SQLite CHECK", async () => {
+    const repo = createSqliteProjectRepository(databasePath);
+
+    try {
+      await expect(
+        repo.insert(project({ status: "INVALID" })),
+      ).rejects.toThrow();
+    } finally {
+      repo.close();
+    }
+  });
+});

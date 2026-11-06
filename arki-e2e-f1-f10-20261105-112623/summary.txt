@@ -1,0 +1,6 @@
+check=0
+vitest=0
+canonical=2
+advanced=0
+oece=EXCLUDED_LICENSE_TENDER_SYSTEM
+oece_fragment=EXCLUDED_LICENSE_TENDER_SYSTEM

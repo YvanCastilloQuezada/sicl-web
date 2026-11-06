@@ -1,0 +1,108 @@
+import { and, desc, eq } from "drizzle-orm";
+
+import {
+  sqliteArkiCommandSessions,
+  type SqliteArkiCommandSession,
+  type SqliteInsertArkiCommandSession,
+} from "../drizzle/schema.sqlite";
+
+import { openSiclSqlite } from "./db.sqlite.adapter";
+
+/**
+ * Repositorio SQLite aislado para sesiones ARKI.
+ *
+ * Conserva sessionId como identidad global, igual que el esquema existente.
+ * No sustituye server/db.ts.
+ * No conecta MySQL.
+ * No ejecuta migraciones.
+ */
+export function createSqliteArkiCommandSessionRepository(path: string) {
+  const connection = openSiclSqlite(path);
+  const db = connection.db;
+
+  return {
+    async save(
+      session: SqliteInsertArkiCommandSession,
+    ): Promise<SqliteArkiCommandSession> {
+      const now = Date.now();
+
+      await db
+        .insert(sqliteArkiCommandSessions)
+        .values({
+          ...session,
+          createdAt: session.createdAt ?? now,
+          updatedAt: session.updatedAt ?? now,
+        })
+        .onConflictDoUpdate({
+          target: sqliteArkiCommandSessions.sessionId,
+          set: {
+            ownerId: session.ownerId,
+            projectId: session.projectId,
+            commandName: session.commandName,
+            parameters: session.parameters,
+            previewResult: session.previewResult,
+            tutorialStep: session.tutorialStep,
+            exerciseScore: session.exerciseScore,
+            exerciseState: session.exerciseState,
+            lastAction: session.lastAction,
+            updatedAt: now,
+          },
+        });
+
+      const rows = await db
+        .select()
+        .from(sqliteArkiCommandSessions)
+        .where(
+          and(
+            eq(sqliteArkiCommandSessions.ownerId, session.ownerId),
+            eq(sqliteArkiCommandSessions.sessionId, session.sessionId),
+          ),
+        )
+        .limit(1);
+
+      if (!rows[0]) {
+        throw new Error("ARKI command session could not be persisted");
+      }
+
+      return rows[0];
+    },
+
+    async get(
+      ownerId: number,
+      sessionId: string,
+    ): Promise<SqliteArkiCommandSession | undefined> {
+      const rows = await db
+        .select()
+        .from(sqliteArkiCommandSessions)
+        .where(
+          and(
+            eq(sqliteArkiCommandSessions.ownerId, ownerId),
+            eq(sqliteArkiCommandSessions.sessionId, sessionId),
+          ),
+        )
+        .limit(1);
+
+      return rows[0];
+    },
+
+    async listByProject(
+      ownerId: number,
+      projectId: string,
+    ): Promise<SqliteArkiCommandSession[]> {
+      return db
+        .select()
+        .from(sqliteArkiCommandSessions)
+        .where(
+          and(
+            eq(sqliteArkiCommandSessions.ownerId, ownerId),
+            eq(sqliteArkiCommandSessions.projectId, projectId),
+          ),
+        )
+        .orderBy(desc(sqliteArkiCommandSessions.updatedAt));
+    },
+
+    close(): void {
+      connection.close();
+    },
+  };
+}
