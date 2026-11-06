@@ -1,0 +1,46 @@
+name: parametric-v10
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  artifactid-contract:
+    name: artifactId global (ADR-0001)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.15.1 }
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm exec tsc --noEmit
+
+      - name: Memory + archive tests
+        run: pnpm exec vitest run server/db.memory.parametric-files.test.ts server/parametric/archiveAuthorization.test.ts --reporter=verbose
+
+      - name: Grep contract in db.ts
+        run: |
+          grep -q 'memoryParametricFiles.has(file.artifactId)' server/db.ts
+          grep -q 'memoryParametricFiles.set(file.artifactId, stored)' server/db.ts
+          grep -q 'canArchiveParametricFile' server/db.ts
+          grep -q 'ne(parametricFiles.status, "ARCHIVED")' server/db.ts
+
+      - name: Grep contract in schemas
+        run: |
+          grep -q 'CREATE UNIQUE INDEX `parametric_files_artifactId_unique`' drizzle/sqlite/migrations/0000_initial.sql
