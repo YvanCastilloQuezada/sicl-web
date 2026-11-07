@@ -53,3 +53,13 @@ temp/
 .webdev/
 .project-config.json
 client/public/__manus__/version.json
+
+# ARKI: backups locales de sesiones anteriores
+server/*.bak-*
+server/*.bak
+*.mo*-backup-*
+*.pre-restore-*
+docs/migrations/*.mo*-backup-*
+
+# ARKI: artefactos de fase no versionados
+artifacts/arki-phase-evidence/receipt-mo11.*
