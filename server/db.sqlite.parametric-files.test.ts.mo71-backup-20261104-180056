@@ -1,0 +1,130 @@
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import Database from "better-sqlite3";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+
+import { createSqliteParametricFileRepository } from "./db.sqlite.parametric-files";
+
+describe("SQLite parametric files repository", () => {
+  let dir: string;
+  let dbPath: string;
+  let raw: Database.Database;
+  let repository: ReturnType<typeof createSqliteParametricFileRepository>;
+
+  const makeFile = (
+    ownerId: number,
+    projectId: string,
+    artifactId: string,
+  ) => ({
+    ownerId,
+    projectId,
+    artifactId,
+    fileName: `${artifactId}.ifc`,
+    format: "IFC",
+    sizeBytes: 100,
+    checksum: `checksum-${ownerId}-${artifactId}`,
+    parsed: 0,
+    declaredDependencies: "[]",
+    capabilities: "[]",
+    hostRequired: null,
+    status: "INSPECTED" as const,
+    storageKey: `${ownerId}/${artifactId}`,
+    storageUrl: `local://${ownerId}/${artifactId}`,
+    humanReviewRequired: 1,
+  });
+
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), "sicl-parametric-test-"));
+    dbPath = join(dir, "test.sqlite");
+
+    raw = new Database(dbPath);
+    raw.exec(
+      readFileSync(
+        join(process.cwd(), "drizzle/sqlite/migrations/0000_initial.sql"),
+        "utf8",
+      ),
+    );
+    raw.close();
+
+    repository = createSqliteParametricFileRepository(dbPath);
+  });
+
+  afterEach(() => {
+    repository.close();
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it("inserts and retrieves by owner plus artifactId", async () => {
+    const inserted = await repository.insert(makeFile(10, "P1", "A1"));
+    expect(inserted.ownerId).toBe(10);
+    expect(inserted.artifactId).toBe("A1");
+
+    const found = await repository.getByArtifactId(10, "A1");
+    expect(found?.id).toBe(inserted.id);
+  });
+
+  it("allows the same artifactId for different owners", async () => {
+    await repository.insert(makeFile(10, "P1", "A1"));
+    await repository.insert(makeFile(20, "P1", "A1"));
+
+    expect(await repository.getByArtifactId(10, "A1")).toBeDefined();
+    expect(await repository.getByArtifactId(20, "A1")).toBeDefined();
+  });
+
+  it("rejects duplicate artifactId for the same owner", async () => {
+    await repository.insert(makeFile(10, "P1", "A1"));
+
+    await expect(
+      repository.insert(makeFile(10, "P2", "A1")),
+    ).rejects.toThrow();
+  });
+
+  it("lists only the requested owner's project files", async () => {
+    await repository.insert(makeFile(10, "P1", "A1"));
+    await repository.insert(makeFile(10, "P2", "A2"));
+    await repository.insert(makeFile(20, "P1", "A3"));
+
+    const rows = await repository.listByProject(10, "P1");
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0].artifactId).toBe("A1");
+    expect(rows.every((row) => row.ownerId === 10)).toBe(true);
+  });
+
+  it("updates metadata without changing identity", async () => {
+    await repository.insert(makeFile(10, "P1", "A1"));
+
+    const updated = await repository.update(10, "A1", {
+      fileName: "renamed.ifc",
+    });
+
+    expect(updated?.fileName).toBe("renamed.ifc");
+    expect(updated?.ownerId).toBe(10);
+    expect(updated?.artifactId).toBe("A1");
+    expect(await repository.getByArtifactId(20, "A2")).toBeUndefined();
+  });
+
+  it("archives only the matching owner, project and artifact", async () => {
+    await repository.insert(makeFile(10, "P1", "A1"));
+    await repository.insert(makeFile(20, "P1", "A1"));
+
+    const archived = await repository.archive(10, "P1", "A1");
+
+    expect(archived?.status).toBe("ARCHIVED");
+    expect(
+      (await repository.getByArtifactId(20, "A1"))?.status,
+    ).toBe("INSPECTED");
+  });
+
+  it("persists data after reopening the SQLite database", async () => {
+    const inserted = await repository.insert(makeFile(10, "P1", "A1"));
+    repository.close();
+
+    repository = createSqliteParametricFileRepository(dbPath);
+
+    const found = await repository.getByArtifactId(10, "A1");
+    expect(found?.id).toBe(inserted.id);
+    expect(found?.checksum).toBe(inserted.checksum);
+  });
+});

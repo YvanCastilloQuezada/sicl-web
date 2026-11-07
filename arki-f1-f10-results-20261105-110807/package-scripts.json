@@ -1,0 +1,15 @@
+{
+  "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
+  "build": "vite build && esbuild server/_core/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+  "start": "NODE_ENV=production node dist/index.js",
+  "check": "tsc --noEmit",
+  "format": "prettier --write .",
+  "test": "vitest run",
+  "e2e:canonical": "tsx scripts/run-arki-canonical-e2e.ts",
+  "e2e:advanced": "tsx scripts/run-arki-advanced-e2e.ts",
+  "security:stress:local": "node scripts/arki-local-security-stress.mjs",
+  "db:push": "drizzle-kit generate && drizzle-kit migrate",
+  "e2e:oece": "tsx scripts/run-arki-oece-evidence-e2e.ts",
+  "e2e:oece:fragment": "tsx scripts/run-arki-oece-fragment-e2e.ts",
+  "maqueta-viva": "node tools/maqueta-viva/arki-maqueta-viva-server.cjs"
+}

@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# Pre-commit: bloquea regresiones de V10 en server/db.ts
+set -Eeuo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+cd "$ROOT"
+
+echo "=== PRE-COMMIT: artifactId global (ADR-0001) ==="
+
+if ! grep -q 'memoryParametricFiles.has(file.artifactId)' server/db.ts; then
+  echo "FALLO: server/db.ts no tiene memoryParametricFiles.has(file.artifactId) (V10)" >&2
+  exit 1
+fi
+echo "OK: Map.has presente"
+
+if ! grep -q 'memoryParametricFiles.set(file.artifactId, stored)' server/db.ts; then
+  echo "FALLO: server/db.ts no usa memoryParametricFiles.set(file.artifactId, stored) (V10)" >&2
+  exit 1
+fi
+echo "OK: clave artifactId"
+
+if ! grep -q 'canArchiveParametricFile' server/db.ts; then
+  echo "FALLO: server/db.ts no usa canArchiveParametricFile (V10)" >&2
+  exit 1
+fi
+echo "OK: archive guard"
+
+if ! grep -q 'ne(parametricFiles.status, "ARCHIVED")' server/db.ts; then
+  echo "FALLO: server/db.ts no tiene ne(ARCHIVED) (V10)" >&2
+  exit 1
+fi
+echo "OK: list excluye ARCHIVED"
+
+if [[ -d node_modules ]]; then
+  echo
+  echo "=== TESTS ==="
+  node node_modules/vitest/vitest.mjs run \
+    server/db.memory.parametric-files.test.ts \
+    server/parametric/archiveAuthorization.test.ts \
+    --cache=false --reporter=dot || {
+    echo "FALLO: tests de artifactId fallaron" >&2
+    exit 1
+  }
+  echo "OK: tests pasan"
+fi
+
+echo "PRE-COMMIT_OK"

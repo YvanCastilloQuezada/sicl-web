@@ -1,0 +1,89 @@
+CREATE TABLE `arki_command_sessions` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`ownerId` integer NOT NULL,
+	`projectId` text NOT NULL,
+	`sessionId` text NOT NULL,
+	`commandName` text NOT NULL,
+	`parameters` text NOT NULL,
+	`previewResult` text NOT NULL,
+	`tutorialStep` integer DEFAULT 0 NOT NULL,
+	`exerciseScore` integer,
+	`exerciseState` text DEFAULT 'IN_PROGRESS' NOT NULL,
+	`lastAction` text DEFAULT 'AUTOSAVE' NOT NULL,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
+	CONSTRAINT "sqlite_session_exercise_state_check" CHECK("arki_command_sessions"."exerciseState" IN ('IN_PROGRESS', 'PASSED', 'REVIEW_REQUIRED')),
+	CONSTRAINT "sqlite_session_last_action_check" CHECK("arki_command_sessions"."lastAction" IN ('AUTOSAVE', 'EXERCISE_SUBMIT', 'MANUAL_SAVE', 'COMMAND_CHANGE'))
+);
+CREATE UNIQUE INDEX `arki_command_sessions_sessionId_unique` ON `arki_command_sessions` (`sessionId`);
+CREATE TABLE `federated_assistant_handoffs` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`handoffId` text NOT NULL,
+	`ownerId` integer NOT NULL,
+	`sourceProduct` text NOT NULL,
+	`targetProduct` text NOT NULL,
+	`sourceAssistantId` text NOT NULL,
+	`targetAssistantId` text,
+	`request` text NOT NULL,
+	`status` text DEFAULT 'CANDIDATE' NOT NULL,
+	`sourceCommit` text NOT NULL,
+	`evidenceJson` text NOT NULL,
+	`traceJson` text NOT NULL,
+	`reviewNote` text,
+	`reviewerOpenId` text,
+	`reviewedAt` integer,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
+	CONSTRAINT "sqlite_handoff_status_check" CHECK("federated_assistant_handoffs"."status" IN ('CANDIDATE', 'HUMAN_REVIEW', 'APPROVED', 'REJECTED', 'FROZEN'))
+);
+CREATE UNIQUE INDEX `federated_assistant_handoffs_handoffId_unique` ON `federated_assistant_handoffs` (`handoffId`);
+CREATE TABLE `parametric_files` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`ownerId` integer NOT NULL,
+	`projectId` text NOT NULL,
+	`artifactId` text NOT NULL,
+	`fileName` text NOT NULL,
+	`format` text NOT NULL,
+	`sizeBytes` integer NOT NULL,
+	`checksum` text NOT NULL,
+	`parsed` integer DEFAULT 0 NOT NULL,
+	`declaredDependencies` text NOT NULL,
+	`capabilities` text NOT NULL,
+	`hostRequired` text,
+	`status` text NOT NULL,
+	`storageKey` text NOT NULL,
+	`storageUrl` text NOT NULL,
+	`humanReviewRequired` integer DEFAULT 1 NOT NULL,
+	`uploadedAt` integer NOT NULL,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
+	CONSTRAINT "sqlite_parametric_status_check" CHECK("parametric_files"."status" IN ('INSPECTED', 'OPAQUE_HOST_REQUIRED', 'REJECTED', 'ARCHIVED'))
+);
+CREATE UNIQUE INDEX `parametric_files_artifactId_unique` ON `parametric_files` (`artifactId`);
+CREATE TABLE `sicl_projects` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`ownerId` integer NOT NULL,
+	`projectId` text NOT NULL,
+	`name` text NOT NULL,
+	`location` text,
+	`status` text DEFAULT 'DRAFT' NOT NULL,
+	`version` integer DEFAULT 1 NOT NULL,
+	`snapshot` text NOT NULL,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
+	CONSTRAINT "sqlite_project_status_check" CHECK("sicl_projects"."status" IN ('DRAFT', 'ACTIVE', 'DECIDED', 'ARCHIVED'))
+);
+CREATE UNIQUE INDEX `sicl_projects_projectId_unique` ON `sicl_projects` (`projectId`);
+CREATE TABLE `users` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`openId` text NOT NULL,
+	`name` text,
+	`email` text,
+	`loginMethod` text,
+	`role` text DEFAULT 'user' NOT NULL,
+	`createdAt` integer NOT NULL,
+	`updatedAt` integer NOT NULL,
+	`lastSignedIn` integer NOT NULL,
+	CONSTRAINT "sqlite_role_check" CHECK("users"."role" IN ('user', 'admin'))
+);
+CREATE UNIQUE INDEX `users_openId_unique` ON `users` (`openId`);

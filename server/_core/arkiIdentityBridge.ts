@@ -1,10 +1,55 @@
-/** MO08I isolated local identity: disabled in production, explicit opt-in required. */
+/**
+ * ARKI Identity Bridge — punto único de autenticación local.
+ * Delega a arkiIdentity/ (SQLite). Ya NO usa MO08/MySQL.
+ *
+ * Si ARKI_IDENTITY_ENABLE !== "1", devuelve null sin tocar storage.
+ * Mantiene la firma pública usada por MO22 y otros consumidores.
+ */
 import type { Request } from "express";
-import type { User } from "../../drizzle/schema";
-import { verifyArkiLocalRequest } from "./arkiMo08LocalAuth";
-export async function authenticateLocalIdentity(req:Request):Promise<User|null> {
- if(process.env.ARKI_IDENTITY_MODE!=="local"||
- process.env.ARKI_MO08_LOCAL_AUTH!=="1"||
- process.env.NODE_ENV==="production"||process.env.ARKI_DEV_OPEN==="1") return null;
- return await verifyArkiLocalRequest(req);
+import { parse as parseCookie } from "cookie";
+import {
+  identityEnabled,
+  verifyToken,
+  type VerifiedIdentity,
+} from "./arkiIdentity";
+
+export const ARKI_IDENTITY_COOKIE = "arki_identity_session";
+
+function bearer(req: Request): string | undefined {
+  const raw = req.headers.authorization;
+  if (typeof raw !== "string") return undefined;
+  const m = /^Bearer\s+(.+)$/.exec(raw.trim());
+  return m ? m[1] : undefined;
 }
+
+function cookieToken(req: Request): string | undefined {
+  try {
+    const parsed = parseCookie(req.headers.cookie ?? "");
+    const v = parsed[ARKI_IDENTITY_COOKIE];
+    return typeof v === "string" && v.length > 0 ? v : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Extrae el token de la request (Bearer o cookie) y lo verifica.
+ * Devuelve null si no hay token, si no es válido, o si identidad está off.
+ */
+export function authenticateArkiIdentity(req: Request): VerifiedIdentity | null {
+  if (!identityEnabled()) return null;
+  const token = bearer(req) ?? cookieToken(req);
+  if (!token) return null;
+  return verifyToken(token);
+}
+
+/**
+ * Compatibilidad con consumidores previos (MO22, routers).
+ * Devuelve la identidad verificada o null. No lanza.
+ */
+export async function authenticateLocalIdentity(req: Request): Promise<VerifiedIdentity | null> {
+  return authenticateArkiIdentity(req);
+}
+
+export { identityEnabled, verifyToken };
+export type { VerifiedIdentity };

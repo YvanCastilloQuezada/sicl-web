@@ -1,0 +1,130 @@
+# SICL Web — SQLite migration status
+
+## Scope
+
+This document records the isolated SQLite repository work in SICL Web.
+
+The SQLite adapter and repositories are experimental and isolated.
+They do not replace the production MySQL database module.
+No MySQL migration or production backend switch is authorized by this work.
+
+## User repository upsert behavior
+
+The SQLite user repository must preserve the intended MySQL upsert behavior:
+
+- `openId` is required.
+- Fields omitted from a partial upsert are not overwritten.
+- `createdAt` remains unchanged on conflict.
+- `updatedAt` is refreshed on upsert.
+- Owner role defaults to `admin` when no role is supplied.
+- An explicit role is respected.
+- An upsert without other update fields refreshes `lastSignedIn`.
+- An omitted `lastSignedIn` does not overwrite an existing timestamp.
+- A falsy `lastSignedIn` value, including zero, receives a current timestamp on INSERT.
+- An explicit zero remains zero in the conflict UPDATE set, matching the MySQL implementation.
+
+## Regression history
+
+MO23-S3-AN exposed a failing assertion for the zero timestamp INSERT fallback.
+
+The cause was the repository assigning zero to both:
+- the INSERT values,
+- the conflict UPDATE set.
+
+The correction now separates those semantics:
+- INSERT values use the current timestamp when the supplied value is falsy.
+- Conflict UPDATE retains the explicitly supplied value, including zero.
+
+## Verification
+
+The verification command is:
+
+`pnpm exec tsx scripts/sqlite-users-repository-verification.mjs`
+
+TypeScript verification:
+
+`pnpm check`
+
+Schema verification:
+
+`pnpm exec tsx scripts/sqlite-schema-verification.mjs`
+
+SQLite integrity verification:
+
+`PRAGMA integrity_check;`
+
+This document must be updated with the actual results of the executed verification commands.
+A test is not considered PASS unless its process exits successfully.
+
+## Data protection
+
+- Do not delete the `data/` directory.
+- Do not delete `data/memory/continuity-outbox.sqlite`.
+- Do not switch production database configuration.
+- Do not execute MySQL migrations as part of this isolated SQLite work.
+
+## Remaining work
+
+The SQLite projects repository and users repository still require integration-level verification.
+`updatedAt` behavior should be checked against the production MySQL implementation and its schema before declaring full behavioral parity.
+
+## Execution results
+
+- Users regression exit code: 0 (PASS)
+- Typecheck exit code: 0 (PASS)
+- Schema verification exit code: 0 (PASS)
+- SQLite integrity exit code: 0 (PASS)
+
+## Consolidation run
+
+The SQLite consolidation verification was executed against the isolated
+migration branch.
+
+The following checks were run:
+
+- SQLite user repository regression
+- SQLite schema verification
+- TypeScript check
+- Frozen lockfile installation
+- Continuity database integrity check, when the database exists
+
+The execution output from the actual run is authoritative.
+A successful schema smoke test does not by itself establish complete
+projects-repository integration or production MySQL parity.
+
+The SQLite implementation remains isolated.
+No production backend switch or MySQL migration is authorized here.
+The continuity database under `data/` must not be deleted or committed.
+
+---
+
+## MO27 SQLITE PROJECT REPOSITORY TEST EVIDENCE
+
+**Estado:** FULL TEST SUITE PASSED  
+**Fecha:** 2026-11-04
+
+### Evidencia
+
+- SQLite project repository tests: 10 passed.
+- Vitest full suite: 158 test files passed.
+- Tests: 977 passed, 4 skipped, 981 total.
+- TypeScript check: passed in MO25.
+- Git diff check: passed in MO25.
+- Continuity database SHA-256 preserved.
+- Production MySQL repository unchanged.
+- SQLite remains isolated from production integration.
+
+### Alcance
+
+La evidencia valida el repositorio SQLite de proyectos mediante pruebas aisladas y la suite completa del proyecto.
+
+No demuestra:
+- migración productiva a SQLite;
+- integración de los cinco repositorios SQLite;
+- migración de datos MySQL;
+- operación completa de SICL Web sobre SQLite.
+
+### Próxima etapa
+
+Verificar esquema Drizzle real, cobertura de repositorios SQLite restantes y preparación de integración aislada.
+

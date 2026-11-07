@@ -1,0 +1,81 @@
+import { and, eq } from "drizzle-orm";
+
+import {
+  sqliteSiclProjects,
+  type SqliteSiclProject,
+  type SqliteInsertSiclProject,
+} from "../drizzle/schema.sqlite";
+
+import { openSiclSqlite } from "./db.sqlite.adapter";
+
+/**
+ * Repositorio SQLite aislado para proyectos SICL.
+ *
+ * No sustituye server/db.ts.
+ * No conecta MySQL.
+ * No ejecuta migraciones.
+ *
+ * Los timestamps se almacenan como Unix milliseconds.
+ */
+export function createSqliteProjectRepository(path: string) {
+  const connection = openSiclSqlite(path);
+  const db = connection.db;
+
+  return {
+    async get(
+      ownerId: number,
+      projectId: string,
+    ): Promise<SqliteSiclProject | undefined> {
+      const rows = await db
+        .select()
+        .from(sqliteSiclProjects)
+        .where(
+          and(
+            eq(sqliteSiclProjects.ownerId, ownerId),
+            eq(sqliteSiclProjects.projectId, projectId),
+          ),
+        )
+        .limit(1);
+
+      return rows[0];
+    },
+
+    async insert(
+      project: SqliteInsertSiclProject,
+    ): Promise<void> {
+      await db
+        .insert(sqliteSiclProjects)
+        .values(project);
+    },
+
+    async update(
+      ownerId: number,
+      projectId: string,
+      expectedVersion: number,
+      snapshot: string,
+      status?: SqliteSiclProject["status"],
+    ): Promise<boolean> {
+      const result = await db
+        .update(sqliteSiclProjects)
+        .set({
+          snapshot,
+          version: expectedVersion + 1,
+          updatedAt: Date.now(),
+          ...(status !== undefined ? { status } : {}),
+        })
+        .where(
+          and(
+            eq(sqliteSiclProjects.ownerId, ownerId),
+            eq(sqliteSiclProjects.projectId, projectId),
+            eq(sqliteSiclProjects.version, expectedVersion),
+          ),
+        );
+
+      return result.changes === 1;
+    },
+
+    close(): void {
+      connection.close();
+    },
+  };
+}

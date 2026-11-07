@@ -1,8 +1,9 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, ne } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { randomUUID } from "node:crypto";
 import { ArkiCommandSession, FederatedAssistantHandoff, InsertArkiCommandSession, InsertFederatedAssistantHandoff, InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, arkiCommandSessions, federatedAssistantHandoffs, parametricFiles, siclProjects, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+import { canArchiveParametricFile } from "./parametric/archiveAuthorization";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 const memoryProjects = new Map<string, SiclProject>();
@@ -130,8 +131,11 @@ export async function insertParametricFile(file: InsertParametricFile): Promise<
   const db = await getDb();
   const now = new Date();
   if (!db) {
+    if (memoryParametricFiles.has(file.artifactId)) {
+      throw new Error("Parametric artifactId must be globally unique");
+    }
     const stored = { id: 0, createdAt: now, updatedAt: now, uploadedAt: now, ...file } as ParametricFile;
-    memoryParametricFiles.set(`${file.ownerId}:${file.artifactId}`, stored);
+    memoryParametricFiles.set(file.artifactId, stored);
     return stored;
   }
   await db.insert(parametricFiles).values(file);
@@ -143,15 +147,16 @@ export async function insertParametricFile(file: InsertParametricFile): Promise<
 export async function listParametricFiles(ownerId: number, projectId: string): Promise<ParametricFile[]> {
   const db = await getDb();
   if (!db) return Array.from(memoryParametricFiles.values()).filter((file) => file.ownerId === ownerId && file.projectId === projectId && file.status !== "ARCHIVED").sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime());
-  return db.select().from(parametricFiles).where(and(eq(parametricFiles.ownerId, ownerId), eq(parametricFiles.projectId, projectId))).orderBy(desc(parametricFiles.updatedAt));
+  return db.select().from(parametricFiles).where(and(eq(parametricFiles.ownerId, ownerId), eq(parametricFiles.projectId, projectId), ne(parametricFiles.status, "ARCHIVED"))).orderBy(desc(parametricFiles.updatedAt));
 }
 
 export async function archiveParametricFile(ownerId: number, projectId: string, artifactId: string): Promise<boolean> {
   const db = await getDb();
   if (!db) {
-    const key = `${ownerId}:${artifactId}`;
+    const key = artifactId;
     const current = memoryParametricFiles.get(key);
-    if (!current || current.projectId !== projectId) return false;
+    if (!canArchiveParametricFile(current, ownerId, projectId)) return false;
+    if (!current) return false;
     memoryParametricFiles.set(key, { ...current, status: "ARCHIVED", updatedAt: new Date() });
     return true;
   }

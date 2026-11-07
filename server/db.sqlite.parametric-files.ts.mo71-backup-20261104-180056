@@ -1,0 +1,142 @@
+import { and, eq, desc } from "drizzle-orm";
+
+import {
+  sqliteParametricFiles,
+  type SqliteParametricFile,
+  type SqliteInsertParametricFile,
+} from "../drizzle/schema.sqlite";
+
+import { openSiclSqlite } from "./db.sqlite.adapter";
+
+/**
+ * Repositorio SQLite aislado para archivos paramétricos SICL.
+ *
+ * Identidad: ownerId + artifactId.
+ *
+ * No sustituye server/db.ts.
+ * No conecta MySQL.
+ * No ejecuta migraciones.
+ */
+export function createSqliteParametricFileRepository(
+  path: string,
+) {
+  const connection = openSiclSqlite(path);
+  const db = connection.db;
+
+  return {
+    async insert(
+      file: SqliteInsertParametricFile,
+    ): Promise<SqliteParametricFile> {
+      const now = Date.now();
+
+      const values: SqliteInsertParametricFile = {
+        ...file,
+        uploadedAt: file.uploadedAt ?? now,
+        createdAt: file.createdAt ?? now,
+        updatedAt: file.updatedAt ?? now,
+      };
+
+      const rows = await db
+        .insert(sqliteParametricFiles)
+        .values(values)
+        .returning();
+
+      const inserted = rows[0];
+
+      if (!inserted) {
+        throw new Error("SQLite parametric file insert returned no row");
+      }
+
+      return inserted;
+    },
+
+    async getByArtifactId(
+      ownerId: number,
+      artifactId: string,
+    ): Promise<SqliteParametricFile | undefined> {
+      const rows = await db
+        .select()
+        .from(sqliteParametricFiles)
+        .where(
+          and(
+            eq(sqliteParametricFiles.ownerId, ownerId),
+            eq(sqliteParametricFiles.artifactId, artifactId),
+          ),
+        )
+        .limit(1);
+
+      return rows[0];
+    },
+
+    async listByProject(
+      ownerId: number,
+      projectId: string,
+    ): Promise<SqliteParametricFile[]> {
+      return db
+        .select()
+        .from(sqliteParametricFiles)
+        .where(
+          and(
+            eq(sqliteParametricFiles.ownerId, ownerId),
+            eq(sqliteParametricFiles.projectId, projectId),
+            eq(sqliteParametricFiles.status, "INSPECTED"),
+          ),
+        )
+        .orderBy(desc(sqliteParametricFiles.createdAt));
+    },
+
+    async update(
+      ownerId: number,
+      artifactId: string,
+      changes: Partial<
+        Omit<
+          SqliteInsertParametricFile,
+          "ownerId" | "artifactId" | "createdAt"
+        >
+      >,
+    ): Promise<SqliteParametricFile | undefined> {
+      const rows = await db
+        .update(sqliteParametricFiles)
+        .set({
+          ...changes,
+          updatedAt: Date.now(),
+        })
+        .where(
+          and(
+            eq(sqliteParametricFiles.ownerId, ownerId),
+            eq(sqliteParametricFiles.artifactId, artifactId),
+          ),
+        )
+        .returning();
+
+      return rows[0];
+    },
+
+    async archive(
+      ownerId: number,
+      projectId: string,
+      artifactId: string,
+    ): Promise<SqliteParametricFile | undefined> {
+      const rows = await db
+        .update(sqliteParametricFiles)
+        .set({
+          status: "ARCHIVED",
+          updatedAt: Date.now(),
+        })
+        .where(
+          and(
+            eq(sqliteParametricFiles.ownerId, ownerId),
+            eq(sqliteParametricFiles.projectId, projectId),
+            eq(sqliteParametricFiles.artifactId, artifactId),
+          ),
+        )
+        .returning();
+
+      return rows[0];
+    },
+
+    close(): void {
+      connection.close();
+    },
+  };
+}
