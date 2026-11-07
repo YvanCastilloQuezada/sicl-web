@@ -4,7 +4,7 @@
  * Sin dependencia de MySQL, MO08 ni Manus.
  */
 import Database from "better-sqlite3";
-import { mkdirSync, existsSync, readFileSync } from "node:fs";
+import { mkdirSync, existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 export type ClientStatus = "active" | "revoked";
