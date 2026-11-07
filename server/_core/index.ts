@@ -7,10 +7,10 @@ import { createServer } from "http";
 import net from "net";
 import { randomUUID } from "crypto";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
-import { registerArkiLocalRoutes } from "./arkiMo08LocalAuth";
+// F7.4: Manus OAuth desactivado — login local en arkiIdentity/httpRoutes.ts
+// F7.2: MO08 desactivado — login local está en arkiIdentity/httpRoutes.ts
 import { registerStorageProxy } from "./storageProxy";
-import { registerArkiMo22 } from "./arkiMo22Bridge";
+// F7.2: MO22 desactivado — storage ledger MySQL fuera de alcance
 import { registerArkiIdentityRoutes } from "./arkiIdentity/httpRoutes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
@@ -114,11 +114,11 @@ async function startServer() {
   app.use("/api/core", rateLimit({ name: "core", max: 90 }));
   app.use("/api/continuity", rateLimit({ name: "continuity", max: 60 }));
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
-  registerArkiMo22(app);
+  // F7.2: registerArkiMo22(app) desactivado
   registerArkiIdentityRoutes(app);
   registerStorageProxy(app);
-  registerOAuthRoutes(app);
-  registerArkiLocalRoutes(app);
+  // F7.4: registerOAuthRoutes(app) desactivado
+  // F7.2: registerArkiLocalRoutes(app) desactivado
   registerContinuityApi(app);
   void flushPendingContinuityOutbox();
   setInterval(() => { void flushPendingContinuityOutbox(); }, 60_000).unref();

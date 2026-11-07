@@ -27,7 +27,7 @@ export async function createCredential(input: CreateCredentialInput): Promise<{ 
   if (!input.username || typeof input.username !== "string" || input.username.length > 64) {
     throw new Error("IDENTITY_INVALID_USERNAME");
   }
-  if (!input.password || typeof input.password !== "string" || input.password.length < 8) {
+  if (!input.password || typeof input.password !== "string" || input.password.length < 16) {
     throw new Error("IDENTITY_INVALID_PASSWORD");
   }
   const db = getDb();

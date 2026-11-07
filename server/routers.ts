@@ -10,7 +10,7 @@ import { siclCorePort } from "./siclCorePort";
 import { analyzeVisualPhoto } from "./visualField";
 import { extractOcr, classifyDocumentStructure, type OcrInputKind } from "./arkiOcr";
 import { storagePut } from "./storage";
-import { putArkiMo22 } from "./_core/arkiMo22Bridge";
+// F7.2: putArkiMo22 desactivado — MO22 storage fuera de alcance
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, SiclCoreHttpError } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
