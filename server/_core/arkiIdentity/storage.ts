@@ -49,11 +49,18 @@ function dbPath(): string {
 }
 
 function migrationSql(): string {
-  // Migración 0001 embebida para evitar dependencia de cwd en tests y runtime.
-  return readFileSync(
-    resolve(process.cwd(), "drizzle/sqlite/migrations/0001_arki_identity.sql"),
-    "utf8",
-  );
+  // F7: aplicar TODAS las migraciones en orden (0001, 0002, ...).
+  // Se leen de drizzle/sqlite/migrations/ y se concatenan.
+  const dir = resolve(process.cwd(), "drizzle/sqlite/migrations");
+  const files = readdirSync(dir)
+    .filter((f) => /^\d{4}_.+\.sql$/.test(f))
+    .sort();
+  if (files.length === 0) {
+    throw new Error("IDENTITY_NO_MIGRATIONS_FOUND");
+  }
+  return files
+    .map((f) => readFileSync(resolve(dir, f), "utf8"))
+    .join("\n\n-- ----\n\n");
 }
 
 export function getDb(): Database.Database {
