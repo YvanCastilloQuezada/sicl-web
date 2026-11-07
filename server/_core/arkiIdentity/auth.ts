@@ -27,7 +27,11 @@ export async function createCredential(input: CreateCredentialInput): Promise<{ 
   if (!input.username || typeof input.username !== "string" || input.username.length > 64) {
     throw new Error("IDENTITY_INVALID_USERNAME");
   }
-  if (!input.password || typeof input.password !== "string" || input.password.length < 16) {
+  const PASSWORD_MIN = Number(process.env.ARKI_IDENTITY_PASSWORD_MIN || "8");
+  if (!Number.isFinite(PASSWORD_MIN) || PASSWORD_MIN < 8 || PASSWORD_MIN > 128) {
+    throw new Error("IDENTITY_PASSWORD_MIN_INVALID");
+  }
+  if (!input.password || typeof input.password !== "string" || input.password.length < PASSWORD_MIN) {
     throw new Error("IDENTITY_INVALID_PASSWORD");
   }
   const db = getDb();
