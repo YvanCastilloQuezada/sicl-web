@@ -26,3 +26,6 @@ export const KNOWN_SCOPES = [
   "test:run",
 ] as const;
 export type KnownScope = (typeof KNOWN_SCOPES)[number];
+
+export { introspect } from "./verify";
+export type { IntrospectResponse } from "./verify";

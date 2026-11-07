@@ -89,3 +89,27 @@ export function requireScope(identity: VerifiedIdentity, scope: string): void {
     throw err;
   }
 }
+
+/**
+ * Forma estable para introspección externa (Bridge, futuros clientes).
+ * Nunca incluye el token en claro, el hash, ni datos sensibles del sujeto.
+ */
+export interface IntrospectResponse {
+  valid: boolean;
+  subject?: string;
+  client_id?: string;
+  scopes?: string[];
+  expires_at?: string;
+}
+
+export function introspect(token: unknown): IntrospectResponse {
+  const identity = verifyToken(token);
+  if (!identity) return { valid: false };
+  return {
+    valid: true,
+    subject: identity.userId,
+    client_id: identity.clientId,
+    scopes: identity.scopes,
+    expires_at: identity.expiresAt,
+  };
+}

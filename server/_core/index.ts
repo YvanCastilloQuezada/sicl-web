@@ -9,6 +9,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { registerArkiLocalRoutes } from "./arkiMo08LocalAuth";
 import { registerStorageProxy } from "./storageProxy";
 import { registerArkiMo22 } from "./arkiMo22Bridge";
+import { registerArkiIdentityRoutes } from "./arkiIdentity/httpRoutes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -112,6 +113,7 @@ async function startServer() {
   app.use("/api/continuity", rateLimit({ name: "continuity", max: 60 }));
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   registerArkiMo22(app);
+  registerArkiIdentityRoutes(app);
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   registerArkiLocalRoutes(app);
