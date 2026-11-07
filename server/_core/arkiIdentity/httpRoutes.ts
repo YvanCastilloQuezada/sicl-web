@@ -54,7 +54,13 @@ export function registerArkiIdentityRoutes(app: Express): void {
     }
     // F7.3: lockout persistente en SQLite (3 fallos en 15 min → bloqueo)
     const db = getDb();
-    const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+    // Importante: SQLite datetime('now') devuelve "YYYY-MM-DD HH:MM:SS" (espacio, no T),
+    // y toISOString() devuelve "YYYY-MM-DDTHH:MM:SS.sssZ" (T). Comparar strings
+    // con formatos distintos falla (espacio < T en ASCII). Usar el mismo formato.
+    const since = new Date(Date.now() - 15 * 60 * 1000)
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
     const recentFailures = db
       .prepare(
         "SELECT COUNT(*) AS n FROM arki_identity_login_attempts WHERE username = ? AND success = 0 AND ts > ?",

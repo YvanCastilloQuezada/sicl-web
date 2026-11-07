@@ -51,6 +51,7 @@ function resetDb() {
   db.exec("DELETE FROM arki_identity_audit");
   db.exec("DELETE FROM arki_identity_credentials");
   db.exec("DELETE FROM arki_identity_clients");
+  db.exec("DELETE FROM arki_identity_login_attempts");
   db.exec("INSERT INTO arki_identity_clients (client_id, client_name, status) VALUES ('web-session','Web','active')");
 }
 
