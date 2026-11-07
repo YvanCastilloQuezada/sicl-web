@@ -13,7 +13,7 @@
  */
 import type { Express, Request, Response } from "express";
 import { timingSafeEqual } from "node:crypto";
-import { identityEnabled, introspect } from "./index";
+import { identityEnabled, introspect, verifyCredential, createSessionJwt, createCredential } from "./index";
 
 export const INTERNAL_KEY_HEADER = "x-internal-key";
 
@@ -37,6 +37,100 @@ function keyMatches(provided: unknown): boolean {
 }
 
 export function registerArkiIdentityRoutes(app: Express): void {
+  // F5.1 — Login local (cookie JWT HS256)
+  app.post("/api/identity/login", async (req: Request, res: Response) => {
+    if (!identityEnabled()) {
+      res.status(503).json({ error: "IDENTITY_DISABLED" });
+      return;
+    }
+    const body = req.body as { username?: unknown; password?: unknown } | undefined;
+    const username = typeof body?.username === "string" ? body.username : "";
+    const password = typeof body?.password === "string" ? body.password : "";
+    if (!username || !password) {
+      res.status(400).json({ error: "INVALID_BODY" });
+      return;
+    }
+    // Rate limit simple en memoria (F5: básico; F7: hardening completo)
+    const now = Date.now();
+    const bucket = loginAttempts.get(username) ?? { count: 0, resetAt: now + 60_000 };
+    if (now > bucket.resetAt) {
+      bucket.count = 0;
+      bucket.resetAt = now + 60_000;
+    }
+    if (bucket.count >= 5) {
+      res.status(429).json({ error: "TOO_MANY_ATTEMPTS" });
+      return;
+    }
+    bucket.count += 1;
+    loginAttempts.set(username, bucket);
+
+    const userId = await verifyCredential(username, password);
+    if (!userId) {
+      res.status(401).json({ error: "INVALID_CREDENTIALS" });
+      return;
+    }
+    loginAttempts.delete(username);
+    const appId = process.env.ARKI_IDENTITY_APP_ID || "arki-local";
+    const sessionJwt = await createSessionJwt({ openId: `arki-local:${username}`, appId, name: username });
+    res.cookie("arki_identity_session", sessionJwt, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    res.status(200).json({ ok: true, username });
+  });
+
+  // F5.2 — Logout
+  app.post("/api/identity/logout", (_req: Request, res: Response) => {
+    res.clearCookie("arki_identity_session", { path: "/" });
+    res.status(200).json({ ok: true });
+  });
+
+  // (Rate limit simple en memoria para login, F7 endurecerá)
+  const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+
+  // F5.5 — Crear credencial (loopback-only + X-Internal-Key, mismo guard que introspect)
+  // NUNCA expuesto a red externa. Solo para bootstrap y automatización local.
+  app.post("/api/internal/identity/credential", async (req: Request, res: Response) => {
+    if (!identityEnabled()) {
+      res.status(503).json({ error: "IDENTITY_DISABLED" });
+      return;
+    }
+    if (!isLoopback(req)) {
+      res.status(403).json({ error: "FORBIDDEN" });
+      return;
+    }
+    if (!keyMatches(req.header(INTERNAL_KEY_HEADER))) {
+      res.status(403).json({ error: "FORBIDDEN" });
+      return;
+    }
+    const body = req.body as { username?: unknown; password?: unknown } | undefined;
+    const username = typeof body?.username === "string" ? body.username : "";
+    const password = typeof body?.password === "string" ? body.password : "";
+    if (!username || !password) {
+      res.status(400).json({ error: "INVALID_BODY" });
+      return;
+    }
+    try {
+      const { userId } = await createCredential({ username, password });
+      res.status(200).json({ ok: true, userId });
+    } catch (e) {
+      const msg = String(e);
+      if (msg.includes("IDENTITY_USERNAME_TAKEN")) {
+        res.status(409).json({ error: "USERNAME_TAKEN" });
+      } else if (msg.includes("IDENTITY_INVALID_PASSWORD")) {
+        res.status(400).json({ error: "INVALID_PASSWORD" });
+      } else if (msg.includes("IDENTITY_INVALID_USERNAME")) {
+        res.status(400).json({ error: "INVALID_USERNAME" });
+      } else {
+        res.status(500).json({ error: "INTERNAL_ERROR" });
+      }
+    }
+  });
+
+  // F2 — Introspección loopback (sin cambios)
   app.post("/api/internal/identity/introspect", (req: Request, res: Response) => {
     if (!identityEnabled()) {
       res.status(503).json({ error: "IDENTITY_DISABLED" });

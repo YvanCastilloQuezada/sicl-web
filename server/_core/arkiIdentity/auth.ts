@@ -4,6 +4,7 @@
  * La activación se controla con ARKI_IDENTITY_ENABLE=1 (ver index.ts).
  */
 import { randomBytes, scrypt as scryptCb, timingSafeEqual, randomUUID } from "node:crypto";
+import { SignJWT } from "jose";
 import { promisify } from "node:util";
 import { getDb, type CredentialRow } from "./storage";
 
@@ -76,4 +77,40 @@ export function disableCredential(userId: string): boolean {
     .prepare("UPDATE arki_identity_credentials SET enabled = 0 WHERE user_id = ?")
     .run(userId);
   return r.changes > 0;
+}
+
+
+/**
+ * Emite un JWT HS256 compatible con sdk.verifySession() de SICL Web.
+ * La clave es la misma que usa sdk (getSessionSecret()).
+ * Claims requeridos por verifySession: openId, appId, name.
+ * Claim extra: scope (para futuro uso).
+ */
+export async function createSessionJwt(input: {
+  openId: string;
+  appId: string;
+  name: string;
+  expiresInMs?: number;
+}): Promise<string> {
+  if (!input.openId || !input.appId || !input.name) {
+    throw new Error("IDENTITY_JWT_INVALID_INPUT");
+  }
+  // Misma derivación que sdk.ts (getSessionSecret)
+  const secretRaw = process.env.JWT_SECRET || "";
+  if (secretRaw.length < 32) {
+    throw new Error("IDENTITY_JWT_SECRET_MISSING");
+  }
+  const secret = new TextEncoder().encode(secretRaw);
+  const expiresInMs = input.expiresInMs ?? 7 * 24 * 60 * 60 * 1000; // 7 días
+  const now = Math.floor(Date.now() / 1000);
+  const exp = now + Math.floor(expiresInMs / 1000);
+  return await new SignJWT({
+    openId: input.openId,
+    appId: input.appId,
+    name: input.name,
+  })
+    .setProtectedHeader({ alg: "HS256" })
+    .setIssuedAt(now)
+    .setExpirationTime(exp)
+    .sign(secret);
 }
