@@ -70,3 +70,6 @@ data/memory/*.sqlite-wal
 *.bak-f1a
 *.bak-f2
 *.bak-f3-env
+
+# Backups de httpRoutes.ts durante F5
+server/_core/arkiIdentity/*.bak-f5
