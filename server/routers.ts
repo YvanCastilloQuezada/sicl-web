@@ -598,3 +598,16 @@ export const appRouter = router({
 });
 
 export type AppRouter = typeof appRouter;
+
+// F7.2: MO22 desactivado (storage MySQL fuera de alcance).
+// Las llamadas a putArkiMo22 solo se ejecutan si ARKI_STORAGE_MODE=local,
+// que ya no está soportado. Mantenemos la firma para no romper tipos.
+async function putArkiMo22(
+  _ownerId: number,
+  _projectId: string,
+  _data: Buffer,
+  _contentType: string,
+): Promise<{ key: string; url: string }> {
+  throw new Error("MO22_DISABLED: ARKI_STORAGE_MODE=local ya no está soportado (F7)");
+}
+
