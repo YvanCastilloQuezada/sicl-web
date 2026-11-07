@@ -133,15 +133,18 @@ describe("POST /api/identity/login", () => {
     }
   });
 
-  it("5 intentos fallidos → 429 al 6º", async () => {
+  it("3 fallos en 15 min → bloqueo en el 4º intento", async () => {
     await createCredential({ username: "brute", password: "correct!!" });
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       const r = await post("/api/identity/login", { username: "brute", password: "wrong" });
       expect(r.status).toBe(401);
     }
     const r = await post("/api/identity/login", { username: "brute", password: "wrong" });
     expect(r.status).toBe(429);
     expect(r.json).toEqual({ error: "TOO_MANY_ATTEMPTS" });
+    // Incluso con la contraseña correcta, sigue bloqueado por rate limit
+    const blocked = await post("/api/identity/login", { username: "brute", password: "correct!!" });
+    expect(blocked.status).toBe(429);
   });
 });
 
