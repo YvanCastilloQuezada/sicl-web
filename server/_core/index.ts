@@ -1,4 +1,6 @@
 import "dotenv/config";
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig({ path: ".env.local", override: false });
 import express from "express";
 import compression from "compression";
 import { createServer } from "http";
