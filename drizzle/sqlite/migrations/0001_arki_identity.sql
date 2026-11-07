@@ -1,6 +1,15 @@
 -- ARKI Identity — SQLite única (F1a)
 -- Emisión/verificación/revocación de tokens opacos + credenciales locales.
 -- NO modifica tablas existentes (users, arki_command_sessions, etc.).
+--
+-- Nota de diseño:
+-- arki_identity_sessions.user_id NO es FK a arki_identity_credentials.
+-- Un token puede emitirse para:
+--   (a) un usuario local (con credencial en arki_identity_credentials)
+--   (b) un usuario de la tabla existente `users` (SICL Web)
+--   (c) un sujeto de servicio (ej. 'bridge-local' como client, sin usuario)
+-- Forzar la FK rompería los casos (b) y (c).
+-- Solo client_id es FK real: todo token pertenece a un cliente registrado.
 
 CREATE TABLE IF NOT EXISTS arki_identity_clients (
   client_id   TEXT PRIMARY KEY,
@@ -28,7 +37,6 @@ CREATE TABLE IF NOT EXISTS arki_identity_sessions (
   expires_at  TEXT NOT NULL,
   revoked_at  TEXT,
   created_at  TEXT NOT NULL DEFAULT (datetime('now')),
-  FOREIGN KEY (user_id)   REFERENCES arki_identity_credentials(user_id),
   FOREIGN KEY (client_id) REFERENCES arki_identity_clients(client_id)
 );
 

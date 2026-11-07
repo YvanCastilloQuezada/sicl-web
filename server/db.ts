@@ -1,4 +1,5 @@
 import { and, desc, eq, ne } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/mysql2";
 import { randomUUID } from "node:crypto";
 import { ArkiCommandSession, FederatedAssistantHandoff, InsertArkiCommandSession, InsertFederatedAssistantHandoff, InsertUser, SiclProject, InsertSiclProject, ParametricFile, InsertParametricFile, arkiCommandSessions, federatedAssistantHandoffs, parametricFiles, siclProjects, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
