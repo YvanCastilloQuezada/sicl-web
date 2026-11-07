@@ -12,7 +12,7 @@ export type { IssuedToken, IssueOptions } from "./issuer";
 export { verifyToken, hasScope, requireScope } from "./verify";
 export type { VerifiedIdentity } from "./verify";
 export { revokeByToken, revokeBySessionId } from "./revoke";
-export { createCredential, verifyCredential, disableCredential } from "./auth";
+export { createCredential, verifyCredential, disableCredential, createSessionJwt } from "./auth";
 export type { CreateCredentialInput } from "./auth";
 
 export function identityEnabled(): boolean {

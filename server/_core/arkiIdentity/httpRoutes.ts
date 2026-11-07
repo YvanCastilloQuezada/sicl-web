@@ -37,6 +37,9 @@ function keyMatches(provided: unknown): boolean {
 }
 
 export function registerArkiIdentityRoutes(app: Express): void {
+  // Rate limit simple en memoria (F5: básico; F7 endurecerá)
+  const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+
   // F5.1 — Login local (cookie JWT HS256)
   app.post("/api/identity/login", async (req: Request, res: Response) => {
     if (!identityEnabled()) {
@@ -89,7 +92,7 @@ export function registerArkiIdentityRoutes(app: Express): void {
   });
 
   // (Rate limit simple en memoria para login, F7 endurecerá)
-  const loginAttempts = new Map<string, { count: number; resetAt: number }>();
+  
 
   // F5.5 — Crear credencial (loopback-only + X-Internal-Key, mismo guard que introspect)
   // NUNCA expuesto a red externa. Solo para bootstrap y automatización local.
