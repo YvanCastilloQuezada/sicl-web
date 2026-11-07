@@ -49,11 +49,18 @@ function dbPath(): string {
 }
 
 function migrationSql(): string {
-  // F7: aplicar TODAS las migraciones en orden (0001, 0002, ...).
-  // Se leen de drizzle/sqlite/migrations/ y se concatenan.
+  // F7: aplicar SOLO las migraciones de identity (0001_*, 0002_*, ...).
+  // Otros archivos 0000_initial.sql contienen tablas que NO son de identity
+  // (users, arki_command_sessions) y dependen de un contexto completo que no
+  // existe en el módulo de identity aislado.
+  //
+  // Filtros:
+  //   - 0001_arki_identity.sql, 0002_identity_lockout.sql, ...
+  //   - cualquier archivo con "arki_identity" o "identity" en el nombre
   const dir = resolve(process.cwd(), "drizzle/sqlite/migrations");
   const files = readdirSync(dir)
     .filter((f) => /^\d{4}_.+\.sql$/.test(f))
+    .filter((f) => /identity/i.test(f))
     .sort();
   if (files.length === 0) {
     throw new Error("IDENTITY_NO_MIGRATIONS_FOUND");
