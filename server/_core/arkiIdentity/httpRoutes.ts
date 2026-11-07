@@ -14,6 +14,7 @@
 import type { Express, Request, Response } from "express";
 import { timingSafeEqual } from "node:crypto";
 import { identityEnabled, introspect, verifyCredential, createSessionJwt, createCredential } from "./index";
+import { getDb } from "./storage";
 
 export const INTERNAL_KEY_HEADER = "x-internal-key";
 
@@ -37,8 +38,6 @@ function keyMatches(provided: unknown): boolean {
 }
 
 export function registerArkiIdentityRoutes(app: Express): void {
-  // Rate limit simple en memoria (F5: básico; F7 endurecerá)
-  const loginAttempts = new Map<string, { count: number; resetAt: number }>();
 
   // F5.1 — Login local (cookie JWT HS256)
   app.post("/api/identity/login", async (req: Request, res: Response) => {
@@ -53,26 +52,27 @@ export function registerArkiIdentityRoutes(app: Express): void {
       res.status(400).json({ error: "INVALID_BODY" });
       return;
     }
-    // Rate limit simple en memoria (F5: básico; F7: hardening completo)
-    const now = Date.now();
-    const bucket = loginAttempts.get(username) ?? { count: 0, resetAt: now + 60_000 };
-    if (now > bucket.resetAt) {
-      bucket.count = 0;
-      bucket.resetAt = now + 60_000;
-    }
-    if (bucket.count >= 5) {
+    // F7.3: lockout persistente en SQLite (3 fallos en 15 min → bloqueo)
+    const db = getDb();
+    const since = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+    const recentFailures = db
+      .prepare(
+        "SELECT COUNT(*) AS n FROM arki_identity_login_attempts WHERE username = ? AND success = 0 AND ts > ?",
+      )
+      .get(username, since) as { n: number } | undefined;
+    if ((recentFailures?.n ?? 0) >= 3) {
+      db.prepare("INSERT INTO arki_identity_login_attempts (username, success) VALUES (?, 0)").run(username);
       res.status(429).json({ error: "TOO_MANY_ATTEMPTS" });
       return;
     }
-    bucket.count += 1;
-    loginAttempts.set(username, bucket);
 
     const userId = await verifyCredential(username, password);
     if (!userId) {
+      db.prepare("INSERT INTO arki_identity_login_attempts (username, success) VALUES (?, 0)").run(username);
       res.status(401).json({ error: "INVALID_CREDENTIALS" });
       return;
     }
-    loginAttempts.delete(username);
+    db.prepare("INSERT INTO arki_identity_login_attempts (username, success) VALUES (?, 1)").run(username);
     const appId = process.env.ARKI_IDENTITY_APP_ID || "arki-local";
     const sessionJwt = await createSessionJwt({ openId: `arki-local:${username}`, appId, name: username });
     res.cookie("arki_identity_session", sessionJwt, {
