@@ -63,3 +63,13 @@ docs/migrations/*.mo*-backup-*
 
 # ARKI: artefactos de fase no versionados
 artifacts/arki-phase-evidence/receipt-mo11.*
+
+# ARKI: artefactos de sesiones F1a-F3 (SQLite WAL y backups pre-parche)
+data/memory/*.sqlite-shm
+data/memory/*.sqlite-wal
+*.bak-f1a
+*.bak-f2
+*.bak-f3-env
+
+# Backups de httpRoutes.ts durante F5
+server/_core/arkiIdentity/*.bak-f5
