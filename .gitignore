@@ -80,3 +80,6 @@ data/memory/sicl.db
 data/memory/sicl.db-shm
 data/memory/sicl.db-wal
 *.bak-f1b
+
+# ARKI F1b — backups y residuos de sicl.db
+data/memory/sicl.db.*
