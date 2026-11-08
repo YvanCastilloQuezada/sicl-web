@@ -19,7 +19,7 @@ INSERT OR IGNORE INTO arki_identity_credentials
   (user_id, username, password_salt, password_hash, enabled)
 VALUES (
   'yvan-oidc-bootstrap',
-  'Yvan_Castillo@hotmail.com',
+  'yvancastillo2@gmail.com',
   x'00',
   x'00',
   1
