@@ -28,7 +28,11 @@ async function makeMemoryBackend() {
   };
 }
 
-describe("parity: memoria — artifactId global (ADR-0001)", () => {
+// F1b: este test comparaba backend memory (Map) vs backend drizzle-mysql.
+// Tras F1b solo existe backend SQLite. La cobertura ADR-0001 vive en
+// db.memory.parametric-files.test.ts (reescrito) y db.sqlite.test.ts (nuevo).
+// TODO F1c: reescribir como parity vs golden fixtures, o eliminar.
+describe.skip("parity: memoria — artifactId global (ADR-0001)", () => {
   let mem: Awaited<ReturnType<typeof makeMemoryBackend>>;
 
   beforeEach(async () => { mem = await makeMemoryBackend(); });
