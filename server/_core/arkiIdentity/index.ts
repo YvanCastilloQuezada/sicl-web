@@ -29,3 +29,5 @@ export type KnownScope = (typeof KNOWN_SCOPES)[number];
 
 export { introspect } from "./verify";
 export type { IntrospectResponse } from "./verify";
+
+export { registerArkiOidcRoutes } from "./oidcRoutes";

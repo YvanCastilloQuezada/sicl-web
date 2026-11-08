@@ -2,6 +2,7 @@ import "dotenv/config";
 import { config as dotenvConfig } from "dotenv";
 dotenvConfig({ path: ".env.local", override: false });
 import express from "express";
+import cookieParser from "cookie-parser";
 import compression from "compression";
 import { createServer } from "http";
 import net from "net";
@@ -12,6 +13,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerStorageProxy } from "./storageProxy";
 // F7.2: MO22 desactivado — storage ledger MySQL fuera de alcance
 import { registerArkiIdentityRoutes } from "./arkiIdentity/httpRoutes";
+import { registerArkiOidcRoutes } from "./arkiIdentity/oidcRoutes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -96,6 +98,7 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.use(cookieParser());
   app.use(compression({ threshold: 1024 }));
   app.use(writeRequestGuard);
   app.post("/api/security/csp-report", rateLimit({ name: "csp-report", max: 60 }), (req, res) => {
@@ -116,6 +119,7 @@ async function startServer() {
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   // F7.2: registerArkiMo22(app) desactivado
   registerArkiIdentityRoutes(app);
+  registerArkiOidcRoutes(app);
   registerStorageProxy(app);
   // F7.4: registerOAuthRoutes(app) desactivado
   // F7.2: registerArkiLocalRoutes(app) desactivado

@@ -74,3 +74,23 @@ data/memory/*.sqlite-wal
 # Backups de httpRoutes.ts durante F5
 server/_core/arkiIdentity/*.bak-f5
 server/_core/arkiIdentity/*.bak-f5*
+
+# ARKI F1b — SICL Web SQLite persistencia
+data/memory/sicl.db
+data/memory/sicl.db-shm
+data/memory/sicl.db-wal
+*.bak-f1b
+
+# ARKI F1b — backups y residuos de sicl.db
+data/memory/sicl.db.*
+
+# ARKI F1c — backups de tests de parity/golden
+*.bak-f1c
+
+# ARKI F2.5 — backups de httpRoutes durante emisión de tokens
+*.bak-f2.5
+*.bak-oidc
+*.bak-oidc-*
+*.bak-f2.5-*
+*.bak-f7
+*.bak-f7-*

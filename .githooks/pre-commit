@@ -1,41 +1,58 @@
 #!/usr/bin/env bash
-# Pre-commit: bloquea regresiones de V10 en server/db.ts
+# Pre-commit: guardas ADR-0001 (artifactId global) sobre SQLite.
+# F1b: reemplaza las guardas Map (memoryParametricFiles.has/set) por
+# guardas en el esquema SQL y en el backend SQLite de db.ts.
 set -Eeuo pipefail
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
 
-echo "=== PRE-COMMIT: artifactId global (ADR-0001) ==="
+echo "=== PRE-COMMIT: artifactId global (ADR-0001) — SQLite ==="
 
-if ! grep -q 'memoryParametricFiles.has(file.artifactId)' server/db.ts; then
-  echo "FALLO: server/db.ts no tiene memoryParametricFiles.has(file.artifactId) (V10)" >&2
+# Guarda 1: UNIQUE INDEX global en artifactId (SQLite)
+if ! grep -q 'parametric_files_artifactId_unique' \
+     drizzle/sqlite/migrations/0003_db_persistence.sql; then
+  echo "FALLO: 0003_db_persistence.sql no tiene UNIQUE INDEX parametric_files_artifactId_unique" >&2
   exit 1
 fi
-echo "OK: Map.has presente"
+echo "OK: UNIQUE INDEX artifactId global (SQLite)"
 
-if ! grep -q 'memoryParametricFiles.set(file.artifactId, stored)' server/db.ts; then
-  echo "FALLO: server/db.ts no usa memoryParametricFiles.set(file.artifactId, stored) (V10)" >&2
-  exit 1
-fi
-echo "OK: clave artifactId"
-
-if ! grep -q 'canArchiveParametricFile' server/db.ts; then
-  echo "FALLO: server/db.ts no usa canArchiveParametricFile (V10)" >&2
-  exit 1
-fi
-echo "OK: archive guard"
-
-if ! grep -q 'ne(parametricFiles.status, "ARCHIVED")' server/db.ts; then
-  echo "FALLO: server/db.ts no tiene ne(ARCHIVED) (V10)" >&2
+# Guarda 2: el SELECT de listParametricFiles excluye ARCHIVED
+if ! grep -q "status != 'ARCHIVED'" server/db.ts; then
+  echo "FALLO: server/db.ts no filtra status != 'ARCHIVED' (listParametricFiles)" >&2
   exit 1
 fi
 echo "OK: list excluye ARCHIVED"
 
+# Guarda 3: INSERT explícito en parametric_files con constraint UNIQUE
+if ! grep -q 'INSERT INTO parametric_files' server/db.ts; then
+  echo "FALLO: server/db.ts no hace INSERT INTO parametric_files (backend SQLite)" >&2
+  exit 1
+fi
+echo "OK: INSERT INTO parametric_files (backend SQLite)"
+
+# Guarda 4: guarda de archivado se mantiene
+if ! grep -q 'canArchiveParametricFile' server/db.ts; then
+  echo "FALLO: server/db.ts no usa canArchiveParametricFile" >&2
+  exit 1
+fi
+echo "OK: archive guard"
+
+# Guarda 5: la migración es idempotente (no rompe re-aplicación)
+if ! grep -q 'CREATE TABLE IF NOT EXISTS parametric_files' \
+     drizzle/sqlite/migrations/0003_db_persistence.sql; then
+  echo "FALLO: 0003_db_persistence.sql no usa CREATE TABLE IF NOT EXISTS" >&2
+  exit 1
+fi
+echo "OK: migración idempotente"
+
+# Tests de contrato ADR-0001 (los mismos que antes; siguen aplicando)
 if [[ -d node_modules ]]; then
   echo
-  echo "=== TESTS ==="
+  echo "=== TESTS ADR-0001 ==="
   node node_modules/vitest/vitest.mjs run \
     server/db.memory.parametric-files.test.ts \
+    server/parametric-files.contract.test.ts \
     server/parametric/archiveAuthorization.test.ts \
     --cache=false --reporter=dot || {
     echo "FALLO: tests de artifactId fallaron" >&2

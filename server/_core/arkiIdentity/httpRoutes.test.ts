@@ -1,5 +1,6 @@
 import { describe, expect, it, beforeAll, afterAll, beforeEach } from "vitest";
 import express from "express";
+import cookieParser from "cookie-parser";
 import type { Server } from "node:http";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -63,6 +64,7 @@ function resetDb() {
 beforeAll(async () => {
   const app = express();
   app.use(express.json());
+  app.use(cookieParser());
   registerArkiIdentityRoutes(app);
   await new Promise<void>((resolve, reject) => {
     const server = app.listen(0, "127.0.0.1", () => resolve());
@@ -183,4 +185,139 @@ describe("POST /api/internal/identity/introspect", () => {
       else process.env.ARKI_IDENTITY_ENABLE = saved;
     }
   });
+
+  // ============================================================
+  // F2.5 — POST /api/identity/token (emisión de tokens opacos)
+  // ============================================================
+  describe("POST /api/identity/token", () => {
+    const TEST_USERNAME = "f25-user";
+    const TEST_PASSWORD = "f25-password-min-8";
+
+    async function ensureUser(): Promise<void> {
+      const { createCredential } = await import("./auth");
+      try {
+        await createCredential({ username: TEST_USERNAME, password: TEST_PASSWORD });
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e);
+        if (!msg.includes("IDENTITY_USERNAME_TAKEN")) throw e;
+      }
+    }
+
+    async function loginAndGetCookie(): Promise<string> {
+      await ensureUser();
+      const res = await fetch(`${ctx.url}/api/identity/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: TEST_USERNAME, password: TEST_PASSWORD }),
+      });
+      if (res.status !== 200) {
+        throw new Error(`login failed: ${res.status} ${await res.text()}`);
+      }
+      const setCookie = res.headers.getSetCookie?.() ?? [];
+      const raw = setCookie.find((c) => c.includes("arki_identity_session="));
+      if (!raw) throw new Error("no session cookie in login response");
+      return raw.split(";")[0];
+    }
+
+    async function callIdentityToken(
+      body: unknown,
+      headers: Record<string, string> = {},
+    ): Promise<{ status: number; json: unknown }> {
+      const res = await fetch(`${ctx.url}/api/identity/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...headers },
+        body: JSON.stringify(body),
+      });
+      const json = await res.json().catch(() => null);
+      return { status: res.status, json };
+    }
+
+    it("login → token → 200 con token 43-char y sesión persistida", async () => {
+      const cookie = await loginAndGetCookie();
+      const r = await callIdentityToken(
+        { client_id: "bridge-local", scopes: ["git:read"], ttl_seconds: 3600 },
+        { Cookie: cookie },
+      );
+      expect(r.status).toBe(200);
+      const body = r.json as { token: string; session_id: string; scopes: string[]; expires_at: string };
+      expect(body.token).toMatch(/^[A-Za-z0-9_-]{43}$/);
+      expect(body.session_id).toBeTruthy();
+      expect(body.scopes).toEqual(["git:read"]);
+      expect(typeof body.expires_at).toBe("string");
+
+      // El token debe verificar por introspección
+      const introspect = await fetch(`${ctx.url}/api/internal/identity/introspect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Internal-Key": TEST_KEY },
+        body: JSON.stringify({ token: body.token }),
+      });
+      expect(introspect.status).toBe(200);
+      const ij = (await introspect.json()) as { valid: boolean; scopes: string[] };
+      expect(ij.valid).toBe(true);
+      expect(ij.scopes).toEqual(["git:read"]);
+    });
+
+    it("sin cookie → 401 NO_SESSION", async () => {
+      const r = await callIdentityToken({ client_id: "bridge-local", scopes: ["git:read"] });
+      expect(r.status).toBe(401);
+      expect(r.json).toEqual({ error: "NO_SESSION" });
+    });
+
+    it("cookie inválida → 401 INVALID_SESSION", async () => {
+      const r = await callIdentityToken(
+        { client_id: "bridge-local", scopes: ["git:read"] },
+        { Cookie: "arki_identity_session=not-a-jwt" },
+      );
+      expect(r.status).toBe(401);
+      expect(r.json).toEqual({ error: "INVALID_SESSION" });
+    });
+
+    it("client_id desconocido → 403 IDENTITY_UNKNOWN_CLIENT", async () => {
+      const cookie = await loginAndGetCookie();
+      const r = await callIdentityToken(
+        { client_id: "no-existe", scopes: ["git:read"] },
+        { Cookie: cookie },
+      );
+      expect(r.status).toBe(403);
+      expect((r.json as { error: string }).error).toMatch(/IDENTITY_UNKNOWN_CLIENT/);
+    });
+
+    it("scopes vacíos → 400 INVALID_SCOPES", async () => {
+      const cookie = await loginAndGetCookie();
+      const r = await callIdentityToken(
+        { client_id: "bridge-local", scopes: [] },
+        { Cookie: cookie },
+      );
+      expect(r.status).toBe(400);
+      expect(r.json).toEqual({ error: "INVALID_SCOPES" });
+    });
+
+    it("scopes inválidos → 400 INVALID_SCOPES", async () => {
+      const cookie = await loginAndGetCookie();
+      const r = await callIdentityToken(
+        { client_id: "bridge-local", scopes: ["invalid:scope"] },
+        { Cookie: cookie },
+      );
+      expect(r.status).toBe(400);
+      expect(r.json).toEqual({ error: "INVALID_SCOPES" });
+    });
+
+    it("ttl_seconds fuera de rango → 400 INVALID_TTL", async () => {
+      const cookie = await loginAndGetCookie();
+      const low = await callIdentityToken(
+        { client_id: "bridge-local", scopes: ["git:read"], ttl_seconds: 30 },
+        { Cookie: cookie },
+      );
+      expect(low.status).toBe(400);
+      expect(low.json).toEqual({ error: "INVALID_TTL" });
+
+      const high = await callIdentityToken(
+        { client_id: "bridge-local", scopes: ["git:read"], ttl_seconds: 999999 },
+        { Cookie: cookie },
+      );
+      expect(high.status).toBe(400);
+      expect(high.json).toEqual({ error: "INVALID_TTL" });
+    });
+  });
+
 });

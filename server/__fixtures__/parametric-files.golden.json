@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "description": "Golden contract for parametric_files ADR-0001 (artifactId global). Captured 2026-11-08 against db.ts SQLite backend (HEAD f82c3e0a). Any behavior change here is a contract change and must be reviewed.",
+  "cases": [
+    {
+      "id": "E1",
+      "description": "Dos artifactId distintos → ambos insert OK",
+      "steps": [
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E1-A" },
+          "expect": { "ok": true, "artifactId": "ART-E1-A", "status": "INSPECTED" }
+        },
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E1-B" },
+          "expect": { "ok": true, "artifactId": "ART-E1-B", "status": "INSPECTED" }
+        }
+      ]
+    },
+    {
+      "id": "E2",
+      "description": "Mismo artifactId, mismo owner/project → rechazo por duplicado",
+      "steps": [
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E2" },
+          "expect": { "ok": true, "artifactId": "ART-E2" }
+        },
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E2" },
+          "expect": { "ok": false, "errorMatch": "globally unique" }
+        }
+      ]
+    },
+    {
+      "id": "E3",
+      "description": "Mismo artifactId, owner/project distintos → rechazo global (ADR-0001)",
+      "steps": [
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E3" },
+          "expect": { "ok": true, "artifactId": "ART-E3" }
+        },
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 2, "projectId": "P-2", "artifactId": "ART-E3" },
+          "expect": { "ok": false, "errorMatch": "globally unique" }
+        }
+      ]
+    },
+    {
+      "id": "E4",
+      "description": "archiveParametricFile cross-owner / cross-project → false; mismo owner+project → true",
+      "steps": [
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E4" },
+          "expect": { "ok": true, "artifactId": "ART-E4" }
+        },
+        {
+          "op": "archiveParametricFile",
+          "args": [2, "P-1", "ART-E4"],
+          "expect": { "ok": true, "result": false }
+        },
+        {
+          "op": "archiveParametricFile",
+          "args": [1, "P-2", "ART-E4"],
+          "expect": { "ok": true, "result": false }
+        },
+        {
+          "op": "archiveParametricFile",
+          "args": [1, "P-1", "ART-E4"],
+          "expect": { "ok": true, "result": true }
+        }
+      ]
+    },
+    {
+      "id": "E5",
+      "description": "listParametricFiles excluye ARCHIVED",
+      "steps": [
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E5-A" },
+          "expect": { "ok": true, "artifactId": "ART-E5-A" }
+        },
+        {
+          "op": "insertParametricFile",
+          "input": { "ownerId": 1, "projectId": "P-1", "artifactId": "ART-E5-B" },
+          "expect": { "ok": true, "artifactId": "ART-E5-B" }
+        },
+        {
+          "op": "archiveParametricFile",
+          "args": [1, "P-1", "ART-E5-A"],
+          "expect": { "ok": true, "result": true }
+        },
+        {
+          "op": "listParametricFiles",
+          "args": [1, "P-1"],
+          "expect": { "ok": true, "artifactIds": ["ART-E5-B"] }
+        }
+      ]
+    }
+  ]
+}
