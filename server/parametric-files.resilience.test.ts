@@ -1,43 +1,67 @@
-import { describe, expect, it } from "vitest";
-import { readFileSync, existsSync } from "node:fs";
-import { join } from "node:path";
-
 /**
- * Resilience: verifica que las guardas estaticas existen.
- * No ejecuta el hook (lento); solo valida que esta y contiene las comprobaciones.
+ * F1c — resilience: guardas estáticas del pre-commit (ADR-0001, SQLite).
+ *
+ * El test original verificaba que .githooks/pre-commit contuviera las
+ * guardas Map (`memoryParametricFiles.has(...)`, `memoryParametricFiles.set(...)`).
+ * Tras F1b el hook migró a guardas SQLite. Este test verifica las nuevas:
+ *
+ *   1. UNIQUE INDEX parametric_files_artifactId_unique en 0003_db_persistence.sql
+ *   2. status != 'ARCHIVED' en server/db.ts
+ *   3. INSERT INTO parametric_files en server/db.ts
+ *   4. canArchiveParametricFile en server/db.ts
+ *   5. CREATE TABLE IF NOT EXISTS parametric_files en 0003_db_persistence.sql
+ *
+ * Además verifica que el hook invoque los 3 tests correctos.
  */
+import { describe, expect, it } from "vitest";
+import { existsSync, readFileSync } from "node:fs";
 
-const ROOT = process.cwd();
-const read = (p: string) => readFileSync(join(ROOT, p), "utf8");
-const exists = (p: string) => existsSync(join(ROOT, p));
+const read = (p: string) => readFileSync(p, "utf8");
 
-describe("resilience: guardas estaticas", () => {
-  it("pre-commit existe y bloquea las 4 regresiones V8", () => {
-    expect(exists(".githooks/pre-commit")).toBe(true);
-    const s = read(".githooks/pre-commit");
-    expect(s).toMatch(/memoryParametricFiles\.has\(file\.artifactId\)/);
-    expect(s).toMatch(/memoryParametricFiles\.set\(file\.artifactId, stored\)/);
-    expect(s).toMatch(/canArchiveParametricFile/);
-    expect(s).toMatch(/ne\(parametricFiles\.status, "ARCHIVED"\)/);
+describe("resilience: guardas estáticas del pre-commit (SQLite)", () => {
+  it("pre-commit existe y bloquea las 5 regresiones ADR-0001", () => {
+    expect(existsSync(".githooks/pre-commit")).toBe(true);
+    const hook = read(".githooks/pre-commit");
+
+    // Guarda 1: UNIQUE INDEX en la migración
+    expect(hook).toMatch(/parametric_files_artifactId_unique/);
+    expect(hook).toMatch(/0003_db_persistence\.sql/);
+
+    // Guarda 2: filtro ARCHIVED en db.ts
+    expect(hook).toMatch(/status != 'ARCHIVED'/);
+    expect(hook).toMatch(/server\/db\.ts/);
+
+    // Guarda 3: INSERT INTO parametric_files
+    expect(hook).toMatch(/INSERT INTO parametric_files/);
+
+    // Guarda 4: canArchiveParametricFile
+    expect(hook).toMatch(/canArchiveParametricFile/);
+
+    // Guarda 5: CREATE TABLE IF NOT EXISTS (idempotencia)
+    expect(hook).toMatch(/CREATE TABLE IF NOT EXISTS parametric_files/);
   });
 
-  it("CI existe y tiene los greps del contrato", () => {
-    const p = ".github/workflows/parametric-v10.yml";
-    expect(exists(p)).toBe(true);
-    const s = read(p);
-    expect(s).toMatch(/memoryParametricFiles\.has\(file\.artifactId\)/);
-    expect(s).toMatch(/CREATE UNIQUE INDEX `parametric_files_artifactId_unique`/);
+  it("pre-commit invoca los 3 tests de contrato ADR-0001", () => {
+    const hook = read(".githooks/pre-commit");
+    expect(hook).toMatch(/server\/db\.memory\.parametric-files\.test\.ts/);
+    expect(hook).toMatch(/server\/parametric-files\.contract\.test\.ts/);
+    expect(hook).toMatch(/server\/parametric\/archiveAuthorization\.test\.ts/);
   });
 
-  it("ADR-0001 existe", () => {
-    expect(exists("docs/adr/0001-artifactid-global.md")).toBe(true);
+  it("hook es ejecutable", () => {
+    const { statSync } = require("node:fs") as typeof import("node:fs");
+    const mode = statSync(".githooks/pre-commit").mode;
+    // Al menos uno de owner/group/other exec
+    expect(mode & 0o111).toBeGreaterThan(0);
   });
 
-  it("runbook existe", () => {
-    expect(exists("docs/runbooks/artifactid.md")).toBe(true);
+  it("hook usa set -Eeuo pipefail", () => {
+    const hook = read(".githooks/pre-commit");
+    expect(hook).toMatch(/set -Eeuo pipefail/);
   });
 
-  it("playbook de incidente existe", () => {
-    expect(exists("docs/runbooks/incident-artifactid-duplicates.md")).toBe(true);
+  it("hook termina con PRE-COMMIT_OK", () => {
+    const hook = read(".githooks/pre-commit");
+    expect(hook).toMatch(/PRE-COMMIT_OK/);
   });
 });

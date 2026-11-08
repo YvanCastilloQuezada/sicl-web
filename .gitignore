@@ -83,3 +83,6 @@ data/memory/sicl.db-wal
 
 # ARKI F1b — backups y residuos de sicl.db
 data/memory/sicl.db.*
+
+# ARKI F1c — backups de tests de parity/golden
+*.bak-f1c
