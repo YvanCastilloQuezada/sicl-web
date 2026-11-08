@@ -1,3 +1,11 @@
+/**
+ * @deprecated MO22 legacy. Storage de objetos con ledger MySQL, dormido.
+ * Reemplazo: Pendiente: portar a SQLite o eliminar.
+ *
+ * NO USAR. NO ELIMINAR todavía. Deuda documentada para eliminar
+ * tras la fase de reconciliación sicl-web ↔ sicl-core ↔ arki-acs.
+ * Ver: server/_core/arkiIdentity/README.md § Deuda técnica
+ */
 /** MO-22 staged adapter. Requires explicit activation; no fake identities. */
 import type { Express, Request } from 'express';
 import { parse as parseCookies } from 'cookie';

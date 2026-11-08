@@ -1,3 +1,11 @@
+/**
+ * @deprecated drizzle/schema.ts con mysqlTable/mysqlEnum. Usado solo como fuente de tipos por server/db.ts (SQLite).
+ * Reemplazo: Migrar a sqliteTable (fase futura).
+ *
+ * NO USAR. NO ELIMINAR todavía. Deuda documentada para eliminar
+ * tras la fase de reconciliación sicl-web ↔ sicl-core ↔ arki-acs.
+ * Ver: server/_core/arkiIdentity/README.md § Deuda técnica
+ */
 import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 
 export const users = mysqlTable("users", {
