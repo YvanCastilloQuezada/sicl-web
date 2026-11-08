@@ -13,7 +13,8 @@
  */
 import type { Express, Request, Response } from "express";
 import { timingSafeEqual } from "node:crypto";
-import { identityEnabled, introspect, verifyCredential, createSessionJwt, createCredential } from "./index";
+import { jwtVerify } from "jose";
+import { identityEnabled, introspect, verifyCredential, createSessionJwt, createCredential, issueToken, KNOWN_SCOPES } from "./index";
 import { getDb } from "./storage";
 
 export const INTERNAL_KEY_HEADER = "x-internal-key";
@@ -89,6 +90,126 @@ export function registerArkiIdentityRoutes(app: Express): void {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     res.status(200).json({ ok: true, username });
+  });
+
+  // F2.5 — Emisión de token opaco (máquina-a-máquina)
+  // Requiere cookie JWT del login local. Devuelve token 43-char con scopes
+  // explícitos, revocable y auditable. Bridge lo consume vía F3 doble camino.
+  app.post("/api/identity/token", async (req: Request, res: Response) => {
+    if (!identityEnabled()) {
+      res.status(503).json({ error: "IDENTITY_DISABLED" });
+      return;
+    }
+
+    const cookie = req.cookies?.["arki_identity_session"];
+    if (typeof cookie !== "string" || cookie.length === 0) {
+      res.status(401).json({ error: "NO_SESSION" });
+      return;
+    }
+
+    const secret = process.env.JWT_SECRET ?? "";
+    if (!secret) {
+      res.status(503).json({ error: "JWT_SECRET_MISSING" });
+      return;
+    }
+
+    let openId: string;
+    try {
+      const { payload } = await jwtVerify(cookie, new TextEncoder().encode(secret), {
+        algorithms: ["HS256"],
+      });
+      const rawOpenId = payload["openId"];
+      if (typeof rawOpenId !== "string") {
+        res.status(401).json({ error: "INVALID_SESSION" });
+        return;
+      }
+      openId = rawOpenId;
+    } catch {
+      res.status(401).json({ error: "INVALID_SESSION" });
+      return;
+    }
+
+    const PREFIX = "arki-local:";
+    if (!openId.startsWith(PREFIX)) {
+      res.status(401).json({ error: "INVALID_SESSION_SUBJECT" });
+      return;
+    }
+    const username = openId.slice(PREFIX.length);
+
+    const db = getDb();
+    const cred = db
+      .prepare(
+        "SELECT user_id FROM arki_identity_credentials WHERE username = ? AND enabled = 1 LIMIT 1",
+      )
+      .get(username) as { user_id: string } | undefined;
+    if (!cred) {
+      res.status(401).json({ error: "INVALID_SESSION_SUBJECT" });
+      return;
+    }
+
+    const body = req.body as {
+      client_id?: unknown;
+      scopes?: unknown;
+      ttl_seconds?: unknown;
+    } | undefined;
+
+    const clientId =
+      typeof body?.client_id === "string" ? body.client_id.trim() : "";
+    if (!clientId) {
+      res.status(400).json({ error: "INVALID_CLIENT_ID" });
+      return;
+    }
+
+    const scopesRaw = body?.scopes;
+    if (!Array.isArray(scopesRaw) || scopesRaw.length === 0) {
+      res.status(400).json({ error: "INVALID_SCOPES" });
+      return;
+    }
+    const scopes: string[] = [];
+    for (const s of scopesRaw) {
+      if (typeof s !== "string" || !(KNOWN_SCOPES as readonly string[]).includes(s)) {
+        res.status(400).json({ error: "INVALID_SCOPES" });
+        return;
+      }
+      scopes.push(s);
+    }
+
+    let ttlSeconds = 3600;
+    if (body?.ttl_seconds !== undefined) {
+      const n = body.ttl_seconds;
+      if (
+        typeof n !== "number" ||
+        !Number.isInteger(n) ||
+        n < 60 ||
+        n > 86400
+      ) {
+        res.status(400).json({ error: "INVALID_TTL" });
+        return;
+      }
+      ttlSeconds = n;
+    }
+
+    try {
+      const issued = issueToken({
+        userId: cred.user_id,
+        clientId,
+        scopes,
+        ttlSeconds,
+      });
+      res.status(200).json({
+        token: issued.token,
+        session_id: issued.sessionId,
+        expires_at: issued.expiresAt,
+        scopes: issued.scopes,
+      });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (msg.includes("IDENTITY_UNKNOWN_CLIENT") || msg.includes("IDENTITY_CLIENT_REVOKED")) {
+        res.status(403).json({ error: msg });
+        return;
+      }
+      res.status(400).json({ error: msg });
+    }
   });
 
   // F5.2 — Logout

@@ -2,6 +2,7 @@ import "dotenv/config";
 import { config as dotenvConfig } from "dotenv";
 dotenvConfig({ path: ".env.local", override: false });
 import express from "express";
+import cookieParser from "cookie-parser";
 import compression from "compression";
 import { createServer } from "http";
 import net from "net";
@@ -96,6 +97,7 @@ async function startServer() {
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.use(cookieParser());
   app.use(compression({ threshold: 1024 }));
   app.use(writeRequestGuard);
   app.post("/api/security/csp-report", rateLimit({ name: "csp-report", max: 60 }), (req, res) => {

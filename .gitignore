@@ -86,3 +86,6 @@ data/memory/sicl.db.*
 
 # ARKI F1c — backups de tests de parity/golden
 *.bak-f1c
+
+# ARKI F2.5 — backups de httpRoutes durante emisión de tokens
+*.bak-f2.5
