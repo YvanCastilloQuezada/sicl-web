@@ -99,3 +99,6 @@ data/memory/sicl.db.*
 00_ARKI_BRIDGE_FINAL.md
 arki-e2e-*.tar.xz
 arki-e2e-*/
+
+# ARKI — artefactos de auditoría por fase (no versionar)
+evidence/
