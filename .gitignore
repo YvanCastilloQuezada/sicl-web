@@ -89,3 +89,8 @@ data/memory/sicl.db.*
 
 # ARKI F2.5 — backups de httpRoutes durante emisión de tokens
 *.bak-f2.5
+*.bak-oidc
+*.bak-oidc-*
+*.bak-f2.5-*
+*.bak-f7
+*.bak-f7-*
