@@ -146,33 +146,15 @@ export function registerArkiIdentityRoutes(app: Express): void {
         )
         .get(username) as { user_id: string } | undefined;
     } else if (openId.startsWith(OIDC_PREFIX)) {
-      // Para OIDC, el `sub` no coincide con username. Resolvemos por
-      // auditoría: el callback OIDC registró oidc_login=<username>.
-      // Como no tenemos un mapeo directo sub→username, resolvemos por
-      // la sesión más reciente con detalle que empiece por oidc_login=.
-      // Mejor solución: re-emitir sesión con openId=arki-local:<username>
-      // en el callback OIDC. Lo hacemos aquí para no tocar el callback:
-      //   - leemos el último audit oidc_login=<username>
-      //   - verificamos que la credencial exista y enabled=1
-      // Esto es un workaround; en una fase futura, el JWT OIDC debería
-      // incluir username en el payload. Documentado como deuda.
-      const rows = db
+      // OIDC: openId = "arki-oidc-gitea:<username>" (email).
+      // El callback OIDC emite el JWT con username directamente.
+      // Resolución directa por username, sin consultar audit.
+      const username = openId.slice(OIDC_PREFIX.length);
+      cred = db
         .prepare(
-          "SELECT detail FROM arki_identity_audit WHERE action = 'login' AND detail LIKE 'oidc_login=%' ORDER BY ts DESC LIMIT 50",
+          "SELECT user_id FROM arki_identity_credentials WHERE username = ? AND enabled = 1 LIMIT 1",
         )
-        .all() as Array<{ detail: string }>;
-      let username: string | undefined;
-      for (const r of rows) {
-        const m = /^oidc_login=([^ ]+)/.exec(r.detail);
-        if (m) { username = m[1]; break; }
-      }
-      if (username) {
-        cred = db
-          .prepare(
-            "SELECT user_id FROM arki_identity_credentials WHERE username = ? AND enabled = 1 LIMIT 1",
-          )
-          .get(username) as { user_id: string } | undefined;
-      }
+        .get(username) as { user_id: string } | undefined;
     } else {
       res.status(401).json({ error: "INVALID_SESSION_SUBJECT" });
       return;

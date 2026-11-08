@@ -264,10 +264,14 @@ export function registerArkiOidcRoutes(app: Express): void {
       return;
     }
 
-    // Emitir cookie JWT ARKI. openId = "arki-oidc-gitea:<sub>".
+    // Emitir cookie JWT ARKI.
+    // openId = "arki-oidc-gitea:<username>" (email), no <sub>.
+    // El sub numérico de Gitea no es útil en ARKI: identificamos por email.
+    // Esto permite que /api/identity/token resuelva userId directamente
+    // con SELECT user_id WHERE username = ?.
     const appId = process.env.ARKI_IDENTITY_APP_ID || "arki-local";
     const sessionJwt = await createSessionJwt({
-      openId: `arki-oidc-gitea:${giteaSub}`,
+      openId: `arki-oidc-gitea:${username}`,
       appId,
       name: login || username,
     });
