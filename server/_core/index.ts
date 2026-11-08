@@ -13,6 +13,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerStorageProxy } from "./storageProxy";
 // F7.2: MO22 desactivado — storage ledger MySQL fuera de alcance
 import { registerArkiIdentityRoutes } from "./arkiIdentity/httpRoutes";
+import { registerArkiOidcRoutes } from "./arkiIdentity/oidcRoutes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -118,6 +119,7 @@ async function startServer() {
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   // F7.2: registerArkiMo22(app) desactivado
   registerArkiIdentityRoutes(app);
+  registerArkiOidcRoutes(app);
   registerStorageProxy(app);
   // F7.4: registerOAuthRoutes(app) desactivado
   // F7.2: registerArkiLocalRoutes(app) desactivado
