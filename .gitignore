@@ -94,3 +94,8 @@ data/memory/sicl.db.*
 *.bak-f2.5-*
 *.bak-f7
 *.bak-f7-*
+# ARKI — artefactos de sesiones previas (no versionar)
+00_ARKI_BRIDGE/
+00_ARKI_BRIDGE_FINAL.md
+arki-e2e-*.tar.xz
+arki-e2e-*/
