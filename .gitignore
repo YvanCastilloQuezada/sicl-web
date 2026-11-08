@@ -102,3 +102,6 @@ arki-e2e-*/
 
 # ARKI — artefactos de auditoría por fase (no versionar)
 evidence/
+
+# ARKI — backups de marcas @deprecated
+*.bak-deprecated-*
