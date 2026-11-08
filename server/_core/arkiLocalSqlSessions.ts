@@ -1,3 +1,11 @@
+/**
+ * @deprecated MO08 legacy. Reemplazado por arkiIdentity/storage.ts (sesiones SQLite).
+ * Reemplazo: server/_core/arkiIdentity/storage.ts
+ *
+ * NO USAR. NO ELIMINAR todavía. Deuda documentada para eliminar
+ * tras la fase de reconciliación sicl-web ↔ sicl-core ↔ arki-acs.
+ * Ver: server/_core/arkiIdentity/README.md § Deuda técnica
+ */
 /** MO-08G: transactional, fail-closed local session persistence.
  * Not wired into production authentication. Explicit migration required.
  * Requires mysql2 and an independently provisioned user mapping.

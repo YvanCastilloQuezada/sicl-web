@@ -1,3 +1,11 @@
+/**
+ * @deprecated MO08 legacy. Reemplazado por arkiIdentity/auth.ts (scrypt + SQLite).
+ * Reemplazo: server/_core/arkiIdentity/auth.ts
+ *
+ * NO USAR. NO ELIMINAR todavía. Deuda documentada para eliminar
+ * tras la fase de reconciliación sicl-web ↔ sicl-core ↔ arki-acs.
+ * Ver: server/_core/arkiIdentity/README.md § Deuda técnica
+ */
 
 import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from "node:crypto";
 import { promisify } from "node:util";
