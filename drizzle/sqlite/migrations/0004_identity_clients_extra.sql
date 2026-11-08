@@ -9,18 +9,29 @@ VALUES ('deep', 'Deep (asistente IA externo)', 'active');
 INSERT OR IGNORE INTO arki_identity_clients (client_id, client_name, status)
 VALUES ('Yvan_Castillo-cli', 'CLI de Yvan Castillo', 'active');
 
--- Usuario admin pre-habilitado. Sin password local (no se puede login con
--- password: password_hash es un marcador). Solo entra por OIDC Gitea,
--- mapeado por email. enabled=1 → puede pedir tokens opacos desde el día 1.
+-- Usuarios admin pre-habilitados. Sin password local (no se puede login con
+-- password: password_hash es un marcador). Solo entran por OIDC Gitea,
+-- mapeados por email. enabled=1 → pueden pedir tokens opacos desde el día 1.
 -- El `password_salt`/`password_hash` se rellenan con bytes dummy; el login
--- local por password para este usuario está efectivamente bloqueado porque
+-- local por password para estos usuarios está efectivamente bloqueado porque
 -- nadie conoce la password (no se generó a partir de un texto conocido).
+--
+-- yvancastillo2@gmail.com: cuenta principal del owner en Gitea (email real).
+-- Yvan_Castillo@hotmail.com: alias histórico, mantenido por compatibilidad.
 INSERT OR IGNORE INTO arki_identity_credentials
   (user_id, username, password_salt, password_hash, enabled)
-VALUES (
-  'yvan-oidc-bootstrap',
-  'yvancastillo2@gmail.com',
-  x'00',
-  x'00',
-  1
-);
+VALUES
+  (
+    'yvan-oidc-gmail',
+    'yvancastillo2@gmail.com',
+    x'00',
+    x'00',
+    1
+  ),
+  (
+    'yvan-oidc-hotmail',
+    'Yvan_Castillo@hotmail.com',
+    x'00',
+    x'00',
+    1
+  );
