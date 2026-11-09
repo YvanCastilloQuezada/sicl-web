@@ -61,6 +61,7 @@ import { dynamicFamilyContract, dynamicFamilySummary, generateDynamicBuilding, l
 import { compareDynamicBuildings, dynamicComparisonContract, exportDynamicBuilding, type BuildingVersion, type ComparisonMode } from "../shared/arkiFamilyComparison";
 import { ADVANCED_RENDER_CONTRACT, assessAdvancedCapabilities, validateRenderRequest } from "../shared/arkiAdvancedRenderCapabilities";
 import { costBudgetS2Contract, estimateCandidateCost, compareCostEstimates, markCostStale, recalculateCost, validateCostInput, type CostCandidateInput, type CostEstimate, type CostFidelity } from "../shared/arkiCostBudgetS2";
+import { execSync } from "child_process";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -769,93 +770,86 @@ export const appRouter = router({
         // 3. Ejecutar el Brain (genera los partis)
         const brain = executeProjectBrainWave1(brainInput);
 
-        // 4. Ejecutar el D6.3 para generar los candidatos geométricos
+        // 4. Generar 9 propuestas con executeD63G (arquitectura real)
         const candidates: any[] = [];
         
-        // Construir el D63Input a partir de los datos del Brain y del brief
-        const width = Math.sqrt(input.areaM2) * 0.8; // Ancho aproximado
-        const height = Math.sqrt(input.areaM2) * 0.6; // Alto aproximado
-        
-        const d63Input: D63Input = {
-          executionId: `d63-${Date.now()}`,
-          projectId: input.projectId,
-          brief: input.brief,
-          typology: input.typology,
-          activities: brainInput.activities.map(a => ({
-            id: a.id,
-            label: a.label,
-            subjects: a.subjects,
-            capacity: a.capacity,
-            frequency: "daily",
-            duration: "short",
-            temporalOverlap: true,
-            privacy: a.privacy,
-            accessControl: a.accessControl,
-          })),
-          subjects: ["visitante", "personal"],
-          relationships: brainInput.relationships.map(r => ({
-            id: r.id,
-            from: r.from,
-            to: r.to,
-            relation: r.relation,
-            subjects: r.subjects,
-            state: "open",
-            frequency: "daily",
-            time: "business-hours",
-            control: r.control,
-          })),
-          conditions: ["Las actividades de visitantes y personal pueden solaparse"],
-          constraints: ["No se suministran habitaciones, muros, puertas ni geometría de solución."],
-          unknowns: ["La capacidad exacta después de la demanda pico es desconocida"],
-          perturbation: { id: "p1", statement: "El control mediado por personal no está disponible en horas pico", changes: { separationCondition: "separación más fuerte" } },
-          envelope: { width: Math.round(width), height: Math.round(height), status: "EXPLICIT_PROJECT_DIMENSION" },
-          separationCondition: "El control mediado por personal debe ser legible y no superpuesto",
-        };
+        // Variaciones de envelope y separación para generar 9 propuestas distintas
+        const envelopes = [
+          { width: 80, height: 60, separation: "buffer lateral" },
+          { width: 70, height: 70, separation: "buffer transversal" },
+          { width: 90, height: 50, separation: "buffer longitudinal" },
+          { width: 60, height: 80, separation: "buffer compacto" },
+          { width: 100, height: 40, separation: "buffer extendido" },
+          { width: 50, height: 90, separation: "buffer alto" },
+          { width: 85, height: 55, separation: "buffer asimétrico" },
+          { width: 75, height: 65, separation: "buffer ortogonal" },
+          { width: 65, height: 75, separation: "buffer radial" },
+        ];
 
-        try {
-          const d63Result = executeD63G(d63Input, emptySnapshot(), 1, "D6.3-G-ARKI");
-          
-          // Convertir candidateA y candidateB en propuestas para el Funnel
-          if (d63Result.candidateA) {
-            candidates.push({
-              id: `CAND-A-${Date.now()}`,
-              title: `Propuesta A · ${d63Result.reasoning.strategies[0]?.strategyId || "Estrategia A"}`,
-              strategy: "LATERAL_BUFFER",
-              metrics: {
-                area: input.areaM2,
-                floors: 2,
-              },
-              building: {
-                id: d63Result.candidateA.id,
-                geometry2d: d63Result.candidateA.elements,
-                geometry3d: d63Result.candidateA.elements,
-                name: `Propuesta A · ${input.typology}`,
-              },
-            });
+        for (let i = 0; i < envelopes.length; i++) {
+          const env = envelopes[i];
+          try {
+            const d63Input: D63Input = {
+              executionId: `d63-${i}-${Date.now()}`,
+              projectId: input.projectId,
+              brief: input.brief,
+              typology: input.typology,
+              activities: brainInput.activities.map(a => ({
+                id: a.id,
+                label: a.label,
+                subjects: a.subjects,
+                capacity: a.capacity,
+                frequency: "daily",
+                duration: "short",
+                temporalOverlap: true,
+                privacy: a.privacy,
+                accessControl: a.accessControl,
+              })),
+              subjects: ["visitante", "personal"],
+              relationships: brainInput.relationships.map(r => ({
+                id: r.id,
+                from: r.from,
+                to: r.to,
+                relation: r.relation,
+                subjects: r.subjects,
+                state: "open",
+                frequency: "daily",
+                time: "business-hours",
+                control: r.control,
+              })),
+              conditions: ["Las actividades de visitantes y personal pueden solaparse"],
+              constraints: ["No se suministran habitaciones, muros, puertas ni geometría de solución."],
+              unknowns: ["La capacidad exacta después de la demanda pico es desconocida"],
+              perturbation: { id: `p${i}`, statement: "El control mediado por personal no está disponible en horas pico", changes: { separationCondition: env.separation } },
+              envelope: { width: env.width, height: env.height, status: "EXPLICIT_PROJECT_DIMENSION" },
+              separationCondition: `El control mediado por personal debe ser legible y no superpuesto (${env.separation})`,
+            };
+
+            const d63Result = executeD63G(d63Input, emptySnapshot(), 1, "D6.3-G-ARKI");
+            
+            if (d63Result.candidateA) {
+              candidates.push({
+                id: `CAND-${i + 1}-A`,
+                title: `Propuesta ${i + 1}A · ${env.separation}`,
+                strategy: env.separation,
+                metrics: {
+                  area: env.width * env.height,
+                  floors: 2,
+                },
+                building: {
+                  id: d63Result.candidateA.id,
+                  geometry2d: d63Result.candidateA.elements,
+                  geometry3d: d63Result.candidateA.elements,
+                  name: `Propuesta ${i + 1}A`,
+                },
+              });
+            }
+          } catch (e) {
+            console.warn(`[copilot.e2e] Error generando propuesta ${i}:`, e);
           }
-          
-          if (d63Result.candidateB) {
-            candidates.push({
-              id: `CAND-B-${Date.now()}`,
-              title: `Propuesta B · ${d63Result.reasoning.strategies[1]?.strategyId || "Estrategia B"}`,
-              strategy: "TRANSVERSE_BUFFER",
-              metrics: {
-                area: input.areaM2,
-                floors: 2,
-              },
-              building: {
-                id: d63Result.candidateB.id,
-                geometry2d: d63Result.candidateB.elements,
-                geometry3d: d63Result.candidateB.elements,
-                name: `Propuesta B · ${input.typology}`,
-              },
-            });
-          }
-          
-          console.log(`[copilot.e2e] ${candidates.length} candidatos geométricos generados por D6.3`);
-        } catch (e) {
-          console.error("[copilot.e2e] Error ejecutando D6.3:", e);
         }
+
+        console.log(`[copilot.e2e] ${candidates.length} candidatos geométricos generados por D6.3`);
 
         return {
           status: "EXECUTED",
@@ -866,6 +860,28 @@ export const appRouter = router({
           versions: { initial: null, afterBrain: null, afterD62: null },
         };
       }),
+  }),
+
+  system: router({
+    gpuUsage: publicProcedure.query(() => {
+      try {
+        const output = execSync("nvidia-smi --query-gpu=index,name,utilization.gpu,memory.used,memory.total --format=csv,noheader,nounits", { encoding: "utf-8", timeout: 3000 });
+        const lines = output.trim().split("\n");
+        const gpus = lines.map(line => {
+          const [index, name, usage, memUsed, memTotal] = line.split(", ").map(s => s.trim());
+          return {
+            index: parseInt(index),
+            name,
+            usage: parseInt(usage),
+            memoryUsed: parseInt(memUsed),
+            memoryTotal: parseInt(memTotal),
+          };
+        });
+        return { status: "OK", gpus };
+      } catch (e) {
+        return { status: "ERROR", gpus: [], message: e instanceof Error ? e.message : "Unknown error" };
+      }
+    }),
   }),
 });
 

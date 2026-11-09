@@ -21,6 +21,7 @@ import { checkCoreHealth, classifyCoreError, proxyCoreRequest } from "../coreHtt
 import { attachParametricWebSocket } from "../parametricRealtime";
 import { rateLimit, recordSecurityEvent, securityHeaders, writeRequestGuard } from "../security";
 import { registerContinuityApi, flushPendingContinuityOutbox } from "../continuityApi";
+import { execSync } from "child_process";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -183,6 +184,27 @@ async function startServer() {
       res.status(code === "CORE_UNAUTHORIZED" ? 502 : 503).json({ status: "error", code, message, correlation_id: correlationId });
     }
   });
+  // Ruta simple para el uso de la GPU
+  app.get("/api/gpu-usage", (_req, res) => {
+    try {
+      const output = execSync("nvidia-smi --query-gpu=index,name,utilization.gpu,memory.used,memory.total --format=csv,noheader,nounits", { encoding: "utf-8", timeout: 3000 });
+      const lines = output.trim().split("\n");
+      const gpus = lines.map((line: string) => {
+        const [index, name, usage, memUsed, memTotal] = line.split(", ").map((s: string) => s.trim());
+        return {
+          index: parseInt(index),
+          name,
+          usage: parseInt(usage),
+          memoryUsed: parseInt(memUsed),
+          memoryTotal: parseInt(memTotal),
+        };
+      });
+      res.json({ status: "OK", gpus });
+    } catch (e) {
+      res.status(500).json({ status: "ERROR", gpus: [], message: e instanceof Error ? e.message : "Unknown error" });
+    }
+  });
+
   // tRPC API
   app.use(
     "/api/trpc",
