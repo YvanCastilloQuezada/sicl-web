@@ -13,7 +13,20 @@ export default function ArkiCockpitPage() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [buildingData, setBuildingData] = useState<any>(null);
   const [partis, setPartis] = useState<any[]>([]);
+  const [bimOpen, setBimOpen] = useState(false);
+  const [obrasOpen, setObrasOpen] = useState(false);
+  const [jprdOpen, setJprdOpen] = useState(false);
+  const [oeceOpen, setOeceOpen] = useState(false);
+  const [estatalOpen, setEstatalOpen] = useState(false);
   const [estudiosOpen, setEstudiosOpen] = useState(false);
+  const [tooltipText, setTooltipText] = useState<string | null>(null);
+  const [expedienteOpen, setExpedienteOpen] = useState(false);
+  const [tresDOpen, setTresDOpen] = useState(false);
+  const [cuatroDOpen, setCuatroDOpen] = useState(false);
+  const [cincoDOpen, setCincoDOpen] = useState(false);
+  const [seisDOpen, setSeisDOpen] = useState(false);
+  const [sieteDOpen, setSieteDOpen] = useState(false);
+  const [generativoOpen, setGenerativoOpen] = useState(false);
   const [gpuUsage, setGpuUsage] = useState<number | null>(null);
 
   // Consultar el uso de la GPU cada 2 segundos (ruta REST)
@@ -34,73 +47,23 @@ export default function ArkiCockpitPage() {
     
     fetchGpuUsage();
     const interval = setInterval(fetchGpuUsage, 2000);
+  
     return () => clearInterval(interval);
   }, []);
   const estudios = [
-    // Estudios básicos de sitio
-    "Estudio de Suelos",
-    "Estudio Topográfico",
-    "Estudio de Mecánica de Suelos",
-    "Estudio Geotécnico",
-    "Estudio Hidrológico",
-    "Estudio Hidráulico",
-    "Estudio de Impacto Vial",
-    "Estudio de Impacto Ambiental",
-    // Estudios de mercado y factibilidad
-    "Estudio de Demanda",
-    "Estudio de Oferta",
-    "Estudio de Mercado",
-    "Estudio de Factibilidad",
-    "Estudio de Costos",
-    // Estudios de ingeniería y especialidades
-    "Estudio de Riesgo Sísmico",
-    "Estudio Estructural",
-    "Estudio de Asoleamiento",
-    "Estudio de Vientos",
-    "Estudio Acústico",
-    "Estudio de Incendios",
-    "Estudio de Evacuación",
-    "Estudio de Gases Medicinales",
-    "Estudio de Climatización (HVAC)",
-    "Estudio Eléctrico",
-    "Estudio Sanitario",
-    "Estudio de Telecomunicaciones",
-    "Estudio de Seguridad",
-    "Estudio de Pavimentos",
-    "Estudio de Tráfico",
-    "Estudio de Drenaje",
-    "Estudio de Cimentación",
-    "Estudio de Contención de Taludes",
-    "Estudio de Impermeabilización",
-    "Estudio de Eficiencia Energética",
-    "Estudio de Huella de Carbono",
-    "Estudio de Ciclo de Vida",
-    // Estudios normativos y legales
-    "Estudio de Cumplimiento Normativo (RNE)",
-    "Estudio de Licencias y Permisos",
-    "Estudio de Títulos y Catastro",
-    "Estudio de Servidumbres",
-    "Estudio de Zonificación",
-    // Estudios de arquitectura y diseño
-    "Estudio de Programa Arquitectónico",
-    "Estudio de Partido Arquitectónico",
-    "Estudio de Materialidad",
-    "Estudio de Color y Acabados",
-    "Estudio de Paisajismo",
-    "Estudio de Interiores",
-    "Estudio de Mobiliario",
-    "Estudio de Señalética",
-    "Estudio de Accesibilidad",
-    "Estudio de Ergonomía",
-    // Estudios de gestión y operación
-    "Estudio de Cronograma (4D)",
-    "Estudio de Presupuesto (5D)",
-    "Estudio de Facility Management (7D)",
-    "Estudio de Mantenimiento",
-    "Estudio de Operación",
-    "Estudio de Logística",
-    "Estudio de Seguridad y Salud en Obra",
-    "Estudio de Gestión de Residuos"
+    "Acústico", "Asoleamiento", "Ciclo de Vida", "Cimentación", "Climatización (HVAC)",
+    "Color y Acabados", "Contención de Taludes", "Costos", "Cronograma (4D)",
+    "Cumplimiento Normativo (RNE)", "Demanda", "Drenaje", "Eficiencia Energética",
+    "Eléctrico", "Ergonomía", "Estructura", "Evacuación", "Factibilidad",
+    "Facility Management (7D)", "Flujos Peatonales", "Gases Medicinales", "Geotécnico",
+    "Gestión de Residuos", "Hidráulico", "Hidrológico", "Huella de Carbono",
+    "Impacto Ambiental", "Impacto Vial", "Impermeabilización", "Incendios", "Interiores",
+    "Licencias y Permisos", "Logística", "Mantenimiento", "Materialidad",
+    "Mecánica de Suelos", "Mercado", "Mobiliario", "Oferta", "Operación", "Paisajismo",
+    "Partido Arquitectónico", "Pavimentos", "Presupuesto (5D)", "Programa Arquitectónico",
+    "Riesgo Sísmico", "Riesgos Ambientales y de Desastres", "Riesgos Peatonales",
+    "Sanitario", "Seguridad", "Seguridad y Salud en Obra", "Servidumbres", "Suelos",
+    "Telecomunicaciones", "Títulos y Catastro", "Topográfico", "Tráfico", "Vientos", "Zonificación"
   ];
   const [copilotParams, setCopilotParams] = useState<any>(null);
 
@@ -360,41 +323,256 @@ export default function ArkiCockpitPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* MENÚ HORIZONTAL SUPERIOR */}
-        <div className="flex items-center gap-2 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2">
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><Calculator size={12} className="text-[#4ade80]"/> PreInversión</button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><Layers size={12} className="text-[#f472b6]"/> Generativo</button>
-          <div className="relative">
+        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] min-h-[41px] px-2 whitespace-nowrap relative z-[100]">
+          
+          <button 
+            onMouseEnter={() => setTooltipText("Inicia el flujo de trabajo evaluando la viabilidad del proyecto.")}
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-[11px] text-[#e2e8f0]"
+          >
+            <Calculator size={12} className="text-[#4ade80]"/> PreInversión
+          </button>
+          
+          {/* Generativo */}
+          <div className="relative flex-shrink-0">
             <button 
-              onClick={() => setEstudiosOpen(!estudiosOpen)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"
+              onMouseEnter={() => { setEstudiosOpen(false); setGenerativoOpen(true); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Herramientas de IA para crear familias y diseño paramétrico."); }}
+              onMouseLeave={() => setGenerativoOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${generativoOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
-              <BookOpen size={12} className="text-[#a78bfa]"/> Estudios
+              <Layers size={12} className={generativoOpen ? 'text-black' : 'text-[#f472b6]'}/> Generativo
             </button>
-            {estudiosOpen && (
-              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
-                <div className="p-2 space-y-1">
-                  {estudios.map((estudio, idx) => (
-                    <button 
-                      key={idx}
-                      className="w-full text-left px-2 py-1.5 text-xs text-[#e2e8f0] hover:bg-[#1e293b] rounded transition"
-                      onClick={() => {
-                        setEstudiosOpen(false);
-                        // Aquí se puede cargar el estudio seleccionado
-                        console.log("Estudio seleccionado:", estudio);
-                      }}
-                    >
-                      {estudio}
-                    </button>
-                  ))}
+            {generativoOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Fam. Generativas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Diseño Paramétrico</button>
                 </div>
               </div>
             )}
           </div>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><Box size={12} className="text-[#f0a35b]"/> Proyecto Privado</button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><FileText size={12} className="text-[#38bdf8]"/> Expediente Público</button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><HardHat size={12} className="text-[#fbbf24]"/> Supervisión Obra</button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><Shield size={12} className="text-[#a78bfa]"/> Licitación / Concurso</button>
-          <button className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-xs text-[#e2e8f0]"><FileDown size={12} className="text-[#fb7185]"/> a IFC</button>
+
+          {/* Estudios */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(true); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Catálogo de estudios técnicos, legales y de mercado (A-Z)."); }}
+              onMouseLeave={() => setEstudiosOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${estudiosOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <BookOpen size={12} className={estudiosOpen ? 'text-black' : 'text-[#a78bfa]'}/> Estudios
+            </button>
+            {estudiosOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-80 overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  {estudios.map((e, i) => <button key={i} className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block">{e}</button>)}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Expediente Técnico */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(true); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Documentación técnica completa para sector privado y estatal."); }}
+              onMouseLeave={() => setExpedienteOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${expedienteOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <FileText size={12} className={expedienteOpen ? 'text-black' : 'text-[#38bdf8]'}/> Expediente Técnico
+            </button>
+            {expedienteOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-96 overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios Básicos</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto y APU</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(true); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Modelado y Coordinación: Revisión IFC, Clash Detection y conversión."); }}
+              onMouseLeave={() => setTresDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${tresDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Box size={12} className={tresDOpen ? 'text-black' : 'text-[#38bdf8]'}/> 3D
+            </button>
+            {tresDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Pdf / Dwg → IFC</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 4D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(true); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Planificación Temporal: Cronogramas y simulación de tiempos."); }}
+              onMouseLeave={() => setCuatroDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cuatroDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Activity size={12} className={cuatroDOpen ? 'text-black' : 'text-[#4ade80]'}/> 4D
+            </button>
+            {cuatroDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 5D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(true); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Estimación de Costos: Metrados y presupuestos."); }}
+              onMouseLeave={() => setCincoDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cincoDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Calculator size={12} className={cincoDOpen ? 'text-black' : 'text-[#fbbf24]'}/> 5D
+            </button>
+            {cincoDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Metrados</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 6D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(true); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Sostenibilidad: Análisis energético y huella de carbono."); }}
+              onMouseLeave={() => setSeisDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${seisDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Layers size={12} className={seisDOpen ? 'text-black' : 'text-[#a78bfa]'}/> 6D
+            </button>
+            {seisDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Análisis Energético</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Sostenibilidad</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 7D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(true); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Operación y Mantenimiento: Facility Management."); }}
+              onMouseLeave={() => setSieteDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${sieteDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Shield size={12} className={sieteDOpen ? 'text-black' : 'text-[#f472b6]'}/> 7D
+            </button>
+            {sieteDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Mantenimiento</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Operación</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Superv. BIM */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(true); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Metodología BIM completa (3D a 7D)."); }}
+              onMouseLeave={() => setBimOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${bimOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Shield size={12} className={bimOpen ? 'text-black' : 'text-[#38bdf8]'}/> Superv. BIM
+            </button>
+            {bimOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-[80vh] overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">3D - Modelado</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">4D - Tiempo</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Superv. Obras */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(true); setJprdOpen(false); setOeceOpen(false); setTooltipText("Gestión de ejecución física, avances y valorizaciones."); }}
+              onMouseLeave={() => setObrasOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${obrasOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <HardHat size={12} className={obrasOpen ? 'text-black' : 'text-[#fbbf24]'}/> Superv. Obras
+            </button>
+            {obrasOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cuaderno de Obra Digital</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Registro de Avance Físico</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Valorizaciones</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* JPRD */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(true); setOeceOpen(false); setTooltipText("Junta de Resolución de Disputas para contratos del Estado."); }}
+              onMouseLeave={() => setJprdOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${jprdOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <FileText size={12} className={jprdOpen ? 'text-black' : 'text-[#f472b6]'}/> JPRD
+            </button>
+            {jprdOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Solicitar JPRD (Obras &gt; 10M)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Actas de Acuerdo</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Gestión de Cambios</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Concurso/OECE */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(true); setTooltipText("Procesos de licitación pública según normativa OECE."); }}
+              onMouseLeave={() => setOeceOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
+            </button>
+            {oeceOpen && (
+              <div className="absolute top-full right-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Priv.</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Estado</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Obras</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cotizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Contratos</button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* CONTENIDO: CENTRO + NUEVA BARRA + DERECHA */}
