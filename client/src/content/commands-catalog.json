@@ -1,1343 +1,341 @@
-[
-  {
-    "name": "/PROJECT CREATE",
-    "category": "project",
-    "syntax": "PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]",
-    "arguments": [
+{
+  "version": "ARKI-2.0",
+  "categories": {
+    "1. Pre-factibilidad (Invierte.pe)": [
       {
-        "name": "project_id",
-        "required": true,
-        "type": "string"
+        "command": "/PREFEASIBILITY INIT",
+        "description": "Clasificar proyecto por monto (UIT)",
+        "args": [
+          "amount_uit",
+          "sector"
+        ]
       },
       {
-        "name": "name",
-        "required": true,
-        "type": "string"
+        "command": "/PREFEASIBILITY FICHA",
+        "description": "Generar estructura de Ficha Técnica",
+        "args": [
+          "type",
+          "format"
+        ]
       },
       {
-        "name": "spatial_scope",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "temporal_scope",
-        "required": false,
-        "type": "string"
+        "command": "/PREFEASIBILITY VIABILITY",
+        "description": "Evaluar criterios de viabilidad",
+        "args": [
+          "brecha",
+          "fraccionamiento"
+        ]
       }
     ],
-    "example": "PRO-CRE <project_id> <name> [spatial_scope] [temporal_scope]",
-    "errors": [],
-    "compact": "PRO-CRE",
-    "legacy": "/PROJECT CREATE",
-    "legacySyntax": "/PROJECT CREATE <project_id> <name> [spatial_scope] [temporal_scope]"
-  },
-  {
-    "name": "/PROJECT OPEN",
-    "category": "project",
-    "syntax": "PRO-OPE <project_id>",
-    "arguments": [
+    "2. Diseño (Funnel 9-4-1)": [
       {
-        "name": "project_id",
-        "required": true,
-        "type": "string"
+        "command": "/FUNNEL START",
+        "description": "Definir eje de exploración",
+        "args": [
+          "axis",
+          "fixed"
+        ]
+      },
+      {
+        "command": "/FUNNEL GENERATE",
+        "description": "Generar 9 propuestas",
+        "args": [
+          "count"
+        ]
+      },
+      {
+        "command": "/FUNNEL SELECT",
+        "description": "Elegir 4 finalistas",
+        "args": [
+          "candidates"
+        ]
+      },
+      {
+        "command": "/FUNNEL WIN",
+        "description": "Declarar propuesta ganadora",
+        "args": [
+          "candidate",
+          "authority"
+        ]
       }
     ],
-    "example": "PRO-OPE <project_id>",
-    "errors": [],
-    "compact": "PRO-OPE",
-    "legacy": "/PROJECT OPEN",
-    "legacySyntax": "/PROJECT OPEN <project_id>"
-  },
-  {
-    "name": "/PROJECT SET SCOPE",
-    "category": "project",
-    "syntax": "PRO-SET <spatial_scope> [temporal_scope]",
-    "arguments": [
+    "3. Expediente Técnico": [
       {
-        "name": "spatial_scope",
-        "required": true,
-        "type": "string"
+        "command": "/EXPEDIENTE MEMORIA",
+        "description": "Redactar memoria descriptiva",
+        "args": [
+          "format"
+        ]
       },
       {
-        "name": "temporal_scope",
-        "required": false,
-        "type": "string"
+        "command": "/EXPEDIENTE METRADO",
+        "description": "Calcular volúmenes y áreas",
+        "args": [
+          "granularity"
+        ]
+      },
+      {
+        "command": "/EXPEDIENTE PRESUPUESTO",
+        "description": "Generar presupuesto (S10)",
+        "args": [
+          "currency"
+        ]
+      },
+      {
+        "command": "/EXPEDIENTE PLANOS",
+        "description": "Generar planos 2D",
+        "args": [
+          "format"
+        ]
       }
     ],
-    "example": "PRO-SET <spatial_scope> [temporal_scope]",
-    "errors": [],
-    "compact": "PRO-SET",
-    "legacy": "/PROJECT SET SCOPE",
-    "legacySyntax": "/PROJECT SET SCOPE <spatial_scope> [temporal_scope]"
-  },
-  {
-    "name": "/PROJECT IMPORT OBJECTIVE",
-    "category": "project",
-    "syntax": "PRO-IMP <source_project_id> <objective_id>",
-    "arguments": [
+    "4. Dimensiones BIM": [
       {
-        "name": "source_project_id",
-        "required": true,
-        "type": "string"
+        "command": "/CLASH DETECT",
+        "description": "Detectar interferencias 3D",
+        "args": []
       },
       {
-        "name": "objective_id",
-        "required": true,
-        "type": "string"
+        "command": "/SCHEDULE CREATE",
+        "description": "Generar cronograma 4D",
+        "args": []
+      },
+      {
+        "command": "/COST EVALUATE",
+        "description": "Calcular VAN, TIR y Payback 5D",
+        "args": []
+      },
+      {
+        "command": "/ENERGY SIMULATE",
+        "description": "Simulación térmica 6D",
+        "args": []
+      },
+      {
+        "command": "/ASSET REGISTER",
+        "description": "Extraer activos para mantenimiento 7D",
+        "args": []
       }
     ],
-    "example": "PRO-IMP <source_project_id> <objective_id>",
-    "errors": [],
-    "compact": "PRO-IMP",
-    "legacy": "/PROJECT IMPORT OBJECTIVE",
-    "legacySyntax": "/PROJECT IMPORT OBJECTIVE <source_project_id> <objective_id>"
-  },
-  {
-    "name": "/PROJECT SHOW",
-    "category": "project",
-    "syntax": "PRO-SHO",
-    "arguments": [],
-    "example": "PRO-SHO",
-    "errors": [],
-    "compact": "PRO-SHO",
-    "legacy": "/PROJECT SHOW",
-    "legacySyntax": "/PROJECT SHOW"
-  },
-  {
-    "name": "/PROJECT LIST",
-    "category": "project",
-    "syntax": "PRO-LIS",
-    "arguments": [],
-    "example": "PRO-LIS",
-    "errors": [],
-    "compact": "PRO-LIS",
-    "legacy": "/PROJECT LIST",
-    "legacySyntax": "/PROJECT LIST"
-  },
-  {
-    "name": "/STAGE SET",
-    "category": "stage",
-    "syntax": "STA-SET <DRAFT|ACTIVE|CLOSED>",
-    "arguments": [
+    "5. Supervisión de Obra": [
       {
-        "name": "DRAFT|ACTIVE|CLOSED",
-        "required": true,
-        "type": "string"
+        "command": "/SITE LOG",
+        "description": "Registrar asiento en cuaderno digital",
+        "args": [
+          "type",
+          "text"
+        ]
+      },
+      {
+        "command": "/SITE PROGRESS",
+        "description": "Actualizar avance físico-financiero",
+        "args": [
+          "physical",
+          "financial"
+        ]
+      },
+      {
+        "command": "/SITE RFI",
+        "description": "Consulta formal al proyectista",
+        "args": [
+          "question"
+        ]
       }
     ],
-    "example": "STA-SET <DRAFT|ACTIVE|CLOSED>",
-    "errors": [],
-    "compact": "STA-SET",
-    "legacy": "/STAGE SET",
-    "legacySyntax": "/STAGE SET <DRAFT|ACTIVE|CLOSED>"
-  },
-  {
-    "name": "/OBJECTIVE SET",
-    "category": "objective",
-    "syntax": "OBJ-SET <key> <MAXIMIZE|MINIMIZE> <value>",
-    "arguments": [
+    "6. Licitaciones y Concursos": [
       {
-        "name": "key",
-        "required": true,
-        "type": "string"
+        "command": "/TENDER LOAD",
+        "description": "Cargar bases SEACE",
+        "args": [
+          "file"
+        ]
       },
       {
-        "name": "MAXIMIZE|MINIMIZE",
-        "required": true,
-        "type": "string"
+        "command": "/TENDER SCORE",
+        "description": "Evaluar propuesta vs criterios",
+        "args": [
+          "proposal"
+        ]
       },
       {
-        "name": "value",
-        "required": true,
-        "type": "string"
+        "command": "/CONTEST BRIEF",
+        "description": "Extraer bases de concurso",
+        "args": [
+          "file"
+        ]
+      },
+      {
+        "command": "/CONTEST BOARD",
+        "description": "Generar láminas de presentación",
+        "args": [
+          "format"
+        ]
       }
     ],
-    "example": "OBJ-SET <key> <MAXIMIZE|MINIMIZE> <value>",
-    "errors": [],
-    "compact": "OBJ-SET",
-    "legacy": "/OBJECTIVE SET",
-    "legacySyntax": "/OBJECTIVE SET <key> <MAXIMIZE|MINIMIZE> <value>"
-  },
-  {
-    "name": "/CONSTRAINT SET",
-    "category": "constraint",
-    "syntax": "CON-SET <key> <operator> <value> [unit]",
-    "arguments": [
+    "BIM & IFC 4.3": [
       {
-        "name": "key",
-        "required": true,
-        "type": "string"
+        "command": "/BIM CONVERT",
+        "description": "Convertir planos 2D a IFC 4.3 (Scan-to-BIM)",
+        "args": [
+          "source"
+        ]
       },
       {
-        "name": "operator",
-        "required": true,
-        "type": "string"
+        "command": "/BIM ENRICH",
+        "description": "Enriquecer IFC con Psets y materiales (LOD 300)",
+        "args": [
+          "file",
+          "target_lod"
+        ]
       },
       {
-        "name": "value",
-        "required": true,
-        "type": "string"
+        "command": "/BIM FEDERATE",
+        "description": "Federar modelos MEP, EST y ARQ",
+        "args": [
+          "files"
+        ]
       },
       {
-        "name": "unit",
-        "required": false,
-        "type": "string"
+        "command": "/BIM VALIDATE",
+        "description": "Validar contra IDS e IFC 4.3",
+        "args": [
+          "file"
+        ]
       }
     ],
-    "example": "CON-SET <key> <operator> <value> [unit]",
-    "errors": [],
-    "compact": "CON-SET",
-    "legacy": "/CONSTRAINT SET",
-    "legacySyntax": "/CONSTRAINT SET <key> <operator> <value> [unit]"
-  },
-  {
-    "name": "/ROLE ADD",
-    "category": "role",
-    "syntax": "ROL-ADD <name> [actor]",
-    "arguments": [
+    "7. Análisis y Simulación": [
       {
-        "name": "name",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE SOLAR",
+        "description": "Estudio de asoleamiento y sombras",
+        "args": [
+          "latitude"
+        ]
       },
       {
-        "name": "actor",
-        "required": false,
-        "type": "string"
+        "command": "/ANALYZE FIRE",
+        "description": "Rutas de evacuación y contra incendios (RNE A.130)",
+        "args": []
+      },
+      {
+        "command": "/ANALYZE WIND",
+        "description": "Cargas de viento (RNE E.020)",
+        "args": [
+          "wind_speed"
+        ]
+      },
+      {
+        "command": "/ANALYZE STRUCTURAL",
+        "description": "Predimensionamiento y peso sísmico (RNE E.030)",
+        "args": []
       }
     ],
-    "example": "ROL-ADD <name> [actor]",
-    "errors": [],
-    "compact": "ROL-ADD",
-    "legacy": "/ROLE ADD",
-    "legacySyntax": "/ROLE ADD <name> [actor]"
-  },
-  {
-    "name": "/ACTOR ADD",
-    "category": "actor",
-    "syntax": "ACT-ADD <id> <role> <name> <authority> [interests_json constraints_json]",
-    "arguments": [
+    "8. Especialidades: Hospitales": [
       {
-        "name": "id",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE MEDGAS",
+        "description": "Gases Medicinales (NFPA 99)",
+        "args": [
+          "pressure"
+        ]
       },
       {
-        "name": "role",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE ESSENTIAL_POWER",
+        "description": "Potencia Esencial (NFPA 99)",
+        "args": [
+          "load_kw",
+          "generator_kw"
+        ]
       },
       {
-        "name": "name",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE HEALTHCARE_HVAC",
+        "description": "HVAC Hospitalario (ASHRAE 170)",
+        "args": [
+          "ach"
+        ]
       },
       {
-        "name": "authority",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE FIRE_SAFETY_HC",
+        "description": "Incendios Hospitalarios (NFPA 101)",
+        "args": []
       },
       {
-        "name": "interests_json constraints_json",
-        "required": false,
-        "type": "string"
+        "command": "/ANALYZE MEDICAL_EQUIPMENT",
+        "description": "Cargas de Equipos Médicos (FGI)",
+        "args": [
+          "load_kw"
+        ]
       }
     ],
-    "example": "ACT-ADD <id> <role> <name> <authority> [interests_json constraints_json]",
-    "errors": [],
-    "compact": "ACT-ADD",
-    "legacy": "/ACTOR ADD",
-    "legacySyntax": "/ACTOR ADD <id> <role> <name> <authority> [interests_json constraints_json]"
-  },
-  {
-    "name": "/ACTOR LIST",
-    "category": "actor",
-    "syntax": "ACT-LIS",
-    "arguments": [],
-    "example": "ACT-LIS",
-    "errors": [],
-    "compact": "ACT-LIS",
-    "legacy": "/ACTOR LIST",
-    "legacySyntax": "/ACTOR LIST"
-  },
-  {
-    "name": "/ACTOR SHOW",
-    "category": "actor",
-    "syntax": "ACT-SHO <actor_id>",
-    "arguments": [
+    "9. Especialidades: Aeropuertos": [
       {
-        "name": "actor_id",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE AIRSIDE_GEOMETRY",
+        "description": "Geometría de Pista (FAA AC 150)",
+        "args": [
+          "runway_length"
+        ]
+      },
+      {
+        "command": "/ANALYZE TERMINAL_FLOW",
+        "description": "Flujo de Terminal (FAA AC 150)",
+        "args": [
+          "passengers_per_hour"
+        ]
+      },
+      {
+        "command": "/ANALYZE BAGGAGE_SYSTEM",
+        "description": "Sistema de Equipaje (BHS)",
+        "args": []
+      },
+      {
+        "command": "/ANALYZE AIRPORT_FIRE_LIFESAFETY",
+        "description": "Incendios en Terminal (NFPA 415)",
+        "args": [
+          "terminal_area"
+        ]
+      },
+      {
+        "command": "/ANALYZE STANDOFF_DISTANCE",
+        "description": "Distancia Antiterrorista (UFC)",
+        "args": [
+          "standoff_m"
+        ]
       }
     ],
-    "example": "ACT-SHO <actor_id>",
-    "errors": [],
-    "compact": "ACT-SHO",
-    "legacy": "/ACTOR SHOW",
-    "legacySyntax": "/ACTOR SHOW <actor_id>"
-  },
-  {
-    "name": "/POSITION ADD",
-    "category": "position",
-    "syntax": "POS-ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
-    "arguments": [
+    "10. Especialidades: Puertos": [
       {
-        "name": "actor_id",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE FENDER_SYSTEM",
+        "description": "Sistema de Defensas (PIANC WG211)",
+        "args": [
+          "vessel_dwt"
+        ]
       },
       {
-        "name": "subject_type",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE MOORING_SYSTEM",
+        "description": "Sistema de Amarre (PIANC WG231)",
+        "args": [
+          "vessel_length"
+        ]
       },
       {
-        "name": "subject_id",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE DREDGING",
+        "description": "Dragado (UFC 4-150-06)",
+        "args": [
+          "design_depth"
+        ]
       },
       {
-        "name": "stance",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE NAVIGATION_CHANNEL",
+        "description": "Canal de Navegación (UFC)",
+        "args": []
       },
       {
-        "name": "statement",
-        "required": true,
-        "type": "string"
+        "command": "/ANALYZE PORT_PAVEMENT",
+        "description": "Pavimento Portuario (PIANC)",
+        "args": []
+      },
+      {
+        "command": "/ANALYZE PORT_SECURITY",
+        "description": "Seguridad Portuaria (ISPS)",
+        "args": []
       }
-    ],
-    "example": "POS-ADD <actor_id> <subject_type> <subject_id> <stance> <statement>",
-    "errors": [],
-    "compact": "POS-ADD",
-    "legacy": "/POSITION ADD",
-    "legacySyntax": "/POSITION ADD <actor_id> <subject_type> <subject_id> <stance> <statement>"
-  },
-  {
-    "name": "/POSITION LIST",
-    "category": "position",
-    "syntax": "POS-LIS [actor_id] [subject_id]",
-    "arguments": [
-      {
-        "name": "actor_id",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "subject_id",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "example": "POS-LIS [actor_id] [subject_id]",
-    "errors": [],
-    "compact": "POS-LIS",
-    "legacy": "/POSITION LIST",
-    "legacySyntax": "/POSITION LIST [actor_id] [subject_id]"
-  },
-  {
-    "name": "/CYCLE CREATE",
-    "category": "cycle",
-    "syntax": "CYC-CRE <cycle_id> <horizon> <start_date> <end_date>",
-    "arguments": [
-      {
-        "name": "cycle_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "horizon",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "start_date",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "end_date",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "CYC-CRE <cycle_id> <horizon> <start_date> <end_date>",
-    "errors": [],
-    "compact": "CYC-CRE",
-    "legacy": "/CYCLE CREATE",
-    "legacySyntax": "/CYCLE CREATE <cycle_id> <horizon> <start_date> <end_date>"
-  },
-  {
-    "name": "/CYCLE LIST",
-    "category": "cycle",
-    "syntax": "CYC-LIS",
-    "arguments": [],
-    "example": "CYC-LIS",
-    "errors": [],
-    "compact": "CYC-LIS",
-    "legacy": "/CYCLE LIST",
-    "legacySyntax": "/CYCLE LIST"
-  },
-  {
-    "name": "/CYCLE SHOW",
-    "category": "cycle",
-    "syntax": "CYC-SHO <cycle_id>",
-    "arguments": [
-      {
-        "name": "cycle_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "CYC-SHO <cycle_id>",
-    "errors": [],
-    "compact": "CYC-SHO",
-    "legacy": "/CYCLE SHOW",
-    "legacySyntax": "/CYCLE SHOW <cycle_id>"
-  },
-  {
-    "name": "/SCENARIO CREATE",
-    "category": "scenario",
-    "syntax": "SCE-CRE <branch_id> <cycle_id> <name>",
-    "arguments": [
-      {
-        "name": "branch_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "cycle_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "name",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SCE-CRE <branch_id> <cycle_id> <name>",
-    "errors": [],
-    "compact": "SCE-CRE",
-    "legacy": "/SCENARIO CREATE",
-    "legacySyntax": "/SCENARIO CREATE <branch_id> <cycle_id> <name>"
-  },
-  {
-    "name": "/SCENARIO LIST",
-    "category": "scenario",
-    "syntax": "SCE-LIS",
-    "arguments": [],
-    "example": "SCE-LIS",
-    "errors": [],
-    "compact": "SCE-LIS",
-    "legacy": "/SCENARIO LIST",
-    "legacySyntax": "/SCENARIO LIST"
-  },
-  {
-    "name": "/SCENARIO SELECT",
-    "category": "scenario",
-    "syntax": "SCE-SEL <branch_id>",
-    "arguments": [
-      {
-        "name": "branch_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SCE-SEL <branch_id>",
-    "errors": [],
-    "compact": "SCE-SEL",
-    "legacy": "/SCENARIO SELECT",
-    "legacySyntax": "/SCENARIO SELECT <branch_id>"
-  },
-  {
-    "name": "/FACT SET",
-    "category": "fact",
-    "syntax": "FAC-SET <statement> <source>",
-    "arguments": [
-      {
-        "name": "statement",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "source",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "FAC-SET <statement> <source>",
-    "errors": [],
-    "compact": "FAC-SET",
-    "legacy": "/FACT SET",
-    "legacySyntax": "/FACT SET <statement> <source>"
-  },
-  {
-    "name": "/ASSUMPTION SET",
-    "category": "assumption",
-    "syntax": "ASS-SET <statement> <basis>",
-    "arguments": [
-      {
-        "name": "statement",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "basis",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "ASS-SET <statement> <basis>",
-    "errors": [],
-    "compact": "ASS-SET",
-    "legacy": "/ASSUMPTION SET",
-    "legacySyntax": "/ASSUMPTION SET <statement> <basis>"
-  },
-  {
-    "name": "/EVIDENCE ADD",
-    "category": "evidence",
-    "syntax": "EVI-ADD <evidence_id> <statement> <type> [source_id] [url]",
-    "arguments": [
-      {
-        "name": "evidence_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "statement",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "type",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "source_id",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "url",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "example": "EVI-ADD <evidence_id> <statement> <type> [source_id] [url]",
-    "errors": [],
-    "compact": "EVI-ADD",
-    "legacy": "/EVIDENCE ADD",
-    "legacySyntax": "/EVIDENCE ADD <evidence_id> <statement> <type> [source_id] [url]"
-  },
-  {
-    "name": "/EVIDENCE LIST",
-    "category": "evidence",
-    "syntax": "EVI-LIS",
-    "arguments": [],
-    "example": "EVI-LIS",
-    "errors": [],
-    "compact": "EVI-LIS",
-    "legacy": "/EVIDENCE LIST",
-    "legacySyntax": "/EVIDENCE LIST"
-  },
-  {
-    "name": "/EVIDENCE SHOW",
-    "category": "evidence",
-    "syntax": "EVI-SHO <evidence_id>",
-    "arguments": [
-      {
-        "name": "evidence_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "EVI-SHO <evidence_id>",
-    "errors": [],
-    "compact": "EVI-SHO",
-    "legacy": "/EVIDENCE SHOW",
-    "legacySyntax": "/EVIDENCE SHOW <evidence_id>"
-  },
-  {
-    "name": "/HUMAN REVIEW",
-    "category": "human",
-    "syntax": "HUM-REV <actor> <timestamp_utc> <review> <reason> [authority]",
-    "arguments": [
-      {
-        "name": "actor",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "timestamp_utc",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "review",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "reason",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "authority",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "example": "HUM-REV <actor> <timestamp_utc> <review> <reason> [authority]",
-    "errors": [],
-    "compact": "HUM-REV",
-    "legacy": "/HUMAN REVIEW",
-    "legacySyntax": "/HUMAN REVIEW <actor> <timestamp_utc> <review> <reason> [authority]"
-  },
-  {
-    "name": "/SITE INTELLIGENCE",
-    "category": "site",
-    "syntax": "SIT-INT <location>",
-    "arguments": [
-      {
-        "name": "location",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SIT-INT <location>",
-    "errors": [],
-    "compact": "SIT-INT",
-    "legacy": "/SITE INTELLIGENCE",
-    "legacySyntax": "/SITE INTELLIGENCE <location>"
-  },
-  {
-    "name": "/AGENT RUN",
-    "category": "agent",
-    "syntax": "AGE-RUN <agent_type> <alternative_id>",
-    "arguments": [
-      {
-        "name": "agent_type",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "alternative_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "AGE-RUN <agent_type> <alternative_id>",
-    "errors": [],
-    "compact": "AGE-RUN",
-    "legacy": "/AGENT RUN",
-    "legacySyntax": "/AGENT RUN <agent_type> <alternative_id>"
-  },
-  {
-    "name": "/DEBATE",
-    "category": "debate",
-    "syntax": "DEB-ATE <alternative_id>",
-    "arguments": [
-      {
-        "name": "alternative_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "DEB-ATE <alternative_id>",
-    "errors": [],
-    "compact": "DEB-ATE",
-    "legacy": "/DEBATE",
-    "legacySyntax": "/DEBATE <alternative_id>"
-  },
-  {
-    "name": "/GENERATE DESIGN",
-    "category": "generate",
-    "syntax": "GEN-DES <method> <parameters_json>",
-    "arguments": [
-      {
-        "name": "method",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "parameters_json",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "GEN-DES <method> <parameters_json>",
-    "errors": [],
-    "compact": "GEN-DES",
-    "legacy": "/GENERATE DESIGN",
-    "legacySyntax": "/GENERATE DESIGN <method> <parameters_json>"
-  },
-  {
-    "name": "/GENERATE LIST",
-    "category": "generate",
-    "syntax": "GEN-LIS",
-    "arguments": [],
-    "example": "GEN-LIS",
-    "errors": [],
-    "compact": "GEN-LIS",
-    "legacy": "/GENERATE LIST",
-    "legacySyntax": "/GENERATE LIST"
-  },
-  {
-    "name": "/GENERATE SHOW",
-    "category": "generate",
-    "syntax": "GEN-SHO <generation_id>",
-    "arguments": [
-      {
-        "name": "generation_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "GEN-SHO <generation_id>",
-    "errors": [],
-    "compact": "GEN-SHO",
-    "legacy": "/GENERATE SHOW",
-    "legacySyntax": "/GENERATE SHOW <generation_id>"
-  },
-  {
-    "name": "/GENERATE METHODS",
-    "category": "generate",
-    "syntax": "GEN-MET",
-    "arguments": [],
-    "example": "GEN-MET",
-    "errors": [],
-    "compact": "GEN-MET",
-    "legacy": "/GENERATE METHODS",
-    "legacySyntax": "/GENERATE METHODS"
-  },
-  {
-    "name": "/ALTERNATIVE PROMOTE",
-    "category": "alternative",
-    "syntax": "ALT-PRO <alternative_id>",
-    "arguments": [
-      {
-        "name": "alternative_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "ALT-PRO <alternative_id>",
-    "errors": [],
-    "compact": "ALT-PRO",
-    "legacy": "/ALTERNATIVE PROMOTE",
-    "legacySyntax": "/ALTERNATIVE PROMOTE <alternative_id>"
-  },
-  {
-    "name": "/MEMORY LIST",
-    "category": "memory",
-    "syntax": "MEM-LIS",
-    "arguments": [],
-    "example": "MEM-LIS",
-    "errors": [],
-    "compact": "MEM-LIS",
-    "legacy": "/MEMORY LIST",
-    "legacySyntax": "/MEMORY LIST"
-  },
-  {
-    "name": "/MEMORY SHOW",
-    "category": "memory",
-    "syntax": "MEM-SHO <memory_id>",
-    "arguments": [
-      {
-        "name": "memory_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "MEM-SHO <memory_id>",
-    "errors": [],
-    "compact": "MEM-SHO",
-    "legacy": "/MEMORY SHOW",
-    "legacySyntax": "/MEMORY SHOW <memory_id>"
-  },
-  {
-    "name": "/MEMORY EXTRACT",
-    "category": "memory",
-    "syntax": "MEM-EXT <type> <title> <content>",
-    "arguments": [
-      {
-        "name": "type",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "title",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "content",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "MEM-EXT <type> <title> <content>",
-    "errors": [],
-    "compact": "MEM-EXT",
-    "legacy": "/MEMORY EXTRACT",
-    "legacySyntax": "/MEMORY EXTRACT <type> <title> <content>"
-  },
-  {
-    "name": "/MEMORY REVOKE",
-    "category": "memory",
-    "syntax": "MEM-REV <memory_id>",
-    "arguments": [
-      {
-        "name": "memory_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "MEM-REV <memory_id>",
-    "errors": [],
-    "compact": "MEM-REV",
-    "legacy": "/MEMORY REVOKE",
-    "legacySyntax": "/MEMORY REVOKE <memory_id>"
-  },
-  {
-    "name": "/MEMORY APPLY",
-    "category": "memory",
-    "syntax": "MEM-APP <memory_id>",
-    "arguments": [
-      {
-        "name": "memory_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "MEM-APP <memory_id>",
-    "errors": [],
-    "compact": "MEM-APP",
-    "legacy": "/MEMORY APPLY",
-    "legacySyntax": "/MEMORY APPLY <memory_id>"
-  },
-  {
-    "name": "/MEMORY TYPES",
-    "category": "memory",
-    "syntax": "MEM-TYP",
-    "arguments": [],
-    "example": "MEM-TYP",
-    "errors": [],
-    "compact": "MEM-TYP",
-    "legacy": "/MEMORY TYPES",
-    "legacySyntax": "/MEMORY TYPES"
-  },
-  {
-    "name": "/GENERATE",
-    "category": "generate",
-    "syntax": "GEN-ERA <method> <objective_keys_csv>",
-    "arguments": [
-      {
-        "name": "method",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "objective_keys_csv",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "GEN-ERA <method> <objective_keys_csv>",
-    "errors": [],
-    "compact": "GEN-ERA",
-    "legacy": "/GENERATE",
-    "legacySyntax": "/GENERATE <method> <objective_keys_csv>"
-  },
-  {
-    "name": "/PARETO",
-    "category": "pareto",
-    "syntax": "PAR-ETO <objective_1> <objective_2>",
-    "arguments": [
-      {
-        "name": "objective_1",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "objective_2",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "PAR-ETO <objective_1> <objective_2>",
-    "errors": [],
-    "compact": "PAR-ETO",
-    "legacy": "/PARETO",
-    "legacySyntax": "/PARETO <objective_1> <objective_2>"
-  },
-  {
-    "name": "/TRADEOFF_MATRIX",
-    "category": "tradeoff_matrix",
-    "syntax": "TRA-DEO <objective_1> <objective_2>",
-    "arguments": [
-      {
-        "name": "objective_1",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "objective_2",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "TRA-DEO <objective_1> <objective_2>",
-    "errors": [],
-    "compact": "TRA-DEO",
-    "legacy": "/TRADEOFF_MATRIX",
-    "legacySyntax": "/TRADEOFF_MATRIX <objective_1> <objective_2>"
-  },
-  {
-    "name": "/MULTIOBJECTIVE",
-    "category": "multiobjective",
-    "syntax": "MUL-TIO",
-    "arguments": [],
-    "example": "MUL-TIO",
-    "errors": [],
-    "compact": "MUL-TIO",
-    "legacy": "/MULTIOBJECTIVE",
-    "legacySyntax": "/MULTIOBJECTIVE"
-  },
-  {
-    "name": "/SCALE PARENT",
-    "category": "scale",
-    "syntax": "SCA-PAR <project_id>",
-    "arguments": [
-      {
-        "name": "project_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SCA-PAR <project_id>",
-    "errors": [],
-    "compact": "SCA-PAR",
-    "legacy": "/SCALE PARENT",
-    "legacySyntax": "/SCALE PARENT <project_id>"
-  },
-  {
-    "name": "/SCALE CHILDREN",
-    "category": "scale",
-    "syntax": "SCA-CHI <project_id>",
-    "arguments": [
-      {
-        "name": "project_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SCA-CHI <project_id>",
-    "errors": [],
-    "compact": "SCA-CHI",
-    "legacy": "/SCALE CHILDREN",
-    "legacySyntax": "/SCALE CHILDREN <project_id>"
-  },
-  {
-    "name": "/SCALE RELATE",
-    "category": "scale",
-    "syntax": "SCA-RLT <parent_id> <child_id> <relation_type>",
-    "arguments": [
-      {
-        "name": "parent_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "child_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "relation_type",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SCA-RLT <parent_id> <child_id> <relation_type>",
-    "errors": [],
-    "compact": "SCA-RLT",
-    "legacy": "/SCALE RELATE",
-    "legacySyntax": "/SCALE RELATE <parent_id> <child_id> <relation_type>"
-  },
-  {
-    "name": "/SCALE RELATIONS",
-    "category": "scale",
-    "syntax": "SCA-RLS <project_id>",
-    "arguments": [
-      {
-        "name": "project_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SCA-RLS <project_id>",
-    "errors": [],
-    "compact": "SCA-RLS",
-    "legacy": "/SCALE RELATIONS",
-    "legacySyntax": "/SCALE RELATIONS <project_id>"
-  },
-  {
-    "name": "/PLANNING ADD",
-    "category": "planning",
-    "syntax": "PLA-ADD <id> <type> <name> [jurisdiction] [url]",
-    "arguments": [
-      {
-        "name": "id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "type",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "name",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "jurisdiction",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "url",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "example": "PLA-ADD <id> <type> <name> [jurisdiction] [url]",
-    "errors": [],
-    "compact": "PLA-ADD",
-    "legacy": "/PLANNING ADD",
-    "legacySyntax": "/PLANNING ADD <id> <type> <name> [jurisdiction] [url]"
-  },
-  {
-    "name": "/PLANNING LIST",
-    "category": "planning",
-    "syntax": "PLA-LIS",
-    "arguments": [],
-    "example": "PLA-LIS",
-    "errors": [],
-    "compact": "PLA-LIS",
-    "legacy": "/PLANNING LIST",
-    "legacySyntax": "/PLANNING LIST"
-  },
-  {
-    "name": "/PLANNING SHOW",
-    "category": "planning",
-    "syntax": "PLA-SHO <instrument_id>",
-    "arguments": [
-      {
-        "name": "instrument_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "PLA-SHO <instrument_id>",
-    "errors": [],
-    "compact": "PLA-SHO",
-    "legacy": "/PLANNING SHOW",
-    "legacySyntax": "/PLANNING SHOW <instrument_id>"
-  },
-  {
-    "name": "/PLANNING TYPES",
-    "category": "planning",
-    "syntax": "PLA-TYP",
-    "arguments": [],
-    "example": "PLA-TYP",
-    "errors": [],
-    "compact": "PLA-TYP",
-    "legacy": "/PLANNING TYPES",
-    "legacySyntax": "/PLANNING TYPES"
-  },
-  {
-    "name": "/REGULATION ADD",
-    "category": "regulation",
-    "syntax": "REG-ADD <id> <code> <title> [jurisdiction] [source_url]",
-    "arguments": [
-      {
-        "name": "id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "code",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "title",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "jurisdiction",
-        "required": false,
-        "type": "string"
-      },
-      {
-        "name": "source_url",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "example": "REG-ADD <id> <code> <title> [jurisdiction] [source_url]",
-    "errors": [],
-    "compact": "REG-ADD",
-    "legacy": "/REGULATION ADD",
-    "legacySyntax": "/REGULATION ADD <id> <code> <title> [jurisdiction] [source_url]"
-  },
-  {
-    "name": "/REGULATION LIST",
-    "category": "regulation",
-    "syntax": "REG-LIS",
-    "arguments": [],
-    "example": "REG-LIS",
-    "errors": [],
-    "compact": "REG-LIS",
-    "legacy": "/REGULATION LIST",
-    "legacySyntax": "/REGULATION LIST"
-  },
-  {
-    "name": "/REGULATION SHOW",
-    "category": "regulation",
-    "syntax": "REG-SHO <regulation_id>",
-    "arguments": [
-      {
-        "name": "regulation_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "REG-SHO <regulation_id>",
-    "errors": [],
-    "compact": "REG-SHO",
-    "legacy": "/REGULATION SHOW",
-    "legacySyntax": "/REGULATION SHOW <regulation_id>"
-  },
-  {
-    "name": "/REGULATION STATUS",
-    "category": "regulation",
-    "syntax": "REG-STA <regulation_id> <status>",
-    "arguments": [
-      {
-        "name": "regulation_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "status",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "REG-STA <regulation_id> <status>",
-    "errors": [],
-    "compact": "REG-STA",
-    "legacy": "/REGULATION STATUS",
-    "legacySyntax": "/REGULATION STATUS <regulation_id> <status>"
-  },
-  {
-    "name": "/INTERPRET ADD",
-    "category": "interpret",
-    "syntax": "INT-ADD <id> <regulation_id> <article> <text>",
-    "arguments": [
-      {
-        "name": "id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "regulation_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "article",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "text",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "INT-ADD <id> <regulation_id> <article> <text>",
-    "errors": [],
-    "compact": "INT-ADD",
-    "legacy": "/INTERPRET ADD",
-    "legacySyntax": "/INTERPRET ADD <id> <regulation_id> <article> <text>"
-  },
-  {
-    "name": "/INTERPRET LIST",
-    "category": "interpret",
-    "syntax": "INT-LIS [regulation_id]",
-    "arguments": [
-      {
-        "name": "regulation_id",
-        "required": false,
-        "type": "string"
-      }
-    ],
-    "example": "INT-LIS [regulation_id]",
-    "errors": [],
-    "compact": "INT-LIS",
-    "legacy": "/INTERPRET LIST",
-    "legacySyntax": "/INTERPRET LIST [regulation_id]"
-  },
-  {
-    "name": "/INTERPRET REVIEW",
-    "category": "interpret",
-    "syntax": "INT-REV <interpretation_id> <actor> <authority>",
-    "arguments": [
-      {
-        "name": "interpretation_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "actor",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "authority",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "INT-REV <interpretation_id> <actor> <authority>",
-    "errors": [],
-    "compact": "INT-REV",
-    "legacy": "/INTERPRET REVIEW",
-    "legacySyntax": "/INTERPRET REVIEW <interpretation_id> <actor> <authority>"
-  },
-  {
-    "name": "/SNAPSHOT CREATE",
-    "category": "snapshot",
-    "syntax": "SNA-CRE <snapshot_id> <project_id> <cut_date>",
-    "arguments": [
-      {
-        "name": "snapshot_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "project_id",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "cut_date",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SNA-CRE <snapshot_id> <project_id> <cut_date>",
-    "errors": [],
-    "compact": "SNA-CRE",
-    "legacy": "/SNAPSHOT CREATE",
-    "legacySyntax": "/SNAPSHOT CREATE <snapshot_id> <project_id> <cut_date>"
-  },
-  {
-    "name": "/SNAPSHOT LIST",
-    "category": "snapshot",
-    "syntax": "SNA-LIS",
-    "arguments": [],
-    "example": "SNA-LIS",
-    "errors": [],
-    "compact": "SNA-LIS",
-    "legacy": "/SNAPSHOT LIST",
-    "legacySyntax": "/SNAPSHOT LIST"
-  },
-  {
-    "name": "/SNAPSHOT FREEZE",
-    "category": "snapshot",
-    "syntax": "SNA-FRE <snapshot_id>",
-    "arguments": [
-      {
-        "name": "snapshot_id",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "SNA-FRE <snapshot_id>",
-    "errors": [],
-    "compact": "SNA-FRE",
-    "legacy": "/SNAPSHOT FREEZE",
-    "legacySyntax": "/SNAPSHOT FREEZE <snapshot_id>"
-  },
-  {
-    "name": "/DECISION RECORD",
-    "category": "decision",
-    "syntax": "DEC-REC <statement> <actor> <authority>",
-    "arguments": [
-      {
-        "name": "statement",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "actor",
-        "required": true,
-        "type": "string"
-      },
-      {
-        "name": "authority",
-        "required": true,
-        "type": "string"
-      }
-    ],
-    "example": "DEC-REC <statement> <actor> <authority>",
-    "errors": [],
-    "compact": "DEC-REC",
-    "legacy": "/DECISION RECORD",
-    "legacySyntax": "/DECISION RECORD <statement> <actor> <authority>"
-  },
-  {
-    "name": "/STATUS",
-    "category": "status",
-    "syntax": "STA-TUS",
-    "arguments": [],
-    "example": "STA-TUS",
-    "errors": [],
-    "compact": "STA-TUS",
-    "legacy": "/STATUS",
-    "legacySyntax": "/STATUS"
-  },
-  {
-    "name": "/HISTORY",
-    "category": "history",
-    "syntax": "HIS-TOR",
-    "arguments": [],
-    "example": "HIS-TOR",
-    "errors": [],
-    "compact": "HIS-TOR",
-    "legacy": "/HISTORY",
-    "legacySyntax": "/HISTORY"
-  },
-  {
-    "name": "/EXIT",
-    "category": "exit",
-    "syntax": "EXI-IT",
-    "arguments": [],
-    "example": "EXI-IT",
-    "errors": [],
-    "compact": "EXI-IT",
-    "legacy": "/EXIT",
-    "legacySyntax": "/EXIT"
+    ]
   }
-]
+}

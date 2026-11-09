@@ -174,6 +174,7 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       accept: "application/json",
       ...(init?.body ? { "content-type": "application/json" } : {}),
       ...(init?.headers ?? {}),
+      ...(((window as any).SICL_CORE_SERVICE_TOKEN) ? { authorization: `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN}` } : {}),
     },
   });
   const body = await response.json().catch(() => ({}));
@@ -226,6 +227,31 @@ export function apiErrorMessage(error: unknown): string {
 }
 
 export const siclClient = {
+      async translateCopilot(text: string): Promise<any> {
+    try {
+      const raw = await v1Request<any>("/v1/copilot/translate", {
+        method: "POST",
+        body: JSON.stringify({ text }),
+      });
+      
+      let intent = raw;
+      if (raw?.data?.intent) intent = raw.data.intent;
+      else if (raw?.intent) intent = raw.intent;
+      else if (raw?.data) intent = raw.data;
+
+      if (intent && intent.command) {
+        return { ok: true, intent: intent };
+      }
+      
+      return { 
+        ok: false, 
+        error: intent?.explanation || "El copiloto no generó un comando válido",
+        intent: intent 
+      };
+    } catch (error: any) {
+      return { ok: false, error: error.message || "Error al conectar con el copiloto" };
+    }
+  },
   isConfigured: () => true,
   isMock: isMockCoreEnabled,
   async listProjects(): Promise<CoreProject[]> {

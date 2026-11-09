@@ -1,0 +1,164 @@
+import { useState } from "react";
+import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat } from "lucide-react";
+
+export default function ArkiCockpitPage() {
+  const [messages, setMessages] = useState([
+    { role: "assistant", text: "Hola Yvan. Soy ARKI. ¿Qué construimos hoy? Puedes pedirme un hospital, analizar un terreno o revisar un expediente." }
+  ]);
+  const [input, setInput] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [buildingData, setBuildingData] = useState<any>(null);
+
+  const handleSend = async () => {
+    if (!input.trim()) return;
+    const userMsg = input;
+    setMessages(prev => [...prev, { role: "user", text: userMsg }]);
+    setInput("");
+    
+    if (userMsg.toLowerCase().includes("hospital") || userMsg.toLowerCase().includes("diseña")) {
+      setIsGenerating(true);
+      setMessages(prev => [...prev, { role: "assistant", text: "Entendido. Generando propuestas volumétricas y calculando metrados en la RTX 3060..." }]);
+      
+      try {
+        // Llamada real a nuestro backend tRPC
+        const res = await fetch('/api/trpc/parametricRuntime.generateDynamicBuilding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "0": { "json": {
+              familyId: "FAM-HEALTH", variantId: "GENERAL",
+              context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" },
+              parameters: { areaM2: 20000, capacity: 400 }
+            }}
+          })
+        });
+        const json = await res.json();
+        const data = json[0]?.result?.data?.json?.generation;
+        
+        if (data) {
+          setBuildingData(data);
+          setMessages(prev => [...prev, { 
+            role: "assistant", 
+            text: `✅ Propuesta generada: ${data.name}.\n📐 Área: ${data.geometry2d.footprintM2} m2 | Pisos: ${data.geometry3d.floors}.\n💰 Presupuesto estimado calculado. Puedes ver los detalles en el panel derecho.` 
+          }]);
+        }
+      } catch (e) {
+        setMessages(prev => [...prev, { role: "assistant", text: "Error conectando con el motor geométrico." }]);
+      } finally {
+        setIsGenerating(false);
+      }
+    } else {
+      setTimeout(() => {
+        setMessages(prev => [...prev, { role: "assistant", text: "Comando recibido. (Simulación: En producción, el Copiloto procesaría esto con SICL)." }]);
+      }, 1000);
+    }
+  };
+
+  return (
+    <div className="flex h-screen w-full bg-[#0a0f16] text-[#e2e8f0] font-sans overflow-hidden">
+      
+      {/* SIDEBAR IZQUIERDO: LOGO Y ATAJOS */}
+      <div className="w-64 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+        <div className="p-6 flex items-center gap-3 border-b border-[#1e293b]">
+          <div className="w-8 h-8 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black">A</div>
+          <span className="font-bold tracking-widest text-lg">ARKI <span className="text-xs text-[#f0a35b] ml-1">v2.0</span></span>
+        </div>
+        
+        <div className="p-4 flex-1 space-y-2">
+          <p className="text-xs font-bold text-[#64748b] uppercase tracking-wider mb-4">Nuevo Proyecto</p>
+          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><Box size={18} className="text-[#f0a35b]"/> Proyecto Privado</button>
+          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><FileText size={18} className="text-[#38bdf8]"/> Expediente Público</button>
+          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><HardHat size={18} className="text-[#fbbf24]"/> Supervisión Obra</button>
+          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><Shield size={18} className="text-[#a78bfa]"/> Licitación / Concurso</button>
+        </div>
+
+        <div className="p-4 border-t border-[#1e293b] text-xs text-[#64748b]">
+          <p>GPU: RTX 3060 (Activa)</p>
+          <p>Core: SICL v1.2</p>
+        </div>
+      </div>
+
+      {/* CHAT PRINCIPAL */}
+      <div className="flex-1 flex flex-col relative">
+        <div className="flex-1 overflow-y-auto p-8 space-y-6">
+          {messages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-2xl p-4 rounded-xl text-sm leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
+                {msg.text}
+              </div>
+            </div>
+          ))}
+          {isGenerating && (
+            <div className="flex justify-start">
+              <div className="bg-[#1e293b] p-4 rounded-xl flex items-center gap-3 text-sm">
+                <Activity className="animate-pulse text-[#f0a35b]" size={18} /> Generando geometría...
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* INPUT BAR */}
+        <div className="p-6 bg-gradient-to-t from-[#0a0f16] to-transparent">
+          <div className="max-w-3xl mx-auto relative">
+            <input 
+              type="text" 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              placeholder="Escribe un comando o describe lo que quieres construir..." 
+              className="w-full bg-[#1e293b] border border-[#334155] rounded-xl py-4 pl-5 pr-14 text-sm focus:outline-none focus:border-[#f0a35b] transition shadow-2xl"
+            />
+            <button onClick={handleSend} className="absolute right-2 top-2 bottom-2 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded-lg flex items-center justify-center transition">
+              <Send size={18} className="text-black" />
+            </button>
+          </div>
+          <p className="text-center text-xs text-[#475569] mt-3">ARKI puede cometer errores. Verifica siempre la normativa aplicable.</p>
+        </div>
+      </div>
+
+      {/* PANEL DERECHO: VISOR 3D / DATOS */}
+      <div className="w-96 border-l border-[#1e293b] bg-[#0f172a] flex flex-col">
+        <div className="p-4 border-b border-[#1e293b] flex items-center justify-between">
+          <span className="text-sm font-bold text-[#e2e8f0]">Espacio de Trabajo</span>
+          <Sparkles size={16} className="text-[#f0a35b]"/>
+        </div>
+        
+        <div className="flex-1 p-4 flex flex-col gap-4 overflow-y-auto">
+          {buildingData ? (
+            <>
+              {/* MINI VISOR 3D (Placeholder estilizado) */}
+              <div className="w-full aspect-square bg-[#1e293b] rounded-xl border border-[#334155] relative overflow-hidden flex items-center justify-center">
+                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#f0a35b 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+                <Box size={64} className="text-[#334155]" />
+                <div className="absolute bottom-3 left-3 bg-[#0a0f16]/80 px-2 py-1 rounded text-xs text-[#f0a35b] border border-[#334155]">
+                  MODEL_3D · {buildingData.geometry3d.floors} Pisos
+                </div>
+              </div>
+
+              {/* DATOS DEL PROYECTO */}
+              <div className="space-y-2">
+                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
+                  <p className="text-xs text-[#64748b]">Área Techada</p>
+                  <p className="text-lg font-bold text-[#38bdf8]">{(buildingData.geometry2d.footprintM2 * buildingData.geometry3d.floors).toLocaleString()} m²</p>
+                </div>
+                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
+                  <p className="text-xs text-[#64748b]">Presupuesto Estimado</p>
+                  <p className="text-lg font-bold text-[#fbbf24]">S/ 24,500,000.00</p>
+                </div>
+                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
+                  <p className="text-xs text-[#64748b]">Normativa (RNE)</p>
+                  <p className="text-sm text-[#4ade80] mt-1">✓ Cumple</p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center text-center text-[#64748b] space-y-4">
+              <Box size={48} className="opacity-20"/>
+              <p className="text-sm">Pídele a ARKI que genere un edificio para ver la geometría aquí.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

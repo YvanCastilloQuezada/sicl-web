@@ -9,7 +9,7 @@ import viteConfig from "../../vite.config";
 export async function setupVite(app: Express, server: Server) {
   const serverOptions = {
     middlewareMode: true,
-    hmr: { server },
+    hmr: false, // Desactivado para evitar el error de WebSocket en 5173
     allowedHosts: true as const,
   };
 
@@ -38,7 +38,20 @@ export async function setupVite(app: Express, server: Server) {
         `src="./src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
       );
-      const page = await vite.transformIndexHtml(url, template);
+      let page = await vite.transformIndexHtml(url, template);
+
+      // ARKI: eliminar cualquier script inyectado por Manus (debug-collector, runtime)
+      // que rompe el render process del navegador por inyectar código de React gigante.
+      page = page
+        .replace(/<script[^>]*src="[^"]*__manus__[^"]*"[^>]*><\/script>/gi, "")
+        .replace(/<script[^>]*id="manus-runtime"[^>]*>[\s\S]*?<\/script>/gi, "")
+        .replace(/<script[^>]*__MANUS_HOST_DEV__[\s\S]*?<\/script>/gi, "");
+      
+      // ARKI: Inyectar el token del core en el HTML para que el frontend lo use
+      const token = process.env.SICL_CORE_SERVICE_TOKEN || "";
+      const tokenScript = token ? `<script>window.SICL_CORE_SERVICE_TOKEN = "${token}";</script>` : "";
+      page = page.replace("</head>", `${tokenScript}</head>`);
+
       res.status(200).set({ "Content-Type": "text/html" }).end(page);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);

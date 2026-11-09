@@ -118,6 +118,29 @@ async function startServer() {
   app.use("/api/continuity", rateLimit({ name: "continuity", max: 60 }));
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   // F7.2: registerArkiMo22(app) desactivado
+  // F-copilot: proxy /api/copilot/translate → SICL Core /v1/copilot/translate
+  app.post("/api/copilot/translate", rateLimit({ name: "copilot", max: 30 }), async (req, res) => {
+    try {
+      const upstream = await proxyCoreRequest("/v1/copilot/translate", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(req.body ?? {}),
+      });
+      if (upstream.contentType) {
+        res.setHeader("content-type", upstream.contentType);
+      }
+      res.status(upstream.status).send(upstream.body);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      const code = /SICL_CORE_URL is required/.test(msg)
+        ? "CORE_NOT_CONFIGURED"
+        : /SICL_CORE_SERVICE_TOKEN/.test(msg)
+        ? "CORE_NOT_AUTHENTICATED"
+        : "CORE_UNAVAILABLE";
+      res.status(503).json({ error: code, message: msg });
+    }
+  });
+
   registerArkiIdentityRoutes(app);
   registerArkiOidcRoutes(app);
   registerStorageProxy(app);
@@ -143,9 +166,14 @@ async function startServer() {
     res.setHeader("x-correlation-id", correlationId);
     try {
       const path = req.originalUrl.slice("/api/core".length) || "/";
+      const serviceToken = process.env.SICL_CORE_SERVICE_TOKEN;
+      const headers: Record<string, string> = {};
+      if (req.headers["content-type"]) headers["content-type"] = String(req.headers["content-type"]);
+      if (serviceToken) headers["authorization"] = `Bearer ${serviceToken}`;
+
       const result = await proxyCoreRequest(path, {
         method: req.method,
-        headers: req.headers["content-type"] ? { "content-type": String(req.headers["content-type"]) } : undefined,
+        headers,
         body: ["GET", "HEAD"].includes(req.method) ? undefined : JSON.stringify(req.body),
       });
       res.status(result.status).type(result.contentType).send(result.body);

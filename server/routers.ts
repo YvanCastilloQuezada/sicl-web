@@ -595,6 +595,126 @@ export const appRouter = router({
       return { projectId: project.projectId, version: project.version, events: snapshot.events, humanReviews: snapshot.humanReviews, decisions: snapshot.decisions };
     }),
   }),
+
+  explorationAxis: router({
+    generateFunnel: publicProcedure
+      .input(z.object({
+        type: z.enum(["PARAMETRIC", "TIPOLOGIC", "EVOLUTIONARY"]),
+        fixed: z.object({
+          areaM2: z.number(),
+          city: z.string(),
+          jurisdiction: z.string().default("RNE-PE"),
+          familyId: z.string().default("FAM-HEALTH"),
+        }),
+        variable: z.object({
+          min: z.number(),
+          max: z.number(),
+          steps: z.number().default(9),
+          parameterName: z.string().optional(),
+        }),
+        constraints: z.object({
+          maxCost: z.number().optional(),
+          minArea: z.number().optional(),
+          requiredNorms: z.array(z.string()).default([]),
+        }).optional(),
+      }))
+      .mutation(async ({ input }) => {
+        const { type, fixed, variable, constraints } = input;
+        const proposals: any[] = [];
+        
+        // Importar cliente tRPC dinámicamente
+        const { createTRPCProxyClient, httpBatchLink } = await import('@trpc/client');
+        const superjson = (await import('superjson')).default;
+        const client = createTRPCProxyClient({
+          links: [httpBatchLink({ url: 'http://127.0.0.1:8000/api/trpc', transformer: superjson })],
+        });
+        
+        for (let i = 0; i < variable.steps; i++) {
+          const ratio = variable.steps > 1 ? i / (variable.steps - 1) : 0.5;
+          const currentValue = variable.min + (variable.max - variable.min) * ratio;
+          
+          const parameters: any = { areaM2: fixed.areaM2, capacity: Math.round(fixed.areaM2 / 50) };
+          
+          if (type === "PARAMETRIC") {
+            parameters.floors = Math.round(currentValue);
+          } else if (type === "TIPOLOGIC") {
+            parameters.shapeType = ["COURTYARD", "L_SHAPE", "U_SHAPE", "LINEAR"][i % 4];
+            parameters.courtyardRatio = i % 2 === 0 ? 0.18 : 0.0;
+          } else if (type === "EVOLUTIONARY") {
+            parameters.generation = Math.round(currentValue);
+          }
+
+          try {
+            const building = await client.parametricRuntime.generateDynamicBuilding.mutate({
+              familyId: fixed.familyId,
+              variantId: "GENERAL",
+              context: { country: "PE", city: fixed.city, jurisdiction: fixed.jurisdiction },
+              parameters,
+            });
+            if (building) {
+              proposals.push({
+                index: i,
+                axisValue: currentValue,
+                building,
+                metrics: {
+                  area: (building as any)?.generation?.geometry2d?.footprintM2 || 0,
+                  floors: (building as any)?.generation?.geometry3d?.floors || 0,
+                  costEstimate: ((building as any)?.generation?.geometry2d?.footprintM2 || 0) * 800,
+                },
+                geometry: {
+                  g2d: (building as any)?.generation?.geometry2d || null,
+                  g3d: (building as any)?.generation?.geometry3d || null,
+                },
+                passesConstraints: true,
+              });
+            }
+          } catch (e) {
+            console.error(`Error generando propuesta ${i}:`, e);
+          }
+        }
+
+        return {
+          status: "OK",
+          axis: input,
+          proposals,
+          funnel: { initial: proposals.length, finalFour: 4, finalOne: 1 }
+        };
+      }),
+  }),
+
+
+  copilotBridge: router({
+    generateGeometry: publicProcedure
+      .input(z.object({
+        projectId: z.string().min(1).optional(),
+        familyId: z.string().default("FAM-HEALTH"),
+        variantId: z.string().default("GENERAL"),
+        areaM2: z.number().default(20000),
+        capacity: z.number().default(400),
+        city: z.string().default("Trujillo"),
+      }))
+      .mutation(async ({ input }) => {
+        // Llamar al servicio interno de generación (el mismo que usa Family Studio)
+        // Usamos fetch a nuestro propio endpoint para no duplicar lógica.
+        const response = await fetch('http://127.0.0.1:8000/api/trpc/parametricRuntime.generateDynamicBuilding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "0": {
+              "json": {
+                familyId: input.familyId,
+                variantId: input.variantId,
+                context: { country: "PE", city: input.city, jurisdiction: "RNE-PE" },
+                parameters: { areaM2: input.areaM2, capacity: input.capacity }
+              }
+            }
+          })
+        });
+        const data = await response.json();
+        return { status: "OK", geometry: data[0]?.result?.data?.json || null };
+      }),
+  }),
+
 });
 
 export type AppRouter = typeof appRouter;

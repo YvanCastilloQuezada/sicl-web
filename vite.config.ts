@@ -76,92 +76,18 @@ function writeToLogFile(source: LogSource, entries: unknown[]) {
  * - Auto-trimmed when exceeding 1MB (keeps newest entries)
  */
 function vitePluginManusDebugCollector(): Plugin {
-  return {
-    name: "manus-debug-collector",
+  return { name: "manus-debug-collector-disabled" };
 
-    transformIndexHtml(html) {
-      if (process.env.NODE_ENV === "production") {
-        return html;
-      }
-      return {
-        html,
-        tags: [
-          {
-            tag: "script",
-            attrs: {
-              src: "/__manus__/debug-collector.js",
-              defer: true,
-            },
-            injectTo: "head",
-          },
-        ],
-      };
-    },
-
-    configureServer(server: ViteDevServer) {
-      // POST /__manus__/logs: Browser sends logs (written directly to files)
-      server.middlewares.use("/__manus__/logs", (req, res, next) => {
-        if (req.method !== "POST") {
-          return next();
-        }
-
-        const handlePayload = (payload: any) => {
-          // Write logs directly to files
-          if (Array.isArray(payload.consoleLogs) && payload.consoleLogs.length > 0) {
-            writeToLogFile("browserConsole", payload.consoleLogs.slice(0, MAX_DEBUG_ENTRIES));
-          }
-          if (Array.isArray(payload.networkRequests) && payload.networkRequests.length > 0) {
-            writeToLogFile("networkRequests", payload.networkRequests.slice(0, MAX_DEBUG_ENTRIES));
-          }
-          if (Array.isArray(payload.sessionEvents) && payload.sessionEvents.length > 0) {
-            writeToLogFile("sessionReplay", payload.sessionEvents.slice(0, MAX_DEBUG_ENTRIES));
-          }
-
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ success: true }));
-        };
-
-        const reqBody = (req as { body?: unknown }).body;
-        if (reqBody && typeof reqBody === "object") {
-          try {
-            handlePayload(reqBody);
-          } catch (e) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ success: false, error: String(e) }));
-          }
-          return;
-        }
-
-        let body = "";
-        req.on("data", (chunk) => {
-          body += chunk.toString();
-          if (Buffer.byteLength(body, "utf8") > MAX_DEBUG_PAYLOAD_BYTES) {
-            req.destroy();
-          }
-        });
-
-        req.on("end", () => {
-          try {
-            const payload = JSON.parse(body);
-            handlePayload(payload);
-          } catch (e) {
-            res.writeHead(400, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ success: false, error: String(e) }));
-          }
-        });
-      });
-    },
-  };
 }
 
 // The public Manus dev proxy cannot execute Vite's virtual React Refresh module.
 // Keep the React plugin for production builds; Vite's native esbuild JSX transform
 // is sufficient for the local dev bootstrap and avoids a false infinite fallback.
 const plugins = [
-  ...(process.env.NODE_ENV !== "development" ? [react()] : []),
+  react(),
   tailwindcss(),
-  vitePluginManusRuntime(),
-  vitePluginManusDebugCollector(),
+  // vitePluginManusRuntime(),
+  // vitePluginManusDebugCollector(),
 ];
 
 export default defineConfig({
