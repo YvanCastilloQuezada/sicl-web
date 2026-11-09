@@ -682,6 +682,39 @@ export const appRouter = router({
       }),
   }),
 
+
+  copilotBridge: router({
+    generateGeometry: publicProcedure
+      .input(z.object({
+        projectId: z.string().min(1).optional(),
+        familyId: z.string().default("FAM-HEALTH"),
+        variantId: z.string().default("GENERAL"),
+        areaM2: z.number().default(20000),
+        capacity: z.number().default(400),
+        city: z.string().default("Trujillo"),
+      }))
+      .mutation(async ({ input }) => {
+        // Llamar al servicio interno de generación (el mismo que usa Family Studio)
+        // Usamos fetch a nuestro propio endpoint para no duplicar lógica.
+        const response = await fetch('http://127.0.0.1:8000/api/trpc/parametricRuntime.generateDynamicBuilding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "0": {
+              "json": {
+                familyId: input.familyId,
+                variantId: input.variantId,
+                context: { country: "PE", city: input.city, jurisdiction: "RNE-PE" },
+                parameters: { areaM2: input.areaM2, capacity: input.capacity }
+              }
+            }
+          })
+        });
+        const data = await response.json();
+        return { status: "OK", geometry: data[0]?.result?.data?.json || null };
+      }),
+  }),
+
 });
 
 export type AppRouter = typeof appRouter;

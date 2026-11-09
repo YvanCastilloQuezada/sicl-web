@@ -1,0 +1,19 @@
+{
+  "name": "ARKI Web App",
+  "short_name": "ARKI",
+  "description": "Architectural Intelligence Workspace para explorar, aprender y desarrollar proyectos arquitectónicos.",
+  "lang": "es",
+  "dir": "ltr",
+  "id": "/arki",
+  "start_url": "/arki",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#071a30",
+  "theme_color": "#071a30",
+  "categories": ["design", "education", "productivity"],
+  "icons": [
+    { "src": "/arki-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

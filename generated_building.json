@@ -1,0 +1,157 @@
+{
+  "ownerId": "dev-user",
+  "generation": {
+    "id": "0eb20997-8393-46a5-9957-e95bfe3ba817",
+    "familyId": "FAM-HEALTH",
+    "variantId": "GENERAL",
+    "name": "Hospital general · Trujillo",
+    "context": {
+      "country": "PE",
+      "city": "Trujillo",
+      "jurisdiction": "RNE-PE"
+    },
+    "parameters": {
+      "areaM2": 20000,
+      "capacity": 400,
+      "floors": 4,
+      "courtyardRatio": 0.18,
+      "beds": 400
+    },
+    "program": {
+      "zones": [
+        {
+          "id": "PUBLIC",
+          "name": "Área pública",
+          "areaRatio": 0.25
+        },
+        {
+          "id": "SERVICE",
+          "name": "Área de servicio",
+          "areaRatio": 0.15
+        },
+        {
+          "id": "PRIMARY",
+          "name": "Área principal",
+          "areaRatio": 0.6
+        }
+      ],
+      "primarySpaces": [
+        "admisión",
+        "consultorios",
+        "hospitalización",
+        "emergencia",
+        "diagnóstico por imágenes",
+        "centro quirúrgico"
+      ],
+      "services": [
+        "instalaciones MEP",
+        "residuos",
+        "mantenimiento"
+      ],
+      "circulations": [
+        "público",
+        "personal",
+        "servicio",
+        "evacuación"
+      ]
+    },
+    "rules": [
+      {
+        "id": "HEALTH-FLOW",
+        "code": "RNE-A.050",
+        "description": "Separar flujos públicos, personal, servicio y evacuación.",
+        "parameter": "flowSeparation",
+        "operator": "REQUIRED",
+        "value": true,
+        "source": "RNE de referencia; validar vigencia",
+        "required": true
+      },
+      {
+        "id": "HEALTH-EGRESS",
+        "code": "RNE-A.130",
+        "description": "La evacuación debe verificarse con aforo y configuración real.",
+        "parameter": "egressValidated",
+        "operator": "REQUIRED",
+        "value": true,
+        "source": "RNE de referencia; especialista",
+        "required": true
+      }
+    ],
+    "geometry2d": {
+      "type": "COURTYARD_MASS",
+      "footprintM2": 5000,
+      "widthM": 82.16,
+      "depthM": 60.86,
+      "courtyardM2": 900
+    },
+    "section": {
+      "type": "SECTION_FROM_PROGRAM",
+      "floors": 4,
+      "floorHeightM": 3.4,
+      "totalHeightM": 13.6,
+      "usesByFloor": [
+        "admisión",
+        "emergencia",
+        "diagnóstico por imágenes",
+        "centro quirúrgico"
+      ]
+    },
+    "geometry3d": {
+      "type": "EXTRUSION_FROM_2D",
+      "floors": 4,
+      "heightM": 13.6,
+      "massing": "COURTYARD_MASS"
+    },
+    "unifiedGeometry": {
+      "schema": "ARKI-UNIFIED-GEOMETRY-1.0",
+      "plan": {
+        "type": "COURTYARD_MASS",
+        "footprintM2": 5000,
+        "widthM": 82.16,
+        "depthM": 60.86,
+        "courtyardM2": 900
+      },
+      "section": {
+        "type": "SECTION_FROM_PROGRAM",
+        "floors": 4,
+        "floorHeightM": 3.4,
+        "totalHeightM": 13.6,
+        "usesByFloor": [
+          "admisión",
+          "emergencia",
+          "diagnóstico por imágenes",
+          "centro quirúrgico"
+        ]
+      },
+      "model3d": {
+        "type": "EXTRUSION_FROM_2D",
+        "floors": 4,
+        "heightM": 13.6,
+        "massing": "COURTYARD_MASS"
+      }
+    },
+    "metrics": {
+      "footprintM2": 5000,
+      "builtAreaM2": 20000,
+      "capacity": 400,
+      "estimatedCostUsdConceptual": 36000000
+    },
+    "validation": {
+      "status": "UNKNOWN",
+      "checked": [
+        "RNE-A.050",
+        "RNE-A.130"
+      ],
+      "unknowns": [
+        "flowSeparation",
+        "egressValidated"
+      ]
+    },
+    "alerts": [],
+    "status": "GENERATED_CANDIDATE",
+    "humanReviewRequired": true,
+    "projectStateMutation": "NOT_REQUESTED"
+  },
+  "persistence": "PROPOSAL_ONLY",
+  "humanReviewRequired": true
+}

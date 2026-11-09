@@ -10,13 +10,16 @@ import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
+
+// Lazy imports
 const Home = lazy(() => import("./pages/Home"));
+const ArkiCockpitPage = lazy(() => import("./pages/ArkiCockpitPage"));
 const EvidencePage = lazy(() => import("./pages/EvidencePage"));
 const EvaluationsPage = lazy(() => import("./pages/EvaluationsPage"));
 const ComparisonsPage = lazy(() => import("./pages/ComparisonsPage"));
 const HelpPage = lazy(() => import("./pages/HelpPage"));
 const HelpArticlePage = lazy(() => import("./pages/HelpArticlePage"));
-import CommandBar from "./components/CommandBar";
+const CommandBar = lazy(() => import("./components/CommandBar"));
 const MultiobjectivePage = lazy(() => import("./pages/MultiobjectivePage"));
 const ArkiBookPage = lazy(() => import("./pages/ArkiBookPage"));
 const SpatialViewerPage = lazy(() => import("./pages/SpatialViewerPage"));
@@ -28,129 +31,83 @@ const ArkiOperationsPage = lazy(() => import("./pages/ArkiOperationsPage"));
 const ArkiParametricRuntimePage = lazy(() => import("./pages/ArkiParametricRuntimePage"));
 const FieldModePage = lazy(() => import("./pages/FieldModePage"));
 const SecurityEventsPage = lazy(() => import("./pages/SecurityEventsPage"));
-const ArkiResearchReviewPage = lazy(() => import("./pages/ArkiResearchReviewPage"));
+const ArkiAiLabPage = lazy(() => import("./pages/ArkiAiLabPage"));
 const ArkiBimViewerPage = lazy(() => import("./pages/ArkiBimViewerPage"));
-const ArkiHostConnectionsPage = lazy(() => import("./pages/ArkiHostConnectionsPage"));
+const ArkiDesignFunnelPage = lazy(() => import("./pages/ArkiDesignFunnelPage"));
+const ArkiFamilyStudioPage = lazy(() => import("./pages/ArkiFamilyStudioPage"));
+const ArkiGeneratorPage = lazy(() => import("./pages/ArkiGeneratorPage"));
+const ArkiIdeasPage = lazy(() => import("./pages/ArkiIdeasPage"));
+const ArkiLivingTreePage = lazy(() => import("./pages/ArkiLivingTreePage"));
+const ArkiMarketplacePage = lazy(() => import("./pages/ArkiMarketplacePage"));
+const ArkiResearchReviewPage = lazy(() => import("./pages/ArkiResearchReviewPage"));
 const ArkiSelfCarePage = lazy(() => import("./pages/ArkiSelfCarePage"));
-const ArkiDeviceInteroperabilityPage = lazy(() => import("./pages/ArkiDeviceInteroperabilityPage"));
-const LucaControlCenterPage = lazy(() => import("./pages/LucaControlCenterPage"));
-const FederatedHandoffInboxPage = lazy(() => import("./pages/FederatedHandoffInboxPage"));
+const ArkiSuperarchitectCommandCenterPage = lazy(() => import("./pages/ArkiSuperarchitectCommandCenterPage"));
+const ArkiSuperArchitectViewerPage = lazy(() => import("./pages/ArkiSuperArchitectViewerPage"));
+const ArkiSuperDossierPage = lazy(() => import("./pages/ArkiSuperDossierPage"));
+const ArkiSuperpowersPage = lazy(() => import("./pages/ArkiSuperpowersPage"));
 const ArkiTvPage = lazy(() => import("./pages/ArkiTvPage"));
 const ArLuOrchestratorPage = lazy(() => import("./pages/ArLuOrchestratorPage"));
-const ArkiMarketplacePage = lazy(() => import("./pages/ArkiMarketplacePage"));
-const ArkiGeneratorPage = lazy(() => import("./pages/ArkiGeneratorPage"));
-const ArkiFamilyStudioPage = lazy(() => import("./pages/ArkiFamilyStudioPage"));
-const ArkiSuperArchitectViewerPage = lazy(() => import("./pages/ArkiSuperArchitectViewerPage"));
-const ArkiDesignFunnelPage = lazy(() => import("./pages/ArkiDesignFunnelPage"));
-const ArkiSuperarchitectCommandCenterPage = lazy(() => import("./pages/ArkiSuperarchitectCommandCenterPage"));
-const ArkiLivingTreePage = lazy(() => import("./pages/ArkiLivingTreePage"));
-const ArkiIdeasPage = lazy(() => import("./pages/ArkiIdeasPage"));
-const ArkiSuperpowersPage = lazy(() => import("./pages/ArkiSuperpowersPage"));
-const ArkiAiLabPage = lazy(() => import("./pages/ArkiAiLabPage"));
-const ArkiSuperDossierPage = lazy(() => import("./pages/ArkiSuperDossierPage"));
+const FederatedHandoffInboxPage = lazy(() => import("./pages/FederatedHandoffInboxPage"));
+const LucaControlCenterPage = lazy(() => import("./pages/LucaControlCenterPage"));
+const ArkiDeviceInteroperabilityPage = lazy(() => import("./pages/ArkiDeviceInteroperabilityPage"));
+const ArkiHostConnectionsPage = lazy(() => import("./pages/ArkiHostConnectionsPage"));
 const ArkiPublicProcurementHubPage = lazy(() => import("./pages/ArkiPublicProcurementHubPage"));
-
-function PageLoadingFallback() {
-  return <div role="status" aria-label="Cargando módulo" className="min-h-screen animate-pulse bg-background p-8"><span className="sr-only">Cargando módulo</span><div className="mx-auto max-w-5xl space-y-5"><div className="h-8 w-2/5 rounded bg-muted" /><div className="h-4 w-3/5 rounded bg-muted" /><div className="h-48 rounded border border-border bg-card" /></div></div>;
-}
-
-function AuditRoute() {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (window.location.hash !== "#audit") {
-      window.history.replaceState(null, "", "/audit#audit");
-    }
-    setReady(true);
-  }, []);
-
-  return ready ? <Home /> : null;
-}
-
-function HashWorkspaceRoute() {
-  const [hash, setHash] = useState(() => window.location.hash.replace(/^#/, ""));
-  useEffect(() => { const sync = () => setHash(window.location.hash.replace(/^#/, "")); window.addEventListener("hashchange", sync); return () => window.removeEventListener("hashchange", sync); }, []);
-  if (hash === "evidence") return <EvidencePage />;
-  if (hash === "evaluations") return <EvaluationsPage />;
-  if (hash === "comparisons") return <ComparisonsPage />;
-  return <Home />;
-}
-
-function Router() {
-  // make sure to consider if you need authentication for certain routes
-  return (
-    <Suspense fallback={<PageLoadingFallback />}>
-    <Switch>
-      <Route path={"/"}>{() => <ArkiSuperarchitectCommandCenterPage />}</Route>
-      <Route path={"/arki"}>{() => <HashWorkspaceRoute />}</Route>
-      <Route path={"/arki-arbol-vivo"}>{() => <ArkiLivingTreePage />}</Route>
-      <Route path={"/arki-observatorio"}>{() => <DashboardLayout><ArkiPublicProcurementHubPage /></DashboardLayout>}</Route>
-      <Route path={"/evidence"} component={EvidencePage} />
-      <Route path={"/evaluations"} component={EvaluationsPage} />
-      <Route path={"/comparisons"} component={ComparisonsPage} />
-      <Route path={"/multiobjective"}>{() => <DashboardLayout><MultiobjectivePage /></DashboardLayout>}</Route>
-      <Route path={"/arki-book"}>{() => <DashboardLayout><ArkiBookPage /></DashboardLayout>}</Route>
-      <Route path={"/spatial"}>{() => <DashboardLayout><SpatialViewerPage /></DashboardLayout>}</Route>
-      <Route path={"/spatial-comparison"} component={SpatialComparisonPage} />
-      <Route path={"/sources"} component={SourceLibraryPage} />
-      <Route path={"/control-center"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><ArkiControlCenterPage /></DashboardLayout>}</Route>
-      <Route path={"/parametric-files"}>{() => <DashboardLayout><ParametricFilesPage /></DashboardLayout>}</Route>
-      <Route path={"/arki-operations"}>{() => <DashboardLayout><ArkiOperationsPage /></DashboardLayout>}</Route>
-      <Route path={"/arki-parametric-runtime"}>{() => <ArkiParametricRuntimePage />}</Route>
-      <Route path={"/arki-generator"}>{() => <ArkiGeneratorPage />}</Route>
-      <Route path={"/arki-family-studio"}>{() => <ArkiFamilyStudioPage />}</Route>
-      <Route path={"/arki-super-architect"}>{() => <ArkiSuperArchitectViewerPage />}</Route>
-      <Route path={"/arki-command-center"}>{() => <ArkiSuperarchitectCommandCenterPage />}</Route>
-      <Route path={"/arki-design-funnel"}>{() => <ArkiDesignFunnelPage />}</Route>
-      <Route path={"/arki-ideas"}>{() => <ArkiIdeasPage />}</Route>
-      <Route path={"/arki-superpowers"}>{() => <ArkiSuperpowersPage />}</Route>
-      <Route path={"/arki-ai-lab"}>{() => <ArkiAiLabPage />}</Route>
-      <Route path={"/arki-super-dossier"}>{() => <ArkiSuperDossierPage />}</Route>
-      <Route path={"/arki-bim-visor"}>{() => <ArkiBimViewerPage />}</Route>
-      <Route path={"/arki-host-connections"}>{() => <ArkiHostConnectionsPage />}</Route>
-      <Route path={"/arki-device-bridge"}>{() => <DashboardLayout><ArkiDeviceInteroperabilityPage /></DashboardLayout>}</Route>
-      <Route path={"/luka-control-center"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><LucaControlCenterPage /></DashboardLayout>}</Route>
-      <Route path={"/federated-handoffs"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><FederatedHandoffInboxPage /></DashboardLayout>}</Route>
-      <Route path={"/arki-tv"}>{() => <ArkiTvPage />}</Route>
-      <Route path={"/ar-lu-orchestrator"}>{() => <DashboardLayout showSidebar={false} compactHeader hideBrand><ArLuOrchestratorPage /></DashboardLayout>}</Route>
-      <Route path={"/arki-marketplace"}>{() => <ArkiMarketplacePage />}</Route>
-      <Route path={"/arki-self-care"}>{() => <ArkiSelfCarePage />}</Route>
-      <Route path={"/field"} component={FieldModePage} />
-      <Route path={"/security-events"}>{() => <DashboardLayout><SecurityEventsPage /></DashboardLayout>}</Route>
-      <Route path={"/arki-research-review"} component={ArkiResearchReviewPage} />
-      <Route path={"/audit"}>{() => <AuditRoute />}</Route>
-      <Route path={"/help"}>{() => <DashboardLayout><HelpPage /></DashboardLayout>}</Route>
-      <Route path={"/help/user"}>{() => <DashboardLayout><HelpArticlePage manualId="user" /></DashboardLayout>}</Route>
-      <Route path={"/help/operations"}>{() => <DashboardLayout><HelpArticlePage manualId="operations" /></DashboardLayout>}</Route>
-      <Route path={"/help/commands"}>{() => <DashboardLayout><HelpArticlePage manualId="commands" /></DashboardLayout>}</Route>
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-    </Suspense>
-  );
-}
-
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
 
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="dark"
-        switchable
-      >
+      <ThemeProvider>
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
-                        <ArkiFirstContact />
-            <PwaInstallPrompt />
             <OfflineSyncManager />
-            <Suspense fallback={null}><CommandBar /></Suspense>
-            <Router />
+            <PwaInstallPrompt />
+            <ArkiFirstContact />
+            <Suspense fallback={<div className="flex h-screen items-center justify-center">Cargando ARKI...</div>}>
+              <Switch>
+                <Route path="/" component={Home} />
+                <Route path="/arki" component={Home} />
+                <Route path="/arki-cockpit" component={ArkiCockpitPage} />
+                <Route path="/evidence" component={EvidencePage} />
+                <Route path="/evaluations" component={EvaluationsPage} />
+                <Route path="/comparisons" component={ComparisonsPage} />
+                <Route path="/help" component={HelpPage} />
+                <Route path="/help/:slug" component={HelpArticlePage} />
+                <Route path="/multiobjective" component={MultiobjectivePage} />
+                <Route path="/arki-book" component={ArkiBookPage} />
+                <Route path="/spatial" component={SpatialViewerPage} />
+                <Route path="/spatial-comparison" component={SpatialComparisonPage} />
+                <Route path="/sources" component={SourceLibraryPage} />
+                <Route path="/control-center" component={ArkiControlCenterPage} />
+                <Route path="/parametric-files" component={ParametricFilesPage} />
+                <Route path="/arki-operations" component={ArkiOperationsPage} />
+                <Route path="/arki-parametric-runtime" component={ArkiParametricRuntimePage} />
+                <Route path="/field" component={FieldModePage} />
+                <Route path="/security-events" component={SecurityEventsPage} />
+                <Route path="/arki-ai-lab" component={ArkiAiLabPage} />
+                <Route path="/arki-bim-visor" component={ArkiBimViewerPage} />
+                <Route path="/arki-design-funnel" component={ArkiDesignFunnelPage} />
+                <Route path="/arki-family-studio" component={ArkiFamilyStudioPage} />
+                <Route path="/arki-generator" component={ArkiGeneratorPage} />
+                <Route path="/arki-ideas" component={ArkiIdeasPage} />
+                <Route path="/arki-arbol-vivo" component={ArkiLivingTreePage} />
+                <Route path="/arki-marketplace" component={ArkiMarketplacePage} />
+                <Route path="/arki-research-review" component={ArkiResearchReviewPage} />
+                <Route path="/arki-self-care" component={ArkiSelfCarePage} />
+                <Route path="/arki-command-center" component={ArkiSuperarchitectCommandCenterPage} />
+                <Route path="/arki-super-architect" component={ArkiSuperArchitectViewerPage} />
+                <Route path="/arki-super-dossier" component={ArkiSuperDossierPage} />
+                <Route path="/arki-superpowers" component={ArkiSuperpowersPage} />
+                <Route path="/arki-tv" component={ArkiTvPage} />
+                <Route path="/ar-lu-orchestrator" component={ArLuOrchestratorPage} />
+                <Route path="/federated-handoffs" component={FederatedHandoffInboxPage} />
+                <Route path="/luka-control-center" component={LucaControlCenterPage} />
+                <Route path="/arki-device-bridge" component={ArkiDeviceInteroperabilityPage} />
+                <Route path="/arki-host-connections" component={ArkiHostConnectionsPage} />
+                <Route path="/public-procurement" component={ArkiPublicProcurementHubPage} />
+                <Route component={NotFound} />
+              </Switch>
+            </Suspense>
           </TooltipProvider>
         </LanguageProvider>
       </ThemeProvider>
