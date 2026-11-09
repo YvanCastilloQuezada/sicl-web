@@ -15,6 +15,7 @@ import { comparisonCollectionForRecommendation, nextRecommendationVersion } from
 import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, SiclCoreHttpError } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
 import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
+import { executeD63G, type D63Input } from "./arkiD63GeometricBridge";
 import { executeCanonicalBrainAndD62 } from "./arkiCanonicalExecution";
 import { generateArkiPhotorealisticVisual, VISUAL_PRESETS } from "./arkiVisualIntelligence";
 import { executeProjectBrainWave1 } from "./arkiProjectBrain";
@@ -60,6 +61,7 @@ import { dynamicFamilyContract, dynamicFamilySummary, generateDynamicBuilding, l
 import { compareDynamicBuildings, dynamicComparisonContract, exportDynamicBuilding, type BuildingVersion, type ComparisonMode } from "../shared/arkiFamilyComparison";
 import { ADVANCED_RENDER_CONTRACT, assessAdvancedCapabilities, validateRenderRequest } from "../shared/arkiAdvancedRenderCapabilities";
 import { costBudgetS2Contract, estimateCandidateCost, compareCostEstimates, markCostStale, recalculateCost, validateCostInput, type CostCandidateInput, type CostEstimate, type CostFidelity } from "../shared/arkiCostBudgetS2";
+import { execSync } from "child_process";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -741,7 +743,7 @@ export const appRouter = router({
           console.warn("[copilot.e2e] Proyecto ya existe o error al crear:", e);
         }
 
-        // 2. Ejecutar el pipeline F1-F10
+        // 2. Construir el ProjectBrainInput
         const brainInput = {
           projectId: input.projectId,
           name: input.name,
@@ -751,37 +753,135 @@ export const appRouter = router({
           jurisdiction: input.jurisdiction,
           site: { areaM2: input.areaM2 },
           activities: [
-            { id: "ACT-1", label: "Embarque de pasajeros", capacity: input.capacity },
-            { id: "ACT-2", label: "Venta de pasajes", capacity: Math.floor(input.capacity * 0.3) },
-            { id: "ACT-3", label: "Servicios higienicos", capacity: Math.floor(input.capacity * 0.5) },
+            { id: "public-orientation", label: "Orientación pública", subjects: ["visitante"], capacity: input.capacity, frequency: "daily", duration: "short", temporalOverlap: true, privacy: "shared" },
+            { id: "staff-intake", label: "Recepción de personal", subjects: ["personal"], capacity: Math.floor(input.capacity * 0.3), frequency: "daily", duration: "medium", temporalOverlap: true, accessControl: "staff", privacy: "controlled" },
+            { id: "services", label: "Servicios higiénicos", subjects: ["visitante", "personal"], capacity: Math.floor(input.capacity * 0.5), frequency: "daily", duration: "short", temporalOverlap: true, privacy: "shared" },
           ],
           relationships: [
-            { from: "ACT-1", to: "ACT-2", relation: "COMPLEMENTARY" },
-            { from: "ACT-1", to: "ACT-3", relation: "COMPLEMENTARY" },
-            { from: "ACT-2", to: "ACT-3", relation: "COMPLEMENTARY" },
+            { id: "r1", from: "public-orientation", to: "staff-intake", relation: "controlled service interface", subjects: ["visitante", "personal"], state: "open", frequency: "daily", time: "business-hours", control: "staff-mediated" },
+            { id: "r2", from: "public-orientation", to: "services", relation: "complementary", subjects: ["visitante"], state: "open", frequency: "daily", time: "business-hours", control: "none" },
+            { id: "r3", from: "staff-intake", to: "services", relation: "complementary", subjects: ["personal"], state: "open", frequency: "daily", time: "business-hours", control: "none" },
           ],
-          knownFacts: [`Area del terreno: ${input.areaM2} m2`, `Capacidad: ${input.capacity} personas`],
+          knownFacts: [`Área del terreno: ${input.areaM2} m²`, `Capacidad: ${input.capacity} personas`],
           objectives: ["Optimizar flujos de pasajeros", "Cumplir con RNE"],
           constraints: ["Presupuesto limitado", "Normativa RNE-PE"],
         };
 
-        const result = await executeCanonicalBrainAndD62({
-          ...brainInput,
-          brainExecutionId: `brain-${Date.now()}`,
-          d62ExecutionId: `d62-${Date.now()}`,
-          requestedReasoningDepth: "STANDARD",
-        });
+        // 3. Ejecutar el Brain (genera los partis)
+        const brain = executeProjectBrainWave1(brainInput);
+
+        // 4. Generar 9 propuestas con executeD63G (arquitectura real)
+        const candidates: any[] = [];
+        
+        // Variaciones de envelope y separación para generar 9 propuestas distintas
+        const envelopes = [
+          { width: 80, height: 60, separation: "buffer lateral" },
+          { width: 70, height: 70, separation: "buffer transversal" },
+          { width: 90, height: 50, separation: "buffer longitudinal" },
+          { width: 60, height: 80, separation: "buffer compacto" },
+          { width: 100, height: 40, separation: "buffer extendido" },
+          { width: 50, height: 90, separation: "buffer alto" },
+          { width: 85, height: 55, separation: "buffer asimétrico" },
+          { width: 75, height: 65, separation: "buffer ortogonal" },
+          { width: 65, height: 75, separation: "buffer radial" },
+        ];
+
+        for (let i = 0; i < envelopes.length; i++) {
+          const env = envelopes[i];
+          try {
+            const d63Input: D63Input = {
+              executionId: `d63-${i}-${Date.now()}`,
+              projectId: input.projectId,
+              brief: input.brief,
+              typology: input.typology,
+              activities: brainInput.activities.map(a => ({
+                id: a.id,
+                label: a.label,
+                subjects: a.subjects,
+                capacity: a.capacity,
+                frequency: "daily",
+                duration: "short",
+                temporalOverlap: true,
+                privacy: a.privacy,
+                accessControl: a.accessControl,
+              })),
+              subjects: ["visitante", "personal"],
+              relationships: brainInput.relationships.map(r => ({
+                id: r.id,
+                from: r.from,
+                to: r.to,
+                relation: r.relation,
+                subjects: r.subjects,
+                state: "open",
+                frequency: "daily",
+                time: "business-hours",
+                control: r.control,
+              })),
+              conditions: ["Las actividades de visitantes y personal pueden solaparse"],
+              constraints: ["No se suministran habitaciones, muros, puertas ni geometría de solución."],
+              unknowns: ["La capacidad exacta después de la demanda pico es desconocida"],
+              perturbation: { id: `p${i}`, statement: "El control mediado por personal no está disponible en horas pico", changes: { separationCondition: env.separation } },
+              envelope: { width: env.width, height: env.height, status: "EXPLICIT_PROJECT_DIMENSION" },
+              separationCondition: `El control mediado por personal debe ser legible y no superpuesto (${env.separation})`,
+            };
+
+            const d63Result = executeD63G(d63Input, emptySnapshot(), 1, "D6.3-G-ARKI");
+            
+            if (d63Result.candidateA) {
+              candidates.push({
+                id: `CAND-${i + 1}-A`,
+                title: `Propuesta ${i + 1}A · ${env.separation}`,
+                strategy: env.separation,
+                metrics: {
+                  area: env.width * env.height,
+                  floors: 2,
+                },
+                building: {
+                  id: d63Result.candidateA.id,
+                  geometry2d: d63Result.candidateA.elements,
+                  geometry3d: d63Result.candidateA.elements,
+                  name: `Propuesta ${i + 1}A`,
+                },
+              });
+            }
+          } catch (e) {
+            console.warn(`[copilot.e2e] Error generando propuesta ${i}:`, e);
+          }
+        }
+
+        console.log(`[copilot.e2e] ${candidates.length} candidatos geométricos generados por D6.3`);
 
         return {
-          status: result.status,
-          projectId: result.projectId,
+          status: "EXECUTED",
+          projectId: input.projectId,
           projectCreated,
-          partis: result.brain?.partis || [],
-          evaluations: result.brain?.evaluations || [],
-          genealogy: result.brain?.genealogy || null,
-          versions: result.versions,
+          partis: brain.partis,
+          candidates: candidates,
+          versions: { initial: null, afterBrain: null, afterD62: null },
         };
       }),
+  }),
+
+  system: router({
+    gpuUsage: publicProcedure.query(() => {
+      try {
+        const output = execSync("nvidia-smi --query-gpu=index,name,utilization.gpu,memory.used,memory.total --format=csv,noheader,nounits", { encoding: "utf-8", timeout: 3000 });
+        const lines = output.trim().split("\n");
+        const gpus = lines.map(line => {
+          const [index, name, usage, memUsed, memTotal] = line.split(", ").map(s => s.trim());
+          return {
+            index: parseInt(index),
+            name,
+            usage: parseInt(usage),
+            memoryUsed: parseInt(memUsed),
+            memoryTotal: parseInt(memTotal),
+          };
+        });
+        return { status: "OK", gpus };
+      } catch (e) {
+        return { status: "ERROR", gpus: [], message: e instanceof Error ? e.message : "Unknown error" };
+      }
+    }),
   }),
 });
 

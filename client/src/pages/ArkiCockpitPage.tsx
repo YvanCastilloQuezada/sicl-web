@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat } from "lucide-react";
+import { useState, useEffect } from "react";
+import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import superjson from "superjson";
+import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen } from "lucide-react";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
-import FunnelGallery from "@/components/FunnelGallery";
+import ProposalGallery from "@/components/ProposalGallery";
 
 export default function ArkiCockpitPage() {
   const [messages, setMessages] = useState([
@@ -10,6 +12,64 @@ export default function ArkiCockpitPage() {
   const [input, setInput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [buildingData, setBuildingData] = useState<any>(null);
+  const [partis, setPartis] = useState<any[]>([]);
+  const [bimOpen, setBimOpen] = useState(false);
+  const [obrasOpen, setObrasOpen] = useState(false);
+  const [jprdOpen, setJprdOpen] = useState(false);
+  const [oeceOpen, setOeceOpen] = useState(false);
+  const [estatalOpen, setEstatalOpen] = useState(false);
+  const [estudiosOpen, setEstudiosOpen] = useState(false);
+  const [tooltipText, setTooltipText] = useState<string | null>(null);
+  const [expedienteOpen, setExpedienteOpen] = useState(false);
+  const [tresDOpen, setTresDOpen] = useState(false);
+  const [cuatroDOpen, setCuatroDOpen] = useState(false);
+  const [cincoDOpen, setCincoDOpen] = useState(false);
+  const [seisDOpen, setSeisDOpen] = useState(false);
+  const [sieteDOpen, setSieteDOpen] = useState(false);
+  const [generativoOpen, setGenerativoOpen] = useState(false);
+  const [gpuUsage, setGpuUsage] = useState<number | null>(null);
+
+  // Consultar el uso de la GPU cada 2 segundos (ruta REST)
+  useEffect(() => {
+    const fetchGpuUsage = async () => {
+      try {
+        const res = await fetch('/api/gpu-usage');
+        const json = await res.json();
+        const gpus = json.gpus || [];
+        const rtx3060 = gpus.find((g: any) => g.name.includes("3060"));
+        if (rtx3060) {
+          setGpuUsage(rtx3060.usage);
+        }
+      } catch (e) {
+        console.warn("Error obteniendo uso de GPU:", e);
+      }
+    };
+    
+    fetchGpuUsage();
+    const interval = setInterval(fetchGpuUsage, 2000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  const estudios = [
+    "Acústico", "Asoleamiento", "Ciclo de Vida", "Cimentación", "Climatización (HVAC)",
+    "Color y Acabados", "Contención de Taludes", "Costos", "Cronograma (4D)",
+    "Cumplimiento Normativo (RNE)", "Demanda", "Drenaje", "Eficiencia Energética",
+    "Eléctrico", "Ergonomía", "Estructura", "Evacuación", "Factibilidad",
+    "Facility Management (7D)", "Flujos Peatonales", "Gases Medicinales", "Geotécnico",
+    "Gestión de Residuos", "Hidráulico", "Hidrológico", "Huella de Carbono",
+    "Impacto Ambiental", "Impacto Vial", "Impermeabilización", "Incendios", "Interiores",
+    "Licencias y Permisos", "Logística", "Mantenimiento", "Materialidad",
+    "Mecánica de Suelos", "Mercado", "Mobiliario", "Oferta", "Operación", "Paisajismo",
+    "Partido Arquitectónico", "Pavimentos", "Presupuesto (5D)", "Programa Arquitectónico",
+    "Riesgo Sísmico", "Riesgos Ambientales y de Desastres", "Riesgos Peatonales",
+    "Sanitario", "Seguridad", "Seguridad y Salud en Obra", "Servidumbres", "Suelos",
+    "Telecomunicaciones", "Títulos y Catastro", "Topográfico", "Tráfico", "Vientos", "Zonificación"
+  ];
+  const [copilotParams, setCopilotParams] = useState<any>(null);
+
+  useEffect(() => {
+    console.log('[ArkiCockpitPage] Partis actualizados:', partis.length);
+  }, [partis]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -68,6 +128,7 @@ export default function ArkiCockpitPage() {
         
         // ARKI: Si el copiloto extrajo parámetros, generar geometría con ELLOS
         const params = intent.parameters || {};
+        setCopilotParams(params);
         const tipo = params.tipo || "otro";
         const areaM2 = params.area_m2 || params.areaM2 || 20000;
         const capacity = params.capacidad || params.capacity || 400;
@@ -123,40 +184,89 @@ export default function ArkiCockpitPage() {
           try {
             setMessages(prev => [...prev, { role: "assistant", text: "🧠 Ejecutando pipeline F1-F10 (Brain + D6.2) en el Core..." }]);
             
-            const e2eRes = await fetch('/api/trpc/copilot.e2e', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'trpc-batch-mode': 'true' },
-              body: JSON.stringify({
-                "0": { "json": {
-                  projectId: `PRO-${Date.now()}`,
-                  name: `Proyecto ${tipo} en ${ciudad}`,
-                  typology: tipo,
-                  brief: userMsg,
-                  location: ciudad,
-                  jurisdiction: "RNE-PE",
-                  areaM2: areaM2,
-                  capacity: capacity
-                }}
-              })
+                        // Usar el cliente tRPC (mismo formato que Node)
+            const trpcClient = createTRPCProxyClient<any>({
+              links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
             });
             
-            const e2eJson = await e2eRes.json();
-            if (!e2eRes.ok) {
-              const errorMsg = e2eJson[0]?.error?.json?.message || `HTTP ${e2eRes.status}`;
-              setMessages(prev => [...prev, { role: "assistant", text: `❌ Error en pipeline F1-F10: ${errorMsg}` }]);
-              return;
-            }
+            const result = await trpcClient.copilot.e2e.mutate({
+              projectId: `PRO-TERMINAL-${Date.now()}`,
+              name: `Proyecto ${tipo} en ${ciudad}`,
+              typology: tipo,
+              brief: userMsg,
+              location: ciudad,
+              jurisdiction: "RNE-PE",
+              areaM2: areaM2,
+              capacity: capacity,
+            });
             
-            const result = e2eJson[0]?.result?.data?.json;
             const partis = result?.partis || [];
+            console.log("[ARKI] Partis recibidos:", partis);
+            
+            // GENERAR 9 PROPUESTAS VARIANDO PARÁMETROS (misma variante BUS_TERMINAL)
+            const familyMap: Record<string, { familyId: string; variantId: string }> = {
+              "terminal_terrestre": { familyId: "FAM-TRANSPORT", variantId: "BUS_TERMINAL" },
+              "hospital": { familyId: "FAM-HEALTH", variantId: "GENERAL" },
+              "aeropuerto": { familyId: "FAM-TRANSPORT", variantId: "AIRPORT" },
+              "vivienda": { familyId: "FAM-RESIDENTIAL", variantId: "GENERAL" },
+              "otro": { familyId: "FAM-HEALTH", variantId: "GENERAL" },
+            };
+            const mapping = familyMap[tipo] || familyMap["otro"];
+            const familyId = mapping.familyId;
+            const variantId = mapping.variantId;
+            
+            let propuestasReales: any[] = [];
+            try {
+              const strategies = ["Patio central", "Espina pública", "Núcleo compacto", "Borde climático", "Torre mixta", "Bloque lineal", "Patio lineal", "Espiral", "Mixto"];
+              
+              // Generar 9 propuestas variando área y pisos (misma variante)
+              
+              // Crear cliente tRPC (igual que en Node)
+              const trpcClient = createTRPCProxyClient<any>({
+                links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
+              });
+              
+              for (let i = 0; i < 9; i++) {
+                const areaVar = areaM2 + i * 1250;
+                const pisosVar = 2 + (i % 3);
+                try {
+                  const result = await trpcClient.parametricRuntime.generateDynamicBuilding.mutate({
+                    familyId: familyId,
+                    variantId: variantId,
+                    context: { country: "PE", city: ciudad, jurisdiction: "RNE-PE" },
+                    parameters: { areaM2: areaVar, capacity: capacity, floors: pisosVar },
+                  });
+                  if (result.generation) {
+                    propuestasReales.push({
+                      id: `PROP-${i + 1}`,
+                      title: `Alternativa ${String(i + 1).padStart(2, '0')}`,
+                      strategy: strategies[i % strategies.length],
+                      metrics: {
+                        area: result.generation.geometry2d?.footprintM2 || areaVar,
+                        floors: result.generation.geometry3d?.floors || pisosVar,
+                      },
+                      building: result.generation,
+                    });
+                  }
+                } catch (err) {
+                  console.warn(`[ARKI] Error generando propuesta ${i + 1}:`, err);
+                }
+              }
+              console.log(`[ARKI] ${propuestasReales.length} propuestas generadas para ${familyId}/${variantId}`);
+            } catch (e) {
+              console.error("[ARKI] Error generando propuestas:", e);
+            }
+            const partisToShow = propuestasReales.length > 0 ? propuestasReales : partis;
+            console.log("[ARKI] Propuestas a mostrar:", partisToShow.map(p => ({title: p.title, area: p.metrics?.area, hasBuilding: !!p.building})));
+            setPartis(partisToShow);
+            console.log("[ARKI] setPartis ejecutado con:", partisToShow.length, "propuestas");
+            (window as any).__ARKI_PARTIS__ = partisToShow;
             
             if (partis.length > 0) {
               setMessages(prev => [...prev, { 
                 role: "assistant", 
                 text: `✅ ARKI generó ${partis.length} propuestas (partis) para ${familyName}.\n📐 Revisa la galería en el centro para seleccionar las finalistas.` 
               }]);
-              // Guardar las propuestas para que el Funnel las muestre
-              (window as any).__ARKI_PARTIS__ = partis;
             } else {
               setMessages(prev => [...prev, { role: "assistant", text: "⚠️ El pipeline no devolvió propuestas. Revisa los parámetros." }]);
             }
@@ -177,87 +287,376 @@ export default function ArkiCockpitPage() {
   return (
     <div className="flex h-screen w-full bg-[#0a0f16] text-[#e2e8f0] font-sans overflow-hidden">
 
-      {/* IZQUIERDA (15%): MENÚ DE FLUJOS */}
-      <div className="w-[15%] min-w-[180px] border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
-        <div className="p-4 flex items-center gap-2 border-b border-[#1e293b]">
+      {/* IZQUIERDA (220px): MENÚ DE FLUJOS */}
+      <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+        <div className="flex items-center gap-2 border-b border-[#1e293b] h-[41px] px-2">
           <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
           <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
         </div>
         
         <div className="p-3 flex-1 space-y-1">
-          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">Nuevo Proyecto</p>
-          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><Box size={14} className="text-[#f0a35b]"/> Proyecto Privado</button>
-          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><FileText size={14} className="text-[#38bdf8]"/> Expediente Público</button>
-          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><HardHat size={14} className="text-[#fbbf24]"/> Supervisión Obra</button>
-          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><Shield size={14} className="text-[#a78bfa]"/> Licitación / Concurso</button>
+          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
+          {/* Aquí irán los datos del proyecto (área, pisos, etc.) */}
+          <div className="space-y-2">
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Área</p>
+              <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+            </div>
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Pisos</p>
+              <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+            </div>
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Ciudad</p>
+              <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
+            </div>
+          </div>
         </div>
 
         <div className="p-3 border-t border-[#1e293b] text-[10px] text-[#64748b]">
-          <p>GPU: RTX 3060 (Activa)</p>
+          <p>GPU: RTX 3060 ({gpuUsage !== null ? `${gpuUsage}%` : "—"})</p>
           <p>Core: SICL v1.2</p>
         </div>
       </div>
 
-      {/* CENTRO (70%): FUNNEL 16-4-1 (CUADRADO) */}
-      <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
-        <div className="p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
-          <span className="text-xs font-bold text-[#e2e8f0]">Embudo de Diseño · Funnel 16-4-1</span>
-          <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
-        </div>
-        <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
-          {buildingData ? (
-            <div className="w-full h-full max-w-[800px] max-h-[800px] aspect-square">
-              <FunnelGallery />
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center text-[#64748b] space-y-4">
-              <Box size={64} className="opacity-20"/>
-              <p className="text-sm">Pídele a ARKI que genere un edificio para ver las propuestas aquí.</p>
-            </div>
-          )}
-        </div>
-      </div>
+      {/* CONTENEDOR PRINCIPAL: MENÚ HORIZONTAL + CONTENIDO */}
+      <div className="flex-1 flex flex-col overflow-hidden">
 
-      {/* DERECHA (15%): CHAT DEL COPILOTO */}
-      <div className="w-[15%] min-w-[200px] border-l border-[#1e293b] bg-[#0f172a] flex flex-col">
-        <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
-          <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
-          <Sparkles size={14} className="text-[#f0a35b]"/>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto p-3 space-y-3">
-          {messages.map((msg, i) => (
-            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
-                {msg.text}
-              </div>
-            </div>
-          ))}
-          {isGenerating && (
-            <div className="flex justify-start">
-              <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
-                <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* INPUT BAR */}
-        <div className="p-3 border-t border-[#1e293b]">
-          <div className="relative">
-            <input 
-              type="text" 
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Describe lo que quieres construir..." 
-              className="w-full bg-[#1e293b] border border-[#334155] rounded-lg py-2.5 pl-3 pr-10 text-[11px] focus:outline-none focus:border-[#f0a35b] transition"
-            />
-            <button onClick={handleSend} className="absolute right-1.5 top-1.5 bottom-1.5 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded flex items-center justify-center transition">
-              <Send size={12} className="text-black" />
+        {/* MENÚ HORIZONTAL SUPERIOR */}
+        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] min-h-[41px] px-2 whitespace-nowrap relative z-[100]">
+          
+          <button 
+            onMouseEnter={() => setTooltipText("Inicia el flujo de trabajo evaluando la viabilidad del proyecto.")}
+            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-[11px] text-[#e2e8f0]"
+          >
+            <Calculator size={12} className="text-[#4ade80]"/> PreInversión
+          </button>
+          
+          {/* Generativo */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setEstudiosOpen(false); setGenerativoOpen(true); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Herramientas de IA para crear familias y diseño paramétrico."); }}
+              onMouseLeave={() => setGenerativoOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${generativoOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Layers size={12} className={generativoOpen ? 'text-black' : 'text-[#f472b6]'}/> Generativo
             </button>
+            {generativoOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Fam. Generativas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Diseño Paramétrico</button>
+                </div>
+              </div>
+            )}
           </div>
-          <p className="text-center text-[9px] text-[#475569] mt-1.5">ARKI puede cometer errores. Verifica la normativa.</p>
+
+          {/* Estudios */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(true); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Catálogo de estudios técnicos, legales y de mercado (A-Z)."); }}
+              onMouseLeave={() => setEstudiosOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${estudiosOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <BookOpen size={12} className={estudiosOpen ? 'text-black' : 'text-[#a78bfa]'}/> Estudios
+            </button>
+            {estudiosOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-80 overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  {estudios.map((e, i) => <button key={i} className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block">{e}</button>)}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Expediente Técnico */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(true); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Documentación técnica completa para sector privado y estatal."); }}
+              onMouseLeave={() => setExpedienteOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${expedienteOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <FileText size={12} className={expedienteOpen ? 'text-black' : 'text-[#38bdf8]'}/> Expediente Técnico
+            </button>
+            {expedienteOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-96 overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios Básicos</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto y APU</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(true); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Modelado y Coordinación: Revisión IFC, Clash Detection y conversión."); }}
+              onMouseLeave={() => setTresDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${tresDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Box size={12} className={tresDOpen ? 'text-black' : 'text-[#38bdf8]'}/> 3D
+            </button>
+            {tresDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Pdf / Dwg → IFC</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 4D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(true); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Planificación Temporal: Cronogramas y simulación de tiempos."); }}
+              onMouseLeave={() => setCuatroDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cuatroDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Activity size={12} className={cuatroDOpen ? 'text-black' : 'text-[#4ade80]'}/> 4D
+            </button>
+            {cuatroDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 5D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(true); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Estimación de Costos: Metrados y presupuestos."); }}
+              onMouseLeave={() => setCincoDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cincoDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Calculator size={12} className={cincoDOpen ? 'text-black' : 'text-[#fbbf24]'}/> 5D
+            </button>
+            {cincoDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Metrados</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 6D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(true); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Sostenibilidad: Análisis energético y huella de carbono."); }}
+              onMouseLeave={() => setSeisDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${seisDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Layers size={12} className={seisDOpen ? 'text-black' : 'text-[#a78bfa]'}/> 6D
+            </button>
+            {seisDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Análisis Energético</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Sostenibilidad</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 7D */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(true); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Operación y Mantenimiento: Facility Management."); }}
+              onMouseLeave={() => setSieteDOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${sieteDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Shield size={12} className={sieteDOpen ? 'text-black' : 'text-[#f472b6]'}/> 7D
+            </button>
+            {sieteDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Mantenimiento</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Operación</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Superv. BIM */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(true); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Metodología BIM completa (3D a 7D)."); }}
+              onMouseLeave={() => setBimOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${bimOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Shield size={12} className={bimOpen ? 'text-black' : 'text-[#38bdf8]'}/> Superv. BIM
+            </button>
+            {bimOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-[80vh] overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">3D - Modelado</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">4D - Tiempo</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Superv. Obras */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(true); setJprdOpen(false); setOeceOpen(false); setTooltipText("Gestión de ejecución física, avances y valorizaciones."); }}
+              onMouseLeave={() => setObrasOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${obrasOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <HardHat size={12} className={obrasOpen ? 'text-black' : 'text-[#fbbf24]'}/> Superv. Obras
+            </button>
+            {obrasOpen && (
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cuaderno de Obra Digital</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Registro de Avance Físico</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Valorizaciones</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* JPRD */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(true); setOeceOpen(false); setTooltipText("Junta de Resolución de Disputas para contratos del Estado."); }}
+              onMouseLeave={() => setJprdOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${jprdOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <FileText size={12} className={jprdOpen ? 'text-black' : 'text-[#f472b6]'}/> JPRD
+            </button>
+            {jprdOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Solicitar JPRD (Obras &gt; 10M)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Actas de Acuerdo</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Gestión de Cambios</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Concurso/OECE */}
+          <div className="relative flex-shrink-0">
+            <button 
+              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(true); setTooltipText("Procesos de licitación pública según normativa OECE."); }}
+              onMouseLeave={() => setOeceOpen(false)}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
+            >
+              <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
+            </button>
+            {oeceOpen && (
+              <div className="absolute top-full right-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Priv.</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Estado</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Obras</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cotizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Contratos</button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* CONTENIDO: CENTRO + NUEVA BARRA + DERECHA */}
+        <div className="flex-1 flex overflow-hidden">
+
+          {/* CENTRO (flex-1): Funnel 16-4-1 */}
+          <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
+            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
+              <span className="text-xs font-bold text-[#e2e8f0]">Embudo de Diseño · Funnel 16-4-1</span>
+              <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
+            </div>
+            <div className="flex-1 overflow-auto p-4">
+              <ProposalGallery proposals={partis} />
+            </div>
+          </div>
+
+          {/* NUEVA BARRA (220px): Correcciones / Paramétricas */}
+          <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col">
+            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
+              <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
+              <Sparkles size={14} className="text-[#f0a35b]"/>
+            </div>
+            <div className="flex-1 overflow-y-auto p-3 space-y-2">
+              <p className="text-[10px] text-[#64748b]">Panel de correcciones paramétricas.</p>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Área</p>
+                <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+              </div>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Pisos</p>
+                <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+              </div>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Ciudad</p>
+                <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
+              </div>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Estilo</p>
+                <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.estilo || "—"}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* DERECHA (220px): Copiloto (chat) */}
+          <div className="w-[220px] flex-shrink-0 bg-[#0f172a] flex flex-col">
+            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
+              <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
+              <Sparkles size={14} className="text-[#f0a35b]"/>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-3 space-y-3">
+              {messages.map((msg, i) => (
+                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+              {isGenerating && (
+                <div className="flex justify-start">
+                  <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
+                    <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-3 border-t border-[#1e293b]">
+              <div className="relative">
+                <input 
+                  type="text" 
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                  placeholder="Describe lo que quieres construir..." 
+                  className="w-full bg-[#1e293b] border border-[#334155] rounded-lg py-2.5 pl-3 pr-10 text-[11px] focus:outline-none focus:border-[#f0a35b] transition"
+                />
+                <button onClick={handleSend} className="absolute right-1.5 top-1.5 bottom-1.5 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded flex items-center justify-center transition">
+                  <Send size={12} className="text-black" />
+                </button>
+              </div>
+              <p className="text-center text-[9px] text-[#475569] mt-1.5">ARKI puede cometer errores. Verifica la normativa.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
