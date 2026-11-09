@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import superjson from "superjson";
 import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat } from "lucide-react";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import FunnelGallery from "@/components/FunnelGallery";
@@ -10,6 +12,12 @@ export default function ArkiCockpitPage() {
   const [input, setInput] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [buildingData, setBuildingData] = useState<any>(null);
+  const [partis, setPartis] = useState<any[]>([]);
+  const [copilotParams, setCopilotParams] = useState<any>(null);
+
+  useEffect(() => {
+    console.log('[ArkiCockpitPage] Partis actualizados:', partis.length);
+  }, [partis]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -68,6 +76,7 @@ export default function ArkiCockpitPage() {
         
         // ARKI: Si el copiloto extrajo parámetros, generar geometría con ELLOS
         const params = intent.parameters || {};
+        setCopilotParams(params);
         const tipo = params.tipo || "otro";
         const areaM2 = params.area_m2 || params.areaM2 || 20000;
         const capacity = params.capacidad || params.capacity || 400;
@@ -123,40 +132,34 @@ export default function ArkiCockpitPage() {
           try {
             setMessages(prev => [...prev, { role: "assistant", text: "🧠 Ejecutando pipeline F1-F10 (Brain + D6.2) en el Core..." }]);
             
-            const e2eRes = await fetch('/api/trpc/copilot.e2e', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json', 'trpc-batch-mode': 'true' },
-              body: JSON.stringify({
-                "0": { "json": {
-                  projectId: `PRO-${Date.now()}`,
-                  name: `Proyecto ${tipo} en ${ciudad}`,
-                  typology: tipo,
-                  brief: userMsg,
-                  location: ciudad,
-                  jurisdiction: "RNE-PE",
-                  areaM2: areaM2,
-                  capacity: capacity
-                }}
-              })
+                        // Usar el cliente tRPC (mismo formato que Node)
+            const trpcClient = createTRPCProxyClient<any>({
+              links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
             });
             
-            const e2eJson = await e2eRes.json();
-            if (!e2eRes.ok) {
-              const errorMsg = e2eJson[0]?.error?.json?.message || `HTTP ${e2eRes.status}`;
-              setMessages(prev => [...prev, { role: "assistant", text: `❌ Error en pipeline F1-F10: ${errorMsg}` }]);
-              return;
-            }
+            const result = await trpcClient.copilot.e2e.mutate({
+              projectId: `PRO-TERMINAL-${Date.now()}`,
+              name: `Proyecto ${tipo} en ${ciudad}`,
+              typology: tipo,
+              brief: userMsg,
+              location: ciudad,
+              jurisdiction: "RNE-PE",
+              areaM2: areaM2,
+              capacity: capacity,
+            });
             
-            const result = e2eJson[0]?.result?.data?.json;
             const partis = result?.partis || [];
+            
+            // SIEMPRE guardar los partis (aunque estén vacíos, para que el Funnel muestre 16 placeholders)
+            console.log("[ARKI] Partis recibidos del pipeline:", partis);
+            setPartis(partis);
+            (window as any).__ARKI_PARTIS__ = partis;
             
             if (partis.length > 0) {
               setMessages(prev => [...prev, { 
                 role: "assistant", 
                 text: `✅ ARKI generó ${partis.length} propuestas (partis) para ${familyName}.\n📐 Revisa la galería en el centro para seleccionar las finalistas.` 
               }]);
-              // Guardar las propuestas para que el Funnel las muestre
-              (window as any).__ARKI_PARTIS__ = partis;
             } else {
               setMessages(prev => [...prev, { role: "assistant", text: "⚠️ El pipeline no devolvió propuestas. Revisa los parámetros." }]);
             }
@@ -205,16 +208,9 @@ export default function ArkiCockpitPage() {
           <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
         </div>
         <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
-          {buildingData ? (
-            <div className="w-full h-full max-w-[800px] max-h-[800px] aspect-square">
-              <FunnelGallery />
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center text-[#64748b] space-y-4">
-              <Box size={64} className="opacity-20"/>
-              <p className="text-sm">Pídele a ARKI que genere un edificio para ver las propuestas aquí.</p>
-            </div>
-          )}
+          <div className="w-full h-full">
+            <FunnelGallery params={copilotParams} projectId={buildingData?.projectId} />
+          </div>
         </div>
       </div>
 
