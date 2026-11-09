@@ -19,7 +19,6 @@ export default function ArkiCockpitPage() {
   const [oeceOpen, setOeceOpen] = useState(false);
   const [estatalOpen, setEstatalOpen] = useState(false);
   const [estudiosOpen, setEstudiosOpen] = useState(false);
-  const [tooltipText, setTooltipText] = useState<string | null>(null);
   const [expedienteOpen, setExpedienteOpen] = useState(false);
   const [tresDOpen, setTresDOpen] = useState(false);
   const [cuatroDOpen, setCuatroDOpen] = useState(false);
@@ -47,7 +46,6 @@ export default function ArkiCockpitPage() {
     
     fetchGpuUsage();
     const interval = setInterval(fetchGpuUsage, 2000);
-  
     return () => clearInterval(interval);
   }, []);
   const estudios = [
@@ -323,20 +321,12 @@ export default function ArkiCockpitPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* MENÚ HORIZONTAL SUPERIOR */}
-        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] min-h-[41px] px-2 whitespace-nowrap relative z-[100]">
-          
-          <button 
-            onMouseEnter={() => setTooltipText("Inicia el flujo de trabajo evaluando la viabilidad del proyecto.")}
-            className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-[11px] text-[#e2e8f0]"
-          >
-            <Calculator size={12} className="text-[#4ade80]"/> PreInversión
-          </button>
-          
-          {/* Generativo */}
+        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] min-h-[41px] px-2 overflow-visible whitespace-nowrap relative z-[100]">
+          <button className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-[#1e293b] transition text-[11px] text-[#e2e8f0]"><Calculator size={12} className="text-[#4ade80]"/> PreInversión</button>
+          {/* Dropdown Generativo */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setEstudiosOpen(false); setGenerativoOpen(true); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Herramientas de IA para crear familias y diseño paramétrico."); }}
-              onMouseLeave={() => setGenerativoOpen(false)}
+              onClick={() => { setGenerativoOpen(!generativoOpen); setEstudiosOpen(false); setEstatalOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${generativoOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Layers size={12} className={generativoOpen ? 'text-black' : 'text-[#f472b6]'}/> Generativo
@@ -344,36 +334,44 @@ export default function ArkiCockpitPage() {
             {generativoOpen && (
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Fam. Generativas</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Diseño Paramétrico</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setGenerativoOpen(false)}>Fam. Generativas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setGenerativoOpen(false)}>Diseño Paramétrico</button>
                 </div>
               </div>
             )}
           </div>
-
-          {/* Estudios */}
+          
+          {/* Dropdown Estudios */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(true); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Catálogo de estudios técnicos, legales y de mercado (A-Z)."); }}
-              onMouseLeave={() => setEstudiosOpen(false)}
+              onClick={() => { setEstudiosOpen(!estudiosOpen); setEstatalOpen(false); setBimOpen(false); setObrasOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${estudiosOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <BookOpen size={12} className={estudiosOpen ? 'text-black' : 'text-[#a78bfa]'}/> Estudios
             </button>
             {estudiosOpen && (
-              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-80 overflow-y-auto">
+              <div className="absolute top-full left-0 mt-1 z-[999] w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
                 <div className="p-2 flex flex-col space-y-1">
-                  {estudios.map((e, i) => <button key={i} className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block">{e}</button>)}
+                  {estudios.map((estudio, idx) => (
+                    <button 
+                      key={idx}
+                      className="w-full text-left px-2 py-1.5 text-[11px] block text-[#e2e8f0] hover:bg-[#1e293b] rounded transition"
+                      onClick={() => { setEstudiosOpen(false); console.log("Estudio:", estudio); }}
+                    >
+                      {estudio}
+                    </button>
+                  ))}
                 </div>
               </div>
             )}
           </div>
 
-          {/* Expediente Técnico */}
+          
+          
+          {/* Dropdown Expediente Técnico */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(true); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Documentación técnica completa para sector privado y estatal."); }}
-              onMouseLeave={() => setExpedienteOpen(false)}
+              onClick={() => { setExpedienteOpen(!expedienteOpen); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setEstudiosOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${expedienteOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <FileText size={12} className={expedienteOpen ? 'text-black' : 'text-[#38bdf8]'}/> Expediente Técnico
@@ -381,23 +379,36 @@ export default function ArkiCockpitPage() {
             {expedienteOpen && (
               <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-96 overflow-y-auto">
                 <div className="p-2 flex flex-col space-y-1">
+                  
+                  {/* E.T. PRIVADO */}
                   <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
-                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal</p>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios Básicos</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto y APU</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Planos de Ejecución</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Metrados y Cotizaciones</button>
+                  
+                  {/* E.T. ESTATAL */}
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Estudios Básicos</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Planos de Ejecución</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Especificaciones Técnicas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Presupuesto de Obra</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Análisis de Precios Unitarios</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Fórmula Polinómica</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Cronograma de Obra</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Estudio de Impacto Ambiental</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Plan de Seguridad y Salud</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>Metrados y Cotizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setExpedienteOpen(false)}>CIRA (Restos Arqueológicos)</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 3D */}
+          {/* Dropdown 3D */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(true); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Modelado y Coordinación: Revisión IFC, Clash Detection y conversión."); }}
-              onMouseLeave={() => setTresDOpen(false)}
+              onClick={() => { setTresDOpen(!tresDOpen); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setEstudiosOpen(false); setEstatalOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${tresDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Box size={12} className={tresDOpen ? 'text-black' : 'text-[#38bdf8]'}/> 3D
@@ -405,19 +416,18 @@ export default function ArkiCockpitPage() {
             {tresDOpen && (
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Pdf / Dwg → IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setTresDOpen(false)}>Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setTresDOpen(false)}>Clash Detection</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setTresDOpen(false)}>Pdf / Dwg → IFC</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 4D */}
+          {/* Dropdown 4D */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(true); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Planificación Temporal: Cronogramas y simulación de tiempos."); }}
-              onMouseLeave={() => setCuatroDOpen(false)}
+              onClick={() => { setCuatroDOpen(!cuatroDOpen); setTresDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setEstudiosOpen(false); setEstatalOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cuatroDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Activity size={12} className={cuatroDOpen ? 'text-black' : 'text-[#4ade80]'}/> 4D
@@ -425,18 +435,17 @@ export default function ArkiCockpitPage() {
             {cuatroDOpen && (
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setCuatroDOpen(false)}>Cronograma</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setCuatroDOpen(false)}>Simul. Cronog.</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 5D */}
+          {/* Dropdown 5D */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(true); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Estimación de Costos: Metrados y presupuestos."); }}
-              onMouseLeave={() => setCincoDOpen(false)}
+              onClick={() => { setCincoDOpen(!cincoDOpen); setTresDOpen(false); setCuatroDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setEstudiosOpen(false); setEstatalOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cincoDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Calculator size={12} className={cincoDOpen ? 'text-black' : 'text-[#fbbf24]'}/> 5D
@@ -444,18 +453,17 @@ export default function ArkiCockpitPage() {
             {cincoDOpen && (
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Metrados</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setCincoDOpen(false)}>Metrados</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setCincoDOpen(false)}>Presupuesto</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 6D */}
+          {/* Dropdown 6D */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(true); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Sostenibilidad: Análisis energético y huella de carbono."); }}
-              onMouseLeave={() => setSeisDOpen(false)}
+              onClick={() => { setSeisDOpen(!seisDOpen); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSieteDOpen(false); setEstudiosOpen(false); setEstatalOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${seisDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Layers size={12} className={seisDOpen ? 'text-black' : 'text-[#a78bfa]'}/> 6D
@@ -463,18 +471,17 @@ export default function ArkiCockpitPage() {
             {seisDOpen && (
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Análisis Energético</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Sostenibilidad</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setSeisDOpen(false)}>Análisis Energético</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setSeisDOpen(false)}>Sostenibilidad</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 7D */}
+          {/* Dropdown 7D */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(true); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Operación y Mantenimiento: Facility Management."); }}
-              onMouseLeave={() => setSieteDOpen(false)}
+              onClick={() => { setSieteDOpen(!sieteDOpen); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setEstudiosOpen(false); setEstatalOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${sieteDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Shield size={12} className={sieteDOpen ? 'text-black' : 'text-[#f472b6]'}/> 7D
@@ -482,81 +489,58 @@ export default function ArkiCockpitPage() {
             {sieteDOpen && (
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Mantenimiento</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Operación</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setSieteDOpen(false)}>Mantenimiento</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setSieteDOpen(false)}>Operación</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Superv. BIM */}
+          {/* Dropdown Superv. Obras */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(true); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setTooltipText("Metodología BIM completa (3D a 7D)."); }}
-              onMouseLeave={() => setBimOpen(false)}
-              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${bimOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
-            >
-              <Shield size={12} className={bimOpen ? 'text-black' : 'text-[#38bdf8]'}/> Superv. BIM
-            </button>
-            {bimOpen && (
-              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-[80vh] overflow-y-auto">
-                <div className="p-2 flex flex-col space-y-1">
-                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">3D - Modelado</p>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
-                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">4D - Tiempo</p>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Superv. Obras */}
-          <div className="relative flex-shrink-0">
-            <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(true); setJprdOpen(false); setOeceOpen(false); setTooltipText("Gestión de ejecución física, avances y valorizaciones."); }}
-              onMouseLeave={() => setObrasOpen(false)}
+              onClick={() => { setObrasOpen(!obrasOpen); setEstudiosOpen(false); setEstatalOpen(false); setBimOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${obrasOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <HardHat size={12} className={obrasOpen ? 'text-black' : 'text-[#fbbf24]'}/> Superv. Obras
             </button>
             {obrasOpen && (
-              <div className="absolute top-full left-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+              <div className="absolute top-full left-0 mt-1 z-[999] w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-50">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cuaderno de Obra Digital</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Registro de Avance Físico</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Valorizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] block text-[#e2e8f0] hover:bg-[#1e293b] rounded transition" onClick={() => setObrasOpen(false)}>Cuaderno de Obra Digital</button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* JPRD */}
+          {/* Dropdown JPRD */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(true); setOeceOpen(false); setTooltipText("Junta de Resolución de Disputas para contratos del Estado."); }}
-              onMouseLeave={() => setJprdOpen(false)}
+              onClick={() => { setJprdOpen(!jprdOpen); setEstudiosOpen(false); setEstatalOpen(false); setBimOpen(false); setObrasOpen(false); setOeceOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${jprdOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <FileText size={12} className={jprdOpen ? 'text-black' : 'text-[#f472b6]'}/> JPRD
             </button>
             {jprdOpen && (
-              <div className="absolute top-full left-0 mt-1 w-64 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
+              <div className="absolute top-full left-0 mt-1 w-72 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999] max-h-80 overflow-y-auto">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Solicitar JPRD (Obras &gt; 10M)</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Actas de Acuerdo</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Gestión de Cambios</button>
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1">Junta de Prevención y Resolución de Disputas</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Solicitar JPRD (Obras &gt; 10M)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Actas de Acuerdo</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Gestión de Cambios</button>
+
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Designar Miembros</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Registrar Controversia</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Ver Resoluciones (Vinculantes)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setJprdOpen(false)}>Historial de Disputas</button>
                 </div>
               </div>
             )}
           </div>
-
-          {/* Concurso/OECE */}
+          {/* Dropdown Concurso/OECE */}
           <div className="relative flex-shrink-0">
             <button 
-              onMouseEnter={() => { setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(true); setTooltipText("Procesos de licitación pública según normativa OECE."); }}
-              onMouseLeave={() => setOeceOpen(false)}
+              onClick={() => { setOeceOpen(!oeceOpen); setEstudiosOpen(false); setEstatalOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); }}
               className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}
             >
               <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
@@ -564,11 +548,15 @@ export default function ArkiCockpitPage() {
             {oeceOpen && (
               <div className="absolute top-full right-0 mt-1 w-56 bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-lg z-[999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Priv.</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Estado</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Obras</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cotizaciones</button>
-                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Contratos</button>
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1">Concursos y Licitaciones</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Conc. Arq. Priv.</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Conc. Arq. Estado</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Licit. Estudios</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Licit. Supervisiones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Licit. Obras</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Licit. Bienes</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Cotizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded transition block" onClick={() => setOeceOpen(false)}>Contratos</button>
                 </div>
               </div>
             )}
