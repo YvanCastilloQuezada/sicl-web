@@ -14,43 +14,71 @@ export default function ArkiCockpitPage() {
     const userMsg = input;
     setMessages(prev => [...prev, { role: "user", text: userMsg }]);
     setInput("");
-    
-    if (userMsg.toLowerCase().includes("hospital") || userMsg.toLowerCase().includes("diseña")) {
-      setIsGenerating(true);
-      setMessages(prev => [...prev, { role: "assistant", text: "Entendido. Generando propuestas volumétricas y calculando metrados en la RTX 3060..." }]);
+    setIsGenerating(true);
+
+    try {
+      // 1. Llamar al Copiloto real (Ollama + GPU) via sicl-core
+      setMessages(prev => [...prev, { role: "assistant", text: "🧠 Consultando al copiloto (RTX 3060)..." }]);
       
-      try {
-        // Llamada real a nuestro backend tRPC
-        const res = await fetch('/api/trpc/parametricRuntime.generateDynamicBuilding', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            "0": { "json": {
-              familyId: "FAM-HEALTH", variantId: "GENERAL",
-              context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" },
-              parameters: { areaM2: 20000, capacity: 400 }
-            }}
-          })
-        });
-        const json = await res.json();
-        const data = json[0]?.result?.data?.json?.generation;
-        
-        if (data) {
-          setBuildingData(data);
-          setMessages(prev => [...prev, { 
-            role: "assistant", 
-            text: `✅ Propuesta generada: ${data.name}.\n📐 Área: ${data.geometry2d.footprintM2} m2 | Pisos: ${data.geometry3d.floors}.\n💰 Presupuesto estimado calculado. Puedes ver los detalles en el panel derecho.` 
-          }]);
+      const copilotRes = await fetch('/api/core/v1/copilot/translate', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN || ''}`
+        },
+        body: JSON.stringify({ text: userMsg })
+      });
+      
+      const copilotJson = await copilotRes.json();
+      const intent = copilotJson?.data?.intent || copilotJson?.intent;
+      
+      if (intent) {
+        let reply = "";
+        if (intent.command && intent.command !== "UNKNOWN") {
+          reply = `✅ Comando: ${intent.command}\n📝 ${intent.explanation || "Sin explicación."}\n🎯 Confianza: ${Math.round((intent.confidence || 0) * 100)}%`;
+        } else {
+          reply = `🏗️ ${intent.explanation || "Necesito más información para diseñar."}`;
         }
-      } catch (e) {
-        setMessages(prev => [...prev, { role: "assistant", text: "Error conectando con el motor geométrico." }]);
-      } finally {
-        setIsGenerating(false);
+        
+        if (intent.questions && intent.questions.length > 0) {
+          reply += `\n\n🏗️ Antes de diseñar, necesito saber:\n` + 
+            intent.questions.map((q: string, i: number) => `${i + 1}. ${q}`).join("\n");
+        }
+        
+        setMessages(prev => [...prev, { role: "assistant", text: reply }]);
+        
+        if (userMsg.toLowerCase().includes("hospital") || userMsg.toLowerCase().includes("diseña")) {
+          setMessages(prev => [...prev, { role: "assistant", text: "🏗️ Generando geometría en la GPU..." }]);
+          
+          const geoRes = await fetch('/api/trpc/parametricRuntime.generateDynamicBuilding', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              "0": { "json": {
+                familyId: "FAM-HEALTH", variantId: "GENERAL",
+                context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" },
+                parameters: { areaM2: 20000, capacity: 400 }
+              }}
+            })
+          });
+          const geoJson = await geoRes.json();
+          const data = geoJson[0]?.result?.data?.json?.generation;
+          
+          if (data) {
+            setBuildingData(data);
+            setMessages(prev => [...prev, { 
+              role: "assistant", 
+              text: `✅ Geometría generada: ${data.name}\n📐 Huella: ${data.geometry2d.footprintM2} m² | Pisos: ${data.geometry3d.floors}` 
+            }]);
+          }
+        }
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: "El Copiloto no pudo procesar tu petición." }]);
       }
-    } else {
-      setTimeout(() => {
-        setMessages(prev => [...prev, { role: "assistant", text: "Comando recibido. (Simulación: En producción, el Copiloto procesaría esto con SICL)." }]);
-      }, 1000);
+    } catch (e) {
+      setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: ${e instanceof Error ? e.message : "Desconocido"}` }]);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
