@@ -3,7 +3,7 @@ import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat } from "lucide-react";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
-import FunnelGallery from "@/components/FunnelGallery";
+import ProposalGallery from "@/components/ProposalGallery";
 
 export default function ArkiCockpitPage() {
   const [messages, setMessages] = useState([
@@ -149,11 +149,66 @@ export default function ArkiCockpitPage() {
             });
             
             const partis = result?.partis || [];
+            console.log("[ARKI] Partis recibidos:", partis);
             
-            // SIEMPRE guardar los partis (aunque estén vacíos, para que el Funnel muestre 16 placeholders)
-            console.log("[ARKI] Partis recibidos del pipeline:", partis);
-            setPartis(partis);
-            (window as any).__ARKI_PARTIS__ = partis;
+            // GENERAR 9 PROPUESTAS VARIANDO PARÁMETROS (misma variante BUS_TERMINAL)
+            const familyMap: Record<string, { familyId: string; variantId: string }> = {
+              "terminal_terrestre": { familyId: "FAM-TRANSPORT", variantId: "BUS_TERMINAL" },
+              "hospital": { familyId: "FAM-HEALTH", variantId: "GENERAL" },
+              "aeropuerto": { familyId: "FAM-TRANSPORT", variantId: "AIRPORT" },
+              "vivienda": { familyId: "FAM-RESIDENTIAL", variantId: "GENERAL" },
+              "otro": { familyId: "FAM-HEALTH", variantId: "GENERAL" },
+            };
+            const mapping = familyMap[tipo] || familyMap["otro"];
+            const familyId = mapping.familyId;
+            const variantId = mapping.variantId;
+            
+            let propuestasReales: any[] = [];
+            try {
+              const strategies = ["Patio central", "Espina pública", "Núcleo compacto", "Borde climático", "Torre mixta", "Bloque lineal", "Patio lineal", "Espiral", "Mixto"];
+              
+              // Generar 9 propuestas variando área y pisos (misma variante)
+              
+              // Crear cliente tRPC (igual que en Node)
+              const trpcClient = createTRPCProxyClient<any>({
+                links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
+              });
+              
+              for (let i = 0; i < 9; i++) {
+                const areaVar = areaM2 + i * 1250;
+                const pisosVar = 2 + (i % 3);
+                try {
+                  const result = await trpcClient.parametricRuntime.generateDynamicBuilding.mutate({
+                    familyId: familyId,
+                    variantId: variantId,
+                    context: { country: "PE", city: ciudad, jurisdiction: "RNE-PE" },
+                    parameters: { areaM2: areaVar, capacity: capacity, floors: pisosVar },
+                  });
+                  if (result.generation) {
+                    propuestasReales.push({
+                      id: `PROP-${i + 1}`,
+                      title: `Alternativa ${String(i + 1).padStart(2, '0')}`,
+                      strategy: strategies[i % strategies.length],
+                      metrics: {
+                        area: result.generation.geometry2d?.footprintM2 || areaVar,
+                        floors: result.generation.geometry3d?.floors || pisosVar,
+                      },
+                      building: result.generation,
+                    });
+                  }
+                } catch (err) {
+                  console.warn(`[ARKI] Error generando propuesta ${i + 1}:`, err);
+                }
+              }
+              console.log(`[ARKI] ${propuestasReales.length} propuestas generadas para ${familyId}/${variantId}`);
+            } catch (e) {
+              console.error("[ARKI] Error generando propuestas:", e);
+            }
+            const partisToShow = propuestasReales.length > 0 ? propuestasReales : partis;
+            console.log("[ARKI] Propuestas a mostrar:", partisToShow.map(p => ({title: p.title, area: p.metrics?.area, hasBuilding: !!p.building})));
+            setPartis(partisToShow);
+            console.log("[ARKI] setPartis ejecutado con:", partisToShow.length, "propuestas");
+            (window as any).__ARKI_PARTIS__ = partisToShow;
             
             if (partis.length > 0) {
               setMessages(prev => [...prev, { 
@@ -209,7 +264,7 @@ export default function ArkiCockpitPage() {
         </div>
         <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
           <div className="w-full h-full">
-            <FunnelGallery params={copilotParams} projectId={buildingData?.projectId} />
+            <ProposalGallery proposals={partis} />
           </div>
         </div>
       </div>
