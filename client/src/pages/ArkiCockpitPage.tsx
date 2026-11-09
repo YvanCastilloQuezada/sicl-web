@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat } from "lucide-react";
+import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
+import FunnelGallery from "@/components/FunnelGallery";
 
 export default function ArkiCockpitPage() {
   const [messages, setMessages] = useState([
@@ -14,149 +16,248 @@ export default function ArkiCockpitPage() {
     const userMsg = input;
     setMessages(prev => [...prev, { role: "user", text: userMsg }]);
     setInput("");
-    
-    if (userMsg.toLowerCase().includes("hospital") || userMsg.toLowerCase().includes("diseña")) {
-      setIsGenerating(true);
-      setMessages(prev => [...prev, { role: "assistant", text: "Entendido. Generando propuestas volumétricas y calculando metrados en la RTX 3060..." }]);
+    setIsGenerating(true);
+
+    try {
+      // 1. Llamar al Copiloto real (Ollama + GPU) via sicl-core
+      setMessages(prev => [...prev, { role: "assistant", text: "🧠 Consultando al copiloto (RTX 3060)..." }]);
       
-      try {
-        // Llamada real a nuestro backend tRPC
-        const res = await fetch('/api/trpc/parametricRuntime.generateDynamicBuilding', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            "0": { "json": {
-              familyId: "FAM-HEALTH", variantId: "GENERAL",
-              context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" },
-              parameters: { areaM2: 20000, capacity: 400 }
-            }}
-          })
-        });
-        const json = await res.json();
-        const data = json[0]?.result?.data?.json?.generation;
-        
-        if (data) {
-          setBuildingData(data);
-          setMessages(prev => [...prev, { 
-            role: "assistant", 
-            text: `✅ Propuesta generada: ${data.name}.\n📐 Área: ${data.geometry2d.footprintM2} m2 | Pisos: ${data.geometry3d.floors}.\n💰 Presupuesto estimado calculado. Puedes ver los detalles en el panel derecho.` 
-          }]);
+      const copilotRes = await fetch('/api/core/v1/copilot/translate', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN || ''}`
+        },
+        body: JSON.stringify({ text: userMsg })
+      });
+      
+      const copilotJson = await copilotRes.json();
+      const intent = copilotJson?.data?.intent || copilotJson?.intent;
+      
+      if (intent) {
+        let reply = "";
+        if (intent.command && intent.command !== "UNKNOWN") {
+          reply = `✅ Comando: ${intent.command}\n📝 ${intent.explanation || "Sin explicación."}\n🎯 Confianza: ${Math.round((intent.confidence || 0) * 100)}%`;
+        } else if (intent.parameters && Object.keys(intent.parameters).length > 0) {
+          // Mostrar resumen legible de los parámetros (no el JSON crudo)
+          const p = intent.parameters;
+          const resumen: string[] = [];
+          if (p.tipo) resumen.push(`📌 Tipo: ${p.tipo}`);
+          if (p.area_m2) resumen.push(`📐 Área: ${Number(p.area_m2).toLocaleString()} m²`);
+          if (p.buses_interprovinciales) resumen.push(`🚌 Buses interprov.: ${p.buses_interprovinciales}`);
+          if (p.buses_provinciales) resumen.push(`🚌 Buses prov.: ${p.buses_provinciales}`);
+          if (p.taxis) resumen.push(`🚕 Taxis: ${p.taxis}`);
+          if (p.estilo) resumen.push(`🎨 Estilo: ${p.estilo}`);
+          if (p.areas_verdes) resumen.push(`🌳 Áreas verdes: Sí`);
+          if (p.feng_shui) resumen.push(`☯️ Feng Shui: Sí`);
+          if (p.parque_infantil) resumen.push(`🎠 Parque infantil: Sí`);
+          if (p.presupuesto_uit) resumen.push(`💰 Presupuesto: ${Number(p.presupuesto_uit).toLocaleString()} UIT`);
+          if (p.ciudad) resumen.push(`📍 Ciudad: ${p.ciudad}`);
+
+          reply = `🏗️ Entendido. Esto es lo que voy a diseñar:\n\n${resumen.join("\n")}`;
+        } else {
+          reply = `🏗️ ${intent.explanation || "Necesito más información para diseñar."}`;
         }
-      } catch (e) {
-        setMessages(prev => [...prev, { role: "assistant", text: "Error conectando con el motor geométrico." }]);
-      } finally {
-        setIsGenerating(false);
+        
+        if (intent.questions && intent.questions.length > 0) {
+          reply += `\n\n🏗️ Antes de diseñar, necesito saber:\n` + 
+            intent.questions.map((q: string, i: number) => `${i + 1}. ${q}`).join("\n");
+        }
+        
+        setMessages(prev => [...prev, { role: "assistant", text: reply }]);
+        
+        // ARKI: Si el copiloto extrajo parámetros, generar geometría con ELLOS
+        const params = intent.parameters || {};
+        const tipo = params.tipo || "otro";
+        const areaM2 = params.area_m2 || params.areaM2 || 20000;
+        const capacity = params.capacidad || params.capacity || 400;
+        const ciudad = params.ciudad || params.city || "Trujillo";
+        
+        // Mapear tipo a familia
+        // ARKI (el sistema) resuelve la familia y variante a partir del tipo
+        // 1. Consultar las familias dinámicas disponibles
+        const familiesRes = await fetch('/api/trpc/parametricRuntime.dynamicFamilies?batch=1&input=' + encodeURIComponent(JSON.stringify({"0":{"json":{}}})));
+        const familiesJson = await familiesRes.json();
+        const familiesList = familiesJson[0]?.result?.data?.json?.families || [];
+        
+        // 2. Buscar la familia que coincida con el tipo
+        const tipoToFamilyKeyword: Record<string, string> = {
+          "hospital": "HEALTH",
+          "terminal_terrestre": "TRANSPORT",
+          "aeropuerto": "TRANSPORT",
+          "puerto": "INDUSTRY",
+          "vivienda": "RESIDENTIAL",
+          "oficina": "OFFICES",
+          "comercio": "COMMERCE",
+          "educacion": "EDUCATION",
+          "deporte": "SPORT",
+          "cultura": "CULTURE",
+          "otro": "HEALTH"
+        };
+        const keyword = tipoToFamilyKeyword[tipo] || "HEALTH";
+        const matchedFamily = familiesList.find((f: any) => f.id.includes(keyword));
+        
+        if (!matchedFamily) {
+          setMessages(prev => [...prev, { role: "assistant", text: `❌ ARKI no encontró una familia para el tipo "${tipo}".` }]);
+          return;
+        }
+        
+        // 3. Elegir la variante (primera por defecto, o una específica si existe)
+        const variantKeywords: Record<string, string> = {
+          "terminal_terrestre": "BUS",
+          "aeropuerto": "AIRPORT"
+        };
+        const variantKeyword = variantKeywords[tipo] || "";
+        const matchedVariant = matchedFamily.variants.find((v: any) => v.id.includes(variantKeyword)) || matchedFamily.variants[0];
+        
+        const familyId = matchedFamily.id;
+        const variantId = matchedVariant.id;
+        const familyName = matchedFamily.name;
+        const variantName = matchedVariant.name;
+
+
+        if (params && Object.keys(params).length > 0 && tipo !== "otro") {
+          setMessages(prev => [...prev, { role: "assistant", text: `🏗️ ARKI eligió: ${familyName} · ${variantName}\n📐 Generando geometría para ${tipo} de ${areaM2} m² en ${ciudad}...` }]);
+          
+                    // ARKI: Ejecutar el pipeline F1-F10 (Brain + D6.2) para generar las propuestas
+          try {
+            setMessages(prev => [...prev, { role: "assistant", text: "🧠 Ejecutando pipeline F1-F10 (Brain + D6.2) en el Core..." }]);
+            
+            const e2eRes = await fetch('/api/trpc/copilot.e2e', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'trpc-batch-mode': 'true' },
+              body: JSON.stringify({
+                "0": { "json": {
+                  projectId: `PRO-${Date.now()}`,
+                  name: `Proyecto ${tipo} en ${ciudad}`,
+                  typology: tipo,
+                  brief: userMsg,
+                  location: ciudad,
+                  jurisdiction: "RNE-PE",
+                  areaM2: areaM2,
+                  capacity: capacity
+                }}
+              })
+            });
+            
+            const e2eJson = await e2eRes.json();
+            if (!e2eRes.ok) {
+              const errorMsg = e2eJson[0]?.error?.json?.message || `HTTP ${e2eRes.status}`;
+              setMessages(prev => [...prev, { role: "assistant", text: `❌ Error en pipeline F1-F10: ${errorMsg}` }]);
+              return;
+            }
+            
+            const result = e2eJson[0]?.result?.data?.json;
+            const partis = result?.partis || [];
+            
+            if (partis.length > 0) {
+              setMessages(prev => [...prev, { 
+                role: "assistant", 
+                text: `✅ ARKI generó ${partis.length} propuestas (partis) para ${familyName}.\n📐 Revisa la galería en el centro para seleccionar las finalistas.` 
+              }]);
+              // Guardar las propuestas para que el Funnel las muestre
+              (window as any).__ARKI_PARTIS__ = partis;
+            } else {
+              setMessages(prev => [...prev, { role: "assistant", text: "⚠️ El pipeline no devolvió propuestas. Revisa los parámetros." }]);
+            }
+          } catch (e) {
+            setMessages(prev => [...prev, { role: "assistant", text: `❌ Excepción en pipeline F1-F10: ${e instanceof Error ? e.message : "Desconocido"}` }]);
+          }
+        }
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: "El Copiloto no pudo procesar tu petición." }]);
       }
-    } else {
-      setTimeout(() => {
-        setMessages(prev => [...prev, { role: "assistant", text: "Comando recibido. (Simulación: En producción, el Copiloto procesaría esto con SICL)." }]);
-      }, 1000);
+    } catch (e) {
+      setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: ${e instanceof Error ? e.message : "Desconocido"}` }]);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
   return (
     <div className="flex h-screen w-full bg-[#0a0f16] text-[#e2e8f0] font-sans overflow-hidden">
-      
-      {/* SIDEBAR IZQUIERDO: LOGO Y ATAJOS */}
-      <div className="w-64 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
-        <div className="p-6 flex items-center gap-3 border-b border-[#1e293b]">
-          <div className="w-8 h-8 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black">A</div>
-          <span className="font-bold tracking-widest text-lg">ARKI <span className="text-xs text-[#f0a35b] ml-1">v2.0</span></span>
+
+      {/* IZQUIERDA (15%): MENÚ DE FLUJOS */}
+      <div className="w-[15%] min-w-[180px] border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+        <div className="p-4 flex items-center gap-2 border-b border-[#1e293b]">
+          <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
+          <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
         </div>
         
-        <div className="p-4 flex-1 space-y-2">
-          <p className="text-xs font-bold text-[#64748b] uppercase tracking-wider mb-4">Nuevo Proyecto</p>
-          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><Box size={18} className="text-[#f0a35b]"/> Proyecto Privado</button>
-          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><FileText size={18} className="text-[#38bdf8]"/> Expediente Público</button>
-          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><HardHat size={18} className="text-[#fbbf24]"/> Supervisión Obra</button>
-          <button className="w-full flex items-center gap-3 p-3 rounded-lg hover:bg-[#1e293b] transition text-left text-sm"><Shield size={18} className="text-[#a78bfa]"/> Licitación / Concurso</button>
+        <div className="p-3 flex-1 space-y-1">
+          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">Nuevo Proyecto</p>
+          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><Box size={14} className="text-[#f0a35b]"/> Proyecto Privado</button>
+          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><FileText size={14} className="text-[#38bdf8]"/> Expediente Público</button>
+          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><HardHat size={14} className="text-[#fbbf24]"/> Supervisión Obra</button>
+          <button className="w-full flex items-center gap-2 p-2.5 rounded-lg hover:bg-[#1e293b] transition text-left text-xs"><Shield size={14} className="text-[#a78bfa]"/> Licitación / Concurso</button>
         </div>
 
-        <div className="p-4 border-t border-[#1e293b] text-xs text-[#64748b]">
+        <div className="p-3 border-t border-[#1e293b] text-[10px] text-[#64748b]">
           <p>GPU: RTX 3060 (Activa)</p>
           <p>Core: SICL v1.2</p>
         </div>
       </div>
 
-      {/* CHAT PRINCIPAL */}
-      <div className="flex-1 flex flex-col relative">
-        <div className="flex-1 overflow-y-auto p-8 space-y-6">
+      {/* CENTRO (70%): FUNNEL 16-4-1 (CUADRADO) */}
+      <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
+        <div className="p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
+          <span className="text-xs font-bold text-[#e2e8f0]">Embudo de Diseño · Funnel 16-4-1</span>
+          <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
+        </div>
+        <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
+          {buildingData ? (
+            <div className="w-full h-full max-w-[800px] max-h-[800px] aspect-square">
+              <FunnelGallery />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center text-[#64748b] space-y-4">
+              <Box size={64} className="opacity-20"/>
+              <p className="text-sm">Pídele a ARKI que genere un edificio para ver las propuestas aquí.</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* DERECHA (15%): CHAT DEL COPILOTO */}
+      <div className="w-[15%] min-w-[200px] border-l border-[#1e293b] bg-[#0f172a] flex flex-col">
+        <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
+          <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
+          <Sparkles size={14} className="text-[#f0a35b]"/>
+        </div>
+        
+        <div className="flex-1 overflow-y-auto p-3 space-y-3">
           {messages.map((msg, i) => (
             <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-2xl p-4 rounded-xl text-sm leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
+              <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
                 {msg.text}
               </div>
             </div>
           ))}
           {isGenerating && (
             <div className="flex justify-start">
-              <div className="bg-[#1e293b] p-4 rounded-xl flex items-center gap-3 text-sm">
-                <Activity className="animate-pulse text-[#f0a35b]" size={18} /> Generando geometría...
+              <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
+                <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
               </div>
             </div>
           )}
         </div>
 
         {/* INPUT BAR */}
-        <div className="p-6 bg-gradient-to-t from-[#0a0f16] to-transparent">
-          <div className="max-w-3xl mx-auto relative">
+        <div className="p-3 border-t border-[#1e293b]">
+          <div className="relative">
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Escribe un comando o describe lo que quieres construir..." 
-              className="w-full bg-[#1e293b] border border-[#334155] rounded-xl py-4 pl-5 pr-14 text-sm focus:outline-none focus:border-[#f0a35b] transition shadow-2xl"
+              placeholder="Describe lo que quieres construir..." 
+              className="w-full bg-[#1e293b] border border-[#334155] rounded-lg py-2.5 pl-3 pr-10 text-[11px] focus:outline-none focus:border-[#f0a35b] transition"
             />
-            <button onClick={handleSend} className="absolute right-2 top-2 bottom-2 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded-lg flex items-center justify-center transition">
-              <Send size={18} className="text-black" />
+            <button onClick={handleSend} className="absolute right-1.5 top-1.5 bottom-1.5 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded flex items-center justify-center transition">
+              <Send size={12} className="text-black" />
             </button>
           </div>
-          <p className="text-center text-xs text-[#475569] mt-3">ARKI puede cometer errores. Verifica siempre la normativa aplicable.</p>
-        </div>
-      </div>
-
-      {/* PANEL DERECHO: VISOR 3D / DATOS */}
-      <div className="w-96 border-l border-[#1e293b] bg-[#0f172a] flex flex-col">
-        <div className="p-4 border-b border-[#1e293b] flex items-center justify-between">
-          <span className="text-sm font-bold text-[#e2e8f0]">Espacio de Trabajo</span>
-          <Sparkles size={16} className="text-[#f0a35b]"/>
-        </div>
-        
-        <div className="flex-1 p-4 flex flex-col gap-4 overflow-y-auto">
-          {buildingData ? (
-            <>
-              {/* MINI VISOR 3D (Placeholder estilizado) */}
-              <div className="w-full aspect-square bg-[#1e293b] rounded-xl border border-[#334155] relative overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#f0a35b 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
-                <Box size={64} className="text-[#334155]" />
-                <div className="absolute bottom-3 left-3 bg-[#0a0f16]/80 px-2 py-1 rounded text-xs text-[#f0a35b] border border-[#334155]">
-                  MODEL_3D · {buildingData.geometry3d.floors} Pisos
-                </div>
-              </div>
-
-              {/* DATOS DEL PROYECTO */}
-              <div className="space-y-2">
-                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
-                  <p className="text-xs text-[#64748b]">Área Techada</p>
-                  <p className="text-lg font-bold text-[#38bdf8]">{(buildingData.geometry2d.footprintM2 * buildingData.geometry3d.floors).toLocaleString()} m²</p>
-                </div>
-                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
-                  <p className="text-xs text-[#64748b]">Presupuesto Estimado</p>
-                  <p className="text-lg font-bold text-[#fbbf24]">S/ 24,500,000.00</p>
-                </div>
-                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
-                  <p className="text-xs text-[#64748b]">Normativa (RNE)</p>
-                  <p className="text-sm text-[#4ade80] mt-1">✓ Cumple</p>
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="flex-1 flex flex-col items-center justify-center text-center text-[#64748b] space-y-4">
-              <Box size={48} className="opacity-20"/>
-              <p className="text-sm">Pídele a ARKI que genere un edificio para ver la geometría aquí.</p>
-            </div>
-          )}
+          <p className="text-center text-[9px] text-[#475569] mt-1.5">ARKI puede cometer errores. Verifica la normativa.</p>
         </div>
       </div>
     </div>

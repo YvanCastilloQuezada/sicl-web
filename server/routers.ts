@@ -715,6 +715,74 @@ export const appRouter = router({
       }),
   }),
 
+
+  copilot: router({
+    e2e: publicProcedure
+      .input(z.object({
+        projectId: z.string().min(1),
+        name: z.string().min(1),
+        typology: z.string().default("terminal_terrestre"),
+        brief: z.string().min(1),
+        location: z.string().optional(),
+        jurisdiction: z.string().default("RNE-PE"),
+        areaM2: z.number().positive().default(120000),
+        capacity: z.number().positive().default(420),
+      }))
+      .mutation(async ({ input }) => {
+        // 1. Crear el proyecto en el Core (si no existe)
+        let projectCreated = false;
+        try {
+          await createCoreProject(input.projectId, input.name, {
+            spatialScope: { scale: "PROJECT", id: input.projectId, name: input.location || input.name },
+            temporalScope: { horizon: "PRESENT" },
+          });
+          projectCreated = true;
+        } catch (e) {
+          console.warn("[copilot.e2e] Proyecto ya existe o error al crear:", e);
+        }
+
+        // 2. Ejecutar el pipeline F1-F10
+        const brainInput = {
+          projectId: input.projectId,
+          name: input.name,
+          typology: input.typology,
+          brief: input.brief,
+          location: input.location || "Trujillo",
+          jurisdiction: input.jurisdiction,
+          site: { areaM2: input.areaM2 },
+          activities: [
+            { id: "ACT-1", label: "Embarque de pasajeros", capacity: input.capacity },
+            { id: "ACT-2", label: "Venta de pasajes", capacity: Math.floor(input.capacity * 0.3) },
+            { id: "ACT-3", label: "Servicios higienicos", capacity: Math.floor(input.capacity * 0.5) },
+          ],
+          relationships: [
+            { from: "ACT-1", to: "ACT-2", relation: "COMPLEMENTARY" },
+            { from: "ACT-1", to: "ACT-3", relation: "COMPLEMENTARY" },
+            { from: "ACT-2", to: "ACT-3", relation: "COMPLEMENTARY" },
+          ],
+          knownFacts: [`Area del terreno: ${input.areaM2} m2`, `Capacidad: ${input.capacity} personas`],
+          objectives: ["Optimizar flujos de pasajeros", "Cumplir con RNE"],
+          constraints: ["Presupuesto limitado", "Normativa RNE-PE"],
+        };
+
+        const result = await executeCanonicalBrainAndD62({
+          ...brainInput,
+          brainExecutionId: `brain-${Date.now()}`,
+          d62ExecutionId: `d62-${Date.now()}`,
+          requestedReasoningDepth: "STANDARD",
+        });
+
+        return {
+          status: result.status,
+          projectId: result.projectId,
+          projectCreated,
+          partis: result.brain?.partis || [],
+          evaluations: result.brain?.evaluations || [],
+          genealogy: result.brain?.genealogy || null,
+          versions: result.versions,
+        };
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;
