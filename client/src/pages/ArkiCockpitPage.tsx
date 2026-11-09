@@ -36,6 +36,23 @@ export default function ArkiCockpitPage() {
         let reply = "";
         if (intent.command && intent.command !== "UNKNOWN") {
           reply = `✅ Comando: ${intent.command}\n📝 ${intent.explanation || "Sin explicación."}\n🎯 Confianza: ${Math.round((intent.confidence || 0) * 100)}%`;
+        } else if (intent.parameters && Object.keys(intent.parameters).length > 0) {
+          // Mostrar resumen legible de los parámetros (no el JSON crudo)
+          const p = intent.parameters;
+          const resumen: string[] = [];
+          if (p.tipo) resumen.push(`📌 Tipo: ${p.tipo}`);
+          if (p.area_m2) resumen.push(`📐 Área: ${Number(p.area_m2).toLocaleString()} m²`);
+          if (p.buses_interprovinciales) resumen.push(`🚌 Buses interprov.: ${p.buses_interprovinciales}`);
+          if (p.buses_provinciales) resumen.push(`🚌 Buses prov.: ${p.buses_provinciales}`);
+          if (p.taxis) resumen.push(`🚕 Taxis: ${p.taxis}`);
+          if (p.estilo) resumen.push(`🎨 Estilo: ${p.estilo}`);
+          if (p.areas_verdes) resumen.push(`🌳 Áreas verdes: Sí`);
+          if (p.feng_shui) resumen.push(`☯️ Feng Shui: Sí`);
+          if (p.parque_infantil) resumen.push(`🎠 Parque infantil: Sí`);
+          if (p.presupuesto_uit) resumen.push(`💰 Presupuesto: ${Number(p.presupuesto_uit).toLocaleString()} UIT`);
+          if (p.ciudad) resumen.push(`📍 Ciudad: ${p.ciudad}`);
+
+          reply = `🏗️ Entendido. Esto es lo que voy a diseñar:\n\n${resumen.join("\n")}`;
         } else {
           reply = `🏗️ ${intent.explanation || "Necesito más información para diseñar."}`;
         }
@@ -47,18 +64,43 @@ export default function ArkiCockpitPage() {
         
         setMessages(prev => [...prev, { role: "assistant", text: reply }]);
         
-        if (userMsg.toLowerCase().includes("hospital") || userMsg.toLowerCase().includes("diseña")) {
-          setMessages(prev => [...prev, { role: "assistant", text: "🏗️ Generando geometría en la GPU..." }]);
+        // ARKI: Si el copiloto extrajo parámetros, generar geometría con ELLOS
+        const params = intent.parameters || {};
+        const tipo = params.tipo || "otro";
+        const areaM2 = params.area_m2 || params.areaM2 || 20000;
+        const capacity = params.capacidad || params.capacity || 400;
+        const ciudad = params.ciudad || params.city || "Trujillo";
+        
+        // Mapear tipo a familia
+        const familyMap: Record<string, string> = {
+          "hospital": "FAM-HEALTH",
+          "terminal_terrestre": "FAM-TRANSPORT",  // Familia correcta
+          "aeropuerto": "FAM-TRANSPORT",          // Fallback
+          "puerto": "FAM-TRANSPORT",              // Fallback
+          "vivienda": "FAM-RESIDENTIAL",
+          "otro": "FAM-HEALTH"
+        };
+        const familyId = familyMap[tipo] || "FAM-HEALTH";
+
+        if (params && Object.keys(params).length > 0 && tipo !== "otro") {
+          setMessages(prev => [...prev, { role: "assistant", text: `🏗️ Generando geometría para ${tipo} de ${areaM2} m² en ${ciudad}...` }]);
           
+          // tRPC con superjson (formato correcto)
           const geoRes = await fetch('/api/trpc/parametricRuntime.generateDynamicBuilding', { 
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+              'Content-Type': 'application/json',
+              'trpc-batch-mode': 'true'
+            },
             body: JSON.stringify({
-              "0": { "json": {
-                familyId: "FAM-HEALTH", variantId: "GENERAL",
-                context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" },
-                parameters: { areaM2: 20000, capacity: 400 }
-              }}
+              "0": { 
+                "json": {
+                  familyId: familyId, 
+                  variantId: "GENERAL",
+                  context: { country: "PE", city: ciudad, jurisdiction: "RNE-PE" },
+                  parameters: { areaM2: areaM2, capacity: capacity }
+                }
+              }
             })
           });
           const geoJson = await geoRes.json();
