@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
-import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen } from "lucide-react";
+import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon } from "lucide-react";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ProposalGallery from "@/components/ProposalGallery";
 
@@ -28,6 +28,10 @@ export default function ArkiCockpitPage() {
   const [cuatroDOpen, setCuatroDOpen] = useState(false);
   const [cincoDOpen, setCincoDOpen] = useState(false);
   const [seisDOpen, setSeisDOpen] = useState(false);
+  const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [searchingNormativa, setSearchingNormativa] = useState(false);
+  const [analyzingVision, setAnalyzingVision] = useState(false);
   const [sieteDOpen, setSieteDOpen] = useState(false);
   const [generativoOpen, setGenerativoOpen] = useState(false);
   const [gpuUsage, setGpuUsage] = useState<number | null>(null);
@@ -98,6 +102,130 @@ export default function ArkiCockpitPage() {
   useEffect(() => {
     console.log('[ArkiCockpitPage] Partis actualizados:', partis.length);
   }, [partis]);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploading(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: "📎 Subiendo " + file.name + "..." }]);
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("project_id", "PRO-001");
+    
+    try {
+      const res = await fetch("/api/v1/files/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(prev => [...prev, { role: "assistant", text: "✅ " + data.message + "\n\n💡 Sugerencia: Escribe 'Analiza este archivo' o 'Genera una propuesta basada en esto'." }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: "❌ Error al subir: " + (data.detail || "Desconocido") }]);
+      }
+    } catch (err: any) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión: " + (err.message || "Verifica que el servicio esté activo") }]);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleNormativaSearch = async () => {
+    if (!input.trim()) {
+      setMessages(prev => [...prev, { role: "assistant", text: "⚠️ Escribe qué normativa necesitas buscar. Ej: 'Busca normativa sobre estacionamientos' o 'RNE accesibilidad'." }]);
+      return;
+    }
+    
+    setSearchingNormativa(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: `🔍 Buscando normativa sobre: "\${input}"...` }]);
+    
+    try {
+      const res = await fetch("/api/v1/normativa/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: input,
+          limit: 5
+        })
+      });
+      
+      const results = await res.json();
+      
+      if (res.ok && results.length > 0) {
+        let formattedResults = `✅ Encontré \${results.length} artículos relevantes:
+
+`;
+        
+        results.forEach((art: any, i: number) => {
+          formattedResults += `📌 **\${art.norma} - \${art.articulo}**\n`;
+          formattedResults += `📋 \${art.titulo}\n`;
+          formattedResults += `📝 \${art.contenido}\n`;
+          formattedResults += ` Relevancia: \${art.relevancia}%\n`;
+          formattedResults += `---\n\n`;
+        });
+        
+        formattedResults += `💡 *Escribe "Aplica esto a mi proyecto" para que ARKI revise el cumplimiento.*`;
+        
+        setMessages(prev => [...prev, { role: "assistant", text: formattedResults }]);
+      } else if (res.ok) {
+        setMessages(prev => [...prev, { 
+          role: "assistant", 
+          text: `⚠️ No encontré artículos exactos sobre "\${input}".\n\n💡 Prueba con:\n- "RNE estacionamientos"\n- "Accesibilidad universal"\n- "Áreas mínimas hospitales"\n- "OECE licitaciones"` 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${results.detail || 'Servicio de normativa no disponible'}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión con ARKI Core. Verifica que el servicio esté activo." }]);
+    } finally {
+      setSearchingNormativa(false);
+      setInput("");
+    }
+  };
+
+  const handleVisionAnalysis = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setAnalyzingVision(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: `👁️ Analizando imagen: \`\${file.name}\`...` }]);
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("prompt", "Analiza esta imagen arquitectónica. Describe: tipo de edificación, estado, elementos visibles, problemas potenciales y recomendaciones.");
+    
+    try {
+      const res = await fetch("/api/v1/vision/analyze", {
+        method: "POST",
+        body: formData,
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(prev => [...prev, { 
+          role: "assistant", 
+          text: `✅ **Análisis de Visión Artificial:**
+
+\${data.analysis}
+
+💡 *Escribe "Genera una propuesta basada en este análisis" para continuar.*` 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${data.detail || 'Análisis fallido'}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión con ARKI Vision Engine." }]);
+    } finally {
+      setAnalyzingVision(false);
+    }
+  };
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -686,24 +814,109 @@ export default function ArkiCockpitPage() {
               )}
             </div>
 
-            <div className="p-3 border-t border-[#1e293b]">
-              <div className="relative">
+
+          </div>
+        </div>
+      </div>
+      
+      {/* INPUT AVANZADO ESTILO CHATGPT CON MENÚ "+" */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
+        {/* Menú desplegable del botón "+" */}
+        {showPlusMenu && (
+          <div className="absolute bottom-full left-0 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden">
+            <div className="p-2 space-y-1">
+              <label className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left cursor-pointer">
+                <Paperclip size={16} className="text-[#38bdf8]" /> 
+                {uploading ? "⏳ Subiendo..." : "📎 Subir planos y archivos (IFC, DWG, PDF)"}
                 <input 
-                  type="text" 
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Describe lo que quieres construir..." 
-                  className="w-full bg-[#1e293b] border border-[#334155] rounded-lg py-2.5 pl-3 pr-10 text-[11px] focus:outline-none focus:border-[#f0a35b] transition"
+                  type="file" 
+                  className="hidden" 
+                  accept=".ifc,.pdf,.dwg,.rvt,.json,.dxf"
+                  onChange={handleFileUpload}
+                  disabled={uploading}
                 />
-                <button onClick={handleSend} className="absolute right-1.5 top-1.5 bottom-1.5 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded flex items-center justify-center transition">
-                  <Send size={12} className="text-black" />
-                </button>
-              </div>
-              <p className="text-center text-[9px] text-[#475569] mt-1.5">ARKI puede cometer errores. Verifica la normativa.</p>
+              </label>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
+                <Image size={16} className="text-[#f472b6]" /> Generar renders e imágenes
+              </button>
+              <button 
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left"
+                onClick={() => {
+                  setShowPlusMenu(false);
+                  handleNormativaSearch();
+                }}
+              >
+                <Globe size={16} className="text-[#4ade80]" /> 
+                {searchingNormativa ? " Buscando..." : "📚 Buscar normativa (RNE, OECE)"}
+              </button>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
+                <Code size={16} className="text-[#fbbf24]" /> Generar código paramétrico
+              </button>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
+                <PenTool size={16} className="text-[#a78bfa]" /> Dibuja y adjunta un plano
+              </button>
+              <label className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left cursor-pointer">
+                <Eye size={16} className="text-[#f472b6]" /> 
+                {analyzingVision ? "🔍 Analizando..." : "👁️ Visión Artificial (Analizar imagen)"}
+                <input 
+                  type="file" 
+                  className="hidden" 
+                  accept="image/*"
+                  onChange={handleVisionAnalysis}
+                  disabled={analyzingVision}
+                />
+              </label>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
+                <Brain size={16} className="text-[#f0a35b]" /> Razonamiento detallado (ARKI Brain)
+              </button>
+            </div>
+          </div>
+        )}
+        
+        <div className="bg-[#1e293b] rounded-2xl border border-[#334155] shadow-2xl focus-within:border-[#f0a35b] transition-all">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                handleSend()
+              }
+            }}
+            placeholder="Describe lo que quieres construir..."
+            disabled={isGenerating}
+            className="w-full bg-transparent border-0 rounded-t-2xl px-4 py-3 text-sm text-[#e2e8f0] resize-none focus:outline-none placeholder:text-[#64748b] min-h-[44px]"
+            rows={1}
+          />
+          <div className="flex items-center justify-between px-3 py-2 border-t border-[#334155]">
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setShowPlusMenu(!showPlusMenu)}
+                className="p-2 hover:bg-[#334155] rounded-full transition text-[#e2e8f0]"
+                title="Más opciones"
+              >
+                <Plus size={18} />
+              </button>
+              <button className="p-2 hover:bg-[#334155] rounded-full transition text-[#64748b] hover:text-[#e2e8f0]" title="ARKI Brain">
+                <Sparkles size={16} className="text-[#f0a35b]" />
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="p-2 hover:bg-[#334155] rounded-full transition text-[#64748b] hover:text-[#e2e8f0]" title="Micrófono">
+                <Mic size={16} />
+              </button>
+              <button 
+                onClick={handleSend}
+                disabled={!input.trim() || isGenerating}
+                className="p-2 bg-[#f0a35b] hover:bg-[#e09050] disabled:bg-[#475569] rounded-full transition text-black disabled:text-[#64748b]"
+                title="Enviar"
+              >
+                <Send size={16} />
+              </button>
             </div>
           </div>
         </div>
+        <p className="text-center text-[9px] text-[#475569] mt-2">ARKI puede cometer errores. Verifica la normativa.</p>
       </div>
     </div>
 </div>
