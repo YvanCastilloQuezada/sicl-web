@@ -2,6 +2,22 @@ import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon } from "lucide-react";
+
+import ProjectManagerModal from "@/components/ProjectManagerModal";
+import IFCViewerModal from "@/components/IFCViewerModal";
+import PlanEditorModal from "@/components/PlanEditorModal";
+
+import CodeGeneratorModal from "@/components/CodeGeneratorModal";
+import ExportCenterModal from "@/components/ExportCenterModal";
+import AnalysisDashboardModal from "@/components/AnalysisDashboardModal";
+import TemplatesModal from "@/components/TemplatesModal";
+import NormativaModal from "@/components/NormativaModal";
+import FileChatModal from "@/components/FileChatModal";
+import SiteSelectionModal from '@/components/SiteSelectionModal';
+
+import CommandPalette from "@/components/CommandPalette";
+import NodeEditorModal from "@/components/NodeEditorModal";
+import CollaborationCursors from "@/components/CollaborationCursors";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ProposalGallery from "@/components/ProposalGallery";
 
@@ -29,6 +45,9 @@ export default function ArkiCockpitPage() {
   const [cincoDOpen, setCincoDOpen] = useState(false);
   const [seisDOpen, setSeisDOpen] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
+  const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | null>(null);
+  const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [searchingNormativa, setSearchingNormativa] = useState(false);
   const [analyzingVision, setAnalyzingVision] = useState(false);
@@ -227,7 +246,30 @@ export default function ArkiCockpitPage() {
     }
   };
 
+  
+  // Efecto para que ARKI hable cuando hay un mensaje nuevo del asistente
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "assistant") {
+        // Limpiamos el texto de markdown o etiquetas para que suene natural
+        const cleanText = lastMessage.text.replace(/[*#_]/g, "").replace(/\n/g, " ");
+        speak(cleanText);
+      }
+    }
+  }, [messages, speak]);
+
   const handleSend = async () => {
+    // Copilot Action Logic (Si el usuario escribe comandos específicos)
+    const lowerInput = input.toLowerCase();
+    if (lowerInput.includes("analiza") || lowerInput.includes("costos")) {
+      setActiveModal('analysis');
+    } else if (lowerInput.includes("proyecto")) {
+      setActiveModal('projects');
+    } else if (lowerInput.includes("nodos") || lowerInput.includes("paramétrico")) {
+      setActiveModal('nodes');
+    }
+    // ... Continuar con la lógica normal de envío de chat ...
     if (!input.trim()) return;
     const userMsg = input;
     setMessages(prev => [...prev, { role: "user", text: userMsg }]);
@@ -673,6 +715,9 @@ export default function ArkiCockpitPage() {
             <button onMouseEnter={() => handleHover('oece', 'Procesos de licitación pública según normativa OECE.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
               <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
             </button>
+            <button onClick={() => setShowWorkspacePanel(true)} className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#38bdf8]/10 text-[#38bdf8] hover:bg-[#38bdf8]/20 transition text-[11px] font-bold border border-[#38bdf8]/30">
+              <Layers size={12} /> Workspace
+            </button>
             {oeceOpen && (
               <div className="absolute top-full right-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
@@ -836,8 +881,8 @@ export default function ArkiCockpitPage() {
                   disabled={uploading}
                 />
               </label>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
-                <Image size={16} className="text-[#f472b6]" /> Generar renders e imágenes
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('ifc'); }}>
+                <Box size={16} className="text-[#f472b6]" /> Visor 3D / IFC (Renders)
               </button>
               <button 
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left"
@@ -849,23 +894,13 @@ export default function ArkiCockpitPage() {
                 <Globe size={16} className="text-[#4ade80]" /> 
                 {searchingNormativa ? " Buscando..." : "📚 Buscar normativa (RNE, OECE)"}
               </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('nodes'); }}>
                 <Code size={16} className="text-[#fbbf24]" /> Generar código paramétrico
               </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
-                <PenTool size={16} className="text-[#a78bfa]" /> Dibuja y adjunta un plano
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('editor'); }}>
+                <PenTool size={16} className="text-[#a78bfa]" /> Editor de Planos (Canvas)
               </button>
-              <label className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left cursor-pointer">
-                <Eye size={16} className="text-[#f472b6]" /> 
-                {analyzingVision ? "🔍 Analizando..." : "👁️ Visión Artificial (Analizar imagen)"}
-                <input 
-                  type="file" 
-                  className="hidden" 
-                  accept="image/*"
-                  onChange={handleVisionAnalysis}
-                  disabled={analyzingVision}
-                />
-              </label>
+              
               <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
                 <Brain size={16} className="text-[#f0a35b]" /> Razonamiento detallado (ARKI Brain)
               </button>
@@ -902,7 +937,18 @@ export default function ArkiCockpitPage() {
               </button>
             </div>
             <div className="flex items-center gap-2">
-              <button className="p-2 hover:bg-[#334155] rounded-full transition text-[#64748b] hover:text-[#e2e8f0]" title="Micrófono">
+              <button 
+                onClick={() => {
+                  if (isListening) return;
+                  startListening((text) => {
+                    setInput(text);
+                    // Opcional: Auto-enviar después de hablar
+                    // setTimeout(() => handleSend(), 500); 
+                  });
+                }}
+                className={`p-2 rounded-full transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`} 
+                title={isListening ? "Escuchando..." : "Hablar con ARKI"}
+              >
                 <Mic size={16} />
               </button>
               <button 
@@ -919,6 +965,67 @@ export default function ArkiCockpitPage() {
         <p className="text-center text-[9px] text-[#475569] mt-2">ARKI puede cometer errores. Verifica la normativa.</p>
       </div>
     </div>
+
+      {/* MODALES DEL WORKSPACE */}
+      {activeModal === 'projects' && <ProjectManagerModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
+
+
+      {activeModal === 'terreno' && (
+        <SiteSelectionModal 
+          onClose={() => setActiveModal(null)} 
+          onSave={(area) => {
+            // Aquí actualizamos el área en el panel de la izquierda
+            // Asumimos que hay un estado para el área, si no, lo guardamos en un console.log
+            console.log("Área del terreno seleccionada:", area);
+            // Si tienes un estado para el área del terreno, actualízalo aquí:
+            // setAreaTerreno(area);
+          }} 
+        />
+      )}
+
+
+      {activeModal === 'camera' && <CameraScannerModal onClose={() => setActiveModal(null)} />}
+
+
+      {activeModal === 'ar' && <ARViewerModal onClose={() => setActiveModal(null)} />}
+
+
+      {showF1Demo && <F1DemoScreen onClose={() => setShowF1Demo(false)} />}
+
+      {showFullPipeline && <FullPipelineRunner onClose={() => setShowFullPipeline(false)} />}
+      {showPipeline && (
+        <PipelineDashboardModal 
+          onClose={() => setShowPipeline(false)} 
+          onNavigate={(phase) => {
+            setShowPipeline(false);
+            if (phase === 'f1') setShowF1Demo(true);
+            if (phase === 'f5') setActiveModal('expediente' as any); // Asumiendo que esto abre el expediente o el modal correcto
+            if (phase === 'f6') setActiveModal('analysis');
+            if (phase === 'f7') setActiveModal('oece' as any);
+            // Puedes mapear el resto de fases a sus respectivos modales aquí
+            console.log("Navegando a fase:", phase);
+          }} 
+        />
+      )}
+
+      {showCommandPalette && (
+        <CommandPalette 
+          onClose={() => setShowCommandPalette(false)} 
+          onAction={(action) => setActiveModal(action as any)} 
+        />
+      )}
+      {activeModal === 'nodes' && <NodeEditorModal onClose={() => setActiveModal(null)} />}
+      <CollaborationCursors />
+
+      {/* MODALES NUEVOS */}
+      {activeModal === 'code' && <CodeGeneratorModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'export' && <ExportCenterModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'analysis' && <AnalysisDashboardModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'templates' && <TemplatesModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'norms' && <NormativaModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'file-chat' && <FileChatModal onClose={() => setActiveModal(null)} />}
 </div>
   );
 }
