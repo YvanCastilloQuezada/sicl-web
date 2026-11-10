@@ -629,10 +629,7 @@ export default function ArkiCockpitPage() {
 
           {/* CENTRO (flex-1): Funnel 16-4-1 */}
           <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
-            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
-              <span className="text-xs font-bold text-[#e2e8f0]">Embudo de Diseño · Funnel 16-4-1</span>
-              <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
-            </div>
+            
             <div className="flex-1 overflow-auto p-4">
               <ProposalGallery proposals={partis} />
             </div>
