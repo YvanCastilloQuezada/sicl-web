@@ -19,6 +19,7 @@ import SiteSelectionModal from '@/components/SiteSelectionModal';
 import CommandPalette from "@/components/CommandPalette";
 import NodeEditorModal from "@/components/NodeEditorModal";
 import CollaborationCursors from "@/components/CollaborationCursors";
+import WorkspacePanel from "@/components/WorkspacePanel";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ProposalGallery from "@/components/ProposalGallery";
 
@@ -1029,6 +1030,25 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       <CollaborationCursors />
 
       {/* MODALES NUEVOS */}
+
+      {showWorkspacePanel && (
+        <WorkspacePanel 
+          onClose={() => setShowWorkspacePanel(false)} 
+          onOpenTool={(tool) => {
+            // Mapeamos las herramientas del Workspace a los modales existentes
+            if (tool === 'nodes') setActiveModal('nodes');
+            if (tool === 'editor') setActiveModal('editor');
+            if (tool === 'ar') setActiveModal('ar');
+            if (tool === 'analysis') setActiveModal('analysis');
+            if (tool === 'camera') setActiveModal('camera');
+            if (tool === 'terreno') setActiveModal('terreno');
+            if (tool === 'projects') setActiveModal('projects');
+            if (tool === 'documents') setActiveModal('documents');
+            console.log("Abriendo herramienta:", tool);
+          }} 
+        />
+      )}
+
       {activeModal === 'code' && <CodeGeneratorModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'export' && <ExportCenterModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'analysis' && <AnalysisDashboardModal onClose={() => setActiveModal(null)} />}
