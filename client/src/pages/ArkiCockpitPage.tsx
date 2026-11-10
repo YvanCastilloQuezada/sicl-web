@@ -3,6 +3,7 @@ import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
 import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon } from "lucide-react";
 
+import { useSpeech } from '@/hooks/useSpeech';
 import ProjectManagerModal from "@/components/ProjectManagerModal";
 import IFCViewerModal from "@/components/IFCViewerModal";
 import PlanEditorModal from "@/components/PlanEditorModal";
@@ -23,7 +24,10 @@ import ProposalGallery from "@/components/ProposalGallery";
 
 export default function ArkiCockpitPage() {
   
-  const [preInversionOpen, setPreInversionOpen] = useState(false);
+    const [showFullPipeline, setShowFullPipeline] = useState(false);
+  const [showPipeline, setShowPipeline] = useState(false);
+  const [showCommandPalette, setShowCommandPalette] = useState(false);
+const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [ejecucionOpen, setEjecucionOpen] = useState(false);
   const [messages, setMessages] = useState([
     { role: "assistant", text: "Hola Yvan. Soy ARKI. ¿Qué construimos hoy? Puedes pedirme un hospital, analizar un terreno o revisar un expediente." }
@@ -46,6 +50,7 @@ export default function ArkiCockpitPage() {
   const [seisDOpen, setSeisDOpen] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
+  const [showF1Demo, setShowF1Demo] = useState(false);
   const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | null>(null);
   const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -128,7 +133,12 @@ export default function ArkiCockpitPage() {
     
     setUploading(true);
     setShowPlusMenu(false);
-    setMessages(prev => [...prev, { role: "assistant", text: "📎 Subiendo " + file.name + "..." }]);
+    
+        // Guardamos el mensaje y lo reproducimos por voz
+        const assistantMsg = "Aquí tienes las propuestas generadas por ARKI.";
+        setMessages(prev => [...prev, { role: "assistant", text: assistantMsg }]);
+        speak(assistantMsg); // <--- ESTO ACTIVA LA VOZ
+        
     
     const formData = new FormData();
     formData.append("file", file);
@@ -560,6 +570,7 @@ export default function ArkiCockpitPage() {
                   <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
+            
                   
                   <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
@@ -715,9 +726,7 @@ export default function ArkiCockpitPage() {
             <button onMouseEnter={() => handleHover('oece', 'Procesos de licitación pública según normativa OECE.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
               <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
             </button>
-            <button onClick={() => setShowWorkspacePanel(true)} className="ml-auto flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#38bdf8]/10 text-[#38bdf8] hover:bg-[#38bdf8]/20 transition text-[11px] font-bold border border-[#38bdf8]/30">
-              <Layers size={12} /> Workspace
-            </button>
+            
             {oeceOpen && (
               <div className="absolute top-full right-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
@@ -1026,6 +1035,16 @@ export default function ArkiCockpitPage() {
       {activeModal === 'templates' && <TemplatesModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'norms' && <NormativaModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'file-chat' && <FileChatModal onClose={() => setActiveModal(null)} />}
+
+      {/* BOTÓN FLOTANTE DE WORKSPACE */}
+      <button 
+        onClick={() => setShowWorkspacePanel(true)}
+        className="fixed bottom-6 right-6 z-[9000] flex items-center gap-2 px-4 py-3 rounded-full bg-[#38bdf8] text-black font-bold shadow-2xl hover:bg-[#0284c7] transition-all hover:scale-105"
+        title="Abrir Workspace (Herramientas)"
+      >
+        <Layers size={20} /> 
+        <span className="text-sm">Workspace</span>
+      </button>
 </div>
   );
 }

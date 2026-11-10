@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Polygon, Marker, useMapEvents, useMap } from "react-leaflet";
 import { X, MapPin, CheckCircle, Search } from "lucide-react";
-import "leaflet/dist/leaflet.css";
+// import "leaflet/dist/leaflet.css"; // Desactivado temporalmente por error de loader PNG
 import L from "leaflet";
 
 // Fix para los iconos de Leaflet en React
