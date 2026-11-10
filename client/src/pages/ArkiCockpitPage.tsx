@@ -21,6 +21,7 @@ import NodeEditorModal from "@/components/NodeEditorModal";
 import CollaborationCursors from "@/components/CollaborationCursors";
 import WorkspacePanel from "@/components/WorkspacePanel";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
+import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
 import ProposalGallery from "@/components/ProposalGallery";
 
 export default function ArkiCockpitPage() {
@@ -1029,6 +1030,21 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {activeModal === 'nodes' && <NodeEditorModal onClose={() => setActiveModal(null)} />}
       <CollaborationCursors />
 
+      {activeModal === 'nodes' && (
+        <div className="fixed inset-0 z-[9999] flex flex-col bg-[#0a1825]">
+          <div className="flex items-center justify-between p-3 border-b border-[#1e293b] bg-[#0f172a]">
+            <h2 className="text-[#e2e8f0] font-bold flex items-center gap-2">
+              <Box size={18} className="text-[#f0a35b]" /> Generador Paramétrico Real (DYN / GHX / ARK)
+            </h2>
+            <button onClick={() => setActiveModal(null)} className="text-[#64748b] hover:text-[#e2e8f0] bg-[#1e293b] p-1 rounded">
+              <X size={20} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <ArkiParametricRuntimePage />
+          </div>
+        </div>
+      )}
       {/* MODALES NUEVOS */}
 
       {showWorkspacePanel && (
