@@ -313,43 +313,23 @@ export default function ArkiCockpitPage() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-[#0a0f16] text-[#e2e8f0] font-sans overflow-hidden">
-
-      {/* IZQUIERDA (220px): MENÚ DE FLUJOS */}
-      <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
-        <div className="flex items-center gap-2 border-b border-[#1e293b] h-[41px] px-2">
-          <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
-          <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
-        </div>
-        
-        <div className="p-3 flex-1 space-y-1">
-          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
-          {/* Aquí irán los datos del proyecto (área, pisos, etc.) */}
-          <div className="space-y-2">
-            <div className="bg-[#1e293b] p-2 rounded-lg">
-              <p className="text-[9px] text-[#64748b]">Área</p>
-              <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
-            </div>
-            <div className="bg-[#1e293b] p-2 rounded-lg">
-              <p className="text-[9px] text-[#64748b]">Pisos</p>
-              <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
-            </div>
-            <div className="bg-[#1e293b] p-2 rounded-lg">
-              <p className="text-[9px] text-[#64748b]">Ciudad</p>
-              <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
-            </div>
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-[#061522] text-[#d7e8f2]">
+        {/* BARRA SUPERIOR: TOOLTIPS + MENU */}
+        <div className="w-full flex-shrink-0 z-[100] relative">
+{/* BARRA DE TOOLTIPS */}
+        <div className="w-full flex-shrink-0 flex items-center justify-center bg-[#0f172a] border-b border-[#1e293b] h-[28px] px-4 z-[110] relative">
+          <div className="flex items-center gap-2">
+            {tooltipText ? (
+              <>
+                <div className="bg-[#38bdf8] rounded-full p-0.5"><svg className="w-2.5 h-2.5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <span className="text-[#38bdf8] text-[10px] font-mono font-bold tracking-wide uppercase">{tooltipText}</span>
+              </>
+            ) : (
+              <span className="text-[#64748b] text-[10px] font-mono uppercase tracking-widest">ARKI • Command Center</span>
+            )}
           </div>
         </div>
-
-        <div className="p-3 border-t border-[#1e293b] text-[10px] text-[#64748b]">
-          <p>GPU: RTX 3060 ({gpuUsage !== null ? `${gpuUsage}%` : "—"})</p>
-          <p>Core: SICL v1.2</p>
-        </div>
-      </div>
-
-      {/* CONTENEDOR PRINCIPAL: MENÚ HORIZONTAL + CONTENIDO */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-
+        
         {/* MENÚ HORIZONTAL SUPERIOR */}
         <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible">
           
@@ -604,6 +584,46 @@ export default function ArkiCockpitPage() {
 
         </div>
 
+        
+        </div>
+        <div className="flex-1 flex overflow-hidden w-full relative">
+
+
+      {/* IZQUIERDA (220px): MENÚ DE FLUJOS */}
+      <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+        <div className="flex items-center gap-2 border-b border-[#1e293b] h-[41px] px-2">
+          <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
+          <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
+        </div>
+        
+        <div className="p-3 flex-1 space-y-1">
+          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
+          {/* Aquí irán los datos del proyecto (área, pisos, etc.) */}
+          <div className="space-y-2">
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Área</p>
+              <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+            </div>
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Pisos</p>
+              <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+            </div>
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Ciudad</p>
+              <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-3 border-t border-[#1e293b] text-[10px] text-[#64748b]">
+          <p>GPU: RTX 3060 ({gpuUsage !== null ? `${gpuUsage}%` : "—"})</p>
+          <p>Core: SICL v1.2</p>
+        </div>
+      </div>
+
+      {/* CONTENEDOR PRINCIPAL: MENÚ HORIZONTAL + CONTENIDO */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+
         {/* CONTENIDO: CENTRO + NUEVA BARRA + DERECHA */}
         <div className="flex-1 flex overflow-visible relative z-0">
 
@@ -689,5 +709,6 @@ export default function ArkiCockpitPage() {
         </div>
       </div>
     </div>
+</div>
   );
 }
