@@ -18,7 +18,6 @@ import SiteSelectionModal from '@/components/SiteSelectionModal';
 
 import CommandPalette from "@/components/CommandPalette";
 import NodeEditorModal from "@/components/NodeEditorModal";
-import CollaborationCursors from "@/components/CollaborationCursors";
 import WorkspacePanel from "@/components/WorkspacePanel";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
@@ -513,7 +512,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         </div>
         
         {/* MENÚ HORIZONTAL SUPERIOR */}
-        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible">
+        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible" onMouseLeave={() => { setPreInversionOpen(false); setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setEjecucionOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); }}>
           
           {/* PreInversión (Ahora menú) */}
           <div className="relative flex-shrink-0">
@@ -1028,7 +1027,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         />
       )}
       {activeModal === 'nodes' && <NodeEditorModal onClose={() => setActiveModal(null)} />}
-      <CollaborationCursors />
+      
 
       {activeModal === 'nodes' && (
         <div className="fixed inset-0 z-[9999] flex flex-col bg-[#0a1825]">
