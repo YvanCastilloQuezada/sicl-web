@@ -6,7 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import {
   createDemoCandidates,
   createDesignFunnel,
-  completeDeepEvaluation,
+  type CandidateEpistemicItem,
+  type CandidateEpistemicKind,
   promoteToFinalFour,
   selectForDevelopment,
   returnToFinalFour,
@@ -38,6 +39,135 @@ const candidatesForBrief = (brief: DemoBrief) => createDemoCandidates(brief.proj
   provenance: [...candidate.provenance, `BRIEF:${brief.prompt}`],
 }));
 const initialState = (brief: DemoBrief = defaultBrief) => createDesignFunnel({ projectId: brief.projectId, candidates: candidatesForBrief(brief) });
+
+// La generación produce candidatos; no certifica su viabilidad profesional.
+function generatedEpistemicItem<K extends CandidateEpistemicKind>(
+  kind: K,
+  id: string,
+  statement: string,
+  generationId: string,
+  buildingId: string,
+  evidenceRefs: string[] = [],
+): CandidateEpistemicItem<K> {
+  return {
+    kind,
+    id,
+    statement,
+    evidenceRefs,
+    provenance: [`GENERATION:${generationId}`, `BUILDING:${buildingId}`],
+  };
+}
+
+function candidateFromGeneratedProposal(
+  proposal: any,
+  projectId: string,
+  generationId: string,
+): DesignCandidate {
+  const building = proposal?.building;
+  if (!building?.id || !proposal?.candidateId) {
+    throw new Error("GENERATED_PROPOSAL_WITHOUT_BUILDING_ID");
+  }
+
+  const unknowns = Array.from(new Set<string>([
+    ...(proposal.validation?.unknowns ?? []),
+    ...(building.validation?.unknowns ?? []),
+  ]));
+
+  const failureReasons = [
+    ...(proposal.validation?.numericConstraintFailures ?? []),
+  ];
+
+  const status: DesignCandidate["status"] =
+    proposal.status === "ELIGIBLE" || proposal.status === "FAILED"
+      ? proposal.status
+      : "UNKNOWN";
+
+  const generatedRef = `GENERATOR_OUTPUT:${building.id}`;
+
+  return {
+    id: proposal.candidateId,
+    projectId,
+    generationId,
+    stage: "GENERATED",
+    status,
+    title: proposal.title,
+    strategy: `${proposal.axis} · ${proposal.axisValue} · ${proposal.variantId}`,
+    preview: `GENERATED_BUILDING:${building.id}`,
+    metrics: {
+      area: proposal.metrics.builtAreaM2,
+      footprintM2: proposal.metrics.footprintM2,
+      floors: proposal.metrics.floors,
+      heightM: proposal.metrics.heightM,
+      capacity: proposal.metrics.capacity,
+      estimatedCostUsdConceptual: proposal.metrics.estimatedCostUsdConceptual,
+    },
+    epistemic: {
+      facts: [
+        generatedEpistemicItem(
+          "FACT", `FACT-${building.id}-AREA`,
+          `Área construida generada: ${proposal.metrics.builtAreaM2} m².`,
+          generationId, building.id, [generatedRef],
+        ),
+        generatedEpistemicItem(
+          "FACT", `FACT-${building.id}-FOOTPRINT`,
+          `Huella generada: ${proposal.metrics.footprintM2} m².`,
+          generationId, building.id, [generatedRef],
+        ),
+        generatedEpistemicItem(
+          "FACT", `FACT-${building.id}-HEIGHT`,
+          `Altura generada: ${proposal.metrics.heightM} m.`,
+          generationId, building.id, [generatedRef],
+        ),
+        generatedEpistemicItem(
+          "FACT", `FACT-${building.id}-FLOORS`,
+          `Niveles generados: ${proposal.metrics.floors}.`,
+          generationId, building.id, [generatedRef],
+        ),
+      ],
+      assumptions: [
+        generatedEpistemicItem(
+          "ASSUMPTION", `ASSUMPTION-${building.id}-CONCEPTUAL`,
+          "La geometría generada es una propuesta conceptual pendiente de revisión profesional.",
+          generationId, building.id,
+        ),
+      ],
+      preferences: [],
+      requirements: [
+        generatedEpistemicItem(
+          "REQUIREMENT", `REQUIREMENT-${building.id}-REVIEW`,
+          "Revisión humana antes de cualquier decisión de desarrollo.",
+          generationId, building.id,
+        ),
+      ],
+      objectives: [
+        generatedEpistemicItem(
+          "OBJECTIVE", `OBJECTIVE-${building.id}-COMPARISON`,
+          "Comparar esta alternativa con las otras ocho mediante criterios comunes.",
+          generationId, building.id,
+        ),
+      ],
+      constraints: [
+        generatedEpistemicItem(
+          "CONSTRAINT", `CONSTRAINT-${building.id}-NUMERIC`,
+          "Respetar las restricciones numéricas efectivamente evaluadas por el generador.",
+          generationId, building.id, [generatedRef],
+        ),
+      ],
+    },
+    evidence: [],
+    unknowns,
+    failureReasons,
+    provenance: [
+      `GENERATION:${generationId}`,
+      `BUILDING:${building.id}`,
+      `FAMILY:${building.familyId}`,
+      `VARIANT:${building.variantId}`,
+      `PROJECT:${projectId}`,
+      `AXIS:${proposal.axis}`,
+    ],
+  };
+}
+
 const visualModes: Array<{ key: ComparisonMode; label: string }> = [
   { key: "PREVIEW", label: "Vista" },
   { key: "PLAN", label: "Planta" },
@@ -211,6 +341,10 @@ export default function ArkiDesignFunnelPage() {
   // ARKI EXPLORATION ENGINE: Handler para generar las 9 propuestas
   const handleGenerateProposals = async () => {
     try {
+      if (!brief.projectId.trim()) {
+        throw new Error("PROJECT_ID_REQUIRED");
+      }
+
       const result = await generateFunnel.mutateAsync({
         type: axisType,
         fixed: {
@@ -224,13 +358,67 @@ export default function ArkiDesignFunnelPage() {
           max: maxValue,
           steps: 9,
         },
-        constraints: { requiredNorms: ["RNE-A.050"] },
       });
+
+      if (result.proposals.length !== 9) {
+        throw new Error(`GENERATION_INCOMPLETE:${result.proposals.length}/9`);
+      }
+
+      // El servidor es la autoridad de identidad de la generación.
+      const generationId = result.generationId;
+      if (typeof generationId !== "string" || !generationId.trim()) {
+        throw new Error("GENERATION_ID_MISSING_FROM_SERVER");
+      }
+
+      // Cada propuesta debe conservar su identidad y evidencia AGK.
+      const invalidProposal = result.proposals.find((proposal: any) =>
+        proposal.generationId !== generationId ||
+        !proposal.agkCompilation ||
+        !["COMPILED", "REJECTED"].includes(proposal.agkCompilation.status),
+      );
+
+      if (invalidProposal) {
+        throw new Error(
+          `AGK_COMPILATION_EVIDENCE_INCOMPLETE:${invalidProposal.candidateId ?? "UNKNOWN"}`,
+        );
+      }
+
+      const candidates: DesignCandidate[] = result.proposals.map((proposal: any) =>
+        candidateFromGeneratedProposal(proposal, brief.projectId, generationId),
+      );
+
+      const nextState = createDesignFunnel({
+        projectId: brief.projectId,
+        generationId,
+        candidates,
+      });
+
+      setState(nextState);
       setGeneratedProposals(result.proposals);
-      setNotice(`✅ ${result.proposals.length} propuestas generadas. Selecciona las que pasan a la Final Four.`);
+      setSelected([]);
+      setActiveId(
+        candidates.find((candidate) => candidate.status === "ELIGIBLE")?.id
+          ?? candidates[0].id,
+      );
+      setMode("PREVIEW");
+      setRevision(1);
+      setLastDelta(undefined);
+      setReason("");
+
+      const counts = candidates.reduce(
+        (acc, candidate) => {
+          acc[candidate.status] += 1;
+          return acc;
+        },
+        { ELIGIBLE: 0, UNKNOWN: 0, FAILED: 0 },
+      );
+
+      setNotice(
+        `Generación integrada: 9 candidatos. ELIGIBLE: ${counts.ELIGIBLE}; UNKNOWN: ${counts.UNKNOWN}; FAILED: ${counts.FAILED}. La selección 9→4 admite únicamente ELIGIBLE.`,
+      );
     } catch (error) {
-      console.error("Error generando propuestas:", error);
-      setNotice("❌ Error generando propuestas. Revisa la consola.");
+      console.error("Error generando e integrando propuestas:", error);
+      setNotice(error instanceof Error ? error.message : "GENERATION_INTEGRATION_FAILED");
     }
   };
   const active = state.candidates.find((candidate) => candidate.id === activeId) ?? visible[0];
@@ -245,6 +433,7 @@ export default function ArkiDesignFunnelPage() {
     const normalized = { ...brief, projectId: brief.projectId.trim() || DEFAULT_PROJECT_ID, floors: Math.max(1, Math.round(brief.floors || 1)), areaM2: Math.max(100, Math.round(brief.areaM2 || 100)), prompt: brief.prompt.trim() || "Edificio de 120 pisos", location: brief.location.trim() || "UNKNOWN" };
     setBrief(normalized);
     setState(initialState(normalized));
+    setGeneratedProposals([]);
     setSelected([]);
     setActiveId("A01");
     setMode("PREVIEW");
@@ -255,12 +444,40 @@ export default function ArkiDesignFunnelPage() {
   };
   const activate = (id: string) => {
     setActiveId(id);
-    if (state.stage === "DESIGN_EXPLORER_9") {
-      setSelected((current) => current.includes(id) ? current.filter((item) => item !== id) : current.length >= 4 ? current : [...current, id]);
+    if (state.stage !== "DESIGN_EXPLORER_9") return;
+
+    const candidate = state.candidates.find((item) => item.id === id);
+    if (!candidate) {
+      setNotice("CANDIDATE_NOT_IN_CURRENT_FUNNEL");
+      return;
     }
+
+    if (candidate.status !== "ELIGIBLE") {
+      setNotice(`${displayId(id, state.candidates)}: ${candidate.status}. Puede inspeccionarse, pero no promoverse.`);
+      return;
+    }
+
+    setSelected((current) =>
+      current.includes(id)
+        ? current.filter((item) => item !== id)
+        : current.length >= 4
+          ? current
+          : [...current, id],
+    );
   };
-  const promote = () => { try { setState(promoteToFinalFour(state, selected, "HUMAN_ARCHITECT", reason)); setSelected([]); setActiveId(selected[0] ?? "A01"); setNotice("4 candidatos promovidos. Las otras 12 permanecen preservadas y comenzó la evaluación profunda."); } catch (error) { setNotice(error instanceof Error ? error.message : "No se pudo promover la selección"); } };
-  const evaluate = () => { const ids = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id); const results = Object.fromEntries(ids.map((id) => [id, { status: "READY", findings: ["Comparación geométrica, programática y económica disponible"], unknowns: ["Precios requieren fuente de mercado o cotización"] }])); setState(completeDeepEvaluation(state.stage === "RETURNED_TO_FINALISTS" ? { ...state, stage: "FINALIST_4" } : state, results as never)); setNotice("Evaluación profunda completada. La decisión sigue siendo humana."); };
+  const promote = () => { try { setState(promoteToFinalFour(state, selected, "HUMAN_ARCHITECT", reason)); setSelected([]); setActiveId(selected[0] ?? "A01"); setNotice("4 candidatos promovidos. Las otras 5 alternativas quedan archivadas y preservadas. La evaluación profunda verificable está pendiente."); } catch (error) { setNotice(error instanceof Error ? error.message : "No se pudo promover la selección"); } };
+  const evaluate = () => {
+    const finalists = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4");
+    const unresolved = finalists.flatMap((candidate) =>
+      candidate.unknowns.map((unknown) => `${displayId(candidate.id, state.candidates)}: ${unknown}`),
+    );
+
+    setNotice(
+      unresolved.length
+        ? `EVALUATION_HELD: ${unresolved.length} incertidumbres siguen pendientes. No se declara READY.`
+        : "EVALUATOR_NOT_IMPLEMENTED: la evaluación profunda verificable todavía no está implementada. No se fabricará READY.",
+    );
+  };
   const selectOne = () => { try { setState(selectForDevelopment(state, activeId, "HUMAN_ARCHITECT", reason)); setSelected([]); setNotice(`${displayId(activeId, state.candidates)} quedó en SELECTED_FOR_DEVELOPMENT. Los otros finalistas siguen recuperables.`); } catch (error) { setNotice(error instanceof Error ? error.message : "Selecciona un candidato"); } };
   const restore = () => { try { setState(returnToFinalFour(state, "Reconsideración humana / fallo técnico reversible")); setSelected([]); setNotice("Retorno reversible al Final Four ejecutado. No se eliminó la exploración."); } catch (error) { setNotice(error instanceof Error ? error.message : "No hay Final Four archivado para restaurar"); } };
   const changeMode = (next: ComparisonMode) => { setMode(next); setState(setComparisonMode(state, next)); };
@@ -347,12 +564,12 @@ export default function ArkiDesignFunnelPage() {
                   const geom3d = gen?.geometry3d || {};
                   return (
                     <div 
-                      key={idx} 
+                      key={proposal.candidateId}
                       className="rounded border border-[#28445b] bg-[#071726] p-2 transition hover:border-[#d4ff3a]"
                     >
                       <div className="mb-2 flex items-center justify-between">
                         <span className="text-xs font-semibold text-[#edf4ff]">P{idx + 1}</span>
-                        <span className="text-[10px] text-[#7893af]">{geom3d.floors || '?'} pisos</span>
+                        <span className="text-[10px] text-[#7893af]">{geom3d.floors || '?'} pisos · {proposal.status}</span>
                       </div>
                       <div className="h-48 w-full">
                         <ProfessionalFamilyViewer 
@@ -364,15 +581,15 @@ export default function ArkiDesignFunnelPage() {
                       </div>
                       <div className="mt-2 grid grid-cols-2 gap-1 text-[10px] text-[#9eb5c4]">
                         <div>Área: {geom2d.footprintM2?.toFixed(0) || '?'} m²</div>
-                        <div>Costo: ${(proposal.metrics.costEstimate / 1000).toFixed(0)}k</div>
+                        <div>Costo conceptual: USD {Number(proposal.metrics.estimatedCostUsdConceptual).toLocaleString("en-US")}</div>
                       </div>
                       <button
-                        onClick={() => {
-                          setNotice(`Propuesta P${idx + 1} seleccionada para la Final Four.`);
-                        }}
-                        className="mt-2 w-full rounded bg-[#28445b] py-1 text-[10px] text-[#edf4ff] hover:bg-[#3a5a75]"
+                        onClick={() => activate(proposal.candidateId)}
+                        className={`mt-2 w-full rounded py-1 text-[10px] text-[#edf4ff] ${proposal.status === "ELIGIBLE" ? "bg-[#28445b] hover:bg-[#3a5a75]" : "bg-[#4a3422] hover:bg-[#60452d]"}`}
                       >
-                        Seleccionar para Final Four
+                        {proposal.status === "ELIGIBLE"
+                          ? (selected.includes(proposal.candidateId) ? "Quitar de selección" : "Inspeccionar / seleccionar")
+                          : "Inspeccionar · no elegible"}
                       </button>
                     </div>
                   );

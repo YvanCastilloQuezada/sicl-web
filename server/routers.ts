@@ -61,7 +61,7 @@ import { dynamicFamilyContract, dynamicFamilySummary, generateDynamicBuilding, l
 import { compareDynamicBuildings, dynamicComparisonContract, exportDynamicBuilding, type BuildingVersion, type ComparisonMode } from "../shared/arkiFamilyComparison";
 import { ADVANCED_RENDER_CONTRACT, assessAdvancedCapabilities, validateRenderRequest } from "../shared/arkiAdvancedRenderCapabilities";
 import { costBudgetS2Contract, estimateCandidateCost, compareCostEstimates, markCostStale, recalculateCost, validateCostInput, type CostCandidateInput, type CostEstimate, type CostFidelity } from "../shared/arkiCostBudgetS2";
-import { execSync } from "child_process";
+import { compileDynamicBuildingToAgk } from "./agk/familyCompiler";
 
 const recordKinds = ["sources", "evidence", "requirements", "objectives", "constraints", "preferences", "alternatives", "evaluations", "comparisons", "multiComparisons", "decisionConditions"] as const;
 const projectInput = z.object({ name: z.string().trim().min(3), location: z.string().trim().optional(), projectId: z.string().trim().min(3).optional(), spatialScale: z.enum(["PROJECT", "SECTOR", "DISTRICT", "CITY", "METROPOLITAN_AREA", "REGION", "MACROREGION", "COUNTRY"]).default("PROJECT"), temporalHorizon: z.enum(["PRESENT", "2030", "2040", "2050"]).default("PRESENT") });
@@ -603,83 +603,285 @@ export const appRouter = router({
       .input(z.object({
         type: z.enum(["PARAMETRIC", "TIPOLOGIC", "EVOLUTIONARY"]),
         fixed: z.object({
-          areaM2: z.number(),
-          city: z.string(),
+          areaM2: z.number().positive(),
+          city: z.string().trim().min(1),
           jurisdiction: z.string().default("RNE-PE"),
           familyId: z.string().default("FAM-HEALTH"),
         }),
         variable: z.object({
           min: z.number(),
           max: z.number(),
-          steps: z.number().default(9),
+          steps: z.number().int().refine((value) => value === 9, {
+            message: "DESIGN_EXPLORER_REQUIRES_EXACTLY_9_CANDIDATES",
+          }).default(9),
           parameterName: z.string().optional(),
+        }).refine((value) => value.max >= value.min, {
+          message: "VARIABLE_MAX_MUST_BE_GREATER_THAN_OR_EQUAL_TO_MIN",
         }),
         constraints: z.object({
-          maxCost: z.number().optional(),
-          minArea: z.number().optional(),
-          requiredNorms: z.array(z.string()).default([]),
+          maxCost: z.number().positive().optional(),
+          minArea: z.number().positive().optional(),
         }).optional(),
       }))
-      .mutation(async ({ input }) => {
+      .mutation(({ input }) => {
         const { type, fixed, variable, constraints } = input;
-        const proposals: any[] = [];
-        
-        // Importar cliente tRPC dinámicamente
-        const { createTRPCProxyClient, httpBatchLink } = await import('@trpc/client');
-        const superjson = (await import('superjson')).default;
-        const client = createTRPCProxyClient({
-          links: [httpBatchLink({ url: 'http://127.0.0.1:8000/api/trpc', transformer: superjson })],
-        });
-        
-        for (let i = 0; i < variable.steps; i++) {
-          const ratio = variable.steps > 1 ? i / (variable.steps - 1) : 0.5;
-          const currentValue = variable.min + (variable.max - variable.min) * ratio;
-          
-          const parameters: any = { areaM2: fixed.areaM2, capacity: Math.round(fixed.areaM2 / 50) };
-          
-          if (type === "PARAMETRIC") {
-            parameters.floors = Math.round(currentValue);
-          } else if (type === "TIPOLOGIC") {
-            parameters.shapeType = ["COURTYARD", "L_SHAPE", "U_SHAPE", "LINEAR"][i % 4];
-            parameters.courtyardRatio = i % 2 === 0 ? 0.18 : 0.0;
-          } else if (type === "EVOLUTIONARY") {
-            parameters.generation = Math.round(currentValue);
-          }
+        const generationId = crypto.randomUUID();
 
-          try {
-            const building = await client.parametricRuntime.generateDynamicBuilding.mutate({
-              familyId: fixed.familyId,
-              variantId: "GENERAL",
-              context: { country: "PE", city: fixed.city, jurisdiction: fixed.jurisdiction },
+        // El catálogo es la autoridad de familias y variantes.
+        const family = listDynamicFamilies().find(
+          (item) => item.id === fixed.familyId,
+        );
+
+        if (!family) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: `DYNAMIC_FAMILY_NOT_FOUND:${fixed.familyId}`,
+          });
+        }
+
+        if (family.variants.length === 0) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: `DYNAMIC_FAMILY_HAS_NO_VARIANTS:${fixed.familyId}`,
+          });
+        }
+
+        const typologies = [
+          "COURTYARD",
+          "L_SHAPE",
+          "U_SHAPE",
+          "LINEAR",
+        ] as const;
+
+        const proposals = Array.from(
+          { length: 9 },
+          (_, index) => {
+            const ratio = index / 8;
+            const axisValue =
+              variable.min + (variable.max - variable.min) * ratio;
+
+            const variant = family.variants[
+              index % family.variants.length
+            ];
+
+            const parameters: Record<
+              string,
+              string | number | boolean
+            > = {
+              areaM2: fixed.areaM2,
+              capacity: Math.max(
+                1,
+                Math.round(fixed.areaM2 / 50),
+              ),
+            };
+
+            if (type === "PARAMETRIC") {
+              parameters.floors = Math.max(
+                1,
+                Math.round(axisValue),
+              );
+            }
+
+            if (type === "TIPOLOGIC") {
+              parameters.shapeType = typologies[index % typologies.length];
+              parameters.courtyardRatio =
+                index % 2 === 0 ? 0.18 : 0;
+            }
+
+            if (type === "EVOLUTIONARY") {
+              parameters.generation = Math.max(
+                0,
+                Math.min(20, Math.round(axisValue)),
+              );
+            }
+
+            // Llamada directa al generador compartido.
+            // No hay HTTP interno ni segundo motor geométrico.
+            const building = generateDynamicBuilding({
+              familyId: family.id,
+              variantId: variant.id,
+              context: {
+                country: "PE",
+                city: fixed.city,
+                jurisdiction: fixed.jurisdiction,
+              },
               parameters,
             });
-            if (building) {
-              proposals.push({
-                index: i,
-                axisValue: currentValue,
-                building,
-                metrics: {
-                  area: (building as any)?.generation?.geometry2d?.footprintM2 || 0,
-                  floors: (building as any)?.generation?.geometry3d?.floors || 0,
-                  costEstimate: ((building as any)?.generation?.geometry2d?.footprintM2 || 0) * 800,
-                },
-                geometry: {
-                  g2d: (building as any)?.generation?.geometry2d || null,
-                  g3d: (building as any)?.generation?.geometry3d || null,
-                },
-                passesConstraints: true,
-              });
+
+            const builtArea = building.metrics.builtAreaM2;
+            const conceptualCost =
+              building.metrics.estimatedCostUsdConceptual;
+
+            const numericConstraintFailures: string[] = [];
+
+            if (
+              constraints?.minArea !== undefined &&
+              builtArea < constraints.minArea
+            ) {
+              numericConstraintFailures.push(
+                `MIN_AREA_NOT_MET:${builtArea}<${constraints.minArea}`,
+              );
             }
-          } catch (e) {
-            console.error(`Error generando propuesta ${i}:`, e);
-          }
+
+            if (
+              constraints?.maxCost !== undefined &&
+              conceptualCost > constraints.maxCost
+            ) {
+              numericConstraintFailures.push(
+                `MAX_CONCEPTUAL_COST_EXCEEDED:${conceptualCost}>${constraints.maxCost}`,
+              );
+            }
+
+            // La etapa genera y compara geometría.
+            // Conserva únicamente las incertidumbres reales del generador.
+            const unknowns = [...building.validation.unknowns];
+
+            const passesNumericConstraints =
+              numericConstraintFailures.length === 0;
+
+            // Identidad operativa propia de esta generación.
+            // No se reutiliza el UUID del GeneratedBuilding como identidad AGK.
+            const objectId =
+              `ARKI-FAMILY-${generationId}-${String(index + 1).padStart(2, "0")}`;
+
+            // AGK-003: compilar la propuesta original sin modificarla.
+            const agkResult = compileDynamicBuildingToAgk(
+              building,
+              objectId,
+            );
+
+            const agkCompilation = agkResult.ok
+              ? {
+                  status: "COMPILED" as const,
+                  objectId,
+                  object: agkResult.object,
+                  feature: agkResult.feature,
+                  causalModel: agkResult.causalModel,
+                }
+              : {
+                  status: "REJECTED" as const,
+                  objectId,
+                  failureCode: agkResult.code,
+                };
+
+            const agkHardFailure =
+              !agkResult.ok &&
+              (
+                agkResult.code === "FAMILY_NOT_PROPOSAL_ONLY" ||
+                agkResult.code === "FAMILY_DIMENSION_INVALID"
+              );
+
+            const agkUnsupported =
+              !agkResult.ok && !agkHardFailure;
+
+            const candidateUnknowns = [...unknowns];
+
+            if (agkUnsupported && !agkResult.ok) {
+              candidateUnknowns.push(
+                `AGK_COMPILATION_UNSUPPORTED:${agkResult.code}`,
+              );
+            }
+
+            const candidateStatus =
+              !passesNumericConstraints ||
+              building.validation.status === "BLOCKED" ||
+              agkHardFailure
+                ? "FAILED"
+                : building.validation.status === "UNKNOWN" ||
+                    candidateUnknowns.length > 0 ||
+                    !agkResult.ok
+                  ? "UNKNOWN"
+                  : "ELIGIBLE";
+
+            return {
+              index,
+              candidateId: building.id,
+              generationId,
+              agkCompilation,
+              axis: type,
+              axisValue,
+              familyId: building.familyId,
+              variantId: building.variantId,
+              title: building.name,
+              building,
+              metrics: {
+                footprintM2: building.metrics.footprintM2,
+                builtAreaM2: builtArea,
+                floors: building.geometry3d.floors,
+                heightM: building.geometry3d.heightM,
+                capacity: building.metrics.capacity,
+                estimatedCostUsdConceptual: conceptualCost,
+              },
+              geometry: {
+                g2d: building.geometry2d,
+                section: building.section,
+                g3d: building.geometry3d,
+                unified: building.unifiedGeometry,
+              },
+              validation: {
+                generatorStatus: building.validation.status,
+                agkCompilationStatus: agkCompilation.status,
+                agkCompilationFailureCode:
+                  agkCompilation.status === "REJECTED"
+                    ? agkCompilation.failureCode
+                    : null,
+                passesNumericConstraints,
+                numericConstraintFailures,
+                unknowns: candidateUnknowns,
+              },
+              // No confundir restricciones numéricas con
+              // cumplimiento integral o normativo.
+              passesConstraints: passesNumericConstraints,
+              status: candidateStatus,
+              governance: {
+                proposalOnly: true,
+                humanReviewRequired: true,
+                professionalSignatureRequired: true,
+                projectStateMutation: "NOT_REQUESTED",
+              },
+            };
+          },
+        );
+
+        if (proposals.length !== 9) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/9`,
+          });
         }
 
         return {
-          status: "OK",
+          status: "OK" as const,
+          generationId,
           axis: input,
           proposals,
-          funnel: { initial: proposals.length, finalFour: 4, finalOne: 1 }
+          funnel: {
+            initial: proposals.length,
+            eligible: proposals.filter(
+              (item) => item.status === "ELIGIBLE",
+            ).length,
+            unknown: proposals.filter(
+              (item) => item.status === "UNKNOWN",
+            ).length,
+            failed: proposals.filter(
+              (item) => item.status === "FAILED",
+            ).length,
+            agkCompiled: proposals.filter(
+              (item) => item.agkCompilation.status === "COMPILED",
+            ).length,
+            agkRejected: proposals.filter(
+              (item) => item.agkCompilation.status === "REJECTED",
+            ).length,
+            finalFour: 4,
+            finalOne: 1,
+            selectionAuthority: "HUMAN_ONLY" as const,
+          },
+          governance: {
+            proposalOnly: true,
+            normativeCompliance: "NOT_CERTIFIED" as const,
+            structuralCompliance: "NOT_CERTIFIED" as const,
+            canonicalPromotion: "NOT_REQUESTED" as const,
+          },
         };
       }),
   }),
@@ -825,7 +1027,7 @@ export const appRouter = router({
               separationCondition: `El control mediado por personal debe ser legible y no superpuesto (${env.separation})`,
             };
 
-            const d63Result = executeD63G(d63Input, emptySnapshot(), 1, "D6.3-G-ARKI");
+            const d63Result = executeD63G(d63Input, siclCorePort.emptySnapshot(), 1, "D6.3-G-ARKI");
             
             if (d63Result.candidateA) {
               candidates.push({
@@ -862,27 +1064,6 @@ export const appRouter = router({
       }),
   }),
 
-  system: router({
-    gpuUsage: publicProcedure.query(() => {
-      try {
-        const output = execSync("nvidia-smi --query-gpu=index,name,utilization.gpu,memory.used,memory.total --format=csv,noheader,nounits", { encoding: "utf-8", timeout: 3000 });
-        const lines = output.trim().split("\n");
-        const gpus = lines.map(line => {
-          const [index, name, usage, memUsed, memTotal] = line.split(", ").map(s => s.trim());
-          return {
-            index: parseInt(index),
-            name,
-            usage: parseInt(usage),
-            memoryUsed: parseInt(memUsed),
-            memoryTotal: parseInt(memTotal),
-          };
-        });
-        return { status: "OK", gpus };
-      } catch (e) {
-        return { status: "ERROR", gpus: [], message: e instanceof Error ? e.message : "Unknown error" };
-      }
-    }),
-  }),
 });
 
 export type AppRouter = typeof appRouter;

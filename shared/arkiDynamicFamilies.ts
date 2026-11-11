@@ -245,10 +245,31 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
   const area = Math.max(1, valueAsNumber(params.areaM2) || 1);
   const floors = Math.max(1, Math.round(valueAsNumber(params.floors) || 1));
   const footprint = area / floors;
-  const width = Math.sqrt(footprint * 1.35);
+  const shapeType = String(params.shapeType || "COMPACT").toUpperCase();
+  const generation = Math.max(0, Math.round(valueAsNumber(params.generation) || 0));
+  const aspectByShape: Record<string, number> = {
+    COMPACT: 1.35,
+    COURTYARD: 1.0,
+    L_SHAPE: 1.8,
+    U_SHAPE: 1.45,
+    LINEAR: 3.2,
+  };
+  const evolutionaryFactor = 1 + Math.min(generation, 20) * 0.025;
+  const aspect = (aspectByShape[shapeType] || 1.35) * evolutionaryFactor;
+  const width = Math.sqrt(footprint * aspect);
   const depth = footprint / width;
   const courtyardRatio = Math.max(0, Math.min(0.8, valueAsNumber(params.courtyardRatio) || 0));
-  return { type: family.geometryStrategy, footprintM2: Number(footprint.toFixed(2)), widthM: Number(width.toFixed(2)), depthM: Number(depth.toFixed(2)), courtyardM2: Number((footprint * courtyardRatio).toFixed(2)), rings: Number(params.rings) || undefined };
+  return {
+    type: family.geometryStrategy,
+    shapeType,
+    generation,
+    footprintM2: Number(footprint.toFixed(2)),
+    widthM: Number(width.toFixed(2)),
+    depthM: Number(depth.toFixed(2)),
+    aspectRatio: Number((width / depth).toFixed(4)),
+    courtyardM2: Number((footprint * courtyardRatio).toFixed(2)),
+    rings: Number(params.rings) || undefined
+  };
 }
 
 export function generateDynamicBuilding(input: { familyId: string; variantId: string; context?: Partial<BuildingContext>; parameters?: Record<string, string | number | boolean> }): GeneratedBuilding {
