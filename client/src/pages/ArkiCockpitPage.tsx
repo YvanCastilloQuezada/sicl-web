@@ -621,91 +621,145 @@ export default function ArkiCockpitPage() {
         </div>
       </div>
 
-      {/* CONTENEDOR PRINCIPAL: MENÚ HORIZONTAL + CONTENIDO */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-
-        {/* CONTENIDO: CENTRO + NUEVA BARRA + DERECHA */}
-        <div className="flex-1 flex overflow-visible relative z-0">
-
-          {/* CENTRO (flex-1): Funnel 16-4-1 */}
-          <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
-            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
+      {/* CONTENEDOR PRINCIPAL: FUNNEL + WORKSPACE */}
+      <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+        <div className="flex-1 min-h-0 flex overflow-hidden relative z-0">
+          {/* COLUMNA CENTRAL: FUNNEL */}
+          <section className="min-w-0 min-h-0 flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
+            <header className="flex-shrink-0 p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
               <span className="text-xs font-bold text-[#e2e8f0]">Embudo de Diseño · Funnel 16-4-1</span>
               <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
-            </div>
-            <div className="flex-1 overflow-auto p-4">
+            </header>
+            <div className="flex-1 min-h-0 overflow-auto p-4">
               <ProposalGallery proposals={partis} />
             </div>
-          </div>
+          </section>
 
-          {/* NUEVA BARRA (220px): Correcciones / Paramétricas */}
-          <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col">
-            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
-              <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
-              <Sparkles size={14} className="text-[#f0a35b]"/>
-            </div>
-            <div className="flex-1 overflow-y-auto p-3 space-y-2">
-              <p className="text-[10px] text-[#64748b]">Panel de correcciones paramétricas.</p>
-              <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Área</p>
-                <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+          {/* COLUMNA DERECHA: WORKSPACE + PANELES + CHAT */}
+          <aside className="w-[440px] min-w-[440px] max-w-[440px] min-h-0 flex-shrink-0 flex flex-col overflow-hidden bg-[#0f172a]">
+            {/* WORKSPACE: FRANJA SUPERIOR (~10%) */}
+            <header className="basis-[10%] min-h-[56px] flex-shrink-0 px-3 py-2 border-b border-[#1e293b] flex items-center justify-between gap-2">
+              <div className="min-w-0">
+                <p className="text-[10px] font-bold tracking-widest uppercase text-[#38bdf8]">Workspace</p>
+                <p className="text-[11px] text-[#e2e8f0] truncate">Entorno de trabajo ARKI</p>
               </div>
-              <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Pisos</p>
-                <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
-              </div>
-              <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Ciudad</p>
-                <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
-              </div>
-              <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Estilo</p>
-                <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.estilo || "—"}</p>
-              </div>
-            </div>
-          </div>
+              <span className="text-[9px] text-[#64748b] whitespace-nowrap">Funnel · Correcciones · Copiloto</span>
+            </header>
 
-          {/* DERECHA (220px): Copiloto (chat) */}
-          <div className="w-[220px] flex-shrink-0 bg-[#0f172a] flex flex-col">
-            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
-              <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
-              <Sparkles size={14} className="text-[#f0a35b]"/>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto p-3 space-y-3">
-              {messages.map((msg, i) => (
-                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
-                    {msg.text}
+            {/* CORRECCIONES Y COPILOTO: DOS PANELES HORIZONTALES */}
+            <div className="flex-1 min-h-0 grid grid-cols-2 divide-x divide-[#1e293b] overflow-hidden">
+              <section className="min-w-0 min-h-0 flex flex-col overflow-hidden">
+                <header className="flex-shrink-0 p-3 border-b border-[#1e293b] flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
+                  <Sparkles size={14} className="text-[#f0a35b]" />
+                </header>
+                <div className="flex-1 min-h-0 overflow-y-auto p-3 space-y-2">
+                  <p className="text-[10px] text-[#64748b]">Parámetros y ajustes del proyecto.</p>
+                  <div className="bg-[#1e293b] p-2 rounded-lg">
+                    <p className="text-[9px] text-[#64748b]">Área</p>
+                    <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || copilotParams?.areaM2 || "—"} m²</p>
+                  </div>
+                  <div className="bg-[#1e293b] p-2 rounded-lg">
+                    <p className="text-[9px] text-[#64748b]">Pisos</p>
+                    <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+                  </div>
+                  <div className="bg-[#1e293b] p-2 rounded-lg">
+                    <p className="text-[9px] text-[#64748b]">Ciudad</p>
+                    <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || copilotParams?.city || "—"}</p>
+                  </div>
+                  <div className="bg-[#1e293b] p-2 rounded-lg">
+                    <p className="text-[9px] text-[#64748b]">Estilo</p>
+                    <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.estilo || "—"}</p>
                   </div>
                 </div>
-              ))}
-              {isGenerating && (
-                <div className="flex justify-start">
-                  <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
-                    <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
+              </section>
+
+              <section className="min-w-0 min-h-0 flex flex-col overflow-hidden">
+                <header className="flex-shrink-0 p-3 border-b border-[#1e293b] flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
+                  <Sparkles size={14} className="text-[#f0a35b]" />
+                </header>
+                <div className="flex-1 min-h-0 overflow-y-auto p-3 space-y-3">
+                  <div className="rounded-lg border border-[#334155] bg-[#1e293b] p-2">
+                    <p className="text-[10px] font-semibold text-[#e2e8f0]">Asistente de diseño</p>
+                    <p className="mt-1 text-[10px] leading-relaxed text-[#94a3b8]">
+                      Interpreta las instrucciones del chat y prepara los parámetros para el proceso de diseño.
+                    </p>
                   </div>
+                  <div className="space-y-1 text-[10px]">
+                    <div className="flex justify-between gap-2">
+                      <span className="text-[#64748b]">Estado</span>
+                      <span className={isGenerating ? "text-[#f0a35b]" : "text-[#4ade80]"}>
+                        {isGenerating ? "Procesando" : "En espera"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                      <span className="text-[#64748b]">Parámetros</span>
+                      <span className="text-[#e2e8f0]">{copilotParams ? Object.keys(copilotParams).length : 0}</span>
+                    </div>
+                    <div className="flex justify-between gap-2">
+                      <span className="text-[#64748b]">Propuestas</span>
+                      <span className="text-[#e2e8f0]">{partis.length}</span>
+                    </div>
+                  </div>
+                  {isGenerating && (
+                    <div className="flex items-center gap-2 rounded-lg bg-[#1e293b] p-2 text-[10px] text-[#e2e8f0]">
+                      <Activity className="animate-pulse text-[#f0a35b]" size={14} />
+                      Ejecutando solicitud...
+                    </div>
+                  )}
                 </div>
-              )}
+              </section>
             </div>
 
-            <div className="p-3 border-t border-[#1e293b]">
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Describe lo que quieres construir..." 
-                  className="w-full bg-[#1e293b] border border-[#334155] rounded-lg py-2.5 pl-3 pr-10 text-[11px] focus:outline-none focus:border-[#f0a35b] transition"
-                />
-                <button onClick={handleSend} className="absolute right-1.5 top-1.5 bottom-1.5 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded flex items-center justify-center transition">
-                  <Send size={12} className="text-black" />
-                </button>
+            {/* CHAT: FRANJA INFERIOR (~20%), SEPARADA DEL PANEL COPILOTO */}
+            <section className="basis-[20%] min-h-[140px] flex-shrink-0 min-w-0 flex flex-col border-t border-[#1e293b] bg-[#0b1420]">
+              <header className="flex-shrink-0 px-3 py-2 border-b border-[#1e293b] flex items-center justify-between">
+                <span className="text-[11px] font-bold text-[#e2e8f0]">Chat conversacional</span>
+                <span className="text-[9px] text-[#64748b]">ARKI · SICL Core</span>
+              </header>
+              <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2 space-y-2">
+                {messages.map((msg, i) => (
+                  <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                    <div className={`max-w-[95%] px-2.5 py-1.5 rounded-lg text-[10px] leading-relaxed whitespace-pre-wrap break-words ${msg.role === "user" ? "bg-[#f0a35b] text-black" : "bg-[#1e293b] text-[#e2e8f0]"}`}>
+                      {msg.text}
+                    </div>
+                  </div>
+                ))}
+                {isGenerating && (
+                  <div className="flex justify-start">
+                    <div className="bg-[#1e293b] px-2.5 py-1.5 rounded-lg flex items-center gap-2 text-[10px]">
+                      <Activity className="animate-pulse text-[#f0a35b]" size={13} /> Consultando...
+                    </div>
+                  </div>
+                )}
               </div>
-              <p className="text-center text-[9px] text-[#475569] mt-1.5">ARKI puede cometer errores. Verifica la normativa.</p>
-            </div>
-          </div>
+              <form
+                className="flex-shrink-0 p-2 border-t border-[#1e293b]"
+                onSubmit={(event) => { event.preventDefault(); void handleSend(); }}
+              >
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={input}
+                    onChange={(event) => setInput(event.target.value)}
+                    disabled={isGenerating}
+                    placeholder="Escribe una instrucción para ARKI..."
+                    className="min-w-0 flex-1 bg-[#1e293b] border border-[#334155] rounded-lg px-3 py-2 text-[10px] focus:outline-none focus:border-[#f0a35b] transition disabled:opacity-60"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isGenerating || !input.trim()}
+                    aria-label="Enviar mensaje"
+                    className="flex-shrink-0 w-8 h-8 bg-[#f0a35b] hover:bg-[#fbbf24] disabled:opacity-40 disabled:cursor-not-allowed rounded flex items-center justify-center transition"
+                  >
+                    <Send size={13} className="text-black" />
+                  </button>
+                </div>
+                <p className="text-center text-[9px] text-[#475569] mt-1">Verifica los resultados y la normativa aplicable.</p>
+              </form>
+            </section>
+          </aside>
         </div>
       </div>
     </div>
