@@ -28,7 +28,7 @@
 import type { Express, Request, Response } from "express";
 import { randomBytes, randomUUID } from "node:crypto";
 import { getDb } from "./storage";
-import { createSessionJwt } from "./auth";
+import { createSessionJwt, revokeArkiSessionJwt } from "./auth";
 
 const STATE_COOKIE = "arki_oidc_state";
 const NONCE_COOKIE = "arki_oidc_nonce";
@@ -301,8 +301,25 @@ export function registerArkiOidcRoutes(app: Express): void {
   // POST /api/identity/oidc/logout
   // Limpia cookies OIDC (la cookie ARKI la limpia /api/identity/logout).
   // -------------------------------------------------------------
-  app.post("/api/identity/oidc/logout", (_req: Request, res: Response) => {
+  app.post("/api/identity/oidc/logout", async (req: Request, res: Response) => {
+    const sessionJwt = req.cookies?.[SESSION_COOKIE];
+    let revocationFailed = false;
+    if (typeof sessionJwt === "string" && sessionJwt.length > 0) {
+      try {
+        await revokeArkiSessionJwt(sessionJwt);
+        revocationFailed = false;
+      } catch {
+        revocationFailed = true;
+      }
+    }
     clearOidcCookies(res);
-    res.status(200).json({ ok: true });
+    res.clearCookie(SESSION_COOKIE, { path: "/" });
+    if (revocationFailed) {
+      return res.status(503).json({
+        ok: false,
+        error: "SESSION_REVOCATION_FAILED"
+      });
+    }
+    return res.status(200).json({ ok: true });
   });
 }

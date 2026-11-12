@@ -290,12 +290,10 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       // 1. Llamar al Copiloto real (Ollama + GPU) via sicl-core
       setMessages(prev => [...prev, { role: "assistant", text: "🧠 Consultando al copiloto (RTX 3060)..." }]);
       
-      const copilotRes = await fetch('/api/core/v1/copilot/translate', {
+      const copilotRes = await fetch('/api/copilot/translate', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN || ''}`
-        },
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: userMsg })
       });
       

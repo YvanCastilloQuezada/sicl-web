@@ -4,7 +4,7 @@
  * La activación se controla con ARKI_IDENTITY_ENABLE=1 (ver index.ts).
  */
 import { randomBytes, scrypt as scryptCb, timingSafeEqual, randomUUID } from "node:crypto";
-import { SignJWT } from "jose";
+import { SignJWT, jwtVerify } from "jose";
 import { promisify } from "node:util";
 import { getDb, type CredentialRow } from "./storage";
 
@@ -114,7 +114,69 @@ export async function createSessionJwt(input: {
     name: input.name,
   })
     .setProtectedHeader({ alg: "HS256" })
+    .setJti(randomUUID())
     .setIssuedAt(now)
     .setExpirationTime(exp)
     .sign(secret);
+}
+
+
+/**
+ * Verifica una sesión JWT ARKI y exige jti para permitir revocación individual.
+ * Los JWT antiguos sin jti fallan de forma cerrada.
+ */
+export async function verifyArkiSessionJwt(token: unknown): Promise<{
+  openId: string;
+  jti: string;
+  issuedAt: number;
+  expiresAt: string;
+} | null> {
+  if (typeof token !== "string" || token.length === 0) return null;
+  const secretRaw = process.env.JWT_SECRET ?? "";
+  if (secretRaw.length < 32) throw new Error("IDENTITY_JWT_SECRET_MISSING");
+  try {
+    const { payload } = await jwtVerify(token, new TextEncoder().encode(secretRaw), {
+      algorithms: ["HS256"],
+    });
+    if (
+      typeof payload.openId !== "string" ||
+      typeof payload.jti !== "string" ||
+      payload.jti.length < 16 ||
+      typeof payload.iat !== "number" ||
+      typeof payload.exp !== "number"
+    ) return null;
+    return {
+      openId: payload.openId,
+      jti: payload.jti,
+      issuedAt: payload.iat,
+      expiresAt: new Date(payload.exp * 1000).toISOString(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Revocación persistente e idempotente de un JWT de sesión ARKI. */
+export async function revokeArkiSessionJwt(token: unknown): Promise<boolean> {
+  const claims = await verifyArkiSessionJwt(token);
+  if (!claims) return false;
+  const db = getDb();
+  const detail = `jwt_jti=${claims.jti}`;
+  const exists = db.prepare(
+    "SELECT 1 FROM arki_identity_audit WHERE action = 'logout' AND detail = ? LIMIT 1",
+  ).get(detail);
+  if (!exists) {
+    db.prepare(
+      "INSERT INTO arki_identity_audit (action, detail) VALUES ('logout', ?)",
+    ).run(detail);
+  }
+  return true;
+}
+
+export function isArkiSessionJwtRevoked(jti: string): boolean {
+  if (!jti) return true;
+  const db = getDb();
+  return Boolean(db.prepare(
+    "SELECT 1 FROM arki_identity_audit WHERE action = 'logout' AND detail = ? LIMIT 1",
+  ).get(`jwt_jti=${jti}`));
 }

@@ -22,6 +22,7 @@ import { attachParametricWebSocket } from "../parametricRealtime";
 import { rateLimit, recordSecurityEvent, securityHeaders, writeRequestGuard } from "../security";
 import { registerContinuityApi, flushPendingContinuityOutbox } from "../continuityApi";
 import { execSync } from "child_process";
+import { authenticateArkiIdentity, identityEnabled } from "./arkiIdentityBridge";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -40,6 +41,28 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
     }
   }
   throw new Error(`No available port found starting from ${startPort}`);
+}
+
+
+async function requireArkiIdentity(req: express.Request, res: express.Response, next: express.NextFunction) {
+  if (!identityEnabled()) {
+    res.status(503).json({ error: "IDENTITY_DISABLED", message: "La identidad ARKI no está habilitada." });
+    return;
+  }
+  try {
+    const identity = await authenticateArkiIdentity(req);
+    if (!identity) {
+      res.status(401).json({ error: "UNAUTHENTICATED", message: "Inicia sesión en ARKI para continuar." });
+      return;
+    }
+    res.locals.arkiIdentity = identity;
+    next();
+  } catch (error) {
+    const code = error instanceof Error && error.message === "IDENTITY_JWT_SECRET_MISSING"
+      ? "IDENTITY_CONFIGURATION_ERROR"
+      : "IDENTITY_VERIFICATION_FAILED";
+    res.status(503).json({ error: code, message: "No se pudo verificar la identidad ARKI." });
+  }
 }
 
 async function startServer() {
@@ -120,7 +143,7 @@ async function startServer() {
   app.use("/api/trpc", rateLimit({ name: "trpc", max: 180 }));
   // F7.2: registerArkiMo22(app) desactivado
   // F-copilot: proxy /api/copilot/translate → SICL Core /v1/copilot/translate
-  app.post("/api/copilot/translate", rateLimit({ name: "copilot", max: 30 }), async (req, res) => {
+  app.post("/api/copilot/translate", rateLimit({ name: "copilot", max: 30 }), requireArkiIdentity, async (req, res) => {
     try {
       const upstream = await proxyCoreRequest("/v1/copilot/translate", {
         method: "POST",
@@ -162,7 +185,7 @@ async function startServer() {
       res.status(code === "CORE_UNAUTHORIZED" ? 502 : 503).json({ status: "error", code, message, correlation_id: correlationId });
     }
   });
-  app.use("/api/core", async (req, res) => {
+  app.use("/api/core", requireArkiIdentity, async (req, res) => {
     const correlationId = randomUUID();
     res.setHeader("x-correlation-id", correlationId);
     try {

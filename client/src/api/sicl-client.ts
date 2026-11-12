@@ -170,11 +170,11 @@ function apiUrl(): string {
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${apiUrl()}${path}`, {
     ...init,
+    credentials: init?.credentials ?? "include",
     headers: {
       accept: "application/json",
       ...(init?.body ? { "content-type": "application/json" } : {}),
       ...(init?.headers ?? {}),
-      ...(((window as any).SICL_CORE_SERVICE_TOKEN) ? { authorization: `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN}` } : {}),
     },
   });
   const body = await response.json().catch(() => ({}));
