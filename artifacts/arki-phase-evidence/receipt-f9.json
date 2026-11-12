@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F9",
-  "timeUTC": "2026-10-28T02:05:22.557Z",
+  "timeUTC": "2026-11-11T02:57:59.247Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -11,7 +11,7 @@
     {
       "name": "vitest-f9",
       "command": "pnpm exec vitest run server/arkiSpatialFieldBridge.test.ts",
-      "started": "2026-10-28T02:05:22.566Z",
+      "started": "2026-11-11T02:57:59.256Z",
       "status": "PASS",
       "exitCode": 0,
       "signal": null
@@ -20,7 +20,7 @@
   "status": "PASS_WEB_ONLY",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
+    "countAll": 182,
     "countMatched": 1,
     "files": [
       "server/arkiSpatialFieldBridge.test.ts"

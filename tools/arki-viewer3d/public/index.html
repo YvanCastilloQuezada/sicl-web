@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ARKI F1–F11 · Visor 3D</title>
+<link rel="stylesheet" href="/styles.css">
+<script type="importmap">
+{ "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<!-- Visor 3D a pantalla completa -->
+<div id="canvas-host"></div>
+
+<!-- Panel flotante derecho para detalles y logs -->
+<aside id="sidebar" class="panel-float">
+  <div class="panel-header">
+    <h2>ARKI · F1–F11</h2>
+    <select id="run-select"></select>
+  </div>
+  <div id="status-bar">Cargando…</div>
+  <div id="alt-label" class="alt"></div>
+  <div id="legend"></div>
+  <div id="panel"><p>Haz clic en un piso para ver su estado.</p></div>
+</aside>
+
+<!-- Barra de chat flotante en la parte inferior -->
+<div id="chat-bar">
+  <div class="chat-container">
+    <button id="f11-exec" title="Ejecutar fase o todas">▶️</button>
+    
+    <div class="chat-input-wrap">
+      <textarea id="f11-text" rows="1" placeholder="Escribe o dicta tu prueba, nota o criterio..."></textarea>
+    </div>
+    
+    <select id="f11-target" title="Fase destino">
+      <option value="">Todas</option>
+      <option value="F1">F1</option><option value="F2">F2</option>
+      <option value="F3">F3</option><option value="F4">F4</option>
+      <option value="F5">F5</option><option value="F6">F6</option>
+      <option value="F7">F7</option><option value="F8">F8</option>
+      <option value="F9">F9</option><option value="F10">F10</option>
+    </select>
+
+    <button id="f11-view" title="Ver salida de la fase">👁</button>
+
+    <button id="f11-mic" class="icon-btn" title="Dictar por voz">🎤</button>
+    <button id="f11-send" class="icon-btn send-btn" title="Registrar prueba">⬆️</button>
+  </div>
+  <div id="f11-progress-wrap">
+    <div id="f11-progress-bar"><div id="f11-progress-fill"></div></div>
+    <div id="f11-progress-text"></div>
+  </div>
+</div>
+
+<script type="module" src="/viewer.js"></script>
+</body>
+</html>

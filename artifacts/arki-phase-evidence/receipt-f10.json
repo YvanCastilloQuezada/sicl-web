@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F10",
-  "timeUTC": "2026-10-28T02:05:24.537Z",
+  "timeUTC": "2026-11-11T02:58:01.305Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -10,8 +10,8 @@
   "tests": [
     {
       "name": "vitest-f10",
-      "command": "pnpm exec vitest run server/arLuLiveTelemetry.test.ts server/arkiProjectLifecycle.test.ts",
-      "started": "2026-10-28T02:05:24.544Z",
+      "command": "pnpm exec vitest run server/arLuLiveTelemetry.test.ts server/arkiEtoBimLearning.test.ts server/arkiProjectLifecycle.test.ts",
+      "started": "2026-11-11T02:58:01.313Z",
       "status": "PASS",
       "exitCode": 0,
       "signal": null
@@ -20,10 +20,11 @@
   "status": "PASS_WEB_ONLY",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
-    "countMatched": 2,
+    "countAll": 182,
+    "countMatched": 3,
     "files": [
       "server/arLuLiveTelemetry.test.ts",
+      "server/arkiEtoBimLearning.test.ts",
       "server/arkiProjectLifecycle.test.ts"
     ]
   }

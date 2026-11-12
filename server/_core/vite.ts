@@ -48,7 +48,7 @@ export async function setupVite(app: Express, server: Server) {
         .replace(/<script[^>]*__MANUS_HOST_DEV__[\s\S]*?<\/script>/gi, "");
       
       // ARKI: Inyectar el token del core en el HTML para que el frontend lo use
-      const token = process.env.SICL_CORE_SERVICE_TOKEN || "";
+      const token = "" || "";
       const tokenScript = token ? `<script>window.SICL_CORE_SERVICE_TOKEN = "${token}";</script>` : "";
       page = page.replace("</head>", `${tokenScript}</head>`);
 

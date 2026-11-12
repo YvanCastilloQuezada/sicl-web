@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F1",
-  "timeUTC": "2026-10-28T02:04:56.774Z",
+  "timeUTC": "2026-11-11T02:57:30.841Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -10,22 +10,27 @@
   "tests": [
     {
       "name": "vitest-f1",
-      "command": "pnpm exec vitest run server/_core/arkiMo29Identity.test.ts server/arkiCanonicalExecution.test.ts server/arkiF7OeceSourceGate.test.ts server/coreHttpClient.auth.test.ts server/coreHttpClient.test.ts server/coreHttpClient.v1.test.ts client/src/components/CanonicalOrthographicViewer.test.ts client/src/lib/canonical-command-resolver.test.ts",
-      "started": "2026-10-28T02:04:56.783Z",
-      "status": "PASS",
-      "exitCode": 0,
+      "command": "pnpm exec vitest run server/_core/arkiIdentity/arkiIdentity.test.ts server/_core/arkiIdentity/httpRoutes.test.ts server/_core/arkiIdentity/identityLogin.test.ts server/_core/arkiIdentity/oidcOpenId.test.ts server/_core/arkiMo29Identity.test.ts server/arkiCanonicalExecution.test.ts server/arkiF7OeceSourceGate.test.ts server/arkiOecePublicationIdentity.test.ts server/coreHttpClient.auth.test.ts server/coreHttpClient.test.ts server/coreHttpClient.v1.test.ts client/src/components/CanonicalOrthographicViewer.test.ts client/src/lib/canonical-command-resolver.test.ts",
+      "started": "2026-11-11T02:57:30.851Z",
+      "status": "FAIL",
+      "exitCode": 1,
       "signal": null
     }
   ],
-  "status": "PASS_WEB_ONLY",
+  "status": "FAIL",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
-    "countMatched": 8,
+    "countAll": 182,
+    "countMatched": 13,
     "files": [
+      "server/_core/arkiIdentity/arkiIdentity.test.ts",
+      "server/_core/arkiIdentity/httpRoutes.test.ts",
+      "server/_core/arkiIdentity/identityLogin.test.ts",
+      "server/_core/arkiIdentity/oidcOpenId.test.ts",
       "server/_core/arkiMo29Identity.test.ts",
       "server/arkiCanonicalExecution.test.ts",
       "server/arkiF7OeceSourceGate.test.ts",
+      "server/arkiOecePublicationIdentity.test.ts",
       "server/coreHttpClient.auth.test.ts",
       "server/coreHttpClient.test.ts",
       "server/coreHttpClient.v1.test.ts",

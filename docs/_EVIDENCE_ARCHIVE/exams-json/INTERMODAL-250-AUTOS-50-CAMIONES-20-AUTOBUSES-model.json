@@ -1,0 +1,172 @@
+{
+  "id": "INTERMODAL-TERMINAL-30000-CONCEPTUAL",
+  "representationKind": "CONCEPTUAL_SITE_PLAN",
+  "status": "AI_PROPOSED",
+  "site": {
+    "area_m2": 30000,
+    "assumptions": [
+      "Terreno rectangular aproximado de 150 x 200 m",
+      "Acceso público principal separado del acceso de carga",
+      "250 autos como estacionamiento general; no equivale a aforo simultáneo garantizado",
+      "50 camiones pesados operan con circuito de carga y descarga independiente",
+      "20 autobuses operan con dársenas y plataforma de pasajeros independientes",
+      "Radios de giro, pendientes, pavimentos, evacuación y normativa deben verificarse localmente",
+      "El programa conceptual ajustado ocupa 27,550 m² y reserva 2,450 m² para paisajismo, drenaje, franjas de seguridad y tolerancias de implantación."
+    ],
+    "programmed_area_m2": 27550,
+    "program_balance_m2": 2450
+  },
+  "capacities": {
+    "cars": 250,
+    "heavyTrucks": 50,
+    "buses": 20
+  },
+  "program": [
+    {
+      "id": "PUB-01",
+      "name": "Plaza pública y acceso principal",
+      "area_m2": 900,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "PUB-02",
+      "name": "Sala de espera y vestíbulo intermodal",
+      "area_m2": 1300,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "PUB-03",
+      "name": "Taquillas, información y control de pasajeros",
+      "area_m2": 420,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "PUB-04",
+      "name": "Servicios higiénicos y accesibilidad",
+      "area_m2": 420,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "PUB-05",
+      "name": "Comercio y alimentos",
+      "area_m2": 600,
+      "zone": "PUBLIC"
+    },
+    {
+      "id": "BUS-01",
+      "name": "20 dársenas de autobuses",
+      "area_m2": 4200,
+      "zone": "BUS"
+    },
+    {
+      "id": "BUS-02",
+      "name": "Plataformas cubiertas de embarque",
+      "area_m2": 1400,
+      "zone": "BUS"
+    },
+    {
+      "id": "BUS-03",
+      "name": "Patio de regulación de autobuses",
+      "area_m2": 2100,
+      "zone": "BUS"
+    },
+    {
+      "id": "CAR-01",
+      "name": "Estacionamiento de 250 autos",
+      "area_m2": 6500,
+      "zone": "CAR"
+    },
+    {
+      "id": "CAR-02",
+      "name": "Vialidad y circulación de autos",
+      "area_m2": 2400,
+      "zone": "CAR"
+    },
+    {
+      "id": "FRT-01",
+      "name": "50 posiciones de espera de camiones",
+      "area_m2": 2400,
+      "zone": "FREIGHT"
+    },
+    {
+      "id": "FRT-02",
+      "name": "Patio de carga, descarga y maniobra pesada",
+      "area_m2": 2200,
+      "zone": "FREIGHT"
+    },
+    {
+      "id": "FRT-03",
+      "name": "Almacén y consolidación logística",
+      "area_m2": 1100,
+      "zone": "FREIGHT"
+    },
+    {
+      "id": "OPS-01",
+      "name": "Control operativo, CCTV y administración",
+      "area_m2": 500,
+      "zone": "OPERATIONS"
+    },
+    {
+      "id": "OPS-02",
+      "name": "Taller y mantenimiento de flota",
+      "area_m2": 600,
+      "zone": "SERVICE"
+    },
+    {
+      "id": "OPS-03",
+      "name": "Residuos, servicios y acceso de emergencia",
+      "area_m2": 510,
+      "zone": "SERVICE"
+    }
+  ],
+  "flows": [
+    {
+      "id": "F-PUBLIC",
+      "name": "Pasajeros",
+      "path": "acceso público -> plaza -> vestíbulo -> taquilla/espera -> plataforma de autobús -> salida",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F-BUS",
+      "name": "Autobuses",
+      "path": "acceso bus -> regulación -> dársena -> embarque -> salida",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F-FREIGHT",
+      "name": "Carga pesada",
+      "path": "acceso exclusivo de carga -> patio de maniobra -> muelles/almacén -> salida exclusiva",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F-CAR",
+      "name": "Autos",
+      "path": "acceso autos -> estacionamiento -> circulación peatonal segura -> salida",
+      "status": "CONCEPTUAL"
+    },
+    {
+      "id": "F-SERVICE",
+      "name": "Servicio y emergencia",
+      "path": "acceso técnico -> mantenimiento/residuos -> salida independiente; conexión controlada de emergencia",
+      "status": "CONCEPTUAL"
+    }
+  ],
+  "separationRules": [
+    "No mezclar el circuito de camiones pesados con la plaza pública",
+    "No cruzar dársenas de autobuses con rutas peatonales sin control",
+    "Mantener acceso de carga independiente",
+    "Mantener ruta de emergencia continua",
+    "Verificar radios de giro para el vehículo de diseño más exigente"
+  ],
+  "unknowns": [
+    "Frente y forma real del terreno",
+    "Normativa del país y municipio",
+    "Aforo y demanda horaria",
+    "Tipo y dimensiones de camiones",
+    "Radio de giro y longitud real de autobuses",
+    "Evacuación, incendios y accesibilidad",
+    "Pavimentos, drenaje, estructura y MEP",
+    "Requisitos de aduana, combustible o mercancías peligrosas"
+  ],
+  "humanReviewRequired": true
+}

@@ -4,6 +4,6 @@
 - Status: PASS_WEB_ONLY
 - Core: NOT_RUN — cross-repository Core test runner not provisioned in this workflow
 - PO: PO_PENDING
-- Matched test files: 8
+- Matched test files: 11
 - vitest-f7: PASS (exit 0)
 - Limit: PASS_WEB_ONLY is NOT phase acceptance or end-to-end validation.

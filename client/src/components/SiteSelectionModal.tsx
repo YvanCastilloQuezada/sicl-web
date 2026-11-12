@@ -107,7 +107,7 @@ export default function SiteSelectionModal({ onClose, onSave }: { onClose: () =>
       <div className="flex-1 relative">
         <MapContainer center={[-12.0464, -77.0428] as [number, number]} zoom={13} style={{ height: "100%", width: "100%" }}>
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           />
           <MapEvents points={points} setPoints={setPoints} />

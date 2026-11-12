@@ -40,3 +40,52 @@ describe("ARKI-INTEGRATED-ARCHITECT-1.0", () => {
     expect(cycle.stages.find((item) => item.stage === "HUMAN_REVIEW")?.status).toBe("PASS");
   });
 });
+
+
+describe("ARKI project PARTI and topology genealogy", () => {
+  it("derives topology hypotheses from each project PARTI", () => {
+    const cycle = executeIntegratedArchitectCycle(
+      base("RES-HOU-200-001", "RESIDENTIAL",
+        "A home with private, social and service activities.")
+    );
+
+    expect(cycle.projectPartis.length).toBeGreaterThan(0);
+    expect(cycle.projectTopology).toHaveLength(cycle.projectPartis.length);
+
+    const partiNodes = cycle.projectGenealogy.nodes.filter(
+      (node) => node.type === "PARTI"
+    );
+    const topologyNodes = cycle.projectGenealogy.nodes.filter(
+      (node) => node.type === "TOPOLOGY"
+    );
+
+    expect(partiNodes).toHaveLength(cycle.projectPartis.length);
+    expect(topologyNodes).toHaveLength(cycle.projectPartis.length);
+
+    for (const node of topologyNodes) {
+      expect(node.parentIds).toHaveLength(1);
+      expect(partiNodes.some((parti) =>
+        node.parentIds.includes(parti.id)
+      )).toBe(true);
+    }
+
+    expect(cycle.stages.find((item) =>
+      item.stage === "TOPOLOGY"
+    )?.status).toBe("PARTIAL");
+  });
+
+  it("does not confuse documentary fixture capability with project capability", () => {
+    const cycle = executeIntegratedArchitectCycle(
+      base("RES-TAU-500-002", "RESTAURANT",
+        "A restaurant with public and service flows.")
+    );
+
+    const summary = summarizeArchitectCapability(cycle);
+
+    expect(summary.canProposePartis).toBe(cycle.projectPartis.length > 0);
+    expect(summary.canTraceTopology).toBe(false);
+    expect(summary.canTraceTopologyHypothesis).toBe(true);
+    expect(cycle.status).toBe("PARTIAL");
+    expect(cycle.parti.partis).toHaveLength(3);
+  });
+});

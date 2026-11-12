@@ -1,0 +1,35 @@
+{
+  "schema": "ARKI-PHASE-EVIDENCE-1",
+  "phase": "F3",
+  "timeUTC": "2026-11-10T22:52:49.948Z",
+  "repository": "local",
+  "sha": "LOCAL_UNPINNED",
+  "branch": "local",
+  "declaration": "IMPLEMENTED_BY_PO; TEST_EVIDENCE_SEPARATE; PO_APPROVAL_REQUIRED",
+  "core": "NOT_RUN — cross-repository Core test runner not provisioned in this workflow",
+  "tests": [
+    {
+      "name": "vitest-f3",
+      "command": "pnpm exec vitest run server/arkiAgentOrchestrator.test.ts server/arkiArchitecturalDeveloper.test.ts server/arkiD62ReasoningHarness.test.ts server/arkiIntegratedArchitectCycle.test.ts server/arkiVisualIntelligence.test.ts server/spatialReasoning/core.test.ts server/spatialReasoning/smallOfficeVerticalSlice.test.ts",
+      "started": "2026-11-10T22:52:49.957Z",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "status": "PASS_WEB_ONLY",
+  "approval": "PO_PENDING",
+  "discovery": {
+    "countAll": 182,
+    "countMatched": 7,
+    "files": [
+      "server/arkiAgentOrchestrator.test.ts",
+      "server/arkiArchitecturalDeveloper.test.ts",
+      "server/arkiD62ReasoningHarness.test.ts",
+      "server/arkiIntegratedArchitectCycle.test.ts",
+      "server/arkiVisualIntelligence.test.ts",
+      "server/spatialReasoning/core.test.ts",
+      "server/spatialReasoning/smallOfficeVerticalSlice.test.ts"
+    ]
+  }
+}

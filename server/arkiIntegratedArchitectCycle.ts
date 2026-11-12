@@ -2,6 +2,7 @@ import { buildPartiProof, type PartiProof } from "./arkiPartiContract";
 import { executeArchitecturalReasoning, type ArchitecturalReasoningInput, type ArchitecturalReasoningResult } from "./arkiD62ReasoningHarness";
 import { executeD63G, type D63Input, type D63Result } from "./arkiD63GeometricBridge";
 import { emptySnapshot, type SiclSnapshot } from "./siclCore";
+import { executeProjectBrainWave1, type DynamicParti, type ArchitecturalGenealogy } from "./arkiProjectBrain";
 
 export type ProjectIdentifier = `${string}-${string}-${string}-${string}`;
 export type CycleStatus = "CONCEPTUAL_CYCLE_PASS" | "PARTIAL";
@@ -29,6 +30,9 @@ export type IntegratedArchitectCycle = {
   stages: Array<{ stage: string; status: "PASS" | "PARTIAL" | "UNKNOWN"; evidence: string[] }>;
   reasoning: ArchitecturalReasoningResult;
   parti: PartiProof;
+  projectPartis: DynamicParti[];
+  projectTopology: string[];
+  projectGenealogy: ArchitecturalGenealogy;
   geometry: D63Result;
   evaluation: {
     geometric: "PASS" | "FAIL" | "UNKNOWN";
@@ -66,22 +70,52 @@ export function executeIntegratedArchitectCycle(input: IntegratedArchitectInput,
   if (!isProjectIdentifier(input.projectId)) throw new Error("PROJECT_ID_MUST_MATCH_XXX-XXX-XXX-XXX");
   const reasoning = executeArchitecturalReasoning(toReasoningInput(input), snapshot, coreKnowledgeVersion, runtimeVersion);
   const parti = buildPartiProof();
+
+  // PARTI productivo derivado del encargo real.
+  // buildPartiProof permanece exclusivamente como fixture documental.
+  const projectBrain = executeProjectBrainWave1({
+    projectId: input.projectId,
+    name: input.projectName,
+    typology: input.typology,
+    brief: input.brief,
+    location: typeof input.context.location === "string"
+      ? input.context.location : undefined,
+    jurisdiction: typeof input.context.jurisdiction === "string"
+      ? input.context.jurisdiction : undefined,
+    site: typeof input.context.site === "object" && input.context.site !== null
+      ? input.context.site as Record<string, unknown> : undefined,
+    knownFacts: [
+      `PROJECT_ID=${input.projectId}`,
+      ...input.sourceIds.map((id) => `SOURCE=${id}`),
+    ],
+    unknowns: input.unknowns,
+    constraints: input.constraints,
+    activities: input.activities,
+    relationships: input.relationships,
+    sourceIds: input.sourceIds,
+  });
+
+  const projectPartis = projectBrain.brain.architecture.partis;
+  const projectTopology = projectBrain.brain.architecture.topology;
+  const projectGenealogy = projectBrain.genealogy;
+
   const geometry = executeD63G(toGeometryInput(input), snapshot, coreKnowledgeVersion, runtimeVersion);
   const unknowns = [...input.unknowns, "Functional fit requires architect review.", "Regulatory compliance and professional approval are not evaluated by this conceptual cycle."];
   const stages = [
     stage("PROJECT_CONDITIONS", "PASS", [`PROJECT_ID:${input.projectId}`, ...input.sourceIds.map((id) => `SOURCE:${id}`)]),
     stage("KNOWLEDGE_RETRIEVAL", reasoning.retrieved.length ? "PASS" : "PARTIAL", reasoning.retrieved.map((item) => `KNOWLEDGE:${item.id}`)),
     stage("REASONING_AND_TRANSFER", "PASS", reasoning.transferDecisions.map((item) => `TRANSFER:${item.transferId}:${item.mode}`)),
-    stage("PARTI_HYPOTHESES", parti.finalStatus === "PASS" ? "PASS" : "PARTIAL", parti.partis.map((item) => `PARTI:${item.partiId}`)),
-    stage("TOPOLOGY", parti.gates.G3_PARTI_TO_TOPOLOGY === "PASS" ? "PASS" : "PARTIAL", parti.partis.map((item) => `TOPOLOGY:${item.topologyId}`)),
+    stage("PARTI_HYPOTHESES", projectPartis.length > 0 ? "PARTIAL" : "UNKNOWN", projectPartis.map((item) => `PROJECT_PARTI:${item.id}`)),
+    stage("TOPOLOGY", projectTopology.length > 0 ? "PARTIAL" : "UNKNOWN", projectTopology.map((item) => `PROJECT_TOPOLOGY_HYPOTHESIS:${item}`)),
     stage("GEOMETRY_CONCEPTUAL", geometry.finalStatus === "PASS" ? "PASS" : "PARTIAL", [geometry.candidateA.id, geometry.candidateB.id]),
     stage("FUNCTIONAL_EVALUATION", "UNKNOWN", ["D6.3 functional validity remains UNKNOWN until activity-fit review."]),
     stage("REGULATORY_EVALUATION", "UNKNOWN", ["RNE, jurisdictional and professional approval evidence not supplied to this cycle."]),
     stage("HUMAN_REVIEW", "PASS", ["Human Authority remains final."]),
   ];
-  return { cycleVersion: "ARKI-INTEGRATED-ARCHITECT-1.0", project: { projectId: input.projectId, projectName: input.projectName, typology: input.typology, sourceIds: input.sourceIds }, stages, reasoning, parti, geometry, evaluation: { geometric: geometry.finalStatus === "PASS" ? "PASS" : "UNKNOWN", functional: "UNKNOWN", regulatory: "NOT_EVALUATED", architecturalQuality: "NOT_EVALUATED", humanDecision: "PENDING", unknowns }, backtrack: { available: true, targets: ["PARTI", "TOPOLOGY", "GEOMETRY"], currentDecision: "PENDING_HUMAN_REVIEW" }, status: geometry.finalStatus === "PASS" && parti.finalStatus === "PASS" ? "CONCEPTUAL_CYCLE_PASS" : "PARTIAL" };
+  return { cycleVersion: "ARKI-INTEGRATED-ARCHITECT-1.0", project: { projectId: input.projectId, projectName: input.projectName, typology: input.typology, sourceIds: input.sourceIds }, stages, reasoning, parti, projectPartis, projectTopology, projectGenealogy, geometry, evaluation: { geometric: geometry.finalStatus === "PASS" ? "PASS" : "UNKNOWN", functional: "UNKNOWN", regulatory: "NOT_EVALUATED", architecturalQuality: "NOT_EVALUATED", humanDecision: "PENDING", unknowns }, backtrack: { available: true, targets: ["PARTI", "TOPOLOGY", "GEOMETRY"], currentDecision: "PENDING_HUMAN_REVIEW" }, status: "PARTIAL" };
 }
 
 export function summarizeArchitectCapability(cycle: IntegratedArchitectCycle) {
-  return { canInterpretBrief: true, canRetrieveKnowledge: true, canProposePartis: cycle.parti.partis.length === 3, canTraceTopology: cycle.stages.some((item) => item.stage === "TOPOLOGY" && item.status === "PASS"), canGenerateConceptualGeometry: cycle.geometry.finalStatus === "PASS" || cycle.geometry.finalStatus === "PARTIAL", canRejectAdversarialParti: cycle.parti.mutations.some((item) => item.status === "REJECTED"), canBacktrack: cycle.backtrack.available, canTransferWithAdaptation: cycle.parti.transfer.mode === "ADAPT", functionalValidity: cycle.evaluation.functional, regulatoryValidity: cycle.evaluation.regulatory, humanDecision: cycle.evaluation.humanDecision, claim: "BOUNDED_CONCEPTUAL_ARCHITECTURAL_SYNTHESIS_ONLY" };
+  return { canInterpretBrief: true, canRetrieveKnowledge: true, canProposePartis: cycle.projectPartis.length > 0, canTraceTopology: false,
+    canTraceTopologyHypothesis: cycle.projectGenealogy.edges.some((edge) => edge.relation === "TOPOLOGY_DERIVED_FROM"), canGenerateConceptualGeometry: cycle.geometry.finalStatus === "PASS" || cycle.geometry.finalStatus === "PARTIAL", canRejectAdversarialParti: cycle.parti.mutations.some((item) => item.status === "REJECTED"), canBacktrack: cycle.backtrack.available, canTransferWithAdaptation: cycle.parti.transfer.mode === "ADAPT", functionalValidity: cycle.evaluation.functional, regulatoryValidity: cycle.evaluation.regulatory, humanDecision: cycle.evaluation.humanDecision, claim: "BOUNDED_CONCEPTUAL_ARCHITECTURAL_SYNTHESIS_ONLY" };
 }

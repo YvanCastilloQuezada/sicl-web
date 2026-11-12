@@ -19,9 +19,9 @@ import SiteSelectionModal from '@/components/SiteSelectionModal';
 import CommandPalette from "@/components/CommandPalette";
 import NodeEditorModal from "@/components/NodeEditorModal";
 import WorkspacePanel from "@/components/WorkspacePanel";
+import CopilotPanel from "@/components/CopilotPanel";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
-import ProposalGallery from "@/components/ProposalGallery";
 
 export default function ArkiCockpitPage() {
   
@@ -51,7 +51,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [seisDOpen, setSeisDOpen] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
-  const [showF1Demo, setShowF1Demo] = useState(false);
   const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | null>(null);
   const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -813,8 +812,18 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           {/* CENTRO (flex-1): Funnel 16-4-1 */}
           <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
             
-            <div className="flex-1 overflow-auto p-4">
-              <ProposalGallery proposals={partis} />
+            <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
+              <div className="max-w-xl rounded-lg border border-[#28445b] bg-[#0b1320] p-6 text-center">
+                <p className="text-sm font-semibold text-[#e2e8f0]">Embudo de diseño canónico · 9→4→1</p>
+                <p className="mt-2 text-xs text-[#94a3b8]">
+                  La generación, comparación, selección y evaluación de alternativas se gobiernan
+                  exclusivamente desde el Funnel canónico.
+                </p>
+                <a href="/arki-design-funnel"
+                   className="mt-4 inline-flex rounded-md bg-[#f0a35b] px-4 py-2 text-sm font-semibold text-[#111827]">
+                  Abrir ARKI Design Funnel
+                </a>
+              </div>
             </div>
           </div>
 
@@ -874,110 +883,30 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         </div>
       </div>
       
-      {/* INPUT AVANZADO ESTILO CHATGPT CON MENÚ "+" */}
+      {/* CHAT REFACTORIZADO */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
-        {/* Menú desplegable del botón "+" */}
-        {showPlusMenu && (
-          <div className="absolute bottom-full left-0 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden">
-            <div className="p-2 space-y-1">
-              <label className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left cursor-pointer">
-                <Paperclip size={16} className="text-[#38bdf8]" /> 
-                {uploading ? "⏳ Subiendo..." : "📎 Subir planos y archivos (IFC, DWG, PDF)"}
-                <input 
-                  type="file" 
-                  className="hidden" 
-                  accept=".ifc,.pdf,.dwg,.rvt,.json,.dxf"
-                  onChange={handleFileUpload}
-                  disabled={uploading}
-                />
-              </label>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('ifc'); }}>
-                <Box size={16} className="text-[#f472b6]" /> Visor 3D / IFC (Renders)
-              </button>
-              <button 
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left"
-                onClick={() => {
-                  setShowPlusMenu(false);
-                  handleNormativaSearch();
-                }}
-              >
-                <Globe size={16} className="text-[#4ade80]" /> 
-                {searchingNormativa ? " Buscando..." : "📚 Buscar normativa (RNE, OECE)"}
-              </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('nodes'); }}>
-                <Code size={16} className="text-[#fbbf24]" /> Generar código paramétrico
-              </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('editor'); }}>
-                <PenTool size={16} className="text-[#a78bfa]" /> Editor de Planos (Canvas)
-              </button>
-              
-              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
-                <Brain size={16} className="text-[#f0a35b]" /> Razonamiento detallado (ARKI Brain)
-              </button>
-            </div>
-          </div>
-        )}
-        
-        <div className="bg-[#1e293b] rounded-2xl border border-[#334155] shadow-2xl focus-within:border-[#f0a35b] transition-all">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault()
-                handleSend()
-              }
-            }}
-            placeholder="Describe lo que quieres construir..."
-            disabled={isGenerating}
-            className="w-full bg-transparent border-0 rounded-t-2xl px-4 py-3 text-sm text-[#e2e8f0] resize-none focus:outline-none placeholder:text-[#64748b] min-h-[44px]"
-            rows={1}
-          />
-          <div className="flex items-center justify-between px-3 py-2 border-t border-[#334155]">
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => setShowPlusMenu(!showPlusMenu)}
-                className="p-2 hover:bg-[#334155] rounded-full transition text-[#e2e8f0]"
-                title="Más opciones"
-              >
-                <Plus size={18} />
-              </button>
-              <button className="p-2 hover:bg-[#334155] rounded-full transition text-[#64748b] hover:text-[#e2e8f0]" title="ARKI Brain">
-                <Sparkles size={16} className="text-[#f0a35b]" />
-              </button>
-            </div>
-            <div className="flex items-center gap-2">
-              <button 
-                onClick={() => {
-                  if (isListening) return;
-                  startListening((text) => {
-                    setInput(text);
-                    // Opcional: Auto-enviar después de hablar
-                    // setTimeout(() => handleSend(), 500); 
-                  });
-                }}
-                className={`p-2 rounded-full transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`} 
-                title={isListening ? "Escuchando..." : "Hablar con ARKI"}
-              >
-                <Mic size={16} />
-              </button>
-              <button 
-                onClick={handleSend}
-                disabled={!input.trim() || isGenerating}
-                className="p-2 bg-[#f0a35b] hover:bg-[#e09050] disabled:bg-[#475569] rounded-full transition text-black disabled:text-[#64748b]"
-                title="Enviar"
-              >
-                <Send size={16} />
-              </button>
-            </div>
-          </div>
-        </div>
-        <p className="text-center text-[9px] text-[#475569] mt-2">ARKI puede cometer errores. Verifica la normativa.</p>
+        <CopilotPanel
+          messages={messages}
+          input={input}
+          setInput={setInput}
+          onSend={handleSend}
+          isGenerating={isGenerating}
+          onOpenAction={(action) => {
+            if (action === "norms") setActiveModal("norms");
+            if (action === "projects") setActiveModal("projects");
+            if (action === "terreno") setActiveModal("terreno");
+            if (action === "documents") setActiveModal("documents");
+            if (action === "camera") setActiveModal("camera");
+            if (action === "analysis") setActiveModal("analysis");
+            if (action === "ifc") setActiveModal("ifc");
+            if (action === "export") setActiveModal("export");
+            if (action === "templates") setActiveModal("templates");
+            if (action === "code") setActiveModal("code");
+            if (action === "file-chat") setActiveModal("file-chat");
+          }}
+          onOpenWorkspace={() => setShowWorkspacePanel(true)}
+        />
       </div>
-    </div>
-
-      {/* MODALES DEL WORKSPACE */}
-      {activeModal === 'projects' && <ProjectManagerModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
 
@@ -1002,7 +931,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {activeModal === 'ar' && <ARViewerModal onClose={() => setActiveModal(null)} />}
 
 
-      {showF1Demo && <F1DemoScreen onClose={() => setShowF1Demo(false)} />}
 
       {showFullPipeline && <FullPipelineRunner onClose={() => setShowFullPipeline(false)} />}
       {showPipeline && (
@@ -1010,7 +938,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           onClose={() => setShowPipeline(false)} 
           onNavigate={(phase) => {
             setShowPipeline(false);
-            if (phase === 'f1') setShowF1Demo(true);
+            if (phase === 'f1') window.location.assign('/arki-design-funnel');
             if (phase === 'f5') setActiveModal('expediente' as any); // Asumiendo que esto abre el expediente o el modal correcto
             if (phase === 'f6') setActiveModal('analysis');
             if (phase === 'f7') setActiveModal('oece' as any);
@@ -1081,5 +1009,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         <span className="text-sm">Workspace</span>
       </button>
 </div>
+    </div>
   );
 }

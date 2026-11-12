@@ -112,9 +112,19 @@ export default defineConfig({
           target: 'http://127.0.0.1:8001',
           changeOrigin: true,
           secure: false,
-          rewrite: (path) => path.replace(/^\/api\/core\/v1/, ''),
+          rewrite: (path) => path.replace(/^\/api\/core/, ''),
         },
         '/api': {
+          target: 'http://127.0.0.1:8001',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/projects': {
+          target: 'http://127.0.0.1:8001',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/v1': {
           target: 'http://127.0.0.1:8001',
           changeOrigin: true,
           secure: false,
