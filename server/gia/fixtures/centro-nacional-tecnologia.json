@@ -1,0 +1,38 @@
+{
+  "projectId": "CNT-LIM-300-001",
+  "projectName": "Centro Nacional de Tecnología 30,000 m²",
+  "typology": "CENTRO_NACIONAL_TECNOLOGIA",
+  "brief": "Centro de tecnología con laboratorios, salas de cómputo, auditorio y administración.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 3000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "vía expresa"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.040", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "CONCYTEC Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Laboratorios", "capacity": 1500, "subjects": ["investigador", "técnico"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Salas de cómputo", "capacity": 1000, "subjects": ["investigador", "estudiante"], "privacy": "controlled", "accessControl": "enrollment", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Auditorio", "capacity": 300, "subjects": ["público"], "privacy": "public", "accessControl": "ticket", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Administración", "capacity": 200, "subjects": ["administrativo"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["investigador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["investigador", "estudiante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["administrativo"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["investigador", "técnico", "estudiante", "público", "administrativo"],
+  "conditions": ["laboratorios con ventilación especializada", "salas de cómputo con respaldo eléctrico", "evacuación clara"],
+  "unknowns": ["normativa de centros de tecnología requiere revisión CONCYTEC", "estudio de respaldo eléctrico requiere verificación", "estudio de carga de servidores requiere verificación estructural"],
+  "envelope": { "width": 200, "height": 150, "area": 30000, "status": "TECHNOLOGY_BUILDING" },
+  "sourceIds": ["SRC-CNT-BRIEF", "SRC-CONCYTEC-CENTRO"]
+}
