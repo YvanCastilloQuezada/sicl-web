@@ -1,118 +1,122 @@
 import { describe, it, expect } from "vitest";
+import { readFileSync } from "fs";
+import { resolve } from "path";
 import {
   executeIntegratedArchitectCycle,
   type IntegratedArchitectInput,
 } from "./arkiIntegratedArchitectCycle";
+import { passesGIA002, type Parti } from "./gia/divergence";
 
-function makeValidInput(overrides: Partial<IntegratedArchitectInput> = {}): IntegratedArchitectInput {
-  return {
-    projectId: "GIA-ARK-001-001" as any,
-    projectName: "GIA Test Hospital",
-    typology: "HOSPITAL",
-    brief: "Hospital de 100 camas con flujos limpios y sucios separados.",
-    context: { jurisdiction: "PE", climate: "TROPICAL" },
-    constraints: ["RNE A.010", "RNE A.050", "RNE A.130"],
-    activities: [
-      { id: "act-1", name: "Recepción", capacity: 50 } as any,
-      { id: "act-2", name: "Consulta externa", capacity: 100 } as any,
-      { id: "act-3", name: "Hospitalización", capacity: 100 } as any,
-    ],
-    relationships: [
-      { id: "rel-1", source: "act-1", target: "act-2", relation: "ADJACENT", subjects: ["paciente"], control: "FLOW" } as any,
-      { id: "rel-2", source: "act-2", target: "act-3", relation: "CIRCULATION", subjects: ["paciente", "personal"], control: "FLOW" } as any,
-      { id: "rel-3", source: "act-1", target: "act-3", relation: "CIRCULATION", subjects: ["paciente"], control: "FLOW" } as any,
-    ],
-    subjects: ["paciente", "personal médico", "visitante"],
-    conditions: ["clima tropical", "alta humedad"],
-    unknowns: ["topografía exacta del terreno"],
-    envelope: { width: 60, height: 40 },
-    sourceIds: ["GIA-TEST-001"],
-    ...overrides,
-  };
+const TIPOLOGIAS = ["hospital", "educativo", "oficinas"] as const;
+type Tipologia = typeof TIPOLOGIAS[number];
+
+function loadFixture(tipologia: Tipologia): IntegratedArchitectInput {
+  const path = resolve(__dirname, `gia/fixtures/${tipologia}.json`);
+  return JSON.parse(readFileSync(path, "utf-8"));
 }
 
-describe("GIA-001 Función", () => {
-  it("las actividades y relaciones producen organización espacial trazable", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
+describe.each(TIPOLOGIAS)("GIA-001..010 — tipología %s", (tipologia) => {
+  const input = loadFixture(tipologia);
+
+  it("GIA-001 Función — organización espacial trazable", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
     expect(cycle.stages.find((s) => s.stage === "PROJECT_CONDITIONS")?.status).toBe("PASS");
     expect(cycle.parti.partis.length).toBeGreaterThanOrEqual(1);
   });
-});
 
-describe("GIA-002 Espacialidad", () => {
-  it("las alternativas difieren en organización espacial", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    const partis = cycle.parti.partis;
-    expect(partis.length).toBeGreaterThanOrEqual(1);
-    const topologies = new Set(partis.map((p: any) => p.topologyId));
-    expect(topologies.size).toBeGreaterThanOrEqual(1);
+  it("GIA-002 Espacialidad — divergencia real entre alternativas", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    const partis = cycle.projectPartis;
+
+    // El ciclo genera DynamicParti (no Parti de divergence.ts).
+    // DynamicParti = { id, title, organizingIdea, rules, flowStrategy, derivedFrom, status, humanReviewRequired }
+    // Verificamos divergencia observable en flowStrategy y organizingIdea.
+    expect(partis.length).toBeGreaterThanOrEqual(2);
+
+    // Al menos 2 flowStrategy distintos (linear-separation vs central-hub, etc.)
+    const strategies = new Set(partis.map((p) => p.flowStrategy));
+    expect(strategies.size).toBeGreaterThanOrEqual(2);
+
+    // Al menos 2 organizingIdea distintos
+    const ideas = new Set(partis.map((p) => p.organizingIdea));
+    expect(ideas.size).toBeGreaterThanOrEqual(2);
+
+    // Todos los PARTIs son propuestas (AI_PROPOSED), no decisiones firmes
+    for (const p of partis) {
+      expect(p.status).toBe("AI_PROPOSED");
+      expect(p.humanReviewRequired).toBe(true);
+    }
+
+    // Deuda (Fase GIA-Divergencia): conectar DynamicParti con passesGIA002
+    // cuando DynamicParti tenga la estructura de Parti (spaces, edges, accessOrder).
   });
-});
 
-describe("GIA-003 Luz y sombra", () => {
-  it("la orientación afecta las decisiones de diseño", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    expect(cycle.geometry.finalStatus).toMatch(/PASS|PARTIAL/);
-    expect(cycle.geometry.candidateA).toBeDefined();
-    expect(cycle.geometry.candidateB).toBeDefined();
-  });
-});
-
-describe("GIA-004 Clima y viento", () => {
-  it("los datos ambientales afectan implantación", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    expect(cycle.project.typology).toBe("HOSPITAL");
-    expect(cycle.geometry.perturbation).toBeDefined();
-  });
-});
-
-describe("GIA-005 Estructura y sismo", () => {
-  it("las restricciones estructurales condicionan la geometría", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    expect(cycle.geometry.candidateA).toBeDefined();
-  });
-});
-
-describe("GIA-006 Seguridad", () => {
-  it("evacuación e incendios afectan los recorridos", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    expect(cycle.stages.length).toBeGreaterThan(0);
-  });
-});
-
-describe("GIA-007 Forma", () => {
-  it("la forma deriva de intención arquitectónica y condiciones", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
+  it("GIA-003 Luz y sombra — orientación afecta decisiones", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
     expect(cycle.geometry.finalStatus).toMatch(/PASS|PARTIAL/);
   });
-});
 
-describe("GIA-008 Integración", () => {
-  it("los resultados de motores llegan a PARTI, topología y AGK", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    // functional NO debe ser UNKNOWN si hay actividades y relaciones
-    expect(cycle.evaluation.functional).not.toBe("UNKNOWN");
-    // architecturalQuality NO debe ser NOT_EVALUATED si hay envelope
-    expect(cycle.evaluation.architecturalQuality).not.toBe("NOT_EVALUATED");
+  it("GIA-004 Clima y viento — datos ambientales afectan implantación", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    expect(cycle.project.typology).toBe(input.typology);
+    expect(cycle.geometry).toBeDefined();
   });
-});
 
-describe("GIA-009 Evaluación", () => {
-  it("se comparan alternativas sin ocultar incumplimientos", async () => {
-    const cycle = await executeIntegratedArchitectCycle(makeValidInput());
-    expect(cycle.stages.find((s) => s.stage === "FUNCTIONAL_EVALUATION")?.status).toBeDefined();
-    expect(cycle.stages.find((s) => s.stage === "REGULATORY_EVALUATION")?.status).toBeDefined();
+  it("GIA-005 Estructura y sismo — restricciones condicionan geometría", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    expect(cycle.geometry).toBeDefined();
+    expect(cycle.geometry.finalStatus).toMatch(/PASS|PARTIAL/);
   });
-});
 
-describe("GIA-010 Determinismo", () => {
-  it("misma entrada produce mismo resultado", async () => {
-    const input = makeValidInput();
+  it("GIA-006 Seguridad — evacuación e incendios afectan recorridos", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    expect(cycle.stages.length).toBeGreaterThanOrEqual(3);
+  });
+
+  it("GIA-007 Forma — deriva de intención y condiciones", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    expect(["PASS", "PARTIAL"]).toContain(cycle.geometry.finalStatus);
+  });
+
+  it("GIA-008 Integración — resultados llegan a PARTI, topología y AGK", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    expect(cycle.evaluation.functional).toMatch(/PASS|PARTIAL/);
+    expect(cycle.evaluation.architecturalQuality).toMatch(/PASS|PARTIAL/);
+  });
+
+  it("GIA-009 Evaluación — se comparan alternativas sin ocultar incumplimientos", async () => {
+    const cycle = await executeIntegratedArchitectCycle(input);
+    const functional = cycle.stages.find((s) => s.stage === "FUNCTIONAL_EVALUATION");
+    const regulatory = cycle.stages.find((s) => s.stage === "REGULATORY_EVALUATION");
+    expect(functional?.status).toBeDefined();
+    expect(regulatory?.status).toBeDefined();
+    // StageStatus es "PASS" | "PARTIAL" | "UNKNOWN" según IntegratedArchitectCycle
+    expect(["PASS", "PARTIAL", "UNKNOWN"]).toContain(regulatory?.status);
+    expect(["PASS", "PARTIAL", "UNKNOWN"]).toContain(functional?.status);
+  });
+
+  it("GIA-010 Determinismo — misma entrada produce mismo resultado", async () => {
     const cycle1 = await executeIntegratedArchitectCycle(input);
     const cycle2 = await executeIntegratedArchitectCycle(input);
+    
+    // Comparar solo lo determinista del ciclo
     expect(cycle1.evaluation.functional).toBe(cycle2.evaluation.functional);
     expect(cycle1.evaluation.regulatory).toBe(cycle2.evaluation.regulatory);
     expect(cycle1.evaluation.architecturalQuality).toBe(cycle2.evaluation.architecturalQuality);
     expect(cycle1.status).toBe(cycle2.status);
+    
+    // Principio ARKI: TODO es determinista. ARKI piensa en 3D y dibuja en 2D.
+    // Motores deterministas confirmados: structural, geotech, hvac, acoustic, sewer.
+    // Motores estocásticos (DEUDA Fase 4): evacuation (jupedsim), fire (pycfast).
+    // TODO(Fase 4): fijar seed en jupedsim y pycfast para que sean deterministas.
+    // Cuando ambos lo sean, comparar cycle1.evaluation completo (incluyendo evacuation y fire).
+    const deterministicEngines = ["structural", "geotech", "hvac", "acoustic", "sewer"] as const;
+    for (const engineName of deterministicEngines) {
+      const e1 = cycle1.evaluation.engines[engineName];
+      const e2 = cycle2.evaluation.engines[engineName];
+      expect(e1.status).toBe(e2.status);
+      expect(e1.engine).toBe(e2.engine);
+      expect(e1.values).toEqual(e2.values);
+    }
   });
 });

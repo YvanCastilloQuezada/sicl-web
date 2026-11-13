@@ -1,0 +1,99 @@
+{
+  "projectId": "HOS-REG-001-001",
+  "projectName": "Hospital Regional 200 camas",
+  "typology": "HOSPITAL",
+  "brief": "Hospital de 200 camas con flujos públicos, clínicos, servicios y residuos.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TROPICAL",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 800
+  },
+  "constraints": [
+    "RNE A.010",
+    "RNE A.050",
+    "RNE A.130",
+    "Separar flujos público / clínico / servicio",
+    "Ruta de residuos biológicos aislada"
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Urgencias",
+      "capacity": 100
+    },
+    {
+      "id": "act-2",
+      "name": "UCI",
+      "capacity": 20
+    },
+    {
+      "id": "act-3",
+      "name": "Quirófanos",
+      "capacity": 6
+    },
+    {
+      "id": "act-4",
+      "name": "Residuos biológicos",
+      "capacity": 5
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "act-1",
+      "target": "act-2",
+      "relation": "ADJACENT",
+      "subjects": [
+        "paciente"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-3",
+      "target": "act-2",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "paciente",
+        "personal"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-4",
+      "target": "act-4",
+      "relation": "SEALED",
+      "subjects": [
+        "personal"
+      ],
+      "control": "RESTRICTED"
+    }
+  ],
+  "subjects": [
+    "paciente",
+    "personal médico",
+    "cirujano",
+    "anestesista",
+    "acompañante"
+  ],
+  "conditions": [
+    "presión diferencial en UCI y quirófanos",
+    "flujo separado de residuos",
+    "ruta de emergencia directa"
+  ],
+  "unknowns": [
+    "código local de hospitales requiere revisión profesional",
+    "normativa de aforo y evacuación requiere verificación"
+  ],
+  "envelope": {
+    "width": 60,
+    "height": 100
+  },
+  "sourceIds": [
+    "SRC-HOSPITAL-BRIEF",
+    "SRC-NTE-HOSPITALES"
+  ]
+}
