@@ -1,0 +1,38 @@
+{
+  "projectId": "RES-LIM-500-001",
+  "projectName": "Restaurante 500 comensales",
+  "typology": "RESTAURANTE",
+  "brief": "Restaurante con comedor, cocina, barra, depósito y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 500,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "calle secundaria"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.070", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "DIGESA Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Comedor", "capacity": 400, "subjects": ["comensal"], "privacy": "public", "accessControl": "reservation", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-2", "name": "Cocina", "capacity": 50, "subjects": ["cocinero"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Barra", "capacity": 30, "subjects": ["comensal", "bartender"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["cocinero"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["bartender"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["comensal", "cocinero", "bartender", "personal"],
+  "conditions": ["ventilación de cocina", "evacuación clara", "segregación comensal/personal"],
+  "unknowns": ["normativa sanitaria requiere revisión DIGESA", "estudio de ventilación de cocina requiere verificación", "estudio acústico requiere verificación"],
+  "envelope": { "width": 50, "height": 40, "area": 2000, "status": "HOSPITALITY_BUILDING" },
+  "sourceIds": ["SRC-RES-BRIEF", "SRC-DIGESA-RESTAURANTE"]
+}

@@ -15,7 +15,8 @@ const TIPOLOGIAS = [
   "almacen", "reactor", "centro-convenciones", "rascacielos", "multifamiliar",
   "museo", "universidad", "instituto-tecnologico", "centro-arte-cultura",
   "centro-nacional-tecnologia", "data-center-ia", "teatro", "biblioteca",
-  "parque-infantil", "parque-diversiones",
+  "parque-infantil", "parque-diversiones", "restaurante", "centro-campestre",
+  "parque-aguas", "centro-entretenimiento-digital",
 ] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 
