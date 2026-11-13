@@ -1,0 +1,38 @@
+{
+  "projectId": "INS-LIM-050-001",
+  "projectName": "Instituto tecnológico 5,000 estudiantes",
+  "typology": "INSTITUTO_TECNOLOGICO",
+  "brief": "Instituto tecnológico con talleres, laboratorios, aulas y administración.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 5000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "calle secundaria"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.040", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "MINEDU Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Talleres", "capacity": 2500, "subjects": ["estudiante", "profesor"], "privacy": "controlled", "accessControl": "enrollment", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-2", "name": "Laboratorios", "capacity": 1500, "subjects": ["estudiante", "profesor"], "privacy": "controlled", "accessControl": "enrollment", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Aulas", "capacity": 1000, "subjects": ["estudiante", "profesor"], "privacy": "shared", "accessControl": "enrollment", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-4", "name": "Administración", "capacity": 100, "subjects": ["administrativo"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["estudiante"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["estudiante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["administrativo"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["estudiante", "profesor", "administrativo"],
+  "conditions": ["talleres con ventilación industrial", "evacuación clara", "aulas con orientación norte"],
+  "unknowns": ["normativa de institutos requiere revisión MINEDU", "estudio de ventilación de talleres requiere verificación", "estudio acústico requiere verificación"],
+  "envelope": { "width": 150, "height": 100, "area": 15000, "status": "EDUCATIONAL_BUILDING" },
+  "sourceIds": ["SRC-INS-BRIEF", "SRC-MINEDU-INSTITUTO"]
+}
