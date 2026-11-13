@@ -78,7 +78,17 @@ const LANGUAGE_OPTIONS = [
   ["es", "Español"], ["en", "English"], ["pt", "Português"], ["it", "Italiano"],
   ["fr", "Français"], ["de", "Deutsch"], ["ru", "Русский"], ["zh", "中文"],
 ] as const;
-const commands = catalog as CatalogCommand[];
+const commands: CatalogCommand[] = catalog.map((item: any) => ({
+  command: item.command,
+  name: item.command,
+  compact: item.command?.split(/\s+/).slice(0, 2).join(" ") ?? "",
+  legacy: item.command ?? "",
+  category: item.category ?? "General",
+  syntax: item.command ?? "",
+  arguments: (item.args || []).map((arg: string) => ({ name: arg, required: true, type: "string" })),
+  example: item.command ?? "",
+  errors: [],
+})) as CatalogCommand[];
 const aliases = aliasRegistry as AliasRegistry;
 function readPreferredLocale(): string | null {
   try {
