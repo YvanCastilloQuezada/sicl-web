@@ -67,3 +67,44 @@
 2. Arreglar `hvac` (aislar OpenStudio en subprocess).
 3. Mergear `DEUDA.md` y `ESTADO.md` en `sicl-web`.
 4. Fase GIA: Entregable 2 (divergencia PARTIs), Entregable 3 (determinismo), 3 tipologías.
+
+---
+
+## GIA-002 — Divergencia entre PARTIs (2026-11-13)
+
+**Estado: ✅ CERRADO — 5/5 tests PASS**
+
+Implementado en `server/gia/divergence.ts` + `server/gia/divergence.test.ts`.
+
+### Métricas
+- **M1** — Divergencia topológica (GED aproximado por conjuntos de tipos, normalizado).
+- **M2** — Divergencia de secuencia (Levenshtein normalizada sobre `accessOrder`).
+- **M3** — Divergencia de esquema funcional (Adjusted Rand Index sobre zonas).
+
+### Regla de aprobación
+`passesGIA002` → PASA si al menos un par de PARTIs cumple **≥2 de 3**:
+- M1 ≥ 0.25
+- M2 ≥ 0.30
+- M3 ≤ 0.70
+
+### Tests (5/5 PASS)
+1. A vs B divergen (secuencia + topología).
+2. A vs C idénticos (divergencia ~0).
+3. A vs D divergen en esquema funcional (zonas).
+4. GIA-002 PASA con A+B+C.
+5. GIA-002 FALLA con A+C (idénticos).
+
+### Deuda conocida de `divergence.ts` (no bloquea β+)
+1. **M1 no es GED real** — es aproximación por conjuntos de tipos, no por edición de grafo. GED verdadero requeriría Hungarian o A* sobre el grafo. Suficiente para GIA-002 (umbral 0.25), insuficiente para comparación fina.
+2. **M3 colapsa tipos por zona** — `zoneA.set(s.type, s.zone)` sobrescribe si dos espacios comparten `type` con distinta `zone` en el mismo PARTI. Bug latente; no ocurre con fixtures actuales.
+3. **`passesGIA002` con 1 PARTI** devuelve `pass=false` silencioso. Debería ser error explícito o `pass=false` documentado.
+4. **Faltan tests de borde** — PARTIs vacíos, 1 solo espacio, `accessOrder` desordenado, grafos disjuntos.
+
+### Criterio de salida GIA actualizado
+| # | Condición | Estado |
+|---|---|---|
+| 1 | GIA-001..010 aprobadas en 3 tipologías | ❌ solo 1 caso genérico + GIA-002 cerrado |
+| 2 | ≥3 motores EXECUTABLE | ⚠️ geotech PASS, acoustic PASS, structural PARTIAL |
+| 4 | Divergencia real entre PARTIs | ✅ **GIA-002 cerrado (5/5)** |
+| 5 | Determinismo declarado | ⏳ Entregable 3 pendiente |
+| 7 | CI verde | ⚠️ GIA CI verde (tras macroorden 2); UI roja; sicl-core 5/5 rojo |
