@@ -57,7 +57,7 @@ jobs:
           if curl -s --max-time 2 http://127.0.0.1:18771/engines > /dev/null 2>&1; then
             pnpm exec vitest run server/arkiGiaMotores.test.ts server/arkiGiaStructural.test.ts server/arkiGiaStructuralWorld.test.ts server/arkiGiaNsga2.test.ts
           else
-            echo "motores-api no responde en 127.0.0.1:18771 — skip integración"
-            echo "Los tests de integración se ejecutan localmente con motores-api levantado."
+            echo "::warning::motores-api no responde en 127.0.0.1:18771. Tests de integración GIA-011..025 NO ejecutados. Ejecutar localmente con motores-api levantado."
+            echo "SKIPPED: motores-api no disponible. Tests de integración GIA-011..025 no ejecutados."
             exit 0
           fi

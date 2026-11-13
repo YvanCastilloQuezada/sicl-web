@@ -106,3 +106,32 @@ No es "instalar OpenSees". Es:
 3. Decidir scipy antes que OpenSees - sin scipy, el analisis numerico base
    (regresion, optimizacion, estadistica) es Python puro o depende de numpy sin algebra lineal seria.
 4. Instalar ifcopenshell en el venv correcto si se quiere usar el IFC de SICL Core en el shell.
+
+
+---
+
+## Deuda del repo `motores-api` (2026-11-13)
+
+**Hallazgo de auditoría (sesión 2026-11-13):**
+
+El repo `github.com/YvanCastilloQuezada/motores-api`:
+
+| Aspecto | Valor |
+|---|---|
+| Tamaño del código | 3.8 MB |
+| Tamaño del venv | **6.7 GB** |
+| `requirements.txt` | `fastapi`, `uvicorn`, `pydantic` (solo) |
+| Motores en `requirements.txt` | **0 de 7** |
+| Motores en el venv | **7 de 7** (OpenSeesPy, bearing_capacity, opensimula, jupedsim, cfast_bin, pyrato, pysewer) |
+
+**Consecuencia:** levantar `motores-api` en un runner de GitHub Actions es **inviable** porque:
+1. Los 7 motores no están en `requirements.txt`.
+2. Algunos (OpenSeesPy, jupedsim) requieren binarios compilados que tardan 20-30 min en instalar o descargar.
+3. El venv de 6.7 GB excede lo razonable para CI.
+
+**Decisión:** el CI de GIA separa unitarios (GIA-001..010, sin motores) de integración (GIA-011..025, con motores). Los de integración se saltan con warning visible cuando `motores-api` no responde.
+
+**Deuda para el repo `motores-api`:**
+1. Declarar los 7 motores en `requirements.txt` (o en un `extras` separado).
+2. Evaluar si es viable un `Dockerfile` que empaquete los 7 motores.
+3. Si no, mantener la política actual: integración solo local.
