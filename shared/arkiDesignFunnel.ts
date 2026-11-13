@@ -104,6 +104,17 @@ export type HumanDesignSelectionEvent = { eventId: string; type: "HUMAN_DESIGN_S
 export type FunnelEvent = HumanDesignSelectionEvent | { eventId: string; type: "DEEP_EVALUATION_STARTED" | "DEEP_EVALUATION_COMPLETED" | "RETURN_TO_FINAL_FOUR" | "CANDIDATE_BLOCKED" | "NEW_GENERATION_REQUESTED"; projectId: string; candidateIds: string[]; timestamp: string; evidenceRefs: string[]; reason?: string };
 export type DesignFunnelState = { version: typeof ARKI_DESIGN_FUNNEL_VERSION; projectId: string; explorationId: string; generationId: string; stage: FunnelStage; waitState: HumanWaitState; candidates: DesignCandidate[]; events: FunnelEvent[]; comparisonMode: ComparisonMode; deepEvaluation: Record<string, { status: "NOT_EVALUATED" | "RUNNING" | "READY" | "BLOCKED"; findings: string[]; unknowns: string[] }>; selectedCandidateId?: string; explicitHumanAuthority: true };
 export const FUNNEL_LIMITS = { explorer: 9, finalists: 4, selected: 1 } as const;
+export const FUNNEL_STEPS = [1, 4, 9, 16, 25] as const;
+export type FunnelStep = (typeof FUNNEL_STEPS)[number];
+
+export function funnelLimitsForStep(step: FunnelStep): { explorer: number; finalists: number; selected: number } {
+  if (step === 1) return { explorer: 1, finalists: 1, selected: 1 };
+  if (step === 4) return { explorer: 4, finalists: 1, selected: 1 };
+  if (step === 9) return { explorer: 9, finalists: 4, selected: 1 };
+  if (step === 16) return { explorer: 16, finalists: 4, selected: 1 };
+  if (step === 25) return { explorer: 25, finalists: 4, selected: 1 };
+  return { explorer: 9, finalists: 4, selected: 1 };
+}
 const now = () => new Date().toISOString();
 const id = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
