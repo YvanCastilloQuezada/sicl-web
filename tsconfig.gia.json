@@ -13,6 +13,7 @@
     "server/arkiGiaStructural.test.ts",
     "server/arkiGiaStructuralWorld.test.ts",
     "server/arkiGiaNsga2.test.ts",
+    "server/gia/**/*.ts",
     "server/arkiIntegratedArchitectCycle.ts",
     "server/arkiPartiContract.ts",
     "server/arkiUnifiedMotor.ts",

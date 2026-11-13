@@ -1,24 +1,9 @@
 name: GIA CI
-
 on:
   pull_request:
     branches: [main]
-    paths:
-      - 'server/arki*.ts'
-      - 'server/motoresClient.ts'
-      - 'shared/**/*.ts'
-      - 'tsconfig.gia.json'
-      - 'vitest.gia.config.ts'
-      - '.github/workflows/gia-ci.yml'
   push:
     branches: [main]
-    paths:
-      - 'server/arki*.ts'
-      - 'server/motoresClient.ts'
-      - 'shared/**/*.ts'
-      - 'tsconfig.gia.json'
-      - 'vitest.gia.config.ts'
-      - '.github/workflows/gia-ci.yml'
 
 jobs:
   type-check-gia:
@@ -26,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -34,4 +21,4 @@ jobs:
       - name: Type check GIA
         run: pnpm exec tsc -p tsconfig.gia.json
       - name: Tests GIA
-        run: pnpm exec vitest run --config vitest.gia.ci.config.ts
+        run: pnpm exec vitest run --config vitest.gia.config.ts
