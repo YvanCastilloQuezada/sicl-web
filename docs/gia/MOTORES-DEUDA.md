@@ -372,3 +372,23 @@ Con 35 tipologías pendientes y 29 actuales:
 - RIBA 2030 Climate Challenge v3 (2021): mixed-use, TOD, affordable, public space son los 4 problemas de concurso.
 - A' Design Award: categorías para mixed-use, social housing, urban design.
 - Dream (a16z): competencia directa en generación de edificios.
+
+
+---
+
+## Deuda de Fase 1 — RenderData (2026-11-13)
+
+**La Fase 1 del render del sólido 3D (PR #176) implementa `exportRenderData`, que transforma `IntegratedArchitectCycle` en `RenderData`. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **`concept` hardcodeado** | `conceptForTypology` mapea tipología → concepto de `arkiAdvancedGeometry` con un switch. Para producción, el concepto debería venir del `DynamicParti` (su `flowStrategy`: `linear-separation` → `TWISTED_TOWER`, `central-hub` → `FOLDED_COURTYARD`, `nested-rings` → `BRANCHING_CANOPY`). | Media |
+| **Parámetros de geometría hardcodeados** | `floors: 10`, `sides: 16`, `radius: 22`, `twistRadians: Math.PI / 2`, `floorHeight: 3.2` son fijos. Para producción, deberían derivarse del `envelope` (`height / floorHeight`) y del `context` (`n_stories`, `twist`). | Media |
+| **Material único** | `materials: [material]` solo incluye el material principal. Para producción, debería incluir todos los materiales del ciclo (`evaluation.engines["sustainability"].values.materials`). | Alta |
+| **Vegetación no incluida** | El `RenderData` no tiene `vegetation`. Para producción, debería incluir `positions` y `area_m2` del motor de resiliencia. | Media |
+
+**Referencias:**
+- Fase 1: `exportRenderData.ts` (PR #176).
+- Fase 2: SVG del sólido 3D (proyección isométrica).
+- Fase 3: visor Three.js + path tracing.
+- Fase 4: IA local (Ollama) cuando soporte imagen en Linux.
