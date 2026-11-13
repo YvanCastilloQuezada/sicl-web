@@ -67,7 +67,6 @@ function hasEvidence(candidate: DesignCandidate, constraint: ProjectConstraint):
   // Si la restricción tiene limitValue y metricKey, comparamos numéricamente.
   if (constraint.limitValue !== undefined && constraint.metricKey !== undefined) {
     const candidateValue = candidate.metrics[constraint.metricKey];
-    console.log(`[hasEvidence] ${constraint.code}: metricKey=${constraint.metricKey}, candidateValue=${candidateValue}, limitValue=${constraint.limitValue}, operator=${constraint.operator}`);
     if (typeof candidateValue !== "number") {
       // Sin valor numérico, no podemos verificar. Asumimos que cumple (no matar por falta de dato).
       return true;
