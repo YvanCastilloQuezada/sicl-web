@@ -12,7 +12,7 @@
 | 4 | Divergencia real entre PARTIs | ⏳ | Pendiente (Entregable 2) |
 | 5 | Determinismo declarado | ⏳ | Pendiente (Entregable 3) |
 | 6 | Autorización humana registrada | ⏳ | Pendiente |
-| 7 | CI verde en los tres repos | ⚠️ | GIA CI verde (10 tests razonamiento); CI global rojo por ~39 errores de UI; sicl-core falla 5/5 |
+| 7 | CI verde en los tres repos | ⚠️ | GIA CI verde; CI global de sicl-web verde (0 errores tsc); sicl-core falla 5/5 |
 
 ### CI de GIA
 
