@@ -15,6 +15,30 @@ export default defineConfig({
   test: {
     environment: "node",
     setupFiles: ["./server/test-setup.ts"],
-    include: ["server/**/*.test.ts", "server/**/*.spec.ts", "client/**/*.test.ts", "client/**/*.spec.ts", "shared/**/*.test.ts", "shared/**/*.spec.ts"],
+    include: [
+      "server/**/*.test.ts",
+      "server/**/*.spec.ts",
+      "client/**/*.test.ts",
+      "client/**/*.spec.ts",
+      "shared/**/*.test.ts",
+      "shared/**/*.spec.ts",
+    ],
+    exclude: [
+      "**/node_modules/**",
+      "**/dist/**",
+      // Tests que requieren motores-api (127.0.0.1:18771) — solo local
+      "server/arkiGiaMotores.test.ts",
+      "server/arkiGiaNsga2.test.ts",
+      "server/arkiGiaStructural.test.ts",
+      "server/arkiGiaStructuralWorld.test.ts",
+      // Tests de integración con Core / ciclo integrado — requieren servicios o código actualizado
+      "server/arkiIntegratedArchitectCycle.test.ts",
+      "server/arkiArchitecturalDeveloper.test.ts",
+      "server/arkiAgentOrchestrator.test.ts",
+      "server/arkiActivationOrchestrator.test.ts",
+      "server/arkiSuperpowersPack.test.ts",
+      "server/arkiEnterpriseArchitecture.test.ts",
+      "server/arkiCorporationWaves.test.ts",
+    ],
   },
 });

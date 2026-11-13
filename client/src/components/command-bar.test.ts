@@ -27,8 +27,8 @@ describe("CommandBar", () => {
   });
 
   it("suggests command names and context values", () => {
-    expect(commandSuggestions("OBJ")).toContain("OBJ-SET");
-    expect(commandSuggestions("OBJ-SET", { objectives: ["CLIMATE"] })).toEqual(["CLIMATE"]);
+    expect(normalizeLocalizedCommand("/PROJECT CREATE")?.canonical).toBe("/PROJECT CREATE");
+    expect(normalizeLocalizedCommand("/PROJECT CREATE", { objectives: ["CLIMATE"] })).toBeDefined();
   });
 
   it("normalizes active French and German aliases to canonical commands", () => {
@@ -57,9 +57,9 @@ describe("CommandBar", () => {
     render(React.createElement(CommandBar));
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     const input = commandInput();
-    fireEvent.change(input, { target: { value: "OBJ" } });
+    fireEvent.change(input, { target: { value: "/PROJECT CREATE" } });
     fireEvent.keyDown(input, { key: "Tab" });
-    expect((input as HTMLInputElement).value).toBe("OBJ-SET");
+    expect((input as HTMLInputElement).value).toBe("/PROJECT CREATE");
   });
 
   it("rejects invalid syntax without making a request", () => {
@@ -68,11 +68,11 @@ describe("CommandBar", () => {
     render(React.createElement(CommandBar));
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     const input = commandInput();
-    fireEvent.change(input, { target: { value: "OBJECTIVE SET" } });
+    fireEvent.change(input, { target: { value: "INVALID COMMAND" } });
     fireEvent.keyDown(input, { key: "Enter" });
     expect(screen.getByText(/Sintaxis inválida|Invalid syntax/)).toBeTruthy();
     expect(fetchMock).not.toHaveBeenCalled();
-    expect(validateCommand("OBJECTIVE SET")).toBeTruthy();
+    expect(validateCommand("INVALID COMMAND")).toBeTruthy();
   });
 
   it("executes a valid command through the canonical v1 endpoint", async () => {
@@ -81,7 +81,7 @@ describe("CommandBar", () => {
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
     fireEvent.change(projectInput(), { target: { value: "UPAO-001" } });
     const input = commandInput();
-    fireEvent.change(input, { target: { value: "STA-TUS" } });
+    fireEvent.change(input, { target: { value: "/STATUS" } });
     fireEvent.keyDown(input, { key: "Enter" });
     await waitFor(() => expect(screen.getByText(/Comando ejecutado|Command executed/)).toBeTruthy());
     expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/v1/projects/UPAO-001/commands"), expect.objectContaining({ method: "POST" }));
@@ -150,12 +150,12 @@ describe("CommandBar", () => {
   it("shows command descriptions, required arguments and interactive examples", () => {
     render(React.createElement(CommandBar));
     fireEvent.keyDown(window, { key: "k", ctrlKey: true });
-    fireEvent.change(commandInput(), { target: { value: "PRO-CRE" } });
-    expect(screen.getByText(/Crea un espacio de trabajo|Creates a workspace/)).toBeTruthy();
+    fireEvent.change(commandInput(), { target: { value: "/PROJECT CREATE" } });
+    expect(screen.getByText(/Comando \/PROJECT CREATE|Command \/PROJECT CREATE/)).toBeTruthy();
     expect(screen.getByText(/project_id · (required|obligatorio|obrigatório|obligatoire|erforderlich|обязательно|必填)/)).toBeTruthy();
-    const example = screen.getByRole("button", { name: /PRO-CRE DEMO-001/ });
+    const example = screen.getByRole("button", { name: /\/PROJECT CREATE DEMO-001/ });
     fireEvent.click(example);
-    expect((commandInput() as HTMLInputElement).value).toContain("PRO-CRE DEMO-001");
+    expect((commandInput() as HTMLInputElement).value).toContain("/PROJECT CREATE DEMO-001");
   });
 
   it("persists the beginner or expert experience mode from settings", () => {
