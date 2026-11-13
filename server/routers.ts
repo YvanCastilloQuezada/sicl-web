@@ -55,6 +55,13 @@ import { analyticsDisclaimer, marketplaceApiSchema, marketplaceContractCheck, ma
 import { projectStateContract, createProjectState, proposeProjectChange, type ArkiProjectState } from "../shared/arkiProjectState";
 import { typologyParameterContract } from "../shared/arkiTypologyParameters";
 import { normativeSourceCatalog } from "../shared/arkiNormativeSources";
+
+// Screening de ideas con la capa de decisión de ARKI (ley dura conceptual).
+import { deriveProjectConstraints } from "./gia/knowledge/deriveProjectConstraints";
+import { arkiArchitectDecision } from "./gia/knowledge/arkiArchitectDecision";
+import { arkiPruning } from "./gia/knowledge/arkiPruning";
+import type { DesignCandidate } from "../shared/arkiDesignFunnel";
+
 import { specializedGeometryCatalog } from "../shared/arkiSpecializedGeometry";
 import { calculateAnnualWaterBalance } from "../shared/arkiWaterBalance";
 import { dynamicFamilyContract, dynamicFamilySummary, generateDynamicBuilding, listDynamicFamilies, searchDynamicFamilies, type FamilyCategory } from "../shared/arkiDynamicFamilies";
@@ -611,10 +618,12 @@ export const appRouter = router({
         variable: z.object({
           min: z.number(),
           max: z.number(),
-          steps: z.number().int().refine((value) => value === 9, {
-            message: "DESIGN_EXPLORER_REQUIRES_EXACTLY_9_CANDIDATES",
+          steps: z.number().int().refine((value) => [1, 4, 9, 16, 25].includes(value), {
+            message: "PROPOSAL_COUNT_MUST_BE_1_4_9_16_OR_25",
           }).default(9),
           parameterName: z.string().optional(),
+          /** Total de ideas a generar (antes de la poda). Default: 100. */
+          generateCount: z.number().int().min(25).max(500).default(100),
         }).refine((value) => value.max >= value.min, {
           message: "VARIABLE_MAX_MUST_BE_GREATER_THAN_OR_EQUAL_TO_MIN",
         }),
@@ -653,10 +662,32 @@ export const appRouter = router({
           "LINEAR",
         ] as const;
 
+        // 1. Derivar restricciones del proyecto (zonificación, tipología, sol, viento)
+        const projectConstraints = deriveProjectConstraints({
+          project: {
+            projectId: `PROJECT-${generationId}`,
+            typology: fixed.familyId,
+            jurisdiction: fixed.jurisdiction,
+          },
+          context: {
+            sunAzimuthDeg: 240,  // default; se puede derivar del location
+            sunElevationDeg: 5,
+            windDirection: "SE",
+            windSpeedMs: 3.5,
+          },
+          facts: [
+            { variable: "coeficiente_ocupacion", value: 0.7 },
+            { variable: "altura_libre_oficina_m", value: 2.7 },
+          ],
+          programAreaM2: fixed.areaM2,
+          siteAreaM2: fixed.areaM2 * 1.5,
+        });
+
+        // 2. Generar los candidatos
         const proposals = Array.from(
-          { length: 9 },
+          { length: variable.generateCount },
           (_, index) => {
-            const ratio = index / 8;
+            const ratio = variable.generateCount > 1 ? index / (variable.generateCount - 1) : 0;
             const axisValue =
               variable.min + (variable.max - variable.min) * ratio;
 
@@ -843,18 +874,80 @@ export const appRouter = router({
           },
         );
 
-        if (proposals.length !== 9) {
+        if (proposals.length !== variable.generateCount) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/9`,
+            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/${variable.steps}`,
           });
         }
+
+        // ============================================================
+        // LEY DURA: ARKI decide como arquitecto cuales candidatos
+        // anular y cuales se quedan antes de que lleguen al Funnel.
+        // ============================================================
+        const designCandidates: DesignCandidate[] = proposals.map((p, index) => ({
+          id: p.candidateId,
+          projectId: `PROJECT-${generationId}`,
+          generationId: p.generationId,
+          stage: "GENERATED" as const,
+          status: p.status === "ELIGIBLE" ? "ELIGIBLE" as const : p.status === "UNKNOWN" ? "UNKNOWN" as const : "FAILED" as const,
+          title: p.title,
+          strategy: p.axis,
+          preview: "PREVIEW_LOCAL_CONCEPTUAL",
+          metrics: {
+            area: p.metrics.builtAreaM2,
+            floors: p.metrics.floors,
+            height: p.metrics.heightM,
+            capacity: p.metrics.capacity,
+            cost: p.metrics.estimatedCostUsdConceptual,
+          },
+          epistemic: {
+            facts: [],
+            assumptions: [],
+            preferences: [],
+            requirements: [],
+            objectives: [],
+            constraints: [],
+          },
+          evidence: [`CANDIDATE-${index + 1}`, p.familyId, p.variantId],
+          unknowns: p.validation.unknowns,
+          failureReasons: p.validation.numericConstraintFailures,
+          provenance: [p.generationId, `CANDIDATE-${index + 1}`],
+        }));
+
+        const screening = arkiArchitectDecision(designCandidates, projectConstraints);
+
+        const survivors = screening.survivors;
+        const archived = screening.archived;
+
+        // ============================================================
+        // PODA DE ARKI: de los supervivientes, selecciona los N mejores
+        // para el Funnel (25/16/9/4/1). Preserva diversidad de tipología.
+        // ============================================================
+        const pruning = arkiPruning(survivors, variable.steps);
 
         return {
           status: "OK" as const,
           generationId,
           axis: input,
           proposals,
+          screening: {
+            survivors: survivors.length,
+            archived: archived.length,
+            pruned: pruning.pruned.length,
+            prunedOut: pruning.prunedOut.length,
+            pruningCriteria: pruning.criteria,
+            archivedDetails: archived.map((a) => ({
+              candidateId: a.candidateId,
+              severity: a.severity,
+              failureReasons: a.failureReasons,
+              softPenalties: a.softPenalties,
+            })),
+          },
+          constraints: {
+            hard: projectConstraints.hard.length,
+            soft: projectConstraints.soft.length,
+          },
           funnel: {
             initial: proposals.length,
             eligible: proposals.filter(

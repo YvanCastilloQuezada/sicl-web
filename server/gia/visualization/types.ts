@@ -36,4 +36,7 @@ export type RenderData = {
   materials: RenderMaterial[];
   cameras: RenderCamera[];
   lighting: RenderLighting;
+  partiId: string;
+  flowStrategy: string;
+  organizingIdea: string;
 };
