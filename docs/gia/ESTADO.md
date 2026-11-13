@@ -108,3 +108,41 @@ Implementado en `server/gia/divergence.ts` + `server/gia/divergence.test.ts`.
 | 4 | Divergencia real entre PARTIs | ✅ **GIA-002 cerrado (5/5)** |
 | 5 | Determinismo declarado | ⏳ Entregable 3 pendiente |
 | 7 | CI verde | ⚠️ GIA CI verde (tras macroorden 2); UI roja; sicl-core 5/5 rojo |
+
+
+---
+
+## GIA-025 — Deuda declarada (2026-11-13)
+
+**Estado real tras verificación completa (2026-11-13):**
+
+| Grupo | Tests | Estado | Evidencia |
+|---|---|---|---|
+| GIA-001 a GIA-010 (ciclo + divergencia) | 15/15 | ✅ PASS | `npx vitest run server/arkiGia*.test.ts server/gia/*.test.ts` → 15 passed |
+| GIA-011 a GIA-017 (motores) | 6/6 | ✅ PASS | `arkiGiaMotores.test.ts` (con geotech/acoustic PASS, 4 PARTIAL documentados) |
+| GIA-018 a GIA-023 (structural world) | 4/4 | ✅ PASS | `arkiGiaStructuralWorld.test.ts` |
+| GIA-025 (NSGA-II sobre motor real) | 0/3 | ❌ FAIL | `arkiGiaNsga2.test.ts`: endpoint `/structural/surrogate-optimize` no devuelve `engine: "openseespy+MLPRegressor+NSGA-II"` |
+| **Total GIA en TS** | **25/28** | **89% PASS** | 22/25 con `--config vitest.gia.config.ts` |
+
+**Importante:** el hito β+ está construido sobre los **25 tests que pasan** (GIA-001..023). GIA-025 es la única deuda de GIA, y es deuda **Python** (endpoint `motores-api`), no TypeScript.
+
+**Decisión:** GIA-025 se declara deuda de Fase 4 (motores conceptuales → reales). No bloquea el hito β+. El hito β+ se sostiene sobre 22/22 tests de ciclo + motores + structural world.
+
+### Deuda de `main` (no del PR #147)
+
+2 tests fallan en `main` desde commits anteriores al PR #147:
+
+| Test | Error | Causa |
+|---|---|---|
+| `server/arkiAuthorityProfile.test.ts` | `TypeError: Cannot read properties of undefined (reading 'powers')` | Deuda de authority profile |
+| `client/src/components/command-bar.test.ts` | `TestingLibraryElementError: Unable to find "Comando /PROJECT CREATE"` | Deuda de CommandBar |
+
+**No bloquean GIA.** Son deuda de UI/authority de `main` preexistente. Se registran para fase UI separada.
+
+### Deuda de workflows (no del código)
+
+| Workflow | Deuda | Acción |
+|---|---|---|
+| `parametric-v10.yml` | `grep -q 'memoryParametricFiles.has(file.artifactId)' server/db.ts` busca código obsoleto | Actualizar el grep al patrón actual (`db.prepare('SELECT ... WHERE artifactId = ?')`) |
+| `gia-ci.yml` | `version: 9` en `pnpm/action-setup` vs `package.json: pnpm@10.15.1` | ✅ Corregido a `10.15.1` |
+
