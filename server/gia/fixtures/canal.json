@@ -1,0 +1,38 @@
+{
+  "projectId": "CAN-LIM-100-001",
+  "projectName": "Canal de riego 100 km",
+  "typology": "CANAL",
+  "brief": "Canal de riego de 100 km con bocatoma, secciones, sifones y aliviaderos.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 0,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.01,
+    "accesos": ["carretera agrícola", "vía auxiliar"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE OS.010", "RNE OS.050", "RNE E.030", "RNE E.050", "RNE EM.010", "ANA Normas de riego"],
+  "activities": [
+    { "id": "act-1", "name": "Bocatoma", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Sección de canal", "capacity": 100, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Sifones", "capacity": 5, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Aliviaderos", "capacity": 10, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operador"],
+  "conditions": ["pendiente uniforme entre bocatoma y entrega", "capacidad de conducción verificada", "aliviaderos para excesos"],
+  "unknowns": ["estudio hidrológico requiere revisión especializada", "estudio geotécnico de la sección requiere verificación", "derechos de agua requieren verificación legal"],
+  "envelope": { "width": 100, "height": 100, "length": 100000, "status": "LINEAR_INFRASTRUCTURE" },
+  "sourceIds": ["SRC-CAN-BRIEF", "SRC-RNE-CANAL"]
+}
