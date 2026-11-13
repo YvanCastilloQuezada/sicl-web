@@ -103,3 +103,34 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 - **C1-C4 no implementado:** fin de vida (deconstrucción, transporte, residuos). Fase 1.5.
 - **D no implementado:** beneficios más allá del sistema (reutilización, recuperación). Fase 1.5.
 - **Factores estáticos:** los 24 materiales son un subconjunto de ICE v3.0. Para producción, se necesita la base completa (~300 materiales) o un EPD específico por proyecto.
+
+
+---
+
+## Motor de Retrofit / Adaptive Reuse (Fase 2, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (comparación demoler vs rehabilitar + potencial de reutilización).**
+
+### Capacidades
+
+| Función | Qué hace | Referencia |
+|---|---|---|
+| `retrofitVsDemolition` | Compara carbono de demoler+construir vs rehabilitar | RICS WLCA 2023, EN 15978 C1-C4/D |
+| `reusePotential` | Score 0-100 de potencial de reutilización | RIBA 2030 (retrofit = 40% en 2035) |
+
+### Lógica
+
+- **Demolición:** 50 kgCO2e/m2 (C1-C4).
+- **Retrofit:** 200 kgCO2e/m2.
+- **Recomendación:** `RETROFIT` si retrofit < (existing + demolition + newBuild) × 0.6.
+- **Carbono evitado:** (existing + demolition + newBuild) − retrofit.
+
+### Tests
+
+6/6 PASS en `server/gia/retrofit/retrofit.test.ts`.
+
+### Deuda conocida
+
+- **Carbono existente (A1-A5 original):** depende de datos históricos. Para producción se necesita una base de datos de edificios existentes.
+- **Condición estructural:** hoy es un enum (`good`/`fair`/`poor`). Para producción se necesita inspección real.
+- **Integración con el ciclo:** las funciones son aisladas. Fase 2.5 las integra con `executeIntegratedArchitectCycle`.

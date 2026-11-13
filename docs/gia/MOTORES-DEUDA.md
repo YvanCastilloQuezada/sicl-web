@@ -265,3 +265,25 @@ Con 35 tipologías pendientes y 29 actuales:
 - LETI Climate Emergency Design Guide (2020).
 - RIBA 2030 Climate Challenge v3 (2021).
 - ICE Database v3.0 (University of Bath, 2019).
+
+
+---
+
+## Deuda de Fase Retrofit (2026-11-13)
+
+**El motor de retrofit (Fase 2) implementa comparación demoler vs rehabilitar + potencial de reutilización. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Base de datos de edificios existentes** | `embodiedCarbon_existing_kgco2e` es un input manual; para producción se necesita una base (catastro, IFC existente) | Alta |
+| **Inspección estructural** | `condition` es un enum; para producción se necesita inspección real (fisuras, carbonatación, corrosión) | Alta |
+| **Carbono de demolición preciso** | Hoy es 50 kgCO2e/m2 genérico; depende de material, distancia, método | Media |
+| **Carbono de retrofit preciso** | Hoy es 200 kgCO2e/m2 genérico; depende de intervención (refuerzo, instalaciones, envolvente) | Alta |
+| **Reutilización de materiales** | El módulo D (beneficios) no está implementado; para circularidad se necesita | Media |
+| **Integración con el ciclo** | Las funciones son aisladas; Fase 2.5 las integra con `executeIntegratedArchitectCycle` | Alta |
+
+**Referencias:**
+- RIBA 2030 Climate Challenge v3 (2021): retrofit = 40% en 2035.
+- RICS WLCA 2023: carbono evitado por retrofit.
+- EN 15978:2011: módulos C1-C4 (fin de vida) y D (beneficios).
+- ICOMOS / UNESCO: adaptive reuse y patrimonio.
