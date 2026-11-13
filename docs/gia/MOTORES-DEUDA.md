@@ -329,3 +329,25 @@ Con 35 tipologías pendientes y 29 actuales:
 - RIBA Journal (2026): knowledge management es el uso #1 de LLMs en estudios grandes.
 - YARK (Perú): Gemini + pgvector para normativa peruana.
 - Anthropic: Claude para embeddings (Voyage AI).
+
+
+---
+
+## Deuda de Fase MCP (2026-11-13)
+
+**El servidor MCP (Fase 5) implementa JSON-RPC 2.0 con 5 tools. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Transport stdio** | `handleRequest` es puro; para producción se necesita stdio (Claude Desktop) | Alta |
+| **Transport HTTP/SSE** | Para clientes web y streaming | Alta |
+| **Autenticación** | No hay auth (API key, JWT) | Alta |
+| **Persistencia** | No hay sesiones | Media |
+| **Streaming** | No hay SSE para tool calls largos | Media |
+| **Prompts** | Solo tools; MCP también soporta prompts | Baja |
+| **Resources** | Solo tools; MCP también soporta resources | Baja |
+| **Rate limiting** | No hay | Media |
+
+**Referencias:**
+- Model Context Protocol (Anthropic), 2024-11-05.
+- @modelcontextprotocol/sdk (para transporte stdio/HTTP, si se necesita).
