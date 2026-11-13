@@ -1,0 +1,38 @@
+{
+  "projectId": "REP-LIM-500-001",
+  "projectName": "Represa de embalse 500 MW",
+  "typology": "REPRESA",
+  "brief": "Represa de embalse con presa, aliviadero, casa de máquinas y embalse de 1,000 hm³.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "VARIABLE",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 0,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "montañosa",
+    "pendiente": 0.3,
+    "accesos": ["carretera afirmada", "trocha carrozable"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE OS.010", "RNE E.030", "RNE E.050", "RNE EM.010", "ANA Normas de presas", "ICOLD Guidelines"],
+  "activities": [
+    { "id": "act-1", "name": "Presa", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Aliviadero", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Casa de máquinas", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Embalse", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["operador"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operador"],
+  "conditions": ["estabilidad de taludes", "capacidad de aliviadero para avenida máxima", "protección de casa de máquinas"],
+  "unknowns": ["estudio hidrológico requiere revisión especializada", "estudio geotécnico de la presa requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 200, "height": 150, "volume": 1000000000, "status": "PUNCTUAL_INFRASTRUCTURE" },
+  "sourceIds": ["SRC-REP-BRIEF", "SRC-RNE-PRESA"]
+}

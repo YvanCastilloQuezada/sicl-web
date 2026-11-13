@@ -22,7 +22,7 @@ export type IntegratedArchitectInput = {
   subjects: string[];
   conditions: string[];
   unknowns: string[];
-  envelope: { width: number; height: number; length?: number; water_depth?: number };
+  envelope: { width: number; height: number; length?: number; water_depth?: number; area?: number; volume?: number };
   sourceIds: string[];
 };
 
