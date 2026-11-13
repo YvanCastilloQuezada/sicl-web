@@ -1,0 +1,38 @@
+{
+  "projectId": "REA-LIM-010-001",
+  "projectName": "Reactor nuclear de investigación 10 MW",
+  "typology": "REACTOR",
+  "brief": "Reactor nuclear de investigación con núcleo, contención, sala de control y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 0,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["carretera restringida", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE E.030", "RNE E.050", "RNE EM.010", "IAEA Safety Standards", "IPEN Normas nucleares"],
+  "activities": [
+    { "id": "act-1", "name": "Núcleo del reactor", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Contención", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Sala de control", "capacity": 10, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 50, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operador", "personal"],
+  "conditions": ["contención con barreras múltiples", "sala de control con redundancia", "segregación nuclear/personal"],
+  "unknowns": ["estudio de seguridad nuclear requiere revisión IAEA", "estudio geotécnico de la contención requiere verificación", "estudio de impacto radiológico requiere verificación"],
+  "envelope": { "width": 100, "height": 100, "area": 10000, "volume": 50000, "status": "INDUSTRIAL_SPECIAL" },
+  "sourceIds": ["SRC-REA-BRIEF", "SRC-IAEA-REACTOR"]
+}
