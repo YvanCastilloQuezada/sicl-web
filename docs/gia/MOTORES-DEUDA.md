@@ -287,3 +287,24 @@ Con 35 tipologías pendientes y 29 actuales:
 - RICS WLCA 2023: carbono evitado por retrofit.
 - EN 15978:2011: módulos C1-C4 (fin de vida) y D (beneficios).
 - ICOMOS / UNESCO: adaptive reuse y patrimonio.
+
+
+---
+
+## Deuda de Fase Resiliencia (2026-11-13)
+
+**El motor de resiliencia (Fase 3) implementa flood risk + heat island + drought + score combinado. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **DEM real** | Pendiente, elevación y proximidad son manuales; para producción se necesita DEM (SRTM, ALOS) | Alta |
+| **Datos climáticos SENAMHI** | `rainfall_mm` es manual; para producción se necesita serie histórica por ciudad | Alta |
+| **UHI calibrado por ciudad** | Hoy es genérico; para producción se necesita UWG calibrado | Media |
+| **Escorrentía superficial** | No se modela el flujo de agua en el terreno | Alta |
+| **Integración con el ciclo** | Las funciones son aisladas; Fase 3.5 las integra con `executeIntegratedArchitectCycle` | Alta |
+
+**Referencias:**
+- Banco Mundial: Risk Management Approach (RMA).
+- Urban Weather Generator (UWG) + EnergyPlus.
+- MINSA / SUNASS: captación de lluvia y reúso de aguas grises.
+- SENAMHI: datos climáticos históricos de Perú.
