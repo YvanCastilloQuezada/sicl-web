@@ -1,0 +1,38 @@
+{
+  "projectId": "CED-LIM-050-001",
+  "projectName": "Centro de entretenimiento digital 5,000 m²",
+  "typology": "CENTRO_ENTRETENIMIENTO_DIGITAL",
+  "brief": "Centro de entretenimiento digital con arcade, VR, e-sports y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 1000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "centro comercial"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.070", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Arcade", "capacity": 400, "subjects": ["jugador"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-2", "name": "Realidad virtual", "capacity": 100, "subjects": ["jugador"], "privacy": "controlled", "accessControl": "reservation", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-3", "name": "E-sports", "capacity": 300, "subjects": ["jugador", "espectador"], "privacy": "public", "accessControl": "ticket", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 100, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["jugador"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["jugador", "espectador"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["jugador", "espectador", "personal"],
+  "conditions": ["acústica diferenciada por zona", "evacuación clara", "control de acceso por ticket"],
+  "unknowns": ["normativa de entretenimiento requiere revisión", "estudio acústico requiere verificación", "estudio de carga eléctrica requiere verificación"],
+  "envelope": { "width": 100, "height": 50, "area": 5000, "status": "ENTERTAINMENT_BUILDING" },
+  "sourceIds": ["SRC-CED-BRIEF", "SRC-RNE-ENTRETENIMIENTO"]
+}
