@@ -1,0 +1,1410 @@
+{
+  "version": "ARKI-3.0-unified",
+  "source": "sicl-core + sicl-web",
+  "commands": [
+    {
+      "name": "/ACTOR",
+      "compact": "/ACTOR",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /ACTOR",
+        "en": "Command /ACTOR"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./actor"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/ACTOR ADD",
+      "compact": "/ACTOR ADD",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /ACTOR ADD",
+        "en": "Command /ACTOR ADD"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.add"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/ACTOR LIST",
+      "compact": "/ACTOR LIST",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /ACTOR LIST",
+        "en": "Command /ACTOR LIST"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.list"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/ACTOR SHOW",
+      "compact": "/ACTOR SHOW",
+      "description": "Mostrar actor",
+      "args": [],
+      "category": "Core",
+      "type": "PUBLIC",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.actor.show"
+      }
+    },
+    {
+      "name": "/AGENT RUN",
+      "compact": "/AGENT",
+      "description": "Ejecutar agente",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.agent.run"
+      }
+    },
+    {
+      "name": "/ALTERNATIVE PROMOTE",
+      "compact": "/ALT PROMOTE",
+      "description": "Promover una alternativa",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.alternative.promote"
+      }
+    },
+    {
+      "name": "/ANALYZE AIRPORT_FIRE_LIFESAFETY",
+      "compact": "/ANALYZE AIRPORT_FIRE_LIFESAFETY",
+      "description": "Incendios en Terminal (NFPA 415)",
+      "args": [
+        "terminal_area"
+      ],
+      "category": "9. Especialidades: Aeropuertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "fire",
+        "endpoint": "/fire/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE AIRSIDE_GEOMETRY",
+      "compact": "/ANALYZE AIRSIDE_GEOMETRY",
+      "description": "Geometría de Pista (FAA AC 150)",
+      "args": [
+        "runway_length"
+      ],
+      "category": "9. Especialidades: Aeropuertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE BAGGAGE_SYSTEM",
+      "compact": "/ANALYZE BAGGAGE_SYSTEM",
+      "description": "Sistema de Equipaje (BHS)",
+      "args": [],
+      "category": "9. Especialidades: Aeropuertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "evacuation",
+        "endpoint": "/evacuation/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE DREDGING",
+      "compact": "/ANALYZE DREDGING",
+      "description": "Dragado (UFC 4-150-06)",
+      "args": [
+        "design_depth"
+      ],
+      "category": "10. Especialidades: Puertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "geotech",
+        "endpoint": "/geotech/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE ESSENTIAL_POWER",
+      "compact": "/ANALYZE ESSENTIAL_POWER",
+      "description": "Potencia Esencial (NFPA 99)",
+      "args": [
+        "load_kw",
+        "generator_kw"
+      ],
+      "category": "8. Especialidades: Hospitales",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "hvac",
+        "endpoint": "/hvac/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE FENDER_SYSTEM",
+      "compact": "/ANALYZE FENDER_SYSTEM",
+      "description": "Sistema de Defensas (PIANC WG211)",
+      "args": [
+        "vessel_dwt"
+      ],
+      "category": "10. Especialidades: Puertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE FIRE",
+      "compact": "/ANALYZE FIRE",
+      "description": "Rutas de evacuación y contra incendios (RNE A.130)",
+      "args": [],
+      "category": "7. Análisis y Simulación",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "fire",
+        "endpoint": "/fire/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE FIRE_SAFETY_HC",
+      "compact": "/ANALYZE FIRE_SAFETY_HC",
+      "description": "Incendios Hospitalarios (NFPA 101)",
+      "args": [],
+      "category": "8. Especialidades: Hospitales",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "fire",
+        "endpoint": "/fire/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE HEALTHCARE_HVAC",
+      "compact": "/ANALYZE HEALTHCARE_HVAC",
+      "description": "HVAC Hospitalario (ASHRAE 170)",
+      "args": [
+        "ach"
+      ],
+      "category": "8. Especialidades: Hospitales",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "hvac",
+        "endpoint": "/hvac/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE MEDGAS",
+      "compact": "/ANALYZE MEDGAS",
+      "description": "Gases Medicinales (NFPA 99)",
+      "args": [
+        "pressure"
+      ],
+      "category": "8. Especialidades: Hospitales",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "hvac",
+        "endpoint": "/hvac/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE MEDICAL_EQUIPMENT",
+      "compact": "/ANALYZE MEDICAL_EQUIPMENT",
+      "description": "Cargas de Equipos Médicos (FGI)",
+      "args": [
+        "load_kw"
+      ],
+      "category": "8. Especialidades: Hospitales",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "hvac",
+        "endpoint": "/hvac/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE MOORING_SYSTEM",
+      "compact": "/ANALYZE MOORING_SYSTEM",
+      "description": "Sistema de Amarre (PIANC WG231)",
+      "args": [
+        "vessel_length"
+      ],
+      "category": "10. Especialidades: Puertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE NAVIGATION_CHANNEL",
+      "compact": "/ANALYZE NAVIGATION_CHANNEL",
+      "description": "Canal de Navegación (UFC)",
+      "args": [],
+      "category": "10. Especialidades: Puertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "geotech",
+        "endpoint": "/geotech/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE PORT_PAVEMENT",
+      "compact": "/ANALYZE PORT_PAVEMENT",
+      "description": "Pavimento Portuario (PIANC)",
+      "args": [],
+      "category": "10. Especialidades: Puertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "geotech",
+        "endpoint": "/geotech/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE PORT_SECURITY",
+      "compact": "/ANALYZE PORT_SECURITY",
+      "description": "Seguridad Portuaria (ISPS)",
+      "args": [],
+      "category": "10. Especialidades: Puertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE SOLAR",
+      "compact": "/ANALYZE SOLAR",
+      "description": "Estudio de asoleamiento y sombras",
+      "args": [
+        "latitude"
+      ],
+      "category": "7. Análisis y Simulación",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "solar",
+        "endpoint": "/solar/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE STANDOFF_DISTANCE",
+      "compact": "/ANALYZE STANDOFF_DISTANCE",
+      "description": "Distancia Antiterrorista (UFC)",
+      "args": [
+        "standoff_m"
+      ],
+      "category": "9. Especialidades: Aeropuertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE STRUCTURAL",
+      "compact": "/ANALYZE STRUCTURAL",
+      "description": "Predimensionamiento y peso sísmico (RNE E.030)",
+      "args": [],
+      "category": "7. Análisis y Simulación",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE TERMINAL_FLOW",
+      "compact": "/ANALYZE TERMINAL_FLOW",
+      "description": "Flujo de Terminal (FAA AC 150)",
+      "args": [
+        "passengers_per_hour"
+      ],
+      "category": "9. Especialidades: Aeropuertos",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "evacuation",
+        "endpoint": "/evacuation/evaluate"
+      }
+    },
+    {
+      "name": "/ANALYZE WIND",
+      "compact": "/ANALYZE WIND",
+      "description": "Cargas de viento (RNE E.020)",
+      "args": [
+        "wind_speed"
+      ],
+      "category": "7. Análisis y Simulación",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "wind",
+        "endpoint": "/wind/evaluate"
+      }
+    },
+    {
+      "name": "/ASSUMPTION SET",
+      "compact": "/ASSUME",
+      "description": "Registrar un supuesto",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.assumption.set"
+      }
+    },
+    {
+      "name": "/CLASH DETECT",
+      "compact": "/CLASH DETECT",
+      "description": "Detectar interferencias 3D",
+      "args": [],
+      "category": "4. Dimensiones BIM",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/CONSTRAINT",
+      "compact": "/CONSTRAINT",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /CONSTRAINT",
+        "en": "Command /CONSTRAINT"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./constraint"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/CONSTRAINT SET",
+      "compact": "/CONS",
+      "description": "Establecer una restricción",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.constraint.set"
+      }
+    },
+    {
+      "name": "/COST EVALUATE",
+      "compact": "/COST EVALUATE",
+      "description": "Calcular VAN, TIR y Payback 5D",
+      "args": [],
+      "category": "4. Dimensiones BIM",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/CYCLE",
+      "compact": "/CYCLE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /CYCLE",
+        "en": "Command /CYCLE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./cycle"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/CYCLE CREATE",
+      "compact": "/CYCLE CREATE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /CYCLE CREATE",
+        "en": "Command /CYCLE CREATE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.create"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/CYCLE LIST",
+      "compact": "/CYCLE LIST",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /CYCLE LIST",
+        "en": "Command /CYCLE LIST"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.list"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/CYCLE SHOW",
+      "compact": "/CYCLE SHOW",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /CYCLE SHOW",
+        "en": "Command /CYCLE SHOW"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.show"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/DEBATE",
+      "compact": "/DEBATE",
+      "description": "Debate de agentes",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.debate"
+      }
+    },
+    {
+      "name": "/DECISION RECORD",
+      "compact": "/DEC REC",
+      "description": "Registrar una decisión",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.decision.record"
+      }
+    },
+    {
+      "name": "/ENERGY SIMULATE",
+      "compact": "/ENERGY SIMULATE",
+      "description": "Simulación térmica 6D",
+      "args": [],
+      "category": "4. Dimensiones BIM",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "hvac",
+        "endpoint": "/hvac/evaluate"
+      }
+    },
+    {
+      "name": "/EVIDENCE ADD",
+      "compact": "/EVID",
+      "description": "Añadir evidencia",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.evidence.add"
+      }
+    },
+    {
+      "name": "/EVIDENCE LIST",
+      "compact": "/EVID LIST",
+      "description": "Listar evidencias",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.evidence.list"
+      }
+    },
+    {
+      "name": "/EVIDENCE SHOW",
+      "compact": "/EVIDENCE SHOW",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /EVIDENCE SHOW",
+        "en": "Command /EVIDENCE SHOW"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.show"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/EXIT",
+      "compact": "/EXIT",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /EXIT",
+        "en": "Command /EXIT"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./exit"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/FACT SET",
+      "compact": "/FACT",
+      "description": "Registrar un hecho",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.fact.set"
+      }
+    },
+    {
+      "name": "/FEASIBILITY",
+      "compact": "/FEASIBILITY",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /FEASIBILITY",
+        "en": "Command /FEASIBILITY"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./feasibility"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/GENERATE",
+      "compact": "/GENERATE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /GENERATE",
+        "en": "Command /GENERATE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./generate"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/GENERATE DESIGN",
+      "compact": "/GEN DESIGN",
+      "description": "Generar un diseño",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.generate.design"
+      }
+    },
+    {
+      "name": "/GENERATE LIST",
+      "compact": "/GEN LIST",
+      "description": "Listar generaciones",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.generate.list"
+      }
+    },
+    {
+      "name": "/GENERATE METHODS",
+      "compact": "/GEN METHODS",
+      "description": "Métodos de generación",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.generate.methods"
+      }
+    },
+    {
+      "name": "/GENERATE SHOW",
+      "compact": "/GEN SHOW",
+      "description": "Mostrar generación",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.generate.show"
+      }
+    },
+    {
+      "name": "/HELP",
+      "compact": "/HELP",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /HELP",
+        "en": "Command /HELP"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./help"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/HISTORY",
+      "compact": "/HIST",
+      "description": "Historial de eventos",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/core/v1/projects/{{project_id}}/history"
+      }
+    },
+    {
+      "name": "/HUMAN REVIEW",
+      "compact": "/REVIEW",
+      "description": "Revisión humana",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.human.review"
+      }
+    },
+    {
+      "name": "/INTERPRET ADD",
+      "compact": "/INTERP ADD",
+      "description": "Añadir interpretación",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.interpret.add"
+      }
+    },
+    {
+      "name": "/INTERPRET LIST",
+      "compact": "/INTERP LIST",
+      "description": "Listar interpretaciones",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.interpret.list"
+      }
+    },
+    {
+      "name": "/INTERPRET REVIEW",
+      "compact": "/INTERP REVIEW",
+      "description": "Revisar interpretación",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.interpret.review"
+      }
+    },
+    {
+      "name": "/MEMORY APPLY",
+      "compact": "/MEMORY APPLY",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /MEMORY APPLY",
+        "en": "Command /MEMORY APPLY"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.apply"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/MEMORY EXTRACT",
+      "compact": "/MEM EXTRACT",
+      "description": "Extraer memoria",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.memory.extract"
+      }
+    },
+    {
+      "name": "/MEMORY LIST",
+      "compact": "/MEM LIST",
+      "description": "Listar memoria",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.memory.list"
+      }
+    },
+    {
+      "name": "/MEMORY REVOKE",
+      "compact": "/MEMORY REVOKE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /MEMORY REVOKE",
+        "en": "Command /MEMORY REVOKE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.revoke"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/MEMORY SHOW",
+      "compact": "/MEM SHOW",
+      "description": "Mostrar memoria",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.memory.show"
+      }
+    },
+    {
+      "name": "/MEMORY TYPES",
+      "compact": "/MEM TYPES",
+      "description": "Tipos de memoria",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.memory.types"
+      }
+    },
+    {
+      "name": "/MULTIOBJECTIVE",
+      "compact": "/MULTI",
+      "description": "Análisis multiobjetivo",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.multiobjective"
+      }
+    },
+    {
+      "name": "/OBJECTIVE",
+      "compact": "/OBJECTIVE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /OBJECTIVE",
+        "en": "Command /OBJECTIVE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./objective"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/OBJECTIVE SET",
+      "compact": "/OBJ",
+      "description": "Establecer un objetivo",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.objective.set"
+      }
+    },
+    {
+      "name": "/PARETO",
+      "compact": "/PARETO",
+      "description": "Análisis de Pareto",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.pareto"
+      }
+    },
+    {
+      "name": "/PLANNING ADD",
+      "compact": "/PLAN ADD",
+      "description": "Añadir plan",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.planning.add"
+      }
+    },
+    {
+      "name": "/PLANNING LIST",
+      "compact": "/PLAN LIST",
+      "description": "Listar planes",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.planning.list"
+      }
+    },
+    {
+      "name": "/PLANNING SHOW",
+      "compact": "/PLAN SHOW",
+      "description": "Mostrar plan",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.planning.show"
+      }
+    },
+    {
+      "name": "/PLANNING TYPES",
+      "compact": "/PLAN TYPES",
+      "description": "Tipos de plan",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.planning.types"
+      }
+    },
+    {
+      "name": "/POSITION",
+      "compact": "/POSITION",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /POSITION",
+        "en": "Command /POSITION"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./position"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/POSITION ADD",
+      "compact": "/POSITION ADD",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /POSITION ADD",
+        "en": "Command /POSITION ADD"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.add"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/POSITION LIST",
+      "compact": "/POSITION LIST",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /POSITION LIST",
+        "en": "Command /POSITION LIST"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.list"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/PROJECT",
+      "compact": "/PROJECT",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /PROJECT",
+        "en": "Command /PROJECT"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./project"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/PROJECT CREATE",
+      "compact": "/PROJ CREATE",
+      "description": "Crear un proyecto",
+      "args": [],
+      "category": "Core",
+      "type": "PUBLIC",
+      "action": {
+        "type": "http",
+        "method": "POST",
+        "endpoint": "/api/core/v1/projects"
+      }
+    },
+    {
+      "name": "/PROJECT IMPORT OBJECTIVE",
+      "compact": "/PROJECT IMPORT OBJECTIVE",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Comando /PROJECT IMPORT OBJECTIVE",
+        "en": "Command /PROJECT IMPORT OBJECTIVE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.objective"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/PROJECT LIST",
+      "compact": "/PROJ LIST",
+      "description": "Listar proyectos",
+      "args": [],
+      "category": "Core",
+      "type": "PUBLIC",
+      "action": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/core/v1/projects"
+      }
+    },
+    {
+      "name": "/PROJECT OPEN",
+      "compact": "/PROJ OPEN",
+      "description": "Abrir un proyecto existente",
+      "args": [],
+      "category": "Core",
+      "type": "PUBLIC",
+      "action": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/core/v1/projects"
+      }
+    },
+    {
+      "name": "/PROJECT SET SCOPE",
+      "compact": "/PROJECT SET SCOPE",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Comando /PROJECT SET SCOPE",
+        "en": "Command /PROJECT SET SCOPE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.scope"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/PROJECT SHOW",
+      "compact": "/PROJ SHOW",
+      "description": "Mostrar un proyecto",
+      "args": [],
+      "category": "Core",
+      "type": "PUBLIC",
+      "action": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/core/v1/projects"
+      }
+    },
+    {
+      "name": "/REGULATION ADD",
+      "compact": "/REG ADD",
+      "description": "Añadir regulación",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.regulation.add"
+      }
+    },
+    {
+      "name": "/REGULATION LIST",
+      "compact": "/REG LIST",
+      "description": "Listar regulaciones",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.regulation.list"
+      }
+    },
+    {
+      "name": "/REGULATION SHOW",
+      "compact": "/REGULATION SHOW",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /REGULATION SHOW",
+        "en": "Command /REGULATION SHOW"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.show"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/REGULATION STATUS",
+      "compact": "/REG STATUS",
+      "description": "Estado de regulación",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.regulation.status"
+      }
+    },
+    {
+      "name": "/ROLE",
+      "compact": "/ROLE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /ROLE",
+        "en": "Command /ROLE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./role"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/ROLE ADD",
+      "compact": "/ROLE ADD",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /ROLE ADD",
+        "en": "Command /ROLE ADD"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.add"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCALE",
+      "compact": "/SCALE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCALE",
+        "en": "Command /SCALE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./scale"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCALE CHILDREN",
+      "compact": "/SCALE CHILDREN",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCALE CHILDREN",
+        "en": "Command /SCALE CHILDREN"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.children"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCALE PARENT",
+      "compact": "/SCALE PARENT",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCALE PARENT",
+        "en": "Command /SCALE PARENT"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.parent"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCALE RELATE",
+      "compact": "/SCALE RELATE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCALE RELATE",
+        "en": "Command /SCALE RELATE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.relate"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCALE RELATIONS",
+      "compact": "/SCALE RELATIONS",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCALE RELATIONS",
+        "en": "Command /SCALE RELATIONS"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.relations"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCENARIO",
+      "compact": "/SCENARIO",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCENARIO",
+        "en": "Command /SCENARIO"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./scenario"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCENARIO CREATE",
+      "compact": "/SCENARIO CREATE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCENARIO CREATE",
+        "en": "Command /SCENARIO CREATE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.create"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCENARIO LIST",
+      "compact": "/SCENARIO LIST",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCENARIO LIST",
+        "en": "Command /SCENARIO LIST"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.list"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCENARIO SELECT",
+      "compact": "/SCENARIO SELECT",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /SCENARIO SELECT",
+        "en": "Command /SCENARIO SELECT"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.select"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/SCHEDULE CREATE",
+      "compact": "/SCHEDULE CREATE",
+      "description": "Generar cronograma 4D",
+      "args": [],
+      "category": "4. Dimensiones BIM",
+      "type": "MOTOR",
+      "action": {
+        "type": "motor",
+        "motor": "structural",
+        "endpoint": "/structural/evaluate"
+      }
+    },
+    {
+      "name": "/SITE INTELLIGENCE",
+      "compact": "/SITE INTEL",
+      "description": "Inteligencia del sitio",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.site.intelligence"
+      }
+    },
+    {
+      "name": "/SNAPSHOT CREATE",
+      "compact": "/SNAP",
+      "description": "Crear snapshot",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.snapshot.create"
+      }
+    },
+    {
+      "name": "/SNAPSHOT FREEZE",
+      "compact": "/SNAP FREEZE",
+      "description": "Congelar snapshot",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.snapshot.freeze"
+      }
+    },
+    {
+      "name": "/SNAPSHOT LIST",
+      "compact": "/SNAP LIST",
+      "description": "Listar snapshots",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "internal",
+        "handler": "sicl.snapshot.list"
+      }
+    },
+    {
+      "name": "/STAGE",
+      "compact": "/STAGE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /STAGE",
+        "en": "Command /STAGE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./stage"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/STAGE SET",
+      "compact": "/STAGE SET",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Comando /STAGE SET",
+        "en": "Command /STAGE SET"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl.set"
+      },
+      "category": "Core"
+    },
+    {
+      "name": "/STATUS",
+      "compact": "/STATUS",
+      "description": "Estado del proyecto",
+      "args": [],
+      "category": "Core",
+      "type": "INTERNAL",
+      "action": {
+        "type": "http",
+        "method": "GET",
+        "endpoint": "/api/core/v1/projects/{{project_id}}/status"
+      }
+    },
+    {
+      "name": "/VARIABLE",
+      "compact": "/VARIABLE",
+      "type": "INTERNAL",
+      "description": {
+        "es": "Comando /VARIABLE",
+        "en": "Command /VARIABLE"
+      },
+      "args": [],
+      "action": {
+        "type": "internal",
+        "handler": "sicl./variable"
+      },
+      "category": "Core"
+    }
+  ]
+}
