@@ -1,0 +1,38 @@
+{
+  "projectId": "BNA-CAL-001-001",
+  "projectName": "Base Naval Militar",
+  "typology": "BASE_NAVAL",
+  "brief": "Base naval con dársena militar, dique de carena, almacenes y defensa de costa.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 1500,
+    "latitude": -12.0566,
+    "longitude": -77.1478,
+    "altitude": 5,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida costanera", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE OS.010", "RNE E.030", "RNE E.050", "RNE EM.010", "MGP Normas", "IMO ISPS Code"],
+  "activities": [
+    { "id": "act-1", "name": "Dársena militar", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Dique de carena", "capacity": 2, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Almacenes", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Defensa de costa", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["personal"],
+  "conditions": ["dársena separada de puerto comercial", "dique de carena protegido", "defensa de costa perimetral"],
+  "unknowns": ["normativa militar requiere revisión MGP", "estudio de dragado requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 1000, "height": 600, "area": 600000, "status": "MILITARY_BASE" },
+  "sourceIds": ["SRC-BNA-BRIEF", "SRC-MGP-NORMAS"]
+}

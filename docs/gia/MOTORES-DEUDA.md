@@ -213,3 +213,30 @@ Con 35 tipologías pendientes y 29 actuales:
 - **Bloques de 10**: 3-4 PRs. Riesgo alto (si falla 1, diagnosticar 10).
 
 **Decisión:** bloques de 5.
+
+
+---
+
+## Deuda de Fase GIA-Defensa (2026-11-13)
+
+**Las 7 tipologías militares** (base aérea, base naval, base terrestre/cuartel, bunker, defensa antiaérea, centro de mando TOC, polvorín) se modelan como "actividades genéricas" en el schema actual.
+
+**Lo que falta para un modelado correcto:**
+
+| Dimensión | Qué necesita | Aplica a |
+|---|---|---|
+| `security_zones` | Perímetro, zona restringida, zona clasificada, zona de acceso controlado | Las 7 |
+| `passive_protection` | Cobertura de tierra (pies), espesor de hormigón (cm), distancia de seguridad (m) | Bunker, centro-mando, polvorín |
+| `active_defense` | Antiaérea (SAM/AAA), perimetral, radares, C2 | Base aérea, defensa antiaérea |
+| `dispersal_distance` | Separación entre aeronaves, lanzadores, polvorines (m) | Base aérea, defensa antiaérea, polvorín |
+| `classification_level` | Público, restringido, secreto, ultra-secreto | Las 7 |
+| `nbc_protection` | Protección Nuclear, Biológica, Química (filtros, sobrepresión) | Bunker, centro-mando, polvorín |
+
+**Referencia bibliográfica:**
+- UFC 4-021-01 (Design and O&M: Mass Notification Systems).
+- NATO STANAG 2280 (Design threat levels for military installations).
+- FAP Normas (Perú), MGP Normas (Perú), EP Normas (Perú).
+
+**Deuda de Fase GIA-Defensa:** extender el schema con los 6 campos, actualizar los 7 fixtures, y añadir tests específicos.
+
+**Prioridad:** Media. El hito de 59 tipologías cierra con el modelado genérico; el modelado específico es Fase GIA-Defensa.
