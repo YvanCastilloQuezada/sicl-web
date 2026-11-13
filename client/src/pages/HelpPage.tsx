@@ -16,12 +16,12 @@ export default function HelpPage() {
   const results = useMemo(() => {
     const value = query.trim().toLowerCase();
     if (!value) return [];
-    return allCommands.filter((item) => `${item.name} ${item.syntax} ${item.category}`.toLowerCase().includes(value)).slice(0, 8);
+    return allCommands.filter((item) => `${item.name ?? ""} ${item.syntax ?? ""} ${item.category ?? ""}`.toLowerCase().includes(value)).slice(0, 8);
   }, [query]);
   const suggestions = useMemo(() => {
     const value = query.trim().toLowerCase();
     if (!value) return allCommands.slice(0, 5);
-    return allCommands.filter((item) => item.name.toLowerCase().startsWith(value) || item.category.toLowerCase().startsWith(value)).slice(0, 5);
+    return allCommands.filter((item) => String(item.name ?? "").toLowerCase().startsWith(value) || String(item.category ?? "").toLowerCase().startsWith(value)).slice(0, 5);
   }, [query]);
   return (
     <section className="mx-auto w-full max-w-5xl">
