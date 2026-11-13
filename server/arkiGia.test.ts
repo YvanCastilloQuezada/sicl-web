@@ -7,7 +7,21 @@ import {
 } from "./arkiIntegratedArchitectCycle";
 import { passesGIA002, type Parti } from "./gia/divergence";
 
-const TIPOLOGIAS = ["hospital", "educativo", "oficinas"] as const;
+const TIPOLOGIAS = [
+  "hospital",
+  "educativo",
+  "oficinas",
+  "residencial",
+  "comercial",
+  "industrial",
+  "cultural",
+  "deportivo",
+  "transporte",
+  "hotelero",
+  "clinica",
+  "religioso",
+  "penitenciario",
+] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 
 function loadFixture(tipologia: Tipologia): IntegratedArchitectInput {

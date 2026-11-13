@@ -1,0 +1,31 @@
+{
+  "projectId": "CUL-LIM-050-001",
+  "projectName": "Centro cultural 5,000 m²",
+  "typology": "CULTURAL",
+  "brief": "Centro cultural con auditorio, salas de exposición, talleres y biblioteca.",
+  "context": {
+    "jurisdiction": "PE", "climate": "TEMPLADO", "zona_sismica": "Z4", "tipo_suelo": "S3",
+    "occupancy": 800, "latitude": -12.0464, "longitude": -77.0428, "altitude": 154,
+    "topografia": "plana", "pendiente": 0.01, "accesos": ["avenida principal", "plaza pública"],
+    "orientacion": "este-oeste", "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.090", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Auditorio", "capacity": 300, "subjects": ["espectador"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-2", "name": "Salas de exposición", "capacity": 200, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Talleres", "capacity": 100, "subjects": ["alumno", "profesor"], "privacy": "shared", "accessControl": "enrollment", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Biblioteca", "capacity": 150, "subjects": ["visitante", "alumno"], "privacy": "shared", "accessControl": "registration", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-5", "name": "Servicios", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["alumno"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "ADJACENT", "subjects": ["alumno"], "control": "FLOW" },
+    { "id": "rel-4", "source": "act-4", "target": "act-5", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["espectador", "visitante", "alumno", "profesor", "personal"],
+  "conditions": ["acústica diferenciada por sala", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa local de cultura requiere revisión", "capacidad de carga vertical requiere verificación", "acondicionamiento acústico requiere verificación especializada"],
+  "envelope": { "width": 80, "height": 60 },
+  "sourceIds": ["SRC-CUL-BRIEF", "SRC-RNE-CULTURA"]
+}
