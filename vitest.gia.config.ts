@@ -18,6 +18,7 @@ export default defineConfig({
       'server/arkiGiaMotores.test.ts',
       'server/arkiGiaStructural.test.ts',
       'server/arkiGiaStructuralWorld.test.ts',
+      'server/arkiGiaNsga2.test.ts',
     ],
     fileParallelism: false,
     sequence: {
