@@ -31,7 +31,7 @@ describe("GIA-018 Structural real", () => {
 });
 
 describe("GIA-019 Structural drift", () => {
-  it("drift_est y drift_limit están presentes", async () => {
+  it("drift_max y drift_limit están presentes", async () => {
     const result = await evaluateStructural({
       project_id: "GIA-STR-002",
       n_stories: 3,
@@ -41,7 +41,7 @@ describe("GIA-019 Structural drift", () => {
       importance: 1.0,
       reduction: 7.0,
     });
-    expect(result.values.drift_est).toBeDefined();
+    expect(result.values.drift_max).toBeDefined();
     expect(result.values.drift_limit).toBe(0.007);
   }, 40000);
 });

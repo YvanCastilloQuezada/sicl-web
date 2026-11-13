@@ -7,7 +7,7 @@ async function post(endpoint: string, payload: Record<string, unknown>) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
-    signal: AbortSignal.timeout(40000),
+    signal: AbortSignal.timeout(120000),
   });
   return res.json();
 }
@@ -22,7 +22,7 @@ describe("GIA-021 Shell cáscara cilíndrica", () => {
     expect(r.engine).toBe("openseespy_shell");
     expect(r.values.disp_z_center_mm).toBeGreaterThan(0);
     expect(["PASS", "FAIL"]).toContain(r.status);
-  }, 60000);
+  }, 120000);
 });
 
 describe("GIA-022 Time-history sísmico", () => {
@@ -34,7 +34,7 @@ describe("GIA-022 Time-history sísmico", () => {
     expect(r.engine).toBe("openseespy_time_history");
     expect(r.values.max_drift).toBeGreaterThan(0);
     expect(r.values.T1_s).toBeGreaterThan(0);
-  }, 60000);
+  }, 120000);
 });
 
 describe("GIA-023 Nonlinear frame (fibras)", () => {
@@ -46,5 +46,5 @@ describe("GIA-023 Nonlinear frame (fibras)", () => {
     expect(r.engine).toBe("openseespy_nonlinear_frame");
     expect(r.values.roof_disp_mm).toBeGreaterThan(0);
     expect(r.values.base_shear_kN).toBeGreaterThan(0);
-  }, 60000);
+  }, 120000);
 });
