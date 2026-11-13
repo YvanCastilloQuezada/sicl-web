@@ -12,7 +12,10 @@ const TIPOLOGIAS = [
   "centro-nacional-tecnologia", "data-center-ia", "teatro", "biblioteca",
   "parque-infantil", "parque-diversiones", "restaurante", "centro-campestre",
   "parque-aguas", "centro-entretenimiento-digital", "bomberos", "policia",
-  "parque-zonal", "zoologico", "jardin-botanico",
+  "parque-zonal", "zoologico", "jardin-botanico", "urbanizacion",
+  "planificacion-distrital", "planificacion-provincial", "planificacion-regional",
+  "planificacion-macro-regional", "planificacion-nacional",
+  "planificacion-cuencas", "planificacion-intercuencas",
 ] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 

@@ -1,0 +1,38 @@
+{
+  "projectId": "PNA-LIM-33000-001",
+  "projectName": "Planificación nacional 33M hab",
+  "typology": "PLANIFICACION_NACIONAL",
+  "brief": "Plan nacional con sistema de ciudades, corredores y equipamiento estratégico.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "VARIABLE",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 33000000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.5,
+    "accesos": ["red vial nacional", "corredores interoceánicos"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["Ley 27783", "Ley 29158", "CEPLAN Normas", "RNE E.030", "RNE E.050"],
+  "activities": [
+    { "id": "act-1", "name": "Sistema de ciudades", "capacity": 22000000, "subjects": ["residente"], "privacy": "private", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Corredores interoceánicos", "capacity": 8000000, "subjects": ["comerciante", "transportista"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Equipamiento nacional", "capacity": 2000000, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Red vial nacional", "capacity": 1000000, "subjects": ["residente", "visitante"], "privacy": "public", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-4", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["transportista"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" }
+  ],
+  "subjects": ["residente", "comerciante", "transportista", "visitante"],
+  "conditions": ["sistema de ciudades articulado", "corredores interoceánicos", "red vial nacional"],
+  "unknowns": ["normativa nacional requiere revisión CEPLAN", "estudio de sistema de ciudades requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 500000, "height": 300000, "area": 150000000000, "status": "NATIONAL_PLAN" },
+  "sourceIds": ["SRC-PNA-BRIEF", "SRC-CEPLAN"]
+}

@@ -1,0 +1,38 @@
+{
+  "projectId": "PCU-LIM-10000-001",
+  "projectName": "Planificación de cuencas 10,000 km²",
+  "typology": "PLANIFICACION_CUENCAS",
+  "brief": "Plan de cuenca con subcuencas, recursos hídricos y ecosistemas.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "VARIABLE",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 500000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 2000,
+    "topografia": "montañosa",
+    "pendiente": 0.4,
+    "accesos": ["red vial regional", "vías auxiliares"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["Ley 29338", "ANA Normas", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Subcuencas", "capacity": 300000, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Recursos hídricos", "capacity": 150000, "subjects": ["agricultor", "operador"], "privacy": "controlled", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Ecosistemas", "capacity": 50000, "subjects": ["visitante"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Infraestructura hidráulica", "capacity": 10000, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["agricultor"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["visitante"], "control": "FLOW" }
+  ],
+  "subjects": ["residente", "agricultor", "operador", "visitante"],
+  "conditions": ["gestión integrada de recursos hídricos", "protección de ecosistemas", "infraestructura hidráulica"],
+  "unknowns": ["normativa de cuencas requiere revisión ANA", "estudio hidrológico requiere verificación", "estudio de cambio climático requiere verificación"],
+  "envelope": { "width": 100000, "height": 100000, "area": 10000000000, "status": "WATERSHED_PLAN" },
+  "sourceIds": ["SRC-PCU-BRIEF", "SRC-ANA-CUENCAS"]
+}
