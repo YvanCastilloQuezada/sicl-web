@@ -121,8 +121,8 @@ function counterfactuals(input: SuperpowersInput): CounterfactualResult {
   return { baselineDecision, scenarios, comparisonBasis: ["PROGRAM", "FLOWS", "TOPOLOGY", "GEOMETRY", "STRUCTURE", "CLIMATE", "REGULATION", "COST", "OPERATION", "RISK"], humanReviewRequired: true };
 }
 
-export function executeArkiSuperpowersPack(input: SuperpowersInput): SuperpowersPackResult {
-  const motor = executeArkiUnifiedMotor(input);
+export async function executeArkiSuperpowersPack(input: SuperpowersInput): Promise<SuperpowersPackResult> {
+  const motor = await executeArkiUnifiedMotor(input);
   return { version: "ARKI-SUPERPOWERS-PACK-1.0", motor, consequenceRadar: consequenceRadar(input), valueOfInformation: valueOfInformation(input), designDivergence: divergence(input), architecturalDebt: debt(input), counterfactualExplorer: counterfactuals(input), status: "PASS_WITH_BOUNDS", claim: "TRANSVERSAL_DECISION_SUPPORT_ONLY", humanAuthority: "FINAL" };
 }
 

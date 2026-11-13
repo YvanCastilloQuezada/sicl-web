@@ -39,8 +39,8 @@ function disposition(piece: UnifiedPiece): ActivationRecord {
   return { pieceId: piece.id, priorState: piece.state, disposition: "RETAINED_NOT_DEMONSTRATED", gateStatus: "HOLD", actionTaken: "Claim retained as not demonstrated; no unsupported implementation substituted.", evidence: piece.evidence, nextGate: piece.activationGate, humanReviewRequired: true };
 }
 
-export function executeActivationRun(input: UnifiedMotorInput, snapshot?: SiclSnapshot, coreKnowledgeVersion = 1): ActivationRun {
-  const result = executeArkiUnifiedMotor(input, snapshot, coreKnowledgeVersion, "ARKI-ACTIVATION-RUN-1.0");
+export async function executeActivationRun(input: UnifiedMotorInput, snapshot?: SiclSnapshot, coreKnowledgeVersion = 1): Promise<ActivationRun> {
+  const result = await executeArkiUnifiedMotor(input, snapshot, coreKnowledgeVersion, "ARKI-ACTIVATION-RUN-1.0");
   const records = result.pieceRegistry.map(disposition);
   return { activationVersion: "ARKI-ACTIVATION-RUN-1.0", runId: `ACT-${input.projectId}`, projectId: input.projectId, motorStatus: result.status, records, promoted: records.filter((item) => item.disposition === "PROMOTED_TO_EXECUTION").map((item) => item.pieceId), executedReferences: records.filter((item) => item.disposition === "EXECUTED_AS_REFERENCE").map((item) => item.pieceId), frozenRetained: records.filter((item) => item.disposition === "RETAINED_FROZEN").map((item) => item.pieceId), blockedRetained: records.filter((item) => item.disposition === "RETAINED_BLOCKED").map((item) => item.pieceId), notDemonstratedRetained: records.filter((item) => item.disposition === "RETAINED_NOT_DEMONSTRATED").map((item) => item.pieceId), invariants: ["ONE_MOTOR", "FROZEN_IS_NOT_AUTOMATICALLY_ACTIVATED", "DOCUMENTED_IS_NOT_IMPLEMENTED", "UNKNOWN_IS_NOT_PASS", "HUMAN_AUTHORITY_FINAL"], humanAuthority: "FINAL", authorityProfile: getArkiAuthorityProfile() };
 }

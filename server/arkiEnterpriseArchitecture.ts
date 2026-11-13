@@ -27,9 +27,9 @@ export const ENTERPRISE_CAPABILITIES: EnterpriseCapability[] = [
 export type EnterpriseRunInput = UnifiedMotorInput & { domains?: EnterpriseDomain[]; requestedExports?: ExportFormat[]; jurisdiction?: string };
 export type EnterpriseRunResult = { architectureVersion: "ARKI-ENTERPRISE-ARCH-1.0"; domains: EnterpriseCapability[]; exports: Array<{ format: ExportFormat; status: "CONTRACT_ONLY" | "CONCEPTUAL" | "NOT_DEMONSTRATED" }>; motor: UnifiedMotorResult; unknowns: string[]; humanAuthority: "FINAL" };
 
-export function planEnterpriseRun(input: EnterpriseRunInput): EnterpriseRunResult {
+export async function planEnterpriseRun(input: EnterpriseRunInput): Promise<EnterpriseRunResult> {
   const domains = input.domains?.length ? ENTERPRISE_CAPABILITIES.filter((c) => input.domains!.includes(c.domain)) : ENTERPRISE_CAPABILITIES;
-  const motor = executeArkiUnifiedMotor(input);
+  const motor = await executeArkiUnifiedMotor(input);
   const exports = (input.requestedExports ?? []).map((format) => ({ format, status: format === "PDF" ? "CONCEPTUAL" : "NOT_DEMONSTRATED" } as const));
   return { architectureVersion: "ARKI-ENTERPRISE-ARCH-1.0", domains, exports, motor, unknowns: ["External solvers, live twins, native authoring formats and commercial connector execution remain UNKNOWN until integrated and tested."], humanAuthority: "FINAL" };
 }

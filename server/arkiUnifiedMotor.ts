@@ -64,8 +64,8 @@ function routeFor(piece: UnifiedPiece): { route: "EXECUTE" | "REFERENCE" | "HOLD
   return { route: "HOLD", reason: `Activation gate ${piece.activationGate} is not satisfied; no unsupported capability is promoted.` };
 }
 
-export function executeArkiUnifiedMotor(input: UnifiedMotorInput, snapshot: SiclSnapshot = emptySnapshot(), coreKnowledgeVersion = 1, runtimeVersion = "ARKI-UNIFIED-MOTOR-1.0"): UnifiedMotorResult {
-  const cycle = executeIntegratedArchitectCycle(input, snapshot, coreKnowledgeVersion, runtimeVersion);
+export async function executeArkiUnifiedMotor(input: UnifiedMotorInput, snapshot: SiclSnapshot = emptySnapshot(), coreKnowledgeVersion = 1, runtimeVersion = "ARKI-UNIFIED-MOTOR-1.0"): Promise<UnifiedMotorResult> {
+  const cycle = await executeIntegratedArchitectCycle(input, snapshot, coreKnowledgeVersion, runtimeVersion);
   const triad = buildArkiTriadTrace(cycle);
   const selected = input.requestedPieces?.length ? UNIFIED_PIECE_REGISTRY.filter((piece) => input.requestedPieces!.includes(piece.id)) : UNIFIED_PIECE_REGISTRY;
   const routing = selected.map((piece) => ({ pieceId: piece.id, ...routeFor(piece) }));

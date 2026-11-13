@@ -90,8 +90,8 @@ function buildArtifact(agent: AgentDefinition, input: AgentOrchestrationInput, m
   };
 }
 
-export function orchestrateAgents(input: AgentOrchestrationInput): AgentOrchestrationResult {
-  const motor = executeArkiUnifiedMotor(input);
+export async function orchestrateAgents(input: AgentOrchestrationInput): Promise<AgentOrchestrationResult> {
+  const motor = await executeArkiUnifiedMotor(input);
   const selected = chooseAgents(input);
   const selectedAgents = selected.map((item) => item.agent);
   const artifacts = selected.map((item) => buildArtifact(item.agent, input, motor, item.reason));

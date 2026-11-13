@@ -37,8 +37,8 @@ describe("ARKI project lifecycle", () => {
     expect(bim.humanReviewRequired).toBe(true);
   });
 
-  it("runs lifecycle orchestration on top of the same motor", () => {
-    const run = executeLifecycleCycle(input, "OPERATION");
+  it("runs lifecycle orchestration on top of the same motor", async () => {
+    const run = await executeLifecycleCycle(input, "OPERATION");
     expect(run.lifecycleVersion).toBe("ARKI-LIFECYCLE-1.0");
     expect(run.currentPhase).toBe("OPERATION");
     expect(run.motor.motorVersion).toBe("ARKI-UNIFIED-MOTOR-1.0");
