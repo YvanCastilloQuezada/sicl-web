@@ -424,6 +424,20 @@
       }
     },
     {
+      "name": "/ASSET REGISTER",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Extraer activos para mantenimiento 7D",
+        "en": "Extraer activos para mantenimiento 7D"
+      },
+      "args": [],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.register"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
       "name": "/ASSUMPTION",
       "type": "INTERNAL",
       "description": {
@@ -450,6 +464,91 @@
         "handler": "sicl.set"
       },
       "category": "Core"
+    },
+    {
+      "name": "/BIM CONVERT",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Convertir planos 2D a IFC 4.3 (Scan-to-BIM)",
+        "en": "Convertir planos 2D a IFC 4.3 (Scan-to-BIM)"
+      },
+      "args": [
+        {
+          "name": "source",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.convert"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/BIM ENRICH",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Enriquecer IFC con Psets y materiales (LOD 300)",
+        "en": "Enriquecer IFC con Psets y materiales (LOD 300)"
+      },
+      "args": [
+        {
+          "name": "file",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "target_lod",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.enrich"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/BIM FEDERATE",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Federar modelos MEP, EST y ARQ",
+        "en": "Federar modelos MEP, EST y ARQ"
+      },
+      "args": [
+        {
+          "name": "files",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.federate"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/BIM VALIDATE",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Validar contra IDS e IFC 4.3",
+        "en": "Validar contra IDS e IFC 4.3"
+      },
+      "args": [
+        {
+          "name": "file",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.validate"
+      },
+      "category": "Frontend (pending Core implementation)"
     },
     {
       "name": "/CLASH DETECT",
@@ -504,6 +603,46 @@
         "handler": "sicl.set"
       },
       "category": "Core"
+    },
+    {
+      "name": "/CONTEST BOARD",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Generar láminas de presentación",
+        "en": "Generar láminas de presentación"
+      },
+      "args": [
+        {
+          "name": "format",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.board"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/CONTEST BRIEF",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Extraer bases de concurso",
+        "en": "Extraer bases de concurso"
+      },
+      "args": [
+        {
+          "name": "file",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.brief"
+      },
+      "category": "Frontend (pending Core implementation)"
     },
     {
       "name": "/COST EVALUATE",
@@ -852,6 +991,86 @@
       "category": "Core"
     },
     {
+      "name": "/EXPEDIENTE MEMORIA",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Redactar memoria descriptiva",
+        "en": "Redactar memoria descriptiva"
+      },
+      "args": [
+        {
+          "name": "format",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.memoria"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/EXPEDIENTE METRADO",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Calcular volúmenes y áreas",
+        "en": "Calcular volúmenes y áreas"
+      },
+      "args": [
+        {
+          "name": "granularity",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.metrado"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/EXPEDIENTE PLANOS",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Generar planos 2D",
+        "en": "Generar planos 2D"
+      },
+      "args": [
+        {
+          "name": "format",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.planos"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/EXPEDIENTE PRESUPUESTO",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Generar presupuesto (S10)",
+        "en": "Generar presupuesto (S10)"
+      },
+      "args": [
+        {
+          "name": "currency",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.presupuesto"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
       "name": "/EXPORT",
       "type": "INTERNAL",
       "description": {
@@ -962,6 +1181,96 @@
         "handler": "sicl.check"
       },
       "category": "Core"
+    },
+    {
+      "name": "/FUNNEL GENERATE",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Generar 9 propuestas",
+        "en": "Generar 9 propuestas"
+      },
+      "args": [
+        {
+          "name": "count",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.generate"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/FUNNEL SELECT",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Elegir 4 finalistas",
+        "en": "Elegir 4 finalistas"
+      },
+      "args": [
+        {
+          "name": "candidates",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.select"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/FUNNEL START",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Definir eje de exploración",
+        "en": "Definir eje de exploración"
+      },
+      "args": [
+        {
+          "name": "axis",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "fixed",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.start"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/FUNNEL WIN",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Declarar propuesta ganadora",
+        "en": "Declarar propuesta ganadora"
+      },
+      "args": [
+        {
+          "name": "candidate",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "authority",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.win"
+      },
+      "category": "Frontend (pending Core implementation)"
     },
     {
       "name": "/GENERATE",
@@ -1496,6 +1805,81 @@
       "category": "Core"
     },
     {
+      "name": "/PREFEASIBILITY FICHA",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Generar estructura de Ficha Técnica",
+        "en": "Generar estructura de Ficha Técnica"
+      },
+      "args": [
+        {
+          "name": "type",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "format",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.ficha"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/PREFEASIBILITY INIT",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Clasificar proyecto por monto (UIT)",
+        "en": "Clasificar proyecto por monto (UIT)"
+      },
+      "args": [
+        {
+          "name": "amount_uit",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "sector",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.init"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/PREFEASIBILITY VIABILITY",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Evaluar criterios de viabilidad",
+        "en": "Evaluar criterios de viabilidad"
+      },
+      "args": [
+        {
+          "name": "brecha",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "fraccionamiento",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.viability"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
       "name": "/PROJECT",
       "type": "INTERNAL",
       "description": {
@@ -1998,6 +2382,76 @@
       "category": "Core"
     },
     {
+      "name": "/SITE LOG",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Registrar asiento en cuaderno digital",
+        "en": "Registrar asiento en cuaderno digital"
+      },
+      "args": [
+        {
+          "name": "type",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "text",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.log"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/SITE PROGRESS",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Actualizar avance físico-financiero",
+        "en": "Actualizar avance físico-financiero"
+      },
+      "args": [
+        {
+          "name": "physical",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "financial",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.progress"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/SITE RFI",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Consulta formal al proyectista",
+        "en": "Consulta formal al proyectista"
+      },
+      "args": [
+        {
+          "name": "question",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.rfi"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
       "name": "/SNAPSHOT",
       "type": "INTERNAL",
       "description": {
@@ -2096,6 +2550,46 @@
       "category": "Core"
     },
     {
+      "name": "/TENDER LOAD",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Cargar bases SEACE",
+        "en": "Cargar bases SEACE"
+      },
+      "args": [
+        {
+          "name": "file",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.load"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
+      "name": "/TENDER SCORE",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Evaluar propuesta vs criterios",
+        "en": "Evaluar propuesta vs criterios"
+      },
+      "args": [
+        {
+          "name": "proposal",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending.score"
+      },
+      "category": "Frontend (pending Core implementation)"
+    },
+    {
       "name": "/TRADEOFFS",
       "type": "INTERNAL",
       "description": {
@@ -2108,6 +2602,20 @@
         "handler": "sicl./tradeoffs"
       },
       "category": "Core"
+    },
+    {
+      "name": "/TRADEOFF_MATRIX",
+      "type": "PUBLIC",
+      "description": {
+        "es": "Matriz de tradeoffs",
+        "en": "Matriz de tradeoffs"
+      },
+      "args": [],
+      "action": {
+        "type": "pending_implementation",
+        "handler": "sicl.pending./tradeoff_matrix"
+      },
+      "category": "Frontend (pending Core implementation)"
     },
     {
       "name": "/VARIABLE",

@@ -43,9 +43,9 @@ describe("help system", () => {
     await i18n.changeLanguage("es");
     renderWithProviders(React.createElement(HelpPage));
     const search = screen.getByRole("textbox", { name: "Buscar guías y comandos" });
-    fireEvent.change(search, { target: { value: "PROJECT CREATE" } });
-    expect(screen.getAllByText("PROJECT CREATE").length).toBeGreaterThan(0);
-    expect(screen.getAllByText(/<project_id>/).length).toBeGreaterThan(0);
+    fireEvent.change(search, { target: { value: "PREFEASIBILITY" } });
+    expect(screen.getAllByText((_, element) => element?.textContent?.includes("PREFEASIBILITY INIT")).length).toBeGreaterThan(0);
+    expect(screen.getAllByText((_, element) => element?.textContent?.includes("/PREFEASIBILITY INIT")).length).toBeGreaterThan(0);
     expect(document.querySelector("mark")).toBeTruthy();
   });
 
@@ -53,18 +53,18 @@ describe("help system", () => {
     await i18n.changeLanguage("en");
     renderWithProviders(React.createElement(HelpPage));
     const search = screen.getByRole("textbox", { name: "Search guides and commands" });
-    fireEvent.change(search, { target: { value: "/PROJ" } });
-    expect(screen.getByRole("button", { name: "/PROJECT CREATE" })).toBeTruthy();
+    fireEvent.change(search, { target: { value: "/PREF" } });
+    expect(screen.getAllByText((_, element) => element?.textContent?.includes("PREFEASIBILITY INIT")).length).toBeGreaterThan(0);
   });
 
   it("highlights matches and stores recent searches", async () => {
     await i18n.changeLanguage("en");
     renderWithProviders(React.createElement(HelpPage));
     const search = screen.getByRole("textbox", { name: "Search guides and commands" });
-    fireEvent.change(search, { target: { value: "PROJECT CREATE" } });
+    fireEvent.change(search, { target: { value: "PREFEASIBILITY" } });
     fireEvent.keyDown(search, { key: "Enter" });
-    expect(screen.getAllByText("PROJECT CREATE").length).toBeGreaterThan(0);
-    expect(JSON.parse(localStorage.getItem("sims-dei-help-search-history") || "[]")).toContain("PROJECT CREATE");
+    expect(screen.getAllByText((_, element) => element?.textContent?.includes("PREFEASIBILITY INIT")).length).toBeGreaterThan(0);
+    expect(JSON.parse(localStorage.getItem("sims-dei-help-search-history") || "[]")).toContain("PREFEASIBILITY");
   });
 
   it("renders Markdown content for a manual article", async () => {

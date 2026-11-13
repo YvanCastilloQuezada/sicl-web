@@ -3,13 +3,17 @@ import React, { useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { MANUALS } from "@/config/manuals";
-import catalog from "@/content/commands-catalog.json";
+import catalog from "@/content/commands-catalog-unified.json";
 import { Input } from "@/components/ui/input";
 
 export default function HelpPage() {
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
-  const allCommands = Object.values((catalog as unknown as { categories: Record<string, Array<{ name: string; syntax: string; category: string }>> }).categories).flat();
+  const allCommands = ((catalog as unknown as { commands: Array<{ name: string; description: string; args?: string[]; category?: string }> }).commands || []).map((item) => ({
+  name: item.name,
+  syntax: item.name,
+  category: item.category || item.description || "General",
+}));
   const [recent, setRecent] = useState<string[]>(() => { try { return JSON.parse(localStorage.getItem("sims-dei-help-search-history") || "[]"); } catch { return []; } });
   const recordSearch = (value: string) => { const clean = value.trim(); if (!clean) return; const next = [clean, ...recent.filter((item) => item !== clean)].slice(0, 6); setRecent(next); localStorage.setItem("sims-dei-help-search-history", JSON.stringify(next)); };
   const highlight = (text: string) => { const value = query.trim(); if (!value) return text; const parts = text.split(new RegExp(`(${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "ig")); return parts.map((part, index) => part.toLowerCase() === value.toLowerCase() ? <mark key={index} className="bg-[#f2c300] px-0.5 text-black">{part}</mark> : part); };
