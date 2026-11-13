@@ -308,3 +308,24 @@ Con 35 tipologías pendientes y 29 actuales:
 - Urban Weather Generator (UWG) + EnergyPlus.
 - MINSA / SUNASS: captación de lluvia y reúso de aguas grises.
 - SENAMHI: datos climáticos históricos de Perú.
+
+
+---
+
+## Deuda de Fase RAG (2026-11-13)
+
+**El motor RAG (Fase 4) implementa TF-IDF MVP con 35 documentos. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Embeddings reales** | TF-IDF es léxico; para producción se necesita semántico (Claude, Gemini, Voyage) | Alta |
+| **Índice vectorial** | TF-IDF es en memoria; para producción se necesita pgvector o Qdrant | Alta |
+| **Corpus completo** | 35 docs de ejemplo; para producción se necesita RNE completo, Eurocodes, IBC, permits reales | Alta |
+| **Reranker** | No hay cross-encoder; para producción se necesita (Cohere, BGE) | Media |
+| **Chunking** | Los docs son fragmentos manuales; para producción se necesita chunking automático de PDFs | Alta |
+| **Integración con el ciclo** | Las funciones son aisladas; Fase 4.5 las integra con `executeIntegratedArchitectCycle` | Alta |
+
+**Referencias:**
+- RIBA Journal (2026): knowledge management es el uso #1 de LLMs en estudios grandes.
+- YARK (Perú): Gemini + pgvector para normativa peruana.
+- Anthropic: Claude para embeddings (Voyage AI).
