@@ -161,3 +161,34 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 - **Datos climáticos históricos:** hoy es `climate` string + `rainfall_mm` manual; para producción se necesita SENAMHI.
 - **Modelo UHI calibrado:** hoy es genérico por clima; para producción se necesita calibración por ciudad (UWG).
 - **Integración con el ciclo:** las funciones son aisladas. Fase 3.5 las integra con `executeIntegratedArchitectCycle`.
+
+
+---
+
+## Motor RAG de Normativa (Fase 4, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (TF-IDF MVP con 35 documentos).**
+
+### Capacidades
+
+| Función | Qué hace | Referencia |
+|---|---|---|
+| `buildIndex` | Indexa documentos con TF-IDF | RIBA Journal 2026 (knowledge management) |
+| `query` | Consulta por lenguaje natural, retorna topK | Similitud de coseno |
+
+### Documentos de ejemplo
+
+- **20 fragmentos de RNE** (A.010, A.020, A.040, A.050, A.060, A.070, A.080, A.090, A.100, A.110, A.120, A.130, OS.010, OS.050, E.030, E.050, EM.010).
+- **10 building permits** de Lima (oficinas, residencial, comercial, educativo, hotel, clínica, industrial, cultural).
+- **5 lecciones aprendidas** internas (evacuación en altura, estacionamiento, presión diferencial, ventilación, acústica).
+
+### Tests
+
+6/6 PASS en `server/gia/rag/rag.test.ts`.
+
+### Deuda conocida
+
+- **TF-IDF vs embeddings:** el MVP usa TF-IDF (sin dependencias externas). Para producción se necesita embeddings (Claude, Gemini, Voyage) e índice vectorial (pgvector, Qdrant).
+- **Corpus de ejemplo:** los 35 documentos son de ejemplo. Para producción se necesita el corpus completo de RNE, Eurocodes, IBC, y building permits reales.
+- **Reranker:** hoy no hay reranker (cross-encoder). Para producción se necesita.
+- **Integración con el ciclo:** las funciones son aisladas. Fase 4.5 las integra con `executeIntegratedArchitectCycle`.
