@@ -55,3 +55,17 @@
 2. Mergear el PR #142.
 3. Actualizar `docs/gia/ESTADO.md` con el estado del hito UI.
 4. (Opcional) Arreglar el Test 4 en la próxima sesión.
+
+### Deuda: 30 comandos del frontend sin implementar en el Core
+
+Los siguientes comandos están en el catálogo unificado con `action: "pending_implementation"`:
+
+- `/PREFEASIBILITY INIT`, `/PREFEASIBILITY FICHA`, `/PREFEASIBILITY VIABILITY`
+- `/FUNNEL START`, `/FUNNEL GENERATE`, `/FUNNEL SELECT`, `/FUNNEL WIN`
+- `/EXPEDIENTE MEMORIA`, `/EXPEDIENTE METRADO`, `/EXPEDIENTE PRESUPUESTO`, `/EXPEDIENTE PLANOS`
+- `/BIM CONVERT`, `/BIM ENRICH`, `/BIM FEDERATE`, `/BIM VALIDATE`
+- `/SITE LOG`, `/SITE PROGRESS`, `/SITE RFI`
+- `/TENDER LOAD`, `/TENDER SCORE`, `/CONTEST BRIEF`, `/CONTEST BOARD`
+- `/ASSET REGISTER`, `/ALTERNATIVE CREATE`, `/ALTERNATIVE SET`, `/COMPARE`, `/EVALUATE`, `/RECOMMEND`, `/TRADEOFF_MATRIX`
+
+**Impacto:** el frontend los muestra, pero el Core no los ejecuta. **Hay que implementarlos en `cli.py` (Fase Core).**
