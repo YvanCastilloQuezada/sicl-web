@@ -1,5 +1,6 @@
 import type { IntegratedArchitectCycle } from "../../arkiIntegratedArchitectCycle";
 import { generateAdvancedGeometry, type ComplexGeometry } from "../../arkiAdvancedGeometry";
+import type { DynamicParti } from "../../arkiProjectBrain";
 import type { RenderData, RenderMaterial, RenderVertex, RenderFace, RenderCamera, RenderLighting } from "./types";
 
 function materialFromSustainability(materialId: string): RenderMaterial {
@@ -9,47 +10,55 @@ function materialFromSustainability(materialId: string): RenderMaterial {
   const isInsulation = materialId.includes("insulation");
   const isVegetation = materialId.includes("vegetation");
 
-  if (isGlass) {
-    return { id: materialId, type: "glass", color: "#88ccff", roughness: 0.05, metalness: 0.0, transmission: 0.9 };
-  }
-  if (isMetal) {
-    return { id: materialId, type: "metal", color: "#cccccc", roughness: 0.3, metalness: 0.9 };
-  }
-  if (isWood) {
-    return { id: materialId, type: "wood", color: "#8b5a2b", roughness: 0.7, metalness: 0.0 };
-  }
-  if (isInsulation) {
-    return { id: materialId, type: "concrete", color: "#a0a0a0", roughness: 0.9, metalness: 0.0 };
-  }
-  if (isVegetation) {
-    return { id: materialId, type: "vegetation", color: "#4a7c3f", roughness: 0.95, metalness: 0.0 };
-  }
+  if (isGlass) return { id: materialId, type: "glass", color: "#88ccff", roughness: 0.05, metalness: 0.0, transmission: 0.9 };
+  if (isMetal) return { id: materialId, type: "metal", color: "#cccccc", roughness: 0.3, metalness: 0.9 };
+  if (isWood) return { id: materialId, type: "wood", color: "#8b5a2b", roughness: 0.7, metalness: 0.0 };
+  if (isInsulation) return { id: materialId, type: "concrete", color: "#a0a0a0", roughness: 0.9, metalness: 0.0 };
+  if (isVegetation) return { id: materialId, type: "vegetation", color: "#4a7c3f", roughness: 0.95, metalness: 0.0 };
   return { id: materialId, type: "concrete", color: "#999999", roughness: 0.8, metalness: 0.0 };
 }
 
-function conceptForTypology(typology: string): ComplexGeometry["concept"] {
-  if (typology === "rascacielos" || typology === "mixed-use-tower") return "TWISTED_TOWER";
-  if (typology === "oficinas" || typology === "educativo") return "FOLDED_COURTYARD";
-  if (typology === "cultural" || typology === "museo") return "BRANCHING_CANOPY";
-  return "CUSTOM_PARAMETRIC";
+function conceptFromParti(parti: DynamicParti): ComplexGeometry["concept"] {
+  switch (parti.flowStrategy) {
+    case "linear-separation": return "TWISTED_TOWER";
+    case "central-hub":       return "FOLDED_COURTYARD";
+    case "nested-rings":      return "BRANCHING_CANOPY";
+    default:                  return "CUSTOM_PARAMETRIC";
+  }
+}
+
+function geometryParamsFromCycle(cycle: IntegratedArchitectCycle, parti: DynamicParti): Record<string, number> {
+  const width = 40;
+  const height = 60;
+  const floorHeight = 3.2;
+  const floors = Math.max(2, Math.round(height / floorHeight));
+  const radius = Math.min(width, height) / 2;
+  const sides = parti.flowStrategy === "nested-rings" ? 12 : 16;
+  const twistRadians = parti.flowStrategy === "linear-separation" ? Math.PI / 3 : 0;
+  return { floors, sides, radius, twistRadians, floorHeight };
 }
 
 function complexGeometryToRender(geom: ComplexGeometry, materialId: string): { vertices: RenderVertex[]; faces: RenderFace[] } {
   const vertices: RenderVertex[] = geom.vertices.map((v) => [v.x, v.y, v.z]);
-  const faces: RenderFace[] = geom.faces.map((f) => ({
-    vertices: f as [number, number, number],
-    materialId,
-  }));
+  const faces: RenderFace[] = geom.faces.map((f) => ({ vertices: f as [number, number, number], materialId }));
   return { vertices, faces };
 }
 
-function principalMaterial(cycle: IntegratedArchitectCycle): string {
+function allMaterialsFromCycle(cycle: IntegratedArchitectCycle): RenderMaterial[] {
   const sustainability = cycle.evaluation.engines["sustainability"];
+  let materialIds: string[] = [];
   if (sustainability && typeof sustainability.values === "object") {
     const values = sustainability.values as Record<string, unknown>;
-    if (typeof values.principal_material === "string") return values.principal_material;
+    if (Array.isArray(values.materials)) {
+      materialIds = values.materials.filter((m): m is string => typeof m === "string");
+    } else if (typeof values.principal_material === "string") {
+      materialIds = [values.principal_material];
+    }
   }
-  return "glass-double";
+  if (materialIds.length === 0) {
+    materialIds = ["glass-double", "steel-rebar", "concrete-c30"];
+  }
+  return materialIds.map(materialFromSustainability);
 }
 
 function lightingFromContext(cycle: IntegratedArchitectCycle): RenderLighting {
@@ -68,20 +77,13 @@ function defaultCameras(scale: number): RenderCamera[] {
   ];
 }
 
-export function exportRenderData(cycle: IntegratedArchitectCycle): RenderData {
-  const concept = conceptForTypology(cycle.project.typology);
-  const materialId = principalMaterial(cycle);
-
-  const geom = generateAdvancedGeometry(concept, {
-    floors: 10,
-    sides: 16,
-    radius: 22,
-    twistRadians: Math.PI / 2,
-    floorHeight: 3.2,
-  });
-
-  const { vertices, faces } = complexGeometryToRender(geom, materialId);
-  const material = materialFromSustainability(materialId);
+export function exportRenderDataForParti(cycle: IntegratedArchitectCycle, parti: DynamicParti): RenderData {
+  const concept = conceptFromParti(parti);
+  const params = geometryParamsFromCycle(cycle, parti);
+  const geom = generateAdvancedGeometry(concept, params);
+  const materials = allMaterialsFromCycle(cycle);
+  const primaryMaterialId = materials[0]?.id ?? "glass-double";
+  const { vertices, faces } = complexGeometryToRender(geom, primaryMaterialId);
   const maxCoord = Math.max(...vertices.flatMap((v) => v.map(Math.abs)), 1);
 
   return {
@@ -89,8 +91,31 @@ export function exportRenderData(cycle: IntegratedArchitectCycle): RenderData {
     typology: cycle.project.typology,
     vertices,
     faces,
-    materials: [material],
+    materials,
     cameras: defaultCameras(maxCoord),
     lighting: lightingFromContext(cycle),
+    partiId: parti.id,
+    flowStrategy: parti.flowStrategy,
+    organizingIdea: parti.organizingIdea,
   };
+}
+
+export function exportRenderDataForAllPartis(cycle: IntegratedArchitectCycle): RenderData[] {
+  return cycle.projectPartis.map((parti) => exportRenderDataForParti(cycle, parti));
+}
+
+export function exportRenderData(cycle: IntegratedArchitectCycle): RenderData {
+  if (cycle.projectPartis.length > 0) {
+    return exportRenderDataForParti(cycle, cycle.projectPartis[0]);
+  }
+  return exportRenderDataForParti(cycle, {
+    id: "PARTI-DEFAULT",
+    title: "Default",
+    organizingIdea: "Default parti",
+    rules: [],
+    flowStrategy: "linear-separation",
+    derivedFrom: [],
+    status: "AI_PROPOSED",
+    humanReviewRequired: true,
+  });
 }
