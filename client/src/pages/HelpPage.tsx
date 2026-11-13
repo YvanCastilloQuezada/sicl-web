@@ -9,18 +9,19 @@ import { Input } from "@/components/ui/input";
 export default function HelpPage() {
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
+  const allCommands = Object.values((catalog as unknown as { categories: Record<string, Array<{ name: string; syntax: string; category: string }>> }).categories).flat();
   const [recent, setRecent] = useState<string[]>(() => { try { return JSON.parse(localStorage.getItem("sims-dei-help-search-history") || "[]"); } catch { return []; } });
   const recordSearch = (value: string) => { const clean = value.trim(); if (!clean) return; const next = [clean, ...recent.filter((item) => item !== clean)].slice(0, 6); setRecent(next); localStorage.setItem("sims-dei-help-search-history", JSON.stringify(next)); };
   const highlight = (text: string) => { const value = query.trim(); if (!value) return text; const parts = text.split(new RegExp(`(${value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "ig")); return parts.map((part, index) => part.toLowerCase() === value.toLowerCase() ? <mark key={index} className="bg-[#f2c300] px-0.5 text-black">{part}</mark> : part); };
   const results = useMemo(() => {
     const value = query.trim().toLowerCase();
     if (!value) return [];
-    return (catalog as { name: string; syntax: string; category: string }[]).filter((item) => `${item.name} ${item.syntax} ${item.category}`.toLowerCase().includes(value)).slice(0, 8);
+    return allCommands.filter((item) => `${item.name} ${item.syntax} ${item.category}`.toLowerCase().includes(value)).slice(0, 8);
   }, [query]);
   const suggestions = useMemo(() => {
     const value = query.trim().toLowerCase();
-    if (!value) return (catalog as { name: string }[]).slice(0, 5);
-    return (catalog as { name: string; category: string }[]).filter((item) => item.name.toLowerCase().startsWith(value) || item.category.toLowerCase().startsWith(value)).slice(0, 5);
+    if (!value) return allCommands.slice(0, 5);
+    return allCommands.filter((item) => item.name.toLowerCase().startsWith(value) || item.category.toLowerCase().startsWith(value)).slice(0, 5);
   }, [query]);
   return (
     <section className="mx-auto w-full max-w-5xl">

@@ -22,6 +22,10 @@ import WorkspacePanel from "@/components/WorkspacePanel";
 import CopilotPanel from "@/components/CopilotPanel";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
+import FullPipelineRunner from "@/components/FullPipelineRunner";
+import CameraScannerModal from "@/components/CameraScannerModal";
+import ARViewerModal from "@/components/ARViewerModal";
+import PipelineDashboardModal from "@/components/PipelineDashboardModal";
 
 export default function ArkiCockpitPage() {
   
@@ -51,7 +55,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [seisDOpen, setSeisDOpen] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
-  const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | null>(null);
+  const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | 'nodes' | 'documents' | 'camera' | 'ar' | null>(null);
   const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [searchingNormativa, setSearchingNormativa] = useState(false);
@@ -395,7 +399,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
             });
             
-            const result = await trpcClient.copilot.e2e.mutate({
+            const result = await (trpcClient.copilot as any).e2e.mutate({
               projectId: `PRO-TERMINAL-${Date.now()}`,
               name: `Proyecto ${tipo} en ${ciudad}`,
               typology: tipo,
@@ -436,7 +440,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
                 const areaVar = areaM2 + i * 1250;
                 const pisosVar = 2 + (i % 3);
                 try {
-                  const result = await trpcClient.parametricRuntime.generateDynamicBuilding.mutate({
+                  const result = await (trpcClient.parametricRuntime as any).generateDynamicBuilding.mutate({
                     familyId: familyId,
                     variantId: variantId,
                     context: { country: "PE", city: ciudad, jurisdiction: "RNE-PE" },
@@ -463,7 +467,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               console.error("[ARKI] Error generando propuestas:", e);
             }
             const partisToShow = propuestasReales.length > 0 ? propuestasReales : partis;
-            console.log("[ARKI] Propuestas a mostrar:", partisToShow.map(p => ({title: p.title, area: p.metrics?.area, hasBuilding: !!p.building})));
+            console.log("[ARKI] Propuestas a mostrar:", partisToShow.map((p: any) => ({title: p.title, area: p.metrics?.area, hasBuilding: !!p.building})));
             setPartis(partisToShow);
             console.log("[ARKI] setPartis ejecutado con:", partisToShow.length, "propuestas");
             (window as any).__ARKI_PARTIS__ = partisToShow;
@@ -934,7 +938,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {showPipeline && (
         <PipelineDashboardModal 
           onClose={() => setShowPipeline(false)} 
-          onNavigate={(phase) => {
+          onNavigate={(phase: string) => {
             setShowPipeline(false);
             if (phase === 'f1') window.location.assign('/arki-design-funnel');
             if (phase === 'f5') setActiveModal('expediente' as any); // Asumiendo que esto abre el expediente o el modal correcto

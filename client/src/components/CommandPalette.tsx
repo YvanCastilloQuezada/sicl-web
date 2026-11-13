@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, X, FolderKanban, Box, FileText, Activity } from "lucide-react";
+import { Search, X, FolderKanban, Box, FileText, Activity, MapPin } from "lucide-react";
 
 export default function CommandPalette({ onClose, onAction }: { onClose: () => void, onAction: (action: string) => void }) {
   const [query, setQuery] = useState("");

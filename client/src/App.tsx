@@ -8,6 +8,7 @@ import ArkiFirstContact from "./components/ArkiFirstContact";
 import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import type { ManualId } from "@/config/manuals";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import DashboardLayout from "./components/DashboardLayout";
 
@@ -72,8 +73,8 @@ function App() {
                 <Route path="/evaluations" component={EvaluationsPage} />
                 <Route path="/comparisons" component={ComparisonsPage} />
                 <Route path="/help" component={HelpPage} />
-                <Route path="/help/:slug" component={HelpArticlePage} />
-                <Route path="/multiobjective" component={MultiobjectivePage} />
+                <Route path="/help/:slug" component={(props: any) => <HelpArticlePage manualId={props.params.slug as ManualId} />} />
+                <Route path="/multiobjective" component={() => <MultiobjectivePage />} />
                 <Route path="/arki-book" component={ArkiBookPage} />
                 <Route path="/spatial" component={SpatialViewerPage} />
                 <Route path="/spatial-comparison" component={SpatialComparisonPage} />
