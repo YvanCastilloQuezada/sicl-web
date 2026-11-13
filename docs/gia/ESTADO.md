@@ -10,7 +10,7 @@
 
 | # | Condición | Estado | Evidencia |
 |---|---|---|---|
-| 1 | GIA-001 a GIA-010 aprobadas en 13 tipologías | ✅ | 10 tests × 13 tipologías = 130/130 PASS (hospital, educativo, oficinas, residencial, comercial, industrial, cultural, deportivo, transporte, hotelero, clinica, religioso, penitenciario) |
+| 1 | GIA-001 a GIA-010 aprobadas en 59 tipologías | ✅ | 10 tests × 59 tipologías = 590/590 PASS (edificación, infraestructura, equipamiento público, planificación territorial, defensa militar) |
 | 2 | ≥3 motores EXECUTABLE con efecto en geometría | ✅ | `arkiGiaMotores.test.ts`: 5 PASS (structural, geotech, fire, acoustic, evacuation) + 2 PARTIAL (hvac, sewer). Ver deuda de nomenclatura en `MOTORES-DEUDA.md` |
 | 3 | Expediente por alternativa | ⏳ | Siguiente hito (Fase GIA-Expediente) |
 | 4 | Divergencia real entre PARTIs | ✅ | GIA-002: `divergence.ts` 5/5 + `arkiGia.test.ts` 3/3 (flowStrategy + organizingIdea) |

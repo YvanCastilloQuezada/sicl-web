@@ -1,0 +1,40 @@
+{
+  "projectId": "BAE-LIM-001-001",
+  "projectName": "Base Aérea Militar",
+  "typology": "BASE_AEREA",
+  "brief": "Base aérea con pista de 2,440m, plataformas de dispersión, hangares, polvorines y defensa antiaérea.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 2000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["carretera militar", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE E.030", "RNE E.050", "RNE EM.010", "FAP Normas", "NATO STANAG"],
+  "activities": [
+    { "id": "act-1", "name": "Pista de aterrizaje", "capacity": 50, "subjects": ["piloto", "personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Plataformas de dispersión", "capacity": 48, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Hangares", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Polvorines", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-5", "name": "Defensa antiaérea", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["piloto"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-2", "target": "act-4", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-4", "source": "act-1", "target": "act-5", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["piloto", "personal"],
+  "conditions": ["dispersión de aeronaves", "protección pasiva de polvorines", "defensa antiaérea perimetral"],
+  "unknowns": ["normativa militar requiere revisión FAP", "estudio de dispersión requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 3000, "height": 2000, "area": 6000000, "status": "MILITARY_BASE" },
+  "sourceIds": ["SRC-BAE-BRIEF", "SRC-NATO-STANAG"]
+}

@@ -22,6 +22,8 @@ const TIPOLOGIAS = [
   "planificacion-distrital", "planificacion-provincial", "planificacion-regional",
   "planificacion-macro-regional", "planificacion-nacional",
   "planificacion-cuencas", "planificacion-intercuencas",
+  "base-aerea", "base-naval", "base-terrestre", "bunker",
+  "defensa-antiaerea", "centro-mando", "polvorin",
 ] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 

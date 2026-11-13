@@ -1,0 +1,38 @@
+{
+  "projectId": "BUN-LIM-001-001",
+  "projectName": "Bunker de Mando",
+  "typology": "BUNKER",
+  "brief": "Bunker de mando con cobertura de tierra, torre de observación y comunicaciones.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 50,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.05,
+    "accesos": ["camino restringido", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE E.030", "RNE E.050", "RNE EM.010", "NATO STANAG", "UFC 4-021-01"],
+  "activities": [
+    { "id": "act-1", "name": "Sala de mando", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Comunicaciones", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Torre de observación", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Refugio", "capacity": 30, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["personal"],
+  "conditions": ["cobertura de tierra y hormigón", "torre de observación con visibilidad 360°", "comunicaciones redundantes"],
+  "unknowns": ["normativa militar requiere revisión", "estudio de protección pasiva requiere verificación", "estudio de comunicaciones requiere verificación"],
+  "envelope": { "width": 50, "height": 50, "area": 2500, "status": "MILITARY_BUNKER" },
+  "sourceIds": ["SRC-BUN-BRIEF", "SRC-NATO-STANAG"]
+}
