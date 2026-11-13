@@ -21,6 +21,9 @@ const TIPOLOGIAS = [
   "clinica",
   "religioso",
   "penitenciario",
+  "acueducto",
+  "canal",
+  "carretera",
 ] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 
