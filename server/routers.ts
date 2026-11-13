@@ -60,6 +60,7 @@ import { normativeSourceCatalog } from "../shared/arkiNormativeSources";
 import { deriveProjectConstraints } from "./gia/knowledge/deriveProjectConstraints";
 import { arkiArchitectDecision } from "./gia/knowledge/arkiArchitectDecision";
 import { arkiPruning } from "./gia/knowledge/arkiPruning";
+import { persistPrunedCandidates } from "./gia/knowledge/persistPrunedCandidates";
 import type { DesignCandidate } from "../shared/arkiDesignFunnel";
 
 import { specializedGeometryCatalog } from "../shared/arkiSpecializedGeometry";
@@ -926,6 +927,19 @@ export const appRouter = router({
         // ============================================================
         const pruning = arkiPruning(survivors, variable.steps);
 
+        // ============================================================
+        // PERSISTENCIA: guarda las 25 pruned para rastreo.
+        // ============================================================
+        const persistedPath = persistPrunedCandidates({
+          generationId,
+          funnelCount: variable.steps,
+          generateCount: variable.generateCount,
+          survivorsCount: survivors.length,
+          archivedCount: archived.length,
+          pruningCriteria: pruning.criteria,
+          pruned: pruning.pruned,
+        });
+
         return {
           status: "OK" as const,
           generationId,
@@ -934,6 +948,7 @@ export const appRouter = router({
           screening: {
             survivors: survivors.length,
             archived: archived.length,
+            persistedPath,
             pruned: pruning.pruned.length,
             prunedOut: pruning.prunedOut.length,
             pruningCriteria: pruning.criteria,
