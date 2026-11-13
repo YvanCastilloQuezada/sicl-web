@@ -281,3 +281,5 @@ GIA-001 a GIA-010 se prueban en 3 tipologías reales:
 `DynamicParti` (lo que el ciclo produce) **no tiene esos campos**. GIA-002 verifica divergencia observable en `flowStrategy` y `organizingIdea` (≥2 distintos).
 
 **Deuda:** conectar `DynamicParti` con `passesGIA002` cuando `DynamicParti` tenga la estructura de `Parti`. Fase GIA-Divergencia.
+
+
