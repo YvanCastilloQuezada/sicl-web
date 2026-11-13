@@ -135,3 +135,25 @@ El repo `github.com/YvanCastilloQuezada/motores-api`:
 1. Declarar los 7 motores en `requirements.txt` (o en un `extras` separado).
 2. Evaluar si es viable un `Dockerfile` que empaquete los 7 motores.
 3. Si no, mantener la política actual: integración solo local.
+
+
+---
+
+## Deuda de UI (hito UI)
+
+**Catálogo de comandos:** 179 comandos unificados (131 Core + 24 motor + 24 frontend pending).
+- `cli.py`: 131 comandos largos, 0 cortos.
+- `CommandBar`: sin `compact`, usa solo `name` (comando largo).
+- Catálogo del Core: 131 comandos (todos los de `cli.py`), sin `compact`.
+
+**Tests de UI:**
+- `command-bar.test.ts`: 14/15 PASS.
+- `help-system.test.ts`: 7/7 PASS.
+- `sicl-client.test.ts`: 6/6 PASS.
+- `tsc --noEmit`: 0 errores.
+
+**Deuda:**
+- 1 test de `CommandBar` falla: `TestingLibraryElementError: Unable to find "Comando /PROJECT CREATE"`.
+- El catálogo unificado mezcla comandos Core + motor + frontend pending. Hay que separar el frontend pending del catálogo estable.
+
+**Estado:** deuda separada del hito GIA. Se resuelve en Fase UI.
