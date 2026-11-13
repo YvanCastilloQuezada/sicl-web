@@ -1,0 +1,38 @@
+{
+  "projectId": "MXT-LIM-100-001",
+  "projectName": "Torre mixed-use 30 pisos",
+  "typology": "MIXED_USE",
+  "brief": "Torre de 30 pisos: 10 residencial, 10 oficinas, 10 hotel + comercio en planta baja.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 1500,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "vía expresa"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.020", "RNE A.070", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Residencial", "capacity": 500, "subjects": ["residente"], "privacy": "private", "accessControl": "key", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Oficinas", "capacity": 600, "subjects": ["empleado"], "privacy": "controlled", "accessControl": "key", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Hotel", "capacity": 200, "subjects": ["huésped"], "privacy": "private", "accessControl": "key", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Comercio planta baja", "capacity": 200, "subjects": ["cliente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-4", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-4", "target": "act-2", "relation": "CIRCULATION", "subjects": ["empleado"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-4", "target": "act-3", "relation": "CIRCULATION", "subjects": ["huésped"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["residente", "empleado", "huésped", "cliente"],
+  "conditions": ["núcleos de circulación vertical separados por uso", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa municipal requiere revisión", "capacidad de carga vertical requiere verificación", "estudio de viento en altura requiere verificación"],
+  "envelope": { "width": 40, "height": 40, "area": 40000, "status": "MIXED_USE" },
+  "sourceIds": ["SRC-MXT-BRIEF", "SRC-RNE-MIXED-USE"]
+}

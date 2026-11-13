@@ -24,6 +24,7 @@ const TIPOLOGIAS = [
   "planificacion-cuencas", "planificacion-intercuencas",
   "base-aerea", "base-naval", "base-terrestre", "bunker",
   "defensa-antiaerea", "centro-mando", "polvorin",
+  "mixed-use-tower", "tod-station", "affordable-housing", "public-space-plaza",
 ] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 
