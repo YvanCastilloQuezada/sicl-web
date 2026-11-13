@@ -192,3 +192,40 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 - **Corpus de ejemplo:** los 35 documentos son de ejemplo. Para producción se necesita el corpus completo de RNE, Eurocodes, IBC, y building permits reales.
 - **Reranker:** hoy no hay reranker (cross-encoder). Para producción se necesita.
 - **Integración con el ciclo:** las funciones son aisladas. Fase 4.5 las integra con `executeIntegratedArchitectCycle`.
+
+
+---
+
+## Servidor MCP Versionado (Fase 5, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (JSON-RPC 2.0, sin dependencias externas).**
+
+### Capacidades expuestas
+
+| Tool | Qué hace | Fase origen |
+|---|---|---|
+| `evaluate_typology` | Ciclo integrado sobre 59 tipologías | Fase 1-4 |
+| `calculate_sustainability` | Carbono A1-A5 + B6 + Net Zero score | Fase 1 |
+| `calculate_retrofit` | Demoler vs rehabilitar + potencial | Fase 2 |
+| `calculate_resilience` | Flood + heat island + drought | Fase 3 |
+| `rag_query` | Consulta de normativa (35 docs) | Fase 4 |
+
+### Protocolo
+
+- `initialize` → protocolVersion "2024-11-05" + capabilities + serverInfo.
+- `tools/list` → 5 tools con name + inputSchema.
+- `tools/call` → ejecuta tool con `{ name, arguments }`.
+- `ping` / `shutdown` → `{}`.
+- Método desconocido → error -32601.
+
+### Tests
+
+6/6 PASS en `server/mcp/mcp.test.ts`.
+
+### Deuda conocida
+
+- **Transport:** `handleRequest` es puro; para producción se necesita stdio o HTTP/SSE.
+- **Autenticación:** no hay auth.
+- **Persistencia:** no hay sesiones.
+- **Streaming:** no hay SSE.
+- **Prompts y resources:** solo tools.
