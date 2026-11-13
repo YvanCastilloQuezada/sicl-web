@@ -1,5 +1,5 @@
 {
-  "projectId": "PRE-LIM-5000-001",
+  "projectId": "PRE-LIM-005-001",
   "projectName": "Planificación regional 5M hab",
   "typology": "PLANIFICACION_REGIONAL",
   "brief": "Plan de desarrollo regional con ejes, corredores y equipamiento regional.",
@@ -14,25 +14,134 @@
     "altitude": 154,
     "topografia": "variable",
     "pendiente": 0.2,
-    "accesos": ["red vial regional", "corredores"],
+    "accesos": [
+      "red vial regional",
+      "corredores"
+    ],
     "orientacion": "norte-sur",
-    "vientos_dominantes": ["SO", "NE"]
+    "vientos_dominantes": [
+      "SO",
+      "NE"
+    ]
   },
-  "constraints": ["Ley 27867", "Ley 27783", "RNE E.030", "RNE E.050"],
+  "constraints": [
+    "Ley 27867",
+    "Ley 27783",
+    "RNE E.030",
+    "RNE E.050"
+  ],
   "activities": [
-    { "id": "act-1", "name": "Ejes de desarrollo", "capacity": 3500000, "subjects": ["residente"], "privacy": "private", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
-    { "id": "act-2", "name": "Corredores regionales", "capacity": 1000000, "subjects": ["comerciante", "trabajador"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
-    { "id": "act-3", "name": "Equipamiento regional", "capacity": 300000, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
-    { "id": "act-4", "name": "Red vial regional", "capacity": 200000, "subjects": ["residente", "visitante"], "privacy": "public", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+    {
+      "id": "act-1",
+      "name": "Ejes de desarrollo",
+      "capacity": 3500000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "private",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-2",
+      "name": "Corredores regionales",
+      "capacity": 1000000,
+      "subjects": [
+        "comerciante",
+        "trabajador"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-3",
+      "name": "Equipamiento regional",
+      "capacity": 300000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-4",
+      "name": "Red vial regional",
+      "capacity": 200000,
+      "subjects": [
+        "residente",
+        "visitante"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    }
   ],
   "relationships": [
-    { "id": "rel-1", "source": "act-4", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" },
-    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["trabajador"], "control": "FLOW" },
-    { "id": "rel-3", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" }
+    {
+      "id": "rel-1",
+      "source": "act-4",
+      "target": "act-1",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "residente"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-1",
+      "target": "act-2",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "trabajador"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-1",
+      "target": "act-3",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "residente"
+      ],
+      "control": "FLOW"
+    }
   ],
-  "subjects": ["residente", "comerciante", "trabajador", "visitante"],
-  "conditions": ["ejes de desarrollo articulados", "corredores regionales", "red vial regional"],
-  "unknowns": ["normativa regional requiere revisión", "estudio de ejes de desarrollo requiere verificación", "estudio de impacto ambiental requiere verificación"],
-  "envelope": { "width": 50000, "height": 30000, "area": 1500000000, "status": "REGIONAL_PLAN" },
-  "sourceIds": ["SRC-PRE-BRIEF", "SRC-Ley27867"]
+  "subjects": [
+    "residente",
+    "comerciante",
+    "trabajador",
+    "visitante"
+  ],
+  "conditions": [
+    "ejes de desarrollo articulados",
+    "corredores regionales",
+    "red vial regional"
+  ],
+  "unknowns": [
+    "normativa regional requiere revisión",
+    "estudio de ejes de desarrollo requiere verificación",
+    "estudio de impacto ambiental requiere verificación"
+  ],
+  "envelope": {
+    "width": 50000,
+    "height": 30000,
+    "area": 1500000000,
+    "status": "REGIONAL_PLAN"
+  },
+  "sourceIds": [
+    "SRC-PRE-BRIEF",
+    "SRC-Ley27867"
+  ]
 }
