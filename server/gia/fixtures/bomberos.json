@@ -1,0 +1,38 @@
+{
+  "projectId": "BOM-LIM-010-001",
+  "projectName": "Estación de bomberos 10 unidades",
+  "typology": "BOMBEROS",
+  "brief": "Estación de bomberos con cocheras, dormitorios, sala de entrenamiento y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 100,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "calle secundaria"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "INBP Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Cocheras", "capacity": 10, "subjects": ["bombero"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Dormitorios", "capacity": 30, "subjects": ["bombero"], "privacy": "private", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Sala de entrenamiento", "capacity": 40, "subjects": ["bombero"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["bombero"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["bombero"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["bombero", "personal"],
+  "conditions": ["salida rápida de cocheras", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa de bomberos requiere revisión INBP", "estudio de tiempo de respuesta requiere verificación", "estudio de carga de cocheras requiere verificación estructural"],
+  "envelope": { "width": 60, "height": 50, "area": 3000, "status": "PUBLIC_SAFETY" },
+  "sourceIds": ["SRC-BOM-BRIEF", "SRC-INBP-BOMBEROS"]
+}

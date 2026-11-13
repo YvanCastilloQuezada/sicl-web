@@ -10,7 +10,7 @@
 
 | # | Condición | Estado | Evidencia |
 |---|---|---|---|
-| 1 | GIA-001 a GIA-010 aprobadas en 13 tipologías | ✅ | 10 tests × 13 tipologías = 130/130 PASS (hospital, educativo, oficinas, residencial, comercial, industrial, cultural, deportivo, transporte, hotelero, clinica, religioso, penitenciario) |
+| 1 | GIA-001 a GIA-010 aprobadas en 59 tipologías | ✅ | 10 tests × 59 tipologías = 590/590 PASS (edificación, infraestructura, equipamiento público, planificación territorial, defensa militar) |
 | 2 | ≥3 motores EXECUTABLE con efecto en geometría | ✅ | `arkiGiaMotores.test.ts`: 5 PASS (structural, geotech, fire, acoustic, evacuation) + 2 PARTIAL (hvac, sewer). Ver deuda de nomenclatura en `MOTORES-DEUDA.md` |
 | 3 | Expediente por alternativa | ⏳ | Siguiente hito (Fase GIA-Expediente) |
 | 4 | Divergencia real entre PARTIs | ✅ | GIA-002: `divergence.ts` 5/5 + `arkiGia.test.ts` 3/3 (flowStrategy + organizingIdea) |
@@ -63,3 +63,196 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 
 ### Deuda de Fase GIA-Divergencia
 `DynamicParti` (lo que el ciclo produce) no tiene la estructura de `Parti` (spaces, edges, accessOrder). Conectar `DynamicParti` con `passesGIA002` cuando lo tenga.
+
+
+---
+
+## Motor de Sostenibilidad Cuantificada (Fase 1, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (A1-A5 + B6 + Net Zero score).**
+
+### Capacidades
+
+| Función | Qué hace | Benchmark |
+|---|---|---|
+| `calculateEmbodiedCarbon` | Carbono incorporado A1-A5 (producto + construcción) | EN 15978, RICS WLCA 2023 |
+| `calculateOperationalCarbon` | Carbono operacional B6 (60 años) | RICS WLCA 2023 |
+| `netZeroScore` | Score contra LETI 2020 y RIBA 2030 | LETI 2020, RIBA 2030 |
+
+### Factores de carbono
+
+- **24 materiales** con GWP de ICE Database v3.0 (University of Bath, 2019).
+- Incluye **madera con GWP negativo** (captura de carbono biogénico).
+- Incluye **acero reciclado** (0.47 vs 1.99 kgCO2e/kg).
+- Incluye **aluminio reciclado** (0.49 vs 12.79 kgCO2e/kg).
+
+### Benchmarks
+
+- **LETI 2020:** A1-A5 < 350 kgCO2e/m2.
+- **RIBA 2025:** A1-A5 < 750 kgCO2e/m2.
+- **RIBA 2030:** A1-A5 < 625 kgCO2e/m2.
+
+### Tests
+
+12/12 PASS en `server/gia/sustainability/sustainability.test.ts`.
+
+### Deuda conocida
+
+- **A4-A5 aproximado:** usa 5% de A1-A3 + transporte con factor genérico (0.000105 kgCO2e/kg/km). Para producción, se necesita distancia real por material.
+- **B1-B7 no implementado:** solo B6 (energía operacional). B1-B5 (uso, mantenimiento, reparación) y B7 (agua) son Fase 1.5.
+- **C1-C4 no implementado:** fin de vida (deconstrucción, transporte, residuos). Fase 1.5.
+- **D no implementado:** beneficios más allá del sistema (reutilización, recuperación). Fase 1.5.
+- **Factores estáticos:** los 24 materiales son un subconjunto de ICE v3.0. Para producción, se necesita la base completa (~300 materiales) o un EPD específico por proyecto.
+
+
+---
+
+## Motor de Retrofit / Adaptive Reuse (Fase 2, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (comparación demoler vs rehabilitar + potencial de reutilización).**
+
+### Capacidades
+
+| Función | Qué hace | Referencia |
+|---|---|---|
+| `retrofitVsDemolition` | Compara carbono de demoler+construir vs rehabilitar | RICS WLCA 2023, EN 15978 C1-C4/D |
+| `reusePotential` | Score 0-100 de potencial de reutilización | RIBA 2030 (retrofit = 40% en 2035) |
+
+### Lógica
+
+- **Demolición:** 50 kgCO2e/m2 (C1-C4).
+- **Retrofit:** 200 kgCO2e/m2.
+- **Recomendación:** `RETROFIT` si retrofit < (existing + demolition + newBuild) × 0.6.
+- **Carbono evitado:** (existing + demolition + newBuild) − retrofit.
+
+### Tests
+
+6/6 PASS en `server/gia/retrofit/retrofit.test.ts`.
+
+### Deuda conocida
+
+- **Carbono existente (A1-A5 original):** depende de datos históricos. Para producción se necesita una base de datos de edificios existentes.
+- **Condición estructural:** hoy es un enum (`good`/`fair`/`poor`). Para producción se necesita inspección real.
+- **Integración con el ciclo:** las funciones son aisladas. Fase 2.5 las integra con `executeIntegratedArchitectCycle`.
+
+
+---
+
+## Motor de Resiliencia Climática (Fase 3, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (flood risk + heat island + drought + score combinado).**
+
+### Capacidades
+
+| Función | Qué hace | Referencia |
+|---|---|---|
+| `floodRisk` | Riesgo de inundación (LOW/MEDIUM/HIGH) | Banco Mundial RMA |
+| `heatIslandScore` | Isla de calor urbana (UHI °C) | UWG + EnergyPlus |
+| `droughtResilience` | Resiliencia a sequía (cobertura %) | MINSA / SUNASS |
+| `resilienceIndex` | Score combinado (PASS/PARTIAL/FAIL) | Los 3 anteriores |
+
+### Tests
+
+8/8 PASS en `server/gia/resilience/resilience.test.ts`.
+
+### Deuda conocida
+
+- **Datos topográficos reales (DEM):** hoy es `slope` + `elevation_m` + `proximityToWater_m` manual; para producción se necesita DEM (Shuttle Radar Topography Mission, ALOS).
+- **Datos climáticos históricos:** hoy es `climate` string + `rainfall_mm` manual; para producción se necesita SENAMHI.
+- **Modelo UHI calibrado:** hoy es genérico por clima; para producción se necesita calibración por ciudad (UWG).
+- **Integración con el ciclo:** las funciones son aisladas. Fase 3.5 las integra con `executeIntegratedArchitectCycle`.
+
+
+---
+
+## Motor RAG de Normativa (Fase 4, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (TF-IDF MVP con 35 documentos).**
+
+### Capacidades
+
+| Función | Qué hace | Referencia |
+|---|---|---|
+| `buildIndex` | Indexa documentos con TF-IDF | RIBA Journal 2026 (knowledge management) |
+| `query` | Consulta por lenguaje natural, retorna topK | Similitud de coseno |
+
+### Documentos de ejemplo
+
+- **20 fragmentos de RNE** (A.010, A.020, A.040, A.050, A.060, A.070, A.080, A.090, A.100, A.110, A.120, A.130, OS.010, OS.050, E.030, E.050, EM.010).
+- **10 building permits** de Lima (oficinas, residencial, comercial, educativo, hotel, clínica, industrial, cultural).
+- **5 lecciones aprendidas** internas (evacuación en altura, estacionamiento, presión diferencial, ventilación, acústica).
+
+### Tests
+
+6/6 PASS en `server/gia/rag/rag.test.ts`.
+
+### Deuda conocida
+
+- **TF-IDF vs embeddings:** el MVP usa TF-IDF (sin dependencias externas). Para producción se necesita embeddings (Claude, Gemini, Voyage) e índice vectorial (pgvector, Qdrant).
+- **Corpus de ejemplo:** los 35 documentos son de ejemplo. Para producción se necesita el corpus completo de RNE, Eurocodes, IBC, y building permits reales.
+- **Reranker:** hoy no hay reranker (cross-encoder). Para producción se necesita.
+- **Integración con el ciclo:** las funciones son aisladas. Fase 4.5 las integra con `executeIntegratedArchitectCycle`.
+
+
+---
+
+## Servidor MCP Versionado (Fase 5, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (JSON-RPC 2.0, sin dependencias externas).**
+
+### Capacidades expuestas
+
+| Tool | Qué hace | Fase origen |
+|---|---|---|
+| `evaluate_typology` | Ciclo integrado sobre 59 tipologías | Fase 1-4 |
+| `calculate_sustainability` | Carbono A1-A5 + B6 + Net Zero score | Fase 1 |
+| `calculate_retrofit` | Demoler vs rehabilitar + potencial | Fase 2 |
+| `calculate_resilience` | Flood + heat island + drought | Fase 3 |
+| `rag_query` | Consulta de normativa (35 docs) | Fase 4 |
+
+### Protocolo
+
+- `initialize` → protocolVersion "2024-11-05" + capabilities + serverInfo.
+- `tools/list` → 5 tools con name + inputSchema.
+- `tools/call` → ejecuta tool con `{ name, arguments }`.
+- `ping` / `shutdown` → `{}`.
+- Método desconocido → error -32601.
+
+### Tests
+
+6/6 PASS en `server/mcp/mcp.test.ts`.
+
+### Deuda conocida
+
+- **Transport:** `handleRequest` es puro; para producción se necesita stdio o HTTP/SSE.
+- **Autenticación:** no hay auth.
+- **Persistencia:** no hay sesiones.
+- **Streaming:** no hay SSE.
+- **Prompts y resources:** solo tools.
+
+
+---
+
+## Tipologías de Concurso (Fase 7, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (4 tipologías, 63 en total).**
+
+### Las 4 tipologías
+
+| Tipología | Qué representa | Argumento de concurso |
+|---|---|---|
+| `mixed-use-tower` | Torre 30 pisos: residencial + oficinas + hotel + comercio | Densidad + mixtura de usos |
+| `tod-station` | Estación de metro + 500 viviendas + comercio + equipamiento | Movilidad + desarrollo orientado al transporte |
+| `affordable-housing` | 200 viviendas sociales con presupuesto <$500/m2 | Equidad + asequibilidad |
+| `public-space-plaza` | Plaza 1 hectárea con vegetación + mobiliario + cultura | Espacio público + resiliencia |
+
+### Tests
+
+12/12 PASS en `server/gia/concurso.test.ts`.
+
+### Deuda conocida
+
+- **Mixed-use:** ratio residencial/oficinas/hotel es fijo (10/10/10); para producción se necesita variable.
+- **TOD:** conexión con red de transporte es estática; para producción se necesita red real.
+- **Affordable:** restricción de costo es un `unknown`; para producción se necesita presupuesto real (CAPEX + OPEX).
+- **Public space:** mobiliario y vegetación son genéricos; para producción se necesitan especificaciones reales.

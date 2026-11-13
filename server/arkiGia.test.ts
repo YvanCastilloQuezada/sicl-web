@@ -1,4 +1,5 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { installMockMotores, uninstallMockMotores } from "./gia/mockMotores";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import {
@@ -16,7 +17,14 @@ const TIPOLOGIAS = [
   "museo", "universidad", "instituto-tecnologico", "centro-arte-cultura",
   "centro-nacional-tecnologia", "data-center-ia", "teatro", "biblioteca",
   "parque-infantil", "parque-diversiones", "restaurante", "centro-campestre",
-  "parque-aguas", "centro-entretenimiento-digital",
+  "parque-aguas", "centro-entretenimiento-digital", "bomberos", "policia",
+  "parque-zonal", "zoologico", "jardin-botanico", "urbanizacion",
+  "planificacion-distrital", "planificacion-provincial", "planificacion-regional",
+  "planificacion-macro-regional", "planificacion-nacional",
+  "planificacion-cuencas", "planificacion-intercuencas",
+  "base-aerea", "base-naval", "base-terrestre", "bunker",
+  "defensa-antiaerea", "centro-mando", "polvorin",
+  "mixed-use-tower", "tod-station", "affordable-housing", "public-space-plaza",
 ] as const;
 type Tipologia = typeof TIPOLOGIAS[number];
 
@@ -24,6 +32,14 @@ function loadFixture(tipologia: Tipologia): IntegratedArchitectInput {
   const path = resolve(__dirname, `gia/fixtures/${tipologia}.json`);
   return JSON.parse(readFileSync(path, "utf-8"));
 }
+
+beforeAll(() => {
+  installMockMotores();
+});
+
+afterAll(() => {
+  uninstallMockMotores();
+});
 
 describe.each(TIPOLOGIAS)("GIA-001..010 — tipología %s", (tipologia) => {
   const input = loadFixture(tipologia);

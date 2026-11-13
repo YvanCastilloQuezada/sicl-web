@@ -1,0 +1,38 @@
+{
+  "projectId": "PDI-LIM-100-001",
+  "projectName": "Planificación distrital 100,000 hab",
+  "typology": "PLANIFICACION_DISTRITAL",
+  "brief": "Plan de desarrollo distrital con zonificación, equipamiento y vialidad.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 100000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.05,
+    "accesos": ["red vial distrital", "vías auxiliares"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "Ley 27972", "Ley 26878", "RNE E.030", "RNE E.050"],
+  "activities": [
+    { "id": "act-1", "name": "Zonificación residencial", "capacity": 60000, "subjects": ["residente"], "privacy": "private", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Zonificación comercial", "capacity": 20000, "subjects": ["comerciante", "cliente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Equipamiento urbano", "capacity": 15000, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Vialidad distrital", "capacity": 5000, "subjects": ["residente", "visitante"], "privacy": "public", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-4", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" }
+  ],
+  "subjects": ["residente", "comerciante", "cliente", "visitante"],
+  "conditions": ["zonificación por usos", "vialidad jerarquizada", "equipamiento distribuido"],
+  "unknowns": ["normativa municipal requiere revisión", "estudio de usos de suelo requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 5000, "height": 5000, "area": 25000000, "status": "DISTRICT_PLAN" },
+  "sourceIds": ["SRC-PDI-BRIEF", "SRC-Ley27972"]
+}

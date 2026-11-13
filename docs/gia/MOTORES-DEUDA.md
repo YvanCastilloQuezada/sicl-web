@@ -213,3 +213,182 @@ Con 35 tipologías pendientes y 29 actuales:
 - **Bloques de 10**: 3-4 PRs. Riesgo alto (si falla 1, diagnosticar 10).
 
 **Decisión:** bloques de 5.
+
+
+---
+
+## Deuda de Fase GIA-Defensa (2026-11-13)
+
+**Las 7 tipologías militares** (base aérea, base naval, base terrestre/cuartel, bunker, defensa antiaérea, centro de mando TOC, polvorín) se modelan como "actividades genéricas" en el schema actual.
+
+**Lo que falta para un modelado correcto:**
+
+| Dimensión | Qué necesita | Aplica a |
+|---|---|---|
+| `security_zones` | Perímetro, zona restringida, zona clasificada, zona de acceso controlado | Las 7 |
+| `passive_protection` | Cobertura de tierra (pies), espesor de hormigón (cm), distancia de seguridad (m) | Bunker, centro-mando, polvorín |
+| `active_defense` | Antiaérea (SAM/AAA), perimetral, radares, C2 | Base aérea, defensa antiaérea |
+| `dispersal_distance` | Separación entre aeronaves, lanzadores, polvorines (m) | Base aérea, defensa antiaérea, polvorín |
+| `classification_level` | Público, restringido, secreto, ultra-secreto | Las 7 |
+| `nbc_protection` | Protección Nuclear, Biológica, Química (filtros, sobrepresión) | Bunker, centro-mando, polvorín |
+
+**Referencia bibliográfica:**
+- UFC 4-021-01 (Design and O&M: Mass Notification Systems).
+- NATO STANAG 2280 (Design threat levels for military installations).
+- FAP Normas (Perú), MGP Normas (Perú), EP Normas (Perú).
+
+**Deuda de Fase GIA-Defensa:** extender el schema con los 6 campos, actualizar los 7 fixtures, y añadir tests específicos.
+
+**Prioridad:** Media. El hito de 59 tipologías cierra con el modelado genérico; el modelado específico es Fase GIA-Defensa.
+
+
+---
+
+## Deuda de Fase Sostenibilidad (2026-11-13)
+
+**El motor de sostenibilidad cuantificada (Fase 1) implementa A1-A5, B6 y Net Zero score. Lo que falta:**
+
+| Módulo EN 15978 | Qué falta | Prioridad |
+|---|---|---|
+| **A4-A5** | Distancia real de transporte por material (hoy es 100 km genérico) | Media |
+| **B1-B5** | Mantenimiento, reparación, reemplazo (requiere datos de vida útil por material) | Alta |
+| **B7** | Agua operacional (requiere motor de agua, no existe) | Media |
+| **C1-C4** | Deconstrucción, transporte de residuos, disposición | Alta |
+| **D** | Beneficios de reutilización/recuperación/reciclaje | Media |
+| **EPD específicos** | Factores de ICE v3.0 son genéricos; EPD específicos por producto son Fase 1.5 | Alta |
+| **Base completa** | 24 materiales vs ~300 de ICE v3.0 | Media |
+| **Certificaciones** | LEED, BREEAM, EDGE, WELL (cada uno tiene su propio scoring) | Alta |
+
+**Referencias:**
+- EN 15978:2011 (Sustainability of construction works).
+- RICS WLCA 2023 (Whole Life Carbon Assessment).
+- LETI Climate Emergency Design Guide (2020).
+- RIBA 2030 Climate Challenge v3 (2021).
+- ICE Database v3.0 (University of Bath, 2019).
+
+
+---
+
+## Deuda de Fase Retrofit (2026-11-13)
+
+**El motor de retrofit (Fase 2) implementa comparación demoler vs rehabilitar + potencial de reutilización. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Base de datos de edificios existentes** | `embodiedCarbon_existing_kgco2e` es un input manual; para producción se necesita una base (catastro, IFC existente) | Alta |
+| **Inspección estructural** | `condition` es un enum; para producción se necesita inspección real (fisuras, carbonatación, corrosión) | Alta |
+| **Carbono de demolición preciso** | Hoy es 50 kgCO2e/m2 genérico; depende de material, distancia, método | Media |
+| **Carbono de retrofit preciso** | Hoy es 200 kgCO2e/m2 genérico; depende de intervención (refuerzo, instalaciones, envolvente) | Alta |
+| **Reutilización de materiales** | El módulo D (beneficios) no está implementado; para circularidad se necesita | Media |
+| **Integración con el ciclo** | Las funciones son aisladas; Fase 2.5 las integra con `executeIntegratedArchitectCycle` | Alta |
+
+**Referencias:**
+- RIBA 2030 Climate Challenge v3 (2021): retrofit = 40% en 2035.
+- RICS WLCA 2023: carbono evitado por retrofit.
+- EN 15978:2011: módulos C1-C4 (fin de vida) y D (beneficios).
+- ICOMOS / UNESCO: adaptive reuse y patrimonio.
+
+
+---
+
+## Deuda de Fase Resiliencia (2026-11-13)
+
+**El motor de resiliencia (Fase 3) implementa flood risk + heat island + drought + score combinado. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **DEM real** | Pendiente, elevación y proximidad son manuales; para producción se necesita DEM (SRTM, ALOS) | Alta |
+| **Datos climáticos SENAMHI** | `rainfall_mm` es manual; para producción se necesita serie histórica por ciudad | Alta |
+| **UHI calibrado por ciudad** | Hoy es genérico; para producción se necesita UWG calibrado | Media |
+| **Escorrentía superficial** | No se modela el flujo de agua en el terreno | Alta |
+| **Integración con el ciclo** | Las funciones son aisladas; Fase 3.5 las integra con `executeIntegratedArchitectCycle` | Alta |
+
+**Referencias:**
+- Banco Mundial: Risk Management Approach (RMA).
+- Urban Weather Generator (UWG) + EnergyPlus.
+- MINSA / SUNASS: captación de lluvia y reúso de aguas grises.
+- SENAMHI: datos climáticos históricos de Perú.
+
+
+---
+
+## Deuda de Fase RAG (2026-11-13)
+
+**El motor RAG (Fase 4) implementa TF-IDF MVP con 35 documentos. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Embeddings reales** | TF-IDF es léxico; para producción se necesita semántico (Claude, Gemini, Voyage) | Alta |
+| **Índice vectorial** | TF-IDF es en memoria; para producción se necesita pgvector o Qdrant | Alta |
+| **Corpus completo** | 35 docs de ejemplo; para producción se necesita RNE completo, Eurocodes, IBC, permits reales | Alta |
+| **Reranker** | No hay cross-encoder; para producción se necesita (Cohere, BGE) | Media |
+| **Chunking** | Los docs son fragmentos manuales; para producción se necesita chunking automático de PDFs | Alta |
+| **Integración con el ciclo** | Las funciones son aisladas; Fase 4.5 las integra con `executeIntegratedArchitectCycle` | Alta |
+
+**Referencias:**
+- RIBA Journal (2026): knowledge management es el uso #1 de LLMs en estudios grandes.
+- YARK (Perú): Gemini + pgvector para normativa peruana.
+- Anthropic: Claude para embeddings (Voyage AI).
+
+
+---
+
+## Deuda de Fase MCP (2026-11-13)
+
+**El servidor MCP (Fase 5) implementa JSON-RPC 2.0 con 5 tools. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Transport stdio** | `handleRequest` es puro; para producción se necesita stdio (Claude Desktop) | Alta |
+| **Transport HTTP/SSE** | Para clientes web y streaming | Alta |
+| **Autenticación** | No hay auth (API key, JWT) | Alta |
+| **Persistencia** | No hay sesiones | Media |
+| **Streaming** | No hay SSE para tool calls largos | Media |
+| **Prompts** | Solo tools; MCP también soporta prompts | Baja |
+| **Resources** | Solo tools; MCP también soporta resources | Baja |
+| **Rate limiting** | No hay | Media |
+
+**Referencias:**
+- Model Context Protocol (Anthropic), 2024-11-05.
+- @modelcontextprotocol/sdk (para transporte stdio/HTTP, si se necesita).
+
+
+---
+
+## Deuda de Fase Concurso (2026-11-13)
+
+**Las 4 tipologías de concurso (Fase 7) son el argumento directo de competición internacional. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Mixed-use ratios** | 10/10/10 es fijo; para producción se necesita variable por proyecto | Alta |
+| **TOD network** | La conexión con transporte es estática; para producción se necesita red real (OSM, GTFS) | Alta |
+| **Affordable budget** | CAPEX + OPEX reales; hoy es un `unknown` | Alta |
+| **Public space specs** | Mobiliario y vegetación reales (no genéricos) | Media |
+| **Integración con sostenibilidad** | El ciclo no cruza `mixed-use` con `calculateEmbodiedCarbon` automáticamente | Alta |
+| **Integración con resiliencia** | El ciclo no cruza `public-space` con `heatIslandScore` automáticamente | Alta |
+
+**Referencias:**
+- RIBA 2030 Climate Challenge v3 (2021): mixed-use, TOD, affordable, public space son los 4 problemas de concurso.
+- A' Design Award: categorías para mixed-use, social housing, urban design.
+- Dream (a16z): competencia directa en generación de edificios.
+
+
+---
+
+## Deuda de Fase 1 — RenderData (2026-11-13)
+
+**La Fase 1 del render del sólido 3D (PR #176) implementa `exportRenderData`, que transforma `IntegratedArchitectCycle` en `RenderData`. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **`concept` hardcodeado** | `conceptForTypology` mapea tipología → concepto de `arkiAdvancedGeometry` con un switch. Para producción, el concepto debería venir del `DynamicParti` (su `flowStrategy`: `linear-separation` → `TWISTED_TOWER`, `central-hub` → `FOLDED_COURTYARD`, `nested-rings` → `BRANCHING_CANOPY`). | Media |
+| **Parámetros de geometría hardcodeados** | `floors: 10`, `sides: 16`, `radius: 22`, `twistRadians: Math.PI / 2`, `floorHeight: 3.2` son fijos. Para producción, deberían derivarse del `envelope` (`height / floorHeight`) y del `context` (`n_stories`, `twist`). | Media |
+| **Material único** | `materials: [material]` solo incluye el material principal. Para producción, debería incluir todos los materiales del ciclo (`evaluation.engines["sustainability"].values.materials`). | Alta |
+| **Vegetación no incluida** | El `RenderData` no tiene `vegetation`. Para producción, debería incluir `positions` y `area_m2` del motor de resiliencia. | Media |
+
+**Referencias:**
+- Fase 1: `exportRenderData.ts` (PR #176).
+- Fase 2: SVG del sólido 3D (proyección isométrica).
+- Fase 3: visor Three.js + path tracing.
+- Fase 4: IA local (Ollama) cuando soporte imagen en Linux.

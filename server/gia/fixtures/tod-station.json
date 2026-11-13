@@ -1,0 +1,38 @@
+{
+  "projectId": "TOD-LIM-500-001",
+  "projectName": "TOD estación de metro + 500 viviendas",
+  "typology": "TOD",
+  "brief": "Desarrollo orientado al transporte: estación de metro + 500 viviendas + comercio + equipamiento.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 2000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.01,
+    "accesos": ["línea de metro", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.020", "RNE A.070", "RNE A.120", "RNE A.130", "RNE E.030", "RNE E.050"],
+  "activities": [
+    { "id": "act-1", "name": "Estación de metro", "capacity": 5000, "subjects": ["pasajero"], "privacy": "public", "accessControl": "ticket", "frequency": "continuous", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Viviendas", "capacity": 500, "subjects": ["residente"], "privacy": "private", "accessControl": "key", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Comercio", "capacity": 300, "subjects": ["cliente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Equipamiento", "capacity": 200, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["pasajero"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["residente"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" }
+  ],
+  "subjects": ["pasajero", "residente", "cliente"],
+  "conditions": ["conexión directa a estación de metro", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa de transporte requiere revisión", "estudio de flujo peatonal requiere verificación", "estudio de impacto urbano requiere verificación"],
+  "envelope": { "width": 200, "height": 200, "area": 40000, "status": "TOD" },
+  "sourceIds": ["SRC-TOD-BRIEF", "SRC-RNE-TOD"]
+}

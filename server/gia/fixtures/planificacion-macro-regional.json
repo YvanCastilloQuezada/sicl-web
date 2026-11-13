@@ -1,0 +1,147 @@
+{
+  "projectId": "PMR-LIM-010-001",
+  "projectName": "Planificación macro regional 10M hab",
+  "typology": "PLANIFICACION_MACRO_REGIONAL",
+  "brief": "Plan macro regional con integración de regiones, corredores y equipamiento.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "VARIABLE",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 10000000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.3,
+    "accesos": [
+      "red vial macro regional",
+      "corredores interregionales"
+    ],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": [
+      "SO",
+      "NE"
+    ]
+  },
+  "constraints": [
+    "Ley 27783",
+    "Ley 27867",
+    "RNE E.030",
+    "RNE E.050"
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Integración regional",
+      "capacity": 7000000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "private",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-2",
+      "name": "Corredores macro regionales",
+      "capacity": 2000000,
+      "subjects": [
+        "comerciante",
+        "trabajador"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-3",
+      "name": "Equipamiento macro regional",
+      "capacity": 500000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-4",
+      "name": "Red vial macro regional",
+      "capacity": 500000,
+      "subjects": [
+        "residente",
+        "visitante"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "act-4",
+      "target": "act-1",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "residente"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-1",
+      "target": "act-2",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "trabajador"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-1",
+      "target": "act-3",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "residente"
+      ],
+      "control": "FLOW"
+    }
+  ],
+  "subjects": [
+    "residente",
+    "comerciante",
+    "trabajador",
+    "visitante"
+  ],
+  "conditions": [
+    "integración interregional",
+    "corredores macro regionales",
+    "red vial interregional"
+  ],
+  "unknowns": [
+    "normativa macro regional requiere revisión",
+    "estudio de integración requiere verificación",
+    "estudio de impacto ambiental requiere verificación"
+  ],
+  "envelope": {
+    "width": 100000,
+    "height": 80000,
+    "area": 8000000000,
+    "status": "MACRO_REGIONAL_PLAN"
+  },
+  "sourceIds": [
+    "SRC-PMR-BRIEF",
+    "SRC-Ley27783"
+  ]
+}

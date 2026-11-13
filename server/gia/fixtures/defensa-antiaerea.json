@@ -1,0 +1,38 @@
+{
+  "projectId": "DAA-LIM-001-001",
+  "projectName": "Base de Defensa Antiaérea",
+  "typology": "DEFENSA_ANTIAEREA",
+  "brief": "Posición SAM/AAA con radares, lanzadores, centro de mando y protección perimetral.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 200,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.03,
+    "accesos": ["camino restringido", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE E.030", "RNE E.050", "RNE EM.010", "NATO STANAG", "FAP Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Radares", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Lanzadores SAM", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Centro de mando", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Protección perimetral", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["personal"],
+  "conditions": ["cobertura de radares", "dispersión de lanzadores", "centro de mando protegido"],
+  "unknowns": ["normativa militar requiere revisión FAP", "estudio de cobertura radar requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 500, "height": 500, "area": 250000, "status": "MILITARY_DEFENSE" },
+  "sourceIds": ["SRC-DAA-BRIEF", "SRC-FAP-NORMAS"]
+}
