@@ -1,0 +1,31 @@
+{
+  "projectId": "IND-LIM-100-001",
+  "projectName": "Nave industrial 10,000 m²",
+  "typology": "INDUSTRIAL",
+  "brief": "Nave industrial con producción, almacén, oficinas y servicios.",
+  "context": {
+    "jurisdiction": "PE", "climate": "TEMPLADO", "zona_sismica": "Z4", "tipo_suelo": "S2",
+    "occupancy": 300, "latitude": -12.0312, "longitude": -77.0512, "altitude": 130,
+    "topografia": "plana", "pendiente": 0.005, "accesos": ["carretera industrial", "vía auxiliar"],
+    "orientacion": "norte-sur", "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.060", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "ISO 45001"],
+  "activities": [
+    { "id": "act-1", "name": "Producción", "capacity": 200, "subjects": ["operario"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Almacén", "capacity": 50, "subjects": ["operario", "montacarguista"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Oficinas", "capacity": 30, "subjects": ["administrativo"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-5", "name": "Carga y descarga", "capacity": 10, "subjects": ["transportista"], "privacy": "controlled", "accessControl": "gate", "frequency": "daily", "duration": "short", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-5", "target": "act-2", "relation": "CIRCULATION", "subjects": ["transportista"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-1", "relation": "ADJACENT", "subjects": ["operario"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-1", "relation": "CIRCULATION", "subjects": ["administrativo"], "control": "RESTRICTED" },
+    { "id": "rel-4", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operario", "montacarguista", "administrativo", "personal", "transportista"],
+  "conditions": ["flujo de producción lineal", "segregación operario/visitante", "carga y descarga separada"],
+  "unknowns": ["normativa local de industria requiere revisión", "capacidad de carga vertical requiere verificación", "categoría de riesgo de incendio requiere clasificación"],
+  "envelope": { "width": 100, "height": 100 },
+  "sourceIds": ["SRC-IND-BRIEF", "SRC-RNE-INDUSTRIA"]
+}

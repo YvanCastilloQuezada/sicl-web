@@ -1,0 +1,31 @@
+{
+  "projectId": "CLI-LIM-100-001",
+  "projectName": "Clínica 100 camas",
+  "typology": "CLINICA",
+  "brief": "Clínica con 100 camas, consultorios, quirófanos y servicios.",
+  "context": {
+    "jurisdiction": "PE", "climate": "TEMPLADO", "zona_sismica": "Z4", "tipo_suelo": "S3",
+    "occupancy": 400, "latitude": -12.0464, "longitude": -77.0428, "altitude": 154,
+    "topografia": "plana", "pendiente": 0.01, "accesos": ["avenida principal", "calle secundaria"],
+    "orientacion": "norte-sur", "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.050", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "MINSA Normas Técnicas"],
+  "activities": [
+    { "id": "act-1", "name": "Consultorios", "capacity": 50, "subjects": ["paciente"], "privacy": "controlled", "accessControl": "appointment", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Hospitalización", "capacity": 100, "subjects": ["paciente"], "privacy": "private", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Quirófanos", "capacity": 6, "subjects": ["paciente", "cirujano"], "privacy": "restricted", "accessControl": "staff", "frequency": "scheduled", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 30, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-5", "name": "Residuos biológicos", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "short", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["paciente"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "ADJACENT", "subjects": ["paciente"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-4", "source": "act-4", "target": "act-5", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["paciente", "cirujano", "personal"],
+  "conditions": ["presión diferencial en quirófanos", "flujo separado de residuos", "evacuación clara"],
+  "unknowns": ["normativa local de salud requiere revisión", "capacidad de carga vertical requiere verificación", "categoría de riesgo de incendio requiere clasificación"],
+  "envelope": { "width": 60, "height": 80 },
+  "sourceIds": ["SRC-CLI-BRIEF", "SRC-RNE-SALUD"]
+}

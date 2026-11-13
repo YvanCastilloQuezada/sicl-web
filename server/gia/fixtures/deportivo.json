@@ -1,0 +1,31 @@
+{
+  "projectId": "DEP-LIM-500-001",
+  "projectName": "Estadio 20,000 espectadores",
+  "typology": "DEPORTIVO",
+  "brief": "Estadio con cancha reglamentaria, tribunas, palcos y servicios.",
+  "context": {
+    "jurisdiction": "PE", "climate": "TEMPLADO", "zona_sismica": "Z4", "tipo_suelo": "S3",
+    "occupancy": 20000, "latitude": -12.0672, "longitude": -77.0332, "altitude": 120,
+    "topografia": "plana", "pendiente": 0.01, "accesos": ["avenida principal", "vía auxiliar"],
+    "orientacion": "norte-sur", "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.100", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "FIFA Stadium Guidelines"],
+  "activities": [
+    { "id": "act-1", "name": "Cancha", "capacity": 30, "subjects": ["jugador", "árbitro"], "privacy": "public", "accessControl": "open", "frequency": "event", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Tribunas", "capacity": 20000, "subjects": ["espectador"], "privacy": "public", "accessControl": "ticket", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Palcos", "capacity": 500, "subjects": ["VIP"], "privacy": "controlled", "accessControl": "ticket", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Vestuarios", "capacity": 100, "subjects": ["jugador"], "privacy": "restricted", "accessControl": "staff", "frequency": "event", "duration": "short", "temporalOverlap": true },
+    { "id": "act-5", "name": "Servicios", "capacity": 200, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["jugador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["espectador"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-2", "target": "act-3", "relation": "ADJACENT", "subjects": ["VIP"], "control": "RESTRICTED" },
+    { "id": "rel-4", "source": "act-3", "target": "act-5", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["jugador", "árbitro", "espectador", "VIP", "personal"],
+  "conditions": ["evacuación masiva", "segregación flujos jugador/espectador/VIP", "control de acceso por ticket"],
+  "unknowns": ["normativa local de deporte requiere revisión", "capacidad de carga vertical requiere verificación", "evacuación masiva requiere simulación jupedsim especializada"],
+  "envelope": { "width": 200, "height": 150 },
+  "sourceIds": ["SRC-DEP-BRIEF", "SRC-RNE-DEPORTE"]
+}
