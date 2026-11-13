@@ -105,3 +105,8 @@ evidence/
 
 # ARKI — backups de marcas @deprecated
 *.bak-deprecated-*
+
+# ARKI: backups locales y sesiones anteriores
+.arki-*-backup-*/
+.arki-*/bak-*.md
+*.bak-*

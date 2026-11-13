@@ -58,14 +58,51 @@ Regla RFC-037: máx. 2 ramas DAM simultáneas. Doctrina: los externos son maestr
 | 9 | MATSim / SUMO | Movilidad urbana | No instalado |
 | 10 | UrbanSim | Territorio | No instalado |
 
-## Bloqueante actual
+## Evidencia local (reporte ARKI-MOTOR-LOCAL-AUDIT-20261113-013131.txt, 2026-11-13)
 
-**Reporte local sin leer:** `~/Descargas/ARKI-REPORTES/ARKI-MOTOR-LOCAL-AUDIT-20261113-013131.txt`
+### Instalado en el shell del usuario
+- GDAL 3.12.2 (ogrinfo, gdalinfo) - geoespacial basico
+- numpy - pero SIN scipy ni pandas (analisis numerico limitado)
+- osgeo (GDAL Python bindings)
 
-Sin leer ese reporte, no se decide qué instalar. Puede revelar motores ya instalados que se duplicarían.
+### NO instalado en el shell del usuario
+- OpenSees, OpenSeesPy, gmsh, FreeCAD, Blender
+- swmm5, epanet, energyplus, radiance, rtrace, rpict
+- openfoam, foamRun, simpleFoam, sumo, netconvert, qgis
+- scipy, pandas, salib, SALib, pymc, openturns, ladybug, honeybee
+- pyswmm, swmm, pyroomacoustics, geopandas, shapely, ezdxf, fipy, fenics
 
-## Correcciones de clasificación
+### Instalado en ~/ARKI/motores-venv (servicio motores-api, PID 951342)
+- OpenSeesPy - el motor structural ya lo usa via HTTP
+- Los otros 6 motores del servicio tambien operan desde ese venv
 
-- **Monte Carlo NO es deuda de motor.** Ya está en `main` de SICL Core con tests.
-- **IfcOpenShell NO es deuda de motor.** Ya se usa en SICL Core para IFC read-only.
-- **`buildPartiProof()` en SICL Web genera PARTI sintético** en vez de construirlo desde el proyecto real. Defecto de integración.
+Correccion critica: "OpenSees no instalado" es cierto SOLO para el shell del usuario.
+El servicio motores-api si tiene OpenSeesPy y opera. La integracion no es instalar
+OpenSees: es completar los 4 motores PARTIAL que ya corren.
+
+### Dependencias de SICL Core (pyproject.toml)
+- dependencies: jsonschema, tzdata, cryptography
+- test: pytest, ifcopenshell, reportlab, pypdf
+- api: fastapi, uvicorn, httpx, python-multipart
+
+ifcopenshell es dependencia opcional test, NO runtime. ~25 modulos de SICL Core
+lo importan sin guard. Si no se instala pip install -e ".[test]", esos modulos fallan.
+
+### Estado de repos
+- sicl-core: main, limpio, commit c3343255
+- sicl-web: rama fix/vitest-exclude-motores, working tree SUCIO (4 archivos + 7 backups sin versionar)
+- arki-acs: main, limpio, commit 91464a60
+
+### Deuda de seguridad
+- Token de gitea en texto plano en URL de remotos (git remote -v).
+  Es localhost, pero debe migrarse a ~/.netrc o credential helper.
+
+## Bloqueante real (actualizado)
+
+No es "instalar OpenSees". Es:
+
+1. Resolver el working tree sucio de sicl-web (rama fix/vitest-exclude-motores).
+2. Completar los 4 motores PARTIAL (hvac, evacuation, fire, sewer) a PASS con evidencia real.
+3. Decidir scipy antes que OpenSees - sin scipy, el analisis numerico base
+   (regresion, optimizacion, estadistica) es Python puro o depende de numpy sin algebra lineal seria.
+4. Instalar ifcopenshell en el venv correcto si se quiere usar el IFC de SICL Core en el shell.
