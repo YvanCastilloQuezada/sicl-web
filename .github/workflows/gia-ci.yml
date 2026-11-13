@@ -1,4 +1,5 @@
 name: GIA CI
+
 on:
   pull_request:
     branches: [main]
@@ -20,5 +21,43 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Type check GIA
         run: pnpm exec tsc -p tsconfig.gia.json
-      - name: Tests GIA
-        run: pnpm exec vitest run --config vitest.gia.config.ts
+
+  test-gia-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Tests GIA unitarios (sin motores-api)
+        run: pnpm exec vitest run server/arkiGia.test.ts server/gia/divergence.test.ts
+
+  # Los tests de integración (GIA-011..025) requieren motores-api.
+  # Se ejecutan localmente con motores-api levantado.
+  # En CI se marcan como skip por ausencia de motores-api.
+  test-gia-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Tests GIA integración (skip si motores-api no responde)
+        run: |
+          if curl -s --max-time 2 http://127.0.0.1:18771/engines > /dev/null 2>&1; then
+            pnpm exec vitest run server/arkiGiaMotores.test.ts server/arkiGiaStructural.test.ts server/arkiGiaStructuralWorld.test.ts server/arkiGiaNsga2.test.ts
+          else
+            echo "motores-api no responde en 127.0.0.1:18771 — skip integración"
+            echo "Los tests de integración se ejecutan localmente con motores-api levantado."
+            exit 0
+          fi
