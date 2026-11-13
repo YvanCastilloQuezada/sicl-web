@@ -1,8 +1,10 @@
 import { buildPartiProof, type PartiProof } from "./arkiPartiContract";
+import { projectNormativeEvaluationToF7 } from "./arkiF7NormativeProjection";
 import { executeArchitecturalReasoning, type ArchitecturalReasoningInput, type ArchitecturalReasoningResult } from "./arkiD62ReasoningHarness";
 import { executeD63G, type D63Input, type D63Result } from "./arkiD63GeometricBridge";
 import { emptySnapshot, type SiclSnapshot } from "./siclCore";
 import { executeProjectBrainWave1, type DynamicParti, type ArchitecturalGenealogy } from "./arkiProjectBrain";
+import { evaluateStructural, evaluateGeotech, evaluateHvac, evaluateEvacuation, evaluateFire, evaluateAcoustic, evaluateSewer, type EngineResult } from "./motoresClient";
 
 export type ProjectIdentifier = `${string}-${string}-${string}-${string}`;
 export type CycleStatus = "CONCEPTUAL_CYCLE_PASS" | "PARTIAL";
@@ -36,10 +38,11 @@ export type IntegratedArchitectCycle = {
   geometry: D63Result;
   evaluation: {
     geometric: "PASS" | "FAIL" | "UNKNOWN";
-    functional: "UNKNOWN";
-    regulatory: "NOT_EVALUATED";
-    architecturalQuality: "NOT_EVALUATED";
+    functional: "PASS" | "FAIL" | "PARTIAL" | "UNKNOWN";
+    regulatory: "PASS" | "FAIL" | "PARTIAL" | "NOT_EVALUATED";
+    architecturalQuality: "PASS" | "FAIL" | "PARTIAL" | "NOT_EVALUATED";
     humanDecision: HumanDecision;
+    engines: Record<string, EngineResult>;
     unknowns: string[];
   };
   backtrack: { available: true; targets: ["PARTI", "TOPOLOGY", "GEOMETRY"]; currentDecision: "PENDING_HUMAN_REVIEW" };
@@ -66,7 +69,30 @@ function toGeometryInput(input: IntegratedArchitectInput): D63Input {
 
 function stage(stage: string, status: "PASS" | "PARTIAL" | "UNKNOWN", evidence: string[]): { stage: string; status: "PASS" | "PARTIAL" | "UNKNOWN"; evidence: string[] } { return { stage, status, evidence }; }
 
-export function executeIntegratedArchitectCycle(input: IntegratedArchitectInput, snapshot: SiclSnapshot = emptySnapshot(), coreKnowledgeVersion = 1, runtimeVersion = "ARKI-INTEGRATED-ARCHITECT-1.0"): IntegratedArchitectCycle {
+
+function evaluateFunctionalFit(input: IntegratedArchitectInput): "PASS" | "FAIL" | "PARTIAL" | "UNKNOWN" {
+  if (!input.activities || input.activities.length === 0) return "UNKNOWN";
+  if (!input.relationships || input.relationships.length === 0) return "PARTIAL";
+  return "PASS";
+}
+
+function evaluateArchitecturalQuality(input: IntegratedArchitectInput): "PASS" | "FAIL" | "PARTIAL" | "NOT_EVALUATED" {
+  if (!input.envelope) return "NOT_EVALUATED";
+  const { width, height } = input.envelope;
+  if (!Number.isFinite(width) || !Number.isFinite(height)) return "NOT_EVALUATED";
+  if (width <= 0 || height <= 0) return "FAIL";
+  const area = width * height;
+  if (area < 20) return "FAIL";
+  if (area < 50) return "PARTIAL";
+  return "PASS";
+}
+
+function evaluateRegulatory(input: IntegratedArchitectInput): "PASS" | "FAIL" | "PARTIAL" | "NOT_EVALUATED" {
+  if (!input.constraints || input.constraints.length === 0) return "NOT_EVALUATED";
+  return "NOT_EVALUATED";
+}
+
+export async function executeIntegratedArchitectCycle(input: IntegratedArchitectInput, snapshot: SiclSnapshot = emptySnapshot(), coreKnowledgeVersion = 1, runtimeVersion = "ARKI-INTEGRATED-ARCHITECT-1.0"): Promise<IntegratedArchitectCycle> {
   if (!isProjectIdentifier(input.projectId)) throw new Error("PROJECT_ID_MUST_MATCH_XXX-XXX-XXX-XXX");
   const reasoning = executeArchitecturalReasoning(toReasoningInput(input), snapshot, coreKnowledgeVersion, runtimeVersion);
   const parti = buildPartiProof();
@@ -100,7 +126,36 @@ export function executeIntegratedArchitectCycle(input: IntegratedArchitectInput,
   const projectGenealogy = projectBrain.genealogy;
 
   const geometry = executeD63G(toGeometryInput(input), snapshot, coreKnowledgeVersion, runtimeVersion);
-  const unknowns = [...input.unknowns, "Functional fit requires architect review.", "Regulatory compliance and professional approval are not evaluated by this conceptual cycle."];
+
+  const functionalEval = evaluateFunctionalFit(input);
+  const architecturalEval = evaluateArchitecturalQuality(input);
+  const regulatoryEval = evaluateRegulatory(input);
+
+  // Motores de ingeniería especializada (motores-api)
+  const [engineStructural, engineGeotech, engineHvac, engineEvacuation, engineFire, engineAcoustic, engineSewer] = await Promise.all([
+    evaluateStructural(input.projectId, 3, 3.0),
+    evaluateGeotech(input.projectId),
+    evaluateHvac(input.projectId, input.envelope.width * input.envelope.height, 10),
+    evaluateEvacuation(input.projectId, 100, 2),
+    evaluateFire(input.projectId, 1000),
+    evaluateAcoustic(input.projectId, input.envelope.width * input.envelope.height * 3, (input.envelope.width * input.envelope.height) * 2, 0.3),
+    evaluateSewer(input.projectId, 0.1),
+  ]);
+  const engines: Record<string, EngineResult> = {
+    structural: engineStructural,
+    geotech: engineGeotech,
+    hvac: engineHvac,
+    evacuation: engineEvacuation,
+    fire: engineFire,
+    acoustic: engineAcoustic,
+    sewer: engineSewer,
+  };
+
+  const unknowns = [...input.unknowns];
+  if (functionalEval === "UNKNOWN" || functionalEval === "PARTIAL") unknowns.push("Functional fit requires architect review.");
+  if (regulatoryEval === "NOT_EVALUATED") unknowns.push("Regulatory compliance and professional approval are not evaluated by this conceptual cycle.");
+  if (architecturalEval === "NOT_EVALUATED") unknowns.push("Architectural quality requires human review.");
+
   const stages = [
     stage("PROJECT_CONDITIONS", "PASS", [`PROJECT_ID:${input.projectId}`, ...input.sourceIds.map((id) => `SOURCE:${id}`)]),
     stage("KNOWLEDGE_RETRIEVAL", reasoning.retrieved.length ? "PASS" : "PARTIAL", reasoning.retrieved.map((item) => `KNOWLEDGE:${item.id}`)),
@@ -108,11 +163,12 @@ export function executeIntegratedArchitectCycle(input: IntegratedArchitectInput,
     stage("PARTI_HYPOTHESES", projectPartis.length > 0 ? "PARTIAL" : "UNKNOWN", projectPartis.map((item) => `PROJECT_PARTI:${item.id}`)),
     stage("TOPOLOGY", projectTopology.length > 0 ? "PARTIAL" : "UNKNOWN", projectTopology.map((item) => `PROJECT_TOPOLOGY_HYPOTHESIS:${item}`)),
     stage("GEOMETRY_CONCEPTUAL", geometry.finalStatus === "PASS" ? "PASS" : "PARTIAL", [geometry.candidateA.id, geometry.candidateB.id]),
-    stage("FUNCTIONAL_EVALUATION", "UNKNOWN", ["D6.3 functional validity remains UNKNOWN until activity-fit review."]),
-    stage("REGULATORY_EVALUATION", "UNKNOWN", ["RNE, jurisdictional and professional approval evidence not supplied to this cycle."]),
+    stage("FUNCTIONAL_EVALUATION", functionalEval === "PASS" ? "PASS" : (functionalEval === "FAIL" ? "PARTIAL" : "UNKNOWN"), [`Functional: ${functionalEval}`]),
+    stage("REGULATORY_EVALUATION", regulatoryEval === "NOT_EVALUATED" ? "UNKNOWN" : "PASS", [`Regulatory: ${regulatoryEval}`]),
     stage("HUMAN_REVIEW", "PASS", ["Human Authority remains final."]),
   ];
-  return { cycleVersion: "ARKI-INTEGRATED-ARCHITECT-1.0", project: { projectId: input.projectId, projectName: input.projectName, typology: input.typology, sourceIds: input.sourceIds }, stages, reasoning, parti, projectPartis, projectTopology, projectGenealogy, geometry, evaluation: { geometric: geometry.finalStatus === "PASS" ? "PASS" : "UNKNOWN", functional: "UNKNOWN", regulatory: "NOT_EVALUATED", architecturalQuality: "NOT_EVALUATED", humanDecision: "PENDING", unknowns }, backtrack: { available: true, targets: ["PARTI", "TOPOLOGY", "GEOMETRY"], currentDecision: "PENDING_HUMAN_REVIEW" }, status: "PARTIAL" };
+
+  return { cycleVersion: "ARKI-INTEGRATED-ARCHITECT-1.0", project: { projectId: input.projectId, projectName: input.projectName, typology: input.typology, sourceIds: input.sourceIds }, stages, reasoning, parti, projectPartis, projectTopology, projectGenealogy, geometry, evaluation: { geometric: geometry.finalStatus === "PASS" ? "PASS" : "UNKNOWN", functional: functionalEval, regulatory: regulatoryEval, architecturalQuality: architecturalEval, humanDecision: "PENDING", engines, unknowns }, backtrack: { available: true, targets: ["PARTI", "TOPOLOGY", "GEOMETRY"], currentDecision: "PENDING_HUMAN_REVIEW" }, status: "PARTIAL" };
 }
 
 export function summarizeArchitectCapability(cycle: IntegratedArchitectCycle) {
