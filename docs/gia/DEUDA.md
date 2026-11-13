@@ -69,3 +69,13 @@ Los siguientes comandos están en el catálogo unificado con `action: "pending_i
 - `/ASSET REGISTER`, `/ALTERNATIVE CREATE`, `/ALTERNATIVE SET`, `/COMPARE`, `/EVALUATE`, `/RECOMMEND`, `/TRADEOFF_MATRIX`
 
 **Impacto:** el frontend los muestra, pero el Core no los ejecuta. **Hay que implementarlos en `cli.py` (Fase Core).**
+
+### Estado del CI (2026-11-13)
+
+| Check | Estado | Causa | Impacto |
+|---|---|---|---|
+| `GIA CI` | ✅ Verde | 10 tests de razonamiento | — |
+| `SICL Web CI/verify` | ❌ Falla | Test 4 de `command-bar` (deuda #1) | No bloquea el hito UI (14/15 pass) |
+| `parametric-v10` | ❌ Falla | `db.ts` sin `memoryParametricFiles.has` (deuda preexistente) | No es del PR #144 |
+
+**El `SICL Web CI` falla por el Test 4 de `command-bar` (deuda documentada).** **El `parametric-v10` falla por el `db.ts` (deuda preexistente, no del PR #144).** **La regla de protección de `main` no exige checks verdes, solo PR.**
