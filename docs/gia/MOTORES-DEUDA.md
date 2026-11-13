@@ -240,3 +240,28 @@ Con 35 tipologías pendientes y 29 actuales:
 **Deuda de Fase GIA-Defensa:** extender el schema con los 6 campos, actualizar los 7 fixtures, y añadir tests específicos.
 
 **Prioridad:** Media. El hito de 59 tipologías cierra con el modelado genérico; el modelado específico es Fase GIA-Defensa.
+
+
+---
+
+## Deuda de Fase Sostenibilidad (2026-11-13)
+
+**El motor de sostenibilidad cuantificada (Fase 1) implementa A1-A5, B6 y Net Zero score. Lo que falta:**
+
+| Módulo EN 15978 | Qué falta | Prioridad |
+|---|---|---|
+| **A4-A5** | Distancia real de transporte por material (hoy es 100 km genérico) | Media |
+| **B1-B5** | Mantenimiento, reparación, reemplazo (requiere datos de vida útil por material) | Alta |
+| **B7** | Agua operacional (requiere motor de agua, no existe) | Media |
+| **C1-C4** | Deconstrucción, transporte de residuos, disposición | Alta |
+| **D** | Beneficios de reutilización/recuperación/reciclaje | Media |
+| **EPD específicos** | Factores de ICE v3.0 son genéricos; EPD específicos por producto son Fase 1.5 | Alta |
+| **Base completa** | 24 materiales vs ~300 de ICE v3.0 | Media |
+| **Certificaciones** | LEED, BREEAM, EDGE, WELL (cada uno tiene su propio scoring) | Alta |
+
+**Referencias:**
+- EN 15978:2011 (Sustainability of construction works).
+- RICS WLCA 2023 (Whole Life Carbon Assessment).
+- LETI Climate Emergency Design Guide (2020).
+- RIBA 2030 Climate Challenge v3 (2021).
+- ICE Database v3.0 (University of Bath, 2019).
