@@ -8,8 +8,8 @@ const input: UnifiedMotorInput = {
 };
 
 describe("ARKI-UNIFIED-MOTOR-1.0", () => {
-  it("routes active, frozen, blocked and not-demonstrated pieces through one trace", () => {
-    const result = executeArkiUnifiedMotor(input);
+  it("routes active, frozen, blocked and not-demonstrated pieces through one trace", async () => {
+    const result = await executeArkiUnifiedMotor(input);
     expect(result.motorVersion).toBe("ARKI-UNIFIED-MOTOR-1.0");
     expect(result.status).toBe("PARTIAL");
     expect(result.triad.oneMotor).toBe(true);
@@ -22,8 +22,8 @@ describe("ARKI-UNIFIED-MOTOR-1.0", () => {
     expect(result.routing.find((item) => item.pieceId === "BIM-DWG-REVIT-GIS")?.route).toBe("HOLD");
   });
 
-  it("preserves frozen and blocked status instead of silently activating it", () => {
-    const result = executeArkiUnifiedMotor(input);
+  it("preserves frozen and blocked status instead of silently activating it", async () => {
+    const result = await executeArkiUnifiedMotor(input);
     const capability = unifiedMotorCapability(result);
     expect(capability.oneMotor).toBe(true);
     expect(capability.frozenPiecesPreserved).toEqual(expect.arrayContaining(["MC-02", "MC-03", "FKCG-02"]));
@@ -34,8 +34,8 @@ describe("ARKI-UNIFIED-MOTOR-1.0", () => {
     expect(capability.triad.representationPolicy).toBe("SAME_SEMANTIC_IDENTITY_MULTIPLE_CONTROLLED_REPRESENTATIONS");
   });
 
-  it("supports a requested subset while retaining the same motor and human authority", () => {
-    const result = executeArkiUnifiedMotor({ ...input, requestedPieces: ["D6.2-M", "PARTI-CONTRACT-1.0", "MC-02", "DG-01B"] });
+  it("supports a requested subset while retaining the same motor and human authority", async () => {
+    const result = await executeArkiUnifiedMotor({ ...input, requestedPieces: ["D6.2-M", "PARTI-CONTRACT-1.0", "MC-02", "DG-01B"] });
     expect(result.pieceRegistry.map((item) => item.id)).toEqual(["D6.2-M", "PARTI-CONTRACT-1.0", "MC-02", "DG-01B"]);
     expect(result.humanAuthority).toBe("FINAL");
     expect(result.cycle.evaluation.humanDecision).toBe("PENDING");

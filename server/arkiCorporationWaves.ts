@@ -51,7 +51,7 @@ export function executeWave5(): Wave5Result {
 
 export type CorporationWavesInput = UnifiedMotorInput & { wave2?: Wave2Input; costLines?: CostLine[]; bimElements?: BimElement[]; wave4: Wave4Input };
 export type CorporationWavesResult = { motor: UnifiedMotorResult; wave2: Wave2Result; wave3: Wave3Result; wave4: Wave4Result; wave5: Wave5Result; status: "CORPORATION_WAVES_PARTIAL_WITH_BOUNDS"; humanAuthority: "FINAL" };
-export function executeCorporationWaves(input: CorporationWavesInput): CorporationWavesResult {
-  const motor = executeArkiUnifiedMotor(input);
+export async function executeCorporationWaves(input: CorporationWavesInput): Promise<CorporationWavesResult> {
+  const motor = await executeArkiUnifiedMotor(input);
   return { motor, wave2: evaluateWave2(input.wave2 ?? { measurements: [] }), wave3: executeWave3(input.costLines, input.bimElements), wave4: executeWave4(input.wave4), wave5: executeWave5(), status: "CORPORATION_WAVES_PARTIAL_WITH_BOUNDS", humanAuthority: "FINAL" };
 }
