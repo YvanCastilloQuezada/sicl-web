@@ -134,3 +134,30 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 - **Carbono existente (A1-A5 original):** depende de datos históricos. Para producción se necesita una base de datos de edificios existentes.
 - **Condición estructural:** hoy es un enum (`good`/`fair`/`poor`). Para producción se necesita inspección real.
 - **Integración con el ciclo:** las funciones son aisladas. Fase 2.5 las integra con `executeIntegratedArchitectCycle`.
+
+
+---
+
+## Motor de Resiliencia Climática (Fase 3, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (flood risk + heat island + drought + score combinado).**
+
+### Capacidades
+
+| Función | Qué hace | Referencia |
+|---|---|---|
+| `floodRisk` | Riesgo de inundación (LOW/MEDIUM/HIGH) | Banco Mundial RMA |
+| `heatIslandScore` | Isla de calor urbana (UHI °C) | UWG + EnergyPlus |
+| `droughtResilience` | Resiliencia a sequía (cobertura %) | MINSA / SUNASS |
+| `resilienceIndex` | Score combinado (PASS/PARTIAL/FAIL) | Los 3 anteriores |
+
+### Tests
+
+8/8 PASS en `server/gia/resilience/resilience.test.ts`.
+
+### Deuda conocida
+
+- **Datos topográficos reales (DEM):** hoy es `slope` + `elevation_m` + `proximityToWater_m` manual; para producción se necesita DEM (Shuttle Radar Topography Mission, ALOS).
+- **Datos climáticos históricos:** hoy es `climate` string + `rainfall_mm` manual; para producción se necesita SENAMHI.
+- **Modelo UHI calibrado:** hoy es genérico por clima; para producción se necesita calibración por ciudad (UWG).
+- **Integración con el ciclo:** las funciones son aisladas. Fase 3.5 las integra con `executeIntegratedArchitectCycle`.
