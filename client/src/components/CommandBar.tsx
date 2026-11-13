@@ -7,9 +7,16 @@ import catalogData from "@/content/commands-catalog.json";
 const catalog: any[] = Object.values(catalogData.categories || {}).flat();
 import aliasRegistry from "@/content/command-aliases.json";
 import i18n from "@/i18n";
-import { apiErrorMessage, siclClient, type CopilotIntent } from "@/api/sicl-client";
+import { apiErrorMessage, siclClient } from "@/api/sicl-client";
 import { analyzeVisualField, ingestVisualSource, type VisualFieldProposal } from "@/api/visual-field";
 import { cn } from "@/lib/utils";
+
+type CopilotIntent = {
+  command: string;
+  status: string;
+  confidence: number;
+  explanation: string;
+};
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { GUIDED_MODE_KEY, type ExperienceMode } from "@/components/GuidedShell";

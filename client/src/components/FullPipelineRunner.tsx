@@ -13,10 +13,12 @@ export default function FullPipelineRunner({ onClose }: { onClose: () => void })
   const [activeTab, setActiveTab] = useState<'3D' | 'PLAN' | 'SECTION' | 'RENDER'>('3D');
 
   // Datos simulados del edificio generado para el visor 3D
+  // Datos simulados de demo: solo geometry3d y geometry2d son usados por ProfessionalFamilyViewer.
+  // El resto de campos de GeneratedBuilding no aplican a este visor de demo.
   const generatedBuilding = {
     geometry3d: { floors: 5, heightM: 20, massing: "COURTYARD_MASS" },
     geometry2d: { widthM: 80, depthM: 60, footprintM2: 4800, courtyardM2: 800 }
-  };
+  } as unknown as import("@shared/arkiDynamicFamilies").GeneratedBuilding;
 
   const pipelineSteps = [
     { phase: "F1", text: "Interpretando prompt y extrayendo parámetros (NLP)..." },

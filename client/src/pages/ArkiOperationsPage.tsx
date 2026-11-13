@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 type Argument = { name: string; required: boolean; type: string; values?: string[] };
 type Command = { name: string; category: string; syntax: string; arguments: Argument[]; example: string; errors: string[] };
-const commands = catalog as Command[];
+const commands: Command[] = Object.values((catalog as unknown as { categories: Record<string, Command[]> }).categories).flat();
 const categories = ["all", ...Array.from(new Set(commands.map((command) => command.category)))];
 const projectId = () => localStorage.getItem("arki-active-project-id") || "ARK-ARK-123-456";
 

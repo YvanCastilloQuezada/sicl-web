@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
-import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import { Button } from "@/components/ui/button";
 import {
   createDemoCandidates,
@@ -163,14 +162,7 @@ export default function FunnelGallery({ params, partis = [], projectId }: Funnel
             >
               {/* Visor 3D real (si hay geometría) o conceptual */}
               <div className="relative aspect-square bg-[#0a1825]">
-                {candidate.building ? (
-                  <ProfessionalFamilyViewer 
-                    building={candidate.building} 
-                    mode="MODEL_3D" 
-                    quality="media" 
-                    resolution="hd" 
-                  />
-                ) : (
+                {
                   <>
                     <div className="absolute inset-0 opacity-30" style={{
                       backgroundImage: 'radial-gradient(#d4ff3a 1px, transparent 1px)',
@@ -180,7 +172,7 @@ export default function FunnelGallery({ params, partis = [], projectId }: Funnel
                       <span className="text-[6px] text-[#d4ff3a]/60 text-center">{candidate.strategy}</span>
                     </div>
                   </>
-                )}
+                }
                 <Badge className="absolute top-1 right-1 bg-[#061522]/80 text-[#d4ff3a] border-[#d4ff3a]/30 text-[7px] px-1 py-0">
                   P{String(idx + 1).padStart(2, '0')}
                 </Badge>
@@ -193,7 +185,7 @@ export default function FunnelGallery({ params, partis = [], projectId }: Funnel
               {/* Datos */}
               <div className="p-1.5">
                 <h3 className="text-[8px] font-bold line-clamp-1">{candidate.title}</h3>
-                <p className="text-[7px] text-[#8fa8bc] mt-0.5">{candidate.metrics?.area?.toFixed(0) || "?"} m²</p>
+                <p className="text-[7px] text-[#8fa8bc] mt-0.5">{candidate.metrics?.area != null ? Number(candidate.metrics.area).toFixed(0) : "?"} m²</p>
               </div>
             </div>
           ))}
