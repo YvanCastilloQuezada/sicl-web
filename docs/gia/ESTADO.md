@@ -63,3 +63,43 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 
 ### Deuda de Fase GIA-Divergencia
 `DynamicParti` (lo que el ciclo produce) no tiene la estructura de `Parti` (spaces, edges, accessOrder). Conectar `DynamicParti` con `passesGIA002` cuando lo tenga.
+
+
+---
+
+## Motor de Sostenibilidad Cuantificada (Fase 1, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (A1-A5 + B6 + Net Zero score).**
+
+### Capacidades
+
+| Función | Qué hace | Benchmark |
+|---|---|---|
+| `calculateEmbodiedCarbon` | Carbono incorporado A1-A5 (producto + construcción) | EN 15978, RICS WLCA 2023 |
+| `calculateOperationalCarbon` | Carbono operacional B6 (60 años) | RICS WLCA 2023 |
+| `netZeroScore` | Score contra LETI 2020 y RIBA 2030 | LETI 2020, RIBA 2030 |
+
+### Factores de carbono
+
+- **24 materiales** con GWP de ICE Database v3.0 (University of Bath, 2019).
+- Incluye **madera con GWP negativo** (captura de carbono biogénico).
+- Incluye **acero reciclado** (0.47 vs 1.99 kgCO2e/kg).
+- Incluye **aluminio reciclado** (0.49 vs 12.79 kgCO2e/kg).
+
+### Benchmarks
+
+- **LETI 2020:** A1-A5 < 350 kgCO2e/m2.
+- **RIBA 2025:** A1-A5 < 750 kgCO2e/m2.
+- **RIBA 2030:** A1-A5 < 625 kgCO2e/m2.
+
+### Tests
+
+12/12 PASS en `server/gia/sustainability/sustainability.test.ts`.
+
+### Deuda conocida
+
+- **A4-A5 aproximado:** usa 5% de A1-A3 + transporte con factor genérico (0.000105 kgCO2e/kg/km). Para producción, se necesita distancia real por material.
+- **B1-B7 no implementado:** solo B6 (energía operacional). B1-B5 (uso, mantenimiento, reparación) y B7 (agua) son Fase 1.5.
+- **C1-C4 no implementado:** fin de vida (deconstrucción, transporte, residuos). Fase 1.5.
+- **D no implementado:** beneficios más allá del sistema (reutilización, recuperación). Fase 1.5.
+- **Factores estáticos:** los 24 materiales son un subconjunto de ICE v3.0. Para producción, se necesita la base completa (~300 materiales) o un EPD específico por proyecto.
