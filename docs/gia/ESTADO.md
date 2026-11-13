@@ -175,3 +175,26 @@ Implementado en `server/gia/divergence.ts` + `server/gia/divergence.test.ts`.
 **Evidencia:** 46 ramas locales + ~180 remotas. La mayoría son de sesiones anteriores y están mergeadas o muertas.
 
 **Acción:** script de limpieza con `git branch --merged main | xargs git branch -d` (cuidado con las no mergeadas). Fase separada.
+
+
+---
+
+## Hito: CI de GIA verde (2026-11-13)
+
+**Estado: ✅ LOGRADO por primera vez desde el inicio del hito β+.**
+
+Tras el rediseño de `.github/workflows/gia-ci.yml` (PR #150), el CI de GIA tiene **3 jobs independientes**:
+
+| Job | Qué corre | Estado | Tiempo |
+|---|---|---|---|
+| `type-check-gia` | `tsc -p tsconfig.gia.json` | ✅ PASS | 28s |
+| `test-gia-unit` | `arkiGia.test.ts` + `divergence.test.ts` (15 tests) | ✅ PASS | 19s |
+| `test-gia-integration` | `arkiGiaMotores` + `arkiGiaStructural` + `arkiGiaStructuralWorld` + `arkiGiaNsga2` (skip con warning si motores-api no responde) | ✅ PASS (skip honesto) | 17s |
+
+**Lo que NO está verde (deudas ajenas al PR #150):**
+- `artifactId global (ADR-0001)`: workflow `parametric-v10.yml` busca código obsoleto (`memoryParametricFiles` no existe en `server/db.ts`).
+- `verify`: 2 tests preexistentes en `main` (`arkiAuthorityProfile.test.ts`, `command-bar.test.ts`).
+
+**Decisión:** los tests de integración GIA-011..025 requieren `motores-api`, que pesa 6.7 GB con los 7 motores. Levantarlo en CI es inviable. El CI corre los unitarios (15 tests) y skipea los de integración con warning visible. Los de integración se ejecutan localmente con `motores-api` levantado.
+
+**Consecuencia:** el CI de GIA ya **no bloquea merges por deudas ajenas al código**. Es la primera vez que el CI de GIA refleja solo el estado del código de GIA.
