@@ -126,6 +126,8 @@ Implementado en `server/gia/divergence.ts` + `server/gia/divergence.test.ts`.
 
 **Importante:** el hito β+ está construido sobre los **25 tests que pasan** (GIA-001..023). GIA-025 es la única deuda de GIA, y es deuda **Python** (endpoint `motores-api`), no TypeScript.
 
+**Nota sobre el conteo:** el CI reporta **22/25** porque el script `test` de `package.json` excluye `arkiGiaNsga2.test.ts` de su cuenta. La realidad completa es **25/28** (incluye GIA-025). La tabla de criterios usa la numeración GIA (001..025), no el conteo del CI. Ambas vistas son correctas pero miden cosas distintas.
+
 **Decisión:** GIA-025 se declara deuda de Fase 4 (motores conceptuales → reales). No bloquea el hito β+. El hito β+ se sostiene sobre 22/22 tests de ciclo + motores + structural world.
 
 ### Deuda de `main` (no del PR #147)
