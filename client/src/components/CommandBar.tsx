@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { BookOpen, Camera, CheckCircle2, ChevronDown, Command, Download, History, Info, Loader2, MessageSquare, Mic, Search, Send, Settings2, Sparkles, Terminal, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import catalogData from "@/content/commands-catalog.json";
+import catalogData from "@/content/commands-catalog-unified.json";
 
 // ARKI: Aplanar el catálogo de categorías a un array plano de comandos
-const catalog: any[] = Object.values(catalogData.categories || {}).flat();
+const catalog: any[] = (catalogData as any).commands || [];
 import aliasRegistry from "@/content/command-aliases.json";
 import i18n from "@/i18n";
 import { apiErrorMessage, siclClient } from "@/api/sicl-client";
@@ -43,13 +43,13 @@ type AliasRegistry = {
 
 type CatalogCommand = {
   name: string;
-  compact: string;
   legacy: string;
   category: string;
   syntax: string;
   arguments: { name: string; required: boolean; type: string; values?: string[] }[];
   example: string;
   errors: string[];
+  description?: string | { es?: string; en?: string };
 };
 
 export type CommandContext = {
@@ -78,16 +78,15 @@ const LANGUAGE_OPTIONS = [
   ["es", "Español"], ["en", "English"], ["pt", "Português"], ["it", "Italiano"],
   ["fr", "Français"], ["de", "Deutsch"], ["ru", "Русский"], ["zh", "中文"],
 ] as const;
-const commands: CatalogCommand[] = catalog.map((item: any) => ({
-  command: item.command,
-  name: item.command,
-  compact: item.command?.split(/\s+/).slice(0, 2).join(" ") ?? "",
-  legacy: item.command ?? "",
-  category: item.category ?? "General",
-  syntax: item.command ?? "",
-  arguments: (item.args || []).map((arg: string) => ({ name: arg, required: true, type: "string" })),
-  example: item.command ?? "",
+const commands: CatalogCommand[] = ((catalogData as any).commands || []).map((item: any) => ({
+  name: item.name,
+  legacy: item.name || "",
+  category: item.category || "General",
+  syntax: item.name || "",
+  arguments: (item.args || []).map((arg: any) => typeof arg === "string" ? { name: arg, required: true, type: "string" } : arg),
+  example: item.name || "",
   errors: [],
+  description: item.description,
 })) as CatalogCommand[];
 const aliases = aliasRegistry as AliasRegistry;
 function readPreferredLocale(): string | null {
@@ -107,6 +106,11 @@ function localizedAliases(locale: string): LocalizedAlias[] {
 }
 
 function commandDescription(command: CatalogCommand): string {
+  // Usar la descripción del catálogo unificado (command.description)
+  if (command.description) {
+    return typeof command.description === "string" ? command.description : (command.description.es || command.description.en || "");
+  }
+  // Fallback: descripciones hardcodeadas
   const descriptions: Record<string, string> = {
     "/PROJECT CREATE": "Crea un espacio de trabajo con alcance espacial y temporal explícito.",
     "/PROJECT OPEN": "Abre un proyecto existente por su identificador.",
@@ -126,7 +130,7 @@ function commandExample(command: CatalogCommand): string {
     alternative_id: "ALT-001", alternative: "ALT-001", source_id: "SRC-001", evidence_id: "EVD-001",
   };
   const required = command.arguments.filter((arg) => arg.required).map((arg) => values[arg.name] ?? arg.values?.[0] ?? `DEMO-${arg.name.toUpperCase()}`);
-  return `${command.compact}${required.length ? ` ${required.join(" ")}` : ""}`;
+  return `${command.name}${required.length ? ` ${required.join(" ")}` : ""}`;
 }
 
 export function normalizeLocalizedCommand(input: string, locale = activeLocale()): { canonical: string; aliasUsed: boolean; aliasStatus: string } | null {
@@ -140,8 +144,11 @@ export function normalizeLocalizedCommand(input: string, locale = activeLocale()
     if (match.status !== "ACTIVE") return { canonical: match.canonical + value.slice(match.alias.length), aliasUsed: true, aliasStatus: match.status };
     return { canonical: match.canonical + value.slice(match.alias.length), aliasUsed: true, aliasStatus: match.status };
   }
-  const compact = commands.find((item) => upper === item.compact || upper.startsWith(`${item.compact} `));
-  if (compact) return { canonical: `${compact.name}${value.slice(compact.compact.length)}`, aliasUsed: false, aliasStatus: "COMPACT_CANONICAL" };
+  // Resolver por name (comando largo)
+  const nameMatch = commands.find((item) => upper === item.name.toUpperCase() || upper.startsWith(`${item.name.toUpperCase()} `));
+  if (nameMatch) {
+    return { canonical: `${nameMatch.name}${value.slice(nameMatch.name.length)}`, aliasUsed: false, aliasStatus: "CANONICAL" };
+  }
   const legacy = commands.find((item) => upper === item.legacy || upper.startsWith(`${item.legacy} `));
   return legacy ? { canonical: value, aliasUsed: false, aliasStatus: "LEGACY_ALIAS" } : null;
 }
@@ -162,13 +169,13 @@ function writeHistory(items: string[]) {
 export function commandSuggestions(input: string, context: CommandContext = {}, locale = activeLocale()): string[] {
   const value = input.trim();
   const visibleAliases = localizedAliases(locale);
-  if (!value) return [...commands.slice(0, 8).map((item) => item.compact), ...visibleAliases.slice(0, 4).map((item) => item.alias)];
+  if (!value) return [...commands.slice(0, 8).map((item) => item.name), ...visibleAliases.slice(0, 4).map((item) => item.alias)];
   const upper = value.toUpperCase();
-  if (!value.includes(" ") && !commands.some((item) => item.compact === upper)) {
+  if (!value.includes(" ") && !commands.some((item) => item.name.toUpperCase() === upper)) {
     const localized = visibleAliases.filter((item) => item.alias.toUpperCase().startsWith(upper)).map((item) => item.alias);
-    const compact = commands.filter((item) => item.compact.startsWith(upper)).map((item) => item.compact);
-    const legacy = commands.filter((item) => item.legacy.startsWith(upper)).map((item) => item.legacy);
-    return [...compact, ...localized, ...legacy].slice(0, 12);
+    const names = commands.filter((item) => item.name.toUpperCase().startsWith(upper)).map((item) => item.name);
+    const legacy = commands.filter((item) => item.legacy.toUpperCase().startsWith(upper)).map((item) => item.legacy);
+    return [...names, ...localized, ...legacy].slice(0, 12);
   }
   const tokens = value.split(/\s+/);
   const localized = visibleAliases.find((item) => item.alias.toUpperCase() === tokens.slice(0, item.alias.split(" ").length).join(" ").toUpperCase());
@@ -181,9 +188,9 @@ export function commandSuggestions(input: string, context: CommandContext = {}, 
     if (arg) return [`<${arg.name}>`];
     return [];
   }
-  const command = commands.find((item) => item.compact === tokens[0].toUpperCase() || item.legacy === tokens.slice(0, item.legacy.split(" ").length).join(" ").toUpperCase());
-  if (!command) return commands.filter((item) => item.compact.startsWith(upper) || item.legacy.startsWith(upper)).map((item) => item.compact).slice(0, 12);
-  const commandTokenCount = tokens[0].toUpperCase() === command.compact ? 1 : command.legacy.split(" ").length;
+  const command = commands.find((item) => item.name.toUpperCase() === tokens[0].toUpperCase() || item.legacy === tokens.slice(0, item.legacy.split(" ").length).join(" ").toUpperCase());
+  if (!command) return commands.filter((item) => item.name.toUpperCase().startsWith(upper) || item.legacy.startsWith(upper)).map((item) => item.name).slice(0, 12);
+  const commandTokenCount = tokens[0].toUpperCase() === command.name.toUpperCase() ? 1 : command.legacy.split(" ").length;
   const argIndex = tokens.length - commandTokenCount;
   const arg = command.arguments[argIndex];
   if (command.name === "/OBJECTIVE SET" && argIndex === 0) return context.objectives ?? [];
@@ -197,9 +204,9 @@ export function commandSuggestions(input: string, context: CommandContext = {}, 
 export function validateCommand(input: string): string | null {
   const value = input.trim();
   const upper = value.toUpperCase();
-  const command = commands.find((item) => upper === item.compact || upper.startsWith(`${item.compact} `) || upper === item.legacy || upper.startsWith(`${item.legacy} `));
+  const command = commands.find((item) => upper === item.name.toUpperCase() || upper.startsWith(`${item.name.toUpperCase()} `) || upper === item.legacy || upper.startsWith(`${item.legacy} `));
   if (!command) return "COMMAND_NOT_FOUND";
-  const tokenCount = upper === command.compact || upper.startsWith(`${command.compact} `) ? 1 : command.legacy.split(" ").length;
+  const tokenCount = upper === command.name.toUpperCase() || upper.startsWith(`${command.name.toUpperCase()} `) ? command.name.split(" ").length : command.legacy.split(" ").length;
   const args = value.split(/\s+/).slice(tokenCount);
   const required = command.arguments.filter((arg) => arg.required).length;
   if (args.length < required) return "MISSING_REQUIRED_ARGUMENT";
