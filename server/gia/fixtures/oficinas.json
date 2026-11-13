@@ -1,0 +1,97 @@
+{
+  "projectId": "OFI-TOR-001-001",
+  "projectName": "Torre de oficinas 12 pisos",
+  "typology": "OFICINAS",
+  "brief": "Oficinas corporativas con espacios colaborativos, servicios y circulación vertical.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 600
+  },
+  "constraints": [
+    "RNE A.010",
+    "RNE A.070",
+    "RNE A.130",
+    "Separar flujo público (lobby) de flujo corporativo",
+    "Núcleo de circulación vertical central"
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Oficina abierta",
+      "capacity": 300
+    },
+    {
+      "id": "act-2",
+      "name": "Salas de reunión",
+      "capacity": 80
+    },
+    {
+      "id": "act-3",
+      "name": "Lobby",
+      "capacity": 50
+    },
+    {
+      "id": "act-4",
+      "name": "Servicios",
+      "capacity": 20
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "act-3",
+      "target": "act-2",
+      "relation": "ADJACENT",
+      "subjects": [
+        "empleado",
+        "visitante"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-1",
+      "target": "act-2",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "empleado"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-4",
+      "target": "act-1",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "personal"
+      ],
+      "control": "RESTRICTED"
+    }
+  ],
+  "subjects": [
+    "empleado",
+    "visitante",
+    "personal"
+  ],
+  "conditions": [
+    "núcleo de circulación vertical central",
+    "evacuación clara",
+    "acceso público controlado"
+  ],
+  "unknowns": [
+    "normativa local de oficinas requiere revisión",
+    "capacidad de carga vertical requiere verificación"
+  ],
+  "envelope": {
+    "width": 40,
+    "height": 40
+  },
+  "sourceIds": [
+    "SRC-OFI-BRIEF",
+    "SRC-NTE-OFICINAS"
+  ]
+}

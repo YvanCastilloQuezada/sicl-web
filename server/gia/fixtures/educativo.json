@@ -1,0 +1,98 @@
+{
+  "projectId": "EDU-COL-001-001",
+  "projectName": "Colegio secundario 800 alumnos",
+  "typology": "EDUCATIVO",
+  "brief": "Colegio con aulas, talleres, biblioteca, administración y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z3",
+    "tipo_suelo": "S2",
+    "occupancy": 800
+  },
+  "constraints": [
+    "RNE A.010",
+    "RNE A.040",
+    "RNE A.130",
+    "Separar flujo público de flujo académico",
+    "Rutas de evacuación visibles"
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Aulas",
+      "capacity": 30
+    },
+    {
+      "id": "act-2",
+      "name": "Talleres",
+      "capacity": 20
+    },
+    {
+      "id": "act-3",
+      "name": "Biblioteca",
+      "capacity": 60
+    },
+    {
+      "id": "act-4",
+      "name": "Administración",
+      "capacity": 10
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "act-1",
+      "target": "act-3",
+      "relation": "ADJACENT",
+      "subjects": [
+        "alumno",
+        "profesor"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-1",
+      "target": "act-2",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "alumno"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-4",
+      "target": "act-1",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "administrativo"
+      ],
+      "control": "RESTRICTED"
+    }
+  ],
+  "subjects": [
+    "alumno",
+    "profesor",
+    "administrativo",
+    "visitante"
+  ],
+  "conditions": [
+    "aulas con orientación norte",
+    "evacuación clara y directa",
+    "acceso público controlado"
+  ],
+  "unknowns": [
+    "normativa local de colegios requiere revisión",
+    "capacidad de evacuación requiere verificación"
+  ],
+  "envelope": {
+    "width": 80,
+    "height": 60
+  },
+  "sourceIds": [
+    "SRC-EDU-BRIEF",
+    "SRC-NTE-EDUCATIVO"
+  ]
+}

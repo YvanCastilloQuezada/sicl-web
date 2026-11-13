@@ -198,3 +198,37 @@ Tras el rediseño de `.github/workflows/gia-ci.yml` (PR #150), el CI de GIA tien
 **Decisión:** los tests de integración GIA-011..025 requieren `motores-api`, que pesa 6.7 GB con los 7 motores. Levantarlo en CI es inviable. El CI corre los unitarios (15 tests) y skipea los de integración con warning visible. Los de integración se ejecutan localmente con `motores-api` levantado.
 
 **Consecuencia:** el CI de GIA ya **no bloquea merges por deudas ajenas al código**. Es la primera vez que el CI de GIA refleja solo el estado del código de GIA.
+
+
+---
+
+## Doctrina ARKI: piensa en 3D, dibuja en 2D, todo determinista
+
+### Principios
+
+1. **ARKI piensa en 3D.** El razonamiento arquitectónico, la geometría candidata, el análisis estructural y las evaluaciones se hacen en 3D.
+2. **ARKI dibuja en 2D.** La representación y comunicación (planos, cortes, vistas) se hace en 2D, a partir del modelo 3D.
+3. **Todo es determinista.** Misma entrada → mismo resultado bit-a-bit. Los motores estocásticos son deuda, no característica permanente.
+
+### Estado del determinismo por motor
+
+| Motor | Determinista | Deuda |
+|---|---|---|
+| structural | ✅ | — |
+| geotech | ✅ | — |
+| hvac | ✅ | — |
+| acoustic | ✅ | — |
+| sewer | ✅ | — |
+| evacuation | ❌ | jupedsim no fija seed (Fase 4) |
+| fire | ❌ | pycfast no fija seed (Fase 4) |
+
+### Consecuencia para GIA-010
+
+El test GIA-010 (Determinismo) compara:
+- Los campos escalares (`functional`, `regulatory`, `architecturalQuality`, `status`).
+- Los motores deterministas (`structural`, `geotech`, `hvac`, `acoustic`, `sewer`).
+- **NO** compara `evacuation` ni `fire` **hasta que se fije su seed en Fase 4**.
+
+Cuando ambos motores sean deterministas, GIA-010 comparará `cycle1.evaluation` completo.
+
+**TODO(Fase 4):** fijar `seed` en `jupedsim` y `pycfast` en `motores-api`.
