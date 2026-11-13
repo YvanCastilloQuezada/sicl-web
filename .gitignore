@@ -110,3 +110,7 @@ evidence/
 .arki-*-backup-*/
 .arki-*/bak-*.md
 *.bak-*
+
+# ARKI: backups de reestructuración docs
+*.conflict-*
+*.pre-simplify-*
