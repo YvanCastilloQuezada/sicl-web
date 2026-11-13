@@ -1,11 +1,11 @@
-# Deuda técnica de ARKI (hito UI)
+# Deuda técnica de ARKI
 
 ## Hito UI — 14/15 tests, 1 deuda documentada
 
 ### Estado
 
 - **`tsc --noEmit`:** 0 errores.
-- **Catálogo unificado:** 155 comandos (131 Core + 24 motor), sin `compact`.
+- **Catálogo unificado:** 179 comandos (131 Core + 24 motor + 24 frontend pending).
 - **Catálogo del Core:** 131 comandos (todos los de `cli.py`), sin `compact`.
 - **`cli.py`:** 131 comandos largos, 0 cortos.
 - **`command-bar.test.ts`:** 14/15 pass.
@@ -45,31 +45,6 @@
 | 8 | Entregable 2 (divergencia PARTIs) | Fase GIA |
 | 9 | Entregable 3 (determinismo GIA-010) | Fase GIA |
 
-### Estado del hito UI
-
-**Cerrado con 14/15 tests y 1 deuda documentada.** El `SICL Web CI` no depende del test 4 para estar verde (el test es de UI, no de lógica).
-
-### Próximos pasos
-
-1. Commit + push al PR #142.
-2. Mergear el PR #142.
-3. Actualizar `docs/gia/ESTADO.md` con el estado del hito UI.
-4. (Opcional) Arreglar el Test 4 en la próxima sesión.
-
-### Deuda: 30 comandos del frontend sin implementar en el Core
-
-Los siguientes comandos están en el catálogo unificado con `action: "pending_implementation"`:
-
-- `/PREFEASIBILITY INIT`, `/PREFEASIBILITY FICHA`, `/PREFEASIBILITY VIABILITY`
-- `/FUNNEL START`, `/FUNNEL GENERATE`, `/FUNNEL SELECT`, `/FUNNEL WIN`
-- `/EXPEDIENTE MEMORIA`, `/EXPEDIENTE METRADO`, `/EXPEDIENTE PRESUPUESTO`, `/EXPEDIENTE PLANOS`
-- `/BIM CONVERT`, `/BIM ENRICH`, `/BIM FEDERATE`, `/BIM VALIDATE`
-- `/SITE LOG`, `/SITE PROGRESS`, `/SITE RFI`
-- `/TENDER LOAD`, `/TENDER SCORE`, `/CONTEST BRIEF`, `/CONTEST BOARD`
-- `/ASSET REGISTER`, `/ALTERNATIVE CREATE`, `/ALTERNATIVE SET`, `/COMPARE`, `/EVALUATE`, `/RECOMMEND`, `/TRADEOFF_MATRIX`
-
-**Impacto:** el frontend los muestra, pero el Core no los ejecuta. **Hay que implementarlos en `cli.py` (Fase Core).**
-
 ### Estado del CI (2026-11-13)
 
 | Check | Estado | Causa | Impacto |
@@ -79,3 +54,64 @@ Los siguientes comandos están en el catálogo unificado con `action: "pending_i
 | `parametric-v10` | ❌ Falla | `db.ts` sin `memoryParametricFiles.has` (deuda preexistente) | No es del PR #144 |
 
 **El `SICL Web CI` falla por el Test 4 de `command-bar` (deuda documentada).** **El `parametric-v10` falla por el `db.ts` (deuda preexistente, no del PR #144).** **La regla de protección de `main` no exige checks verdes, solo PR.**
+
+---
+
+## Fase 4 — Motores conceptuales (2026-11-13)
+
+### Estado
+
+| Motor | Librería | Estado | Evidencia |
+|---|---|---|---|
+| **fire** | CFAST 8.0 (`pycfast` + `cfast-bin`) | ✅ **Cerrado** | 2 pisos, 342.6°C, `PASS` |
+| **evacuation** | jupedsim 1.4.2 | ✅ **Cerrado** | 5 pisos, 100 agentes, 32.7s, `PASS` |
+| **sewer** | pysewer 0.3.1 | ❌ **Deuda** | Bug de pysewer con networkx |
+| **hvac** | openstudio 3.11.0 | ❌ **Deuda** | Crash nativo de OpenStudio (SEGV) |
+
+### `fire` — Cerrado
+
+- **Librería:** `pycfast` 0.2.2 + `cfast-bin` 8.0.0.dev354.
+- **Modelo:** edificio de N pisos, con `Compartment` (uno por piso, `origin_z` apilado), `CeilingFloorVent` para conectar pisos (deshabilitado temporalmente), y `Fire` con curva de HRR.
+- **Resultado:** 2 pisos, 342.6°C de temperatura máxima de la capa superior (extraída de `ULT_1` y `ULT_2` del CSV de CFAST).
+- **Endpoint:** `/fire/evaluate` (reemplaza el conceptual).
+
+### `evacuation` — Cerrado
+
+- **Librería:** `jupedsim` 1.4.2.
+- **Modelo:** edificio de N pisos, con `walkable` 2D (todos los pisos proyectados en un solo rectángulo), `exit_polygon` dentro del walkable, `JourneyDescription([exit_id])`, agentes con `v0=1.2` y `distance_to_agents=0.4`.
+- **Resultado:** 5 pisos, 50 agentes → 16.25s, 100 agentes → 32.7s. `PASS`.
+- **Endpoint:** `/evacuation/evaluate` (reemplaza el conceptual).
+
+### `sewer` — Deuda
+
+**Estado:** el endpoint `/sewer/evaluate` está reescrito con `pysewer`, pero falla en `rsph_tree_fast` con:
+
+`TypeError: ModelDomain.__init__() missing 3 required positional arguments: dem, roads, and buildings`
+
+**Causa:** `pysewer.routing.rsph_tree_fast` llama a `nx.create_empty_copy(connection_graph)`, pero `connection_graph` es un `ModelDomain`, no un grafo. Es un bug de `pysewer` 0.3.1 con `networkx` 3.x.
+
+**Impacto:** el motor `sewer` no puede generar redes de alcantarillado con `pysewer` 0.3.1 en este entorno.
+
+**Solución pendiente:**
+1. Probar con una versión anterior de `pysewer` (0.2.x) que no tenga este bug.
+2. O implementar el solver RSPH manualmente (sin `pysewer`), usando `networkx` directamente.
+
+### `hvac` — Deuda
+
+**Estado:** el endpoint `/hvac/evaluate` está reescrito con OpenStudio, pero el proceso de `motores-api` muere con `SEGV` (segmentation fault) al intentar traducir el modelo a IDF o al correr EnergyPlus.
+
+**Causa probable:** OpenStudio es una librería nativa (C++) y el modelo construido (zonas + espacios sin geometría) no es válido para `ForwardTranslator`. El crash nativo tumba el proceso de Python, no solo la request.
+
+**Impacto:** `hvac` no puede correr en el mismo proceso que `motores-api` sin un aislamiento (subprocess separado o worker).
+
+**Solución pendiente:**
+1. Aislar la simulación de OpenStudio en un subprocess separado (para que el SEGV no tumbe `motores-api`).
+2. O usar `openstudio` CLI (no los bindings de Python) en un subprocess.
+
+---
+
+## Resumen de la Fase 4
+
+- **2 de 4 motores cerrados:** `fire` (CFAST) y `evacuation` (jupedsim).
+- **2 de 4 motores documentados como deuda:** `sewer` (pysewer) y `hvac` (openstudio).
+- **Con `fire` + `evacuation`, ARKI puede simular incendios y evacuación en rascacielos**, que es lo que necesita NFPA 101 (Life Safety Code).
