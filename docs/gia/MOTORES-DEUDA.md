@@ -157,3 +157,59 @@ El repo `github.com/YvanCastilloQuezada/motores-api`:
 - El catálogo unificado mezcla comandos Core + motor + frontend pending. Hay que separar el frontend pending del catálogo estable.
 
 **Estado:** deuda separada del hito GIA. Se resuelve en Fase UI.
+
+
+---
+
+## GPU y aceleración de tests (2026-11-13)
+
+### Hardware disponible
+
+- **RTX 3060 de 12 GB** (Ampere, 3584 CUDA cores, 12 GB GDDR6). Buena para ML, no para simulación estructural.
+
+### Estado actual de los 7 motores
+
+| Motor | Librería | GPU | Cuello de botella |
+|---|---|---|---|
+| structural | openseespy | ❌ CPU | C++ puro, sin CUDA |
+| geotech | bearing_capacity | ❌ CPU | Cálculo analítico |
+| hvac | opensimula | ❌ CPU | Python puro |
+| evacuation | jupedsim | ❌ CPU | Simulación de agentes |
+| fire | pycfast | ❌ CPU | Python puro |
+| acoustic | pyrato | ⚠️ Parcial | Ray tracing CPU (GPU opcional) |
+| sewer | pysewer | ❌ CPU | Python puro |
+
+**Conclusión:** la GPU **no acelera los motores actuales**. Aceleraría:
+- `MLPRegressor` del NSGA-II (migrar a `torch` GPU): Fase 4.
+- Futuros motores de IA (LLM local, embeddings, visión): Fase 4+.
+- `pyrato` con CUDA (ray tracing acústico): opcional.
+
+### Cuello de botella real de los tests
+
+`arkiGia.test.ts` tarda **135s con 290 tests** = **~0.46s por test**. Cada test llama a `executeIntegratedArchitectCycle`, que hace:
+1. Reasoning (`executeReasoningToTopology`) — CPU, rápido.
+2. `executeD63G` (geometría 2D) — CPU, rápido.
+3. **7 fetch HTTP a `motores-api`** — **I/O, 30-500ms por motor**.
+4. Evaluación functional, regulatory, architecturalQuality — CPU, rápido.
+
+**El cuello de botella es el I/O HTTP (2030 llamadas en 290 tests) y `openseespy` (200-500ms por pórtico).**
+
+### Palancas de aceleración (sin GPU)
+
+| Palanca | Speedup estimado | Esfuerzo |
+|---|---|---|
+| **Cache de resultados de motores** (input idéntico → cache hit) | **50x** (2030 → ~29 llamadas) | Bajo |
+| **Paralelizar tests en vitest** (`threads: true`, `maxThreads: 4`) | **4x** (135s → ~35s) | Bajo |
+| **Mock de motores para unit tests** (solo integración usa real) | **10x** (135s → ~15s) | Medio |
+| GPU para MLPRegressor (NSGA-II) | **0x en tests actuales** | Alto (Fase 4) |
+
+**Con cache + paralelización: 135s → ~5s.** Es la palanca real.
+
+### Propuesta de bloques de 5 tipologías
+
+Con 35 tipologías pendientes y 29 actuales:
+- **Bloques de 3-4** (actual): 10-12 PRs.
+- **Bloques de 5** (propuesto): 7 PRs. **Equilibrio.**
+- **Bloques de 10**: 3-4 PRs. Riesgo alto (si falla 1, diagnosticar 10).
+
+**Decisión:** bloques de 5.
