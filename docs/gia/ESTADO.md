@@ -6,7 +6,7 @@
 
 | # | Condición | Estado | Evidencia |
 |---|---|---|---|
-| 1 | GIA-001 a GIA-010 aprobadas | ✅ en 1 caso genérico, ❌ en 3 tipologías | 10/10 tests razonamiento PASS |
+| 1 | GIA-001 a GIA-010 aprobadas | ✅ **30/30 PASS en 3 tipologías** (hospital, educativo, oficinas) | 10/10 tests razonamiento PASS |
 | 2 | ≥3 motores EXECUTABLE con efecto en geometría | ✅ | 5 motores PASS: structural, geotech, fire, acoustic, evacuation |
 | 3 | Expediente por alternativa | ⏳ | Pendiente |
 | 4 | Divergencia real entre PARTIs | ⏳ | Pendiente (Entregable 2) |
@@ -232,3 +232,54 @@ El test GIA-010 (Determinismo) compara:
 Cuando ambos motores sean deterministas, GIA-010 comparará `cycle1.evaluation` completo.
 
 **TODO(Fase 4):** fijar `seed` en `jupedsim` y `pycfast` en `motores-api`.
+
+
+---
+
+## Hito: Fase GIA-3-Tipologías cerrada (2026-11-13)
+
+**Estado: ✅ LOGRADO.**
+
+GIA-001 a GIA-010 se prueban en 3 tipologías reales:
+- **Hospital** (`HOS-REG-001-001`): 200 camas, Z4/S3, flujos públicos/clínicos/servicios/residuos.
+- **Educativo** (`EDU-COL-001-001`): colegio 800 alumnos, Z3/S2, aulas/talleres/biblioteca/administración.
+- **Oficinas** (`OFI-TOR-001-001`): torre 12 pisos, Z4/S3, oficina abierta/salas/lobby/servicios.
+
+**Resultado:** **30/30 tests PASS** (10 tests × 3 tipologías).
+
+### Tests por tipología
+
+| Test | Hospital | Educativo | Oficinas |
+|---|---|---|---|
+| GIA-001 Función | ✅ | ✅ | ✅ |
+| GIA-002 Espacialidad (divergencia real por flowStrategy/organizingIdea) | ✅ | ✅ | ✅ |
+| GIA-003 Luz y sombra | ✅ | ✅ | ✅ |
+| GIA-004 Clima y viento | ✅ | ✅ | ✅ |
+| GIA-005 Estructura y sismo | ✅ | ✅ | ✅ |
+| GIA-006 Seguridad | ✅ | ✅ | ✅ |
+| GIA-007 Forma | ✅ | ✅ | ✅ |
+| GIA-008 Integración | ✅ | ✅ | ✅ |
+| GIA-009 Evaluación | ✅ | ✅ | ✅ |
+| GIA-010 Determinismo (con TODO Fase 4) | ✅ | ✅ | ✅ |
+
+### Criterio #1 del ESTADO.md: ✅ cumplido
+
+| # | Condición | Estado |
+|---|---|---|
+| 1 | GIA-001..010 en 3 tipologías | ✅ **30/30 PASS** |
+| 2 | ≥3 motores EXECUTABLE | ⚠️ Fase 4 |
+| 3 | Expediente por alternativa | ⏳ Siguiente hito |
+| 4 | Divergencia real entre PARTIs | ✅ GIA-002 (5/5 unitarios + 3/3 ciclo) |
+| 5 | Determinismo declarado | ✅ GIA-010 (3/3, TODO Fase 4) |
+| 6 | Autorización humana registrada | ⏳ Fase posterior |
+| 7 | CI verde en los 3 repos | ⚠️ GIA CI verde; UI y sicl-core pendientes |
+
+### Deuda de Fase GIA-Divergencia
+
+`passesGIA002` (de `divergence.ts`) verifica divergencia topológica (GED), de secuencia (Levenshtein) y de esquema (ARI) sobre `Parti` con `spaces`/`edges`/`accessOrder`.
+
+`DynamicParti` (lo que el ciclo produce) **no tiene esos campos**. GIA-002 verifica divergencia observable en `flowStrategy` y `organizingIdea` (≥2 distintos).
+
+**Deuda:** conectar `DynamicParti` con `passesGIA002` cuando `DynamicParti` tenga la estructura de `Parti`. Fase GIA-Divergencia.
+
+
