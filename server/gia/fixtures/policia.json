@@ -1,0 +1,38 @@
+{
+  "projectId": "POL-LIM-050-001",
+  "projectName": "Comisaría de policía 50 efectivos",
+  "typology": "POLICIA",
+  "brief": "Comisaría con celdas, oficinas, sala de monitoreo y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 200,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "calle secundaria"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "PNP Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Celdas", "capacity": 20, "subjects": ["detenido"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Oficinas", "capacity": 50, "subjects": ["policia", "público"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Sala de monitoreo", "capacity": 20, "subjects": ["policia"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 30, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["policia"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["policia"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["policia", "detenido", "público", "personal"],
+  "conditions": ["segregación detenido/público", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa de policía requiere revisión PNP", "estudio de seguridad requiere verificación", "estudio de carga de celdas requiere verificación estructural"],
+  "envelope": { "width": 50, "height": 50, "area": 2500, "status": "PUBLIC_SAFETY" },
+  "sourceIds": ["SRC-POL-BRIEF", "SRC-PNP-COMISARIA"]
+}

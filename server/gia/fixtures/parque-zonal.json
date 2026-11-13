@@ -1,0 +1,40 @@
+{
+  "projectId": "PZO-LIM-100-001",
+  "projectName": "Parque zonal 10 hectáreas",
+  "typology": "PARQUE_ZONAL",
+  "brief": "Parque zonal con áreas verdes, lagunas, canchas, zona infantil y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 5000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.02,
+    "accesos": ["avenida principal", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.100", "RNE E.030", "RNE E.050", "RNE EM.010", "SERPAR Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Áreas verdes", "capacity": 3000, "subjects": ["visitante"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Lagunas", "capacity": 500, "subjects": ["visitante"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Canchas", "capacity": 1000, "subjects": ["visitante"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Zona infantil", "capacity": 500, "subjects": ["niño"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-5", "name": "Servicios", "capacity": 100, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["niño"], "control": "FLOW" },
+    { "id": "rel-4", "source": "act-3", "target": "act-5", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["visitante", "niño", "personal"],
+  "conditions": ["evacuación clara", "acceso público abierto", "mantenimiento de áreas verdes"],
+  "unknowns": ["normativa de parques requiere revisión SERPAR", "estudio de mantenimiento de áreas verdes requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 400, "height": 250, "area": 100000, "status": "RECREATIONAL_SPACE" },
+  "sourceIds": ["SRC-PZO-BRIEF", "SRC-SERPAR-PARQUE"]
+}
