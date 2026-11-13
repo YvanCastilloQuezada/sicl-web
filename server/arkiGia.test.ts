@@ -1,4 +1,5 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { installMockMotores, uninstallMockMotores } from "./gia/mockMotores";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 import {
@@ -28,6 +29,14 @@ function loadFixture(tipologia: Tipologia): IntegratedArchitectInput {
   const path = resolve(__dirname, `gia/fixtures/${tipologia}.json`);
   return JSON.parse(readFileSync(path, "utf-8"));
 }
+
+beforeAll(() => {
+  installMockMotores();
+});
+
+afterAll(() => {
+  uninstallMockMotores();
+});
 
 describe.each(TIPOLOGIAS)("GIA-001..010 — tipología %s", (tipologia) => {
   const input = loadFixture(tipologia);
