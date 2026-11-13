@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>ARKI F1–F10 · Visor 3D</title>
+<link rel="stylesheet" href="/styles.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="app">
+  <div id="canvas-host"></div>
+  <aside id="sidebar">
+    <h1>ARKI · F1–F10</h1>
+    <label>Corrida / alternativa:
+      <select id="run-select"></select>
+    </label>
+    <div id="status-bar">Cargando…</div>
+    <div id="alt-label" class="alt"></div>
+    <div id="legend"></div>
+    <div id="panel"><p>Haz clic en un piso.</p></div>
+  </aside>
+</div>
+<script type="module" src="/viewer.js"></script>
+</body>
+</html>

@@ -123,6 +123,7 @@ function assertCandidateSet(state: DesignFunnelState, ids: string[], expected: n
   if (selected.length !== ids.length) throw new Error("CANDIDATE_NOT_IN_CURRENT_FUNNEL");
   if (selected.some((candidate) => candidate.projectId !== state.projectId)) throw new Error("CROSS_PROJECT_SELECTION");
   if (selected.some((candidate) => candidate.stage === "ARCHIVED" || candidate.stage === "BLOCKED")) throw new Error("STALE_FINALIST_SELECTION");
+  if (selected.some((candidate) => candidate.status !== "ELIGIBLE")) throw new Error("CANDIDATE_NOT_ELIGIBLE");
 }
 export function promoteToFinalFour(state: DesignFunnelState, selectedIds: string[], humanActor: string, reason?: string, timestamp = now()): DesignFunnelState {
   if (state.stage !== "DESIGN_EXPLORER_9" || state.waitState !== "AWAITING_9_TO_4_SELECTION") throw new Error("INVALID_9_TO_4_STAGE");
@@ -132,17 +133,33 @@ export function promoteToFinalFour(state: DesignFunnelState, selectedIds: string
   const event: HumanDesignSelectionEvent = { eventId: id("HSE"), type: "HUMAN_DESIGN_SELECTION", projectId: state.projectId, explorationId: state.explorationId, generationId: state.generationId, selectionStage: "9_TO_4", availableCandidateIds: available, selectedCandidateIds: [...selectedIds], nonSelectedCandidateIds: nonSelected, humanActor, timestamp, ...(reason?.trim() ? { optionalReason: reason.trim() } : {}), evidenceRefs: [`FUNNEL:${state.generationId}`, "HUMAN_SELECTION_EVIDENCE"], uiContext: "DESIGN_EXPLORER_3X3" };
   const candidates = state.candidates.map((candidate) => selectedIds.includes(candidate.id) ? { ...candidate, stage: "FINALIST_4" as const } : { ...candidate, stage: "ARCHIVED" as const });
   const deepEvaluation = Object.fromEntries(selectedIds.map((candidateId) => [candidateId, { status: "RUNNING" as const, findings: [], unknowns: [] }]));
-  return { ...state, stage: "FINALIST_4", waitState: "NONE", candidates, events: [...state.events, event, { eventId: id("EVAL"), type: "DEEP_EVALUATION_STARTED", projectId: state.projectId, candidateIds: selectedIds, timestamp, evidenceRefs: [event.eventId] }], deepEvaluation };
+  return { ...state, stage: "FINALIST_4", waitState: "AWAITING_4_TO_1_SELECTION", candidates, events: [...state.events, event, { eventId: id("EVAL"), type: "DEEP_EVALUATION_STARTED", projectId: state.projectId, candidateIds: selectedIds, timestamp, evidenceRefs: [event.eventId] }], deepEvaluation };
 }
 export function completeDeepEvaluation(state: DesignFunnelState, results: Record<string, { status: "READY" | "BLOCKED"; findings?: string[]; unknowns?: string[] }>, timestamp = now()): DesignFunnelState {
-  if (state.stage !== "FINALIST_4") throw new Error("FINAL_FOUR_REQUIRED");
-  const ids = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id); const deepEvaluation = { ...state.deepEvaluation };
+  if (state.stage !== "FINALIST_4" && state.stage !== "RETURNED_TO_FINALISTS") throw new Error("FINAL_FOUR_REQUIRED");
+  const ids = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id);
+  if (ids.length !== 4) throw new Error("FINAL_FOUR_MUST_CONTAIN_FOUR_CANDIDATES");
+  if (ids.some((candidateId) => !results[candidateId])) throw new Error("DEEP_EVALUATION_INCOMPLETE");
+  for (const candidateId of ids) {
+    const result = results[candidateId];
+    if (result.status === "READY" && (result.unknowns?.length ?? 0) > 0) {
+      throw new Error("READY_WITH_UNRESOLVED_UNKNOWNS");
+    }
+  }
+  const deepEvaluation = { ...state.deepEvaluation };
   const candidates = state.candidates.map((candidate) => { const result = results[candidate.id]; if (!ids.includes(candidate.id) || !result) return candidate; deepEvaluation[candidate.id] = { status: result.status, findings: result.findings ?? [], unknowns: result.unknowns ?? [] }; return result.status === "BLOCKED" ? { ...candidate, stage: "BLOCKED" as const, failureReasons: [...candidate.failureReasons, ...(result.findings ?? [])] } : candidate; });
   return { ...state, waitState: "AWAITING_4_TO_1_SELECTION", candidates, deepEvaluation, events: [...state.events, { eventId: id("EVAL"), type: "DEEP_EVALUATION_COMPLETED", projectId: state.projectId, candidateIds: ids, timestamp, evidenceRefs: [state.events[state.events.length - 1]?.eventId ?? ""] }] };
 }
 export function selectForDevelopment(state: DesignFunnelState, selectedId: string, humanActor: string, reason?: string, timestamp = now()): DesignFunnelState {
-  if ((state.stage !== "FINALIST_4" && state.stage !== "RETURNED_TO_FINALISTS") || state.waitState !== "AWAITING_4_TO_1_SELECTION") throw new Error("INVALID_4_TO_1_STAGE"); if (!humanActor.trim()) throw new Error("HUMAN_AUTHORITY_REQUIRED"); assertCandidateSet(state, [selectedId], 1);
-  const available = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id); const nonSelected = available.filter((candidateId) => candidateId !== selectedId);
+  if ((state.stage !== "FINALIST_4" && state.stage !== "RETURNED_TO_FINALISTS") || state.waitState !== "AWAITING_4_TO_1_SELECTION") throw new Error("INVALID_4_TO_1_STAGE");
+  if (!humanActor.trim()) throw new Error("HUMAN_AUTHORITY_REQUIRED");
+  assertCandidateSet(state, [selectedId], 1);
+  const evaluation = state.deepEvaluation[selectedId];
+  if (!evaluation || evaluation.status !== "READY") throw new Error("CANDIDATE_NOT_READY_FOR_DEVELOPMENT");
+  if (evaluation.unknowns.length > 0) throw new Error("CANDIDATE_HAS_UNRESOLVED_UNKNOWNS");
+  const available = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4").map((candidate) => candidate.id);
+  if (available.length !== 4) throw new Error("FINAL_FOUR_MUST_CONTAIN_FOUR_CANDIDATES");
+  const nonSelected = available.filter((candidateId) => candidateId !== selectedId);
   const event: HumanDesignSelectionEvent = { eventId: id("HSE"), type: "HUMAN_DESIGN_SELECTION", projectId: state.projectId, explorationId: state.explorationId, generationId: state.generationId, selectionStage: "4_TO_1", availableCandidateIds: available, selectedCandidateIds: [selectedId], nonSelectedCandidateIds: nonSelected, humanActor, timestamp, ...(reason?.trim() ? { optionalReason: reason.trim() } : {}), evidenceRefs: ["HUMAN_SELECTION_EVIDENCE", "FINAL_FOUR_CONTRACT"], uiContext: "FINAL_FOUR_2X2" };
   const candidates = state.candidates.map((candidate) => candidate.id === selectedId ? { ...candidate, stage: "SELECTED_FOR_DEVELOPMENT" as const } : candidate.stage === "FINALIST_4" ? { ...candidate, stage: "ARCHIVED" as const } : candidate);
   return { ...state, stage: "SELECTED_FOR_DEVELOPMENT", waitState: "NONE", selectedCandidateId: selectedId, candidates, events: [...state.events, event] };

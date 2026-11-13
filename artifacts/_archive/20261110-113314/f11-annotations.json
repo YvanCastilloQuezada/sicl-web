@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1794328526141,
+    "text": "diseña una casa de 2 pisos en un terreno de 10m x 20m",
+    "targetPhase": null,
+    "at": "2026-11-10T16:35:26.141Z",
+    "status": "RECORDED"
+  },
+  {
+    "id": 1794328767389,
+    "text": "diseña una casa de 2 pisos en un terreno de 15x60",
+    "targetPhase": null,
+    "at": "2026-11-10T16:39:27.389Z",
+    "status": "RECORDED"
+  },
+  {
+    "id": 1794328829209,
+    "text": "diseña una casa de 2 pisos en un terreno de 10x20",
+    "targetPhase": "F1",
+    "at": "2026-11-10T16:40:29.209Z",
+    "status": "RECORDED"
+  },
+  {
+    "id": 1794329207746,
+    "text": "casa de playa frente al mar de 2 pisos en 10x20",
+    "targetPhase": null,
+    "at": "2026-11-10T16:46:47.746Z",
+    "status": "RECORDED"
+  }
+]

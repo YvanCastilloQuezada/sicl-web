@@ -1,0 +1,62 @@
+ M artifacts/arki-phase-evidence/receipt-f1.json
+ M artifacts/arki-phase-evidence/receipt-f1.md
+ M artifacts/arki-phase-evidence/receipt-f10.json
+ M artifacts/arki-phase-evidence/receipt-f10.md
+ M artifacts/arki-phase-evidence/receipt-f2.json
+ M artifacts/arki-phase-evidence/receipt-f3.json
+ M artifacts/arki-phase-evidence/receipt-f4.json
+ M artifacts/arki-phase-evidence/receipt-f5.json
+ M artifacts/arki-phase-evidence/receipt-f6.json
+ M artifacts/arki-phase-evidence/receipt-f6.md
+ M artifacts/arki-phase-evidence/receipt-f7.json
+ M artifacts/arki-phase-evidence/receipt-f7.md
+ M artifacts/arki-phase-evidence/receipt-f8.json
+ M artifacts/arki-phase-evidence/receipt-f9.json
+ M client/index.html
+ M client/src/api/sicl-client.ts
+ D client/src/components/CommandBar.tsx.bak-b3-20261108
+ D client/src/components/CommandBar.tsx.bak-copilot-20261108
+ M client/src/components/ProjectManagerModal.tsx
+ M client/src/components/SiteSelectionModal.tsx
+ M client/src/pages/ArkiCockpitPage.tsx
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix220
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix222
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix298
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix300
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix302
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix304
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix306
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix308
+ D client/src/pages/ArkiCockpitPage.tsx.bak-fix318
+ M package.json
+ M pnpm-lock.yaml
+ M vite.config.ts
+?? .arki-backups/
+?? artifacts/_archive/
+?? client/src/api/sicl-client.ts.bak-token
+?? client/src/components/ProjectManagerModal.tsx.bak-real
+?? client/src/components/ProposalGallery.tsx.bak-opcion1
+?? client/src/pages/ArkiCockpitPage.tsx.bak-all-imports
+?? client/src/pages/ArkiCockpitPage.tsx.bak-before-jsx-fix-20261111-002638
+?? client/src/pages/ArkiCockpitPage.tsx.bak-btn-top
+?? client/src/pages/ArkiCockpitPage.tsx.bak-chat-refactor
+?? client/src/pages/ArkiCockpitPage.tsx.bak-colores
+?? client/src/pages/ArkiCockpitPage.tsx.bak-comentar-chat
+?? client/src/pages/ArkiCockpitPage.tsx.bak-copilot-action
+?? client/src/pages/ArkiCockpitPage.tsx.bak-copilot-fix
+?? client/src/pages/ArkiCockpitPage.tsx.bak-fallback
+?? client/src/pages/ArkiCockpitPage.tsx.bak-floating
+?? client/src/pages/ArkiCockpitPage.tsx.bak-force-funnel
+?? client/src/pages/ArkiCockpitPage.tsx.bak-funnel-fix
+?? client/src/pages/ArkiCockpitPage.tsx.bak-funnel-fix-final
+?? client/src/pages/ArkiCockpitPage.tsx.bak-funnel-robusto
+?? client/src/pages/ArkiCockpitPage.tsx.bak-grid-layout
+?? client/src/pages/ArkiCockpitPage.tsx.bak-layout-definitivo
+?? client/src/pages/ArkiCockpitPage.tsx.bak-layout-perfecto
+?? client/src/pages/ArkiCockpitPage.tsx.bak-layout-right
+?? client/src/pages/ArkiCockpitPage.tsx.bak-opcion24
+?? client/src/pages/ArkiCockpitPage.tsx.bak-opcion35
+?? client/src/pages/ArkiCockpitPage.tsx.bak-workspace-top
+?? tools/arki-viewer3d/
+?? vite.config.ts.bak-proxy-projects
+?? vite.config.ts.bak-rewrite

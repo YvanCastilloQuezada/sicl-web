@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F3",
-  "timeUTC": "2026-10-28T02:05:09.025Z",
+  "timeUTC": "2026-11-11T02:57:43.399Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -11,7 +11,7 @@
     {
       "name": "vitest-f3",
       "command": "pnpm exec vitest run server/arkiAgentOrchestrator.test.ts server/arkiArchitecturalDeveloper.test.ts server/arkiD62ReasoningHarness.test.ts server/arkiIntegratedArchitectCycle.test.ts server/arkiVisualIntelligence.test.ts server/spatialReasoning/core.test.ts server/spatialReasoning/smallOfficeVerticalSlice.test.ts",
-      "started": "2026-10-28T02:05:09.033Z",
+      "started": "2026-11-11T02:57:43.409Z",
       "status": "PASS",
       "exitCode": 0,
       "signal": null
@@ -20,7 +20,7 @@
   "status": "PASS_WEB_ONLY",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
+    "countAll": 182,
     "countMatched": 7,
     "files": [
       "server/arkiAgentOrchestrator.test.ts",

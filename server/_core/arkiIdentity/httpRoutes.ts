@@ -16,6 +16,7 @@ import { timingSafeEqual } from "node:crypto";
 import { jwtVerify } from "jose";
 import { identityEnabled, introspect, verifyCredential, createSessionJwt, createCredential, issueToken, KNOWN_SCOPES } from "./index";
 import { getDb } from "./storage";
+import { revokeArkiSessionJwt } from "./auth";
 
 export const INTERNAL_KEY_HEADER = "x-internal-key";
 
@@ -231,9 +232,25 @@ export function registerArkiIdentityRoutes(app: Express): void {
   });
 
   // F5.2 — Logout
-  app.post("/api/identity/logout", (_req: Request, res: Response) => {
+  app.post("/api/identity/logout", async (req: Request, res: Response) => {
+    const cookie = req.cookies?.["arki_identity_session"];
+    let revocationFailed = false;
+    if (typeof cookie === "string" && cookie.length > 0) {
+      try {
+        await revokeArkiSessionJwt(cookie);
+        revocationFailed = false;
+      } catch {
+        revocationFailed = true;
+      }
+    }
     res.clearCookie("arki_identity_session", { path: "/" });
-    res.status(200).json({ ok: true });
+    if (revocationFailed) {
+      return res.status(503).json({
+        ok: false,
+        error: "SESSION_REVOCATION_FAILED"
+      });
+    }
+    return res.status(200).json({ ok: true });
   });
 
   // (Rate limit simple en memoria para login, F7 endurecerá)

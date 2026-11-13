@@ -1,0 +1,31 @@
+{
+  "schema": "ARKI-PHASE-EVIDENCE-1",
+  "phase": "F5",
+  "timeUTC": "2026-11-10T17:19:43.466Z",
+  "repository": "local",
+  "sha": "LOCAL_UNPINNED",
+  "branch": "local",
+  "declaration": "IMPLEMENTED_BY_PO; TEST_EVIDENCE_SEPARATE; PO_APPROVAL_REQUIRED",
+  "core": "NOT_RUN — cross-repository Core test runner not provisioned in this workflow",
+  "tests": [
+    {
+      "name": "vitest-f5",
+      "command": "pnpm exec vitest run server/arkiDesignFunnel.test.ts server/arkiDesignFunnelR1.test.ts client/src/visualization/models/paretoModel.test.ts",
+      "started": "2026-11-10T17:19:43.475Z",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "status": "PASS_WEB_ONLY",
+  "approval": "PO_PENDING",
+  "discovery": {
+    "countAll": 182,
+    "countMatched": 3,
+    "files": [
+      "server/arkiDesignFunnel.test.ts",
+      "server/arkiDesignFunnelR1.test.ts",
+      "client/src/visualization/models/paretoModel.test.ts"
+    ]
+  }
+}

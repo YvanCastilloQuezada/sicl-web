@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F4",
-  "timeUTC": "2026-10-28T02:05:11.386Z",
+  "timeUTC": "2026-11-11T02:57:45.839Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -11,7 +11,7 @@
     {
       "name": "vitest-f4",
       "command": "pnpm exec vitest run server/arkiD63GeometricBridge.test.ts server/arkiD63ToD2GeometryBridge.test.ts server/arkiGenerativeAssistant.test.ts server/arkiNativeGenerator.test.ts server/arkiPartiContract.test.ts server/capabilityFabric/topologyEcosystemAtlas.test.ts server/spatialReasoning/core.test.ts server/spatialReasoning/smallOfficeVerticalSlice.test.ts",
-      "started": "2026-10-28T02:05:11.395Z",
+      "started": "2026-11-11T02:57:45.847Z",
       "status": "PASS",
       "exitCode": 0,
       "signal": null
@@ -20,7 +20,7 @@
   "status": "PASS_WEB_ONLY",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
+    "countAll": 182,
     "countMatched": 8,
     "files": [
       "server/arkiD63GeometricBridge.test.ts",

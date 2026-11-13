@@ -1,0 +1,41 @@
+{
+  "schema": "ARKI-PHASE-EVIDENCE-1",
+  "phase": "F1",
+  "timeUTC": "2026-11-10T17:11:23.886Z",
+  "repository": "local",
+  "sha": "LOCAL_UNPINNED",
+  "branch": "local",
+  "declaration": "IMPLEMENTED_BY_PO; TEST_EVIDENCE_SEPARATE; PO_APPROVAL_REQUIRED",
+  "core": "NOT_RUN — cross-repository Core test runner not provisioned in this workflow",
+  "tests": [
+    {
+      "name": "vitest-f1",
+      "command": "pnpm exec vitest run server/_core/arkiIdentity/arkiIdentity.test.ts server/_core/arkiIdentity/httpRoutes.test.ts server/_core/arkiIdentity/identityLogin.test.ts server/_core/arkiIdentity/oidcOpenId.test.ts server/_core/arkiMo29Identity.test.ts server/arkiCanonicalExecution.test.ts server/arkiF7OeceSourceGate.test.ts server/arkiOecePublicationIdentity.test.ts server/coreHttpClient.auth.test.ts server/coreHttpClient.test.ts server/coreHttpClient.v1.test.ts client/src/components/CanonicalOrthographicViewer.test.ts client/src/lib/canonical-command-resolver.test.ts",
+      "started": "2026-11-10T17:11:23.895Z",
+      "status": "FAIL",
+      "exitCode": 1,
+      "signal": null
+    }
+  ],
+  "status": "FAIL",
+  "approval": "PO_PENDING",
+  "discovery": {
+    "countAll": 182,
+    "countMatched": 13,
+    "files": [
+      "server/_core/arkiIdentity/arkiIdentity.test.ts",
+      "server/_core/arkiIdentity/httpRoutes.test.ts",
+      "server/_core/arkiIdentity/identityLogin.test.ts",
+      "server/_core/arkiIdentity/oidcOpenId.test.ts",
+      "server/_core/arkiMo29Identity.test.ts",
+      "server/arkiCanonicalExecution.test.ts",
+      "server/arkiF7OeceSourceGate.test.ts",
+      "server/arkiOecePublicationIdentity.test.ts",
+      "server/coreHttpClient.auth.test.ts",
+      "server/coreHttpClient.test.ts",
+      "server/coreHttpClient.v1.test.ts",
+      "client/src/components/CanonicalOrthographicViewer.test.ts",
+      "client/src/lib/canonical-command-resolver.test.ts"
+    ]
+  }
+}

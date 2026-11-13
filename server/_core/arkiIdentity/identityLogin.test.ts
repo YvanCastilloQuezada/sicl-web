@@ -149,11 +149,31 @@ describe("POST /api/identity/login", () => {
 });
 
 describe("POST /api/identity/logout", () => {
-  it("logout → 200 + cookie borrada", async () => {
-    const r = await post("/api/identity/logout", {});
+  it("logout → revoca JWT y borra cookie", async () => {
+    await createCredential({ username: "logout-user", password: "hunter2!!" });
+    const login = await post("/api/identity/login", {
+      username: "logout-user",
+      password: "hunter2!!",
+    });
+    expect(login.status).toBe(200);
+    const cookiePair = login.setCookie!.split(";")[0];
+    const jwt = cookiePair.slice("arki_identity_session=".length);
+    const { jwtVerify } = await import("jose");
+    const { payload } = await jwtVerify(jwt, new TextEncoder().encode(TEST_JWT_SECRET), {
+      algorithms: ["HS256"],
+    });
+    expect(typeof payload.jti).toBe("string");
+
+    const r = await post("/api/identity/logout", {}, cookiePair);
     expect(r.status).toBe(200);
     expect(r.json).toEqual({ ok: true });
     expect(r.setCookie).toMatch(/arki_identity_session=;/);
+
+    const db = (await import("./storage")).getDb();
+    const revoked = db.prepare(
+      "SELECT 1 FROM arki_identity_audit WHERE action='logout' AND detail=? LIMIT 1",
+    ).get(`jwt_jti=${payload.jti}`);
+    expect(revoked).toBeTruthy();
   });
 });
 

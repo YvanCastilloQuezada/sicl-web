@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F7",
-  "timeUTC": "2026-10-28T02:05:18.348Z",
+  "timeUTC": "2026-11-11T02:57:54.720Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -10,8 +10,8 @@
   "tests": [
     {
       "name": "vitest-f7",
-      "command": "pnpm exec vitest run server/arkiCostAndEtiBim.test.ts server/arkiCostBudgetS2.test.ts server/arkiF7NormativeProjection.test.ts server/arkiF7OeceSourceGate.test.ts server/arkiOeceEmbeddedTechnicalFragment.test.ts server/arkiOeceEvidence.test.ts server/arkiProfessionalAdapters.test.ts server/arkiS10Interop.test.ts",
-      "started": "2026-10-28T02:05:18.356Z",
+      "command": "pnpm exec vitest run server/arkiCostAndEtiBim.test.ts server/arkiCostBudgetS2.test.ts server/arkiF7NormativeProjection.test.ts server/arkiF7OeceSourceGate.test.ts server/arkiOeceAmountSemantics.test.ts server/arkiOeceBulkJoin.test.ts server/arkiOeceEmbeddedTechnicalFragment.test.ts server/arkiOeceEvidence.test.ts server/arkiOecePublicationIdentity.test.ts server/arkiProfessionalAdapters.test.ts server/arkiS10Interop.test.ts",
+      "started": "2026-11-11T02:57:54.730Z",
       "status": "PASS",
       "exitCode": 0,
       "signal": null
@@ -20,15 +20,18 @@
   "status": "PASS_WEB_ONLY",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
-    "countMatched": 8,
+    "countAll": 182,
+    "countMatched": 11,
     "files": [
       "server/arkiCostAndEtiBim.test.ts",
       "server/arkiCostBudgetS2.test.ts",
       "server/arkiF7NormativeProjection.test.ts",
       "server/arkiF7OeceSourceGate.test.ts",
+      "server/arkiOeceAmountSemantics.test.ts",
+      "server/arkiOeceBulkJoin.test.ts",
       "server/arkiOeceEmbeddedTechnicalFragment.test.ts",
       "server/arkiOeceEvidence.test.ts",
+      "server/arkiOecePublicationIdentity.test.ts",
       "server/arkiProfessionalAdapters.test.ts",
       "server/arkiS10Interop.test.ts"
     ]

@@ -173,7 +173,7 @@ describe("ARKI Design Funnel S1", () => {
   });
   it("requires deeper evaluation before the 4-to-1 decision", () => {
     const finalists = promoteToFinalFour(makeState(), ["A01", "A02", "A03", "A04"], "Yvan");
-    expect(() => selectForDevelopment(finalists, "A01", "Yvan")).toThrow("INVALID_4_TO_1_STAGE");
+    expect(() => selectForDevelopment(finalists, "A01", "Yvan")).toThrow("CANDIDATE_NOT_READY_FOR_DEVELOPMENT");
     const evaluated = completeDeepEvaluation(finalists, { A01: { status: "READY", findings: ["Buena circulación"] }, A02: { status: "READY" }, A03: { status: "READY" }, A04: { status: "BLOCKED", findings: ["Solver estructural no disponible"] } });
     expect(evaluated.waitState).toBe("AWAITING_4_TO_1_SELECTION");
     expect(evaluated.candidates.find((candidate) => candidate.id === "A04")?.stage).toBe("BLOCKED");

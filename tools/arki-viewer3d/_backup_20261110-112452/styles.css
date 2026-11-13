@@ -1,0 +1,31 @@
+*{box-sizing:border-box}
+html,body,#app{height:100%;margin:0;font-family:system-ui,sans-serif;color:#e6edf3;background:#0a0e17}
+#app{display:grid;grid-template-columns:1fr 380px}
+#canvas-host{position:relative}
+#canvas-host canvas{display:block}
+#sidebar{padding:16px;overflow:auto;background:#0f1820;border-left:1px solid #1f2d3d}
+#sidebar h1{margin:0 0 12px;font-size:18px;letter-spacing:.5px}
+#run-select{width:100%;margin-top:4px;padding:6px;background:#0a0e17;color:#e6edf3;border:1px solid #223344;border-radius:6px}
+#status-bar{margin:10px 0;font-size:12px;color:#9fb3c8}
+#alt-label{font-size:13px;padding:6px 8px;background:#131c28;border-radius:6px;margin-bottom:8px;color:#c9d6e3}
+#legend{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;margin:8px 0}
+.legend-item{display:flex;align-items:center;gap:4px}
+.legend-item i{width:10px;height:10px;border-radius:2px;display:inline-block}
+#panel h2{font-size:16px;margin:12px 0 8px;display:flex;align-items:center;gap:8px}
+.badge{padding:2px 8px;border-radius:10px;color:#0a0e17;font-size:11px;font-weight:600}
+#panel pre{background:#0a0e17;border:1px solid #1f2d3d;padding:10px;border-radius:6px;font-size:11px;max-height:340px;overflow:auto;white-space:pre-wrap}
+
+/* ⑪ F11 · cuadro de pruebas */
+#f11-panel{margin-top:18px;padding-top:16px;border-top:1px solid #1f2d3d}
+#f11-panel h3{font-size:14px;margin:0 0 8px;color:#c39bd3;letter-spacing:.3px}
+#f11-text{width:100%;min-height:90px;background:#0a0e17;color:#e6edf3;border:1px solid #9b59b6;border-radius:6px;padding:8px;font-family:inherit;font-size:12px;resize:vertical;outline:none}
+#f11-text:focus{border-color:#c39bd3;box-shadow:0 0 0 2px rgba(155,89,182,.25)}
+#f11-target{width:100%;margin:6px 0;padding:5px;background:#0a0e17;color:#e6edf3;border:1px solid #223344;border-radius:4px;font-size:12px}
+#f11-send{width:100%;padding:8px;background:#9b59b6;color:#fff;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px;transition:.15s}
+#f11-send:hover:not(:disabled){background:#8e44ad}
+#f11-send:disabled{opacity:.55;cursor:not-allowed}
+#f11-list{margin-top:10px;max-height:240px;overflow:auto}
+.f11-empty{font-size:11px;color:#7f8c8d;font-style:italic;margin:6px 0}
+.f11-item{background:#131c28;padding:6px 8px;border-radius:4px;margin-bottom:5px;font-size:11px;border-left:2px solid #9b59b6;line-height:1.4;word-wrap:break-word}
+.f11-item .meta{color:#9fb3c8;font-size:10px;margin-bottom:3px}
+.f11-item .target{color:#f1c40f;font-weight:600}

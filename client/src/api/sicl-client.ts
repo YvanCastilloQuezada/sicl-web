@@ -170,11 +170,11 @@ function apiUrl(): string {
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(`${apiUrl()}${path}`, {
     ...init,
+    credentials: init?.credentials ?? "include",
     headers: {
       accept: "application/json",
       ...(init?.body ? { "content-type": "application/json" } : {}),
       ...(init?.headers ?? {}),
-      ...(((window as any).SICL_CORE_SERVICE_TOKEN) ? { authorization: `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN}` } : {}),
     },
   });
   const body = await response.json().catch(() => ({}));
@@ -259,7 +259,7 @@ export const siclClient = {
       const { mockListProjects } = await import("./mock-core");
       return mockListProjects();
     }
-    const response = await request<ApiEnvelope<ProjectList>>("/projects");
+    const response = await request<ApiEnvelope<ProjectList>>("/api/core/v1/projects");
     return response.data.projects;
   },
   async createProject(data: { project_id: string; name: string; actor?: string }): Promise<CoreProject> {
@@ -267,7 +267,7 @@ export const siclClient = {
       const { mockCreateProject } = await import("./mock-core");
       return mockCreateProject(data);
     }
-    const response = await request<ApiEnvelope<CoreProject>>("/projects", { method: "POST", body: JSON.stringify(data) });
+    const response = await request<ApiEnvelope<CoreProject>>("/api/core/v1/projects", { method: "POST", body: JSON.stringify(data) });
     return response.data;
   },
   async getProject(projectId: string): Promise<CoreProject> {
@@ -275,7 +275,7 @@ export const siclClient = {
       const { mockGetProject } = await import("./mock-core");
       return mockGetProject(projectId);
     }
-    const response = await request<ApiEnvelope<CoreProject>>(`/projects/${encodeURIComponent(projectId)}`);
+    const response = await request<ApiEnvelope<CoreProject>>(`/api/core/v1/projects/${encodeURIComponent(projectId)}`);
     return response.data;
   },
   async executeCommand(projectId: string, command: string, actor = "frontend-user"): Promise<CommandData> {

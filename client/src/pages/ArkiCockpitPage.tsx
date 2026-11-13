@@ -1,13 +1,34 @@
 import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
-import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen } from "lucide-react";
+import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon } from "lucide-react";
+
+import { useSpeech } from '@/hooks/useSpeech';
+import ProjectManagerModal from "@/components/ProjectManagerModal";
+import IFCViewerModal from "@/components/IFCViewerModal";
+import PlanEditorModal from "@/components/PlanEditorModal";
+
+import CodeGeneratorModal from "@/components/CodeGeneratorModal";
+import ExportCenterModal from "@/components/ExportCenterModal";
+import AnalysisDashboardModal from "@/components/AnalysisDashboardModal";
+import TemplatesModal from "@/components/TemplatesModal";
+import NormativaModal from "@/components/NormativaModal";
+import FileChatModal from "@/components/FileChatModal";
+import SiteSelectionModal from '@/components/SiteSelectionModal';
+
+import CommandPalette from "@/components/CommandPalette";
+import NodeEditorModal from "@/components/NodeEditorModal";
+import WorkspacePanel from "@/components/WorkspacePanel";
+import CopilotPanel from "@/components/CopilotPanel";
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
-import ProposalGallery from "@/components/ProposalGallery";
+import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
 
 export default function ArkiCockpitPage() {
   
-  const [preInversionOpen, setPreInversionOpen] = useState(false);
+    const [showFullPipeline, setShowFullPipeline] = useState(false);
+  const [showPipeline, setShowPipeline] = useState(false);
+  const [showCommandPalette, setShowCommandPalette] = useState(false);
+const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [ejecucionOpen, setEjecucionOpen] = useState(false);
   const [messages, setMessages] = useState([
     { role: "assistant", text: "Hola Yvan. Soy ARKI. ¿Qué construimos hoy? Puedes pedirme un hospital, analizar un terreno o revisar un expediente." }
@@ -28,6 +49,13 @@ export default function ArkiCockpitPage() {
   const [cuatroDOpen, setCuatroDOpen] = useState(false);
   const [cincoDOpen, setCincoDOpen] = useState(false);
   const [seisDOpen, setSeisDOpen] = useState(false);
+  const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
+  const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | null>(null);
+  const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [searchingNormativa, setSearchingNormativa] = useState(false);
+  const [analyzingVision, setAnalyzingVision] = useState(false);
   const [sieteDOpen, setSieteDOpen] = useState(false);
   const [generativoOpen, setGenerativoOpen] = useState(false);
   const [gpuUsage, setGpuUsage] = useState<number | null>(null);
@@ -99,7 +127,159 @@ export default function ArkiCockpitPage() {
     console.log('[ArkiCockpitPage] Partis actualizados:', partis.length);
   }, [partis]);
 
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploading(true);
+    setShowPlusMenu(false);
+    
+        // Guardamos el mensaje y lo reproducimos por voz
+        const assistantMsg = "Aquí tienes las propuestas generadas por ARKI.";
+        setMessages(prev => [...prev, { role: "assistant", text: assistantMsg }]);
+        speak(assistantMsg); // <--- ESTO ACTIVA LA VOZ
+        
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("project_id", "PRO-001");
+    
+    try {
+      const res = await fetch("/api/v1/files/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(prev => [...prev, { role: "assistant", text: "✅ " + data.message + "\n\n💡 Sugerencia: Escribe 'Analiza este archivo' o 'Genera una propuesta basada en esto'." }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: "❌ Error al subir: " + (data.detail || "Desconocido") }]);
+      }
+    } catch (err: any) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión: " + (err.message || "Verifica que el servicio esté activo") }]);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleNormativaSearch = async () => {
+    if (!input.trim()) {
+      setMessages(prev => [...prev, { role: "assistant", text: "⚠️ Escribe qué normativa necesitas buscar. Ej: 'Busca normativa sobre estacionamientos' o 'RNE accesibilidad'." }]);
+      return;
+    }
+    
+    setSearchingNormativa(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: `🔍 Buscando normativa sobre: "\${input}"...` }]);
+    
+    try {
+      const res = await fetch("/api/v1/normativa/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: input,
+          limit: 5
+        })
+      });
+      
+      const results = await res.json();
+      
+      if (res.ok && results.length > 0) {
+        let formattedResults = `✅ Encontré \${results.length} artículos relevantes:
+
+`;
+        
+        results.forEach((art: any, i: number) => {
+          formattedResults += `📌 **\${art.norma} - \${art.articulo}**\n`;
+          formattedResults += `📋 \${art.titulo}\n`;
+          formattedResults += `📝 \${art.contenido}\n`;
+          formattedResults += ` Relevancia: \${art.relevancia}%\n`;
+          formattedResults += `---\n\n`;
+        });
+        
+        formattedResults += `💡 *Escribe "Aplica esto a mi proyecto" para que ARKI revise el cumplimiento.*`;
+        
+        setMessages(prev => [...prev, { role: "assistant", text: formattedResults }]);
+      } else if (res.ok) {
+        setMessages(prev => [...prev, { 
+          role: "assistant", 
+          text: `⚠️ No encontré artículos exactos sobre "\${input}".\n\n💡 Prueba con:\n- "RNE estacionamientos"\n- "Accesibilidad universal"\n- "Áreas mínimas hospitales"\n- "OECE licitaciones"` 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${results.detail || 'Servicio de normativa no disponible'}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión con ARKI Core. Verifica que el servicio esté activo." }]);
+    } finally {
+      setSearchingNormativa(false);
+      setInput("");
+    }
+  };
+
+  const handleVisionAnalysis = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setAnalyzingVision(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: `👁️ Analizando imagen: \`\${file.name}\`...` }]);
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("prompt", "Analiza esta imagen arquitectónica. Describe: tipo de edificación, estado, elementos visibles, problemas potenciales y recomendaciones.");
+    
+    try {
+      const res = await fetch("/api/v1/vision/analyze", {
+        method: "POST",
+        body: formData,
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(prev => [...prev, { 
+          role: "assistant", 
+          text: `✅ **Análisis de Visión Artificial:**
+
+\${data.analysis}
+
+💡 *Escribe "Genera una propuesta basada en este análisis" para continuar.*` 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${data.detail || 'Análisis fallido'}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión con ARKI Vision Engine." }]);
+    } finally {
+      setAnalyzingVision(false);
+    }
+  };
+
+  
+  // Efecto para que ARKI hable cuando hay un mensaje nuevo del asistente
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "assistant") {
+        // Limpiamos el texto de markdown o etiquetas para que suene natural
+        const cleanText = lastMessage.text.replace(/[*#_]/g, "").replace(/\n/g, " ");
+        speak(cleanText);
+      }
+    }
+  }, [messages, speak]);
+
   const handleSend = async () => {
+    // Copilot Action Logic (Si el usuario escribe comandos específicos)
+    const lowerInput = input.toLowerCase();
+    if (lowerInput.includes("analiza") || lowerInput.includes("costos")) {
+      setActiveModal('analysis');
+    } else if (lowerInput.includes("proyecto")) {
+      setActiveModal('projects');
+    } else if (lowerInput.includes("nodos") || lowerInput.includes("paramétrico")) {
+      setActiveModal('nodes');
+    }
+    // ... Continuar con la lógica normal de envío de chat ...
     if (!input.trim()) return;
     const userMsg = input;
     setMessages(prev => [...prev, { role: "user", text: userMsg }]);
@@ -110,12 +290,10 @@ export default function ArkiCockpitPage() {
       // 1. Llamar al Copiloto real (Ollama + GPU) via sicl-core
       setMessages(prev => [...prev, { role: "assistant", text: "🧠 Consultando al copiloto (RTX 3060)..." }]);
       
-      const copilotRes = await fetch('/api/core/v1/copilot/translate', {
+      const copilotRes = await fetch('/api/copilot/translate', {
         method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN || ''}`
-        },
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: userMsg })
       });
       
@@ -331,7 +509,7 @@ export default function ArkiCockpitPage() {
         </div>
         
         {/* MENÚ HORIZONTAL SUPERIOR */}
-        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible">
+        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible" onMouseLeave={() => { setPreInversionOpen(false); setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setEjecucionOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); }}>
           
           {/* PreInversión (Ahora menú) */}
           <div className="relative flex-shrink-0">
@@ -390,6 +568,7 @@ export default function ArkiCockpitPage() {
                   <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
+            
                   
                   <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
@@ -545,6 +724,7 @@ export default function ArkiCockpitPage() {
             <button onMouseEnter={() => handleHover('oece', 'Procesos de licitación pública según normativa OECE.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
               <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
             </button>
+            
             {oeceOpen && (
               <div className="absolute top-full right-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
@@ -629,12 +809,19 @@ export default function ArkiCockpitPage() {
 
           {/* CENTRO (flex-1): Funnel 16-4-1 */}
           <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
-            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between bg-[#0f172a]">
-              <span className="text-xs font-bold text-[#e2e8f0]">Embudo de Diseño · Funnel 16-4-1</span>
-              <span className="text-[10px] text-[#f0a35b]">{buildingData ? "✅ Geometría generada" : "⏳ Esperando propuesta..."}</span>
-            </div>
-            <div className="flex-1 overflow-auto p-4">
-              <ProposalGallery proposals={partis} />
+            
+            <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
+              <div className="max-w-xl rounded-lg border border-[#28445b] bg-[#0b1320] p-6 text-center">
+                <p className="text-sm font-semibold text-[#e2e8f0]">Embudo de diseño canónico · 9→4→1</p>
+                <p className="mt-2 text-xs text-[#94a3b8]">
+                  La generación, comparación, selección y evaluación de alternativas se gobiernan
+                  exclusivamente desde el Funnel canónico.
+                </p>
+                <a href="/arki-design-funnel"
+                   className="mt-4 inline-flex rounded-md bg-[#f0a35b] px-4 py-2 text-sm font-semibold text-[#111827]">
+                  Abrir ARKI Design Funnel
+                </a>
+              </div>
             </div>
           </div>
 
@@ -689,26 +876,137 @@ export default function ArkiCockpitPage() {
               )}
             </div>
 
-            <div className="p-3 border-t border-[#1e293b]">
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Describe lo que quieres construir..." 
-                  className="w-full bg-[#1e293b] border border-[#334155] rounded-lg py-2.5 pl-3 pr-10 text-[11px] focus:outline-none focus:border-[#f0a35b] transition"
-                />
-                <button onClick={handleSend} className="absolute right-1.5 top-1.5 bottom-1.5 aspect-square bg-[#f0a35b] hover:bg-[#fbbf24] rounded flex items-center justify-center transition">
-                  <Send size={12} className="text-black" />
-                </button>
-              </div>
-              <p className="text-center text-[9px] text-[#475569] mt-1.5">ARKI puede cometer errores. Verifica la normativa.</p>
-            </div>
+
           </div>
         </div>
       </div>
-    </div>
+      
+      {/* CHAT REFACTORIZADO */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
+        <CopilotPanel
+          messages={messages}
+          input={input}
+          setInput={setInput}
+          onSend={handleSend}
+          isGenerating={isGenerating}
+          onOpenAction={(action) => {
+            if (action === "norms") setActiveModal("norms");
+            if (action === "projects") setActiveModal("projects");
+            if (action === "terreno") setActiveModal("terreno");
+            if (action === "documents") setActiveModal("documents");
+            if (action === "camera") setActiveModal("camera");
+            if (action === "analysis") setActiveModal("analysis");
+            if (action === "ifc") setActiveModal("ifc");
+            if (action === "export") setActiveModal("export");
+            if (action === "templates") setActiveModal("templates");
+            if (action === "code") setActiveModal("code");
+            if (action === "file-chat") setActiveModal("file-chat");
+          }}
+          onOpenWorkspace={() => setShowWorkspacePanel(true)}
+        />
+      </div>
+      {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
+
+
+      {activeModal === 'terreno' && (
+        <SiteSelectionModal 
+          onClose={() => setActiveModal(null)} 
+          onSave={(area) => {
+            // Aquí actualizamos el área en el panel de la izquierda
+            // Asumimos que hay un estado para el área, si no, lo guardamos en un console.log
+            console.log("Área del terreno seleccionada:", area);
+            // Si tienes un estado para el área del terreno, actualízalo aquí:
+            // setAreaTerreno(area);
+          }} 
+        />
+      )}
+
+
+      {activeModal === 'camera' && <CameraScannerModal onClose={() => setActiveModal(null)} />}
+
+
+      {activeModal === 'ar' && <ARViewerModal onClose={() => setActiveModal(null)} />}
+
+
+
+      {showFullPipeline && <FullPipelineRunner onClose={() => setShowFullPipeline(false)} />}
+      {showPipeline && (
+        <PipelineDashboardModal 
+          onClose={() => setShowPipeline(false)} 
+          onNavigate={(phase) => {
+            setShowPipeline(false);
+            if (phase === 'f1') window.location.assign('/arki-design-funnel');
+            if (phase === 'f5') setActiveModal('expediente' as any); // Asumiendo que esto abre el expediente o el modal correcto
+            if (phase === 'f6') setActiveModal('analysis');
+            if (phase === 'f7') setActiveModal('oece' as any);
+            // Puedes mapear el resto de fases a sus respectivos modales aquí
+            console.log("Navegando a fase:", phase);
+          }} 
+        />
+      )}
+
+      {showCommandPalette && (
+        <CommandPalette 
+          onClose={() => setShowCommandPalette(false)} 
+          onAction={(action) => setActiveModal(action as any)} 
+        />
+      )}
+      {activeModal === 'nodes' && <NodeEditorModal onClose={() => setActiveModal(null)} />}
+      
+
+      {activeModal === 'nodes' && (
+        <div className="fixed inset-0 z-[9999] flex flex-col bg-[#0a1825]">
+          <div className="flex items-center justify-between p-3 border-b border-[#1e293b] bg-[#0f172a]">
+            <h2 className="text-[#e2e8f0] font-bold flex items-center gap-2">
+              <Box size={18} className="text-[#f0a35b]" /> Generador Paramétrico Real (DYN / GHX / ARK)
+            </h2>
+            <button onClick={() => setActiveModal(null)} className="text-[#64748b] hover:text-[#e2e8f0] bg-[#1e293b] p-1 rounded">
+              <X size={20} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <ArkiParametricRuntimePage />
+          </div>
+        </div>
+      )}
+      {/* MODALES NUEVOS */}
+
+      {showWorkspacePanel && (
+        <WorkspacePanel 
+          onClose={() => setShowWorkspacePanel(false)} 
+          onOpenTool={(tool) => {
+            // Mapeamos las herramientas del Workspace a los modales existentes
+            if (tool === 'nodes') setActiveModal('nodes');
+            if (tool === 'editor') setActiveModal('editor');
+            if (tool === 'ar') setActiveModal('ar');
+            if (tool === 'analysis') setActiveModal('analysis');
+            if (tool === 'camera') setActiveModal('camera');
+            if (tool === 'terreno') setActiveModal('terreno');
+            if (tool === 'projects') setActiveModal('projects');
+            if (tool === 'documents') setActiveModal('documents');
+            console.log("Abriendo herramienta:", tool);
+          }} 
+        />
+      )}
+
+      {activeModal === 'code' && <CodeGeneratorModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'export' && <ExportCenterModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'analysis' && <AnalysisDashboardModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'templates' && <TemplatesModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'norms' && <NormativaModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'file-chat' && <FileChatModal onClose={() => setActiveModal(null)} />}
+
+      {/* BOTÓN FLOTANTE DE WORKSPACE */}
+      <button 
+        onClick={() => setShowWorkspacePanel(true)}
+        className="fixed bottom-6 right-6 z-[9000] flex items-center gap-2 px-4 py-3 rounded-full bg-[#38bdf8] text-black font-bold shadow-2xl hover:bg-[#0284c7] transition-all hover:scale-105"
+        title="Abrir Workspace (Herramientas)"
+      >
+        <Layers size={20} /> 
+        <span className="text-sm">Workspace</span>
+      </button>
 </div>
+    </div>
   );
 }

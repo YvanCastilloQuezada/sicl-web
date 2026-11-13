@@ -1,7 +1,7 @@
 {
   "schema": "ARKI-PHASE-EVIDENCE-1",
   "phase": "F2",
-  "timeUTC": "2026-10-28T02:05:00.105Z",
+  "timeUTC": "2026-11-11T02:57:34.359Z",
   "repository": "local",
   "sha": "LOCAL_UNPINNED",
   "branch": "local",
@@ -11,7 +11,7 @@
     {
       "name": "vitest-f2",
       "command": "pnpm exec vitest run server/arkiResearchSuperpower.test.ts server/arluKnowledgeExchange.test.ts server/capabilityFabric/architecturalResearchHarvest.test.ts server/capabilityFabric/graphKnowledgeCatalog.test.ts server/delta62Knowledge.test.ts shared/arkiEducationMotorAlignment.test.ts shared/arkiLongevityResearch.test.ts client/src/arkiKnowledgeCorpusFoundation.test.ts client/src/pages/arki-book.test.ts",
-      "started": "2026-10-28T02:05:00.114Z",
+      "started": "2026-11-11T02:57:34.369Z",
       "status": "PASS",
       "exitCode": 0,
       "signal": null
@@ -20,7 +20,7 @@
   "status": "PASS_WEB_ONLY",
   "approval": "PO_PENDING",
   "discovery": {
-    "countAll": 159,
+    "countAll": 182,
     "countMatched": 9,
     "files": [
       "server/arkiResearchSuperpower.test.ts",

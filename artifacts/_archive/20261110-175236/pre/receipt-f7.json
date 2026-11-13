@@ -1,0 +1,39 @@
+{
+  "schema": "ARKI-PHASE-EVIDENCE-1",
+  "phase": "F7",
+  "timeUTC": "2026-11-10T22:47:24.106Z",
+  "repository": "local",
+  "sha": "LOCAL_UNPINNED",
+  "branch": "local",
+  "declaration": "IMPLEMENTED_BY_PO; TEST_EVIDENCE_SEPARATE; PO_APPROVAL_REQUIRED",
+  "core": "NOT_RUN — cross-repository Core test runner not provisioned in this workflow",
+  "tests": [
+    {
+      "name": "vitest-f7",
+      "command": "pnpm exec vitest run server/arkiCostAndEtiBim.test.ts server/arkiCostBudgetS2.test.ts server/arkiF7NormativeProjection.test.ts server/arkiF7OeceSourceGate.test.ts server/arkiOeceAmountSemantics.test.ts server/arkiOeceBulkJoin.test.ts server/arkiOeceEmbeddedTechnicalFragment.test.ts server/arkiOeceEvidence.test.ts server/arkiOecePublicationIdentity.test.ts server/arkiProfessionalAdapters.test.ts server/arkiS10Interop.test.ts",
+      "started": "2026-11-10T22:47:24.117Z",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "status": "PASS_WEB_ONLY",
+  "approval": "PO_PENDING",
+  "discovery": {
+    "countAll": 182,
+    "countMatched": 11,
+    "files": [
+      "server/arkiCostAndEtiBim.test.ts",
+      "server/arkiCostBudgetS2.test.ts",
+      "server/arkiF7NormativeProjection.test.ts",
+      "server/arkiF7OeceSourceGate.test.ts",
+      "server/arkiOeceAmountSemantics.test.ts",
+      "server/arkiOeceBulkJoin.test.ts",
+      "server/arkiOeceEmbeddedTechnicalFragment.test.ts",
+      "server/arkiOeceEvidence.test.ts",
+      "server/arkiOecePublicationIdentity.test.ts",
+      "server/arkiProfessionalAdapters.test.ts",
+      "server/arkiS10Interop.test.ts"
+    ]
+  }
+}

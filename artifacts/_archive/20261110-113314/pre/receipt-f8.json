@@ -1,0 +1,29 @@
+{
+  "schema": "ARKI-PHASE-EVIDENCE-1",
+  "phase": "F8",
+  "timeUTC": "2026-11-10T16:21:44.622Z",
+  "repository": "local",
+  "sha": "LOCAL_UNPINNED",
+  "branch": "local",
+  "declaration": "IMPLEMENTED_BY_PO; TEST_EVIDENCE_SEPARATE; PO_APPROVAL_REQUIRED",
+  "core": "NOT_RUN — cross-repository Core test runner not provisioned in this workflow",
+  "tests": [
+    {
+      "name": "vitest-f8",
+      "command": "pnpm exec vitest run server/arkiF7F8Closure.test.ts",
+      "started": "2026-11-10T16:21:44.631Z",
+      "status": "PASS",
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "status": "PASS_WEB_ONLY",
+  "approval": "PO_PENDING",
+  "discovery": {
+    "countAll": 182,
+    "countMatched": 1,
+    "files": [
+      "server/arkiF7F8Closure.test.ts"
+    ]
+  }
+}

@@ -1,0 +1,1003 @@
+import { useState, useEffect } from "react";
+import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
+import superjson from "superjson";
+import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon } from "lucide-react";
+
+import { useSpeech } from '@/hooks/useSpeech';
+import ProjectManagerModal from "@/components/ProjectManagerModal";
+import IFCViewerModal from "@/components/IFCViewerModal";
+import PlanEditorModal from "@/components/PlanEditorModal";
+
+import CodeGeneratorModal from "@/components/CodeGeneratorModal";
+import ExportCenterModal from "@/components/ExportCenterModal";
+import AnalysisDashboardModal from "@/components/AnalysisDashboardModal";
+import TemplatesModal from "@/components/TemplatesModal";
+import NormativaModal from "@/components/NormativaModal";
+import FileChatModal from "@/components/FileChatModal";
+import SiteSelectionModal from '@/components/SiteSelectionModal';
+
+import CommandPalette from "@/components/CommandPalette";
+import NodeEditorModal from "@/components/NodeEditorModal";
+import WorkspacePanel from "@/components/WorkspacePanel";
+import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
+import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
+import ProposalGallery from "@/components/ProposalGallery";
+
+export default function ArkiCockpitPage() {
+  
+    const [showFullPipeline, setShowFullPipeline] = useState(false);
+  const [areaTerreno, setAreaTerreno] = useState<number | null>(null);
+  const [pisosTerreno, setPisosTerreno] = useState<number | null>(null);
+  const [ciudadTerreno, setCiudadTerreno] = useState<string | null>(null);
+  const [estiloTerreno, setEstiloTerreno] = useState<string | null>(null);
+
+  const [showPipeline, setShowPipeline] = useState(false);
+  const [showCommandPalette, setShowCommandPalette] = useState(false);
+const [preInversionOpen, setPreInversionOpen] = useState(false);
+  const [ejecucionOpen, setEjecucionOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { role: "assistant", text: "Hola Yvan. Soy ARKI. ¿Qué construimos hoy? Puedes pedirme un hospital, analizar un terreno o revisar un expediente." }
+  ]);
+  const [input, setInput] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [buildingData, setBuildingData] = useState<any>(null);
+  const [partis, setPartis] = useState<any[]>([]);
+  const [bimOpen, setBimOpen] = useState(false);
+  const [obrasOpen, setObrasOpen] = useState(false);
+  const [jprdOpen, setJprdOpen] = useState(false);
+  const [oeceOpen, setOeceOpen] = useState(false);
+  const [estatalOpen, setEstatalOpen] = useState(false);
+  const [estudiosOpen, setEstudiosOpen] = useState(false);
+  const [tooltipText, setTooltipText] = useState<string | null>(null);
+  const [expedienteOpen, setExpedienteOpen] = useState(false);
+  const [tresDOpen, setTresDOpen] = useState(false);
+  const [cuatroDOpen, setCuatroDOpen] = useState(false);
+  const [cincoDOpen, setCincoDOpen] = useState(false);
+  const [seisDOpen, setSeisDOpen] = useState(false);
+  const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
+  const [showF1Demo, setShowF1Demo] = useState(false);
+  const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | null>(null);
+  const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [searchingNormativa, setSearchingNormativa] = useState(false);
+  const [analyzingVision, setAnalyzingVision] = useState(false);
+  const [sieteDOpen, setSieteDOpen] = useState(false);
+  const [generativoOpen, setGenerativoOpen] = useState(false);
+  const [gpuUsage, setGpuUsage] = useState<number | null>(null);
+
+  // Consultar el uso de la GPU cada 2 segundos (ruta REST)
+  useEffect(() => {
+    const fetchGpuUsage = async () => {
+      try {
+        const res = await fetch('/api/gpu-usage');
+        const json = await res.json();
+        const gpus = json.gpus || [];
+        const rtx3060 = gpus.find((g: any) => g.name.includes("3060"));
+        if (rtx3060) {
+          setGpuUsage(rtx3060.usage);
+        }
+      } catch (e) {
+        console.warn("Error obteniendo uso de GPU:", e);
+      }
+    };
+    
+    fetchGpuUsage();
+    const interval = setInterval(fetchGpuUsage, 2000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  const estudios = [
+    "Acústico", "Asoleamiento", "Ciclo de Vida", "Cimentación", "Climatización (HVAC)",
+    "Color y Acabados", "Contención de Taludes", "Costos", "Cronograma (4D)",
+    "Cumplimiento Normativo (RNE)", "Demanda", "Drenaje", "Eficiencia Energética",
+    "Eléctrico", "Ergonomía", "Estructura", "Evacuación", "Factibilidad",
+    "Facility Management (7D)", "Flujos Peatonales", "Gases Medicinales", "Geotécnico",
+    "Gestión de Residuos", "Hidráulico", "Hidrológico", "Huella de Carbono",
+    "Impacto Ambiental", "Impacto Vial", "Impermeabilización", "Incendios", "Interiores",
+    "Licencias y Permisos", "Logística", "Mantenimiento", "Materialidad",
+    "Mecánica de Suelos", "Mercado", "Mobiliario", "Oferta", "Operación", "Paisajismo",
+    "Partido Arquitectónico", "Pavimentos", "Presupuesto (5D)", "Programa Arquitectónico",
+    "Riesgo Sísmico", "Riesgos Ambientales y de Desastres", "Riesgos Peatonales",
+    "Sanitario", "Seguridad", "Seguridad y Salud en Obra", "Servidumbres", "Suelos",
+    "Telecomunicaciones", "Títulos y Catastro", "Topográfico", "Tráfico", "Vientos", "Zonificación"
+  ];
+  const [copilotParams, setCopilotParams] = useState<any>(null);
+  const handleHover = (menu: string, tooltip: string) => {
+    setPreInversionOpen(false); setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false);
+    setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false);
+    setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false);
+    setEjecucionOpen(false);
+    
+    if (menu === 'preinversion') setPreInversionOpen(true);
+    if (menu === 'generativo') setGenerativoOpen(true);
+    if (menu === 'estudios') setEstudiosOpen(true);
+    if (menu === 'expediente') setExpedienteOpen(true);
+    if (menu === 'bim') setBimOpen(true);
+    if (menu === 'obras') setObrasOpen(true);
+    if (menu === 'jprd') setJprdOpen(true);
+    if (menu === 'oece') setOeceOpen(true);
+    if (menu === '3d') setTresDOpen(true);
+    if (menu === '4d') setCuatroDOpen(true);
+    if (menu === '5d') setCincoDOpen(true);
+    if (menu === '6d') setSeisDOpen(true);
+    if (menu === '7d') setSieteDOpen(true);
+    if (menu === 'ejecucion') setEjecucionOpen(true);
+
+    setTooltipText(tooltip);
+  };
+
+  
+
+  useEffect(() => {
+    console.log('[ArkiCockpitPage] Partis actualizados:', partis.length);
+  }, [partis]);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploading(true);
+    setShowPlusMenu(false);
+    
+        // Guardamos el mensaje y lo reproducimos por voz
+        const assistantMsg = "Aquí tienes las propuestas generadas por ARKI.";
+        setMessages(prev => [...prev, { role: "assistant", text: assistantMsg }]);
+        speak(assistantMsg); // <--- ESTO ACTIVA LA VOZ
+        
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("project_id", "PRO-001");
+    
+    try {
+      const res = await fetch("/api/v1/files/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(prev => [...prev, { role: "assistant", text: "✅ " + data.message + "\n\n💡 Sugerencia: Escribe 'Analiza este archivo' o 'Genera una propuesta basada en esto'." }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: "❌ Error al subir: " + (data.detail || "Desconocido") }]);
+      }
+    } catch (err: any) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión: " + (err.message || "Verifica que el servicio esté activo") }]);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleNormativaSearch = async () => {
+    if (!input.trim()) {
+      setMessages(prev => [...prev, { role: "assistant", text: "⚠️ Escribe qué normativa necesitas buscar. Ej: 'Busca normativa sobre estacionamientos' o 'RNE accesibilidad'." }]);
+      return;
+    }
+    
+    setSearchingNormativa(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: `🔍 Buscando normativa sobre: "\${input}"...` }]);
+    
+    try {
+      const res = await fetch("/api/v1/normativa/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: input,
+          limit: 5
+        })
+      });
+      
+      const results = await res.json();
+      
+      if (res.ok && results.length > 0) {
+        let formattedResults = `✅ Encontré \${results.length} artículos relevantes:
+
+`;
+        
+        results.forEach((art: any, i: number) => {
+          formattedResults += `📌 **\${art.norma} - \${art.articulo}**\n`;
+          formattedResults += `📋 \${art.titulo}\n`;
+          formattedResults += `📝 \${art.contenido}\n`;
+          formattedResults += ` Relevancia: \${art.relevancia}%\n`;
+          formattedResults += `---\n\n`;
+        });
+        
+        formattedResults += `💡 *Escribe "Aplica esto a mi proyecto" para que ARKI revise el cumplimiento.*`;
+        
+        setMessages(prev => [...prev, { role: "assistant", text: formattedResults }]);
+      } else if (res.ok) {
+        setMessages(prev => [...prev, { 
+          role: "assistant", 
+          text: `⚠️ No encontré artículos exactos sobre "\${input}".\n\n💡 Prueba con:\n- "RNE estacionamientos"\n- "Accesibilidad universal"\n- "Áreas mínimas hospitales"\n- "OECE licitaciones"` 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${results.detail || 'Servicio de normativa no disponible'}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión con ARKI Core. Verifica que el servicio esté activo." }]);
+    } finally {
+      setSearchingNormativa(false);
+      setInput("");
+    }
+  };
+
+  const handleVisionAnalysis = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setAnalyzingVision(true);
+    setShowPlusMenu(false);
+    setMessages(prev => [...prev, { role: "assistant", text: `👁️ Analizando imagen: \`\${file.name}\`...` }]);
+    
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("prompt", "Analiza esta imagen arquitectónica. Describe: tipo de edificación, estado, elementos visibles, problemas potenciales y recomendaciones.");
+    
+    try {
+      const res = await fetch("/api/v1/vision/analyze", {
+        method: "POST",
+        body: formData,
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessages(prev => [...prev, { 
+          role: "assistant", 
+          text: `✅ **Análisis de Visión Artificial:**
+
+\${data.analysis}
+
+💡 *Escribe "Genera una propuesta basada en este análisis" para continuar.*` 
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${data.detail || 'Análisis fallido'}` }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: "assistant", text: "❌ Error de conexión con ARKI Vision Engine." }]);
+    } finally {
+      setAnalyzingVision(false);
+    }
+  };
+
+  
+  // Efecto para que ARKI hable cuando hay un mensaje nuevo del asistente
+  useEffect(() => {
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      if (lastMessage.role === "assistant") {
+        // Limpiamos el texto de markdown o etiquetas para que suene natural
+        const cleanText = lastMessage.text.replace(/[*#_]/g, "").replace(/\n/g, " ");
+        speak(cleanText);
+      }
+    }
+  }, [messages, speak]);
+
+  const handleSend = async () => {
+    if (!input.trim()) return;
+    const userMsg = input;
+    setMessages(prev => [...prev, { role: "user", text: userMsg }]);
+    setInput("");
+    setIsGenerating(true);
+
+    try {
+      setMessages(prev => [...prev, { role: "assistant", text: "🧠 Consultando al copiloto (RTX A400)..." }]);
+      
+      const copilotRes = await fetch('/api/core/v1/copilot/translate', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${(window as any).SICL_CORE_SERVICE_TOKEN || ''}`
+        },
+        body: JSON.stringify({ text: userMsg })
+      });
+      
+      const copilotJson = await copilotRes.json();
+      const intent = copilotJson?.data?.intent || copilotJson?.intent;
+      
+      if (intent) {
+        const action = intent.action || "CHAT";
+        const explanation = intent.explanation || "Sin explicación.";
+        
+        if (action === "SEARCH_NORMATIVE") {
+          setMessages(prev => [...prev, { role: "assistant", text: `📚 ${explanation}\n\n🔍 Buscando: "${intent.query || userMsg}"` }]);
+          setActiveModal('norms');
+          
+        } else if (action === "DESIGN") {
+          const p = intent.parameters || {};
+          
+          // 1. Actualizar el panel de la izquierda
+          if (p.area_m2) setAreaTerreno(p.area_m2);
+          if (p.pisos) setPisosTerreno(p.pisos);
+          if (p.ciudad) setCiudadTerreno(p.ciudad);
+          if (p.estilo) setEstiloTerreno(p.estilo);
+          
+          // 2. Mostrar resumen en el chat
+          const resumen = Object.entries(p)
+            .filter(([_, v]) => v !== null && v !== undefined)
+            .map(([k, v]) => `• ${k}: ${v}`)
+            .join("\n");
+          
+          setMessages(prev => [...prev, { 
+            role: "assistant", 
+            text: `✅ ${explanation}\n\n📋 Parámetros extraídos:\n${resumen}\n\n🎯 Generando 9 propuestas...` 
+          }]);
+          
+          // 3. GENERAR LAS 9 PROPUESTAS AUTOMÁTICAMENTE
+          await generateProposalsFromParams(p);
+          
+        } else {
+          setMessages(prev => [...prev, { role: "assistant", text: explanation }]);
+        }
+        
+        if (typeof speak === 'function') speak(explanation);
+        
+      } else {
+        setMessages(prev => [...prev, { role: "assistant", text: "❌ El copiloto no devolvió una respuesta válida." }]);
+      }
+      
+    } catch (error: any) {
+      console.error("[Copilot] Error:", error);
+      setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: ${error.message}` }]);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Función que genera las 9 propuestas usando el backend real
+  const generateProposalsFromParams = async (params: any) => {
+    try {
+      const geoRes = await fetch('/api/trpc/parametricRuntime.generateDynamicBuilding?batch=1&input=' + encodeURIComponent(JSON.stringify({
+        "0": { "json": { 
+          "familyId": params.tipo || "generic", 
+          "variantId": "default", 
+          "params": {
+            "area": params.area_m2 || 1000,
+            "floors": params.pisos || 3,
+            "capacity": params.capacidad || 100
+          }
+        } }
+      })));
+      
+      if (geoRes.ok) {
+        const geoData = await geoRes.json();
+        const buildingData = geoData[0]?.result?.data?.json;
+        
+        if (buildingData) {
+          // Crear 9 variantes
+          const strategies = [
+            "Monobloque Compacto", "Pabellonado Lineal", "Patio Central",
+            "Forma en H", "Forma en U", "Torre Única",
+            "Zócalo + Torre", "Claustro", "Orgánico Curvo"
+          ];
+          
+          const proposals = strategies.map((strategy, i) => ({
+            id: `prop-${Date.now()}-${i}`,
+            title: `Alternativa ${i + 1}`,
+            strategy: strategy,
+            metrics: {
+              area: params.area_m2 || (5000 + i * 150),
+              floors: params.pisos || (Math.floor(Math.random() * 4) + 3)
+            },
+            building: { ...buildingData, geometry3d: { ...buildingData?.geometry3d, floors: params.pisos || 3 } }
+          }));
+          
+          setPartis(proposals);
+          console.log(`[ARKI] ${proposals.length} propuestas generadas automáticamente desde el chat.`);
+        }
+      } else {
+        // Fallback si el backend falla: generar propuestas con datos sintéticos
+        const strategies = ["Monobloque", "Lineal", "Patio Central", "H", "U", "Torre", "Zócalo", "Claustro", "Curvo"];
+        const proposals = strategies.map((strategy, i) => ({
+          id: `prop-${Date.now()}-${i}`,
+          title: `Alternativa ${i + 1}`,
+          strategy,
+          metrics: { area: params.area_m2 || (5000 + i * 150), floors: params.pisos || 3 },
+          building: null
+        }));
+        setPartis(proposals);
+      }
+    } catch (e) {
+      console.error("[ARKI] Error generando propuestas:", e);
+    }
+  };
+
+
+  return (
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-[#061522] text-[#d7e8f2]">
+        {/* BARRA SUPERIOR: TOOLTIPS + MENU */}
+        <div className="w-full flex-shrink-0 z-[100] relative">
+{/* BARRA DE TOOLTIPS */}
+        <div className="w-full flex-shrink-0 flex items-center justify-center bg-[#0f172a] border-b border-[#1e293b] h-[28px] px-4 z-[110] relative">
+          <div className="flex items-center gap-2">
+            {tooltipText ? (
+              <>
+                <div className="bg-[#38bdf8] rounded-full p-0.5"><svg className="w-2.5 h-2.5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+                <span className="text-[#38bdf8] text-[10px] font-mono font-bold tracking-wide uppercase">{tooltipText}</span>
+              </>
+            ) : (
+              <span className="text-[#64748b] text-[10px] font-mono uppercase tracking-widest">ARKI • Command Center</span>
+            )}
+          </div>
+        </div>
+        
+        {/* MENÚ HORIZONTAL SUPERIOR */}
+        <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible" onMouseLeave={() => { setPreInversionOpen(false); setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setEjecucionOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); }}>
+          
+          {/* PreInversión (Ahora menú) */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('preinversion', 'Fase de Preinversión: Ficha Técnica, Perfil y Viabilidad (Invierte.pe).')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${preInversionOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Calculator size={12} className={preInversionOpen ? 'text-black' : 'text-[#4ade80]'}/> PreInversión
+            </button>
+            {preInversionOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[220px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Ficha Técnica Estándar (FTE)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios de Preinversión (Perfil)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Evaluación de Viabilidad</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Declaración de Viabilidad (DV)</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Generativo */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('generativo', 'Herramientas de IA para crear familias y diseño paramétrico.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${generativoOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Layers size={12} className={generativoOpen ? 'text-black' : 'text-[#f472b6]'}/> Generativo
+            </button>
+            {generativoOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[220px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Fam. Generativas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Diseño Paramétrico</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Estudios */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('estudios', 'Catálogo de estudios técnicos, legales y de mercado (A-Z).')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${estudiosOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <BookOpen size={12} className={estudiosOpen ? 'text-black' : 'text-[#a78bfa]'}/> Estudios
+            </button>
+            {estudiosOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999] max-h-96 overflow-y-auto">
+                <div className="p-2 flex flex-col space-y-1">
+                  {estudios.map((e, i) => <button key={i} className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">{e}</button>)}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Expediente Técnico */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('expediente', 'Documentación técnica completa para sector privado y estatal.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${expedienteOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <FileText size={12} className={expedienteOpen ? 'text-black' : 'text-[#38bdf8]'}/> Expediente Técnico
+            </button>
+            {expedienteOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[320px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
+            
+                  
+                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios Básicos</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Especificaciones Técnicas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto de Obra</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Análisis de Precios Unitarios (APU)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Fórmula Polinómica</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma de Obra</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudio de Impacto Ambiental</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Plan de Seguridad y Salud</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Metrados y Cotizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">CIRA (Restos Arqueológicos)</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3D a 7D (Mantenidos como botones independientes) */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('3d', 'Modelado y Coordinación: Revisión IFC, Clash Detection y conversión.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${tresDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Box size={12} className={tresDOpen ? 'text-black' : 'text-[#38bdf8]'}/> 3D
+            </button>
+            {tresDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[200px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Clash Detection</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Pdf / Dwg → IFC</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('4d', 'Planificación Temporal: Cronogramas y simulación de tiempos.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cuatroDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Activity size={12} className={cuatroDOpen ? 'text-black' : 'text-[#4ade80]'}/> 4D
+            </button>
+            {cuatroDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[200px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cronograma</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Simul. Cronog.</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('5d', 'Estimación de Costos: Metrados y presupuestos.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${cincoDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Calculator size={12} className={cincoDOpen ? 'text-black' : 'text-[#fbbf24]'}/> 5D
+            </button>
+            {cincoDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[200px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Metrados</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Presupuesto</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('6d', 'Sostenibilidad: Análisis energético y huella de carbono.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${seisDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Layers size={12} className={seisDOpen ? 'text-black' : 'text-[#a78bfa]'}/> 6D
+            </button>
+            {seisDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[200px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Análisis Energético</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Sostenibilidad</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('7d', 'Operación y Mantenimiento: Facility Management.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${sieteDOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Shield size={12} className={sieteDOpen ? 'text-black' : 'text-[#f472b6]'}/> 7D
+            </button>
+            {sieteDOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[200px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Mantenimiento</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Operación</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Superv. BIM (Como en la foto) */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('bim', 'Metodología BIM completa.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${bimOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Shield size={12} className={bimOpen ? 'text-black' : 'text-[#38bdf8]'}/> Superv. BIM
+            </button>
+            {bimOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[220px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Revisar IFC</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Solucionar Interferencias</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Evaluar E.T. BIM</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Pdf / Dwg → IFC</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Superv. Obras (Ampliado) */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('obras', 'Gestión de ejecución física, avances y valorizaciones.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${obrasOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <HardHat size={12} className={obrasOpen ? 'text-black' : 'text-[#fbbf24]'}/> Superv. Obras
+            </button>
+            {obrasOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cuaderno de Obra Digital</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Registro de Avance Físico</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Valorizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Calendario de Avance (CAO)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Adicionales de Obra</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Ampliaciones de Plazo</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Recepción de Obra (Acta)</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* JPRD (Ampliado) */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('jprd', 'Junta de Resolución de Disputas para contratos del Estado.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${jprdOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <FileText size={12} className={jprdOpen ? 'text-black' : 'text-[#f472b6]'}/> JPRD
+            </button>
+            {jprdOpen && (
+              <div className="absolute top-full left-0 mt-1 w-max min-w-[260px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Solicitar JPRD (Obras &gt; 10M)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Actas de Acuerdo</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Gestión de Cambios</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Designar Miembros</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Registrar Controversia</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Ver Resoluciones (Vinculantes)</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Historial de Disputas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Audiencias de JPRD</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Laudos Arbitrales</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Concurso/OECE (Ampliado) */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('oece', 'Procesos de licitación pública según normativa OECE.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
+            </button>
+            
+            {oeceOpen && (
+              <div className="absolute top-full right-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Priv.</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Conc. Arq. Estado</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Estudios</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Supervisiones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Obras</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Bienes</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Licit. Consultoría</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Concursos Públicos</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Adjudicaciones Simplificadas</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Cotizaciones</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Contratos y Adendas</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Nuevo Menú: Ejecución Contractual */}
+          <div className="relative flex-shrink-0">
+            <button onMouseEnter={() => handleHover('ejecucion', 'Gestión de la ejecución contractual y personal.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${ejecucionOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
+              <HardHat size={12} className={ejecucionOpen ? 'text-black' : 'text-[#38bdf8]'}/> Ejecución
+            </button>
+            {ejecucionOpen && (
+              <div className="absolute top-full right-0 mt-1 w-max min-w-[220px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
+                <div className="p-2 flex flex-col space-y-1">
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Residentes de Obra</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Supervisores</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planillas de Personal</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Órdenes de Cambio</button>
+                  <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Órdenes de Servicio</button>
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
+
+        
+        </div>
+        <div className="flex-1 flex overflow-hidden w-full relative">
+
+
+      {/* IZQUIERDA (220px): MENÚ DE FLUJOS */}
+      <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+        <div className="flex items-center gap-2 border-b border-[#1e293b] h-[41px] px-2">
+          <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
+          <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
+        </div>
+        
+        <div className="p-3 flex-1 space-y-1">
+          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
+          {/* Aquí irán los datos del proyecto (área, pisos, etc.) */}
+          <div className="space-y-2">
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Área</p>
+              <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+            </div>
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Pisos</p>
+              <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+            </div>
+            <div className="bg-[#1e293b] p-2 rounded-lg">
+              <p className="text-[9px] text-[#64748b]">Ciudad</p>
+              <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="p-3 border-t border-[#1e293b] text-[10px] text-[#64748b]">
+          <p>GPU: RTX 3060 ({gpuUsage !== null ? `${gpuUsage}%` : "—"})</p>
+          <p>Core: SICL v1.2</p>
+        </div>
+      </div>
+
+      {/* CONTENEDOR PRINCIPAL: MENÚ HORIZONTAL + CONTENIDO */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+
+        {/* CONTENIDO: CENTRO + NUEVA BARRA + DERECHA */}
+        <div className="flex-1 flex overflow-visible relative z-0">
+
+          {/* CENTRO (flex-1): Funnel 16-4-1 */}
+          <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
+            
+            <div className="flex-1 overflow-auto p-4">
+              <ProposalGallery proposals={partis} />
+            </div>
+          </div>
+
+          {/* NUEVA BARRA (220px): Correcciones / Paramétricas */}
+          <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col">
+            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
+              <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
+              <Sparkles size={14} className="text-[#f0a35b]"/>
+            </div>
+            <div className="flex-1 overflow-y-auto p-3 space-y-2">
+              <p className="text-[10px] text-[#64748b]">Panel de correcciones paramétricas.</p>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Área</p>
+                <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+              </div>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Pisos</p>
+                <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+              </div>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Ciudad</p>
+                <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
+              </div>
+              <div className="bg-[#1e293b] p-2 rounded-lg">
+                <p className="text-[9px] text-[#64748b]">Estilo</p>
+                <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.estilo || "—"}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* DERECHA (220px): Copiloto (chat) */}
+          <div className="w-[220px] flex-shrink-0 bg-[#0f172a] flex flex-col">
+            <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
+              <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
+              <Sparkles size={14} className="text-[#f0a35b]"/>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-3 space-y-3">
+              {messages.map((msg, i) => (
+                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+              {isGenerating && (
+                <div className="flex justify-start">
+                  <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
+                    <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
+                  </div>
+                </div>
+              )}
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      
+      {/* INPUT AVANZADO ESTILO CHATGPT CON MENÚ "+" */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
+        {/* Menú desplegable del botón "+" */}
+        {showPlusMenu && (
+          <div className="absolute bottom-full left-0 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden">
+            <div className="p-2 space-y-1">
+              <label className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left cursor-pointer">
+                <Paperclip size={16} className="text-[#38bdf8]" /> 
+                {uploading ? "⏳ Subiendo..." : "📎 Subir planos y archivos (IFC, DWG, PDF)"}
+                <input 
+                  type="file" 
+                  className="hidden" 
+                  accept=".ifc,.pdf,.dwg,.rvt,.json,.dxf"
+                  onChange={handleFileUpload}
+                  disabled={uploading}
+                />
+              </label>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('ifc'); }}>
+                <Box size={16} className="text-[#f472b6]" /> Visor 3D / IFC (Renders)
+              </button>
+              <button 
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left"
+                onClick={() => {
+                  setShowPlusMenu(false);
+                  handleNormativaSearch();
+                }}
+              >
+                <Globe size={16} className="text-[#4ade80]" /> 
+                {searchingNormativa ? " Buscando..." : "📚 Buscar normativa (RNE, OECE)"}
+              </button>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('nodes'); }}>
+                <Code size={16} className="text-[#fbbf24]" /> Generar código paramétrico
+              </button>
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => { setShowPlusMenu(false); setActiveModal('editor'); }}>
+                <PenTool size={16} className="text-[#a78bfa]" /> Editor de Planos (Canvas)
+              </button>
+              
+              <button className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg transition text-left" onClick={() => setShowPlusMenu(false)}>
+                <Brain size={16} className="text-[#f0a35b]" /> Razonamiento detallado (ARKI Brain)
+              </button>
+            </div>
+          </div>
+        )}
+        
+        <div className="bg-[#1e293b] rounded-2xl border border-[#334155] shadow-2xl focus-within:border-[#f0a35b] transition-all">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault()
+                handleSend()
+              }
+            }}
+            placeholder="Describe lo que quieres construir..."
+            disabled={isGenerating}
+            className="w-full bg-transparent border-0 rounded-t-2xl px-4 py-3 text-sm text-[#e2e8f0] resize-none focus:outline-none placeholder:text-[#64748b] min-h-[44px]"
+            rows={1}
+          />
+          <div className="flex items-center justify-between px-3 py-2 border-t border-[#334155]">
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => setShowPlusMenu(!showPlusMenu)}
+                className="p-2 hover:bg-[#334155] rounded-full transition text-[#e2e8f0]"
+                title="Más opciones"
+              >
+                <Plus size={18} />
+              </button>
+              <button className="p-2 hover:bg-[#334155] rounded-full transition text-[#64748b] hover:text-[#e2e8f0]" title="ARKI Brain">
+                <Sparkles size={16} className="text-[#f0a35b]" />
+              </button>
+            </div>
+            <div className="flex items-center gap-2">
+              <button 
+                onClick={() => {
+                  if (isListening) return;
+                  startListening((text) => {
+                    setInput(text);
+                    // Opcional: Auto-enviar después de hablar
+                    // setTimeout(() => handleSend(), 500); 
+                  });
+                }}
+                className={`p-2 rounded-full transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`} 
+                title={isListening ? "Escuchando..." : "Hablar con ARKI"}
+              >
+                <Mic size={16} />
+              </button>
+              <button 
+                onClick={handleSend}
+                disabled={!input.trim() || isGenerating}
+                className="p-2 bg-[#f0a35b] hover:bg-[#e09050] disabled:bg-[#475569] rounded-full transition text-black disabled:text-[#64748b]"
+                title="Enviar"
+              >
+                <Send size={16} />
+              </button>
+            </div>
+          </div>
+        </div>
+        <p className="text-center text-[9px] text-[#475569] mt-2">ARKI puede cometer errores. Verifica la normativa.</p>
+      </div>
+    </div>
+
+      {/* MODALES DEL WORKSPACE */}
+      {activeModal === 'projects' && <ProjectManagerModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
+
+
+      {activeModal === 'terreno' && (
+        <SiteSelectionModal 
+          onClose={() => setActiveModal(null)} 
+          onSave={(area) => {
+            // Aquí actualizamos el área en el panel de la izquierda
+            // Asumimos que hay un estado para el área, si no, lo guardamos en un console.log
+            console.log("Área del terreno seleccionada:", area);
+            // Si tienes un estado para el área del terreno, actualízalo aquí:
+            // setAreaTerreno(area);
+          }} 
+        />
+      )}
+
+
+      {activeModal === 'camera' && <CameraScannerModal onClose={() => setActiveModal(null)} />}
+
+
+      {activeModal === 'ar' && <ARViewerModal onClose={() => setActiveModal(null)} />}
+
+
+      {showF1Demo && <F1DemoScreen onClose={() => setShowF1Demo(false)} />}
+
+      {showFullPipeline && <FullPipelineRunner onClose={() => setShowFullPipeline(false)} />}
+      {showPipeline && (
+        <PipelineDashboardModal 
+          onClose={() => setShowPipeline(false)} 
+          onNavigate={(phase) => {
+            setShowPipeline(false);
+            if (phase === 'f1') setShowF1Demo(true);
+            if (phase === 'f5') setActiveModal('expediente' as any); // Asumiendo que esto abre el expediente o el modal correcto
+            if (phase === 'f6') setActiveModal('analysis');
+            if (phase === 'f7') setActiveModal('oece' as any);
+            // Puedes mapear el resto de fases a sus respectivos modales aquí
+            console.log("Navegando a fase:", phase);
+          }} 
+        />
+      )}
+
+      {showCommandPalette && (
+        <CommandPalette 
+          onClose={() => setShowCommandPalette(false)} 
+          onAction={(action) => setActiveModal(action as any)} 
+        />
+      )}
+      {activeModal === 'nodes' && <NodeEditorModal onClose={() => setActiveModal(null)} />}
+      
+
+      {activeModal === 'nodes' && (
+        <div className="fixed inset-0 z-[9999] flex flex-col bg-[#0a1825]">
+          <div className="flex items-center justify-between p-3 border-b border-[#1e293b] bg-[#0f172a]">
+            <h2 className="text-[#e2e8f0] font-bold flex items-center gap-2">
+              <Box size={18} className="text-[#f0a35b]" /> Generador Paramétrico Real (DYN / GHX / ARK)
+            </h2>
+            <button onClick={() => setActiveModal(null)} className="text-[#64748b] hover:text-[#e2e8f0] bg-[#1e293b] p-1 rounded">
+              <X size={20} />
+            </button>
+          </div>
+          <div className="flex-1 overflow-y-auto">
+            <ArkiParametricRuntimePage />
+          </div>
+        </div>
+      )}
+      {/* MODALES NUEVOS */}
+
+      {showWorkspacePanel && (
+        <WorkspacePanel 
+          onClose={() => setShowWorkspacePanel(false)} 
+          onOpenTool={(tool) => {
+            if (tool === 'nodes') setActiveModal('nodes');
+            if (tool === 'editor') setActiveModal('editor');
+            if (tool === 'ar') setActiveModal('ar');
+            if (tool === 'analysis') setActiveModal('analysis');
+            if (tool === 'camera') setActiveModal('camera');
+            if (tool === 'terreno') setActiveModal('terreno');
+            if (tool === 'projects') setActiveModal('projects');
+            if (tool === 'documents') setActiveModal('documents');
+            if (tool === 'render') setActiveModal('ifc');
+            if (tool === 'export') setActiveModal('export');
+            if (tool === 'templates') setActiveModal('templates');
+            if (tool === 'code') setActiveModal('code');
+            if (tool === 'norms') setActiveModal('norms');
+            if (tool === 'file-chat') setActiveModal('file-chat');
+            if (tool === 'expediente') setActiveModal('expediente' as any);
+            console.log("[Workspace] Abriendo herramienta:", tool);
+          }} 
+        />
+      )}
+
+      {activeModal === 'code' && <CodeGeneratorModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'export' && <ExportCenterModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'analysis' && <AnalysisDashboardModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'templates' && <TemplatesModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'norms' && <NormativaModal onClose={() => setActiveModal(null)} />}
+      {activeModal === 'file-chat' && <FileChatModal onClose={() => setActiveModal(null)} />}
+
+      {/* BOTÓN FLOTANTE DE WORKSPACE */}
+      <button 
+        onClick={() => setShowWorkspacePanel(true)}
+        className="fixed bottom-6 right-6 z-[9000] flex items-center gap-2 px-4 py-3 rounded-full bg-[#38bdf8] text-black font-bold shadow-2xl hover:bg-[#0284c7] transition-all hover:scale-105"
+        title="Abrir Workspace (Herramientas)"
+      >
+        <Layers size={20} /> 
+        <span className="text-sm">Workspace</span>
+      </button>
+</div>
+  );
+}

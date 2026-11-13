@@ -1,0 +1,65 @@
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;font-family:system-ui,-apple-system,sans-serif;color:#e6edf3;background:#0a0e17;overflow:hidden}
+#canvas-host{position:absolute;inset:0;z-index:1}
+#canvas-host canvas{display:block}
+
+/* ── Panel derecho flotante (detalles 3D) ── */
+#sidebar{position:absolute;top:20px;right:20px;width:360px;max-height:calc(100vh - 140px);z-index:10;
+  background:rgba(15,24,32,0.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);
+  border-radius:12px;padding:16px;overflow-y:auto;box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  display:flex;flex-direction:column;gap:10px;transition:opacity 0.3s}
+#sidebar.hidden{opacity:0;pointer-events:none}
+
+.panel-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #223344;padding-bottom:10px}
+.panel-header h2{margin:0;font-size:16px;color:#c39bd3}
+#run-select{background:#0a0e17;color:#e6edf3;border:1px solid #223344;border-radius:6px;padding:4px;font-size:11px;max-width:180px}
+
+#status-bar{font-size:12px;color:#9fb3c8}
+#alt-label{font-size:12px;padding:8px;background:rgba(155,89,182,0.15);border-radius:6px;color:#d2b4de;border:1px solid rgba(155,89,182,0.3)}
+#legend{display:flex;flex-wrap:wrap;gap:8px;font-size:11px;margin:4px 0;opacity:0.8}
+.legend-item{display:flex;align-items:center;gap:4px}
+.legend-item i{width:8px;height:8px;border-radius:2px;display:inline-block}
+
+#panel h2{font-size:15px;margin:10px 0;display:flex;align-items:center;gap:8px}
+.badge{padding:2px 8px;border-radius:10px;color:#0a0e17;font-size:11px;font-weight:600}
+#panel pre{background:rgba(0,0,0,0.4);border:1px solid #1f2d3d;padding:10px;border-radius:6px;
+  font-size:11px;max-height:300px;overflow:auto;white-space:pre-wrap;font-family:ui-monospace,monospace;margin:0}
+
+/* ── Barra de Chat (estilo IA) ── */
+#chat-bar{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:100%;max-width:800px;z-index:20;display:flex;flex-direction:column;gap:8px}
+
+.chat-container{background:rgba(30,30,30,0.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);
+  border-radius:24px;padding:8px 12px;display:flex;align-items:center;gap:8px;box-shadow:0 15px 40px rgba(0,0,0,0.6);
+  transition:border-color 0.2s}
+
+.chat-container:focus-within{border-color:rgba(155,89,182,0.8);box-shadow:0 15px 40px rgba(155,89,182,0.15)}
+
+.chat-input-wrap{flex:1;display:flex;align-items:center}
+
+#f11-text{width:100%;background:transparent;border:none;color:#e6edf3;font-size:15px;font-family:inherit;
+  padding:10px 0;resize:none;outline:none;max-height:120px;line-height:1.4}
+#f11-text::placeholder{color:#7f8c8d}
+
+#f11-target{background:rgba(0,0,0,0.3);color:#e6edf3;border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;padding:6px;font-size:12px;outline:none;cursor:pointer;margin-right:4px}
+#f11-target option{background:#1e1e1e}
+
+.icon-btn{background:transparent;border:none;color:#9fb3c8;font-size:18px;cursor:pointer;
+  width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s,color 0.2s}
+.icon-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
+.icon-btn.rec{color:#e74c3c;animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.4)}50%{box-shadow:0 0 0 6px rgba(231,76,60,0)}}
+
+.send-btn{background:#9b59b6;color:#fff}
+.send-btn:hover{background:#8e44ad;color:#fff}
+
+#f11-exec,#f11-view{background:rgba(255,255,255,0.05);font-size:16px;width:36px;height:36px;border-radius:50%;
+  border:none;cursor:pointer;color:#e6edf3;display:flex;align-items:center;justify-content:center;transition:0.2s}
+#f11-exec:hover,#f11-view:hover{background:rgba(255,255,255,0.15)}
+#f11-exec:disabled{opacity:0.5;cursor:not-allowed}
+
+#f11-progress-wrap{display:none;background:rgba(0,0,0,0.6);border-radius:8px;padding:8px;backdrop-filter:blur(10px)}
+#f11-progress-bar{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden}
+#f11-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#27ae60,#2ecc71);transition:width 0.3s}
+#f11-progress-text{font-size:11px;color:#9fb3c8;margin-top:6px;text-align:center}

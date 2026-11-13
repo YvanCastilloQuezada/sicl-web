@@ -107,7 +107,30 @@ export default defineConfig({
     emptyOutDir: true,
   },
   server: {
-    host: "127.0.0.1",
+      proxy: {
+        '/api/core': {
+          target: 'http://127.0.0.1:8001',
+          changeOrigin: true,
+          secure: false,
+          rewrite: (path) => path.replace(/^\/api\/core/, ''),
+        },
+        '/api': {
+          target: 'http://127.0.0.1:8001',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/projects': {
+          target: 'http://127.0.0.1:8001',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/v1': {
+          target: 'http://127.0.0.1:8001',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    host: "0.0.0.0",
     // The Manus preview proxy cannot execute Vite's virtual React Refresh
     // module; disabling HMR keeps normal ESM bootstrap and production intact.
     hmr: false,

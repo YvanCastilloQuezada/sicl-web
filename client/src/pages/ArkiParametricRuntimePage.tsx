@@ -23,7 +23,9 @@ type ArkSummary = { name: string; projectId: string; geometry: Partial<Geometry>
 type CanonicalCommand = { name: string; category: string; syntax: string; arguments: Array<{ name: string; required: boolean; type: string }>; example: string };
 type ParametricExample = { exampleId: string; title: string; commandName: string; category: string; command: string; mode: string; expectedOutcome: string; learningObjective: string; path: string; artifacts: string[] };
 const CANONICAL_RUNTIME_COMMANDS = ["/PROJECT OPEN", "/PROJECT SET SCOPE", "/OBJECTIVE SET", "/CONSTRAINT SET", "/EVIDENCE ADD", "/HUMAN REVIEW", "/INTERPRET REVIEW", "/ALTERNATIVE PROMOTE", "/MULTIOBJECTIVE", "/DECISION RECORD"];
-const runtimeCommands = (catalog as CanonicalCommand[]).filter((command) => CANONICAL_RUNTIME_COMMANDS.includes(command.name));
+const rawCatalog = catalog as any;
+const commandsArray = Array.isArray(rawCatalog) ? rawCatalog : (rawCatalog.commands || []);
+const runtimeCommands = commandsArray.filter((command: any) => CANONICAL_RUNTIME_COMMANDS.includes(command.name));
 const parametricExamples = (exampleManifest as { examples: ParametricExample[] }).examples;
 const PARAMETER_CATALOG = [
   { key: "width", label: "Ancho", description: "Dimensión longitudinal de la masa", unit: "m" },
