@@ -1,0 +1,38 @@
+{
+  "projectId": "RAS-LIM-200-001",
+  "projectName": "Rascacielos 200m (50 pisos)",
+  "typology": "RASCACIELOS",
+  "brief": "Torre de 50 pisos con oficinas, hotel, observatorio y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 5000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "vía expresa"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.070", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "CTBUH Guidelines"],
+  "activities": [
+    { "id": "act-1", "name": "Oficinas", "capacity": 3000, "subjects": ["empleado"], "privacy": "controlled", "accessControl": "key", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Hotel", "capacity": 500, "subjects": ["huésped"], "privacy": "private", "accessControl": "key", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Observatorio", "capacity": 300, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 200, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["empleado", "visitante"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["huésped", "visitante"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["empleado", "huésped", "visitante", "personal"],
+  "conditions": ["núcleo de circulación vertical con ascensores de alta velocidad", "evacuación en altura", "resistencia sísmica Z4"],
+  "unknowns": ["estudio de viento en altura requiere verificación CFD", "estudio de evacuación en altura requiere simulación especializada", "estudio de carga vertical requiere verificación estructural"],
+  "envelope": { "width": 60, "height": 60, "length": 200, "status": "HIGH_RISE" },
+  "sourceIds": ["SRC-RAS-BRIEF", "SRC-RNE-RASCACIELOS"]
+}

@@ -1,0 +1,38 @@
+{
+  "projectId": "MUS-LIM-100-001",
+  "projectName": "Museo de arte 10,000 m²",
+  "typology": "MUSEO",
+  "brief": "Museo de arte con salas de exposición, depósito, administración y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 2000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "plaza pública"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.090", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "ICOM Standards"],
+  "activities": [
+    { "id": "act-1", "name": "Salas de exposición", "capacity": 1500, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Depósito", "capacity": 100, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Administración", "capacity": 50, "subjects": ["administrativo"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 100, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["administrativo"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["visitante", "personal", "administrativo"],
+  "conditions": ["control de luz y humedad en salas", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["estudio de conservación requiere revisión especializada", "estudio de iluminación museográfica requiere verificación", "estudio de carga de obras requiere verificación estructural"],
+  "envelope": { "width": 100, "height": 100, "area": 10000, "status": "CULTURAL_BUILDING" },
+  "sourceIds": ["SRC-MUS-BRIEF", "SRC-ICOM-MUSEUM"]
+}
