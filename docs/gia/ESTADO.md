@@ -148,3 +148,30 @@ Implementado en `server/gia/divergence.ts` + `server/gia/divergence.test.ts`.
 | `parametric-v10.yml` | `grep -q 'memoryParametricFiles.has(file.artifactId)' server/db.ts` busca código obsoleto | Actualizar el grep al patrón actual (`db.prepare('SELECT ... WHERE artifactId = ?')`) |
 | `gia-ci.yml` | `version: 9` en `pnpm/action-setup` vs `package.json: pnpm@10.15.1` | ✅ Corregido a `10.15.1` |
 
+
+
+---
+
+## Deudas de CI identificadas (2026-11-13)
+
+### 1. `gia-ci.yml` corre tests de integración sin `motores-api`
+
+**Evidencia:** el run 43403232739 falló con `ECONNREFUSED 127.0.0.1:18771` en 15 tests (GIA-011..025 + Motores-api health). Los tests GIA-001..010 (sin `fetch`) pasaron.
+
+**Causa:** el workflow corre `pnpm exec vitest run --config vitest.gia.config.ts`, que incluye 5 archivos con `fetch` a `motores-api`. En el runner de GitHub Actions, `motores-api` no está levantado.
+
+**Acción:** separar tests unitarios (GIA-001..010, sin `fetch`) de integración (GIA-011..025, con `fetch`). El CI de GIA corre solo unitarios. Los de integración corren en un workflow que levante `motores-api` (o se marcan `skipIf(!process.env.MOTORES_API_URL)`).
+
+### 2. `GIA-011` — bug latente de `motoresClient.ts`
+
+**Evidencia:** en el run 43403232739, `GIA-011` falló con `expected '/structural/evaluate' to be 'openseespy'`. En local pasa (motores-api responde bien). En CI falla (motores-api no responde) y el cliente devuelve el path en vez del nombre.
+
+**Causa:** `motoresClient.ts` devuelve `engine: "/structural/evaluate"` (path) en vez de `engine: "openseespy"` cuando la conexión falla.
+
+**Acción:** arreglar `motoresClient.ts` para que devuelva un error explícito en vez del path, o el nombre del motor con `status: "UNKNOWN"`.
+
+### 3. Housekeeping de ramas
+
+**Evidencia:** 46 ramas locales + ~180 remotas. La mayoría son de sesiones anteriores y están mergeadas o muertas.
+
+**Acción:** script de limpieza con `git branch --merged main | xargs git branch -d` (cuidado con las no mergeadas). Fase separada.
