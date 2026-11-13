@@ -34,4 +34,4 @@ jobs:
       - name: Type check GIA
         run: pnpm exec tsc -p tsconfig.gia.json
       - name: Tests GIA
-        run: pnpm exec vitest run --config vitest.gia.config.ts
+        run: pnpm exec vitest run --config vitest.gia.ci.config.ts
