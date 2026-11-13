@@ -229,3 +229,30 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 - **Persistencia:** no hay sesiones.
 - **Streaming:** no hay SSE.
 - **Prompts y resources:** solo tools.
+
+
+---
+
+## Tipologías de Concurso (Fase 7, 2026-11-13)
+
+**Estado: ✅ IMPLEMENTADO (4 tipologías, 63 en total).**
+
+### Las 4 tipologías
+
+| Tipología | Qué representa | Argumento de concurso |
+|---|---|---|
+| `mixed-use-tower` | Torre 30 pisos: residencial + oficinas + hotel + comercio | Densidad + mixtura de usos |
+| `tod-station` | Estación de metro + 500 viviendas + comercio + equipamiento | Movilidad + desarrollo orientado al transporte |
+| `affordable-housing` | 200 viviendas sociales con presupuesto <$500/m2 | Equidad + asequibilidad |
+| `public-space-plaza` | Plaza 1 hectárea con vegetación + mobiliario + cultura | Espacio público + resiliencia |
+
+### Tests
+
+12/12 PASS en `server/gia/concurso.test.ts`.
+
+### Deuda conocida
+
+- **Mixed-use:** ratio residencial/oficinas/hotel es fijo (10/10/10); para producción se necesita variable.
+- **TOD:** conexión con red de transporte es estática; para producción se necesita red real.
+- **Affordable:** restricción de costo es un `unknown`; para producción se necesita presupuesto real (CAPEX + OPEX).
+- **Public space:** mobiliario y vegetación son genéricos; para producción se necesitan especificaciones reales.

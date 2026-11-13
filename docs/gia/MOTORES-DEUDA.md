@@ -351,3 +351,24 @@ Con 35 tipologías pendientes y 29 actuales:
 **Referencias:**
 - Model Context Protocol (Anthropic), 2024-11-05.
 - @modelcontextprotocol/sdk (para transporte stdio/HTTP, si se necesita).
+
+
+---
+
+## Deuda de Fase Concurso (2026-11-13)
+
+**Las 4 tipologías de concurso (Fase 7) son el argumento directo de competición internacional. Lo que falta:**
+
+| Módulo | Qué falta | Prioridad |
+|---|---|---|
+| **Mixed-use ratios** | 10/10/10 es fijo; para producción se necesita variable por proyecto | Alta |
+| **TOD network** | La conexión con transporte es estática; para producción se necesita red real (OSM, GTFS) | Alta |
+| **Affordable budget** | CAPEX + OPEX reales; hoy es un `unknown` | Alta |
+| **Public space specs** | Mobiliario y vegetación reales (no genéricos) | Media |
+| **Integración con sostenibilidad** | El ciclo no cruza `mixed-use` con `calculateEmbodiedCarbon` automáticamente | Alta |
+| **Integración con resiliencia** | El ciclo no cruza `public-space` con `heatIslandScore` automáticamente | Alta |
+
+**Referencias:**
+- RIBA 2030 Climate Challenge v3 (2021): mixed-use, TOD, affordable, public space son los 4 problemas de concurso.
+- A' Design Award: categorías para mixed-use, social housing, urban design.
+- Dream (a16z): competencia directa en generación de edificios.

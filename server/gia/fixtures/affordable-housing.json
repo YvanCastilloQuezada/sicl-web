@@ -1,0 +1,38 @@
+{
+  "projectId": "AFH-LIM-200-001",
+  "projectName": "Vivienda social 200 unidades",
+  "typology": "AFFORDABLE_HOUSING",
+  "brief": "200 viviendas sociales con restricción de costo (<$500/m2).",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 1000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.01,
+    "accesos": ["avenida principal", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.020", "RNE A.130", "RNE E.030", "RNE E.050", "Fondo MIVIVIENDA"],
+  "activities": [
+    { "id": "act-1", "name": "Viviendas", "capacity": 200, "subjects": ["residente"], "privacy": "private", "accessControl": "key", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Áreas comunes", "capacity": 100, "subjects": ["residente"], "privacy": "shared", "accessControl": "key", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-3", "name": "Estacionamiento", "capacity": 50, "subjects": ["residente"], "privacy": "controlled", "accessControl": "key", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-3", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["residente", "personal"],
+  "conditions": ["presupuesto < $500/m2", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa de vivienda social requiere revisión Fondo MIVIVIENDA", "estudio de costos requiere verificación", "estudio de sostenibilidad requiere verificación"],
+  "envelope": { "width": 100, "height": 80, "area": 8000, "status": "AFFORDABLE" },
+  "sourceIds": ["SRC-AFH-BRIEF", "SRC-FONDO-MIVIVIENDA"]
+}
