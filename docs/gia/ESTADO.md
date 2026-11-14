@@ -10,7 +10,7 @@
 
 | # | Condición | Estado | Evidencia |
 |---|---|---|---|
-| 1 | GIA-001 a GIA-010 aprobadas en 59 tipologías | ✅ | 10 tests × 59 tipologías = 590/590 PASS (edificación, infraestructura, equipamiento público, planificación territorial, defensa militar) |
+| 1 | GIA-001 a GIA-010 aprobadas en 63 tipologías | ✅ | 10 tests × 63 tipologías = 630/630 PASS (edificación, infraestructura, equipamiento público, planificación territorial, defensa militar) |
 | 2 | ≥3 motores EXECUTABLE con efecto en geometría | ✅ | `arkiGiaMotores.test.ts`: 5 PASS (structural, geotech, fire, acoustic, evacuation) + 2 PARTIAL (hvac, sewer). Ver deuda de nomenclatura en `MOTORES-DEUDA.md` |
 | 3 | Expediente por alternativa | ⏳ | Siguiente hito (Fase GIA-Expediente) |
 | 4 | Divergencia real entre PARTIs | ✅ | GIA-002: `divergence.ts` 5/5 + `arkiGia.test.ts` 3/3 (flowStrategy + organizingIdea) |
@@ -204,7 +204,7 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 
 | Tool | Qué hace | Fase origen |
 |---|---|---|
-| `evaluate_typology` | Ciclo integrado sobre 59 tipologías | Fase 1-4 |
+| `evaluate_typology` | Ciclo integrado sobre 63 tipologías | Fase 1-4 |
 | `calculate_sustainability` | Carbono A1-A5 + B6 + Net Zero score | Fase 1 |
 | `calculate_retrofit` | Demoler vs rehabilitar + potencial | Fase 2 |
 | `calculate_resilience` | Flood + heat island + drought | Fase 3 |
