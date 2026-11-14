@@ -1,73 +1,453 @@
-import { useEffect, useState } from "react";
-import { MapPin, CheckCircle2, AlertTriangle, Move } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useRef, useState } from "react";
+import { MapPin, CheckCircle2, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { apiErrorMessage, siclClient, type MissingDataReport, type SpatialLocation } from "@/api/sicl-client";
+import {
+  apiErrorMessage,
+  siclClient,
+  type MissingDataReport,
+  type SpatialLocation,
+} from "@/api/sicl-client";
+import LocationMap from "@/components/LocationMap";
 
-type Props = { projectId?: string; onConfirmed?: (location: SpatialLocation, missing?: MissingDataReport) => void };
-const WORLD = { minLongitude: -180, maxLongitude: 180, minLatitude: -90, maxLatitude: 90 };
-const VIEWBOX = { width: 720, height: 300 };
+type Props = {
+  projectId?: string;
+  onConfirmed?: (
+    location: SpatialLocation,
+    missing?: MissingDataReport
+  ) => void;
+};
 
-function projectPoint(longitude: number, latitude: number) {
-  return { x: ((longitude - WORLD.minLongitude) / 360) * VIEWBOX.width, y: ((WORLD.maxLatitude - latitude) / 180) * VIEWBOX.height };
+type CoordinateCandidate = {
+  longitude: number;
+  latitude: number;
+};
+
+function parseCandidate(
+  longitudeText: string,
+  latitudeText: string
+): CoordinateCandidate | undefined {
+  // No convertir campos vacíos en cero.
+  if (!longitudeText.trim() || !latitudeText.trim()) return undefined;
+
+  const longitude = Number(longitudeText);
+  const latitude = Number(latitudeText);
+
+  if (
+    !Number.isFinite(longitude) ||
+    !Number.isFinite(latitude) ||
+    longitude < -180 ||
+    longitude > 180 ||
+    latitude < -90 ||
+    latitude > 90
+  ) {
+    return undefined;
+  }
+
+  return { longitude, latitude };
 }
-function unprojectPoint(x: number, y: number) {
-  return { longitude: WORLD.minLongitude + (x / VIEWBOX.width) * 360, latitude: WORLD.maxLatitude - (y / VIEWBOX.height) * 180 };
+
+function matchesCandidate(
+  location: SpatialLocation,
+  candidate: CoordinateCandidate,
+  projectId: string
+): boolean {
+  const coordinates = location.geometry?.coordinates;
+
+  return (
+    location.project_id === projectId &&
+    location.status === "CONFIRMED" &&
+    coordinates?.length >= 2 &&
+    Math.abs(coordinates[0] - candidate.longitude) < 1e-7 &&
+    Math.abs(coordinates[1] - candidate.latitude) < 1e-7
+  );
 }
 
 export default function LocationPicker({ projectId, onConfirmed }: Props) {
-  const { t } = useTranslation();
+  const onConfirmedRef = useRef(onConfirmed);
+  onConfirmedRef.current = onConfirmed;
+
+  // Una operación nueva invalida las respuestas asíncronas anteriores.
+  const operationRef = useRef(0);
+  // Identifica la selección del usuario independientemente de la petición HTTP.
+  const selectionRevisionRef = useRef(0);
+
+  useEffect(() => {
+    return () => {
+      operationRef.current += 1;
+    };
+  }, []);
+
   const [longitude, setLongitude] = useState("");
   const [latitude, setLatitude] = useState("");
   const [label, setLabel] = useState("");
-  const [candidate, setCandidate] = useState<{ longitude: number; latitude: number }>();
+  const [candidate, setCandidate] = useState<CoordinateCandidate>();
   const [location, setLocation] = useState<SpatialLocation>();
   const [missing, setMissing] = useState<MissingDataReport>();
   const [busy, setBusy] = useState(false);
-  const [dragging, setDragging] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const refresh = async () => {
-    if (!projectId) return;
-    try {
-      const [current, report] = await Promise.all([siclClient.currentLocation(projectId), siclClient.missingData(projectId, "parcela_sitio")]);
-      setLocation(current ?? undefined); setMissing(report); if (current) onConfirmed?.(current, report);
-      if (current?.longitude != null && current?.latitude != null) { setLongitude(String(current.longitude)); setLatitude(String(current.latitude)); }
-    } catch (err) { setError(apiErrorMessage(err)); }
-  };
-  useEffect(() => { void refresh(); }, [projectId]);
+  // Recuperar contexto canónico al abrir o cambiar de proyecto.
+  useEffect(() => {
+    let active = true;
+    const requestId = ++operationRef.current;
 
-  const choosePoint = (nextLongitude: number, nextLatitude: number) => {
-    const lon = Math.max(-180, Math.min(180, nextLongitude)); const lat = Math.max(-90, Math.min(90, nextLatitude));
-    setLongitude(lon.toFixed(6)); setLatitude(lat.toFixed(6)); setCandidate({ longitude: lon, latitude: lat }); setError(""); setMessage("");
+    setLocation(undefined);
+    setMissing(undefined);
+    setError("");
+    setMessage("");
+    setCandidate(undefined);
+    setLongitude("");
+    setLatitude("");
+    setBusy(false);
+
+    if (!projectId) return () => { active = false; };
+
+    const refresh = async () => {
+      const [locationResult, reportResult] = await Promise.allSettled([
+        siclClient.currentLocation(projectId),
+        siclClient.missingData(projectId, "parcela_sitio"),
+      ]);
+
+      if (!active || operationRef.current !== requestId) return;
+
+      const current =
+        locationResult.status === "fulfilled"
+          ? locationResult.value
+          : null;
+
+      const report =
+        reportResult.status === "fulfilled"
+          ? reportResult.value
+          : undefined;
+
+      if (current) {
+        setLocation(current);
+
+        const coordinates = current.geometry?.coordinates;
+        const lng = current.longitude ?? coordinates?.[0];
+        const lat = current.latitude ?? coordinates?.[1];
+
+        if (lng != null && lat != null) {
+          setLongitude(String(lng));
+          setLatitude(String(lat));
+        }
+
+        // La ubicación proviene del endpoint canónico current.
+        onConfirmedRef.current?.(current, report);
+      }
+
+      if (report) {
+        setMissing(report);
+      }
+
+      if (locationResult.status === "rejected") {
+        setError(
+          `No se pudo recuperar la ubicación del Core: ${apiErrorMessage(locationResult.reason)}`
+        );
+      } else if (reportResult.status === "rejected") {
+        setError(
+          `Ubicación recuperada, pero no se pudo cargar missing-data: ${apiErrorMessage(reportResult.reason)}`
+        );
+      }
+    };
+
+    void refresh();
+
+    return () => {
+      active = false;
+    };
+  }, [projectId]);
+
+  const updateCandidate = (
+    nextLongitude: string,
+    nextLatitude: string,
+    showValidationError = false
+  ) => {
+    const parsed = parseCandidate(nextLongitude, nextLatitude);
+
+    setCandidate(parsed);
+
+    if (parsed) {
+      setError("");
+    } else if (showValidationError) {
+      setError(
+        "Coordenadas inválidas o incompletas. Longitud: -180 a 180; latitud: -90 a 90."
+      );
+    }
   };
-  const pointFromEvent = (event: React.PointerEvent<SVGSVGElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    return unprojectPoint(((event.clientX - rect.left) / rect.width) * VIEWBOX.width, ((event.clientY - rect.top) / rect.height) * VIEWBOX.height);
+
+  const handleLongitudeChange = (value: string) => {
+    selectionRevisionRef.current += 1;
+    setLongitude(value);
+    updateCandidate(value, latitude);
+    setMessage("");
   };
-  const preview = () => {
-    const lon = Number(longitude); const lat = Number(latitude);
-    if (!Number.isFinite(lon) || !Number.isFinite(lat) || lon < -180 || lon > 180 || lat < -90 || lat > 90) { setError(t("location.invalid_coordinates")); return; }
-    choosePoint(lon, lat);
+
+  const handleLatitudeChange = (value: string) => {
+    selectionRevisionRef.current += 1;
+    setLatitude(value);
+    updateCandidate(longitude, value);
+    setMessage("");
   };
+
+  const handleMapClick = (lat: number, lng: number) => {
+    selectionRevisionRef.current += 1;
+    const nextLongitude = lng.toFixed(6);
+    const nextLatitude = lat.toFixed(6);
+
+    setLongitude(nextLongitude);
+    setLatitude(nextLatitude);
+    updateCandidate(nextLongitude, nextLatitude);
+    setError("");
+    setMessage("");
+  };
+
   const confirm = async () => {
-    if (!projectId || !candidate) return;
-    setBusy(true); setError("");
-    try { await siclClient.confirmLocation(projectId, { longitude: candidate.longitude, latitude: candidate.latitude, place_label: label || undefined }); setCandidate(undefined); setMessage(t("location.confirmed")); await refresh(); }
-    catch (err) { setError(apiErrorMessage(err)); } finally { setBusy(false); }
-  };
-  const mapPoint = candidate ?? (location?.longitude != null && location?.latitude != null ? { longitude: location.longitude, latitude: location.latitude } : undefined);
-  const projected = mapPoint ? projectPoint(mapPoint.longitude, mapPoint.latitude) : undefined;
+    if (!candidate || !projectId || busy) {
+      if (!projectId) {
+        setError("No hay un proyecto seleccionado. No se puede confirmar la ubicación.");
+      }
+      return;
+    }
 
-  return <Card className="mt-5 border-border bg-card shadow-none"><CardHeader><div className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary" /><div><CardTitle className="font-serif text-xl">{t("location.title")}</CardTitle><p className="mt-1 text-xs text-muted-foreground">{t("location.description")}</p></div></div></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 md:grid-cols-3"><div><Label>{t("location.longitude")}</Label><Input value={longitude} onChange={(e) => setLongitude(e.target.value)} placeholder="-79.028" className="mt-1 bg-background" /></div><div><Label>{t("location.latitude")}</Label><Input value={latitude} onChange={(e) => setLatitude(e.target.value)} placeholder="-8.111" className="mt-1 bg-background" /></div><div><Label>{t("location.label")}</Label><Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder={t("location.label_placeholder")} className="mt-1 bg-background" /></div></div>
-    <div className="overflow-hidden rounded-lg border border-border bg-slate-950" aria-label={t("location.title")}><svg viewBox={`0 0 ${VIEWBOX.width} ${VIEWBOX.height}`} className="block h-auto min-h-40 w-full cursor-crosshair" role="img" aria-label={t("location.title")} onPointerDown={(event) => { if ((event.target as SVGElement).tagName === "circle") return; const point = pointFromEvent(event); choosePoint(point.longitude, point.latitude); }} onPointerMove={(event) => { if (dragging) { const point = pointFromEvent(event); choosePoint(point.longitude, point.latitude); } }} onPointerUp={() => setDragging(false)} onPointerLeave={() => setDragging(false)}>
-      <rect width={VIEWBOX.width} height={VIEWBOX.height} fill="#0f2742" />{Array.from({ length: 13 }, (_, index) => <line key={`v-${index}`} x1={index * 60} y1="0" x2={index * 60} y2={VIEWBOX.height} stroke="#2b5275" strokeWidth="1" opacity="0.55" />)}{Array.from({ length: 6 }, (_, index) => <line key={`h-${index}`} x1="0" y1={index * 60} x2={VIEWBOX.width} y2={index * 60} stroke="#2b5275" strokeWidth="1" opacity="0.55" />)}<path d="M80 80 C150 30 210 120 280 75 S420 65 490 115 S600 80 680 135" fill="none" stroke="#4f7894" strokeWidth="2" opacity="0.8" /><text x="16" y="24" fill="#d7e9f5" fontSize="12">EPSG:4326</text><text x="650" y="24" fill="#d7e9f5" fontSize="16">N ↑</text>
-      {projected && <g onPointerDown={(event) => { event.stopPropagation(); (event.currentTarget.ownerSVGElement as SVGSVGElement | null)?.setPointerCapture(event.pointerId); setDragging(true); }}><circle cx={projected.x} cy={projected.y} r="12" fill="#fbbf24" stroke="#111827" strokeWidth="3" /><circle cx={projected.x} cy={projected.y} r="4" fill="#111827" /><text x={Math.min(projected.x + 14, 650)} y={Math.max(projected.y - 14, 18)} fill="#fef3c7" fontSize="12" fontWeight="600">{candidate ? t("location.preview_title") : t("location.current")}</text></g>}
-    </svg></div>
-    <div className="flex items-center gap-2 text-xs text-muted-foreground"><Move className="h-3.5 w-3.5" />{t("location.preview_note")}</div>
-    <div className="flex flex-wrap gap-2"><Button type="button" variant="outline" onClick={preview}><MapPin className="mr-2 h-4 w-4" />{t("location.preview")}</Button>{candidate && <Button type="button" onClick={confirm} disabled={busy}><CheckCircle2 className="mr-2 h-4 w-4" />{busy ? t("location.saving") : t("location.confirm")}</Button>}</div>{candidate && <div className="border border-amber-500/60 bg-amber-50 p-3 text-sm text-amber-950"><strong>{t("location.preview_title")}</strong><p>{candidate.longitude}, {candidate.latitude}. {t("location.preview_note")}</p></div>}{location && <div className="flex items-start gap-3 border border-emerald-600/40 bg-emerald-50 p-3 text-sm text-emerald-950"><CheckCircle2 className="mt-0.5 h-4 w-4" /><span><strong>{t("location.current")}</strong> {location.place_label || `${location.longitude}, ${location.latitude}`} · {location.status}</span></div>}{missing && <div className="border border-border bg-background p-3 text-sm"><p className="font-semibold">{t("location.missing_title")}</p><p className="mt-1 text-muted-foreground">{t("location.missing_summary", { count: missing.variables.filter((item) => item.state === "MISSING").length })}</p><div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground"><AlertTriangle className="h-3.5 w-3.5" />{t("location.human_authority")}</div></div>}{message && <p role="status" className="text-sm text-emerald-700">{message}</p>}{error && <p role="alert" className="text-sm text-destructive">{error}</p>}</CardContent></Card>;
+    const selected = { ...candidate };
+    const requestProjectId = projectId;
+    const selectionRevision = selectionRevisionRef.current;
+    const operationId = ++operationRef.current;
+    const isCurrentOperation = () =>
+      operationRef.current === operationId;
+    const isCurrentSelection = () =>
+      selectionRevisionRef.current === selectionRevision;
+
+    setBusy(true);
+    setError("");
+    setMessage("");
+
+    try {
+      // Fase 1: persistencia en Core.
+      const posted = await siclClient.confirmLocation(requestProjectId, {
+        longitude: selected.longitude,
+        latitude: selected.latitude,
+        place_label: label.trim() || undefined,
+      });
+
+      if (!isCurrentOperation()) return;
+
+      // Fase 2: recuperación independiente para verificar persistencia.
+      const verified = await siclClient.currentLocation(requestProjectId);
+
+      if (!isCurrentOperation()) return;
+
+      if (
+        !verified ||
+        verified.location_id !== posted.location_id ||
+        !matchesCandidate(verified, selected, requestProjectId)
+      ) {
+        // Se conserva candidate para permitir reintento o inspección.
+        setError(
+          "El POST respondió, pero no se pudo verificar la ubicación persistida. La selección se conserva como candidata."
+        );
+        return;
+      }
+
+      // La ubicación sí quedó persistida y recuperada.
+      // La selección pendiente solo se limpia si el usuario no la cambió.
+      setLocation(verified);
+
+      if (isCurrentSelection()) {
+        setCandidate(undefined);
+
+        const coordinates = verified.geometry.coordinates;
+        setLongitude(String(coordinates[0]));
+        setLatitude(String(coordinates[1]));
+      } else {
+        setMessage(
+          "La ubicación anterior quedó persistida y verificada en SICL Core. Hay una nueva selección pendiente de confirmación."
+        );
+      }
+
+      // Fase 3: el reporte es independiente de la persistencia.
+      try {
+        const refreshedMissing = await siclClient.missingData(
+          requestProjectId,
+          "parcela_sitio"
+        );
+
+        if (!isCurrentOperation()) return;
+
+        setMissing(refreshedMissing);
+        setMessage("Ubicación persistida y verificada en SICL Core.");
+        setError("");
+
+        onConfirmedRef.current?.(verified, refreshedMissing);
+      } catch (reportError) {
+        if (!isCurrentOperation()) return;
+
+        // Se conserva el último reporte disponible. La consulta fallida
+        // no demuestra que el reporte anterior haya dejado de ser válido.
+        setMessage("Ubicación persistida y verificada en SICL Core.");
+        setError(
+          `La ubicación está confirmada, pero no se pudo actualizar el reporte de datos: ${apiErrorMessage(reportError)}`
+        );
+
+        // No enviar undefined para que el componente padre no borre
+        // el último reporte que sí pudo recuperar.
+        onConfirmedRef.current?.(verified);
+      }
+    } catch (err) {
+      if (!isCurrentOperation()) return;
+
+      setError(
+        `No se pudo completar la confirmación o su verificación: ${apiErrorMessage(err)}. La selección no se declara confirmada.`
+      );
+    } finally {
+      if (isCurrentOperation()) {
+        setBusy(false);
+      }
+    }
+  };
+
+  const parsedInputs = parseCandidate(longitude, latitude);
+  const storedCoordinates = location?.geometry?.coordinates;
+  const storedLng = storedCoordinates?.[0];
+  const storedLat = storedCoordinates?.[1];
+
+  const mapLat =
+    candidate?.latitude ??
+    parsedInputs?.latitude ??
+    (typeof storedLat === "number" && Number.isFinite(storedLat)
+      ? storedLat
+      : Number.NaN);
+
+  const mapLng =
+    candidate?.longitude ??
+    parsedInputs?.longitude ??
+    (typeof storedLng === "number" && Number.isFinite(storedLng)
+      ? storedLng
+      : Number.NaN);
+
+  return (
+    <Card className="border-[#28445b] bg-[#0b2031]">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+          <MapPin className="size-4 text-[#d4ff3a]" />
+          Ubicación del proyecto
+        </CardTitle>
+        <p className="text-xs text-[#9eb5c4]">
+          Selecciona un punto en el mapa o ingresa las coordenadas manualmente.
+        </p>
+      </CardHeader>
+
+      <CardContent className="space-y-4">
+        <LocationMap
+          lat={mapLat}
+          lng={mapLng}
+          onChange={handleMapClick}
+        />
+
+        <div className="grid grid-cols-2 gap-3">
+          <div>
+            <Label className="text-xs text-[#8fa8bc]">Longitud</Label>
+            <Input
+              value={longitude}
+              onChange={(event) => handleLongitudeChange(event.target.value)}
+              onBlur={() => updateCandidate(longitude, latitude, true)}
+              placeholder="-77.0428"
+              className="border-[#28445b] bg-[#071726] text-sm"
+            />
+          </div>
+
+          <div>
+            <Label className="text-xs text-[#8fa8bc]">Latitud</Label>
+            <Input
+              value={latitude}
+              onChange={(event) => handleLatitudeChange(event.target.value)}
+              onBlur={() => updateCandidate(longitude, latitude, true)}
+              placeholder="-12.0464"
+              className="border-[#28445b] bg-[#071726] text-sm"
+            />
+          </div>
+        </div>
+
+        <div>
+          <Label className="text-xs text-[#8fa8bc]">Etiqueta</Label>
+          <Input
+            value={label}
+            onChange={(event) => setLabel(event.target.value)}
+            placeholder="Ej. Trujillo, parcela piloto"
+            className="border-[#28445b] bg-[#071726] text-sm"
+          />
+        </div>
+
+        {error && (
+          <div
+            role="alert"
+            className="rounded border border-[#f0a35b] bg-[#2b2118] p-2 text-xs text-[#f6d3aa]"
+          >
+            {error}
+          </div>
+        )}
+
+        {message && (
+          <div
+            role="status"
+            className="rounded border border-[#70e1a2] bg-[#0f2a1e] p-2 text-xs text-[#a8f0c2]"
+          >
+            {message}
+          </div>
+        )}
+
+        <Button
+          onClick={confirm}
+          disabled={!candidate || busy || !projectId}
+          className="w-full bg-[#d4ff3a] text-[#061522] hover:bg-[#e5ff70]"
+        >
+          {busy ? "Confirmando y verificando…" : "Confirmar ubicación"}
+        </Button>
+
+        {location && (
+          <div className="flex items-center gap-2 text-xs text-[#70e1a2]">
+            <CheckCircle2 className="size-3" />
+            Sitio confirmado:{" "}
+            {location.place_label ||
+              `${location.geometry.coordinates[1]}, ${location.geometry.coordinates[0]}`}
+          </div>
+        )}
+
+        {missing && (
+          <div className="flex items-start gap-2 text-xs text-[#f0a35b]">
+            <AlertTriangle className="mt-0.5 size-3 shrink-0" />
+            <div>
+              <strong>Reporte de datos del sitio:</strong>
+              <ul className="mt-1 space-y-1">
+                {missing.variables.map((item) => (
+                  <li key={item.canonical_variable_id}>
+                    {item.canonical_variable_id}: {item.state}
+                  </li>
+                ))}
+
+                {missing.capabilities.map((item) => (
+                  <li key={item.capability_id}>
+                    {item.capability_id}: {item.state}
+                    {item.missing_requirements?.length
+                      ? ` — Requisitos: ${item.missing_requirements.join(", ")}`
+                      : ""}
+                  </li>
+                ))}
+              </ul>
+
+              {missing.variables.length === 0 &&
+                missing.capabilities.length === 0 && (
+                  <p>El Core no reportó variables ni capacidades detalladas.</p>
+                )}
+            </div>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
 }

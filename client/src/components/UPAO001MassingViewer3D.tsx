@@ -17,7 +17,27 @@ export type DerivedMass = {
 
 type Bounds = { minX: number; maxX: number; minY: number; maxY: number; minZ: number; maxZ: number };
 
-type ViewerProps = { representation: SpatialRepresentation; metrics?: Metrics; language?: string; selectedElementId?: string | null; onSelectElement?: (element: SpatialElement) => void };
+export type ProjectionMode = 
+  | "conic-1pt" 
+  | "conic-2pt" 
+  | "conic-3pt" 
+  | "isometric" 
+  | "dimetric" 
+  | "trimetric" 
+  | "caballera" 
+  | "military" 
+  | "aerial" 
+  | "curvilinear";
+
+type ViewerProps = { 
+  representation: SpatialRepresentation; 
+  metrics?: Metrics; 
+  language?: string; 
+  selectedElementId?: string | null; 
+  onSelectElement?: (element: SpatialElement) => void;
+  projectionMode?: ProjectionMode;
+  renderData?: unknown; // Para futuro uso (RenderData del motor paramétrico)
+};
 
 /** LOCAL_ENU (x=east, y=north, z=up) → Three renderer (x=east, y=up, z=-north). */
 export function spatialToRenderer(point: Point3): Point3 {
@@ -111,22 +131,102 @@ function MassMesh({ mass, selected, onSelect }: { mass: DerivedMass; selected: b
   </mesh>;
 }
 
-function CameraController({ bounds, controlsRef }: { bounds: Bounds; controlsRef: React.MutableRefObject<OrbitControls | null> }) {
+function CameraController({ bounds, controlsRef, projectionMode = "conic-2pt" }: { bounds: Bounds; controlsRef: React.MutableRefObject<OrbitControls | null>; projectionMode?: ProjectionMode }) {
   const { camera, gl } = useThree();
+  
   useEffect(() => {
     const controls = new OrbitControls(camera, gl.domElement);
-    controls.enableDamping = true; controls.dampingFactor = 0.08; controls.enablePan = true; controls.minDistance = 8; controls.maxDistance = 160;
+    controls.enableDamping = true; 
+    controls.dampingFactor = 0.08; 
+    controls.enablePan = true; 
+    controls.minDistance = 8; 
+    controls.maxDistance = 500;
     controlsRef.current = controls;
-    const centerX = (bounds.minX + bounds.maxX) / 2; const centerY = (bounds.minY + bounds.maxY) / 2; const centerZ = (bounds.minZ + bounds.maxZ) / 2;
+
+    const centerX = (bounds.minX + bounds.maxX) / 2; 
+    const centerY = (bounds.minY + bounds.maxY) / 2; 
+    const centerZ = (bounds.minZ + bounds.maxZ) / 2;
     const span = Math.max(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY, bounds.maxZ - bounds.minZ, 1);
-    camera.position.set(centerX + span * 0.95, centerZ + span * 2.5, -centerY - span * 0.95);
-    controls.target.set(centerX, centerZ, -centerY); controls.saveState(); controls.update();
+    const target = new THREE.Vector3(centerX, centerZ, -centerY);
+    
+    // Resetear FOV a default
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.fov = 42;
+    }
+
+    switch (projectionMode) {
+      case "conic-1pt":
+        // 1 punto de fuga: mirando de frente (pasillo)
+        camera.position.set(centerX, centerZ + span * 0.5, -centerY - span * 3);
+        camera.lookAt(target);
+        break;
+      case "conic-2pt":
+        // 2 puntos de fuga: esquina clásica
+        camera.position.set(centerX + span * 1.5, centerZ + span * 0.8, -centerY - span * 1.5);
+        camera.lookAt(target);
+        break;
+      case "conic-3pt":
+        // 3 puntos de fuga: picado (dramático)
+        camera.position.set(centerX + span * 1.2, centerZ + span * 3.0, -centerY - span * 1.2);
+        camera.lookAt(target);
+        break;
+      case "isometric":
+        // Isométrica: 120° exactos
+        camera.position.set(centerX + span * 1.2, centerZ + span * 1.2, -centerY + span * 1.2);
+        camera.lookAt(target);
+        if (camera instanceof THREE.PerspectiveCamera) { camera.fov = 25; }
+        break;
+      case "dimetric":
+        // Dimétrica: dos ejes iguales
+        camera.position.set(centerX + span * 1.4, centerZ + span * 1.0, -centerY + span * 0.8);
+        camera.lookAt(target);
+        if (camera instanceof THREE.PerspectiveCamera) { camera.fov = 28; }
+        break;
+      case "trimetric":
+        // Trimétrica: tres ejes distintos
+        camera.position.set(centerX + span * 1.6, centerZ + span * 1.1, -centerY + span * 0.6);
+        camera.lookAt(target);
+        if (camera instanceof THREE.PerspectiveCamera) { camera.fov = 30; }
+        break;
+      case "caballera":
+        // Caballera: frente real, profundidad a 45°
+        camera.position.set(centerX + span * 0.8, centerZ + span * 0.8, -centerY - span * 2.8);
+        camera.lookAt(target);
+        break;
+      case "military":
+        // Militar: vista cenital (planta real)
+        camera.position.set(centerX, centerZ + span * 3.5, -centerY - span * 0.1);
+        camera.lookAt(target);
+        break;
+      case "aerial":
+        // Aérea: simula pérdida de nitidez (vista alta)
+        camera.position.set(centerX + span * 2.5, centerZ + span * 4.0, -centerY - span * 2.5);
+        camera.lookAt(target);
+        break;
+      case "curvilinear":
+        // Curvilínea / Ojo de pez: FOV extremo
+        camera.position.set(centerX, centerZ + span * 1.5, -centerY - span * 2.0);
+        camera.lookAt(target);
+        if (camera instanceof THREE.PerspectiveCamera) { camera.fov = 90; }
+        break;
+      default:
+        camera.position.set(centerX + span * 1.5, centerZ + span * 0.8, -centerY - span * 1.5);
+        camera.lookAt(target);
+    }
+    
+    if (camera instanceof THREE.PerspectiveCamera) {
+      camera.updateProjectionMatrix();
+    }
+    
+    controls.target.copy(target);
+    controls.saveState(); 
+    controls.update();
     return () => { controls.dispose(); controlsRef.current = null; };
-  }, [bounds, camera, gl, controlsRef]);
+  }, [bounds, camera, gl, controlsRef, projectionMode]);
   return null;
 }
 
-function Scene({ representation, selectedId, onSelect, controlsRef }: { representation: SpatialRepresentation; selectedId: string | null; onSelect: (mass: DerivedMass) => void; controlsRef: React.MutableRefObject<OrbitControls | null> }) {
+function Scene({ representation, selectedId, onSelect, controlsRef, projectionMode }: { representation: SpatialRepresentation; selectedId: string | null; onSelect: (mass: DerivedMass) => void; controlsRef: React.MutableRefObject<OrbitControls | null>; projectionMode?: ProjectionMode }) {
   const bounds = useMemo(() => boundsFor(representation), [representation]);
   const masses = useMemo(() => deriveMasses(representation), [representation]);
   const site = representation.elements.find((element) => element.element_type === "SiteBoundary");
@@ -136,7 +236,7 @@ function Scene({ representation, selectedId, onSelect, controlsRef }: { represen
   const northOrigin: [number, number, number] = [centerX, bounds.maxZ + 0.05, -centerY];
   const northDirection = new THREE.Vector3(Math.sin(northRadians), 0, -Math.cos(northRadians));
   return <>
-    <CameraController bounds={bounds} controlsRef={controlsRef} />
+    <CameraController bounds={bounds} controlsRef={controlsRef} projectionMode={projectionMode} />
     <ambientLight intensity={1.8} />
     <directionalLight position={[20, 40, 20]} intensity={1.2} />
     <group position={[-centerX, 0, centerY]}>
@@ -173,7 +273,7 @@ class Viewer3DErrorBoundary extends Component<{ fallback: React.ReactNode; child
   render() { return this.state.failed ? this.props.fallback : this.props.children; }
 }
 
-export default function UPAO001MassingViewer3D({ representation, metrics, selectedElementId, onSelectElement }: ViewerProps) {
+export default function UPAO001MassingViewer3D({ representation, metrics, selectedElementId, onSelectElement, projectionMode }: ViewerProps) {
   const controlsRef = useRef<OrbitControls | null>(null);
   const [internalSelected, setInternalSelected] = useState<DerivedMass | null>(null);
   const selected = selectedElementId ? deriveMasses(representation).find((mass) => mass.element.id === selectedElementId) ?? null : internalSelected;
@@ -186,7 +286,7 @@ export default function UPAO001MassingViewer3D({ representation, metrics, select
     <div className="rounded-md border border-border bg-card p-4 text-card-foreground"><p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">MODEL PROJECT / EDUCATIONAL EXAMPLE</p><p className="mt-1 text-sm text-muted-foreground">Synthetic analytical geometry · LOCAL_ENU · m</p><p className="mt-1 text-xs text-muted-foreground">Alternative: {representation.alternative_id} · {representation.generator_version} · {representation.representation_version}</p></div>
     <div className="relative h-[520px] overflow-hidden rounded-md border border-border bg-slate-50" style={{ height: 520 }} data-testid="massing-3d-viewer">
       <Viewer3DErrorBoundary fallback={fallback}><Canvas camera={{ position: [55, 38, -55], fov: 42 }} dpr={[1, 1.5]} gl={{ antialias: true }} onCreated={({ gl }) => { gl.setClearColor("#f8fafc"); }}>
-        <Scene representation={representation} selectedId={selected?.element.id ?? null} onSelect={selectMass} controlsRef={controlsRef} />
+        <Scene representation={representation} selectedId={selected?.element.id ?? null} onSelect={selectMass} controlsRef={controlsRef} projectionMode={projectionMode} />
       </Canvas></Viewer3DErrorBoundary><button type="button" onClick={resetCamera} className="absolute right-3 top-3 rounded-md border border-slate-400 bg-white px-3 py-1.5 text-xs font-medium text-slate-900 shadow-sm">Reset camera</button>
     </div>
     <div className="grid gap-4 md:grid-cols-[1fr_280px]">

@@ -114,3 +114,6 @@ evidence/
 # ARKI: backups de reestructuración docs
 *.conflict-*
 *.pre-simplify-*
+
+# ARKI Funnel runtime data (no commitear)
+data/arki-funnel/

@@ -13,7 +13,7 @@ import { extractOcr, classifyDocumentStructure, type OcrInputKind } from "./arki
 import { storagePut } from "./storage";
 // F7.2: putArkiMo22 desactivado — MO22 storage fuera de alcance
 import { comparisonCollectionForRecommendation, nextRecommendationVersion } from "./recommendationVersion";
-import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, SiclCoreHttpError } from "./coreHttpClient";
+import { createCorePreference, createCoreProject, createCoreRecommendation, fetchCanonicalCouncil, fetchCanonicalHistory, fetchCanonicalSnapshot, fetchCoreLocation, fetchCoreMissingData, fetchOperationsResearchMethods, hasCoreUrl, recordCoreDecision, recordCoreHumanReview, SiclCoreHttpError } from "./coreHttpClient";
 import { generateProjectId } from "@shared/project-id";
 import { executeArchitecturalReasoning } from "./arkiD62ReasoningHarness";
 import { executeD63G, type D63Input } from "./arkiD63GeometricBridge";
@@ -612,6 +612,7 @@ export const appRouter = router({
     generateFunnel: publicProcedure
       .input(z.object({
         type: z.enum(["PARAMETRIC", "TIPOLOGIC", "EVOLUTIONARY"]),
+        projectId: z.string().trim().min(3),
         fixed: z.object({
           areaM2: z.number().positive(),
           city: z.string().trim().min(1),
@@ -635,9 +636,26 @@ export const appRouter = router({
           minArea: z.number().positive().optional(),
         }).optional(),
       }))
-      .mutation(({ input }) => {
-        const { type, fixed, variable, constraints } = input;
+      .mutation(async ({ input }) => {
+        const { type, projectId, fixed, variable, constraints } = input;
         const generationId = crypto.randomUUID();
+
+        // SITE-FIRST: validar contra SICL Core antes de generar.
+        // El cliente puede mentir; el servidor no.
+        const coreLocation = await fetchCoreLocation(projectId);
+        if (!coreLocation || coreLocation.status !== "CONFIRMED") {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: `SITE_FIRST_REQUIRED: el proyecto ${projectId} no tiene ubicación confirmada en SICL Core.`,
+          });
+        }
+        const coreMissing = await fetchCoreMissingData(projectId);
+        if (!coreMissing) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: `SITE_FIRST_REQUIRED: falta el reporte missing-data del proyecto ${projectId}.`,
+          });
+        }
 
         // El catálogo es la autoridad de familias y variantes.
         const family = listDynamicFamilies().find(
@@ -671,12 +689,15 @@ export const appRouter = router({
             projectId: `PROJECT-${generationId}`,
             typology: fixed.familyId,
             jurisdiction: fixed.jurisdiction,
+            location: coreLocation.place_label ?? `${coreLocation.latitude},${coreLocation.longitude}`,
           },
           context: {
-            sunAzimuthDeg: 240,  // default; se puede derivar del location
-            sunElevationDeg: 5,
-            windDirection: "SE",
-            windSpeedMs: 3.5,
+            // CERO DEUDA: sin datos verificados del sitio, no inventamos.
+            // El contexto viene de SICL Core, no hardcoded.
+            sunAzimuthDeg: undefined,
+            sunElevationDeg: undefined,
+            windDirection: undefined,
+            windSpeedMs: undefined,
           },
           facts: [
             { variable: "coeficiente_ocupacion", value: 0.7 },
@@ -896,6 +917,9 @@ export const appRouter = router({
           status: p.status === "ELIGIBLE" ? "ELIGIBLE" as const : p.status === "UNKNOWN" ? "UNKNOWN" as const : "FAILED" as const,
           title: p.title,
           strategy: p.axis,
+          variantId: p.variantId,
+          shapeType: typeof p.building?.parameters?.shapeType === "string" ? p.building.parameters.shapeType : undefined,
+          floors: typeof p.metrics?.floors === "number" ? p.metrics.floors : undefined,
           preview: "PREVIEW_LOCAL_CONCEPTUAL",
           metrics: {
             area: p.metrics.builtAreaM2,

@@ -1,14 +1,15 @@
 /**
  * Poda de ARKI: de los supervivientes del screening, selecciona los N mejores
- * para el Funnel (25/16/9/4/1).
+ * para el Funnel (1/4/9/16/25).
  *
- * Criterio de poda:
- * 1. Diversidad de tipología (variantId).
- * 2. Diversidad de escalas (floors).
- * 3. Diversidad de métricas (área, costo, capacidad).
+ * Criterio de diversidad (en orden de prioridad):
+ * 1. variantId (tipología arquitectónica real, ej. "HOSPITAL-GENERAL", "CLINIC")
+ * 2. shapeType (forma: "COURTYARD", "L_SHAPE", "U_SHAPE", "LINEAR")
+ * 3. floors (escala: bajo, medio, alto)
+ * 4. strategy (eje de exploración: PARAMETRIC, TIPOLOGIC, EVOLUTIONARY) — solo como último recurso
  *
- * La poda preserva la diversidad. No elige el "mejor" absoluto.
- * Eso es decisión del humano en el Funnel.
+ * La poda preserva diversidad. No elige el "mejor" absoluto.
+ * Esa decisión es del humano en el Funnel.
  */
 
 import type { DesignCandidate } from "../../../shared/arkiDesignFunnel";
@@ -20,8 +21,23 @@ export type PruningResult = {
     totalBefore: number;
     totalAfter: number;
     byStrategy: Record<string, number>;
+    byDiversityKey: Record<string, number>;
   };
 };
+
+function diversityKey(candidate: DesignCandidate): string {
+  // 1. variantId (si existe) — la diversidad arquitectónica real
+  if (candidate.variantId) return `variant:${candidate.variantId}`;
+  // 2. shapeType (si existe) — la forma
+  if (candidate.shapeType) return `shape:${candidate.shapeType}`;
+  // 3. floors (si existe) — la escala (agrupada en buckets)
+  if (typeof candidate.floors === "number") {
+    const bucket = candidate.floors <= 3 ? "low" : candidate.floors <= 8 ? "mid" : "high";
+    return `floors:${bucket}`;
+  }
+  // 4. Fallback: strategy (eje) — el bug anterior
+  return `strategy:${candidate.strategy || "UNKNOWN"}`;
+}
 
 export function arkiPruning(
   survivors: DesignCandidate[],
@@ -35,15 +51,15 @@ export function arkiPruning(
         totalBefore: survivors.length,
         totalAfter: survivors.length,
         byStrategy: groupByStrategy(survivors),
+        byDiversityKey: groupByDiversityKey(survivors),
       },
     };
   }
 
-  // Estrategia de poda: round-robin por tipología
-  // Agrupar por strategy (variantId o axis)
+  // Agrupar por diversidad real
   const groups = new Map<string, DesignCandidate[]>();
   for (const candidate of survivors) {
-    const key = candidate.strategy || "UNKNOWN";
+    const key = diversityKey(candidate);
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key)!.push(candidate);
   }
@@ -82,6 +98,7 @@ export function arkiPruning(
       totalBefore: survivors.length,
       totalAfter: pruned.length,
       byStrategy: groupByStrategy(pruned),
+      byDiversityKey: groupByDiversityKey(pruned),
     },
   };
 }
@@ -90,6 +107,15 @@ function groupByStrategy(candidates: DesignCandidate[]): Record<string, number> 
   const result: Record<string, number> = {};
   for (const c of candidates) {
     const key = c.strategy || "UNKNOWN";
+    result[key] = (result[key] ?? 0) + 1;
+  }
+  return result;
+}
+
+function groupByDiversityKey(candidates: DesignCandidate[]): Record<string, number> {
+  const result: Record<string, number> = {};
+  for (const c of candidates) {
+    const key = diversityKey(c);
     result[key] = (result[key] ?? 0) + 1;
   }
   return result;

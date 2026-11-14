@@ -36,6 +36,10 @@ export type DesignCandidate = {
   status: CandidateStatus;
   title: string;
   strategy: string;
+  // Diversidad real: usados por arkiPruning para agrupar
+  variantId?: string;
+  shapeType?: string;
+  floors?: number;
   preview: string;
   metrics: Record<string, number | string>;
   epistemic: CandidateEpistemicModel;
@@ -118,14 +122,41 @@ export function funnelLimitsForStep(step: FunnelStep): { explorer: number; final
 const now = () => new Date().toISOString();
 const id = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
-export function createDesignFunnel(input: { projectId: string; explorationId?: string; generationId?: string; candidates: DesignCandidate[]; timestamp?: string }): DesignFunnelState {
+export function createDesignFunnel(input: { projectId: string; explorationId?: string; generationId?: string; candidates: DesignCandidate[]; step?: FunnelStep; timestamp?: string }): DesignFunnelState {
   for (const candidate of input.candidates) {
     validateCandidateEpistemicModel(candidate);
   }
 
-  if (input.candidates.length !== 9) throw new Error("DESIGN_EXPLORER_REQUIRES_9_CANDIDATES");
+  // Aceptar 1, 4, 9, 16, 25 (o inferir del número de candidatos).
+  const expectedCount = input.step ?? (FUNNEL_STEPS.includes(input.candidates.length as FunnelStep) ? (input.candidates.length as FunnelStep) : 9);
+  if (!FUNNEL_STEPS.includes(expectedCount)) {
+    throw new Error(`INVALID_FUNNEL_STEP:${expectedCount}`);
+  }
+  if (input.candidates.length !== expectedCount) {
+    throw new Error(`FUNNEL_REQUIRES_${expectedCount}_CANDIDATES:got_${input.candidates.length}`);
+  }
+
   const generationId = input.generationId ?? "GEN-001";
-  return { version: ARKI_DESIGN_FUNNEL_VERSION, projectId: input.projectId, explorationId: input.explorationId ?? "EXP-001", generationId, stage: "DESIGN_EXPLORER_9", waitState: "AWAITING_9_TO_4_SELECTION", candidates: input.candidates.map((candidate) => ({ ...candidate, projectId: input.projectId, stage: candidate.stage === "GENERATED" ? "SURVIVOR" : candidate.stage })), events: [], comparisonMode: "PREVIEW", deepEvaluation: {}, explicitHumanAuthority: true };
+  const stage: FunnelStage = expectedCount === 1 ? "SELECTED_FOR_DEVELOPMENT"
+    : expectedCount === 4 ? "FINALIST_4"
+    : "DESIGN_EXPLORER_9";
+  const waitState: HumanWaitState = expectedCount === 1 ? "NONE"
+    : expectedCount === 4 ? "AWAITING_4_TO_1_SELECTION"
+    : "AWAITING_9_TO_4_SELECTION";
+
+  return {
+    version: ARKI_DESIGN_FUNNEL_VERSION,
+    projectId: input.projectId,
+    explorationId: input.explorationId ?? "EXP-001",
+    generationId,
+    stage,
+    waitState,
+    candidates: input.candidates.map((candidate) => ({ ...candidate, projectId: input.projectId, stage: candidate.stage === "GENERATED" ? "SURVIVOR" : candidate.stage })),
+    events: [],
+    comparisonMode: "PREVIEW",
+    deepEvaluation: {},
+    explicitHumanAuthority: true,
+  };
 }
 function assertCandidateSet(state: DesignFunnelState, ids: string[], expected: number) {
   if (new Set(ids).size !== ids.length) throw new Error("DUPLICATE_CANDIDATE_SELECTION");

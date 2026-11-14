@@ -281,3 +281,53 @@ export async function fetchCoreD2Snapshot(projectId: string, version: number): P
     method: "GET",
   });
 }
+
+export type CoreSpatialLocation = {
+  location_id: string;
+  project_id: string;
+  status: "CONFIRMED" | "CANDIDATE" | "SUPERSEDED";
+  longitude: number;
+  latitude: number;
+  crs: string;
+  place_label: string | null;
+  geometry: { type: string; coordinates: number[] };
+  provenance: string;
+  acquisition_method: string;
+};
+
+export type CoreMissingDataReport = {
+  location_present: boolean;
+  variables: Array<{ canonical_variable_id: string; state: string; source?: string | null; acquisition_paths?: string[] }>;
+  capabilities: Array<{ capability_id: string; state: string; missing_requirements?: string[] }>;
+};
+
+/**
+ * Consulta la ubicación confirmada del proyecto en SICL Core.
+ * Devuelve null si no hay ubicación confirmada (el proyecto existe pero no tiene sitio).
+ * Lanza si el proyecto no existe o hay error de conexión.
+ */
+export async function fetchCoreLocation(projectId: string): Promise<CoreSpatialLocation | null> {
+  const base = coreUrl();
+  if (!base) throw new Error("SICL_CORE_URL is required");
+  const response = await fetch(`${base}/v1/projects/${encodeURIComponent(projectId)}/locations/current`, { headers: serviceHeaders() });
+  if (response.status === 404) {
+    throw new Error(`PROJECT_NOT_FOUND:${projectId}`);
+  }
+  if (!response.ok) throw await errorFromResponse(response);
+  const body = await response.json() as { data?: { location?: CoreSpatialLocation | null } };
+  return body?.data?.location ?? null;
+}
+
+/**
+ * Consulta el reporte missing-data del proyecto en SICL Core.
+ * Devuelve null si el proyecto no existe.
+ */
+export async function fetchCoreMissingData(projectId: string, spatialScope = "parcela_sitio"): Promise<CoreMissingDataReport | null> {
+  const base = coreUrl();
+  if (!base) throw new Error("SICL_CORE_URL is required");
+  const response = await fetch(`${base}/v1/projects/${encodeURIComponent(projectId)}/missing-data?spatial_scope=${encodeURIComponent(spatialScope)}`, { headers: serviceHeaders() });
+  if (response.status === 404) return null;
+  if (!response.ok) throw await errorFromResponse(response);
+  const body = await response.json() as { data?: CoreMissingDataReport };
+  return body?.data ?? null;
+}

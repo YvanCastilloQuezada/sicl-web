@@ -190,6 +190,7 @@ async function v1Request<T>(path: string, init?: RequestInit): Promise<T> {
 const CORE_READ_CACHE_TTL_MS = 15_000;
 const coreReadCache = new Map<string, { expiresAt: number; value: unknown }>();
 const coreReadInFlight = new Map<string, Promise<unknown>>();
+const coreReadGeneration = new Map<string, number>();
 
 async function cachedV1Request<T>(path: string): Promise<T> {
   const now = Date.now();
@@ -197,20 +198,34 @@ async function cachedV1Request<T>(path: string): Promise<T> {
   if (cached && cached.expiresAt > now) return cached.value as T;
   const pending = coreReadInFlight.get(path);
   if (pending) return pending as Promise<T>;
+  const generation = coreReadGeneration.get(path) ?? 0;
   const requestPromise = v1Request<T>(path)
     .then((value) => {
-      coreReadCache.set(path, { value, expiresAt: Date.now() + CORE_READ_CACHE_TTL_MS });
+      if ((coreReadGeneration.get(path) ?? 0) === generation) {
+        coreReadCache.set(path, { value, expiresAt: Date.now() + CORE_READ_CACHE_TTL_MS });
+      }
       return value;
     })
-    .finally(() => coreReadInFlight.delete(path));
+    .finally(() => {
+      if (coreReadInFlight.get(path) === requestPromise) {
+        coreReadInFlight.delete(path);
+      }
+    });
   coreReadInFlight.set(path, requestPromise);
   return requestPromise;
 }
 
 function invalidateCoreReadCache(prefix: string) {
-  Array.from(coreReadCache.keys()).forEach((key) => {
-    if (key.startsWith(prefix)) coreReadCache.delete(key);
-  });
+  const keys = new Set([
+    ...coreReadCache.keys(),
+    ...coreReadInFlight.keys(),
+  ]);
+  for (const key of keys) {
+    if (!key.startsWith(prefix)) continue;
+    coreReadGeneration.set(key, (coreReadGeneration.get(key) ?? 0) + 1);
+    coreReadCache.delete(key);
+    coreReadInFlight.delete(key);
+  }
 }
 
 export function apiErrorMessage(error: unknown): string {
@@ -368,6 +383,9 @@ export const siclClient = {
   },
   async confirmLocation(projectId: string, input: { longitude: number; latitude: number; place_label?: string }): Promise<SpatialLocation> {
     const data = await v1Request<{ location: SpatialLocation }>(`/v1/projects/${encodeURIComponent(projectId)}/locations`, { method: "POST", body: JSON.stringify({ spatial_scope: "parcela_sitio", geometry_type: "Point", geometry: { type: "Point", coordinates: [input.longitude, input.latitude] }, place_label: input.place_label, acquisition_method: "MAP_SELECTION", provenance: "USER_DECLARED", actor_id: "frontend-user", authority: "project_owner", confirm: true }) });
+    const prefix = `/v1/projects/${encodeURIComponent(projectId)}`;
+    invalidateCoreReadCache(`${prefix}/locations`);
+    invalidateCoreReadCache(`${prefix}/missing-data`);
     return data.location;
   },
   async currentLocation(projectId: string): Promise<SpatialLocation | null> {

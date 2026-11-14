@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, ChevronRight, GitBranch, RefreshCw, RotateCcw, ShieldCheck, SlidersHorizontal, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -297,6 +297,9 @@ export default function ArkiDesignFunnelPage() {
   const [siteMissing, setSiteMissing] = useState<MissingDataReport | null>(null);
   const [siteBusy, setSiteBusy] = useState(true);
   const [siteError, setSiteError] = useState("");
+  const siteRequestRef = useRef(0);
+  const currentProjectIdRef = useRef(brief.projectId);
+  currentProjectIdRef.current = brief.projectId;
   const [solarAnalysis, setSolarAnalysis] = useState<SolarAnalysis | null>(null);
   const [spatialPayload, setSpatialPayload] = useState<TransportPayload | null>(null);
   const [spatialError, setSpatialError] = useState("");
@@ -310,23 +313,87 @@ export default function ArkiDesignFunnelPage() {
   const [maxValue, setMaxValue] = useState(20);
 
   const refreshSite = async () => {
-    setSiteBusy(true); setSiteError("");
-    try {
-      const [location, missing] = await Promise.all([
-        siclClient.currentLocation(brief.projectId),
-        siclClient.missingData(brief.projectId, "parcela_sitio"),
-      ]);
-      setSiteLocation(location); setSiteMissing(missing);
-      if (location) {
-        const siteLabel = location.place_label || (location.longitude != null && location.latitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado");
-        setBrief((current) => ({ ...current, location: siteLabel }));
-      }
-    } catch (error) {
-      setSiteError(apiErrorMessage(error));
-      setSiteLocation(null); setSiteMissing(null);
-    } finally { setSiteBusy(false); }
+    const projectId = brief.projectId;
+    const requestId = ++siteRequestRef.current;
+
+    const isCurrentRequest = () =>
+      siteRequestRef.current === requestId &&
+      currentProjectIdRef.current === projectId;
+
+    setSiteBusy(true);
+    setSiteError("");
+    setSiteLocation(null);
+    setSiteMissing(null);
+
+    const [locationResult, missingResult] = await Promise.allSettled([
+      siclClient.currentLocation(projectId),
+      siclClient.missingData(projectId, "parcela_sitio"),
+    ]);
+
+    if (!isCurrentRequest()) return;
+
+    const location =
+      locationResult.status === "fulfilled"
+        ? locationResult.value
+        : null;
+
+    const validLocation =
+      location &&
+      location.project_id === projectId &&
+      location.status === "CONFIRMED"
+        ? location
+        : null;
+
+    const missing =
+      missingResult.status === "fulfilled"
+        ? missingResult.value
+        : null;
+
+    setSiteLocation(validLocation);
+    setSiteMissing(missing);
+
+    const errors: string[] = [];
+
+    if (locationResult.status === "rejected") {
+      errors.push(
+        `No se pudo recuperar la ubicación: ${apiErrorMessage(locationResult.reason)}`
+      );
+    } else if (location && !validLocation) {
+      errors.push("La ubicación recuperada no pertenece al proyecto actual o no está confirmada.");
+    }
+
+    if (missingResult.status === "rejected") {
+      errors.push(
+        `No se pudo recuperar missing-data: ${apiErrorMessage(missingResult.reason)}`
+      );
+    }
+
+    setSiteError(errors.join(" | "));
+
+    if (validLocation) {
+      const siteLabel =
+        validLocation.place_label ||
+        (validLocation.longitude != null && validLocation.latitude != null
+          ? `${validLocation.latitude.toFixed(6)}, ${validLocation.longitude.toFixed(6)}`
+          : "Sitio confirmado");
+
+      setBrief((current) =>
+        current.projectId === projectId
+          ? { ...current, location: siteLabel }
+          : current
+      );
+    }
+
+    if (isCurrentRequest()) setSiteBusy(false);
   };
-  useEffect(() => { void refreshSite(); }, [brief.projectId]);
+
+  useEffect(() => {
+    void refreshSite();
+
+    return () => {
+      siteRequestRef.current += 1;
+    };
+  }, [brief.projectId]);
   useEffect(() => {
     let mounted = true;
     setSpatialError("");
@@ -347,6 +414,7 @@ export default function ArkiDesignFunnelPage() {
 
       const result = await generateFunnel.mutateAsync({
         type: axisType,
+        projectId: brief.projectId,
         fixed: {
           areaM2: brief.areaM2,
           city: brief.location || "Trujillo",
@@ -428,7 +496,7 @@ export default function ArkiDesignFunnelPage() {
   useEffect(() => { setSelectedElement(null); }, [activeId, mode]);
 
   const runDemo = () => {
-    if (!siteLocation) { setNotice("SITE-FIRST: confirma primero la ubicación del proyecto. ARKI no debe generar y colocar después."); return; }
+    if (!siteLocation || siteLocation.project_id !== brief.projectId) { setNotice("SITE-FIRST: confirma primero la ubicación del proyecto actual. ARKI no debe generar con una ubicación de otro proyecto."); return; }
     const missingCount = siteMissing?.variables.filter((item)=>item.state==="MISSING").length ?? 0;
     const normalized = { ...brief, projectId: brief.projectId.trim() || DEFAULT_PROJECT_ID, floors: Math.max(1, Math.round(brief.floors || 1)), areaM2: Math.max(100, Math.round(brief.areaM2 || 100)), prompt: brief.prompt.trim() || "Edificio de 120 pisos", location: brief.location.trim() || "UNKNOWN" };
     setBrief(normalized);
@@ -492,15 +560,11 @@ export default function ArkiDesignFunnelPage() {
     <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Pisos</label><input type="number" min="1" value={brief.floors} onChange={(e)=>setBrief(v=>({...v,floors:Number(e.target.value)}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
     <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Área objetivo m²</label><input type="number" min="100" value={brief.areaM2} onChange={(e)=>setBrief(v=>({...v,areaM2:Number(e.target.value)}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
     <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Ubicación</label><input value={brief.location} onChange={(e)=>setBrief(v=>({...v,location:e.target.value}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
-    <Button onClick={runDemo} disabled={!siteLocation || siteBusy} className="self-end">Generar 9</Button>
+    <Button onClick={runDemo} disabled={!siteLocation || siteLocation.project_id !== brief.projectId || siteBusy} className="self-end">Generar 9</Button>
   </div>
   <div className="mt-2 text-[10px] text-[#f5aa56]">MODO DEMO: el brief alimenta candidatos conceptuales deterministas del embudo existente. “120 pisos” todavía NO implica solver estructural, normativa de altura ni geometría profesional.</div>
-  <div className="mt-4 rounded border border-[#28445b] bg-[#091827] p-3">
-    <div className="flex flex-wrap items-center justify-between gap-3"><div><div className="text-[9px] font-bold uppercase tracking-[.18em] text-[#7dd3fc]">SITE-FIRST GATE</div><div className="mt-1 text-sm font-semibold">{siteLocation ? "Sitio confirmado · habilitado para explorar" : siteBusy ? "Leyendo estado del sitio…" : "Sitio aún no confirmado"}</div></div><Button size="sm" variant="outline" onClick={()=>void refreshSite()}>Actualizar sitio</Button></div>
-    <div className="mt-2 grid gap-2 md:grid-cols-3 text-[10px] text-[#9eb5c4]"><div>Ubicación: <span className="text-[#d7e8f2]">{siteLocation?.place_label || (siteLocation?.latitude != null && siteLocation?.longitude != null ? `${siteLocation.latitude}, ${siteLocation.longitude}` : "UNKNOWN")}</span></div><div>Provenance: <span className="text-[#d7e8f2]">{siteLocation?.provenance || "UNKNOWN"}</span></div><div>Datos faltantes: <span className="text-[#f5aa56]">{siteMissing ? siteMissing.variables.filter((item)=>item.state==="MISSING").length : "UNKNOWN"}</span></div></div>
-    {siteError && <div className="mt-2 text-[10px] text-[#f5aa56]">Core/site no disponible: {siteError}. No se fabrica contexto del sitio.</div>}
-  </div>
-  <LocationPicker projectId={brief.projectId} onConfirmed={(location, missing) => { setSiteLocation(location); if (missing) setSiteMissing(missing); const siteLabel = location.place_label || (location.latitude != null && location.longitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado"); setBrief((current)=>({...current,location:siteLabel})); }} />
+  
+  <LocationPicker key={brief.projectId} projectId={brief.projectId} onConfirmed={(location, missing) => { setSiteLocation(location); if (missing !== undefined) { setSiteMissing(missing); } const siteLabel = location.place_label || (location.latitude != null && location.longitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado"); setBrief((current)=>({...current,location:siteLabel})); }} />
   {siteLocation && <div className="mt-4"><SolarTemporalOverlay projectId={brief.projectId} selectedAlternativeId={activeId} onAnalysisChange={setSolarAnalysis} /></div>}
   {siteLocation && <div className="mt-3 grid gap-2 md:grid-cols-4">{[
     ["LOCATION", siteLocation.status || "CONFIRMED", siteLocation.provenance || "UNKNOWN"],
