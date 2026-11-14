@@ -1,0 +1,31 @@
+{
+  "projectId": "TRA-LIM-500-001",
+  "projectName": "Terminal terrestre 500 buses/día",
+  "typology": "TRANSPORTE",
+  "brief": "Terminal terrestre con andenes, sala de espera, boletería y servicios.",
+  "context": {
+    "jurisdiction": "PE", "climate": "TEMPLADO", "zona_sismica": "Z4", "tipo_suelo": "S3",
+    "occupancy": 5000, "latitude": -12.0464, "longitude": -77.0428, "altitude": 154,
+    "topografia": "plana", "pendiente": 0.01, "accesos": ["avenida principal", "vía expresa"],
+    "orientacion": "este-oeste", "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.120", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Andenes", "capacity": 50, "subjects": ["pasajero"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Sala de espera", "capacity": 500, "subjects": ["pasajero"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Boletería", "capacity": 50, "subjects": ["pasajero"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 30, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-5", "name": "Carga y descarga", "capacity": 10, "subjects": ["transportista"], "privacy": "controlled", "accessControl": "gate", "frequency": "daily", "duration": "short", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-3", "target": "act-2", "relation": "ADJACENT", "subjects": ["pasajero"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["pasajero"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-1", "target": "act-5", "relation": "ADJACENT", "subjects": ["transportista"], "control": "RESTRICTED" },
+    { "id": "rel-4", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["pasajero", "personal", "transportista"],
+  "conditions": ["separación flujo pasajero/vehículo", "evacuación clara", "control de acceso por ticket"],
+  "unknowns": ["normativa local de transporte requiere revisión", "capacidad de carga vertical requiere verificación", "circulación vehicular requiere simulación especializada"],
+  "envelope": { "width": 100, "height": 80 },
+  "sourceIds": ["SRC-TRA-BRIEF", "SRC-RNE-TRANSPORTE"]
+}

@@ -1,0 +1,147 @@
+{
+  "projectId": "PIN-LIM-050-001",
+  "projectName": "Planificación intercuencas 50,000 km²",
+  "typology": "PLANIFICACION_INTERCUENCAS",
+  "brief": "Plan intercuencas con transferencia de agua, ecosistemas y gestión integrada.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "VARIABLE",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 1000000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 2500,
+    "topografia": "montañosa",
+    "pendiente": 0.5,
+    "accesos": [
+      "red vial nacional",
+      "vías auxiliares"
+    ],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": [
+      "SO",
+      "NE"
+    ]
+  },
+  "constraints": [
+    "Ley 29338",
+    "ANA Normas",
+    "RNE E.030",
+    "RNE E.050",
+    "RNE EM.010"
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Cuencas integradas",
+      "capacity": 700000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-2",
+      "name": "Transferencia de agua",
+      "capacity": 200000,
+      "subjects": [
+        "agricultor",
+        "operador"
+      ],
+      "privacy": "controlled",
+      "accessControl": "staff",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-3",
+      "name": "Ecosistemas estratégicos",
+      "capacity": 80000,
+      "subjects": [
+        "visitante"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-4",
+      "name": "Infraestructura intercuencas",
+      "capacity": 20000,
+      "subjects": [
+        "operador"
+      ],
+      "privacy": "restricted",
+      "accessControl": "staff",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "act-2",
+      "target": "act-1",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "agricultor"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-2",
+      "target": "act-4",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "operador"
+      ],
+      "control": "RESTRICTED"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-1",
+      "target": "act-3",
+      "relation": "ADJACENT",
+      "subjects": [
+        "visitante"
+      ],
+      "control": "FLOW"
+    }
+  ],
+  "subjects": [
+    "residente",
+    "agricultor",
+    "operador",
+    "visitante"
+  ],
+  "conditions": [
+    "gestión integrada intercuencas",
+    "transferencia de agua",
+    "protección de ecosistemas estratégicos"
+  ],
+  "unknowns": [
+    "normativa intercuencas requiere revisión ANA",
+    "estudio hidrológico intercuencas requiere verificación",
+    "estudio de cambio climático requiere verificación"
+  ],
+  "envelope": {
+    "width": 200000,
+    "height": 200000,
+    "area": 50000000000,
+    "status": "INTER_WATERSHED_PLAN"
+  },
+  "sourceIds": [
+    "SRC-PIN-BRIEF",
+    "SRC-ANA-INTERCUENCAS"
+  ]
+}

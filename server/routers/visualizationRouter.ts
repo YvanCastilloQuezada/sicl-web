@@ -13,14 +13,47 @@ export const visualizationRouter = router({
    * Para esta primera versión, recibe el input completo (como el test de exportRenderData).
    */
   getRenderDataForAllPartis: protectedProcedure
-    .input(z.object({ input: z.unknown() }))
+    .input(z.object({ 
+      input: z.unknown(),
+      funnelStage: z.enum(["25", "16", "9", "4", "1"]).default("9"),
+    }))
     .mutation(async ({ input }) => {
       const cycleInput = input.input as IntegratedArchitectInput;
       if (!cycleInput || typeof cycleInput !== "object") {
         throw new TRPCError({ code: "BAD_REQUEST", message: "input must be an IntegratedArchitectInput object" });
       }
-      const cycle = await executeIntegratedArchitectCycle(cycleInput);
-      const renderDatas = exportRenderDataForAllPartis(cycle);
+      // Funnel Stage: el ciclo debe respetar cuántos PARTIs generar.
+      const cycle = await executeIntegratedArchitectCycle({ ...cycleInput, funnelStage: input.funnelStage } as any);
+      let renderDatas = exportRenderDataForAllPartis(cycle);
+      
+      // Simulación de PODA: Si el Funnel es 1, dejamos solo el mejor.
+      // Si es 4 o 9, tenemos que replicar variaciones (hasta que el brain lo haga nativo).
+      const limit = parseInt(input.funnelStage, 10);
+      
+      if (renderDatas.length > limit) {
+        // Si piden menos, recortamos
+        renderDatas = renderDatas.slice(0, limit);
+      } else if (renderDatas.length < limit) {
+        // Si piden más (ej. 9 o 25) y solo hay 3, generamos variaciones sintéticas
+        // rotando el flowStrategy y el organizingIdea para simular PODA
+        const baseLength = renderDatas.length;
+        const expanded = [];
+        for (let i = 0; i < limit; i++) {
+          const base = renderDatas[i % baseLength];
+          const variation = {
+            ...base,
+            partiId: `${base.partiId}-V${i + 1}`,
+            organizingIdea: `Variación ${i + 1} — ${base.organizingIdea}`,
+            // Rotamos la posición de los vértices ligeramente para que se vean diferentes
+            vertices: base.vertices.map((v: [number, number, number], idx: number) => {
+              const jitter = ((i % 3) - 1) * 0.5;
+              return [v[0] + jitter, v[1], v[2] + jitter] as [number, number, number];
+            })
+          };
+          expanded.push(variation);
+        }
+        renderDatas = expanded;
+      }
       return {
         projectId: cycle.project.projectId,
         nPartis: renderDatas.length,

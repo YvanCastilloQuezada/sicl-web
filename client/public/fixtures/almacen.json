@@ -1,0 +1,38 @@
+{
+  "projectId": "ALM-LIM-500-001",
+  "projectName": "Centro de distribución 50,000 m²",
+  "typology": "ALMACEN",
+  "brief": "Centro de distribución con racks, muelles de carga, oficinas y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 0,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["carretera industrial", "vía auxiliar"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.060", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "NFPA 13"],
+  "activities": [
+    { "id": "act-1", "name": "Racks de almacenamiento", "capacity": 50000, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Muelles de carga", "capacity": 30, "subjects": ["transportista"], "privacy": "controlled", "accessControl": "gate", "frequency": "continuous", "duration": "short", "temporalOverlap": true },
+    { "id": "act-3", "name": "Oficinas", "capacity": 50, "subjects": ["administrativo"], "privacy": "controlled", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 30, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["administrativo"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operador", "transportista", "administrativo", "personal"],
+  "conditions": ["flujo de mercancía unidireccional", "segregación carga/personal", "protección contra incendios NFPA 13"],
+  "unknowns": ["estudio logístico requiere revisión especializada", "estudio de carga de racks requiere verificación estructural", "categoría de riesgo de incendio requiere clasificación"],
+  "envelope": { "width": 250, "height": 200, "area": 50000, "status": "INDUSTRIAL_SPECIAL" },
+  "sourceIds": ["SRC-ALM-BRIEF", "SRC-RNE-ALMACEN"]
+}

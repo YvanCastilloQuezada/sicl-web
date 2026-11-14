@@ -1,0 +1,38 @@
+{
+  "projectId": "BIB-LIM-080-001",
+  "projectName": "Biblioteca 8,000 m²",
+  "typology": "BIBLIOTECA",
+  "brief": "Biblioteca con salas de lectura, depósito, hemeroteca, mediateca y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 2000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "plaza pública"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.090", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Salas de lectura", "capacity": 1500, "subjects": ["usuario"], "privacy": "shared", "accessControl": "registration", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Depósito", "capacity": 100, "subjects": ["bibliotecario"], "privacy": "restricted", "accessControl": "staff", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Hemeroteca", "capacity": 300, "subjects": ["usuario"], "privacy": "shared", "accessControl": "registration", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Mediateca", "capacity": 200, "subjects": ["usuario"], "privacy": "controlled", "accessControl": "registration", "frequency": "daily", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["bibliotecario"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["usuario"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-1", "target": "act-4", "relation": "ADJACENT", "subjects": ["usuario"], "control": "FLOW" }
+  ],
+  "subjects": ["usuario", "bibliotecario"],
+  "conditions": ["control de luz en depósito", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["estudio de conservación de colecciones requiere revisión", "estudio de carga de estanterías requiere verificación estructural", "estudio acústico requiere verificación"],
+  "envelope": { "width": 100, "height": 80, "area": 8000, "status": "CULTURAL_BUILDING" },
+  "sourceIds": ["SRC-BIB-BRIEF", "SRC-RNE-BIBLIOTECA"]
+}

@@ -1,0 +1,38 @@
+{
+  "projectId": "TEA-LIM-015-001",
+  "projectName": "Teatro 1,500 butacas",
+  "typology": "TEATRO",
+  "brief": "Teatro con sala principal, escenario, camerinos, foyer y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 1500,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["avenida principal", "plaza pública"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.090", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Sala principal", "capacity": 1200, "subjects": ["espectador"], "privacy": "public", "accessControl": "ticket", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-2", "name": "Escenario", "capacity": 100, "subjects": ["actor", "técnico"], "privacy": "restricted", "accessControl": "staff", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Camerinos", "capacity": 50, "subjects": ["actor"], "privacy": "restricted", "accessControl": "staff", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Foyer", "capacity": 300, "subjects": ["espectador"], "privacy": "public", "accessControl": "ticket", "frequency": "event", "duration": "short", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-4", "target": "act-1", "relation": "CIRCULATION", "subjects": ["espectador"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-3", "target": "act-2", "relation": "CIRCULATION", "subjects": ["actor"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-2", "target": "act-1", "relation": "ADJACENT", "subjects": ["espectador", "actor"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["espectador", "actor", "técnico"],
+  "conditions": ["acústica de sala", "evacuación clara", "control de acceso por ticket"],
+  "unknowns": ["estudio acústico requiere revisión especializada", "estudio de carga de escenario requiere verificación estructural", "estudio de iluminación escénica requiere verificación"],
+  "envelope": { "width": 80, "height": 60, "area": 4800, "status": "CULTURAL_BUILDING" },
+  "sourceIds": ["SRC-TEA-BRIEF", "SRC-RNE-TEATRO"]
+}

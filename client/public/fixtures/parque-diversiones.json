@@ -1,0 +1,38 @@
+{
+  "projectId": "PDI-LIM-200-001",
+  "projectName": "Parque de diversiones 20 hectáreas",
+  "typology": "PARQUE_DIVERSIONES",
+  "brief": "Parque de diversiones con atracciones, shows, food court y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 10000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.02,
+    "accesos": ["carretera principal", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.100", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "IAAPA Standards"],
+  "activities": [
+    { "id": "act-1", "name": "Atracciones mecánicas", "capacity": 3000, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-2", "name": "Shows", "capacity": 2000, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Food court", "capacity": 2000, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 500, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["visitante", "personal"],
+  "conditions": ["evacuación masiva", "seguridad de atracciones", "control de acceso por ticket"],
+  "unknowns": ["normativa de parques de diversiones requiere revisión IAAPA", "estudio de seguridad de atracciones requiere verificación", "estudio de evacuación masiva requiere simulación jupedsim"],
+  "envelope": { "width": 500, "height": 400, "area": 200000, "status": "RECREATIONAL_SPACE" },
+  "sourceIds": ["SRC-PDI-BRIEF", "SRC-IAAPA-PARQUE"]
+}

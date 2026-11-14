@@ -1,0 +1,38 @@
+{
+  "projectId": "MUL-LIM-020-001",
+  "projectName": "Edificio multifamiliar 20 viviendas",
+  "typology": "MULTIFAMILIAR",
+  "brief": "Edificio de 5 pisos con 20 viviendas, áreas comunes y estacionamiento.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 80,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.01,
+    "accesos": ["calle secundaria", "pasaje"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.020", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Viviendas", "capacity": 20, "subjects": ["residente"], "privacy": "private", "accessControl": "key", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Áreas comunes", "capacity": 30, "subjects": ["residente"], "privacy": "shared", "accessControl": "key", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-3", "name": "Estacionamiento", "capacity": 20, "subjects": ["residente"], "privacy": "controlled", "accessControl": "key", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-3", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["residente", "personal"],
+  "conditions": ["orientación norte-sur para asoleamiento", "circulación vertical central", "evacuación clara"],
+  "unknowns": ["normativa local de vivienda requiere revisión", "capacidad de carga vertical requiere verificación"],
+  "envelope": { "width": 25, "height": 30, "status": "MULTIFAMILY" },
+  "sourceIds": ["SRC-MUL-BRIEF", "SRC-RNE-MULTIFAMILIAR"]
+}

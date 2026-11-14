@@ -1,0 +1,36 @@
+{
+  "projectId": "PLV-LIM-001-001",
+  "projectName": "Polvorín de Municiones",
+  "typology": "POLVORIN",
+  "brief": "Almacén de municiones con protección pasiva, distancia de seguridad y control de acceso.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 20,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.03,
+    "accesos": ["camino restringido", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE E.030", "RNE E.050", "RNE EM.010", "NATO STANAG", "UFC 4-021-01"],
+  "activities": [
+    { "id": "act-1", "name": "Almacén de municiones", "capacity": 10, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Control de acceso", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Protección pasiva", "capacity": 5, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-2", "target": "act-1", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["personal"],
+  "conditions": ["distancia de seguridad a otras instalaciones", "cobertura de tierra y hormigón", "control de acceso doble"],
+  "unknowns": ["normativa militar requiere revisión", "estudio de distancia de seguridad requiere verificación", "estudio de protección pasiva requiere verificación"],
+  "envelope": { "width": 100, "height": 80, "area": 8000, "status": "MILITARY_BUNKER" },
+  "sourceIds": ["SRC-PLV-BRIEF", "SRC-NATO-STANAG"]
+}

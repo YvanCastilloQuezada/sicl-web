@@ -22,6 +22,7 @@ const HelpPage = lazy(() => import("./pages/HelpPage"));
 const HelpArticlePage = lazy(() => import("./pages/HelpArticlePage"));
 const CommandBar = lazy(() => import("./components/CommandBar"));
 const MultiobjectivePage = lazy(() => import("./pages/MultiobjectivePage"));
+const ArkiSolidViewerPage = lazy(() => import("./pages/ArkiSolidViewerPage"));
 const ArkiBookPage = lazy(() => import("./pages/ArkiBookPage"));
 const SpatialViewerPage = lazy(() => import("./pages/SpatialViewerPage"));
 const SpatialComparisonPage = lazy(() => import("./pages/SpatialComparisonPage"));
@@ -75,6 +76,7 @@ function App() {
                 <Route path="/help" component={HelpPage} />
                 <Route path="/help/:slug" component={(props: any) => <HelpArticlePage manualId={props.params.slug as ManualId} />} />
                 <Route path="/multiobjective" component={() => <MultiobjectivePage />} />
+                <Route path="/solid-viewer" component={() => <ArkiSolidViewerPage />} />
                 <Route path="/arki-book" component={ArkiBookPage} />
                 <Route path="/spatial" component={SpatialViewerPage} />
                 <Route path="/spatial-comparison" component={SpatialComparisonPage} />
