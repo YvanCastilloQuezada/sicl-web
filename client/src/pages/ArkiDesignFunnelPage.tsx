@@ -414,6 +414,7 @@ export default function ArkiDesignFunnelPage() {
 
       const result = await generateFunnel.mutateAsync({
         type: axisType,
+        projectId: brief.projectId,
         fixed: {
           areaM2: brief.areaM2,
           city: brief.location || "Trujillo",
