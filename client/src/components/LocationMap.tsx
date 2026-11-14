@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { useEffect, useRef } from "react";
+import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -25,19 +25,36 @@ function LocationMarker({ lat, lng, onChange }: LocationMapProps) {
     },
   });
 
-  return lat && lng ? <Marker position={[lat, lng]} /> : null;
+  return Number.isFinite(lat) && Number.isFinite(lng)
+    ? <Marker position={[lat, lng]} />
+    : null;
+}
+
+function MapCenterSync({ lat, lng }: { lat: number; lng: number }) {
+  const map = useMap();
+  const hasCenteredRef = useRef(false);
+
+  useEffect(() => {
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+    const zoom = hasCenteredRef.current ? map.getZoom() : 13;
+
+    map.setView([lat, lng], zoom, { animate: false });
+    hasCenteredRef.current = true;
+  }, [lat, lng, map]);
+
+  return null;
 }
 
 export default function LocationMap({ lat, lng, onChange }: LocationMapProps) {
-  // Si no hay lat/lng válidas, usar un default (Lima, Perú)
-  const validLat = Number.isFinite(lat) && lat !== 0 ? lat : -12.0464;
-  const validLng = Number.isFinite(lng) && lng !== 0 ? lng : -77.0428;
+  const hasCoordinates = Number.isFinite(lat) && Number.isFinite(lng);
+  const center: [number, number] = hasCoordinates ? [lat, lng] : [0, 0];
 
   return (
     <div className="h-[400px] w-full overflow-hidden rounded-md border border-[#28445b]">
       <MapContainer
-        center={[validLat, validLng]}
-        zoom={13}
+        center={center}
+        zoom={hasCoordinates ? 13 : 2}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
       >
@@ -45,7 +62,8 @@ export default function LocationMap({ lat, lng, onChange }: LocationMapProps) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker lat={validLat} lng={validLng} onChange={onChange} />
+        <MapCenterSync lat={lat} lng={lng} />
+        <LocationMarker lat={lat} lng={lng} onChange={onChange} />
       </MapContainer>
     </div>
   );
