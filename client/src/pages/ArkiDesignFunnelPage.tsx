@@ -495,11 +495,7 @@ export default function ArkiDesignFunnelPage() {
     <Button onClick={runDemo} disabled={!siteLocation || siteBusy} className="self-end">Generar 9</Button>
   </div>
   <div className="mt-2 text-[10px] text-[#f5aa56]">MODO DEMO: el brief alimenta candidatos conceptuales deterministas del embudo existente. “120 pisos” todavía NO implica solver estructural, normativa de altura ni geometría profesional.</div>
-  <div className="mt-4 rounded border border-[#28445b] bg-[#091827] p-3">
-    <div className="flex flex-wrap items-center justify-between gap-3"><div><div className="text-[9px] font-bold uppercase tracking-[.18em] text-[#7dd3fc]">SITE-FIRST GATE</div><div className="mt-1 text-sm font-semibold">{siteLocation ? "Sitio confirmado · habilitado para explorar" : siteBusy ? "Leyendo estado del sitio…" : "Sitio aún no confirmado"}</div></div><Button size="sm" variant="outline" onClick={()=>void refreshSite()}>Actualizar sitio</Button></div>
-    <div className="mt-2 grid gap-2 md:grid-cols-3 text-[10px] text-[#9eb5c4]"><div>Ubicación: <span className="text-[#d7e8f2]">{siteLocation?.place_label || (siteLocation?.latitude != null && siteLocation?.longitude != null ? `${siteLocation.latitude}, ${siteLocation.longitude}` : "UNKNOWN")}</span></div><div>Provenance: <span className="text-[#d7e8f2]">{siteLocation?.provenance || "UNKNOWN"}</span></div><div>Datos faltantes: <span className="text-[#f5aa56]">{siteMissing ? siteMissing.variables.filter((item)=>item.state==="MISSING").length : "UNKNOWN"}</span></div></div>
-    {siteError && <div className="mt-2 text-[10px] text-[#f5aa56]">Core/site no disponible: {siteError}. No se fabrica contexto del sitio.</div>}
-  </div>
+  
   <LocationPicker projectId={brief.projectId} onConfirmed={(location, missing) => { setSiteLocation(location); if (missing) setSiteMissing(missing); const siteLabel = location.place_label || (location.latitude != null && location.longitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado"); setBrief((current)=>({...current,location:siteLabel})); }} />
   {siteLocation && <div className="mt-4"><SolarTemporalOverlay projectId={brief.projectId} selectedAlternativeId={activeId} onAnalysisChange={setSolarAnalysis} /></div>}
   {siteLocation && <div className="mt-3 grid gap-2 md:grid-cols-4">{[
