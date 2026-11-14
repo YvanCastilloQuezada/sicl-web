@@ -1,0 +1,38 @@
+{
+  "projectId": "PIA-LIM-020-001",
+  "projectName": "Parque infantil 2 hectáreas",
+  "typology": "PARQUE_INFANTIL",
+  "brief": "Parque infantil con juegos, áreas verdes, zona de padres y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 500,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.01,
+    "accesos": ["calle secundaria", "pasaje peatonal"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.100", "RNE E.030", "RNE E.050", "RNE EM.010", "SERPAR Normas"],
+  "activities": [
+    { "id": "act-1", "name": "Juegos infantiles", "capacity": 200, "subjects": ["niño"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-2", "name": "Áreas verdes", "capacity": 200, "subjects": ["visitante"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Zona de padres", "capacity": 100, "subjects": ["adulto"], "privacy": "shared", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 20, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["niño", "adulto"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-2", "target": "act-1", "relation": "ADJACENT", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-2", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["niño", "visitante", "adulto", "personal"],
+  "conditions": ["juegos con superficies blandas", "evacuación clara", "acceso público abierto"],
+  "unknowns": ["normativa de parques infantiles requiere revisión SERPAR", "estudio de seguridad de juegos requiere verificación", "estudio de mantenimiento de áreas verdes requiere verificación"],
+  "envelope": { "width": 140, "height": 140, "area": 20000, "status": "RECREATIONAL_SPACE" },
+  "sourceIds": ["SRC-PIA-BRIEF", "SRC-SERPAR-PARQUE"]
+}

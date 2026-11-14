@@ -1,0 +1,38 @@
+{
+  "projectId": "PAG-LIM-100-001",
+  "projectName": "Parque de las aguas 10 hectáreas",
+  "typology": "PARQUE_AGUAS",
+  "brief": "Parque acuático con piscinas, toboganes, áreas de descanso y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S2",
+    "occupancy": 5000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.01,
+    "accesos": ["carretera principal", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.100", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010", "MINSA Normas acuáticas"],
+  "activities": [
+    { "id": "act-1", "name": "Piscinas", "capacity": 3000, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Toboganes", "capacity": 1000, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "short", "temporalOverlap": true },
+    { "id": "act-3", "name": "Áreas de descanso", "capacity": 500, "subjects": ["visitante"], "privacy": "shared", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 300, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "ADJACENT", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["visitante", "personal"],
+  "conditions": ["seguridad acuática", "tratamiento de agua", "evacuación clara"],
+  "unknowns": ["normativa sanitaria acuática requiere revisión MINSA", "estudio de tratamiento de agua requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 400, "height": 250, "area": 100000, "status": "RECREATIONAL_SPACE" },
+  "sourceIds": ["SRC-PAG-BRIEF", "SRC-MINSA-PARQUE-AGUAS"]
+}

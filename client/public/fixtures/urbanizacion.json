@@ -1,0 +1,38 @@
+{
+  "projectId": "URB-LIM-050-001",
+  "projectName": "Urbanización 50 hectáreas",
+  "typology": "URBANIZACION",
+  "brief": "Urbanización con 1,000 viviendas, áreas verdes, equipamiento y vialidad.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 5000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.02,
+    "accesos": ["avenida principal", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.020", "RNE A.100", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Viviendas", "capacity": 1000, "subjects": ["residente"], "privacy": "private", "accessControl": "key", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Áreas verdes", "capacity": 2000, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Equipamiento", "capacity": 1500, "subjects": ["residente"], "privacy": "public", "accessControl": "open", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Vialidad", "capacity": 500, "subjects": ["residente", "visitante"], "privacy": "public", "accessControl": "open", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-4", "target": "act-1", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-2", "relation": "ADJACENT", "subjects": ["residente"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["residente"], "control": "FLOW" }
+  ],
+  "subjects": ["residente", "visitante"],
+  "conditions": ["vialidad jerarquizada", "evacuación clara", "equipamiento distribuido"],
+  "unknowns": ["normativa de urbanizaciones requiere revisión municipal", "estudio de vialidad requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 1000, "height": 500, "area": 500000, "status": "URBAN_DEVELOPMENT" },
+  "sourceIds": ["SRC-URB-BRIEF", "SRC-RNE-URBANIZACION"]
+}

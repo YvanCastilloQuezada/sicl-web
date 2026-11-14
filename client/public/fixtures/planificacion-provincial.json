@@ -1,0 +1,147 @@
+{
+  "projectId": "PPR-LIM-001-001",
+  "projectName": "Planificación provincial 1M hab",
+  "typology": "PLANIFICACION_PROVINCIAL",
+  "brief": "Plan de desarrollo provincial con sistema de ciudades, equipamiento y corredores.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "VARIABLE",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 1000000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.1,
+    "accesos": [
+      "red vial provincial",
+      "vías auxiliares"
+    ],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": [
+      "SO",
+      "NE"
+    ]
+  },
+  "constraints": [
+    "Ley 27867",
+    "Ley 27972",
+    "RNE E.030",
+    "RNE E.050"
+  ],
+  "activities": [
+    {
+      "id": "act-1",
+      "name": "Sistema de ciudades",
+      "capacity": 700000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "private",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-2",
+      "name": "Corredores económicos",
+      "capacity": 200000,
+      "subjects": [
+        "comerciante",
+        "trabajador"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-3",
+      "name": "Equipamiento provincial",
+      "capacity": 50000,
+      "subjects": [
+        "residente"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "daily",
+      "duration": "long",
+      "temporalOverlap": true
+    },
+    {
+      "id": "act-4",
+      "name": "Red vial provincial",
+      "capacity": 50000,
+      "subjects": [
+        "residente",
+        "visitante"
+      ],
+      "privacy": "public",
+      "accessControl": "open",
+      "frequency": "continuous",
+      "duration": "long",
+      "temporalOverlap": true
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel-1",
+      "source": "act-4",
+      "target": "act-1",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "residente"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-2",
+      "source": "act-1",
+      "target": "act-2",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "trabajador"
+      ],
+      "control": "FLOW"
+    },
+    {
+      "id": "rel-3",
+      "source": "act-1",
+      "target": "act-3",
+      "relation": "CIRCULATION",
+      "subjects": [
+        "residente"
+      ],
+      "control": "FLOW"
+    }
+  ],
+  "subjects": [
+    "residente",
+    "comerciante",
+    "trabajador",
+    "visitante"
+  ],
+  "conditions": [
+    "sistema de ciudades articulado",
+    "corredores económicos",
+    "red vial provincial"
+  ],
+  "unknowns": [
+    "normativa provincial requiere revisión",
+    "estudio de sistema de ciudades requiere verificación",
+    "estudio de impacto ambiental requiere verificación"
+  ],
+  "envelope": {
+    "width": 20000,
+    "height": 15000,
+    "area": 300000000,
+    "status": "PROVINCIAL_PLAN"
+  },
+  "sourceIds": [
+    "SRC-PPR-BRIEF",
+    "SRC-Ley27867"
+  ]
+}

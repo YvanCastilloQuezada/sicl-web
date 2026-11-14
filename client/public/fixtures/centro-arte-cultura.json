@@ -1,0 +1,38 @@
+{
+  "projectId": "CAC-LIM-050-001",
+  "projectName": "Centro de arte y cultura 5,000 m²",
+  "typology": "CENTRO_ARTE_CULTURA",
+  "brief": "Centro de arte y cultura con salas de exposición, talleres, auditorio y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 2000,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "plana",
+    "pendiente": 0.005,
+    "accesos": ["plaza pública", "calle secundaria"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE A.010", "RNE A.090", "RNE A.130", "RNE E.030", "RNE E.050", "RNE EM.010"],
+  "activities": [
+    { "id": "act-1", "name": "Salas de exposición", "capacity": 1000, "subjects": ["visitante"], "privacy": "public", "accessControl": "ticket", "frequency": "daily", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Talleres", "capacity": 500, "subjects": ["alumno", "profesor"], "privacy": "shared", "accessControl": "enrollment", "frequency": "daily", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-3", "name": "Auditorio", "capacity": 300, "subjects": ["espectador"], "privacy": "public", "accessControl": "ticket", "frequency": "event", "duration": "medium", "temporalOverlap": true },
+    { "id": "act-4", "name": "Servicios", "capacity": 100, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["visitante", "alumno"], "control": "FLOW" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["visitante"], "control": "FLOW" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["visitante", "alumno", "profesor", "espectador", "personal"],
+  "conditions": ["acústica diferenciada por sala", "evacuación clara", "acceso público controlado"],
+  "unknowns": ["normativa cultural requiere revisión", "estudio acústico de auditorio requiere verificación", "estudio de iluminación museográfica requiere verificación"],
+  "envelope": { "width": 100, "height": 80, "area": 5000, "status": "CULTURAL_BUILDING" },
+  "sourceIds": ["SRC-CAC-BRIEF", "SRC-RNE-CULTURA"]
+}

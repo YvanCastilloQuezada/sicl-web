@@ -1,0 +1,38 @@
+{
+  "projectId": "ACU-LIM-050-001",
+  "projectName": "Acueducto metropolitano 50 km",
+  "typology": "ACUEDUCTO",
+  "brief": "Acueducto metropolitano de 50 km con captación, planta de tratamiento, línea de conducción y reservorios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 0,
+    "latitude": -12.0464,
+    "longitude": -77.0428,
+    "altitude": 154,
+    "topografia": "variable",
+    "pendiente": 0.02,
+    "accesos": ["carretera panamericana", "vía auxiliar"],
+    "orientacion": "este-oeste",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE OS.010", "RNE OS.020", "RNE OS.050", "RNE E.030", "RNE E.050", "RNE EM.010", "OMS Guías de calidad del agua"],
+  "activities": [
+    { "id": "act-1", "name": "Captación", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Planta de tratamiento", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Línea de conducción", "capacity": 1, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Reservorios", "capacity": 5, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-2", "target": "act-3", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operador"],
+  "conditions": ["gradiente hidráulico entre captación y reservorio", "protección de la línea de conducción", "acceso restringido a puntos críticos"],
+  "unknowns": ["estudio hidrológico requiere revisión especializada", "estudio geotécnico de la línea requiere verificación", "capacidad de tratamiento requiere dimensionamiento específico"],
+  "envelope": { "width": 50, "height": 50, "length": 50000, "status": "LINEAR_INFRASTRUCTURE" },
+  "sourceIds": ["SRC-ACU-BRIEF", "SRC-RNE-ACUEDUCTO"]
+}

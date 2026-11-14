@@ -1,0 +1,40 @@
+{
+  "projectId": "PTM-CAL-500-001",
+  "projectName": "Puerto marítimo del Callao",
+  "typology": "PUERTO_MARITIMO",
+  "brief": "Puerto marítimo con muelles, almacenes, grúas, terminal de contenedores y servicios.",
+  "context": {
+    "jurisdiction": "PE",
+    "climate": "TEMPLADO",
+    "zona_sismica": "Z4",
+    "tipo_suelo": "S3",
+    "occupancy": 0,
+    "latitude": -12.0566,
+    "longitude": -77.1478,
+    "altitude": 5,
+    "topografia": "plana",
+    "pendiente": 0.01,
+    "accesos": ["avenida costanera", "vía auxiliar"],
+    "orientacion": "norte-sur",
+    "vientos_dominantes": ["SO", "NE"]
+  },
+  "constraints": ["RNE OS.010", "RNE E.030", "RNE E.050", "RNE EM.010", "APN Normas portuarias", "IMO ISPS Code"],
+  "activities": [
+    { "id": "act-1", "name": "Muelles", "capacity": 20, "subjects": ["operador", "carga"], "privacy": "controlled", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-2", "name": "Almacenes", "capacity": 50, "subjects": ["operador"], "privacy": "controlled", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-3", "name": "Terminal de contenedores", "capacity": 1000, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-4", "name": "Grúas", "capacity": 10, "subjects": ["operador"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "long", "temporalOverlap": true },
+    { "id": "act-5", "name": "Servicios", "capacity": 200, "subjects": ["personal"], "privacy": "restricted", "accessControl": "staff", "frequency": "continuous", "duration": "medium", "temporalOverlap": true }
+  ],
+  "relationships": [
+    { "id": "rel-1", "source": "act-1", "target": "act-2", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-2", "source": "act-1", "target": "act-3", "relation": "CIRCULATION", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-3", "source": "act-3", "target": "act-4", "relation": "ADJACENT", "subjects": ["operador"], "control": "RESTRICTED" },
+    { "id": "rel-4", "source": "act-3", "target": "act-5", "relation": "CIRCULATION", "subjects": ["personal"], "control": "RESTRICTED" }
+  ],
+  "subjects": ["operador", "personal", "carga"],
+  "conditions": ["calado para buques portacontenedores", "protección contra oleaje", "seguridad ISPS"],
+  "unknowns": ["estudio hidrodinámico requiere revisión especializada", "estudio geotécnico del muelle requiere verificación", "estudio de impacto ambiental requiere verificación"],
+  "envelope": { "width": 1000, "height": 600, "water_depth": 16, "status": "PUNCTUAL_INFRASTRUCTURE" },
+  "sourceIds": ["SRC-PTM-BRIEF", "SRC-RNE-PUERTO"]
+}
