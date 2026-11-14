@@ -256,3 +256,27 @@ Los PRs de docs se mergean con checks pending, no verde. Decisión pendiente: re
 - **TOD:** conexión con red de transporte es estática; para producción se necesita red real.
 - **Affordable:** restricción de costo es un `unknown`; para producción se necesita presupuesto real (CAPEX + OPEX).
 - **Public space:** mobiliario y vegetación son genéricos; para producción se necesitan especificaciones reales.
+
+---
+
+## Router visualization + fire schema (PR #180, 2026-11-13)
+
+### Router `visualization` (3 procedures)
+- `getRenderDataForAllPartis`: N RenderData del ciclo (uno por PARTI)
+- `getRenderDataForParti`: filtra por partiId
+- `getVisualRequestForParti`: prompt + SVG de referencia (puente a IA)
+
+**Evidencia:** 3/3 router tests + 8/8 Funnel tests + 7/7 motores PASS.
+
+### Fire schema reparado
+- `class FireInput(BaseModel)` estaba **después** del decorador `@app.post("/fire/evaluate")`, causando que FastAPI aplicara el decorador a la clase y dejara a `fire_evaluate` huérfano.
+- Fix: mover `class FireInput` antes del decorador.
+- Resultado: HTTP 200 con `status: "PASS"`, CFAST exit 0, 1000.5°C en 5 pisos.
+- `/engines` ahora reporta fire en `PASS` (era `PARTIAL`).
+
+**Evidencia:** `/fire/evaluate` con payload válido → HTTP 200 `PASS`. OpenAPI registra `FireInput` con 8 campos. 7/7 motores PASS con `motores-api` corriendo.
+
+### Deuda pendiente
+- `hvac` y `sewer` siguen en `PARTIAL` (alcance conceptual, no de implementación).
+- `three-gpu-pathtracer` no instalado (path tracing para concursos).
+- Visor R3F (`ArkiSolidRenderer.tsx`) no existe todavía (siguiente hito).
