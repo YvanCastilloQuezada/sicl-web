@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  createDemoCandidates,
+  ARKI_DESIGN_FUNNEL_VERSION,
   createDesignFunnel,
   type CandidateEpistemicItem,
   type CandidateEpistemicKind,
@@ -27,18 +27,32 @@ import { apiErrorMessage, siclClient, type MissingDataReport, type SpatialLocati
 import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import { trpc } from "@/lib/trpc";
 
-const DEFAULT_PROJECT_ID = "DEMO-PROJECT";
-type DemoBrief = { projectId: string; prompt: string; floors: number; location: string; areaM2: number };
-const defaultBrief: DemoBrief = { projectId: DEFAULT_PROJECT_ID, prompt: "Edificio de 120 pisos", floors: 120, location: "Trujillo", areaM2: 120000 };
-const candidatesForBrief = (brief: DemoBrief) => createDemoCandidates(brief.projectId).map((candidate, index) => ({
-  ...candidate,
-  title: `Alternativa ${String(index + 1).padStart(2, "0")} · ${brief.floors} pisos`,
-  metrics: { ...candidate.metrics, area: brief.areaM2 + index * 1250, floors: brief.floors, location: brief.location, brief: brief.prompt },
-  evidence: [...candidate.evidence, "USER_DEMO_BRIEF"],
-  unknowns: [...candidate.unknowns, "Demo conceptual: altura/estructura/norma/sitio aún no resueltos"],
-  provenance: [...candidate.provenance, `BRIEF:${brief.prompt}`],
-}));
-const initialState = (brief: DemoBrief = defaultBrief) => createDesignFunnel({ projectId: brief.projectId, candidates: candidatesForBrief(brief) });
+type ProjectContext = {
+  projectId: string;
+  location: string;
+  areaM2: number;
+};
+
+const initialProjectContext: ProjectContext = {
+  projectId: "",
+  location: "",
+  areaM2: 0,
+};
+
+// Estado vacío real. No representa una generación ni candidatos inexistentes.
+const emptyFunnelState = (projectId: string): DesignFunnelState => ({
+  version: ARKI_DESIGN_FUNNEL_VERSION,
+  projectId,
+  explorationId: "",
+  generationId: "",
+  stage: "BLOCKED",
+  waitState: "NONE",
+  candidates: [],
+  events: [],
+  comparisonMode: "PREVIEW",
+  deepEvaluation: {},
+  explicitHumanAuthority: true,
+});
 
 // La generación produce candidatos; no certifica su viabilidad profesional.
 function generatedEpistemicItem<K extends CandidateEpistemicKind>(
@@ -225,7 +239,7 @@ function Status({ state }: { state: DesignFunnelState }) {
   }), [state]);
   return <div className="flex flex-wrap items-center gap-2 text-xs text-[#9eb5c4]">
     <span className="rounded border border-[#28445b] px-2 py-1">9 → 4 → 1</span>
-    <span>Exploración: {summary.explorer || 9}</span><span>Final Four: {summary.finalists}</span><span>Archivadas: {summary.archived}</span>
+    <span>Exploración: {summary.explorer}</span><span>Final Four: {summary.finalists}</span><span>Archivadas: {summary.archived}</span>
     <span className="text-[#d4ff3a]">{state.waitState === "NONE" ? state.stage : state.waitState}</span>
   </div>;
 }
@@ -284,10 +298,10 @@ function Inspector({ candidate, state, revision, lastDelta, location }: { candid
 }
 
 export default function ArkiDesignFunnelPage() {
-  const [brief, setBrief] = useState<DemoBrief>(defaultBrief);
-  const [state, setState] = useState<DesignFunnelState>(() => initialState(defaultBrief));
+  const [brief, setBrief] = useState<ProjectContext>(initialProjectContext);
+  const [state, setState] = useState<DesignFunnelState>(() => emptyFunnelState(""));
   const [selected, setSelected] = useState<string[]>([]);
-  const [activeId, setActiveId] = useState<string>("A01");
+  const [activeId, setActiveId] = useState<string>("");
   const [mode, setMode] = useState<ComparisonMode>("PREVIEW");
   const [notice, setNotice] = useState("Selección humana requerida. ARKI no elige ganadores automáticamente.");
   const [reason, setReason] = useState("");
@@ -312,9 +326,31 @@ export default function ArkiDesignFunnelPage() {
   const [minValue, setMinValue] = useState(10);
   const [maxValue, setMaxValue] = useState(20);
 
+  // Aislamiento entre proyectos: nunca conservar candidatos de otro proyecto.
+  useEffect(() => {
+    setState(emptyFunnelState(brief.projectId));
+    setGeneratedProposals([]);
+    setSelected([]);
+    setActiveId("");
+    setSiteLocation(null);
+    setSiteMissing(null);
+    setSpatialPayload(null);
+    setSolarAnalysis(null);
+  }, [brief.projectId]);
+
   const refreshSite = async () => {
     const projectId = brief.projectId;
     const requestId = ++siteRequestRef.current;
+
+    if (!projectId.trim()) {
+      setSiteBusy(false);
+      setSiteLocation(null);
+      setSiteMissing(null);
+      setSiteError("PROJECT_ID_REQUIRED");
+      return;
+    }
+
+    setSiteBusy(true);
 
     const isCurrentRequest = () =>
       siteRequestRef.current === requestId &&
@@ -397,6 +433,10 @@ export default function ArkiDesignFunnelPage() {
   useEffect(() => {
     let mounted = true;
     setSpatialError("");
+    if (!brief.projectId.trim()) {
+      setSpatialPayload(null);
+      return () => { mounted = false; };
+    }
     fetch("/api/core/v1/projects/" + encodeURIComponent(brief.projectId) + "/spatial-representations", { headers: { accept: "application/json" } })
       .then(async (response) => { if (!response.ok) throw new Error("SpatialRepresentation unavailable (" + response.status + ")"); return response.json() as Promise<{ data: TransportPayload }>; })
       .then((body) => { if (mounted) setSpatialPayload(body.data); })
@@ -410,6 +450,16 @@ export default function ArkiDesignFunnelPage() {
     try {
       if (!brief.projectId.trim()) {
         throw new Error("PROJECT_ID_REQUIRED");
+      }
+      if (
+        !siteLocation ||
+        siteLocation.project_id !== brief.projectId ||
+        siteLocation.status !== "CONFIRMED"
+      ) {
+        throw new Error("SITE_NOT_CONFIRMED_FOR_CURRENT_PROJECT");
+      }
+      if (!Number.isFinite(brief.areaM2) || brief.areaM2 <= 0) {
+        throw new Error("PROJECT_TARGET_AREA_REQUIRED");
       }
 
       const result = await generateFunnel.mutateAsync({
@@ -495,21 +545,6 @@ export default function ArkiDesignFunnelPage() {
   const selectedRepresentation = active ? representationFor(active.id) : undefined;
   useEffect(() => { setSelectedElement(null); }, [activeId, mode]);
 
-  const runDemo = () => {
-    if (!siteLocation || siteLocation.project_id !== brief.projectId) { setNotice("SITE-FIRST: confirma primero la ubicación del proyecto actual. ARKI no debe generar con una ubicación de otro proyecto."); return; }
-    const missingCount = siteMissing?.variables.filter((item)=>item.state==="MISSING").length ?? 0;
-    const normalized = { ...brief, projectId: brief.projectId.trim() || DEFAULT_PROJECT_ID, floors: Math.max(1, Math.round(brief.floors || 1)), areaM2: Math.max(100, Math.round(brief.areaM2 || 100)), prompt: brief.prompt.trim() || "Edificio de 120 pisos", location: brief.location.trim() || "UNKNOWN" };
-    setBrief(normalized);
-    setState(initialState(normalized));
-    setGeneratedProposals([]);
-    setSelected([]);
-    setActiveId("A01");
-    setMode("PREVIEW");
-    setRevision(1);
-    setLastDelta(undefined);
-    setReason("");
-    setNotice(`Demo conceptual SITE-FIRST generado para: ${normalized.prompt}. Sitio: ${normalized.location}. Solar: ${solarAnalysis ? "observado" : "UNKNOWN"}. Datos faltantes: ${missingCount}. Se muestran 9 candidatos; selecciona 4 y luego 1. No es diseño estructural, normativo ni expediente profesional.`);
-  };
   const activate = (id: string) => {
     setActiveId(id);
     if (state.stage !== "DESIGN_EXPLORER_9") return;
@@ -533,7 +568,7 @@ export default function ArkiDesignFunnelPage() {
           : [...current, id],
     );
   };
-  const promote = () => { try { setState(promoteToFinalFour(state, selected, "HUMAN_ARCHITECT", reason)); setSelected([]); setActiveId(selected[0] ?? "A01"); setNotice("4 candidatos promovidos. Las otras 5 alternativas quedan archivadas y preservadas. La evaluación profunda verificable está pendiente."); } catch (error) { setNotice(error instanceof Error ? error.message : "No se pudo promover la selección"); } };
+  const promote = () => { try { setState(promoteToFinalFour(state, selected, "HUMAN_ARCHITECT", reason)); setSelected([]); setActiveId(selected[0] ?? ""); setNotice("4 candidatos promovidos. Las otras 5 alternativas quedan archivadas y preservadas. La evaluación profunda verificable está pendiente."); } catch (error) { setNotice(error instanceof Error ? error.message : "No se pudo promover la selección"); } };
   const evaluate = () => {
     const finalists = state.candidates.filter((candidate) => candidate.stage === "FINALIST_4");
     const unresolved = finalists.flatMap((candidate) =>
@@ -551,20 +586,17 @@ export default function ArkiDesignFunnelPage() {
   const changeMode = (next: ComparisonMode) => { setMode(next); setState(setComparisonMode(state, next)); };
   const recalculate = () => { if (!active) return; const current = estimateFor(active, state, revision, brief.location); const stale = markCostStale(current, "Geometry revision changed by human action"); const nextInput = { projectId: state.projectId, candidateId: active.id, generationId: state.generationId, areaM2: Number(active.metrics.area) + 250, location: brief.location.trim() || "UNKNOWN", currency: "PEN", baseDate: "2026-09-24", designRevision: revision + 1 }; const result = recalculateCost(stale, nextInput, fidelityFor(state.stage)); setLastDelta(result.delta); setRevision((value) => value + 1); setNotice(`La estimación anterior quedó STALE y se generó un CostDelta para ${displayId(active.id, state.candidates)}. La versión anterior permanece preservada.`); };
 
-  return <ArkiProfessionalBimShell hideSidebars={true} projectName={brief.projectId} location={brief.location} activeView={mode === "PREVIEW" ? "Modelo" : mode}
+  return <ArkiProfessionalBimShell hideSidebars={true} projectName={brief.projectId || "Sin proyecto"} location={brief.location} activeView={mode === "PREVIEW" ? "Modelo" : mode}
     informationPanel={<div className="space-y-2 text-[9px] text-[#8fa8bc]"><div className="font-bold text-[#7dd3fc]">ACTIVE CONTEXT</div><div>Alternative: <b className="text-[#e8f1f7]">{active ? displayId(active.id,state.candidates) : "—"}</b></div><div>Representation: <b className="break-all text-[#e8f1f7]">{selectedRepresentation?.id ?? "UNKNOWN"}</b></div><div>Site: <b className="text-[#e8f1f7]">{siteLocation ? "CONFIRMED" : "UNKNOWN"}</b></div><div>Missing site variables: <b className="text-[#f0a35b]">{siteMissing ? siteMissing.variables.filter(v=>v.state==="MISSING").length : "UNKNOWN"}</b></div></div>}
     controlsPanel={<div className="space-y-2 text-[9px]"><div className="font-bold text-[#d4ff3a]">SELECTION</div>{selectedElement ? <><div className="text-[#e8f1f7]">{selectedElement.element_type}</div><div className="break-all text-[#8fa8bc]">{selectedElement.id}</div><div className="grid grid-cols-2 gap-1 pt-1">{["Properties","Geometry","Relations","Parameters"].map(label=><button key={label} className="rounded border border-[#28445b] bg-[#07121e] px-2 py-1.5 text-left text-[#9eb5c4] hover:border-[#d4ff3a]">{label}</button>)}</div><div className="mt-2 rounded border border-[#f0a35b]/40 bg-[#2b2118] p-2 text-[#f6d3aa]">Modification controls are proposal/preview only until an explicit governed commit path exists.</div></> : <div className="text-[#8fa8bc]">Selecciona un elemento canónico en Planta o 3D para activar sus controles.</div>}</div>}
     bottomSummary={active ? <div className="flex gap-4 text-[9px] text-[#8fa8bc]"><span>Candidate <b className="text-[#e8f1f7]">{displayId(active.id,state.candidates)}</b></span><span>Cost revision <b className="text-[#e8f1f7]">{revision}</b></span><span>Canonical geometry <b className={selectedRepresentation ? "text-[#70e1a2]" : "text-[#f0a35b]"}>{selectedRepresentation ? "AVAILABLE" : "UNKNOWN"}</b></span></div> : undefined}><main className="min-h-full bg-[#061522] px-4 py-5 text-[#d7e8f2] md:px-6"><header className="mx-auto max-w-[1500px] border-b border-[#28445b] pb-4"><div className="flex items-center justify-between gap-4"><div><div className="text-[10px] font-semibold uppercase tracking-[.24em] text-[#d4ff3a]">ARKI · Arquitectura predictiva S1 + S2</div><h1 className="mt-1 text-2xl font-semibold tracking-tight">Embudo de diseño</h1><p className="text-sm text-[#9eb5c4]">Global a la izquierda · arquitectura al centro · detalle contextual a la derecha.</p></div><Badge className="border-[#d4ff3a]/40 bg-[#102538] text-[#d4ff3a]">MANIAC · fail-closed</Badge></div><div className="mt-4"><Status state={state} /></div>
-  <div className="mt-4 grid gap-2 rounded border border-[#28445b] bg-[#091827] p-3 md:grid-cols-[2fr_100px_140px_140px_auto]">
-    <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Brief de prueba</label><input value={brief.prompt} onChange={(e)=>setBrief(v=>({...v,prompt:e.target.value}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
-    <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Pisos</label><input type="number" min="1" value={brief.floors} onChange={(e)=>setBrief(v=>({...v,floors:Number(e.target.value)}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
-    <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Área objetivo m²</label><input type="number" min="100" value={brief.areaM2} onChange={(e)=>setBrief(v=>({...v,areaM2:Number(e.target.value)}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
-    <div><label className="text-[9px] uppercase tracking-[.15em] text-[#7893af]">Ubicación</label><input value={brief.location} onChange={(e)=>setBrief(v=>({...v,location:e.target.value}))} className="mt-1 w-full rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm outline-none focus:border-[#d4ff3a]" /></div>
-    <Button onClick={runDemo} disabled={!siteLocation || siteLocation.project_id !== brief.projectId || siteBusy} className="self-end">Generar 9</Button>
-  </div>
-  <div className="mt-2 text-[10px] text-[#f5aa56]">MODO DEMO: el brief alimenta candidatos conceptuales deterministas del embudo existente. “120 pisos” todavía NO implica solver estructural, normativa de altura ni geometría profesional.</div>
+  {state.candidates.length === 0 && (
+    <div className="mx-auto mt-4 max-w-[1500px] rounded border border-[#f0a35b]/40 bg-[#2b2118] p-4 text-sm text-[#f6d3aa]">
+      No hay propuestas generadas para este proyecto. Identifica el proyecto, confirma el sitio y ejecuta el generador real. No se mostrarán candidatos ficticios.
+    </div>
+  )}
   
-  <LocationPicker key={brief.projectId} projectId={brief.projectId} onConfirmed={(location, missing) => { setSiteLocation(location); if (missing !== undefined) { setSiteMissing(missing); } const siteLabel = location.place_label || (location.latitude != null && location.longitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado"); setBrief((current)=>({...current,location:siteLabel})); }} />
+  {brief.projectId.trim() && <LocationPicker key={brief.projectId} projectId={brief.projectId} onConfirmed={(location, missing) => { setSiteLocation(location); if (missing !== undefined) { setSiteMissing(missing); } const siteLabel = location.place_label || (location.latitude != null && location.longitude != null ? `${location.latitude.toFixed(6)}, ${location.longitude.toFixed(6)}` : "Sitio confirmado"); setBrief((current)=>({...current,location:siteLabel})); }} />}
   {siteLocation && <div className="mt-4"><SolarTemporalOverlay projectId={brief.projectId} selectedAlternativeId={activeId} onAnalysisChange={setSolarAnalysis} /></div>}
   {siteLocation && <div className="mt-3 grid gap-2 md:grid-cols-4">{[
     ["LOCATION", siteLocation.status || "CONFIRMED", siteLocation.provenance || "UNKNOWN"],
@@ -582,6 +614,29 @@ export default function ArkiDesignFunnelPage() {
               <p className="text-xs text-[#9eb5c4]">Define el eje y el motor generará 9 propuestas para la poda 9 → 4 → 1.</p>
             </div>
             <div className="flex flex-wrap gap-3">
+              <input
+                value={brief.projectId}
+                onChange={(e) => setBrief(v => ({ ...v, projectId: e.target.value }))}
+                className="w-48 rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm text-[#edf4ff]"
+                placeholder="ID real del proyecto"
+                aria-label="ID real del proyecto"
+              />
+              <input
+                type="number"
+                min="1"
+                value={brief.areaM2 || ""}
+                onChange={(e) => setBrief(v => ({ ...v, areaM2: Number(e.target.value) }))}
+                className="w-32 rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm text-[#edf4ff]"
+                placeholder="Área m²"
+                aria-label="Área objetivo en metros cuadrados"
+              />
+              <input
+                value={brief.location}
+                onChange={(e) => setBrief(v => ({ ...v, location: e.target.value }))}
+                className="w-40 rounded border border-[#28445b] bg-[#071726] px-3 py-2 text-sm text-[#edf4ff]"
+                placeholder="Ciudad / ubicación"
+                aria-label="Ciudad o ubicación"
+              />
               <select 
                 value={axisType} 
                 onChange={(e) => setAxisType(e.target.value as any)}
@@ -607,7 +662,16 @@ export default function ArkiDesignFunnelPage() {
               />
               <Button 
                 onClick={handleGenerateProposals}
-                disabled={generateFunnel.isPending}
+                disabled={
+                  generateFunnel.isPending ||
+                  !brief.projectId.trim() ||
+                  !siteLocation ||
+                  siteLocation.project_id !== brief.projectId ||
+                  siteLocation.status !== "CONFIRMED" ||
+                  siteBusy ||
+                  !Number.isFinite(brief.areaM2) ||
+                  brief.areaM2 <= 0
+                }
                 className="bg-[#d4ff3a] text-[#071726] hover:bg-[#e5ff6b]"
               >
                 {generateFunnel.isPending ? "Generando..." : "Generar 9 Propuestas"}

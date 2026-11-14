@@ -55,3 +55,30 @@ Minimum case should use existing observed COMPAS capability first. It must prove
 ## Freeze rule
 
 New libraries, harvest records and research may be queued, but no new runtime layer, Director family, geometry authority or semantic authority is introduced until the E2E milestone is green.
+
+---
+
+## ARKI-GENERATION-FUNNEL-CONTRACT-V1 — Canonical generation and evaluation
+
+The mandatory design generation and progressive evaluation process is
+governed by:
+
+- `docs/arki-master-map/ARKI_GENERATION_AND_FUNNEL_EVALUATION_CONTRACT_V1.md`
+- `docs/arki-master-map/ARKI_GENERATION_EVALUATION_API_CONTRACT_V1.md`
+
+The canonical sequence is:
+
+**100 → 40 → 25 → 16 → 9 → 4 → 1**
+
+Normative and urban viability must be evaluated before architectural
+quality selection. ARKI must evaluate every candidate entering each
+stage before reducing the candidate set.
+
+The Funnel displays the actual evaluations and decisions; it is not
+a substitute for the evaluation engine.
+
+Both contracts are normative requirements. Their existence does not
+constitute proof of implementation. The implementation remains
+NOT VERIFIED until the acceptance gates in both contracts pass.
+
+**Contract marker:** ARKI-GENERATION-FUNNEL-CONTRACT-V1
