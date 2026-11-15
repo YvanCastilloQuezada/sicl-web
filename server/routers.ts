@@ -707,6 +707,22 @@ export const appRouter = router({
         });
 
         // 2. Generar los candidatos
+        // Rotar por los 74 shapes para garantizar diversidad geométrica
+        const ALL_SHAPES = [
+          "COMPACT", "LINEAR", "L_SHAPE", "U_SHAPE", "T_SHAPE", "I_SHAPE", "H_SHAPE", "E_SHAPE",
+          "COURTYARD", "ATRIUM", "DOUBLE_COURTYARD", "CLOISTER", "TRIPLE_COURTYARD", "QUADRANGLE", "PENTAGON", "HEXAGON",
+          "CLUSTER", "PODIUM_TOWER", "TWIN_TOWERS", "CAMPUS", "MIXED_COMPLEX", "TRIPLE_TOWERS", "QUAD_TOWERS", "SKYLINE",
+          "CIRCLE", "ELLIPSE", "ARC", "SPIRAL", "HELIX", "WAVE", "CRESCENT", "RING",
+          "VOID_EXTRUSION", "SLOPED_ROOF", "FLOATING_ROOF", "ZIGZAG", "BRIDGE", "G_SHAPE", "J_SHAPE", "N_SHAPE",
+          "STADIUM_BOWL", "ARENA_OVAL", "AMPHITHEATER", "HIPPODROME", "VELODROME", "SPORTS_PLEX",
+          "A_SHAPE", "C_SHAPE", "K_SHAPE", "M_SHAPE", "V_SHAPE", "W_SHAPE", "Y_SHAPE", "S_SHAPE",
+          "EIGHT_SHAPE", "THREE_SHAPE", "SIX_SHAPE", "NINE_SHAPE",
+          "STAR", "CROSS", "DIAMOND", "TRAPEZOID", "PARALLELOGRAM", "RHOMBUS",
+          "GRID_2X2", "GRID_3X3", "RADIAL", "CONCENTRIC",
+          "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER",
+          "DOME", "VAULT", "CANOPY",
+        ];
+
         const proposals = Array.from(
           { length: variable.generateCount },
           (_, index) => {
@@ -734,10 +750,13 @@ export const appRouter = router({
                 1,
                 Math.round(axisValue),
               );
+              // Rotar por los 74 shapes
+              parameters.shapeType = ALL_SHAPES[index % ALL_SHAPES.length];
             }
 
             if (type === "TIPOLOGIC") {
-              parameters.shapeType = typologies[index % typologies.length];
+              // Rotar por los 74 shapes
+              parameters.shapeType = ALL_SHAPES[index % ALL_SHAPES.length];
               parameters.courtyardRatio =
                 index % 2 === 0 ? 0.18 : 0;
             }
@@ -747,6 +766,8 @@ export const appRouter = router({
                 0,
                 Math.min(20, Math.round(axisValue)),
               );
+              // Rotar por los 74 shapes
+              parameters.shapeType = ALL_SHAPES[index % ALL_SHAPES.length];
             }
 
             // Llamada directa al generador compartido.

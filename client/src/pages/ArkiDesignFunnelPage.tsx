@@ -117,6 +117,9 @@ function candidateFromGeneratedProposal(
       capacity: proposal.metrics.capacity,
       estimatedCostUsdConceptual: proposal.metrics.estimatedCostUsdConceptual,
     },
+    // NUEVO: geometría AGK (autoridad geométrica única)
+    agk: proposal.agkCompilation?.object,
+    agkFeature: proposal.agkCompilation?.feature,
     epistemic: {
       facts: [
         generatedEpistemicItem(
@@ -586,7 +589,7 @@ export default function ArkiDesignFunnelPage() {
             ? proposal.metrics.floors
             : undefined,
           metrics: cohortCandidate.metrics,
-          // NUEVO: geometría AGK
+          // NUEVO: geometría AGK (autoridad geométrica única)
           agk: proposal.agkCompilation?.object,
           agkFeature: proposal.agkCompilation?.feature,
           unknowns: cohortCandidate.unknowns,

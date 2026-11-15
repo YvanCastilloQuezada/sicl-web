@@ -224,6 +224,35 @@ const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
   ] }),
 ];
 
+export const ALL_SHAPE_TYPES = [
+  // Categoría 1: Formas básicas
+  "COMPACT", "LINEAR", "L_SHAPE", "U_SHAPE", "T_SHAPE", "I_SHAPE", "H_SHAPE", "E_SHAPE",
+  // Categoría 2: Formas con patio
+  "COURTYARD", "ATRIUM", "DOUBLE_COURTYARD", "CLOISTER", "TRIPLE_COURTYARD", "QUADRANGLE", "PENTAGON", "HEXAGON",
+  // Categoría 3: Formas compuestas
+  "CLUSTER", "PODIUM_TOWER", "TWIN_TOWERS", "CAMPUS", "MIXED_COMPLEX", "TRIPLE_TOWERS", "QUAD_TOWERS", "SKYLINE",
+  // Categoría 4: Formas curvas
+  "CIRCLE", "ELLIPSE", "ARC", "SPIRAL", "HELIX", "WAVE", "CRESCENT", "RING",
+  // Categoría 5: Formas especiales
+  "VOID_EXTRUSION", "SLOPED_ROOF", "FLOATING_ROOF", "ZIGZAG", "BRIDGE", "G_SHAPE", "J_SHAPE", "N_SHAPE",
+  // Categoría 6: Formas deportivas
+  "STADIUM_BOWL", "ARENA_OVAL", "AMPHITHEATER", "HIPPODROME", "VELODROME", "SPORTS_PLEX",
+  // Categoría 7: Formas alfabéticas
+  "A_SHAPE", "C_SHAPE", "K_SHAPE", "M_SHAPE", "V_SHAPE", "W_SHAPE", "Y_SHAPE", "S_SHAPE",
+  // Categoría 8: Formas numéricas
+  "EIGHT_SHAPE", "THREE_SHAPE", "SIX_SHAPE", "NINE_SHAPE",
+  // Categoría 9: Formas geométricas complejas
+  "STAR", "CROSS", "DIAMOND", "TRAPEZOID", "PARALLELOGRAM", "RHOMBUS",
+  // Categoría 10: Formas multipatio
+  "GRID_2X2", "GRID_3X3", "RADIAL", "CONCENTRIC",
+  // Categoría 11: Formas de rascacielos
+  "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER",
+  // Categoría 12: Formas de cubierta
+  "DOME", "VAULT", "CANOPY",
+] as const;
+
+export type ShapeType = typeof ALL_SHAPE_TYPES[number];
+
 export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
   ...ADDITIONAL_DYNAMIC_FAMILIES,
   {
@@ -341,17 +370,92 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
   const shapeType = String(params.shapeType || "COMPACT").toUpperCase();
   const generation = Math.max(0, Math.round(valueAsNumber(params.generation) || 0));
   const aspectByShape: Record<string, number> = {
+    // Categoría 1: Formas básicas
     COMPACT: 1.35,
-    COURTYARD: 1.0,
+    LINEAR: 3.2,
     L_SHAPE: 1.8,
     U_SHAPE: 1.45,
-    LINEAR: 3.2,
+    T_SHAPE: 1.6,
+    I_SHAPE: 1.7,
+    H_SHAPE: 1.5,
+    E_SHAPE: 1.4,
+    // Categoría 2: Formas con patio
+    COURTYARD: 1.0,
+    ATRIUM: 1.1,
+    DOUBLE_COURTYARD: 1.3,
+    CLOISTER: 1.2,
+    TRIPLE_COURTYARD: 1.5,
+    QUADRANGLE: 1.6,
+    PENTAGON: 1.2,
+    HEXAGON: 1.1,
+    // Categoría 3: Formas compuestas
     CLUSTER: 2.0,
+    PODIUM_TOWER: 1.5,
+    TWIN_TOWERS: 1.4,
+    CAMPUS: 2.5,
+    MIXED_COMPLEX: 1.7,
+    TRIPLE_TOWERS: 1.3,
+    QUAD_TOWERS: 1.2,
+    SKYLINE: 2.8,
+    // Categoría 4: Formas curvas
     CIRCLE: 1.0,
-    FLOATING_ROOF: 1.2,
+    ELLIPSE: 1.2,
     ARC: 1.1,
-    SLOPED_ROOF: 1.4,
+    SPIRAL: 1.3,
+    HELIX: 1.5,
+    WAVE: 2.0,
+    CRESCENT: 1.4,
+    RING: 1.1,
+    // Categoría 5: Formas especiales
     VOID_EXTRUSION: 1.3,
+    SLOPED_ROOF: 1.4,
+    FLOATING_ROOF: 1.2,
+    ZIGZAG: 2.2,
+    BRIDGE: 3.0,
+    G_SHAPE: 1.3,
+    J_SHAPE: 1.6,
+    N_SHAPE: 1.8,
+    // Categoría 6: Formas deportivas
+    STADIUM_BOWL: 1.0,
+    ARENA_OVAL: 1.2,
+    AMPHITHEATER: 1.1,
+    HIPPODROME: 2.5,
+    VELODROME: 1.3,
+    SPORTS_PLEX: 2.0,
+    // Categoría 7: Formas alfabéticas
+    A_SHAPE: 1.4,
+    C_SHAPE: 1.2,
+    K_SHAPE: 1.7,
+    M_SHAPE: 1.6,
+    V_SHAPE: 1.5,
+    W_SHAPE: 1.8,
+    Y_SHAPE: 1.4,
+    S_SHAPE: 1.9,
+    // Categoría 8: Formas numéricas
+    EIGHT_SHAPE: 1.2,
+    THREE_SHAPE: 1.3,
+    SIX_SHAPE: 1.4,
+    NINE_SHAPE: 1.3,
+    // Categoría 9: Formas geométricas complejas
+    STAR: 1.1,
+    CROSS: 1.0,
+    DIAMOND: 1.0,
+    TRAPEZOID: 1.5,
+    PARALLELOGRAM: 1.6,
+    RHOMBUS: 1.3,
+    // Categoría 10: Formas multipatio
+    GRID_2X2: 1.0,
+    GRID_3X3: 1.0,
+    RADIAL: 1.0,
+    CONCENTRIC: 1.0,
+    // Categoría 11: Formas de rascacielos
+    SETBACK_TOWER: 1.0,
+    TWISTED_TOWER: 1.0,
+    TAPERED_TOWER: 1.0,
+    // Categoría 12: Formas de cubierta
+    DOME: 1.0,
+    VAULT: 1.5,
+    CANOPY: 2.0,
   };
   const evolutionaryFactor = 1 + Math.min(generation, 20) * 0.025;
   const aspect = (aspectByShape[shapeType] || 1.35) * evolutionaryFactor;
@@ -416,6 +520,957 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
       { x: voidX + voidW, y: voidY + voidD },
       { x: voidX, y: voidY + voidD },
     ]];
+  } else if (shapeType === "T_SHAPE") {
+    const stemW = width * 0.4;
+    const stemD = depth * 0.6;
+    polygon = [
+      { x: (width - stemW) / 2, y: 0 },
+      { x: (width + stemW) / 2, y: 0 },
+      { x: (width + stemW) / 2, y: stemD },
+      { x: width, y: stemD },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+      { x: 0, y: stemD },
+      { x: (width - stemW) / 2, y: stemD },
+    ];
+  } else if (shapeType === "ATRIUM") {
+    const voidW = width * 0.35;
+    const voidD = depth * 0.35;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "DOUBLE_COURTYARD") {
+    const voidW = width * 0.25;
+    const voidD = depth * 0.3;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [
+      [
+        { x: voidW * 0.3, y: voidD },
+        { x: voidW * 1.3, y: voidD },
+        { x: voidW * 1.3, y: voidD * 2 },
+        { x: voidW * 0.3, y: voidD * 2 },
+      ],
+      [
+        { x: width - voidW * 1.3, y: voidD },
+        { x: width - voidW * 0.3, y: voidD },
+        { x: width - voidW * 0.3, y: voidD * 2 },
+        { x: width - voidW * 1.3, y: voidD * 2 },
+      ],
+    ];
+  } else if (shapeType === "CLOISTER") {
+    const voidW = width * 0.5;
+    const voidD = depth * 0.5;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "PODIUM_TOWER") {
+    const podiumW = width * 0.9;
+    const podiumD = depth * 0.4;
+    const towerW = width * 0.5;
+    const towerD = depth * 0.4;
+    polygon = [
+      { x: (width - podiumW) / 2, y: 0 },
+      { x: (width + podiumW) / 2, y: 0 },
+      { x: (width + podiumW) / 2, y: podiumD },
+      { x: (width - podiumW) / 2, y: podiumD },
+    ];
+    voids = [];
+    // Tower as second polygon (multi-solid)
+    const tower = [
+      { x: (width - towerW) / 2, y: podiumD },
+      { x: (width + towerW) / 2, y: podiumD },
+      { x: (width + towerW) / 2, y: podiumD + towerD },
+      { x: (width - towerW) / 2, y: podiumD + towerD },
+    ];
+    polygon = [...polygon, ...tower];
+  } else if (shapeType === "TWIN_TOWERS") {
+    const towerW = width * 0.35;
+    const towerD = depth * 0.8;
+    const gap = width * 0.3;
+    polygon = [
+      { x: 0, y: (depth - towerD) / 2 },
+      { x: towerW, y: (depth - towerD) / 2 },
+      { x: towerW, y: (depth + towerD) / 2 },
+      { x: 0, y: (depth + towerD) / 2 },
+    ];
+    voids = [[
+      { x: towerW + gap, y: (depth - towerD) / 2 },
+      { x: towerW + gap + towerW, y: (depth - towerD) / 2 },
+      { x: towerW + gap + towerW, y: (depth + towerD) / 2 },
+      { x: towerW + gap, y: (depth + towerD) / 2 },
+    ]];
+  } else if (shapeType === "CAMPUS") {
+    // 4 blocks in a grid
+    const blockW = width * 0.35;
+    const blockD = depth * 0.35;
+    const gapW = width * 0.15;
+    const gapD = depth * 0.15;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: blockW, y: 0 },
+      { x: blockW, y: blockD },
+      { x: 0, y: blockD },
+    ];
+    voids = [];
+    // Second block
+    const block2 = [
+      { x: blockW + gapW, y: 0 },
+      { x: blockW + gapW + blockW, y: 0 },
+      { x: blockW + gapW + blockW, y: blockD },
+      { x: blockW + gapW, y: blockD },
+    ];
+    // Third block
+    const block3 = [
+      { x: 0, y: blockD + gapD },
+      { x: blockW, y: blockD + gapD },
+      { x: blockW, y: blockD + gapD + blockD },
+      { x: 0, y: blockD + gapD + blockD },
+    ];
+    // Fourth block
+    const block4 = [
+      { x: blockW + gapW, y: blockD + gapD },
+      { x: blockW + gapW + blockW, y: blockD + gapD },
+      { x: blockW + gapW + blockW, y: blockD + gapD + blockD },
+      { x: blockW + gapW, y: blockD + gapD + blockD },
+    ];
+    // Merge all blocks into a single polygon (approximation)
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [block2, block3, block4];
+  } else if (shapeType === "MIXED_COMPLEX") {
+    // L-shape + tower
+    const cutX = width * 0.35;
+    const cutY = depth * 0.35;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth - cutY },
+      { x: width - cutX, y: depth - cutY },
+      { x: width - cutX, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "ELLIPSE") {
+    const rx = width / 2;
+    const ry = depth / 2;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({
+        x: rx + rx * Math.cos(angle),
+        y: ry + ry * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "SPIRAL") {
+    const turns = 3;
+    const radius = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i <= turns * 16; i++) {
+      const angle = (i / 16) * Math.PI * 2;
+      const r = radius * (1 - i / (turns * 16) * 0.5);
+      polygon.push({
+        x: width / 2 + r * Math.cos(angle),
+        y: depth / 2 + r * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "ZIGZAG") {
+    const segments = 4;
+    const segW = width / segments;
+    polygon = [{ x: 0, y: 0 }];
+    for (let i = 0; i < segments; i++) {
+      polygon.push({ x: segW * (i + 1), y: i % 2 === 0 ? depth * 0.3 : depth * 0.7 });
+    }
+    polygon.push({ x: width, y: depth });
+    polygon.push({ x: 0, y: depth });
+  } else if (shapeType === "HELIX") {
+    const turns = 3;
+    const radius = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i <= turns * 16; i++) {
+      const angle = (i / 16) * Math.PI * 2;
+      const r = radius * (1 - i / (turns * 16) * 0.3);
+      polygon.push({
+        x: width / 2 + r * Math.cos(angle),
+        y: depth / 2 + r * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "BRIDGE") {
+    const pierW = width * 0.2;
+    const pierD = depth * 0.2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: pierW, y: 0 },
+      { x: pierW, y: depth },
+      { x: 0, y: depth },
+      { x: width, y: depth },
+      { x: width, y: 0 },
+      { x: width - pierW, y: 0 },
+      { x: width - pierW, y: depth },
+    ];
+  } else if (shapeType === "STADIUM_BOWL") {
+    const rx = width / 2;
+    const ry = depth / 2;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({
+        x: rx + rx * Math.cos(angle),
+        y: ry + ry * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "ARENA_OVAL") {
+    const rx = width / 2;
+    const ry = depth / 2 * 0.8;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({
+        x: rx + rx * Math.cos(angle),
+        y: ry + ry * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "AMPHITHEATER") {
+    const rx = width / 2;
+    const ry = depth / 2;
+    polygon = [];
+    for (let i = 0; i < 16; i++) {
+      const angle = (i / 16) * Math.PI * 2;
+      polygon.push({
+        x: rx + rx * Math.cos(angle),
+        y: ry + ry * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "I_SHAPE") {
+    const stemW = width * 0.3;
+    const stemD = depth;
+    polygon = [
+      { x: (width - stemW) / 2, y: 0 },
+      { x: (width + stemW) / 2, y: 0 },
+      { x: (width + stemW) / 2, y: stemD },
+      { x: (width - stemW) / 2, y: stemD },
+    ];
+  } else if (shapeType === "H_SHAPE") {
+    const legW = width * 0.25;
+    const legD = depth;
+    const barY = depth * 0.4;
+    const barH = depth * 0.2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: legW, y: 0 },
+      { x: legW, y: barY },
+      { x: width - legW, y: barY },
+      { x: width - legW, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: width - legW, y: depth },
+      { x: width - legW, y: barY + barH },
+      { x: legW, y: barY + barH },
+      { x: legW, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "E_SHAPE") {
+    const armW = width * 0.6;
+    const armH = depth * 0.2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: armH },
+      { x: armW, y: armH },
+      { x: armW, y: depth * 0.4 },
+      { x: width, y: depth * 0.4 },
+      { x: width, y: depth * 0.6 },
+      { x: armW, y: depth * 0.6 },
+      { x: armW, y: depth - armH },
+      { x: width, y: depth - armH },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "TRIPLE_COURTYARD") {
+    const voidW = width * 0.2;
+    const voidD = depth * 0.25;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [
+      [
+        { x: voidW * 0.3, y: voidD },
+        { x: voidW * 1.3, y: voidD },
+        { x: voidW * 1.3, y: voidD * 2 },
+        { x: voidW * 0.3, y: voidD * 2 },
+      ],
+      [
+        { x: width / 2 - voidW / 2, y: voidD },
+        { x: width / 2 + voidW / 2, y: voidD },
+        { x: width / 2 + voidW / 2, y: voidD * 2 },
+        { x: width / 2 - voidW / 2, y: voidD * 2 },
+      ],
+      [
+        { x: width - voidW * 1.3, y: voidD },
+        { x: width - voidW * 0.3, y: voidD },
+        { x: width - voidW * 0.3, y: voidD * 2 },
+        { x: width - voidW * 1.3, y: voidD * 2 },
+      ],
+    ];
+  } else if (shapeType === "QUADRANGLE") {
+    const voidW = width * 0.5;
+    const voidD = depth * 0.5;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "PENTAGON") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i < 5; i++) {
+      const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
+      polygon.push({
+        x: cx + r * Math.cos(angle),
+        y: cy + r * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "HEXAGON") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2;
+      polygon.push({
+        x: cx + r * Math.cos(angle),
+        y: cy + r * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "TRIPLE_TOWERS") {
+    const towerW = width * 0.25;
+    const towerD = depth * 0.8;
+    const gap = width * 0.1;
+    polygon = [
+      { x: 0, y: (depth - towerD) / 2 },
+      { x: towerW, y: (depth - towerD) / 2 },
+      { x: towerW, y: (depth + towerD) / 2 },
+      { x: 0, y: (depth + towerD) / 2 },
+    ];
+    voids = [];
+    const tower2 = [
+      { x: towerW + gap, y: (depth - towerD) / 2 },
+      { x: towerW + gap + towerW, y: (depth - towerD) / 2 },
+      { x: towerW + gap + towerW, y: (depth + towerD) / 2 },
+      { x: towerW + gap, y: (depth + towerD) / 2 },
+    ];
+    const tower3 = [
+      { x: towerW + gap + towerW + gap, y: (depth - towerD) / 2 },
+      { x: towerW + gap + towerW + gap + towerW, y: (depth - towerD) / 2 },
+      { x: towerW + gap + towerW + gap + towerW, y: (depth + towerD) / 2 },
+      { x: towerW + gap + towerW + gap, y: (depth + towerD) / 2 },
+    ];
+    polygon = [...polygon, ...tower2, ...tower3];
+  } else if (shapeType === "QUAD_TOWERS") {
+    const towerW = width * 0.2;
+    const towerD = depth * 0.35;
+    const gapW = width * 0.08;
+    const gapD = depth * 0.1;
+    polygon = [];
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 2; j++) {
+        const x = i * (towerW + gapW);
+        const y = j * (towerD + gapD);
+        polygon.push(
+          { x, y },
+          { x: x + towerW, y },
+          { x: x + towerW, y: y + towerD },
+          { x, y: y + towerD }
+        );
+      }
+    }
+  } else if (shapeType === "SKYLINE") {
+    const n = 5;
+    const towerW = width / n;
+    polygon = [];
+    for (let i = 0; i < n; i++) {
+      const h = depth * (0.4 + 0.15 * (i % 3));
+      polygon.push(
+        { x: i * towerW, y: depth - h },
+        { x: (i + 1) * towerW, y: depth - h },
+        { x: (i + 1) * towerW, y: depth },
+        { x: i * towerW, y: depth }
+      );
+    }
+  } else if (shapeType === "WAVE") {
+    const segments = 8;
+    const segW = width / segments;
+    polygon = [{ x: 0, y: 0 }];
+    for (let i = 0; i <= segments; i++) {
+      const y = depth * 0.5 + depth * 0.4 * Math.sin((i / segments) * Math.PI * 2);
+      polygon.push({ x: i * segW, y });
+    }
+    polygon.push({ x: width, y: depth });
+    polygon.push({ x: 0, y: depth });
+  } else if (shapeType === "CRESCENT") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r1 = Math.min(width, depth) / 2;
+    const r2 = r1 * 0.7;
+    polygon = [];
+    for (let i = 0; i < 16; i++) {
+      const angle = (i / 16) * Math.PI * 2;
+      polygon.push({ x: cx + r1 * Math.cos(angle), y: cy + r1 * Math.sin(angle) });
+    }
+    voids = [[
+      { x: cx + (r1 - r2) * 0.5 + r2 * Math.cos(0), y: cy + r2 * Math.sin(0) },
+      { x: cx + (r1 - r2) * 0.5, y: cy - r2 },
+      { x: cx + (r1 - r2) * 0.5, y: cy + r2 },
+      { x: cx + (r1 - r2) * 0.5 + r2 * Math.cos(Math.PI / 2), y: cy + r2 * Math.sin(Math.PI / 2) },
+    ]];
+  } else if (shapeType === "RING") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r1 = Math.min(width, depth) / 2;
+    const r2 = r1 * 0.6;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({ x: cx + r1 * Math.cos(angle), y: cy + r1 * Math.sin(angle) });
+    }
+    const innerPolygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      innerPolygon.push({ x: cx + r2 * Math.cos(angle), y: cy + r2 * Math.sin(angle) });
+    }
+    voids = [innerPolygon];
+  } else if (shapeType === "G_SHAPE") {
+    const voidW = width * 0.35;
+    const voidD = depth * 0.35;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "J_SHAPE") {
+    const stemW = width * 0.3;
+    const stemD = depth * 0.7;
+    polygon = [
+      { x: 0, y: depth - stemD },
+      { x: stemW, y: depth - stemD },
+      { x: stemW, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: stemD },
+      { x: width - stemW, y: stemD },
+      { x: width - stemW, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "N_SHAPE") {
+    const stemW = width * 0.25;
+    const diagW = width * 0.5;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: stemW, y: 0 },
+      { x: stemW + diagW, y: depth * 0.7 },
+      { x: stemW + diagW, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: width - stemW, y: depth },
+      { x: width - stemW - diagW, y: depth * 0.3 },
+      { x: width - stemW - diagW, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "HIPPODROME") {
+    const rx = width / 2;
+    const ry = depth / 2;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      const r = rx * 0.9;
+      polygon.push({
+        x: rx + r * Math.cos(angle),
+        y: ry + ry * 0.9 * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "VELODROME") {
+    const rx = width / 2;
+    const ry = depth / 2;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      const r = rx * 0.8;
+      polygon.push({
+        x: rx + r * Math.cos(angle),
+        y: ry + ry * 0.6 * Math.sin(angle),
+      });
+    }
+  } else if (shapeType === "SPORTS_PLEX") {
+    const blockW = width * 0.3;
+    const blockD = depth * 0.4;
+    const gapW = width * 0.1;
+    const gapD = depth * 0.1;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: blockW, y: 0 },
+      { x: blockW, y: blockD },
+      { x: 0, y: blockD },
+      { x: blockW + gapW, y: 0 },
+      { x: blockW + gapW + blockW, y: 0 },
+      { x: blockW + gapW + blockW, y: blockD },
+      { x: blockW + gapW, y: blockD },
+      { x: 0, y: blockD + gapD },
+      { x: blockW, y: blockD + gapD },
+      { x: blockW, y: blockD + gapD + blockD },
+      { x: 0, y: blockD + gapD + blockD },
+      { x: blockW + gapW, y: blockD + gapD },
+      { x: blockW + gapW + blockW, y: blockD + gapD },
+      { x: blockW + gapW + blockW, y: blockD + gapD + blockD },
+      { x: blockW + gapW, y: blockD + gapD + blockD },
+    ];
+  } else if (shapeType === "A_SHAPE") {
+    const stemW = width * 0.3;
+    const stemD = depth * 0.6;
+    const apexX = width / 2;
+    const apexY = 0;
+    polygon = [
+      { x: apexX, y: apexY },
+      { x: width - stemW, y: stemD },
+      { x: stemW, y: stemD },
+    ];
+  } else if (shapeType === "C_SHAPE") {
+    const voidW = width * 0.4;
+    const voidD = depth * 0.4;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: voidY },
+      { x: voidX, y: voidY },
+      { x: voidX, y: voidY + voidD },
+      { x: width, y: voidY + voidD },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "K_SHAPE") {
+    const stemW = width * 0.25;
+    const armW = width * 0.5;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: stemW, y: 0 },
+      { x: stemW, y: depth * 0.3 },
+      { x: stemW + armW, y: 0 },
+      { x: width, y: 0 },
+      { x: stemW + armW, y: depth * 0.5 },
+      { x: width, y: depth },
+      { x: stemW + armW, y: depth },
+      { x: stemW, y: depth * 0.7 },
+      { x: stemW, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "M_SHAPE") {
+    const peakW = width * 0.2;
+    const peakD = depth * 0.6;
+    polygon = [
+      { x: 0, y: depth },
+      { x: 0, y: 0 },
+      { x: peakW, y: 0 },
+      { x: width / 2, y: peakD },
+      { x: width - peakW, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: width - peakW, y: depth },
+      { x: width - peakW, y: peakD },
+      { x: width / 2, y: depth - peakD },
+      { x: peakW, y: peakD },
+      { x: peakW, y: depth },
+    ];
+  } else if (shapeType === "V_SHAPE") {
+    const stemW = width * 0.3;
+    const apexX = width / 2;
+    const apexY = depth * 0.7;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: stemW, y: 0 },
+      { x: apexX, y: apexY },
+      { x: width - stemW, y: 0 },
+      { x: width, y: 0 },
+      { x: apexX, y: depth },
+    ];
+  } else if (shapeType === "W_SHAPE") {
+    const peakW = width * 0.2;
+    const peakD = depth * 0.6;
+    polygon = [
+      { x: 0, y: depth },
+      { x: 0, y: peakD },
+      { x: peakW, y: depth },
+      { x: width / 2, y: peakD },
+      { x: width - peakW, y: depth },
+      { x: width, y: peakD },
+      { x: width, y: depth },
+      { x: width - peakW, y: 0 },
+      { x: width / 2, y: depth - peakD },
+      { x: peakW, y: 0 },
+    ];
+  } else if (shapeType === "Y_SHAPE") {
+    const stemW = width * 0.3;
+    const apexX = width / 2;
+    const apexY = depth * 0.4;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: stemW, y: 0 },
+      { x: apexX, y: apexY },
+      { x: width - stemW, y: 0 },
+      { x: width, y: 0 },
+      { x: stemW, y: apexY + (depth - apexY) * 0.5 },
+      { x: stemW, y: depth },
+      { x: width - stemW, y: depth },
+      { x: width - stemW, y: apexY + (depth - apexY) * 0.5 },
+    ];
+  } else if (shapeType === "S_SHAPE") {
+    const n = 8;
+    const segW = width / n;
+    polygon = [{ x: 0, y: 0 }];
+    for (let i = 0; i <= n; i++) {
+      const y = depth * 0.5 + depth * 0.3 * Math.sin((i / n) * Math.PI * 2);
+      polygon.push({ x: i * segW, y });
+    }
+    polygon.push({ x: width, y: depth });
+    polygon.push({ x: 0, y: depth });
+  } else if (shapeType === "EIGHT_SHAPE") {
+    const voidW = width * 0.3;
+    const voidD = depth * 0.3;
+    const voidX = (width - voidW) / 2;
+    const voidY1 = (depth - voidD) / 4;
+    const voidY2 = (depth - voidD) * 3 / 4;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [
+      [
+        { x: voidX, y: voidY1 },
+        { x: voidX + voidW, y: voidY1 },
+        { x: voidX + voidW, y: voidY1 + voidD },
+        { x: voidX, y: voidY1 + voidD },
+      ],
+      [
+        { x: voidX, y: voidY2 },
+        { x: voidX + voidW, y: voidY2 },
+        { x: voidX + voidW, y: voidY2 + voidD },
+        { x: voidX, y: voidY2 + voidD },
+      ],
+    ];
+  } else if (shapeType === "THREE_SHAPE") {
+    const voidW = width * 0.3;
+    const voidD = depth * 0.3;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "SIX_SHAPE") {
+    const voidW = width * 0.3;
+    const voidD = depth * 0.3;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "NINE_SHAPE") {
+    const voidW = width * 0.3;
+    const voidD = depth * 0.3;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  } else if (shapeType === "STAR") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r1 = Math.min(width, depth) / 2;
+    const r2 = r1 * 0.4;
+    polygon = [];
+    for (let i = 0; i < 10; i++) {
+      const angle = (i / 10) * Math.PI * 2 - Math.PI / 2;
+      const r = i % 2 === 0 ? r1 : r2;
+      polygon.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) });
+    }
+  } else if (shapeType === "CROSS") {
+    const armW = width * 0.3;
+    const armD = depth * 0.3;
+    polygon = [
+      { x: (width - armW) / 2, y: 0 },
+      { x: (width + armW) / 2, y: 0 },
+      { x: (width + armW) / 2, y: (depth - armD) / 2 },
+      { x: width, y: (depth - armD) / 2 },
+      { x: width, y: (depth + armD) / 2 },
+      { x: (width + armW) / 2, y: (depth + armD) / 2 },
+      { x: (width + armW) / 2, y: depth },
+      { x: (width - armW) / 2, y: depth },
+      { x: (width - armW) / 2, y: (depth + armD) / 2 },
+      { x: 0, y: (depth + armD) / 2 },
+      { x: 0, y: (depth - armD) / 2 },
+      { x: (width - armW) / 2, y: (depth - armD) / 2 },
+    ];
+  } else if (shapeType === "DIAMOND") {
+    polygon = [
+      { x: width / 2, y: 0 },
+      { x: width, y: depth / 2 },
+      { x: width / 2, y: depth },
+      { x: 0, y: depth / 2 },
+    ];
+  } else if (shapeType === "TRAPEZOID") {
+    const inset = width * 0.2;
+    polygon = [
+      { x: inset, y: 0 },
+      { x: width - inset, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "PARALLELOGRAM") {
+    const skew = width * 0.2;
+    polygon = [
+      { x: skew, y: 0 },
+      { x: width, y: 0 },
+      { x: width - skew, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "RHOMBUS") {
+    polygon = [
+      { x: width / 2, y: 0 },
+      { x: width, y: depth / 2 },
+      { x: width / 2, y: depth },
+      { x: 0, y: depth / 2 },
+    ];
+  } else if (shapeType === "GRID_2X2") {
+    const voidW = width * 0.3;
+    const voidD = depth * 0.3;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [
+      [
+        { x: voidX, y: voidY },
+        { x: voidX + voidW, y: voidY },
+        { x: voidX + voidW, y: voidY + voidD },
+        { x: voidX, y: voidY + voidD },
+      ],
+    ];
+  } else if (shapeType === "GRID_3X3") {
+    const voidW = width * 0.15;
+    const voidD = depth * 0.15;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        voids.push([
+          { x: width * (i + 0.3) / 3, y: depth * (j + 0.3) / 3 },
+          { x: width * (i + 0.7) / 3, y: depth * (j + 0.3) / 3 },
+          { x: width * (i + 0.7) / 3, y: depth * (j + 0.7) / 3 },
+          { x: width * (i + 0.3) / 3, y: depth * (j + 0.7) / 3 },
+        ]);
+      }
+    }
+  } else if (shapeType === "RADIAL") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * Math.PI * 2 - Math.PI / 4;
+      polygon.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) });
+    }
+  } else if (shapeType === "CONCENTRIC") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r1 = Math.min(width, depth) / 2;
+    const r2 = r1 * 0.6;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({ x: cx + r1 * Math.cos(angle), y: cy + r1 * Math.sin(angle) });
+    }
+    const innerPolygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      innerPolygon.push({ x: cx + r2 * Math.cos(angle), y: cy + r2 * Math.sin(angle) });
+    }
+    voids = [innerPolygon];
+  } else if (shapeType === "SETBACK_TOWER") {
+    const baseW = width;
+    const baseD = depth * 0.3;
+    const midW = width * 0.8;
+    const midD = depth * 0.4;
+    const topW = width * 0.5;
+    const topD = depth * 0.3;
+    polygon = [
+      { x: (width - baseW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: baseD },
+      { x: (width - baseW) / 2, y: baseD },
+      { x: (width - midW) / 2, y: baseD },
+      { x: (width + midW) / 2, y: baseD },
+      { x: (width + midW) / 2, y: baseD + midD },
+      { x: (width - midW) / 2, y: baseD + midD },
+      { x: (width - topW) / 2, y: baseD + midD },
+      { x: (width + topW) / 2, y: baseD + midD },
+      { x: (width + topW) / 2, y: baseD + midD + topD },
+      { x: (width - topW) / 2, y: baseD + midD + topD },
+    ];
+  } else if (shapeType === "TWISTED_TOWER") {
+    const baseW = width;
+    const baseD = depth * 0.3;
+    const midW = width * 0.8;
+    const midD = depth * 0.4;
+    const topW = width * 0.6;
+    const topD = depth * 0.3;
+    polygon = [
+      { x: (width - baseW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: baseD },
+      { x: (width - baseW) / 2, y: baseD },
+      { x: (width - midW) / 2, y: baseD },
+      { x: (width + midW) / 2, y: baseD },
+      { x: (width + midW) / 2, y: baseD + midD },
+      { x: (width - midW) / 2, y: baseD + midD },
+      { x: (width - topW) / 2, y: baseD + midD },
+      { x: (width + topW) / 2, y: baseD + midD },
+      { x: (width + topW) / 2, y: baseD + midD + topD },
+      { x: (width - topW) / 2, y: baseD + midD + topD },
+    ];
+  } else if (shapeType === "TAPERED_TOWER") {
+    const baseW = width;
+    const baseD = depth * 0.3;
+    const midW = width * 0.7;
+    const midD = depth * 0.4;
+    const topW = width * 0.4;
+    const topD = depth * 0.3;
+    polygon = [
+      { x: (width - baseW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: baseD },
+      { x: (width - baseW) / 2, y: baseD },
+      { x: (width - midW) / 2, y: baseD },
+      { x: (width + midW) / 2, y: baseD },
+      { x: (width + midW) / 2, y: baseD + midD },
+      { x: (width - midW) / 2, y: baseD + midD },
+      { x: (width - topW) / 2, y: baseD + midD },
+      { x: (width + topW) / 2, y: baseD + midD },
+      { x: (width + topW) / 2, y: baseD + midD + topD },
+      { x: (width - topW) / 2, y: baseD + midD + topD },
+    ];
+  } else if (shapeType === "DOME") {
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) });
+    }
+  } else if (shapeType === "VAULT") {
+    const rx = width / 2;
+    const ry = depth / 2;
+    polygon = [];
+    for (let i = 0; i < 16; i++) {
+      const angle = (i / 16) * Math.PI;
+      polygon.push({ x: rx + rx * Math.cos(angle), y: ry + ry * Math.sin(angle) });
+    }
+  } else if (shapeType === "CANOPY") {
+    const inset = width * 0.1;
+    polygon = [
+      { x: inset, y: inset },
+      { x: width - inset, y: inset },
+      { x: width - inset, y: depth - inset },
+      { x: inset, y: depth - inset },
+    ];
   }
 
   return {

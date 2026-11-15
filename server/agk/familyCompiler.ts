@@ -302,7 +302,8 @@ export function compileDynamicBuildingToAgk(
   // Courtyard, arena and podium/tower strategies require multiple solids /
   // void semantics and must not be silently flattened to one rectangle.
   // COMPACT sin polígono se trata como rectángulo (fallback).
-  if (building.geometry2d.type !== "LINEAR_MASS" && building.geometry2d.shapeType !== "COMPACT") {
+  // COMPACT y LINEAR se tratan como rectángulos
+  if (building.geometry2d.type !== "LINEAR_MASS" && building.geometry2d.shapeType !== "COMPACT" && building.geometry2d.shapeType !== "LINEAR") {
     return { ok: false, code: "FAMILY_GEOMETRY_STRATEGY_UNSUPPORTED" };
   }
 
