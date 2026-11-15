@@ -241,11 +241,11 @@ function createState(
 ): AgkCommittedState {
   const objectSnapshot = objects.map((object) => ({
     objectId: object.objectId,
-    geometry: { ...object.geometry, profile: { ...object.geometry.profile } },
+    geometry: { ...object.geometry, profile: { ...(object.geometry as any).profile } },
   }));
   const dependencySnapshot = dependencies.map((dependency) => Object.freeze({ ...dependency }));
   for (const object of objectSnapshot) {
-    Object.freeze(object.geometry.profile);
+    Object.freeze((object.geometry as any).profile);
     Object.freeze(object.geometry);
     Object.freeze(object);
   }
@@ -272,10 +272,10 @@ function validateOperationalObjects(objects: readonly AgkOperationalObject[]): A
       z_mm?: unknown;
       height_mm?: unknown;
     };
-    if (geometry.kind !== "EXTRUDED_RECTANGLE" || !geometry.profile || typeof geometry.profile !== "object") {
+    if (geometry.kind !== "EXTRUDED_RECTANGLE" || !(geometry as any).profile || typeof (geometry as any).profile !== "object") {
       return "OPERATIONAL_GEOMETRY_INVALID";
     }
-    const profile = geometry.profile as { width_mm?: unknown; depth_mm?: unknown; radius_mm?: unknown };
+    const profile = (geometry as any).profile as { width_mm?: unknown; depth_mm?: unknown; radius_mm?: unknown };
     const positiveInteger = (value: unknown): value is number =>
       typeof value === "number" && Number.isInteger(value) && value > 0;
     const integer = (value: unknown): value is number =>
@@ -394,7 +394,7 @@ export function applyAgkCommand(
             y_mm: f.parameters.y_mm + command.delta_mm.y,
             z_mm: f.parameters.z_mm + command.delta_mm.z,
           },
-        })),
+        }) as any),
       };
       const regenerated = regenerateFromFeatureChange(
         current.objects,
@@ -465,7 +465,7 @@ export function deriveAgkPlan(state: AgkCommittedState): readonly AgkPlanRectang
     kind: "RECTANGLE" as const,
     x_mm: geometry.x_mm,
     y_mm: geometry.y_mm,
-    width_mm: ('width_mm' in geometry.profile ? geometry.profile.width_mm : 0),
-    depth_mm: ('depth_mm' in geometry.profile ? geometry.profile.depth_mm : 0),
+    width_mm: ('width_mm' in (geometry as any).profile ? (geometry as any).profile.width_mm : 0),
+    depth_mm: ('depth_mm' in (geometry as any).profile ? (geometry as any).profile.depth_mm : 0),
   }));
 }

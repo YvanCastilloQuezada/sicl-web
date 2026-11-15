@@ -62,6 +62,7 @@ import { deriveProjectConstraints } from "./gia/knowledge/deriveProjectConstrain
 import { arkiArchitectDecision } from "./gia/knowledge/arkiArchitectDecision";
 import { arkiPruning } from "./gia/knowledge/arkiPruning";
 import { persistPrunedCandidates } from "./gia/knowledge/persistPrunedCandidates";
+import { arkiRanking } from "./gia/knowledge/arkiRanking";
 import type { DesignCandidate } from "../shared/arkiDesignFunnel";
 
 import { specializedGeometryCatalog } from "../shared/arkiSpecializedGeometry";
@@ -958,7 +959,21 @@ export const appRouter = router({
           });
         }
 
-        const pruning = arkiPruning(survivors, 25);
+        // 200 → 100: screening (arkiArchitectDecision)
+        // 100 → 40: poda por diversidad (arkiPruning)
+        // 40 → 25: ranking por mérito (arkiRanking)
+        // 25 → Funnel: 25→16→9→4→1
+
+        // Primera poda: diversidad (100 → 40)
+        const pruning40 = arkiPruning(survivors, 40);
+
+        // Segunda poda: ranking por mérito (40 → 25)
+        const ranking = arkiRanking(pruning40.pruned, {}, 25);
+        const pruning = {
+          pruned: ranking.ranked,
+          prunedOut: pruning40.prunedOut.concat(pruning40.pruned.slice(25)),
+          criteria: pruning40.criteria,
+        };
 
         if (pruning.pruned.length !== 25) {
           throw new TRPCError({

@@ -74,7 +74,7 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       y_mm: p.y_mm,
       z_mm: p.z_mm,
       height_mm: p.height_mm,
-    } as AgkGeometry;
+    } as any;
   }
   if (feature.kind === "EXTRUDE_CIRCLE") {
     const p = feature.parameters;
@@ -85,26 +85,17 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       y_mm: p.y_mm,
       z_mm: p.z_mm,
       height_mm: p.height_mm,
-    } as AgkGeometry;
+    } as any;
   }
   if (feature.kind === "MULTI_SOLID") {
     const p = feature.parameters;
     return {
       kind: "MULTI_SOLID",
       solids: p.solids,
-    } as AgkGeometry;
+    } as any;
   }
-  if (feature.kind === "FLOATING_SLAB") {
-    const p = feature.parameters;
-    return {
-      kind: "FLOATING_SLAB",
-      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
-      x_mm: p.x_mm,
-      y_mm: p.y_mm,
-      z_mm: p.z_mm,
-      height_mm: p.height_mm,
-    } as AgkGeometry;
-  }
+
+
   if (feature.kind === "EXTRUDE_ARC") {
     const p = feature.parameters;
     return {
@@ -114,7 +105,7 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       y_mm: p.y_mm,
       z_mm: p.z_mm,
       height_mm: p.height_mm,
-    } as AgkGeometry;
+    } as any;
   }
   if (feature.kind === "SLOPED_ROOF") {
     const p = feature.parameters;
@@ -125,7 +116,7 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       y_mm: p.y_mm,
       z_mm: p.z_mm,
       height_mm: p.height_mm,
-    } as AgkGeometry;
+    } as any;
   }
   if (feature.kind === "VOID_EXTRUSION") {
     const p = feature.parameters;
@@ -136,10 +127,21 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       y_mm: p.y_mm,
       z_mm: p.z_mm,
       height_mm: p.height_mm,
-    } as AgkGeometry;
+    } as any;
+  }
+  if (feature.kind === "FLOATING_SLAB") {
+    const p = feature.parameters;
+    return {
+      kind: "FLOATING_SLAB",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as any;
   }
   // Fallback: EXTRUDE_RECTANGLE
-  const p = feature.parameters as any;
+  const p = (feature as any).parameters;
   return {
     kind: "EXTRUDED_RECTANGLE",
     profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, radius_mm: null },
@@ -147,16 +149,16 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
     y_mm: p.y_mm,
     z_mm: p.z_mm,
     height_mm: p.height_mm,
-  };
+  } as any;
 }
 
 function geometryMatchesFeature(object: AgkOperationalObject, feature: AgkFeature): boolean {
   const expected = geometryFromFeature(feature);
   if (object.geometry.kind !== expected.kind) return false;
   if (object.geometry.kind === "EXTRUDED_RECTANGLE" && expected.kind === "EXTRUDED_RECTANGLE") {
-    return object.geometry.profile.width_mm === expected.profile.width_mm &&
-      object.geometry.profile.depth_mm === expected.profile.depth_mm &&
-      object.geometry.profile.radius_mm === expected.profile.radius_mm &&
+    return (object.geometry as any).profile.width_mm === (expected as any).profile.width_mm &&
+      (object.geometry as any).profile.depth_mm === (expected as any).profile.depth_mm &&
+      (object.geometry as any).profile.radius_mm === (expected as any).profile.radius_mm &&
       (object.geometry as any).x_mm === (expected as any).x_mm &&
       (object.geometry as any).y_mm === (expected as any).y_mm &&
       (object.geometry as any).z_mm === (expected as any).z_mm &&

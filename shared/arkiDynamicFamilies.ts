@@ -107,6 +107,10 @@ export type GeneratedBuilding = {
     costPerM2: number;
     capacityPerM2: number;
     complianceScore: number;
+    energyUseIntensity: number;
+    waterUseIntensity: number;
+    carbonFootprint: number;
+    structuralEfficiency: number;
   };
   validation: { status: "PASS" | "UNKNOWN" | "BLOCKED"; checked: string[]; unknowns: string[] };
   alerts: Array<{ code: string; message: string; severity: "INFO" | "WARNING" | "BLOCKER" }>;
@@ -124,92 +128,100 @@ function makeAdditionalFamily(input: { id: string; name: string; category: Famil
 }
 
 const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
-  makeAdditionalFamily({ id: "FAM-LANDSCAPE", name: "Paisajismo", category: "LANDSCAPE", description: "Parques, plazas, malecones, corredores verdes y humedales.", geometryStrategy: "COURTYARD_MASS", tags: ["paisajismo", "parque", "espacio público", "GH.020"], primary: ["áreas verdes", "senderos", "estancias", "equipamiento"], services: ["riego", "bombas", "servicios higiénicos"], variants: [
+  makeAdditionalFamily({ id: "FAM-LANDSCAPE", name: "Paisajismo", category: "LANDSCAPE", description: "Parques, plazas, malecones, corredores verdes y humedales.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["paisajismo", "parque", "espacio público", "GH.020"], primary: ["áreas verdes", "senderos", "estancias", "equipamiento"], services: ["riego", "bombas", "servicios higiénicos"], variants: [
     { id: "URBAN_PARK", name: "Parque urbano", description: "Parque de barrio con recreación y vegetación.", tags: ["parque", "verde"], extra: ["juegos infantiles", "ciclovía"], modifiers: { areaM2: 20000, capacity: 5000 } },
     { id: "PUBLIC_PLAZA", name: "Plaza pública", description: "Plaza cívica y cultural.", tags: ["plaza", "cívica"], extra: ["fuente", "pavimento cívico"], modifiers: { areaM2: 5000, capacity: 2000 } },
     { id: "WETLAND", name: "Humedal artificial", description: "Humedal para tratamiento y biodiversidad.", tags: ["humedal", "agua"], extra: ["sendero interpretativo", "mirador de aves"], modifiers: { areaM2: 50000, capacity: 500 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-INDUSTRY", name: "Industria", category: "INDUSTRY", description: "Manufactura, almacenes y centros logísticos.", geometryStrategy: "LINEAR_MASS", tags: ["industria", "manufactura", "logística", "RNE-A.060"], primary: ["producción", "almacén", "patio de maniobras"], services: ["vestuarios", "cuarto eléctrico", "control de calidad"], variants: [
+  makeAdditionalFamily({ id: "FAM-INDUSTRY", name: "Industria", category: "INDUSTRY", description: "Manufactura, almacenes y centros logísticos.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["industria", "manufactura", "logística", "RNE-A.060"], primary: ["producción", "almacén", "patio de maniobras"], services: ["vestuarios", "cuarto eléctrico", "control de calidad"], variants: [
     { id: "WAREHOUSE", name: "Almacén simple", description: "Almacén de mercancías secas.", tags: ["almacén"], extra: ["racks", "muelles"], modifiers: { areaM2: 3000, floors: 1 } },
     { id: "LOGISTICS", name: "Centro logístico", description: "Distribución multi-almacén.", tags: ["logística"], extra: ["muelles múltiples", "patio de maniobras"], modifiers: { areaM2: 25000, floors: 1 } },
     { id: "MANUFACTURING", name: "Planta de manufactura", description: "Producción industrial con líneas y control de calidad.", tags: ["manufactura"], extra: ["líneas de producción", "laboratorio"], modifiers: { areaM2: 15000, floors: 2 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-TRANSPORT", name: "Transporte", category: "TRANSPORT", description: "Terminales, estaciones, aeropuertos y nodos intermodales.", geometryStrategy: "LINEAR_MASS", tags: ["transporte", "terminal", "intermodal"], primary: ["vestíbulo", "andenes", "circulación pública"], services: ["control", "equipaje", "mantenimiento"], variants: [
+  makeAdditionalFamily({ id: "FAM-TRANSPORT", name: "Transporte", category: "TRANSPORT", description: "Terminales, estaciones, aeropuertos y nodos intermodales.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["transporte", "terminal", "intermodal"], primary: ["vestíbulo", "andenes", "circulación pública"], services: ["control", "equipaje", "mantenimiento"], variants: [
     { id: "BUS_TERMINAL", name: "Terminal terrestre", description: "Terminal de buses interprovincial.", tags: ["buses", "terminal"], extra: ["andenes", "salas de espera"], modifiers: { areaM2: 18000, capacity: 2500 } },
     { id: "STATION", name: "Estación intermodal", description: "Intercambio de modos de transporte.", tags: ["intermodal", "estación"], extra: ["conexión peatonal", "bicicletas"], modifiers: { areaM2: 12000, capacity: 4000 } },
     { id: "AIRPORT", name: "Terminal aeroportuaria", description: "Terminal de pasajeros con controles y plataforma.", tags: ["aeropuerto", "aviación"], extra: ["check-in", "seguridad", "mangas"], modifiers: { areaM2: 60000, capacity: 12000, floors: 3 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-CULTURE", name: "Cultura", category: "CULTURE", description: "Museos, bibliotecas, teatros y centros culturales.", geometryStrategy: "COURTYARD_MASS", tags: ["cultura", "museo", "teatro"], primary: ["exposición", "auditorio", "espacio comunitario"], services: ["carga cultural", "conservación", "taquilla"], variants: [
+  makeAdditionalFamily({ id: "FAM-CULTURE", name: "Cultura", category: "CULTURE", description: "Museos, bibliotecas, teatros y centros culturales.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["cultura", "museo", "teatro"], primary: ["exposición", "auditorio", "espacio comunitario"], services: ["carga cultural", "conservación", "taquilla"], variants: [
     { id: "MUSEUM", name: "Museo", description: "Museo con galerías y conservación.", tags: ["museo"], extra: ["galerías", "depósitos"], modifiers: { areaM2: 8000, capacity: 1200 } },
     { id: "LIBRARY", name: "Biblioteca", description: "Biblioteca pública y digital.", tags: ["biblioteca"], extra: ["salas de lectura", "archivo"], modifiers: { areaM2: 5000, capacity: 600 } },
     { id: "THEATER", name: "Teatro", description: "Teatro y artes escénicas.", tags: ["teatro", "escénico"], extra: ["escenario", "camerinos"], modifiers: { areaM2: 10000, capacity: 1400 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-RESIDENTIAL", name: "Residencial", category: "RESIDENTIAL", description: "Vivienda unifamiliar, multifamiliar y conjunto residencial.", geometryStrategy: "COURTYARD_MASS", tags: ["vivienda", "residencial", "multifamiliar"], primary: ["unidades de vivienda", "áreas comunes", "patios"], services: ["estacionamiento", "cuartos técnicos", "residuos"], variants: [
+  makeAdditionalFamily({ id: "FAM-RESIDENTIAL", name: "Residencial", category: "RESIDENTIAL", description: "Vivienda unifamiliar, multifamiliar y conjunto residencial.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["vivienda", "residencial", "multifamiliar"], primary: ["unidades de vivienda", "áreas comunes", "patios"], services: ["estacionamiento", "cuartos técnicos", "residuos"], variants: [
     { id: "SINGLE", name: "Vivienda unifamiliar", description: "Casa independiente.", tags: ["casa"], extra: ["jardín", "estacionamiento"], modifiers: { areaM2: 300, capacity: 6, floors: 2 } },
     { id: "MULTIFAMILY", name: "Multifamiliar", description: "Edificio de departamentos.", tags: ["departamentos"], extra: ["núcleo vertical", "área común"], modifiers: { areaM2: 3000, capacity: 120, floors: 8 } },
     { id: "HOUSING_COMPLEX", name: "Conjunto residencial", description: "Conjunto de bloques y espacio común.", tags: ["conjunto", "barrial"], extra: ["parque común", "equipamiento vecinal"], modifiers: { areaM2: 20000, capacity: 900, floors: 5 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-HOSPITALITY", name: "Hospedaje", category: "HOSPITALITY", description: "Hoteles, hostales y resorts.", geometryStrategy: "COURTYARD_MASS", tags: ["hotel", "turismo", "hospedaje"], primary: ["habitaciones", "lobby", "restaurante"], services: ["housekeeping", "cocina", "mantenimiento"], variants: [
+  makeAdditionalFamily({ id: "FAM-HOSPITALITY", name: "Hospedaje", category: "HOSPITALITY", description: "Hoteles, hostales y resorts.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["hotel", "turismo", "hospedaje"], primary: ["habitaciones", "lobby", "restaurante"], services: ["housekeeping", "cocina", "mantenimiento"], variants: [
     { id: "HOTEL", name: "Hotel", description: "Hotel urbano con habitaciones y servicios.", tags: ["hotel"], extra: ["recepción", "salón de eventos"], modifiers: { areaM2: 15000, capacity: 500, floors: 10 } },
     { id: "HOSTEL", name: "Hostal", description: "Hospedaje económico de escala media.", tags: ["hostal"], extra: ["cocina compartida", "terraza"], modifiers: { areaM2: 2500, capacity: 100, floors: 4 } },
     { id: "RESORT", name: "Resort", description: "Complejo turístico con paisaje y recreación.", tags: ["resort", "paisaje"], extra: ["piscinas", "spa", "jardines"], modifiers: { areaM2: 40000, capacity: 700, floors: 4 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-WORSHIP", name: "Culto", category: "WORSHIP", description: "Templos, centros comunitarios y espacios de culto.", geometryStrategy: "COURTYARD_MASS", tags: ["culto", "templo", "comunidad"], primary: ["sala de culto", "patio", "espacio comunitario"], services: ["administración", "servicios", "apoyo social"], variants: [
+  makeAdditionalFamily({ id: "FAM-WORSHIP", name: "Culto", category: "WORSHIP", description: "Templos, centros comunitarios y espacios de culto.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["culto", "templo", "comunidad"], primary: ["sala de culto", "patio", "espacio comunitario"], services: ["administración", "servicios", "apoyo social"], variants: [
     { id: "TEMPLE", name: "Templo", description: "Espacio de culto con nave principal.", tags: ["templo"], extra: ["nave", "sacristía"], modifiers: { areaM2: 2500, capacity: 800, floors: 1 } },
     { id: "COMMUNITY_CENTER", name: "Centro comunitario", description: "Centro de reunión y apoyo social.", tags: ["comunidad"], extra: ["aulas", "comedor social"], modifiers: { areaM2: 4000, capacity: 500, floors: 2 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-EMERGENCY", name: "Emergencia", category: "SALUD", description: "Bomberos, policía y hospitales de campaña.", geometryStrategy: "LINEAR_MASS", tags: ["emergencia", "bomberos", "policía"], primary: ["estación", "área de operaciones", "equipamiento"], services: ["vestuarios", "mantenimiento", "comunicaciones"], variants: [
+  makeAdditionalFamily({ id: "FAM-EMERGENCY", name: "Emergencia", category: "SALUD", description: "Bomberos, policía y hospitales de campaña.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["emergencia", "bomberos", "policía"], primary: ["estación", "área de operaciones", "equipamiento"], services: ["vestuarios", "mantenimiento", "comunicaciones"], variants: [
     { id: "FIRE_STATION", name: "Estación de bomberos", description: "Estación con cocheras y áreas de entrenamiento.", tags: ["bomberos"], extra: ["cocheras", "torre de entrenamiento"], modifiers: { areaM2: 5000, capacity: 100, floors: 2 } },
     { id: "POLICE_STATION", name: "Estación de policía", description: "Estación con celdas y área administrativa.", tags: ["policía"], extra: ["celdas", "sala de interrogatorios"], modifiers: { areaM2: 4000, capacity: 150, floors: 3 } },
     { id: "FIELD_HOSPITAL", name: "Hospital de campaña", description: "Estructura modular para emergencias.", tags: ["hospital", "campaña"], extra: ["triaje", "quirófano móvil"], modifiers: { areaM2: 2000, capacity: 50, floors: 1 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-AGRICULTURE", name: "Agricultura", category: "INDUSTRY", description: "Invernaderos, establos y agroindustria.", geometryStrategy: "LINEAR_MASS", tags: ["agricultura", "invernadero", "agroindustria"], primary: ["producción", "almacenamiento", "procesamiento"], services: ["riego", "mantenimiento", "residuos"], variants: [
+  makeAdditionalFamily({ id: "FAM-AGRICULTURE", name: "Agricultura", category: "INDUSTRY", description: "Invernaderos, establos y agroindustria.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["agricultura", "invernadero", "agroindustria"], primary: ["producción", "almacenamiento", "procesamiento"], services: ["riego", "mantenimiento", "residuos"], variants: [
     { id: "GREENHOUSE", name: "Invernadero", description: "Estructura para cultivo controlado.", tags: ["invernadero"], extra: ["riego automático", "control climático"], modifiers: { areaM2: 10000, capacity: 200, floors: 1 } },
     { id: "BARN", name: "Establo", description: "Establo para ganado.", tags: ["establo", "ganado"], extra: ["corrales", "silos"], modifiers: { areaM2: 8000, capacity: 300, floors: 1 } },
     { id: "AGRO_INDUSTRIAL", name: "Planta agroindustrial", description: "Procesamiento de productos agrícolas.", tags: ["agroindustria"], extra: ["línea de proceso", "almacén"], modifiers: { areaM2: 15000, capacity: 150, floors: 2 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-ENERGY", name: "Energía", category: "INDUSTRY", description: "Plantas solares, eólicas y subestaciones.", geometryStrategy: "LINEAR_MASS", tags: ["energía", "solar", "eólica"], primary: ["generación", "transformación", "control"], services: ["mantenimiento", "seguridad", "almacenamiento"], variants: [
+  makeAdditionalFamily({ id: "FAM-ENERGY", name: "Energía", category: "INDUSTRY", description: "Plantas solares, eólicas y subestaciones.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["energía", "solar", "eólica"], primary: ["generación", "transformación", "control"], services: ["mantenimiento", "seguridad", "almacenamiento"], variants: [
     { id: "SOLAR_PLANT", name: "Planta solar", description: "Parque fotovoltaico.", tags: ["solar"], extra: ["paneles", "inversores"], modifiers: { areaM2: 50000, capacity: 50, floors: 1 } },
     { id: "WIND_FARM", name: "Parque eólico", description: "Aerogeneradores y subestación.", tags: ["eólico"], extra: ["aerogeneradores", "subestación"], modifiers: { areaM2: 100000, capacity: 30, floors: 1 } },
     { id: "SUBSTATION", name: "Subestación eléctrica", description: "Transformación y distribución.", tags: ["subestación"], extra: ["transformadores", "control"], modifiers: { areaM2: 5000, capacity: 20, floors: 1 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-WATER", name: "Agua", category: "INDUSTRY", description: "Plantas de tratamiento, reservorios y desalinizadoras.", geometryStrategy: "COURTYARD_MASS", tags: ["agua", "tratamiento", "reservorio"], primary: ["tratamiento", "almacenamiento", "distribución"], services: ["bombas", "control", "mantenimiento"], variants: [
+  makeAdditionalFamily({ id: "FAM-WATER", name: "Agua", category: "INDUSTRY", description: "Plantas de tratamiento, reservorios y desalinizadoras.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["agua", "tratamiento", "reservorio"], primary: ["tratamiento", "almacenamiento", "distribución"], services: ["bombas", "control", "mantenimiento"], variants: [
     { id: "TREATMENT_PLANT", name: "Planta de tratamiento", description: "Tratamiento de agua potable o residual.", tags: ["tratamiento"], extra: ["tanques", "laboratorio"], modifiers: { areaM2: 10000, capacity: 5000, floors: 2 } },
     { id: "RESERVOIR", name: "Reservorio", description: "Almacenamiento de agua.", tags: ["reservorio"], extra: ["tanques", "bombas"], modifiers: { areaM2: 20000, capacity: 10000, floors: 1 } },
     { id: "DESALINATION", name: "Desalinizadora", description: "Planta de desalinización.", tags: ["desalinización"], extra: ["ósmosis inversa", "salmuera"], modifiers: { areaM2: 15000, capacity: 8000, floors: 2 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-WASTE", name: "Residuos", category: "INDUSTRY", description: "Reciclaje, rellenos sanitarios y compostaje.", geometryStrategy: "LINEAR_MASS", tags: ["residuos", "reciclaje", "compostaje"], primary: ["recepción", "procesamiento", "disposición"], services: ["control", "mantenimiento", "seguridad"], variants: [
+  makeAdditionalFamily({ id: "FAM-WASTE", name: "Residuos", category: "INDUSTRY", description: "Reciclaje, rellenos sanitarios y compostaje.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["residuos", "reciclaje", "compostaje"], primary: ["recepción", "procesamiento", "disposición"], services: ["control", "mantenimiento", "seguridad"], variants: [
     { id: "RECYCLING_CENTER", name: "Centro de reciclaje", description: "Clasificación y procesamiento de residuos.", tags: ["reciclaje"], extra: ["clasificación", "prensado"], modifiers: { areaM2: 8000, capacity: 200, floors: 1 } },
     { id: "LANDFILL", name: "Relleno sanitario", description: "Disposición final de residuos.", tags: ["relleno"], extra: ["celdas", "control de lixiviados"], modifiers: { areaM2: 50000, capacity: 100, floors: 1 } },
     { id: "COMPOST_FACILITY", name: "Planta de compostaje", description: "Compostaje de residuos orgánicos.", tags: ["compostaje"], extra: ["pilas de compost", "cribado"], modifiers: { areaM2: 12000, capacity: 150, floors: 1 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-DEFENSE", name: "Defensa", category: "OFFICES", description: "Cuarteles, centros de mando y búnkeres.", geometryStrategy: "LINEAR_MASS", tags: ["defensa", "cuartel", "búnker"], primary: ["operaciones", "alojamiento", "entrenamiento"], services: ["comunicaciones", "mantenimiento", "seguridad"], variants: [
+  makeAdditionalFamily({ id: "FAM-DEFENSE", name: "Defensa", category: "OFFICES", description: "Cuarteles, centros de mando y búnkeres.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["defensa", "cuartel", "búnker"], primary: ["operaciones", "alojamiento", "entrenamiento"], services: ["comunicaciones", "mantenimiento", "seguridad"], variants: [
     { id: "BARRACKS", name: "Cuartel", description: "Alojamiento y entrenamiento militar.", tags: ["cuartel"], extra: ["dormitorios", "campo de entrenamiento"], modifiers: { areaM2: 15000, capacity: 500, floors: 3 } },
     { id: "COMMAND_CENTER", name: "Centro de mando", description: "Centro de operaciones y comunicaciones.", tags: ["mando"], extra: ["sala de crisis", "comunicaciones"], modifiers: { areaM2: 8000, capacity: 200, floors: 2 } },
     { id: "BUNKER", name: "Búnker", description: "Estructura fortificada subterránea.", tags: ["búnker"], extra: ["refugio", "suministros"], modifiers: { areaM2: 3000, capacity: 100, floors: 1 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-MIXED_USE", name: "Uso mixto", category: "COMMERCE", description: "Live-work y complejos mixtos.", geometryStrategy: "PODIUM_TOWER", tags: ["mixto", "live-work", "complejo"], primary: ["vivienda", "comercio", "oficinas"], services: ["estacionamiento", "servicios", "mantenimiento"], variants: [
+  makeAdditionalFamily({ id: "FAM-MIXED_USE", name: "Uso mixto", category: "COMMERCE", description: "Live-work y complejos mixtos.", geometryStrategy: "PODIUM_TOWER", defaultShapeType: "COMPACT", tags: ["mixto", "live-work", "complejo"], primary: ["vivienda", "comercio", "oficinas"], services: ["estacionamiento", "servicios", "mantenimiento"], variants: [
     { id: "LIVE_WORK", name: "Live-work", description: "Vivienda y trabajo integrados.", tags: ["live-work"], extra: ["estudio", "vivienda"], modifiers: { areaM2: 5000, capacity: 100, floors: 4 } },
     { id: "MIXED_COMPLEX", name: "Complejo mixto", description: "Vivienda, comercio y oficinas.", tags: ["complejo"], extra: ["plaza", "torre"], modifiers: { areaM2: 20000, capacity: 800, floors: 8 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-PARKING", name: "Estacionamiento", category: "TRANSPORT", description: "Superficie, multinivel y automatizado.", geometryStrategy: "LINEAR_MASS", tags: ["estacionamiento", "parking"], primary: ["estacionamiento", "circulación", "acceso"], services: ["control", "mantenimiento", "seguridad"], variants: [
+  makeAdditionalFamily({ id: "FAM-PARKING", name: "Estacionamiento", category: "TRANSPORT", description: "Superficie, multinivel y automatizado.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["estacionamiento", "parking"], primary: ["estacionamiento", "circulación", "acceso"], services: ["control", "mantenimiento", "seguridad"], variants: [
     { id: "SURFACE", name: "Estacionamiento superficial", description: "Estacionamiento a nivel de suelo.", tags: ["superficie"], extra: ["cajones", "circulación"], modifiers: { areaM2: 10000, capacity: 300, floors: 1 } },
     { id: "MULTILEVEL", name: "Estacionamiento multinivel", description: "Estacionamiento en varios niveles.", tags: ["multinivel"], extra: ["rampas", "elevadores"], modifiers: { areaM2: 15000, capacity: 800, floors: 4 } },
     { id: "AUTOMATED", name: "Estacionamiento automatizado", description: "Sistema robotizado de almacenamiento.", tags: ["automatizado"], extra: ["robots", "control"], modifiers: { areaM2: 5000, capacity: 500, floors: 6 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-DATA", name: "Data center", category: "INDUSTRY", description: "Data centers y edge centers.", geometryStrategy: "LINEAR_MASS", tags: ["data", "servidores", "edge"], primary: ["servidores", "almacenamiento", "conectividad"], services: ["refrigeración", "energía", "seguridad"], variants: [
+  makeAdditionalFamily({ id: "FAM-DATA", name: "Data center", category: "INDUSTRY", description: "Data centers y edge centers.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["data", "servidores", "edge"], primary: ["servidores", "almacenamiento", "conectividad"], services: ["refrigeración", "energía", "seguridad"], variants: [
     { id: "DATA_CENTER", name: "Data center", description: "Centro de datos de gran escala.", tags: ["data"], extra: ["racks", "UPS", "generadores"], modifiers: { areaM2: 10000, capacity: 50, floors: 2 } },
     { id: "EDGE_CENTER", name: "Edge center", description: "Centro de datos de borde.", tags: ["edge"], extra: ["racks", "conectividad"], modifiers: { areaM2: 2000, capacity: 20, floors: 1 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-LAB", name: "Laboratorio", category: "EDUCATION", description: "Laboratorios de investigación y bio-lab.", geometryStrategy: "LINEAR_MASS", tags: ["laboratorio", "investigación", "bio"], primary: ["investigación", "experimentación", "análisis"], services: ["ventilación", "residuos", "seguridad"], variants: [
+  makeAdditionalFamily({ id: "FAM-LAB", name: "Laboratorio", category: "EDUCATION", description: "Laboratorios de investigación y bio-lab.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["laboratorio", "investigación", "bio"], primary: ["investigación", "experimentación", "análisis"], services: ["ventilación", "residuos", "seguridad"], variants: [
     { id: "RESEARCH_LAB", name: "Laboratorio de investigación", description: "Laboratorio multidisciplinario.", tags: ["investigación"], extra: ["equipos", "campanas"], modifiers: { areaM2: 5000, capacity: 100, floors: 2 } },
     { id: "BIO_LAB", name: "Bio-lab", description: "Laboratorio de bioseguridad.", tags: ["bio"], extra: ["bioseguridad", "cultivos"], modifiers: { areaM2: 3000, capacity: 50, floors: 2 } },
   ] }),
-  makeAdditionalFamily({ id: "FAM-MEDIA", name: "Medios", category: "CULTURE", description: "Estudios y centros de broadcast.", geometryStrategy: "LINEAR_MASS", tags: ["medios", "estudio", "broadcast"], primary: ["producción", "grabación", "transmisión"], services: ["control", "almacenamiento", "mantenimiento"], variants: [
+  makeAdditionalFamily({ id: "FAM-MEDIA", name: "Medios", category: "CULTURE", description: "Estudios y centros de broadcast.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["medios", "estudio", "broadcast"], primary: ["producción", "grabación", "transmisión"], services: ["control", "almacenamiento", "mantenimiento"], variants: [
     { id: "STUDIO", name: "Estudio", description: "Estudio de grabación.", tags: ["estudio"], extra: ["sets", "control"], modifiers: { areaM2: 3000, capacity: 80, floors: 2 } },
     { id: "BROADCAST_CENTER", name: "Centro de broadcast", description: "Centro de transmisión.", tags: ["broadcast"], extra: ["antenas", "control"], modifiers: { areaM2: 5000, capacity: 120, floors: 3 } },
   ] }),
 
+
+  makeAdditionalFamily({ id: "FAM-MILITARY", name: "Militar", category: "OFFICES", description: "Bases, cuarteles, centros de mando y instalaciones de defensa.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["militar", "defensa", "base", "cuartel"], primary: ["operaciones", "alojamiento", "entrenamiento", "logística"], services: ["comunicaciones", "armamento", "mantenimiento", "seguridad"], variants: [
+    { id: "BASE", name: "Base militar", description: "Base con alojamiento, operaciones y logística.", tags: ["base"], extra: ["hangares", "polígono de tiro", "barracones"], modifiers: { areaM2: 50000, capacity: 2000, floors: 3 } },
+    { id: "BARRACKS_MIL", name: "Cuartel militar", description: "Cuartel con alojamiento y entrenamiento.", tags: ["cuartel"], extra: ["dormitorios", "campo de entrenamiento", "armería"], modifiers: { areaM2: 20000, capacity: 800, floors: 4 } },
+    { id: "COMMAND_CENTER_MIL", name: "Centro de mando militar", description: "Centro de operaciones y comunicaciones seguras.", tags: ["mando"], extra: ["sala de crisis", "comunicaciones encriptadas", "búnker"], modifiers: { areaM2: 8000, capacity: 200, floors: 2 } },
+    { id: "AIRBASE", name: "Base aérea", description: "Base con pistas, hangares y control aéreo.", tags: ["aérea", "hangar"], extra: ["pistas", "hangares", "torre de control"], modifiers: { areaM2: 100000, capacity: 1500, floors: 2 } },
+    { id: "NAVAL_BASE", name: "Base naval", description: "Base con muelles, diques y control marítimo.", tags: ["naval", "muelle"], extra: ["muelles", "diques", "torre de control"], modifiers: { areaM2: 80000, capacity: 1200, floors: 2 } },
+  ] }),
 ];
 
 export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
@@ -230,6 +242,7 @@ export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
     baseParameters: [p("areaM2", "Área del terreno", 20000, { unit: "m²", min: 1000 }), p("capacity", "Capacidad", 400, { unit: "personas", min: 1 }), p("floors", "Niveles", 4, { unit: "niveles", min: 1, max: 50 }), p("courtyardRatio", "Proporción de patio", 0.15, { unit: "ratio", min: 0, max: 0.6 })],
     baseRules: [rule("HEALTH-FLOW", "RNE-A.050", "Separar flujos públicos, personal, servicio y evacuación.", "flowSeparation", "REQUIRED", true, "RNE de referencia; validar vigencia"), rule("HEALTH-EGRESS", "RNE-A.130", "La evacuación debe verificarse con aforo y configuración real.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista" )],
     geometryStrategy: "COURTYARD_MASS",
+    defaultShapeType: "COURTYARD",
     tags: ["salud", "MEP", "evacuación", "RNE"],
   },
   {
@@ -248,6 +261,7 @@ export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
     baseParameters: [p("areaM2", "Área del terreno", 8000, { unit: "m²", min: 500 }), p("capacity", "Capacidad", 900, { unit: "alumnos", min: 1 }), p("floors", "Niveles", 3, { unit: "niveles", min: 1, max: 20 }), p("courtyardRatio", "Proporción de patio", 0.16, { unit: "ratio", min: 0, max: 0.6 })],
     baseRules: [rule("EDU-DENSITY", "RNE-A.040", "La capacidad y el programa deben contrastarse con área educativa y aforo.", "capacity", "MIN", 1, "RNE de referencia; validar programa"), rule("EDU-EGRESS", "RNE-A.130", "La evacuación debe comprobarse con ocupación y rutas reales.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista")],
     geometryStrategy: "COURTYARD_MASS",
+    defaultShapeType: "COURTYARD",
     tags: ["educación", "aulas", "campus"],
   },
   {
@@ -268,6 +282,7 @@ export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
     baseParameters: [p("areaM2", "Área del terreno", 5000, { unit: "m²", min: 200 }), p("capacity", "Aforo", 800, { unit: "personas", min: 1 }), p("floors", "Niveles", 2, { unit: "niveles", min: 1, max: 20 }), p("courtyardRatio", "Proporción de vacío", 0.1, { unit: "ratio", min: 0, max: 0.6 })],
     baseRules: [rule("COM-LOAD", "RNE-A.070", "Separar abastecimiento, carga y descarga del flujo público.", "serviceFlowSeparated", "REQUIRED", true, "RNE de referencia; validar operación"), rule("COM-EGRESS", "RNE-A.130", "El aforo y las salidas requieren verificación especializada.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista")],
     geometryStrategy: "PODIUM_TOWER",
+    defaultShapeType: "COMPACT",
     tags: ["comercio", "mercado", "retail"],
   },
   {
@@ -287,6 +302,7 @@ export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
     baseParameters: [p("areaM2", "Área del terreno", 5000, { unit: "m²", min: 200 }), p("capacity", "Aforo", 300, { unit: "personas", min: 1 }), p("floors", "Niveles", 6, { unit: "niveles", min: 1, max: 80 }), p("courtyardRatio", "Proporción de vacío", 0.08, { unit: "ratio", min: 0, max: 0.6 })],
     baseRules: [rule("OFF-EGRESS", "RNE-A.080", "La ocupación, salidas y circulación requieren verificación del proyecto.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista"), rule("OFF-DATA", "OFF-MEP-001", "La continuidad de datos y energía debe coordinarse con MEP.", "dataAndPowerValidated", "REQUIRED", true, "Coordinación MEP")],
     geometryStrategy: "PODIUM_TOWER",
+    defaultShapeType: "COMPACT",
     tags: ["oficinas", "corporativo", "coworking", "gobierno"],
   },
   {
@@ -305,6 +321,7 @@ export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
     baseParameters: [p("areaM2", "Área del terreno", 60000, { unit: "m²", min: 1000 }), p("capacity", "Aforo", 80000, { unit: "espectadores", min: 1 }), p("floors", "Niveles", 3, { unit: "niveles", min: 1, max: 20 }), p("rings", "Anillos de gradería", 3, { unit: "anillos", min: 1, max: 6 })],
     baseRules: [rule("SPORT-EGRESS", "RNE-A.130", "La evacuación masiva debe simularse y verificarse con especialista.", "egressValidated", "REQUIRED", true, "RNE de referencia; simulación requerida"), rule("SPORT-COVER", "STRUCT-001", "La cubierta requiere cálculo estructural y viento del sitio.", "coverStructuralValidated", "REQUIRED", true, "Cálculo estructural especializado")],
     geometryStrategy: "ARENA_BOWL",
+    defaultShapeType: "CIRCLE",
     tags: ["deporte", "estadio", "evacuación", "cubierta"],
   },
 ];
@@ -330,6 +347,11 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
     U_SHAPE: 1.45,
     LINEAR: 3.2,
     CLUSTER: 2.0,
+    CIRCLE: 1.0,
+    FLOATING_ROOF: 1.2,
+    ARC: 1.1,
+    SLOPED_ROOF: 1.4,
+    VOID_EXTRUSION: 1.3,
   };
   const evolutionaryFactor = 1 + Math.min(generation, 20) * 0.025;
   const aspect = (aspectByShape[shapeType] || 1.35) * evolutionaryFactor;
@@ -443,6 +465,10 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
   const capacityPerM2 = builtArea > 0 ? capacity / builtArea : 0;
   const uniqueUnknowns = Array.from(new Set(unknowns));
   const complianceScore = rules.length > 0 ? 1 - (uniqueUnknowns.length / rules.length) : 1;
+  const energyUseIntensity = Number((builtArea * 0.15).toFixed(2));
+  const waterUseIntensity = Number((capacity * 0.05).toFixed(2));
+  const carbonFootprint = Number((builtArea * 0.08).toFixed(2));
+  const structuralEfficiency = Number((builtArea / (floors * 100)).toFixed(2));
 
   return {
     id: randomUUID(),
@@ -466,6 +492,10 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
       costPerM2: Number(costPerM2.toFixed(2)),
       capacityPerM2: Number(capacityPerM2.toFixed(2)),
       complianceScore: Number(complianceScore.toFixed(2)),
+      energyUseIntensity,
+      waterUseIntensity,
+      carbonFootprint,
+      structuralEfficiency,
     },
     validation: { status: uniqueUnknowns.length ? "UNKNOWN" : "PASS", checked: rules.map((item) => item.code), unknowns: uniqueUnknowns },
     alerts,
