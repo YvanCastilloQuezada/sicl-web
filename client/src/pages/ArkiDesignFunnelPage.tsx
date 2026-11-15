@@ -493,7 +493,7 @@ export default function ArkiDesignFunnelPage() {
           min: minValue,
           max: maxValue,
           steps: 25,
-          generateCount: 100,
+          generateCount: 200,
         },
       });
 
@@ -586,6 +586,9 @@ export default function ArkiDesignFunnelPage() {
             ? proposal.metrics.floors
             : undefined,
           metrics: cohortCandidate.metrics,
+          // NUEVO: geometría AGK
+          agk: proposal.agkCompilation?.object,
+          agkFeature: proposal.agkCompilation?.feature,
           unknowns: cohortCandidate.unknowns,
           failureReasons: cohortCandidate.failureReasons,
           provenance: Array.from(new Set([

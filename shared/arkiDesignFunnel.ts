@@ -28,6 +28,9 @@ export type CandidateEpistemicModel = {
   constraints: CandidateEpistemicItem<"CONSTRAINT">[];
 };
 
+import type { AgkOperationalObject } from "../server/agk/types";
+import type { AgkFeature } from "../server/agk/types";
+
 export type DesignCandidate = {
   id: string;
   projectId: string;
@@ -42,6 +45,9 @@ export type DesignCandidate = {
   floors?: number;
   preview: string;
   metrics: Record<string, number | string>;
+  // NUEVO: geometría AGK (autoridad geométrica única)
+  agk: AgkOperationalObject;
+  agkFeature: AgkFeature;
   epistemic: CandidateEpistemicModel;
   evidence: string[];
   unknowns: string[];

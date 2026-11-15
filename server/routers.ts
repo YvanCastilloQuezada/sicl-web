@@ -939,6 +939,9 @@ export const appRouter = router({
           unknowns: p.validation.unknowns,
           failureReasons: p.validation.numericConstraintFailures,
           provenance: [p.generationId, `CANDIDATE-${index + 1}`],
+          // NUEVO: geometría AGK (autoridad geométrica única)
+          agk: p.agkCompilation.object,
+          agkFeature: p.agkCompilation.feature,
         }));
 
         const screening = arkiArchitectDecision(designCandidates, projectConstraints);
