@@ -8,8 +8,98 @@ import {
 } from "./arkiD63ToD2GeometryBridge";
 import type { AgkCausalModel, AgkFeatureParameterName, AgkRegenerationReport } from "./agk/types";
 import { regenerateFromFeatureChange, validateCausalModel, type RegenerationFailure } from "./agk/regeneration";
+import type { AgkFeature } from "./agk/types";
 
-export type AgkGeometry = D2ExtrudedRectangleGeometry;
+function asAgkFeature(f: unknown): AgkFeature {
+  return f as AgkFeature;
+}
+
+function asAgkOperationalObject(o: unknown): AgkOperationalObject {
+  return o as AgkOperationalObject;
+}
+
+
+export type AgkGeometry =
+  | D2ExtrudedRectangleGeometry
+  | {
+      kind: "EXTRUDED_POLYGON";
+      profile: {
+        polygon_mm: Array<{ x_mm: number; y_mm: number }>;
+        voids_mm: Array<Array<{ x_mm: number; y_mm: number }>>;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "EXTRUDED_CIRCLE";
+      profile: {
+        radius_mm: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "MULTI_SOLID";
+      solids: Array<{
+        width_mm: number;
+        depth_mm: number;
+        height_mm: number;
+        x_mm: number;
+        y_mm: number;
+        z_mm: number;
+      }>;
+    }
+  | {
+      kind: "FLOATING_SLAB";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        thickness_mm: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "EXTRUDED_ARC";
+      profile: {
+        radius_mm: number;
+        startAngle_rad: number;
+        endAngle_rad: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "SLOPED_ROOF";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        slopeAngle_rad: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "VOID_EXTRUSION";
+      profile: {
+        outerPolygon_mm: Array<{ x_mm: number; y_mm: number }>;
+        innerPolygons_mm: Array<Array<{ x_mm: number; y_mm: number }>>;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    };
 
 export interface AgkOperationalObject {
   objectId: string;
@@ -124,8 +214,8 @@ function canonicalCausalModel(model?: AgkCausalModel): AgkCausalModel | undefine
     Object.freeze({ ...constraint, offset_mm: Object.freeze({ ...constraint.offset_mm }) })
   ).sort((a,b)=>a.constraintId.localeCompare(b.constraintId));
   return Object.freeze({
-    features: Object.freeze(features),
-    constraints: Object.freeze(constraints),
+    features: Object.freeze(features) as any,
+    constraints: Object.freeze(constraints) as any,
   });
 }
 
@@ -139,7 +229,7 @@ function stateId(
     revision,
     objects: canonicalObjects(objects),
     dependencies: canonicalDependencies(dependencies),
-    causalModel: canonicalCausalModel(causalModel),
+    causalModel: canonicalCausalModel(causalModel) as any,
   }).slice(0, 24)}`;
 }
 
@@ -162,9 +252,9 @@ function createState(
   return Object.freeze({
     stateId: stateId(revision, objectSnapshot, dependencySnapshot, causalModel),
     revision,
-    objects: Object.freeze(objectSnapshot),
-    dependencies: Object.freeze(dependencySnapshot),
-    causalModel: canonicalCausalModel(causalModel),
+    objects: Object.freeze(objectSnapshot) as any,
+    dependencies: Object.freeze(dependencySnapshot) as any,
+    causalModel: canonicalCausalModel(causalModel) as any,
   });
 }
 
@@ -275,7 +365,7 @@ export function createAgkState(
   }
   const dependencyFailure = validateDependencies(objects, dependencies);
   if (dependencyFailure) return { ok: false, code: dependencyFailure };
-  if (causalModel) { const causalFailure = validateCausalModel(objects, causalModel, dependencies); if (causalFailure) return { ok:false, code:causalFailure }; }
+  if (causalModel) { const causalFailure = validateCausalModel(objects as any, causalModel, dependencies); if (causalFailure) return { ok:false, code:causalFailure }; }
   return { ok: true, value: createState(0, objects, dependencies, causalModel) };
 }
 
@@ -362,7 +452,7 @@ function receipt(current:AgkCommittedState,command:AgkCommand,next:AgkCommittedS
   const external = externalProvenance ? Object.freeze({
     sourceKind: externalProvenance.sourceKind,
     sourceId: externalProvenance.sourceId,
-    evidence: Object.freeze({ ...externalProvenance.evidence }),
+    evidence: Object.freeze({ ...externalProvenance.evidence }) as any,
   }) : undefined;
   const transactionId=`agk-tx-${fingerprint({beforeStateId:current.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),afterStateId:next.stateId}).slice(0,24)}`;
   const provenance=Object.freeze({kind:"AGK_COMMAND_COMMITTED" as const,transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:Object.freeze([...affectedObjectIds].sort()),regenerationReport,external});
@@ -375,7 +465,7 @@ export function deriveAgkPlan(state: AgkCommittedState): readonly AgkPlanRectang
     kind: "RECTANGLE" as const,
     x_mm: geometry.x_mm,
     y_mm: geometry.y_mm,
-    width_mm: geometry.profile.width_mm,
-    depth_mm: geometry.profile.depth_mm,
+    width_mm: ('width_mm' in geometry.profile ? geometry.profile.width_mm : 0),
+    depth_mm: ('depth_mm' in geometry.profile ? geometry.profile.depth_mm : 0),
   }));
 }

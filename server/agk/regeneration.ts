@@ -1,6 +1,44 @@
 import type { AgkOperationalObject, AgkHostsDependency, AgkGeometry } from "../arkiGeometryKernel";
 import type { AgkCausalModel, AgkFeature, AgkRegenerationReport } from "./types";
 
+function asAgkFeature(f: unknown): AgkFeature {
+  return f as AgkFeature;
+}
+
+function asAgkOperationalObject(o: unknown): AgkOperationalObject {
+  return o as AgkOperationalObject;
+}
+
+
+function getRectangleProfileFromGeometry(geometry: { kind: string; profile: unknown }): { width_mm: number; depth_mm: number; radius_mm: number | null } | null {
+  if (geometry.kind === "EXTRUDED_RECTANGLE" && geometry.profile && typeof geometry.profile === "object") {
+    const p = geometry.profile as { width_mm?: number; depth_mm?: number; radius_mm?: number | null };
+    if (typeof p.width_mm === "number" && typeof p.depth_mm === "number") {
+      return { width_mm: p.width_mm, depth_mm: p.depth_mm, radius_mm: p.radius_mm ?? null };
+    }
+  }
+  return null;
+}
+
+function getRectangleParametersFromFeature(feature: { kind: string; parameters: unknown }): { width_mm: number; depth_mm: number; height_mm: number; x_mm: number; y_mm: number; z_mm: number } | null {
+  if (feature.kind === "EXTRUDE_RECTANGLE" && feature.parameters && typeof feature.parameters === "object") {
+    const p = feature.parameters as { width_mm?: number; depth_mm?: number; height_mm?: number; x_mm?: number; y_mm?: number; z_mm?: number };
+    if (typeof p.width_mm === "number" && typeof p.depth_mm === "number" && typeof p.height_mm === "number") {
+      return { width_mm: p.width_mm, depth_mm: p.depth_mm, height_mm: p.height_mm, x_mm: p.x_mm ?? 0, y_mm: p.y_mm ?? 0, z_mm: p.z_mm ?? 0 };
+    }
+  }
+  return null;
+}
+
+
+function getRectangleProfile(geometry: AgkOperationalObject["geometry"]): { width_mm: number; depth_mm: number; radius_mm: number | null } | null {
+  if (geometry.kind === "EXTRUDED_RECTANGLE") {
+    return geometry.profile;
+  }
+  return null;
+}
+
+
 export type RegenerationFailure =
   | "DUPLICATE_FEATURE_ID"
   | "DUPLICATE_FEATURE_PRODUCER"
@@ -16,7 +54,92 @@ export type RegenerationFailure =
   | "CONSTRAINT_VIOLATED";
 
 export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
-  const p = feature.parameters;
+  if (feature.kind === "EXTRUDE_RECTANGLE") {
+    const p = feature.parameters;
+    return {
+      kind: "EXTRUDED_RECTANGLE",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, radius_mm: null },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    };
+  }
+  if (feature.kind === "EXTRUDE_POLYGON") {
+    const p = feature.parameters;
+    return {
+      kind: "EXTRUDED_POLYGON",
+      profile: { polygon_mm: p.polygon_mm, voids_mm: p.voids_mm },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as AgkGeometry;
+  }
+  if (feature.kind === "EXTRUDE_CIRCLE") {
+    const p = feature.parameters;
+    return {
+      kind: "EXTRUDED_CIRCLE",
+      profile: { radius_mm: p.radius_mm },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as AgkGeometry;
+  }
+  if (feature.kind === "MULTI_SOLID") {
+    const p = feature.parameters;
+    return {
+      kind: "MULTI_SOLID",
+      solids: p.solids,
+    } as AgkGeometry;
+  }
+  if (feature.kind === "FLOATING_SLAB") {
+    const p = feature.parameters;
+    return {
+      kind: "FLOATING_SLAB",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as AgkGeometry;
+  }
+  if (feature.kind === "EXTRUDE_ARC") {
+    const p = feature.parameters;
+    return {
+      kind: "EXTRUDED_ARC",
+      profile: { radius_mm: p.radius_mm, startAngle_rad: p.startAngle_rad, endAngle_rad: p.endAngle_rad },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as AgkGeometry;
+  }
+  if (feature.kind === "SLOPED_ROOF") {
+    const p = feature.parameters;
+    return {
+      kind: "SLOPED_ROOF",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, slopeAngle_rad: p.slopeAngle_rad },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as AgkGeometry;
+  }
+  if (feature.kind === "VOID_EXTRUSION") {
+    const p = feature.parameters;
+    return {
+      kind: "VOID_EXTRUSION",
+      profile: { outerPolygon_mm: p.outerPolygon_mm, innerPolygons_mm: p.innerPolygons_mm },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as AgkGeometry;
+  }
+  // Fallback: EXTRUDE_RECTANGLE
+  const p = feature.parameters as any;
   return {
     kind: "EXTRUDED_RECTANGLE",
     profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, radius_mm: null },
@@ -29,14 +152,23 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
 
 function geometryMatchesFeature(object: AgkOperationalObject, feature: AgkFeature): boolean {
   const expected = geometryFromFeature(feature);
-  return object.geometry.kind === expected.kind &&
-    object.geometry.profile.width_mm === expected.profile.width_mm &&
-    object.geometry.profile.depth_mm === expected.profile.depth_mm &&
-    object.geometry.profile.radius_mm === expected.profile.radius_mm &&
-    object.geometry.x_mm === expected.x_mm &&
-    object.geometry.y_mm === expected.y_mm &&
-    object.geometry.z_mm === expected.z_mm &&
-    object.geometry.height_mm === expected.height_mm;
+  if (object.geometry.kind !== expected.kind) return false;
+  if (object.geometry.kind === "EXTRUDED_RECTANGLE" && expected.kind === "EXTRUDED_RECTANGLE") {
+    return object.geometry.profile.width_mm === expected.profile.width_mm &&
+      object.geometry.profile.depth_mm === expected.profile.depth_mm &&
+      object.geometry.profile.radius_mm === expected.profile.radius_mm &&
+      (object.geometry as any).x_mm === (expected as any).x_mm &&
+      (object.geometry as any).y_mm === (expected as any).y_mm &&
+      (object.geometry as any).z_mm === (expected as any).z_mm &&
+      (object.geometry as any).height_mm === (expected as any).height_mm;
+  }
+  if (object.geometry.kind === "EXTRUDED_POLYGON" && expected.kind === "EXTRUDED_POLYGON") {
+    return (object.geometry as any).height_mm === (expected as any).height_mm &&
+      (object.geometry as any).x_mm === (expected as any).x_mm &&
+      (object.geometry as any).y_mm === (expected as any).y_mm &&
+      (object.geometry as any).z_mm === (expected as any).z_mm;
+  }
+  return false;
 }
 
 export function validateCausalModel(
@@ -55,10 +187,19 @@ export function validateCausalModel(
     producerIds.add(f.producesObjectId);
     if (!objectIds.has(f.producesObjectId)) return "FEATURE_OBJECT_NOT_FOUND";
     if (new Set(f.inputFeatureIds).size !== f.inputFeatureIds.length) return "DUPLICATE_FEATURE_INPUT";
-    const entries = Object.entries(f.parameters);
-    if (entries.some(([,v]) => !Number.isFinite(v) || !Number.isInteger(v))) return "INVALID_FEATURE_PARAMETER";
-    if (f.parameters.width_mm <= 0 || f.parameters.depth_mm <= 0 || f.parameters.height_mm <= 0) return "INVALID_FEATURE_PARAMETER";
-    if (!geometryMatchesFeature(objectById.get(f.producesObjectId)!, f)) return "FEATURE_GEOMETRY_MISMATCH";
+    
+    // Validar parámetros según el kind
+    if (f.kind === "EXTRUDE_RECTANGLE") {
+      const entries = Object.entries(f.parameters);
+      if (entries.some(([,v]) => !Number.isFinite(v) || !Number.isInteger(v))) return "INVALID_FEATURE_PARAMETER";
+      if (f.parameters.width_mm <= 0 || f.parameters.depth_mm <= 0 || (f.parameters as any).height_mm <= 0) return "INVALID_FEATURE_PARAMETER";
+    } else {
+      const entries = Object.entries(f.parameters);
+      if (entries.some(([,v]) => typeof v === "number" && (!Number.isFinite(v)))) return "INVALID_FEATURE_PARAMETER";
+      if ((f.parameters as any).height_mm <= 0) return "INVALID_FEATURE_PARAMETER";
+    }
+    
+    if (!geometryMatchesFeature(objectById.get(f.producesObjectId)!, f as any)) return "FEATURE_GEOMETRY_MISMATCH";
   }
   for (const f of model.features) for (const up of f.inputFeatureIds) if (!featureIds.has(up)) return "FEATURE_DEPENDENCY_NOT_FOUND";
   try { topo(model.features, new Set(model.features.map(f => f.featureId))); } catch { return "FEATURE_DEPENDENCY_CYCLE"; }
@@ -112,14 +253,12 @@ export function regenerateFromFeatureChange(
   rootObjectId: string,
   translationDelta?: Readonly<{ x: number; y: number; z: number }>,
 ): { ok: true; objects: readonly AgkOperationalObject[]; model: AgkCausalModel; report: AgkRegenerationReport } | { ok:false; code: RegenerationFailure } {
-  // Validate graph shape against a temporary object set rebuilt from the features,
-  // so a legitimate parameter edit is not rejected as a pre-existing mismatch.
   const featureByObject = new Map(model.features.map(f => [f.producesObjectId, f]));
   const rebuiltObjects = objects.map(o => {
     const f = featureByObject.get(o.objectId);
     return f ? { ...o, geometry: geometryFromFeature(f) } : o;
   });
-  const invalid = validateCausalModel(rebuiltObjects, model, dependencies);
+  const invalid = validateCausalModel(rebuiltObjects as any, model, dependencies);
   if (invalid) return {ok:false,code:invalid};
 
   const affected = new Set<string>([rootObjectId]);
@@ -149,32 +288,41 @@ export function regenerateFromFeatureChange(
     const c=model.constraints.find(c=>c.dependentObjectId===f.producesObjectId);
     if(c){
       const host=nextObjects.get(c.hostObjectId)!;
-      f.parameters.x_mm=host.geometry.x_mm+c.offset_mm.x;
-      f.parameters.y_mm=host.geometry.y_mm+c.offset_mm.y;
-      f.parameters.z_mm=host.geometry.z_mm+c.offset_mm.z;
+      (f.parameters as any).x_mm=(host.geometry as any).x_mm+c.offset_mm.x;
+      (f.parameters as any).y_mm=(host.geometry as any).y_mm+c.offset_mm.y;
+      (f.parameters as any).z_mm=(host.geometry as any).z_mm+c.offset_mm.z;
     } else if (translationDelta && f.producesObjectId !== rootObjectId && affected.has(f.producesObjectId)) {
-      // Preserve AGK-002 HOSTS/causal MOVE semantics for descendants that do
-      // not have an explicit positional constraint. Parameter edits pass no
-      // translationDelta, so they regenerate without inventing translation.
-      f.parameters.x_mm += translationDelta.x;
-      f.parameters.y_mm += translationDelta.y;
-      f.parameters.z_mm += translationDelta.z;
+      (f.parameters as any).x_mm += translationDelta.x;
+      (f.parameters as any).y_mm += translationDelta.y;
+      (f.parameters as any).z_mm += translationDelta.z;
     }
     const obj=nextObjects.get(f.producesObjectId)!;
     obj.geometry=geometryFromFeature(f);
     regenerated.push(obj.objectId);
   }
 
-  const nextModel: AgkCausalModel={features:model.features.map(f=>nextFeatures.get(f.featureId)!),constraints:model.constraints};
+  const nextModel: AgkCausalModel = {
+    features: model.features.map(f => nextFeatures.get(f.featureId)!) as any,
+    constraints: model.constraints
+  };
   const evaluated:string[]=[];
   for(const c of [...model.constraints].sort((a,b)=>a.constraintId.localeCompare(b.constraintId))){
     if(!affected.has(c.hostObjectId)&&!affected.has(c.dependentObjectId)) continue;
     evaluated.push(c.constraintId);
     const host=nextObjects.get(c.hostObjectId)!, child=nextObjects.get(c.dependentObjectId)!;
-    if(child.geometry.x_mm!==host.geometry.x_mm+c.offset_mm.x || child.geometry.y_mm!==host.geometry.y_mm+c.offset_mm.y || child.geometry.z_mm!==host.geometry.z_mm+c.offset_mm.z) return {ok:false,code:"CONSTRAINT_VIOLATED"};
-    if(c.requireWithinHostX && (c.offset_mm.x<0 || c.offset_mm.x+child.geometry.profile.width_mm>host.geometry.profile.width_mm)) return {ok:false,code:"CONSTRAINT_VIOLATED"};
+    if((child.geometry as any).x_mm!==(host.geometry as any).x_mm+c.offset_mm.x || (child.geometry as any).y_mm!==(host.geometry as any).y_mm+c.offset_mm.y || (child.geometry as any).z_mm!==(host.geometry as any).z_mm+c.offset_mm.z) return {ok:false,code:"CONSTRAINT_VIOLATED"};
+    if(c.requireWithinHostX) {
+      const hostProfile = host.geometry.profile;
+      const childProfile = child.geometry.profile;
+      if (!('width_mm' in hostProfile) || !('width_mm' in childProfile)) {
+        return {ok:false,code:"CONSTRAINT_VIOLATED"};
+      }
+      if (c.offset_mm.x<0 || c.offset_mm.x+(childProfile as any).width_mm>(hostProfile as any).width_mm) {
+        return {ok:false,code:"CONSTRAINT_VIOLATED"};
+      }
+    }
   }
-  const finalObjects=objects.map(o=>nextObjects.get(o.objectId)!);
+  const finalObjects: readonly AgkOperationalObject[] = objects.map(o => nextObjects.get(o.objectId)!) as any;
   const finalInvalid=validateCausalModel(finalObjects,nextModel,dependencies);
   if(finalInvalid) return {ok:false,code:finalInvalid};
   const affectedIds=Array.from(affected).sort();

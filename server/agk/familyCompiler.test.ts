@@ -29,12 +29,17 @@ describe("AGK-003 dynamic family compiler", () => {
     );
   });
 
-  it("fails closed instead of flattening courtyard mass into a rectangle", () => {
-    const building = generateDynamicBuilding({ familyId: "FAM-HEALTH", variantId: "GENERAL" });
-    expect(compileDynamicBuildingToAgk(building, "hospital-1")).toEqual({
-      ok: false,
-      code: "FAMILY_GEOMETRY_STRATEGY_UNSUPPORTED",
-    });
+  it("compiles courtyard mass to EXTRUDED_POLYGON with voids", () => {
+    const building = generateDynamicBuilding({ familyId: "FAM-HEALTH", variantId: "GENERAL", context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" }, parameters: { shapeType: "COURTYARD", areaM2: 20000, floors: 4, capacity: 400 } });
+    const result = compileDynamicBuildingToAgk(building, "OBJ-COURTYARD");
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.object.geometry.kind).toBe("EXTRUDED_POLYGON");
+      if (result.object.geometry.kind === "EXTRUDED_POLYGON") {
+        expect(result.object.geometry.profile.polygon_mm.length).toBeGreaterThanOrEqual(3);
+        expect(result.object.geometry.profile.voids_mm.length).toBe(1);
+      }
+    }
   });
 
   it("fails closed for non-proposal state", () => {

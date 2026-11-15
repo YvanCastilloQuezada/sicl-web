@@ -699,12 +699,10 @@ export const appRouter = router({
             windDirection: undefined,
             windSpeedMs: undefined,
           },
-          facts: [
-            { variable: "coeficiente_ocupacion", value: 0.7 },
-            { variable: "altura_libre_oficina_m", value: 2.7 },
-          ],
-          programAreaM2: fixed.areaM2,
-          siteAreaM2: fixed.areaM2 * 1.5,
+          // No se suministran hechos normativos ficticios.
+          // Los hechos del predio deben proceder de evidencia verificada
+          // y de una fuente identificable en SICL Core.
+          facts: [],
         });
 
         // 2. Generar los candidatos
@@ -901,7 +899,7 @@ export const appRouter = router({
         if (proposals.length !== variable.generateCount) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/${variable.steps}`,
+            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/${variable.generateCount}`,
           });
         }
 
@@ -911,7 +909,7 @@ export const appRouter = router({
         // ============================================================
         const designCandidates: DesignCandidate[] = proposals.map((p, index) => ({
           id: p.candidateId,
-          projectId: `PROJECT-${generationId}`,
+          projectId,
           generationId: p.generationId,
           stage: "GENERATED" as const,
           status: p.status === "ELIGIBLE" ? "ELIGIBLE" as const : p.status === "UNKNOWN" ? "UNKNOWN" as const : "FAILED" as const,
@@ -946,24 +944,83 @@ export const appRouter = router({
 
         const survivors = screening.survivors;
         const archived = screening.archived;
+        const held = screening.held;
 
         // ============================================================
-        // PODA DE ARKI: de los supervivientes, selecciona los N mejores
-        // para el Funnel (25/16/9/4/1). Preserva diversidad de tipología.
+        // COHORTE INICIAL DEL FUNNEL.
+        // La poda automática preserva diversidad, no determina mérito.
+        // Las reducciones 25→16→9→4→1 requieren autorización humana.
         // ============================================================
-        const pruning = arkiPruning(survivors, variable.steps);
+        if (survivors.length < 25) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: `FUNNEL_REQUIRES_25_ELIGIBLE_CANDIDATES:${survivors.length}/25`,
+          });
+        }
+
+        const pruning = arkiPruning(survivors, 25);
+
+        if (pruning.pruned.length !== 25) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `INITIAL_FUNNEL_COHORT_INVALID:${pruning.pruned.length}/25`,
+          });
+        }
 
         // ============================================================
         // PERSISTENCIA: guarda las 25 pruned para rastreo.
         // ============================================================
+        const sourceProposalsByCandidateId = Object.fromEntries(
+          proposals.map((proposal) => [proposal.candidateId, proposal]),
+        );
+
+        // Vincular cada DesignCandidate con su propuesta original.
+        // No reconstruir geometría ni buscar candidatos por posición.
+        const proposalsByCandidateId = new Map(
+          proposals.map((proposal) => [proposal.candidateId, proposal]),
+        );
+
+        const funnelCohortProposals = pruning.pruned.map((candidate) => {
+          const proposal = proposalsByCandidateId.get(candidate.id);
+
+          if (
+            !proposal ||
+            proposal.generationId !== generationId ||
+            proposal.candidateId !== candidate.id ||
+            !proposal.building ||
+            !proposal.geometry ||
+            !proposal.metrics ||
+            !proposal.validation ||
+            !proposal.agkCompilation
+          ) {
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: `FUNNEL_COHORT_SOURCE_PROPOSAL_INVALID:${candidate.id}`,
+            });
+          }
+
+          return proposal;
+        });
+
+        if (funnelCohortProposals.length !== 25) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `FUNNEL_COHORT_SOURCE_COUNT_INVALID:${funnelCohortProposals.length}/25`,
+          });
+        }
+
         const persistedPath = persistPrunedCandidates({
           generationId,
-          funnelCount: variable.steps,
+          funnelCount: 25,
           generateCount: variable.generateCount,
-          survivorsCount: survivors.length,
-          archivedCount: archived.length,
+          generatedCandidates: designCandidates,
+          sourceProposalsByCandidateId,
+          survivors,
+          archived,
+          held,
+          cohort: pruning.pruned,
+          prunedOut: pruning.prunedOut,
           pruningCriteria: pruning.criteria,
-          pruned: pruning.pruned,
         });
 
         return {
@@ -971,9 +1028,17 @@ export const appRouter = router({
           generationId,
           axis: input,
           proposals,
+          funnelCohort: pruning.pruned,
+          funnelCohortProposals,
           screening: {
             survivors: survivors.length,
             archived: archived.length,
+            held: held.length,
+            heldDetails: held.map((item) => ({
+              candidateId: item.candidateId,
+              severity: item.severity,
+              unknownReasons: item.unknownReasons,
+            })),
             persistedPath,
             pruned: pruning.pruned.length,
             prunedOut: pruning.prunedOut.length,

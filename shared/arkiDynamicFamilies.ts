@@ -79,11 +79,35 @@ export type GeneratedBuilding = {
   parameters: Record<string, string | number | boolean>;
   program: FamilyProgram;
   rules: FamilyRule[];
-  geometry2d: { type: string; footprintM2: number; widthM: number; depthM: number; courtyardM2?: number; rings?: number };
+  geometry2d: {
+    type: string;
+    shapeType: string;
+    footprintM2: number;
+    widthM: number;
+    depthM: number;
+    courtyardM2?: number;
+    rings?: number;
+    polygon?: Array<{ x: number; y: number }>;
+    voids?: Array<Array<{ x: number; y: number }>>;
+  };
   section: { type: string; floors: number; floorHeightM: number; totalHeightM: number; usesByFloor: string[] };
   geometry3d: { type: string; floors: number; heightM: number; massing: string };
-  unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0"; plan: GeneratedBuilding["geometry2d"]; section: GeneratedBuilding["section"]; model3d: GeneratedBuilding["geometry3d"] };
-  metrics: { footprintM2: number; builtAreaM2: number; capacity: number; estimatedCostUsdConceptual: number };
+  unifiedGeometry: {
+    schema: "ARKI-UNIFIED-GEOMETRY-1.0";
+    plan: GeneratedBuilding["geometry2d"];
+    section: GeneratedBuilding["section"];
+    model3d: GeneratedBuilding["geometry3d"];
+  };
+  metrics: {
+    footprintM2: number;
+    builtAreaM2: number;
+    capacity: number;
+    estimatedCostUsdConceptual: number;
+    efficiencyRatio: number;
+    costPerM2: number;
+    capacityPerM2: number;
+    complianceScore: number;
+  };
   validation: { status: "PASS" | "UNKNOWN" | "BLOCKED"; checked: string[]; unknowns: string[] };
   alerts: Array<{ code: string; message: string; severity: "INFO" | "WARNING" | "BLOCKER" }>;
   status: "GENERATED_CANDIDATE";
@@ -134,6 +158,58 @@ const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
     { id: "TEMPLE", name: "Templo", description: "Espacio de culto con nave principal.", tags: ["templo"], extra: ["nave", "sacristía"], modifiers: { areaM2: 2500, capacity: 800, floors: 1 } },
     { id: "COMMUNITY_CENTER", name: "Centro comunitario", description: "Centro de reunión y apoyo social.", tags: ["comunidad"], extra: ["aulas", "comedor social"], modifiers: { areaM2: 4000, capacity: 500, floors: 2 } },
   ] }),
+  makeAdditionalFamily({ id: "FAM-EMERGENCY", name: "Emergencia", category: "SALUD", description: "Bomberos, policía y hospitales de campaña.", geometryStrategy: "LINEAR_MASS", tags: ["emergencia", "bomberos", "policía"], primary: ["estación", "área de operaciones", "equipamiento"], services: ["vestuarios", "mantenimiento", "comunicaciones"], variants: [
+    { id: "FIRE_STATION", name: "Estación de bomberos", description: "Estación con cocheras y áreas de entrenamiento.", tags: ["bomberos"], extra: ["cocheras", "torre de entrenamiento"], modifiers: { areaM2: 5000, capacity: 100, floors: 2 } },
+    { id: "POLICE_STATION", name: "Estación de policía", description: "Estación con celdas y área administrativa.", tags: ["policía"], extra: ["celdas", "sala de interrogatorios"], modifiers: { areaM2: 4000, capacity: 150, floors: 3 } },
+    { id: "FIELD_HOSPITAL", name: "Hospital de campaña", description: "Estructura modular para emergencias.", tags: ["hospital", "campaña"], extra: ["triaje", "quirófano móvil"], modifiers: { areaM2: 2000, capacity: 50, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-AGRICULTURE", name: "Agricultura", category: "INDUSTRY", description: "Invernaderos, establos y agroindustria.", geometryStrategy: "LINEAR_MASS", tags: ["agricultura", "invernadero", "agroindustria"], primary: ["producción", "almacenamiento", "procesamiento"], services: ["riego", "mantenimiento", "residuos"], variants: [
+    { id: "GREENHOUSE", name: "Invernadero", description: "Estructura para cultivo controlado.", tags: ["invernadero"], extra: ["riego automático", "control climático"], modifiers: { areaM2: 10000, capacity: 200, floors: 1 } },
+    { id: "BARN", name: "Establo", description: "Establo para ganado.", tags: ["establo", "ganado"], extra: ["corrales", "silos"], modifiers: { areaM2: 8000, capacity: 300, floors: 1 } },
+    { id: "AGRO_INDUSTRIAL", name: "Planta agroindustrial", description: "Procesamiento de productos agrícolas.", tags: ["agroindustria"], extra: ["línea de proceso", "almacén"], modifiers: { areaM2: 15000, capacity: 150, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-ENERGY", name: "Energía", category: "INDUSTRY", description: "Plantas solares, eólicas y subestaciones.", geometryStrategy: "LINEAR_MASS", tags: ["energía", "solar", "eólica"], primary: ["generación", "transformación", "control"], services: ["mantenimiento", "seguridad", "almacenamiento"], variants: [
+    { id: "SOLAR_PLANT", name: "Planta solar", description: "Parque fotovoltaico.", tags: ["solar"], extra: ["paneles", "inversores"], modifiers: { areaM2: 50000, capacity: 50, floors: 1 } },
+    { id: "WIND_FARM", name: "Parque eólico", description: "Aerogeneradores y subestación.", tags: ["eólico"], extra: ["aerogeneradores", "subestación"], modifiers: { areaM2: 100000, capacity: 30, floors: 1 } },
+    { id: "SUBSTATION", name: "Subestación eléctrica", description: "Transformación y distribución.", tags: ["subestación"], extra: ["transformadores", "control"], modifiers: { areaM2: 5000, capacity: 20, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-WATER", name: "Agua", category: "INDUSTRY", description: "Plantas de tratamiento, reservorios y desalinizadoras.", geometryStrategy: "COURTYARD_MASS", tags: ["agua", "tratamiento", "reservorio"], primary: ["tratamiento", "almacenamiento", "distribución"], services: ["bombas", "control", "mantenimiento"], variants: [
+    { id: "TREATMENT_PLANT", name: "Planta de tratamiento", description: "Tratamiento de agua potable o residual.", tags: ["tratamiento"], extra: ["tanques", "laboratorio"], modifiers: { areaM2: 10000, capacity: 5000, floors: 2 } },
+    { id: "RESERVOIR", name: "Reservorio", description: "Almacenamiento de agua.", tags: ["reservorio"], extra: ["tanques", "bombas"], modifiers: { areaM2: 20000, capacity: 10000, floors: 1 } },
+    { id: "DESALINATION", name: "Desalinizadora", description: "Planta de desalinización.", tags: ["desalinización"], extra: ["ósmosis inversa", "salmuera"], modifiers: { areaM2: 15000, capacity: 8000, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-WASTE", name: "Residuos", category: "INDUSTRY", description: "Reciclaje, rellenos sanitarios y compostaje.", geometryStrategy: "LINEAR_MASS", tags: ["residuos", "reciclaje", "compostaje"], primary: ["recepción", "procesamiento", "disposición"], services: ["control", "mantenimiento", "seguridad"], variants: [
+    { id: "RECYCLING_CENTER", name: "Centro de reciclaje", description: "Clasificación y procesamiento de residuos.", tags: ["reciclaje"], extra: ["clasificación", "prensado"], modifiers: { areaM2: 8000, capacity: 200, floors: 1 } },
+    { id: "LANDFILL", name: "Relleno sanitario", description: "Disposición final de residuos.", tags: ["relleno"], extra: ["celdas", "control de lixiviados"], modifiers: { areaM2: 50000, capacity: 100, floors: 1 } },
+    { id: "COMPOST_FACILITY", name: "Planta de compostaje", description: "Compostaje de residuos orgánicos.", tags: ["compostaje"], extra: ["pilas de compost", "cribado"], modifiers: { areaM2: 12000, capacity: 150, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-DEFENSE", name: "Defensa", category: "OFFICES", description: "Cuarteles, centros de mando y búnkeres.", geometryStrategy: "LINEAR_MASS", tags: ["defensa", "cuartel", "búnker"], primary: ["operaciones", "alojamiento", "entrenamiento"], services: ["comunicaciones", "mantenimiento", "seguridad"], variants: [
+    { id: "BARRACKS", name: "Cuartel", description: "Alojamiento y entrenamiento militar.", tags: ["cuartel"], extra: ["dormitorios", "campo de entrenamiento"], modifiers: { areaM2: 15000, capacity: 500, floors: 3 } },
+    { id: "COMMAND_CENTER", name: "Centro de mando", description: "Centro de operaciones y comunicaciones.", tags: ["mando"], extra: ["sala de crisis", "comunicaciones"], modifiers: { areaM2: 8000, capacity: 200, floors: 2 } },
+    { id: "BUNKER", name: "Búnker", description: "Estructura fortificada subterránea.", tags: ["búnker"], extra: ["refugio", "suministros"], modifiers: { areaM2: 3000, capacity: 100, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-MIXED_USE", name: "Uso mixto", category: "COMMERCE", description: "Live-work y complejos mixtos.", geometryStrategy: "PODIUM_TOWER", tags: ["mixto", "live-work", "complejo"], primary: ["vivienda", "comercio", "oficinas"], services: ["estacionamiento", "servicios", "mantenimiento"], variants: [
+    { id: "LIVE_WORK", name: "Live-work", description: "Vivienda y trabajo integrados.", tags: ["live-work"], extra: ["estudio", "vivienda"], modifiers: { areaM2: 5000, capacity: 100, floors: 4 } },
+    { id: "MIXED_COMPLEX", name: "Complejo mixto", description: "Vivienda, comercio y oficinas.", tags: ["complejo"], extra: ["plaza", "torre"], modifiers: { areaM2: 20000, capacity: 800, floors: 8 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-PARKING", name: "Estacionamiento", category: "TRANSPORT", description: "Superficie, multinivel y automatizado.", geometryStrategy: "LINEAR_MASS", tags: ["estacionamiento", "parking"], primary: ["estacionamiento", "circulación", "acceso"], services: ["control", "mantenimiento", "seguridad"], variants: [
+    { id: "SURFACE", name: "Estacionamiento superficial", description: "Estacionamiento a nivel de suelo.", tags: ["superficie"], extra: ["cajones", "circulación"], modifiers: { areaM2: 10000, capacity: 300, floors: 1 } },
+    { id: "MULTILEVEL", name: "Estacionamiento multinivel", description: "Estacionamiento en varios niveles.", tags: ["multinivel"], extra: ["rampas", "elevadores"], modifiers: { areaM2: 15000, capacity: 800, floors: 4 } },
+    { id: "AUTOMATED", name: "Estacionamiento automatizado", description: "Sistema robotizado de almacenamiento.", tags: ["automatizado"], extra: ["robots", "control"], modifiers: { areaM2: 5000, capacity: 500, floors: 6 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-DATA", name: "Data center", category: "INDUSTRY", description: "Data centers y edge centers.", geometryStrategy: "LINEAR_MASS", tags: ["data", "servidores", "edge"], primary: ["servidores", "almacenamiento", "conectividad"], services: ["refrigeración", "energía", "seguridad"], variants: [
+    { id: "DATA_CENTER", name: "Data center", description: "Centro de datos de gran escala.", tags: ["data"], extra: ["racks", "UPS", "generadores"], modifiers: { areaM2: 10000, capacity: 50, floors: 2 } },
+    { id: "EDGE_CENTER", name: "Edge center", description: "Centro de datos de borde.", tags: ["edge"], extra: ["racks", "conectividad"], modifiers: { areaM2: 2000, capacity: 20, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-LAB", name: "Laboratorio", category: "EDUCATION", description: "Laboratorios de investigación y bio-lab.", geometryStrategy: "LINEAR_MASS", tags: ["laboratorio", "investigación", "bio"], primary: ["investigación", "experimentación", "análisis"], services: ["ventilación", "residuos", "seguridad"], variants: [
+    { id: "RESEARCH_LAB", name: "Laboratorio de investigación", description: "Laboratorio multidisciplinario.", tags: ["investigación"], extra: ["equipos", "campanas"], modifiers: { areaM2: 5000, capacity: 100, floors: 2 } },
+    { id: "BIO_LAB", name: "Bio-lab", description: "Laboratorio de bioseguridad.", tags: ["bio"], extra: ["bioseguridad", "cultivos"], modifiers: { areaM2: 3000, capacity: 50, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-MEDIA", name: "Medios", category: "CULTURE", description: "Estudios y centros de broadcast.", geometryStrategy: "LINEAR_MASS", tags: ["medios", "estudio", "broadcast"], primary: ["producción", "grabación", "transmisión"], services: ["control", "almacenamiento", "mantenimiento"], variants: [
+    { id: "STUDIO", name: "Estudio", description: "Estudio de grabación.", tags: ["estudio"], extra: ["sets", "control"], modifiers: { areaM2: 3000, capacity: 80, floors: 2 } },
+    { id: "BROADCAST_CENTER", name: "Centro de broadcast", description: "Centro de transmisión.", tags: ["broadcast"], extra: ["antenas", "control"], modifiers: { areaM2: 5000, capacity: 120, floors: 3 } },
+  ] }),
+
 ];
 
 export const DYNAMIC_BUILDING_FAMILIES: DynamicBuildingFamily[] = [
@@ -253,12 +329,73 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
     L_SHAPE: 1.8,
     U_SHAPE: 1.45,
     LINEAR: 3.2,
+    CLUSTER: 2.0,
   };
   const evolutionaryFactor = 1 + Math.min(generation, 20) * 0.025;
   const aspect = (aspectByShape[shapeType] || 1.35) * evolutionaryFactor;
   const width = Math.sqrt(footprint * aspect);
   const depth = footprint / width;
   const courtyardRatio = Math.max(0, Math.min(0.8, valueAsNumber(params.courtyardRatio) || 0));
+
+  let polygon: Array<{ x: number; y: number }> | undefined;
+  let voids: Array<Array<{ x: number; y: number }>> | undefined;
+
+  if (shapeType === "L_SHAPE") {
+    const cutX = width * 0.4;
+    const cutY = depth * 0.4;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth - cutY },
+      { x: width - cutX, y: depth - cutY },
+      { x: width - cutX, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "U_SHAPE") {
+    const cutX = width * 0.3;
+    const cutY = depth * 0.35;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: width - cutX, y: depth },
+      { x: width - cutX, y: cutY },
+      { x: cutX, y: cutY },
+      { x: cutX, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "CLUSTER") {
+    const blockW = width * 0.45;
+    const blockD = depth * 0.45;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: blockW, y: 0 },
+      { x: blockW, y: blockD },
+      { x: width, y: blockD },
+      { x: width, y: depth },
+      { x: width - blockW, y: depth },
+      { x: width - blockW, y: depth - blockD },
+      { x: 0, y: depth - blockD },
+    ];
+  } else if (shapeType === "COURTYARD") {
+    const voidW = width * 0.4;
+    const voidD = depth * 0.4;
+    const voidX = (width - voidW) / 2;
+    const voidY = (depth - voidD) / 2;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: voidX, y: voidY },
+      { x: voidX + voidW, y: voidY },
+      { x: voidX + voidW, y: voidY + voidD },
+      { x: voidX, y: voidY + voidD },
+    ]];
+  }
+
   return {
     type: family.geometryStrategy,
     shapeType,
@@ -268,7 +405,9 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
     depthM: Number(depth.toFixed(2)),
     aspectRatio: Number((width / depth).toFixed(4)),
     courtyardM2: Number((footprint * courtyardRatio).toFixed(2)),
-    rings: Number(params.rings) || undefined
+    rings: Number(params.rings) || undefined,
+    polygon,
+    voids,
   };
 }
 
@@ -298,7 +437,42 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
   const geometry3d = { type: "EXTRUSION_FROM_2D", floors, heightM: Number((floors * 3.4).toFixed(2)), massing: family.geometryStrategy } as const;
   const section = { type: "SECTION_FROM_PROGRAM", floors, floorHeightM: 3.4, totalHeightM: geometry3d.heightM, usesByFloor: Array.from({ length: floors }, (_, index) => index === 0 ? family.baseProgram.primarySpaces[0] ?? "acceso" : variant.programExtra[index - 1] ?? "programa principal") };
   const plan = { ...geometry2d };
-  return { id: randomUUID(), familyId: family.id, variantId: variant.id, name: `${variant.name} · ${context.city || "sin ciudad"}`, context, parameters, program: { ...family.baseProgram, primarySpaces: [...family.baseProgram.primarySpaces, ...variant.programExtra] }, rules, geometry2d: plan, section, geometry3d, unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0", plan, section, model3d: geometry3d }, metrics: { footprintM2: geometry2d.footprintM2, builtAreaM2: Number(builtArea.toFixed(2)), capacity, estimatedCostUsdConceptual: Math.round(builtArea * (family.category === "SALUD" ? 1800 : 1200)) }, validation: { status: unknowns.length ? "UNKNOWN" : "PASS", checked: rules.map((item) => item.code), unknowns: Array.from(new Set(unknowns)) }, alerts, status: "GENERATED_CANDIDATE", humanReviewRequired: true, projectStateMutation: "NOT_REQUESTED" };
+  const efficiencyRatio = builtArea / geometry2d.footprintM2;
+  const estimatedCostUsdConceptual = Math.round(builtArea * (family.category === "SALUD" ? 1800 : 1200));
+  const costPerM2 = estimatedCostUsdConceptual / builtArea;
+  const capacityPerM2 = builtArea > 0 ? capacity / builtArea : 0;
+  const uniqueUnknowns = Array.from(new Set(unknowns));
+  const complianceScore = rules.length > 0 ? 1 - (uniqueUnknowns.length / rules.length) : 1;
+
+  return {
+    id: randomUUID(),
+    familyId: family.id,
+    variantId: variant.id,
+    name: `${variant.name} · ${context.city || "sin ciudad"}`,
+    context,
+    parameters,
+    program: { ...family.baseProgram, primarySpaces: [...family.baseProgram.primarySpaces, ...variant.programExtra] },
+    rules,
+    geometry2d: plan,
+    section,
+    geometry3d,
+    unifiedGeometry: { schema: "ARKI-UNIFIED-GEOMETRY-1.0", plan, section, model3d: geometry3d },
+    metrics: {
+      footprintM2: geometry2d.footprintM2,
+      builtAreaM2: Number(builtArea.toFixed(2)),
+      capacity,
+      estimatedCostUsdConceptual,
+      efficiencyRatio: Number(efficiencyRatio.toFixed(2)),
+      costPerM2: Number(costPerM2.toFixed(2)),
+      capacityPerM2: Number(capacityPerM2.toFixed(2)),
+      complianceScore: Number(complianceScore.toFixed(2)),
+    },
+    validation: { status: uniqueUnknowns.length ? "UNKNOWN" : "PASS", checked: rules.map((item) => item.code), unknowns: uniqueUnknowns },
+    alerts,
+    status: "GENERATED_CANDIDATE",
+    humanReviewRequired: true,
+    projectStateMutation: "NOT_REQUESTED",
+  };
 }
 
 export function searchDynamicFamilies(query: string) { const q = query.trim().toLocaleLowerCase(); return listDynamicFamilies().flatMap((family) => family.variants.map((variant) => ({ familyId: family.id, familyName: family.name, variantId: variant.id, variantName: variant.name, score: q ? Number([family.name, family.description, variant.name, variant.description, ...family.tags, ...variant.tags].join(" ").toLocaleLowerCase().includes(q) ? 1 : 0) : 1 }))).filter((item) => item.score > 0).sort((a, b) => b.score - a.score || a.variantName.localeCompare(b.variantName)); }

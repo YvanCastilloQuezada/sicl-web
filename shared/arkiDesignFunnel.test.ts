@@ -4,6 +4,8 @@ import {
   createDemoCandidates,
   funnelLimitsForStep,
   promoteToFinalFour,
+  promoteToSixteen,
+  promoteToNine,
   selectForDevelopment,
   completeDeepEvaluation,
   FUNNEL_STEPS,
@@ -53,7 +55,8 @@ describe("Funnel 16→4→1", () => {
       step: 16,
     });
     expect(state.candidates).toHaveLength(16);
-    expect(state.stage).toBe("DESIGN_EXPLORER_9");
+    expect(state.stage).toBe("DESIGN_EXPLORER_16");
+    expect(state.waitState).toBe("AWAITING_16_TO_9_SELECTION");
   });
 
   it("createDesignFunnel acepta 25 explícito", () => {
@@ -63,7 +66,8 @@ describe("Funnel 16→4→1", () => {
       step: 25,
     });
     expect(state.candidates).toHaveLength(25);
-    expect(state.stage).toBe("DESIGN_EXPLORER_9");
+    expect(state.stage).toBe("DESIGN_EXPLORER_25");
+    expect(state.waitState).toBe("AWAITING_25_TO_16_SELECTION");
   });
 
   it("createDesignFunnel rechaza 12 (no es step válido)", () => {
@@ -74,31 +78,75 @@ describe("Funnel 16→4→1", () => {
     })).toThrow(/INVALID_FUNNEL_STEP|FUNNEL_REQUIRES/);
   });
 
-  it("16→4→1 completo", () => {
+  it("ejecuta las cuatro autorizaciones humanas 25→16→9→4→1", () => {
+    const state25 = createDesignFunnel({
+      projectId: "TEST-PROJECT",
+      candidates: candidatesFor(25),
+      step: 25,
+    });
+
+    const ids16 = state25.candidates.slice(0, 16).map((c) => c.id);
+    const state16 = promoteToSixteen(state25, ids16, "human-1", "Primera selección");
+    expect(state16.stage).toBe("DESIGN_EXPLORER_16");
+    expect(state16.waitState).toBe("AWAITING_16_TO_9_SELECTION");
+    expect(state16.events.at(-1)?.type).toBe("HUMAN_DESIGN_SELECTION");
+
+    const ids9 = state16.candidates
+      .filter((c) => c.stage === "DESIGN_EXPLORER_16")
+      .slice(0, 9).map((c) => c.id);
+    const state9 = promoteToNine(state16, ids9, "human-2", "Segunda selección");
+    expect(state9.stage).toBe("DESIGN_EXPLORER_9");
+    expect(state9.waitState).toBe("AWAITING_9_TO_4_SELECTION");
+
+    const ids4 = state9.candidates
+      .filter((c) => c.stage === "DESIGN_EXPLORER_9")
+      .slice(0, 4).map((c) => c.id);
+    const state4 = promoteToFinalFour(state9, ids4, "human-3", "Tercera selección");
+    expect(state4.stage).toBe("FINALIST_4");
+    expect(state4.waitState).toBe("AWAITING_4_TO_1_SELECTION");
+
+    const results = Object.fromEntries(ids4.map((id) => [
+      id, { status: "READY" as const, findings: [], unknowns: [] },
+    ]));
+    const evaluated = completeDeepEvaluation(state4, results);
+
+    const selectedId = ids4[0];
+    const winner = selectForDevelopment(evaluated, selectedId, "human-4", "Cuarta selección");
+    expect(winner.stage).toBe("SELECTED_FOR_DEVELOPMENT");
+    expect(winner.waitState).toBe("NONE");
+    expect(winner.selectedCandidateId).toBe(selectedId);
+
+    const decisions = winner.events.filter((event) =>
+      event.type === "HUMAN_DESIGN_SELECTION"
+    );
+    expect(decisions).toHaveLength(4);
+    expect(decisions.map((event) =>
+      event.type === "HUMAN_DESIGN_SELECTION" ? event.selectionStage : ""
+    )).toEqual(["25_TO_16", "16_TO_9", "9_TO_4", "4_TO_1"]);
+
+    expect(winner.candidates).toHaveLength(25);
+    expect(winner.candidates.filter((c) => c.stage === "SELECTED_FOR_DEVELOPMENT")).toHaveLength(1);
+  });
+
+  it("rechaza saltarse la etapa 25→16", () => {
     const state = createDesignFunnel({
       projectId: "TEST-PROJECT",
-      candidates: candidatesFor(16),
-      step: 16,
+      candidates: candidatesFor(25),
+      step: 25,
     });
-    expect(state.candidates).toHaveLength(16);
+    expect(() => promoteToNine(state, state.candidates.slice(0, 9).map((c) => c.id), "human"))
+      .toThrow("INVALID_16_TO_9_STAGE");
+    expect(() => promoteToFinalFour(state, state.candidates.slice(0, 4).map((c) => c.id), "human"))
+      .toThrow("INVALID_9_TO_4_STAGE");
+  });
 
-    // 16 → 4
-    const finalFourIds = state.candidates.slice(0, 4).map((c) => c.id);
-    const afterPromote = promoteToFinalFour(state, finalFourIds, "test-human");
-    expect(afterPromote.stage).toBe("FINALIST_4");
-    expect(afterPromote.waitState).toBe("AWAITING_4_TO_1_SELECTION");
-    expect(afterPromote.candidates.filter((c) => c.stage === "FINALIST_4")).toHaveLength(4);
-
-    // Deep evaluation
-    const results = Object.fromEntries(finalFourIds.map((id) => [id, { status: "READY" as const, findings: [], unknowns: [] }]));
-    const afterEval = completeDeepEvaluation(afterPromote, results);
-    expect(afterEval.candidates.filter((c) => c.stage === "FINALIST_4")).toHaveLength(4);
-
-    // 4 → 1
-    const selectedId = finalFourIds[0];
-    const afterSelect = selectForDevelopment(afterEval, selectedId, "test-human", "chosen");
-    expect(afterSelect.stage).toBe("SELECTED_FOR_DEVELOPMENT");
-    expect(afterSelect.waitState).toBe("NONE");
-    expect(afterSelect.selectedCandidateId).toBe(selectedId);
+  it("exige exactamente 16 candidatos en 25→16", () => {
+    const state = createDesignFunnel({
+      projectId: "TEST-PROJECT",
+      candidates: candidatesFor(25),
+      step: 25,
+    });
+    expect(() => promoteToSixteen(state, state.candidates.slice(0, 15).map((c) => c.id), "human"))
+      .toThrow("SELECTION_REQUIRES_16");
   });
 });

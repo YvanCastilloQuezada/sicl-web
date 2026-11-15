@@ -53,88 +53,24 @@ export function deriveProjectConstraints(input: {
   const hard: ProjectConstraint[] = [];
   const soft: ProjectConstraint[] = [];
 
-  // Capa 1 — Zonificación (dura): normativa aplicable
+  // Capa normativa:
+  // El catálogo RNE disponible está marcado REFERENCE_SEED.
+  // Sus resultados se conservan para revisión y trazabilidad,
+  // pero no se convierten automáticamente en restricciones duras.
+  // Una referencia provisional no constituye una infracción legal
+  // ni una autorización para descartar un candidato.
   const normative = validateAgainstRne({
     typology: input.project.typology,
     facts: input.facts,
   });
 
-  for (const result of normative.results) {
-    if (result.status === "FAIL") {
-      hard.push({
-        layer: "ZONING",
-        severity: "HARD",
-        code: result.ruleId,
-        message: result.message,
-        source: result.legalReference,
-        evidenceRequired: true,
-      });
-    }
-  }
-
-  // Capa 1b — Restricciones duras por defecto (derivadas de jurisdicción y tipología)
-  // Estas restricciones se aplican SIEMPRE, sin depender de los facts del proyecto.
-  if (input.project.jurisdiction === "RNE-PE") {
-    // Retiro frontal mínimo (RNE A.010): 3 m para vivienda, 5 m para comercio/salud
-    const isResidential = input.project.typology.toLowerCase().includes("vivienda") || input.project.typology.toLowerCase().includes("residencial");
-    const isHealthOrCommerce = input.project.typology.toLowerCase().includes("salud") || input.project.typology.toLowerCase().includes("comercio");
-    const minRetiro = isHealthOrCommerce ? 5 : isResidential ? 3 : 4;
-
-    hard.push({
-      layer: "ZONING",
-      severity: "HARD",
-      code: "RNE-A.010-RETIRO-FRONTAL",
-      message: `Retiro frontal mínimo ${minRetiro} m para tipología ${input.project.typology}.`,
-      source: "RNE A.010 Art. 8 (referencia; verificar contra texto oficial)",
-      evidenceRequired: true,
-      limitValue: minRetiro,
-      metricKey: "setbackM",
-      operator: ">=",
-    });
-
-    // Altura máxima referencial por zonificación
-    const maxFloors = isHealthOrCommerce ? 7 : isResidential ? 5 : 10;
-    hard.push({
-      layer: "ZONING",
-      severity: "HARD",
-      code: "RNE-A.010-ALTURA-MAX",
-      message: `Altura máxima referencial ${maxFloors} pisos para tipología ${input.project.typology}.`,
-      source: "RNE A.010 / zonificación referencial (verificar contra texto oficial)",
-      evidenceRequired: true,
-      limitValue: maxFloors,
-      metricKey: "floors",
-      operator: "<=",
-    });
-
-    // Coeficiente de ocupación máximo
-    const maxCOS = isHealthOrCommerce ? 0.7 : isResidential ? 0.6 : 0.8;
-    hard.push({
-      layer: "ZONING",
-      severity: "HARD",
-      code: "RNE-A.010-COS-MAX",
-      message: `Coeficiente de ocupación máximo ${maxCOS} para tipología ${input.project.typology}.`,
-      source: "RNE A.010 / zonificación referencial (verificar contra texto oficial)",
-      evidenceRequired: true,
-      limitValue: maxCOS,
-      metricKey: "footprintM2",
-      operator: "<=",
-    });
-  }
-
-  // Capa 2 — Tipología (dura): programa y capacidad
-  if (input.programAreaM2 !== undefined && input.siteAreaM2 !== undefined) {
-    const maxBuildable = input.siteAreaM2 * 2.5; // CUS aproximado
-    if (input.programAreaM2 > maxBuildable) {
-      hard.push({
-        layer: "TYPOLOGY",
-        severity: "HARD",
-        code: "PROGRAM_EXCEEDS_CUS",
-        message: `Programa (${input.programAreaM2} m²) excede la capacidad del sitio (${maxBuildable.toFixed(0)} m² con CUS 2.5).`,
-        source: "RNE A.010 / CUS referencial",
-        evidenceRequired: true,
-      });
-    }
-  }
+  // No se derivan límites genéricos de retiro, altura, COS o CUS.
+  // Para incorporarlos se requiere una fuente oficial vigente,
+  // jurisdicción y zonificación aplicables, evidencia del predio,
+  // variable geométrica compatible y unidades verificadas.
+  //
+  // Tampoco se compara área de programa con área de terreno:
+  // son magnitudes distintas y no existe aquí un CUS verificado.
 
   // Capa 3 — Asoleamiento (blanda): orientación solar
   if (input.context.sunAzimuthDeg !== undefined) {
