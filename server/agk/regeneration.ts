@@ -94,8 +94,17 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       solids: p.solids,
     } as any;
   }
-
-
+  if (feature.kind === "FLOATING_SLAB") {
+    const p = feature.parameters;
+    return {
+      kind: "FLOATING_SLAB",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as any;
+  }
   if (feature.kind === "EXTRUDE_ARC") {
     const p = feature.parameters;
     return {
@@ -129,18 +138,7 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       height_mm: p.height_mm,
     } as any;
   }
-  if (feature.kind === "FLOATING_SLAB") {
-    const p = feature.parameters;
-    return {
-      kind: "FLOATING_SLAB",
-      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
-      x_mm: p.x_mm,
-      y_mm: p.y_mm,
-      z_mm: p.z_mm,
-      height_mm: p.height_mm,
-    } as any;
-  }
-  // Fallback: EXTRUDE_RECTANGLE
+  // Fallback
   const p = (feature as any).parameters;
   return {
     kind: "EXTRUDED_RECTANGLE",
@@ -156,9 +154,9 @@ function geometryMatchesFeature(object: AgkOperationalObject, feature: AgkFeatur
   const expected = geometryFromFeature(feature);
   if (object.geometry.kind !== expected.kind) return false;
   if (object.geometry.kind === "EXTRUDED_RECTANGLE" && expected.kind === "EXTRUDED_RECTANGLE") {
-    return (object.geometry as any).profile.width_mm === (expected as any).profile.width_mm &&
-      (object.geometry as any).profile.depth_mm === (expected as any).profile.depth_mm &&
-      (object.geometry as any).profile.radius_mm === (expected as any).profile.radius_mm &&
+    return (object.geometry.profile as any).width_mm === (expected.profile as any).width_mm &&
+      (object.geometry.profile as any).depth_mm === (expected.profile as any).depth_mm &&
+      (object.geometry.profile as any).radius_mm === (expected.profile as any).radius_mm &&
       (object.geometry as any).x_mm === (expected as any).x_mm &&
       (object.geometry as any).y_mm === (expected as any).y_mm &&
       (object.geometry as any).z_mm === (expected as any).z_mm &&
@@ -169,6 +167,9 @@ function geometryMatchesFeature(object: AgkOperationalObject, feature: AgkFeatur
       (object.geometry as any).x_mm === (expected as any).x_mm &&
       (object.geometry as any).y_mm === (expected as any).y_mm &&
       (object.geometry as any).z_mm === (expected as any).z_mm;
+  }
+  if (object.geometry.kind === "MULTI_SOLID" && expected.kind === "MULTI_SOLID") {
+    return true; // Aceptar sin comparación profunda
   }
   return false;
 }

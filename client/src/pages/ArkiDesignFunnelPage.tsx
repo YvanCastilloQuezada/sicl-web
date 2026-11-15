@@ -496,7 +496,7 @@ export default function ArkiDesignFunnelPage() {
           min: minValue,
           max: maxValue,
           steps: 25,
-          generateCount: 200,
+          generateCount: 500,
         },
       });
 

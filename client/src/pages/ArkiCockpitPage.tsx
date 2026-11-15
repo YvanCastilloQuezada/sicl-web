@@ -413,7 +413,28 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             const partis = result?.partis || [];
             console.log("[ARKI] Partis recibidos:", partis);
             
-            // GENERAR 9 PROPUESTAS VARIANDO PARÁMETROS (misma variante BUS_TERMINAL)
+            // ARKI: Redirigir al Funnel Canónico (500 → 250 → 100 → 50 → 25 → 16 → 9 → 4 → 1)
+            setMessages(prev => [...prev, { 
+              role: "assistant", 
+              text: `🏗️ ARKI ha preparado el proyecto ${tipo} de ${areaM2} m² en ${ciudad}.\n📐 Redirigiendo al Funnel Canónico para generar las 500 alternativas...` 
+            }]);
+
+            // Guardar los parámetros en sessionStorage para que el Funnel los use
+            sessionStorage.setItem('arki_funnel_params', JSON.stringify({
+              tipo,
+              areaM2,
+              ciudad,
+              capacity,
+              brief: userMsg,
+            }));
+
+            // Redirigir a la página del Funnel Real
+            setTimeout(() => {
+              window.location.assign('/arki-design-funnel');
+            }, 1500);
+
+            // Código antiguo (9 propuestas) — desactivado
+            /*
             const familyMap: Record<string, { familyId: string; variantId: string }> = {
               "terminal_terrestre": { familyId: "FAM-TRANSPORT", variantId: "BUS_TERMINAL" },
               "hospital": { familyId: "FAM-HEALTH", variantId: "GENERAL" },
@@ -466,7 +487,10 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             } catch (e) {
               console.error("[ARKI] Error generando propuestas:", e);
             }
-            const partisToShow = propuestasReales.length > 0 ? propuestasReales : partis;
+            */
+            // Redirigir al Funnel Canónico (500 → 250 → 100 → 50 → 25 → 16 → 9 → 4 → 1)
+            // El Cockpit ya no genera propuestas locales; usa el motor real.
+            const partisToShow = partis;
             console.log("[ARKI] Propuestas a mostrar:", partisToShow.map((p: any) => ({title: p.title, area: p.metrics?.area, hasBuilding: !!p.building})));
             setPartis(partisToShow);
             console.log("[ARKI] setPartis ejecutado con:", partisToShow.length, "propuestas");

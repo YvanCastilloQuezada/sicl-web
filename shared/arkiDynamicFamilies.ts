@@ -111,6 +111,17 @@ export type GeneratedBuilding = {
     waterUseIntensity: number;
     carbonFootprint: number;
     structuralEfficiency: number;
+    daylightFactor: number;
+    acousticComfort: number;
+    thermalComfort: number;
+    accessibilityScore: number;
+    flexibilityScore: number;
+    maintenanceCost: number;
+    lifecycleCost: number;
+    resilienceScore: number;
+    biophilicScore: number;
+    circulationEfficiency: number;
+    programCompliance: number;
   };
   validation: { status: "PASS" | "UNKNOWN" | "BLOCKED"; checked: string[]; unknowns: string[] };
   alerts: Array<{ code: string; message: string; severity: "INFO" | "WARNING" | "BLOCKER" }>;
@@ -222,6 +233,72 @@ const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
     { id: "AIRBASE", name: "Base aérea", description: "Base con pistas, hangares y control aéreo.", tags: ["aérea", "hangar"], extra: ["pistas", "hangares", "torre de control"], modifiers: { areaM2: 100000, capacity: 1500, floors: 2 } },
     { id: "NAVAL_BASE", name: "Base naval", description: "Base con muelles, diques y control marítimo.", tags: ["naval", "muelle"], extra: ["muelles", "diques", "torre de control"], modifiers: { areaM2: 80000, capacity: 1200, floors: 2 } },
   ] }),
+
+  makeAdditionalFamily({ id: "FAM-VETERINARY", name: "Veterinaria", category: "SALUD", description: "Clínicas veterinarias y refugios de animales.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["veterinaria", "animales"], primary: ["consulta", "cirugía", "refugio"], services: ["farmacia", "laboratorio", "residuos"], variants: [
+    { id: "CLINIC_VET", name: "Clínica veterinaria", description: "Clínica con consulta y cirugía.", tags: ["clínica"], extra: ["quirófano", "rayos X"], modifiers: { areaM2: 2000, capacity: 50, floors: 2 } },
+    { id: "SHELTER", name: "Refugio de animales", description: "Refugio con perreras y gateras.", tags: ["refugio"], extra: ["perreras", "gateras", "cuarentena"], modifiers: { areaM2: 5000, capacity: 200, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-PSYCHIATRIC", name: "Psiquiátrico", category: "SALUD", description: "Centros de salud mental y rehabilitación.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["psiquiatría", "salud mental"], primary: ["habitaciones", "terapia", "recreación"], services: ["farmacia", "control", "seguridad"], variants: [
+    { id: "PSYCH_WARD", name: "Pabellón psiquiátrico", description: "Pabellón con habitaciones y control.", tags: ["pabellón"], extra: ["habitaciones", "sala de control"], modifiers: { areaM2: 8000, capacity: 100, floors: 3 } },
+    { id: "REHAB_CENTER", name: "Centro de rehabilitación", description: "Centro con terapia y recreación.", tags: ["rehabilitación"], extra: ["gimnasio", "talleres"], modifiers: { areaM2: 5000, capacity: 150, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-KINDERGARTEN", name: "Jardín de infancia", category: "EDUCATION", description: "Jardines de infancia y guarderías.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["jardín", "infancia"], primary: ["aulas", "patio", "comedor"], services: ["cocina", "baños", "enfermería"], variants: [
+    { id: "NURSERY", name: "Guardería", description: "Guardería para niños de 0-3 años.", tags: ["guardería"], extra: ["cunas", "lactario"], modifiers: { areaM2: 1000, capacity: 60, floors: 1 } },
+    { id: "KINDERGARTEN", name: "Jardín de infancia", description: "Jardín para niños de 3-6 años.", tags: ["jardín"], extra: ["aulas", "patio"], modifiers: { areaM2: 2000, capacity: 120, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-SPECIAL_ED", name: "Educación especial", category: "EDUCATION", description: "Centros de educación especial.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["educación especial", "inclusión"], primary: ["aulas", "terapia", "patio"], services: ["enfermería", "transporte", "cocina"], variants: [
+    { id: "SPECIAL_SCHOOL", name: "Escuela especial", description: "Escuela con aulas y terapia.", tags: ["escuela"], extra: ["aulas", "terapia"], modifiers: { areaM2: 3000, capacity: 100, floors: 2 } },
+    { id: "THERAPY_CENTER", name: "Centro de terapia", description: "Centro con terapias especializadas.", tags: ["terapia"], extra: ["fisioterapia", "logopedia"], modifiers: { areaM2: 2000, capacity: 80, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-VOCATIONAL", name: "Formación profesional", category: "EDUCATION", description: "Centros de formación profesional y oficios.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["formación", "oficios"], primary: ["talleres", "aulas", "laboratorios"], services: ["almacén", "herramientas", "seguridad"], variants: [
+    { id: "VOCATIONAL_SCHOOL", name: "Escuela de oficios", description: "Escuela con talleres y aulas.", tags: ["oficios"], extra: ["talleres", "aulas"], modifiers: { areaM2: 5000, capacity: 200, floors: 2 } },
+    { id: "TRAINING_CENTER", name: "Centro de formación", description: "Centro con laboratorios y aulas.", tags: ["formación"], extra: ["laboratorios", "aulas"], modifiers: { areaM2: 3000, capacity: 150, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-SUPERMARKET", name: "Supermercado", category: "COMMERCE", description: "Supermercados y grandes superficies.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["supermercado", "retail"], primary: ["venta", "almacén", "cajas"], services: ["carga", "residuos", "mantenimiento"], variants: [
+    { id: "SUPERMARKET", name: "Supermercado", description: "Supermercado de barrio.", tags: ["supermercado"], extra: ["cajas", "almacén"], modifiers: { areaM2: 3000, capacity: 200, floors: 1 } },
+    { id: "HYPERMARKET", name: "Hipermercado", description: "Hipermercado con gran superficie.", tags: ["hipermercado"], extra: ["cajas", "almacén", "estacionamiento"], modifiers: { areaM2: 10000, capacity: 800, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-MARKET_STALL", name: "Mercado de puestos", category: "COMMERCE", description: "Mercados con puestos individuales.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["mercado", "puestos"], primary: ["puestos", "circulación", "carga"], services: ["residuos", "baños", "administración"], variants: [
+    { id: "MARKET_STALL", name: "Mercado de puestos", description: "Mercado con puestos y pasillos.", tags: ["mercado"], extra: ["puestos", "pasillos"], modifiers: { areaM2: 2000, capacity: 300, floors: 1 } },
+    { id: "FARMERS_MARKET", name: "Mercado de agricultores", description: "Mercado con puestos temporales.", tags: ["agricultores"], extra: ["puestos", "carga"], modifiers: { areaM2: 1000, capacity: 150, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-OUTLET_MALL", name: "Outlet", category: "COMMERCE", description: "Centros comerciales de outlet.", geometryStrategy: "PODIUM_TOWER", defaultShapeType: "PODIUM_TOWER", tags: ["outlet", "retail"], primary: ["locales", "circulación", "estacionamiento"], services: ["carga", "residuos", "mantenimiento"], variants: [
+    { id: "OUTLET_MALL", name: "Outlet mall", description: "Centro de outlet con locales.", tags: ["outlet"], extra: ["locales", "food court"], modifiers: { areaM2: 15000, capacity: 1000, floors: 2 } },
+    { id: "STRIP_MALL", name: "Strip mall", description: "Centro comercial lineal.", tags: ["strip"], extra: ["locales", "estacionamiento"], modifiers: { areaM2: 8000, capacity: 500, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-COWORKING", name: "Coworking", category: "OFFICES", description: "Espacios de coworking y oficinas flexibles.", geometryStrategy: "PODIUM_TOWER", defaultShapeType: "COMPACT", tags: ["coworking", "flexible"], primary: ["escritorios", "salas", "café"], services: ["datos", "limpieza", "seguridad"], variants: [
+    { id: "COWORKING", name: "Coworking", description: "Espacio de coworking flexible.", tags: ["coworking"], extra: ["escritorios", "salas"], modifiers: { areaM2: 1000, capacity: 80, floors: 1 } },
+    { id: "FLEX_OFFICE", name: "Oficina flexible", description: "Oficina con espacios adaptables.", tags: ["flexible"], extra: ["escritorios", "salas"], modifiers: { areaM2: 2000, capacity: 120, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-EMBASSY", name: "Embajada", category: "OFFICES", description: "Embajadas y consulados.", geometryStrategy: "COURTYARD_MASS", defaultShapeType: "COURTYARD", tags: ["embajada", "consulado"], primary: ["oficinas", "atención", "residencia"], services: ["seguridad", "comunicaciones", "mantenimiento"], variants: [
+    { id: "EMBASSY", name: "Embajada", description: "Embajada con oficinas y residencia.", tags: ["embajada"], extra: ["oficinas", "residencia"], modifiers: { areaM2: 5000, capacity: 150, floors: 3 } },
+    { id: "CONSULATE", name: "Consulado", description: "Consulado con atención al público.", tags: ["consulado"], extra: ["atención", "oficinas"], modifiers: { areaM2: 2000, capacity: 100, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-FOOD_PROCESSING", name: "Procesamiento de alimentos", category: "INDUSTRY", description: "Plantas de procesamiento de alimentos.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["alimentos", "procesamiento"], primary: ["producción", "almacén", "control"], services: ["frío", "residuos", "mantenimiento"], variants: [
+    { id: "FOOD_PLANT", name: "Planta de alimentos", description: "Planta de procesamiento.", tags: ["planta"], extra: ["línea de producción", "cámara fría"], modifiers: { areaM2: 10000, capacity: 200, floors: 2 } },
+    { id: "COLD_STORAGE", name: "Almacén frigorífico", description: "Almacén con cámaras frías.", tags: ["frío"], extra: ["cámaras", "muelles"], modifiers: { areaM2: 5000, capacity: 100, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-TEXTILE", name: "Textil", category: "INDUSTRY", description: "Plantas textiles y de confección.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["textil", "confección"], primary: ["producción", "almacén", "control"], services: ["residuos", "mantenimiento", "vestuarios"], variants: [
+    { id: "TEXTILE_PLANT", name: "Planta textil", description: "Planta de producción textil.", tags: ["textil"], extra: ["telares", "confección"], modifiers: { areaM2: 8000, capacity: 300, floors: 2 } },
+    { id: "GARMENT_FACTORY", name: "Fábrica de confección", description: "Fábrica de confección.", tags: ["confección"], extra: ["costura", "planchado"], modifiers: { areaM2: 5000, capacity: 200, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-AUTOMOTIVE", name: "Automotriz", category: "INDUSTRY", description: "Plantas automotrices y de autopartes.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["automotriz", "autopartes"], primary: ["producción", "almacén", "control"], services: ["pintura", "residuos", "mantenimiento"], variants: [
+    { id: "AUTO_PLANT", name: "Planta automotriz", description: "Planta de ensamblaje.", tags: ["planta"], extra: ["línea de ensamblaje", "pintura"], modifiers: { areaM2: 50000, capacity: 500, floors: 2 } },
+    { id: "PARTS_FACTORY", name: "Fábrica de autopartes", description: "Fábrica de componentes.", tags: ["autopartes"], extra: ["producción", "almacén"], modifiers: { areaM2: 15000, capacity: 300, floors: 2 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-PORT", name: "Puerto", category: "TRANSPORT", description: "Puertos marítimos y fluviales.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["puerto", "marítimo"], primary: ["muelles", "almacén", "control"], services: ["grúas", "aduanas", "seguridad"], variants: [
+    { id: "SEAPORT", name: "Puerto marítimo", description: "Puerto con muelles y almacenes.", tags: ["marítimo"], extra: ["muelles", "grúas"], modifiers: { areaM2: 100000, capacity: 2000, floors: 1 } },
+    { id: "RIVER_PORT", name: "Puerto fluvial", description: "Puerto fluvial con muelles.", tags: ["fluvial"], extra: ["muelles", "almacén"], modifiers: { areaM2: 30000, capacity: 500, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-RAILWAY", name: "Ferroviario", category: "TRANSPORT", description: "Estaciones y terminales ferroviarias.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["ferroviario", "tren"], primary: ["andenes", "vestíbulo", "control"], services: ["mantenimiento", "seguridad", "equipaje"], variants: [
+    { id: "RAILWAY_STATION", name: "Estación ferroviaria", description: "Estación con andenes y vestíbulo.", tags: ["estación"], extra: ["andenes", "vestíbulo"], modifiers: { areaM2: 15000, capacity: 1000, floors: 2 } },
+    { id: "RAIL_TERMINAL", name: "Terminal ferroviaria", description: "Terminal de carga ferroviaria.", tags: ["terminal"], extra: ["andenes", "almacén"], modifiers: { areaM2: 30000, capacity: 500, floors: 1 } },
+  ] }),
+  makeAdditionalFamily({ id: "FAM-HELIPORT", name: "Helipuerto", category: "TRANSPORT", description: "Helipuertos y helipuertos urbanos.", geometryStrategy: "ARENA_BOWL", defaultShapeType: "CIRCLE", tags: ["helipuerto", "aéreo"], primary: ["plataforma", "control", "hangar"], services: ["combustible", "mantenimiento", "seguridad"], variants: [
+    { id: "HELIPORT", name: "Helipuerto", description: "Helipuerto con plataforma.", tags: ["helipuerto"], extra: ["plataforma", "hangar"], modifiers: { areaM2: 5000, capacity: 50, floors: 1 } },
+    { id: "URBAN_HELIPORT", name: "Helipuerto urbano", description: "Helipuerto en azotea.", tags: ["urbano"], extra: ["plataforma", "control"], modifiers: { areaM2: 1000, capacity: 20, floors: 1 } },
+  ] }),
+
 ];
 
 export const ALL_SHAPE_TYPES = [
@@ -456,6 +533,50 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
     DOME: 1.0,
     VAULT: 1.5,
     CANOPY: 2.0,
+    // Categoría 13: Formas adicionales
+    Z_SHAPE: 1.6,
+    SQUARE: 1.0,
+    RECTANGLE_LONG: 4.0,
+    HEXAGON_IRREGULAR: 1.3,
+    OCTAGON: 1.0,
+    NONAGON: 1.0,
+    DECAGON: 1.0,
+    PATIO_IRREGULAR: 1.2,
+    L_TOWER: 1.2,
+    T_TOWER: 1.3,
+    U_TOWER: 1.4,
+    H_TOWER: 1.5,
+    PARABOLA: 1.8,
+    HYPERBOLA: 1.7,
+    SINE_WAVE: 2.5,
+    COSINE_WAVE: 2.5,
+    STAIRCASE: 2.0,
+    RAMP: 2.2,
+    TERRACE: 1.8,
+    GALLERY: 2.8,
+    BASEBALL_DIAMOND: 1.2,
+    FOOTBALL_FIELD: 2.0,
+    TENNIS_COURT: 1.6,
+    B_SHAPE: 1.3,
+    D_SHAPE: 1.2,
+    F_SHAPE: 1.4,
+    L_SHAPE_ALT: 1.9,
+    ZERO_SHAPE: 1.0,
+    ONE_SHAPE: 1.5,
+    TWO_SHAPE: 1.4,
+    FOUR_SHAPE: 1.6,
+    ELLIPSE_TILTED: 1.3,
+    TRAPEZOID_IRREGULAR: 1.4,
+    KITE: 1.2,
+    MEGA_TOWER: 1.0,
+    SUPERTALL: 1.0,
+    MIXED_TOWER: 1.2,
+    BARREL_VAULT: 2.0,
+    HYPAR: 2.5,
+    GRID_SHELL: 2.0,
+    ARCH_BRIDGE: 3.0,
+    SUSPENSION_BRIDGE: 4.0,
+    CABLE_STAY: 3.5,
   };
   const evolutionaryFactor = 1 + Math.min(generation, 20) * 0.025;
   const aspect = (aspectByShape[shapeType] || 1.35) * evolutionaryFactor;
@@ -1524,6 +1645,17 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
   const waterUseIntensity = Number((capacity * 0.05).toFixed(2));
   const carbonFootprint = Number((builtArea * 0.08).toFixed(2));
   const structuralEfficiency = Number((builtArea / (floors * 100)).toFixed(2));
+  const daylightFactor = Number((geometry2d.footprintM2 * 0.2 / builtArea).toFixed(4));
+  const acousticComfort = 0.7;
+  const thermalComfort = 0.8;
+  const accessibilityScore = 0.9;
+  const flexibilityScore = Number((geometry2d.footprintM2 / builtArea).toFixed(2));
+  const maintenanceCost = Number((builtArea * 0.02).toFixed(2));
+  const lifecycleCost = Number((estimatedCostUsdConceptual + maintenanceCost * 30).toFixed(2));
+  const resilienceScore = 0.75;
+  const biophilicScore = Number((geometry2d.courtyardM2 ?? 0) / geometry2d.footprintM2).toFixed(2);
+  const circulationEfficiency = 0.85;
+  const programCompliance = 0.9;
 
   return {
     id: randomUUID(),
@@ -1551,6 +1683,17 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
       waterUseIntensity,
       carbonFootprint,
       structuralEfficiency,
+      daylightFactor,
+      acousticComfort,
+      thermalComfort,
+      accessibilityScore,
+      flexibilityScore,
+      maintenanceCost,
+      lifecycleCost,
+      resilienceScore,
+      biophilicScore,
+      circulationEfficiency,
+      programCompliance,
     },
     validation: { status: uniqueUnknowns.length ? "UNKNOWN" : "PASS", checked: rules.map((item) => item.code), unknowns: uniqueUnknowns },
     alerts,

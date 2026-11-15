@@ -989,14 +989,14 @@ export const appRouter = router({
         // 25 → Funnel: 25→16→9→4→1
 
         // Primera poda: diversidad (100 → 40)
-        const pruning40 = arkiPruning(survivors, 40);
+        const pruning100 = arkiPruning(survivors, 100);
 
         // Segunda poda: ranking por mérito (40 → 25)
-        const ranking = arkiRanking(pruning40.pruned, {}, 25);
+        const ranking = arkiRanking(pruning100.pruned, {}, 50);
         const pruning = {
           pruned: ranking.ranked,
-          prunedOut: pruning40.prunedOut.concat(pruning40.pruned.slice(25)),
-          criteria: pruning40.criteria,
+          prunedOut: pruning100.prunedOut.concat(pruning100.pruned.slice(25)),
+          criteria: pruning100.criteria,
         };
 
         if (pruning.pruned.length !== 25) {
