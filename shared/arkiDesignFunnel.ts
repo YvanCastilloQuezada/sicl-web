@@ -28,7 +28,7 @@ export type CandidateEpistemicModel = {
   constraints: CandidateEpistemicItem<"CONSTRAINT">[];
 };
 
-import type { AgkOperationalObject } from "../server/agk/types";
+import type { AgkOperationalObject } from "../server/arkiGeometryKernel";
 import type { AgkFeature } from "../server/agk/types";
 
 export type DesignCandidate = {

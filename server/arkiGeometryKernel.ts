@@ -9,6 +9,7 @@ import {
 import type { AgkCausalModel, AgkFeatureParameterName, AgkRegenerationReport } from "./agk/types";
 import { regenerateFromFeatureChange, validateCausalModel, type RegenerationFailure } from "./agk/regeneration";
 import type { AgkFeature } from "./agk/types";
+import { getOrigin, getProfile } from "./agk/agkTypeGuards";
 
 function asAgkFeature(f: unknown): AgkFeature {
   return f as AgkFeature;
@@ -311,10 +312,10 @@ function validateOperationalObjects(objects: readonly AgkOperationalObject[]): A
       !positiveInteger(profile.width_mm) ||
       !positiveInteger(profile.depth_mm) ||
       profile.radius_mm !== null ||
-      !integer(geometry.x_mm) ||
-      !integer(geometry.y_mm) ||
-      !integer(geometry.z_mm) ||
-      !positiveInteger(geometry.height_mm)
+      !integer((getOrigin(geometry as any).x_mm)) ||
+      !integer((getOrigin(geometry as any).y_mm)) ||
+      !integer((getOrigin(geometry as any).z_mm)) ||
+      !positiveInteger((getOrigin(geometry as any).height_mm))
     ) return "OPERATIONAL_GEOMETRY_INVALID";
   }
   return null;
@@ -417,9 +418,9 @@ export function applyAgkCommand(
           ...f,
           parameters: {
             ...f.parameters,
-            x_mm: f.parameters.x_mm + command.delta_mm.x,
-            y_mm: f.parameters.y_mm + command.delta_mm.y,
-            z_mm: f.parameters.z_mm + command.delta_mm.z,
+            x_mm: (getOrigin(f.parameters as any).x_mm) + command.delta_mm.x,
+            y_mm: (getOrigin(f.parameters as any).y_mm) + command.delta_mm.y,
+            z_mm: (getOrigin(f.parameters as any).z_mm) + command.delta_mm.z,
           },
         }) as any),
       };
@@ -490,8 +491,8 @@ export function deriveAgkPlan(state: AgkCommittedState): readonly AgkPlanRectang
   return [...state.objects].sort((a,b)=>a.objectId.localeCompare(b.objectId)).map(({ objectId, geometry }) => ({
     objectId,
     kind: "RECTANGLE" as const,
-    x_mm: geometry.x_mm,
-    y_mm: geometry.y_mm,
+    x_mm: (getOrigin(geometry as any).x_mm),
+    y_mm: (getOrigin(geometry as any).y_mm),
     width_mm: ('width_mm' in (geometry as any).profile ? (geometry as any).profile.width_mm : 0),
     depth_mm: ('depth_mm' in (geometry as any).profile ? (geometry as any).profile.depth_mm : 0),
   }));

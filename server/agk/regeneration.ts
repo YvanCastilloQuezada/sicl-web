@@ -1,5 +1,6 @@
 import type { AgkOperationalObject, AgkHostsDependency, AgkGeometry } from "../arkiGeometryKernel";
 import type { AgkCausalModel, AgkFeature, AgkRegenerationReport } from "./types";
+import { getOrigin, getProfile, isExtruded } from "./agkTypeGuards";
 
 function asAgkFeature(f: unknown): AgkFeature {
   return f as AgkFeature;

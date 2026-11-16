@@ -68,6 +68,8 @@ export type DynamicBuildingFamily = {
   baseRules: FamilyRule[];
   geometryStrategy: "COURTYARD_MASS" | "LINEAR_MASS" | "ARENA_BOWL" | "PODIUM_TOWER";
   tags: string[];
+  defaultShapeType?: string;
+
 };
 
 export type GeneratedBuilding = {
@@ -134,7 +136,8 @@ const p = (id: string, label: string, defaultValue: string | number | boolean, e
 const rule = (id: string, code: string, description: string, parameter: string, operator: RuleOperator, value: number | string | boolean | undefined, source: string): FamilyRule => ({ id, code, description, parameter, operator, value, source, required: true });
 const program = (primarySpaces: string[], services: string[], circulations: string[]): FamilyProgram => ({ zones: [{ id: "PUBLIC", name: "Área pública", areaRatio: 0.25 }, { id: "SERVICE", name: "Área de servicio", areaRatio: 0.15 }, { id: "PRIMARY", name: "Área principal", areaRatio: 0.6 }], primarySpaces, services, circulations });
 
-function makeAdditionalFamily(input: { id: string; name: string; category: FamilyCategory; description: string; geometryStrategy: DynamicBuildingFamily["geometryStrategy"]; tags: string[]; primary: string[]; services: string[]; variants: Array<{ id: string; name: string; description: string; tags: string[]; extra: string[]; modifiers: Record<string, string | number | boolean> }> }): DynamicBuildingFamily {
+function makeAdditionalFamily(input: { id: string; name: string; category: FamilyCategory; description: string; geometryStrategy: DynamicBuildingFamily["geometryStrategy"]; tags: string[]; primary: string[]; services: string[]; variants: Array<{ id: string; name: string; description: string; tags: string[]; extra: string[]; modifiers: Record<string, string | number | boolean> }>
+    defaultShapeType?: string;}): DynamicBuildingFamily {
   return { id: input.id, name: input.name, description: input.description, category: input.category, scale: input.category === "LANDSCAPE" ? "URBAN" : "COMPLEX", version: "1.0.0", baseProgram: program(input.primary, input.services, ["público", "personal", "servicio", "evacuación"]), variants: input.variants.map((variant) => ({ id: variant.id, name: variant.name, description: variant.description, capacityUnit: "usuarios", modifiers: { floors: 2, courtyardRatio: 0.08, capacity: 300, ...variant.modifiers }, programExtra: variant.extra, ruleIds: ["GEN-EGRESS"], tags: variant.tags })), baseParameters: [p("areaM2", "Área del terreno", 10000, { unit: "m²", min: 100 }), p("capacity", "Capacidad", 300, { unit: "personas", min: 1 }), p("floors", "Niveles", 2, { unit: "niveles", min: 1, max: 80 }), p("courtyardRatio", "Proporción de vacío", 0.08, { unit: "ratio", min: 0, max: 0.8 })], baseRules: [rule("GEN-EGRESS", "RNE-A.130", "Aforo y evacuación requieren validación del proyecto.", "egressValidated", "REQUIRED", true, "RNE de referencia; especialista")], geometryStrategy: input.geometryStrategy, defaultShapeType: (input as any).defaultShapeType, tags: input.tags };
 }
 
