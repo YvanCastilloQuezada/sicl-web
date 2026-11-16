@@ -299,6 +299,29 @@ const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
     { id: "URBAN_HELIPORT", name: "Helipuerto urbano", description: "Helipuerto en azotea.", tags: ["urbano"], extra: ["plataforma", "control"], modifiers: { areaM2: 1000, capacity: 20, floors: 1 } },
   ] }),
 
+
+  makeAdditionalFamily({ 
+    id: "FAM-HYDRAULIC", 
+    name: "Infraestructura hidráulica", 
+    category: "INDUSTRY", 
+    description: "Represas, canales, acueductos y obras hidráulicas mayores.", 
+    geometryStrategy: "LINEAR_MASS", 
+    defaultShapeType: "LINEAR", 
+    tags: ["hidráulica", "territorial", "represa", "canal", "acueducto"], 
+    primary: ["almacenamiento", "conducción", "distribución"], 
+    services: ["compuertas", "turbinas", "control", "mantenimiento"], 
+    variants: [
+      { id: "DAM", name: "Represa", description: "Represa de almacenamiento y generación hidroeléctrica.", tags: ["represa", "embalse"], extra: ["vertedero", "turbinas", "embalse"], modifiers: { areaM2: 500000, capacity: 10000, floors: 1 } },
+      { id: "IRRIGATION_CANAL", name: "Canal de irrigación", description: "Canal para distribución de agua agrícola.", tags: ["canal", "irrigación"], extra: ["compuertas", "sifones", "desarenadores"], modifiers: { areaM2: 100000, capacity: 5000, floors: 1 } },
+      { id: "AQUEDUCT", name: "Acueducto", description: "Acueducto para transporte de agua a larga distancia.", tags: ["acueducto", "transporte"], extra: ["tuberías", "estaciones de bombeo", "válvulas"], modifiers: { areaM2: 50000, capacity: 2000, floors: 1 } },
+      { id: "PUMPING_STATION", name: "Estación de bombeo", description: "Estación para elevación de agua.", tags: ["bombeo", "elevación"], extra: ["bombas", "generadores", "control"], modifiers: { areaM2: 2000, capacity: 500, floors: 1 } },
+      { id: "HYDROELECTRIC_PLANT", name: "Central hidroeléctrica", description: "Central para generación de energía hidroeléctrica.", tags: ["hidroeléctrica", "energía"], extra: ["turbinas", "generadores", "subestación"], modifiers: { areaM2: 10000, capacity: 200, floors: 2 } },
+      { id: "SPILLWAY", name: "Vertedero", description: "Vertedero para descarga de excedentes.", tags: ["vertedero", "descarga"], extra: ["compuertas", "canal de descarga", "disipador"], modifiers: { areaM2: 5000, capacity: 100, floors: 1 } },
+      { id: "SEDIMENTATION_BASIN", name: "Desarenador", description: "Piscina para sedimentación de arenas.", tags: ["desarenador", "sedimentación"], extra: ["compuertas", "limpieza", "control"], modifiers: { areaM2: 3000, capacity: 50, floors: 1 } },
+      { id: "WATER_TUNNEL", name: "Túnel de agua", description: "Túnel para conducción de agua.", tags: ["túnel", "conducción"], extra: ["revestimiento", "ventilación", "control"], modifiers: { areaM2: 10000, capacity: 30, floors: 1 } },
+    ] 
+  }),
+
 ];
 
 export const ALL_SHAPE_TYPES = [
@@ -577,6 +600,15 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
     ARCH_BRIDGE: 3.0,
     SUSPENSION_BRIDGE: 4.0,
     CABLE_STAY: 3.5,
+    // Categoría 14: Infraestructura hidráulica
+    DAM: 2.0,
+    SPILLWAY: 1.5,
+    CANAL: 5.0,
+    AQUEDUCT: 6.0,
+    PUMPING_STATION: 1.2,
+    HYDROELECTRIC_PLANT: 1.5,
+    WATER_TUNNEL: 5.0,
+    SEDIMENTATION_BASIN: 1.5,
   };
   const evolutionaryFactor = 1 + Math.min(generation, 20) * 0.025;
   const aspect = (aspectByShape[shapeType] || 1.35) * evolutionaryFactor;
@@ -2065,6 +2097,86 @@ function geometryFor(family: DynamicBuildingFamily, params: Record<string, strin
       { x: width, y: 0 },
       { x: width - pierW, y: 0 },
       { x: width - pierW, y: depth },
+    ];
+  } else if (shapeType === "DAM") {
+    // Represa: cuerpo trapezoidal
+    const crestW = width * 0.7;
+    const baseW = width;
+    polygon = [
+      { x: (width - crestW) / 2, y: 0 },
+      { x: (width + crestW) / 2, y: 0 },
+      { x: (width + baseW) / 2, y: depth },
+      { x: (width - baseW) / 2, y: depth },
+    ];
+  } else if (shapeType === "SPILLWAY") {
+    // Vertedero: canal trapezoidal
+    const topW = width * 0.8;
+    const bottomW = width * 0.4;
+    polygon = [
+      { x: (width - topW) / 2, y: 0 },
+      { x: (width + topW) / 2, y: 0 },
+      { x: (width + bottomW) / 2, y: depth },
+      { x: (width - bottomW) / 2, y: depth },
+    ];
+  } else if (shapeType === "CANAL") {
+    // Canal: sección trapezoidal
+    const topW = width;
+    const bottomW = width * 0.5;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: (width + bottomW) / 2, y: depth },
+      { x: (width - bottomW) / 2, y: depth },
+    ];
+  } else if (shapeType === "AQUEDUCT") {
+    // Acueducto: tubería rectangular
+    const pipeW = width * 0.3;
+    polygon = [
+      { x: (width - pipeW) / 2, y: 0 },
+      { x: (width + pipeW) / 2, y: 0 },
+      { x: (width + pipeW) / 2, y: depth },
+      { x: (width - pipeW) / 2, y: depth },
+    ];
+  } else if (shapeType === "PUMPING_STATION") {
+    // Estación de bombeo: edificio rectangular
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+  } else if (shapeType === "HYDROELECTRIC_PLANT") {
+    // Central hidroeléctrica: edificio con turbinas
+    const turbineW = width * 0.4;
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
+    ];
+    voids = [[
+      { x: (width - turbineW) / 2, y: depth * 0.3 },
+      { x: (width + turbineW) / 2, y: depth * 0.3 },
+      { x: (width + turbineW) / 2, y: depth * 0.7 },
+      { x: (width - turbineW) / 2, y: depth * 0.7 },
+    ]];
+  } else if (shapeType === "WATER_TUNNEL") {
+    // Túnel de agua: circular
+    const cx = width / 2;
+    const cy = depth / 2;
+    const r = Math.min(width, depth) / 2;
+    polygon = [];
+    for (let i = 0; i < 32; i++) {
+      const angle = (i / 32) * Math.PI * 2;
+      polygon.push({ x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) });
+    }
+  } else if (shapeType === "SEDIMENTATION_BASIN") {
+    // Desarenador: piscina rectangular
+    polygon = [
+      { x: 0, y: 0 },
+      { x: width, y: 0 },
+      { x: width, y: depth },
+      { x: 0, y: depth },
     ];
   }
 

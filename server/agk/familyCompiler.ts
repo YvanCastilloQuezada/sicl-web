@@ -143,6 +143,7 @@ export function compileDynamicBuildingToAgk(
     "MEGA_TOWER", "SUPERTALL", "MIXED_TOWER",
     "BARREL_VAULT", "HYPAR", "GRID_SHELL",
     "ARCH_BRIDGE", "SUSPENSION_BRIDGE", "CABLE_STAY",
+    "DAM", "SPILLWAY", "CANAL", "AQUEDUCT", "PUMPING_STATION", "HYDROELECTRIC_PLANT", "WATER_TUNNEL", "SEDIMENTATION_BASIN",
     "STADIUM_BOWL", "ARENA_OVAL", "AMPHITHEATER", "HIPPODROME", "VELODROME", "SPORTS_PLEX",
   ];
   if (polygonShapes.includes(shapeType) && building.geometry2d.polygon) {
@@ -194,7 +195,7 @@ export function compileDynamicBuildingToAgk(
   }
 
   // 4. MULTI_SOLID
-  const multiSolidShapes = ["CLUSTER", "PODIUM_TOWER", "TWIN_TOWERS", "TRIPLE_TOWERS", "QUAD_TOWERS", "CAMPUS", "MIXED_COMPLEX", "SKYLINE", "BRIDGE", "ARCH_BRIDGE", "SUSPENSION_BRIDGE", "CABLE_STAY", "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER", "MEGA_TOWER", "SUPERTALL", "MIXED_TOWER"];
+  const multiSolidShapes = ["CLUSTER", "PODIUM_TOWER", "TWIN_TOWERS", "TRIPLE_TOWERS", "QUAD_TOWERS", "CAMPUS", "MIXED_COMPLEX", "SKYLINE", "BRIDGE", "ARCH_BRIDGE", "SUSPENSION_BRIDGE", "CABLE_STAY", "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER", "MEGA_TOWER", "SUPERTALL", "MIXED_TOWER", "DAM", "HYDROELECTRIC_PLANT"];
   if (multiSolidShapes.includes(shapeType) && building.geometry2d.polygon) {
     const polygon_mm = building.geometry2d.polygon.map((p) => ({
       x_mm: Math.round(p.x * 1000),
