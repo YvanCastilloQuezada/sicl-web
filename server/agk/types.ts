@@ -1,4 +1,4 @@
-export type AgkFeatureKind = "EXTRUDE_RECTANGLE" | "EXTRUDE_POLYGON" | "EXTRUDE_CIRCLE" | "MULTI_SOLID" | "FLOATING_SLAB" | "EXTRUDE_ARC" | "SLOPED_ROOF" | "VOID_EXTRUSION";
+export type AgkFeatureKind = "EXTRUDE_RECTANGLE" | "EXTRUDE_POLYGON" | "EXTRUDE_CIRCLE" | "MULTI_SOLID" | "FLOATING_SLAB" | "EXTRUDE_ARC" | "SLOPED_ROOF" | "VOID_EXTRUSION" | "OVERHANG" | "BRIDGE";
 
 export type AgkExtrudeRectangleParameters = {
   width_mm: number;
@@ -61,6 +61,41 @@ export interface AgkFeatureMultiSolid {
       y_mm: number;
       z_mm: number;
     }>;
+  };
+  inputFeatureIds: readonly string[];
+}
+
+export interface AgkFeatureOverhang {
+  featureId: string;
+  kind: "OVERHANG";
+  producesObjectId: string;
+  parameters: {
+    width_mm: number;
+    depth_mm: number;
+    height_mm: number;
+    thickness_mm: number;
+    supportId: string;
+    x_mm: number;
+    y_mm: number;
+    z_mm: number;
+  };
+  inputFeatureIds: readonly string[];
+}
+
+export interface AgkFeatureBridge {
+  featureId: string;
+  kind: "BRIDGE";
+  producesObjectId: string;
+  parameters: {
+    width_mm: number;
+    depth_mm: number;
+    height_mm: number;
+    thickness_mm: number;
+    startSupportId: string;
+    endSupportId: string;
+    x_mm: number;
+    y_mm: number;
+    z_mm: number;
   };
   inputFeatureIds: readonly string[];
 }
@@ -128,7 +163,7 @@ export interface AgkFeatureVoidExtrusion {
   inputFeatureIds: readonly string[];
 }
 
-export type AgkFeature = AgkFeatureExtrudeRectangle | AgkFeatureExtrudePolygon | AgkFeatureExtrudeCircle | AgkFeatureMultiSolid | AgkFeatureFloatingSlab | AgkFeatureExtrudeArc | AgkFeatureSlopedRoof | AgkFeatureVoidExtrusion;
+export type AgkFeature = AgkFeatureExtrudeRectangle | AgkFeatureExtrudePolygon | AgkFeatureExtrudeCircle | AgkFeatureMultiSolid | AgkFeatureFloatingSlab | AgkFeatureExtrudeArc | AgkFeatureSlopedRoof | AgkFeatureVoidExtrusion | AgkFeatureOverhang | AgkFeatureBridge;
 
 export interface AgkHostedOffsetConstraint {
   constraintId: string;

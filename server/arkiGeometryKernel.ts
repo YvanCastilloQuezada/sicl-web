@@ -99,6 +99,33 @@ export type AgkGeometry =
       y_mm: number;
       z_mm: number;
       height_mm: number;
+    }
+  | {
+      kind: "OVERHANG";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        thickness_mm: number;
+      };
+      supportId: string;
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "BRIDGE";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        thickness_mm: number;
+      };
+      startSupportId: string;
+      endSupportId: string;
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
     };
 
 export interface AgkOperationalObject {

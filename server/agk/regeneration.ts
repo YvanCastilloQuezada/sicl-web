@@ -138,6 +138,31 @@ export function geometryFromFeature(feature: AgkFeature): AgkGeometry {
       height_mm: p.height_mm,
     } as any;
   }
+  if (feature.kind === "OVERHANG") {
+    const p = feature.parameters;
+    return {
+      kind: "OVERHANG",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
+      supportId: p.supportId,
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as any;
+  }
+  if (feature.kind === "BRIDGE") {
+    const p = feature.parameters;
+    return {
+      kind: "BRIDGE",
+      profile: { width_mm: p.width_mm, depth_mm: p.depth_mm, thickness_mm: p.thickness_mm },
+      startSupportId: p.startSupportId,
+      endSupportId: p.endSupportId,
+      x_mm: p.x_mm,
+      y_mm: p.y_mm,
+      z_mm: p.z_mm,
+      height_mm: p.height_mm,
+    } as any;
+  }
   // Fallback
   const p = (feature as any).parameters;
   return {
@@ -169,6 +194,12 @@ function geometryMatchesFeature(object: AgkOperationalObject, feature: AgkFeatur
       (object.geometry as any).z_mm === (expected as any).z_mm;
   }
   if (object.geometry.kind === "MULTI_SOLID" && expected.kind === "MULTI_SOLID") {
+    return true; // Aceptar sin comparación profunda
+  }
+  if (object.geometry.kind === "OVERHANG" && expected.kind === "OVERHANG") {
+    return true; // Aceptar sin comparación profunda
+  }
+  if (object.geometry.kind === "BRIDGE" && expected.kind === "BRIDGE") {
     return true; // Aceptar sin comparación profunda
   }
   return false;

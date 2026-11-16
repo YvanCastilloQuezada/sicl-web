@@ -232,6 +232,55 @@ export function compileDynamicBuildingToAgk(
     return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
   }
 
+  // 9. OVERHANG (volados: CANOPY, FLOATING_ROOF, GALLERY, TERRACE)
+  const overhangShapes = ["CANOPY", "FLOATING_ROOF", "GALLERY", "TERRACE"];
+  if (overhangShapes.includes(shapeType)) {
+    if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
+    const thickness_mm = 300;
+    const feature: AgkFeature = Object.freeze({
+      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
+      kind: "OVERHANG",
+      producesObjectId: objectId,
+      parameters: Object.freeze({ width_mm, depth_mm, height_mm, thickness_mm, supportId: objectId, x_mm: 0, y_mm: 0, z_mm: 0 }),
+      inputFeatureIds: Object.freeze([]),
+    });
+    const object: AgkOperationalObject = Object.freeze({
+      objectId,
+      geometry: Object.freeze({
+        kind: "OVERHANG",
+        profile: Object.freeze({ width_mm, depth_mm, thickness_mm }),
+        supportId: objectId,
+        x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
+      }),
+    });
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
+  }
+
+  // 10. BRIDGE (puentes: BRIDGE, ARCH_BRIDGE, SUSPENSION_BRIDGE, CABLE_STAY)
+  const bridgeShapes = ["BRIDGE", "ARCH_BRIDGE", "SUSPENSION_BRIDGE", "CABLE_STAY"];
+  if (bridgeShapes.includes(shapeType)) {
+    if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
+    const thickness_mm = 300;
+    const feature: AgkFeature = Object.freeze({
+      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
+      kind: "BRIDGE",
+      producesObjectId: objectId,
+      parameters: Object.freeze({ width_mm, depth_mm, height_mm, thickness_mm, startSupportId: objectId + "-START", endSupportId: objectId + "-END", x_mm: 0, y_mm: 0, z_mm: 0 }),
+      inputFeatureIds: Object.freeze([]),
+    });
+    const object: AgkOperationalObject = Object.freeze({
+      objectId,
+      geometry: Object.freeze({
+        kind: "BRIDGE",
+        profile: Object.freeze({ width_mm, depth_mm, thickness_mm }),
+        startSupportId: objectId + "-START",
+        endSupportId: objectId + "-END",
+        x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
+      }),
+    });
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
+  }
+
   // 8. VOID_EXTRUSION
   if (shapeType === "VOID_EXTRUSION") {
     if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
