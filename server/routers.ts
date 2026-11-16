@@ -721,6 +721,7 @@ export const appRouter = router({
           "GRID_2X2", "GRID_3X3", "RADIAL", "CONCENTRIC",
           "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER",
           "DOME", "VAULT", "CANOPY",
+          "DAM", "SPILLWAY", "CANAL", "AQUEDUCT", "PUMPING_STATION", "HYDROELECTRIC_PLANT", "WATER_TUNNEL", "SEDIMENTATION_BASIN",
         ];
 
         const proposals = Array.from(
