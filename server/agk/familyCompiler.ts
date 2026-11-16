@@ -47,7 +47,7 @@ export function compileDynamicBuildingToAgk(
   // ============================================================
 
   // 1. EXTRUDED_RECTANGLE
-  const rectangleShapes = ["COMPACT", "LINEAR", "RECTANGLE_LONG", "CANOPY"];
+  const rectangleShapes = ["COMPACT", "LINEAR", "RECTANGLE_LONG", "CANOPY", "SQUARE"];
   if (rectangleShapes.includes(shapeType)) {
     if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
     const feature: AgkFeature = Object.freeze({
@@ -122,7 +122,7 @@ export function compileDynamicBuildingToAgk(
   const polygonShapes = [
     "L_SHAPE", "U_SHAPE", "T_SHAPE", "I_SHAPE", "H_SHAPE", "E_SHAPE",
     "COURTYARD", "ATRIUM", "DOUBLE_COURTYARD", "CLOISTER", "TRIPLE_COURTYARD",
-    "QUADRANGLE", "PENTAGON", "HEXAGON", "HEXAGON_IRREGULAR", "OCTAGON", "NONAGON", "DECAGON",
+    "QUADRANGLE", "PENTAGON", "HEXAGON", "HEXAGON_IRREGULAR", "OCTAGON", "NONAGON", "DECAGON", "HEXAGON_IRREGULAR",
     "PODIUM_TOWER", "TWIN_TOWERS", "CAMPUS", "MIXED_COMPLEX", "TRIPLE_TOWERS", "QUAD_TOWERS", "SKYLINE",
     "ELLIPSE", "SPIRAL", "HELIX", "WAVE", "CRESCENT", "RING",
     "ZIGZAG", "BRIDGE", "G_SHAPE", "J_SHAPE", "N_SHAPE",
