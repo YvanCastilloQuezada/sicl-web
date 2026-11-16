@@ -36,16 +36,141 @@ export function compileDynamicBuildingToAgk(
 
   if (!objectId.trim()) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
 
-  // NUEVO: soportar polígonos reales (L_SHAPE, U_SHAPE, CLUSTER, COURTYARD)
-  // NUEVO: FLOATING_SLAB (para cubiertas flotantes)
-  if (building.geometry2d.shapeType === "FLOATING_ROOF") {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    const width_mm = exactMillimetres(building.geometry2d.widthM);
-    const depth_mm = exactMillimetres(building.geometry2d.depthM);
+  const shapeType = building.geometry2d.shapeType;
+  const height_mm = exactMillimetres(building.geometry3d.heightM);
+  if (height_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
+  const width_mm = exactMillimetres(building.geometry2d.widthM);
+  const depth_mm = exactMillimetres(building.geometry2d.depthM);
+
+  // ============================================================
+  // MAPEO EXPLÍCITO DE 120 SHAPES A 8 TIPOS DE FEATURE AGK
+  // ============================================================
+
+  // 1. EXTRUDED_RECTANGLE
+  const rectangleShapes = ["COMPACT", "LINEAR", "RECTANGLE_LONG", "CANOPY"];
+  if (rectangleShapes.includes(shapeType)) {
+    if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
+    const feature: AgkFeature = Object.freeze({
+      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
+      kind: "EXTRUDE_RECTANGLE",
+      producesObjectId: objectId,
+      parameters: Object.freeze({ width_mm, depth_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
+      inputFeatureIds: Object.freeze([]),
+    });
+    const object: AgkOperationalObject = Object.freeze({
+      objectId,
+      geometry: Object.freeze({
+        kind: "EXTRUDED_RECTANGLE",
+        profile: Object.freeze({ width_mm, depth_mm, radius_mm: null }),
+        x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
+      }),
+    });
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
+  }
+
+  // 2. EXTRUDED_POLYGON (para shapes con polygon generado en geometryFor)
+  const polygonShapes = [
+    "L_SHAPE", "U_SHAPE", "T_SHAPE", "I_SHAPE", "H_SHAPE", "E_SHAPE",
+    "COURTYARD", "ATRIUM", "DOUBLE_COURTYARD", "CLOISTER", "TRIPLE_COURTYARD",
+    "QUADRANGLE", "PENTAGON", "HEXAGON", "HEXAGON_IRREGULAR", "OCTAGON", "NONAGON", "DECAGON",
+    "PODIUM_TOWER", "TWIN_TOWERS", "CAMPUS", "MIXED_COMPLEX", "TRIPLE_TOWERS", "QUAD_TOWERS", "SKYLINE",
+    "ELLIPSE", "SPIRAL", "HELIX", "WAVE", "CRESCENT", "RING",
+    "ZIGZAG", "BRIDGE", "G_SHAPE", "J_SHAPE", "N_SHAPE",
+    "A_SHAPE", "C_SHAPE", "K_SHAPE", "M_SHAPE", "V_SHAPE", "W_SHAPE", "Y_SHAPE", "S_SHAPE",
+    "EIGHT_SHAPE", "THREE_SHAPE", "SIX_SHAPE", "NINE_SHAPE",
+    "STAR", "CROSS", "DIAMOND", "TRAPEZOID", "PARALLELOGRAM", "RHOMBUS",
+    "GRID_2X2", "GRID_3X3", "RADIAL", "CONCENTRIC",
+    "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER",
+    "DOME", "VAULT",
+    "Z_SHAPE", "SQUARE", "PATIO_IRREGULAR",
+    "L_TOWER", "T_TOWER", "U_TOWER", "H_TOWER",
+    "PARABOLA", "HYPERBOLA", "SINE_WAVE", "COSINE_WAVE",
+    "STAIRCASE", "RAMP", "TERRACE", "GALLERY",
+    "BASEBALL_DIAMOND", "FOOTBALL_FIELD", "TENNIS_COURT",
+    "B_SHAPE", "D_SHAPE", "F_SHAPE", "L_SHAPE_ALT",
+    "ZERO_SHAPE", "ONE_SHAPE", "TWO_SHAPE", "FOUR_SHAPE",
+    "ELLIPSE_TILTED", "TRAPEZOID_IRREGULAR", "KITE",
+    "MEGA_TOWER", "SUPERTALL", "MIXED_TOWER",
+    "BARREL_VAULT", "HYPAR", "GRID_SHELL",
+    "ARCH_BRIDGE", "SUSPENSION_BRIDGE", "CABLE_STAY",
+    "STADIUM_BOWL", "ARENA_OVAL", "AMPHITHEATER", "HIPPODROME", "VELODROME", "SPORTS_PLEX",
+  ];
+  if (polygonShapes.includes(shapeType) && building.geometry2d.polygon) {
+    const polygon_mm = building.geometry2d.polygon.map((p) => ({
+      x_mm: Math.round(p.x * 1000),
+      y_mm: Math.round(p.y * 1000),
+    }));
+    const voids_mm = (building.geometry2d.voids ?? []).map((v) =>
+      v.map((p) => ({ x_mm: Math.round(p.x * 1000), y_mm: Math.round(p.y * 1000) }))
+    );
+    const feature: AgkFeature = Object.freeze({
+      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
+      kind: "EXTRUDE_POLYGON",
+      producesObjectId: objectId,
+      parameters: Object.freeze({ polygon_mm, voids_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
+      inputFeatureIds: Object.freeze([]),
+    });
+    const object: AgkOperationalObject = Object.freeze({
+      objectId,
+      geometry: Object.freeze({
+        kind: "EXTRUDED_POLYGON",
+        profile: Object.freeze({ polygon_mm, voids_mm }),
+        x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
+      }),
+    });
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
+  }
+
+  // 3. EXTRUDED_CIRCLE
+  const circleShapes = ["CIRCLE", "DOME"];
+  if (circleShapes.includes(shapeType)) {
+    const radius_mm = Math.round(Math.sqrt(building.geometry2d.footprintM2 / Math.PI) * 1000);
+    const feature: AgkFeature = Object.freeze({
+      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
+      kind: "EXTRUDE_CIRCLE",
+      producesObjectId: objectId,
+      parameters: Object.freeze({ radius_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
+      inputFeatureIds: Object.freeze([]),
+    });
+    const object: AgkOperationalObject = Object.freeze({
+      objectId,
+      geometry: Object.freeze({
+        kind: "EXTRUDED_CIRCLE",
+        profile: Object.freeze({ radius_mm }),
+        x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
+      }),
+    });
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
+  }
+
+  // 4. MULTI_SOLID
+  const multiSolidShapes = ["CLUSTER", "PODIUM_TOWER", "TWIN_TOWERS", "TRIPLE_TOWERS", "QUAD_TOWERS", "CAMPUS", "MIXED_COMPLEX", "SKYLINE", "BRIDGE", "ARCH_BRIDGE", "SUSPENSION_BRIDGE", "CABLE_STAY", "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER", "MEGA_TOWER", "SUPERTALL", "MIXED_TOWER"];
+  if (multiSolidShapes.includes(shapeType) && building.geometry2d.polygon) {
+    const polygon_mm = building.geometry2d.polygon.map((p) => ({
+      x_mm: Math.round(p.x * 1000),
+      y_mm: Math.round(p.y * 1000),
+    }));
+    const feature: AgkFeature = Object.freeze({
+      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
+      kind: "MULTI_SOLID",
+      producesObjectId: objectId,
+      parameters: Object.freeze({ solids: [{ width_mm: width_mm ?? 0, depth_mm: depth_mm ?? 0, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }] }),
+      inputFeatureIds: Object.freeze([]),
+    });
+    const object: AgkOperationalObject = Object.freeze({
+      objectId,
+      geometry: Object.freeze({
+        kind: "MULTI_SOLID",
+        solids: [{ width_mm: width_mm ?? 0, depth_mm: depth_mm ?? 0, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }],
+      }),
+    });
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
+  }
+
+  // 5. FLOATING_SLAB
+  if (shapeType === "FLOATING_ROOF" || shapeType === "CANOPY") {
     if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
     const thickness_mm = 300;
-
     const feature: AgkFeature = Object.freeze({
       featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
       kind: "FLOATING_SLAB",
@@ -53,7 +178,6 @@ export function compileDynamicBuildingToAgk(
       parameters: Object.freeze({ width_mm, depth_mm, height_mm, thickness_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
       inputFeatureIds: Object.freeze([]),
     });
-
     const object: AgkOperationalObject = Object.freeze({
       objectId,
       geometry: Object.freeze({
@@ -62,16 +186,12 @@ export function compileDynamicBuildingToAgk(
         x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
       }),
     });
-
     return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
   }
 
-  // NUEVO: EXTRUDED_ARC (para edificios curvos)
-  if (building.geometry2d.shapeType === "ARC") {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
+  // 6. EXTRUDED_ARC
+  if (["ARC", "SPIRAL", "HELIX", "AMPHITHEATER", "BARREL_VAULT", "HYPAR"].includes(shapeType)) {
     const radius_mm = Math.round(Math.sqrt(building.geometry2d.footprintM2 / Math.PI) * 1000);
-
     const feature: AgkFeature = Object.freeze({
       featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
       kind: "EXTRUDE_ARC",
@@ -79,7 +199,6 @@ export function compileDynamicBuildingToAgk(
       parameters: Object.freeze({ radius_mm, startAngle_rad: 0, endAngle_rad: Math.PI, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
       inputFeatureIds: Object.freeze([]),
     });
-
     const object: AgkOperationalObject = Object.freeze({
       objectId,
       geometry: Object.freeze({
@@ -88,19 +207,13 @@ export function compileDynamicBuildingToAgk(
         x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
       }),
     });
-
     return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
   }
 
-  // NUEVO: SLOPED_ROOF (para techos inclinados)
-  if (building.geometry2d.shapeType === "SLOPED_ROOF") {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    const width_mm = exactMillimetres(building.geometry2d.widthM);
-    const depth_mm = exactMillimetres(building.geometry2d.depthM);
+  // 7. SLOPED_ROOF
+  if (shapeType === "SLOPED_ROOF") {
     if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    const slopeAngle_rad = Math.PI / 6; // 30 grados
-
+    const slopeAngle_rad = Math.PI / 6;
     const feature: AgkFeature = Object.freeze({
       featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
       kind: "SLOPED_ROOF",
@@ -108,7 +221,6 @@ export function compileDynamicBuildingToAgk(
       parameters: Object.freeze({ width_mm, depth_mm, height_mm, slopeAngle_rad, x_mm: 0, y_mm: 0, z_mm: 0 }),
       inputFeatureIds: Object.freeze([]),
     });
-
     const object: AgkOperationalObject = Object.freeze({
       objectId,
       geometry: Object.freeze({
@@ -117,23 +229,15 @@ export function compileDynamicBuildingToAgk(
         x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
       }),
     });
-
     return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
   }
 
-  // NUEVO: VOID_EXTRUSION (para patios interiores complejos)
-  if (building.geometry2d.shapeType === "VOID_EXTRUSION") {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    const width_mm = exactMillimetres(building.geometry2d.widthM);
-    const depth_mm = exactMillimetres(building.geometry2d.depthM);
+  // 8. VOID_EXTRUSION
+  if (shapeType === "VOID_EXTRUSION") {
     if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-
     const outerPolygon_mm = [
-      { x_mm: 0, y_mm: 0 },
-      { x_mm: width_mm, y_mm: 0 },
-      { x_mm: width_mm, y_mm: depth_mm },
-      { x_mm: 0, y_mm: depth_mm },
+      { x_mm: 0, y_mm: 0 }, { x_mm: width_mm, y_mm: 0 },
+      { x_mm: width_mm, y_mm: depth_mm }, { x_mm: 0, y_mm: depth_mm },
     ];
     const innerPolygons_mm = [[
       { x_mm: Math.round(width_mm * 0.3), y_mm: Math.round(depth_mm * 0.3) },
@@ -141,7 +245,6 @@ export function compileDynamicBuildingToAgk(
       { x_mm: Math.round(width_mm * 0.7), y_mm: Math.round(depth_mm * 0.7) },
       { x_mm: Math.round(width_mm * 0.3), y_mm: Math.round(depth_mm * 0.7) },
     ]];
-
     const feature: AgkFeature = Object.freeze({
       featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
       kind: "VOID_EXTRUSION",
@@ -149,7 +252,6 @@ export function compileDynamicBuildingToAgk(
       parameters: Object.freeze({ outerPolygon_mm, innerPolygons_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
       inputFeatureIds: Object.freeze([]),
     });
-
     const object: AgkOperationalObject = Object.freeze({
       objectId,
       geometry: Object.freeze({
@@ -158,114 +260,18 @@ export function compileDynamicBuildingToAgk(
         x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
       }),
     });
-
     return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
   }
 
-  // NUEVO: EXTRUDED_CIRCLE (para estadios, arenas, cúpulas)
-  if (building.geometry2d.shapeType === "CIRCLE") {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) {
-      return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    }
-    const radius_mm = Math.round(Math.sqrt(building.geometry2d.footprintM2 / Math.PI) * 1000);
-
-    const feature: AgkFeature = Object.freeze({
-      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
-      kind: "EXTRUDE_CIRCLE",
-      producesObjectId: objectId,
-      parameters: Object.freeze({ radius_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
-      inputFeatureIds: Object.freeze([]),
-    });
-
-    const object: AgkOperationalObject = Object.freeze({
-      objectId,
-      geometry: Object.freeze({
-        kind: "EXTRUDED_CIRCLE",
-        profile: Object.freeze({ radius_mm }),
-        x_mm: 0,
-        y_mm: 0,
-        z_mm: 0,
-        height_mm,
-      }),
-    });
-
-    return {
-      ok: true,
-      object,
-      feature,
-      causalModel: Object.freeze({
-        features: Object.freeze([feature]),
-        constraints: Object.freeze([]),
-      }),
-    };
-  }
-
-  // NUEVO: MULTI_SOLID (para clusters de edificios)
-  if (building.geometry2d.shapeType === "CLUSTER") {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) {
-      return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    }
-    const width_mm = exactMillimetres(building.geometry2d.widthM);
-    const depth_mm = exactMillimetres(building.geometry2d.depthM);
-    if (width_mm === null || depth_mm === null) {
-      return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    }
-
-    // Dos bloques: uno a la izquierda y otro a la derecha
-    const blockW = Math.round(width_mm * 0.45);
-    const blockD = Math.round(depth_mm * 0.45);
-    const solids = [
-      { width_mm: blockW, depth_mm: blockD, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 },
-      { width_mm: blockW, depth_mm: blockD, height_mm, x_mm: width_mm - blockW, y_mm: depth_mm - blockD, z_mm: 0 },
-    ];
-
-    const feature: AgkFeature = Object.freeze({
-      featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
-      kind: "MULTI_SOLID",
-      producesObjectId: objectId,
-      parameters: Object.freeze({ solids }),
-      inputFeatureIds: Object.freeze([]),
-    });
-
-    const object: AgkOperationalObject = Object.freeze({
-      objectId,
-      geometry: Object.freeze({
-        kind: "MULTI_SOLID",
-        solids,
-      }),
-    });
-
-    return {
-      ok: true,
-      object,
-      feature,
-      causalModel: Object.freeze({
-        features: Object.freeze([feature]),
-        constraints: Object.freeze([]),
-      }),
-    };
-  }
-
-  if (building.geometry2d.polygon && building.geometry2d.polygon.length >= 3) {
-    const height_mm = exactMillimetres(building.geometry3d.heightM);
-    if (height_mm === null) {
-      return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
-    }
-
+  // Fallback: si el shape no está en ninguna lista, usar EXTRUDED_POLYGON o EXTRUDED_RECTANGLE
+  if (building.geometry2d.polygon) {
     const polygon_mm = building.geometry2d.polygon.map((p) => ({
       x_mm: Math.round(p.x * 1000),
       y_mm: Math.round(p.y * 1000),
     }));
-
-    const voids_mm = (building.geometry2d.voids ?? []).map((voidPolygon) =>
-      voidPolygon.map((p) => ({
-        x_mm: Math.round(p.x * 1000),
-        y_mm: Math.round(p.y * 1000),
-      }))
+    const voids_mm = (building.geometry2d.voids ?? []).map((v) =>
+      v.map((p) => ({ x_mm: Math.round(p.x * 1000), y_mm: Math.round(p.y * 1000) }))
     );
-
     const feature: AgkFeature = Object.freeze({
       featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
       kind: "EXTRUDE_POLYGON",
@@ -273,50 +279,19 @@ export function compileDynamicBuildingToAgk(
       parameters: Object.freeze({ polygon_mm, voids_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
       inputFeatureIds: Object.freeze([]),
     });
-
     const object: AgkOperationalObject = Object.freeze({
       objectId,
       geometry: Object.freeze({
         kind: "EXTRUDED_POLYGON",
         profile: Object.freeze({ polygon_mm, voids_mm }),
-        x_mm: 0,
-        y_mm: 0,
-        z_mm: 0,
-        height_mm,
+        x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
       }),
     });
-
-    return {
-      ok: true,
-      object,
-      feature,
-      causalModel: Object.freeze({
-        features: Object.freeze([feature]),
-        constraints: Object.freeze([]),
-      }),
-    };
+    return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
   }
 
-
-  // AGK-003 first vertical slice: rectangular/linear conceptual mass only.
-  // Courtyard, arena and podium/tower strategies require multiple solids /
-  // void semantics and must not be silently flattened to one rectangle.
-  // COMPACT sin polígono se trata como rectángulo (fallback).
-  // COMPACT y LINEAR se tratan como rectángulos
-  if (building.geometry2d.type !== "LINEAR_MASS" && building.geometry2d.shapeType !== "COMPACT" && building.geometry2d.shapeType !== "LINEAR") {
-    return { ok: false, code: "FAMILY_GEOMETRY_STRATEGY_UNSUPPORTED" };
-  }
-
-  const width_mm = exactMillimetres(building.geometry2d.widthM);
-  const depth_mm = exactMillimetres(building.geometry2d.depthM);
-  const height_mm = exactMillimetres(building.geometry3d.heightM);
-  if (width_mm === null || depth_mm === null || height_mm === null) {
-    const raw = [building.geometry2d.widthM, building.geometry2d.depthM, building.geometry3d.heightM];
-    return { ok: false, code: raw.some(v => !Number.isFinite(v) || v <= 0)
-      ? "FAMILY_DIMENSION_INVALID"
-      : "FAMILY_UNIT_PRECISION_UNSUPPORTED" };
-  }
-
+  // Fallback final: EXTRUDED_RECTANGLE
+  if (width_mm === null || depth_mm === null) return { ok: false, code: "FAMILY_DIMENSION_INVALID" };
   const feature: AgkFeature = Object.freeze({
     featureId: `family:${building.familyId}:${building.variantId}:${objectId}`,
     kind: "EXTRUDE_RECTANGLE",
@@ -324,7 +299,6 @@ export function compileDynamicBuildingToAgk(
     parameters: Object.freeze({ width_mm, depth_mm, height_mm, x_mm: 0, y_mm: 0, z_mm: 0 }),
     inputFeatureIds: Object.freeze([]),
   });
-
   const object: AgkOperationalObject = Object.freeze({
     objectId,
     geometry: Object.freeze({
@@ -333,11 +307,5 @@ export function compileDynamicBuildingToAgk(
       x_mm: 0, y_mm: 0, z_mm: 0, height_mm,
     }),
   });
-
-  return {
-    ok: true,
-    object,
-    feature,
-    causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }),
-  };
+  return { ok: true, object, feature, causalModel: Object.freeze({ features: Object.freeze([feature]), constraints: Object.freeze([]) }) };
 }
