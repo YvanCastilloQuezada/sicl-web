@@ -2242,7 +2242,7 @@ export function generateDynamicBuilding(input: { familyId: string; variantId: st
   const maintenanceCost = Number((builtArea * 0.02).toFixed(2));
   const lifecycleCost = Number((estimatedCostUsdConceptual + maintenanceCost * 30).toFixed(2));
   const resilienceScore = 0.75;
-  const biophilicScore = Number((geometry2d.courtyardM2 ?? 0) / geometry2d.footprintM2).toFixed(2);
+  const biophilicScore = Number((geometry2d.courtyardM2 ?? 0) / geometry2d.footprintM2);
   const circulationEfficiency = 0.85;
   const programCompliance = 0.9;
 

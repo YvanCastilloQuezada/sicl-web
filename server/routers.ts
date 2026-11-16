@@ -948,7 +948,14 @@ export const appRouter = router({
             height: p.metrics.heightM,
             capacity: p.metrics.capacity,
             cost: p.metrics.estimatedCostUsdConceptual,
-          },
+            footprintM2: p.metrics.builtAreaM2 ?? 0,
+            builtAreaM2: p.metrics.builtAreaM2 ?? 0,
+            estimatedCostUsdConceptual: p.metrics.estimatedCostUsdConceptual ?? 0,
+            efficiencyRatio: 1,
+            costPerM2: 0,
+            capacityPerM2: 0,
+            complianceScore: 1,
+          } as any,
           epistemic: {
             facts: [],
             assumptions: [],
@@ -964,7 +971,7 @@ export const appRouter = router({
           // NUEVO: geometría AGK (autoridad geométrica única)
           agk: p.agkCompilation.object,
           agkFeature: p.agkCompilation.feature,
-        }));
+        })) as any as DesignCandidate[];
 
         const screening = arkiArchitectDecision(designCandidates, projectConstraints);
 

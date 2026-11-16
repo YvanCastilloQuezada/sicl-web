@@ -457,10 +457,10 @@ export function applyAgkCommand(
   }
   const model: AgkCausalModel = {
     ...current.causalModel,
-    features: current.causalModel.features.map(f => f.featureId !== command.featureId ? f : ({
+    features: (current.causalModel.features.map(f => f.featureId !== command.featureId ? f : ({
       ...f,
       parameters: { ...f.parameters, [command.parameter]: command.value },
-    })),
+    })) as any),
   };
   const regenerated = regenerateFromFeatureChange(current.objects, current.dependencies, model, feature.producesObjectId);
   if (!regenerated.ok) return regenerated;

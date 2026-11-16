@@ -315,7 +315,7 @@ export function regenerateFromFeatureChange(
   }
   const order=topo(model.features,selected);
   const nextFeatures = new Map(model.features.map(f=>[f.featureId,{...f,parameters:{...f.parameters},inputFeatureIds:[...f.inputFeatureIds]}]));
-  const nextObjects=new Map(objects.map(o=>[o.objectId,{...o,geometry:{...o.geometry,profile:{...o.geometry.profile}}}]));
+  const nextObjects=new Map(objects.map(o=>[o.objectId,{...o,geometry:{...o.geometry,profile:{...(o.geometry as any).profile}}}]));
   const regenerated:string[]=[];
 
   for(const fid of order){
@@ -332,7 +332,7 @@ export function regenerateFromFeatureChange(
       (f.parameters as any).z_mm += translationDelta.z;
     }
     const obj=nextObjects.get(f.producesObjectId)!;
-    obj.geometry=geometryFromFeature(f);
+    obj.geometry=geometryFromFeature(f as any) as any;
     regenerated.push(obj.objectId);
   }
 
