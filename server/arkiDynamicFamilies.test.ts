@@ -82,7 +82,7 @@ describe("ARKI dynamic building family generator", () => {
 
   it("generates every registered family and every variant with governed three-view output", () => {
     const families = DYNAMIC_BUILDING_FAMILIES;
-    expect(families).toHaveLength(40);
+    expect(families).toHaveLength(41);
     const generated = families.flatMap((family) => family.variants.map((variant) => generateDynamicBuilding({ familyId: family.id, variantId: variant.id, context: { country: "PE", region: "Loreto", city: "Iquitos", climate: "tropical_humedo", seismicZone: "2", jurisdiction: "RNE-PE" } })));
     expect(generated.length).toBeGreaterThanOrEqual(100);
     for (const building of generated) {

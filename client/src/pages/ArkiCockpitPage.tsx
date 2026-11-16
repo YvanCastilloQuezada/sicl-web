@@ -453,6 +453,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               'MEGA_TOWER', 'SUPERTALL', 'MIXED_TOWER',
               'BARREL_VAULT', 'HYPAR', 'GRID_SHELL',
               'ARCH_BRIDGE', 'SUSPENSION_BRIDGE', 'CABLE_STAY',
+              'DAM', 'SPILLWAY', 'CANAL', 'AQUEDUCT', 'PUMPING_STATION', 'HYDROELECTRIC_PLANT', 'WATER_TUNNEL', 'SEDIMENTATION_BASIN',
             ]));
 
             // Redirigir a la página del Funnel Real
