@@ -318,6 +318,15 @@ export default function ArkiDesignFunnelPage() {
   const [selected, setSelected] = useState<string[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const [mode, setMode] = useState<ComparisonMode>("PREVIEW");
+  const [availableShapes, setAvailableShapes] = useState<string[]>([]);
+
+  // Cargar los 120 shapes desde sessionStorage
+  useEffect(() => {
+    const shapes = sessionStorage.getItem('arki_shapes');
+    if (shapes) {
+      try { setAvailableShapes(JSON.parse(shapes)); } catch {}
+    }
+  }, []);
   const [notice, setNotice] = useState("Selección humana requerida. ARKI no elige ganadores automáticamente.");
   const [reason, setReason] = useState("");
   const [revision, setRevision] = useState(1);
@@ -730,6 +739,20 @@ export default function ArkiDesignFunnelPage() {
     informationPanel={<div className="space-y-2 text-[9px] text-[#8fa8bc]"><div className="font-bold text-[#7dd3fc]">ACTIVE CONTEXT</div><div>Alternative: <b className="text-[#e8f1f7]">{active ? displayId(active.id,state.candidates) : "—"}</b></div><div>Representation: <b className="break-all text-[#e8f1f7]">{selectedRepresentation?.id ?? "UNKNOWN"}</b></div><div>Site: <b className="text-[#e8f1f7]">{siteLocation ? "CONFIRMED" : "UNKNOWN"}</b></div><div>Missing site variables: <b className="text-[#f0a35b]">{siteMissing ? siteMissing.variables.filter(v=>v.state==="MISSING").length : "UNKNOWN"}</b></div></div>}
     controlsPanel={<div className="space-y-2 text-[9px]"><div className="font-bold text-[#d4ff3a]">SELECTION</div>{selectedElement ? <><div className="text-[#e8f1f7]">{selectedElement.element_type}</div><div className="break-all text-[#8fa8bc]">{selectedElement.id}</div><div className="grid grid-cols-2 gap-1 pt-1">{["Properties","Geometry","Relations","Parameters"].map(label=><button key={label} className="rounded border border-[#28445b] bg-[#07121e] px-2 py-1.5 text-left text-[#9eb5c4] hover:border-[#d4ff3a]">{label}</button>)}</div><div className="mt-2 rounded border border-[#f0a35b]/40 bg-[#2b2118] p-2 text-[#f6d3aa]">Modification controls are proposal/preview only until an explicit governed commit path exists.</div></> : <div className="text-[#8fa8bc]">Selecciona un elemento canónico en Planta o 3D para activar sus controles.</div>}</div>}
     bottomSummary={active ? <div className="flex gap-4 text-[9px] text-[#8fa8bc]"><span>Candidate <b className="text-[#e8f1f7]">{displayId(active.id,state.candidates)}</b></span><span>Cost revision <b className="text-[#e8f1f7]">{revision}</b></span><span>Canonical geometry <b className={selectedRepresentation ? "text-[#70e1a2]" : "text-[#f0a35b]"}>{selectedRepresentation ? "AVAILABLE" : "UNKNOWN"}</b></span></div> : undefined}><main className="min-h-full bg-[#061522] px-4 py-5 text-[#d7e8f2] md:px-6"><header className="mx-auto max-w-[1500px] border-b border-[#28445b] pb-4"><div className="flex items-center justify-between gap-4"><div><div className="text-[10px] font-semibold uppercase tracking-[.24em] text-[#d4ff3a]">ARKI · Arquitectura predictiva S1 + S2</div><h1 className="mt-1 text-2xl font-semibold tracking-tight">Embudo de diseño</h1><p className="text-sm text-[#9eb5c4]">Global a la izquierda · arquitectura al centro · detalle contextual a la derecha.</p></div><Badge className="border-[#d4ff3a]/40 bg-[#102538] text-[#d4ff3a]">MANIAC · fail-closed</Badge></div><div className="mt-4"><Status state={state} /></div>
+              {availableShapes.length > 0 && (
+                <div className="mt-4 rounded border border-[#28445b] bg-[#0d1d2c] p-3">
+                  <div className="text-[10px] font-bold tracking-[.16em] text-[#7dd3fc]">
+                    SHAPES DISPONIBLES ({availableShapes.length})
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {availableShapes.map((shape) => (
+                      <span key={shape} className="rounded border border-[#28445b] bg-[#071726] px-1.5 py-0.5 text-[9px] text-[#9eb5c4]">
+                        {shape}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
   {state.candidates.length === 0 && (
     <div className="mx-auto mt-4 max-w-[1500px] rounded border border-[#f0a35b]/40 bg-[#2b2118] p-4 text-sm text-[#f6d3aa]">
       No hay propuestas generadas para este proyecto. Identifica el proyecto, confirma el sitio y ejecuta el generador real. No se mostrarán candidatos ficticios.

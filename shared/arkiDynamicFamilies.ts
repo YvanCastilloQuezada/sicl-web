@@ -226,7 +226,7 @@ const ADDITIONAL_DYNAMIC_FAMILIES: DynamicBuildingFamily[] = [
   ] }),
 
 
-  makeAdditionalFamily({ id: "FAM-MILITARY", name: "Militar", category: "OFFICES", description: "Bases, cuarteles, centros de mando y instalaciones de defensa.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", tags: ["militar", "defensa", "base", "cuartel"], primary: ["operaciones", "alojamiento", "entrenamiento", "logística"], services: ["comunicaciones", "armamento", "mantenimiento", "seguridad"], variants: [
+  makeAdditionalFamily({ id: "FAM-MILITARY", name: "Militar", category: "OFFICES", description: "Bases, cuarteles, centros de mando y instalaciones de defensa.", geometryStrategy: "LINEAR_MASS", defaultShapeType: "COMPACT", defaultShapeType: "COMPACT", tags: ["militar", "defensa", "base", "cuartel"], primary: ["operaciones", "alojamiento", "entrenamiento", "logística"], services: ["comunicaciones", "armamento", "mantenimiento", "seguridad"], variants: [
     { id: "BASE", name: "Base militar", description: "Base con alojamiento, operaciones y logística.", tags: ["base"], extra: ["hangares", "polígono de tiro", "barracones"], modifiers: { areaM2: 50000, capacity: 2000, floors: 3 } },
     { id: "BARRACKS_MIL", name: "Cuartel militar", description: "Cuartel con alojamiento y entrenamiento.", tags: ["cuartel"], extra: ["dormitorios", "campo de entrenamiento", "armería"], modifiers: { areaM2: 20000, capacity: 800, floors: 4 } },
     { id: "COMMAND_CENTER_MIL", name: "Centro de mando militar", description: "Centro de operaciones y comunicaciones seguras.", tags: ["mando"], extra: ["sala de crisis", "comunicaciones encriptadas", "búnker"], modifiers: { areaM2: 8000, capacity: 200, floors: 2 } },

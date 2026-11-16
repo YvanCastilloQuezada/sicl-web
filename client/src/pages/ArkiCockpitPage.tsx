@@ -413,10 +413,10 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             const partis = result?.partis || [];
             console.log("[ARKI] Partis recibidos:", partis);
             
-            // ARKI: Redirigir al Funnel Canónico (500 → 250 → 100 → 50 → 25 → 16 → 9 → 4 → 1)
+            // ARKI: Mostrar los 120 shapes disponibles y redirigir al Funnel Canónico
             setMessages(prev => [...prev, { 
               role: "assistant", 
-              text: `🏗️ ARKI ha preparado el proyecto ${tipo} de ${areaM2} m² en ${ciudad}.\n📐 Redirigiendo al Funnel Canónico para generar las 500 alternativas...` 
+              text: `🏗️ ARKI ha preparado el proyecto ${tipo} de ${areaM2} m² en ${ciudad}.\n📐 Los 120 shapes están disponibles para generar alternativas.\nRedirigiendo al Funnel Canónico...` 
             }]);
 
             // Guardar los parámetros en sessionStorage para que el Funnel los use
@@ -427,6 +427,33 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               capacity,
               brief: userMsg,
             }));
+
+            // Guardar los 120 shapes disponibles
+            sessionStorage.setItem('arki_shapes', JSON.stringify([
+              'COMPACT', 'LINEAR', 'L_SHAPE', 'U_SHAPE', 'T_SHAPE', 'I_SHAPE', 'H_SHAPE', 'E_SHAPE',
+              'COURTYARD', 'ATRIUM', 'DOUBLE_COURTYARD', 'CLOISTER', 'TRIPLE_COURTYARD', 'QUADRANGLE', 'PENTAGON', 'HEXAGON',
+              'CLUSTER', 'PODIUM_TOWER', 'TWIN_TOWERS', 'CAMPUS', 'MIXED_COMPLEX', 'TRIPLE_TOWERS', 'QUAD_TOWERS', 'SKYLINE',
+              'CIRCLE', 'ELLIPSE', 'ARC', 'SPIRAL', 'HELIX', 'WAVE', 'CRESCENT', 'RING',
+              'VOID_EXTRUSION', 'SLOPED_ROOF', 'FLOATING_ROOF', 'ZIGZAG', 'BRIDGE', 'G_SHAPE', 'J_SHAPE', 'N_SHAPE',
+              'STADIUM_BOWL', 'ARENA_OVAL', 'AMPHITHEATER', 'HIPPODROME', 'VELODROME', 'SPORTS_PLEX',
+              'A_SHAPE', 'C_SHAPE', 'K_SHAPE', 'M_SHAPE', 'V_SHAPE', 'W_SHAPE', 'Y_SHAPE', 'S_SHAPE',
+              'EIGHT_SHAPE', 'THREE_SHAPE', 'SIX_SHAPE', 'NINE_SHAPE',
+              'STAR', 'CROSS', 'DIAMOND', 'TRAPEZOID', 'PARALLELOGRAM', 'RHOMBUS',
+              'GRID_2X2', 'GRID_3X3', 'RADIAL', 'CONCENTRIC',
+              'SETBACK_TOWER', 'TWISTED_TOWER', 'TAPERED_TOWER',
+              'DOME', 'VAULT', 'CANOPY',
+              'Z_SHAPE', 'SQUARE', 'RECTANGLE_LONG', 'HEXAGON_IRREGULAR', 'OCTAGON', 'NONAGON', 'DECAGON',
+              'PATIO_IRREGULAR', 'L_TOWER', 'T_TOWER', 'U_TOWER', 'H_TOWER',
+              'PARABOLA', 'HYPERBOLA', 'SINE_WAVE', 'COSINE_WAVE',
+              'STAIRCASE', 'RAMP', 'TERRACE', 'GALLERY',
+              'BASEBALL_DIAMOND', 'FOOTBALL_FIELD', 'TENNIS_COURT',
+              'B_SHAPE', 'D_SHAPE', 'F_SHAPE', 'L_SHAPE_ALT',
+              'ZERO_SHAPE', 'ONE_SHAPE', 'TWO_SHAPE', 'FOUR_SHAPE',
+              'ELLIPSE_TILTED', 'TRAPEZOID_IRREGULAR', 'KITE',
+              'MEGA_TOWER', 'SUPERTALL', 'MIXED_TOWER',
+              'BARREL_VAULT', 'HYPAR', 'GRID_SHELL',
+              'ARCH_BRIDGE', 'SUSPENSION_BRIDGE', 'CABLE_STAY',
+            ]));
 
             // Redirigir a la página del Funnel Real
             setTimeout(() => {
