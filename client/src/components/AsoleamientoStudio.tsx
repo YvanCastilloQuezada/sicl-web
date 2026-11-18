@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Sun, MapPin, Calendar, Clock, Info } from "lucide-react";
-import { getAllUbigeoLocations, getUbigeoByLabel, type UbigeoLocation } from "@/../shared/arkiUbigeoMap";
-import { computeSolarPositionClient, type SolarInput } from "@/../shared/arkiSolarUtils";
+import { getAllUbigeoLocations, getUbigeoByLabel, type UbigeoLocation } from "../../shared/arkiUbigeoMap";
+import { computeSolarPositionClient, type SolarInput } from "../../shared/arkiSolarUtils";
 
 interface AsoleamientoStudioProps {
   isOpen: boolean;
