@@ -2,9 +2,9 @@ import { useState, useEffect, useMemo } from "react";
 import { X, Sun, MapPin, Calendar, Clock, Info, Search } from "lucide-react";
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { getAllUbigeoLocations, type UbigeoLocation } from "../../shared/arkiUbigeoMap";
-import { UBIGEO_HIERARCHY, getProvinces, getDistricts, findLocation } from "../../shared/arkiUbigeoHierarchy";
-import { computeSolarPositionClient, type SolarInput } from "../../shared/arkiSolarUtils";
+import { getAllUbigeoLocations, type UbigeoLocation } from "../../../shared/arkiUbigeoMap";
+import { UBIGEO_HIERARCHY, getProvinces, getDistricts, findLocation } from "../../../shared/arkiUbigeoHierarchy";
+import { computeSolarPositionClient, type SolarInput } from "../../../shared/arkiSolarUtils";
 
 // Fix para iconos de Leaflet en Webpack/Vite
 import L from "leaflet";
