@@ -1,38 +1,126 @@
-import { useState, useEffect } from "react";
-import { X, Sun, MapPin, Calendar, Clock, Info } from "lucide-react";
-import { getAllUbigeoLocations, getUbigeoByLabel, type UbigeoLocation } from "../../../shared/arkiUbigeoMap";
-import { computeSolarPositionClient, type SolarInput } from "../../../shared/arkiSolarUtils";
+import { useState, useEffect, useMemo } from "react";
+import { X, Sun, MapPin, Calendar, Clock, Info, Search } from "lucide-react";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import { getAllUbigeoLocations, type UbigeoLocation } from "../../shared/arkiUbigeoMap";
+import { UBIGEO_HIERARCHY, getProvinces, getDistricts, findLocation } from "../../shared/arkiUbigeoHierarchy";
+import { computeSolarPositionClient, type SolarInput } from "../../shared/arkiSolarUtils";
+
+// Fix para iconos de Leaflet en Webpack/Vite
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+// @ts-ignore
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
 
 interface AsoleamientoStudioProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+function MapClickHandler({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) {
+  useMapEvents({
+    click(e) {
+      onMapClick(e.latlng.lat, e.latlng.lng);
+    },
+  });
+  return null;
+}
+
+function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
 export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStudioProps) {
-  const [locations, setLocations] = useState<UbigeoLocation[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<UbigeoLocation | null>(null);
+  const [department, setDepartment] = useState<string>("");
+  const [province, setProvince] = useState<string>("");
+  const [district, setDistrict] = useState<string>("");
   const [date, setDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [time, setTime] = useState<string>("12:00");
-  const [solarData, setSolarData] = useState<any>(null);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([-9.19, -75.01]); // Centro de Perú
+  const [markerPos, setMarkerPos] = useState<[number, number] | null>(null);
+
+  const departments = useMemo(() => Object.keys(UBIGEO_HIERARCHY).sort(), []);
+  const provinces = useMemo(() => (department ? getProvinces(department) : []), [department]);
+  const districts = useMemo(() => (department && province ? getDistricts(department, province) : []), [department, province]);
 
   useEffect(() => {
-    setLocations(getAllUbigeoLocations());
-    // Default a Trujillo (ciudad del autor) o Lima
-    const defaultLoc = getUbigeoByLabel("Trujillo, La Libertad") || getAllUbigeoLocations()[0];
-    setSelectedLocation(defaultLoc);
+    // Default: Trujillo
+    const defaultLoc = getAllUbigeoLocations().find((l) => l.id === "trujillo") || getAllUbigeoLocations()[0];
+    if (defaultLoc) {
+      setSelectedLocation(defaultLoc);
+      setDepartment(defaultLoc.department);
+      setProvince(defaultLoc.province);
+      setDistrict(defaultLoc.district);
+      setMapCenter([defaultLoc.latitude, defaultLoc.longitude]);
+      setMarkerPos([defaultLoc.latitude, defaultLoc.longitude]);
+    }
   }, []);
 
-  useEffect(() => {
-    if (selectedLocation && date && time) {
-      const input: SolarInput = {
-        latitude: selectedLocation.latitude,
-        longitude: selectedLocation.longitude,
-        timezoneOffset: selectedLocation.timezoneOffset,
-        datetime: `${date}T${time}:00`,
-      };
-      const pos = computeSolarPositionClient(input);
-      setSolarData(pos);
+  const handleMapClick = (lat: number, lng: number) => {
+    setMarkerPos([lat, lng]);
+    // Encontrar la localidad Ubigeo más cercana
+    const allLocs = getAllUbigeoLocations();
+    let nearest = allLocs[0];
+    let minDist = Infinity;
+    for (const loc of allLocs) {
+      const dist = haversineDistance(lat, lng, loc.latitude, loc.longitude);
+      if (dist < minDist) {
+        minDist = dist;
+        nearest = loc;
+      }
     }
+    if (nearest) {
+      setSelectedLocation(nearest);
+      setDepartment(nearest.department);
+      setProvince(nearest.province);
+      setDistrict(nearest.district);
+    }
+  };
+
+  const handleDepartmentChange = (dept: string) => {
+    setDepartment(dept);
+    setProvince("");
+    setDistrict("");
+    setSelectedLocation(null);
+  };
+
+  const handleProvinceChange = (prov: string) => {
+    setProvince(prov);
+    setDistrict("");
+    setSelectedLocation(null);
+  };
+
+  const handleDistrictChange = (dist: string) => {
+    setDistrict(dist);
+    const loc = findLocation(department, province, dist);
+    if (loc) {
+      setSelectedLocation(loc);
+      setMapCenter([loc.latitude, loc.longitude]);
+      setMarkerPos([loc.latitude, loc.longitude]);
+    }
+  };
+
+  const solarData = useMemo(() => {
+    if (!selectedLocation || !date || !time) return null;
+    const input: SolarInput = {
+      latitude: selectedLocation.latitude,
+      longitude: selectedLocation.longitude,
+      timezoneOffset: selectedLocation.timezoneOffset,
+      datetime: `${date}T${time}:00`,
+    };
+    return computeSolarPositionClient(input);
   }, [selectedLocation, date, time]);
 
   if (!isOpen) return null;
@@ -48,9 +136,9 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+      <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-700">
+        <div className="flex items-center justify-between p-6 border-b border-slate-700 sticky top-0 bg-slate-900 z-10">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-yellow-500/20 rounded-lg">
               <Sun className="w-6 h-6 text-yellow-400" />
@@ -66,32 +154,78 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
         </div>
 
         {/* Content */}
-        <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left: Controls */}
-          <div className="space-y-6">
-            <div>
-              <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
-                <MapPin className="w-4 h-4" /> Ubicación (Ubigeo Perú)
-              </label>
-              <select
-                value={selectedLocation?.label || ""}
-                onChange={(e) => setSelectedLocation(getUbigeoByLabel(e.target.value) || null)}
-                className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
-              >
-                {locations.map((loc) => (
-                  <option key={loc.label} value={loc.label}>
-                    {loc.label}
-                  </option>
-                ))}
-              </select>
-              {selectedLocation && (
-                <p className="text-xs text-slate-500 mt-1">
-                  Lat: {selectedLocation.latitude}° | Lon: {selectedLocation.longitude}° | Alt: Uso de capital provincial
-                </p>
-              )}
+        <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left: Map + Selects */}
+          <div className="space-y-4">
+            {/* Map */}
+            <div className="h-[300px] w-full rounded-lg overflow-hidden border border-slate-700 relative">
+              <MapContainer center={mapCenter} zoom={6} className="h-full w-full" scrollWheelZoom={true}>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <MapClickHandler onMapClick={handleMapClick} />
+                {markerPos && <Marker position={markerPos} />}
+              </MapContainer>
+              <div className="absolute top-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-xs text-slate-300 pointer-events-none">
+                Click en el mapa para seleccionar ubicación
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            {/* Cascading Selects */}
+            <div className="grid grid-cols-3 gap-2">
+              <div>
+                <label className="text-xs text-slate-400 mb-1 block">Región</label>
+                <select
+                  value={department}
+                  onChange={(e) => handleDepartmentChange(e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:ring-1 focus:ring-yellow-500"
+                >
+                  <option value="">Seleccionar...</option>
+                  {departments.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-slate-400 mb-1 block">Provincia</label>
+                <select
+                  value={province}
+                  onChange={(e) => handleProvinceChange(e.target.value)}
+                  disabled={!department}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:ring-1 focus:ring-yellow-500 disabled:opacity-50"
+                >
+                  <option value="">Seleccionar...</option>
+                  {provinces.map((p) => (
+                    <option key={p} value={p}>{p}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="text-xs text-slate-400 mb-1 block">Distrito</label>
+                <select
+                  value={district}
+                  onChange={(e) => handleDistrictChange(e.target.value)}
+                  disabled={!province}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:ring-1 focus:ring-yellow-500 disabled:opacity-50"
+                >
+                  <option value="">Seleccionar...</option>
+                  {districts.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {selectedLocation && (
+              <div className="text-xs text-slate-500 flex items-center gap-1">
+                <MapPin className="w-3 h-3" />
+                {selectedLocation.label} (Lat: {selectedLocation.latitude}°, Lon: {selectedLocation.longitude}°)
+              </div>
+            )}
+
+            {/* Date & Time */}
+            <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
                   <Calendar className="w-4 h-4" /> Fecha
@@ -115,71 +249,65 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
                 />
               </div>
             </div>
-
-            <div className="bg-slate-800/50 rounded-lg p-4 border border-slate-700">
-              <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
-                <Info className="w-4 h-4" /> Datos Solares Calculados
-              </h3>
-              {solarData ? (
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-xs text-slate-500">Elevación</p>
-                    <p className="text-2xl font-bold text-white">{solarData.elevation}°</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Azimut</p>
-                    <p className="text-2xl font-bold text-white">{solarData.azimuth}°</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Declinación</p>
-                    <p className="text-lg font-semibold text-slate-300">{solarData.declination}°</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-slate-500">Estado</p>
-                    <p className={`text-lg font-semibold ${status.color}`}>{status.text}</p>
-                  </div>
-                </div>
-              ) : (
-                <p className="text-sm text-slate-500">Selecciona una ubicación y fecha para calcular.</p>
-              )}
-            </div>
           </div>
 
-          {/* Right: Visual Placeholder (Ready for 3D integration) */}
-          <div className="bg-slate-950 rounded-lg border border-slate-800 flex flex-col items-center justify-center p-8 min-h-[300px] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5" />
-            <Sun className="w-16 h-16 text-yellow-500/30 mb-4" />
-            <p className="text-slate-400 text-center font-medium">Visualización 3D del Heliodón</p>
-            <p className="text-slate-600 text-sm text-center mt-2 max-w-xs">
-              Próximamente: Integración con UPAO001MassingViewer3D para mostrar sombras dinámicas en tiempo real sobre la masa del edificio.
-            </p>
-            {solarData && solarData.elevation > 0 && (
-              <div className="mt-6 w-full max-w-xs">
-                <div className="flex justify-between text-xs text-slate-500 mb-1">
-                  <span>Amanecer</span>
-                  <span>Cenit</span>
-                  <span>Atardecer</span>
+          {/* Right: Solar Data */}
+          <div className="bg-slate-950 rounded-lg border border-slate-800 p-6 flex flex-col justify-center">
+            <h3 className="text-sm font-semibold text-slate-300 mb-6 flex items-center gap-2">
+              <Info className="w-4 h-4" /> Datos Solares Calculados
+            </h3>
+            {solarData ? (
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                  <p className="text-xs text-slate-500 mb-1">Elevación</p>
+                  <p className="text-3xl font-bold text-white">{solarData.elevation}°</p>
                 </div>
-                <div className="h-2 bg-slate-800 rounded-full relative">
-                  <div 
-                    className="absolute top-0 w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50 transform -translate-y-1 transition-all duration-500"
-                    style={{ 
-                      left: `${Math.max(0, Math.min(100, ((solarData.hourAngle + 90) / 180) * 100))}%`,
-                      bottom: `${Math.max(0, Math.min(80, solarData.elevation))}%`
-                    }}
-                  />
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                  <p className="text-xs text-slate-500 mb-1">Azimut</p>
+                  <p className="text-3xl font-bold text-white">{solarData.azimuth}°</p>
+                </div>
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                  <p className="text-xs text-slate-500 mb-1">Declinación</p>
+                  <p className="text-2xl font-semibold text-slate-300">{solarData.declination}°</p>
+                </div>
+                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
+                  <p className="text-xs text-slate-500 mb-1">Estado</p>
+                  <p className={`text-xl font-semibold ${status.color}`}>{status.text}</p>
                 </div>
               </div>
+            ) : (
+              <p className="text-sm text-slate-500 text-center">Selecciona una ubicación y fecha para calcular.</p>
             )}
+            
+            {/* Visual Placeholder */}
+            <div className="mt-8 pt-6 border-t border-slate-800">
+              <p className="text-xs text-slate-600 text-center mb-4">
+                Visualización 3D del Heliodón (Próximamente: UPAO001MassingViewer3D)
+              </p>
+              {solarData && solarData.elevation > 0 && (
+                <div className="w-full max-w-xs mx-auto">
+                  <div className="flex justify-between text-xs text-slate-500 mb-1">
+                    <span>Amanecer</span>
+                    <span>Cenit</span>
+                    <span>Atardecer</span>
+                  </div>
+                  <div className="h-2 bg-slate-800 rounded-full relative">
+                    <div 
+                      className="absolute top-0 w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50 transform -translate-y-1 transition-all duration-500"
+                      style={{ 
+                        left: `${Math.max(0, Math.min(100, ((solarData.hourAngle + 90) / 180) * 100))}%`
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-slate-700 flex justify-end gap-3">
-          <button 
-            onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors"
-          >
+        <div className="p-6 border-t border-slate-700 flex justify-end gap-3 sticky bottom-0 bg-slate-900">
+          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
             Cerrar
           </button>
           <button 

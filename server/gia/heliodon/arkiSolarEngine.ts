@@ -71,10 +71,11 @@ export function computeSolarPosition(input: SolarInput): SolarPosition {
   const elevation = Math.asin(Math.max(-1, Math.min(1, sinElev))) * RAD;
 
   const elevRad = elevation * DEG;
-  const cosAz = (Math.sin(latRad) * Math.sin(elevRad) - Math.sin(declRad)) / (Math.cos(latRad) * Math.cos(elevRad));
-  const clampedCosAz = Math.max(-1, Math.min(1, cosAz));
-  let azimuth = Math.acos(clampedCosAz) * RAD;
-  if (hourAngle > 0) azimuth = 360 - azimuth;
+  // Fórmula atan2 infalible para azimut (desde el Norte, horario)
+        const y = -Math.sin(haRad);
+        const x = Math.cos(latRad) * Math.tan(declRad) - Math.sin(latRad) * Math.cos(haRad);
+        let azimuth = Math.atan2(y, x) * RAD;
+        azimuth = (azimuth + 360) % 360; // Normalizar a 0-360
 
   const solarNoonMinutes = 720 - 4 * input.longitude - eqTime + 60 * input.timezoneOffset;
 
