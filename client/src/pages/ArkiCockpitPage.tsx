@@ -1,3 +1,4 @@
+import AsoleamientoStudio from "@/components/AsoleamientoStudio";
 import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
@@ -47,6 +48,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [oeceOpen, setOeceOpen] = useState(false);
   const [estatalOpen, setEstatalOpen] = useState(false);
   const [estudiosOpen, setEstudiosOpen] = useState(false);
+  const [asoleamientoOpen, setAsoleamientoOpen] = useState(false);
   const [tooltipText, setTooltipText] = useState<string | null>(null);
   const [expedienteOpen, setExpedienteOpen] = useState(false);
   const [tresDOpen, setTresDOpen] = useState(false);
