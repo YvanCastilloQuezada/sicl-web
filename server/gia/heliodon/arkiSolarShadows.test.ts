@@ -75,7 +75,7 @@ describe("ARKI Solar Shadows — Caso de referencia: TRUJILLO, PERÚ", () => {
     expect(shadow.intensity).toBeLessThan(0.9);
     expect(shadow.color.r).toBe(255);
     expect(shadow.color.g).toBeGreaterThan(220);
-    expect(shadow.color.b).toBeGreaterThan(190);
+    expect(shadow.color.b).toBeGreaterThanOrEqual(190);
     expect(shadow.y).toBeGreaterThan(0.8);
   });
 

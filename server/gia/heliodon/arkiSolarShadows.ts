@@ -73,7 +73,7 @@ export function solarDirectionToVector3(
  * - Transición suave entre 0° y 90°
  */
 export function computeLightIntensity(elevation: number): number {
-  if (elevation <= 0) return 0;
+  if (elevation < 0) return 0;
   if (elevation >= 90) return 1;
   // Función suave: sin(elevation)
   return Math.sin((elevation * Math.PI) / 180);
@@ -87,7 +87,7 @@ export function computeLightIntensity(elevation: number): number {
  * - Transición suave entre ambos
  */
 export function computeLightColor(elevation: number): { r: number; g: number; b: number } {
-  if (elevation <= 0) return { r: 0, g: 0, b: 0 };
+  if (elevation < 0) return { r: 0, g: 0, b: 0 };
   
   // Normalizar elevación a 0-1 (0°=0, 90°=1)
   const t = Math.min(elevation / 90, 1);
