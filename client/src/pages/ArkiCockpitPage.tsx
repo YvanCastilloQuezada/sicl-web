@@ -1066,5 +1066,8 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       </button>
 </div>
     </div>
+      {/* ARKI: Panel de Asoleamiento (Heliodón) */}
+      <AsoleamientoStudio isOpen={asoleamientoOpen} onClose={() => setAsoleamientoOpen(false)} />
+
   );
 }
