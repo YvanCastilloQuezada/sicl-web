@@ -11,7 +11,7 @@
 export type KoppenZone = 
   | "Af" | "Am" | "Aw" // Tropical
   | "BWh" | "BWk" | "BSh" | "BSk" // Árido
-  | "Cfa" | "Cfb" | "Cfc" | "Csa" | "Csb" // Templado
+  | "Cfa" | "Cfb" | "Cfc" | "Csa" | "Csb" | "Cwb" // Templado
   | "Dfa" | "Dfb" | "Dfc" | "Dfd" // Continental
   | "ET" | "EF"; // Polar / Alta montaña
 
