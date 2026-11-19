@@ -13,7 +13,7 @@
  * Referencia: RNE A.040 (Asoleamiento y Ventilación)
  */
 
-import type { SolarPosition } from "./arkiSolarEngine";
+import type { SolarPosition } from "../../../shared/arkiSolarUtils";
 import type { UbigeoLocation } from "../../../shared/arkiUbigeoMap";
 import type { SunPathSample } from "../../../client/src/components/SolarHouse3D";
 
