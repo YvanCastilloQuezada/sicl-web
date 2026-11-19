@@ -63,7 +63,8 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
   const [time, setTime] = useState<string>("12:00");
   const [mapCenter, setMapCenter] = useState<[number, number]>([-12.0464, -77.0428]); // Centro de Perú
   const [markerPos, setMarkerPos] = useState<[number, number] | null>(null);
-  const [houseRotation, setHouseRotation] = useState<number>(0); // Rotación de la casa (0 = norte)
+  const [houseRotation, setHouseRotation] = useState<number>(0);
+  const [sliderValue, setSliderValue] = useState<number>(50); // 50 = mediodía // Rotación de la casa (0 = norte)
 
   const departments = useMemo(() => Object.keys(UBIGEO_HIERARCHY).sort(), []);
   const provinces = useMemo(() => (department ? getProvinces(department) : []), [department]);
@@ -192,13 +193,13 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
           <div className="space-y-4">
             {/* Map */}
             <div className="h-[300px] w-full rounded-lg overflow-hidden border border-slate-700 relative">
-              <MapContainer center={mapCenter} zoom={6} className="h-full w-full" scrollWheelZoom={true}>
+              <MapContainer center={mapCenter} zoom={14} className="h-full w-full" scrollWheelZoom={true}>
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <MapClickHandler onMapClick={handleMapClick} />
-                <MapRecenter position={markerPos ?? mapCenter} zoom={12} />
+                <MapRecenter position={markerPos ?? mapCenter} zoom={14} />
                 {markerPos && <Marker position={markerPos} />}
               </MapContainer>
               <div className="absolute top-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-xs text-slate-300 pointer-events-none">
