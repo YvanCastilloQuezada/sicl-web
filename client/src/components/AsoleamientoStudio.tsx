@@ -63,6 +63,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
   const [time, setTime] = useState<string>("12:00");
   const [mapCenter, setMapCenter] = useState<[number, number]>([-12.0464, -77.0428]); // Centro de Perú
   const [markerPos, setMarkerPos] = useState<[number, number] | null>(null);
+  const [houseRotation, setHouseRotation] = useState<number>(0); // Rotación de la casa (0 = norte)
 
   const departments = useMemo(() => Object.keys(UBIGEO_HIERARCHY).sort(), []);
   const provinces = useMemo(() => (department ? getProvinces(department) : []), [department]);
@@ -78,6 +79,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
       setDistrict(defaultLoc.district);
       setMapCenter([defaultLoc.latitude, defaultLoc.longitude]);
       setMarkerPos([defaultLoc.latitude, defaultLoc.longitude]);
+      setSliderValue(50);
     }
   }, []);
 
@@ -123,6 +125,24 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
       setMapCenter([loc.latitude, loc.longitude]);
       setMarkerPos([loc.latitude, loc.longitude]);
     }
+  };
+
+  
+  const handleSliderChange = (value: number) => {
+    // Slider 0-100 → hora 6-18
+    const hour = 6 + (value / 100) * 12;
+    const h = Math.floor(hour);
+    const m = Math.round((hour - h) * 60);
+    setTime(`${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`);
+  };
+
+  const handleTimeChange = (newTime: string) => {
+    setTime(newTime);
+    // Hora → slider
+    const [h, m] = newTime.split(":").map(Number);
+    const hourDecimal = h + m / 60;
+    const sliderValue = ((hourDecimal - 6) / 12) * 100;
+    setSliderValue(Math.max(0, Math.min(100, sliderValue)));
   };
 
   const solarData = useMemo(() => {
@@ -258,7 +278,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
                 <input
                   type="time"
                   value={time}
-                  onChange={(e) => setTime(e.target.value)}
+                  onChange={(e) => handleTimeChange(e.target.value)}
                   className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
@@ -266,8 +286,8 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
           </div>
 
           {/* Right: Solar Data */}
-          <div className="bg-slate-950 rounded-lg border border-slate-800 p-6 flex flex-col justify-center">
-            <h3 className="text-sm font-semibold text-slate-300 mb-6 flex items-center gap-2">
+          <div className="bg-slate-950 rounded-lg border border-slate-800 p-6 flex flex-col">
+            <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
               <Info className="w-4 h-4" /> Datos Solares Calculados
             </h3>
             {solarData ? (
@@ -293,25 +313,60 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
               <p className="text-sm text-slate-500 text-center">Selecciona una ubicación y fecha para calcular.</p>
             )}
             
-            {/* Visual Placeholder */}
-            <div className="mt-8 pt-6 border-t border-slate-800">
-              <p className="text-xs text-slate-600 text-center mb-4">
-                Visualización 3D del Heliodón (Próximamente: UPAO001MassingViewer3D)
-              </p>
+            {/* Visor 3D Interactivo */}
+            <div className="mt-6 pt-6 border-t border-slate-800">
+              <h4 className="text-sm font-semibold text-slate-300 mb-3">Visualización 3D</h4>
+              
+              {/* Controles de rotación de la casa */}
+              <div className="mb-3">
+                <label className="text-xs text-slate-400 mb-1 block">
+                  Rotación de fachada: {houseRotation}°
+                </label>
+                <input
+                  type="range"
+                  min="0"
+                  max="360"
+                  value={houseRotation}
+                  onChange={(e) => setHouseRotation(Number(e.target.value))}
+                  className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
+                />
+                <div className="flex justify-between text-xs text-slate-500 mt-1">
+                  <span>Norte (0°)</span>
+                  <span>Este (90°)</span>
+                  <span>Sur (180°)</span>
+                  <span>Oeste (270°)</span>
+                </div>
+              </div>
+
+              {/* Canvas 3D */}
+              <div className="h-[300px] w-full bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
+                {solarData && (
+                  <SolarHouse3D
+                    elevation={solarData.elevation}
+                    azimuth={solarData.azimuth}
+                    houseRotation={houseRotation}
+                  />
+                )}
+              </div>
+
+              {/* Slider de hora sincronizado */}
               {solarData && solarData.elevation > 0 && (
-                <div className="w-full max-w-xs mx-auto">
-                  <div className="flex justify-between text-xs text-slate-500 mb-1">
-                    <span>Amanecer</span>
-                    <span>Cenit</span>
-                    <span>Atardecer</span>
-                  </div>
-                  <div className="h-2 bg-slate-800 rounded-full relative">
-                    <div 
-                      className="absolute top-0 w-4 h-4 bg-yellow-400 rounded-full shadow-lg shadow-yellow-400/50 transform -translate-y-1 transition-all duration-500"
-                      style={{ 
-                        left: `${Math.max(0, Math.min(100, ((solarData.hourAngle + 90) / 180) * 100))}%`
-                      }}
-                    />
+                <div className="mt-4">
+                  <label className="text-xs text-slate-400 mb-1 block">
+                    Posición solar: {time}
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={sliderValue}
+                    onChange={(e) => handleSliderChange(Number(e.target.value))}
+                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
+                  />
+                  <div className="flex justify-between text-xs text-slate-500 mt-1">
+                    <span>Amanecer (06:00)</span>
+                    <span>Mediodía (12:00)</span>
+                    <span>Atardecer (18:00)</span>
                   </div>
                 </div>
               )}
