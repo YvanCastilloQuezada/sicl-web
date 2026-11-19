@@ -117,3 +117,8 @@ evidence/
 
 # ARKI Funnel runtime data (no commitear)
 data/arki-funnel/
+
+# backups de parcheos ARKI
+*.pre-*.bak
+*.failed-*.bak
+tools/arki-cuda-runtime/
