@@ -61,7 +61,6 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
   const [mapCenter, setMapCenter] = useState<[number, number]>([-12.0464, -77.0428]);
   const [markerPos, setMarkerPos] = useState<[number, number] | null>(null);
   const [houseRotation, setHouseRotation] = useState<number>(180);
-  const [sliderValue, setSliderValue] = useState<number>(50);
 
   const departments = useMemo(() => Object.keys(UBIGEO_HIERARCHY).sort(), []);
   const provinces = useMemo(() => (department ? getProvinces(department) : []), [department]);
@@ -78,7 +77,6 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
       setDistrict(defaultLoc.district);
       setMapCenter([defaultLoc.latitude, defaultLoc.longitude]);
       setMarkerPos([defaultLoc.latitude, defaultLoc.longitude]);
-      setSliderValue(50);
     }
   }, []);
 
@@ -125,19 +123,19 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
     }
   };
 
+  // FUENTE UNICA DE VERDAD: el slider se DERIVA de la hora.
+  // Nunca puede desincronizarse del input de hora (elimina el bug).
+  const sliderValue = useMemo(() => {
+    const [h, m] = time.split(":").map(Number);
+    const hourDecimal = h + m / 60;
+    return Math.max(0, Math.min(100, ((hourDecimal - 6) / 12) * 100));
+  }, [time]);
+
   const handleSliderChange = (value: number) => {
     const hour = 6 + (value / 100) * 12;
     const h = Math.floor(hour);
     const m = Math.round((hour - h) * 60);
     setTime(`${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`);
-  };
-
-  const handleTimeChange = (newTime: string) => {
-    setTime(newTime);
-    const [h, m] = newTime.split(":").map(Number);
-    const hourDecimal = h + m / 60;
-    const sv = ((hourDecimal - 6) / 12) * 100;
-    setSliderValue(Math.max(0, Math.min(100, sv)));
   };
 
   const sunPath: SunPathSample[] = useMemo(() => {
@@ -261,7 +259,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
                 <label className="flex items-center gap-1 text-xs font-medium text-slate-300 mb-1">
                   <Clock className="w-3 h-3" /> Hora
                 </label>
-                <input type="time" value={time} onChange={(e) => handleTimeChange(e.target.value)}
+                <input type="time" value={time} onChange={(e) => setTime(e.target.value)}
                   className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-white" />
               </div>
             </div>

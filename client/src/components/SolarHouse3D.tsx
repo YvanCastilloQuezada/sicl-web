@@ -31,13 +31,16 @@ export function sunToVector3(
   return [x, y, z];
 }
 
+// Luz solar BLANCA pura e intensa: sobre piso azul noche genera parches
+// de luz casi blancos (contraste tipo heliodon fisico).
 function SunLight({ elevation, azimuth }: { elevation: number; azimuth: number }) {
   const position = useMemo(() => sunToVector3(elevation, azimuth, 80), [elevation, azimuth]);
+  const intensity = elevation > 0 ? 4.5 : 0.15;
   return (
     <directionalLight
       position={position}
-      intensity={3.2}
-      color="#fff5e6"
+      intensity={intensity}
+      color="#ffffff"
       castShadow
       shadow-mapSize-width={2048}
       shadow-mapSize-height={2048}
@@ -46,6 +49,7 @@ function SunLight({ elevation, azimuth }: { elevation: number; azimuth: number }
       shadow-camera-right={40}
       shadow-camera-top={40}
       shadow-camera-bottom={-40}
+      shadow-bias={-0.0002}
     />
   );
 }
@@ -62,10 +66,10 @@ function SunPathArc({ sunPath }: { sunPath: SunPathSample[] }) {
   if (points.length < 2) return null;
   return (
     <group>
-      <Line points={points} color="#f59e0b" lineWidth={2} transparent opacity={0.55} />
+      <Line points={points} color="#f59e0b" lineWidth={2} transparent opacity={0.45} />
       {hourMarkers.map((m, i) => (
         <mesh key={i} position={m.pos}>
-          <sphereGeometry args={[0.7, 12, 12]} />
+          <sphereGeometry args={[0.6, 12, 12]} />
           <meshBasicMaterial color="#fbbf24" />
         </mesh>
       ))}
@@ -78,8 +82,8 @@ function SunSphere({ elevation, azimuth }: { elevation: number; azimuth: number 
   if (elevation <= -3) return null;
   return (
     <mesh position={pos}>
-      <sphereGeometry args={[2.2, 24, 24]} />
-      <meshStandardMaterial color="#fde047" emissive="#fbbf24" emissiveIntensity={2.2} />
+      <sphereGeometry args={[2.4, 24, 24]} />
+      <meshStandardMaterial color="#ffffff" emissive="#fff3c4" emissiveIntensity={3} />
     </mesh>
   );
 }
@@ -88,14 +92,22 @@ function SunBeam({ elevation, azimuth }: { elevation: number; azimuth: number })
   const from = useMemo(() => sunToVector3(elevation, azimuth), [elevation, azimuth]);
   if (elevation <= 0) return null;
   return (
-    <Line points={[from, [0, 0.5, 0]]} color="#fde047" lineWidth={1.5} dashed dashSize={1.5} gapSize={1} transparent opacity={0.7} />
+    <Line
+      points={[from, [0, 0.5, 0]]}
+      color="#ffffff"
+      lineWidth={1.5}
+      dashed
+      dashSize={1.5}
+      gapSize={1}
+      transparent
+      opacity={0.85}
+    />
   );
 }
 
-// ---- Geometría de pared con huecos REALES (Shape + ExtrudeGeometry) ----
 interface Opening {
-  x: number; // centro horizontal local
-  y: number; // centro vertical local (desde piso)
+  x: number;
+  y: number;
   w: number;
   h: number;
   kind: "window" | "door";
@@ -143,18 +155,16 @@ function Wall({
   const geo = useMemo(() => makeWallGeometry(width, height, thickness, openings), [width, height, thickness, openings]);
   return (
     <group position={position} rotation={[0, rotationY, 0]}>
-      {/* Pared sólida con huecos: LANZA sombra (la luz solo pasa por el hueco) */}
       <mesh geometry={geo} castShadow receiveShadow>
         <meshStandardMaterial color={color} />
       </mesh>
-      {/* Vidrios en cada hueco: NO lanzan sombra (la luz los atraviesa) */}
       {openings.map((o, i) => (
         <mesh key={i} position={[o.x, o.y, 0]}>
           <planeGeometry args={[o.w, o.h]} />
           <meshStandardMaterial
-            color={o.kind === "door" ? "#c9a06a" : "#9ec5e8"}
+            color={o.kind === "door" ? "#7a5230" : "#bfe3ff"}
             transparent
-            opacity={o.kind === "door" ? 0.35 : 0.22}
+            opacity={o.kind === "door" ? 0.25 : 0.06}
             side={THREE.DoubleSide}
           />
         </mesh>
@@ -169,18 +179,16 @@ function House({ rotation, roofTransparent }: { rotation: number; roofTransparen
     if (groupRef.current) groupRef.current.rotation.y = (rotation * Math.PI) / 180;
   });
 
-  const W = 6;   // ancho (eje X) -> fachadas norte/sur
-  const L = 12;  // largo (eje Z) -> laterales este/oeste
+  const W = 6;
+  const L = 12;
   const H = 3;
   const T = 0.15;
 
-  // Fachadas (6 m): 1 ventana. Sur añade puerta.
   const northOpenings: Opening[] = [{ x: 0, y: 1.7, w: 2.0, h: 1.4, kind: "window" }];
   const southOpenings: Opening[] = [
     { x: -1.6, y: 1.7, w: 1.6, h: 1.3, kind: "window" },
     { x: 1.5, y: 1.1, w: 1.3, h: 2.2, kind: "door" },
   ];
-  // Laterales (12 m): 2 ventanas.
   const eastOpenings: Opening[] = [
     { x: -3, y: 1.7, w: 2.2, h: 1.4, kind: "window" },
     { x: 3, y: 1.7, w: 2.2, h: 1.4, kind: "window" },
@@ -192,35 +200,29 @@ function House({ rotation, roofTransparent }: { rotation: number; roofTransparen
 
   return (
     <group ref={groupRef} position={[0, 0, 0]}>
-      {/* Piso interior CLARO para ver el parche de luz */}
+      {/* PISO AZUL NOCHE: la luz blanca entra como parches brillantes */}
       <mesh receiveShadow position={[0, 0.02, 0]}>
         <boxGeometry args={[W + 0.3, 0.05, L + 0.3]} />
-        <meshStandardMaterial color="#d8c9a6" />
+        <meshStandardMaterial color="#13243d" roughness={0.9} metalness={0} />
       </mesh>
 
-      {/* Fachada norte (6 m, 1 ventana) */}
-      <Wall width={W} height={H} thickness={T} openings={northOpenings} position={[0, 0, -L / 2]} rotationY={0} color="#e8dcc4" />
-      {/* Fachada sur (6 m, 1 ventana + puerta) */}
-      <Wall width={W} height={H} thickness={T} openings={southOpenings} position={[0, 0, L / 2]} rotationY={0} color="#e8dcc4" />
-      {/* Lateral este (12 m, 2 ventanas) */}
-      <Wall width={L} height={H} thickness={T} openings={eastOpenings} position={[W / 2, 0, 0]} rotationY={Math.PI / 2} color="#e8dcc4" />
-      {/* Lateral oeste (12 m, 2 ventanas) */}
-      <Wall width={L} height={H} thickness={T} openings={westOpenings} position={[-W / 2, 0, 0]} rotationY={Math.PI / 2} color="#e8dcc4" />
+      <Wall width={W} height={H} thickness={T} openings={northOpenings} position={[0, 0, -L / 2]} rotationY={0} color="#c9b892" />
+      <Wall width={W} height={H} thickness={T} openings={southOpenings} position={[0, 0, L / 2]} rotationY={0} color="#c9b892" />
+      <Wall width={L} height={H} thickness={T} openings={eastOpenings} position={[W / 2, 0, 0]} rotationY={Math.PI / 2} color="#c9b892" />
+      <Wall width={L} height={H} thickness={T} openings={westOpenings} position={[-W / 2, 0, 0]} rotationY={Math.PI / 2} color="#c9b892" />
 
-      {/* Techo (toggle transparente) */}
       <mesh castShadow receiveShadow position={[0, H + 0.1, 0]}>
         <boxGeometry args={[W + 0.6, 0.15, L + 0.6]} />
-        <meshStandardMaterial color="#a0522d" transparent={roofTransparent} opacity={roofTransparent ? 0.12 : 1} />
+        <meshStandardMaterial color="#8a4a2b" transparent={roofTransparent} opacity={roofTransparent ? 0.12 : 1} />
       </mesh>
 
-      {/* Mobiliario */}
       <mesh castShadow receiveShadow position={[0, 0.75, -2]}>
         <boxGeometry args={[2, 0.08, 1]} />
         <meshStandardMaterial color="#8b4513" />
       </mesh>
       <mesh castShadow receiveShadow position={[0, 0.4, 3]}>
         <boxGeometry args={[2, 0.3, 1.5]} />
-        <meshStandardMaterial color="#4682b4" />
+        <meshStandardMaterial color="#3a6ea5" />
       </mesh>
     </group>
   );
@@ -232,17 +234,17 @@ export default function SolarHouse3D({ elevation, azimuth, houseRotation, sunPat
   return (
     <div style={{ width: "100%", height: "100%", position: "relative" }}>
       <Canvas shadows camera={{ position: [26, 16, 26], fov: 45 }} style={{ width: "100%", height: "100%" }}>
-        {/* Ambient bajo para maximizar contraste luz/sombra */}
-        <ambientLight intensity={0.25} />
+        {/* Ambient azulado MUY bajo: la noche se ve azul profunda, no negra */}
+        <ambientLight intensity={0.15} color="#2a4a7a" />
+        <hemisphereLight args={["#3b5a8a", "#0a1220", 0.25]} />
         <SunLight elevation={elevation} azimuth={azimuth} />
         <SunPathArc sunPath={sunPath} />
         <SunSphere elevation={elevation} azimuth={azimuth} />
         <SunBeam elevation={elevation} azimuth={azimuth} />
         <House rotation={houseRotation} roofTransparent={roofTransparent} />
-        {/* Terreno receptor de sombra */}
         <mesh rotation-x={-Math.PI / 2} position={[0, -0.05, 0]} receiveShadow>
           <planeGeometry args={[300, 300]} />
-          <meshStandardMaterial color="#141b2d" />
+          <meshStandardMaterial color="#0a1424" />
         </mesh>
         <OrbitControls enablePan enableZoom minDistance={15} maxDistance={120} minPolarAngle={0} maxPolarAngle={Math.PI / 2.05} />
         <Environment preset="city" />
@@ -264,11 +266,11 @@ export default function SolarHouse3D({ elevation, azimuth, houseRotation, sunPat
       <div
         style={{
           position: "absolute", bottom: 8, left: 8,
-          background: "rgba(15,23,42,0.75)", color: "#fbbf24",
+          background: "rgba(10,18,36,0.85)", color: "#fbbf24",
           borderRadius: 6, padding: "4px 10px", fontSize: 11, zIndex: 10,
         }}
       >
-        ◠ Trayectoria solar (fija al norte) · La luz entra por ventanas y puerta
+        ◠ Trayectoria solar (fija al norte) · La luz blanca entra por ventanas y puerta
       </div>
     </div>
   );
