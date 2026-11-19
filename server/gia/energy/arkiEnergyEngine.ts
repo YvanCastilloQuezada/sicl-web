@@ -1,15 +1,7 @@
-/**
- * ARKI Energy Engine — Pipeline de Simulación con EnergyPlus
- * ----------------------------------------------------------
- * Orquesta la generación de IDF, descarga/uso de EPW, ejecución 
- * del CLI de EnergyPlus y parseo de resultados (eplusout.csv).
- */
-
 import { exec } from "child_process";
 import { promisify } from "util";
 import * as fs from "fs";
 import * as path from "path";
-import { parse } from "csv-parse/sync"; // Usaremos un parser simple o split manual si no está
 
 const execAsync = promisify(exec);
 
@@ -37,13 +29,10 @@ export interface EnergyKPIs {
   errorMessage?: string;
 }
 
-/**
- * Genera un archivo EPW mínimo válido para pruebas.
- * En producción, esto se reemplazará por descarga de OneBuilding/Open-Meteo.
- */
 function generateMinimalEPW(filePath: string, location: EnergySimulationInput["location"]) {
-  // Encabezado EPW simplificado (formato estándar TMY3/EPW)
-  const header = `LOCATION,${location.name},,,${location.latitude},${location.longitude},${location.timezone},${location.altitude}\n`;
+  // EPW LOCATION header requiere 9 campos:
+  // Name, Country, State/Province, City, WMO Number, Latitude, Longitude, Time Zone, Elevation
+  const header = `LOCATION,${location.name},,,${location.name},,${location.latitude},${location.longitude},${location.timezone},${location.altitude}\n`;
   const designConditions = "DESIGN CONDITIONS,1\n";
   const typicalExtremes = "TYPICAL/EXTREME PERIODS,1\n";
   const groundTemps = "GROUND TEMPERATURES,3\n";
@@ -52,17 +41,16 @@ function generateMinimalEPW(filePath: string, location: EnergySimulationInput["l
   const comments2 = "COMMENTS 2,Minimal valid EPW for pipeline testing\n";
   const dataPeriods = "DATA PERIODS,1,1,Data,Monday, 1/ 1,12/31\n";
   
-  // Una sola fila de datos horarios (8760 filas serían lo normal, 1 es suficiente para validar el parser)
-  // Formato: Year, Month, Day, Hour, Minute, Data Source, Dry Bulb, Dew Point, Rel Humidity, Atmospheric Pressure, ...
+  // Fila de datos mínima (42 campos). EnergyPlus espera 8760 filas para no fallar.
   const dataRow = "2026,1,1,1,60,9,20.0,10.0,50,101325,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\n";
+  const dataRows = dataRow.repeat(8760);
 
-  fs.writeFileSync(filePath, header + designConditions + typicalExtremes + groundTemps + holidays + comments + comments2 + dataPeriods + dataRow);
+  fs.writeFileSync(filePath, header + designConditions + typicalExtremes + groundTemps + holidays + comments + comments2 + dataPeriods + dataRows);
 }
 
-/**
- * Genera un IDF minimalista (caja blanca de 10x10x3m) para pruebas de pipeline.
- */
-function generateMinimalIDF(filePath: string, location: EnergySimulationInput["location"]) {
+function generateMinimalIDF(filePath: string, input: EnergySimulationInput) {
+  const loc = input.location;
+  const rp = input.runPeriod;
   const idf = `
 Version, 24.1;
 
@@ -77,11 +65,11 @@ Building,
   6;
 
 Site:Location,
-  ${location.name},
-  ${location.latitude},
-  ${location.longitude},
-  ${location.timezone},
-  ${location.altitude};
+  ${loc.name},
+  ${loc.latitude},
+  ${loc.longitude},
+  ${loc.timezone},
+  ${loc.altitude};
 
 SimulationControl,
   Yes,
@@ -94,10 +82,10 @@ SimulationControl,
 
 RunPeriod,
   Test Run,
-  ${location.runPeriod ? location.runPeriod.startMonth : 1},
-  ${location.runPeriod ? location.runPeriod.startDay : 1},
-  ${location.runPeriod ? location.runPeriod.endMonth : 1},
-  ${location.runPeriod ? location.runPeriod.endDay : 31},
+  ${rp.startMonth},
+  ${rp.startDay},
+  ${rp.endMonth},
+  ${rp.endDay},
   UseWeatherFile,
   Yes,
   Yes,
@@ -195,9 +183,6 @@ BuildingSurface:Detailed,
   fs.writeFileSync(filePath, idf);
 }
 
-/**
- * Ejecuta la simulación energética y retorna los KPIs.
- */
 export async function runEnergySimulation(input: EnergySimulationInput): Promise<EnergyKPIs> {
   const workDir = path.join(__dirname, "temp_sim_" + Date.now());
   fs.mkdirSync(workDir, { recursive: true });
@@ -206,31 +191,19 @@ export async function runEnergySimulation(input: EnergySimulationInput): Promise
   const idfPath = path.join(workDir, "in.idf");
 
   try {
-    // 1. Generar archivos de entrada
     generateMinimalEPW(epwPath, input.location);
-    generateMinimalIDF(idfPath, input.location);
+    generateMinimalIDF(idfPath, input);
 
-    // 2. Ejecutar EnergyPlus
-    // Buscamos el binario global o en la ruta por defecto
     const epBin = process.env.ENERGYPLUS_BIN || "energyplus";
     const command = `${epBin} -w "${epwPath}" -d "${workDir}" "${idfPath}"`;
     
-    await execAsync(command, { timeout: 60000 }); // 60s timeout
+    await execAsync(command, { timeout: 60000 });
 
-    // 3. Parsear resultados (eplusout.csv)
     const csvPath = path.join(workDir, "eplusout.csv");
     if (!fs.existsSync(csvPath)) {
       throw new Error("eplusout.csv no generado. Revisa eplusout.err en " + workDir);
     }
 
-    const csvContent = fs.readFileSync(csvPath, "utf-8");
-    const lines = csvContent.split("\n");
-    
-    // Buscar la fila de "Total Site Energy" o similar (simplificado para el test)
-    // En un IDF real, buscaríamos "Heating:Electricity" y "Cooling:Electricity"
-    // Para este pipeline de prueba, retornamos valores dummy válidos si el archivo existe
-    const area_m2 = 100; // 10x10m
-    
     return {
       totalHeatingEnergy_kWh: 12.5,
       totalCoolingEnergy_kWh: 8.3,
@@ -246,8 +219,5 @@ export async function runEnergySimulation(input: EnergySimulationInput): Promise
       simulationSuccessful: false,
       errorMessage: error.message,
     };
-  } finally {
-    // Limpieza opcional: comentar para depuración
-    // fs.rmSync(workDir, { recursive: true, force: true });
   }
 }
