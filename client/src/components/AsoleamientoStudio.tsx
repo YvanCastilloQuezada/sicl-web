@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { X, Sun, MapPin, Calendar, Clock, Info, Search } from "lucide-react";
-import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { getAllUbigeoLocations, type UbigeoLocation } from "../../../shared/arkiUbigeoMap";
 import { UBIGEO_HIERARCHY, getProvinces, getDistricts, findLocation } from "../../../shared/arkiUbigeoHierarchy";
