@@ -1,17 +1,16 @@
 import { useState, useEffect, useMemo } from "react";
-import { X, Sun, MapPin, Calendar, Clock, Info, Search } from "lucide-react";
+import { X, Sun, MapPin, Calendar, Clock, Info } from "lucide-react";
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { getAllUbigeoLocations, type UbigeoLocation } from "../../../shared/arkiUbigeoMap";
 import { UBIGEO_HIERARCHY, getProvinces, getDistricts, findLocation } from "../../../shared/arkiUbigeoHierarchy";
 import { computeSolarPositionClient, type SolarInput } from "../../../shared/arkiSolarUtils";
+import SolarHouse3D from "./SolarHouse3D";
 
-// Fix para iconos de Leaflet en Webpack/Vite
 import L from "leaflet";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import SolarHouse3D from "./SolarHouse3D";
 // @ts-ignore
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -25,9 +24,15 @@ interface AsoleamientoStudioProps {
   onClose: () => void;
 }
 
+function MapClickHandler({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) {
+  useMapEvents({
+    click(e) {
+      onMapClick(e.latlng.lat, e.latlng.lng);
+    },
+  });
+  return null;
+}
 
-// ARKI: componente que hace volar el mapa a la selección actual
-// (MapContainer ignora 'center' después del montaje; useMap + setView lo corrige)
 function MapRecenter({ position, zoom }: { position: [number, number]; zoom: number }) {
   const map = useMap();
   useEffect(() => {
@@ -35,15 +40,6 @@ function MapRecenter({ position, zoom }: { position: [number, number]; zoom: num
       map.setView(position, zoom, { animate: true });
     }
   }, [position, zoom, map]);
-  return null;
-}
-
-function MapClickHandler({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) {
-  useMapEvents({
-    click(e) {
-      onMapClick(e.latlng.lat, e.latlng.lng);
-    },
-  });
   return null;
 }
 
@@ -62,18 +58,19 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
   const [district, setDistrict] = useState<string>("");
   const [date, setDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [time, setTime] = useState<string>("12:00");
-  const [mapCenter, setMapCenter] = useState<[number, number]>([-12.0464, -77.0428]); // Centro de Perú
+  const [mapCenter, setMapCenter] = useState<[number, number]>([-12.0464, -77.0428]);
   const [markerPos, setMarkerPos] = useState<[number, number] | null>(null);
-  const [houseRotation, setHouseRotation] = useState<number>(0);
-  const [sliderValue, setSliderValue] = useState<number>(50); // 50 = mediodía // Rotación de la casa (0 = norte)
+  const [houseRotation, setHouseRotation] = useState<number>(180);
+  const [sliderValue, setSliderValue] = useState<number>(50);
 
   const departments = useMemo(() => Object.keys(UBIGEO_HIERARCHY).sort(), []);
   const provinces = useMemo(() => (department ? getProvinces(department) : []), [department]);
   const districts = useMemo(() => (department && province ? getDistricts(department, province) : []), [department, province]);
 
   useEffect(() => {
-    // Default: Trujillo
-    const defaultLoc = getAllUbigeoLocations().find((l) => l.label === "Lima, Lima, Lima") || getAllUbigeoLocations().find((l) => l.province === "Lima" && l.department === "Lima") || getAllUbigeoLocations()[0];
+    const defaultLoc = getAllUbigeoLocations().find((l) => l.label === "Lima, Lima, Lima")
+      || getAllUbigeoLocations().find((l) => l.province === "Lima" && l.department === "Lima")
+      || getAllUbigeoLocations()[0];
     if (defaultLoc) {
       setSelectedLocation(defaultLoc);
       setDepartment(defaultLoc.department);
@@ -87,7 +84,6 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
 
   const handleMapClick = (lat: number, lng: number) => {
     setMarkerPos([lat, lng]);
-    // Encontrar la localidad Ubigeo más cercana
     const allLocs = getAllUbigeoLocations();
     let nearest = allLocs[0];
     let minDist = Infinity;
@@ -129,9 +125,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
     }
   };
 
-  
   const handleSliderChange = (value: number) => {
-    // Slider 0-100 → hora 6-18
     const hour = 6 + (value / 100) * 12;
     const h = Math.floor(hour);
     const m = Math.round((hour - h) * 60);
@@ -140,11 +134,10 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
 
   const handleTimeChange = (newTime: string) => {
     setTime(newTime);
-    // Hora → slider
     const [h, m] = newTime.split(":").map(Number);
     const hourDecimal = h + m / 60;
-    const sliderValue = ((hourDecimal - 6) / 12) * 100;
-    setSliderValue(Math.max(0, Math.min(100, sliderValue)));
+    const sv = ((hourDecimal - 6) / 12) * 100;
+    setSliderValue(Math.max(0, Math.min(100, sv)));
   };
 
   const solarData = useMemo(() => {
@@ -170,10 +163,9 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
   const status = solarData ? getSunStatus(solarData.elevation) : { text: "Calculando...", color: "text-slate-400" };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-slate-700 sticky top-0 bg-slate-900 z-10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-2">
+      <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl w-full max-w-7xl max-h-[95vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-4 border-b border-slate-700 sticky top-0 bg-slate-900 z-10">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-yellow-500/20 rounded-lg">
               <Sun className="w-6 h-6 text-yellow-400" />
@@ -188,15 +180,12 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Left: Map + Selects */}
-          <div className="space-y-4">
-            {/* Map */}
-            <div className="h-[300px] w-full rounded-lg overflow-hidden border border-slate-700 relative">
+        <div className="p-4 grid grid-cols-1 lg:grid-cols-[400px_1fr] gap-4">
+          <div className="space-y-3">
+            <div className="h-[200px] w-full rounded-lg overflow-hidden border border-slate-700 relative">
               <MapContainer center={mapCenter} zoom={14} className="h-full w-full" scrollWheelZoom={true}>
                 <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  attribution='&copy; OpenStreetMap'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <MapClickHandler onMapClick={handleMapClick} />
@@ -204,51 +193,33 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
                 {markerPos && <Marker position={markerPos} />}
               </MapContainer>
               <div className="absolute top-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-xs text-slate-300 pointer-events-none">
-                Click en el mapa para seleccionar ubicación
+                Click en el mapa
               </div>
             </div>
 
-            {/* Cascading Selects */}
             <div className="grid grid-cols-3 gap-2">
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Región</label>
-                <select
-                  value={department}
-                  onChange={(e) => handleDepartmentChange(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:ring-1 focus:ring-yellow-500"
-                >
-                  <option value="">Seleccionar...</option>
-                  {departments.map((d) => (
-                    <option key={d} value={d}>{d}</option>
-                  ))}
+                <select value={department} onChange={(e) => handleDepartmentChange(e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-white">
+                  <option value="">...</option>
+                  {departments.map((d) => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Provincia</label>
-                <select
-                  value={province}
-                  onChange={(e) => handleProvinceChange(e.target.value)}
-                  disabled={!department}
-                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:ring-1 focus:ring-yellow-500 disabled:opacity-50"
-                >
-                  <option value="">Seleccionar...</option>
-                  {provinces.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                  ))}
+                <select value={province} onChange={(e) => handleProvinceChange(e.target.value)} disabled={!department}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-white disabled:opacity-50">
+                  <option value="">...</option>
+                  {provinces.map((p) => <option key={p} value={p}>{p}</option>)}
                 </select>
               </div>
               <div>
                 <label className="text-xs text-slate-400 mb-1 block">Distrito</label>
-                <select
-                  value={district}
-                  onChange={(e) => handleDistrictChange(e.target.value)}
-                  disabled={!province}
-                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-sm text-white focus:ring-1 focus:ring-yellow-500 disabled:opacity-50"
-                >
-                  <option value="">Seleccionar...</option>
-                  {districts.map((d) => (
-                    <option key={d} value={d}>{d}</option>
-                  ))}
+                <select value={district} onChange={(e) => handleDistrictChange(e.target.value)} disabled={!province}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-white disabled:opacity-50">
+                  <option value="">...</option>
+                  {districts.map((d) => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
             </div>
@@ -256,137 +227,89 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
             {selectedLocation && (
               <div className="text-xs text-slate-500 flex items-center gap-1">
                 <MapPin className="w-3 h-3" />
-                {selectedLocation.label}{selectedLocation.approx ? " (≈ capital provincial)" : ""} (Lat: {selectedLocation.latitude}°, Lon: {selectedLocation.longitude}°, Alt: {selectedLocation.altitudeM} msnm)
+                {selectedLocation.label} ({selectedLocation.latitude}°, {selectedLocation.longitude}°, {selectedLocation.altitudeM} msnm)
               </div>
             )}
 
-            {/* Date & Time */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               <div>
-                <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
-                  <Calendar className="w-4 h-4" /> Fecha
+                <label className="flex items-center gap-1 text-xs font-medium text-slate-300 mb-1">
+                  <Calendar className="w-3 h-3" /> Fecha
                 </label>
-                <input
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-yellow-500"
-                />
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-white" />
               </div>
               <div>
-                <label className="flex items-center gap-2 text-sm font-medium text-slate-300 mb-2">
-                  <Clock className="w-4 h-4" /> Hora
+                <label className="flex items-center gap-1 text-xs font-medium text-slate-300 mb-1">
+                  <Clock className="w-3 h-3" /> Hora
                 </label>
-                <input
-                  type="time"
-                  value={time}
-                  onChange={(e) => handleTimeChange(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-yellow-500"
-                />
+                <input type="time" value={time} onChange={(e) => handleTimeChange(e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1.5 text-xs text-white" />
+              </div>
+            </div>
+
+            <div className="bg-slate-950 rounded-lg border border-slate-800 p-3">
+              <h3 className="text-xs font-semibold text-slate-300 mb-2 flex items-center gap-1">
+                <Info className="w-3 h-3" /> Datos Solares
+              </h3>
+              {solarData ? (
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="bg-slate-900/50 p-2 rounded border border-slate-800">
+                    <p className="text-[10px] text-slate-500">Elevación</p>
+                    <p className="text-lg font-bold text-white">{solarData.elevation}°</p>
+                  </div>
+                  <div className="bg-slate-900/50 p-2 rounded border border-slate-800">
+                    <p className="text-[10px] text-slate-500">Azimut</p>
+                    <p className="text-lg font-bold text-white">{solarData.azimuth}°</p>
+                  </div>
+                  <div className="bg-slate-900/50 p-2 rounded border border-slate-800">
+                    <p className="text-[10px] text-slate-500">Declinación</p>
+                    <p className="text-sm font-semibold text-slate-300">{solarData.declination}°</p>
+                  </div>
+                  <div className="bg-slate-900/50 p-2 rounded border border-slate-800">
+                    <p className="text-[10px] text-slate-500">Estado</p>
+                    <p className={`text-sm font-semibold ${status.color}`}>{status.text}</p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-xs text-slate-500 text-center">Selecciona ubicación y fecha</p>
+              )}
+            </div>
+
+            <div className="bg-slate-950 rounded-lg border border-slate-800 p-3">
+              <label className="text-xs text-slate-400 mb-1 block">Rotación de fachada: {houseRotation}°</label>
+              <input type="range" min="0" max="360" value={houseRotation}
+                onChange={(e) => setHouseRotation(Number(e.target.value))}
+                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer" />
+              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                <span>N (0°)</span><span>E (90°)</span><span>S (180°)</span><span>O (270°)</span>
               </div>
             </div>
           </div>
 
-          {/* Right: Solar Data */}
-          <div className="bg-slate-950 rounded-lg border border-slate-800 p-6 flex flex-col">
-            <h3 className="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2">
-              <Info className="w-4 h-4" /> Datos Solares Calculados
-            </h3>
-            {solarData ? (
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                  <p className="text-xs text-slate-500 mb-1">Elevación</p>
-                  <p className="text-3xl font-bold text-white">{solarData.elevation}°</p>
-                </div>
-                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                  <p className="text-xs text-slate-500 mb-1">Azimut</p>
-                  <p className="text-3xl font-bold text-white">{solarData.azimuth}°</p>
-                </div>
-                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                  <p className="text-xs text-slate-500 mb-1">Declinación</p>
-                  <p className="text-2xl font-semibold text-slate-300">{solarData.declination}°</p>
-                </div>
-                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800">
-                  <p className="text-xs text-slate-500 mb-1">Estado</p>
-                  <p className={`text-xl font-semibold ${status.color}`}>{status.text}</p>
-                </div>
-              </div>
-            ) : (
-              <p className="text-sm text-slate-500 text-center">Selecciona una ubicación y fecha para calcular.</p>
-            )}
-            
-            {/* Visor 3D Interactivo */}
-            <div className="mt-6 pt-6 border-t border-slate-800">
-              <h4 className="text-sm font-semibold text-slate-300 mb-3">Visualización 3D</h4>
-              
-              {/* Controles de rotación de la casa */}
-              <div className="mb-3">
-                <label className="text-xs text-slate-400 mb-1 block">
-                  Rotación de fachada: {houseRotation}°
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="360"
-                  value={houseRotation}
-                  onChange={(e) => setHouseRotation(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
-                />
-                <div className="flex justify-between text-xs text-slate-500 mt-1">
-                  <span>Norte (0°)</span>
-                  <span>Este (90°)</span>
-                  <span>Sur (180°)</span>
-                  <span>Oeste (270°)</span>
-                </div>
-              </div>
-
-              {/* Canvas 3D */}
-              <div className="h-[300px] w-full bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
-                {solarData && (
-                  <SolarHouse3D
-                    elevation={solarData.elevation}
-                    azimuth={solarData.azimuth}
-                    houseRotation={houseRotation}
-                  />
-                )}
-              </div>
-
-              {/* Slider de hora sincronizado */}
-              {solarData && solarData.elevation > 0 && (
-                <div className="mt-4">
-                  <label className="text-xs text-slate-400 mb-1 block">
-                    Posición solar: {time}
-                  </label>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={sliderValue}
-                    onChange={(e) => handleSliderChange(Number(e.target.value))}
-                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer"
-                  />
-                  <div className="flex justify-between text-xs text-slate-500 mt-1">
-                    <span>Amanecer (06:00)</span>
-                    <span>Mediodía (12:00)</span>
-                    <span>Atardecer (18:00)</span>
-                  </div>
-                </div>
+          <div className="bg-slate-950 rounded-lg border border-slate-800 flex flex-col min-h-[600px]">
+            <div className="flex-1 relative">
+              {solarData && (
+                <SolarHouse3D elevation={solarData.elevation} azimuth={solarData.azimuth} houseRotation={houseRotation} />
               )}
+            </div>
+            <div className="p-3 border-t border-slate-800">
+              <label className="text-xs text-slate-400 mb-1 block">Posición solar: {time}</label>
+              <input type="range" min="0" max="100" value={sliderValue}
+                onChange={(e) => handleSliderChange(Number(e.target.value))}
+                className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer" />
+              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                <span>Amanecer (06:00)</span><span>Mediodía (12:00)</span><span>Atardecer (18:00)</span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="p-6 border-t border-slate-700 flex justify-end gap-3 sticky bottom-0 bg-slate-900">
-          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
-            Cerrar
-          </button>
-          <button 
-            className="px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 text-slate-900 rounded-lg transition-colors flex items-center gap-2"
-            onClick={() => alert("Funcionalidad de exportación de reporte RNE en desarrollo (MO-HELIODON-03)")}
-          >
-            <Sun className="w-4 h-4" />
-            Generar Reporte RNE
+        <div className="p-4 border-t border-slate-700 flex justify-end gap-3 sticky bottom-0 bg-slate-900">
+          <button onClick={onClose} className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white">Cerrar</button>
+          <button className="px-4 py-2 text-sm font-medium bg-yellow-500 hover:bg-yellow-600 text-slate-900 rounded-lg flex items-center gap-2"
+            onClick={() => alert("Reporte RNE en desarrollo (MO-HELIODON-03)")}>
+            <Sun className="w-4 h-4" /> Generar Reporte RNE
           </button>
         </div>
       </div>

@@ -1,52 +1,43 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Environment } from "@react-three/drei";
 import * as THREE from "three";
 
 interface SolarHouse3DProps {
-  elevation: number; // grados sobre horizonte
-  azimuth: number; // grados desde norte, horario
-  houseRotation: number; // grados de rotación de la casa (0 = norte alineado)
+  elevation: number;
+  azimuth: number;
+  houseRotation: number;
 }
 
 function SunLight({ elevation, azimuth }: { elevation: number; azimuth: number }) {
-  const lightRef = useRef<THREE.DirectionalLight>(null);
-
-  // Convertir elevación y azimut a posición de luz
   const position = useMemo(() => {
     const elevRad = (elevation * Math.PI) / 180;
     const azRad = (azimuth * Math.PI) / 180;
-    
-    // Distancia de la luz (lejos para sombras paralelas)
-    const distance = 50;
-    
-    // Posición: x=este, y=arriba, z=sur
+    const distance = 80;
     const x = distance * Math.cos(elevRad) * Math.sin(azRad);
     const y = distance * Math.sin(elevRad);
     const z = -distance * Math.cos(elevRad) * Math.cos(azRad);
-    
     return [x, y, z] as [number, number, number];
   }, [elevation, azimuth]);
 
   return (
     <directionalLight
-      ref={lightRef}
       position={position}
-      intensity={2}
+      intensity={2.5}
       color="#fff5e6"
       castShadow
       shadow-mapSize-width={2048}
       shadow-mapSize-height={2048}
-      shadow-camera-far={100}
-      shadow-camera-left={-20}
-      shadow-camera-right={20}
-      shadow-camera-top={20}
-      shadow-camera-bottom={-20}
+      shadow-camera-far={150}
+      shadow-camera-left={-30}
+      shadow-camera-right={30}
+      shadow-camera-top={30}
+      shadow-camera-bottom={-30}
     />
   );
 }
 
-function House({ rotation }: { rotation: number }) {
+function House({ rotation, roofTransparent }: { rotation: number; roofTransparent: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
 
   useFrame(() => {
@@ -55,80 +46,153 @@ function House({ rotation }: { rotation: number }) {
     }
   });
 
+  // Casa rectangular 1:2 (ancho=6, largo=12, alto=3)
+  const W = 6;
+  const L = 12;
+  const H = 3;
+  const wallThick = 0.15;
+
   return (
     <group ref={groupRef} position={[0, 0, 0]}>
       {/* Piso */}
-      <mesh receiveShadow position={[0, 0, 0]}>
-        <boxGeometry args={[10, 0.2, 10]} />
+      <mesh receiveShadow position={[0, 0.01, 0]}>
+        <boxGeometry args={[W + 0.4, 0.1, L + 0.4]} />
         <meshStandardMaterial color="#8B7355" />
       </mesh>
 
-      {/* Paredes (semi-transparentes para ver interior) */}
-      <mesh castShadow receiveShadow position={[0, 1.5, 0]}>
-        <boxGeometry args={[10, 3, 10]} />
-        <meshStandardMaterial 
-          color="#E8DCC4" 
-          transparent 
-          opacity={0.3}
-          side={THREE.DoubleSide}
-        />
+      {/* Pared norte (largo, con 2 ventanas) */}
+      <mesh castShadow receiveShadow position={[0, H / 2, -L / 2]}>
+        <boxGeometry args={[W, H, wallThick]} />
+        <meshStandardMaterial color="#E8DCC4" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Ventanas pared norte */}
+      <mesh position={[-W / 4, H / 2, -L / 2 - 0.01]}>
+        <planeGeometry args={[1.5, 1.2]} />
+        <meshStandardMaterial color="#87CEEB" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh position={[W / 4, H / 2, -L / 2 - 0.01]}>
+        <planeGeometry args={[1.5, 1.2]} />
+        <meshStandardMaterial color="#87CEEB" transparent opacity={0.4} side={THREE.DoubleSide} />
       </mesh>
 
-      {/* Techo */}
-      <mesh castShadow position={[0, 3.1, 0]}>
-        <boxGeometry args={[10.5, 0.2, 10.5]} />
-        <meshStandardMaterial color="#A0522D" />
+      {/* Pared sur (largo, con 2 ventanas) */}
+      <mesh castShadow receiveShadow position={[0, H / 2, L / 2]}>
+        <boxGeometry args={[W, H, wallThick]} />
+        <meshStandardMaterial color="#E8DCC4" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Ventanas pared sur */}
+      <mesh position={[-W / 4, H / 2, L / 2 + 0.01]}>
+        <planeGeometry args={[1.5, 1.2]} />
+        <meshStandardMaterial color="#87CEEB" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh position={[W / 4, H / 2, L / 2 + 0.01]}>
+        <planeGeometry args={[1.5, 1.2]} />
+        <meshStandardMaterial color="#87CEEB" transparent opacity={0.4} side={THREE.DoubleSide} />
       </mesh>
 
-      {/* Ventana frontal (fachada sur) */}
-      <mesh position={[0, 1.5, 5.01]}>
-        <planeGeometry args={[3, 2]} />
-        <meshStandardMaterial 
-          color="#87CEEB" 
-          transparent 
-          opacity={0.5}
-          side={THREE.DoubleSide}
-        />
+      {/* Pared este (corto, con 1 ventana) */}
+      <mesh castShadow receiveShadow position={[W / 2, H / 2, 0]}>
+        <boxGeometry args={[wallThick, H, L]} />
+        <meshStandardMaterial color="#E8DCC4" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Ventana pared este */}
+      <mesh position={[W / 2 + 0.01, H / 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+        <planeGeometry args={[1.5, 1.2]} />
+        <meshStandardMaterial color="#87CEEB" transparent opacity={0.4} side={THREE.DoubleSide} />
       </mesh>
 
-      {/* Puerta frontal */}
-      <mesh position={[-2, 1, 5.01]}>
-        <planeGeometry args={[1.5, 2]} />
+      {/* Pared oeste (corto, con 1 ventana) */}
+      <mesh castShadow receiveShadow position={[-W / 2, H / 2, 0]}>
+        <boxGeometry args={[wallThick, H, L]} />
+        <meshStandardMaterial color="#E8DCC4" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+      {/* Ventana pared oeste */}
+      <mesh position={[-W / 2 - 0.01, H / 2, 0]} rotation={[0, Math.PI / 2, 0]}>
+        <planeGeometry args={[1.5, 1.2]} />
+        <meshStandardMaterial color="#87CEEB" transparent opacity={0.4} side={THREE.DoubleSide} />
+      </mesh>
+
+      {/* Puerta frontal (en pared sur, centro) */}
+      <mesh position={[0, 1, L / 2 + 0.02]}>
+        <planeGeometry args={[1.2, 2]} />
         <meshStandardMaterial color="#654321" />
       </mesh>
 
-      {/* Mobiliario básico (mesa) */}
-      <mesh castShadow receiveShadow position={[2, 0.6, 0]}>
-        <boxGeometry args={[2, 0.1, 1.5]} />
+      {/* Techo (toggle transparente) */}
+      <mesh castShadow receiveShadow position={[0, H + 0.1, 0]}>
+        <boxGeometry args={[W + 0.6, 0.15, L + 0.6]} />
+        <meshStandardMaterial
+          color="#A0522D"
+          transparent={roofTransparent}
+          opacity={roofTransparent ? 0.15 : 1}
+        />
+      </mesh>
+
+      {/* Mobiliario básico: mesa */}
+      <mesh castShadow receiveShadow position={[0, 0.75, -2]}>
+        <boxGeometry args={[2, 0.08, 1]} />
         <meshStandardMaterial color="#8B4513" />
       </mesh>
-      <mesh castShadow receiveShadow position={[2, 0.3, 0]}>
-        <cylinderGeometry args={[0.1, 0.1, 0.6]} />
+      <mesh castShadow receiveShadow position={[-0.8, 0.375, -2]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.75]} />
         <meshStandardMaterial color="#654321" />
+      </mesh>
+      <mesh castShadow receiveShadow position={[0.8, 0.375, -2]}>
+        <cylinderGeometry args={[0.05, 0.05, 0.75]} />
+        <meshStandardMaterial color="#654321" />
+      </mesh>
+
+      {/* Cama */}
+      <mesh castShadow receiveShadow position={[0, 0.4, 3]}>
+        <boxGeometry args={[2, 0.3, 1.5]} />
+        <meshStandardMaterial color="#4682B4" />
       </mesh>
     </group>
   );
 }
 
 export default function SolarHouse3D({ elevation, azimuth, houseRotation }: SolarHouse3DProps) {
+  const [roofTransparent, setRoofTransparent] = useState(true);
+
   return (
-    <Canvas
-      shadows
-      camera={{ position: [15, 10, 15], fov: 50 }}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <ambientLight intensity={0.3} />
-      <SunLight elevation={elevation} azimuth={azimuth} />
-      <House rotation={houseRotation} />
-      <OrbitControls 
-        enablePan={false}
-        enableZoom={true}
-        minDistance={10}
-        maxDistance={30}
-        minPolarAngle={0}
-        maxPolarAngle={Math.PI / 2.2}
-      />
-      <Environment preset="city" />
-    </Canvas>
+    <div style={{ width: "100%", height: "100%", position: "relative" }}>
+      <Canvas
+        shadows
+        camera={{ position: [20, 15, 20], fov: 45 }}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <ambientLight intensity={0.4} />
+        <SunLight elevation={elevation} azimuth={azimuth} />
+        <House rotation={houseRotation} roofTransparent={roofTransparent} />
+        <OrbitControls
+          enablePan={true}
+          enableZoom={true}
+          minDistance={15}
+          maxDistance={60}
+          minPolarAngle={0}
+          maxPolarAngle={Math.PI / 2.1}
+        />
+        <Environment preset="city" />
+      </Canvas>
+      <button
+        onClick={() => setRoofTransparent(!roofTransparent)}
+        style={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+          background: roofTransparent ? "#fbbf24" : "#475569",
+          color: roofTransparent ? "#1e293b" : "#e2e8f0",
+          border: "none",
+          borderRadius: 6,
+          padding: "6px 12px",
+          fontSize: 12,
+          fontWeight: 600,
+          cursor: "pointer",
+          zIndex: 10,
+        }}
+      >
+        {roofTransparent ? "🏠 Techo Transparente" : "🏠 Techo Opaco"}
+      </button>
+    </div>
   );
 }

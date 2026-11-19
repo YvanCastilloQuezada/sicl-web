@@ -956,7 +956,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       
       {/* CHAT REFACTORIZADO */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
-        <CopilotPanel
+        {!asoleamientoOpen && <CopilotPanel
           messages={messages}
           input={input}
           setInput={setInput}
@@ -976,7 +976,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (action === "file-chat") setActiveModal("file-chat");
           }}
           onOpenWorkspace={() => setShowWorkspacePanel(true)}
-        />
+        />}
       </div>
       {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
