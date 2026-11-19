@@ -1,3 +1,4 @@
+import AsoleamientoStudio from "@/components/AsoleamientoStudio";
 import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
@@ -47,6 +48,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [oeceOpen, setOeceOpen] = useState(false);
   const [estatalOpen, setEstatalOpen] = useState(false);
   const [estudiosOpen, setEstudiosOpen] = useState(false);
+  const [asoleamientoOpen, setAsoleamientoOpen] = useState(false);
   const [tooltipText, setTooltipText] = useState<string | null>(null);
   const [expedienteOpen, setExpedienteOpen] = useState(false);
   const [tresDOpen, setTresDOpen] = useState(false);
@@ -607,7 +609,22 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             {estudiosOpen && (
               <div className="absolute top-full left-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999] max-h-96 overflow-y-auto">
                 <div className="p-2 flex flex-col space-y-1">
-                  {estudios.map((e, i) => <button key={i} className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">{e}</button>)}
+                  {estudios.map((e, i) => (
+          <button
+            key={i}
+            className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block"
+            onClick={() => {
+              if (e === "Asoleamiento") {
+                setAsoleamientoOpen(true);
+                setEstudiosOpen(false);
+              } else {
+                console.log(`Estudio "${e}" en desarrollo`);
+              }
+            }}
+          >
+            {e}
+          </button>
+        ))}
                 </div>
               </div>
             )}
@@ -939,7 +956,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       
       {/* CHAT REFACTORIZADO */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
-        <CopilotPanel
+        {!asoleamientoOpen && <CopilotPanel
           messages={messages}
           input={input}
           setInput={setInput}
@@ -959,7 +976,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (action === "file-chat") setActiveModal("file-chat");
           }}
           onOpenWorkspace={() => setShowWorkspacePanel(true)}
-        />
+        />}
       </div>
       {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
@@ -1063,6 +1080,9 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         <span className="text-sm">Workspace</span>
       </button>
 </div>
+      {/* ARKI: Panel de Asoleamiento (Heliodón) */}
+      <AsoleamientoStudio isOpen={asoleamientoOpen} onClose={() => setAsoleamientoOpen(false)} />
     </div>
+
   );
 }
