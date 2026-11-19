@@ -234,7 +234,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
             {selectedLocation && (
               <div className="text-xs text-slate-500 flex items-center gap-1">
                 <MapPin className="w-3 h-3" />
-                {selectedLocation.label} (Lat: {selectedLocation.latitude}°, Lon: {selectedLocation.longitude}°)
+                {selectedLocation.label}{selectedLocation.approx ? " (≈ capital provincial)" : ""} (Lat: {selectedLocation.latitude}°, Lon: {selectedLocation.longitude}°, Alt: {selectedLocation.altitudeM} msnm)
               </div>
             )}
 
