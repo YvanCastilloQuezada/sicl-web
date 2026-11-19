@@ -24,6 +24,19 @@ interface AsoleamientoStudioProps {
   onClose: () => void;
 }
 
+
+// ARKI: componente que hace volar el mapa a la selección actual
+// (MapContainer ignora 'center' después del montaje; useMap + setView lo corrige)
+function MapRecenter({ position, zoom }: { position: [number, number]; zoom: number }) {
+  const map = useMap();
+  useEffect(() => {
+    if (position) {
+      map.setView(position, zoom, { animate: true });
+    }
+  }, [position, zoom, map]);
+  return null;
+}
+
 function MapClickHandler({ onMapClick }: { onMapClick: (lat: number, lng: number) => void }) {
   useMapEvents({
     click(e) {
@@ -48,7 +61,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
   const [district, setDistrict] = useState<string>("");
   const [date, setDate] = useState<string>(new Date().toISOString().split("T")[0]);
   const [time, setTime] = useState<string>("12:00");
-  const [mapCenter, setMapCenter] = useState<[number, number]>([-9.19, -75.01]); // Centro de Perú
+  const [mapCenter, setMapCenter] = useState<[number, number]>([-12.0464, -77.0428]); // Centro de Perú
   const [markerPos, setMarkerPos] = useState<[number, number] | null>(null);
 
   const departments = useMemo(() => Object.keys(UBIGEO_HIERARCHY).sort(), []);
@@ -57,7 +70,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
 
   useEffect(() => {
     // Default: Trujillo
-    const defaultLoc = getAllUbigeoLocations().find((l) => l.id === "trujillo") || getAllUbigeoLocations()[0];
+    const defaultLoc = getAllUbigeoLocations().find((l) => l.label === "Lima, Lima, Lima") || getAllUbigeoLocations().find((l) => l.province === "Lima" && l.department === "Lima") || getAllUbigeoLocations()[0];
     if (defaultLoc) {
       setSelectedLocation(defaultLoc);
       setDepartment(defaultLoc.department);
@@ -165,6 +178,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <MapClickHandler onMapClick={handleMapClick} />
+                <MapRecenter position={markerPos ?? mapCenter} zoom={12} />
                 {markerPos && <Marker position={markerPos} />}
               </MapContainer>
               <div className="absolute top-2 left-2 bg-slate-900/80 px-2 py-1 rounded text-xs text-slate-300 pointer-events-none">
