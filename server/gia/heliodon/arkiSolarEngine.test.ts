@@ -4,12 +4,15 @@ import { computeSolarPosition, isSunAboveHorizon } from "./arkiSolarEngine";
 describe("ARKI Solar Engine — Trujillo, Perú", () => {
   const trujillo = { latitude: -8.1091, longitude: -79.0211, timezoneOffset: -5 };
 
-  it("21 junio 12:00 — sol alto, ligeramente al este del sur (±1°)", () => {
+  it("21 junio 12:00 — sol alto (~58°), ligeramente al este del norte", () => {
     const pos = computeSolarPosition({ ...trujillo, datetime: "2026-06-21T12:00:00" });
     expect(pos.elevation).toBeGreaterThan(57);
     expect(pos.elevation).toBeLessThan(59);
-    expect(pos.azimuth).toBeGreaterThan(170);
-    expect(pos.azimuth).toBeLessThan(175);
+    // 21-jun = solsticio invierno austral: delta=+23.44.
+    // Trujillo (-8.11) esta al sur del punto subsolar -> sol al NORTE.
+    // 12:00 reloj = ~11:43 solar (longitud -79) -> este del norte.
+    expect(pos.azimuth).toBeGreaterThan(0);
+    expect(pos.azimuth).toBeLessThan(15);
   });
 
   it("21 diciembre 12:00 — solsticio verano austral, sol casi al cenit", () => {

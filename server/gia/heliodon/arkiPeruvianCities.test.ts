@@ -116,8 +116,10 @@ describe("ARKI Peruvian Cities — Integración con Heliodón", () => {
     // Debe dar el mismo resultado que el test de MO-HELIODON-01
     expect(pos.elevation).toBeGreaterThan(57);
     expect(pos.elevation).toBeLessThan(59);
-    expect(pos.azimuth).toBeGreaterThan(170);
-    expect(pos.azimuth).toBeLessThan(175);
+    // Mismo criterio que arkiSolarEngine.test.ts:
+    // 21-jun el sol en Trujillo esta al NORTE (azimut ~7.6), no al sur.
+    expect(pos.azimuth).toBeGreaterThan(0);
+    expect(pos.azimuth).toBeLessThan(15);
   });
 
   it("todas las ciudades producen posición solar válida al mediodía del 21 junio", () => {
