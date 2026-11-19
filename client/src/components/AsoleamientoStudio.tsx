@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import { getAllUbigeoLocations, type UbigeoLocation } from "../../../shared/arkiUbigeoMap";
 import { UBIGEO_HIERARCHY, getProvinces, getDistricts, findLocation } from "../../../shared/arkiUbigeoHierarchy";
 import { computeSolarPositionClient, type SolarInput } from "../../../shared/arkiSolarUtils";
-import SolarHouse3D from "./SolarHouse3D";
+import SolarHouse3D, { type SunPathSample } from "./SolarHouse3D";
 
 import L from "leaflet";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
@@ -139,6 +139,24 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
     const sv = ((hourDecimal - 6) / 12) * 100;
     setSliderValue(Math.max(0, Math.min(100, sv)));
   };
+
+  const sunPath: SunPathSample[] = useMemo(() => {
+    if (!selectedLocation || !date) return [];
+    const samples: SunPathSample[] = [];
+    for (let m = 5 * 60; m <= 19 * 60; m += 15) {
+      const h = Math.floor(m / 60);
+      const mm = m % 60;
+      const pos = computeSolarPositionClient({
+        latitude: selectedLocation.latitude,
+        longitude: selectedLocation.longitude,
+        timezoneOffset: selectedLocation.timezoneOffset,
+        datetime: `${date}T${String(h).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00`,
+      });
+      if (pos.elevation < -2) continue;
+      samples.push({ elevation: pos.elevation, azimuth: pos.azimuth, hour: h + mm / 60 });
+    }
+    return samples;
+  }, [selectedLocation, date]);
 
   const solarData = useMemo(() => {
     if (!selectedLocation || !date || !time) return null;
@@ -290,7 +308,7 @@ export default function AsoleamientoStudio({ isOpen, onClose }: AsoleamientoStud
           <div className="bg-slate-950 rounded-lg border border-slate-800 flex flex-col min-h-[600px]">
             <div className="flex-1 relative">
               {solarData && (
-                <SolarHouse3D elevation={solarData.elevation} azimuth={solarData.azimuth} houseRotation={houseRotation} />
+                <SolarHouse3D elevation={solarData.elevation} azimuth={solarData.azimuth} houseRotation={houseRotation} sunPath={sunPath} />
               )}
             </div>
             <div className="p-3 border-t border-slate-800">
