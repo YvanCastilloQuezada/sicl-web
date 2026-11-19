@@ -1,0 +1,162 @@
+Version, 24.1;
+
+Site:Location,
+  Lima Peru,           !- Name
+  -12.05,              !- Latitude {deg}
+  -77.05,              !- Longitude {deg}
+  -5,                  !- Time Zone {hr}
+  154;                 !- Elevation {m}
+
+SimulationControl,
+  No,                  !- Do Zone Sizing Calculation
+  No,                  !- Do System Sizing Calculation
+  No,                  !- Do Plant Sizing Calculation
+  No,                  !- Run Simulation for Sizing Periods
+  Yes;                 !- Run Simulation for Weather File Run Periods
+
+RunPeriod,
+  Test Day,            !- Name
+  6,                   !- Begin Month
+  21,                  !- Begin Day of Month
+  6,                   !- End Month
+  21,                  !- End Day of Month
+  UseWeatherFile,      !- Day of Week for Start Day
+  Yes,                 !- Use Weather File Holidays and Special Days
+  Yes,                 !- Use Weather File Daylight Saving Period
+  No,                  !- Apply Weekend Holiday Rule
+  Yes,                 !- Use Weather File Rain Indicators
+  Yes;                 !- Use Weather File Snow Indicators
+
+Material,
+  Concrete,            !- Name
+  Rough,               !- Roughness
+  0.2,                 !- Thickness {m}
+  1.5,                 !- Conductivity {W/m-K}
+  2300,                !- Density {kg/m3}
+  800;                 !- Specific Heat {J/kg-K}
+
+Construction,
+  Wall,                !- Name
+  Concrete;            !- Outside Layer
+
+Construction,
+  Floor,
+  Concrete;
+
+Construction,
+  Roof,
+  Concrete;
+
+Zone,
+  Test Zone;           !- Name
+
+BuildingSurface:Detailed,
+  Floor,               !- Name
+  Floor,               !- Surface Type
+  Floor,               !- Construction Name
+  Test Zone,           !- Zone Name
+  ,                    !- Space Name
+  Ground,              !- Outside Boundary Condition
+  ,                    !- Outside Boundary Condition Object
+  NoSun,                  !- Sun Exposure
+  NoWind,                  !- Wind Exposure
+  4,                   !- Number of Vertices
+  -5.0, -5.0, 0.0,     !- X,Y,Z Vertex 1 {m}
+  5.0, -5.0, 0.0,      !- X,Y,Z Vertex 2 {m}
+  5.0, 5.0, 0.0,       !- X,Y,Z Vertex 3 {m}
+  -5.0, 5.0, 0.0;      !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  Roof,                !- Name
+  Roof,                !- Surface Type
+  Roof,                !- Construction Name
+  Test Zone,           !- Zone Name
+  ,                    !- Space Name
+  Outdoors,            !- Outside Boundary Condition
+  ,                    !- Outside Boundary Condition Object
+  SunExposed,                 !- Sun Exposure
+  WindExposed,                 !- Wind Exposure
+  0.5,                 !- View Factor to Ground
+  4,                   !- Number of Vertices
+  -5.0, 5.0, 3.0,      !- X,Y,Z Vertex 1 {m}
+  5.0, 5.0, 3.0,       !- X,Y,Z Vertex 2 {m}
+  5.0, -5.0, 3.0,      !- X,Y,Z Vertex 3 {m}
+  -5.0, -5.0, 3.0;     !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  North Wall,          !- Name
+  Wall,                !- Surface Type
+  Wall,                !- Construction Name
+  Test Zone,           !- Zone Name
+  ,                    !- Space Name
+  Outdoors,            !- Outside Boundary Condition
+  ,                    !- Outside Boundary Condition Object
+  SunExposed,                 !- Sun Exposure
+  WindExposed,                 !- Wind Exposure
+  0.5,                 !- View Factor to Ground
+  4,                   !- Number of Vertices
+  -5.0, 5.0, 0.0,      !- X,Y,Z Vertex 1 {m}
+  5.0, 5.0, 0.0,       !- X,Y,Z Vertex 2 {m}
+  5.0, 5.0, 3.0,       !- X,Y,Z Vertex 3 {m}
+  -5.0, 5.0, 3.0;      !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  South Wall,          !- Name
+  Wall,                !- Surface Type
+  Wall,                !- Construction Name
+  Test Zone,           !- Zone Name
+  ,                    !- Space Name
+  Outdoors,            !- Outside Boundary Condition
+  ,                    !- Outside Boundary Condition Object
+  SunExposed,                 !- Sun Exposure
+  WindExposed,                 !- Wind Exposure
+  0.5,                 !- View Factor to Ground
+  4,                   !- Number of Vertices
+  5.0, -5.0, 0.0,      !- X,Y,Z Vertex 1 {m}
+  -5.0, -5.0, 0.0,     !- X,Y,Z Vertex 2 {m}
+  -5.0, -5.0, 3.0,     !- X,Y,Z Vertex 3 {m}
+  5.0, -5.0, 3.0;      !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  East Wall,           !- Name
+  Wall,                !- Surface Type
+  Wall,                !- Construction Name
+  Test Zone,           !- Zone Name
+  ,                    !- Space Name
+  Outdoors,            !- Outside Boundary Condition
+  ,                    !- Outside Boundary Condition Object
+  SunExposed,                 !- Sun Exposure
+  WindExposed,                 !- Wind Exposure
+  0.5,                 !- View Factor to Ground
+  4,                   !- Number of Vertices
+  5.0, 5.0, 0.0,       !- X,Y,Z Vertex 1 {m}
+  5.0, -5.0, 0.0,      !- X,Y,Z Vertex 2 {m}
+  5.0, -5.0, 3.0,      !- X,Y,Z Vertex 3 {m}
+  5.0, 5.0, 3.0;       !- X,Y,Z Vertex 4 {m}
+
+BuildingSurface:Detailed,
+  West Wall,           !- Name
+  Wall,                !- Surface Type
+  Wall,                !- Construction Name
+  Test Zone,           !- Zone Name
+  ,                    !- Space Name
+  Outdoors,            !- Outside Boundary Condition
+  ,                    !- Outside Boundary Condition Object
+  SunExposed,                 !- Sun Exposure
+  WindExposed,                 !- Wind Exposure
+  0.5,                 !- View Factor to Ground
+  4,                   !- Number of Vertices
+  -5.0, -5.0, 0.0,     !- X,Y,Z Vertex 1 {m}
+  -5.0, 5.0, 0.0,      !- X,Y,Z Vertex 2 {m}
+  -5.0, 5.0, 3.0,      !- X,Y,Z Vertex 3 {m}
+  -5.0, -5.0, 3.0;     !- X,Y,Z Vertex 4 {m}
+
+Output:Variable,
+  *,                   !- Key Value
+  Zone Mean Air Temperature,  !- Variable Name
+  Timestep;            !- Reporting Frequency
+
+Output:Variable,
+  *,
+  Site Outdoor Air Drybulb Temperature,
+  Timestep;
