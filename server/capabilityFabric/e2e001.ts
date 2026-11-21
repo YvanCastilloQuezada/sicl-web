@@ -1,6 +1,7 @@
 import { applyAgkCommand, deriveAgkPlan, type AgkCommittedState, type AgkTransactionReceipt } from "../arkiGeometryKernel";
 import { createDefaultCapabilityRouter } from "./defaultFabric";
 import { verifyD2AuthorityToken, type D2AuthorityToken } from "../d2Authority";
+import { getOrigin } from "../agk/agkTypeGuards";
 
 export type E2E001Intent = {
   intentId: string;
@@ -56,9 +57,9 @@ export async function executeE2E001(
   if (!object) return { ok: false, stage: "INTENT", code: "E2E001_OBJECT_NOT_FOUND" };
 
   const source = {
-    x: object.geometry.x_mm,
-    y: object.geometry.y_mm,
-    z: object.geometry.z_mm,
+    x: (getOrigin(object.geometry as any).x_mm),
+    y: (getOrigin(object.geometry as any).y_mm),
+    z: (getOrigin(object.geometry as any).z_mm),
   };
   const matrix = [
     [1, 0, 0, intent.delta_mm.x],
@@ -144,9 +145,9 @@ export async function executeE2E001(
     z: transformed[0][2],
   };
   const observed = {
-    x: finalObject.geometry.x_mm,
-    y: finalObject.geometry.y_mm,
-    z: finalObject.geometry.z_mm,
+    x: (getOrigin(finalObject.geometry as any).x_mm),
+    y: (getOrigin(finalObject.geometry as any).y_mm),
+    z: (getOrigin(finalObject.geometry as any).z_mm),
   };
   if (expected.x !== observed.x || expected.y !== observed.y || expected.z !== observed.z) {
     return { ok: false, stage: "ORACLE", code: "E2E001_POSITION_ORACLE_FAILED" };

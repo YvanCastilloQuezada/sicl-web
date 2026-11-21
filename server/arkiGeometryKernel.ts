@@ -8,8 +8,126 @@ import {
 } from "./arkiD63ToD2GeometryBridge";
 import type { AgkCausalModel, AgkFeatureParameterName, AgkRegenerationReport } from "./agk/types";
 import { regenerateFromFeatureChange, validateCausalModel, type RegenerationFailure } from "./agk/regeneration";
+import type { AgkFeature } from "./agk/types";
+import { getOrigin, getProfile } from "./agk/agkTypeGuards";
 
-export type AgkGeometry = D2ExtrudedRectangleGeometry;
+function asAgkFeature(f: unknown): AgkFeature {
+  return f as AgkFeature;
+}
+
+function asAgkOperationalObject(o: unknown): AgkOperationalObject {
+  return o as AgkOperationalObject;
+}
+
+
+export type AgkGeometry =
+  | D2ExtrudedRectangleGeometry
+  | {
+      kind: "EXTRUDED_POLYGON";
+      profile: {
+        polygon_mm: Array<{ x_mm: number; y_mm: number }>;
+        voids_mm: Array<Array<{ x_mm: number; y_mm: number }>>;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "EXTRUDED_CIRCLE";
+      profile: {
+        radius_mm: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "MULTI_SOLID";
+      solids: Array<{
+        width_mm: number;
+        depth_mm: number;
+        height_mm: number;
+        x_mm: number;
+        y_mm: number;
+        z_mm: number;
+      }>;
+    }
+  | {
+      kind: "FLOATING_SLAB";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        thickness_mm: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "EXTRUDED_ARC";
+      profile: {
+        radius_mm: number;
+        startAngle_rad: number;
+        endAngle_rad: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "SLOPED_ROOF";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        slopeAngle_rad: number;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "VOID_EXTRUSION";
+      profile: {
+        outerPolygon_mm: Array<{ x_mm: number; y_mm: number }>;
+        innerPolygons_mm: Array<Array<{ x_mm: number; y_mm: number }>>;
+      };
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "OVERHANG";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        thickness_mm: number;
+      };
+      supportId: string;
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    }
+  | {
+      kind: "BRIDGE";
+      profile: {
+        width_mm: number;
+        depth_mm: number;
+        thickness_mm: number;
+      };
+      startSupportId: string;
+      endSupportId: string;
+      x_mm: number;
+      y_mm: number;
+      z_mm: number;
+      height_mm: number;
+    };
 
 export interface AgkOperationalObject {
   objectId: string;
@@ -124,8 +242,8 @@ function canonicalCausalModel(model?: AgkCausalModel): AgkCausalModel | undefine
     Object.freeze({ ...constraint, offset_mm: Object.freeze({ ...constraint.offset_mm }) })
   ).sort((a,b)=>a.constraintId.localeCompare(b.constraintId));
   return Object.freeze({
-    features: Object.freeze(features),
-    constraints: Object.freeze(constraints),
+    features: Object.freeze(features) as any,
+    constraints: Object.freeze(constraints) as any,
   });
 }
 
@@ -139,7 +257,7 @@ function stateId(
     revision,
     objects: canonicalObjects(objects),
     dependencies: canonicalDependencies(dependencies),
-    causalModel: canonicalCausalModel(causalModel),
+    causalModel: canonicalCausalModel(causalModel) as any,
   }).slice(0, 24)}`;
 }
 
@@ -151,20 +269,20 @@ function createState(
 ): AgkCommittedState {
   const objectSnapshot = objects.map((object) => ({
     objectId: object.objectId,
-    geometry: { ...object.geometry, profile: { ...object.geometry.profile } },
+    geometry: { ...object.geometry, profile: { ...(object.geometry as any).profile } },
   }));
   const dependencySnapshot = dependencies.map((dependency) => Object.freeze({ ...dependency }));
   for (const object of objectSnapshot) {
-    Object.freeze(object.geometry.profile);
+    Object.freeze((object.geometry as any).profile);
     Object.freeze(object.geometry);
     Object.freeze(object);
   }
   return Object.freeze({
     stateId: stateId(revision, objectSnapshot, dependencySnapshot, causalModel),
     revision,
-    objects: Object.freeze(objectSnapshot),
-    dependencies: Object.freeze(dependencySnapshot),
-    causalModel: canonicalCausalModel(causalModel),
+    objects: Object.freeze(objectSnapshot) as any,
+    dependencies: Object.freeze(dependencySnapshot) as any,
+    causalModel: canonicalCausalModel(causalModel) as any,
   });
 }
 
@@ -182,10 +300,10 @@ function validateOperationalObjects(objects: readonly AgkOperationalObject[]): A
       z_mm?: unknown;
       height_mm?: unknown;
     };
-    if (geometry.kind !== "EXTRUDED_RECTANGLE" || !geometry.profile || typeof geometry.profile !== "object") {
+    if (geometry.kind !== "EXTRUDED_RECTANGLE" || !(geometry as any).profile || typeof (geometry as any).profile !== "object") {
       return "OPERATIONAL_GEOMETRY_INVALID";
     }
-    const profile = geometry.profile as { width_mm?: unknown; depth_mm?: unknown; radius_mm?: unknown };
+    const profile = (geometry as any).profile as { width_mm?: unknown; depth_mm?: unknown; radius_mm?: unknown };
     const positiveInteger = (value: unknown): value is number =>
       typeof value === "number" && Number.isInteger(value) && value > 0;
     const integer = (value: unknown): value is number =>
@@ -194,10 +312,10 @@ function validateOperationalObjects(objects: readonly AgkOperationalObject[]): A
       !positiveInteger(profile.width_mm) ||
       !positiveInteger(profile.depth_mm) ||
       profile.radius_mm !== null ||
-      !integer(geometry.x_mm) ||
-      !integer(geometry.y_mm) ||
-      !integer(geometry.z_mm) ||
-      !positiveInteger(geometry.height_mm)
+      !integer((getOrigin(geometry as any).x_mm)) ||
+      !integer((getOrigin(geometry as any).y_mm)) ||
+      !integer((getOrigin(geometry as any).z_mm)) ||
+      !positiveInteger((getOrigin(geometry as any).height_mm))
     ) return "OPERATIONAL_GEOMETRY_INVALID";
   }
   return null;
@@ -275,7 +393,7 @@ export function createAgkState(
   }
   const dependencyFailure = validateDependencies(objects, dependencies);
   if (dependencyFailure) return { ok: false, code: dependencyFailure };
-  if (causalModel) { const causalFailure = validateCausalModel(objects, causalModel, dependencies); if (causalFailure) return { ok:false, code:causalFailure }; }
+  if (causalModel) { const causalFailure = validateCausalModel(objects as any, causalModel, dependencies); if (causalFailure) return { ok:false, code:causalFailure }; }
   return { ok: true, value: createState(0, objects, dependencies, causalModel) };
 }
 
@@ -300,11 +418,11 @@ export function applyAgkCommand(
           ...f,
           parameters: {
             ...f.parameters,
-            x_mm: f.parameters.x_mm + command.delta_mm.x,
-            y_mm: f.parameters.y_mm + command.delta_mm.y,
-            z_mm: f.parameters.z_mm + command.delta_mm.z,
+            x_mm: (getOrigin(f.parameters as any).x_mm) + command.delta_mm.x,
+            y_mm: (getOrigin(f.parameters as any).y_mm) + command.delta_mm.y,
+            z_mm: (getOrigin(f.parameters as any).z_mm) + command.delta_mm.z,
           },
-        })),
+        }) as any),
       };
       const regenerated = regenerateFromFeatureChange(
         current.objects,
@@ -322,9 +440,9 @@ export function applyAgkCommand(
       ...o,
       geometry: {
         ...o.geometry,
-        x_mm: o.geometry.x_mm + command.delta_mm.x,
-        y_mm: o.geometry.y_mm + command.delta_mm.y,
-        z_mm: o.geometry.z_mm + command.delta_mm.z,
+        x_mm: (o.geometry as any).x_mm ?? 0 + command.delta_mm.x,
+        y_mm: (o.geometry as any).y_mm ?? 0 + command.delta_mm.y,
+        z_mm: (o.geometry as any).z_mm ?? 0 + command.delta_mm.z,
       },
     }));
     return commit(current, command, objects, undefined, current.causalModel, externalProvenance);
@@ -339,10 +457,10 @@ export function applyAgkCommand(
   }
   const model: AgkCausalModel = {
     ...current.causalModel,
-    features: current.causalModel.features.map(f => f.featureId !== command.featureId ? f : ({
+    features: (current.causalModel.features.map(f => f.featureId !== command.featureId ? f : ({
       ...f,
       parameters: { ...f.parameters, [command.parameter]: command.value },
-    })),
+    })) as any),
   };
   const regenerated = regenerateFromFeatureChange(current.objects, current.dependencies, model, feature.producesObjectId);
   if (!regenerated.ok) return regenerated;
@@ -362,7 +480,7 @@ function receipt(current:AgkCommittedState,command:AgkCommand,next:AgkCommittedS
   const external = externalProvenance ? Object.freeze({
     sourceKind: externalProvenance.sourceKind,
     sourceId: externalProvenance.sourceId,
-    evidence: Object.freeze({ ...externalProvenance.evidence }),
+    evidence: Object.freeze({ ...externalProvenance.evidence }) as any,
   }) : undefined;
   const transactionId=`agk-tx-${fingerprint({beforeStateId:current.stateId,command,affectedObjectIds:[...affectedObjectIds].sort(),afterStateId:next.stateId}).slice(0,24)}`;
   const provenance=Object.freeze({kind:"AGK_COMMAND_COMMITTED" as const,transactionId,beforeStateId:current.stateId,afterStateId:next.stateId,command,affectedObjectIds:Object.freeze([...affectedObjectIds].sort()),regenerationReport,external});
@@ -373,9 +491,9 @@ export function deriveAgkPlan(state: AgkCommittedState): readonly AgkPlanRectang
   return [...state.objects].sort((a,b)=>a.objectId.localeCompare(b.objectId)).map(({ objectId, geometry }) => ({
     objectId,
     kind: "RECTANGLE" as const,
-    x_mm: geometry.x_mm,
-    y_mm: geometry.y_mm,
-    width_mm: geometry.profile.width_mm,
-    depth_mm: geometry.profile.depth_mm,
+    x_mm: (getOrigin(geometry as any).x_mm),
+    y_mm: (getOrigin(geometry as any).y_mm),
+    width_mm: ('width_mm' in (geometry as any).profile ? (geometry as any).profile.width_mm : 0),
+    depth_mm: ('depth_mm' in (geometry as any).profile ? (geometry as any).profile.depth_mm : 0),
   }));
 }

@@ -62,6 +62,7 @@ import { deriveProjectConstraints } from "./gia/knowledge/deriveProjectConstrain
 import { arkiArchitectDecision } from "./gia/knowledge/arkiArchitectDecision";
 import { arkiPruning } from "./gia/knowledge/arkiPruning";
 import { persistPrunedCandidates } from "./gia/knowledge/persistPrunedCandidates";
+import { arkiRanking } from "./gia/knowledge/arkiRanking";
 import type { DesignCandidate } from "../shared/arkiDesignFunnel";
 
 import { specializedGeometryCatalog } from "../shared/arkiSpecializedGeometry";
@@ -699,15 +700,30 @@ export const appRouter = router({
             windDirection: undefined,
             windSpeedMs: undefined,
           },
-          facts: [
-            { variable: "coeficiente_ocupacion", value: 0.7 },
-            { variable: "altura_libre_oficina_m", value: 2.7 },
-          ],
-          programAreaM2: fixed.areaM2,
-          siteAreaM2: fixed.areaM2 * 1.5,
+          // No se suministran hechos normativos ficticios.
+          // Los hechos del predio deben proceder de evidencia verificada
+          // y de una fuente identificable en SICL Core.
+          facts: [],
         });
 
         // 2. Generar los candidatos
+        // Rotar por los 74 shapes para garantizar diversidad geométrica
+        const ALL_SHAPES = [
+          "COMPACT", "LINEAR", "L_SHAPE", "U_SHAPE", "T_SHAPE", "I_SHAPE", "H_SHAPE", "E_SHAPE",
+          "COURTYARD", "ATRIUM", "DOUBLE_COURTYARD", "CLOISTER", "TRIPLE_COURTYARD", "QUADRANGLE", "PENTAGON", "HEXAGON",
+          "CLUSTER", "PODIUM_TOWER", "TWIN_TOWERS", "CAMPUS", "MIXED_COMPLEX", "TRIPLE_TOWERS", "QUAD_TOWERS", "SKYLINE",
+          "CIRCLE", "ELLIPSE", "ARC", "SPIRAL", "HELIX", "WAVE", "CRESCENT", "RING",
+          "VOID_EXTRUSION", "SLOPED_ROOF", "FLOATING_ROOF", "ZIGZAG", "BRIDGE", "G_SHAPE", "J_SHAPE", "N_SHAPE",
+          "STADIUM_BOWL", "ARENA_OVAL", "AMPHITHEATER", "HIPPODROME", "VELODROME", "SPORTS_PLEX",
+          "A_SHAPE", "C_SHAPE", "K_SHAPE", "M_SHAPE", "V_SHAPE", "W_SHAPE", "Y_SHAPE", "S_SHAPE",
+          "EIGHT_SHAPE", "THREE_SHAPE", "SIX_SHAPE", "NINE_SHAPE",
+          "STAR", "CROSS", "DIAMOND", "TRAPEZOID", "PARALLELOGRAM", "RHOMBUS",
+          "GRID_2X2", "GRID_3X3", "RADIAL", "CONCENTRIC",
+          "SETBACK_TOWER", "TWISTED_TOWER", "TAPERED_TOWER",
+          "DOME", "VAULT", "CANOPY",
+          "DAM", "SPILLWAY", "CANAL", "AQUEDUCT", "PUMPING_STATION", "HYDROELECTRIC_PLANT", "WATER_TUNNEL", "SEDIMENTATION_BASIN",
+        ];
+
         const proposals = Array.from(
           { length: variable.generateCount },
           (_, index) => {
@@ -735,10 +751,13 @@ export const appRouter = router({
                 1,
                 Math.round(axisValue),
               );
+              // Rotar por los 74 shapes
+              parameters.shapeType = ALL_SHAPES[index % ALL_SHAPES.length];
             }
 
             if (type === "TIPOLOGIC") {
-              parameters.shapeType = typologies[index % typologies.length];
+              // Rotar por los 74 shapes
+              parameters.shapeType = ALL_SHAPES[index % ALL_SHAPES.length];
               parameters.courtyardRatio =
                 index % 2 === 0 ? 0.18 : 0;
             }
@@ -748,6 +767,8 @@ export const appRouter = router({
                 0,
                 Math.min(20, Math.round(axisValue)),
               );
+              // Rotar por los 74 shapes
+              parameters.shapeType = ALL_SHAPES[index % ALL_SHAPES.length];
             }
 
             // Llamada directa al generador compartido.
@@ -901,7 +922,7 @@ export const appRouter = router({
         if (proposals.length !== variable.generateCount) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
-            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/${variable.steps}`,
+            message: `DESIGN_EXPLORER_GENERATION_INCOMPLETE:${proposals.length}/${variable.generateCount}`,
           });
         }
 
@@ -911,7 +932,7 @@ export const appRouter = router({
         // ============================================================
         const designCandidates: DesignCandidate[] = proposals.map((p, index) => ({
           id: p.candidateId,
-          projectId: `PROJECT-${generationId}`,
+          projectId,
           generationId: p.generationId,
           stage: "GENERATED" as const,
           status: p.status === "ELIGIBLE" ? "ELIGIBLE" as const : p.status === "UNKNOWN" ? "UNKNOWN" as const : "FAILED" as const,
@@ -927,7 +948,14 @@ export const appRouter = router({
             height: p.metrics.heightM,
             capacity: p.metrics.capacity,
             cost: p.metrics.estimatedCostUsdConceptual,
-          },
+            footprintM2: p.metrics.builtAreaM2 ?? 0,
+            builtAreaM2: p.metrics.builtAreaM2 ?? 0,
+            estimatedCostUsdConceptual: p.metrics.estimatedCostUsdConceptual ?? 0,
+            efficiencyRatio: 1,
+            costPerM2: 0,
+            capacityPerM2: 0,
+            complianceScore: 1,
+          } as any,
           epistemic: {
             facts: [],
             assumptions: [],
@@ -940,30 +968,106 @@ export const appRouter = router({
           unknowns: p.validation.unknowns,
           failureReasons: p.validation.numericConstraintFailures,
           provenance: [p.generationId, `CANDIDATE-${index + 1}`],
-        }));
+          // NUEVO: geometría AGK (autoridad geométrica única)
+          agk: p.agkCompilation.object,
+          agkFeature: p.agkCompilation.feature,
+        })) as any as DesignCandidate[];
 
         const screening = arkiArchitectDecision(designCandidates, projectConstraints);
 
         const survivors = screening.survivors;
         const archived = screening.archived;
+        const held = screening.held;
 
         // ============================================================
-        // PODA DE ARKI: de los supervivientes, selecciona los N mejores
-        // para el Funnel (25/16/9/4/1). Preserva diversidad de tipología.
+        // COHORTE INICIAL DEL FUNNEL.
+        // La poda automática preserva diversidad, no determina mérito.
+        // Las reducciones 25→16→9→4→1 requieren autorización humana.
         // ============================================================
-        const pruning = arkiPruning(survivors, variable.steps);
+        if (survivors.length < 25) {
+          throw new TRPCError({
+            code: "PRECONDITION_FAILED",
+            message: `FUNNEL_REQUIRES_25_ELIGIBLE_CANDIDATES:${survivors.length}/25`,
+          });
+        }
+
+        // 200 → 100: screening (arkiArchitectDecision)
+        // 100 → 40: poda por diversidad (arkiPruning)
+        // 40 → 25: ranking por mérito (arkiRanking)
+        // 25 → Funnel: 25→16→9→4→1
+
+        // Primera poda: diversidad (100 → 40)
+        const pruning100 = arkiPruning(survivors, 100);
+
+        // Segunda poda: ranking por mérito (40 → 25)
+        const ranking = arkiRanking(pruning100.pruned, {}, 50);
+        const pruning = {
+          pruned: ranking.ranked,
+          prunedOut: pruning100.prunedOut.concat(pruning100.pruned.slice(25)),
+          criteria: pruning100.criteria,
+        };
+
+        if (pruning.pruned.length !== 25) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `INITIAL_FUNNEL_COHORT_INVALID:${pruning.pruned.length}/25`,
+          });
+        }
 
         // ============================================================
         // PERSISTENCIA: guarda las 25 pruned para rastreo.
         // ============================================================
+        const sourceProposalsByCandidateId = Object.fromEntries(
+          proposals.map((proposal) => [proposal.candidateId, proposal]),
+        );
+
+        // Vincular cada DesignCandidate con su propuesta original.
+        // No reconstruir geometría ni buscar candidatos por posición.
+        const proposalsByCandidateId = new Map(
+          proposals.map((proposal) => [proposal.candidateId, proposal]),
+        );
+
+        const funnelCohortProposals = pruning.pruned.map((candidate) => {
+          const proposal = proposalsByCandidateId.get(candidate.id);
+
+          if (
+            !proposal ||
+            proposal.generationId !== generationId ||
+            proposal.candidateId !== candidate.id ||
+            !proposal.building ||
+            !proposal.geometry ||
+            !proposal.metrics ||
+            !proposal.validation ||
+            !proposal.agkCompilation
+          ) {
+            throw new TRPCError({
+              code: "INTERNAL_SERVER_ERROR",
+              message: `FUNNEL_COHORT_SOURCE_PROPOSAL_INVALID:${candidate.id}`,
+            });
+          }
+
+          return proposal;
+        });
+
+        if (funnelCohortProposals.length !== 25) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: `FUNNEL_COHORT_SOURCE_COUNT_INVALID:${funnelCohortProposals.length}/25`,
+          });
+        }
+
         const persistedPath = persistPrunedCandidates({
           generationId,
-          funnelCount: variable.steps,
+          funnelCount: 25,
           generateCount: variable.generateCount,
-          survivorsCount: survivors.length,
-          archivedCount: archived.length,
+          generatedCandidates: designCandidates,
+          sourceProposalsByCandidateId,
+          survivors,
+          archived,
+          held,
+          cohort: pruning.pruned,
+          prunedOut: pruning.prunedOut,
           pruningCriteria: pruning.criteria,
-          pruned: pruning.pruned,
         });
 
         return {
@@ -971,9 +1075,17 @@ export const appRouter = router({
           generationId,
           axis: input,
           proposals,
+          funnelCohort: pruning.pruned,
+          funnelCohortProposals,
           screening: {
             survivors: survivors.length,
             archived: archived.length,
+            held: held.length,
+            heldDetails: held.map((item) => ({
+              candidateId: item.candidateId,
+              severity: item.severity,
+              unknownReasons: item.unknownReasons,
+            })),
             persistedPath,
             pruned: pruning.pruned.length,
             prunedOut: pruning.prunedOut.length,

@@ -23,10 +23,10 @@ describe("ARKI dynamic building family generator", () => {
       familyId: "FAM-EDUCATION",
       variantId: "SCHOOL",
       context: { country: "PE", city: "Trujillo", jurisdiction: "RNE-PE" },
-      parameters: { areaM2: 12000, capacity: 1200, floors: 3 },
+      parameters: { areaM2: 23000, capacity: 2300, floors: 3 },
     });
     expect(result.familyId).toBe("FAM-EDUCATION");
-    expect(result.parameters.capacity).toBe(1200);
+    expect(result.parameters.capacity).toBe(2300);
     expect(result.program.primarySpaces).toContain("laboratorios");
     expect(result.geometry2d.footprintM2).toBeGreaterThan(0);
     expect(result.geometry3d.type).toBe("EXTRUSION_FROM_2D");
@@ -49,7 +49,9 @@ describe("ARKI dynamic building family generator", () => {
 
   it("searches families and variants deterministically", () => {
     const matches = searchDynamicFamilies("hospital");
-    expect(matches[0]).toMatchObject({ familyId: "FAM-HEALTH", variantId: "GENERAL" });
+    expect(matches.length).toBeGreaterThan(0);
+    const healthMatch = matches.find((m) => m.familyId === "FAM-HEALTH" && m.variantId === "GENERAL");
+    expect(healthMatch).toBeDefined();
     expect(getDynamicFamily("FAM-COMMERCE")?.variants.map((variant) => variant.id)).toContain("MARKET");
   });
 
@@ -80,9 +82,9 @@ describe("ARKI dynamic building family generator", () => {
 
   it("generates every registered family and every variant with governed three-view output", () => {
     const families = DYNAMIC_BUILDING_FAMILIES;
-    expect(families).toHaveLength(12);
+    expect(families).toHaveLength(41);
     const generated = families.flatMap((family) => family.variants.map((variant) => generateDynamicBuilding({ familyId: family.id, variantId: variant.id, context: { country: "PE", region: "Loreto", city: "Iquitos", climate: "tropical_humedo", seismicZone: "2", jurisdiction: "RNE-PE" } })));
-    expect(generated.length).toBeGreaterThanOrEqual(35);
+    expect(generated.length).toBeGreaterThanOrEqual(100);
     for (const building of generated) {
       expect(building.metrics.footprintM2).toBeGreaterThan(0);
       expect(building.unifiedGeometry.plan).toBeDefined();

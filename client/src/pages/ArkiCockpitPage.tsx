@@ -1,3 +1,4 @@
+import AsoleamientoStudio from "@/components/AsoleamientoStudio";
 import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
@@ -47,6 +48,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [oeceOpen, setOeceOpen] = useState(false);
   const [estatalOpen, setEstatalOpen] = useState(false);
   const [estudiosOpen, setEstudiosOpen] = useState(false);
+  const [asoleamientoOpen, setAsoleamientoOpen] = useState(false);
   const [tooltipText, setTooltipText] = useState<string | null>(null);
   const [expedienteOpen, setExpedienteOpen] = useState(false);
   const [tresDOpen, setTresDOpen] = useState(false);
@@ -413,7 +415,56 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             const partis = result?.partis || [];
             console.log("[ARKI] Partis recibidos:", partis);
             
-            // GENERAR 9 PROPUESTAS VARIANDO PARÁMETROS (misma variante BUS_TERMINAL)
+            // ARKI: Mostrar los 120 shapes disponibles y redirigir al Funnel Canónico
+            setMessages(prev => [...prev, { 
+              role: "assistant", 
+              text: `🏗️ ARKI ha preparado el proyecto ${tipo} de ${areaM2} m² en ${ciudad}.\n📐 Los 120 shapes están disponibles para generar alternativas.\nRedirigiendo al Funnel Canónico...` 
+            }]);
+
+            // Guardar los parámetros en sessionStorage para que el Funnel los use
+            sessionStorage.setItem('arki_funnel_params', JSON.stringify({
+              tipo,
+              areaM2,
+              ciudad,
+              capacity,
+              brief: userMsg,
+            }));
+
+            // Guardar los 120 shapes disponibles
+            sessionStorage.setItem('arki_shapes', JSON.stringify([
+              'COMPACT', 'LINEAR', 'L_SHAPE', 'U_SHAPE', 'T_SHAPE', 'I_SHAPE', 'H_SHAPE', 'E_SHAPE',
+              'COURTYARD', 'ATRIUM', 'DOUBLE_COURTYARD', 'CLOISTER', 'TRIPLE_COURTYARD', 'QUADRANGLE', 'PENTAGON', 'HEXAGON',
+              'CLUSTER', 'PODIUM_TOWER', 'TWIN_TOWERS', 'CAMPUS', 'MIXED_COMPLEX', 'TRIPLE_TOWERS', 'QUAD_TOWERS', 'SKYLINE',
+              'CIRCLE', 'ELLIPSE', 'ARC', 'SPIRAL', 'HELIX', 'WAVE', 'CRESCENT', 'RING',
+              'VOID_EXTRUSION', 'SLOPED_ROOF', 'FLOATING_ROOF', 'ZIGZAG', 'BRIDGE', 'G_SHAPE', 'J_SHAPE', 'N_SHAPE',
+              'STADIUM_BOWL', 'ARENA_OVAL', 'AMPHITHEATER', 'HIPPODROME', 'VELODROME', 'SPORTS_PLEX',
+              'A_SHAPE', 'C_SHAPE', 'K_SHAPE', 'M_SHAPE', 'V_SHAPE', 'W_SHAPE', 'Y_SHAPE', 'S_SHAPE',
+              'EIGHT_SHAPE', 'THREE_SHAPE', 'SIX_SHAPE', 'NINE_SHAPE',
+              'STAR', 'CROSS', 'DIAMOND', 'TRAPEZOID', 'PARALLELOGRAM', 'RHOMBUS',
+              'GRID_2X2', 'GRID_3X3', 'RADIAL', 'CONCENTRIC',
+              'SETBACK_TOWER', 'TWISTED_TOWER', 'TAPERED_TOWER',
+              'DOME', 'VAULT', 'CANOPY',
+              'Z_SHAPE', 'SQUARE', 'RECTANGLE_LONG', 'HEXAGON_IRREGULAR', 'OCTAGON', 'NONAGON', 'DECAGON',
+              'PATIO_IRREGULAR', 'L_TOWER', 'T_TOWER', 'U_TOWER', 'H_TOWER',
+              'PARABOLA', 'HYPERBOLA', 'SINE_WAVE', 'COSINE_WAVE',
+              'STAIRCASE', 'RAMP', 'TERRACE', 'GALLERY',
+              'BASEBALL_DIAMOND', 'FOOTBALL_FIELD', 'TENNIS_COURT',
+              'B_SHAPE', 'D_SHAPE', 'F_SHAPE', 'L_SHAPE_ALT',
+              'ZERO_SHAPE', 'ONE_SHAPE', 'TWO_SHAPE', 'FOUR_SHAPE',
+              'ELLIPSE_TILTED', 'TRAPEZOID_IRREGULAR', 'KITE',
+              'MEGA_TOWER', 'SUPERTALL', 'MIXED_TOWER',
+              'BARREL_VAULT', 'HYPAR', 'GRID_SHELL',
+              'ARCH_BRIDGE', 'SUSPENSION_BRIDGE', 'CABLE_STAY',
+              'DAM', 'SPILLWAY', 'CANAL', 'AQUEDUCT', 'PUMPING_STATION', 'HYDROELECTRIC_PLANT', 'WATER_TUNNEL', 'SEDIMENTATION_BASIN',
+            ]));
+
+            // Redirigir a la página del Funnel Real
+            setTimeout(() => {
+              window.location.assign('/arki-design-funnel');
+            }, 1500);
+
+            // Código antiguo (9 propuestas) — desactivado
+            /*
             const familyMap: Record<string, { familyId: string; variantId: string }> = {
               "terminal_terrestre": { familyId: "FAM-TRANSPORT", variantId: "BUS_TERMINAL" },
               "hospital": { familyId: "FAM-HEALTH", variantId: "GENERAL" },
@@ -466,7 +517,10 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             } catch (e) {
               console.error("[ARKI] Error generando propuestas:", e);
             }
-            const partisToShow = propuestasReales.length > 0 ? propuestasReales : partis;
+            */
+            // Redirigir al Funnel Canónico (500 → 250 → 100 → 50 → 25 → 16 → 9 → 4 → 1)
+            // El Cockpit ya no genera propuestas locales; usa el motor real.
+            const partisToShow = partis;
             console.log("[ARKI] Propuestas a mostrar:", partisToShow.map((p: any) => ({title: p.title, area: p.metrics?.area, hasBuilding: !!p.building})));
             setPartis(partisToShow);
             console.log("[ARKI] setPartis ejecutado con:", partisToShow.length, "propuestas");
@@ -555,7 +609,22 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             {estudiosOpen && (
               <div className="absolute top-full left-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999] max-h-96 overflow-y-auto">
                 <div className="p-2 flex flex-col space-y-1">
-                  {estudios.map((e, i) => <button key={i} className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">{e}</button>)}
+                  {estudios.map((e, i) => (
+          <button
+            key={i}
+            className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block"
+            onClick={() => {
+              if (e === "Asoleamiento") {
+                setAsoleamientoOpen(true);
+                setEstudiosOpen(false);
+              } else {
+                console.log(`Estudio "${e}" en desarrollo`);
+              }
+            }}
+          >
+            {e}
+          </button>
+        ))}
                 </div>
               </div>
             )}
@@ -887,7 +956,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       
       {/* CHAT REFACTORIZADO */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
-        <CopilotPanel
+        {!asoleamientoOpen && <CopilotPanel
           messages={messages}
           input={input}
           setInput={setInput}
@@ -907,7 +976,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (action === "file-chat") setActiveModal("file-chat");
           }}
           onOpenWorkspace={() => setShowWorkspacePanel(true)}
-        />
+        />}
       </div>
       {activeModal === 'ifc' && <IFCViewerModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'editor' && <PlanEditorModal onClose={() => setActiveModal(null)} />}
@@ -1011,6 +1080,9 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         <span className="text-sm">Workspace</span>
       </button>
 </div>
+      {/* ARKI: Panel de Asoleamiento (Heliodón) */}
+      <AsoleamientoStudio isOpen={asoleamientoOpen} onClose={() => setAsoleamientoOpen(false)} />
     </div>
+
   );
 }

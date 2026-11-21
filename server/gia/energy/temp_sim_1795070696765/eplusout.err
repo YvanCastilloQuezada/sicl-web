@@ -1,0 +1,26 @@
+Program Version,EnergyPlus, Version 24.1.0-9d7789a3ac, YMD=2026.11.19 01:44,
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][number_of_vertices] - "0.000000" - Expected number greater than or equal to 3.000000
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][number_of_vertices] - Failed to validate against child schema #0.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][number_of_vertices] - "0.000000" - Failed to match against any enum values.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][number_of_vertices] - Failed to validate against child schema #1.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][number_of_vertices] - Failed to validate against any schemas allowed by anyOf constraint.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][sun_exposure] - "4" - Failed to match against any enum values.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][view_factor_to_ground] - "-5.000000" - Expected number greater than or equal to 0.000000
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][view_factor_to_ground] - Failed to validate against child schema #0.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][view_factor_to_ground] - "-5.000000" - Failed to match against any enum values.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][view_factor_to_ground] - Failed to validate against child schema #1.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][view_factor_to_ground] - Failed to validate against any schemas allowed by anyOf constraint.
+   ** Severe  ** <root>[BuildingSurface:Detailed][Floor][wind_exposure] - "-5.0" - Failed to match against any enum values.
+   ** Severe  ** <root>[RunPeriod][Test Run][day_of_week_for_start_day] - "Yes" - Failed to match against any enum values.
+   ** Severe  ** <root>[RunPeriod][Test Run][end_day_of_month] - Value type "string" for input "UseWeatherFile" not permitted by 'type' constraint.
+   ** Severe  ** <root>[RunPeriod][Test Run][end_month] - "31" - Expected number less than or equal to 12.000000
+   ** Severe  ** <root>[RunPeriod][Test Run][end_year] - Value type "string" for input "Yes" not permitted by 'type' constraint.
+   **  Fatal  ** Errors occurred on processing input file. Preceding condition(s) cause termination.
+   ...Summary of Errors that led to program termination:
+   ..... Reference severe error count=16
+   ..... Last severe error=<root>[RunPeriod][Test Run][end_year] - Value type "string" for input "Yes" not permitted by 'type' constraint.
+   ************* Warning:  Node connection errors not checked - most system input has not been read (see previous warning).
+   ************* Fatal error -- final processing.  Program exited before simulations began.  See previous error messages.
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Terminated--Fatal Error Detected. 0 Warning; 16 Severe Errors; Elapsed Time=00hr 00min  0.05sec
