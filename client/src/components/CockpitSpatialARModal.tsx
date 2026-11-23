@@ -12,22 +12,28 @@ export function hasValidRenderGeometry(element: SpatialRepresentation["elements"
     const height = Number(element.metadata?.height);
     return vertices.length >= 6 && Number.isFinite(height) && height > 0;
   }
-  if (!["BuildingFootprint", "SpatialZone"].includes(element.element_type) || !["polygon", "multipolygon"].includes(type.toLowerCase()) || !Array.isArray(coordinates)) return false;
-  let firstRing: unknown = coordinates;
-  if (type.toLowerCase() === "polygon") {
-    firstRing = Array.isArray(coordinates?.[0]) && Array.isArray(coordinates[0]?.[0]) ? coordinates[0][0] : coordinates?.[0];
-  } else if (type.toLowerCase() === "multipolygon") {
-    const firstPolygon = coordinates?.[0];
-    firstRing = Array.isArray(firstPolygon?.[0]) ? firstPolygon[0] : firstPolygon;
+  if (!["BuildingFootprint", "SpatialZone"].includes(element.element_type)) return false;
+  const normalizedType = type.toLowerCase();
+  if (!["polygon", "multipolygon"].includes(normalizedType) || !Array.isArray(coordinates)) return false;
+
+  // The current renderer draws only one exterior ring. Block holes and multiple
+  // polygon parts rather than silently omitting geometry.
+  let ring: unknown;
+  if (normalizedType === "polygon") {
+    if (coordinates.length !== 1) return false; // no interior rings (holes)
+    ring = coordinates[0];
+  } else {
+    if (coordinates.length !== 1 || !Array.isArray(coordinates[0]) || coordinates[0].length !== 1) return false;
+    ring = coordinates[0][0]; // one polygon, one exterior ring only
   }
-  const pairs: [number, number][] = [];
-  const collect = (value: unknown) => {
-    if (!Array.isArray(value)) return;
-    if (value.length >= 2 && typeof value[0] === "number" && typeof value[1] === "number" && Number.isFinite(value[0]) && Number.isFinite(value[1])) { pairs.push([value[0], value[1]]); return; }
-    value.forEach(collect);
-  };
-  collect(firstRing);
-  return new Set(pairs.map(([x, y]) => `${x},${y}`)).size >= 3;
+  if (!Array.isArray(ring)) return false;
+  const points = ring.filter((point): point is [number, number] =>
+    Array.isArray(point) && point.length >= 2 &&
+    typeof point[0] === "number" && Number.isFinite(point[0]) &&
+    typeof point[1] === "number" && Number.isFinite(point[1])
+  );
+  const distinct = new Set(points.map(([x, y]) => `${x},${y}`));
+  return distinct.size >= 3;
 }
 
 
