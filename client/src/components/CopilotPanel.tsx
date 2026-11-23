@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, PenTool, Eye, Brain, Camera, Box } from "lucide-react";
+import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, Camera } from "lucide-react";
 import { useSpeech } from "@/hooks/useSpeech";
 
 interface CopilotPanelProps {
