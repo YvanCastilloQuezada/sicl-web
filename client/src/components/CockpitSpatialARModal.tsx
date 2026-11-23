@@ -13,13 +13,20 @@ function hasValidRenderGeometry(element: SpatialRepresentation["elements"][numbe
     return vertices.length >= 6 && Number.isFinite(height) && height > 0;
   }
   if (!["BuildingFootprint", "SpatialZone"].includes(element.element_type) || !["polygon", "multipolygon"].includes(type.toLowerCase())) return false;
+  let firstRing: unknown = coordinates;
+  if (type.toLowerCase() === "polygon") {
+    firstRing = Array.isArray(coordinates?.[0]) && Array.isArray(coordinates[0]?.[0]) ? coordinates[0][0] : coordinates?.[0];
+  } else if (type.toLowerCase() === "multipolygon") {
+    const firstPolygon = coordinates?.[0];
+    firstRing = Array.isArray(firstPolygon?.[0]) ? firstPolygon[0] : firstPolygon;
+  }
   const pairs: [number, number][] = [];
   const collect = (value: unknown) => {
     if (!Array.isArray(value)) return;
     if (value.length >= 2 && typeof value[0] === "number" && typeof value[1] === "number" && Number.isFinite(value[0]) && Number.isFinite(value[1])) { pairs.push([value[0], value[1]]); return; }
     value.forEach(collect);
   };
-  collect(coordinates);
+  collect(firstRing);
   return new Set(pairs.map(([x, y]) => `${x},${y}`)).size >= 3;
 }
 
