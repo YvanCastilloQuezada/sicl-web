@@ -4,7 +4,7 @@ import type { SpatialRepresentation, TransportPayload } from "@/components/UPAO0
 const ArkiRealityView = lazy(() => import("@/components/ArkiRealityView"));
 
 type Props = { projectId: string; onClose: () => void };
-function hasValidRenderGeometry(element: SpatialRepresentation["elements"][number]): boolean {
+export function hasValidRenderGeometry(element: SpatialRepresentation["elements"][number]): boolean {
   const { type, coordinates } = element.geometry;
   if (element.element_type === "BuildingMass") {
     if (type !== "volume" || !Array.isArray(coordinates)) return false;
@@ -91,7 +91,7 @@ export default function CockpitSpatialARModal({ projectId, onClose }: Props) {
           </label>
           <span className="text-xs text-slate-400">Origen: {payload.provenance} · {payload.read_only ? "solo lectura" : "editable"}</span>
         </div>
-        {representation && representation.elements.some(hasValidRenderGeometry)) ? <Suspense fallback={<div className="rounded border border-slate-700 p-6 text-sm">Cargando AR existente…</div>}><ArkiRealityView representation={representation} projectId={projectId} /></Suspense> : <div role="status" className="rounded border border-amber-500/50 p-4 text-sm text-amber-200">La alternativa seleccionada no contiene elementos espaciales renderizables (BuildingMass, BuildingFootprint o SpatialZone). AR bloqueado; no se genera geometría de reemplazo.</div>}
+        {representation && representation.elements.some(hasValidRenderGeometry) ? <Suspense fallback={<div className="rounded border border-slate-700 p-6 text-sm">Cargando AR existente…</div>}><ArkiRealityView representation={representation} projectId={projectId} /></Suspense> : <div role="status" className="rounded border border-amber-500/50 p-4 text-sm text-amber-200">La alternativa seleccionada no contiene elementos espaciales renderizables (BuildingMass, BuildingFootprint o SpatialZone). AR bloqueado; no se genera geometría de reemplazo.</div>}
       </>}
     </main>
   </div>;
