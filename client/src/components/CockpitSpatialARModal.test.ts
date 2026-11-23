@@ -9,7 +9,8 @@ const make = (element_type: string, type: string, coordinates: unknown, metadata
 const ring = [[0,0],[4,0],[4,3],[0,3],[0,0]];
 const polygonCoordinates = [ring];
 const onePartMultiPolygon = [[ring]];
-const twoPartMultiPolygon = [[ring], [[[5,5],[8,5],[8,8],[5,5]]]];
+const ring2 = [[5,5],[8,5],[8,8],[5,8],[5,5]];
+const twoPartMultiPolygon = [[ring], [ring2]];
 const polygonWithHole = [ring, [[1,1],[2,1],[2,2],[1,1]]];
 
 describe("Cockpit AR render geometry gate", () => {
