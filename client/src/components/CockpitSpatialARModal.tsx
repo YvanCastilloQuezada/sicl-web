@@ -65,7 +65,7 @@ export default function CockpitSpatialARModal({ projectId, onClose }: Props) {
           </label>
           <span className="text-xs text-slate-400">Origen: {payload.provenance} · {payload.read_only ? "solo lectura" : "editable"}</span>
         </div>
-        {representation && representation.elements.length > 0 ? <Suspense fallback={<div className="rounded border border-slate-700 p-6 text-sm">Cargando AR existente…</div>}><ArkiRealityView representation={representation} /></Suspense> : <div role="status" className="rounded border border-amber-500/50 p-4 text-sm text-amber-200">La alternativa seleccionada no contiene elementos espaciales. AR bloqueado.</div>}
+        {representation && representation.elements.some((element) => element.element_type === "BuildingMass") ? <Suspense fallback={<div className="rounded border border-slate-700 p-6 text-sm">Cargando AR existente…</div>}><ArkiRealityView representation={representation} /></Suspense> : <div role="status" className="rounded border border-amber-500/50 p-4 text-sm text-amber-200">La alternativa seleccionada no contiene elementos BuildingMass. AR bloqueado; no se genera geometría de reemplazo.</div>}
       </>}
     </main>
   </div>;
