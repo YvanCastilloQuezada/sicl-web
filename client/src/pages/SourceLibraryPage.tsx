@@ -23,9 +23,8 @@ export default function SourceLibraryPage() {
   const ingest = trpc.visualField.ingest.useMutation({
     onSuccess: async (_result, variables) => {
       await utils.projects.sources.invalidate({ projectId: variables.projectId });
-      toast.success("Fuente registrada; requiere revisión humana");
+      toast.success("Fuente registrada. OCR y análisis visual no se ejecutaron; requiere revisión humana.");
     },
-    onError: (error) => toast.error(error.message),
     onSettled: () => setUploading(false),
   });
   async function handleUpload(file?: File) {
@@ -53,7 +52,7 @@ export default function SourceLibraryPage() {
         analyzeVisual: false,
       });
     } catch (error) {
-      if (error instanceof Error && error.message === "No se pudo leer el archivo") toast.error(error.message);
+      toast.error(error instanceof Error ? error.message : "No se pudo registrar la fuente.");
     } finally {
       setUploading(false);
     }
