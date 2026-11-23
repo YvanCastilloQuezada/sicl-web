@@ -8,7 +8,7 @@ const catalog: any[] = (catalogData as any).commands || [];
 import aliasRegistry from "@/content/command-aliases.json";
 import i18n from "@/i18n";
 import { apiErrorMessage, siclClient } from "@/api/sicl-client";
-import { ingestVisualSource, type VisualFieldProposal } from "@/api/visual-field";
+import { buildVisualFieldProposals, ingestVisualSource, type VisualFieldProposal } from "@/api/visual-field";
 import { cn } from "@/lib/utils";
 
 type CopilotIntent = {
@@ -388,15 +388,7 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
       setOcrProgress({ value: 24, label: "Guardando imagen o documento…" });
       const ingested = await ingestVisualSource({ projectId: projectId.trim(), fileName: mediaName ?? "camera-source", mimeType: mediaDataUrl.match(/^data:([^;,]+)/)?.[1] ?? "image/jpeg", dataUrl: mediaDataUrl });
       setOcrProgress({ value: 66, label: "Extrayendo texto y observaciones…" });
-      const observations = ingested.visual?.observations ?? [];
-      const proposals: VisualFieldProposal[] = observations.map((observation, index) => ({
-        evidence_id: `VAI-${ingested.sourceId}-${index + 1}`,
-        ...observation,
-        status: "AI_PROPOSED",
-        epistemic_status: "AI_PROPOSED",
-        human_review_required: true,
-        model: ingested.visual?.model,
-      }));
+      const proposals = buildVisualFieldProposals(ingested.visual?.observations ?? [], ingested.sourceId, ingested.visual?.model);
       setOcrProgress({ value: 92, label: "Preparando revisión humana…" });
       setVisualProposals(proposals);
       setOcrProgress({ value: 100, label: "Procesamiento terminado; revisión pendiente" });
