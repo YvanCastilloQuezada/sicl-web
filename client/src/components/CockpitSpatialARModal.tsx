@@ -12,7 +12,7 @@ function hasValidRenderGeometry(element: SpatialRepresentation["elements"][numbe
     const height = Number(element.metadata?.height);
     return vertices.length >= 6 && Number.isFinite(height) && height > 0;
   }
-  if (!["BuildingFootprint", "SpatialZone"].includes(element.element_type) || !["polygon", "multipolygon"].includes(type.toLowerCase())) return false;
+  if (!["BuildingFootprint", "SpatialZone"].includes(element.element_type) || !["polygon", "multipolygon"].includes(type.toLowerCase()) || !Array.isArray(coordinates)) return false;
   let firstRing: unknown = coordinates;
   if (type.toLowerCase() === "polygon") {
     firstRing = Array.isArray(coordinates?.[0]) && Array.isArray(coordinates[0]?.[0]) ? coordinates[0][0] : coordinates?.[0];
