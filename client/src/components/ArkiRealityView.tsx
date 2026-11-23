@@ -161,7 +161,7 @@ export default function ArkiRealityView({ representation, projectId }: Props) {
       setStatus("WEBXR_ACTIVE");
       setWebXrActive(true);
       setMessage("Sesión WebXR activa. WebXR está activo, pero la geometría se muestra sin pose geográfica ni anchor persistente.");
-      xrSessionRef.current.addEventListener?.("end", () => { setWebXrActive(false); setStatus(cameraStream ? "CALIBRATED" : "READY"); });
+      xrSessionRef.current.addEventListener?.("end", () => { setWebXrActive(false); setStatus("READY"); });
     } catch { setMessage("WebXR no pudo iniciar. Se conserva el modo cámara, sin inventar precisión de anclaje."); }
   };
 
