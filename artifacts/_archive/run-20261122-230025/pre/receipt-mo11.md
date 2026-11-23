@@ -1,0 +1,11 @@
+# ARKI MO11 — Evidence Receipt
+- Web: local@LOCAL_UNPINNED
+- Phase: MO11
+- Status: PASS_WEB_ONLY
+- Core: NOT_RUN — cross-repository Core test runner not provisioned in this workflow
+- PO: PO_PENDING
+- Matched test files: 170
+- vitest-mo11: PASS (exit 0)
+- typescript: PASS (exit 0)
+- production-build: PASS (exit 0)
+- Limit: PASS_WEB_ONLY is NOT phase acceptance or end-to-end validation.
