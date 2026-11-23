@@ -56,6 +56,25 @@ function point3(value: unknown): value is Point3 {
   return Array.isArray(value) && numeric(value[0]) && numeric(value[1]) && numeric(value[2]);
 }
 
+export function isValidVolumeGeometry(element: SpatialElement, tolerance = 1e-4): boolean {
+  if (element.geometry.type !== "volume" || !Array.isArray(element.geometry.coordinates)) return false;
+  const vertices = element.geometry.coordinates.filter(point3);
+  if (vertices.length !== element.geometry.coordinates.length || vertices.length < 6 || vertices.length % 2 !== 0) return false;
+  const half = vertices.length / 2;
+  const baseRing = vertices.slice(0, half);
+  const topRing = vertices.slice(half);
+  if (baseRing.length < 3 || topRing.length !== baseRing.length) return false;
+  const baseZ = baseRing[0][2], topZ = topRing[0][2];
+  if (!baseRing.every(([, , z]) => Math.abs(z - baseZ) <= tolerance) || !topRing.every(([, , z]) => Math.abs(z - topZ) <= tolerance)) return false;
+  if (!(topZ > baseZ)) return false;
+  if (!baseRing.every(([x, y], i) => Math.abs(x - topRing[i][0]) <= tolerance && Math.abs(y - topRing[i][1]) <= tolerance)) return false;
+  const metadataHeight = Number(element.metadata?.height);
+  if (!Number.isFinite(metadataHeight) || metadataHeight <= 0 || Math.abs(metadataHeight - (topZ - baseZ)) > tolerance) return false;
+  const metadataBase = Number(element.metadata?.base_elevation ?? baseZ);
+  if (!Number.isFinite(metadataBase) || Math.abs(metadataBase - baseZ) > tolerance) return false;
+  return new Set(baseRing.map(([x, y]) => String(x) + "," + String(y))).size >= 3;
+}
+
 function polygonRing(element: SpatialElement): Point2[] {
   const coordinates = element.geometry.coordinates;
   if (element.geometry.type === "polygon" && Array.isArray(coordinates) && Array.isArray(coordinates[0])) {
@@ -83,7 +102,7 @@ export function deriveMasses(representation: SpatialRepresentation): DerivedMass
     const ring = massRing(element);
     const height = Number(element.metadata?.height);
     const base = Number(element.metadata?.base_elevation ?? 0);
-    if (ring.length < 3 || !Number.isFinite(height) || height <= 0 || !Number.isFinite(base)) return [];
+    if (ring.length < 3 || !isValidVolumeGeometry(element) || !Number.isFinite(height) || height <= 0 || !Number.isFinite(base)) return [];
     const floorValue = Number(element.metadata?.floor_count);
     return [{ element, ring, base, height, floorCount: Number.isFinite(floorValue) ? floorValue : null }];
   });
