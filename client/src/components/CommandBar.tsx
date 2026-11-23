@@ -8,7 +8,7 @@ const catalog: any[] = (catalogData as any).commands || [];
 import aliasRegistry from "@/content/command-aliases.json";
 import i18n from "@/i18n";
 import { apiErrorMessage, siclClient } from "@/api/sicl-client";
-import { analyzeVisualField, ingestVisualSource, type VisualFieldProposal } from "@/api/visual-field";
+import { buildVisualFieldProposals, ingestVisualSource, type VisualFieldProposal } from "@/api/visual-field";
 import { cn } from "@/lib/utils";
 
 type CopilotIntent = {
@@ -388,11 +388,17 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
       setOcrProgress({ value: 24, label: "Guardando imagen o documento…" });
       const ingested = await ingestVisualSource({ projectId: projectId.trim(), fileName: mediaName ?? "camera-source", mimeType: mediaDataUrl.match(/^data:([^;,]+)/)?.[1] ?? "image/jpeg", dataUrl: mediaDataUrl });
       setOcrProgress({ value: 66, label: "Extrayendo texto y observaciones…" });
-      const result = await analyzeVisualField({ projectId: projectId.trim(), spatialScope: "PROJECT_SITE", imageDataUrl: mediaDataUrl });
+      const proposals = buildVisualFieldProposals(ingested.visual?.observations ?? [], ingested.sourceId, ingested.visual?.model);
       setOcrProgress({ value: 92, label: "Preparando revisión humana…" });
-      setVisualProposals(result.proposals);
+      setVisualProposals(proposals);
       setOcrProgress({ value: 100, label: "Procesamiento terminado; revisión pendiente" });
-      setStatus({ type: "success", message: `${result.proposals.length} observaciones provisionales recibidas; fuente ${ingested.sourceId} guardada y requiere revisión humana.` });
+      if (!ingested.visual) {
+        setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada, pero el análisis visual no está disponible. Para reintentar, vuelve a cargar la imagen; se registrará una nueva fuente. No se generaron observaciones.` });
+      } else if (proposals.length === 0) {
+        setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada. El análisis no produjo observaciones; no se inventaron resultados.` });
+      } else {
+        setStatus({ type: "success", message: `${proposals.length} observaciones provisionales recibidas; fuente ${ingested.sourceId} guardada y requiere revisión humana.` });
+      }
     } catch (error) {
       setStatus({ type: "error", message: error instanceof Error ? error.message : "No se pudo analizar la referencia visual." });
     } finally { setVisualLoading(false); window.setTimeout(() => setOcrProgress(null), 2600); }
