@@ -67,7 +67,7 @@ function InteractiveBuilding({ onSelect, isSelected }: { onSelect: () => void, i
 
 export default function ARViewerModal({ onClose }: { onClose: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const [isPlaced, setIsPlaced] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectedObject, setSelectedObject] = useState<THREE.Object3D | null>(null);
@@ -79,7 +79,7 @@ export default function ARViewerModal({ onClose }: { onClose: () => void }) {
         const mediaStream = await navigator.mediaDevices.getUserMedia({ 
           video: { facingMode: "environment" } 
         });
-        setStream(mediaStream);
+        streamRef.current = mediaStream;
         if (videoRef.current) {
           videoRef.current.srcObject = mediaStream;
         }
@@ -93,9 +93,8 @@ export default function ARViewerModal({ onClose }: { onClose: () => void }) {
     startCamera();
 
     return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
+      streamRef.current?.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
     };
   }, []);
 
@@ -175,7 +174,7 @@ export default function ARViewerModal({ onClose }: { onClose: () => void }) {
             onClick={() => setIsPlaced(true)}
             className="bg-[#f0a35b] text-black px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 shadow-2xl hover:scale-105 transition"
           >
-            <Box size={24} /> Colocar Proyecto en el Terreno
+            <Box size={24} /> Mostrar Modelo de Prueba
           </button>
         ) : (
           <div className="flex flex-col items-center gap-2">
@@ -191,21 +190,21 @@ export default function ARViewerModal({ onClose }: { onClose: () => void }) {
               <button 
                 onClick={() => setTool('move')}
                 className={`p-3 rounded-xl transition ${tool === 'move' ? 'bg-[#38bdf8] text-black' : 'text-white hover:bg-white/20'}`}
-                title="Mover"
+                title="Mover" disabled aria-disabled="true"
               >
                 <Move3d size={20} />
               </button>
               <button 
                 onClick={() => setTool('rotate')}
                 className={`p-3 rounded-xl transition ${tool === 'rotate' ? 'bg-[#38bdf8] text-black' : 'text-white hover:bg-white/20'}`}
-                title="Rotar"
+                title="Rotar" disabled aria-disabled="true"
               >
                 <RotateCw size={20} />
               </button>
               <button 
                 onClick={() => setTool('scale')}
                 className={`p-3 rounded-xl transition ${tool === 'scale' ? 'bg-[#38bdf8] text-black' : 'text-white hover:bg-white/20'}`}
-                title="Escalar"
+                title="Escalar" disabled aria-disabled="true"
               >
                 <Maximize size={20} />
               </button>
@@ -218,7 +217,7 @@ export default function ARViewerModal({ onClose }: { onClose: () => void }) {
               </button>
             </div>
             <p className="text-white/80 text-xs mt-1 bg-black/50 px-3 py-1 rounded-full">
-              {tool === 'select' ? 'Apunta con la mira y presiona el ícono de captura.' : 'Usa dos dedos para interactuar con el modelo.'}
+              {tool === 'select' ? 'Selecciona el modelo de prueba; aún no está anclado al espacio real.' : 'Herramienta de interfaz de prototipo: la transformación aún no modifica el modelo.'}
             </p>
           </div>
         )}
