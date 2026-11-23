@@ -42,7 +42,7 @@ describe("GuidedShell", () => {
   it("renders the ten interactive modules with status previews and the onboarding tour", () => {
     renderShell();
     expect(screen.getByRole("link", { name: /Contexto \/ Sitio:/ })).toBeTruthy();
-    expect(screen.getByRole("tooltip")).toBeTruthy();
+    expect(screen.getAllByRole("tooltip").length).toBeGreaterThanOrEqual(10);
     expect(screen.getByRole("dialog", { name: "Recorrido inicial" })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Siguiente" })).toBeTruthy();
   });
