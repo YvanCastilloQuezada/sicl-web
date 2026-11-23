@@ -22,7 +22,7 @@ describe("Cockpit AR render geometry gate", () => {
     expect(hasValidRenderGeometry(make("BuildingFootprint", "polygon", [[[0,0],[0,0],[0,0]]]))).toBe(false);
   });
   it("validates multipolygon first ring and blocks unsupported element types", () => {
-    expect(hasValidRenderGeometry(make("SpatialZone", "multipolygon", [[[[1,1],[4,1],[4,3],[1,1]]]]))).toBe(true);
+    expect(hasValidRenderGeometry(make("SpatialZone", "multipolygon", [[[1,1],[4,1],[4,3],[1,1]]]))).toBe(true);
     expect(hasValidRenderGeometry(make("SiteBoundary", "polygon", [[[0,0],[4,0],[4,4],[0,0]]]))).toBe(false);
     expect(hasValidRenderGeometry(make("SpatialZone", "point", [1,2]))).toBe(false);
   });
