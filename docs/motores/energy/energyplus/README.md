@@ -8,6 +8,30 @@
 
 > Esta es la memoria técnica central de EnergyPlus en ARKI. Thermal KPI forma parte de la evolución del mismo módulo; no es un proyecto independiente.
 
+
+## 0. Advertencia de trazabilidad: código publicado vs. estado forense local
+
+Una comparación directa posterior a la fusión de esta memoria encontró que el archivo de `main`:
+
+`server/gia/energy/arkiEnergyEngine.ts`
+
+contiene una implementación **V31**, anterior a la evolución descrita en el informe forense local del 22-11-2026. En el archivo revisado de `main`:
+
+- Las advertencias indican que ubicación y periodo no se aplican al IDF.
+- No se incorpora Thermal KPI en el Engine.
+- Los KPI energéticos permanecen en `null` y `kpiStatus: "not_instrumented"`.
+- El IDF de `main` revisado no muestra el timestep 6 ni las variables térmicas documentadas en la evolución local.
+
+Los archivos Thermal KPI tampoco se encontraron en las rutas esperadas de `main` durante esta comprobación.
+
+**Interpretación:** esto no prueba que los cambios se hayan perdido del servidor. La evolución V19/V46.6 y Thermal KPI está respaldada por el informe forense local, pero no se ha verificado que esté publicada en GitHub. Por ello, esta memoria describe dos estados separados:
+
+1. **Estado forense/local (22-11-2026):** cambios reportados y evidencias del trabajo en el servidor.
+2. **Estado GitHub `main` verificado:** implementación V31 observada; Thermal KPI no localizado en las rutas esperadas.
+
+No considerar la evolución local como integrada en `main` hasta localizar la rama/commit publicado y reconciliarla. No hacer merge, cherry-pick, reset ni reemplazo de archivos en esta etapa.
+
+
 ## 1. Propósito y alcance
 
 ARKI EnergyPlus prepara, ejecuta y procesa simulaciones energéticas de modelos arquitectónicos. El módulo configura el modelo IDF, aplica emplazamiento y periodo, ejecuta EnergyPlus, extrae resultados y calcula indicadores energéticos y térmicos.
