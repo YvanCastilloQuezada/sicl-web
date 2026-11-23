@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { hasValidRenderGeometry } from "./CockpitSpatialARModal";
+import { isValidVolumeGeometry } from "./UPAO001MassingViewer3D";
 import type { SpatialRepresentation } from "./UPAO001SpatialViewer";
 
 type Element = SpatialRepresentation["elements"][number];
@@ -17,6 +18,16 @@ describe("Cockpit AR render geometry gate", () => {
   it("accepts finite 3D volume with positive height", () => {
     const volume = [[0,0,0],[4,0,0],[4,3,0],[0,3,0],[0,0,8],[4,0,8],[4,3,8],[0,3,8]];
     expect(hasValidRenderGeometry(make("BuildingMass", "volume", volume, { height: 8 }))).toBe(true);
+  });
+  it("requires paired base/top rings, uniform elevations, and metadata height agreement", () => {
+    const valid = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2],[0,3,2],[0,0,10],[4,0,10],[4,3,10],[0,3,10]], { height: 8, base_elevation: 2 });
+    expect(isValidVolumeGeometry(valid)).toBe(true);
+    const mismatchedTop = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2],[0,3,2],[0,0,10],[4,0,10],[5,3,10],[0,3,10]], { height: 8, base_elevation: 2 });
+    expect(isValidVolumeGeometry(mismatchedTop)).toBe(false);
+    const inconsistentHeight = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2],[0,3,2],[0,0,10],[4,0,10],[4,3,10],[0,3,10]], { height: 7, base_elevation: 2 });
+    expect(isValidVolumeGeometry(inconsistentHeight)).toBe(false);
+    const nonPlanarBase = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2.2],[0,3,2],[0,0,10],[4,0,10],[4,3,10],[0,3,10]], { height: 8, base_elevation: 2 });
+    expect(isValidVolumeGeometry(nonPlanarBase)).toBe(false);
   });
   it("rejects nonfinite volume coordinates and missing/nonpositive height", () => {
     const validVolume = [[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,2],[1,0,2]];
