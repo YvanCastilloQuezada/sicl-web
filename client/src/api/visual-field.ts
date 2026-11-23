@@ -38,6 +38,6 @@ export async function ingestVisualSource(input: { projectId: string; fileName: s
   if (!response.ok) throw new Error(body.error?.json?.message || "No se pudo guardar la fuente multimedia");
   const result = body.result?.data?.json;
   if (!result) throw new Error("La ingestión no devolvió un identificador de fuente");
-  if (input.mimeType.startsWith("image/") && !result.visual) throw new Error("La fuente se guardó, pero no devolvió análisis visual");
+  // Ingestion may have persisted the source even when visual analysis is unavailable; preserve the partial result for UI reporting.
   return result;
 }
