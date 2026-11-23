@@ -6,8 +6,7 @@ export default function CameraScannerModal({ onClose }: { onClose: () => void })
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
-  const [isScanning, setIsScanning] = useState(false);
-  const [scanResult, setScanResult] = useState<any>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   // 1. Encender la cámara al abrir el modal
   useEffect(() => {
@@ -16,6 +15,7 @@ export default function CameraScannerModal({ onClose }: { onClose: () => void })
         const mediaStream = await navigator.mediaDevices.getUserMedia({ 
           video: { facingMode: "environment" } // Prioriza la cámara trasera en celulares
         });
+        streamRef.current = mediaStream;
         setStream(mediaStream);
         if (videoRef.current) {
           videoRef.current.srcObject = mediaStream;
@@ -30,9 +30,8 @@ export default function CameraScannerModal({ onClose }: { onClose: () => void })
 
     // Limpiar la cámara al cerrar
     return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
+      streamRef.current?.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
     };
   }, []);
 
@@ -50,32 +49,27 @@ export default function CameraScannerModal({ onClose }: { onClose: () => void })
       const imageUrl = canvas.toDataURL("image/jpeg");
       setCapturedImage(imageUrl);
       
-      // Detener la cámara después de capturar
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
+      // Detener cámara tras capturar y conservar la imagen capturada.
+      streamRef.current?.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+      setStream(null);
     }
   };
 
-  // 3. Simular el escaneo 3D y generación de planos
-  const processImage = () => {
-    setIsScanning(true);
-    setTimeout(() => {
-      setIsScanning(false);
-      setScanResult({
-        pendiente: "12%",
-        orientacion: "Norte",
-        contexto: "Zona residencial con edificios de 3-4 pisos.",
-        planoGenerado: true
-      });
-    }, 3000); // Simulamos 3 segundos de procesamiento IA
+  // Análisis IA pendiente de conectar a ingesta multimodal; no generar resultados ficticios.
+  const downloadCapture = () => {
+    if (!capturedImage) return;
+    const link = document.createElement("a");
+    link.href = capturedImage;
+    link.download = `arki-camera-capture-${Date.now()}.jpg`;
+    link.click();
   };
 
   const resetScanner = () => {
     setCapturedImage(null);
-    setScanResult(null);
     // Volver a encender la cámara
     navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(s => {
+      streamRef.current = s;
       setStream(s);
       if (videoRef.current) videoRef.current.srcObject = s;
     });
@@ -134,17 +128,7 @@ export default function CameraScannerModal({ onClose }: { onClose: () => void })
                 <button onClick={resetScanner} className="bg-[#334155] text-white p-3 rounded-full hover:bg-[#475569]">
                   <RefreshCw size={20} />
                 </button>
-                {!scanResult && (
-                  <button 
-                    onClick={processImage}
-                    disabled={isScanning}
-                    className="bg-[#38bdf8] text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-[#0284c7] transition"
-                  >
-                    {isScanning ? <ScanLine className="animate-spin" size={20} /> : <Layers size={20} />}
-                    {isScanning ? "Procesando IA..." : "Generar Plano 2D/3D"}
-                  </button>
-                )}
-              </div>
+                <button onClick={downloadCapture} className="bg-[#38bdf8] text-black px-6 py-3 rounded-full font-bold flex items-center gap-2 hover:bg-[#0284c7] transition"><Layers size={20} /> Descargar captura</button>              </div>
             )}
           </div>
         </div>
@@ -156,30 +140,16 @@ export default function CameraScannerModal({ onClose }: { onClose: () => void })
               <ScanLine size={16} /> Análisis de Contexto
             </h3>
             
-            {!scanResult ? (
+            {!capturedImage ? (
               <div className="text-[#64748b] text-sm space-y-4">
                 <p>1. Encuadra el terreno en el marco celeste.</p>
                 <p>2. Toma una foto del entorno.</p>
-                <p>3. La IA extraerá la topografía y generará el plano base.</p>
+                <p>3. La captura puede descargarse. El análisis IA aún no está conectado a este modal.</p>
               </div>
             ) : (
-              <div className="space-y-3">
-                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
-                  <p className="text-[10px] text-[#64748b] uppercase">Pendiente Estimada</p>
-                  <p className="text-sm text-[#e2e8f0]">{scanResult.pendiente}</p>
-                </div>
-                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
-                  <p className="text-[10px] text-[#64748b] uppercase">Orientación</p>
-                  <p className="text-sm text-[#e2e8f0]">{scanResult.orientacion}</p>
-                </div>
-                <div className="bg-[#1e293b] p-3 rounded-lg border border-[#334155]">
-                  <p className="text-[10px] text-[#64748b] uppercase">Contexto Urbano</p>
-                  <p className="text-sm text-[#e2e8f0]">{scanResult.contexto}</p>
-                </div>
-                <div className="mt-4 p-3 bg-[#38bdf8]/10 border border-[#38bdf8] rounded-lg text-center">
-                  <p className="text-[#38bdf8] text-sm font-bold">¡Plano Base Generado!</p>
-                  <p className="text-[#64748b] text-xs mt-1">Listo para ser usado en el Funnel.</p>
-                </div>
+              <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/60 rounded-lg text-center">
+                <p className="text-amber-300 text-sm font-bold">Captura disponible</p>
+                <p className="text-[#94a3b8] text-xs mt-1">No se ejecutó análisis IA; no se generan pendiente, orientación, contexto ni planos ficticios.</p>
               </div>
             )}
           </div>
