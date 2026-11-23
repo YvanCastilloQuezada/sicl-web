@@ -398,7 +398,13 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
       setOcrProgress({ value: 92, label: "Preparando revisión humana…" });
       setVisualProposals(proposals);
       setOcrProgress({ value: 100, label: "Procesamiento terminado; revisión pendiente" });
-      setStatus({ type: "success", message: `${proposals.length} observaciones provisionales recibidas; fuente ${ingested.sourceId} guardada y requiere revisión humana.` });
+      if (!ingested.visual) {
+        setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada, pero el análisis visual no está disponible. Puedes reintentar “Analizar”; no se generaron observaciones.` });
+      } else if (proposals.length === 0) {
+        setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada. El análisis no produjo observaciones; no se inventaron resultados.` });
+      } else {
+        setStatus({ type: "success", message: `${proposals.length} observaciones provisionales recibidas; fuente ${ingested.sourceId} guardada y requiere revisión humana.` });
+      }
     } catch (error) {
       setStatus({ type: "error", message: error instanceof Error ? error.message : "No se pudo analizar la referencia visual." });
     } finally { setVisualLoading(false); window.setTimeout(() => setOcrProgress(null), 2600); }
