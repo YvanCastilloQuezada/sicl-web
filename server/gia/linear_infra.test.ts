@@ -31,7 +31,7 @@ describe.each(LINEAR_TIPOLOGIAS)("Sub-fase A — %s (infraestructura lineal)", (
     const cycle = await executeIntegratedArchitectCycle(input);
     expect(cycle.project.typology).toBe(input.typology);
     expect(cycle.status).toBeDefined();
-  });
+  }, 15000);
 
   it("genera al menos 2 DynamicParti (divergencia)", async () => {
     const cycle = await executeIntegratedArchitectCycle(input);

@@ -440,9 +440,9 @@ export function applyAgkCommand(
       ...o,
       geometry: {
         ...o.geometry,
-        x_mm: (o.geometry as any).x_mm ?? 0 + command.delta_mm.x,
-        y_mm: (o.geometry as any).y_mm ?? 0 + command.delta_mm.y,
-        z_mm: (o.geometry as any).z_mm ?? 0 + command.delta_mm.z,
+        x_mm: ((o.geometry as any).x_mm ?? 0) + command.delta_mm.x,
+        y_mm: ((o.geometry as any).y_mm ?? 0) + command.delta_mm.y,
+        z_mm: ((o.geometry as any).z_mm ?? 0) + command.delta_mm.z,
       },
     }));
     return commit(current, command, objects, undefined, current.causalModel, externalProvenance);
