@@ -1002,7 +1002,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
 
       {activeModal === 'projects' && <ProjectManagerModal onClose={() => setActiveModal(null)} onLoadProject={(project) => { setActiveSpatialProjectId(project.project_id); localStorage.setItem("sims-dei-project-id", project.project_id); setActiveModal("ar"); }} />}
-      {activeModal === 'ar' && (activeSpatialProjectId ? <CockpitSpatialARModal projectId={activeSpatialProjectId} onClose={() => setActiveModal(null)} /> : <ProjectManagerModal onClose={() => setActiveModal(null)} onLoadProject={(project) => { setActiveSpatialProjectId(project.project_id); localStorage.setItem("sims-dei-project-id", project.project_id); setActiveModal("ar"); }} />)}
+      {activeModal === 'ar' && (activeSpatialProjectId ? <CockpitSpatialARModal projectId={activeSpatialProjectId} onClose={() => setActiveModal(null)} /> : <ProjectManagerModal onClose={() => {}} onLoadProject={(project) => { setActiveSpatialProjectId(project.project_id); localStorage.setItem("sims-dei-project-id", project.project_id); setActiveModal("ar"); }} />)}
 
 
 
