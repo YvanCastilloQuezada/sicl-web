@@ -968,6 +968,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (action === "terreno") setActiveModal("terreno");
             if (action === "documents") setActiveModal("documents");
             if (action === "camera") setActiveModal("camera");
+            if (action === "ar") setActiveModal("ar");
             if (action === "analysis") setActiveModal("analysis");
             if (action === "ifc") setActiveModal("ifc");
             if (action === "export") setActiveModal("export");
