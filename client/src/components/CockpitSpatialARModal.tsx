@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, lazy, Suspense } from "react";
 import type { SpatialRepresentation, TransportPayload } from "@/components/UPAO001SpatialViewer";
+import { isValidVolumeGeometry } from "@/components/UPAO001MassingViewer3D";
 
 const ArkiRealityView = lazy(() => import("@/components/ArkiRealityView"));
 
@@ -8,9 +9,7 @@ export function hasValidRenderGeometry(element: SpatialRepresentation["elements"
   const { type, coordinates } = element.geometry;
   if (element.element_type === "BuildingMass") {
     if (type !== "volume" || !Array.isArray(coordinates)) return false;
-    const vertices = coordinates.filter((point) => Array.isArray(point) && point.length >= 3 && point.slice(0, 3).every((value) => typeof value === "number" && Number.isFinite(value)));
-    const height = Number(element.metadata?.height);
-    return vertices.length >= 6 && Number.isFinite(height) && height > 0;
+    return isValidVolumeGeometry(element);
   }
   if (!["BuildingFootprint", "SpatialZone"].includes(element.element_type)) return false;
   const normalizedType = type.toLowerCase();
