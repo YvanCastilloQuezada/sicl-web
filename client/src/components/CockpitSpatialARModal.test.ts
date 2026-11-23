@@ -30,8 +30,10 @@ describe("Cockpit AR render geometry gate", () => {
     expect(isValidVolumeGeometry(nonPlanarBase)).toBe(false);
   });
   it("rejects nonfinite volume coordinates and missing/nonpositive height", () => {
-    const validVolume = [[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,2],[1,0,2]];
-    expect(hasValidRenderGeometry(make("BuildingMass", "volume", validVolume, { height: 2 }))).toBe(true);
+    const validVolume = [[0,0,0],[1,0,0],[0,1,0],[0,0,2],[1,0,2],[0,1,2]];
+    const validTriangularPrism = make("BuildingMass", "volume", validVolume, { height: 2, base_elevation: 0 });
+    expect(hasValidRenderGeometry(validTriangularPrism)).toBe(true);
+    expect(isValidVolumeGeometry(validTriangularPrism)).toBe(true);
     expect(hasValidRenderGeometry(make("BuildingMass", "volume", validVolume, { height: 0 }))).toBe(false);
     const invalidVolume = [[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,2],[NaN,0,2]];
     expect(hasValidRenderGeometry(make("BuildingMass", "volume", invalidVolume, { height: 2 }))).toBe(false);
