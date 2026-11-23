@@ -44,8 +44,13 @@ function coordinatePairs(value: unknown, output: Point[] = []): Point[] {
 }
 
 function polygonPoints(element: SpatialElement): Point[] {
-  const coordinates = element.geometry.coordinates;
-  if (element.geometry.type.toLowerCase().includes("polygon") && Array.isArray(coordinates)) {
+  const { type, coordinates } = element.geometry;
+  if (type.toLowerCase() === "volume" && Array.isArray(coordinates)) {
+    const vertices = coordinates.filter((point) => Array.isArray(point) && point.length >= 3 && point.slice(0, 3).every((value) => typeof value === "number" && Number.isFinite(value)));
+    const half = Math.floor(vertices.length / 2);
+    return vertices.slice(0, half).map((point) => [point[0], point[1]]);
+  }
+  if (type.toLowerCase().includes("polygon") && Array.isArray(coordinates)) {
     const first = Array.isArray(coordinates[0]) && Array.isArray(coordinates[0][0]) ? coordinates[0][0] : coordinates[0];
     return coordinatePairs(first);
   }
