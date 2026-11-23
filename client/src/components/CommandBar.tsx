@@ -393,13 +393,15 @@ export default function CommandBar({ context = {}, onExecuted }: { context?: Com
         evidence_id: `VAI-${ingested.sourceId}-${index + 1}`,
         ...observation,
         status: "AI_PROPOSED",
+        epistemic_status: "AI_PROPOSED",
+        human_review_required: true,
         model: ingested.visual?.model,
       }));
       setOcrProgress({ value: 92, label: "Preparando revisión humana…" });
       setVisualProposals(proposals);
       setOcrProgress({ value: 100, label: "Procesamiento terminado; revisión pendiente" });
       if (!ingested.visual) {
-        setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada, pero el análisis visual no está disponible. Puedes reintentar “Analizar”; no se generaron observaciones.` });
+        setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada, pero el análisis visual no está disponible. Para reintentar, vuelve a cargar la imagen; se registrará una nueva fuente. No se generaron observaciones.` });
       } else if (proposals.length === 0) {
         setStatus({ type: "error", message: `Fuente ${ingested.sourceId} guardada. El análisis no produjo observaciones; no se inventaron resultados.` });
       } else {
