@@ -2,11 +2,10 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import type { SpatialElement, SpatialRepresentation } from "./UPAO001SpatialViewer";
 import { RealityScene } from "./UPAO001MassingViewer3D";
-import { ensureProjectId } from "@/lib/project-id";
 
 type Point = [number, number];
 type GeoPoint = { latitude: number; longitude: number };
-type Props = { representation: SpatialRepresentation };
+type Props = { representation: SpatialRepresentation; projectId: string };
 type ArStatus = "IDLE" | "REQUESTING_CAMERA" | "READY" | "CALIBRATED" | "WEBXR_ACTIVE" | "ERROR";
 type ArSession = XRSession;
 
@@ -85,7 +84,7 @@ function readInitialGeo(): GeoPoint | null {
   } catch { return null; }
 }
 
-export default function ArkiRealityView({ representation }: Props) {
+export default function ArkiRealityView({ representation, projectId }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const xrSessionRef = useRef<ArSession | null>(null);
   const [status, setStatus] = useState<ArStatus>("IDLE");
@@ -101,11 +100,7 @@ export default function ArkiRealityView({ representation }: Props) {
   const [webXrActive, setWebXrActive] = useState(false);
   const [showCalibration, setShowCalibration] = useState(true);
   const [guideStep, setGuideStep] = useState(0);
-  const [projectCode] = useState(() => {
-    const code = ensureProjectId(localStorage.getItem("arki-active-project-id"));
-    localStorage.setItem("arki-active-project-id", code);
-    return code;
-  });
+  const [projectCode] = useState(projectId);
   const [copyStatus, setCopyStatus] = useState("");
 
   const masses = useMemo(() => representation.elements.filter((element) => ["BuildingMass", "BuildingFootprint", "SpatialZone"].includes(element.element_type) && polygonPoints(element).length >= 3), [representation.elements]);
