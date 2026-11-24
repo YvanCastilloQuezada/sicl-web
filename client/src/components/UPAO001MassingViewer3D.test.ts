@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from "vitest";
-import { deriveMasses, spatialToRenderer } from "./UPAO001MassingViewer3D";
+import { deriveMasses, spatialToRenderer, transformSpatialPointAroundCenter } from "./UPAO001MassingViewer3D";
 import type { SpatialRepresentation } from "./UPAO001SpatialViewer";
 
 const representation = (alternative_id: string, masses: Array<{ id: string; x: number; y: number; width: number; depth: number; height: number; floors: number }>): SpatialRepresentation => ({
@@ -19,6 +19,27 @@ describe("UPAO001MassingViewer3D derivation", () => {
     expect(mass.base).toBe(0);
     expect(mass.height).toBe(16);
     expect(mass.floorCount).toBe(5);
+  });
+
+  it("rotates and scales around the model center without drifting the pivot", () => {
+    const center: [number, number, number] = [100, 20, -50];
+    expect(transformSpatialPointAroundCenter(center, center, 3, Math.PI / 2)).toEqual(center);
+    const point: [number, number, number] = [110, 20, -50];
+    const rotated = transformSpatialPointAroundCenter(point, center, 1, Math.PI / 2);
+    expect(rotated?.[0]).toBeCloseTo(100, 10);
+    expect(rotated?.[1]).toBeCloseTo(20, 10);
+    expect(rotated?.[2]).toBeCloseTo(-60, 10);
+  });
+
+  it("preserves proportional distances under scale and rejects unsafe transforms", () => {
+    const center: [number, number, number] = [0, 0, 0];
+    const p1 = transformSpatialPointAroundCenter([1, 2, 3], center, 2, 0);
+    const p2 = transformSpatialPointAroundCenter([4, 2, 3], center, 2, 0);
+    expect(p1 && p2 && Math.hypot(p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2])).toBeCloseTo(6, 10);
+    expect(transformSpatialPointAroundCenter([1, 2, 3], center, 0, 0)).toBeNull();
+    expect(transformSpatialPointAroundCenter([1, 2, 3], center, -1, 0)).toBeNull();
+    expect(transformSpatialPointAroundCenter([NaN, 2, 3], center, 1, 0)).toBeNull();
+    expect(transformSpatialPointAroundCenter([1, 2, 3], center, 1, Infinity)).toBeNull();
   });
 
   it("maps LOCAL_ENU axes deterministically to renderer axes", () => {
