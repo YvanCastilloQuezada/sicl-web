@@ -843,7 +843,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
 
       {/* IZQUIERDA (220px): MENÚ DE FLUJOS */}
-      <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+      <div className="w-[170px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
         <div className="flex items-center gap-2 border-b border-[#1e293b] h-[41px] px-2">
           <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
           <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
@@ -883,23 +883,12 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           {/* CENTRO (flex-1): Funnel 16-4-1 */}
           <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
             
-            <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
-              <div className="max-w-xl rounded-lg border border-[#28445b] bg-[#0b1320] p-6 text-center">
-                <p className="text-sm font-semibold text-[#e2e8f0]">Embudo de diseño canónico · 9→4→1</p>
-                <p className="mt-2 text-xs text-[#94a3b8]">
-                  La generación, comparación, selección y evaluación de alternativas se gobiernan
-                  exclusivamente desde el Funnel canónico.
-                </p>
-                <a href="/arki-design-funnel"
-                   className="mt-4 inline-flex rounded-md bg-[#f0a35b] px-4 py-2 text-sm font-semibold text-[#111827]">
-                  Abrir ARKI Design Funnel
-                </a>
-              </div>
+            <div className="flex-1 overflow-auto relative bg-[#111820]" aria-label="Área central ARKI recuperada">
             </div>
           </div>
 
           {/* NUEVA BARRA (220px): Correcciones / Paramétricas */}
-          <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col">
+          <div className="w-[170px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col">
             <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
               <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
@@ -926,28 +915,13 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           </div>
 
           {/* DERECHA (220px): Copiloto (chat) */}
-          <div className="w-[220px] flex-shrink-0 bg-[#0f172a] flex flex-col">
+          <div className="w-[170px] flex-shrink-0 bg-[#0f172a] flex flex-col">
             <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
               <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-3 space-y-3">
-              {messages.map((msg, i) => (
-                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
-                    {msg.text}
-                  </div>
-                </div>
-              ))}
-              {isGenerating && (
-                <div className="flex justify-start">
-                  <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
-                    <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
-                  </div>
-                </div>
-              )}
-            </div>
+            <div className="flex-1 overflow-hidden" />
 
 
           </div>
@@ -955,7 +929,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       </div>
       
       {/* CHAT REFACTORIZADO */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
+      <div className="fixed bottom-6 right-2 w-[340px] max-w-[30vw] z-[1000]">
         {!asoleamientoOpen && <CopilotPanel
           messages={messages}
           input={input}
