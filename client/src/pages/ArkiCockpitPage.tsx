@@ -25,7 +25,7 @@ import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
 import FullPipelineRunner from "@/components/FullPipelineRunner";
 import CameraScannerModal from "@/components/CameraScannerModal";
-import CockpitSpatialARModal from "@/components/CockpitSpatialARModal";
+import ARViewerModal from "@/components/ARViewerModal";
 import PipelineDashboardModal from "@/components/PipelineDashboardModal";
 
 export default function ArkiCockpitPage() {
@@ -58,7 +58,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
   const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | 'nodes' | 'documents' | 'camera' | 'ar' | null>(null);
-  const [activeSpatialProjectId, setActiveSpatialProjectId] = useState<string | null>(() => localStorage.getItem("sims-dei-project-id"));
   const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [searchingNormativa, setSearchingNormativa] = useState(false);
@@ -1001,8 +1000,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {activeModal === 'camera' && <CameraScannerModal onClose={() => setActiveModal(null)} />}
 
 
-      {activeModal === 'projects' && <ProjectManagerModal onClose={() => setActiveModal(null)} />}
-      {activeModal === 'ar' && (activeSpatialProjectId ? <CockpitSpatialARModal projectId={activeSpatialProjectId} onClose={() => setActiveModal(null)} /> : <ProjectManagerModal onClose={() => setActiveModal(null)} onLoadProject={(project) => { setActiveSpatialProjectId(project.project_id); localStorage.setItem("sims-dei-project-id", project.project_id); setActiveModal("ar"); }} />)}
+      {activeModal === 'ar' && <ARViewerModal onClose={() => setActiveModal(null)} />}
 
 
 
