@@ -10,9 +10,10 @@ interface CopilotPanelProps {
   isGenerating: boolean;
   onOpenAction: (action: string) => void;
   onOpenWorkspace: () => void;
+  embedded?: boolean;
 }
 
-export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
+export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace, embedded = false }: CopilotPanelProps) {
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [launcherPosition, setLauncherPosition] = useState({ x: 0, y: 0 });
@@ -44,21 +45,44 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const sendMessageSafely = () => {
+    if (!input.trim() || isGenerating) return;
+    setAvatarPose("send");
+    onSend();
+  };
+
   const effectivePose = isListening ? "listening" : isGenerating ? "thinking" : avatarPose;
-  // Mapeo corregido según el botón realmente iluminado en cada sprite.
   const poseFile: Record<string, string> = { idle: "arki_idle.png", listening: "arki_listening.png", thinking: "arki_thinking.png", blink: "arki_blink.png", voice: "arki_voice_active.png", camera: "arki_camera_active.png", video: "arki_video_active.png", ar: "arki_ar_active.png", send: "arki_send_active.png" };
   const avatarSrc = `/arki/poses/${poseFile[effectivePose] ?? "arki_idle.png"}`;
   const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
   const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
 
-  return isMinimized ? (
+  return isMinimized && !embedded ? (
     <button
       type="button"
       aria-label="Restaurar Copiloto ARKI"
       title="Abrir Copiloto ARKI"
       onClick={() => { if (suppressLauncherClick.current) { suppressLauncherClick.current = false; return; } setIsMinimized(false); }}
       onPointerDown={(e) => { launcherDrag.current = { pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, originX: launcherPosition.x, originY: launcherPosition.y, moved: false }; e.currentTarget.setPointerCapture(e.pointerId); }}
-      onPointerMove={(e) => { const drag = launcherDrag.current; if (!drag || drag.pointerId !== e.pointerId) return; const dx = e.clientX - drag.startX; const dy = e.clientY - drag.startY; if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true; if (drag.moved) setLauncherPosition({ x: drag.originX + dx, y: drag.originY + dy }); }}
+      onPointerMove={(e) => {
+        const drag = launcherDrag.current;
+        if (!drag || drag.pointerId !== e.pointerId) return;
+        const dx = e.clientX - drag.startX;
+        const dy = e.clientY - drag.startY;
+        if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true;
+        if (drag.moved) {
+          const launcherSize = 80;
+          const margin = 12;
+          const maxX = 0;
+          const minX = -(window.innerWidth - launcherSize - margin * 2);
+          const maxY = 0;
+          const minY = -(window.innerHeight - launcherSize - margin * 2);
+          setLauncherPosition({
+            x: Math.max(minX, Math.min(maxX, drag.originX + dx)),
+            y: Math.max(minY, Math.min(maxY, drag.originY + dy)),
+          });
+        }
+      }}
       onPointerUp={(e) => { const drag = launcherDrag.current; if (drag && drag.pointerId === e.pointerId) { suppressLauncherClick.current = drag.moved; launcherDrag.current = null; } }}
       onPointerCancel={() => { launcherDrag.current = null; }}
       style={{ transform: `translate(${launcherPosition.x}px, ${launcherPosition.y}px)` }}
@@ -72,7 +96,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
       <header className="flex items-center justify-between gap-3 p-3 border-b border-cyan-900/60 bg-[#091827]">
         <div className="flex items-center gap-2 min-w-0">
           <img src={avatarSrc} alt={`ARKI — ${effectivePose}`} className="h-10 w-10 shrink-0 object-contain rounded-xl border border-cyan-500/40 bg-[#071321]" />
-          <h2 className="font-bold tracking-wide">Copiloto ARKI</h2>
+          <h2 className="font-bold tracking-wide text-xs">Copiloto ARKI</h2>
           <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -80,23 +104,25 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           <span className={`h-2 w-2 rounded-full ${isListening ? "bg-rose-400 animate-pulse" : isGenerating ? "bg-amber-400 animate-pulse" : "bg-emerald-400"}`} />
           {status}
         </span>
-        <button type="button" aria-label="Minimizar Copiloto ARKI" title="Minimizar" onClick={() => setIsMinimized(true)} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
-          <Minimize2 size={17}/>
-        </button>
+        {!embedded && (
+          <button type="button" aria-label="Minimizar Copiloto ARKI" title="Minimizar" onClick={() => setIsMinimized(true)} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
+            <Minimize2 size={17}/>
+          </button>
+        )}
         </div>
       </header>
 
       <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-4">
         {messages.length === 0 && (
           <section className="rounded-2xl border border-cyan-800/70 bg-gradient-to-br from-[#0a2238] via-[#0b1b2b] to-[#081522] p-4 md:p-5 shadow-[0_0_30px_rgba(0,195,220,0.08)]">
-            <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+            <div className="flex flex-col gap-3 items-center">
               <div className="relative shrink-0">
                 <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-pulse" />
-                <div className="h-36 w-36 md:h-44 md:w-44 rounded-2xl border border-cyan-400/50 bg-[#071321] overflow-hidden flex items-center justify-center shadow-[0_0_28px_rgba(34,211,238,0.18)]">
+                <div className="h-24 w-24 rounded-2xl border border-cyan-400/50 bg-[#071321] overflow-hidden flex items-center justify-center shadow-[0_0_28px_rgba(34,211,238,0.18)]">
                   <img src={avatarSrc} alt={`ARKI, asistente de arquitectura — ${effectivePose}`} className="h-full w-full object-contain" />
                 </div>
               </div>
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 w-full">
                 <p className="text-lg md:text-xl font-bold text-white">Hola, soy ARKI.</p>
                 <p className="mt-1 text-sm text-slate-300">Tu asistente de arquitectura e ingeniería. Puedo ayudarte a explorar propuestas, revisar geometría y trabajar con las herramientas disponibles en tu proyecto.</p>
                 <ul className="mt-3 grid gap-1.5 text-xs md:text-sm text-slate-200">
@@ -113,7 +139,11 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
             {msg.role !== "user" && (
-              <div className="mr-2 mt-1 h-8 w-8 shrink-0 rounded-full border border-cyan-700 bg-[#102b43] flex items-center justify-center text-[10px] font-bold text-amber-300">A</div>
+              <img
+                src="/arki/poses/arki_idle.png"
+                alt="ARKI"
+                className="mr-2 mt-1 h-8 w-8 shrink-0 rounded-full border border-cyan-700 bg-[#102b43] object-contain"
+              />
             )}
             <div className={`max-w-[88%] rounded-2xl p-3 text-sm whitespace-pre-wrap break-words ${msg.role === "user" ? "bg-amber-400 text-[#111827] rounded-br-sm" : "bg-[#10243a] text-slate-100 rounded-bl-sm border border-cyan-900/60"}`}>
               {msg.text}
@@ -161,7 +191,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); setAvatarPose("send"); onSend(); } }}
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessageSafely(); } }}
             placeholder="Escribe tu consulta o instrucción a ARKI…"
             rows={3}
             className="flex-1 min-w-0 resize-none bg-transparent text-sm text-slate-100 outline-none px-2 py-2 placeholder:text-slate-500"
@@ -179,7 +209,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
             <button aria-label="Abrir Realidad Aumentada" title="AR — anclar y manipular modelos 3D" onClick={() => { setAvatarPose("ar"); onOpenAction("ar"); }} className="p-2 rounded-lg text-violet-300 font-bold text-xs tracking-wide hover:text-white hover:bg-[#1e3a54] transition">
               <Glasses size={18}/>
             </button>
-            <button aria-label="Enviar mensaje" title="Enviar" onClick={() => { setAvatarPose("send"); onSend(); }} disabled={!input.trim() || isGenerating} className="p-2.5 sm:px-4 bg-cyan-400 text-[#041321] rounded-xl hover:bg-cyan-300 transition disabled:opacity-40 disabled:cursor-not-allowed">
+            <button aria-label="Enviar mensaje" title="Enviar" onClick={sendMessageSafely} disabled={!input.trim() || isGenerating} className="p-2.5 sm:px-4 bg-cyan-400 text-[#041321] rounded-xl hover:bg-cyan-300 transition disabled:opacity-40 disabled:cursor-not-allowed">
               <Send size={18}/>
             </button>
           </div>
