@@ -14,7 +14,7 @@ interface CopilotPanelProps {
 
 export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
   const [showPlusMenu, setShowPlusMenu] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);\n  const [launcherPosition, setLauncherPosition] = useState({ x: 0, y: 0 });\n  const launcherDrag = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
   const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -35,7 +35,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   }, [messages]);
 
   const effectivePose = isListening ? "listening" : isGenerating ? "thinking" : avatarPose;
-  const poseFile: Record<string, string> = { idle: "arki_idle.png", listening: "arki_listening.png", thinking: "arki_thinking.png", voice: "arki_voice_active.png", camera: "arki_camera_active.png", video: "arki_idle_ready.png", ar: "arki_idle_ready.png", send: "arki_send_active.png" };
+  // Mapeo corregido según el botón realmente iluminado en cada sprite.\n  const poseFile: Record<string, string> = { idle: "arki_idle.png", listening: "arki_listening.png", thinking: "arki_thinking.png", voice: "arki_idle_ready.png", camera: "arki_voice_active.png", video: "arki_camera_active.png", ar: "arki_idle.png", send: "arki_send_active.png" };
   const avatarSrc = `/arki/poses/${poseFile[effectivePose] ?? "arki_idle.png"}`;
   const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
   const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
@@ -151,7 +151,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
             className="flex-1 min-w-0 resize-none bg-transparent text-sm text-slate-100 outline-none px-2 py-2 placeholder:text-slate-500"
           />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-1 py-1">
-            <button aria-label="Hablar con ARKI" title="Micrófono — hablar con ARKI" onClick={() => { setAvatarPose("listening"); startListening((text) => { setInput(text); setAvatarPose("thinking"); }); }} className={`p-2 rounded-lg transition ${isListening ? "bg-rose-500/20 text-rose-300 animate-pulse" : "text-cyan-300 hover:text-white hover:bg-[#1e3a54]"}`}>
+            <button aria-label="Hablar con ARKI" title="Micrófono — hablar con ARKI" onClick={() => { setAvatarPose("listening"); startListening((text) => { setInput(text); setAvatarPose("idle"); }); }} className={`p-2 rounded-lg transition ${isListening ? "bg-rose-500/20 text-rose-300 animate-pulse" : "text-cyan-300 hover:text-white hover:bg-[#1e3a54]"}`}>
               <Mic size={18}/>
             </button>
             <button aria-label="Abrir cámara" title="Capturar, subir y analizar imágenes" onClick={() => { setAvatarPose("camera"); onOpenAction("camera"); }} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
