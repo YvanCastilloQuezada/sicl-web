@@ -1,0 +1,52 @@
+import { describe, expect, it } from "vitest";
+import { hasValidRenderGeometry } from "./CockpitSpatialARModal";
+import { isValidVolumeGeometry } from "./UPAO001MassingViewer3D";
+import type { SpatialRepresentation } from "./UPAO001SpatialViewer";
+
+type Element = SpatialRepresentation["elements"][number];
+const make = (element_type: string, type: string, coordinates: unknown, metadata?: Record<string, unknown>): Element => ({
+  id: "test-element", element_type, geometry: { type, coordinates }, metadata,
+});
+const ring = [[0,0],[4,0],[4,3],[0,3],[0,0]];
+const polygonCoordinates = [ring];
+const onePartMultiPolygon = [[ring]];
+const ring2 = [[5,5],[8,5],[8,8],[5,8],[5,5]];
+const twoPartMultiPolygon = [[ring], [ring2]];
+const polygonWithHole = [ring, [[1,1],[2,1],[2,2],[1,1]]];
+
+describe("Cockpit AR render geometry gate", () => {
+  it("accepts finite 3D volume with positive height", () => {
+    const volume = [[0,0,0],[4,0,0],[4,3,0],[0,3,0],[0,0,8],[4,0,8],[4,3,8],[0,3,8]];
+    expect(hasValidRenderGeometry(make("BuildingMass", "volume", volume, { height: 8 }))).toBe(true);
+  });
+  it("requires paired base/top rings, uniform elevations, and metadata height agreement", () => {
+    const valid = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2],[0,3,2],[0,0,10],[4,0,10],[4,3,10],[0,3,10]], { height: 8, base_elevation: 2 });
+    expect(isValidVolumeGeometry(valid)).toBe(true);
+    const mismatchedTop = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2],[0,3,2],[0,0,10],[4,0,10],[5,3,10],[0,3,10]], { height: 8, base_elevation: 2 });
+    expect(isValidVolumeGeometry(mismatchedTop)).toBe(false);
+    const inconsistentHeight = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2],[0,3,2],[0,0,10],[4,0,10],[4,3,10],[0,3,10]], { height: 7, base_elevation: 2 });
+    expect(isValidVolumeGeometry(inconsistentHeight)).toBe(false);
+    const nonPlanarBase = make("BuildingMass", "volume", [[0,0,2],[4,0,2],[4,3,2.2],[0,3,2],[0,0,10],[4,0,10],[4,3,10],[0,3,10]], { height: 8, base_elevation: 2 });
+    expect(isValidVolumeGeometry(nonPlanarBase)).toBe(false);
+  });
+  it("rejects nonfinite volume coordinates and missing/nonpositive height", () => {
+    const validVolume = [[0,0,0],[1,0,0],[0,1,0],[0,0,2],[1,0,2],[0,1,2]];
+    const validTriangularPrism = make("BuildingMass", "volume", validVolume, { height: 2, base_elevation: 0 });
+    expect(hasValidRenderGeometry(validTriangularPrism)).toBe(true);
+    expect(isValidVolumeGeometry(validTriangularPrism)).toBe(true);
+    expect(hasValidRenderGeometry(make("BuildingMass", "volume", validVolume, { height: 0 }))).toBe(false);
+    const invalidVolume = [[0,0,0],[1,0,0],[1,1,0],[0,1,0],[0,0,2],[NaN,0,2]];
+    expect(hasValidRenderGeometry(make("BuildingMass", "volume", invalidVolume, { height: 2 }))).toBe(false);
+  });
+  it("accepts standard GeoJSON Polygon and rejects a degenerate exterior ring", () => {
+    expect(hasValidRenderGeometry(make("BuildingFootprint", "polygon", polygonCoordinates))).toBe(true);
+    expect(hasValidRenderGeometry(make("BuildingFootprint", "polygon", [[[0,0],[0,0],[0,0],[0,0]]]))).toBe(false);
+  });
+  it("accepts a single-part MultiPolygon, but blocks multipart and holes until rendered", () => {
+    expect(hasValidRenderGeometry(make("SpatialZone", "multipolygon", onePartMultiPolygon))).toBe(true);
+    expect(hasValidRenderGeometry(make("SpatialZone", "multipolygon", twoPartMultiPolygon))).toBe(false);
+    expect(hasValidRenderGeometry(make("BuildingFootprint", "polygon", polygonWithHole))).toBe(false);
+    expect(hasValidRenderGeometry(make("SiteBoundary", "polygon", polygonCoordinates))).toBe(false);
+    expect(hasValidRenderGeometry(make("SpatialZone", "point", [1,2]))).toBe(false);
+  });
+});

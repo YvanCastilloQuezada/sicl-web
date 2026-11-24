@@ -44,6 +44,16 @@ export function spatialToRenderer(point: Point3): Point3 {
   return [point[0], point[2], -point[1]];
 }
 
+/** Applies scale and yaw about a fixed renderer-space center. Invalid transforms fail closed. */
+export function transformSpatialPointAroundCenter(point: Point3, center: Point3, scaleFactor = 1, rotationY = 0): Point3 | null {
+  if (![...point, ...center, scaleFactor, rotationY].every(Number.isFinite) || scaleFactor <= 0) return null;
+  const x = (point[0] - center[0]) * scaleFactor;
+  const y = (point[1] - center[1]) * scaleFactor;
+  const z = (point[2] - center[2]) * scaleFactor;
+  const cos = Math.cos(rotationY), sin = Math.sin(rotationY);
+  return [center[0] + x * cos + z * sin, center[1] + y, center[2] - x * sin + z * cos];
+}
+
 function numeric(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
 }
@@ -54,6 +64,25 @@ function point2(value: unknown): value is Point2 {
 
 function point3(value: unknown): value is Point3 {
   return Array.isArray(value) && numeric(value[0]) && numeric(value[1]) && numeric(value[2]);
+}
+
+export function isValidVolumeGeometry(element: SpatialElement, tolerance = 1e-4): boolean {
+  if (element.geometry.type !== "volume" || !Array.isArray(element.geometry.coordinates)) return false;
+  const vertices = element.geometry.coordinates.filter(point3);
+  if (vertices.length !== element.geometry.coordinates.length || vertices.length < 6 || vertices.length % 2 !== 0) return false;
+  const half = vertices.length / 2;
+  const baseRing = vertices.slice(0, half);
+  const topRing = vertices.slice(half);
+  if (baseRing.length < 3 || topRing.length !== baseRing.length) return false;
+  const baseZ = baseRing[0][2], topZ = topRing[0][2];
+  if (!baseRing.every(([, , z]) => Math.abs(z - baseZ) <= tolerance) || !topRing.every(([, , z]) => Math.abs(z - topZ) <= tolerance)) return false;
+  if (!(topZ > baseZ)) return false;
+  if (!baseRing.every(([x, y], i) => Math.abs(x - topRing[i][0]) <= tolerance && Math.abs(y - topRing[i][1]) <= tolerance)) return false;
+  const metadataHeight = Number(element.metadata?.height);
+  if (!Number.isFinite(metadataHeight) || metadataHeight <= 0 || Math.abs(metadataHeight - (topZ - baseZ)) > tolerance) return false;
+  const metadataBase = Number(element.metadata?.base_elevation ?? baseZ);
+  if (!Number.isFinite(metadataBase) || Math.abs(metadataBase - baseZ) > tolerance) return false;
+  return new Set(baseRing.map(([x, y]) => String(x) + "," + String(y))).size >= 3;
 }
 
 function polygonRing(element: SpatialElement): Point2[] {
@@ -83,7 +112,7 @@ export function deriveMasses(representation: SpatialRepresentation): DerivedMass
     const ring = massRing(element);
     const height = Number(element.metadata?.height);
     const base = Number(element.metadata?.base_elevation ?? 0);
-    if (ring.length < 3 || !Number.isFinite(height) || height <= 0 || !Number.isFinite(base)) return [];
+    if (ring.length < 3 || !isValidVolumeGeometry(element) || !Number.isFinite(height) || height <= 0 || !Number.isFinite(base)) return [];
     const floorValue = Number(element.metadata?.floor_count);
     return [{ element, ring, base, height, floorCount: Number.isFinite(floorValue) ? floorValue : null }];
   });
@@ -259,10 +288,12 @@ export function RealityScene({ representation, scaleFactor = 1, rotationY = 0 }:
   return <>
     <ambientLight intensity={1.8} />
     <directionalLight position={[20, 40, 20]} intensity={1.2} />
-    <group position={[-centerX, 0, centerY]} scale={[scaleFactor, scaleFactor, scaleFactor]} rotation={[0, rotationY, 0]}>
-      {site && <RenderableShape ring={ringFromElement(site)} color="#dbeafe" opacity={0.35} y={-0.03} spatialId={site.id} />}
-      {zones.map((zone) => <RenderableShape key={zone.id} ring={ringFromElement(zone)} color="#22c55e" opacity={0.12} y={0.03} spatialId={zone.id} />)}
-      {masses.map((mass) => <MassMesh key={mass.element.id} mass={mass} selected={false} onSelect={() => undefined} />)}
+    <group position={[centerX, 0, -centerY]} scale={[scaleFactor, scaleFactor, scaleFactor]} rotation={[0, rotationY, 0]}>
+      <group position={[-centerX, 0, centerY]}>
+        {site && <RenderableShape ring={ringFromElement(site)} color="#dbeafe" opacity={0.35} y={-0.03} spatialId={site.id} />}
+        {zones.map((zone) => <RenderableShape key={zone.id} ring={ringFromElement(zone)} color="#22c55e" opacity={0.12} y={0.03} spatialId={zone.id} />)}
+        {masses.map((mass) => <MassMesh key={mass.element.id} mass={mass} selected={false} onSelect={() => undefined} />)}
+      </group>
     </group>
   </>;
 }
