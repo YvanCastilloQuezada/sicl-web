@@ -1,3 +1,4 @@
+import React from "react";
 import { Copy, FlaskConical, Info, WandSparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
