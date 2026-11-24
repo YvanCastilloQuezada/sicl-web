@@ -44,6 +44,16 @@ export function spatialToRenderer(point: Point3): Point3 {
   return [point[0], point[2], -point[1]];
 }
 
+/** Applies scale and yaw about a fixed renderer-space center. Invalid transforms fail closed. */
+export function transformSpatialPointAroundCenter(point: Point3, center: Point3, scaleFactor = 1, rotationY = 0): Point3 | null {
+  if (![...point, ...center, scaleFactor, rotationY].every(Number.isFinite) || scaleFactor <= 0) return null;
+  const x = (point[0] - center[0]) * scaleFactor;
+  const y = (point[1] - center[1]) * scaleFactor;
+  const z = (point[2] - center[2]) * scaleFactor;
+  const cos = Math.cos(rotationY), sin = Math.sin(rotationY);
+  return [center[0] + x * cos + z * sin, center[1] + y, center[2] - x * sin + z * cos];
+}
+
 function numeric(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
 }
@@ -278,10 +288,12 @@ export function RealityScene({ representation, scaleFactor = 1, rotationY = 0 }:
   return <>
     <ambientLight intensity={1.8} />
     <directionalLight position={[20, 40, 20]} intensity={1.2} />
-    <group position={[-centerX, 0, centerY]} scale={[scaleFactor, scaleFactor, scaleFactor]} rotation={[0, rotationY, 0]}>
-      {site && <RenderableShape ring={ringFromElement(site)} color="#dbeafe" opacity={0.35} y={-0.03} spatialId={site.id} />}
-      {zones.map((zone) => <RenderableShape key={zone.id} ring={ringFromElement(zone)} color="#22c55e" opacity={0.12} y={0.03} spatialId={zone.id} />)}
-      {masses.map((mass) => <MassMesh key={mass.element.id} mass={mass} selected={false} onSelect={() => undefined} />)}
+    <group position={[centerX, 0, -centerY]} scale={[scaleFactor, scaleFactor, scaleFactor]} rotation={[0, rotationY, 0]}>
+      <group position={[-centerX, 0, centerY]}>
+        {site && <RenderableShape ring={ringFromElement(site)} color="#dbeafe" opacity={0.35} y={-0.03} spatialId={site.id} />}
+        {zones.map((zone) => <RenderableShape key={zone.id} ring={ringFromElement(zone)} color="#22c55e" opacity={0.12} y={0.03} spatialId={zone.id} />)}
+        {masses.map((mass) => <MassMesh key={mass.element.id} mass={mass} selected={false} onSelect={() => undefined} />)}
+      </group>
     </group>
   </>;
 }
