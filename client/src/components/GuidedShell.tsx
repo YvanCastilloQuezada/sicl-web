@@ -1,3 +1,4 @@
+import React from "react";
 import { ArrowRight, CheckCircle2, Compass, LockKeyhole, Sparkles } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
