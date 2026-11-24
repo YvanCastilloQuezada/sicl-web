@@ -28,6 +28,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
     <div className="flex flex-col h-full min-h-0 bg-[#071321] text-slate-100">
       <header className="flex items-center justify-between gap-3 p-3 border-b border-cyan-900/60 bg-[#091827]">
         <div className="flex items-center gap-2 min-w-0">
+          <img src="/arki/arki_test_avatar_animated.webp" alt="Avatar ARKI" className="h-9 w-9 shrink-0 object-contain rounded-full border border-cyan-500/40 bg-[#071321]" />
           <Sparkles size={17} className="text-cyan-300" />
           <h2 className="font-bold tracking-wide">Copiloto ARKI</h2>
           <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
@@ -44,11 +45,8 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
             <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
               <div className="relative shrink-0">
                 <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-pulse" />
-                <div className="h-28 w-28 rounded-full border-2 border-cyan-400/60 bg-[#102b43] flex items-center justify-center shadow-[0_0_22px_rgba(34,211,238,0.15)]">
-                  <div className="text-center leading-none">
-                    <div className="text-4xl" aria-hidden="true">👷</div>
-                    <div className="mt-1 text-[9px] font-black tracking-widest text-amber-300">ARKI</div>
-                  </div>
+                <div className="h-36 w-36 md:h-44 md:w-44 rounded-2xl border border-cyan-400/50 bg-[#071321] overflow-hidden flex items-center justify-center shadow-[0_0_28px_rgba(34,211,238,0.18)]">
+                  <img src="/arki/arki_test_avatar_animated.webp" alt="ARKI, asistente de arquitectura" className="h-full w-full object-contain" />
                 </div>
               </div>
               <div className="min-w-0 flex-1">
