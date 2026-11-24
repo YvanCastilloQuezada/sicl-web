@@ -96,7 +96,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
                   <Image size={16} className="text-fuchsia-300"/> Generar renders e imágenes
                 </button>
                 <button onClick={() => { onOpenAction("norms"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
-                  <Globe size={16} className="text-emeremerald-300"/> Buscar normativa (RNE)
+                  <Globe size={16} className="text-emerald-300"/> Buscar normativa (RNE)
                 </button>
                 <button onClick={() => { onOpenAction("code"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
                   <Code size={16} className="text-amber-300"/> Generar código paramétrico
