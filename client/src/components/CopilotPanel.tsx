@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, Camera, Video, Glasses, CheckCircle2, Loader2 } from "lucide-react";
+import { Send, Mic, Plus, Paperclip, Image, Globe, Code, Camera, Video, Glasses, CheckCircle2, Loader2, Minimize2 } from "lucide-react";
 import { useSpeech } from "@/hooks/useSpeech";
 
 interface CopilotPanelProps {
@@ -13,7 +13,7 @@ interface CopilotPanelProps {
 }
 
 export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
-  const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [showPlusMenu, setShowPlusMenu] = useState(false);\n  const [isMinimized, setIsMinimized] = useState(false);
   const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -52,7 +52,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           <h2 className="font-bold tracking-wide">Copiloto ARKI</h2>
           <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
         </div>
-        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${statusColor}`}>
+        <div className="flex items-center gap-2 shrink-0">\n        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${statusColor}`}>
           <span className={`h-2 w-2 rounded-full ${isListening ? "bg-rose-400 animate-pulse" : isGenerating ? "bg-amber-400 animate-pulse" : "bg-emerald-400"}`} />
           {status}
         </span>
