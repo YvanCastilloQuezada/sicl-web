@@ -20,18 +20,13 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isListening || avatarPose !== "listening") return;
-    setAvatarPose("idle");
-  }, [isListening, avatarPose]);
-
-  useEffect(() => {
-    if (isGenerating || avatarPose !== "thinking") return;
-    setAvatarPose("idle");
-  }, [isGenerating, avatarPose]);
-
-  useEffect(() => {
-    if (isListening || isGenerating || !["camera", "video", "ar", "send", "voice"].includes(avatarPose)) return;
-    const timeout = window.setTimeout(() => setAvatarPose("idle"), 1400);
+    const transientPoses = ["listening", "thinking", "camera", "video", "ar", "send", "voice"];
+    if (!transientPoses.includes(avatarPose)) return;
+    if (avatarPose === "listening" && isListening) return;
+    if (avatarPose === "thinking" && isGenerating) return;
+    if (isListening || isGenerating) return;
+    const resetDelay = avatarPose === "listening" ? 900 : avatarPose === "thinking" ? 1200 : 1400;
+    const timeout = window.setTimeout(() => setAvatarPose("idle"), resetDelay);
     return () => window.clearTimeout(timeout);
   }, [avatarPose, isListening, isGenerating]);
 
