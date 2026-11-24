@@ -13,7 +13,8 @@ interface CopilotPanelProps {
 }
 
 export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
-  const [showPlusMenu, setShowPlusMenu] = useState(false);\n  const [isMinimized, setIsMinimized] = useState(false);
+  const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
   const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -44,7 +45,18 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
   const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
 
-  return (
+  return isMinimized ? (
+    <button
+      type="button"
+      aria-label="Restaurar Copiloto ARKI"
+      title="Abrir Copiloto ARKI"
+      onClick={() => setIsMinimized(false)}
+      className="fixed bottom-5 right-5 z-[120] h-20 w-20 rounded-full border-2 border-cyan-400 bg-[#071321] shadow-[0_0_24px_rgba(34,211,238,0.35)] hover:scale-105 transition-transform overflow-hidden"
+    >
+      <img src={avatarSrc} alt="ARKI" className="h-full w-full object-contain" />
+      <span className="absolute bottom-1 right-1 h-3 w-3 rounded-full border-2 border-[#071321] bg-emerald-400" />
+    </button>
+  ) : (
     <div className="flex flex-col h-full min-h-0 bg-[#071321] text-slate-100">
       <header className="flex items-center justify-between gap-3 p-3 border-b border-cyan-900/60 bg-[#091827]">
         <div className="flex items-center gap-2 min-w-0">
@@ -52,10 +64,15 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           <h2 className="font-bold tracking-wide">Copiloto ARKI</h2>
           <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">\n        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${statusColor}`}>
+        <div className="flex items-center gap-2 shrink-0">
+        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${statusColor}`}>
           <span className={`h-2 w-2 rounded-full ${isListening ? "bg-rose-400 animate-pulse" : isGenerating ? "bg-amber-400 animate-pulse" : "bg-emerald-400"}`} />
           {status}
         </span>
+        <button type="button" aria-label="Minimizar Copiloto ARKI" title="Minimizar" onClick={() => setIsMinimized(true)} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
+          <Minimize2 size={17}/>
+        </button>
+        </div>
       </header>
 
       <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-4">
