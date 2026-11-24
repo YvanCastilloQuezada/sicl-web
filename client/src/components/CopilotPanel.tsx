@@ -19,6 +19,22 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (isListening || avatarPose !== "listening") return;
+    setAvatarPose("idle");
+  }, [isListening, avatarPose]);
+
+  useEffect(() => {
+    if (isGenerating || avatarPose !== "thinking") return;
+    setAvatarPose("idle");
+  }, [isGenerating, avatarPose]);
+
+  useEffect(() => {
+    if (isListening || isGenerating || !["camera", "video", "ar", "send", "voice"].includes(avatarPose)) return;
+    const timeout = window.setTimeout(() => setAvatarPose("idle"), 1400);
+    return () => window.clearTimeout(timeout);
+  }, [avatarPose, isListening, isGenerating]);
+
+  useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -117,7 +133,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); onSend(); } }}
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); setAvatarPose("send"); onSend(); } }}
             placeholder="Escribe tu consulta o instrucción a ARKI…"
             rows={3}
             className="flex-1 min-w-0 resize-none bg-transparent text-sm text-slate-100 outline-none px-2 py-2 placeholder:text-slate-500"
