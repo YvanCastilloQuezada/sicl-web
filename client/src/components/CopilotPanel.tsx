@@ -14,6 +14,7 @@ interface CopilotPanelProps {
 
 export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
   const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -21,6 +22,8 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const effectivePose = isListening ? "listening" : isGenerating ? "thinking" : avatarPose;
+  const avatarSrc = `/arki/poses/arki_${effectivePose}.png`;
   const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
   const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
 
@@ -29,7 +32,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
       <header className="flex items-center justify-between gap-3 p-3 border-b border-cyan-900/60 bg-[#091827]">
         <div className="flex items-center gap-2 min-w-0">
           <img src="/arki/arki_test_avatar_animated.webp" alt="Avatar ARKI" className="h-9 w-9 shrink-0 object-contain rounded-full border border-cyan-500/40 bg-[#071321]" />
-          <Sparkles size={17} className="text-cyan-300" />
+          <img src="/arki/poses/arki_idle.png" alt="ARKI" className="h-8 w-8 shrink-0 object-contain" />
           <h2 className="font-bold tracking-wide">Copiloto ARKI</h2>
           <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
         </div>
@@ -120,19 +123,19 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
             className="flex-1 min-w-0 resize-none bg-transparent text-sm text-slate-100 outline-none px-2 py-2 placeholder:text-slate-500"
           />
           <div className="flex flex-col sm:flex-row items-center justify-between gap-1 py-1">
-            <button aria-label="Hablar con ARKI" title="Micrófono — hablar con ARKI" onClick={() => startListening((text) => setInput(text))} className={`p-2 rounded-lg transition ${isListening ? "bg-rose-500/20 text-rose-300 animate-pulse" : "text-cyan-300 hover:text-white hover:bg-[#1e3a54]"}`}>
+            <button aria-label="Hablar con ARKI" title="Micrófono — hablar con ARKI" onClick={() => { setAvatarPose("listening"); startListening((text) => { setInput(text); setAvatarPose("thinking"); }); }} className={`p-2 rounded-lg transition ${isListening ? "bg-rose-500/20 text-rose-300 animate-pulse" : "text-cyan-300 hover:text-white hover:bg-[#1e3a54]"}`}>
               <Mic size={18}/>
             </button>
-            <button aria-label="Abrir cámara" title="Capturar, subir y analizar imágenes" onClick={() => onOpenAction("camera")} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
+            <button aria-label="Abrir cámara" title="Capturar, subir y analizar imágenes" onClick={() => { setAvatarPose("camera"); onOpenAction("camera"); }} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
               <Camera size={18}/>
             </button>
-            <button aria-label="Entrada de video" title="Video (si está habilitado)" onClick={() => onOpenAction("video")} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
+            <button aria-label="Entrada de video" title="Video (si está habilitado)" onClick={() => { setAvatarPose("video"); onOpenAction("video"); }} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
               <Video size={18}/>
             </button>
-            <button aria-label="Abrir Realidad Aumentada" title="AR — anclar y manipular modelos 3D" onClick={() => onOpenAction("ar")} className="p-2 rounded-lg text-violet-300 font-bold text-xs tracking-wide hover:text-white hover:bg-[#1e3a54] transition">
+            <button aria-label="Abrir Realidad Aumentada" title="AR — anclar y manipular modelos 3D" onClick={() => { setAvatarPose("ar"); onOpenAction("ar"); }} className="p-2 rounded-lg text-violet-300 font-bold text-xs tracking-wide hover:text-white hover:bg-[#1e3a54] transition">
               <Glasses size={18}/>
             </button>
-            <button aria-label="Enviar mensaje" title="Enviar" onClick={onSend} disabled={!input.trim() || isGenerating} className="p-2.5 sm:px-4 bg-cyan-400 text-[#041321] rounded-xl hover:bg-cyan-300 transition disabled:opacity-40 disabled:cursor-not-allowed">
+            <button aria-label="Enviar mensaje" title="Enviar" onClick={() => { setAvatarPose("send"); onSend(); }} disabled={!input.trim() || isGenerating} className="p-2.5 sm:px-4 bg-cyan-400 text-[#041321] rounded-xl hover:bg-cyan-300 transition disabled:opacity-40 disabled:cursor-not-allowed">
               <Send size={18}/>
             </button>
           </div>
