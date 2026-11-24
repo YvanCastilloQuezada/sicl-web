@@ -53,7 +53,6 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
         {/* Menú del "+" — se despliega al pasar el cursor */}
         <div className="relative" onMouseEnter={() => setShowPlusMenu(true)} onMouseLeave={() => setShowPlusMenu(false)}>
           <button
-            onClick={() => setShowPlusMenu((open) => !open)}
             onFocus={() => setShowPlusMenu(true)}
             aria-haspopup="menu"
             aria-expanded={showPlusMenu}
