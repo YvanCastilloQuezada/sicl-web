@@ -34,6 +34,13 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   }, [avatarPose, isListening, isGenerating]);
 
   useEffect(() => {
+    if (avatarPose !== "idle" || isListening || isGenerating) return;
+    const timeout = window.setTimeout(() => setAvatarPose("blink"), 6500);
+    return () => window.clearTimeout(timeout);
+  }, [avatarPose, isListening, isGenerating]);
+
+
+  useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
