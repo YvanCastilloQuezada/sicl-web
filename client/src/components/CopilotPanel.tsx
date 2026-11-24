@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Mic, Plus, Paperclip, Image, Globe, Code, Camera, Video, Glasses, CheckCircle2, Loader2, Minimize2 } from "lucide-react";
+import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, PenTool, Eye, Brain } from "lucide-react";
 import { useSpeech } from "@/hooks/useSpeech";
 
 interface CopilotPanelProps {
@@ -9,212 +9,102 @@ interface CopilotPanelProps {
   onSend: () => void;
   isGenerating: boolean;
   onOpenAction: (action: string) => void;
-  onOpenWorkspace: () => void;
-  embedded?: boolean;
+  onOpenWorkspace: () => void; // Para abrir el menú expandido de herramientas
 }
 
-export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace, embedded = false }: CopilotPanelProps) {
+export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
   const [showPlusMenu, setShowPlusMenu] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [launcherPosition, setLauncherPosition] = useState({ x: 0, y: 0 });
-  const launcherDrag = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
-  const suppressLauncherClick = useRef(false);
-  const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "blink" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const transientPoses = ["listening", "thinking", "blink", "camera", "video", "ar", "send", "voice"];
-    if (!transientPoses.includes(avatarPose)) return;
-    if (avatarPose === "listening" && isListening) return;
-    if (avatarPose === "thinking" && isGenerating) return;
-    if (isListening || isGenerating) return;
-    const resetDelay = avatarPose === "blink" ? 220 : avatarPose === "listening" ? 900 : avatarPose === "thinking" ? 1200 : 1400;
-    const timeout = window.setTimeout(() => setAvatarPose("idle"), resetDelay);
-    return () => window.clearTimeout(timeout);
-  }, [avatarPose, isListening, isGenerating]);
-
-  useEffect(() => {
-    if (avatarPose !== "idle" || isListening || isGenerating) return;
-    const timeout = window.setTimeout(() => setAvatarPose("blink"), 6500);
-    return () => window.clearTimeout(timeout);
-  }, [avatarPose, isListening, isGenerating]);
-
-
+  // Auto-scroll al final cuando hay mensajes nuevos
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const sendMessageSafely = () => {
-    if (!input.trim() || isGenerating) return;
-    setAvatarPose("send");
-    onSend();
-  };
+  return (
+    <div className="flex flex-col h-full bg-[#0b1320]">
+      {/* Header */}
+      <div className="flex items-center justify-between p-3 border-b border-[#1e293b]">
+        <h2 className="text-[#e2e8f0] font-bold flex items-center gap-2">
+          <Sparkles size={16} className="text-[#f0a35b]" /> Copiloto ARKI
+        </h2>
+      </div>
 
-  const effectivePose = isListening ? "listening" : isGenerating ? "thinking" : avatarPose;
-  const poseFile: Record<string, string> = { idle: "arki_idle.png", listening: "arki_listening.png", thinking: "arki_thinking.png", blink: "arki_blink.png", voice: "arki_voice_active.png", camera: "arki_camera_active.png", video: "arki_video_active.png", ar: "arki_ar_active.png", send: "arki_send_active.png" };
-  const avatarSrc = `/arki/poses/${poseFile[effectivePose] ?? "arki_idle.png"}`;
-  const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
-  const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
-
-  return isMinimized && !embedded ? (
-    <button
-      type="button"
-      aria-label="Restaurar Copiloto ARKI"
-      title="Abrir Copiloto ARKI"
-      onClick={() => { if (suppressLauncherClick.current) { suppressLauncherClick.current = false; return; } setIsMinimized(false); }}
-      onPointerDown={(e) => { launcherDrag.current = { pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, originX: launcherPosition.x, originY: launcherPosition.y, moved: false }; e.currentTarget.setPointerCapture(e.pointerId); }}
-      onPointerMove={(e) => {
-        const drag = launcherDrag.current;
-        if (!drag || drag.pointerId !== e.pointerId) return;
-        const dx = e.clientX - drag.startX;
-        const dy = e.clientY - drag.startY;
-        if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true;
-        if (drag.moved) {
-          const launcherSize = 80;
-          const margin = 12;
-          const maxX = 0;
-          const minX = -(window.innerWidth - launcherSize - margin * 2);
-          const maxY = 0;
-          const minY = -(window.innerHeight - launcherSize - margin * 2);
-          setLauncherPosition({
-            x: Math.max(minX, Math.min(maxX, drag.originX + dx)),
-            y: Math.max(minY, Math.min(maxY, drag.originY + dy)),
-          });
-        }
-      }}
-      onPointerUp={(e) => { const drag = launcherDrag.current; if (drag && drag.pointerId === e.pointerId) { suppressLauncherClick.current = drag.moved; launcherDrag.current = null; } }}
-      onPointerCancel={() => { launcherDrag.current = null; }}
-      style={{ transform: `translate(${launcherPosition.x}px, ${launcherPosition.y}px)` }}
-      className="fixed bottom-5 right-5 z-[120] h-20 w-20 touch-none cursor-grab active:cursor-grabbing rounded-full border-2 border-cyan-400 bg-[#071321] shadow-[0_0_24px_rgba(34,211,238,0.35)] hover:scale-105 transition-transform overflow-hidden"
-    >
-      <img src={avatarSrc} alt="ARKI" className="h-full w-full object-contain" />
-      <span className="absolute bottom-1 right-1 h-3 w-3 rounded-full border-2 border-[#071321] bg-emerald-400" />
-    </button>
-  ) : (
-    <div className="flex flex-col h-full min-h-0 bg-[#071321] text-slate-100">
-      <header className="flex items-center justify-between gap-3 p-3 border-b border-cyan-900/60 bg-[#091827]">
-        <div className="flex items-center gap-2 min-w-0">
-          <img src={avatarSrc} alt={`ARKI — ${effectivePose}`} className="h-10 w-10 shrink-0 object-contain rounded-xl border border-cyan-500/40 bg-[#071321]" />
-          <h2 className="font-bold tracking-wide text-xs">Copiloto ARKI</h2>
-          <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
-        </div>
-        <div className="flex items-center gap-2 shrink-0">
-        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${statusColor}`}>
-          <span className={`h-2 w-2 rounded-full ${isListening ? "bg-rose-400 animate-pulse" : isGenerating ? "bg-amber-400 animate-pulse" : "bg-emerald-400"}`} />
-          {status}
-        </span>
-        {!embedded && (
-          <button type="button" aria-label="Minimizar Copiloto ARKI" title="Minimizar" onClick={() => setIsMinimized(true)} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
-            <Minimize2 size={17}/>
-          </button>
-        )}
-        </div>
-      </header>
-
-      <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-4">
-        {messages.length === 0 && (
-          <section className="rounded-2xl border border-cyan-800/70 bg-gradient-to-br from-[#0a2238] via-[#0b1b2b] to-[#081522] p-4 md:p-5 shadow-[0_0_30px_rgba(0,195,220,0.08)]">
-            <div className="flex flex-col gap-3 items-center">
-              <div className="relative shrink-0">
-                <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-pulse" />
-                <div className="h-24 w-24 rounded-2xl border border-cyan-400/50 bg-[#071321] overflow-hidden flex items-center justify-center shadow-[0_0_28px_rgba(34,211,238,0.18)]">
-                  <img src={avatarSrc} alt={`ARKI, asistente de arquitectura — ${effectivePose}`} className="h-full w-full object-contain" />
-                </div>
-              </div>
-              <div className="min-w-0 w-full">
-                <p className="text-lg md:text-xl font-bold text-white">Hola, soy ARKI.</p>
-                <p className="mt-1 text-sm text-slate-300">Tu asistente de arquitectura e ingeniería. Puedo ayudarte a explorar propuestas, revisar geometría y trabajar con las herramientas disponibles en tu proyecto.</p>
-                <ul className="mt-3 grid gap-1.5 text-xs md:text-sm text-slate-200">
-                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Generación y evaluación de propuestas arquitectónicas</li>
-                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Geometría AGK, modelos y flujo IFC/BIM</li>
-                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Sitio, contexto, normativa y criterios de diseño</li>
-                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Evaluación, simulación y síntesis de resultados</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-        )}
-
+      {/* Mensajes */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-            {msg.role !== "user" && (
-              <img
-                src="/arki/poses/arki_idle.png"
-                alt="ARKI"
-                className="mr-2 mt-1 h-8 w-8 shrink-0 rounded-full border border-cyan-700 bg-[#102b43] object-contain"
-              />
-            )}
-            <div className={`max-w-[88%] rounded-2xl p-3 text-sm whitespace-pre-wrap break-words ${msg.role === "user" ? "bg-amber-400 text-[#111827] rounded-br-sm" : "bg-[#10243a] text-slate-100 rounded-bl-sm border border-cyan-900/60"}`}>
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[85%] rounded-lg p-3 text-sm ${
+              msg.role === 'user' 
+                ? 'bg-[#f0a35b] text-black rounded-br-none' 
+                : 'bg-[#1e293b] text-[#e2e8f0] rounded-bl-none border border-[#334155]'
+            }`}>
               {msg.text}
             </div>
           </div>
         ))}
-        {isGenerating && (
-          <div className="flex items-center gap-2 text-xs text-cyan-200/80 pl-10">
-            <Loader2 size={14} className="animate-spin"/> ARKI está analizando…
-          </div>
-        )}
         <div ref={chatEndRef} />
       </div>
 
-      <div className="p-3 border-t border-cyan-900/60 bg-[#081726] relative">
+      {/* Input Bar */}
+      <div className="p-3 border-t border-[#1e293b] bg-[#0f172a] relative">
+        
+        {/* Menú flotante del botón "+" */}
         {showPlusMenu && (
           <>
-            <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)} />
-            <div className="absolute bottom-full left-3 mb-2 w-72 bg-[#10243a] border border-cyan-900/70 rounded-xl shadow-2xl overflow-hidden z-[100]">
+            <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)}></div>
+            <div className="absolute bottom-full left-3 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100]">
               <div className="p-2 space-y-1">
-                <button onClick={() => { onOpenAction("upload"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
-                  <Paperclip size={16} className="text-cyan-300"/> Subir planos (IFC, DWG, PDF)
+                <button onClick={() => { onOpenAction('upload'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
+                  <Paperclip size={16} className="text-[#38bdf8]"/> Subir planos (IFC, DWG, PDF)
                 </button>
-                <button onClick={() => { onOpenAction("render"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
-                  <Image size={16} className="text-fuchsia-300"/> Generar renders e imágenes
+                <button onClick={() => { onOpenAction('render'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
+                  <Image size={16} className="text-[#f472b6]"/> Generar renders e imágenes
                 </button>
-                <button onClick={() => { onOpenAction("norms"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
-                  <Globe size={16} className="text-emerald-300"/> Buscar normativa (RNE)
+                <button onClick={() => { onOpenAction('norms'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
+                  <Globe size={16} className="text-[#4ade80]"/> Buscar normativa (RNE)
                 </button>
-                <button onClick={() => { onOpenAction("code"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
-                  <Code size={16} className="text-amber-300"/> Generar código paramétrico
+                <button onClick={() => { onOpenAction('code'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
+                  <Code size={16} className="text-[#fbbf24]"/> Generar código paramétrico
                 </button>
-                <button onClick={() => { onOpenWorkspace(); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-cyan-300 font-bold hover:bg-[#1e3a54] rounded-lg text-left border-t border-cyan-900/60 mt-1 pt-2">
-                  <Plus size={16}/> Más herramientas (Workspace)
+                <button onClick={() => { onOpenWorkspace(); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#38bdf8] font-bold hover:bg-[#334155] rounded-lg text-left border-t border-[#334155] mt-1 pt-2">
+                  <Plus size={16} /> Más Herramientas (Workspace)
                 </button>
               </div>
             </div>
           </>
         )}
 
-        <div className="flex items-stretch gap-2 bg-[#071321] border border-cyan-900/70 rounded-2xl p-1.5 focus-within:border-cyan-400/70 transition">
-          <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#1e3a54] rounded-lg text-slate-500 hover:text-white transition">
-            <Plus size={18}/>
+        <div className="flex items-center gap-2 bg-[#0b1320] border border-[#334155] rounded-xl p-1 focus-within:border-[#f0a35b] transition">
+          <button onClick={() => setShowPlusMenu(!showPlusMenu)} className="p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
+            <Plus size={18} />
           </button>
-          <textarea
+          
+          <input
+            type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessageSafely(); } }}
-            placeholder="Escribe tu consulta o instrucción a ARKI…"
-            rows={3}
-            className="flex-1 min-w-0 resize-none bg-transparent text-sm text-slate-100 outline-none px-2 py-2 placeholder:text-slate-500"
+            onKeyDown={(e) => e.key === 'Enter' && onSend()}
+            placeholder="Describe lo que quieres construir..."
+            className="flex-1 bg-transparent text-sm text-[#e2e8f0] outline-none px-2"
           />
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-1 py-1">
-            <button aria-label="Hablar con ARKI" title="Micrófono — hablar con ARKI" onClick={() => { setAvatarPose("listening"); startListening((text) => { setInput(text); setAvatarPose("idle"); }); }} className={`p-2 rounded-lg transition ${isListening ? "bg-rose-500/20 text-rose-300 animate-pulse" : "text-cyan-300 hover:text-white hover:bg-[#1e3a54]"}`}>
-              <Mic size={18}/>
-            </button>
-            <button aria-label="Abrir cámara" title="Capturar, subir y analizar imágenes" onClick={() => { setAvatarPose("camera"); onOpenAction("camera"); }} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
-              <Camera size={18}/>
-            </button>
-            <button aria-label="Entrada de video" title="Video (si está habilitado)" onClick={() => { setAvatarPose("video"); onOpenAction("video"); }} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
-              <Video size={18}/>
-            </button>
-            <button aria-label="Abrir Realidad Aumentada" title="AR — anclar y manipular modelos 3D" onClick={() => { setAvatarPose("ar"); onOpenAction("ar"); }} className="p-2 rounded-lg text-violet-300 font-bold text-xs tracking-wide hover:text-white hover:bg-[#1e3a54] transition">
-              <Glasses size={18}/>
-            </button>
-            <button aria-label="Enviar mensaje" title="Enviar" onClick={sendMessageSafely} disabled={!input.trim() || isGenerating} className="p-2.5 sm:px-4 bg-cyan-400 text-[#041321] rounded-xl hover:bg-cyan-300 transition disabled:opacity-40 disabled:cursor-not-allowed">
-              <Send size={18}/>
-            </button>
-          </div>
+
+          <button 
+            onClick={() => startListening((text) => setInput(text))}
+            className={`p-2 rounded-lg transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`}
+          >
+            <Mic size={18} />
+          </button>
+
+          <button 
+            onClick={onSend} 
+            disabled={!input.trim() || isGenerating}
+            className="p-2 bg-[#f0a35b] text-black rounded-lg hover:bg-[#e09050] transition disabled:opacity-50"
+          >
+            <Send size={18} />
+          </button>
         </div>
-        <p className="mt-1.5 text-[10px] text-slate-500 text-center">ARKI puede proponer y analizar; las acciones que modifican el proyecto requieren verificación.</p>
       </div>
     </div>
   );
