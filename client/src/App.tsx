@@ -5,7 +5,6 @@ import { Route, Switch } from "wouter";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ErrorBoundary from "./components/ErrorBoundary";
 import ArkiFirstContact from "./components/ArkiFirstContact";
-import PwaInstallPrompt from "./components/PwaInstallPrompt";
 import OfflineSyncManager from "./components/OfflineSyncManager";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import type { ManualId } from "@/config/manuals";
@@ -63,7 +62,6 @@ function App() {
           <TooltipProvider>
             <Toaster />
             <OfflineSyncManager />
-            <PwaInstallPrompt />
             <ArkiFirstContact />
             <Suspense fallback={<div className="flex h-screen items-center justify-center">Cargando ARKI...</div>}>
               <Switch>
