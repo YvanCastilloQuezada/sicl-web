@@ -14,7 +14,9 @@ interface CopilotPanelProps {
 
 export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
   const [showPlusMenu, setShowPlusMenu] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);\n  const [launcherPosition, setLauncherPosition] = useState({ x: 0, y: 0 });\n  const launcherDrag = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [launcherPosition, setLauncherPosition] = useState({ x: 0, y: 0 });
+  const launcherDrag = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
   const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -35,7 +37,8 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   }, [messages]);
 
   const effectivePose = isListening ? "listening" : isGenerating ? "thinking" : avatarPose;
-  // Mapeo corregido según el botón realmente iluminado en cada sprite.\n  const poseFile: Record<string, string> = { idle: "arki_idle.png", listening: "arki_listening.png", thinking: "arki_thinking.png", voice: "arki_idle_ready.png", camera: "arki_voice_active.png", video: "arki_camera_active.png", ar: "arki_idle.png", send: "arki_send_active.png" };
+  // Mapeo corregido según el botón realmente iluminado en cada sprite.
+  const poseFile: Record<string, string> = { idle: "arki_idle.png", listening: "arki_listening.png", thinking: "arki_thinking.png", voice: "arki_idle_ready.png", camera: "arki_voice_active.png", video: "arki_camera_active.png", ar: "arki_idle.png", send: "arki_send_active.png" };
   const avatarSrc = `/arki/poses/${poseFile[effectivePose] ?? "arki_idle.png"}`;
   const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
   const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
