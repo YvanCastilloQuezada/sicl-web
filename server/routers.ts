@@ -162,7 +162,7 @@ export const appRouter = router({
       }
       const media = process.env.ARKI_STORAGE_MODE === "local"
         ? await putArkiMo22(ctx.user.id, input.projectId, Buffer.from(base64, "base64"), input.mimeType)
-        : await storagePut(`projects/${input.projectId}/sources/${input.fileName}`, Buffer.from(base64, "base64"), input.mimeType);
+        : await storagePut(`projects/${input.projectId}/sources/${sourceId}/${input.fileName}`, Buffer.from(base64, "base64"), input.mimeType);
       const ocr = input.runOcr ? await extractOcr({ sourceId, dataUrl: input.dataUrl, kind: input.ocrKind as OcrInputKind, language: input.language }) : [];
       const visual = input.analyzeVisual && input.mimeType.startsWith("image/") ? await analyzeVisualPhoto(input.dataUrl, { spatialScope: input.spatialScope, mediaId: media.key }) : null;
       const sourceRecord = { id: sourceId, name: input.fileName, status: "SOURCE_INGESTED", provenance: [`MEDIA:${media.key}`, `PROJECT:${input.projectId}`, `CAPTURE_TYPE:${input.sourceType}`], data: { sourceType: input.sourceType, mimeType: input.mimeType, mediaUrl: media.url, mediaKey: media.key, captureTimestamp: new Date().toISOString(), note: input.note ?? "", ocr: ocr as unknown as string, visual: visual ? JSON.stringify(visual) : "", documentStructure: ocr[0] ? JSON.stringify(classifyDocumentStructure(ocr.map((item) => item.normalizedText).join("\n"))) : "" } } as unknown as SiclRecord;
