@@ -50,38 +50,42 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
       {/* Input Bar */}
       <div className="p-3 border-t border-[#1e293b] bg-[#0f172a] relative">
         
-        {/* Menú flotante del botón "+" */}
-        {showPlusMenu && (
-          <>
-            <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)}></div>
-            <div className="absolute bottom-full left-3 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100]">
+        {/* Menú del "+" — se despliega al pasar el cursor */}
+        <div className="relative" onMouseEnter={() => setShowPlusMenu(true)} onMouseLeave={() => setShowPlusMenu(false)}>
+          <button
+            onClick={() => setShowPlusMenu((open) => !open)}
+            onFocus={() => setShowPlusMenu(true)}
+            aria-haspopup="menu"
+            aria-expanded={showPlusMenu}
+            className="p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition"
+          >
+            <Plus size={18} />
+          </button>
+          {showPlusMenu && (
+            <div role="menu" className="absolute bottom-full left-0 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100]">
               <div className="p-2 space-y-1">
                 <button onClick={() => { onOpenAction('upload'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Paperclip size={16} className="text-[#38bdf8]"/> Subir planos (IFC, DWG, PDF)
+                  <Paperclip size={16} className="text-[#38bdf8"/> Subir planos (IFC, DWG, PDF)
                 </button>
                 <button onClick={() => { onOpenAction('render'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Image size={16} className="text-[#f472b6]"/> Generar renders e imágenes
+                  <Image size={16} className="text-[#f472b6"/> Generar renders e imágenes
                 </button>
                 <button onClick={() => { onOpenAction('norms'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Globe size={16} className="text-[#4ade80]"/> Buscar normativa (RNE)
+                  <Globe size={16} className="text-[#4ade80"/> Buscar normativa (RNE)
                 </button>
                 <button onClick={() => { onOpenAction('code'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Code size={16} className="text-[#fbbf24]"/> Generar código paramétrico
+                  <Code size={16} className="text-[#fbbf24"/> Generar código paramétrico
                 </button>
                 <button onClick={() => { onOpenWorkspace(); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#38bdf8] font-bold hover:bg-[#334155] rounded-lg text-left border-t border-[#334155] mt-1 pt-2">
                   <Plus size={16} /> Más Herramientas (Workspace)
                 </button>
               </div>
             </div>
-          </>
-        )}
+          )}
+        </div>
 
         <div className="flex items-center gap-2 bg-[#0b1320] border border-[#334155] rounded-xl p-1 focus-within:border-[#f0a35b] transition">
-          <button onClick={() => setShowPlusMenu(!showPlusMenu)} className="p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
-            <Plus size={18} />
-          </button>
-          
-          <input
+        <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
