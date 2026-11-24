@@ -17,6 +17,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
   const [isMinimized, setIsMinimized] = useState(false);
   const [launcherPosition, setLauncherPosition] = useState({ x: 0, y: 0 });
   const launcherDrag = useRef<{ pointerId: number; startX: number; startY: number; originX: number; originY: number; moved: boolean } | null>(null);
+  const suppressLauncherClick = useRef(false);
   const [avatarPose, setAvatarPose] = useState<"idle" | "listening" | "thinking" | "voice" | "camera" | "video" | "ar" | "send">("idle");
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -48,8 +49,13 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
       type="button"
       aria-label="Restaurar Copiloto ARKI"
       title="Abrir Copiloto ARKI"
-      onClick={() => setIsMinimized(false)}
-      className="fixed bottom-5 right-5 z-[120] h-20 w-20 rounded-full border-2 border-cyan-400 bg-[#071321] shadow-[0_0_24px_rgba(34,211,238,0.35)] hover:scale-105 transition-transform overflow-hidden"
+      onClick={() => { if (suppressLauncherClick.current) { suppressLauncherClick.current = false; return; } setIsMinimized(false); }}
+      onPointerDown={(e) => { launcherDrag.current = { pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, originX: launcherPosition.x, originY: launcherPosition.y, moved: false }; e.currentTarget.setPointerCapture(e.pointerId); }}
+      onPointerMove={(e) => { const drag = launcherDrag.current; if (!drag || drag.pointerId !== e.pointerId) return; const dx = e.clientX - drag.startX; const dy = e.clientY - drag.startY; if (Math.abs(dx) + Math.abs(dy) > 6) drag.moved = true; if (drag.moved) setLauncherPosition({ x: drag.originX + dx, y: drag.originY + dy }); }}
+      onPointerUp={(e) => { const drag = launcherDrag.current; if (drag && drag.pointerId === e.pointerId) { suppressLauncherClick.current = drag.moved; launcherDrag.current = null; } }}
+      onPointerCancel={() => { launcherDrag.current = null; }}
+      style={{ transform: `translate(${launcherPosition.x}px, ${launcherPosition.y}px)` }}
+      className="fixed bottom-5 right-5 z-[120] h-20 w-20 touch-none cursor-grab active:cursor-grabbing rounded-full border-2 border-cyan-400 bg-[#071321] shadow-[0_0_24px_rgba(34,211,238,0.35)] hover:scale-105 transition-transform overflow-hidden"
     >
       <img src={avatarSrc} alt="ARKI" className="h-full w-full object-contain" />
       <span className="absolute bottom-1 right-1 h-3 w-3 rounded-full border-2 border-[#071321] bg-emerald-400" />
