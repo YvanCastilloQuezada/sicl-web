@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, Camera } from "lucide-react";
+import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, Camera, Video, Glasses, CheckCircle2, Loader2 } from "lucide-react";
 import { useSpeech } from "@/hooks/useSpeech";
 
 interface CopilotPanelProps {
@@ -21,101 +21,125 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  return (
-    <div className="flex flex-col h-full bg-[#0b1320]">
-      <div className="flex items-center justify-between p-3 border-b border-[#1e293b]">
-        <h2 className="text-[#e2e8f0] font-bold flex items-center gap-2">
-          <Sparkles size={16} className="text-[#f0a35b]" /> Copiloto ARKI
-        </h2>
-      </div>
+  const status = isListening ? "ESCUCHANDO" : isGenerating ? "ANALIZANDO" : "EN LÍNEA";
+  const statusColor = isListening ? "text-rose-300 border-rose-400/40 bg-rose-400/10" : isGenerating ? "text-amber-300 border-amber-400/40 bg-amber-400/10" : "text-emerald-300 border-emerald-400/40 bg-emerald-400/10";
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+  return (
+    <div className="flex flex-col h-full min-h-0 bg-[#071321] text-slate-100">
+      <header className="flex items-center justify-between gap-3 p-3 border-b border-cyan-900/60 bg-[#091827]">
+        <div className="flex items-center gap-2 min-w-0">
+          <Sparkles size={17} className="text-cyan-300" />
+          <h2 className="font-bold tracking-wide">Copiloto ARKI</h2>
+          <span className="hidden md:inline text-[10px] uppercase tracking-[0.18em] text-slate-400">Arquitectura · IA · Geometría · AGK</span>
+        </div>
+        <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-semibold tracking-wider ${statusColor}`}>
+          <span className={`h-2 w-2 rounded-full ${isListening ? "bg-rose-400 animate-pulse" : isGenerating ? "bg-amber-400 animate-pulse" : "bg-emerald-400"}`} />
+          {status}
+        </span>
+      </header>
+
+      <div className="flex-1 overflow-y-auto p-3 md:p-4 space-y-4">
+        {messages.length === 0 && (
+          <section className="rounded-2xl border border-cyan-800/70 bg-gradient-to-br from-[#0a2238] via-[#0b1b2b] to-[#081522] p-4 md:p-5 shadow-[0_0_30px_rgba(0,195,220,0.08)]">
+            <div className="flex flex-col sm:flex-row gap-4 items-center sm:items-start">
+              <div className="relative shrink-0">
+                <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-pulse" />
+                <div className="h-28 w-28 rounded-full border-2 border-cyan-400/60 bg-[#102b43] flex items-center justify-center shadow-[0_0_22px_rgba(34,211,238,0.15)]">
+                  <div className="text-center leading-none">
+                    <div className="text-4xl" aria-hidden="true">👷</div>
+                    <div className="mt-1 text-[9px] font-black tracking-widest text-amber-300">ARKI</div>
+                  </div>
+                </div>
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-lg md:text-xl font-bold text-white">Hola, soy ARKI.</p>
+                <p className="mt-1 text-sm text-slate-300">Tu asistente de arquitectura e ingeniería. Puedo ayudarte a explorar propuestas, revisar geometría y trabajar con las herramientas disponibles en tu proyecto.</p>
+                <ul className="mt-3 grid gap-1.5 text-xs md:text-sm text-slate-200">
+                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Generación y evaluación de propuestas arquitectónicas</li>
+                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Geometría AGK, modelos y flujo IFC/BIM</li>
+                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Sitio, contexto, normativa y criterios de diseño</li>
+                  <li className="flex gap-2"><CheckCircle2 size={15} className="mt-0.5 shrink-0 text-emerald-400"/>Evaluación, simulación y síntesis de resultados</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        )}
+
         {messages.map((msg, i) => (
-          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[85%] rounded-lg p-3 text-sm ${msg.role === 'user' ? 'bg-[#f0a35b] text-black rounded-br-none' : 'bg-[#1e293b] text-[#e2e8f0] rounded-bl-none border border-[#334155]'}`}>
+          <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+            {msg.role !== "user" && (
+              <div className="mr-2 mt-1 h-8 w-8 shrink-0 rounded-full border border-cyan-700 bg-[#102b43] flex items-center justify-center text-[10px] font-bold text-amber-300">A</div>
+            )}
+            <div className={`max-w-[88%] rounded-2xl p-3 text-sm whitespace-pre-wrap break-words ${msg.role === "user" ? "bg-amber-400 text-[#111827] rounded-br-sm" : "bg-[#10243a] text-slate-100 rounded-bl-sm border border-cyan-900/60"}`}>
               {msg.text}
             </div>
           </div>
         ))}
+        {isGenerating && (
+          <div className="flex items-center gap-2 text-xs text-cyan-200/80 pl-10">
+            <Loader2 size={14} className="animate-spin"/> ARKI está analizando…
+          </div>
+        )}
         <div ref={chatEndRef} />
       </div>
 
-      <div className="p-3 border-t border-[#1e293b] bg-[#0f172a] relative">
+      <div className="p-3 border-t border-cyan-900/60 bg-[#081726] relative">
         {showPlusMenu && (
           <>
             <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)} />
-            <div className="absolute bottom-full left-3 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100]">
+            <div className="absolute bottom-full left-3 mb-2 w-72 bg-[#10243a] border border-cyan-900/70 rounded-xl shadow-2xl overflow-hidden z-[100]">
               <div className="p-2 space-y-1">
-                <button onClick={() => { onOpenAction('upload'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Paperclip size={16} className="text-[#38bdf8"/> Subir planos (IFC, DWG, PDF)
+                <button onClick={() => { onOpenAction("upload"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
+                  <Paperclip size={16} className="text-cyan-300"/> Subir planos (IFC, DWG, PDF)
                 </button>
-                <button onClick={() => { onOpenAction('render'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Image size={16} className="text-[#f472b6"/> Generar renders e imágenes
+                <button onClick={() => { onOpenAction("render"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
+                  <Image size={16} className="text-fuchsia-300"/> Generar renders e imágenes
                 </button>
-                <button onClick={() => { onOpenAction('norms'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Globe size={16} className="text-[#4ade80"/> Buscar normativa (RNE)
+                <button onClick={() => { onOpenAction("norms"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
+                  <Globe size={16} className="text-emeremerald-300"/> Buscar normativa (RNE)
                 </button>
-                <button onClick={() => { onOpenAction('code'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
-                  <Code size={16} className="text-[#fbbf24"/> Generar código paramétrico
+                <button onClick={() => { onOpenAction("code"); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-slate-200 hover:bg-[#1e3a54] rounded-lg text-left">
+                  <Code size={16} className="text-amber-300"/> Generar código paramétrico
                 </button>
-                <button onClick={() => { onOpenWorkspace(); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#38bdf8] font-bold hover:bg-[#334155] rounded-lg text-left border-t border-[#334155] mt-1 pt-2">
-                  <Plus size={16} /> Más Herramientas (Workspace)
+                <button onClick={() => { onOpenWorkspace(); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-cyan-300 font-bold hover:bg-[#1e3a54] rounded-lg text-left border-t border-cyan-900/60 mt-1 pt-2">
+                  <Plus size={16}/> Más herramientas (Workspace)
                 </button>
               </div>
             </div>
           </>
         )}
 
-        <div className="flex items-stretch gap-2 bg-[#0b1320] border border-[#334155] rounded-xl p-1 focus-within:border-[#f0a35b] transition">
-          <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
-            <Plus size={18} />
+        <div className="flex items-stretch gap-2 bg-[#071321] border border-cyan-900/70 rounded-2xl p-1.5 focus-within:border-cyan-400/70 transition">
+          <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#1e3a54] rounded-lg text-slate-500 hover:text-white transition">
+            <Plus size={18}/>
           </button>
-
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSend(); } }}
-            placeholder="Describe lo que quieres construir..."
+            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); onSend(); } }}
+            placeholder="Escribe tu consulta o instrucción a ARKI…"
             rows={3}
-            className="flex-1 min-w-0 resize-none bg-transparent text-sm text-[#e2e8f0] outline-none px-2 py-2"
+            className="flex-1 min-w-0 resize-none bg-transparent text-sm text-slate-100 outline-none px-2 py-2 placeholder:text-slate-500"
           />
-
-          <div className="flex flex-col items-center justify-between gap-1 py-1">
-            <button
-              aria-label="Hablar con ARKI"
-              title="Micrófono — hablar con ARKI"
-              onClick={() => startListening((text) => setInput(text))}
-              className={`p-2 rounded-lg transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`}
-            >
-              <Mic size={18} />
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-1 py-1">
+            <button aria-label="Hablar con ARKI" title="Micrófono — hablar con ARKI" onClick={() => startListening((text) => setInput(text))} className={`p-2 rounded-lg transition ${isListening ? "bg-rose-500/20 text-rose-300 animate-pulse" : "text-cyan-300 hover:text-white hover:bg-[#1e3a54]"}`}>
+              <Mic size={18}/>
             </button>
-            <button
-              aria-label="Visión Inteligente ARKI: Cámara y video"
-              title="CAMERA — capturar, subir y analizar archivos, imágenes y video"
-              onClick={() => onOpenAction('camera')}
-              className="p-2 rounded-lg text-[#38bdf8] hover:text-white hover:bg-[#334155] transition"
-            >
-              <Camera size={18} />
+            <button aria-label="Abrir cámara" title="Capturar, subir y analizar imágenes" onClick={() => onOpenAction("camera")} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
+              <Camera size={18}/>
             </button>
-            <button
-              aria-label="Abrir Realidad Aumentada"
-              title="AR — anclar y manipular modelos 3D"
-              onClick={() => onOpenAction('ar')}
-              className="p-2 rounded-lg text-[#a78bfa] font-bold text-xs tracking-wide hover:text-white hover:bg-[#334155] transition"
-            >
-              AR
+            <button aria-label="Entrada de video" title="Video (si está habilitado)" onClick={() => onOpenAction("video")} className="p-2 rounded-lg text-cyan-300 hover:text-white hover:bg-[#1e3a54] transition">
+              <Video size={18}/>
             </button>
-            <button
-              aria-label="Enviar mensaje"
-              title="Enviar"
-              onClick={onSend}
-              disabled={!input.trim() || isGenerating}
-              className="p-2 bg-[#f0a35b] text-black rounded-lg hover:bg-[#e09050] transition disabled:opacity-50"
-            >
-              <Send size={18} />
+            <button aria-label="Abrir Realidad Aumentada" title="AR — anclar y manipular modelos 3D" onClick={() => onOpenAction("ar")} className="p-2 rounded-lg text-violet-300 font-bold text-xs tracking-wide hover:text-white hover:bg-[#1e3a54] transition">
+              <Glasses size={18}/>
+            </button>
+            <button aria-label="Enviar mensaje" title="Enviar" onClick={onSend} disabled={!input.trim() || isGenerating} className="p-2.5 sm:px-4 bg-cyan-400 text-[#041321] rounded-xl hover:bg-cyan-300 transition disabled:opacity-40 disabled:cursor-not-allowed">
+              <Send size={18}/>
             </button>
           </div>
         </div>
+        <p className="mt-1.5 text-[10px] text-slate-500 text-center">ARKI puede proponer y analizar; las acciones que modifican el proyecto requieren verificación.</p>
       </div>
     </div>
   );
