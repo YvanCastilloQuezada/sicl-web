@@ -25,7 +25,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
     <div className="flex flex-col h-full bg-[#0b1320]">
       
 
-      <div className="p-3 border-t border-[#1e293b] bg-[#0f172a] relative">
+      <div className="p-2 border-t border-[#1e293b] bg-[#0f172a] relative">
         {showPlusMenu && (
           <>
             <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)} />
@@ -60,7 +60,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
             onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSend(); } }}
             placeholder="Describe lo que quieres construir..."
             rows={5}
-            className="flex-1 min-w-0 resize-none bg-transparent text-sm text-[#e2e8f0] outline-none px-2 py-2"
+            className="flex-1 min-w-0 resize-none bg-transparent text-sm text-[#e2e8f0] outline-none px-1 py-1"
           />
 
           <div className="flex flex-col items-center gap-0 py-0">
