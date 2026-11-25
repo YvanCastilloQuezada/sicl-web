@@ -63,7 +63,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
             className="flex-1 min-w-0 resize-none bg-transparent text-sm text-[#e2e8f0] outline-none px-2 py-2"
           />
 
-          <div className="flex flex-col items-center justify-between gap-1 py-1">
+          <div className="flex flex-col items-center gap-0 py-0">
           <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
             <Plus size={18} />
           </button>
@@ -72,7 +72,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
               aria-label="Hablar con ARKI"
               title="Micrófono — hablar con ARKI"
               onClick={() => startListening((text) => setInput(text))}
-              className={`p-2 rounded-lg transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`}
+              className={`p-1 rounded-lg transition ${isListening ? 'bg-red-500/20 text-red-500 animate-pulse' : 'text-[#64748b] hover:text-[#e2e8f0] hover:bg-[#334155]'}`}
             >
               <Mic size={18} />
             </button>
@@ -80,7 +80,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
               aria-label="Visión Inteligente ARKI: Cámara y video"
               title="CAMERA — capturar, subir y analizar archivos, imágenes y video"
               onClick={() => onOpenAction('camera')}
-              className="p-2 rounded-lg text-[#38bdf8] hover:text-white hover:bg-[#334155] transition"
+              className="p-1 rounded-lg text-[#38bdf8] hover:text-white hover:bg-[#334155] transition"
             >
               <Camera size={18} />
             </button>
@@ -88,7 +88,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
               aria-label="Abrir Realidad Aumentada"
               title="AR — anclar y manipular modelos 3D"
               onClick={() => onOpenAction('ar')}
-              className="p-2 rounded-lg text-[#a78bfa] font-bold text-xs tracking-wide hover:text-white hover:bg-[#334155] transition"
+              className="p-1 rounded-lg text-[#a78bfa] font-bold text-xs tracking-wide hover:text-white hover:bg-[#334155] transition"
             >
               AR
             </button>
@@ -97,7 +97,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
               title="Enviar"
               onClick={onSend}
               disabled={!input.trim() || isGenerating}
-              className="p-2 bg-[#f0a35b] text-black rounded-lg hover:bg-[#e09050] transition disabled:opacity-50"
+              className="p-1 bg-[#f0a35b] text-black rounded-lg hover:bg-[#e09050] transition disabled:opacity-50"
             >
               <Send size={18} />
             </button>
