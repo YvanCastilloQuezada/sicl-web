@@ -638,12 +638,12 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             {expedienteOpen && (
               <div className="absolute top-full left-0 mt-1 w-max min-w-[320px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
-                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
+                  <p className="text-[12px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
             
                   
-                  <p className="text-[9px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
+                  <p className="text-[12px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios Básicos</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
@@ -864,19 +864,19 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         </div>
         
         <div className="p-3 flex-1 space-y-1">
-          <p className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
+          <p className="text-[12px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
           {/* Aquí irán los datos del proyecto (área, pisos, etc.) */}
           <div className="space-y-2">
             <div className="bg-[#1e293b] p-2 rounded-lg">
-              <p className="text-[9px] text-[#64748b]">Área</p>
-              <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+              <p className="text-[12px] text-[#64748b]">Área</p>
+              <p className="text-sm font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
             </div>
             <div className="bg-[#1e293b] p-2 rounded-lg">
-              <p className="text-[9px] text-[#64748b]">Pisos</p>
-              <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+              <p className="text-[12px] text-[#64748b]">Pisos</p>
+              <p className="text-sm font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
             </div>
             <div className="bg-[#1e293b] p-2 rounded-lg">
-              <p className="text-[9px] text-[#64748b]">Ciudad</p>
+              <p className="text-[12px] text-[#64748b]">Ciudad</p>
               <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
             </div>
           </div>
@@ -910,19 +910,19 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             <div className="flex-1 overflow-y-auto p-3 space-y-2">
               <p className="text-[10px] text-[#64748b]">Panel de correcciones paramétricas.</p>
               <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Área</p>
-                <p className="text-xs font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
+                <p className="text-[12px] text-[#64748b]">Área</p>
+                <p className="text-sm font-bold text-[#38bdf8]">{copilotParams?.area_m2 || "—"} m²</p>
               </div>
               <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Pisos</p>
-                <p className="text-xs font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
+                <p className="text-[12px] text-[#64748b]">Pisos</p>
+                <p className="text-sm font-bold text-[#f0a35b]">{copilotParams?.pisos || "—"}</p>
               </div>
               <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Ciudad</p>
+                <p className="text-[12px] text-[#64748b]">Ciudad</p>
                 <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
               </div>
               <div className="bg-[#1e293b] p-2 rounded-lg">
-                <p className="text-[9px] text-[#64748b]">Estilo</p>
+                <p className="text-[12px] text-[#64748b]">Estilo</p>
                 <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.estilo || "—"}</p>
               </div>
             </div>
