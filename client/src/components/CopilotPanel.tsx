@@ -52,9 +52,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
         )}
 
         <div className="flex items-stretch gap-2 bg-[#0b1320] border border-[#334155] rounded-xl p-1 focus-within:border-[#f0a35b] transition">
-          <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
-            <Plus size={18} />
-          </button>
+          
 
           <textarea
             value={input}
@@ -66,6 +64,10 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           />
 
           <div className="flex flex-col items-center justify-between gap-1 py-1">
+          <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
+            <Plus size={18} />
+          </button>
+
             <button
               aria-label="Hablar con ARKI"
               title="Micrófono — hablar con ARKI"
