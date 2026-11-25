@@ -29,7 +29,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
         {showPlusMenu && (
           <>
             <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)} />
-            <div className="absolute bottom-full left-3 mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100]">
+            <div className="fixed bottom-[190px] mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100] right-0">
               <div className="p-2 space-y-1">
                 <button onClick={() => { onOpenAction('upload'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
                   <Paperclip size={16} className="text-[#38bdf8"/> Subir planos (IFC, DWG, PDF)
