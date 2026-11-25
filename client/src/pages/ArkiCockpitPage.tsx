@@ -877,12 +877,12 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             </div>
             <div className="bg-[#1e293b] p-2 rounded-lg">
               <p className="text-[12px] text-[#64748b]">Ciudad</p>
-              <p className="text-xs font-bold text-[#e2e8f0]">{copilotParams?.ciudad || "—"}</p>
+              <p className="text-[12px] font-bold text-[#64748b] uppercase tracking-wider">{copilotParams?.ciudad || "—"}</p>
             </div>
           </div>
         </div>
 
-        <div className="p-3 border-t border-[#1e293b] text-[10px] text-[#64748b]">
+        <div className="p-3 border-t border-[#1e293b] text-[13px] text-[#64748b]">
           <p>GPU: RTX 3060 ({gpuUsage !== null ? `${gpuUsage}%` : "—"})</p>
           <p>Core: SICL v1.2</p>
         </div>
@@ -904,7 +904,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           {/* NUEVA BARRA (220px): Correcciones / Paramétricas */}
           <div className="w-[200px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col h-[80%] mt-0">
             <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
-              <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
+              <span className="text-xs font-bold text-[#e2e8f0]">CORRECCIONES</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
             </div>
             <div className="flex-1 overflow-y-auto p-3 space-y-2">
@@ -931,7 +931,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           {/* DERECHA (220px): Copiloto (chat) */}
           <div className="w-[200px] flex-shrink-0 bg-[#0f172a] flex flex-col h-[80%] mt-0">
             <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
-              <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
+              <span className="text-xs font-bold text-[#e2e8f0]">COPILOTO</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
             </div>
             
