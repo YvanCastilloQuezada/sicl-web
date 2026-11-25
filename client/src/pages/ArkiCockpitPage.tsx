@@ -558,7 +558,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             {tooltipText ? (
               <>
                 <div className="bg-[#38bdf8] rounded-full p-0.5"><svg className="w-2.5 h-2.5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-                <span className="text-[#38bdf8] text-[10px] font-mono font-bold tracking-wide uppercase">{tooltipText}</span>
+                <span className="text-[#f0a35b] text-[15px] font-normal tracking-wide uppercase">{tooltipText}</span>
               </>
             ) : (
               <span className="text-[#64748b] text-[10px] font-mono uppercase tracking-widest">ARKI • Command Center</span>
@@ -612,7 +612,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
                   {estudios.map((e, i) => (
           <button
             key={i}
-            className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block"
+            className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:text-[#f0a35b] hover:bg-[#fef3c7] font-normal rounded block"
             onClick={() => {
               if (e === "Asoleamiento") {
                 setAsoleamientoOpen(true);
