@@ -25,7 +25,7 @@ import ProfessionalFamilyViewer from "@/components/ProfessionalFamilyViewer";
 import ArkiParametricRuntimePage from "@/pages/ArkiParametricRuntimePage";
 import FullPipelineRunner from "@/components/FullPipelineRunner";
 import CameraScannerModal from "@/components/CameraScannerModal";
-import CockpitSpatialARModal from "@/components/CockpitSpatialARModal";
+import ARViewerModal from "@/components/ARViewerModal";
 import PipelineDashboardModal from "@/components/PipelineDashboardModal";
 
 export default function ArkiCockpitPage() {
@@ -58,7 +58,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const [showPlusMenu, setShowPlusMenu] = useState(false);
   const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
   const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | 'nodes' | 'documents' | 'camera' | 'ar' | null>(null);
-  const [activeSpatialProjectId, setActiveSpatialProjectId] = useState<string | null>(() => localStorage.getItem("sims-dei-project-id"));
   const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [searchingNormativa, setSearchingNormativa] = useState(false);
@@ -818,6 +817,20 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             )}
           </div>
 
+          {/* Workspace + CERT F1-F10 integrados en barra superior */}
+          <div className="flex items-center gap-1 ml-2 border-l border-[#334155] pl-2 flex-shrink-0">
+            <button onClick={() => setShowWorkspacePanel(true)} className="flex items-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-bold text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155] border border-[#475569]" title="Abrir Workspace integrado">
+              <Layers size={12}/> Workspace
+            </button>
+            <div className="flex items-center gap-0.5" aria-label="Certificación F1 a F10">
+              {Array.from({length:10}, (_,i) => i+1).map(f => (
+                <button key={f} onClick={() => setShowPipeline(true)} title={`Abrir certificación F${f}`} className="px-1.5 py-1.5 rounded text-[10px] font-mono text-[#cbd5e1] bg-[#172536] hover:bg-[#0e7490] border border-[#334155]">
+                  F{f}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Nuevo Menú: Ejecución Contractual */}
           <div className="relative flex-shrink-0">
             <button onMouseEnter={() => handleHover('ejecucion', 'Gestión de la ejecución contractual y personal.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${ejecucionOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
@@ -844,7 +857,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
 
       {/* IZQUIERDA (220px): MENÚ DE FLUJOS */}
-      <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
+      <div className="w-[200px] flex-shrink-0 border-r border-[#1e293b] flex flex-col bg-[#0f172a]">
         <div className="flex items-center gap-2 border-b border-[#1e293b] h-[41px] px-2">
           <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
           <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
@@ -879,28 +892,17 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       <div className="flex-1 flex flex-col overflow-hidden">
 
         {/* CONTENIDO: CENTRO + NUEVA BARRA + DERECHA */}
-        <div className="flex-1 flex overflow-visible relative z-0">
+        <div className="flex-1 flex overflow-visible relative z-0 items-start">
 
           {/* CENTRO (flex-1): Funnel 16-4-1 */}
           <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
             
-            <div className="flex-1 overflow-auto p-4 flex items-center justify-center">
-              <div className="max-w-xl rounded-lg border border-[#28445b] bg-[#0b1320] p-6 text-center">
-                <p className="text-sm font-semibold text-[#e2e8f0]">Embudo de diseño canónico · 9→4→1</p>
-                <p className="mt-2 text-xs text-[#94a3b8]">
-                  La generación, comparación, selección y evaluación de alternativas se gobiernan
-                  exclusivamente desde el Funnel canónico.
-                </p>
-                <a href="/arki-design-funnel"
-                   className="mt-4 inline-flex rounded-md bg-[#f0a35b] px-4 py-2 text-sm font-semibold text-[#111827]">
-                  Abrir ARKI Design Funnel
-                </a>
-              </div>
+            <div className="flex-1 overflow-auto relative bg-[#111820]" aria-label="Área central ARKI recuperada">
             </div>
           </div>
 
           {/* NUEVA BARRA (220px): Correcciones / Paramétricas */}
-          <div className="w-[220px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col">
+          <div className="w-[200px] flex-shrink-0 border-r border-[#1e293b] bg-[#0f172a] flex flex-col h-[80%] mt-0">
             <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
               <span className="text-xs font-bold text-[#e2e8f0]">Correcciones</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
@@ -927,28 +929,13 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           </div>
 
           {/* DERECHA (220px): Copiloto (chat) */}
-          <div className="w-[220px] flex-shrink-0 bg-[#0f172a] flex flex-col">
+          <div className="w-[200px] flex-shrink-0 bg-[#0f172a] flex flex-col h-[80%] mt-0">
             <div className="p-3 border-b border-[#1e293b] flex items-center justify-between">
               <span className="text-xs font-bold text-[#e2e8f0]">Copiloto</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
             </div>
             
-            <div className="flex-1 overflow-y-auto p-3 space-y-3">
-              {messages.map((msg, i) => (
-                <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[95%] p-2.5 rounded-lg text-[11px] leading-relaxed ${msg.role === 'user' ? 'bg-[#f0a35b] text-black' : 'bg-[#1e293b] text-[#e2e8f0]'}`}>
-                    {msg.text}
-                  </div>
-                </div>
-              ))}
-              {isGenerating && (
-                <div className="flex justify-start">
-                  <div className="bg-[#1e293b] p-2.5 rounded-lg flex items-center gap-2 text-[11px]">
-                    <Activity className="animate-pulse text-[#f0a35b]" size={14} /> Consultando...
-                  </div>
-                </div>
-              )}
-            </div>
+            <div className="flex-1 overflow-hidden" />
 
 
           </div>
@@ -956,7 +943,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       </div>
       
       {/* CHAT REFACTORIZADO */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 w-[700px] max-w-[90vw] z-[1000]">
+      <div className="fixed bottom-0 right-0 w-[400px] max-w-[400px] h-[20vh] z-[1000]">
         {!asoleamientoOpen && <CopilotPanel
           messages={messages}
           input={input}
@@ -969,7 +956,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (action === "terreno") setActiveModal("terreno");
             if (action === "documents") setActiveModal("documents");
             if (action === "camera") setActiveModal("camera");
-            if (action === "ar") setActiveModal("ar");
             if (action === "analysis") setActiveModal("analysis");
             if (action === "ifc") setActiveModal("ifc");
             if (action === "export") setActiveModal("export");
@@ -1001,8 +987,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {activeModal === 'camera' && <CameraScannerModal onClose={() => setActiveModal(null)} />}
 
 
-      {activeModal === 'projects' && <ProjectManagerModal onClose={() => setActiveModal(null)} />}
-      {activeModal === 'ar' && (activeSpatialProjectId ? <CockpitSpatialARModal projectId={activeSpatialProjectId} onClose={() => setActiveModal(null)} /> : <ProjectManagerModal onClose={() => setActiveModal(null)} onLoadProject={(project) => { setActiveSpatialProjectId(project.project_id); localStorage.setItem("sims-dei-project-id", project.project_id); setActiveModal("ar"); }} />)}
+      {activeModal === 'ar' && <ARViewerModal onClose={() => setActiveModal(null)} />}
 
 
 
@@ -1073,15 +1058,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {activeModal === 'norms' && <NormativaModal onClose={() => setActiveModal(null)} />}
       {activeModal === 'file-chat' && <FileChatModal onClose={() => setActiveModal(null)} />}
 
-      {/* BOTÓN FLOTANTE DE WORKSPACE */}
-      <button 
-        onClick={() => setShowWorkspacePanel(true)}
-        className="fixed bottom-6 right-6 z-[9000] flex items-center gap-2 px-4 py-3 rounded-full bg-[#38bdf8] text-black font-bold shadow-2xl hover:bg-[#0284c7] transition-all hover:scale-105"
-        title="Abrir Workspace (Herramientas)"
-      >
-        <Layers size={20} /> 
-        <span className="text-sm">Workspace</span>
-      </button>
 </div>
       {/* ARKI: Panel de Asoleamiento (Heliodón) */}
       <AsoleamientoStudio isOpen={asoleamientoOpen} onClose={() => setAsoleamientoOpen(false)} />
