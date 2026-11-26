@@ -14,6 +14,22 @@ interface CopilotPanelProps {
 
 export default function CopilotPanel({ messages, input, setInput, onSend, isGenerating, onOpenAction, onOpenWorkspace }: CopilotPanelProps) {
   const [showPlusMenu, setShowPlusMenu] = useState(false);
+  const plusMenuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelPlusMenuClose = () => {
+    if (plusMenuCloseTimer.current) {
+      clearTimeout(plusMenuCloseTimer.current);
+      plusMenuCloseTimer.current = null;
+    }
+  };
+
+  const schedulePlusMenuClose = () => {
+    cancelPlusMenuClose();
+    plusMenuCloseTimer.current = setTimeout(() => {
+      setShowPlusMenu(false);
+      plusMenuCloseTimer.current = null;
+    }, 180);
+  };
   const { isListening, startListening } = useSpeech();
   const chatEndRef = useRef<HTMLDivElement>(null);
 
@@ -23,13 +39,17 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
 
   return (
     <div className="flex flex-col h-full bg-[#0b1320]">
-      
+
 
       <div className="p-2 border-t border-[#1e293b] bg-[#0f172a] relative">
         {showPlusMenu && (
           <>
-            <div className="fixed inset-0 z-[90]" onClick={() => setShowPlusMenu(false)} />
-            <div className="fixed bottom-[190px] mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100] right-0">
+
+            <div
+              className="fixed bottom-[190px] mb-2 w-72 bg-[#1e293b] border border-[#334155] rounded-xl shadow-2xl overflow-hidden z-[100] right-0"
+              onMouseEnter={cancelPlusMenuClose}
+              onMouseLeave={schedulePlusMenuClose}
+            >
               <div className="p-2 space-y-1">
                 <button onClick={() => { onOpenAction('upload'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
                   <Paperclip size={16} className="text-[#38bdf8"/> Subir planos (IFC, DWG, PDF)
@@ -52,7 +72,7 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
         )}
 
         <div className="flex items-stretch gap-2 bg-[#0b1320] border border-[#334155] rounded-xl p-1 focus-within:border-[#f0a35b] transition">
-          
+
 
           <textarea
             value={input}
@@ -64,7 +84,17 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
           />
 
           <div className="flex flex-col items-center gap-0 py-0">
-          <button aria-label="Abrir menú de herramientas" title="Más herramientas" onClick={() => setShowPlusMenu(!showPlusMenu)} className="self-end p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition">
+          <button
+            aria-label="Abrir menú de herramientas"
+            title="Más herramientas"
+            onClick={() => setShowPlusMenu(true)}
+            onMouseEnter={() => {
+              cancelPlusMenuClose();
+              setShowPlusMenu(true);
+            }}
+            onMouseLeave={schedulePlusMenuClose}
+            className="self-end p-2 hover:bg-[#334155] rounded-lg text-[#64748b] hover:text-white transition"
+          >
             <Plus size={18} />
           </button>
 
