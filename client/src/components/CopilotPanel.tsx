@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, Camera } from "lucide-react";
+import { Send, Mic, Plus, Sparkles, Paperclip, Image, Globe, Code, Camera, Code2, PenTool, Box, Activity, MapPin, FolderKanban, FileText} from "lucide-react";
 import { useSpeech } from "@/hooks/useSpeech";
 
 interface CopilotPanelProps {
@@ -63,9 +63,41 @@ export default function CopilotPanel({ messages, input, setInput, onSend, isGene
                 <button onClick={() => { onOpenAction('code'); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#e2e8f0] hover:bg-[#334155] rounded-lg text-left">
                   <Code size={16} className="text-[#fbbf24"/> Generar código paramétrico
                 </button>
-                <button onClick={() => { onOpenWorkspace(); setShowPlusMenu(false); }} className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#38bdf8] font-bold hover:bg-[#334155] rounded-lg text-left border-t border-[#334155] mt-1 pt-2">
-                  <Plus size={16} /> Más Herramientas (Workspace)
-                </button>
+                <div className="border-t border-[#334155] mt-1 pt-2">
+
+                  <div className="space-y-0.5">
+                    {[
+                      { label: 'Generador Paramétrico (Nodos)', action: 'nodes' },
+                      { label: 'Editor de Planos (Canvas)', action: 'editor' },
+                      { label: 'Visor de Realidad Aumentada', action: 'ar' },
+                      { label: 'Dashboard de Análisis', action: 'analysis' },
+                      { label: 'Escáner 3D (Visión IA)', action: 'camera' },
+                      { label: 'Selección de Terreno', action: 'terreno' },
+                      { label: 'Gestor de Proyectos', action: 'projects' },
+                      { label: 'Documentos SUNARP', action: 'documents' },
+                    ].map(({ label, action }) => (
+                      <button
+                        key={action}
+                        onClick={() => {
+                          onOpenAction(action);
+                          setShowPlusMenu(false);
+                        }}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[#cbd5e1] hover:bg-[#334155] hover:text-white rounded-lg text-left transition"
+                      >
+                        {({
+                          nodes: <Code2 size={15} className="text-[#38bdf8] shrink-0" />,
+                          editor: <PenTool size={15} className="text-[#a78bfa] shrink-0" />,
+                          ar: <Box size={15} className="text-[#4ade80] shrink-0" />,
+                          analysis: <Activity size={15} className="text-[#fbbf24] shrink-0" />,
+                          camera: <Camera size={15} className="text-[#f472b6] shrink-0" />,
+                          terreno: <MapPin size={15} className="text-[#38bdf8] shrink-0" />,
+                          projects: <FolderKanban size={15} className="text-[#4ade80] shrink-0" />,
+                          documents: <FileText size={15} className="text-[#fbbf24] shrink-0" />,
+                        }[action])} {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </>

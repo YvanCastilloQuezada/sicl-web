@@ -2,7 +2,7 @@ import AsoleamientoStudio from "@/components/AsoleamientoStudio";
 import { useState, useEffect } from "react";
 import { createTRPCProxyClient, httpBatchLink } from "@trpc/client";
 import superjson from "superjson";
-import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon } from "lucide-react";
+import { Send, Sparkles, Box, FileText, Activity, Shield, HardHat, Calculator, FileDown, Layers, BookOpen, Mic, Plus, Paperclip, Eye, Globe, Image, Code, Brain, PenTool, Search, Settings, Trash, Edit, Check, X, ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Menu, MoreVertical, Download, Upload, Copy, ExternalLink, Filter, SortAsc, SortDesc, RefreshCw, AlertCircle, AlertTriangle, Info, CheckCircle, XCircle, Loader, Clock, Calendar, User, Users, Home, Building, MapPin, Link as LinkIcon, UserRound} from "lucide-react";
 
 import { useSpeech } from '@/hooks/useSpeech';
 import ProjectManagerModal from "@/components/ProjectManagerModal";
@@ -29,7 +29,7 @@ import ARViewerModal from "@/components/ARViewerModal";
 import PipelineDashboardModal from "@/components/PipelineDashboardModal";
 
 export default function ArkiCockpitPage() {
-  
+
     const [showFullPipeline, setShowFullPipeline] = useState(false);
   const [showPipeline, setShowPipeline] = useState(false);
   const [showCommandPalette, setShowCommandPalette] = useState(false);
@@ -84,10 +84,10 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         console.warn("Error obteniendo uso de GPU:", e);
       }
     };
-    
+
     fetchGpuUsage();
     const interval = setInterval(fetchGpuUsage, 2000);
-  
+
     return () => clearInterval(interval);
   }, []);
   const estudios = [
@@ -113,7 +113,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
     setEjecucionOpen(false);
     setF0F10OpenDuplicate(false);
     setF0F10Open(false);
-    
+
     if (menu === 'preinversion') setPreInversionOpen(true);
     if (menu === 'generativo') setGenerativoOpen(true);
     if (menu === 'estudios') setEstudiosOpen(true);
@@ -134,7 +134,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
     setTooltipText(tooltip);
   };
 
-  
+
 
   useEffect(() => {
     console.log('[ArkiCockpitPage] Partis actualizados:', partis.length);
@@ -143,27 +143,27 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     setUploading(true);
     setShowPlusMenu(false);
-    
+
         // Guardamos el mensaje y lo reproducimos por voz
         const assistantMsg = "Aquí tienes las propuestas generadas por ARKI.";
         setMessages(prev => [...prev, { role: "assistant", text: assistantMsg }]);
         speak(assistantMsg); // <--- ESTO ACTIVA LA VOZ
-        
-    
+
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("project_id", "PRO-001");
-    
+
     try {
       const res = await fetch("/api/v1/files/upload", {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
-      
+
       if (res.ok) {
         setMessages(prev => [...prev, { role: "assistant", text: "✅ " + data.message + "\n\n💡 Sugerencia: Escribe 'Analiza este archivo' o 'Genera una propuesta basada en esto'." }]);
       } else {
@@ -181,11 +181,11 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       setMessages(prev => [...prev, { role: "assistant", text: "⚠️ Escribe qué normativa necesitas buscar. Ej: 'Busca normativa sobre estacionamientos' o 'RNE accesibilidad'." }]);
       return;
     }
-    
+
     setSearchingNormativa(true);
     setShowPlusMenu(false);
     setMessages(prev => [...prev, { role: "assistant", text: `🔍 Buscando normativa sobre: "\${input}"...` }]);
-    
+
     try {
       const res = await fetch("/api/v1/normativa/search", {
         method: "POST",
@@ -195,14 +195,14 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           limit: 5
         })
       });
-      
+
       const results = await res.json();
-      
+
       if (res.ok && results.length > 0) {
         let formattedResults = `✅ Encontré \${results.length} artículos relevantes:
 
 `;
-        
+
         results.forEach((art: any, i: number) => {
           formattedResults += `📌 **\${art.norma} - \${art.articulo}**\n`;
           formattedResults += `📋 \${art.titulo}\n`;
@@ -210,14 +210,14 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           formattedResults += ` Relevancia: \${art.relevancia}%\n`;
           formattedResults += `---\n\n`;
         });
-        
+
         formattedResults += `💡 *Escribe "Aplica esto a mi proyecto" para que ARKI revise el cumplimiento.*`;
-        
+
         setMessages(prev => [...prev, { role: "assistant", text: formattedResults }]);
       } else if (res.ok) {
-        setMessages(prev => [...prev, { 
-          role: "assistant", 
-          text: `⚠️ No encontré artículos exactos sobre "\${input}".\n\n💡 Prueba con:\n- "RNE estacionamientos"\n- "Accesibilidad universal"\n- "Áreas mínimas hospitales"\n- "OECE licitaciones"` 
+        setMessages(prev => [...prev, {
+          role: "assistant",
+          text: `⚠️ No encontré artículos exactos sobre "\${input}".\n\n💡 Prueba con:\n- "RNE estacionamientos"\n- "Accesibilidad universal"\n- "Áreas mínimas hospitales"\n- "OECE licitaciones"`
         }]);
       } else {
         setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${results.detail || 'Servicio de normativa no disponible'}` }]);
@@ -233,31 +233,31 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const handleVisionAnalysis = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
+
     setAnalyzingVision(true);
     setShowPlusMenu(false);
     setMessages(prev => [...prev, { role: "assistant", text: `👁️ Analizando imagen: \`\${file.name}\`...` }]);
-    
+
     const formData = new FormData();
     formData.append("file", file);
     formData.append("prompt", "Analiza esta imagen arquitectónica. Describe: tipo de edificación, estado, elementos visibles, problemas potenciales y recomendaciones.");
-    
+
     try {
       const res = await fetch("/api/v1/vision/analyze", {
         method: "POST",
         body: formData,
       });
-      
+
       const data = await res.json();
-      
+
       if (res.ok) {
-        setMessages(prev => [...prev, { 
-          role: "assistant", 
+        setMessages(prev => [...prev, {
+          role: "assistant",
           text: `✅ **Análisis de Visión Artificial:**
 
 \${data.analysis}
 
-💡 *Escribe "Genera una propuesta basada en este análisis" para continuar.*` 
+💡 *Escribe "Genera una propuesta basada en este análisis" para continuar.*`
         }]);
       } else {
         setMessages(prev => [...prev, { role: "assistant", text: `❌ Error: \${data.detail || 'Análisis fallido'}` }]);
@@ -269,7 +269,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
     }
   };
 
-  
+
   // Efecto para que ARKI hable cuando hay un mensaje nuevo del asistente
   useEffect(() => {
     if (messages.length > 0) {
@@ -302,17 +302,17 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
     try {
       // 1. Llamar al Copiloto real (Ollama + GPU) via sicl-core
       setMessages(prev => [...prev, { role: "assistant", text: "🧠 Consultando al copiloto (RTX 3060)..." }]);
-      
+
       const copilotRes = await fetch('/api/copilot/translate', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: userMsg })
       });
-      
+
       const copilotJson = await copilotRes.json();
       const intent = copilotJson?.data?.intent || copilotJson?.intent;
-      
+
       if (intent) {
         let reply = "";
         if (intent.command && intent.command !== "UNKNOWN") {
@@ -337,14 +337,14 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         } else {
           reply = `🏗️ ${intent.explanation || "Necesito más información para diseñar."}`;
         }
-        
+
         if (intent.questions && intent.questions.length > 0) {
-          reply += `\n\n🏗️ Antes de diseñar, necesito saber:\n` + 
+          reply += `\n\n🏗️ Antes de diseñar, necesito saber:\n` +
             intent.questions.map((q: string, i: number) => `${i + 1}. ${q}`).join("\n");
         }
-        
+
         setMessages(prev => [...prev, { role: "assistant", text: reply }]);
-        
+
         // ARKI: Si el copiloto extrajo parámetros, generar geometría con ELLOS
         const params = intent.parameters || {};
         setCopilotParams(params);
@@ -352,14 +352,14 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         const areaM2 = params.area_m2 || params.areaM2 || 20000;
         const capacity = params.capacidad || params.capacity || 400;
         const ciudad = params.ciudad || params.city || "Trujillo";
-        
+
         // Mapear tipo a familia
         // ARKI (el sistema) resuelve la familia y variante a partir del tipo
         // 1. Consultar las familias dinámicas disponibles
         const familiesRes = await fetch('/api/trpc/parametricRuntime.dynamicFamilies?batch=1&input=' + encodeURIComponent(JSON.stringify({"0":{"json":{}}})));
         const familiesJson = await familiesRes.json();
         const familiesList = familiesJson[0]?.result?.data?.json?.families || [];
-        
+
         // 2. Buscar la familia que coincida con el tipo
         const tipoToFamilyKeyword: Record<string, string> = {
           "hospital": "HEALTH",
@@ -376,12 +376,12 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         };
         const keyword = tipoToFamilyKeyword[tipo] || "HEALTH";
         const matchedFamily = familiesList.find((f: any) => f.id.includes(keyword));
-        
+
         if (!matchedFamily) {
           setMessages(prev => [...prev, { role: "assistant", text: `❌ ARKI no encontró una familia para el tipo "${tipo}".` }]);
           return;
         }
-        
+
         // 3. Elegir la variante (primera por defecto, o una específica si existe)
         const variantKeywords: Record<string, string> = {
           "terminal_terrestre": "BUS",
@@ -389,7 +389,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
         };
         const variantKeyword = variantKeywords[tipo] || "";
         const matchedVariant = matchedFamily.variants.find((v: any) => v.id.includes(variantKeyword)) || matchedFamily.variants[0];
-        
+
         const familyId = matchedFamily.id;
         const variantId = matchedVariant.id;
         const familyName = matchedFamily.name;
@@ -398,16 +398,16 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
         if (params && Object.keys(params).length > 0 && tipo !== "otro") {
           setMessages(prev => [...prev, { role: "assistant", text: `🏗️ ARKI eligió: ${familyName} · ${variantName}\n📐 Generando geometría para ${tipo} de ${areaM2} m² en ${ciudad}...` }]);
-          
+
                     // ARKI: Ejecutar el pipeline F1-F10 (Brain + D6.2) para generar las propuestas
           try {
             setMessages(prev => [...prev, { role: "assistant", text: "🧠 Ejecutando pipeline F1-F10 (Brain + D6.2) en el Core..." }]);
-            
+
                         // Usar el cliente tRPC (mismo formato que Node)
             const trpcClient = createTRPCProxyClient<any>({
               links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
             });
-            
+
             const result = await (trpcClient.copilot as any).e2e.mutate({
               projectId: `PRO-TERMINAL-${Date.now()}`,
               name: `Proyecto ${tipo} en ${ciudad}`,
@@ -418,14 +418,14 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               areaM2: areaM2,
               capacity: capacity,
             });
-            
+
             const partis = result?.partis || [];
             console.log("[ARKI] Partis recibidos:", partis);
-            
+
             // ARKI: Mostrar los 120 shapes disponibles y redirigir al Funnel Canónico
-            setMessages(prev => [...prev, { 
-              role: "assistant", 
-              text: `🏗️ ARKI ha preparado el proyecto ${tipo} de ${areaM2} m² en ${ciudad}.\n📐 Los 120 shapes están disponibles para generar alternativas.\nRedirigiendo al Funnel Canónico...` 
+            setMessages(prev => [...prev, {
+              role: "assistant",
+              text: `🏗️ ARKI ha preparado el proyecto ${tipo} de ${areaM2} m² en ${ciudad}.\n📐 Los 120 shapes están disponibles para generar alternativas.\nRedirigiendo al Funnel Canónico...`
             }]);
 
             // Guardar los parámetros en sessionStorage para que el Funnel los use
@@ -482,18 +482,18 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             const mapping = familyMap[tipo] || familyMap["otro"];
             const familyId = mapping.familyId;
             const variantId = mapping.variantId;
-            
+
             let propuestasReales: any[] = [];
             try {
               const strategies = ["Patio central", "Espina pública", "Núcleo compacto", "Borde climático", "Torre mixta", "Bloque lineal", "Patio lineal", "Espiral", "Mixto"];
-              
+
               // Generar 9 propuestas variando área y pisos (misma variante)
-              
+
               // Crear cliente tRPC (igual que en Node)
               const trpcClient = createTRPCProxyClient<any>({
                 links: [httpBatchLink({ url: '/api/trpc', transformer: superjson })],
               });
-              
+
               for (let i = 0; i < 9; i++) {
                 const areaVar = areaM2 + i * 1250;
                 const pisosVar = 2 + (i % 3);
@@ -532,11 +532,11 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             setPartis(partisToShow);
             console.log("[ARKI] setPartis ejecutado con:", partisToShow.length, "propuestas");
             (window as any).__ARKI_PARTIS__ = partisToShow;
-            
+
             if (partis.length > 0) {
-              setMessages(prev => [...prev, { 
-                role: "assistant", 
-                text: `✅ ARKI generó ${partis.length} propuestas (partis) para ${familyName}.\n📐 Revisa la galería en el centro para seleccionar las finalistas.` 
+              setMessages(prev => [...prev, {
+                role: "assistant",
+                text: `✅ ARKI generó ${partis.length} propuestas (partis) para ${familyName}.\n📐 Revisa la galería en el centro para seleccionar las finalistas.`
               }]);
             } else {
               setMessages(prev => [...prev, { role: "assistant", text: "⚠️ El pipeline no devolvió propuestas. Revisa los parámetros." }]);
@@ -572,10 +572,34 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             )}
           </div>
         </div>
-        
+
         {/* MENÚ HORIZONTAL SUPERIOR */}
         <div className="flex items-center gap-1 border-b border-[#1e293b] bg-[#0f172a] h-[41px] px-2 whitespace-nowrap relative z-[100] overflow-visible" onMouseLeave={() => { setPreInversionOpen(false); setGenerativoOpen(false); setEstudiosOpen(false); setExpedienteOpen(false); setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false); setEjecucionOpen(false); setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false); }}>
-          
+
+          {/* ARKI-NEW-BUTTONS-INSTALL-AVATAR */}
+          <div className="relative flex-shrink-0 flex items-center gap-1">
+            <button
+              type="button"
+              onMouseEnter={() => handleHover(
+                "none",
+                "Instala ARKI como WebApp - Acceso rápido y una experiencia local preparada para conectividad intermitente"
+              )}
+              title="Instala ARKI como WebApp - Acceso rápido y una experiencia local preparada para conectividad intermitente"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] text-[#e2e8f0] hover:bg-[#f0a35b] hover:text-black hover:font-bold" onClick={() => window.dispatchEvent(new Event("arki:pwa-install"))}>
+              <Download size={12} color="#38bdf8" />
+              Install
+            </button>
+            <button
+              type="button"
+              onMouseEnter={() => handleHover("none", "Avatar")}
+              title="Avatar"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] text-[#e2e8f0] hover:bg-[#f0a35b] hover:text-black hover:font-bold"
+            >
+              <UserRound size={12} color="#a78bfa" />
+              Avatar
+            </button>
+          </div>
+
           {/* PreInversión (Ahora menú) */}
           <div className="relative flex-shrink-0">
             <button onMouseEnter={() => handleHover('preinversion', 'Fase de Preinversión: Ficha Técnica, Perfil y Viabilidad (Invierte.pe).')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${preInversionOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
@@ -619,7 +643,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
                   {estudios.map((e, i) => (
           <button
             key={i}
-            className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:text-[#f0a35b] hover:bg-[#fef3c7] font-normal rounded block"
+            className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:text-white hover:bg-[#1e293b] font-normal rounded block"
             onClick={() => {
               if (e === "Asoleamiento") {
                 setAsoleamientoOpen(true);
@@ -648,8 +672,8 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
                   <p className="text-[12px] text-[#64748b] uppercase px-2 py-1 font-bold">Expediente Privado</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Planos de Ejecución</button>
-            
-                  
+
+
                   <p className="text-[12px] text-[#64748b] uppercase px-2 py-1 mt-2 border-t border-[#1e293b] font-bold">Expediente Estatal (Invierte.pe)</p>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Memoria Descriptiva</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Estudios Básicos</button>
@@ -804,7 +828,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             <button onMouseEnter={() => handleHover('oece', 'Procesos de licitación pública según normativa OECE.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${oeceOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
               <Shield size={12} className={oeceOpen ? 'text-black' : 'text-[#a78bfa]'}/> Concurso/OECE
             </button>
-            
+
             {oeceOpen && (
               <div className="absolute top-full right-0 mt-1 w-max min-w-[250px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
@@ -838,6 +862,9 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Órdenes de Cambio</button>
                   <button className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block">Órdenes de Servicio</button>
                 </div>
+
+
+
               </div>
             )}
           </div>
@@ -875,57 +902,15 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             )}
           </div>
 
-          {/* MENU DUPLICADO F0-F10 — estado independiente */}
-          <div className="relative flex-shrink-0">
-            <button
-              onMouseEnter={() => handleHover('f0f10dup', 'Fases F0 a F10')}
-              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${
-                f0f10OpenDuplicate
-                  ? 'bg-[#f0a35b] text-black font-bold'
-                  : 'text-[#e2e8f0] hover:bg-[#1e293b]'
-              }`}
-              title="Fases F0 a F10"
-            >
-              <Layers size={12} className={f0f10OpenDuplicate ? 'text-black' : 'text-[#a78bfa]'}/>
-              F0 - F10
-            </button>
 
-            {f0f10OpenDuplicate && (
-              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
-                <div className="p-2 flex flex-col space-y-1">
-                  {Array.from({ length: 11 }, (_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setF0F10OpenDuplicate(false)}
-                      className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block"
-                    >
-                      F{i}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
 
-          {/* Workspace + CERT F1-F10 integrados en barra superior */}
-          <div className="flex items-center gap-1 ml-2 border-l border-[#334155] pl-2 flex-shrink-0">
-            <button onClick={() => setShowWorkspacePanel(true)} className="flex items-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-bold text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155] border border-[#475569]" title="Abrir Workspace integrado">
-              <Layers size={12}/> Workspace
-            </button>
-            <div className="flex items-center gap-0.5" aria-label="Certificación F1 a F10">
-              {Array.from({length:1}, (_,i) => i+1).map(f => (
-                <button key={f} onClick={() => setShowPipeline(true)} title={`Abrir certificación F${f}`} className="px-1.5 py-1.5 rounded text-[10px] font-mono text-[#cbd5e1] bg-[#172536] hover:bg-[#0e7490] border border-[#334155]">
-                  F{f}
-                </button>
-              ))}
-            </div>
-          </div>
 
-          
+
+
 
         </div>
 
-        
+
         </div>
         <div className="flex-1 flex overflow-hidden w-full relative">
 
@@ -936,7 +921,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
           <div className="w-7 h-7 rounded bg-[#f0a35b] flex items-center justify-center font-bold text-black text-sm">A</div>
           <span className="font-bold tracking-widest text-sm">ARKI <span className="text-[10px] text-[#f0a35b]">v2.0</span></span>
         </div>
-        
+
         <div className="p-3 flex-1 space-y-1">
           <p className="text-[12px] font-bold text-[#64748b] uppercase tracking-wider mb-3">DATOS</p>
           {/* Aquí irán los datos del proyecto (área, pisos, etc.) */}
@@ -970,7 +955,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
           {/* CENTRO (flex-1): Funnel 16-4-1 */}
           <div className="flex-1 flex flex-col overflow-hidden border-r border-[#1e293b] bg-[#0a0f16]">
-            
+
             <div className="flex-1 overflow-auto relative bg-[#111820]" aria-label="Área central ARKI recuperada">
             </div>
           </div>
@@ -1008,14 +993,14 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               <span className="text-xs font-bold text-[#e2e8f0]">COPILOTO</span>
               <Sparkles size={14} className="text-[#f0a35b]"/>
             </div>
-            
+
             <div className="flex-1 overflow-hidden" />
 
 
           </div>
         </div>
       </div>
-      
+
       {/* CHAT REFACTORIZADO */}
       <div className="fixed bottom-0 right-0 w-[400px] max-w-[400px] h-[20vh] z-[1000]">
         {!asoleamientoOpen && <CopilotPanel
@@ -1045,15 +1030,15 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
 
       {activeModal === 'terreno' && (
-        <SiteSelectionModal 
-          onClose={() => setActiveModal(null)} 
+        <SiteSelectionModal
+          onClose={() => setActiveModal(null)}
           onSave={(area) => {
             // Aquí actualizamos el área en el panel de la izquierda
             // Asumimos que hay un estado para el área, si no, lo guardamos en un console.log
             console.log("Área del terreno seleccionada:", area);
             // Si tienes un estado para el área del terreno, actualízalo aquí:
             // setAreaTerreno(area);
-          }} 
+          }}
         />
       )}
 
@@ -1067,8 +1052,8 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
 
       {showFullPipeline && <FullPipelineRunner onClose={() => setShowFullPipeline(false)} />}
       {showPipeline && (
-        <PipelineDashboardModal 
-          onClose={() => setShowPipeline(false)} 
+        <PipelineDashboardModal
+          onClose={() => setShowPipeline(false)}
           onNavigate={(phase: string) => {
             setShowPipeline(false);
             if (phase === 'f1') window.location.assign('/arki-design-funnel');
@@ -1077,18 +1062,18 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (phase === 'f7') setActiveModal('oece' as any);
             // Puedes mapear el resto de fases a sus respectivos modales aquí
             console.log("Navegando a fase:", phase);
-          }} 
+          }}
         />
       )}
 
       {showCommandPalette && (
-        <CommandPalette 
-          onClose={() => setShowCommandPalette(false)} 
-          onAction={(action) => setActiveModal(action as any)} 
+        <CommandPalette
+          onClose={() => setShowCommandPalette(false)}
+          onAction={(action) => setActiveModal(action as any)}
         />
       )}
       {activeModal === 'nodes' && <NodeEditorModal onClose={() => setActiveModal(null)} />}
-      
+
 
       {activeModal === 'nodes' && (
         <div className="fixed inset-0 z-[9999] flex flex-col bg-[#0a1825]">
@@ -1108,8 +1093,8 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
       {/* MODALES NUEVOS */}
 
       {showWorkspacePanel && (
-        <WorkspacePanel 
-          onClose={() => setShowWorkspacePanel(false)} 
+        <WorkspacePanel
+          onClose={() => setShowWorkspacePanel(false)}
           onOpenTool={(tool) => {
             // Mapeamos las herramientas del Workspace a los modales existentes
             if (tool === 'nodes') setActiveModal('nodes');
@@ -1121,7 +1106,7 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             if (tool === 'projects') setActiveModal('projects');
             if (tool === 'documents') setActiveModal('documents');
             console.log("Abriendo herramienta:", tool);
-          }} 
+          }}
         />
       )}
 
