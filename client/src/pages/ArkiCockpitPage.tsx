@@ -817,20 +817,6 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             )}
           </div>
 
-          {/* Workspace + CERT F1-F10 integrados en barra superior */}
-          <div className="flex items-center gap-1 ml-2 border-l border-[#334155] pl-2 flex-shrink-0">
-            <button onClick={() => setShowWorkspacePanel(true)} className="flex items-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-bold text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155] border border-[#475569]" title="Abrir Workspace integrado">
-              <Layers size={12}/> Workspace
-            </button>
-            <div className="flex items-center gap-0.5" aria-label="Certificación F1 a F10">
-              {Array.from({length:10}, (_,i) => i+1).map(f => (
-                <button key={f} onClick={() => setShowPipeline(true)} title={`Abrir certificación F${f}`} className="px-1.5 py-1.5 rounded text-[10px] font-mono text-[#cbd5e1] bg-[#172536] hover:bg-[#0e7490] border border-[#334155]">
-                  F{f}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Nuevo Menú: Ejecución Contractual */}
           <div className="relative flex-shrink-0">
             <button onMouseEnter={() => handleHover('ejecucion', 'Gestión de la ejecución contractual y personal.')} className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${ejecucionOpen ? 'bg-[#f0a35b] text-black font-bold' : 'text-[#e2e8f0] hover:bg-[#1e293b]'}`}>
@@ -848,6 +834,23 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               </div>
             )}
           </div>
+
+
+          {/* Workspace + CERT F1-F10 integrados en barra superior */}
+          <div className="flex items-center gap-1 ml-2 border-l border-[#334155] pl-2 flex-shrink-0">
+            <button onClick={() => setShowWorkspacePanel(true)} className="flex items-center gap-1 px-2 py-1.5 rounded-md text-[11px] font-bold text-[#e2e8f0] bg-[#1e293b] hover:bg-[#334155] border border-[#475569]" title="Abrir Workspace integrado">
+              <Layers size={12}/> Workspace
+            </button>
+            <div className="flex items-center gap-0.5" aria-label="Certificación F1 a F10">
+              {Array.from({length:1}, (_,i) => i+1).map(f => (
+                <button key={f} onClick={() => setShowPipeline(true)} title={`Abrir certificación F${f}`} className="px-1.5 py-1.5 rounded text-[10px] font-mono text-[#cbd5e1] bg-[#172536] hover:bg-[#0e7490] border border-[#334155]">
+                  F{f}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          
 
         </div>
 
