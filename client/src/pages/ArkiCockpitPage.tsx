@@ -59,6 +59,9 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
   const { isListening, isSpeaking, startListening, speak, stopSpeaking } = useSpeech();
   const [activeModal, setActiveModal] = useState<'projects' | 'ifc' | 'editor' | 'code' | 'export' | 'analysis' | 'templates' | 'norms' | 'file-chat' | 'terreno' | 'nodes' | 'documents' | 'camera' | 'ar' | null>(null);
   const [showWorkspacePanel, setShowWorkspacePanel] = useState(false);
+  const [f0f10Open, setF0F10Open] = useState(false);
+  const [f0f10OpenDuplicate, setF0F10OpenDuplicate] = useState(false);
+
   const [uploading, setUploading] = useState(false);
   const [searchingNormativa, setSearchingNormativa] = useState(false);
   const [analyzingVision, setAnalyzingVision] = useState(false);
@@ -108,6 +111,8 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
     setBimOpen(false); setObrasOpen(false); setJprdOpen(false); setOeceOpen(false);
     setTresDOpen(false); setCuatroDOpen(false); setCincoDOpen(false); setSeisDOpen(false); setSieteDOpen(false);
     setEjecucionOpen(false);
+    setF0F10OpenDuplicate(false);
+    setF0F10Open(false);
     
     if (menu === 'preinversion') setPreInversionOpen(true);
     if (menu === 'generativo') setGenerativoOpen(true);
@@ -123,6 +128,8 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
     if (menu === '6d') setSeisDOpen(true);
     if (menu === '7d') setSieteDOpen(true);
     if (menu === 'ejecucion') setEjecucionOpen(true);
+    if (menu === 'f0f10dup') setF0F10OpenDuplicate(true);
+    if (menu === 'f0f10') setF0F10Open(true);
 
     setTooltipText(tooltip);
   };
@@ -835,6 +842,70 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
             )}
           </div>
 
+
+          {/* NUEVO MENU F0-F10 — independiente de Ejecución y Workspace */}
+          <div className="relative flex-shrink-0">
+            <button
+              onMouseEnter={() => handleHover('f0f10', 'Fases F0 a F10')}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${
+                f0f10Open
+                  ? 'bg-[#f0a35b] text-black font-bold'
+                  : 'text-[#e2e8f0] hover:bg-[#1e293b]'
+              }`}
+              title="Fases F0 a F10"
+            >
+              <Layers size={12} className={f0f10Open ? 'text-black' : 'text-[#a78bfa'}/>
+              F0 - F10
+            </button>
+
+            {f0f10Open && (
+              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999">
+                <div className="p-2 flex flex-col space-y-1">
+                  {Array.from({ length: 11 }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setF0F10Open(false)}
+                      className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block"
+                    >
+                      F{i}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* MENU DUPLICADO F0-F10 — estado independiente */}
+          <div className="relative flex-shrink-0">
+            <button
+              onMouseEnter={() => handleHover('f0f10dup', 'Fases F0 a F10')}
+              className={`flex items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-[11px] ${
+                f0f10OpenDuplicate
+                  ? 'bg-[#f0a35b] text-black font-bold'
+                  : 'text-[#e2e8f0] hover:bg-[#1e293b]'
+              }`}
+              title="Fases F0 a F10"
+            >
+              <Layers size={12} className={f0f10OpenDuplicate ? 'text-black' : 'text-[#a78bfa'}/>
+              F0 - F10
+            </button>
+
+            {f0f10OpenDuplicate && (
+              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999">
+                <div className="p-2 flex flex-col space-y-1">
+                  {Array.from({ length: 11 }, (_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setF0F10OpenDuplicate(false)}
+                      className="w-full text-left px-2 py-1.5 text-[11px] text-[#e2e8f0] hover:bg-[#1e293b] rounded block"
+                    >
+                      F{i}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Workspace + CERT F1-F10 integrados en barra superior */}
           <div className="flex items-center gap-1 ml-2 border-l border-[#334155] pl-2 flex-shrink-0">
