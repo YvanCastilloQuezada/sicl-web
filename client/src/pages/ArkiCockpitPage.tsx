@@ -854,12 +854,12 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               }`}
               title="Fases F0 a F10"
             >
-              <Layers size={12} className={f0f10Open ? 'text-black' : 'text-[#a78bfa'}/>
+              <Layers size={12} className={f0f10Open ? 'text-black' : 'text-[#a78bfa]'}/>
               F0 - F10
             </button>
 
             {f0f10Open && (
-              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999">
+              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
                   {Array.from({ length: 11 }, (_, i) => (
                     <button
@@ -886,12 +886,12 @@ const [preInversionOpen, setPreInversionOpen] = useState(false);
               }`}
               title="Fases F0 a F10"
             >
-              <Layers size={12} className={f0f10OpenDuplicate ? 'text-black' : 'text-[#a78bfa'}/>
+              <Layers size={12} className={f0f10OpenDuplicate ? 'text-black' : 'text-[#a78bfa]'}/>
               F0 - F10
             </button>
 
             {f0f10OpenDuplicate && (
-              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999">
+              <div className="absolute top-full left-0 mt-1 w-[150px] bg-[#0f172a] border border-[#1e293b] rounded-lg shadow-2xl z-[9999]">
                 <div className="p-2 flex flex-col space-y-1">
                   {Array.from({ length: 11 }, (_, i) => (
                     <button
